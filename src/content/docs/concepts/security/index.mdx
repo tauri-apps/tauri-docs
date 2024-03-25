@@ -1,0 +1,122 @@
+---
+title: Security
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+This page is designed to explain the high-level concepts and security features
+at the core of Tauri's design and ecosystem that make you, your applications and your users more secure by default.
+
+It also includes advice on best practices, how to report vulnerabilities to us
+and references to detailed concept explanations.
+
+:::note
+
+It is important to remember that the security of your Tauri application is the sum
+of the overall security of Tauri itself, all Rust and npm dependencies,
+your code, and the devices that run the final application.
+The Tauri team does its best to do their part, the security community does its part
+and you should also follow some important best practices.
+
+:::
+
+## Trust Boundaries
+
+Tauri's security model differentiates between Rust code written for the application's
+core and frontend code written in any framework or language understood by the system
+WebView.
+
+The [IPC layer](/concepts/inter-process-communication) is the bridge for communication between these two trust
+groups and ensures that boundaries are not broken.
+
+
+![IPC Diagram](@assets/concepts/security-boundaries.svg)
+
+Any code executed by the plugins or the application core has full
+access to all available system resources and is not constrained.
+
+Any code executed in the WebView only has access to system resources via the well-defined IPC layer.
+Access to core application commands is configured and restricted by capabilities defined in the application configuration.
+The individual command implementations enforce the optional fine-grained access levels also defined
+in the capabilities configuration.
+
+Learn more about the individual components and boundary enforcement:
+
+<CardGrid>
+    <LinkCard
+		title="Permissions"
+		href="/concepts/security/permissions"
+	/>
+    <LinkCard
+		title="Scopes"
+		href="/concepts/security/scope"
+	/>
+    <LinkCard
+		title="Capabilities"
+		href="/concepts/security/capabilities"
+	/>
+	<LinkCard
+		title="Runtime Authority"
+		href="/concepts/security/runtime-authority"
+	/>
+</CardGrid>
+
+Tauri allows developers to choose their own frontend stack and framework.
+This means that we cannot provide a hardening guide for every frontend stack of
+of choice, but Tauri provides generic features to control and contain the attack surface.
+
+<CardGrid>
+	<LinkCard
+		title="Content Security Policy (CSP)"
+		href="/concepts/security/csp"
+	/>
+    <LinkCard
+		title="Isolation Pattern"
+		href="/concepts/inter-process-communication/isolation"
+	/>
+</CardGrid>
+
+## Ecosystem
+
+The Tauri organization provides and maintains more than just the Tauri
+repository and to ensure that our efforts to provide a reasonable secure
+multi platform application framework we need to go some extra miles.
+
+To learn more about how we secure our development process,
+what you could adapt and implement, what known threats your application
+can face and what we plan to improve or harden in the future, you
+can check out the following documents:
+
+<CardGrid>
+	<LinkCard
+		title="Ecosystem Security"
+		href="/concepts/security/ecosystem"
+	/>
+    <LinkCard
+		title="Application Lifecycle Threats"
+		href="/concepts/security/development"
+	/>
+	<LinkCard
+		title="Best Practices"
+		href="/concepts/security/best-practices"
+	/>
+    <LinkCard
+		title="Future Work"
+		href="/concepts/security/future"
+	/>
+</CardGrid>
+
+## Coordinated Disclosure
+
+If you feel that there is a security concern or issue with anything in Tauri
+or other repositories in our organization, __please do not publicly comment on your findings__.
+Instead, reach out directly to our security team.
+
+The preferred disclosure method is via [Github Vulnerability Disclosure](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)
+on the affected repository.
+Most of our repositories have this feature enabled but if in doubt please submit via the [Tauri repository](https://github.com/tauri-apps/tauri/security/advisories/new).
+
+Alternatively you can contact us via email at: [security@tauri.app](mailto:security@tauri.app).
+
+Although we do not currently have a budget for security bounties,
+in some cases, we will consider rewarding coordinated disclosure with our limited resources.
