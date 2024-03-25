@@ -96,13 +96,13 @@ You must define a list of permissions in your `capabilities` configuration.
 
 See [Access Control List](/references/v2/acl) for more information.
 
-```json title="src-tauri/capabilities/main.json"
+```json title="src-tauri/capabilities/main.json" ins={4-6}
 {
   "permissions": [
-  ...,
-  "os:allow-arch",
-  "os:allow-hostname",
-  "os:allow-os-type"
+    ...,
+    "os:allow-arch",
+    "os:allow-hostname",
+    "os:allow-os-type"
   ]
 }
 ```
