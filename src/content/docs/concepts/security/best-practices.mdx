@@ -1,0 +1,48 @@
+---
+title: Best Practices
+---
+
+We gathered a number of best practices you should follow during your journey of building
+awesome applications with Tauri.
+
+## Keep Your Application Up-To-Date
+
+When releasing your app into the wild, you are also shipping a bundle that has Tauri in it.
+Vulnerabilities affecting Tauri may impact the security of your application.
+By updating Tauri to the latest version, you ensure that critical vulnerabilities
+are already patched and cannot be exploited in your application.
+Also be sure to keep your compiler (rustc) and transpilers (nodejs) up to date,
+because there are often security issues that are resolved.
+
+## Evaluate Your Dependencies
+
+While npm and Crates.io provide many convenient packages,
+it is your responsibility to choose trustworthy third-party libraries - or
+rewrite them in Rust. If you do use outdated libraries which are affected by
+known vulnerabilities or are unmaintained, your application security and good
+night's sleep could be in jeopardy. 
+
+Use tooling like `npm audit` and `cargo audit` to automate this process,
+and lean on the security community's important work.
+
+Recent trends in the rust ecosystem like `cargo vet` or `cargo crev` can
+help to further evaluate dependencies and can reduce likelihood of supply chain attacks.
+
+## Adopt More Secure Coding Practices
+
+The first line of defense for your application is your own code.
+Although Tauri can protect you from common web vulnerabilities,
+such as Cross-Site Scripting based Remote Code Execution,
+improper configurations can have a security impact.
+Even if this were not the case, it is highly recommended to
+adopt secure software development best practices and perform security testing.
+
+## Educate Your Users
+
+True security means that unexpected behavior cannot happen.
+So in a sense, being more secure means having the peace of mind
+of knowing that ONLY those things that you want to happen can happen.
+In the real world, though, this is a utopian "dream".
+However, by removing as many vectors as possible and building on
+a solid foundation, your choice of Tauri is a signal to your users
+that you care about them, their safety, and their devices.
