@@ -2,6 +2,7 @@
 import { stripLeadingAndTrailingSlashes } from 'node_modules/@astrojs/starlight/utils/path';
 import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
 import { Icon } from '@astrojs/starlight/components';
+import semver from 'semver';
 
 interface Props {
 	/**
@@ -56,7 +57,15 @@ if (filterOutByFileName.length > 0) {
 }
 
 function sortVersions(a: Route, b: Route): number {
-	return a.entry.data.title.localeCompare(b.entry.data.title);
+	const t1 = a.entry.data.title;
+	const t2 = b.entry.data.title;
+	const [package1, version1] = t1.split('@');
+	const [package2, version2] = t2.split('@');
+	if (package1 === package2) {
+		return semver.compare(version1, version2)
+	} else {
+		return package1.localeCompare(package2);
+	}
 }
 mainList.sort((a, b) => sortVersions(b, a));
 ---

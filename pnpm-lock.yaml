@@ -40,6 +40,9 @@ importers:
       rehype-autolink-headings:
         specifier: ^7.1.0
         version: 7.1.0
+      semver:
+        specifier: ^7.6.0
+        version: 7.6.0
       sharp:
         specifier: ^0.33.2
         version: 0.33.2
