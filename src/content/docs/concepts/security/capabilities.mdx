@@ -63,11 +63,11 @@ capability files in the `capabilities` directory.
 
 ```json title=src-tauri/tauri.conf.json
 {
-  "app": {
-    "security": {
-      "capabilities": [ "my-capability", "main-capability" ]
-    }
-  }  
+	"app": {
+		"security": {
+			"capabilities": ["my-capability", "main-capability"]
+		}
+	}
 }
 ```
 
@@ -75,22 +75,19 @@ Inline capabilities can be mixed with pre-defined capabilities.
 
 ```json title=src-tauri/tauri.conf.json
 {
-  "app": {
-    "security": {
-      "capabilities": [
-	  {
-	    "identifier": "my-capability",
-	    "description": "My application capability used for all windows",
-	    "windows": [ "*" ],
-	    "permissions": [
-	      "fs:default",
-	      "allow-home-read-extended"
-	     ]
-	  },
-	  "my-second-capability"
-      ]
-    }
-  }
+	"app": {
+		"security": {
+			"capabilities": [
+				{
+					"identifier": "my-capability",
+					"description": "My application capability used for all windows",
+					"windows": ["*"],
+					"permissions": ["fs:default", "allow-home-read-extended"]
+				},
+				"my-second-capability"
+			]
+		}
+	}
 }
 ```
 
@@ -166,7 +163,7 @@ security implications for your targeted operating system in the reference sectio
 
 ## Security Boundaries
 
-*What does it protect against?*
+_What does it protect against?_
 
 Depending on the permissions and capabilities it is able to:
 
@@ -174,7 +171,7 @@ Depending on the permissions and capabilities it is able to:
 - Prevent or reduce (accidential) exposure of local system interfaces and data
 - Prevent or reduce possible privilege escalation from frontend to backend/system
 
-*What does it **not** protect against?*
+_What does it **not** protect against?_
 
 - Malicious or insecure Rust code
 - Too lax scopes and configuration
@@ -186,7 +183,7 @@ Depending on the permissions and capabilities it is able to:
 
 :::tip[Security Tip]
 
-The security boundaries are depending on window labels (__not titles__).
+The security boundaries are depending on window labels (**not titles**).
 We recommend to only expose of the window creation functionality
 to higher privileged windows.
 
@@ -203,7 +200,6 @@ Usually you will set it to `../gen/schemas/desktop-schema.json` or
 for a specific target platform.
 
 ## Configuration Files
-
 
 Simplified example of an example Tauri application directory structure:
 
@@ -227,4 +223,3 @@ away whenever possible and simple to understand.
 
 Only references or definitions enabled in the `tauri.conf.json` are actually
 used in the application build.
-
