@@ -157,8 +157,8 @@ async function generator() {
 <CardGrid>
 	<LinkCard title="tauri" href="/releases/tauri/${latestVersions['tauri']}" />
 	<LinkCard title="@tauri-apps/api" href="/releases/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
-	<LinkCard title="tauri-cli (JavaScript)" href="/releases/tauri-cli/${latestVersions['tauri-cli']}" />
-	<LinkCard title="@tauri-apps/cli (Rust)" href="/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
+	<LinkCard title="tauri-cli (Rust)" href="/releases/tauri-cli/${latestVersions['tauri-cli']}" />
+	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
 	<LinkCard title="tauri-bundler" href="/releases/tauri-bundler/${latestVersions['tauri-bundler']}" />
 	<LinkCard title="wry" href="/releases/wry/${latestVersions['wry']}" />
 	<LinkCard title="tao" href="/releases/tao/${latestVersions['tao']}" />
