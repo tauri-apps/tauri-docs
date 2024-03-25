@@ -8,20 +8,23 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import QwikApp from '@assets/img/guides/frontend/qwik.png';
 
-This guide will walk you through creating your Tauri app using the [Qwik](https://qwik.builder.io/) web framework.
+Diese Anleitung führt Sie durch die Erstellung Ihrer Tauri-App mit dem [Qwik](https://qwik.builder.io/) Web Framework.
 
 <div style={{ textAlign: 'center' }}>
 	<Image src={QwikApp} alt="Guide Frontend - Qwik" width="300px" />
 </div>
 
-[Qwik](https://qwik.builder.io/) is a new kind of web framework that can deliver instant loading web applications at any size or complexity.
-There is a Qwik [React](https://qwik.builder.io/docs/integrations/react/) integration available to migrate your existing project.
-Learn more about Qwik at https://qwik.builder.io and [docs](https://qwik.builder.io/docs/).
+[Qwik](https://qwik.builder.io/) ist ein neuartiges Web-Framework,
+das schnell ladende Webanwendungen beliebiger Größe und Komplexität unterstützt.
+Es gibt eine Qwik-React Integration, mit der Sie die Möglichkeit haben Ihre React Komponenten migrieren zu können.
+Erfahren Sie mehr über Qwik unter https://qwik.builder.io und in den [Dokumentationen](https://qwik.builder.io/docs/).
 
-## Integrate into existing qwik projects
+## Integration in vorhandenes Projekt
 
 
-### Create a qwik app
+### Erstelle eine Qwik Anwendung
+
+Falls noch keine Qwik Anwendung vorhanden ist, können Sie eine wie folgt erstellen:
 
 <Tabs>
 <TabItem label="npm">
@@ -39,21 +42,21 @@ pnpm create qwik@latest
 
 
 1. _Project name_  
-   This will be the name of your JavaScript project. Corresponds to the name of the folder this utility will create but has otherwise no effect on your app. You can use any name you want here.
+   Dies ist der Name Ihres JavaScript-Projekts. Er entspricht dem Namen des Ordners, den dieses Dienstprogramm erstellt, hat aber ansonsten keine Auswirkungen auf Ihre Anwendung. Sie können hier jeden beliebigen Namen verwenden.
 
 2. _Select a starter_  
-   We will select the `Basic App ((Demo App with Routing built-in)` option for an example template.
+   Wenn Sie möchten wählen Sie die `Basic App ((Demo App with Routing built-in)` als Beispiel Vorlage aus.
 
 3. _Install dependencies_  
-   Yes, if you want to install the dependencies automatically.
+   Ja, wenn Sie die Abhängigkeiten automatisch installieren möchten.
 
 4. _Initialize git_  
-   Yes, if you want to prepare your project as new git repository.
+   Ja, wenn Sie Ihr Projekt als neues Git-Repository vorbereiten möchten.
 
 
-### Integrate the SSG Adapter
+### Integrieren Sie den SSG-Adapter
 
-To integrate [Qwik](https://qwik.builder.io/) with [SSG](https://qwik.builder.io/docs/deployments/static/) (Static Side Generator) use the _add_ command
+Um [Qwik](https://qwik.builder.io/) mit [SSG](https://qwik.builder.io/docs/deployments/static/) (Static Side Generator) zu integrieren, verwenden Sie den Befehl _add_
 
 <Tabs>
 <TabItem label="npm">
@@ -70,7 +73,7 @@ pnpm qwik add static
 </Tabs>
 
 
-### Install the tauri CLI
+### Tauri CLI installieren
 
 <Tabs>
 <TabItem label="npm">
@@ -86,7 +89,7 @@ pnpm add -D @tauri-apps/cli
 </TabItem>
 </Tabs>
 
-or for next prerelease:
+oder für die nächste Vorabversion::
 <Tabs>
 <TabItem label="npm">
 ```sh
@@ -102,7 +105,7 @@ pnpm add -D @tauri-apps/cli@next
 </Tabs>
 
 
-### Integrate tauri to your project
+### Integrieren Sie Tauri in Ihr Projekt
 
 <Tabs>
 <TabItem label="npm">
@@ -119,11 +122,9 @@ pnpm tauri init --ci
 </Tabs>
 
 
-### Change to the qwik port
+### Wechsel zum qwik-Port
 
-Edit the qwik default port _5173_ in _src-tauri/tauri.conf.json_
-
-
+Bearbeiten Sie den Standard-Port von qwik _5173_ in _src-tauri/tauri.conf.json_
 
 <Tabs>
 <TabItem label="npm">
@@ -156,7 +157,7 @@ Edit the qwik default port _5173_ in _src-tauri/tauri.conf.json_
 </Tabs>
 
 
-### Start your tauri app
+### Starten Sie Ihre Tauri Anwendung
 
 <Tabs>
 
@@ -175,15 +176,15 @@ pnpm tauri dev
 </Tabs>
 
 
-## Invoke Rust Commands
+## Aufrufen von Rust-Befehlen
 
-Tauri lets you enhance your frontend with native capabilities.
-We call these commands, essentially Rust functions that you can call from your frontend JavaScript.
-This enables you to handle heavy processing or calls to the OS in much more performant Rust code.
+Mit Tauri können Sie Ihr Frontend um native Funktionen erweitern.
+Wir nennen diese Befehle, im Wesentlichen Rust-Funktionen, die Sie von Ihrem Frontend-JavaScript aus aufrufen können.
+Dadurch können Sie schwere Verarbeitungen oder Aufrufe an das Betriebssystem in viel performanterem Rust-Code verarbeiten.
 
-Let's make a simple example ...
+Machen wir ein einfaches Beispiel ...
 
-### Install tauri api package
+### Installieren Sie das Tauri API package
 
 <Tabs>
 
@@ -200,7 +201,7 @@ pnpm add -D @tauri-apps/api
 </TabItem>
 </Tabs>
 
-or for next prerelease:
+oder für die nächste Vorabversion:
 
 <Tabs>
 <TabItem label="npm">
@@ -216,12 +217,12 @@ pnpm add -D @tauri-apps/api@next
 </TabItem>
 </Tabs>
 
-### Implement and register a command
+### Erstelles eines command
 
-A command is just like any regular Rust function,
-with the addition of the #[tauri::command] attribute
-macro that allows your function to communicate with
-the JavaScript context.
+Ein command ist wie jede normale Rust-Funktion,
+mit dem Zusatz des Attributs #[tauri::command] Makro,
+das Ihrer Funktion die Kommunikation mit dem
+dem JavaScript-Kontext zu kommunizieren ermöglicht.
 
 ```rs title="src-tauri/src/lib.rs"
 #[tauri::command]
@@ -230,10 +231,10 @@ fn greet(name: &str) -> String {
 }
 ```
 
-Lastly, we also need to tell Tauri about our newly created
-command so that it can route calls accordingly.
-This is done with the combination of the .invoke_handler()
-function and the generate_handler![] macro you can see below:
+Zu guter Letzt müssen wir Tauri auch über unseren neu erstellten
+Kommando informieren, damit es die Aufrufe entsprechend weiterleiten kann.
+Dies geschieht mit der Kombination aus der Funktion _.invoke_handler()_
+Funktion und dem Makro _generate_handler![]_:
 
 ```rs title="src-tauri/src/lib.rs"
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -245,16 +246,17 @@ pub fn run() {
 }
 ```
 
-### Create a qwik component
+### Erstellen einer Qwik Komponente
 
-To call our newly created command we will use
-the @tauri-apps/api JavaScript library.
-It provides access to core functionality such as windows,
-the filesystem, and more through convenient JavaScript
-abstractions. You can install it using your favorite
-JavaScript package manager (first step).
+Um unseren neu erstellten Befehl aufzurufen, verwenden wir
+die JavaScript-Bibliothek _@tauri-apps/api_.
+Sie können sie mit Ihrem bevorzugten JavaScript-Paketmanager
+installieren (siehe erster [Schritt](/de/guides/frontend/qwik#installieren-sie-das-tauri-api-package)).
+Sie ermöglicht den Zugriff auf Kernfunktionen wie windows,
+das Dateisystem und mehr durch praktische JavaScript
+Abstraktionen.
 
-With the library installed, we can now create a new Qwik component:
+Nachdem die Bibliothek installiert ist, können wir nun eine neue Qwik-Komponente erstellen:
 
 ```sh
 mkdir src/components/greet
@@ -280,7 +282,7 @@ export default component$(() => {
 });
 ```
 
-You can use your component now e.g. in the _src/routes/index.tsx_:
+Sie können Ihre Komponente nun anwenden zum Beispiel in der _src/routes/index.tsx_:
 
 ```tsx title="src/routes/index.tsx"
 import { component$ } from "@builder.io/qwik";
