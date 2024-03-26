@@ -2,5 +2,4 @@
 # NOTE: This file is auto-generated in packages/releases-generator/build.ts
 # For corrections please edit it directly
 
-*.mdx
-*.md
+*.astro

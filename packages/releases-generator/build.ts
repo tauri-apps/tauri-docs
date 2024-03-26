@@ -42,10 +42,10 @@ const packages = [
 ];
 
 const baseDir = '../../src/content/docs/releases';
+const pagesDir = '../../src/pages/releases';
 
-let latestVersions: {
-	[key: string]: string;
-} = {};
+writeFileSync(join(baseDir, `.gitignore`), `${note}\n\n*.mdx\n*.md`);
+writeFileSync(join(pagesDir, `.gitignore`), `${note}\n\n*.astro`);
 
 async function generator() {
 	for (const pkg of packages) {
@@ -65,85 +65,42 @@ async function generator() {
 			.filter(({ version }) => !version.includes('Not Published'));
 
 		mkdirSync(join(baseDir, pkg.name), { recursive: true });
-		//
+		mkdirSync(join(pagesDir, pkg.name), { recursive: true });
+
+		const allVersions: string[] = [];
+		
 		/*
 		 * Write files for each version
 		 */
-		let nextPage = '/releases';
-		let nextLabel = pkg.name;
 		const len = releases.length;
 		for (let i = 0; i < len; i++) {
-			/**
-			 * Deal with next-prev labels
-			 */
 			const thisVersion = releases[i].version;
-			let prevLabel, prevPage;
-			let navFrontmatter;
-			if (i !== len - 1) {
-				prevLabel = releases[i + 1].version;
-				prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
-			}
-			if (i === 0) {
-				// latest version
-				latestVersions[pkg.name] = `v${thisVersion}`;
-				navFrontmatter = [
-					`prev:`,
-					`   link: '${prevPage}'`,
-					`   label: '${prevLabel}'`,
-					`next: false`,
-				];
-			} else if (i === len - 1) {
-				// earliest version
-				navFrontmatter = [
-					`prev: false`,
-					`next:`,
-					`   link: '${nextPage}'`,
-					`   label: '${nextLabel}'`,
-				];
-			} else {
-				navFrontmatter = [
-					`prev:`,
-					`   link: '${prevPage}'`,
-					`   label: '${prevLabel}'`,
-					`next:`,
-					`   link: '${nextPage}'`,
-					`   label: '${nextLabel}'`,
-				];
-			}
-
-			//
+			allVersions.push(`"${thisVersion}"`);
 			const pageFrontmatter = [
 				note,
 				`title: '${pkg.name}@${thisVersion}'`,
 				`description: '${thisVersion}'`,
-				`slug: 'releases/${pkg.name}/v${thisVersion}'`,
-				`tableOfContents: false`,
-				`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
 			];
-
-			const frontmatter = ['---', ...pageFrontmatter, ...navFrontmatter, '---'].join('\n');
-			//
-			const indexLink = `[Return](/releases)`;
-			const viewInGitHub = `<a href="${pkg.tag}/${pkg.name}-v${thisVersion}">View on GitHub</a>`;
-			const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
-			//
-			const sidebar = `\nimport ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
-			\n\n<ReleaseSidebar slug="releases/${pkg.name}"  packageName="${pkg.name}" />\n`;
-
+			const frontmatter = ['---', ...pageFrontmatter, '---'].join('\n');
 			writeFileSync(
-				join(baseDir, pkg.name, `v${thisVersion}.mdx`),
-				`${frontmatter}\n${sidebar}\n${linksDiv}\n${entitify(releases[i].notes)}`
+				join(baseDir, pkg.name, `_v${thisVersion}.md`),
+				`${frontmatter}\n${entitify(releases[i].notes)}`
 			);
-
-			// use in next iteration
-			nextPage = `releases/${pkg.name}/v${thisVersion}`;
-			nextLabel = `v${thisVersion}`;
 		}
+
+		// Gen erate Astro page in pagesDir
+		const releasePage = `---
+		import Releases from '@components/Releases.astro';
+		const pages = await Astro.glob('src/content/docs/releases/${pkg.name}/*.md');
+		---
+		<Releases pkgName="${pkg.name}" pkgTag="${pkg.tag}" versionList={[${allVersions}]} pages={pages} />
+		`;
+		writeFileSync(join(pagesDir, `${pkg.name}.astro`), `${releasePage}`);
 	}
 
-	// Generate index page
+	// Generate index page in baseDir
 	const extraNote =
-		'# To quickly preview changes, you can edit this file, them make sure you copy the changes over the source build.ts script\n';
+		'# To quickly preview changes, you can edit this file, then make sure you copy the changes over the source build.ts script\n';
 	const indexPage = [
 		'---',
 		note,
@@ -155,13 +112,13 @@ async function generator() {
 
 	const indexPageContent = `import { LinkCard, CardGrid } from '@astrojs/starlight/components';\n
 <CardGrid>
-	<LinkCard title="tauri" href="/releases/tauri/${latestVersions['tauri']}" />
-	<LinkCard title="@tauri-apps/api" href="/releases/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
-	<LinkCard title="tauri-cli (Rust)" href="/releases/tauri-cli/${latestVersions['tauri-cli']}" />
-	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
-	<LinkCard title="tauri-bundler" href="/releases/tauri-bundler/${latestVersions['tauri-bundler']}" />
-	<LinkCard title="wry" href="/releases/wry/${latestVersions['wry']}" />
-	<LinkCard title="tao" href="/releases/tao/${latestVersions['tao']}" />
+	<LinkCard title="tauri" href="/releases/tauri/" />
+	<LinkCard title="@tauri-apps/api" href="/releases/@tauri-apps/api/" />
+	<LinkCard title="tauri-cli (Rust)" href="/releases/tauri-cli/" />
+	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/releases/@tauri-apps/cli/" />
+	<LinkCard title="tauri-bundler" href="/releases/tauri-bundler/" />
+	<LinkCard title="wry" href="/releases/wry/" />
+	<LinkCard title="tao" href="/releases/tao/" />
 </CardGrid>`;
 
 	writeFileSync(join(baseDir, 'index.mdx'), `${indexPage}\n${indexPageContent}`);

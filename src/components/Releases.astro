@@ -1,0 +1,135 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Icon } from '@astrojs/starlight/components';
+import type { MarkdownInstance } from 'astro';
+import semver from 'semver';
+
+interface Props {
+	pkgName: string;
+	pkgTag: string;
+	versionList: string[];
+	pages: MarkdownInstance<Record<string, any>>[];
+}
+
+const { pkgName, pkgTag, versionList, pages } = Astro.props;
+
+// const pages = await Astro.glob('src/content/docs/releases/tauri/*.md');
+
+function sortVersions(
+	a: MarkdownInstance<Record<string, any>>,
+	b: MarkdownInstance<Record<string, any>>
+): number {
+	const t1 = a.frontmatter.title;
+	const t2 = b.frontmatter.title;
+	const [_pkg1, version1] = t1.split('@').filter((w) => w.length > 0);
+	const [_pkg2, version2] = t2.split('@').filter((w) => w.length > 0);
+	return Number(semver.lt(version1, version2) - 1);
+}
+pages.sort((a, b) => sortVersions(a, b));
+
+const headings = versionList.map((v: string) => ({
+	depth: 2,
+	slug: `${pkgName}@${v}`,
+	text: v,
+}));
+
+const githubUrl = `${pkgTag}/${pkgName}-v`;
+---
+
+<StarlightPage
+	frontmatter={{
+		title: `${pkgName} changelogs`,
+		description: `${pkgName} changelogs`,
+		editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts',
+	}}
+	headings={headings}
+>
+	<p><a href="/releases">Return</a></p>
+	{
+		pages.map((page, i) => (
+			<>
+				<details class="version-wrapper" open={i === 0 ? true : false} id={page.frontmatter.title}>
+					<summary class="version-title">{page.frontmatter.title}</summary>
+					<div class="version-content">
+						<div set:html={page.compiledContent()} />
+						<p class="view-github">
+							<a href={githubUrl + page.frontmatter.description}>
+								View on GitHub
+								<Icon class="external" name="external" />
+							</a>
+						</p>
+					</div>
+				</details>
+			</>
+		))
+	}
+</StarlightPage>
+
+<style>
+	.version-wrapper {
+		padding: 0.5rem;
+	}
+	.version-title {
+		cursor: pointer;
+		font-size: larger;
+		font-family: monospace;
+		padding-inline: 0.5rem;
+	}
+	.version-content {
+		background-color: var(--sl-color-gray-6);
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.25rem;
+		padding: 2em;
+	}
+	.external {
+		display: inline !important;
+	}
+	.view-github {
+		text-align: end;
+		font-size: smaller;
+		padding: 0.5em;
+	}
+	details:target {
+		background-color: var(--sl-color-gray-5);
+		color: var(--sl-color-accent-high);
+		transition:
+			background-color 0.5s ease,
+			color 0.5s ease;
+		animation: fadeOut 1s forwards;
+	}
+	details {
+		background-color: none;
+		color: none;
+	}
+	@keyframes fadeOut {
+		0% {
+			background-color: transparent;
+		}
+		10% {
+			background-color: var(--sl-color-gray-5);
+			color: var(--sl-color-accent-high);
+		}
+		100% {
+			background-color: transparent;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+		const title = document.getElementById('starlight__on-this-page');
+		if (title) {
+			title.textContent = 'Tauri changelogs';
+			// title.textContent = `${pkgName} changelogs`;
+		}
+		function openTarget() {
+			const hash = location.hash.substring(1);
+			const details = document.getElementById(hash) as HTMLDetailsElement;
+			if (details && details.tagName.toLowerCase() === 'details') {
+				details.open = true;
+			}
+		}
+		window.addEventListener('hashchange', openTarget);
+		openTarget();
+	});
+</script>
