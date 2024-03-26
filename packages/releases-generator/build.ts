@@ -2,7 +2,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const note =
-	'\n# NOTE: This file is auto-generated in packages/releases-generator/build.ts\n# For corrections please edit it directly';
+	'\n# NOTE: This file was auto-generated bu packages/releases-generator/build.ts\n# For corrections, please edit it directly';
 const packages = [
 	{
 		name: 'tauri',
@@ -68,7 +68,7 @@ async function generator() {
 		mkdirSync(join(pagesDir, pkg.name), { recursive: true });
 
 		const allVersions: string[] = [];
-		
+
 		/*
 		 * Write files for each version
 		 */
@@ -76,6 +76,7 @@ async function generator() {
 		for (let i = 0; i < len; i++) {
 			const thisVersion = releases[i].version;
 			allVersions.push(`"${thisVersion}"`);
+
 			const pageFrontmatter = [
 				note,
 				`title: '${pkg.name}@${thisVersion}'`,
@@ -100,7 +101,7 @@ async function generator() {
 
 	// Generate index page in baseDir
 	const extraNote =
-		'# To quickly preview changes, you can edit this file, then make sure you copy the changes over the source build.ts script\n';
+		'# To quickly preview changes, you can edit this file, then make sure you copy the changes to the releases generator script\n';
 	const indexPage = [
 		'---',
 		note,
