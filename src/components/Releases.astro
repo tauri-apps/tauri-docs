@@ -13,8 +13,6 @@ interface Props {
 
 const { pkgName, pkgTag, versionList, pages } = Astro.props;
 
-// const pages = await Astro.glob('src/content/docs/releases/tauri/*.md');
-
 function sortVersions(
 	a: MarkdownInstance<Record<string, any>>,
 	b: MarkdownInstance<Record<string, any>>
@@ -26,6 +24,7 @@ function sortVersions(
 	return Number(semver.lt(version1, version2) - 1);
 }
 pages.sort((a, b) => sortVersions(a, b));
+
 
 const headings = versionList.map((v: string) => ({
 	depth: 2,
@@ -120,6 +119,7 @@ const githubUrl = `${pkgTag}/${pkgName}-v`;
 		const title = document.getElementById('starlight__on-this-page');
 		if (title) {
 			title.textContent = 'Tauri changelogs';
+			// TODO:
 			// title.textContent = `${pkgName} changelogs`;
 		}
 		function openTarget() {
