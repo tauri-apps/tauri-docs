@@ -46,7 +46,7 @@ const links: Link[] = [
 		<label>
 			<select>
 				<option value="" disabled selected>Menu</option>
-				{links.map((link) => <option value={link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value}} set:html={link.title} />)}
+				{links.map((link) => <option value={link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value} set:html={link.title} />)}
 			</select>
 			<Icon name="down-caret" class="icon caret" />
 		</label>
