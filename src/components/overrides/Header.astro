@@ -6,7 +6,7 @@ import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 
-const curLocale = Astro.props.locale
+const curLocale = Astro.props.locale;
 ---
 
 <div class="header sl-flex">
@@ -20,7 +20,12 @@ const curLocale = Astro.props.locale
 		<div class="sl-flex social-icons">
 			<SocialIcons {...Astro.props} />
 		</div>
-		<a href={curLocale ? `/${curLocale}/releases` : "/releases" } class="sl-flex release-link action minimal"> Releases</a>
+		<a
+			href={curLocale ? `/${curLocale}/releases` : '/releases'}
+			class="sl-flex release-link action minimal"
+		>
+			Releases</a
+		>
 		<ThemeSelect {...Astro.props} />
 		<LanguageSelect {...Astro.props} />
 	</div>
