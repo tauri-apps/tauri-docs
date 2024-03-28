@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	sponsor: Sponsor;
+}
+
+export type Sponsor = {
+	id: string;
+	name: string;
+	avatarUrl: string;
+	profileUrl?: string;
+	tier?: Tier;
+};
+
+export type Tier = 'platinum' | 'gold' | 'silver' | 'bronze';
+
+export const IMAGE_DIMENSION = 128;
+
+const { sponsor } = Astro.props;
+---
+
+{
+	sponsor.tier == 'platinum' && (
+		<a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
+			<Image
+				src={sponsor.avatarUrl}
+				alt={sponsor.name}
+				width={IMAGE_DIMENSION}
+				height={IMAGE_DIMENSION}
+				class="image"
+			/>
+		</a>
+	)
+}
+
+{
+	sponsor.tier == 'gold' && (
+		<a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
+			<Image
+				src={sponsor.avatarUrl}
+				alt={sponsor.name}
+				width={IMAGE_DIMENSION}
+				height={IMAGE_DIMENSION}
+				class="image"
+			/>
+		</a>
+	)
+}
+
+{
+	sponsor.tier == 'silver' && (
+		<a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
+			{sponsor.name}
+		</a>
+	)
+}
+
+{sponsor.tier == 'bronze' && sponsor.name}
+
+<style define:vars={{ dimension: `${IMAGE_DIMENSION}px` }}>
+	.image {
+		width: var(--dimension);
+		aspect-ratio: 1;
+	}
+</style>
