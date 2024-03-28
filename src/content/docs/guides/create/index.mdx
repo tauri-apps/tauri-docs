@@ -2,13 +2,16 @@
 title: Create a Project
 ---
 
-import { Card } from '@astrojs/starlight/components';
+import { Card, Steps } from '@astrojs/starlight/components';
 import Stub from '@components/Stub.astro';
+import Cta from '../../_fragments/cta.mdx';
+import CommandTabs from '@components/CommandTabs.astro';
 
 <Stub>
 
-- Create a new app using `create-tauri-app`
-- Manually create the app using the Tauri CLI
+{/* - Create a new app using `create-tauri-app` */}
+{/* - Manually create the app using the Tauri CLI */}
+
 - Add mobile to an existing project (revise what's here [integrate mobile](/guides/create/mobile))
 - Frontend framework-specific guides (right now limiting to React, Angular, Vue, Svelte, and Solid)
 
@@ -23,8 +26,6 @@ Alternatively, you can [add Tauri to an existing project](/guides/create/existin
 ## Using `create-tauri-app`
 
 To get started using `create-tauri-app` run one of the below commands in the folder you'd like to setup your project. If you're not sure which command to use we recommend the Bash command on Linux and macOS and the PowerShell command on Windows.
-
-import Cta from '../../_fragments/cta.mdx';
 
 <Cta />
 
@@ -45,8 +46,6 @@ We recommend starting with the vanilla template (HTML, CSS, and JavaScript witho
 
 After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/references/v2/cli) to start the development server:
 
-import CommandTabs from '@components/CommandTabs.astro';
-
 <CommandTabs
 	npm="cd my-tauri-app
     npm install
@@ -64,6 +63,75 @@ import CommandTabs from '@components/CommandTabs.astro';
 You'll now see a new window open with your app running.
 
 **Congratulations!** You've made your Tauri app! 🚀
+
+## Manual Setup using the Tauri CLI
+
+To get started manually creating a new Tauri project using the Tauri CLI, follow the steps below:
+
+<Steps>
+
+    1. First install Tauri's CLI tool globally using your package manager of choice:
+
+        <CommandTabs
+            npm="npm install -g @tauri-apps/cli"
+            yarn="yarn global add @tauri-apps/cli"
+            pnpm="pnpm add -g @tauri-apps/cli"
+        />
+
+    2. Create a new directory for your project and initialize a your app. You can use any frontend framework you prefer, like NextJS, Nuxt, Svelte, or just plaing HTML, CSS, and JavaScript.
+
+        <CommandTabs
+            npm="mkdir my-tauri-app
+                cd my-tauri-app
+                npm <command to bootstrap a template for your frontend app>"
+            yarn="mkdir my-tauri-app
+                cd my-tauri-app
+                yarn <command to bootstrap a template for your frontend app>"
+            pnpm="mkdir my-tauri-app
+                cd my-tauri-app
+                pnpm <command to bootstrap a template for your frontend app>"
+        />
+
+    3. In your project directory, initialize Tauri:
+
+        ```bash
+        tauri init
+        ```
+
+        After running the command it will display a prompt asking you for different options. Here you have an example:
+
+        ```md
+        ✔ What is your app name? my-tauri-app
+        ✔ What should the window title be? my-tauri-app
+        ? Where are your web assets (HTML/CSS/JS) located, relative to the "<current dir>/src-tauri/tauri.con ✔ Where are your web assets (HTML/CSS/JS) located, relative to the "<current dir>/src-tauri/tauri.conf.json" file that will be created? ../build
+        ✔ What is the url of your dev server? http://localhost:3000
+        ✔ What is your frontend dev command? pnpm run dev
+        ✔ What is your frontend build command? pnpm run build
+        ```
+
+        :::tip
+        Make sure that the url of the dev server is the same as the one you use to run your frontend app.
+        :::
+
+        This will create a `src-tauri` directory in your project with the necessary Tauri configuration files.
+
+    4. Develop your frontend application as you would normally. Tauri acts as a backend, so your main focus will be on the web technologies.
+
+    5. Edit `src-tauri/tauri.conf.json` to configure Tauri. You can set application window size, permissions, and other settings here.
+
+    6. Verify your Tauri app is working by running the development server:
+
+        <CommandTabs
+            npm="npm run tauri dev"
+            yarn="yarn tauri dev"
+            pnpm="pnpm tauri dev"
+        />
+
+        This command will compile the Rust code and open a window with your web content.
+
+</Steps>
+
+**Congratulations!** You've created a new Tauri project using the Tauri CLI! 🚀
 
 ## Next Steps
 
