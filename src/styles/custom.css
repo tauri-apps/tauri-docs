@@ -25,6 +25,10 @@
 	--tauri-transition-speed: 200ms;
 }
 
+.hidden {
+	display: none !important;
+}
+
 .content details {
 	padding: 0 1rem;
 }
@@ -118,12 +122,12 @@
 }
 
 /* Tauri logo on index page */
-.hero > img {
+.hero>img {
 	animation: 3s intro;
 	opacity: 0.4;
 }
 
-html[data-theme='light'] .hero > img {
+html[data-theme='light'] .hero>img {
 	filter: invert(1);
 }
 
@@ -137,8 +141,7 @@ html[data-theme='light'] .hero > img {
 		scale: 0.9;
 	}
 
-	100% {
-	}
+	100% {}
 }
 
 @media (prefers-reduced-motion) {

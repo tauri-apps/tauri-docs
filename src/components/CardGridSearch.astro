@@ -9,6 +9,7 @@ interface Props {
 	placeholder?: string;
 }
 const { placeholder = 'Search features and community resources...' } = Astro.props;
+const { notFound = 'No results found.' } = Astro.props;
 
 // TODO: Expose placeholder and title to i18n
 ---
@@ -36,6 +37,7 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 			<button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
 		</form>
 	</div>
+	<span class="not-found-text hidden">{notFound}</span>
 	<slot />
 </card-search>
 
@@ -44,35 +46,20 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 		constructor() {
 			super();
 			window.addEventListener('DOMContentLoaded', () => {
+				const urlSearch = new URLSearchParams(window.location.search);
 				const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
 				const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
 				const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
+				const notFound = this.querySelector<HTMLButtonElement>('span.not-found-text')!;
 				const inputs = Array.from(this.children).filter((el) => el.classList.contains('card-grid'));
 				const headings = Array.from(this.children).filter(
+					(el) =>
+						(el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement) &&
+						!(el.nextSibling instanceof HTMLHeadingElement)
+				);
+				const ignoreHeadings = Array.from(this.children).filter(
 					(el) => el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement
 				);
-				// Create "nothing found" for each heading
-				headings.forEach((heading, i) => {
-					const wrn = document.createElement('p');
-					wrn.classList.add('hidden', 'warning');
-					wrn.id = `warn-${i}`;
-					wrn.innerHTML = `
-						<style>
-							.warning {
-								font-style: italic;
-								color: var(--sl-color-text);
-								font-size: larger;
-							}
-							.hidden {
-								display: none;
-							}
-						</style>
-						<span>No results found in ${heading.textContent}</span>
-						`;
-					heading.insertAdjacentElement('afterend', wrn);
-				});
-				// Select all "nothing found" created before
-				const warnings = document.querySelectorAll('[id^="warn-"]');
 
 				// Prevent page reload
 				form.addEventListener('submit', (e) => {
@@ -110,7 +97,29 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 				 */
 				function searchFilter() {
 					const query = searchBar.value.toUpperCase();
+					urlSearch.set('search', searchBar.value);
+					if (query) {
+						for (const header of ignoreHeadings) {
+							header.classList.add('hidden');
+						}
+					} else {
+						for (const header of ignoreHeadings) {
+							header.classList.remove('hidden');
+						}
+					}
+					if (history.pushState) {
+						const newUrl = query
+							? window.location.protocol +
+								'//' +
+								window.location.host +
+								window.location.pathname +
+								'?' +
+								urlSearch.toString()
+							: window.location.protocol + '//' + window.location.host + window.location.pathname;
+						window.history.pushState({ path: newUrl }, '', newUrl);
+					}
 
+					let hiddenInputs = 0;
 					inputs.forEach((elements, i) => {
 						const cards = Array.from(elements.children);
 						let total = cards.length;
@@ -129,15 +138,27 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 								total--;
 								htmlElement.style.display = 'none';
 							}
-
-							// Show warning if none found
 							if (total === 0) {
-								warnings[i].classList.remove('hidden');
+								hiddenInputs += 1;
+								inputs[i].classList.add('hidden');
+								headings[i].classList.add('hidden');
 							} else {
-								warnings[i].classList.add('hidden');
+								inputs[i].classList.remove('hidden');
+								headings[i].classList.remove('hidden');
 							}
 						});
 					});
+					if (hiddenInputs === inputs.length) {
+						notFound.classList.remove('hidden');
+					} else {
+						notFound.classList.add('hidden');
+					}
+				}
+				// Get search value from URL
+				if (urlSearch.get('search')) {
+					clear.classList.remove('pagefind-ui__suppressed');
+					searchBar.value = urlSearch.get('search');
+					searchFilter();
 				}
 			});
 		}
@@ -234,5 +255,13 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 	.pagefind-ui__suppressed {
 		opacity: 0;
 		pointer-events: none;
+	}
+	.not-found-text {
+		font-style: italic;
+		color: var(--sl-color-text);
+		font-size: larger;
+		text-align: center;
+		width: 100%;
+		display: block;
 	}
 </style>
