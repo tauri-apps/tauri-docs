@@ -1,0 +1,462 @@
+---
+title: Eklenti Geliştirme
+i18nReady: true
+---
+
+{/* TODO: Add a CLI section */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[Eklenti Geliştirme]
+
+Bu kılavuz Tauri eklentileri geliştirmek içindir. Şu anda mevcut olan eklentilerin bir listesini ve bunların nasıl kullanılacağını öğrenmek istiyorsanız [Özellikler ve Tarifler listesi](/tr/features) bölümünü ziyaret edin.
+
+:::
+
+Eklentiler Tauri yaşam döngüsüne bağlanabilir, web görünümü API'lerine dayanan Rust kodunu açığa çıkarabilir, komutları Rust, Kotlin veya Swift koduyla işleyebilir ve çok daha fazlasını yapabilir.
+
+Tauri, web görünümü işlevselliğine sahip bir pencereleme sistemi (windowing system), Rust süreci ile web görünümü arasında mesaj göndermenin bir yolu ve geliştirme deneyimini geliştirmek için çeşitli araçlarla birlikte bir olay sistemi sunar. Tasarım gereği, Tauri çekirdeği herkes tarafından ihtiyaç duyulmayan özellikler içermez. Bunun yerine, eklenti adı verilen bir Tauri uygulamasına harici işlevler eklemek için bir mekanizma sunar.
+
+Bir Tauri eklentisi, bir Cargo crate ve komutları ve olayları için API bağlamaları sağlayan isteğe bağlı bir NPM paketinden oluşur. Ek olarak, bir eklenti projesi bir Android kütüphane projesi ve iOS için bir Swift paketi içerebilir. Android ve iOS için eklenti geliştirme hakkında daha fazla bilgiyi [Mobil Eklenti Geliştirme kılavuzu](/tr/guides/plugins/develop-mobile) bölümünde bulabilirsiniz.
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## İsimlendirme Kuralları
+
+{/* TODO: Add link to allowlist */}
+
+
+Tauri eklentilerinin bir öneki (Rust crate adı için `tauri-plugin-` öneki ve NPM paketi için `@tauri-apps/plugin-` öneki) ve ardından eklenti adı vardır. Eklenti adı [`tauri.conf.json > plugin`](/references/v2/config/#pluginconfig) altındaki eklenti yapılandırmasında ve izin listesi yapılandırmasında belirtilir.
+
+
+Tauri varsayılan olarak eklenti sandığı(crate)'nızın önüne `tauri-plugin-` ekler. Bu, eklentinizin Tauri topluluğu tarafından keşfedilmesine yardımcı olur, ancak bir zorunluluk değildir. Yeni bir eklenti projesini başlatırken, adını vermelisiniz. Oluşturulan sandık adı `tauri-plugin-{plugin-name}` ve JavaScript NPM paket adı `tauri-plugin-{plugin-name}-api` olacaktır (ancak mümkünse [NPM scope](https://docs.npmjs.com/about-scopes) kullanmanızı öneririz). NPM paketleri için Tauri adlandırma kuralı `@scope-name/plugin-{plugin-name}` şeklindedir.
+
+## Eklenti Projesini Başlatma
+
+Yeni bir eklenti projesini başlatmak için `plugin init` komutunu çalıştırın. NPM paketine ihtiyacınız yoksa, `--no-api` CLI bayrağını kullanın.
+
+<CommandTabs
+	npm="npm run tauri plugin init"
+	yarn="yarn tauri plugin init"
+	pnpm="pnpm tauri plugin init"
+	cargo="cargo tauri plugin init"
+/>
+
+Bu, eklentiyi başlatacak ve ortaya çıkan kod aşağıdaki gibi görünecektir:
+
+```
+. plugin-name/
+├── src/                - Rust code
+│ ├── commands.rs       - defines the commands the webview can use
+| ├── desktop.rs        - desktop implementation
+│ ├── lib.rs            - re-exports appropriate implementation, setup state...
+│ └── mobile.rs         - mobile implementation
+├── android             - Android library
+├── ios                 - Swift package
+├── webview-src         - source code of the JavaScript API bindings
+├── webview-dist        - Transpiled assets from webview-src
+├── Cargo.toml          - Cargo crate metadata
+└── package.json        - NPM package metadata
+```
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+Mevcut bir eklentiniz varsa ve buna Android veya iOS özellikleri eklemek istiyorsanız, mobil kütüphane projelerini önyüklemek ve gerekli değişikliklerde size rehberlik etmek için `plugin android add` ve `plugin ios add` kullanabilirsiniz.
+
+## Mobil Eklenti Geliştirme
+
+Eklentiler Kotlin (veya Java) ve Swift ile yazılmış yerel mobil kodu çalıştırabilir. Varsayılan eklenti şablonu, Kotlin kullanan bir Android kütüphane projesi ve bir Swift paketi içerir. Rust kodundan yürütülmesinin nasıl tetikleneceğini gösteren örnek bir mobil komut içerir.
+
+Mobil için eklenti geliştirme hakkında daha fazla bilgi için [Mobil Eklenti Geliştirme kılavuzu](/tr/guides/plugins/develop-mobile).
+
+## Eklenti Yapılandırması
+
+Eklentinin kullanıldığı Tauri uygulamasında, eklenti yapılandırması `tauri.conf.json` üzerinde belirtilir; burada `plugin-name` eklentinin adıdır:
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+Eklentinin yapılandırması `Builder` üzerinde ayarlanır ve çalışma zamanında ayrıştırılır. Burada, eklenti yapılandırmasını belirtmek için kullanılan `Config` yapısının bir örneği verilmiştir:
+
+```rust title="src/lib.rs"
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+// Define the plugin config
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  // Make the plugin config optional
+  // by using `Builder::<R, Option<Config>>` instead
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config.timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## Yaşam Döngüsü Olayları(Events)
+
+Eklentiler çeşitli yaşam döngüsü olaylarına bağlanabilir:
+
+- [setup](#setup): Eklenti başlatılıyor
+- [on_navigation](#on_navigation): Web görünümü gezinme gerçekleştirmeye çalışıyor
+- [on_webview_ready](#on_webview_ready): Yeni pencere oluşturuluyor
+- [on_event](#on_event): Olay döngüsü olayları
+- [on_drop](#on_drop): Eklenti yapısızlaştırılıyor
+
+Mobil eklentiler için ek [yaşam döngüsü olayları](/guides/plugins/develop-mobile#lifecycle-events) vardır.
+
+### setup
+
+- **Ne Zaman**: Eklenti başlatılıyor
+- **Neden**: Mobil eklentileri kaydedin, durumu yönetin, arka plan görevlerini çalıştırın
+
+```rust title="src/lib.rs"
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### on_navigation
+
+- **Ne zaman**: Web görünümü gezinme gerçekleştirmeye çalışıyor
+- **Neden**: Navigasyonu doğrulayın veya URL değişikliklerini izleyin
+
+`false` döndürmek navigasyonu iptal eder.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // Cancels the navigation if forbidden
+    url.scheme() != "forbidden"
+  })
+```
+
+### on_webview_ready
+
+- **Ne zaman**: Yeni pencere oluşturuldu
+- **Neden**: Her pencere için bir başlatma komut dosyası çalıştırın
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
+  })
+```
+
+### on_event
+
+- **Ne zaman**: Olay döngüsü olayları
+- **Neden**: Pencere olayları, menü olayları ve istenen uygulama çıkışı gibi temel olayları işleyin
+
+Bu yaşam döngüsü kancası ile herhangi bir olay döngüsünden haberdar olabilirsiniz [events](https://docs.rs/tauri/2.0.0-beta/tauri/enum.RunEvent.html).
+
+```rust title="src/lib.rs"
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // user requested a window to be closed and there's no windows left
+
+        // we can prevent the app from exiting:
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // app is going to exit, you can cleanup here
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### on_drop
+
+- **Ne zaman**: Eklenti yapısızlaştırılıyor
+- **Neden**: Eklenti yok edildiğinde kodu çalıştır
+
+Daha fazla bilgi için [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) adresine bakın.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // plugin has been destroyed...
+  })
+```
+
+## Rust API'lerini Açıklamak 
+
+
+Projenin `desktop.rs` ve `mobile.rs` dosyalarında tanımlanan eklenti API'leri, kullanıcıya eklentiyle aynı ada sahip bir yapı olarak (pascal durumda) dışa aktarılır. Eklenti kurulduğunda, bu yapının bir örneği oluşturulur ve bir durum olarak yönetilir, böylece kullanıcılar eklentide tanımlanan uzantı özelliği aracılığıyla bir `Manager` örneği (örneğin `AppHandle`, `App` veya ` Window`) ile herhangi bir zamanda onu geri alabilir.
+
+Örneğin, [`global-shortcut plugin`](/tr/features/global-shortcut), `GlobalShortcutExt` özelliğinin `global_shortcut` yöntemi kullanılarak okunabilen bir `GlobalShortcut` yapısı tanımlar:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## Komutları Ekleme
+
+Komutlar `commands.rs` dosyasında tanımlanır. Bunlar normal Tauri uygulamaları komutlarıdır. AppHandle ve Window örneklerine doğrudan erişebilir, duruma erişebilir ve uygulama komutlarıyla aynı şekilde girdi alabilirler. Tauri komutları hakkında daha fazla ayrıntı için [Komutlar kılavuzu](/features/commands) bölümünü okuyun.
+
+Bu komut, bağımlılık enjeksiyonu yoluyla `AppHandle` ve `Window` örneğine nasıl erişileceğini gösterir ve iki girdi parametresi alır (`on_progress` ve `url`):
+
+```rust title="src/commands.rs"
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // implement command logic here
+  on_progress.send(100).unwrap();
+}
+```
+
+Komutu web görünümüne göstermek için `lib.rs` içindeki `invoke_handler()` çağrısına bağlanmanız gerekir:
+
+```rust title="src/lib.rs"
+// lib.rs
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+Eklenti kullanıcılarının komutu JavaScript'te kolayca çağırabilmesi için `webview-src/index.ts` içinde bir bağlama işlevi tanımlayın:
+
+```js name="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/tauri'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+TypeScript kodunu test etmeden önce derlediğinizden emin olun.
+
+### Komut İzinleri
+
+Varsayılan olarak komutlarınıza ön uç tarafından erişilemez. Bunlardan birini çalıştırmaya çalışırsanız, reddedildi hata reddi alırsınız.
+Komutları gerçekten açığa çıkarmak için, her bir komuta izin veren izinleri de tanımlamanız gerekir.
+
+#### İzin Dosyaları
+
+İzinler `permissions` dizini içinde JSON veya TOML dosyaları olarak tanımlanır. Her dosya bir izinler listesi, bir izin setleri listesi ve eklentinizin varsayılan iznini tanımlayabilir.
+
+##### İzinler
+
+Bir izin, eklenti komutlarınızın ayrıcalıklarını tanımlar. Bir komut listesine izin verebilir veya reddedebilir ve komuta özgü ve genel kapsamları ilişkilendirebilir.
+
+```toml title="permissions/start-server.toml"
+"$schema" = "schemas/schema.json"
+
+[[permission]]
+identifier = "allow-start-server"
+description = "Enables the start_server command."
+commands.allow = ["start_server"]
+
+[[permission]]
+identifier = "deny-start-server"
+description = "Denies the start_server command."
+commands.deny = ["start_server"]
+```
+
+##### Kapsam
+
+Kapsamlar, eklentinizin tek tek komutlar için daha derin kısıtlamalar tanımlamasına olanak tanır.
+Her izin, bir komuta özgü veya eklentiye genel olarak izin verilecek veya reddedilecek bir şeyi tanımlayan bir kapsam nesneleri listesi tanımlayabilir.
+
+Bir `shell` eklentisinin ortaya çıkarmasına izin verilen ikili dosyaların listesi için kapsam verilerini tutacak örnek bir yapı tanımlayalım:
+
+```rust title="src/scope.rs"
+#[derive(Debug, schemars::JsonSchema)]
+pub struct Entry {
+    pub binary: String,
+}
+```
+
+###### Command Scope
+
+Eklenti tüketiciniz kendi yetenek dosyasında belirli bir komut için bir kapsam tanımlayabilir (bkz. [Dökümantasyon](/references/v2/acl#scopes)).
+Komutlara özgü kapsamı [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) struct'ı ile okuyabilirsiniz:
+
+```rust title="src/commands.rs"
+use tauri::ipc::CommandScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+  let allowed = command_scope.allows();
+  let denied = command_scope.denies();
+  todo!()
+}
+```
+
+###### Global Scope
+
+Bir izin, izin verilecek veya reddedilecek herhangi bir komut tanımlamadığında, bir kapsam izni olarak kabul edilir ve yalnızca eklentiniz için genel bir kapsam tanımlamalıdır:
+
+```toml title="permissions/spawn-node.toml"
+[[permission]]
+identifier = "allow-spawn-node"
+description = "This scope permits spawning the `node` binary."
+
+[[permission.scope.allow]]
+binary = "node"
+```
+
+Global kapsamı(scope) [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.GlobalScope.html) yapısı ile okuyabilirsiniz:
+
+```rust title="src/commands.rs"
+use tauri::ipc::GlobalScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+  let allowed = scope.allows();
+  let denied = scope.denies();
+  todo!()
+}
+```
+
+:::note
+Esneklik için hem global hem de komut kapsamlarını kontrol etmenizi öneririz
+:::
+
+###### Schema
+
+Kapsam girişi, bir JSON şeması oluşturmak için `schemars` bağımlılığını gerektirir, böylece eklenti tüketicileri kapsamın biçimini bilir ve IDE'lerinde otomatik tamamlamaya sahip olur.
+
+Şemayı tanımlamak için önce Cargo.toml dosyanıza bağımlılığı ekleyin:
+
+```toml
+# we need to add schemars to both dependencies and build-dependencies because the scope.rs module is shared between the app code and build script
+[dependencies]
+schemars = "0.8"
+
+[build-dependencies]
+schemars = "0.8"
+```
+
+Derleme komut dosyanıza aşağıdaki kodu ekleyin:
+
+```rust title="build.rs"
+#[path = "src/scope.rs"]
+mod scope;
+
+const COMMANDS: &[&str] = &[];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS)
+        .global_scope_schema(schemars::schema_for!(scope::Entry))
+        .build();
+}
+```
+
+##### İzin Setleri
+
+İzin setleri, kullanıcıların eklentinizi daha yüksek bir soyutlama seviyesiyle yönetmelerine yardımcı olan bireysel izin gruplarıdır.
+Örneğin, tek bir API birden fazla komut kullanıyorsa veya bir komut koleksiyonu arasında mantıksal bir bağlantı varsa, bunları içeren bir set tanımlamalısınız:
+
+```toml title="permissions/websocket.toml"
+"$schema" = "schemas/schema.json"
+[[set]]
+identifier = "allow-websocket"
+description = "Allows connecting and sending messages through a WebSocket"
+permissions = ["allow-connect", "allow-send"]
+```
+
+##### Varsayılan İzin
+
+Varsayılan izin, `default` tanımlayıcısına sahip özel bir izin kümesidir. Gerekli komutları varsayılan olarak etkinleştirmeniz önerilir.
+Örneğin `http` eklentisi `request` komutuna izin verilmeden işe yaramaz:
+
+```toml title="permissions/default.toml"
+"$schema" = "schemas/schema.json"
+[default]
+description = "Allows making HTTP requests"
+permissions = ["allow-request"]
+```
+
+#### Otomatik Oluşturulan İzinler
+
+Komutlarınızın her biri için izinleri tanımlamanın en kolay yolu, eklentinizin `build.rs` dosyasında tanımlanan derleme betiğinde tanımlanan otomatik oluşturma seçeneğini kullanmaktır.
+
+`COMMANDS` const içinde, komutların listesini snake_case'de tanımlayın (komut işlevi adıyla eşleşmelidir) ve Tauri otomatik olarak bir `allow-$commandname` ve bir `deny-$commandname` izinleri oluşturacaktır.
+
+Aşağıdaki örnek `allow-upload` ve `deny-upload` izinlerini oluşturur:
+
+```rust title="src/commands.rs"
+const COMMANDS: &[&str] = &["upload"];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS).build();
+}
+```
+
+Daha fazla bilgi için [Erişim Kontrol Listesi](/references/v2/acl) belgesine bakın.
+
+## Durum Yönetimi
+
+Bir eklenti, bir Tauri uygulamasının yaptığı gibi durumu yönetebilir. Daha fazla bilgi için [Durum Yönetimi kılavuzu](/tr/guides/state-management)'nu okuyun.

@@ -1,0 +1,384 @@
+---
+title: Mobil Eklenti Geliştirme
+i18nReady: true
+---
+
+:::tip[Eklenti Geliştirme]
+
+Bu kılavuzdaki birçok kavram orada ele alınan temellerin üzerine inşa edildiği için [Eklenti Geliştirme kılavuzu](/tr/guides/plugins) içinde ele alınan kavramlara aşina olduğunuzdan emin olun.
+
+:::
+
+Eklentiler Kotlin (veya Java) ve Swift ile yazılmış yerel mobil kodu çalıştırabilir. Varsayılan eklenti şablonu, Kotlin kullanan bir Android kütüphane projesi ve Rust kodundan yürütülmesinin nasıl tetikleneceğini gösteren örnek bir mobil komut içeren bir Swift paketi içerir.
+
+## Eklenti Projesini Başlatma
+
+Yeni bir eklenti projesini başlatmak için [Eklenti Geliştirme kılavuzu](/guides/plugins#initialize-plugin-project) içindeki adımları izleyin.
+
+Mevcut bir eklentiniz varsa ve buna Android veya iOS özellikleri eklemek istiyorsanız, mobil kütüphane projelerini önyüklemek ve gerekli değişikliklerde size rehberlik etmek için `plugin android init` ve `plugin ios init` kullanabilirsiniz.
+
+Varsayılan eklenti şablonu, eklentinin uygulamasını iki ayrı modüle böler: `desktop.rs` ve `mobile.rs`.
+
+Masaüstü uygulaması bir işlevi uygulamak için Rust kodunu kullanırken, mobil uygulama bir işlevi yürütmek ve bir sonucu geri almak için yerel mobil koda bir mesaj gönderir. Her iki uygulamada da paylaşılan mantık gerekiyorsa, `lib.rs` içinde tanımlanabilir:
+
+```rust
+// lib.rs
+use tauri::Runtime;
+
+impl<R: Runtime> <plugin-name><R> {
+  pub fn do_something(&self) {
+    // do something that is a shared implementation between desktop and mobile
+  }
+}
+```
+
+Bu uygulama, hem komutlar hem de Rust kodu tarafından kullanılabilen bir API paylaşma sürecini basitleştirir.
+
+### Bir Android Eklentisi Geliştirin
+
+Android için bir Tauri eklentisi, `app.tauri.plugin.Plugin`i genişleten ve `app.tauri.annotation.TauriPlugin` ile açıklanan bir Kotlin sınıfı olarak tanımlanır. `App.tauri.annotation.Command` ile açıklanan her yöntem Rust veya JavaScript tarafından çağrılabilir.
+
+Tauri, Android eklenti uygulaması için varsayılan olarak Kotlin kullanır, ancak tercih ederseniz Java'ya geçebilirsiniz. Bir eklenti oluşturduktan sonra, Android Studio'da Kotlin eklenti sınıfına sağ tıklayın ve menüden "Convert Kotlin file to Java file" seçeneğini seçin. Android Studio, projenin Java'ya geçişi sırasında size rehberlik edecektir.
+
+### Bir iOS Eklentisi Geliştirin
+
+iOS için bir Tauri eklentisi, `Tauri` paketinden `Plugin` sınıfını genişleten bir Swift sınıfı olarak tanımlanır. Her fonksiyon `@objc` niteliği ve `(_ invoke: Invoke)` parametresi ile (örneğin `@objc private func download(_ invoke: Invoke) { }`) Rust veya JavaScript tarafından çağrılabilir.
+
+Eklenti, bağımlılıkları yönetmek için paket yöneticisini kullanabilmeniz için bir [Swift paketi] (https://www.swift.org/package-manager/) olarak tanımlanmıştır.
+
+## Eklenti Yapılandırması
+
+Eklenti yapılandırmalarının geliştirilmesi hakkında daha fazla bilgi için Eklenti Geliştirme kılavuzunun [Eklenti Yapılandırması bölümüne](/guides/plugins/#plugin-configuration) bakın.
+
+Mobil cihazdaki eklenti örneği, eklenti yapılandırması için bir getter'a sahiptir:
+
+<Tabs>
+<TabItem label="Android">
+
+```java
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    val timeout = this.config.getInt("timeout", 30)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Yaşam Döngüsü Olayları
+
+Eklentiler çeşitli yaşam döngüsü olaylarına bağlanabilir:
+
+- load](#load): Eklenti web görünümüne yüklendiğinde
+- onNewIntent](#onnewintent): Yalnızca Android, etkinlik yeniden başlatıldığında
+
+Ayrıca Eklenti Geliştirme kılavuzunda ek [eklentiler için yaşam döngüsü olayları](/guides/plugins#lifecycle-events) bulunmaktadır.
+
+### load
+
+- **Ne zaman**: Eklenti web görünümüne yüklendiğinde
+- **Neden**: Eklenti başlatma kodunu çalıştırma
+
+<Tabs>
+<TabItem label="Android">
+
+```java
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    // perform plugin setup here
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### onNewIntent
+
+**Not**: Bu yalnızca Android'de kullanılabilir.
+
+- **Ne zaman**: Aktivite yeniden başlatıldığında. Daha fazla bilgi için [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) bölümüne bakın.
+- **Neden**: Bir bildirim tıklandığında veya derin bir bağlantıya erişildiğinde olduğu gibi uygulamanın yeniden başlatılmasını işleyin.
+
+```java
+// import android.content.Intent
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun onNewIntent(intent: Intent) {
+    // handle new intent event
+  }
+}
+```
+
+## Mobil Komutlar Ekleme
+
+İlgili mobil projelerin içinde, Rust kodu tarafından çağrılabilecek komutların tanımlanabileceği bir eklenti sınıfı vardır:
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="Android">
+
+```java
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val allowEdit = invoke.getBoolean("allowEdit", false)
+    val quality = invoke.getInt("quality", 100)
+
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) {
+    let allowEdit = invoke.getBool("allowEdit", false)
+    let quality = invoke.getInt("quality", 100)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+</TabItem>
+</Tabs>
+
+Rust'tan bir mobil komut çağırmak için [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/plugin/struct.PluginHandle.html) kullanın:
+
+```rust
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> <plugin-name;pascal-case><R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
+```
+
+## İzinler
+
+Bir eklenti son kullanıcıdan izin gerektiriyorsa, Tauri izinleri kontrol etme ve talep etme sürecini basitleştirir.
+
+<Tabs>
+<TabItem label="Android">
+
+Öncelikle gerekli izinlerin listesini ve koddaki her grubu tanımlamak için bir takma ad tanımlayın. Bu `TauriPlugin` ek açıklamasının içinde yapılır:
+
+```java
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
+class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+İlk olarak `checkPermissions` ve `requestPermissions` fonksiyonlarını geçersiz kılın:
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // request permissions here
+    // then resolve the request
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Tauri, eklenti için otomatik olarak iki komut uygular: `checkPermissions` ve `requestPermissions`. Bu komutlar doğrudan JavaScript veya Rust'tan çağrılabilir:
+
+{/* TODO: PermissionState type should be exported in Tauri */}
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { invoke } from '@tauri-apps/api/tauri'
+
+type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+
+interface Permissions {
+  postNotification: PermissionState
+}
+
+// check permission state
+const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+
+if (permission.postNotification === 'prompt-with-rationale') {
+  // show information to the user about why permission is needed
+}
+
+// request permission
+if (permission.postNotification.startsWith('prompt')) {
+  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use serde::{Serialize, Deserialize};
+use tauri::Runtime;
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PermissionResponse {
+  pub post_notification: PermissionState,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestPermission {
+  post_notification: bool,
+}
+
+impl<R: Runtime> Notification<R> {
+  pub fn request_post_notification_permission(&self) -> crate::Result<PermissionState> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("requestPermissions", RequestPermission { post_notification: true })
+      .map(|r| r.post_notification)
+      .map_err(Into::into)
+  }
+
+  pub fn check_permissions(&self) -> crate::Result<PermissionResponse> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("checkPermissions", ())
+      .map_err(Into::into)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Eklenti Olayları
+
+{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+
+Eklentiler `trigger` fonksiyonunu kullanarak herhangi bir zamanda olay yayabilirler:
+
+<Tabs>
+<TabItem label="Android">
+
+```java
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+    override fun load(webView: WebView) {
+      trigger("load", JSObject())
+    }
+
+    override fun onNewIntent(intent: Intent) {
+      // handle new intent event
+      if (intent.action == Intent.ACTION_VIEW) {
+        val data = intent.data.toString()
+        val event = JSObject()
+        event.put("data", data)
+        trigger("newIntent", event)
+      }
+    }
+
+    @Command
+    fun openCamera(invoke: Invoke) {
+      val payload = JSObject()
+      payload.put("open", true)
+      trigger("camera", payload)
+    }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Yardımcı fonksiyonlar daha sonra [`addPluginListener`](/references/v2/js/core/namespacecore/#addpluginlistener) yardımcı fonksiyonu kullanılarak NPM paketinden çağrılabilir:
+
+```javascript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+
+export async function onRequest(
+	handler: (url: string) => void
+): Promise<PluginListener> {
+	return await addPluginListener(
+		'<plugin-name>',
+		'event-name',
+		handler
+	);
+}
+```

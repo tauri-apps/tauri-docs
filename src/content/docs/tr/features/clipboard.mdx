@@ -1,0 +1,103 @@
+---
+title: Clipboard
+description: Sistem panosunu okuyun ve panoya yazın.
+---
+
+import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="clipboard-manager" />
+
+Pano eklentisini kullanarak sistem panosunu okuyun ve panoya yazın.
+
+## Kurulum
+
+Başlamak için pano eklentisini yükleyin.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Bağımlılığı eklemek için projenizin paket yöneticisini kullanın:
+
+    <CommandTabs npm="npm run tauri add clipboard-manager"
+    yarn="yarn run tauri add clipboard-manager"
+    pnpm="pnpm tauri add clipboard-manager"
+    cargo="cargo tauri add clipboard-manager" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. Eklentiyi `Cargo.toml` içindeki proje bağımlılıklarına eklemek için `cargo add tauri-plugin-clipboard-manager` komutunu çalıştırın.
+
+    2. Eklentiyi başlatmak için `lib.rs` dosyasını değiştirin:
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_clipboard_manager::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. Panoyu JavaScript ile yönetmek isterseniz NPM paketini de yükleyin:
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-clipboard-manager"
+        yarn="yarn add @tauri-apps/plugin-clipboard-manager"
+        pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+    />
+
+    </TabItem>
+
+</Tabs>
+
+## Kullanım
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+Clipboard eklentisi hem JavaScript hem de Rust dillerinde kullanılabilir.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+
+// Write content to clipboard
+await writeText('Tauri is awesome!');
+
+// Read content from clipboard
+const content = await readText();
+console.log(content);
+// Prints "Tauri is awesome!" to the console
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+
+// Write content to clipboard
+let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
+    label: Some("Label".to_string()),
+    text: "Tauri is awesome!".to_string(),
+};
+app.clipboard().write(clipboard_content).unwrap();
+
+// Read content from clipboard
+let content = app.clipboard().read();
+println!("{:?}", content.unwrap());
+// Prints "Tauri is awesome!" to the terminal
+
+
+```
+
+</TabItem>
+</Tabs>

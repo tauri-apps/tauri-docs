@@ -1,0 +1,218 @@
+---
+title: Integrate
+---
+
+Bir masaüstü Tauri projeniz varsa ve aynı kodu kullanarak mobil platformları hedeflemek istiyorsanız, Rust crate'inizi yapılandırmanız gerekir.
+
+## Crate türünüzü değiştirin
+
+Rust crate, Android ve iOS paketlerine gömülecek bir kitaplık çıkarmalıdır. Aşağıdaki bölümü `Cargo.toml` dosyanıza ekleyin:
+
+```toml title=src-tauri/Cargo.toml
+[lib]
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+## Kütüphane kaynak kodunu oluşturun
+
+Rust kütüphanesinin varsayılan giriş noktası `lib.rs` dosyasıdır.
+Hem masaüstü hem de mobil hedefler tarafından yeniden kullanılacak bir `tauri::Builder` sarmalayıcısı yazalım.
+
+```rust title=src-tauri/src/lib.rs
+use tauri::App;
+
+#[cfg(mobile)]
+mod mobile;
+#[cfg(mobile)]
+pub use mobile::*;
+
+pub type SetupHook = Box<dyn FnOnce(&mut App) -> Result<(), Box<dyn std::error::Error>> + Send>;
+
+#[derive(Default)]
+pub struct AppBuilder {
+  setup: Option<SetupHook>,
+}
+
+impl AppBuilder {
+  pub fn new() -> Self {
+    Self::default()
+  }
+
+  #[must_use]
+  pub fn setup<F>(mut self, setup: F) -> Self
+  where
+    F: FnOnce(&mut App) -> Result<(), Box<dyn std::error::Error>> + Send + 'static,
+  {
+    self.setup.replace(Box::new(setup));
+    self
+  }
+
+  pub fn run(self) {
+    let setup = self.setup;
+    tauri::Builder::default()
+      .setup(move |app| {
+        if let Some(setup) = setup {
+          (setup)(app)?;
+        }
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+}
+```
+
+Bu örnekte, `AppBuilder::run` işlevi tüm paylaşılan mantığı yazdığınız yerdir. Özel mobil/masaüstü kodu, kurulum yöntemi gibi AppBuilder yöntemlerinde tanımlanabilir.
+
+Şimdi iOS ve Android için giriş noktasına sahip olacak mobil modülü oluşturalım ve paylaşılan AppBuilder mantığını kullanalım:
+
+
+```rust title=src-tauri/src/mobile.rs
+#[tauri::mobile_entry_point]
+fn main() {
+  super::AppBuilder::new().run();
+}
+```
+
+Varsayılan Tauri projesi `src-tauri/src/main.rs` altında ikili kaynak koduna sahiptir. AppBuilder yapısını kullanacak şekilde değiştirelim:
+
+```rust title=src-tauri/src/main.rs
+#![cfg_attr(
+  all(not(debug_assertions), target_os = "windows"),
+  windows_subsystem = "windows"
+)]
+
+pub fn main() {
+  app::AppBuilder::new().run();
+}
+
+```
+
+## Ön Uç Yapılandırması
+
+Mobil Tauri uygulamaları geliştirmek için ön uçunuzun genel ağ adresinizi dinleyen varlıklara hizmet vermesi gerekir.
+Ağ adresi şu adres kullanılarak bulunabilir(NPM): `internal-ip` :
+
+:::note
+
+Bu yazının yazıldığı sırada `8.0.0` da [ciddi bir hata](https://github.com/sindresorhus/internal-ip/issues/48) vardı. Bu nedenle `7.0.0` açıkça belirtilmiştir.
+
+:::
+
+```shell
+npm install --save-dev internal-ip@7.0.0
+```
+
+```shell
+yarn add -D internal-ip@7.0.0
+```
+
+```shell
+pnpm add -D internal-ip@7.0.0
+```
+
+Daha sonra çerçevenizi dahili IP'yi kullanacak şekilde yapılandırmanız gerekir.
+
+### Vite
+
+Vite için, eşzamansız kapatma ile `defineConfig` yardımcısını kullanarak tanımlanacak yapılandırmanızı değiştirmeniz gerekir.
+Ardından dahili IP adresini çözümleyin ve bunu [server object][vite server] olarak ayarlayın.
+
+```javascript title=vite.config.js
+import { defineConfig } from 'vite';
+import { internalIpV4 } from 'internal-ip';
+
+// https://vitejs.dev/config/
+export default defineConfig(async () => {
+	const host = await internalIpV4();
+
+	/** @type {import('vite').UserConfig} */
+	const config = {
+		server: {
+			host: '0.0.0.0', // listen on all addresses
+			port: 5173,
+			strictPort: true,
+			hmr: {
+				protocol: 'ws',
+				host,
+				port: 5183,
+			},
+		},
+	};
+
+	return config;
+});
+```
+
+### Next.js
+
+Next.js için, sunucunun varlıklarınızı doğru şekilde çözümlemesi amacıyla [assetPrefix]'i dahili IP'yi kullanacak şekilde yapılandırmanız gerekir.
+
+```typescript title=next.config.js
+const isProd = process.env.NODE_ENV === 'production';
+module.exports = async (phase, { defaultConfig }) => {
+	let internalHost = null;
+	if (!isProd) {
+		const { internalIpV4 } = await import('internal-ip');
+		internalHost = await internalIpV4();
+	}
+	/**
+	 * @type {import('next').NextConfig}
+	 */
+	const nextConfig = {
+		reactStrictMode: true,
+		swcMinify: true,
+		// Note: This experimental feature is required to use NextJS Image in SSG mode.
+		// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+		images: {
+			unoptimized: true,
+		},
+		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+	};
+	return nextConfig;
+};
+```
+
+Şu anda Next.js'yi dahili IP adresini kullanacak şekilde yapılandırmaya yönelik bir yapılandırma seçeneği yoktur; yalnızca CLI bunun değiştirilmesine izin verir.
+Bu nedenle, [beforeDevCommand] komutuna `--hostname $HOST` ifadesini eklemeniz gerekir.
+
+### Webpack
+
+Webpack, yerel IP adresini geliştirme sunucusu için ana bilgisayar olarak kullanmaya yönelik yerleşik bir seçeneğe sahiptir:
+
+```typescript title=webpack.config.js
+export default {
+	devServer: {
+		host: 'local-ipv4',
+	},
+};
+```
+
+[vite server]: https://vitejs.dev/config/server-options.html
+[assetprefix]: https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
+[beforedevcommand]: /references/v2/config#beforedevcommand-1
+[tauri releases on github]: https://github.com/tauri-apps/tauri/releases
+
+## Koşullu derleme
+
+`#[cfg(desktop)]` ve `#[cfg(mobile)]` koşullu kontrolleri, her hedef için kodu koşullu olarak derlemek amacıyla kullanılabilir.
+
+```rust title=lib.rs
+#[cfg(mobile)]
+fn do_something() {
+  println!("Hello from Mobile!");
+}
+
+#[cfg(desktop)]
+fn do_something() {
+  println!("Hello from Desktop!");
+}
+
+fn run() {
+  if cfg!(mobile) {
+    println!("Hello from Mobile!");
+  } else {
+    println!("Hello from Desktop!");
+  }
+}
+```

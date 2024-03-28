@@ -1,0 +1,56 @@
+---
+title: Web uygulamalarınız için güçlendirilmiş temel.
+description: Platformlar arası uygulama oluşturma aracı
+i18nReady: true
+template: splash
+hero:
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: Başlayın
+      link: /guides/
+      icon: right-arrow
+      variant: primary
+    - text: Katkı Yönergeleri
+      link: /contribute/
+      icon: open-book
+      variant: minimal
+    - text: Tauri 1.0 Dokümantasyonu
+      link: https://tauri.app
+      icon: external
+      variant: minimal
+banner:
+  content: |
+    Tauri 2.0 için ön sürüm sitesindesiniz -
+    <a href="https://tauri.app">Tauri 1.0 sitesine gidin</a>
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="hero-bg">
+	<div class="bg-logo"></div>
+	<div class="bg-grad"></div>
+	<div class="bg-grad-red"></div>
+</div>
+
+<CardGrid stagger>
+	<Card title="Ön Uçtan Bağımsız" icon="rocket">
+		Mevcut web yığınınızı Tauri'ye taşıyın veya hayalinizdeki yeni projeye başlayın.
+		Tauri herhangi bir ön uç çerçevesini destekler, böylece yığınızı (stack) değiştirmenize gerek kalmaz.
+	</Card>
+	<Card title="Çapraz Platform" icon="rocket">
+		Uygulamanızı Linux, macOS, Windows, Android ve iOS için oluşturun - Hepsi bir tek bir kod tabanında.
+	</Card>
+	<Card title="Inter-Process Communication" icon="rocket">
+		Ön ucunuzu JavaScript'e, uygulama mantığınızı Rust'a yazın ve Swift ve Kotlin ile sistemin derinliklerine entegre edin.
+	</Card>
+	<Card title="Maksimum Güvenlik" icon="rocket">
+		En yüksek önceliklerinizi ve en büyük yeniliklerinizi yönlendiren Tauri Ekibi için ön planda.
+	</Card>
+	<Card title="Minimal Boyut" icon="rocket">
+		İşletim sisteminin yerel web oluşturucusunu kullanarak Tauri uygulamasının boyutu 600 KB'a kadar küçük olabilir.
+	</Card>
+	<Card title="Rust tarafından desteklenmektedir" icon="rocket">
+		Merkezinde performans ve güvenlik bulunan Rust, yeni nesil uygulamaların dilidir.
+	</Card>
+</CardGrid>

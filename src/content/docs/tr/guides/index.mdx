@@ -1,0 +1,53 @@
+---
+title: Tauri nedir?
+i18nReady: true
+---
+
+:::caution[Ön Sürüm Yazılımı]
+
+Bu dokümantasyon Tauri 2.0'ın ön sürümü içindir ve geliştirme devam ettikçe değişebilir. Tauri 1.0 belgelerini arıyorsanız https://tauri.app adresini ziyaret edin.
+
+:::
+
+Tauri, tüm büyük masaüstü ve mobil platformlar için küçük, hızlı ikili dosyalar oluşturmaya yönelik bir çerçevedir. Geliştiriciler, gerektiğinde arka uç mantığı için Rust, Swift ve Kotlin gibi dillerden yararlanırken, kullanıcı deneyimlerini oluşturmak için HTML, JavaScript ve CSS'ye derleyen herhangi bir ön uç çerçevesini entegre edebilirler.
+
+Aşağıdaki komutlardan birini kullanarak [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) ile oluşturmaya başlayın. Tauri'nin ihtiyaç duyduğu tüm bağımlılıkları yüklemek için [önkoşullar kılavuzunu](/tr/guides/prerequisites/) takip ettiğinizden emin olun ve ardından önerilen ön uç yapılandırmaları için [Ön Uç Yapılandırma kılavuzlarını](/tr/guides/frontend/) görüntüleyin.
+
+import Cta from '../../_fragments/cta.mdx';
+
+<Cta />
+
+İlk uygulamanızı oluşturduktan sonra, [Özellikler ve Tarifler Listesi](/tr/features/)'nde Tauri'nin farklı özelliklerini ve tariflerini keşfedebilirsiniz.
+## Neden Tauri?
+
+Tauri,geliştiricilerin üzerine inşa edebileceği 3 ana avantaja sahiptir:
+
+- Uygulama oluşturmak için güvenli bir temel
+- Sistemin yerel web görünümünü kullanarak daha küçük paket boyutu
+- Geliştiricilerin birden çok dil için herhangi bir ön ucu ve bağlamayı kullanma esnekliği
+
+Tauri felsefesi hakkında daha fazla bilgi için [Tauri 1.0 blog yazısı](/blog/tauri-1-0).
+
+### Güvenli Temel
+
+Rust üzerine inşa edilen Tauri, Rust tarafından sunulan bellek, iş parçacığı ve tür güvenliğinden yararlanabiliyor. Tauri üzerine inşa edilen uygulamalar, Rust uzmanları tarafından geliştirilmesine gerek kalmadan otomatik olarak bu avantajlardan yararlanabilir.
+
+Tauri ayrıca büyük ve küçük sürümler için bir güvenlik denetiminden geçmektedir. Bu sadece Tauri organizasyonundaki kodu değil, aynı zamanda Tauri'nin dayandığı yukarı akış bağımlılıklarını da kapsar. Elbette bu tüm riskleri azaltmaz, ancak geliştiricilerin üzerine inşa edebilecekleri sağlam bir temel sağlar.
+
+[Tauri güvenlik politikasını](https://github.com/tauri-apps/tauri/security/policy) ve [Tauri 1.0 denetim raporunu](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v1-report.pdf) okuyun.
+
+### Küçük Uygulama Boyutu
+
+Tauri uygulamaları, her kullanıcının sisteminde zaten mevcut olan web görünümünden yararlanır. Bir Tauri uygulaması yalnızca o uygulamaya özel kod ve varlıkları içerir ve her uygulamayla birlikte bir tarayıcı motorunun paketlenmesine gerek yoktur. Bu, minimal bir Tauri uygulamasının boyutunun 600KB'den az olabileceği anlamına gelir.
+
+[Uygulama Boyutu kavramı](/concepts/size) bölümünde optimize edilmiş uygulamalar oluşturma hakkında daha fazla bilgi edinin.
+
+### Esnek Mimari
+
+Tauri web teknolojilerini kullandığından, bu neredeyse tüm ön uç çerçevelerinin Tauri ile uyumlu olduğu anlamına gelir. [Ön Uç Yapılandırma kılavuzu](/tr/guides/frontend/) popüler önyüz çerçeveleri için ortak yapılandırmaları içerir ve [Rendering concept](/concepts/rendering) hangi render tekniklerinin Tauri ile en iyi şekilde çalıştığını (SPA'lar ve SSG'ler gibi) tartışır.
+
+JavaScript ve Rust arasındaki bağlar, JavaScript'teki `invoke` işlevini kullanan geliştiriciler tarafından kullanılabilir ve Swift ve Kotlin bağları [Tauri Plugins](/tr/guides/plugins/) için kullanılabilir.
+
+[TAO](https://github.com/tauri-apps/tao) Tauri penceresi oluşturulmasından ve [WRY](https://github.com/tauri-apps/wry) web görünümü oluşturulmasından sorumludur. Bunlar Tauri tarafından tutulan kütüphanelerdir ve Tauri'nin sunduklarının dışında daha derin sistem entegrasyonu gerekiyorsa doğrudan tüketilebilirler.
+
+Ayrıca Tauri, çekirdek Tauri'nin sunduklarını genişletmek için bir dizi eklenti bulundurur. Bu eklentileri topluluk tarafından sağlananların yanı sıra [Özellikler ve Tarifler bölümünde](/tr/features) bulabilirsiniz.

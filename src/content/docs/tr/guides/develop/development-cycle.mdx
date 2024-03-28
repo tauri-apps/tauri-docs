@@ -1,0 +1,35 @@
+---
+title: Geliştirme Döngüsü
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+### 1. Geliştirme sunucunuzu başlatın
+
+Artık her şeyi ayarladığınıza göre, UI çerçeveniz veya paketleyiciniz tarafından sağlanan uygulama geliştirme sunucunuzu başlatmalısınız (tabii ki bir tane kullandığınızı varsayarak).
+
+:::note
+
+Her çerçevenin kendi geliştirme araçları vardır. Hepsini kapsamak veya güncel kalmak bu belgenin kapsamı dışındadır.
+
+:::
+
+### 2. Tauri Geliştirme Penceresini Başlatın
+
+<CommandTabs
+	npm="npm run tauri dev"
+	yarn="yarn tauri dev"
+	pnpm="pnpm tauri dev"
+	cargo="cargo tauri dev"
+/>
+
+Bu komutu ilk kez çalıştırdığınızda, Rust paket yöneticisinin gerekli tüm paketleri indirmesi ve derlemesi birkaç dakika sürer. Önbelleğe alındıklarından, yalnızca kodunuzun yeniden oluşturulması gerektiğinden sonraki derlemeler çok daha hızlıdır.
+
+Rust derlemeyi tamamladığında webview açılır ve web uygulamanız görüntülenir. Web uygulamanızda değişiklikler yapabilirsiniz ve araçlarınız bunu etkinleştirirse, web görünümü tıpkı bir tarayıcı gibi otomatik olarak güncellenmelidir. Rust dosyalarınızda değişiklik yaptığınızda, bunlar otomatik olarak yeniden oluşturulur ve uygulamanız otomatik olarak yeniden başlatılır.
+:::caution[Cargo.toml ve Kaynak Kontrolü Hakkında]
+
+Proje deponuzda `src-tauri/Cargo.lock` dosyasını `src-tauri/Cargo.toml` dosyası ile birlikte git'e işlemeniz **ZORUNLUDUR** çünkü Cargo deterministik derlemeler sağlamak için kilit dosyasını kullanır. Sonuç olarak, tüm uygulamaların `Cargo.lock` dosyalarını kontrol etmeleri önerilir. `src-tauri/target` klasörünü veya içeriğinden herhangi birini **İŞLEMEMELİSİNİZ**.
+
+:::

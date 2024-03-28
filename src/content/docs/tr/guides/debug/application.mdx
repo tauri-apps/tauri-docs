@@ -1,0 +1,115 @@
+---
+title: Uygulama Hata Ayıklama
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+{/* TODO: Update links and internal navigation */}
+{/* TODO: Revise this change: Application Debugging > Application Debug */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri'deki tüm hareketli parçalarla, hata ayıklama gerektiren bir sorunla karşılaşabilirsiniz. Hata ayrıntılarının yazdırıldığı birçok yer vardır ve Tauri hata ayıklama işlemini daha kolay hale getirmek için bazı araçlar içerir.
+
+## Rust Console
+
+Hata aramak için ilk yer Rust Konsoludur. Bu, örneğin `tauri dev` komutunu çalıştırdığınız terminaldedir. Bir Rust dosyası içinden bu konsola bir şeyler yazdırmak için aşağıdaki kodu kullanabilirsiniz:
+
+```rust
+println!("Message from Rust: {}", msg);
+```
+Bazen Rust kodunuzda bir hata olabilir ve Rust derleyicisi size birçok bilgi verebilir. Örneğin, `tauri dev` çökerse, Linux ve macOS üzerinde bu şekilde yeniden çalıştırabilirsiniz:
+
+```shell
+RUST_BACKTRACE=1 tauri dev
+```
+
+veya Windows'ta bunun gibi:
+
+```shell
+set RUST_BACKTRACE=1
+tauri dev
+```
+
+Bu komut size ayrıntılı bir yığın izi verir. Genel olarak, Rust derleyicisi size şu şekilde yardımcı olur
+size konu hakkında ayrıntılı bilgi verir, örneğin:
+
+```bash
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
+```
+
+## WebView Console
+
+WebView'e sağ tıklayın ve `Inspect Element`'yi seçin. Bu, alışık olduğunuz Chrome veya Firefox geliştirme araçlarına benzer bir web denetçisi açar.
+
+Denetçiyi açmak için Linux ve Windows'ta `Ctrl + Shift + i` kısayolunu ve macOS'ta `Command + Option + i` kısayolunu da kullanabilirsiniz.
+
+Denetçi, Linux'ta webkit2gtk WebInspector'ı, macOS'ta Safari'nin denetçisini ve Windows'ta Microsoft Edge DevTools'u işleyerek platforma özgüdür.
+
+### Opening Devtools Programmatically
+
+Denetçi penceresinin görünürlüğünü [`Window::open_devtools`] ve [`Window::close_devtools`] fonksiyonlarını kullanarak kontrol edebilirsiniz:
+
+```rust
+use tauri::Manager;
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(debug_assertions)] // only include this code on debug builds
+    {
+      let window = app.get_window("main").unwrap();
+      window.open_devtools();
+      window.close_devtools();
+    }
+    Ok(())
+  });
+```
+
+### Using the Inspector in Production
+
+Varsayılan olarak, denetçi, bir Cargo özelliği ile etkinleştirmediğiniz sürece yalnızca geliştirme ve hata ayıklama derlemelerinde etkindir.
+
+#### Create a Debug Build
+
+Hata ayıklama derlemesi oluşturmak için `tauri build --debug` komutunu çalıştırın.
+
+<CommandTabs
+	npm="npm run tauri build -- --debug"
+	yarn="yarn tauri build --debug"
+	pnpm="pnpm tauri build --debug"
+	cargo="cargo tauri build --debug"
+/>
+
+Normal derleme ve geliştirme süreçlerinde olduğu gibi, bu komutu ilk kez çalıştırdığınızda derleme biraz zaman alır, ancak sonraki çalıştırmalarda önemli ölçüde daha hızlıdır.
+Son paketlenmiş uygulama geliştirme konsolunu etkinleştirir ve `src-tauri/target/debug/bundle` içine yerleştirilir.
+
+Ayrıca, Rust derleyici notlarını (hata durumunda) veya `println` mesajlarınızı vererek terminalden oluşturulmuş bir uygulamayı çalıştırabilirsiniz. src-tauri/target/(release|debug)/[app name]` dosyasına göz atın ve doğrudan konsolunuzda çalıştırın veya dosya sistemindeki çalıştırılabilir dosyanın kendisine çift tıklayın (not: bu yöntemle hatalarda konsol kapanır).
+
+##### Enable Devtools Feature
+
+:::danger
+
+Devtools API'si macOS'te özeldir. macOS'te özel API'ler kullanmak, uygulamanızın App Store'a kabul edilmesini engeller.
+
+:::
+
+Üretim derlemelerinde devtools'u etkinleştirmek için `src-tauri/Cargo.toml` dosyasında `devtools` Cargo özelliğini etkinleştirmeniz gerekir:
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "devtools"] }
+```
+
+## Ana Süreçte Hata Ayıklama
+
+Core süreci Rust tarafından desteklenmektedir, bu nedenle hata ayıklamak için GDB veya LLDB kullanabilirsiniz. Tauri uygulamalarının Core Process'inde hata ayıklamak için LLDB VS Code Extension'ı nasıl kullanacağınızı öğrenmek için [VS Code'da Hata Ayıklama] kılavuzunu takip edebilirsiniz.
+
+[debugging in vs code]: /guides/debug/vs-code
+[`window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
+[`window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
