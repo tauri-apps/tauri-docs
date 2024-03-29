@@ -1,7 +1,7 @@
 ---
 title: Updater
 ---
-{/* TODO: REVISE COPY TO V2 */}
+{ /* TODO: REVISE COPY TO V2 */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -25,20 +25,20 @@ To sign your updates you need two things:
 To generate the keys on Linux and macOS you can use the Tauri CLI:
 
 <CommandTabs
-	npm="npm run tauri signer generate -- -w ~/.tauri/myapp.key"
-	yarn="yarn tauri signer generate -w ~/.tauri/myapp.key"
-	pnpm="pnpm tauri signer generate -w ~/.tauri/myapp.key"
-	cargo="cargo tauri signer generate -w ~/.tauri/myapp.key"
-/>
+      npm="npm run tauri signer generate -- -w ~/.tauri/myapp.key"
+      yarn="yarn tauri signer generate -w ~/.tauri/myapp.key"
+      pnpm="pnpm tauri signer generate -w ~/.tauri/myapp.key"
+      cargo="cargo tauri signer generate -w ~/.tauri/myapp.key"
+    />
 
 If you are on Windows, you should use `$HOME/.tauri/myapp.key` or a different path of your choice instead:
 
 <CommandTabs
-	npm="npm run tauri signer generate -- -w $HOME/.tauri/myapp.key"
-	yarn="yarn tauri signer generate -w $HOME/.tauri/myapp.key"
-	pnpm="pnpm tauri signer generate -w $HOME/.tauri/myapp.key"
-	cargo="cargo tauri signer generate -w $HOME/.tauri/myapp.key"
-/>
+      npm="npm run tauri signer generate -- -w $HOME/.tauri/myapp.key"
+      yarn="yarn tauri signer generate -w $HOME/.tauri/myapp.key"
+      pnpm="pnpm tauri signer generate -w $HOME/.tauri/myapp.key"
+      cargo="cargo tauri signer generate -w $HOME/.tauri/myapp.key"
+    />
 
 ## Tauri Configuration
 
@@ -46,24 +46,26 @@ Now you need to configure Tauri's updater. To do this, add this to your [Tauri c
 
 ```json title=tauri.conf.json
 {
-  "tauri": {
+  "plugin": {
     "updater": {
-      "active": true,
       "endpoints": [
         "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}"
       ],
-      "dialog": true,
       "pubkey": "YOUR_UPDATER_SIGNATURE_PUBKEY_HERE"
     }
+  },
+  "bundle": {
+    "targets": ["...", "updater"]
   }
 }
+
 ```
 
 The required keys are `"active"`, `"endpoints"` and `"pubkey"` to enable the updater. `"dialog"` is optional and will default to `true` if not set.
 
 `"active"` must be a boolean. By default it's set to false.
 
-`"endpoints"` must be an array of updater endpoint URLs as strings. TLS is enforced in production mode.<br/>
+`"endpoints"` must be an array of updater endpoint URLs as strings. TLS is enforced in production mode.<br />
 Each updater URL can contain the following variables allowing you to determine [server-side](#server-support) if an update is available:
 
 - `{{current_version}}`: The version of the app that is requesting the update.
@@ -72,15 +74,13 @@ Each updater URL can contain the following variables allowing you to determine [
 
 `"pubkey"` must be a valid public key generated with Tauri's CLI [above](#signing-updates).
 
-`"dialog"` if present must be a boolean. By default it's set to true. If enabled, updater will be disabled as the built-in dialog handles everything. If you need custom events, you must turn off the built-in dialog.
-
 ### `installMode` on Windows
 
 On Windows there is an additional optional config [`"installMode"`](/references/v2/config/#installmode-1) to change how the update is installed.
 
 ```json title=tauri.conf.json
 {
-  "tauri": {
+  "plugins": {
     "updater": {
       "windows": {
         "installMode": "passive"
@@ -100,22 +100,22 @@ Tauri's bundler will automatically generate and sign update artifacts once the u
 
 Before building your app, you need to set environment variables for the private key and password:
 
-- `TAURI_PRIVATE_KEY`: Path or content of your private key
-- `TAURI_KEY_PASSWORD`: Your private key password (optional)
+- `TAURI_SIGNING_PRIVATE_KEY`: Path or content of your private key
+- `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`: Your private key password (optional)
 
 If you want to set these variables for the current console session you could execute these commands in the console which you will use to build the app later:
 
 <Tabs>
   <TabItem label="set-env-vars">
     ```shell
-    export TAURI_PRIVATE_KEY="content of the generated key"
-    export TAURI_KEY_PASSWORD="password"
+    export TAURI_SIGNING_PRIVATE_KEY="content of the generated key"
+    export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="password"
     ```
   </TabItem>
   <TabItem label="PowerShell">
     ```powershell
-    $env:TAURI_PRIVATE_KEY="content of the generated key"
-    $env:TAURI_KEY_PASSWORD="password"
+    $env:TAURI_SIGNING_PRIVATE_KEY="content of the generated key"
+    $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD="password"
     ```
   </TabItem>
 </Tabs>
@@ -198,8 +198,19 @@ Note that Tauri will validate the _whole_ file before checking the version field
 
 With this approach, Tauri will follow the update server's instructions. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
 
-{/* TODO: Update link to v2 */}
-Your server can use variables defined in the [`endpoint`](https://tauri.app/v1/api/config/#updaterendpoint) url above to determine if an update is required. If you need more data, you can include additional [request headers in Rust] to your liking.
+{ /* TODO: Update link to v2 */}
+Your server can use variables defined as below url above to determine if an update is required. If you need more data, you can include additional request headers utilizing the update plugin to your liking.
+
+```json title="tauri.conf.json"
+"plugins": {
+    {...}
+    "updater": {
+      "endpoints": [
+        "https://tauri-update-server.vercel.app/update/{{target}}/{{current_version}}"
+      ]
+    }
+  },
+```
 
 Your server should respond with a status code of [`204 No Content`] if there is no update available.
 
@@ -225,69 +236,8 @@ The required keys are "url", "version" and "signature"; the others are optional.
 
 ## Checking for Updates
 
-### Built-In Dialog
+Tauri utilizes the plugin Update to check and install updates, see [plugin Update guide](/features/updater/) to see all details.
 
-By default, the updater shows a dialog using Tauri's [dialog.ask](/references/v2/js/dialog/#ask) API internally. The dialog will only check for a new update when the app was just launched or when you manually [emit](/references/v2/js/core/namespaceevent/) the `"tauri://update"` event.
-
-<div style={{ textAlign: 'center' }}>
-	<Image src={updaterDialogImage} alt="Default updater dialog"/>
-</div>
-
-The dialog release notes are represented by the update `notes` provided by the [server](#server-support).
-If the user accepts, the update is downloaded and installed. Afterwards, the user is prompted to restart the application.
-
-### Custom Dialog
-
-:::caution
-
-You need to disable the built-in dialog in your [Tauri configuration](#tauri-configuration) to enable the JavaScript APIs and updater events!
-
-:::
-
-#### Rust
-
-Please see the updater module documentation at [docs.rs] for the Rust API.
-
-#### JavaScript
-
-For the complete API docs see [here](/references/v2/js/updater/). An example using the JavaScript API looks like this:
-
-```js title=updater.ts
-import {
-  checkUpdate,
-  installUpdate,
-  onUpdaterEvent,
-} from '@tauri-apps/api/updater'
-import { relaunch } from '@tauri-apps/api/process'
-
-const unlisten = await onUpdaterEvent(({ error, status }) => {
-  // This will log all updater events, including status updates and errors.
-  console.log('Updater event', error, status)
-})
-
-try {
-  const { shouldUpdate, manifest } = await checkUpdate()
-
-  if (shouldUpdate) {
-    // You could show a dialog asking the user if they want to install the update here.
-    console.log(
-      `Installing update ${manifest?.version}, ${manifest?.date}, ${manifest?.body}`
-    )
-
-    // Install the update. This will also restart the app on Windows!
-    await installUpdate()
-
-    // On macOS and Linux you will need to restart the app manually.
-    // You could use this step to display another confirmation dialog.
-    await relaunch()
-  }
-} catch (error) {
-  console.error(error)
-}
-
-// you need to call unlisten if your handler goes out of scope, for example if the component is unmounted.
-unlisten()
-```
 
 [overwrite tauri's version comparison]: https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.should_install
 [request headers in rust]: https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.header
