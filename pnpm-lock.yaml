@@ -53,8 +53,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.1(@astrojs/starlight@0.21.2)(astro@4.5.12)
       starlight-links-validator:
-        specifier: ^0.6.0
-        version: 0.6.0(@astrojs/starlight@0.21.2)(astro@4.5.12)
+        specifier: ^0.7.0
+        version: 0.7.0(@astrojs/starlight@0.21.2)(astro@4.5.12)
 
   packages/config-generator:
     dependencies:
@@ -4878,8 +4878,8 @@ packages:
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.6.0(@astrojs/starlight@0.21.2)(astro@4.5.12):
-    resolution: {integrity: sha512-YXzKKZHM79ccBTO61l2WSmgdCG3406gldpVM6J2LhqZ5CeXsOgj6lho2xMLkc/p5nWcNSuYI2qNzsNUrLTmR5w==}
+  /starlight-links-validator@0.7.0(@astrojs/starlight@0.21.2)(astro@4.5.12):
+    resolution: {integrity: sha512-Uoxn03oaTPxgWnZlGheUTOgD1/Mgnu4KUcARRa5/R8PuQ579ere/2Wuzwo5+5VR32G7B0n1LqXDABVZx2QnW9A==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
