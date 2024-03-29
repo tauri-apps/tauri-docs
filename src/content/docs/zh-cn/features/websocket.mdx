@@ -19,7 +19,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 设置
 
-_这个插件要求 Rust 版本至少是  **1.75**_
+_这个插件要求 Rust 版本至少是 **1.75**_
 
 首先安装 websocket 插件。
 
@@ -107,10 +107,10 @@ await ws.disconnect();
 }
 ```
 
-| 权限                      | 描述                                                   |
-| ------------------------- | ------------------------------------------------------------- |
-| `websocket:default`       | 允许连接和发送数据到 WebSocket 服务器      |
+| 权限                      | 描述                                              |
+| ------------------------- | ------------------------------------------------- |
+| `websocket:default`       | 允许连接和发送数据到 WebSocket 服务器             |
 | `websocket:allow-connect` | 在没有预先配置的作用域的情况下启用 connect 命令。 |
-| `websocket:deny-connect`  | 拒绝没有任何预配置范围的 connect 命令。  |
+| `websocket:deny-connect`  | 拒绝没有任何预配置范围的 connect 命令。           |
 | `websocket:allow-send`    | 在没有预先配置的作用域的情况下启用 send 命令。    |
-| `websocket:deny-send`     | 拒绝没有任何预配置范围的 send 命令。     |
+| `websocket:deny-send`     | 拒绝没有任何预配置范围的 send 命令。              |
