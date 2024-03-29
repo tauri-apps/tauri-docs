@@ -55,7 +55,11 @@ The plugin instance on mobile has a getter for the plugin configuration:
 <Tabs>
 <TabItem label="Android">
 
-```java
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
   override fun load(webView: WebView) {
@@ -95,7 +99,11 @@ There are also the additional [lifecycle events for plugins](/guides/plugins#lif
 <Tabs>
 <TabItem label="Android">
 
-```java
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
   override fun load(webView: WebView) {
@@ -125,8 +133,10 @@ class ExamplePlugin: Plugin {
 - **When**: When the activity is re-launched. See [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) for more information.
 - **Why**: Handle application re-launch such as when a notification is clicked or a deep link is accessed.
 
-```java
-// import android.content.Intent
+```kotlin
+import android.app.Activity
+import android.content.Intent
+import app.tauri.annotation.TauriPlugin
 
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
@@ -145,14 +155,15 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="Android">
 
-```java
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
   @Command
   fun openCamera(invoke: Invoke) {
-    val allowEdit = invoke.getBoolean("allowEdit", false)
-    val quality = invoke.getInt("quality", 100)
-
     val ret = JSObject()
     ret.put("path", "/path/to/photo.jpg")
     invoke.resolve(ret)
@@ -165,10 +176,7 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 
 ```swift
 class ExamplePlugin: Plugin {
-	@objc public func openCamera(_ invoke: Invoke) {
-    let allowEdit = invoke.getBool("allowEdit", false)
-    let quality = invoke.getInt("quality", 100)
-
+	@objc public func openCamera(_ invoke: Invoke) throws {
     invoke.resolve(["path": "/path/to/photo.jpg"])
 	}
 }
@@ -207,6 +215,86 @@ impl<R: Runtime> <plugin-name;pascal-case><R> {
 }
 ```
 
+## Command Arguments
+
+Arguments are serialized to commands and can be parsed on the mobile plugin with the `Invoke::parseArgs` function, taking a class describing the argument object.
+
+### Android
+
+On Android, the arguments are defined as a class annotated with `@app.tauri.annotation.InvokeArg`. Inner objects must also be annotated:
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.Command
+import app.tauri.annotation.InvokeArg
+import app.tauri.annotation.TauriPlugin
+
+@InvokeArg
+internal class OpenAppArgs {
+  lateinit var name: String
+  var timeout: Int? = null
+}
+
+@InvokeArg
+internal class OpenArgs {
+  lateinit var requiredArg: String
+  var allowEdit: Boolean = false
+  var quality: Int = 100
+  var app: OpenAppArgs? = null
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val args = invoke.parseArgs(OpenArgs::class.java)
+  }
+}
+```
+
+:::note
+Optional arguments are defined as `var <argumentName>: Type? = null`
+
+Arguments with default values are defined as `var <argumentName>: Type = <default-value>`
+
+Required arguments are defined as `lateinit var <argumentName>: Type`
+:::
+
+### iOS
+
+On iOS, the arguments are defined as a class that inherits `Decodable`. Inner objects must also inherit the Decodable protocol:
+
+```swift
+class OpenAppArgs: Decodable {
+  let name: String
+  var timeout: Int?
+}
+
+class OpenArgs: Decodable {
+  let requiredArg: String
+  var allowEdit: Bool = false
+  var quality: UInt8 = 100
+  var app: OpenAppArgs?
+}
+
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    let args = try invoke.parseArgs(OpenArgs.self)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+:::note
+Optional arguments are defined as `var <argumentName>: Type?`
+
+Arguments with default values are defined as `var <argumentName>: Type = <default-value>`
+
+Required arguments are defined as `let <argumentName>: Type`
+:::
+
 ## Permissions
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
@@ -216,7 +304,7 @@ If a plugin requires permissions from the end user, Tauri simplifies the process
 
 First define the list of permissions needed and an alias to identify each group in code. This is done inside the `TauriPlugin` annotation:
 
-```java
+```kotlin
 @TauriPlugin(
   permissions = [
     Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
@@ -323,7 +411,7 @@ Plugins can emit events at any point of time using the `trigger` function:
 <Tabs>
 <TabItem label="Android">
 
-```java
+```kotlin
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
     override fun load(webView: WebView) {
