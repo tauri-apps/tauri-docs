@@ -36,10 +36,10 @@ import { invoke } from '@tauri-apps/api/core';
 
 // When using the Tauri global script (if not using the npm package)
 // Be sure to set `app.withGlobalTauri` in `tauri.conf.json` to true
-const invoke = window.__TAURI__.invoke
+const invoke = window.__TAURI__.invoke;
 
 // Invoke the command
-invoke('my_custom_command')
+invoke('my_custom_command');
 ```
 
 ## Passing Arguments
@@ -56,7 +56,7 @@ fn my_custom_command(invoke_message: String) {
 Arguments should be passed as a JSON object with camelCase keys:
 
 ```js
-invoke('my_custom_command', { invokeMessage: 'Hello!' })
+invoke('my_custom_command', { invokeMessage: 'Hello!' });
 ```
 
 Arguments can be of any type, as long as they implement [`serde::Deserialize`].
@@ -74,7 +74,7 @@ fn my_custom_command(invoke_message: String) {
 The corresponding JavaScript:
 
 ```js
-invoke('my_custom_command', { invoke_message: 'Hello!' })
+invoke('my_custom_command', { invoke_message: 'Hello!' });
 ```
 
 ## Returning Data
@@ -91,7 +91,7 @@ fn my_custom_command() -> String {
 The `invoke` function returns a promise that resolves with the returned value:
 
 ```js
-invoke('my_custom_command').then((message) => console.log(message))
+invoke('my_custom_command').then((message) => console.log(message));
 ```
 
 Returned data can be of any type, as long as it implements [`serde::Serialize`].
@@ -115,7 +115,7 @@ If the command returns an error, the promise will reject, otherwise, it resolves
 ```js
 invoke('my_custom_command')
 	.then((message) => console.log(message))
-	.catch((error) => console.error(error))
+	.catch((error) => console.error(error));
 ```
 
 As mentioned above, everything returned from commands must implement [`serde::Serialize`], including errors.
@@ -227,7 +227,7 @@ Since invoking the command from JavaScript already returns a promise, it works j
 ```js
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
 	console.log('Completed!')
-)
+);
 ```
 
 ## Accessing the WebviewWindow in Commands
@@ -374,12 +374,12 @@ import { invoke } from '@tauri-apps/api/core';
 
 // Invocation from JavaScript
 invoke('my_custom_command', {
-  number: 42,
+	number: 42,
 })
-  .then((res) =>
-    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
-  )
-  .catch((e) => console.error(e));
+	.then((res) =>
+		console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+	)
+	.catch((e) => console.error(e));
 ```
 
 [`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-beta/tauri/async_runtime/fn.spawn.html
