@@ -66,6 +66,7 @@ Install the store plugin to get started.
     />
 
     </TabItem>
+
 </Tabs>
 
 ## Usage
@@ -74,16 +75,16 @@ Install the store plugin to get started.
 <TabItem label="JavaScript">
 
 ```js
-import { Store } from "@tauri-apps/plugin-store";
+import { Store } from '@tauri-apps/plugin-store';
 
 // Store will be loaded automatically when used in JavaScript binding.
-const store = new Store("store.bin");
+const store = new Store('store.bin');
 
 // Set a value.
-await store.set("some-key", { value: 5 });
+await store.set('some-key', { value: 5 });
 
 // Get a value.
-const val = await store.get("some-key");
+const val = await store.get('some-key');
 console.log(val); // { value: 5 }
 
 // You can manually save the store after making changes.
@@ -146,16 +147,16 @@ See [Access Control List](/references/v2/acl) for more information.
 	"description": "Capability for the main window",
 	"windows": ["main"],
 	"permissions": [
-    "store:allow-get",
-    "store:allow-set",
-    "store:allow-save",
-    "store:allow-load"
-  ]
+		"store:allow-get",
+		"store:allow-set",
+		"store:allow-save",
+		"store:allow-load"
+	]
 }
 ```
 
 | Permission            | Description                                                   |
-|-----------------------|---------------------------------------------------------------|
+| --------------------- | ------------------------------------------------------------- |
 | `store:allow-clear`   | Enables the clear command without any pre-configured scope.   |
 | `store:deny-clear`    | Denies the clear command without any pre-configured scope.    |
 | `store:allow-delete`  | Enables the delete command without any pre-configured scope.  |
