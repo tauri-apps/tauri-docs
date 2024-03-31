@@ -5,18 +5,11 @@ i18nReady: true
 
 Trunk 是一个用于 Rust 的 WASM 网页应用打包器。 前往 https://trunkrs.dev 获取更多信息。本指南基于 Trunk 0.17.5。
 
-:::caution[关于移动端支持的提示]
-
-Trunk 的官方版本暂时不支持 Tauri 移动端开发。如果想要开发移动端内容，你需要使用 https://github.com/amrbashir/trunk 直到 https://github.com/thedodd/trunk/pull/494 和 https://github.com/thedodd/trunk/pull/500 被合并并发布。
-
-你需要在安装 Truck 时使用 `cargo install --git https://github.com/amrbashir/trunk`，并在 `Trunk.toml` 中设置 `serve.ws_protocol = "ws"`。
-
-:::
-
 ## 检查清单
 
 - 使用 SSG。Tauri 不支持基于服务端的解决方案。
 - 使用 `address = "0.0.0.0"` 以使服务器在移动端开发时可用。
+- 使用 `ws_protocol = "ws"` 以便进行移动开发时热重载 websocket 可以正常连接。
 - 启用 `withGlobalTauri` 以确保 Tauri API 在使用 `window.__TAURI__` 变量时可用，并且可以使用 `wasm-bindgen` 导入。
 
 ## 示例配置
@@ -30,7 +23,9 @@ Trunk 的官方版本暂时不支持 Tauri 移动端开发。如果想要开发�
 		"beforeDevCommand": "trunk serve",
 		"beforeBuildCommand": "trunk build",
 		"devPath": "http://localhost:8080",
-		"distDir": "../dist",
+		"distDir": "../dist"
+	},
+	"app": {
 		"withGlobalTauri": true
 	}
 }
@@ -45,4 +40,5 @@ ignore = ["./src-tauri"]
 
 [serve]
 address = "0.0.0.0"
+ws_protocol = "ws"
 ```
