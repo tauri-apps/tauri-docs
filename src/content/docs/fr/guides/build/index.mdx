@@ -1,0 +1,33 @@
+---
+title: Build pour la production
+description: Préparez et empaquetez votre application pour les utilisateurs
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard title="Réduire la taille de l'application" href="/fr/guides/build/app-size" />
+	<LinkCard title="Compilation multiplatforme" href="/fr/guides/build/cross-platform/" />
+  <LinkCard title="Embedding Additional Files" href="/fr/guides/build/resources/" />
+  <LinkCard title="Intégrer des fichiers supplémentaires" href="/fr/guides/build/sidecar/" />
+</CardGrid>
+
+## Tauri Bundler 
+
+Tauri Bundler est un harnais Rust pour compiler votre binaire, empaqueter les ressources et préparer un paquet final.
+
+Il détectera votre système d'exploitation et construira un paquet en conséquence. Il prend actuellement en charge :
+
+<CardGrid>
+    <LinkCard title="Paquet Linux" href="/fr/guides/build/linux/" />
+    <LinkCard title="macOS Bundle" href="/fr/guides/build/macos/" />
+    <LinkCard title="Windows Installer" href="/fr/guides/build/windows/" />
+</CardGrid>
+
+## Code Signing
+
+<CardGrid>
+    <LinkCard title="Linux Code Signing" href="/fr/guides/build/sign-linux/" />
+    <LinkCard title="macOS Code Signing" href="/fr/guides/build/sign-macos/" />
+    <LinkCard title="Signature de code Windows" href="/fr/guides/build/sign-windows/" />
+</CardGrid>

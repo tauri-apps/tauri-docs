@@ -1,0 +1,32 @@
+---
+title: Compilazione
+description: Prepara e impacchetta la tua app per gli utenti
+---
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard title="Ridurre La Dimensione Dell'App" href="/it/guides/build/app-size" />
+	<LinkCard title="Cross-Platform Compilation" href="/it/guides/build/cross-platform/" />
+  <LinkCard title="Incorporare File Aggiuntivi" href="/it/guides/build/resources/" />
+  <LinkCard title="Embedding External Binaries" href="/it/guides/build/sidecar/" />
+</CardGrid>
+
+## Tauri Bundler 
+
+Il Tauri Bundler è un framework Rust per compilare i vostri assets, binari, pacchetti e preparare un pacchetto finale.
+
+Rileverà il vostro sistema operativo e costruirà un bundle di conseguenza. Attualmente supporta:
+
+<CardGrid>
+    <LinkCard title="Linux Bundle" href="/it/guides/build/linux/" />
+    <LinkCard title="macOS Bundle" href="/it/guides/build/macos/" />
+    <LinkCard title="Windows Installer" href="/it/guides/build/windows/" />
+</CardGrid>
+
+## Code Signing
+
+<CardGrid>
+    <LinkCard title="Linux Code Signing" href="/it/guides/build/sign-linux/" />
+    <LinkCard title="macOS Code Signing" href="/it/guides/build/sign-macos/" />
+    <LinkCard title="Windows Code Signing" href="/it/guides/build/sign-windows/" />
+</CardGrid>
