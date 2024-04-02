@@ -82,7 +82,7 @@ pub fn run() {
 		tauri::Builder::default()
 				.plugin(
 						tauri_plugin_stronghold::Builder::new(|password| {
-								// 在这里使用 argon2, blake2b 或任何其他安全算法对密码进行散列。
+								// 在这里使用 argon2、blake2b 或任何其他安全算法对密码进行散列。
 								// 下面是一个使用 `rust-argon2` 板条箱对密码进行散列的示例实现：
 								use argon2::{hash_raw, Config, Variant, Version};
 
