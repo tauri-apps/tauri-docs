@@ -211,7 +211,7 @@ export default defineConfig({
 				{
 					label: 'References',
 					translations: {
-						"zh-CN": "引用"
+						"zh-CN": "参考"
 					},
 					collapsed: true,
 					items: [
