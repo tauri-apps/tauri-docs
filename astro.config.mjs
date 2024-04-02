@@ -218,7 +218,7 @@ export default defineConfig({
 						{
 							label: 'List of References',
 							translations: {
-								"zh-CN": "引用列表"
+								"zh-CN": "参考列表"
 							},
 							link: '/references',
 						},
