@@ -160,7 +160,7 @@ export default defineConfig({
 				{
 					label: 'Guides',
 					translations:{
-						'zh-CN': "指导"
+						'zh-CN': "指引"
 					},
 					collapsed: true,
 					items: [
