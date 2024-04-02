@@ -64,76 +64,86 @@ on:
 
 ### Example Workflow
 
-Below is an example workflow that has been setup to run every time a new version is created on git.
+Below is an example workflow that has been setup to run every time you push to the `release` branch.
 
-This workflow sets up the environment on Windows, Ubuntu, and macOS latest versions. Note under `jobs.release.strategy.matrix` the platform array which contains `macos-latest`, `ubuntu-20.04`, and `windows-latest`.
+This workflow will build and release your app for Linux x64, Windows x64, macOS x64 and macOS Arm64 (M1 and above).
 
 The steps this workflow takes are:
 
 1. Checkout the repository using `actions/checkout@v4`
-2. Set up Node LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
-3. Set up Rust and a cache for the `target/` folder using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
-4. Installs all the dependencies and run the build script (for the web app).
-5. Finally, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create the GitHub release.
+2. Install Linux system dependencies required to build the app.
+3. Set up Node LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
+4. Set up Rust and a cache for the `target/` folder using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
+5. Install the frontend dependencies and, if not configured as `beforeBuildCommand`, run the web app's build script.
+6. Finally, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create the GitHub release.
 
 ```yaml
-name: Release
+name: 'publish'
+
 on:
   push:
-    tags:
-      - 'v*'
-  workflow_dispatch:
+    branches:
+      - release
 
 jobs:
-  release:
+  publish-tauri:
     permissions:
       contents: write
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
-    runs-on: ${{ matrix.platform }}
+        - platform: 'macos-latest' # for Arm based macs (M1 and above).
+          args: '--target aarch64-apple-darwin'
+        - platform: 'macos-latest' # for Intel based macs.
+          args: '--target x86_64-apple-darwin'
+        - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
+          args: ''
+        - platform: 'windows-latest'
+          args: ''
 
+    runs-on: ${{ matrix.settings.platform }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-20.04'
-        # You can remove libayatana-appindicator3-dev if you don't use the system tray feature.
+      - name: install dependencies (ubuntu only)
+        if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+        # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
+        # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
 
-      - name: Rust setup
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'yarn' # Set this to npm, yarn or pnpm.
+
+      - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.settings.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
 
-      - name: Sync node version and setup cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
-          cache: 'yarn' # Set this to npm, yarn or pnpm.
-
-      - name: Install frontend dependencies
+      - name: install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: yarn install # Change this to npm, yarn or pnpm.
+        run: yarn install # change this to npm or pnpm depending on which one you use.
 
-      - name: Build the app
-        uses: tauri-apps/tauri-action@v0
-
+      - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
-          releaseName: 'App Name v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
-          releaseBody: 'See the assets to download and install this version.'
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
+          args: ${{ matrix.settings.args }}
 ```
 
 ### GitHub Environment Token

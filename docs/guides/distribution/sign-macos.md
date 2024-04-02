@@ -103,63 +103,25 @@ You can view <a href="https://docs.github.com/en/actions/reference/encrypted-sec
 
 :::
 
-Once we have established the GitHub Secrets, we create a GitHub publish workflow in `.github/workflows/main.yml`:
+Once we have established the GitHub Secrets, we will update the last step of the GitHub publish workflow from the [cross-platform guide](../building/cross-platform.md#example-workflow):
 
 ```yml
-name: 'publish'
-on:
-  push:
-    branches:
-      - release
-
-jobs:
-  publish-tauri:
-    permissions:
-      contents: write
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [macos-latest]
-    runs-on: ${{ matrix.platform }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Rust setup
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Rust cache
-        uses: swatinem/rust-cache@v2
-        with:
-          workspaces: './src-tauri -> target'
-
-      - name: Sync node version and setup cache
-        uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
-          cache: 'yarn' # Set this to npm, yarn or pnpm.
-
-      - name: Install frontend dependencies
-        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: yarn install # Change this to npm, yarn or pnpm.
-
-      - name: Build the app
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'App v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
-          prerelease: false
+- uses: tauri-apps/tauri-action@v0
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+    APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+    APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+    APPLE_ID: ${{ secrets.APPLE_ID }}
+    APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+    APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+  with:
+    tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+    releaseName: 'App v__VERSION__'
+    releaseBody: 'See the assets to download this version and install.'
+    releaseDraft: true
+    prerelease: false
+    args: ${{ matrix.settings.args }}
 ```
 
 The workflow pulls the secrets from GitHub and defines them as environment variables before building the application using the Tauri action. The output is a GitHub release with the signed and notarized macOS application.
