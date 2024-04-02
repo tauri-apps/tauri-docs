@@ -124,12 +124,6 @@ const navbarItems = [
   {
     type: 'localeDropdown',
     position: 'right',
-    dropdownItemsAfter: [
-      {
-        to: 'https://tauri.crowdin.com/documentation',
-        label: 'Help us translate',
-      },
-    ],
   },
   {
     type: 'docsVersionDropdown',
