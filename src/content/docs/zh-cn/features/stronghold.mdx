@@ -82,7 +82,7 @@ pub fn run() {
 		tauri::Builder::default()
 				.plugin(
 						tauri_plugin_stronghold::Builder::new(|password| {
-								// 在这里使用 argon2, blake2b 或任何其他安全算法对密码进行散列。
+								// 在这里使用 argon2、blake2b 或任何其他安全算法对密码进行散列。
 								// 下面是一个使用 `rust-argon2` 板条箱对密码进行散列的示例实现：
 								use argon2::{hash_raw, Config, Variant, Version};
 
@@ -130,7 +130,7 @@ pub fn run() {
 
 ### 在 JavaScript 使用
 
-stronghold 插件可以在 JavaScript 中使用。
+Stronghold 插件可以在 JavaScript 中使用。
 
 ```js
 import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
