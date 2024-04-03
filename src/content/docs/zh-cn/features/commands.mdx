@@ -181,7 +181,7 @@ fn my_custom_command() -> Result<(), Error> {
 :::caution
 
 使用 Tauri 创建异步函数时需要小心目前，你不能简单地在异步函数的签名中包含借用的参数。一些常见的类型示例是 `&str` 和 `State<'_, Data>`。
-这里跟踪了这个限制： https://github.com/tauri-apps/tauri/issues/2533 和解决方法如下所示。
+这里追踪了这个限制： https://github.com/tauri-apps/tauri/issues/2533 和解决方法如下所示。
 
 :::
 
