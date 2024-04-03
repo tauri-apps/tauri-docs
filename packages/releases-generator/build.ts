@@ -119,6 +119,7 @@ async function generator() {
 				`slug: 'releases/${pkg.name}/v${thisVersion}'`,
 				`tableOfContents: false`,
 				`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+				'pagefind: false',
 			];
 
 			const frontmatter = ['---', ...pageFrontmatter, ...navFrontmatter, '---'].join('\n');
