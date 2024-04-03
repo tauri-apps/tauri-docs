@@ -61,7 +61,7 @@ invoke('my_custom_command', { invokeMessage: 'Hello!' });
 
 参数可以是任何类型，只要它们实现了 [`serde::Deserialize`]。
 
-请注意，当在Rust中使用 snake_case 声明参数时，在 JavaScript 中参数会被转换为 camelCase。
+请注意，当在 Rust 中使用 snake_case 声明参数时，在 JavaScript 中参数会被转换为 camelCase。
 要在 JavaScript 中使用 snake_case，你必须在 `tauri::command` 语句中声明它。
 
 ```rust
