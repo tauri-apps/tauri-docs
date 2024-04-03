@@ -172,7 +172,7 @@ fn my_custom_command() -> Result<(), Error> {
 :::note
 
 异步命令使用 [`async_runtime::spawn`] 在单独的线程上执行。
-没有 _async_ 关键字的命令将在主线程上执行，除非定义了 _#[tauri::command(async)]_.
+没有 _async_ 关键字的命令将在主线程上执行，除非定义了 _#[tauri::command(async)]_。
 
 :::
 
