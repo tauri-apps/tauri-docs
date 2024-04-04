@@ -90,7 +90,7 @@ import Database from '@tauri-apps/plugin-sql';
 const db = await Database.load('mysql://user:pass@host/database');
 await db.execute('INSERT INTO ...');
 
-```
+````
   </TabItem>
   <TabItem label="PostgreSQL">
 ```javascript
@@ -99,7 +99,7 @@ import Database from "@tauri-apps/plugin-sql";
 const db = await Database.load("postgres://postgres:password@localhost/test");
 await db.execute("INSERT INTO ...");
 
-```
+````
 
   </TabItem>
 </Tabs>
@@ -122,7 +122,7 @@ const result = await db.execute(
 [todos.title, todos.status, todos.id],
 );
 
-```
+````
   </TabItem>
   <TabItem label="MySQL">
 Use "?" when substituting query data
@@ -136,7 +136,7 @@ const result = await db.execute(
   "UPDATE todos SET title = ?, status = ? WHERE id = ?",
   [todos.title, todos.status, todos.id],
 );
-```
+````
 
   </TabItem>
   <TabItem label="PostgreSQL">
@@ -152,7 +152,7 @@ const result = await db.execute(
 [todos.title, todos.status, todos.id],
 );
 
-```
+````
   </TabItem>
 </Tabs>
 
@@ -175,7 +175,7 @@ let migration = Migration {
     sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
     kind: MigrationKind::Up,
 };
-```
+````
 
 ### Adding Migrations to the Plugin Builder
 
