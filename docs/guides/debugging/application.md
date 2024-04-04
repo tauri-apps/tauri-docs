@@ -19,7 +19,6 @@ RUST_BACKTRACE=1 tauri dev
 ```
 
 or like this on Windows if you're using cmd.exe:
-``` adding the .exe makes it a bit clearer. 
 
 ```shell
 set RUST_BACKTRACE=1
@@ -28,7 +27,7 @@ tauri dev
 
 or like this on Windows if you're using PowerShell:
 
-```shell
+```powershell
 $env:RUST_BACKTRACE=1
 tauri dev
 ```
