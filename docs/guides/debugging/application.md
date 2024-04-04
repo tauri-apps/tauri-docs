@@ -18,12 +18,20 @@ Sometimes you may have an error in your Rust code, and the Rust compiler can giv
 RUST_BACKTRACE=1 tauri dev
 ```
 
-or like this on Windows:
+or like this on Windows if you're using cmd.exe:
 
 ```shell
 set RUST_BACKTRACE=1
 tauri dev
 ```
+
+or like this on Windows if you're using PowerShell:
+
+```powershell
+$env:RUST_BACKTRACE=1
+tauri dev
+```
+
 
 This command gives you a granular stack trace. Generally speaking, the Rust compiler helps you by
 giving you detailed information about the issue, such as:
