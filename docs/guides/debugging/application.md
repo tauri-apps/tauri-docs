@@ -18,7 +18,8 @@ Sometimes you may have an error in your Rust code, and the Rust compiler can giv
 RUST_BACKTRACE=1 tauri dev
 ```
 
-or like this on Windows if you're on cmd:
+or like this on Windows if you're using cmd.exe:
+``` adding the .exe makes it a bit clearer. 
 
 ```shell
 set RUST_BACKTRACE=1
