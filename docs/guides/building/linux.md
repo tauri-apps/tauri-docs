@@ -260,7 +260,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: pguyot/arm-runner-action@v2.5.2
         with:
-          base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bullseye.7z
+          base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bullseye.img.xz
           cpu: cortex-a53
           bind_mount_repository: true
           image_additional_mb: 10240
