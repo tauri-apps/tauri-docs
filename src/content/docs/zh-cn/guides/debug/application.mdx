@@ -54,15 +54,14 @@ For more information about this error, try `rustc --explain E0425`.
 
 ### 通过程序打开 Devtools
 
-您可以使用 [`Window::open_devtools`] 和 [`Window::close_devtools`] 函数来控制检查器窗口的可见性：
+您可以使用 [`WebviewWindow::open_devtools`] 和 [`WebviewWindow::close_devtools`] 函数来控制检查器窗口的可见性：
 
 ```rust
-use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
     #[cfg(debug_assertions)] // 仅在调试构建时包含此代码
     {
-      let window = app.get_window("main").unwrap();
+      let window = app.get_webview_window("main").unwrap();
       window.open_devtools();
       window.close_devtools();
     }
@@ -110,5 +109,5 @@ tauri = { version = "...", features = ["...", "devtools"] }
 核心进程由 Rust 支持，因此您可以使用 GDB 或 LLDB 进行调试。您可以按照[在 VS Code 中调试]指南学习如何使用 LLDB VS 代码扩展来调试 Tauri 应用程序的核心进程。
 
 [在 VS Code 中调试]: /guides/debug/vs-code
-[`window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
-[`window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0-beta/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0-beta/tauri/webview/struct.WebviewWindow.html#method.close_devtools
