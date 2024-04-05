@@ -18,7 +18,7 @@ importers:
         version: 5.0.0
       '@astrojs/starlight':
         specifier: ^0.21.0
-        version: 0.21.3(astro@4.5.16)
+        version: 0.21.4(astro@4.5.16)
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -51,10 +51,10 @@ importers:
         version: 1.2.4
       starlight-blog:
         specifier: ^0.5.0
-        version: 0.5.1(@astrojs/starlight@0.21.3)(astro@4.5.16)
+        version: 0.5.1(@astrojs/starlight@0.21.4)(astro@4.5.16)
       starlight-links-validator:
         specifier: ^0.7.0
-        version: 0.7.1(@astrojs/starlight@0.21.3)(astro@4.5.16)
+        version: 0.7.1(@astrojs/starlight@0.21.4)(astro@4.5.16)
 
   packages/config-generator:
     dependencies:
@@ -215,8 +215,8 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/starlight@0.21.3(astro@4.5.16):
-    resolution: {integrity: sha512-SvIKB8ECR+RhYdTg3bKsTL2e5Yac75eTatfOMGjkp3ced9Bx34xXMSURuKx/AHBWo1X/+WoWzKT3Y3d2y7kkVg==}
+  /@astrojs/starlight@0.21.4(astro@4.5.16):
+    resolution: {integrity: sha512-n9K9WMYN9HtRsZ6u06yLXKMaLMo+a6ifDoBkP24S6EFOsgFUa4P9/t+xliDnNFTf3KGtm9YTdSUA3oI/2wq1eQ==}
     peerDependencies:
       astro: ^4.2.7
     dependencies:
@@ -238,7 +238,6 @@ packages:
       rehype: 13.0.1
       remark-directive: 3.0.0
       unified: 11.0.4
-      unist-util-remove: 4.0.0
       unist-util-visit: 5.0.0
       vfile: 6.0.1
     transitivePeerDependencies:
@@ -1525,7 +1524,7 @@ packages:
   /@types/sax@1.2.7:
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
     dependencies:
-      '@types/node': 20.12.4
+      '@types/node': 17.0.45
     dev: false
 
   /@types/unist@2.0.10:
@@ -4838,26 +4837,26 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.5.1(@astrojs/starlight@0.21.3)(astro@4.5.16):
+  /starlight-blog@0.5.1(@astrojs/starlight@0.21.4)(astro@4.5.16):
     resolution: {integrity: sha512-3zJ7sJDe3rsE+9vJU/hDOKpKXEJwEMN0ha24DmKmKPKN5mtrN43p/ZJdrhRpb+PyJoJR4eNAtMLNgFyEu40cGA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.19.0'
       astro: '>=4.2.7'
     dependencies:
-      '@astrojs/starlight': 0.21.3(astro@4.5.16)
+      '@astrojs/starlight': 0.21.4(astro@4.5.16)
       astro: 4.5.16
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.7.1(@astrojs/starlight@0.21.3)(astro@4.5.16):
+  /starlight-links-validator@0.7.1(@astrojs/starlight@0.21.4)(astro@4.5.16):
     resolution: {integrity: sha512-6SYqCGQdiiTMrgCE4d3F/kFae1rYzuVk0QUs9MXqj6w65tZLvd4qieTrN2NdDNMWXyoxzUTR+ehNzajqr7ZUEg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
       astro: '>=4.0.0'
     dependencies:
-      '@astrojs/starlight': 0.21.3(astro@4.5.16)
+      '@astrojs/starlight': 0.21.4(astro@4.5.16)
       astro: 4.5.16
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
@@ -5244,14 +5243,6 @@ packages:
     dependencies:
       '@types/unist': 3.0.2
       unist-util-visit: 5.0.0
-    dev: false
-
-  /unist-util-remove@4.0.0:
-    resolution: {integrity: sha512-b4gokeGId57UVRX/eVKej5gXqGlc9+trkORhFJpu9raqZkZhU0zm8Doi05+HaiBsMEIJowL+2WtQ5ItjsngPXg==}
-    dependencies:
-      '@types/unist': 3.0.2
-      unist-util-is: 6.0.0
-      unist-util-visit-parents: 6.0.1
     dev: false
 
   /unist-util-stringify-position@3.0.3:
