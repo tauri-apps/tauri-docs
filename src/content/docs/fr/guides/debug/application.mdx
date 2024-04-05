@@ -49,15 +49,14 @@ L'inspecteur est spécifique à la plate-forme, rendant le webkit2gtk WebInspect
 
 ### Ouverture de Devtools par programmation
 
-Vous pouvez contrôler la visibilité de la fenêtre d'inspection en utilisant les fonctions [`Window::open_devtools`][] et [`Window::close_devtools`][] :
+Vous pouvez contrôler la visibilité de la fenêtre d'inspection en utilisant les fonctions [`WebviewWindow::open_devtools`][] et [`WebviewWindow::close_devtools`][] :
 
 ```rust
-use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
     #[cfg(debug_assertions)] // n'incluez ce code que sur les versions de débogage
     {
-      let window = app.get_window("main").unwrap();
+      let window = app.get_webview_window("main").unwrap();
       window.open_devtools();
       window.close_devtools();
     }
@@ -104,5 +103,5 @@ tauri = { version = "...", features = ["...", "devtools"] }
 Le processus Core est alimenté par Rust, vous pouvez donc utiliser GDB ou LLDB pour le déboguer. Vous pouvez suivre le guide [Débogage dans VS Code][] pour apprendre à utiliser l'extension LLDB VS Code pour déboguer le processus principal des applications Tauri.
 
 [Débogage dans VS Code]: /fr/guides/debug/vs-code
-[`Window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
-[`Window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0-beta/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0-beta/tauri/webview/struct.WebviewWindow.html#method.close_devtools

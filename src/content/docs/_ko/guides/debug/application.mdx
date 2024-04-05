@@ -50,15 +50,14 @@ WebView에서 우클릭한 후, `요소 검사`를 선택합니다. 이렇게 �
 
 ### 프로그래밍으로 Devtools 열기
 
-[`Window::open_devtools`][] 및 [`Window::close_devtools`][] 기능을 사용하여 검사기 창을 제어할 수 있습니다.
+[`WebviewWindow::open_devtools`][] 및 [`WebviewWindow::close_devtools`][] 기능을 사용하여 검사기 창을 제어할 수 있습니다.
 
 ```rust
-use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
     #[cfg(debug_assertions)] // 디버그 빌드에만 이 코드를 포함
     {
-      let window = app.get_window("main").unwrap();
+      let window = app.get_webview_window("main").unwrap();
       window.open_devtools();
       window.close_devtools();
     }
@@ -105,5 +104,5 @@ tauri = { version = "...", features = ["...", "devtools"] }
 핵심 프로세스는 Rust로 구동되므로 GDB 또는 LLDB를 사용하여 디버깅할 수 있습니다. [VS Code에서 디버깅][] 가이드에 따라 LLDB VS Code 확장을 사용하여 Tauri 애플리케이션의 핵심 프로세스를 디버깅하는 방법을 알아볼 수 있습니다.
 
 [VS Code에서 디버깅]: /ko/guides/debug/vs-code
-[`Window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
-[`Window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0-beta/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0-beta/tauri/webview/struct.WebviewWindow.html#method.close_devtools
