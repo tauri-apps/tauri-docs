@@ -188,8 +188,8 @@ function entitify(str: string): string {
 		})
 		.replace(/\$\{/g, '$\\{');
 }
-console.log(process.env.HEAD);
-if (process.env.HEAD === 'next' || process.env.HEAD?.startsWith('release-pages')) {
+
+if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
 	generator();
 } else {
 	console.info('Skipping `/release` pages build');
