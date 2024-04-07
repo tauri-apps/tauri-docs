@@ -128,6 +128,14 @@ export default defineConfig({
 					autogenerate: { directory: 'test' },
 				},
 				{
+					label: 'Security',
+					translations: {
+						'zh-CN': '功能和秘诀',
+					},
+					collapsed: true,
+					autogenerate: { directory: 'security' },
+				},
+				{
 					label: 'Distribute',
 					translations: {
 						'zh-CN': '功能和秘诀',
