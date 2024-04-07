@@ -1,6 +1,6 @@
 ---
-title: Upload
-description: File uploads through HTTP.
+title: 上传
+description: 通过 HTTP 上传文件
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,16 +9,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="upload" />
 
-Upload files from disk to a remote server over HTTP. Download files from a remote HTTP server to disk.
+通过 HTTP 从磁盘上传文件到远程服务器。从远程 HTTP 服务器下载文件到磁盘。
 
-## Setup
+## 设置
 
-_This plugin requires a Rust version of at least **1.75**_
+_这个插件要求 Rust 版本至少是 **1.75**_
 
 <Tabs>
-	<TabItem label="Automatic">
+	<TabItem label="自动">
 
-    Use your project's package manager to add the dependency:
+    使用项目的包管理器来添加依赖。
 
     <CommandTabs
     npm="npm run tauri add upload"
@@ -28,13 +28,13 @@ _This plugin requires a Rust version of at least **1.75**_
     />
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="手动">
 
     	<Steps>
 
-    	1. Run `cargo add tauri-plugin-upload` to add the plugin to the project's dependencies in `Cargo.toml`.
+    	1. 运行 `cargo add tauri-plugin-upload` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
-    	2. Modify `lib.rs` to initialize the plugin:
+    	2. 修改 `lib.rs` 来初始化插件。
 
     		```rust title="src-tauri/src/lib.rs" ins={5}
     		#[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -47,7 +47,7 @@ _This plugin requires a Rust version of at least **1.75**_
     		}
     		```
 
-    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
     		<CommandTabs
     			npm="npm install @tauri-apps/plugin-upload"
@@ -60,11 +60,11 @@ _This plugin requires a Rust version of at least **1.75**_
 
 </Tabs>
 
-## Usage
+## 用法
 
-Once you've completed the registration and setup process for the plugin, you can access all of its APIs through the JavaScript guest bindings.
+一旦完成了插件的注册和设置过程，就可以通过 JavaScript Guest 绑定访问它的所有 API。
 
-Here's an example of how you can use the plugin to upload and download files:
+下面是一个使用插件上传和下载文件的例子：
 
 ```js
 import { upload } from '@tauri-apps/plugin-upload';
@@ -72,8 +72,8 @@ import { upload } from '@tauri-apps/plugin-upload';
 upload(
 	'https://example.com/file-upload',
 	'./path/to/my/file.txt',
-	(progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
-	{ 'Content-Type': 'text/plain' } // optional headers to send with the request
+	(progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // 上传进度时调用的回调函数
+	{ 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
 );
 ```
 
@@ -83,7 +83,7 @@ import { download } from '@tauri-apps/plugin-upload';
 download(
 	'https://example.com/file-download-link',
 	'./path/to/save/my/file.txt',
-	(progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
-	{ 'Content-Type': 'text/plain' } // optional headers to send with the request
+	(progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // 下载进度时调用的回调函数
+	{ 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
 );
 ```

@@ -1,6 +1,6 @@
 ---
-title: Single Instance
-description: Ensure that a single instance of your Tauri app is running at a time.
+title: 单例
+description: 确保一次只运行一个 Tauri 应用程序实例。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,16 +9,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="single-instance" showJsLinks={false} />
 
-Ensure that a single instance of your tauri app is running at a time using the Single Instance Plugin.
+使用单实例插件确保 Tauri 应用程序在同一时间只运行单个实例。
 
-## Setup
+## 设置
 
-Install the Single Instance plugin to get started.
+请安装单例插件。
 
 <Tabs>
-    <TabItem label="Automatic">
+    <TabItem label="自动">
 
-    Use your project's package manager to add the dependency:
+    使用项目的包管理器来添加依赖。
 
     <CommandTabs npm="npm run tauri add single-instance"
     yarn="yarn run tauri add single-instance"
@@ -26,11 +26,11 @@ Install the Single Instance plugin to get started.
     cargo="cargo tauri add single-instance" />
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="手动">
     <Steps>
     <ol>
       <li>
-        **Install :** Add the plugin to the project's dependencies in `Cargo.toml`.
+        **安装：** 在 `Cargo.toml` 中将插件添加到项目的依赖中。
       <Tabs>
         <TabItem label="crates.io">
       ```toml title="src-tauri/Cargo.toml" ins={2}
@@ -48,7 +48,7 @@ Install the Single Instance plugin to get started.
       </Tabs>
       </li>
       <li>
-        **Initialize :** Update `lib.rs` (or `main.rs` for desktop-only apps) to initialize the plugin:
+        **初始化：** 更新 `lib.rs` （或者只针对桌面应用的 `main.rs`） 来初始化插件。
 
       ```rust title="src-tauri/src/lib.rs" ins={3}
       pub fn run() {
@@ -65,28 +65,28 @@ Install the Single Instance plugin to get started.
 
 </Tabs>
 
-## Usage
+## 用法
 
-The plugin is already installed and initialized, and it should be functioning correctly right away. Nevertheless, we can also enhance its functionality with the `init()` method.
+插件已经安装并初始化，应该可以立即正常运行。尽管如此，我们也可以使用 `init()` 方法来增强它的功能。
 
-The plugin `init()` method takes a closure that is invoked when a new app instance was started, but closed by the plugin.
-The closure has three arguments:
+插件的 `init()` 方法接受一个闭包，该闭包在新 App 实例启动时调用，但由插件关闭。
+这个闭包有三个参数：
 
-1. **`app` :** The [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) of the application.
-2. **`args` :** The list of arguments, that was passed by the user to initiate this new instance.
-3. **`cwd` :** The Current Working Directory denotes the directory from which the new application instance was launched.
+1. **`app`**：应用程序的 [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) 。
+2. **`args`**：用户初始化新实例时传递的参数列表。
+3. **`cwd`**：当前工作目录表示启动新应用程序实例的目录。
 
-So, the closure should look like below
+因此，闭包应该如下所示
 
 ```rust
 .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
-  // Write your code here...
+  // 在这里写代码 ……
 }))
 ```
 
-### Focusing on New Instance
+### 关注新实例
 
-By default, when you initiate a new instance while the application is already running, no action is taken. To focus the window of the running instance when user tries to open a new instance, alter the callback closure as follows:
+默认情况下，当应用程序已经在运行时启动新实例时，不会采取任何操作。当用户尝试打开一个新实例时，为了聚焦正在运行实例的窗口，修改回调闭包如下。
 
 ```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
 use tauri::{AppHandle, Manager};
