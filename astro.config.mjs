@@ -98,113 +98,50 @@ export default defineConfig({
 				{
 					label: 'Quick Start',
 					translations: {
-						'zh-CN': '快速开始',
+						'zh-CN': '功能和秘诀',
 					},
 					collapsed: true,
-					items: [
-						{
-							label: 'What is Tauri?',
-							translations: {
-								'zh-CN': '什么是 Tauri?',
-							},
-							link: 'guides',
-						},
-						{
-							label: 'Prerequisites',
-							translations: {
-								es: 'Prerrequisitos',
-								'zh-CN': '前置条件',
-							},
-							link: 'guides/prerequisites',
-						},
-						{
-							label: 'Create a Project',
-							translations: {
-								'zh-CN': '创建项目',
-							},
-							link: 'guides/create',
-						},
-						{
-							label: 'Frontend Configuration',
-							translations: {
-								es: 'Configuración del Frontend',
-								'zh-CN': '前端配置',
-							},
-							link: 'guides/frontend',
-						},
-						{
-							label: 'Upgrade & Migrate',
-							translations: {
-								'zh-CN': '升级和迁移',
-							},
-							link: 'guides/upgrade-migrate',
-						},
-						{
-							label: 'Core Concepts',
-							translations: {
-								'zh-CN': '核心概念',
-							},
-							link: 'concepts',
-						},
-						{
-							label: 'Troubleshooting',
-							translations: {
-								'zh-CN': '故障排除',
-							},
-							link: 'guides/troubleshoot',
-						},
-					],
+					autogenerate: { directory: 'start' },
 				},
 				{
-					label: 'Guides',
+					label: 'Concepts',
 					translations: {
-						'zh-CN': '指引',
+						'zh-CN': '功能和秘诀',
 					},
 					collapsed: true,
-					items: [
-						{
-							label: 'Develop',
-							translations: {
-								'zh-CN': '开发',
-							},
-							link: 'guides/develop/',
-						},
-						{
-							label: 'Debug',
-							translations: {
-								'zh-CN': '调试',
-							},
-							link: 'guides/debug/',
-						},
-						{
-							label: 'Test',
-							translations: {
-								'zh-CN': '测试',
-							},
-							link: 'guides/test',
-						},
-						{
-							label: 'Build',
-							translations: {
-								'zh-CN': '构建',
-							},
-							link: 'guides/build',
-						},
-						{
-							label: 'Distribute',
-							translations: {
-								'zh-CN': '分发',
-							},
-							link: 'guides/distribute',
-						},
-						{
-							label: 'Plugin Development',
-							translations: {
-								'zh-CN': '插件开发',
-							},
-							link: 'guides/plugins',
-						},
-					],
+					autogenerate: { directory: 'concepts' },
+				},
+				{
+					label: 'Develop',
+					translations: {
+						'zh-CN': '功能和秘诀',
+					},
+					collapsed: true,
+					autogenerate: { directory: 'develop' },
+				},
+				{
+					label: 'Test',
+					translations: {
+						'zh-CN': '功能和秘诀',
+					},
+					collapsed: true,
+					autogenerate: { directory: 'test' },
+				},
+				{
+					label: 'Distribute',
+					translations: {
+						'zh-CN': '功能和秘诀',
+					},
+					collapsed: true,
+					autogenerate: { directory: 'distribute' },
+				},
+				{
+					label: 'Features',
+					translations: {
+						'zh-CN': '功能和秘诀',
+					},
+					collapsed: true,
+					autogenerate: { directory: 'features' },
 				},
 				{
 					label: 'References',
@@ -212,59 +149,7 @@ export default defineConfig({
 						'zh-CN': '参考',
 					},
 					collapsed: true,
-					items: [
-						{
-							label: 'List of References',
-							translations: {
-								'zh-CN': '参考列表',
-							},
-							link: '/references',
-						},
-						{
-							label: 'Tauri Configuration',
-							translations: {
-								'zh-CN': 'Tauri 配置',
-							},
-							link: '/references/v2/config',
-						},
-						{
-							label: 'Access Control List',
-							translations: {
-								'zh-CN': '访问控制列表（ACL）',
-							},
-							link: '/references/v2/acl',
-						},
-						{
-							label: 'Command Line Interface (CLI)',
-							translations: {
-								'zh-CN': '命令行接口（CLI）',
-							},
-							link: '/references/v2/cli',
-						},
-						{
-							label: 'JavaScript API',
-							translations: {
-								'zh-CN': 'JavaScript 接口',
-							},
-							link: '/references/v2/js',
-						},
-						{
-							label: 'Rust API (via Docs.rs)',
-							translations: {
-								'zh-CN': 'Rust 接口',
-							},
-							// TODO: Is there a way to link this to the latest pre-released version?
-							link: 'https://docs.rs/tauri/~2.0.0-beta',
-						},
-					],
-				},
-				{
-					label: 'Features & Recipes',
-					translations: {
-						'zh-CN': '功能和秘诀',
-					},
-					collapsed: true,
-					autogenerate: { directory: 'features' },
+					autogenerate: { directory: 'references' },
 				},
 			],
 			locales,
@@ -372,9 +257,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }

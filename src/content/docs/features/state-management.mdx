@@ -1,0 +1,32 @@
+---
+title: State Management
+description: Singletons in Tauri apps.
+---
+
+import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+
+<Stub>
+
+- Document how the `State` feature works.
+- Useful information: https://tauri.by.simon.hyll.nu/concepts/tauri/state_management/
+
+Define a state struct and let Tauri manage it:
+
+```rust
+use std::{collections::HashMap, sync::Mutex};
+use tauri::{Manager, plugin::Builder};
+
+#[derive(Default)]
+struct Store(Mutex<HashMap<usize, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(Store::default());
+
+    // retrieve the store later
+    let store = app.state::<Store>();
+    Ok(())
+  })
+```
+</Stub>

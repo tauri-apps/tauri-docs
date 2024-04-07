@@ -1,0 +1,84 @@
+---
+title: Application Lifecycle Threats
+sidebar:
+  badge: 
+    text: WIP
+    variant: caution
+---
+
+Application development environment security is critical for every project,
+as all fancy and advanced runtime or compliation based security measures
+can be potentially rendered useless, once a development system is compromised.
+
+Therefore we analysed several threats you should be aware when developing
+a Tauri application.
+
+Tauri applications are composed of many pieces at different points of the lifecycle.
+Here we describe classical threats and what you SHOULD do about them.
+
+All of these distinct steps are described in the following sections.
+
+![Threat Stages During Development](@assets/concepts/application-flow-simple.svg)
+
+### Upstream Threats
+
+Tauri is a direct dependency on your project, and we maintain strict authorial control
+of commits, reviews, pull requests, and releases.
+We do our best to maintain up-to-date dependencies and take action to either update
+or fork and fix. Other projects may not be so well maintained, and may not even
+have ever been audited.
+
+Please consider their health when integrating them, otherwise, you may have adopted
+architectural debt without even knowing it.
+
+### Development Threats
+
+We assume that you, the developer, care for your development environment.
+It is on you to make sure that your operating system, build toolchains, and
+associated dependencies are kept up to date and reasonable secured.
+
+A genuine risk all of us face is what is known as "supply-chain attacks",
+which are usually considered to be attacks on direct dependencies of your project.
+However, a growing class of attacks in the wild directly target development machines,
+and you would be well off to address this head-on.
+
+One practice that we highly recommend, is to only ever consume critical dependencies
+from git using hash revisions at best or named tags as second best.
+This holds for Rust as well as the Node ecosystem.
+Also, consider requiring all contributors to sign their commits and protect Git branches and pipelines.
+
+### Buildtime Threats
+
+Modern organizations use CI/CD to manufacture binary artifacts.
+At Tauri, we even provide a GitHub Workflow for building on multiple platforms.
+If you create your own CI/CD and depend on third-party tooling, be wary of actions
+whose versions you have not explicitly pinned.
+
+You should sign your binaries for the platform you are shipping to.
+While this can be complicated and somewhat costly to set up, end users expect that your
+app is verifiably from you.
+
+### Distribution Threats
+
+We have done our best to make shipping hot updates to the app as
+straightforward and secure as possible.
+However, all bets are off if you lose control of the manifest server,
+the build server, or the binary hosting service. If you build your own system,
+consult a professional OPS architect and build it properly.
+
+### Runtime Threats
+
+We assume the webview is insecure, which has led Tauri to implement several protections
+regarding webview access to system APIs in the context of loading untrusted userland content.
+
+Using the [Content Security Policy](@concepts/security/csp.mdx) will lockdown types of
+communication that the Webview can undertake.
+Furthermore, [Capabilities](@concepts/security/capabilities.mdx) can prevent untrusted content or scripts from accessing
+the API within the Webview.
+
+:::caution
+
+And please, whatever you do, **DO NOT** trust the results of cryptography using
+private keys in the Webview.
+
+:::
