@@ -104,7 +104,7 @@ export default defineConfig({
 					autogenerate: { directory: 'start' },
 				},
 				{
-					label: 'Concepts',
+					label: 'Core Concepts',
 					translations: {
 						'zh-CN': '功能和秘诀',
 					},
