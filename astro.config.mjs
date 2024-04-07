@@ -358,9 +358,9 @@ export default defineConfig({
 		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
 		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
 
-		// Decommissioned locales
-		'/ko/[...slug]': '/[...slug]',
-		'/it/[...slug]': '/[...slug]',
+		// Decommissioned locales -> refer to /public/_redirects file
+		// '/ko/[...slug]': '/[...slug]',
+		// '/it/[...slug]': '/[...slug]',
 	},
 	//
 });
