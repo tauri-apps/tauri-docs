@@ -62,7 +62,7 @@ function sortVersions(a: Route, b: Route): number {
 	const [package1, version1] = t1.split('@').filter((w) => w.length > 0);
 	const [package2, version2] = t2.split('@').filter((w) => w.length > 0);
 	if (package1 === package2) {
-		return semver.lt(version1, version2);
+		return semver.lt(version1, version2) ? -1 : semver.gt(version1, version2) ? 1 : 0;
 	} else {
 		return package1.localeCompare(package2);
 	}
