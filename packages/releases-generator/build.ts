@@ -151,6 +151,7 @@ async function generator() {
 		extraNote,
 		`title: 'Tauri Core Ecosystem Releases'`,
 		`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+		'tableOfContents: false',
 		'---',
 	].join('\n');
 
