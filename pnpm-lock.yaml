@@ -114,13 +114,13 @@ importers:
         version: 2.3.0
       typedoc:
         specifier: ^0.25.9
-        version: 0.25.12(typescript@5.4.4)
+        version: 0.25.13(typescript@5.4.4)
       typedoc-plugin-markdown:
         specifier: 4.0.0-next.17
-        version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.2.5)(typedoc@0.25.12)
+        version: 4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.2.5)(typedoc@0.25.13)
       typedoc-plugin-mdn-links:
         specifier: ^3.1.17
-        version: 3.1.19(typedoc@0.25.12)
+        version: 3.1.19(typedoc@0.25.13)
 
   packages/releases-generator:
     dependencies:
@@ -5123,27 +5123,27 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
-  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.2.5)(typedoc@0.25.12):
+  /typedoc-plugin-markdown@4.0.0-next.17(patch_hash=kpxroq2vap5a4oc32rphk2cev4)(prettier@3.2.5)(typedoc@0.25.13):
     resolution: {integrity: sha512-hzIoOt81PTkO50m+QJAo4B4tnsmp5sfv7kQfPOx/ZKRLODoa3buQzo2k6/sHGahUeKIyzHtqoiEFzB6Bl4nHQQ==}
     peerDependencies:
       prettier: '>=1.8.0'
       typedoc: '>=0.24.0'
     dependencies:
       prettier: 3.2.5
-      typedoc: 0.25.12(typescript@5.4.4)
+      typedoc: 0.25.13(typescript@5.4.4)
     dev: false
     patched: true
 
-  /typedoc-plugin-mdn-links@3.1.19(typedoc@0.25.12):
+  /typedoc-plugin-mdn-links@3.1.19(typedoc@0.25.13):
     resolution: {integrity: sha512-v08h/JorBemjl6xQyw+tB1P5BX2OUI9zr9vR5ZTuLsmETUrS3NC2z6ou8Ci0FDjSL0nA1tGsdXhUn42sEgkkUA==}
     peerDependencies:
       typedoc: '>= 0.23.14 || 0.24.x || 0.25.x'
     dependencies:
-      typedoc: 0.25.12(typescript@5.4.4)
+      typedoc: 0.25.13(typescript@5.4.4)
     dev: false
 
-  /typedoc@0.25.12(typescript@5.4.4):
-    resolution: {integrity: sha512-F+qhkK2VoTweDXd1c42GS/By2DvI2uDF4/EpG424dTexSHdtCH52C6IcAvMA6jR3DzAWZjHpUOW+E02kyPNUNw==}
+  /typedoc@0.25.13(typescript@5.4.4):
+    resolution: {integrity: sha512-pQqiwiJ+Z4pigfOnnysObszLiU3mVLWAExSPf+Mu06G/qsc3wzbuM56SZQvONhHLncLUhYzOVkjFFpFfL5AzhQ==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
