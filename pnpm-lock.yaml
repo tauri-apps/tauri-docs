@@ -18,7 +18,7 @@ importers:
         version: 5.0.0
       '@astrojs/starlight':
         specifier: ^0.21.0
-        version: 0.21.4(astro@4.5.17)
+        version: 0.21.5(astro@4.5.17)
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -51,10 +51,10 @@ importers:
         version: 1.2.4
       starlight-blog:
         specifier: ^0.5.0
-        version: 0.5.1(@astrojs/starlight@0.21.4)(astro@4.5.17)
+        version: 0.5.1(@astrojs/starlight@0.21.5)(astro@4.5.17)
       starlight-links-validator:
         specifier: ^0.7.0
-        version: 0.7.1(@astrojs/starlight@0.21.4)(astro@4.5.17)
+        version: 0.7.1(@astrojs/starlight@0.21.5)(astro@4.5.17)
 
   packages/config-generator:
     dependencies:
@@ -215,8 +215,8 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/starlight@0.21.4(astro@4.5.17):
-    resolution: {integrity: sha512-n9K9WMYN9HtRsZ6u06yLXKMaLMo+a6ifDoBkP24S6EFOsgFUa4P9/t+xliDnNFTf3KGtm9YTdSUA3oI/2wq1eQ==}
+  /@astrojs/starlight@0.21.5(astro@4.5.17):
+    resolution: {integrity: sha512-cvftxu7DM4C25KGSxqyIk81DiQGX0zx9s5sfmprd1kKQK1h/MQXaRVDCpJrK4SjrgWtpG1UoKLJZBgD5w4k9kw==}
     peerDependencies:
       astro: ^4.2.7
     dependencies:
@@ -4837,26 +4837,26 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-blog@0.5.1(@astrojs/starlight@0.21.4)(astro@4.5.17):
+  /starlight-blog@0.5.1(@astrojs/starlight@0.21.5)(astro@4.5.17):
     resolution: {integrity: sha512-3zJ7sJDe3rsE+9vJU/hDOKpKXEJwEMN0ha24DmKmKPKN5mtrN43p/ZJdrhRpb+PyJoJR4eNAtMLNgFyEu40cGA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.19.0'
       astro: '>=4.2.7'
     dependencies:
-      '@astrojs/starlight': 0.21.4(astro@4.5.17)
+      '@astrojs/starlight': 0.21.5(astro@4.5.17)
       astro: 4.5.17
       github-slugger: 2.0.0
     dev: false
 
-  /starlight-links-validator@0.7.1(@astrojs/starlight@0.21.4)(astro@4.5.17):
+  /starlight-links-validator@0.7.1(@astrojs/starlight@0.21.5)(astro@4.5.17):
     resolution: {integrity: sha512-6SYqCGQdiiTMrgCE4d3F/kFae1rYzuVk0QUs9MXqj6w65tZLvd4qieTrN2NdDNMWXyoxzUTR+ehNzajqr7ZUEg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
       astro: '>=4.0.0'
     dependencies:
-      '@astrojs/starlight': 0.21.4(astro@4.5.17)
+      '@astrojs/starlight': 0.21.5(astro@4.5.17)
       astro: 4.5.17
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
