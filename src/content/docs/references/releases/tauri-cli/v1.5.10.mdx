@@ -1,0 +1,39 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-cli@1.5.10'
+description: '1.5.10'
+slug: 'references/releases/tauri-cli/v1.5.10'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-cli/v1.5.9'
+   label: '1.5.9'
+next:
+   link: 'references/releases/tauri-cli/v2.0.0-alpha.0'
+   label: 'v2.0.0-alpha.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-cli"  packageName="tauri-cli" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v1.5.10">View on GitHub</a></span></div>
+
+### New Features
+
+- [`89911296`](https://www.github.com/tauri-apps/tauri/commit/89911296e475d5c36f3486b9b75232505846e767)([#8259](https://www.github.com/tauri-apps/tauri/pull/8259)) On macOS, support for signing nested .dylib, .app, .xpc and .framework under predefined directories inside the bundled frameworks (&quot;MacOS&quot;, &quot;Frameworks&quot;, &quot;Plugins&quot;, &quot;Helpers&quot;, &quot;XPCServices&quot; and &quot;Libraries&quot;).
+
+### Bug Fixes
+
+- [`b0f27814`](https://www.github.com/tauri-apps/tauri/commit/b0f27814b90ded2f1ed44b7852080eedbff0d9e4)([#8776](https://www.github.com/tauri-apps/tauri/pull/8776)) Fix `fail to rename app` when using `--profile dev`.
+- [`0bff8c32`](https://www.github.com/tauri-apps/tauri/commit/0bff8c325d004fdead2023f58e0f5fd73a9c22ba)([#8697](https://www.github.com/tauri-apps/tauri/pull/8697)) Fix the built-in dev server failing to serve files when URL had queries `?` and other url components.
+- [`67d7877f`](https://www.github.com/tauri-apps/tauri/commit/67d7877f27f265c133a70d48a46c83ffff31d571)([#8520](https://www.github.com/tauri-apps/tauri/pull/8520)) The cli now also watches cargo workspace members if the tauri folder is the workspace root.
+
+### Dependencies
+
+- Upgraded to `tauri-bundler@1.5.0`
+

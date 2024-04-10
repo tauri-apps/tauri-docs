@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-cli@2.0.0-alpha.8'
+description: '2.0.0-alpha.8'
+slug: 'references/releases/tauri-cli/v2.0.0-alpha.8'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-cli/v2.0.0-alpha.7'
+   label: '2.0.0-alpha.7'
+next:
+   link: 'references/releases/tauri-cli/v2.0.0-alpha.9'
+   label: 'v2.0.0-alpha.9'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-cli"  packageName="tauri-cli" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v2.0.0-alpha.8">View on GitHub</a></span></div>
+
+- Do not gitignore the Android project&#39;s `buildSrc` folder by default since we removed absolute paths from it.
+  - [ee2d3b97](https://www.github.com/tauri-apps/tauri/commit/ee2d3b971df6d3630b8d935394fb4febcfa3a909) fix(cli): remove buildSrc from Android project gitignored paths ([#6702](https://www.github.com/tauri-apps/tauri/pull/6702)) on 2023-04-13
+- Fixes iOS build script using the wrong path for the app library file.
+  - [abc5f91f](https://www.github.com/tauri-apps/tauri/commit/abc5f91fa3569efc9dfdee46d1c501eda8755944) fix(cli): iOS Xcode script using incorrect library path ([#6699](https://www.github.com/tauri-apps/tauri/pull/6699)) on 2023-04-13
+

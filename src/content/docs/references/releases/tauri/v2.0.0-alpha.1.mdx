@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri@2.0.0-alpha.1'
+description: '2.0.0-alpha.1'
+slug: 'references/releases/tauri/v2.0.0-alpha.1'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri/v2.0.0-alpha.0'
+   label: '2.0.0-alpha.0'
+next:
+   link: 'references/releases/tauri/v2.0.0-alpha.2'
+   label: 'v2.0.0-alpha.2'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri"  packageName="tauri" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-v2.0.0-alpha.1">View on GitHub</a></span></div>
+
+- Implement response cache on the dev server proxy, used when the server responds with status 304.
+  - [3ad5e72f](https://www.github.com/tauri-apps/tauri/commit/3ad5e72ff147b76267c010c778a3b94bba209bb0) feat(core): cache dev server proxy responses for 304 status code ([#5818](https://www.github.com/tauri-apps/tauri/pull/5818)) on 2022-12-12
+- Properly proxy dev server requests with query strings and fragments.
+  - [a9b4cf20](https://www.github.com/tauri-apps/tauri/commit/a9b4cf20a3e9a5cc984727a56111591504e084c0) fix(core): use entire request URL on dev server proxy ([#5819](https://www.github.com/tauri-apps/tauri/pull/5819)) on 2022-12-12
+

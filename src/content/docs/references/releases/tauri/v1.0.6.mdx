@@ -1,0 +1,28 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri@1.0.6'
+description: '1.0.6'
+slug: 'references/releases/tauri/v1.0.6'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri/v1.0.5'
+   label: '1.0.5'
+next:
+   link: 'references/releases/tauri/v1.0.7'
+   label: 'v1.0.7'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri"  packageName="tauri" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.0.6">View on GitHub</a></span></div>
+
+- Fix `fs.readDir` recursive option reading symlinked directories that are not allowed by the scope.
+  - [bb178829](https://www.github.com/tauri-apps/tauri/commit/bb178829086e80916f9be190f02d83bc25802799) fix(endpoints/fs/readDir): don&#39;t read symlinks that are not allowed b… ([#5123](https://www.github.com/tauri-apps/tauri/pull/5123)) on 2022-09-08
+

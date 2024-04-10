@@ -1,0 +1,28 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.5.2'
+description: '0.5.2'
+slug: 'references/releases/tao/v0.5.2'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.5.1'
+   label: '0.5.1'
+next:
+   link: 'references/releases/tao/v0.6.0'
+   label: 'v0.6.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.5.2">View on GitHub</a></span></div>
+
+- Fix missing `Sync` trait on EventLoopProxy. This commit also introduces `crossbeam-channel` crate which could also improve the performance.
+  - [6122dc5e](https://github.com/tauri-apps/tao/commit/6122dc5ec2041225a697d9673f350bcc2dda44a3) feat: add crossbeam-channel ([#181](https://github.com/tauri-apps/tao/pull/181)) on 2021-08-12
+

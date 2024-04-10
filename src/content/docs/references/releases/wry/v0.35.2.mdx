@@ -1,0 +1,28 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.35.2'
+description: '0.35.2'
+slug: 'references/releases/wry/v0.35.2'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.35.1'
+   label: '0.35.1'
+next:
+   link: 'references/releases/wry/v0.36.0'
+   label: 'v0.36.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.35.2">View on GitHub</a></span></div>
+
+- [`0ef041f`](https://github.com/tauri-apps/wry/commit/0ef041ffece143dcb5059ad43596c63b18a62928)([#1133](https://github.com/tauri-apps/wry/pull/1133)) On Linux, apply passed webview bounds when using `WebView::new_gtk` or `WebViewBuilder::new_gtk` with `gtk::Fixed` widget. This allows to create multiple webviews inside `gtk::Fixed` in the same window.
+- [`0ef041f`](https://github.com/tauri-apps/wry/commit/0ef041ffece143dcb5059ad43596c63b18a62928)([#1133](https://github.com/tauri-apps/wry/pull/1133)) Added tracing spans for `evaluate_script`, `ipc_handler` and `custom_protocols` behind the `tracing` feature flag.
+

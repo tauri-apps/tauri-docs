@@ -41,7 +41,7 @@ const packages = [
 	},
 ];
 
-const baseDir = '../../src/content/docs/releases';
+const baseDir = '../../src/content/docs/references/releases';
 
 let latestVersions: {
 	[key: string]: string;
@@ -81,7 +81,7 @@ async function generator() {
 			let navFrontmatter;
 			if (i !== len - 1) {
 				prevLabel = releases[i + 1].version;
-				prevPage = `releases/${pkg.name}/v${releases[i + 1].version}`;
+				prevPage = `references/releases/${pkg.name}/v${releases[i + 1].version}`;
 			}
 			if (i === 0) {
 				// latest version
@@ -116,7 +116,7 @@ async function generator() {
 				note,
 				`title: '${pkg.name}@${thisVersion}'`,
 				`description: '${thisVersion}'`,
-				`slug: 'releases/${pkg.name}/v${thisVersion}'`,
+				`slug: 'references/releases/${pkg.name}/v${thisVersion}'`,
 				`tableOfContents: false`,
 				`editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
 				'pagefind: false',
@@ -129,7 +129,7 @@ async function generator() {
 			const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
 			//
 			const sidebar = `\nimport ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
-			\n\n<ReleaseSidebar slug="releases/${pkg.name}"  packageName="${pkg.name}" />\n`;
+			\n\n<ReleaseSidebar slug="references/releases/${pkg.name}"  packageName="${pkg.name}" />\n`;
 
 			writeFileSync(
 				join(baseDir, pkg.name, `v${thisVersion}.mdx`),
@@ -137,7 +137,7 @@ async function generator() {
 			);
 
 			// use in next iteration
-			nextPage = `releases/${pkg.name}/v${thisVersion}`;
+			nextPage = `references/releases/${pkg.name}/v${thisVersion}`;
 			nextLabel = `v${thisVersion}`;
 		}
 	}
@@ -156,13 +156,13 @@ async function generator() {
 
 	const indexPageContent = `import { LinkCard, CardGrid } from '@astrojs/starlight/components';\n
 <CardGrid>
-	<LinkCard title="tauri" href="/releases/tauri/${latestVersions['tauri']}" />
-	<LinkCard title="@tauri-apps/api" href="/releases/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
-	<LinkCard title="tauri-cli (Rust)" href="/releases/tauri-cli/${latestVersions['tauri-cli']}" />
-	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
-	<LinkCard title="tauri-bundler" href="/releases/tauri-bundler/${latestVersions['tauri-bundler']}" />
-	<LinkCard title="wry" href="/releases/wry/${latestVersions['wry']}" />
-	<LinkCard title="tao" href="/releases/tao/${latestVersions['tao']}" />
+	<LinkCard title="tauri" href="/references/releases/tauri/${latestVersions['tauri']}" />
+	<LinkCard title="@tauri-apps/api" href="/references/releases/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
+	<LinkCard title="tauri-cli (Rust)" href="/references/releases/tauri-cli/${latestVersions['tauri-cli']}" />
+	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/references/releases/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
+	<LinkCard title="tauri-bundler" href="/references/releases/tauri-bundler/${latestVersions['tauri-bundler']}" />
+	<LinkCard title="wry" href="/references/releases/wry/${latestVersions['wry']}" />
+	<LinkCard title="tao" href="/references/releases/tao/${latestVersions['tao']}" />
 </CardGrid>`;
 
 	writeFileSync(join(baseDir, 'index.mdx'), `${indexPage}\n${indexPageContent}`);

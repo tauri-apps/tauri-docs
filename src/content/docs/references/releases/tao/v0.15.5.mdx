@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.15.5'
+description: '0.15.5'
+slug: 'references/releases/tao/v0.15.5'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.15.4'
+   label: '0.15.4'
+next:
+   link: 'references/releases/tao/v0.15.6'
+   label: 'v0.15.6'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.15.5">View on GitHub</a></span></div>
+
+- Change `WebviewAttributes::focused` default to `true`.
+  - [ece3e8f6](https://github.com/tauri-apps/tao/commit/ece3e8f6a34de21ec4c19944f668edd47ecc8ce0) fix: default `focused` to true on 2022-11-20
+- On Linux, wake the main context in `EventLoopProxy::send_event()`.
+  - [b7b5f04d](https://github.com/tauri-apps/tao/commit/b7b5f04d4b4c2f58146aca1b7e03223cdae74f7c) Gtk: wake the main context in EventLoopProxy::send_event(), closes [#625](https://github.com/tauri-apps/tao/pull/625) ([#626](https://github.com/tauri-apps/tao/pull/626)) on 2022-11-16
+

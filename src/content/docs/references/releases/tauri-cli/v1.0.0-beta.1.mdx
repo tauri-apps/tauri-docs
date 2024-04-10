@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-cli@1.0.0-beta.1'
+description: '1.0.0-beta.1'
+slug: 'references/releases/tauri-cli/v1.0.0-beta.1'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-cli/v1.0.0-beta.0'
+   label: '1.0.0-beta.0'
+next:
+   link: 'references/releases/tauri-cli/v1.0.0-beta.2'
+   label: 'v1.0.0-beta.2'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-cli"  packageName="tauri-cli" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v1.0.0-beta.1">View on GitHub</a></span></div>
+
+- Add `&#39;self&#39;` to default CSP because otherwise no joy on macOS.
+  - [12268e6](https://www.github.com/tauri-apps/tauri/commit/12268e6e69dc9a7034652f50316d3545cac687c7) fix(csp): add &#39;self&#39; ([#1794](https://www.github.com/tauri-apps/tauri/pull/1794)) on 2021-05-12
+- Fix a typo that would result in bundle arg being ignored.
+  - [71f6a5e](https://www.github.com/tauri-apps/tauri/commit/71f6a5ed442a43bf1008043c95a1a90effdd2f81) fix(cli.rs/build): fix typo getting bundle arg ([#1783](https://www.github.com/tauri-apps/tauri/pull/1783)) on 2021-05-12
+

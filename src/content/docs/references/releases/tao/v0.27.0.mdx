@@ -1,0 +1,29 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.27.0'
+description: '0.27.0'
+slug: 'references/releases/tao/v0.27.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.26.2'
+   label: '0.26.2'
+next: false
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.27.0">View on GitHub</a></span></div>
+
+- [`c2357732`](https://github.com/tauri-apps/tao/commit/c23577325bd26e7e8eb46e17bbf533717e363e04)([#896](https://github.com/tauri-apps/tao/pull/896)) Replaced `dpi` module with a re-export of the `dpi` crate which has a few breaking changes:
+
+  - Replaced `LogicalPixel` with `LogicalUnit`
+  - Replaced `PhysicalPixel` with `PhysicalUnit`
+  - Removed `Size::width`, `Size::height`, `Position::x`, `Position::y` and `PixelUnit::value`.
+

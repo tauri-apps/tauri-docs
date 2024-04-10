@@ -1,0 +1,28 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.25.0'
+description: '0.25.0'
+slug: 'references/releases/tao/v0.25.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.24.1'
+   label: '0.24.1'
+next:
+   link: 'references/releases/tao/v0.26.0'
+   label: 'v0.26.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.25.0">View on GitHub</a></span></div>
+
+- [`ae4b693d`](https://github.com/tauri-apps/tao/commit/ae4b693dc0a5d4f556bb9e6dcdbbeb1cfbf8f862)([#864](https://github.com/tauri-apps/tao/pull/864)) On Windows, Remove `WS_CAPTION` and `WS_EX_WINDOWEDGE` window styles when creating a child window.
+- [`e10f6a68`](https://github.com/tauri-apps/tao/commit/e10f6a68287553c4bb8a62b71ee62dd543918681)([#862](https://github.com/tauri-apps/tao/pull/862)) **Breaking Change**: Changed `WindowBuilderExtUnix::with_transient_for` signature to take `&amp;impl gtk::glib::IsA&lt;gtk::Window&gt;` instead of `gtk::ApplicationWindow` which covers more gtk window types and matches the underlying API call signature.
+

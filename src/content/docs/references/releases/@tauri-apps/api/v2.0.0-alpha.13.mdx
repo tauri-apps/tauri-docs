@@ -1,0 +1,38 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: '@tauri-apps/api@2.0.0-alpha.13'
+description: '2.0.0-alpha.13'
+slug: 'references/releases/@tauri-apps/api/v2.0.0-alpha.13'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/@tauri-apps/api/v2.0.0-alpha.12'
+   label: '2.0.0-alpha.12'
+next:
+   link: 'references/releases/@tauri-apps/api/v2.0.0-alpha.14'
+   label: 'v2.0.0-alpha.14'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/@tauri-apps/api"  packageName="@tauri-apps/api" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/@tauri-apps/api-v2.0.0-alpha.13">View on GitHub</a></span></div>
+
+### New Features
+
+- [`428ea652`](https://www.github.com/tauri-apps/tauri/commit/428ea6524c70545be33aac96d7c22b21f25caa4c)([#8370](https://www.github.com/tauri-apps/tauri/pull/8370)) Exposed `Resource` class which should be extended for Rust-backed resources created through `tauri::Manager::resources_table`.
+
+### Bug Fixes
+
+- [`ef21b681`](https://www.github.com/tauri-apps/tauri/commit/ef21b681e237a80592c9118b9c023c1d57231bac)([#8391](https://www.github.com/tauri-apps/tauri/pull/8391)) Fix a regression where typescript could not find types when using `&quot;moduleResolution&quot;: &quot;node&quot;`
+- [`46451aee`](https://www.github.com/tauri-apps/tauri/commit/46451aee1318f63a6cd861a12b63929b38c64eb6)([#8268](https://www.github.com/tauri-apps/tauri/pull/8268)) Add top-level `main`, `module` and `types` fields in `package.json` to be compliant with typescripts&#39;s `&quot;moduleResolution&quot;: &quot;node&quot;`
+
+### Breaking Changes
+
+- [`c2ad4d28`](https://www.github.com/tauri-apps/tauri/commit/c2ad4d28c481b2d7ed643458db56210cd44a2e0c)([#8273](https://www.github.com/tauri-apps/tauri/pull/8273)) Changed former `tauri` module from `primitives` to `core`.
+

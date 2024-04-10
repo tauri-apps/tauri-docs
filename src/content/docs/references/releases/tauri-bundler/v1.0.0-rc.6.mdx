@@ -1,0 +1,32 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-bundler@1.0.0-rc.6'
+description: '1.0.0-rc.6'
+slug: 'references/releases/tauri-bundler/v1.0.0-rc.6'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-bundler/v1.0.0-rc.5'
+   label: '1.0.0-rc.5'
+next:
+   link: 'references/releases/tauri-bundler/v1.0.0-rc.7'
+   label: 'v1.0.0-rc.7'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-bundler"  packageName="tauri-bundler" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-bundler-v1.0.0-rc.6">View on GitHub</a></span></div>
+
+- Remove `Settings::verbose` option. You may now bring your own `log` frontend to receive logging output from the bundler while remaining in control of verbosity and formatting.
+  - [35f21471](https://www.github.com/tauri-apps/tauri/commit/35f2147161e6697cbd2824681eeaf870b5a991c2) feat(cli): Improve CLI logging ([#4060](https://www.github.com/tauri-apps/tauri/pull/4060)) on 2022-05-07
+- Ignore errors when loading `icns` files in the `.deb` package generation.
+  - [de444b15](https://www.github.com/tauri-apps/tauri/commit/de444b15d222a65861b099a7536318bad000110e) fix(bundler): debian failing to load icns icon, closes [#3062](https://www.github.com/tauri-apps/tauri/pull/3062) ([#4009](https://www.github.com/tauri-apps/tauri/pull/4009)) on 2022-04-30
+- Fix app downgrades when using the Windows installer.
+  - [72e577dc](https://www.github.com/tauri-apps/tauri/commit/72e577dcc6a6733182059ab51b28a03c6077edc1) fix(bundler): properly reinstall files on MSI downgrades, closes [#3868](https://www.github.com/tauri-apps/tauri/pull/3868) ([#4044](https://www.github.com/tauri-apps/tauri/pull/4044)) on 2022-05-04
+

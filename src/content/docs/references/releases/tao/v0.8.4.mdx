@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.8.4'
+description: '0.8.4'
+slug: 'references/releases/tao/v0.8.4'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.8.3'
+   label: '0.8.3'
+next:
+   link: 'references/releases/tao/v0.8.5'
+   label: 'v0.8.5'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.8.4">View on GitHub</a></span></div>
+
+- On Windows, remove the accelerator from `CustomMenuItem::title` returnd string.
+  - [634116fe](https://github.com/tauri-apps/tao/commit/634116feb3fe983070fbea79e780caea6d4e7581) fix(Windows): remove accel str from `CustomMenuItem::title` returned string ([#377](https://github.com/tauri-apps/tao/pull/377)) on 2022-04-28
+- On Windows and Linux, increase the resizing area for borderless windows based on scale factor.
+  - [8701f64a](https://github.com/tauri-apps/tao/commit/8701f64aaec862dc15510ee725498d954521f123) fix: scale borderless resizing inset based on scale_factor, closes [#376](https://github.com/tauri-apps/tao/pull/376) ([#379](https://github.com/tauri-apps/tao/pull/379)) on 2022-05-01
+

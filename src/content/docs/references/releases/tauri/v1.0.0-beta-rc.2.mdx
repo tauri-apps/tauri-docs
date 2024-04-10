@@ -1,0 +1,45 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri@1.0.0-beta-rc.2'
+description: '1.0.0-beta-rc.2'
+slug: 'references/releases/tauri/v1.0.0-beta-rc.2'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri/v1.0.0-beta-rc.1'
+   label: '1.0.0-beta-rc.1'
+next:
+   link: 'references/releases/tauri/v1.0.0-beta-rc.3'
+   label: 'v1.0.0-beta-rc.3'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri"  packageName="tauri" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.0.0-beta-rc.2">View on GitHub</a></span></div>
+
+- Prevent &quot;once&quot; events from being able to be called multiple times.
+
+- `Window::trigger(/*...*/)` is now properly `pub` instead of `pub(crate)`.
+
+- `Manager::once_global(/*...*/)` now returns an `EventHandler`.
+
+- `Window::once(/*...*/)` now returns an `EventHandler`.
+
+- (internal) `event::Listeners::trigger(/*...*/)` now handles removing &quot;once&quot; events.
+
+- [ece243d](https://www.github.com/tauri-apps/tauri/commit/ece243d17c9c3ef8d2ba8e3b25b872aa6ea0b6ab) don&#39;t remove once listener on new thread ([#1506](https://www.github.com/tauri-apps/tauri/pull/1506)) on 2021-04-14
+
+- Window and global events can now be nested inside event handlers. They will run as soon
+  as the event handler closure is finished in the order they were called. Previously, calling
+  events inside an event handler would produce a deadlock.
+
+Note: The order that event handlers are called when triggered is still non-deterministic.
+
+- [e447b8e](https://www.github.com/tauri-apps/tauri/commit/e447b8e0e6198c8972bae25625bb409850cb686b) allow event listeners to be nested ([#1513](https://www.github.com/tauri-apps/tauri/pull/1513)) on 2021-04-15
+

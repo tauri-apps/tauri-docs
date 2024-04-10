@@ -1,0 +1,34 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.26.0'
+description: '0.26.0'
+slug: 'references/releases/wry/v0.26.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.25.0'
+   label: '0.25.0'
+next:
+   link: 'references/releases/wry/v0.27.0'
+   label: 'v0.27.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.26.0">View on GitHub</a></span></div>
+
+- Added `WebViewBuilderExtAndroid` trait and with `on_webview_created` hook.
+  - [08c0156](https://github.com/tauri-apps/wry/commit/08c0156c60e016bd77f6e0f1bd16ae31dc48d4a0) feat(android): add on_webview_created hook, expose find_class ([#855](https://github.com/tauri-apps/wry/pull/855)) on 2023-01-30
+- Enable dox feature when building docs.
+  - [c6e53c6](https://github.com/tauri-apps/wry/commit/c6e53c6fa007dcc2dc4771a94b7f312f95edd892) Enable dox feature when building docs ([#861](https://github.com/tauri-apps/wry/pull/861)) on 2023-01-31
+- Expose `wry::webview::prelude::find_class` function to find an Android class in the app project scope.
+  - [08c0156](https://github.com/tauri-apps/wry/commit/08c0156c60e016bd77f6e0f1bd16ae31dc48d4a0) feat(android): add on_webview_created hook, expose find_class ([#855](https://github.com/tauri-apps/wry/pull/855)) on 2023-01-30
+- Added `WebviewExtIOS` trait to access the WKWebView and userContentController references.
+  - [f546c44](https://github.com/tauri-apps/wry/commit/f546c44fce76faf04855a97b285bbdef8ae80f3d) feat(ios): add WebviewExtIOS ([#859](https://github.com/tauri-apps/wry/pull/859)) on 2023-01-30
+

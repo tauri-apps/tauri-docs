@@ -1,0 +1,33 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri@1.4.1'
+description: '1.4.1'
+slug: 'references/releases/tauri/v1.4.1'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri/v1.4.0'
+   label: '1.4.0'
+next:
+   link: 'references/releases/tauri/v1.5.0'
+   label: 'v1.5.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri"  packageName="tauri" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.4.1">View on GitHub</a></span></div>
+
+### Bug Fixes
+
+- [`6afd3472`](https://www.github.com/tauri-apps/tauri/commit/6afd34727f153b32dbc568d169dbb17fb8dc3539)([#6680](https://www.github.com/tauri-apps/tauri/pull/6680)) Revert [#6680](https://github.com/tauri-apps/tauri/pull/6680) which added a default sound for notifications on Windows. This introduced inconsistency with other platforms that has silent notifications by default. In the upcoming releases, we will add support for modifying the notification sound across all platforms.
+
+### Security fixes
+
+- [`066c09a6`](https://www.github.com/tauri-apps/tauri/commit/066c09a6ea06f42f550d090715e06beb65cd5564)([#7227](https://www.github.com/tauri-apps/tauri/pull/7227)) Fix regression in `1.4` where the default behavior of the file system scope was changed to allow reading hidden files and directories by default.
+

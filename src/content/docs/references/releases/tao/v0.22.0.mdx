@@ -1,0 +1,36 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.22.0'
+description: '0.22.0'
+slug: 'references/releases/tao/v0.22.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.21.1'
+   label: '0.21.1'
+next:
+   link: 'references/releases/tao/v0.22.1'
+   label: 'v0.22.1'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.22.0">View on GitHub</a></span></div>
+
+- [`06b617ea`](https://github.com/tauri-apps/tao/commit/06b617eaa2cea7039e9b71b8322b517486e3b1e5)([#776](https://github.com/tauri-apps/tao/pull/776)) Update jni to 0.21.
+- [`d0b20c94`](https://github.com/tauri-apps/tao/commit/d0b20c94eaf555ba27f3cfbbf2636e3f3b036a97)([#778](https://github.com/tauri-apps/tao/pull/778)) This release contains a number of **breaking changes** that aimed at removing menus, system-tray and global-shortcuts features which have been moved to different crates, [`muda`](https://github.com/tauri-apps/muda/), [`tray-icon`](https://github.com/tauri-apps/tray-icon/) and [`global-hotkey`](https://github.com/tauri-apps/global-hotkey) and here is a summary of the changes:
+
+  - Removed `tray` crago feature flag.
+  - Removed `accelerator`, `menu`, `system_tray` and `global_shortcut` modules and all associated types.
+  - Removed `Event::MenuEvent`, `Event::TrayEvent`, `Event::GlobalShortcutEvent`, `TrayEvent` and `Rectangle` types.
+  - Added `EventLoopBuilder` type.
+  - Removed `EventLoop::with_user_event`, instead use `EventLoopBuilder::&lt;T&gt;::with_user_event().build()`.
+  - Removed `EventLoopExtWindows`, `EventLoopExtMacOS` and `EventLoopExtUnix`, instead use `EventLoopBuilderExtWindows`, `EventLoopBuilderExtMacOS` and `EventLoopBuilderExtUnix`.
+  - Changed `WindowExtWindows::hinstance`, `WindowExtWindows::hwnd` and `MonitorHandleExtWindow::hmonitor` to return `isize` instead of `*const c_void`
+

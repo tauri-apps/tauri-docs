@@ -1,0 +1,37 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.37.0'
+description: '0.37.0'
+slug: 'references/releases/wry/v0.37.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.36.0'
+   label: '0.36.0'
+next:
+   link: 'references/releases/wry/v0.38.0'
+   label: 'v0.38.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.37.0">View on GitHub</a></span></div>
+
+- [`8c86fba`](https://github.com/tauri-apps/wry/commit/8c86fbaf51cd970737cc070583318d4b532349d2) **Breaking change**: Removed `data:` url support, as its native support in Windows and macOS are buggy and unreliable, use `Webview::with_html` instead.
+- [`8c86fba`](https://github.com/tauri-apps/wry/commit/8c86fbaf51cd970737cc070583318d4b532349d2) On Linux, decode `FilDropEvent` paths before emitting them to make it consistent across all platforms.
+- [`8c86fba`](https://github.com/tauri-apps/wry/commit/8c86fbaf51cd970737cc070583318d4b532349d2) Added `WebViewExtMacOS::reparent`,`WebViewExtWindows::reparent` and `WebViewExtUnix::reparent`.
+- [`8c86fba`](https://github.com/tauri-apps/wry/commit/8c86fbaf51cd970737cc070583318d4b532349d2) Revert global keys shortcuts (wry#1156)
+- [`8c86fba`](https://github.com/tauri-apps/wry/commit/8c86fbaf51cd970737cc070583318d4b532349d2) **Breaking change**: Removed internal url parsing which had a few side-effects such as encoded url content, now it is up to the user to pass a valid URL as a string. This also came with a few breaking changes:
+
+  - Removed `Url` struct re-export
+  - Removed `Error::UrlError` variant.
+  - Changed `WebviewAttributes::url` field type to `String`.
+  - Changed `WebviewBuilder::with_url` and `WebviewBuilder::with_url_and_headers` return type to `WebviewBuilder` instead of `Result&lt;WebviewBuilder&gt;`.
+  - Changed `Webview::url` getter to return a `String` instead of `Url`.
+

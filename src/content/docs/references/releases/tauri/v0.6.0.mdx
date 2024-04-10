@@ -1,0 +1,28 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri@0.6.0'
+description: '0.6.0'
+slug: 'references/releases/tauri/v0.6.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev: false
+next:
+   link: 'references/releases/tauri/v0.6.2'
+   label: 'v0.6.2'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri"  packageName="tauri" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-v0.6.0">View on GitHub</a></span></div>
+
+- Adds a command line interface option to tauri apps, configurable under tauri.conf.json &gt; tauri &gt; cli.
+- Fixes no-server mode not running on another machine due to fs::read_to_string usage instead of the include_str macro.
+  Build no longer fails when compiling without environment variables, now the app will show an error.
+- Adds desktop notifications API.
+- Properly reflect tauri.conf.json changes on app when running tauri dev.

@@ -1,0 +1,35 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.19.0'
+description: '0.19.0'
+slug: 'references/releases/wry/v0.19.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.18.3'
+   label: '0.18.3'
+next:
+   link: 'references/releases/wry/v0.20.0'
+   label: 'v0.20.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.19.0">View on GitHub</a></span></div>
+
+- - Automatically resize the webview on Windows to align with other platforms.
+- **Breaking change**: Removed `WebView::resize`
+- [d7c9097](https://github.com/tauri-apps/wry/commit/d7c9097256d76de7400032cf27acd7a1874da5cd) feat: auto resize webview on Windows ([#628](https://github.com/tauri-apps/wry/pull/628)) on 2022-06-27
+- Implement new window requested handler
+  - [fa5456c](https://github.com/tauri-apps/wry/commit/fa5456c6abe16be17073e75f4a0205966be266b2) feat: Implement new window requested event, closes [#527](https://github.com/tauri-apps/wry/pull/527) ([#526](https://github.com/tauri-apps/wry/pull/526)) on 2022-06-19
+- Re-export `url::Url`.
+  - [0cb6961](https://github.com/tauri-apps/wry/commit/0cb696119b5e25292af9595fd89856116520c049) fix: re-export `url::Url` ([#612](https://github.com/tauri-apps/wry/pull/612)) on 2022-06-17
+- Update tao to 0.12
+  - [448837e](https://github.com/tauri-apps/wry/commit/448837e795a8f7f8dc4ac5f34b27063b108fc1f2) Update tao to 0.12 ([#629](https://github.com/tauri-apps/wry/pull/629)) on 2022-06-28
+

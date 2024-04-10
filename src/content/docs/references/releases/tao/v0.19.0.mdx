@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tao@0.19.0'
+description: '0.19.0'
+slug: 'references/releases/tao/v0.19.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tao/v0.18.3'
+   label: '0.18.3'
+next:
+   link: 'references/releases/tao/v0.19.1'
+   label: 'v0.19.1'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tao"  packageName="tao" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tao/releases/tag/tao-v0.19.0">View on GitHub</a></span></div>
+
+- **Breaking change**: All ow specifying the android activity in `android_binding` macro, instead of hard-coded `TauriActivity`.
+  - [b78b9616](https://github.com/tauri-apps/tao/commit/b78b961621e9cde355c8de2cb9fc168efcae4313) feat!: allow specifying android activity in binding macro ([#723](https://github.com/tauri-apps/tao/pull/723)) on 2023-04-14
+- Fix set_focus not working on Windows in some situations like interactive notifications.
+  - [62db4313](https://github.com/tauri-apps/tao/commit/62db431338636dd0adafca15d636c08f68941984) fix(windows): Use SetForegroundWindow before focus hack ([#719](https://github.com/tauri-apps/tao/pull/719)) on 2023-04-04
+

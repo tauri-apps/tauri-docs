@@ -1,0 +1,31 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-bundler@1.0.3'
+description: '1.0.3'
+slug: 'references/releases/tauri-bundler/v1.0.3'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-bundler/v1.0.2'
+   label: '1.0.2'
+next:
+   link: 'references/releases/tauri-bundler/v1.0.4'
+   label: 'v1.0.4'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-bundler"  packageName="tauri-bundler" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-bundler-v1.0.3">View on GitHub</a></span></div>
+
+- Build AppImages inside the `src-tauri/target` folder rather than `~/.cache/tauri`. Making it easier to clean and rebuild from scratch.
+  - [8dd03e69](https://www.github.com/tauri-apps/tauri/commit/8dd03e69b0766eaef0b9f9fdcfe2ccbc9d0a10d1) fix(bundler): Build AppImages inside the target folder ([#4521](https://www.github.com/tauri-apps/tauri/pull/4521)) on 2022-07-03
+- Ensure the notarization `RequestUUID` and `Status` parser works on macOS 10.13.6+.
+  - [23d3d847](https://www.github.com/tauri-apps/tauri/commit/23d3d847d1b2d0c394d729a84fbeae2936111116) fix(bundler): ensure RequestUUID and Status parser adds a \n, closes [#4549](https://www.github.com/tauri-apps/tauri/pull/4549) ([#4559](https://www.github.com/tauri-apps/tauri/pull/4559)) on 2022-07-03
+  - [f7c59ecf](https://www.github.com/tauri-apps/tauri/commit/f7c59ecfc85a90a0ff5c22da1a8b0e93d3663c86) fix(bundler): support macOS 10.13.6+ on notarization, closes [#4549](https://www.github.com/tauri-apps/tauri/pull/4549) ([#4593](https://www.github.com/tauri-apps/tauri/pull/4593)) on 2022-07-05
+

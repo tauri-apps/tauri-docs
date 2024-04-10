@@ -1,0 +1,32 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.23.2'
+description: '0.23.2'
+slug: 'references/releases/wry/v0.23.2'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.23.1'
+   label: '0.23.1'
+next:
+   link: 'references/releases/wry/v0.23.3'
+   label: 'v0.23.3'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.23.2">View on GitHub</a></span></div>
+
+- On macOS, remove all custom keydown implementations. This will bring back keydown regression but should allow all accelerator working.
+  - [fee4bf2](https://github.com/tauri-apps/wry/commit/fee4bf2eb384d9c315530bd8f5af146909706cf6) Remove all keydown implementations ([#798](https://github.com/tauri-apps/wry/pull/798)) on 2022-12-10
+- Suppress `unused_variables` warning reported only in release build.
+  - [4e23c0f](https://github.com/tauri-apps/wry/commit/4e23c0f84b5a954be78418d56e37366395de030f) fix(macos): suppress `unused_variables` warning reported only in release build ([#790](https://github.com/tauri-apps/wry/pull/790)) on 2022-12-07
+- Add `WebViewBuilderExtWindows::with_browser_accelerator_keys` method to allow disabling browser-specific accelerator keys enabled in WebView2 by default. When `false` is passed, it disables all accelerator keys that access features specific to a web browser. See [the official WebView2 document](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/winrt/microsoft_web_webview2\_core/corewebview2settings#arebrowseracceleratorkeysenabled) for more details.
+  - [6e622ff](https://github.com/tauri-apps/wry/commit/6e622ffbdad2312bf3906d278a75956a3a6eeadd) feat(windows): Allow disabling browser-specific accelerator keys ([#792](https://github.com/tauri-apps/wry/pull/792)) on 2022-12-07
+

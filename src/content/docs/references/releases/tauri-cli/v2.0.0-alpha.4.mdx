@@ -1,0 +1,30 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-cli@2.0.0-alpha.4'
+description: '2.0.0-alpha.4'
+slug: 'references/releases/tauri-cli/v2.0.0-alpha.4'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-cli/v2.0.0-alpha.3'
+   label: '2.0.0-alpha.3'
+next:
+   link: 'references/releases/tauri-cli/v2.0.0-alpha.5'
+   label: 'v2.0.0-alpha.5'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-cli"  packageName="tauri-cli" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v2.0.0-alpha.4">View on GitHub</a></span></div>
+
+- Fix android project build crashing when using `pnpm` caused by extra `--`.
+  - [c787f749](https://www.github.com/tauri-apps/tauri/commit/c787f749de01b79d891615aad8c37b23037fff4c) fix(cli): only add `--` to generated android template for npm ([#6508](https://www.github.com/tauri-apps/tauri/pull/6508)) on 2023-03-21
+- Fixes the Android build gradle plugin implementation on Windows.
+  - [00241fa9](https://www.github.com/tauri-apps/tauri/commit/00241fa92d104870068a701519340633cc35b716) fix(cli): append .cmd on the gradle plugin binary on Windows, fix [#6502](https://www.github.com/tauri-apps/tauri/pull/6502) ([#6503](https://www.github.com/tauri-apps/tauri/pull/6503)) on 2023-03-21
+

@@ -1,0 +1,29 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri@1.0.0-rc.16'
+description: '1.0.0-rc.16'
+slug: 'references/releases/tauri/v1.0.0-rc.16'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri/v1.0.0-rc.15'
+   label: '1.0.0-rc.15'
+next:
+   link: 'references/releases/tauri/v1.0.0-rc.17'
+   label: 'v1.0.0-rc.17'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri"  packageName="tauri" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-v1.0.0-rc.16">View on GitHub</a></span></div>
+
+- **Breaking change:** The `TrayIcon` enum has been removed and now `Icon` is used instead.
+  This allows you to use more image formats and use embedded icons on Linux.
+  - [4ce8e228](https://www.github.com/tauri-apps/tauri/commit/4ce8e228134cd3f22973b74ef26ca0d165fbbbd9) refactor(core): use `Icon` for tray icons ([#4342](https://www.github.com/tauri-apps/tauri/pull/4342)) on 2022-06-14
+

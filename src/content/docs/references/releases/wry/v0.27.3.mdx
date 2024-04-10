@@ -1,0 +1,32 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.27.3'
+description: '0.27.3'
+slug: 'references/releases/wry/v0.27.3'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.27.2'
+   label: '0.27.2'
+next:
+   link: 'references/releases/wry/v0.28.0'
+   label: 'v0.28.0'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.27.3">View on GitHub</a></span></div>
+
+- Adds a way to launch a WebView as incognito through a new API at WebViewBuilder named as `with_incognito`.
+  - [8698836](https://github.com/tauri-apps/wry/commit/86988368a4e833b21089d119c934529ecfe306b7) feat: Add a way to launch WebViews as incognito `WebView::as_incognito`, closes [#908](https://github.com/tauri-apps/wry/pull/908) ([#916](https://github.com/tauri-apps/wry/pull/916)) on 2023-04-06
+- On macOS and iOS, remove webcontext implementation since we don&#39;t actually use it. This also fix segfault if users drop webcontext early.
+  - [3cc45cb](https://github.com/tauri-apps/wry/commit/3cc45cb86b93c56cf2444bfc37dc6ba229d4222e) Remove webcontext implementation on wkwebview ([#922](https://github.com/tauri-apps/wry/pull/922)) on 2023-04-07
+- Use the new WKWebView `inspectable` property if available (iOS 16.4, macOS 13.3).
+  - [c3f7304](https://github.com/tauri-apps/wry/commit/c3f7304dbfd45d1e1c27b53be2369c737e946b69) feat(macos): use WKWebView&#39;s inspectable property ([#923](https://github.com/tauri-apps/wry/pull/923)) on 2023-04-08
+

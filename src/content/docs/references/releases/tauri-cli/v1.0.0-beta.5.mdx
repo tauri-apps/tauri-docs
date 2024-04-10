@@ -1,0 +1,32 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'tauri-cli@1.0.0-beta.5'
+description: '1.0.0-beta.5'
+slug: 'references/releases/tauri-cli/v1.0.0-beta.5'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/tauri-cli/v1.0.0-beta.4'
+   label: '1.0.0-beta.4'
+next:
+   link: 'references/releases/tauri-cli/v1.0.0-beta.6'
+   label: 'v1.0.0-beta.6'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/tauri-cli"  packageName="tauri-cli" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/tauri-cli-v1.0.0-beta.5">View on GitHub</a></span></div>
+
+- Run powershell commands with `-NoProfile` flag
+  - [3e6f3416](https://www.github.com/tauri-apps/tauri/commit/3e6f34160deab4f774d90aba28122e5b6b6f9db2) fix(cli.rs): run powershell kill command without profile ([#2130](https://www.github.com/tauri-apps/tauri/pull/2130)) on 2021-06-30
+- Adds `release` argument to the `dev` command. Allowing to run the backend in release mode during development.
+  - [7ee2dc8b](https://www.github.com/tauri-apps/tauri/commit/7ee2dc8b690703f509ab2d6ecdf9dafd6b72cd0b) feat(cli.rs): add release argument to the dev command ([#2192](https://www.github.com/tauri-apps/tauri/pull/2192)) on 2021-07-12
+- Fixes `center` and `focus` not being allowed in `tauri.conf.json &gt; tauri &gt; windows` and ignored in `WindowBuilderWrapper`.
+  - [bc2c331d](https://www.github.com/tauri-apps/tauri/commit/bc2c331dec3dec44c79e659b082b5fb6b65cc5ea) fix: center and focus not being allowed in config ([#2199](https://www.github.com/tauri-apps/tauri/pull/2199)) on 2021-07-12
+

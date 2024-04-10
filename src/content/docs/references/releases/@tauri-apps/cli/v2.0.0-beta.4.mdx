@@ -1,0 +1,37 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: '@tauri-apps/cli@2.0.0-beta.4'
+description: '2.0.0-beta.4'
+slug: 'references/releases/@tauri-apps/cli/v2.0.0-beta.4'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/@tauri-apps/cli/v2.0.0-beta.3'
+   label: '2.0.0-beta.3'
+next:
+   link: 'references/releases/@tauri-apps/cli/v2.0.0-beta.5'
+   label: 'v2.0.0-beta.5'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/@tauri-apps/cli"  packageName="@tauri-apps/cli" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/tauri/releases/tag/@tauri-apps/cli-v2.0.0-beta.4">View on GitHub</a></span></div>
+
+### Bug Fixes
+
+- [`e538ba58`](https://www.github.com/tauri-apps/tauri/commit/e538ba586c5b8b50955586c8ef2704adb5d7cc43)([#8949](https://www.github.com/tauri-apps/tauri/pull/8949)) Fixes android and iOS process spawning not working on Node.js.
+
+### Dependencies
+
+- Upgraded to `tauri-cli@2.0.0-beta.4`
+
+### Breaking Changes
+
+- [`a76fb118`](https://www.github.com/tauri-apps/tauri/commit/a76fb118ce2de22e1bdb4216bf0ac01dfc3e5799)([#8950](https://www.github.com/tauri-apps/tauri/pull/8950)) Changed the capability format to allow configuring both `remote: { urls: Vec&lt;String&gt; }` and `local: bool (default: true)` instead of choosing one on the `context` field.
+

@@ -1,0 +1,32 @@
+---
+
+# NOTE: This file is auto-generated in packages/releases-generator/build.ts
+# For corrections please edit it directly
+title: 'wry@0.28.0'
+description: '0.28.0'
+slug: 'references/releases/wry/v0.28.0'
+tableOfContents: false
+editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'
+pagefind: false
+prev:
+   link: 'references/releases/wry/v0.27.3'
+   label: '0.27.3'
+next:
+   link: 'references/releases/wry/v0.28.1'
+   label: 'v0.28.1'
+---
+
+import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
+			
+
+<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
+
+<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.28.0">View on GitHub</a></span></div>
+
+- Add `Webview::clear_browsing_data` method.
+  - [5f0c9e4](https://github.com/tauri-apps/wry/commit/5f0c9e4595baf5d60ec407b391f873ab52abf923) feat: add `Webview::clear_browsing_data` ([#915](https://github.com/tauri-apps/wry/pull/915)) on 2023-04-18
+- On Android, generate a `proguard-wry.pro` file that could be used to keep the necessary symbols for wry when using minification.
+  - [ced4c0b](https://github.com/tauri-apps/wry/commit/ced4c0b4459ceb0ff89d07b84d6396c60cfd75e5) feat: generate proguard rule file for android ([#927](https://github.com/tauri-apps/wry/pull/927)) on 2023-04-17
+- Update `tao` to `0.19`
+  - [d560981](https://github.com/tauri-apps/wry/commit/d56098113f9764e31f73aa84144ee84be8e2aead) refactor: rename `TauriActivity` to `WryActivity` ([#926](https://github.com/tauri-apps/wry/pull/926)) on 2023-04-17
+

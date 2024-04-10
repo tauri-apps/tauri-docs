@@ -158,12 +158,62 @@ export default defineConfig({
 					autogenerate: { directory: 'features' },
 				},
 				{
-					label: 'References',
+					label: 'References (auto)',
+					translations: {
+						'zh-CN': '功能和秘诀',
+					},
+					collapsed: true,
+					autogenerate: { directory: 'references' },
+				},
+				{
+					label: 'References (manual)',
 					translations: {
 						'zh-CN': '参考',
 					},
 					collapsed: true,
-					autogenerate: { directory: 'references' },
+					items: [
+						{
+							label: 'Overview',
+							link: '/references'
+						},
+						{
+							label: 'Configuration',
+							translations: {
+								'zh-CN': '功能和秘诀',
+							},
+							link: 'references/config'
+						},
+						{
+							label: 'Environment Variables',
+							translations: {
+								'zh-CN': '功能和秘诀',
+							},
+							link: 'references/environment-variables'
+						},
+						{
+							label: 'Releases',
+							translations: {
+								'zh-CN': '功能和秘诀',
+							},
+							link: 'releases'
+						},
+						{
+							label: 'Webview Versions',
+							translations: {
+								'zh-CN': '功能和秘诀',
+							},
+							link: 'references/webview-versions'
+						},
+						{
+							label: 'JavaScript',
+							translations: {
+								'zh-CN': '功能和秘诀',
+							},
+							collapsed: true,
+							autogenerate: { directory: 'references/js' },
+						},
+					]
+					// autogenerate: { directory: 'references' },
 				},
 			],
 			locales,
