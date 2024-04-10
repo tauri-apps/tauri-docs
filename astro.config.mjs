@@ -195,7 +195,7 @@ export default defineConfig({
 							translations: {
 								'zh-CN': '功能和秘诀',
 							},
-							link: 'releases'
+							link: 'references/releases'
 						},
 						{
 							label: 'Webview Versions',
