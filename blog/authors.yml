@@ -51,3 +51,9 @@ jbolda:
   title: Tauri Board Director
   url: https://github.com/jbolda
   image_url: ./author_images/jbolda.jpeg
+
+chip:
+  name: Chip Reed
+  title: Tauri Security
+  url: https://github.com/chippers
+  image_url: ./author_images/chip.png
