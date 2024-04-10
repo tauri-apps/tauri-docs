@@ -47,6 +47,11 @@ const authors = {
 		title: 'Tauri Development Lead',
 		picture: '/authors/wusyong.png',
 	},
+	chip: {
+		name: 'Chip Reed',
+		title: 'Tauri Security',
+		picture: '/authors/chip.png',
+	},
 };
 
 const site = 'https://beta.tauri.app';
