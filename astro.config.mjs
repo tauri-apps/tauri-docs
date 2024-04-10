@@ -81,6 +81,12 @@ export default defineConfig({
 			},
 			head: [
 				{
+					tag: 'script',
+					attrs: {
+						src: '/navigate.js'
+					}
+				},
+				{
 					tag: 'meta',
 					attrs: { property: 'og:image', content: site + '/og.png?v=1' },
 				},
