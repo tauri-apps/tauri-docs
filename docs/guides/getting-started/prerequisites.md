@@ -263,6 +263,7 @@ let
     glib
     dbus
     openssl_3
+    librsvg
   ];
 
   packages = with pkgs; [
@@ -274,6 +275,7 @@ let
     libsoup
     webkitgtk
     appimagekit
+    librsvg
   ];
 in
 pkgs.mkShell {
