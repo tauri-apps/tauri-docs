@@ -16,11 +16,6 @@ next:
    label: 'v0.30.0'
 ---
 
-import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
-			
-
-<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
-
 <div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.29.0">View on GitHub</a></span></div>
 
 - [`c09dd7b`](https://github.com/tauri-apps/wry/commit/c09dd7bebe3d00f989dff57f0414f1023653efe4)([#968](https://github.com/tauri-apps/wry/pull/968)) Remove ActionBar handling from wry. If you want to hide the action bar, hide it using the `themes.xml` file in your android project or inherit `WryActivity` class and use `getSupportActionBar()?.hide()` in the `onCreate` method.

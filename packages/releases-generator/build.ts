@@ -133,7 +133,7 @@ async function generator() {
 
 			writeFileSync(
 				join(baseDir, pkg.name, `v${thisVersion}.mdx`),
-				`${frontmatter}\n${sidebar}\n${linksDiv}\n${entitify(releases[i].notes)}`
+				`${frontmatter}\n${/*disabled: sidebar*/ ''}\n${linksDiv}\n${entitify(releases[i].notes)}`
 			);
 
 			// use in next iteration

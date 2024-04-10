@@ -16,11 +16,6 @@ next:
    label: 'v0.38.0'
 ---
 
-import ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
-			
-
-<ReleaseSidebar slug="references/releases/wry"  packageName="wry" />
-
 <div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>[Return](/releases)</span><span><a href="https://github.com/tauri-apps/wry/releases/tag/wry-v0.37.0">View on GitHub</a></span></div>
 
 - [`8c86fba`](https://github.com/tauri-apps/wry/commit/8c86fbaf51cd970737cc070583318d4b532349d2) **Breaking change**: Removed `data:` url support, as its native support in Windows and macOS are buggy and unreliable, use `Webview::with_html` instead.
