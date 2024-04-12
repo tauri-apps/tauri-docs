@@ -55,6 +55,7 @@ Install the http plugin to get started.
 
         </Steps>
     </TabItem>
+
 </Tabs>
 
 ## Usage
@@ -70,11 +71,11 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
     ```json
     //tauri.conf.json
     {
-        "plugins": {
-            "http": {
-                "scope": ["http://my.api.host/*"]
-            }
-        }
+    	"plugins": {
+    		"http": {
+    			"scope": ["http://my.api.host/*"]
+    		}
+    	}
     }
     ```
 
@@ -85,7 +86,7 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
 
     // Send a GET request
     const response = await fetch('http://my.api.host/data.json', {
-        method: 'GET',
+    	method: 'GET',
     });
     console.log(response.status); // e.g. 200
     console.log(response.statusText); // e.g. "OK"
