@@ -79,6 +79,7 @@ Install the log plugin to get started.
 ## Usage
 
   <Steps>
+  
   1.  First, you need to register the plugin with Tauri.
 
       ```rust title="src-tauri/src/lib.rs" {1} {6-14}
@@ -101,21 +102,21 @@ Install the log plugin to get started.
       }
       ```
 
-  2.  Afterwards, all the plugin's APIs are available through the JavaScript guest bindings:
+2.  Afterwards, all the plugin's APIs are available through the JavaScript guest bindings:
 
-          ```js
-          import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
+        ```js
+        import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
 
-          // with TargetKind::Webview enabled, this function will print logs to the browser console
-          const detach = await attachConsole();
+        // with TargetKind::Webview enabled, this function will print logs to the browser console
+        const detach = await attachConsole();
 
-          trace('Trace');
-          info('Info');
-          error('Error');
+        trace('Trace');
+        info('Info');
+        error('Error');
 
-          // detach the browser console from the log stream
-          detach();
-          ```
+        // detach the browser console from the log stream
+        detach();
+        ```
 
   </Steps>
 
