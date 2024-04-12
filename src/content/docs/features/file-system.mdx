@@ -26,52 +26,53 @@ Install the fs plugin to get started.
 <Tabs>
 	<TabItem label="Automatic" >
 
-		Use your project's package manager to add the dependency:
+    	Use your project's package manager to add the dependency:
 
-		{ ' ' }
+    	{ ' ' }
 
-		<CommandTabs
-			npm="npm run tauri add fs"
-			yarn="yarn run tauri add fs"
-			pnpm="pnpm tauri add fs"
-			cargo="cargo tauri add fs"
-		/>
+    	<CommandTabs
+    		npm="npm run tauri add fs"
+    		yarn="yarn run tauri add fs"
+    		pnpm="pnpm tauri add fs"
+    		cargo="cargo tauri add fs"
+    	/>
 
-	</TabItem>
-	<TabItem label = "Manual">
-		<Steps>
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
 
-		1.	Install the fs plugin by adding the following to your `Cargo.toml` file:
+    	1.	Install the fs plugin by adding the following to your `Cargo.toml` file:
 
-			```toml title="src-tauri/Cargo.toml"
-			[dependencies]
-			tauri-plugin-fs = "2.0.0-beta"
-			# alternatively with Git:
-			tauri-plugin-fs = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-			```
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-fs = "2.0.0-beta"
+    		# alternatively with Git:
+    		tauri-plugin-fs = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
 
-		2.	Modify `lib.rs` to initialize the plugin:
+    	2.	Modify `lib.rs` to initialize the plugin:
 
-			```rust title="src-tauri/src/lib.rs" ins={4}
-			#[cfg_attr(mobile, tauri::mobile_entry_point)]
-			fn run() {
-				tauri::Builder::default()
-					.plugin(tauri_plugin_fs::init())
-					.run(tauri::generate_context!())
-					.expect("error while running tauri application");
-			}
-			```
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+    		#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    		fn run() {
+    			tauri::Builder::default()
+    				.plugin(tauri_plugin_fs::init())
+    				.run(tauri::generate_context!())
+    				.expect("error while running tauri application");
+    		}
+    		```
 
-		3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    	3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-			<CommandTabs
-				npm = "npm install @tauri-apps/plugin-fs"
-				yarn = "yarn add @tauri-apps/plugin-fs"
-				pnpm = "pnpm add @tauri-apps/plugin-fs"
-			/>
+    		<CommandTabs
+    			npm = "npm install @tauri-apps/plugin-fs"
+    			yarn = "yarn add @tauri-apps/plugin-fs"
+    			pnpm = "pnpm add @tauri-apps/plugin-fs"
+    		/>
 
-		</Steps>
-	</TabItem>
+    	</Steps>
+    </TabItem>
+
 </Tabs>
 
 ## Usage

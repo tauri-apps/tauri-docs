@@ -39,15 +39,17 @@ Currently manual install is required for setting up persisted-scope plugin.
 
 2.  Modify `lib.rs` to initialize the plugin:
 
-    ```rust title="src-tauri/src/lib.rs" {3}
-    fn run() {
-        tauri::Builder::default()
-            .plugin(tauri_plugin_persisted_scope::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
-</Steps>
+        ```rust title="src-tauri/src/lib.rs" {3}
+        fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_persisted_scope::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    </Steps>
+
 ## Usage
 
 After setup the plugin will automatically save and restore filesystem and asset scopes.
