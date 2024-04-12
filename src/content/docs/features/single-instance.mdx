@@ -72,12 +72,12 @@ The plugin is already installed and initialized, and it should be functioning co
 The plugin `init()` method takes a closure that is invoked when a new app instance was started, but closed by the plugin.
 The closure has three arguments:
 
-<Steps>
-1. **`app` :** The [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) of the application.
+  <Steps>
+  1. **`app` :** The [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) of the application.
 
-2. **`args` :** The list of arguments, that was passed by the user to initiate this new instance.
+  2. **`args` :** The list of arguments, that was passed by the user to initiate this new instance.
 
-3. **`cwd` :** The Current Working Directory denotes the directory from which the new application instance was launched.
+  3. **`cwd` :** The Current Working Directory denotes the directory from which the new application instance was launched.
    </Steps>
 
 So, the closure should look like below
