@@ -78,44 +78,44 @@ Install the log plugin to get started.
 
 ## Usage
 
-<Steps>
-1.  First, you need to register the plugin with Tauri.
+  <Steps>
+  1.  First, you need to register the plugin with Tauri.
 
-    ```rust title="src-tauri/src/lib.rs" {1} {6-14}
-    use tauri_plugin_log::{Target, TargetKind};
+      ```rust title="src-tauri/src/lib.rs" {1} {6-14}
+      use tauri_plugin_log::{Target, TargetKind};
 
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            .plugin(
-                tauri_plugin_log::Builder::new()
-                    .targets([
-                        Target::new(TargetKind::Stdout),
-                        Target::new(TargetKind::LogDir { file_name: None }),
-                        Target::new(TargetKind::Webview),
-                    ])
-                    .build(),
-            )
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+      #[cfg_attr(mobile, tauri::mobile_entry_point)]
+      pub fn run() {
+          tauri::Builder::default()
+              .plugin(
+                  tauri_plugin_log::Builder::new()
+                      .targets([
+                          Target::new(TargetKind::Stdout),
+                          Target::new(TargetKind::LogDir { file_name: None }),
+                          Target::new(TargetKind::Webview),
+                      ])
+                      .build(),
+              )
+              .run(tauri::generate_context!())
+              .expect("error while running tauri application");
+      }
+      ```
 
-2.  Afterwards, all the plugin's APIs are available through the JavaScript guest bindings:
+  2.  Afterwards, all the plugin's APIs are available through the JavaScript guest bindings:
 
-        ```js
-        import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
+          ```js
+          import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
 
-        // with TargetKind::Webview enabled, this function will print logs to the browser console
-        const detach = await attachConsole();
+          // with TargetKind::Webview enabled, this function will print logs to the browser console
+          const detach = await attachConsole();
 
-        trace('Trace');
-        info('Info');
-        error('Error');
+          trace('Trace');
+          info('Info');
+          error('Error');
 
-        // detach the browser console from the log stream
-        detach();
-        ```
+          // detach the browser console from the log stream
+          detach();
+          ```
 
   </Steps>
 
