@@ -5,7 +5,7 @@ i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
 
@@ -29,30 +29,31 @@ import Stub from '@components/Stub.astro';
 
     </TabItem>
     <TabItem label="手动">
+    <Steps>
+        1. 运行 `cargo add tauri-plugin-notification` 以将插件添加到 `Cargo.toml` 的项目依赖中。
 
-    1. 运行 `cargo add tauri-plugin-notification` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+        2. 修改 `lib.rs` 以初始化插件：
 
-    2. 修改 `lib.rs` 以初始化插件：
+            ```rust
+            // lib.rs
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    // 初始化插件
+                    .plugin(tauri_plugin_notification::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
 
-    ```rust
-    // lib.rs
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // 初始化插件
-            .plugin(tauri_plugin_notification::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+        3. 如果你想要在 JavaScript 中使用通知提示，请安装相应的 npm 包：
 
-    3. 如果你想要在 JavaScript 中使用通知提示，请安装相应的 npm 包：
-
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-notification"
-        yarn="yarn add @tauri-apps/plugin-notification"
-        pnpm="pnpm add @tauri-apps/plugin-notification"
-    />
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-notification"
+                yarn="yarn add @tauri-apps/plugin-notification"
+                pnpm="pnpm add @tauri-apps/plugin-notification"
+            />
+    </Steps>
 
     </TabItem>
 
@@ -77,9 +78,13 @@ import Stub from '@components/Stub.astro';
 
 按照以下步骤发送通知：
 
+<Steps>
+
 1. 检查是否授予了权限
 2. 如果未授予，请求权限
 3. 发送通知
+
+</Steps>
 
 <Tabs>
 <TabItem label="JavaScript">

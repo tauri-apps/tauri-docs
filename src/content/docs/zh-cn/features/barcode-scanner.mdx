@@ -8,7 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="barcode-scanner" />
@@ -42,28 +42,32 @@ _这个插件要求 Rust 版本至少是 **1.64**_
 
   </TabItem>
   <TabItem label="手动">
+  <Steps>
 
-1. 运行 `tauri-plugin-barcode-scanner` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+      1.  运行 `tauri-plugin-barcode-scanner` 以将插件添加到 `Cargo.toml` 的项目依赖中。
 
-2. 修改 `lib.rs` 来初始化插件。
+      2.  修改 `lib.rs` 来初始化插件。
 
-```rust title="lib.rs" ins={4}
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_barcode_scanner::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
+          ```rust title="lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          fn run() {
+              tauri::Builder::default()
+                  .plugin(tauri_plugin_barcode_scanner::init())
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
 
-3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+      3.  使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
-  <CommandTabs
-      npm="npm install @tauri-apps/plugin-barcode-scanner"
-      yarn="yarn add @tauri-apps/plugin-barcode-scanner"
-      pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
-  />
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-barcode-scanner"
+              yarn="yarn add @tauri-apps/plugin-barcode-scanner"
+              pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+          />
+
+    </Steps>
+
   </TabItem>
 </Tabs>
 

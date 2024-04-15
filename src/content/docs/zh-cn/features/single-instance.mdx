@@ -72,9 +72,13 @@ import CommandTabs from '@components/CommandTabs.astro';
 插件的 `init()` 方法接受一个闭包，该闭包在新 App 实例启动时调用，但由插件关闭。
 这个闭包有三个参数：
 
+<Steps>
+
 1. **`app`**：应用程序的 [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) 。
 2. **`args`**：用户初始化新实例时传递的参数列表。
 3. **`cwd`**：当前工作目录表示启动新应用程序实例的目录。
+
+</Steps>
 
 因此，闭包应该如下所示
 

@@ -5,7 +5,7 @@ description: 读取和写入系统剪贴板。
 
 import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="clipboard-manager" />
@@ -28,30 +28,31 @@ import CommandTabs from '@components/CommandTabs.astro';
 
     </TabItem>
     <TabItem label="手动">
+    <Steps>
+        1. 运行 `cargo add tauri-plugin-clipboard-manager` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
-    1. 运行 `cargo add tauri-plugin-clipboard-manager` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
+        2. 修改 `lib.rs` 来初始化插件。
 
-    2. 修改 `lib.rs` 来初始化插件。
+            ```rust
+            // lib.rs
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    // Initialize the plugin
+                    .plugin(tauri_plugin_clipboard_manager::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
 
-    ```rust
-    // lib.rs
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialize the plugin
-            .plugin(tauri_plugin_clipboard_manager::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+        3. 如果你想用 JavaScript 管理剪贴板，还需要安装 npm 包。
 
-    3. 如果你想用 JavaScript 管理剪贴板，还需要安装 npm 包。
-
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-clipboard-manager"
-        yarn="yarn add @tauri-apps/plugin-clipboard-manager"
-        pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
-    />
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-clipboard-manager"
+                yarn="yarn add @tauri-apps/plugin-clipboard-manager"
+                pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+            />
+    </Steps>
 
     </TabItem>
 

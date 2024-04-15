@@ -4,7 +4,7 @@ description: 访问用 Rust 编写的 HTTP 客户端。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="http" />
@@ -27,30 +27,32 @@ import CommandTabs from '@components/CommandTabs.astro';
 
     </TabItem>
     <TabItem label="手动">
+    <Steps>
 
-    1. 运行 `cargo add tauri-plugin-http` 命令，将插件添加到项目的 `cargo.toml` 依赖中。
+        1. 运行 `cargo add tauri-plugin-http` 命令，将插件添加到项目的 `cargo.toml` 依赖中。
 
-    2. 修改 lib.rs 来初始化插件。
+        2. 修改 lib.rs 来初始化插件。
 
-    ```rust ins={6}
-    // lib.rs
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialize the plugin
-            .plugin(tauri_plugin_http::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+            ```rust ins={6}
+            // lib.rs
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    // Initialize the plugin
+                    .plugin(tauri_plugin_http::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
 
-    3. 如果你想用 JavaScript 发送 http 请求，还需要安装 npm 包。
+        3. 如果你想用 JavaScript 发送 http 请求，还需要安装 npm 包。
 
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-http"
-        yarn="yarn add @tauri-apps/plugin-http"
-        pnpm="pnpm add @tauri-apps/plugin-http"
-    />
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-http"
+                yarn="yarn add @tauri-apps/plugin-http"
+                pnpm="pnpm add @tauri-apps/plugin-http"
+            />
+    </Steps>
 
     </TabItem>
 

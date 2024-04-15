@@ -4,7 +4,7 @@ description: 从命令行接口解析参数。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="cli" />
@@ -39,36 +39,40 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
   </TabItem>
   <TabItem label="手动">
+	<Steps>
 
-1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装插件。
+    		1.	通过将以下内容添加到 `Cargo.toml` 的文件中来安装插件。
 
-```toml title="src-tauri/Cargo.toml"
-# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
-[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-cli = "2.0.0-beta"
-# 或者使用 Git
-tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-```
+    			```toml title="src-tauri/Cargo.toml"
+    			# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
+    			[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
+    			tauri-plugin-cli = "2.0.0-beta"
+    			# 或者使用 Git
+    			tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    			```
 
-2. 修改 `lib.rs` 来初始化插件。
+    		2.	修改 `lib.rs` 来初始化插件。
 
-```rust title="src-tauri/src/lib.rs" ins={4}
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_cli::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
+    			```rust title="src-tauri/src/lib.rs" ins={4}
+    			#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    			fn run() {
+    				tauri::Builder::default()
+    					.plugin(tauri_plugin_cli::init())
+    					.run(tauri::generate_context!())
+    					.expect("error while running tauri application");
+    			}
+    			```
 
-3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+    		3.	使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
-  <CommandTabs
-      npm="npm install @tauri-apps/plugin-cli"
-      yarn="yarn add @tauri-apps/plugin-cli"
-      pnpm="pnpm add @tauri-apps/plugin-cli"
-  />
+    			<CommandTabs
+    				npm="npm install @tauri-apps/plugin-cli"
+    				yarn="yarn add @tauri-apps/plugin-cli"
+    				pnpm="pnpm add @tauri-apps/plugin-cli"
+    			/>
+
+    	</Steps>
+
   </TabItem>
 </Tabs>
 
