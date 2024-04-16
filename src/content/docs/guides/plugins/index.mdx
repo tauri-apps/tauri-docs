@@ -33,19 +33,31 @@ By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps you
 
 ## Initialize Plugin Project
 
-To bootstrap a new plugin project, run `plugin init`. If you do not need the NPM package, use the `--no-api` CLI flag.
+To bootstrap a new plugin project, run `plugin new`. If you do not need the NPM package, use the `--no-api` CLI flag.
 
+:::note[Tauri-Cli Beta]
+These commands are for beta version of @tauri-apps/cli
+:::
+
+If you have previously installed Tauri, you may need to make sure your cargo and npm binaries are up to date for these commands to work as expected.
 <CommandTabs
-	npm="npm run tauri plugin init"
-	yarn="yarn tauri plugin init"
-	pnpm="pnpm tauri plugin init"
-	cargo="cargo tauri plugin init"
+  npm="npm install -g @tauri-apps/cli@next"
+  cargo="cargo install tauri-cli@^2.0.0-beta"
 />
 
-This will initialize the plugin and the resulting code will look like this:
+After installing, you can run the following to create a plugin project:
+
+<CommandTabs
+	npm="npm run tauri plugin new [name]"
+	yarn="yarn tauri plugin new [name]"
+	pnpm="pnpm tauri plugin new [name]"
+	cargo="cargo tauri plugin new [name]"
+/>
+
+This will initialize the plugin at the directory `tauri-plugin-[name]` and the resulting code will look like this:
 
 ```
-. plugin-name/
+. tauri-plugin-[name]/
 ├── src/                - Rust code
 │ ├── commands.rs       - defines the commands the webview can use
 | ├── desktop.rs        - desktop implementation
