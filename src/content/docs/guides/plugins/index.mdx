@@ -35,20 +35,10 @@ By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps you
 
 To bootstrap a new plugin project, run `plugin new`. If you do not need the NPM package, use the `--no-api` CLI flag.
 
-:::note[Tauri-Cli Beta]
-These commands are for beta version of @tauri-apps/cli
-:::
-
-If you have previously installed Tauri globally, you may need to make sure your cargo and npm binaries are up to date for these commands to work as expected.
-<CommandTabs
-  npm="npm install -g @tauri-apps/cli@next"
-  cargo="cargo install tauri-cli@^2.0.0-beta"
-/>
-
 After installing, you can run the following to create a plugin project:
 
 <CommandTabs
-	npm="npm run tauri plugin new [name]"
+  npm="npm run tauri plugin new [name]"
 	yarn="yarn tauri plugin new [name]"
 	pnpm="pnpm tauri plugin new [name]"
 	cargo="cargo tauri plugin new [name]"
@@ -65,8 +55,6 @@ This will initialize the plugin at the directory `tauri-plugin-[name]` and the r
 │ └── mobile.rs         - mobile implementation
 ├── android             - Android library
 ├── ios                 - Swift package
-├── webview-src         - source code of the JavaScript API bindings
-├── webview-dist        - Transpiled assets from webview-src
 ├── Cargo.toml          - Cargo crate metadata
 └── package.json        - NPM package metadata
 ```
