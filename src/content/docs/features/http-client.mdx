@@ -71,15 +71,16 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
     ```json
     //src-tauri/capabilities/base.json
     {
-      "permissions": [
-        {
-          "identifier": "http:default",
-          "allow": [{ "url": "https://*.tauri.app" }],
-          "deny": [{ "url": "https://private.tauri.app" }]
-        }
-      ]
+    	"permissions": [
+    		{
+    			"identifier": "http:default",
+    			"allow": [{ "url": "https://*.tauri.app" }],
+    			"deny": [{ "url": "https://private.tauri.app" }]
+    		}
+    	]
     }
     ```
+
     For more information, please see the documentation for [Access Control Lists](/references/v2/acl/)
 
 2.  Send a request
