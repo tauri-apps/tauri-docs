@@ -33,33 +33,36 @@ By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps you
 
 ## Initialize Plugin Project
 
-To bootstrap a new plugin project, run `plugin init`. If you do not need the NPM package, use the `--no-api` CLI flag.
+To bootstrap a new plugin project, run `plugin new`. If you do not need the NPM package, use the `--no-api` CLI flag. If you want to initialize the plugin with Android and/or iOS support, use the `--android` and/or `--ios` flags.
+
+After installing, you can run the following to create a plugin project:
 
 <CommandTabs
-	npm="npm run tauri plugin init"
-	yarn="yarn tauri plugin init"
-	pnpm="pnpm tauri plugin init"
-	cargo="cargo tauri plugin init"
+	npm="npm run tauri plugin new [name]"
+	yarn="yarn tauri plugin new [name]"
+	pnpm="pnpm tauri plugin new [name]"
+	cargo="cargo tauri plugin new [name]"
 />
 
-This will initialize the plugin and the resulting code will look like this:
+This will initialize the plugin at the directory `tauri-plugin-[name]` and, depending on the used CLI flags, the resulting project will look like this:
 
 ```
-. plugin-name/
+. tauri-plugin-[name]/
 ├── src/                - Rust code
-│ ├── commands.rs       - defines the commands the webview can use
-| ├── desktop.rs        - desktop implementation
-│ ├── lib.rs            - re-exports appropriate implementation, setup state...
-│ └── mobile.rs         - mobile implementation
+│ ├── commands.rs       - Defines the commands the webview can use
+| ├── desktop.rs        - Desktop implementation
+| ├── error.rs          - Default error type to use in returned results
+│ ├── lib.rs            - Re-exports appropriate implementation, setup state...
+│ ├── mobile.rs         - Mobile implementation
+│ └── models.rs         - Shared structs
+├── permissions/        - This will host (generated) permission files for commands
 ├── android             - Android library
 ├── ios                 - Swift package
-├── webview-src         - source code of the JavaScript API bindings
-├── webview-dist        - Transpiled assets from webview-src
+├── guest-js            - Source code of the JavaScript API bindings
+├── dist-js             - Transpiled assets from guest-js
 ├── Cargo.toml          - Cargo crate metadata
 └── package.json        - NPM package metadata
 ```
-
-{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
 If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use `plugin android add` and `plugin ios add` to bootstrap the mobile library projects and guide you through the changes needed.
 
