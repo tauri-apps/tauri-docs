@@ -66,18 +66,21 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
 
 <Steps>
 
-1.  To keep your app safe, configure allowed scope. Read more on [JavaScript API reference](/references/v2/js/http/#security).
+1.  Configure the allowed URLs
 
     ```json
-    //tauri.conf.json
+    //src-tauri/capabilities/base.json
     {
-    	"plugins": {
-    		"http": {
-    			"scope": ["http://my.api.host/*"]
-    		}
-    	}
+      "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": [{ "url": "https://*.tauri.app" }],
+          "deny": [{ "url": "https://private.tauri.app" }]
+        }
+      ]
     }
     ```
+    For more information, please see the documentation for [Access Control Lists](/references/v2/acl/)
 
 2.  Send a request
 
@@ -85,7 +88,7 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
     import { fetch } from '@tauri-apps/plugin-http';
 
     // Send a GET request
-    const response = await fetch('http://my.api.host/data.json', {
+    const response = await fetch('http://test.tauri.app/data.json', {
     	method: 'GET',
     });
     console.log(response.status); // e.g. 200
