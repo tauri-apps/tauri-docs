@@ -74,7 +74,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `package > productName` and `package > version` moved to top-level field.
 - `package` removed.
 - `tauri` key renamed to `app`.
-- `tauri > allowlist` removed. Use `capabilities/main.json` instead.
+- `tauri > allowlist` removed. Refer to [Migrate Permissions](migrate-permissions).
 - `tauri > allowlist > protocol > assetScope` moved to `app > security > assetProtocol > scope`.
 - `tauri > cli` moved to `plugins > cli`.
 - `tauri > updater > active` removed.
@@ -1155,6 +1155,16 @@ the window's `parent_window` API was renamed to `parent_raw` to support a high l
 On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webviewWindow` path.
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
+
+### Migrate Embedded External Binaries (Sidecar)
+
+In Tauri v1, the external binaries and their arguments were defined in the allowlist in the Tauri config. In v2, you use the new permissions system to do so instead. Read [Migrate Permissions](#migrate-permissions) for more information.
+
+On the JavaScript side, in v1, the sidecar was called using `import { Command } from '@tauri-apps/api/shell'`. In v2, you use the shell plugin instead. Read [Migrate to Shell Plugin](#migrate-to-shell-plugin) to see how.
+
+On the Rust side, in v2, the `tauri::api::process` API has been removed. So you import the `tauri_plugin_shell::ShellExt` and `tauri_plugin_shell::process::CommandEvent` APIs instead. Read the [Embedding External Binaries](../develop/sidecar#running-it-from-rust) guide to see how.
+
+The "process-command-api" features flag has been removed in v2. So running the external binaries does not require this feature to be defined in the Tauri config anymore.
 
 ### Migrate Permissions
 

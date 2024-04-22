@@ -84,7 +84,7 @@ use tauri_plugin_shell::process::CommandEvent;
 
 // `sidecar()` expects just the filename, NOT the whole path like in JavaScript
 let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
-let (mut _rx, mut _child) = sidecar_command
+let (mut rx, mut _child) = sidecar_command
   .spawn()
   .expect("Failed to spawn sidecar");
 
@@ -123,7 +123,7 @@ Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `
 
 First, define the arguments that need to be passed to the sidecar command in `src-tauri/capabilities/main.json`:
 
-```json
+```json title="src-tauri/capabilities/main.json" ins={14-31}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
