@@ -3,7 +3,7 @@ title: Continuous Integration
 description: WebDriver Testing
 sidebar:
   order: 21
-  badge: 
+  badge:
     text: WIP
     variant: caution
 ---

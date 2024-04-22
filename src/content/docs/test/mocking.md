@@ -2,7 +2,7 @@
 title: Mock Tauri APIs
 sidebar:
   order: 1
-  badge: 
+  badge:
     text: WIP
     variant: caution
 ---

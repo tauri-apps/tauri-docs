@@ -96,8 +96,8 @@ export default defineConfig({
 				{
 					tag: 'script',
 					attrs: {
-						src: '/navigate.js'
-					}
+						src: '/navigate.js',
+					},
 				},
 			],
 			// TODO: Be sure this is updated when the branch is switched
