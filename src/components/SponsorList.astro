@@ -1,0 +1,201 @@
+---
+import { type Sponsor as SponsorType, IMAGE_DIMENSION, type Tier } from './Sponsor.astro';
+import Sponsor from './Sponsor.astro';
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+const IS_PRODUCTION = import.meta.env.NETLIFY != undefined;
+
+let gitHubSponsors: SponsorType[] = [];
+
+if (GITHUB_TOKEN || IS_PRODUCTION) {
+	gitHubSponsors = await getGitHubSponsors();
+}
+
+const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
+
+const openCollectiveSponsors = await getOpenCollectiveSponsors();
+
+async function getGitHubSponsors(): Promise<SponsorType[]> {
+	if (!GITHUB_TOKEN)
+		throw Error('Error generator sponsor list: GITHUB_TOKEN is invalid or not set');
+
+	// https://docs.github.com/graphql
+	const gitHubQuery = `query {
+  organization(login:"tauri-apps") {
+    sponsors(first: 100) {
+      nodes {
+        ... on Actor {
+          login,
+          avatarUrl(size: ${IMAGE_DIMENSION})
+        }
+      }
+    }
+  }
+}`;
+
+	const gitHubSponsorResponse = await fetch('https://api.github.com/graphql', {
+		method: 'POST',
+		body: JSON.stringify({ query: gitHubQuery }),
+		headers: {
+			Authorization: `bearer ${GITHUB_TOKEN}`,
+		},
+	});
+
+	if (!gitHubSponsorResponse.ok)
+		throw Error(
+			`There was an issue with the GitHub sponsors query: ${gitHubSponsorResponse.status}: ${gitHubSponsorResponse.statusText}`
+		);
+
+	const gitHubSponsorData = (await gitHubSponsorResponse.json()).data;
+	return gitHubSponsorData.organization.sponsors.nodes
+		.map(
+			(node: any): SponsorType => ({
+				id: node.login,
+				name: node.login,
+				avatarUrl: node.avatarUrl,
+			})
+		)
+		.sort((a: SponsorType, b: SponsorType) => a.name.localeCompare(b.name));
+}
+
+async function getOpenCollectiveSponsors(): Promise<SponsorType[]> {
+	const filteredSlugs = ['github-sponsors'];
+
+	// Documentation at https://graphql-docs-v2.opencollective.com/welcome
+	const openCollectiveQuery = `query account {
+  collective(slug: "tauri") {
+    contributors(limit: 1000) {
+      nodes {
+        name
+		image(height: ${IMAGE_DIMENSION})
+		totalAmountDonated
+		collectiveSlug
+		isIncognito
+      }
+    }
+  }
+}`;
+
+	const openCollectiveResponse = await fetch('https://api.opencollective.com/graphql/v2', {
+		method: 'POST',
+		body: JSON.stringify({ query: openCollectiveQuery }),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	if (!openCollectiveResponse.ok)
+		throw Error(
+			`There was an issue with the Open Collective sponsors query: ${openCollectiveResponse.status} ${openCollectiveResponse.statusText}`
+		);
+
+	const openCollectiveData = (await openCollectiveResponse.json()).data;
+	return openCollectiveData.collective.contributors.nodes
+		.filter(
+			(node: any) =>
+				!node.isIncognito &&
+				node.totalAmountDonated > 0 &&
+				!filteredSlugs.includes(node.collectiveSlug) &&
+				node.name != 'Guest'
+		)
+		.sort((a: any, b: any) => b.totalAmountDonated - a.totalAmountDonated)
+		.map((node: any): SponsorType => {
+			let tier: Tier;
+			let amount = node.totalAmountDonated / 100;
+			if (amount >= 5_000) {
+				tier = 'platinum';
+			} else if (amount >= 500) {
+				tier = 'gold';
+			} else if (amount >= 100) {
+				tier = 'silver';
+			} else {
+				tier = 'bronze';
+			}
+			return {
+				name: node.name,
+				id: node.name,
+				avatarUrl: node.image,
+				profileUrl: `https://opencollective.com/${node.collectiveSlug}`,
+				tier,
+			};
+		});
+}
+
+const openCollectiveSilverOpt1 = openCollectiveSponsors.filter(
+	(sponsor) => sponsor.tier == 'silver'
+);
+const openCollectiveSilverOpt2 = openCollectiveSponsors
+	.filter((sponsor) => sponsor.tier == 'silver')
+	.map((sponsor) => sponsor.name)
+	.join(', ');
+
+const openCollectiveBronze = openCollectiveSponsors
+	.filter((sponsor) => sponsor.tier == 'bronze')
+	.map((sponsor) => sponsor.name)
+	.join(', ');
+---
+
+<h1 id="sponsors">Sponsors</h1>
+<h2>Open Collective</h2>
+<div class="sponsor-grid">
+	{
+		openCollectiveSponsors
+			.filter((sponsor) => sponsor.tier == 'platinum')
+			.map((sponsor) => <Sponsor {sponsor} />)
+	}
+</div>
+
+<div class="sponsor-grid">
+	{
+		openCollectiveSponsors
+			.filter((sponsor) => sponsor.tier == 'gold')
+			.map((sponsor) => <Sponsor {sponsor} />)
+	}
+</div>
+<!-- <div>
+	{
+		openCollectiveSilverOpt1.map((sponsor) => (
+			<>
+				<a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
+					{sponsor.name}
+				</a>{' '}
+			</>
+		))
+	}
+</div> -->
+<div>
+	{openCollectiveSilverOpt2}
+</div>
+<!-- <div>
+	{openCollectiveBronze}
+</div> -->
+<h2>GitHub</h2>
+{
+	!gitHubSponsorsLoaded && (
+		<p>
+			<code>GITHUB_TOKEN</code> environment variable not set so GitHub sponsors could not be loaded.
+		</p>
+	)
+}
+{
+	gitHubSponsorsLoaded && (
+		<ul class="sponsor-grid">
+			{gitHubSponsors.map((sponsor) => (
+				<li>
+					<Sponsor {sponsor} />
+				</li>
+			))}
+		</ul>
+	)
+}
+
+<style>
+	.sponsor-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1rem;
+	}
+
+	.sponsor-grid > li {
+		list-style: none;
+	}
+</style>
