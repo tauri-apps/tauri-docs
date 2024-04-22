@@ -1,6 +1,10 @@
 ---
 title: Command Line Interface (CLI)
 description: Parse arguments from the command line interface.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -264,7 +268,7 @@ fn run() {
 By default all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/references/v2/acl) for more information.
+See [Access Control List](/references/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
