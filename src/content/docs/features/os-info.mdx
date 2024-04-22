@@ -1,6 +1,10 @@
 ---
 title: OS Information
 description: Read information about the operating system.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -60,7 +64,7 @@ Install the OS Information plugin to get started.
 
 ## Usage
 
-With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/references/v2/js/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
+With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/references/javascript/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
@@ -96,7 +100,7 @@ println!("Platform: {}", platform);
 By default all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/references/v2/acl) for more information.
+See [Access Control List](/references/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={4-6}
 {
