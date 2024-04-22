@@ -1,4 +1,0 @@
-[[set]]
-identifier = "read-download-dir"
-description = "allows all read the $DOWNLOAD dir"
-permissions = ["allow-read-dir", "allow-download-dir"]

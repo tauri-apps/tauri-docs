@@ -190,7 +190,7 @@ function entitify(str: string): string {
 		.replace(/\$\{/g, '$\\{');
 }
 
-if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
+if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages') || true) {
 	generator();
 } else {
 	console.info('Skipping `/release` pages build');
