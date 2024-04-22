@@ -101,7 +101,7 @@ jobs:
         working-directory: webdriver/webdriverio
 ```
 
-[previously built together]: /guides/test/webdriver/example/webdriverio
+[previously built together]: /test/webdriver/example/webdriverio
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/

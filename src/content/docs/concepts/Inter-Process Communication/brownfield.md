@@ -1,5 +1,9 @@
 ---
 title: Brownfield Pattern
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 _**This is the default pattern.**_

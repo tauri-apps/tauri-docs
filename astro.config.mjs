@@ -206,7 +206,7 @@ export default defineConfig({
 		...i18nRedirect('/v1/guides/testing/webdriver/introduction', '/guides/test/webdriver/'),
 		...i18nRedirect(
 			'/v1/guides/testing/webdriver/example/setup',
-			'/guides/test/webdriver/example/setup'
+			'/guides/test/webdriver/example/'
 		),
 		...i18nRedirect(
 			'/v1/guides/testing/webdriver/example/selenium',
@@ -214,7 +214,7 @@ export default defineConfig({
 		),
 		...i18nRedirect(
 			'/v1/guides/testing/webdriver/example/webdriverio',
-			'/guides/test/webdriver/example/webdriverio'
+			'/test/webdriver/example/webdriverio'
 		),
 
 		// v1 /references

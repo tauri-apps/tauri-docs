@@ -3,6 +3,8 @@
 # For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly
 
 title: Configuration
+sidebar:
+  order: 1
 ---
 
 
@@ -1557,7 +1559,7 @@ Tray icon tooltip on Windows and macOS
 
 Install modes for the Webview2 runtime. Note that for the updater bundle [`Self::DownloadBootstrapper`] is used.
 
-For more information see &lt;https://tauri.app/v1/guides/building/windows&gt;.
+For more information see &lt;https://tauri.app/v1/guides/developing/windows&gt;.
 
 ### WebviewUrl
 

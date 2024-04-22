@@ -13,7 +13,7 @@ This documentation is for the prereleased version of Tauri 2.0 and is subject to
 
 Tauri is a framework for building tiny, fast binaries for all major desktop and mobile platforms. Developers can integrate any frontend framework that compiles to HTML, JavaScript, and CSS for building their user experience while leveraging languages such as Rust, Swift, and Kotlin for backend logic when needed.
 
-Get started building with [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) by using one of the below commands. Be sure to follow the [prerequisites guide](/guides/prerequisites/) to install all of the dependencies required by Tauri and then view the [Frontend Configuration guides](/guides/frontend/) for recommended frontend configurations.
+Get started building with [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) by using one of the below commands. Be sure to follow the [prerequisites guide](/start/prerequisites/) to install all of the dependencies required by Tauri and then view the [Frontend Configuration guides](/start/frontend-configuration/) for recommended frontend configurations.
 
 import Cta from '../_fragments/cta.mdx';
 
@@ -47,9 +47,9 @@ Learn more about creating optimized apps in the [App Size concept](/concepts/siz
 
 ### Flexible Architecture
 
-Since Tauri uses web technologies that means that virtually any frontend framework is compatible with Tauri. The [Frontend Configuration guide](/guides/frontend/) contains common configurations for popular frontend frameworks and the [Rendering concept](/concepts/rendering) discusses which rendering techniques work best with Tauri (such as SPAs and SSGs).
+Since Tauri uses web technologies that means that virtually any frontend framework is compatible with Tauri. The [Frontend Configuration guide](/start/frontend-configuration/) contains common configurations for popular frontend frameworks and the [Rendering concept](/concepts/rendering) discusses which rendering techniques work best with Tauri (such as SPAs and SSGs).
 
-Bindings between JavaScript and Rust are available to developers using the `invoke` function in JavaScript and Swift and Kotlin bindings are available for [Tauri Plugins](/guides/plugins/).
+Bindings between JavaScript and Rust are available to developers using the `invoke` function in JavaScript and Swift and Kotlin bindings are available for [Tauri Plugins](/develop/plugins/).
 
 [TAO](https://github.com/tauri-apps/tao) is responsible for Tauri window creation and [WRY](https://github.com/tauri-apps/wry) is responsible for web view rendering. These are libraries maintained by Tauri and can be consumed directly if deeper system integration is required outside of what Tauri exposes.
 

@@ -15,7 +15,7 @@ async function buildConfig(schemaFile: string, outputFile: string) {
 	let schema: JSONSchema7 = (await import(schemaFile)).default;
 
 	const output = [
-		'---\n# NOTE: This file is auto-generated in packages/config-generator/build.ts\n# For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly\n\ntitle: Configuration\n---',
+		'---\n# NOTE: This file is auto-generated in packages/config-generator/build.ts\n# For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly\n\ntitle: Configuration\nsidebar:\n  order: 1\n---',
 	];
 
 	output.push(

@@ -5,7 +5,7 @@ i18nReady: true
 
 :::tip[Plugin Development]
 
-Be sure that you're familiar with the concepts covered in the [Plugin Development guide](/guides/plugins) as many concepts in this guide build on top of foundations covered there.
+Be sure that you're familiar with the concepts covered in the [Plugin Development guide](/develop/plugins) as many concepts in this guide build on top of foundations covered there.
 
 :::
 
@@ -13,7 +13,7 @@ Plugins can run native mobile code written in Kotlin (or Java) and Swift. The de
 
 ## Initialize Plugin Project
 
-Follow the steps in the [Plugin Development guide](/guides/plugins#initialize-plugin-project) to initialize a new plugin project.
+Follow the steps in the [Plugin Development guide](/develop/plugins#initialize-plugin-project) to initialize a new plugin project.
 
 If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use `plugin android init` and `plugin ios init` to bootstrap the mobile library projects and guide you through the changes needed.
 
@@ -48,7 +48,7 @@ The plugin is defined as a [Swift package](https://www.swift.org/package-manager
 
 ## Plugin Configuration
 
-Refer to the [Plugin Configuration section](/guides/plugins/#plugin-configuration) of the Plugin Development guide for more details on developing plugin configurations.
+Refer to the [Plugin Configuration section](/develop/plugins/#plugin-configuration) of the Plugin Development guide for more details on developing plugin configurations.
 
 The plugin instance on mobile has a getter for the plugin configuration:
 
@@ -89,7 +89,7 @@ Plugins can hook into several lifecycle events:
 - [load](#load): When the plugin is loaded into the web view
 - [onNewIntent](#onnewintent): Android only, when the activity is re-launched
 
-There are also the additional [lifecycle events for plugins](/guides/plugins#lifecycle-events) in the Plugin Development guide.
+There are also the additional [lifecycle events for plugins](/develop/plugins#lifecycle-events) in the Plugin Development guide.
 
 ### load
 
@@ -455,7 +455,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/references/v2/js/core/namespacecore/#addpluginlistener) helper function:
+The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/references/js/core/namespacecore/#addpluginlistener) helper function:
 
 ```javascript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';

@@ -1,12 +1,16 @@
 ---
 title: Capabilities
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 Tauri provides application and plugin developers with a capabilities system,
 to granually enable and constrain the core exposure to the application frontend running in the
 system WebView.
 
-Capabilities are a set of [permissions](/concepts/security/permissions) mapped
+Capabilities are a set of [permissions](/security/permissions) mapped
 to application windows and webviews by their respective label.
 Capabilities can affect multiple windows and webviews and these can be
 referenced in multiple capabilities.
@@ -52,7 +56,7 @@ for core plugins and the `window.setTitle` API.
 ```
 
 These snippets are part of the
-[Tauri configuration](/references/configuration-files#tauri-config) file.
+[Tauri configuration](/develop/configuration-files#tauri-config) file.
 
 This is likely the most common configuration method,
 where the individual capabilities are inlined and only
