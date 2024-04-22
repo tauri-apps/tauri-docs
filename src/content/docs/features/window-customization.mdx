@@ -12,8 +12,8 @@ Tauri provides lots of options for customizing the look and feel of your app's w
 
 There are three ways to change the window configuration:
 
-- <Icon name="external" class="inline-icon" /> [Through tauri.conf.json](/references/v2/config/#windowconfig)
-- <Icon name="external" class="inline-icon" /> [Through the JavaScript API](/references/v2/js/core/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [Through tauri.conf.json](/references/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [Through the JavaScript API](/references/js/core/namespacewindow/#window)
 - <Icon name="external" class="inline-icon" /> [Through the Window in Rust](https://docs.rs/tauri/2.0.0-beta/tauri/window/struct.Window.html)
 
 ## Usage
@@ -49,7 +49,7 @@ Add window permissions in capability file.
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/references/v2/acl) for more information.
+See [Access Control List](/references/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {

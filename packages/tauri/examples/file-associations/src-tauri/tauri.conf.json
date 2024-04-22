@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../tooling/cli/schema.json",
+  "identifier": "com.tauri.dev-file-associations-demo",
+  "build": {
+    "frontendDist": ["../index.html"]
+  },
+  "app": {
+    "security": {
+      "csp": "default-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "../../.icons/32x32.png",
+      "../../.icons/128x128.png",
+      "../../.icons/128x128@2x.png",
+      "../../.icons/icon.icns",
+      "../../.icons/icon.ico"
+    ],
+    "fileAssociations": [
+      {
+        "ext": ["png"],
+        "mimeType": "image/png"
+      },
+      {
+        "ext": ["jpg", "jpeg"],
+        "mimeType": "image/jpeg"
+      },
+      {
+        "ext": ["gif"],
+        "mimeType": "image/gif"
+      }
+    ]
+  }
+}
