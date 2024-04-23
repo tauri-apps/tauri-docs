@@ -95,8 +95,10 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				baseUrl: `/references/javascript/${plugin}`,
+				baseUrl: `/references/javascript/`,
 				...typeDocConfigBaseOptions,
+				// Must go after to override base
+				entryFileName: `${plugin}.md`,
 			};
 
 			await generateDocs(pluginJsOptions);
@@ -135,10 +137,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 	}
 	const frontmatter = [
 		'---',
-		`title: "${event.model.name}"`,
+		`title: "${event.model.name.replace("@tauri-apps/plugin-", "")}"`,
 		'editUrl: false',
-		'prev: false',
-		'next: false',
 		'---',
 		'',
 		event.contents,
