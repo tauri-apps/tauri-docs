@@ -137,8 +137,10 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 	}
 	const frontmatter = [
 		'---',
-		`title: "${event.model.name.replace("@tauri-apps/plugin-", "")}"`,
+		`title: "${event.model.name}"`,
 		'editUrl: false',
+		'sidebar:',
+		`  label: "${event.model.name.replace("@tauri-apps/plugin-", "")}"`,
 		'---',
 		'',
 		event.contents,
