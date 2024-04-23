@@ -273,8 +273,8 @@ class OpenAppArgs: Decodable {
 
 class OpenArgs: Decodable {
   let requiredArg: String
-  var allowEdit: Bool = false
-  var quality: UInt8 = 100
+  var allowEdit: Bool?
+  var quality: UInt8?
   var app: OpenAppArgs?
 }
 
@@ -290,7 +290,8 @@ class ExamplePlugin: Plugin {
 :::note
 Optional arguments are defined as `var <argumentName>: Type?`
 
-Arguments with default values are defined as `var <argumentName>: Type = <default-value>`
+Arguments with default values are **NOT** supported.
+Use a nullable type and set the default value on the command function instead.
 
 Required arguments are defined as `let <argumentName>: Type`
 :::
