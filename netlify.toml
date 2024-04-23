@@ -117,8 +117,8 @@ to = "/zh-cn/:splat"
 
 [[redirects]]
 from = "/2/*"
-to = "https://beta.tauri.app/2/:splat"
+to = "https://v2.tauri.app/2/:splat"
 
 [[redirects]]
 from = "/blog/*"
-to = "https://beta.tauri.app/blog/:splat"
+to = "https://v2.tauri.app/blog/:splat"

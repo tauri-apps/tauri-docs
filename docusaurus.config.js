@@ -57,7 +57,7 @@ const navbarItems = [
 
   {
     label: 'Blog',
-    href: 'https://beta.tauri.app/blog',
+    href: 'https://v2.tauri.app/blog',
     position: 'left',
   },
   {
@@ -131,7 +131,7 @@ const navbarItems = [
     className: 'navbarIcon versionIcon',
     dropdownItemsAfter: [
       {
-        href: 'https://beta.tauri.app/',
+        href: 'https://v2.tauri.app/',
         label: 'v2 (Beta)',
         target: '_self',
       },
@@ -187,7 +187,7 @@ const footerLinks = [
     items: [
       {
         label: 'Blog',
-        href: 'https://beta.tauri.app/blog',
+        href: 'https://v2.tauri.app/blog',
       },
       {
         label: 'OpenCollective',
@@ -250,7 +250,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>🚀 The <a id='announcement-link' href='https://beta.tauri.app/blog/tauri-2-0-0-beta/'>Beta for Tauri 2.0</a> has launched!</b>",
+          "<b>🚀 The <a id='announcement-link' href='https://v2.tauri.app/blog/tauri-2-0-0-beta/'>Beta for Tauri 2.0</a> has launched!</b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },
