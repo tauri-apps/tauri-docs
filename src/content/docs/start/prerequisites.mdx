@@ -263,16 +263,16 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 - Android SDK Build-Tools
 - Android SDK Command-line Tools
 
-4. Set `ANDROID_HOME` and `NDK_HOME` environment variables. Replace the version numbers so it matches your installed version.
+Selecting "Show Package Details" in the SDK Manager enables the installation of older package versions. Only install older versions if necessary, as they may introduce compatibility issues or security risks.
 
-{/* TODO: Does the version number change below? */}
+4. Set `ANDROID_HOME` and `NDK_HOME` environment variables.
 
 <Tabs>
 <TabItem label="Linux">
 
 ```sh
 export ANDROID_HOME="$HOME/Android/Sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 ```
 
 </TabItem>
@@ -280,17 +280,16 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 
 ```sh
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 ```
 
 </TabItem>
 <TabItem label="Windows">
 
-{/* TODO: Do we need a note about this version? */}
-
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\25.0.8775105", "User")
+$VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk"
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
 
 </TabItem>
