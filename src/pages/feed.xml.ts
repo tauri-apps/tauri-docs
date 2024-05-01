@@ -25,7 +25,7 @@ export async function GET(context: APIContext) {
 			return 0;
 		} else return 0;
 	});
-	
+
 	return rss({
 		title: 'Tauri RSS',
 		description: 'The cross-platform app building toolkit',
