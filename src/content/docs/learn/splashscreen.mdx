@@ -6,6 +6,67 @@ sidebar:
     variant: caution
 ---
 
-import Stub from '@components/Stub.astro';
+import { Steps } from '@astrojs/starlight/components';
 
-<Stub />
+In this lab we'll be implementing a basic splashscreen functionality in a Tauri app. Doing so
+is quite straight forward, a splashscreen is effectively just a matter of creating a new window
+that displays some contents during the period your app is doing some heavy setup related tasks.
+
+## Prerequisites
+
+- [A basic development environment setup](/start/prerequisites)
+- [Create a new lab app](/learn#create-lab-apps)
+
+## Steps
+
+<Steps>
+
+1. <a id="step-1" href="#step-1">**Register new windows in `tauri.conf.json`**</a>
+
+   The easiest way of adding new windows is by adding them directly to `tauri.conf.json`. You can also create them dynamically at startup,
+   but for the sake of simplicity lets just register them instead.
+
+2. <a id="step-2" href="#step-2">**Create a new page to host your splashscreen**</a>
+
+   Before you begin you'll need to have some content to show. How you develop new pages depend on your chosen framework,
+   most have the concept of a "router" that handles page navigation which should work just like normal in Tauri in which case
+   you just create a new splashscreen page. Or as we're going to be doing here, create a new `splashscreen.html` file to host
+   the contents.
+
+   All that's important here is that you can navigate to a `/splashscreen` URL and be shown the contents you want for your
+   splashscreen.
+
+3. <a id="step-3" href="#step-3">**Open your main window in hidden mode**</a>
+
+   Splashscreens are primarily used to hide loading times, so it makes sense to show your main window so that its contents can
+   be loaded. Additionally, for apps that are more frontend heavy, this is how you'd get your JS based setup scripts to run.
+
+4. <a id="step-4" href="#step-4">**Perform some heavy setup task in the backend**</a>
+
+   Perform some heavy setup functions in the `.setup(|app| {})` hook, then store its readiness in a `State`. We do this because
+   it lets us perform work in both the frontend and the backend before the splashscreen is closed.
+
+5. <a id="step-5" href="#step-5">**Create a command to determine if setup is complete**</a>
+
+   Using a custom Tauri command we can synchronize our frontend and backend related setup tasks to determine if everything we
+   expect to be done is in fact so, after which we can close the splashscreen and unhide the main window.
+
+6. <a id="step-6" href="#step-6">**Close the splashscreen window**</a>
+
+</Steps>
+
+## Discuss
+
+**Should you have a splashscreen?**
+
+In general having a splashscreen is an admittance of defeat that you couldn't make your
+app load fast enough to not need one. In fact it tends to be better to just go straight
+to a main window that then shows some little spinner somewhere in a corner informing the
+user there's still setup tasks happening in the background.
+
+However, with that said, it can be a stylistic choice that you want to have a splashscreen,
+or you might have some very particular requirement that makes it impossible to even start the
+app until some tasks are performed. It's definitely not *wrong* to have a splashscreen, it
+just tends to not be necessary and can make users feel like the app isn't very well optimized.
+
+****
