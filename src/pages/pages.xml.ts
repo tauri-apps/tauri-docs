@@ -1,4 +1,4 @@
-// This RSS includes only docs pages in root locale
+// This RSS includes only docs pages in root locale, excluding releases, blog and references
 import config from 'virtual:starlight/user-config';
 import { getNewestCommitDate } from 'node_modules/@astrojs/starlight/utils/git';
 import { getCollection } from 'astro:content';
@@ -8,7 +8,7 @@ import rss from '@astrojs/rss';
 
 // Ternary is just so typescript won't complain
 const exclude = config.isMultilingual
-	? Object.keys(config.locales).concat('blog', 'references', 'rss')
+	? Object.keys(config.locales).concat('blog', 'references', 'rss', 'releases')
 	: [];
 
 // https://docs.astro.build/en/reference/api-reference/#endpoint-context
