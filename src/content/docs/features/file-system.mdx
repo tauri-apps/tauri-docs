@@ -1,10 +1,14 @@
 ---
 title: File System
 description: Access the file system.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="fs" />
@@ -24,51 +28,55 @@ _This plugin requires a Rust version of at least **1.75**_
 Install the fs plugin to get started.
 
 <Tabs>
-  <TabItem label="Automatic" >
+	<TabItem label="Automatic" >
 
-Use your project's package manager to add the dependency:
+    	Use your project's package manager to add the dependency:
 
-{ ' ' }
+    	{ ' ' }
 
-<CommandTabs
-	npm="npm run tauri add fs"
-	yarn="yarn run tauri add fs"
-	pnpm="pnpm tauri add fs"
-	cargo="cargo tauri add fs"
-/>
+    	<CommandTabs
+    		npm="npm run tauri add fs"
+    		yarn="yarn run tauri add fs"
+    		pnpm="pnpm tauri add fs"
+    		cargo="cargo tauri add fs"
+    	/>
 
-  </TabItem>
-  <TabItem label = "Manual">
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
 
-1. Install the fs plugin by adding the following to your `Cargo.toml` file:
+    	1.	Install the fs plugin by adding the following to your `Cargo.toml` file:
 
-```toml title="src-tauri/Cargo.toml"
-[dependencies]
-tauri-plugin-fs = "2.0.0-beta"
-# alternatively with Git:
-tauri-plugin-fs = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-```
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-fs = "2.0.0-beta"
+    		# alternatively with Git:
+    		tauri-plugin-fs = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
 
-2. Modify `lib.rs` to initialize the plugin:
+    	2.	Modify `lib.rs` to initialize the plugin:
 
-```rust title="src-tauri/src/lib.rs" ins={4}
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_fs::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+    		#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    		fn run() {
+    			tauri::Builder::default()
+    				.plugin(tauri_plugin_fs::init())
+    				.run(tauri::generate_context!())
+    				.expect("error while running tauri application");
+    		}
+    		```
 
-3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    	3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-  <CommandTabs
-	  npm = "npm install @tauri-apps/plugin-fs"
-	  yarn = "yarn add @tauri-apps/plugin-fs"
-	  pnpm = "pnpm add @tauri-apps/plugin-fs"
-	/>
-  </TabItem>
+    		<CommandTabs
+    			npm = "npm install @tauri-apps/plugin-fs"
+    			yarn = "yarn add @tauri-apps/plugin-fs"
+    			pnpm = "pnpm add @tauri-apps/plugin-fs"
+    		/>
+
+    	</Steps>
+    </TabItem>
+
 </Tabs>
 
 ## Usage
@@ -115,13 +123,13 @@ fn run() {
 
 This module prevents path traversal, not allowing absolute paths or parent dir components (i.e. `/usr/path/to/file` or `../path/to/file` paths are not allowed). Paths accessed with this API must be relative to one of the base directories so if you need access to arbitrary file system paths, you must write such logic on the core layer instead.
 
-See [@tauri-apps/plugin-fs - Security](/references/v2/js/fs/#security) for more information.
+See [@tauri-apps/plugin-fs - Security](/references/javascript/fs/#security) for more information.
 
 ## Permissions
 
 By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/references/v2/acl) for more information.
+See [Access Control List](/references/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {
