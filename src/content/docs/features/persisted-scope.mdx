@@ -1,10 +1,14 @@
 ---
 title: Persisted Scope
 description: Persist runtime scope changes on the filesystem.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="persisted-scope" showJsLinks={false} />
@@ -27,25 +31,28 @@ Install the persisted-scope plugin to get started.
 Currently manual install is required for setting up persisted-scope plugin.
 :::
 
-1. Install the Core plugin by adding the following to your `Cargo.toml` file:
+    <Steps>
+    1.  Install the Core plugin by adding the following to your `Cargo.toml` file:
 
-```toml title="src-tauri/Cargo.toml"
-[dependencies]
-tauri-plugin-persisted-scope = "2.0.0-beta"
-# alternatively with Git:
-tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-```
+        ```toml title="src-tauri/Cargo.toml"
+        [dependencies]
+        tauri-plugin-persisted-scope = "2.0.0-beta"
+        # alternatively with Git:
+        tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+        ```
 
-2. Modify `lib.rs` to initialize the plugin:
+    2.  Modify `lib.rs` to initialize the plugin:
 
-```rust title="src-tauri/src/lib.rs" {3}
-fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_persisted_scope::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
+            ```rust title="src-tauri/src/lib.rs" {3}
+            fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_persisted_scope::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+    </Steps>
 
 ## Usage
 

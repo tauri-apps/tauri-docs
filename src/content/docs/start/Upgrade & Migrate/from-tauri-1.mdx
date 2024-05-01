@@ -1,6 +1,8 @@
 ---
 title: Upgrade from Tauri 1.0
 i18nReady: true
+sidebar:
+  order: 12
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -63,7 +65,7 @@ The Tauri v2 CLI includes a `migrate` command that automates most of the process
 
 {/* TODO: 2.0 */}
 
-Learn more about the `migrate` command in the [Command Line Interface reference](/references/v2/cli#migrate)
+Learn more about the `migrate` command in the [Command Line Interface reference](/references/cli#migrate)
 
 ## Summary of Changes
 
@@ -77,6 +79,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > allowlist` removed. Refer to [Migrate Permissions](migrate-permissions).
 - `tauri > allowlist > protocol > assetScope` moved to `app > security > assetProtocol > scope`.
 - `tauri > cli` moved to `plugins > cli`.
+- `tauri > windows > fileDropEnabled` renamed to `app > windows > dragDropEnabled`.
 - `tauri > updater > active` removed.
 - `tauri > updater > dialog` removed.
 - `tauri > updater` moved to `plugins > updater`.
@@ -93,7 +96,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `build > distDir` renamed to `frontendDist`.
 - `build > devPath` renamed to `devUrl`.
 
-[Tauri 2.0 Configuration API reference](/references/v2/config)
+[Tauri 2.0 Configuration API reference](/references/config)
 
 ### New Cargo Features
 
@@ -1156,6 +1159,7 @@ On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
 
+
 ### Migrate Embedded External Binaries (Sidecar)
 
 In Tauri v1, the external binaries and their arguments were defined in the allowlist. In v2, use the new permissions system. Read [Migrate Permissions](#migrate-permissions) for more information.
@@ -1175,4 +1179,4 @@ To enable permissions for your app, you must create capability files inside the 
 
 The `migrate` CLI command automatically parses your v1 allowlist and generates the associated capability file.
 
-To learn more about permissions and capabilities, see [the documentation](/references/v2/acl).
+To learn more about permissions and capabilities, see [the documentation](/references/acl).
