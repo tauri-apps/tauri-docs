@@ -1158,11 +1158,11 @@ The `onMenuClicked` function was removed, you can intercept menu events when cre
 
 ### Migrate Embedded External Binaries (Sidecar)
 
-In Tauri v1, the external binaries and their arguments were defined in the allowlist in the Tauri config. In v2, you use the new permissions system to do so instead. Read [Migrate Permissions](#migrate-permissions) for more information. Alternatively, if you are upgrading from v1, the `migrate` command in Tauri v2 CLI should handle this for you. Read [Automated Migration](#automated-migration) for more information.
+In Tauri v1, the external binaries and their arguments were defined in the allowlist. In v2, use the new permissions system. Read [Migrate Permissions](#migrate-permissions) for more information.
 
-On the JavaScript side, in v1, the sidecar was called using `import { Command } from '@tauri-apps/api/shell'`. In v2, you use the shell plugin instead. Read [Migrate to Shell Plugin](#migrate-to-shell-plugin) to see how.
+On the JavaScript side, make sure you [Migrate to Shell Plugin](#migrate-to-shell-plugin).
 
-On the Rust side, in v2, the `tauri::api::process` API has been removed. So you import the `tauri_plugin_shell::ShellExt` and `tauri_plugin_shell::process::CommandEvent` APIs instead. Read the [Embedding External Binaries](../develop/sidecar#running-it-from-rust) guide to see how.
+On the Rust side, `tauri::api::process` API has been removed. Use `tauri_plugin_shell::ShellExt` and `tauri_plugin_shell::process::CommandEvent` APIs instead. Read the [Embedding External Binaries](/guides/develop/sidecar/#running-it-from-rust) guide to see how.
 
 The "process-command-api" features flag has been removed in v2. So running the external binaries does not require this feature to be defined in the Tauri config anymore.
 
