@@ -1,4 +1,4 @@
-// This RSS includes all pages in root locale, excluding releases
+// This RSS includes all pages in root locale, excluding releases and references
 import config from 'virtual:starlight/user-config';
 import { getNewestCommitDate } from 'node_modules/@astrojs/starlight/utils/git';
 import { getCollection } from 'astro:content';
