@@ -1162,7 +1162,7 @@ In Tauri v1, the external binaries and their arguments were defined in the allow
 
 On the JavaScript side, make sure you [Migrate to Shell Plugin](#migrate-to-shell-plugin).
 
-On the Rust side, `tauri::api::process` API has been removed. Use `tauri_plugin_shell::ShellExt` and `tauri_plugin_shell::process::CommandEvent` APIs instead. Read the [Embedding External Binaries](/guides/develop/sidecar/#running-it-from-rust) guide to see how.
+On the Rust side, `tauri::api::process` API has been removed. Use `tauri_plugin_shell::ShellExt` and `tauri_plugin_shell::process::CommandEvent` APIs instead. Read the [Embedding External Binaries](/develop/sidecar/#running-it-from-rust) guide to see how.
 
 The "process-command-api" features flag has been removed in v2. So running the external binaries does not require this feature to be defined in the Tauri config anymore.
 
@@ -1175,4 +1175,4 @@ To enable permissions for your app, you must create capability files inside the 
 
 The `migrate` CLI command automatically parses your v1 allowlist and generates the associated capability file.
 
-To learn more about permissions and capabilities, see [the documentation](/references/v2/acl).
+To learn more about permissions and capabilities, see [the documentation](/references/acl).
