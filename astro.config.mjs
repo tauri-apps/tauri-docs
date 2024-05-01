@@ -138,6 +138,11 @@ export default defineConfig({
 					autogenerate: { directory: 'distribute' },
 				},
 				{
+					label: 'Learn',
+					collapsed: true,
+					autogenerate: { directory: 'learn' },
+				},
+				{
 					label: 'Features & Recipes',
 					collapsed: true,
 					autogenerate: { directory: 'features' },
@@ -253,9 +258,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-					/^\/*/g,
-					''
-				)}`)
+				/^\/*/g,
+				''
+			)}`)
 	);
 	return routes;
 }
