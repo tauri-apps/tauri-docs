@@ -101,9 +101,8 @@ export default defineConfig({
 					},
 				},
 			],
-			// TODO: Be sure this is updated when the branch is switched
 			editLink: {
-				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/next',
+				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
 			},
 			customCss: ['./src/styles/custom.css'],
 			sidebar: [
