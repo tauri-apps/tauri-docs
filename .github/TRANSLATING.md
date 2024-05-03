@@ -10,8 +10,8 @@ If you seek to contribute but find your language missing please let us know in h
 
 ### Maintainer Checklist for Adding New Languages
 
-- Update https://github.com/tauri-apps/tauri-docs/blob/next/locales.json
-- Update https://github.com/tauri-apps/tauri-docs/blob/next/.github/labeler.yml
+- Update https://github.com/tauri-apps/tauri-docs/blob/v2/locales.json
+- Update https://github.com/tauri-apps/tauri-docs/blob/v2/.github/labeler.yml
 
 ## Starting a Translation
 
