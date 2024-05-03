@@ -1,0 +1,23 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Footer.astro';
+const year = new Date().getFullYear();
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<hr />
+
+<p>&copy; {year} Tauri Contributors. CC-BY / MIT</p>
+
+<style>
+	p {
+		text-align: center;
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+	}
+	hr {
+		border: 0;
+		border-bottom: 1px solid var(--sl-color-hairline);
+	}
+</style>

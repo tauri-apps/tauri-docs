@@ -2,15 +2,14 @@
 
 Welcome to Tauri Docs! We're excited to have you 🥳
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/next)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/next)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/v2)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/v2)
 
 There are a number of ways to get involved:
 
 - See if there are any [good first issues](https://github.com/tauri-apps/tauri-docs/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) that catch your eye
 - [Write a guide or recipe](#write-documentation)
 - [Translating existing documentation](#translations-i18n)
-- [Documenting API references](#updating-api-references)
 
 Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` channel](https://discord.com/channels/616186924390023171/662624589037436928) if you have any questions!
 
@@ -26,7 +25,7 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` c
 
 ## Write Documentation
 
-We have the following types of documents that roughly follow the types defined by [Diátaxis](https://diataxis.fr/index.html):
+We have the following types of documents that roughly follow the types defined by [Diátaxis](https://diataxis.fr/):
 
 - **[Guide](#guide)**: Learning-oriented
 - **[Recipe](#recipe)**: Task-oriented
@@ -68,7 +67,7 @@ While Tauri 2.0 is still in the prerelease stage people follow these guidelines 
 
 Located in [`/src/content/docs/2/guide/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/guide)
 
-Guides are learning-oriented and take the reader through a specific journey such as starting a new project, and overview of a specific feature, or how to follow a specific flow such as building and bundling their app. They follow a similar philosophy to [tutorials in Diátaxis](https://diataxis.fr/tutorials.html).
+Guides are learning-oriented and take the reader through a specific journey such as starting a new project, and overview of a specific feature, or how to follow a specific flow such as building and bundling their app. They follow a similar philosophy to [tutorials in Diátaxis](https://diataxis.fr/tutorials).
 
 The reader should be familiar with the concepts covered by the end of the guide and should set them up with the knowledge required to being experimenting with that topic themselves.
 
@@ -76,7 +75,7 @@ The reader should be familiar with the concepts covered by the end of the guide 
 
 Located in [`/src/content/docs/2/recipe/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/recipe)
 
-Recipes are designed to guide the reader through a specific task similar and have a clear outcome and objective. This could be something like setting up authentication using Firebase, adding a Python binary using sidecar, or requesting admin access on a user's machine. They are similar to [how-to guides in Diátaxis](https://diataxis.fr/how-to-guides.html) (not to be confused with our own guides mentioned above).
+Recipes are designed to guide the reader through a specific task similar and have a clear outcome and objective. This could be something like setting up authentication using Firebase, adding a Python binary using sidecar, or requesting admin access on a user's machine. They are similar to [how-to guides in Diátaxis](https://diataxis.fr/how-to-guides) (not to be confused with our own guides mentioned above).
 
 The prerequisites for a recipe should be clearly stated. If there are a lot of steps required before getting into the relevant information about the recipe then you may want to link out to another guide, recipe, or external resource and state those as a prerequisite at the top of the recipe.
 
@@ -84,7 +83,7 @@ The prerequisites for a recipe should be clearly stated. If there are a lot of s
 
 Located in [`/src/content/docs/2/reference/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/reference), although they should be auto-generated when possible.
 
-References are where all the nuts and bolts of Tauri's API are documented. These should be generated from upstream repos when possible and written following the best practices described by [references in Diátaxix](https://diataxis.fr/reference.html).
+References are where all the nuts and bolts of Tauri's API are documented. These should be generated from upstream repos when possible and written following the best practices described by [references in Diátaxix](https://diataxis.fr/reference).
 
 These should be as succinct and to the point as possible so that the reader can quickly find the relevant information.
 
@@ -94,7 +93,7 @@ If you'd like to view the API references locally then you must run `pnpm dev:set
 
 Not yet created, will be added in the future.
 
-Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation.html), but not all blog posts necessarily fit this specific format.
+Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation), but not all blog posts necessarily fit this specific format.
 
 ### Code Blocks
 

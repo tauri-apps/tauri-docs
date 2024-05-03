@@ -6,12 +6,12 @@ To ensure a translation is consistent across multiple contributions, be sure to 
 
 ## Enabling a Language
 
-If you seek to contribute but find your language missing, please open an issue.
+If you seek to contribute but find your language missing please let us know in https://github.com/tauri-apps/tauri-docs/issues/1611. Once we have enough support for a particular language then we'll be able to enable it with the community's support.
 
 ### Maintainer Checklist for Adding New Languages
 
-- Update https://github.com/tauri-apps/tauri-docs/blob/next/locales.json
-- Update https://github.com/tauri-apps/tauri-docs/blob/next/.github/labeler.yml
+- Update https://github.com/tauri-apps/tauri-docs/blob/v2/locales.json
+- Update https://github.com/tauri-apps/tauri-docs/blob/v2/.github/labeler.yml
 
 ## Starting a Translation
 
