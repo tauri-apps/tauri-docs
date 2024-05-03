@@ -77,8 +77,10 @@ Options:
           Space or comma separated list of features to activate
   -b, --bundles [<BUNDLES>...]
           Space or comma separated list of bundles to package.
-          Each bundle must be one of `deb`, `appimage`, `msi`, `app` or `dmg` on MacOS and `updater` on all platforms. If `none` is specified, the bundler will be skipped.
+          Each bundle must be one of `deb`, `appimage`, `msi`, `app` or `dmg` on MacOS and `updater` on all platforms.
           Note that the `updater` bundle is not automatically added so you must specify it if the updater is enabled.
+   --no-bundle
+          Bundler will be skipped
   -c, --config <CONFIG>
           JSON string or path to JSON file to merge with tauri.conf.json
   --ci
