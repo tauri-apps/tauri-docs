@@ -283,14 +283,14 @@ async function siteConfig() {
             showLastUpdateTime: true,
             editUrl: ({ docPath, versionDocsDirPath }) => {
               if (docPath === 'api/cli.md') {
-                return 'https://github.com/tauri-apps/tauri/tree/dev/tooling/cli/src'
+                return 'https://github.com/tauri-apps/tauri/tree/1.x/tooling/cli/src'
               } else if (docPath === 'api/config.md') {
-                return 'https://github.com/tauri-apps/tauri/edit/dev/core/tauri-utils/src/config.rs'
+                return 'https://github.com/tauri-apps/tauri/edit/1.x/core/tauri-utils/src/config.rs'
               } else if (docPath.startsWith('api/js')) {
                 const mod = docPath.split('/').at(-1).split('.')[0]
-                return `https://github.com/tauri-apps/tauri/edit/dev/tooling/api/src/${mod}.ts`
+                return `https://github.com/tauri-apps/tauri/edit/1.x/tooling/api/src/${mod}.ts`
               } else {
-                return `https://github.com/tauri-apps/tauri-docs/edit/dev/${versionDocsDirPath}/${docPath}`
+                return `https://github.com/tauri-apps/tauri-docs/edit/v1/${versionDocsDirPath}/${docPath}`
               }
             },
             sidebarCollapsible: true,
