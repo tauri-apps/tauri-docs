@@ -7,14 +7,14 @@
     "build": "tsm ./build.ts"
   },
   "devDependencies": {
-    "@types/html-escaper": "^3.0.1",
+    "@types/html-escaper": "^3.0.2",
     "dedent-js": "^1.0.1",
-    "fast-glob": "^3.3.1",
+    "fast-glob": "^3.3.2",
     "html-escaper": "^3.0.3",
     "kleur": "^4.1.5",
     "node-fetch": "^3.3.2",
-    "p-retry": "^6.1.0",
-    "simple-git": "^3.20.0",
+    "p-retry": "^6.2.0",
+    "simple-git": "^3.22.0",
     "tsm": "^2.3.0"
   }
 }

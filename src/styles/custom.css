@@ -123,6 +123,10 @@
 	opacity: 0.4;
 }
 
+.sl-markdown-content .inline-icon {
+	display: inline-block;
+}
+
 html[data-theme='light'] .hero > img {
 	filter: invert(1);
 }
