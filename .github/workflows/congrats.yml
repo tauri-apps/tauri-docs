@@ -2,7 +2,7 @@ name: Congrats
 
 on:
   push:
-    branches: [next]
+    branches: [v2]
 
 jobs:
   congrats:

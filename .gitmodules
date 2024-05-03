@@ -1,7 +1,10 @@
-[submodule "packages/tauri"]
-	path = packages/tauri
-	url = https://github.com/tauri-apps/tauri.git
 [submodule "packages/plugins-workspace"]
 	path = packages/plugins-workspace
 	url = https://github.com/tauri-apps/plugins-workspace.git
 	branch = v2
+[submodule "packages/awesome-tauri"]
+	path = packages/awesome-tauri
+	url = https://github.com/tauri-apps/awesome-tauri
+[submodule "packages/tauri"]
+	path = packages/tauri
+	url = https://github.com/tauri-apps/tauri.git
