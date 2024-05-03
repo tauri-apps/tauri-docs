@@ -3,3 +3,4 @@ packages:
   - 'packages/js-api-generator'
   - 'packages/config-generator'
   - 'packages/tauri-typedoc-theme'
+  - 'packages/releases-generator'

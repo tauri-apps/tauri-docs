@@ -1,5 +1,10 @@
 ---
 title: Process Model
+sidebar:
+  order: 0
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 Tauri employs a multi-process architecture similar to Electron or many modern web browsers. This guide explores the reasons behind the design choice and why it is key to writing secure applications.

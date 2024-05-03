@@ -45,28 +45,12 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
-	if (existsSync('../tauri-v1/tooling/api/node_modules')) {
+	if (existsSync('../tauri/tooling/api/node_modules')) {
 		const coreJsOptions: Partial<TypeDocOptions> = {
-			entryPoints: ['../tauri-v1/tooling/api/src/index.ts'],
-			tsconfig: '../tauri-v1/tooling/api/tsconfig.json',
-			gitRevision: '1.x',
-			baseUrl: '/references/v1/js/',
-			...typeDocConfigBaseOptions,
-		};
-
-		await generateDocs(coreJsOptions);
-	} else {
-		console.log(
-			'Tauri V1 submodule is not initialized, respective API routes will not be rendered.'
-		);
-	}
-
-	if (existsSync('../tauri-v2/tooling/api/node_modules')) {
-		const coreJsOptions: Partial<TypeDocOptions> = {
-			entryPoints: ['../tauri-v2/tooling/api/src/index.ts'],
-			tsconfig: '../tauri-v2/tooling/api/tsconfig.json',
+			entryPoints: ['../tauri/tooling/api/src/index.ts'],
+			tsconfig: '../tauri/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			baseUrl: '/references/v2/js/core/',
+			baseUrl: '/references/javascript/api/',
 			...typeDocConfigBaseOptions,
 		};
 
@@ -81,6 +65,7 @@ async function generator() {
 		'authenticator',
 		'autostart',
 		'barcode-scanner',
+		'biometric',
 		'cli',
 		'clipboard-manager',
 		'deep-link',
@@ -89,6 +74,7 @@ async function generator() {
 		'global-shortcut',
 		'http',
 		'log',
+		'nfc',
 		'notification',
 		'os',
 		'positioner',
@@ -109,8 +95,10 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				baseUrl: `/references/v2/js/${plugin}`,
+				baseUrl: `/references/javascript/`,
 				...typeDocConfigBaseOptions,
+				// Must go after to override base
+				entryFileName: `${plugin}.md`,
 			};
 
 			await generateDocs(pluginJsOptions);
@@ -151,8 +139,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 		'---',
 		`title: "${event.model.name}"`,
 		'editUrl: false',
-		'prev: false',
-		'next: false',
+		'sidebar:',
+		`  label: "${event.model.name.replace("@tauri-apps/plugin-", "")}"`,
 		'---',
 		'',
 		event.contents,
