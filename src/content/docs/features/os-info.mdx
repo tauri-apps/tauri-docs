@@ -1,10 +1,14 @@
 ---
 title: OS Information
 description: Read information about the operating system.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="os" />
@@ -16,64 +20,51 @@ Read information about the operating system using the OS Information plugin.
 Install the OS Information plugin to get started.
 
 <Tabs>
-    <TabItem label="Automatic">
+  <TabItem label="Automatic">
 
-    1. Use your project's package manager to add the dependency:
+    Use your project's package manager to add the dependency:
 
     <CommandTabs npm="npm run tauri add os"
     yarn="yarn run tauri add os"
     pnpm="pnpm tauri add os"
     cargo="cargo tauri add os" />
 
-    2. Modify `lib.rs` to initialize the plugin:
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
 
-    {/* TODO: Revise once https://github.com/tauri-apps/tauri/issues/7696 is in */}
+    1.  Run `cargo add tauri-plugin-os` to add the plugin to the project's dependencies in `Cargo.toml`.
 
-    ```rust
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialize the plugin
-            .plugin(tauri_plugin_os::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+    2.  Modify `lib.rs` to initialize the plugin:
 
-    </TabItem>
-    <TabItem label="Manual">
+        ```rust
+        // lib.rs
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                // Initialize the plugin
+                .plugin(tauri_plugin_os::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
 
-    1. Run `cargo add tauri-plugin-os` to add the plugin to the project's dependencies in `Cargo.toml`.
+    3.  If you'd like to use in JavaScript then install the npm package as well:
 
-    2. Modify `lib.rs` to initialize the plugin:
+        <CommandTabs
+            npm="npm install @tauri-apps/plugin-os"
+            yarn="yarn add @tauri-apps/plugin-os"
+            pnpm="pnpm add @tauri-apps/plugin-os"
+        />
 
-    ```rust
-    // lib.rs
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialize the plugin
-            .plugin(tauri_plugin_os::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+    </Steps>
 
-    3. If you'd like to use in JavaScript then install the npm package as well:
-
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-os"
-        yarn="yarn add @tauri-apps/plugin-os"
-        pnpm="pnpm add @tauri-apps/plugin-os"
-    />
-
-    </TabItem>
-
+  </TabItem>
 </Tabs>
 
 ## Usage
 
-With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/2/reference/js/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
+With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/references/javascript/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
@@ -103,3 +94,40 @@ println!("Platform: {}", platform);
 
 </TabItem>
 </Tabs>
+
+## Permissions
+
+By default all plugin commands are blocked and cannot be accessed.
+You must define a list of permissions in your `capabilities` configuration.
+
+See [Access Control List](/references/acl) for more information.
+
+```json title="src-tauri/capabilities/main.json" ins={4-6}
+{
+  "permissions": [
+    ...,
+    "os:allow-arch",
+    "os:allow-hostname",
+    "os:allow-os-type"
+  ]
+}
+```
+
+| Permission               | Description                                                         |
+| ------------------------ | ------------------------------------------------------------------- |
+| `os:allow-arch`          | Enables the arch command without any pre-configured scope.          |
+| `os:deny-arch`           | Denies the arch command without any pre-configured scope.           |
+| `os:allow-exe-extension` | Enables the exe-extension command without any pre-configured scope. |
+| `os:deny-exe-extension`  | Denies the exe-extension command without any pre-configured scope.  |
+| `os:allow-family`        | Enables the family command without any pre-configured scope.        |
+| `os:deny-family`         | Denies the family command without any pre-configured scope.         |
+| `os:allow-hostname`      | Enables the hostname command without any pre-configured scope.      |
+| `os:deny-hostname`       | Denies the hostname command without any pre-configured scope.       |
+| `os:allow-locale`        | Enables the locale command without any pre-configured scope.        |
+| `os:deny-locale`         | Denies the locale command without any pre-configured scope.         |
+| `os:allow-os-type`       | Enables the os-type command without any pre-configured scope.       |
+| `os:deny-os-type`        | Denies the os-type command without any pre-configured scope.        |
+| `os:allow-platform`      | Enables the platform command without any pre-configured scope.      |
+| `os:deny-platform`       | Denies the platform command without any pre-configured scope.       |
+| `os:allow-version`       | Enables the version command without any pre-configured scope.       |
+| `os:deny-version`        | Denies the version command without any pre-configured scope.        |
