@@ -23,8 +23,6 @@ To setup code signing for both Windows and macOS on your workflow, follow the sp
 - [Windows Code Signing with GitHub Actions]
 - [macOS Code Signing with GitHub Actions]
 
-:::
-
 ### Getting Started
 
 To set up Tauri Action you must first set up a GitHub repository. You can use this action on a repo that doesn't have Tauri configured since it automatically initializes Tauri before building and configuring it to use your artifacts.

@@ -188,6 +188,10 @@ The required keys are `"version"`, `"platforms.[target].url"` and `"platforms.[t
 
 Note that Tauri will validate the _whole_ file before checking the version field, so make sure all existing platform configurations are valid and complete.
 
+:::tip
+[Tauri Action] generates a static JSON file for you to use on CDNs such as GitHub Releases.
+:::
+
 ### Dynamic Update Server
 
 With this approach, Tauri will follow the update server's instructions. To disable the internal version check you can [overwrite Tauri's version comparison] to always install the version sent by the server. This could be useful if you need to roll back your app version quickly.
@@ -215,6 +219,10 @@ The required keys are "url", "version" and "signature"; the others are optional.
 - `"signature"` must be the **content** of the generated `.sig` file. The signature may change each time you run `tauri build` so make sure to always update it.
 - `"notes"`: Here you can add notes about the update, like release notes. Tauri's default dialog will present this to the user when it asks if it's allowed to update.
 - `"pub_date"` must be formatted according to [RFC 3339] if present.
+
+:::tip
+CrabNebula, an official Tauri partner, offers a dynamic update server. For more information, see the [Distributing with CrabNebula Cloud] documentation.
+:::
 
 ## Checking for Updates
 
@@ -286,3 +294,5 @@ unlisten()
 [`204 no content`]: http://tools.ietf.org/html/rfc2616#section-10.2.5
 [rfc 3339]: https://datatracker.ietf.org/doc/html/rfc3339#section-5.8
 [docs.rs]: https://docs.rs/tauri/latest/tauri/updater/index.html
+[Tauri Action]: /v1/guides/building/cross-platform#tauri-github-action
+[Distributing with CrabNebula Cloud]: ./distributing-with-crabnebula-cloud
