@@ -1,4 +1,3 @@
-@ -0,0 +1,37 @@
 # Debugging in CrabNebula DevTools
 
 CrabNebula provides a free DevTools application for Tauri as part of its partnership with the Tauri project.
