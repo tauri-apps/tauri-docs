@@ -34,4 +34,4 @@ In this case we only initialize the devtools plugin for debug applications, whic
 
 For more information, see the [CrabNebula DevTools] documentation.
 
-[crabnebula devtools]: https://docs.crabnebula.dev/devtools/get-started/
+[CrabNebula DevTools]: https://docs.crabnebula.dev/devtools/get-started/
