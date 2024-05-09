@@ -1,7 +1,7 @@
 # Distributing with CrabNebula Cloud
 
-CrabNebula is an official Tauri partner providing services and tooling for Tauri applications.
-The CrabNebula Cloud is a platform for application distribution that seamlessly integrates with the Tauri updater.
+[CrabNebula](https://crabnebula.dev) is an official Tauri partner providing services and tooling for Tauri applications.
+The [CrabNebula Cloud](https://crabnebula.dev/cloud/) is a platform for application distribution that seamlessly integrates with the Tauri updater.
 
 The Cloud offers a Content Delivery Network (CDN) that is capable of shipping your application installers and updates globally while being cost effective and exposing download metrics.
 

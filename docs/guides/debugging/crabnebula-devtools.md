@@ -1,9 +1,9 @@
 # Debugging in CrabNebula DevTools
 
-CrabNebula provides a free DevTools application for Tauri as part of its partnership with the Tauri project.
+[CrabNebula](https://crabnebula.dev) provides a free [DevTools](https://crabnebula.dev/devtools/) application for Tauri as part of its partnership with the Tauri project.
 This application allows you to instrument your Tauri app by capturing its embedded assets, Tauri configuration file, logs and spans and providing a web frontend to seamlessly visualize data in real time.
 
-With the CrabNebula DevTools you can inspect your app's log events (including logs from dependencies), track down the performance of your command calls and overall Tauri API usage, with special interface for Tauri events and commands, including payload, responses and inner logs and execution spans.
+With the CrabNebula DevTools you can inspect your app's log events (including logs from dependencies), track down the performance of your command calls and overall Tauri API usage, with a special interface for Tauri events and commands, including payload, responses and inner logs and execution spans.
 
 To enable the CrabNebula DevTools, install the `devtools` crate:
 
