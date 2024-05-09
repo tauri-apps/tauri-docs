@@ -416,10 +416,10 @@ While npm is the default package manager for Node.js, you can also use others li
 [github discussions]: https://github.com/tauri-apps/tauri/discussions
 [download webview2]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
 [rustup.sh]: https://sh.rustup.rs
-[nix flakes]: https://nixos.wiki/wiki/Flakes
-[direnv's flakes integration]: https://nixos.wiki/wiki/Flakes#Direnv_integration
-[nix shell]: https://nixos.wiki/wiki/Development_environment_with_nix-shell
-[direnv's shell integration]: https://nixos.wiki/wiki/Development_environment_with_nix-shell#direnv
+[nix flakes]: https://wiki.nixos.org/wiki/Flakes
+[direnv's flakes integration]: https://wiki.nixos.org/wiki/Flakes#Direnv_integration
+[nix shell]: https://wiki.nixos.org/wiki/Development_environment_with_nix-shell
+[direnv's shell integration]: https://wiki.nixos.org/wiki/Development_environment_with_nix-shell#direnv
 [direnv's Guix shell support]: https://github.com/direnv/direnv/pull/1045/files
 [Guix shell]: https://guix.gnu.org/manual/en/html_node/Invoking-guix-shell.html
 [`trunk`]: https://trunkrs.dev
