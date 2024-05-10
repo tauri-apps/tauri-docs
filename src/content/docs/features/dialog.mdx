@@ -97,7 +97,7 @@ import { ask } from '@tauri-apps/plugin-dialog';
 // Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
 	title: 'Tauri',
-	type: 'warning',
+	kind: 'warning',
 });
 
 console.log(answer);
@@ -116,7 +116,7 @@ import { confirm } from '@tauri-apps/plugin-dialog';
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
 	'This action cannot be reverted. Are you sure?',
-	{ title: 'Tauri', type: 'warning' }
+	{ title: 'Tauri', kind: 'warning' }
 );
 
 console.log(confirmation);
@@ -133,7 +133,7 @@ Shows a message dialog with an `Ok` button. Keep in mind that if the user closes
 import { message } from '@tauri-apps/plugin-dialog';
 
 // Shows message
-await message('File not found', { title: 'Tauri', type: 'error' });
+await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
 
 {/* OPEN */}
