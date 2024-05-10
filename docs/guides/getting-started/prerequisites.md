@@ -304,7 +304,7 @@ To create Tauri development environments using [Guix shell], copy the following 
        "glib"
        "dbus"
        "openssl@3"
-       "gcc:lib"
+       "gcc-toolchain"
 
        "curl"
        "wget"
