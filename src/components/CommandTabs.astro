@@ -7,9 +7,10 @@ interface Props {
 	yarn?: string;
 	pnpm?: string;
 	cargo?: string;
+  bun?: string;
 }
 
-const { npm, yarn, pnpm, cargo } = Astro.props;
+const { npm, yarn, pnpm, cargo, bun } = Astro.props;
 ---
 
 <Tabs>
@@ -34,6 +35,13 @@ const { npm, yarn, pnpm, cargo } = Astro.props;
 			</TabItem>
 		)
 	}
+  {
+		bun && (
+			<TabItem label="bun">
+				<Code code={bun} lang="sh" theme="css-variables" frame="none" />
+			</TabItem>
+		)
+	}
 	{
 		cargo && (
 			<TabItem label="Cargo">
@@ -41,4 +49,4 @@ const { npm, yarn, pnpm, cargo } = Astro.props;
 			</TabItem>
 		)
 	}
-</Tabs>
+	</Tabs>
