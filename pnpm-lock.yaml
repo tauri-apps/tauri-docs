@@ -51,7 +51,7 @@ importers:
         version: 0.33.3
       shiki:
         specifier: ^1.1.7
-        version: 1.4.0
+        version: 1.5.1
       starlight-blog:
         specifier: ^0.7.0
         version: 0.7.0(@astrojs/starlight@0.22.2)(astro@4.8.2)
@@ -168,7 +168,7 @@ packages:
       remark-parse: 11.0.0
       remark-rehype: 11.1.0
       remark-smartypants: 2.1.0
-      shiki: 1.4.0
+      shiki: 1.5.1
       unified: 11.0.4
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -965,7 +965,7 @@ packages:
     resolution: {integrity: sha512-aFQBPepv0zhVXqJFAvfQ4vXYv/meJKiqmEEKSxdjAfwXllIV49PDlnGEXmbGYjR4hUQQjbfDgzAbrbfePc3YVQ==}
     dependencies:
       '@expressive-code/core': 0.35.3
-      shiki: 1.4.0
+      shiki: 1.5.1
     dev: false
 
   /@expressive-code/plugin-text-markers@0.35.3:
@@ -1427,10 +1427,6 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
-
-  /@shikijs/core@1.4.0:
-    resolution: {integrity: sha512-CxpKLntAi64h3j+TwWqVIQObPTED0FyXLHTTh3MKXtqiQNn2JGcMQQ362LftDbc9kYbDtrksNMNoVmVXzKFYUQ==}
-    dev: false
 
   /@shikijs/core@1.5.1:
     resolution: {integrity: sha512-xjV63pRUBvxA1LsxOUhRKLPh0uUjwBLzAKLdEuYSLIylo71sYuwDcttqNP01Ib1TZlLfO840CXHPlgUUsYFjzg==}
@@ -4477,12 +4473,6 @@ packages:
       jsonc-parser: 3.2.1
       vscode-oniguruma: 1.7.0
       vscode-textmate: 8.0.0
-    dev: false
-
-  /shiki@1.4.0:
-    resolution: {integrity: sha512-5WIn0OL8PWm7JhnTwRWXniy6eEDY234mRrERVlFa646V2ErQqwIFd2UML7e0Pq9eqSKLoMa3Ke+xbsF+DAuy+Q==}
-    dependencies:
-      '@shikijs/core': 1.4.0
     dev: false
 
   /shiki@1.5.1:
