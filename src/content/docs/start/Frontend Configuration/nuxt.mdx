@@ -11,7 +11,7 @@ Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7
 
 - Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
 - Set host to `0.0.0.0`.
-- Use `dist/` as `distDir` in `tauri.conf.json`.
+- Use `dist/` as `frontendDist` in `tauri.conf.json`.
 - Compile using `nuxi generate`.
 - (Optional): Disable telemetry by setting `telemetry: false` in `nuxt.config.ts`.
 
@@ -28,8 +28,8 @@ Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7
 	"build": {
 		"beforeDevCommand": "npm run dev",
 		"beforeBuildCommand": "npm run generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
+		"devUrl": "http://localhost:3000",
+		"frontendDist": "../dist"
 	}
 }
 ```
@@ -43,8 +43,8 @@ Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7
 	"build": {
 		"beforeDevCommand": "yarn dev",
 		"beforeBuildCommand": "yarn generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
+		"devUrl": "http://localhost:3000",
+		"frontendDist": "../dist"
 	}
 }
 ```
@@ -58,8 +58,8 @@ Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7
 	"build": {
 		"beforeDevCommand": "pnpm dev",
 		"beforeBuildCommand": "pnpm generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
+		"devUrl": "http://localhost:3000",
+		"frontendDist": "../dist"
 	}
 }
 ```

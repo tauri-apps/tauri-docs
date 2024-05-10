@@ -6,22 +6,22 @@ i18nReady: true
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-Next.js is a React framework. Learn more about Next.js at https://nextjs.org. This guide is accurate as of Next.js 13.4.19.
+Next.js is a React framework. Learn more about Next.js at https://nextjs.org. This guide is accurate as of Next.js 14.2.3.
 
 ## Checklist
 
 - Use static exports by setting `output: 'export'`. Tauri doesn't support server-based solutions.
 - Use `internal-ip` for mobile compatibility so you can configure `assetPrefix`. This is required so that the server properly resolves assets.
-- Use `out/` as `distDir` in `tauri.conf.json`.
+- Use `out/` as `frontendDist` in `tauri.conf.json`.
 
 ## Example Configuration
 
-1. Install `internal-ip` for mobile development:
+1. Install `internal-ip` version 7 for mobile development. Version 8.0.0 does **not** work!
 
 <CommandTabs
-	npm="npm install --save-dev internal-ip"
-	yarn="yarn add -D internal-ip"
-	pnpm="pnpm add -D internal-ip"
+	npm="npm install --save-dev internal-ip@7.0.0"
+	yarn="yarn add -D internal-ip@7.0.0"
+	pnpm="pnpm add -D internal-ip@7.0.0"
 />
 
 2. Update Tauri configuration:
@@ -35,8 +35,8 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 	"build": {
 		"beforeDevCommand": "npm run dev",
 		"beforeBuildCommand": "npm run build",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
+		"devUrl": "http://localhost:3000",
+		"frontendDist": "../dist"
 	}
 }
 ```
@@ -50,8 +50,8 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 	"build": {
 		"beforeDevCommand": "yarn dev",
 		"beforeBuildCommand": "yarn generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
+		"devUrl": "http://localhost:3000",
+		"frontendDist": "../dist"
 	}
 }
 ```
@@ -65,8 +65,8 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 	"build": {
 		"beforeDevCommand": "pnpm dev",
 		"beforeBuildCommand": "pnpm generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
+		"devUrl": "http://localhost:3000",
+		"frontendDist": "../dist"
 	}
 }
 ```
@@ -77,27 +77,29 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 3. Update Next.js configuration:
 
 ```ts
-// next.conf.ts
+// next.conf.mjs
+/** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production';
-module.exports = async (phase, { defaultConfig }) => {
-	let internalHost = null;
-	// In dev mode we use the internal-ip to serve the assets
-	if (!isProd) {
-		const { internalIpV4 } = await import('internal-ip');
-		internalHost = await internalIpV4();
-	}
-	const nextConfig = {
-		// Ensure Next.js uses SSG instead of SSR
-		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-		output: 'export',
-		// Note: This experimental feature is required to use NextJS Image in SSG mode.
-		// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
-		images: {
-			unoptimized: true,
-		},
-		// Configure assetPrefix or else the server won't properly resolve your assets.
-		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-	};
-	return nextConfig;
+
+let internalHost = null;
+
+if (!isProd) {
+	const { internalIpV4 } = await import('internal-ip');
+	internalHost = await internalIpV4();
+}
+
+const nextConfig = {
+	// Ensure Next.js uses SSG instead of SSR
+	// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+	output: 'export',
+	// Note: This feature is required to use the Next.js Image component in SSG mode.
+	// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+	images: {
+		unoptimized: true,
+	},
+	// Configure assetPrefix or else the server won't properly resolve your assets.
+	assetPrefix: isProd ? null : `http://${internalHost}:3000`,
 };
+
+export default nextConfig;
 ```

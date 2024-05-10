@@ -298,22 +298,9 @@ $VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk"
 
 5. Add the Android targets with `rustup`:
 
-<Tabs>
-  <TabItem label="Linux and macOS" class="content">
-
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
-
-  </TabItem>
-  <TabItem label="Windows">
-  
-  ```ps
-  rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-  ```
-
-  </TabItem>
-</Tabs>
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project).
 
