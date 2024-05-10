@@ -32,7 +32,6 @@ $env:RUST_BACKTRACE=1
 tauri dev
 ```
 
-
 This command gives you a granular stack trace. Generally speaking, the Rust compiler helps you by
 giving you detailed information about the issue, such as:
 
@@ -47,6 +46,8 @@ error: aborting due to previous error
 
 For more information about this error, try `rustc --explain E0425`.
 ```
+
+Additionally, you can instrument and view your app logs with the [CrabNebula DevTools].
 
 ## WebView Console
 
@@ -108,5 +109,6 @@ tauri = { version = "...", features = ["...", "devtools"] }
 The Core process is powered by Rust so you can use GDB or LLDB to debug it. You can follow the [Debugging in VS Code] guide to learn how to use the LLDB VS Code Extension to debug the Core Process of Tauri applications.
 
 [debugging in vs code]: ./vs-code.md
+[crabnebula devtools]: ./crabnebula-devtools
 [`window::open_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.open_devtools
 [`window::close_devtools`]: https://docs.rs/tauri/1/tauri/window/struct.Window.html#method.close_devtools
