@@ -14,7 +14,7 @@
     "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
     "typedoc": "^0.25.9",
-    "typedoc-plugin-markdown": "4.0.0-next.17",
+    "typedoc-plugin-markdown": "4.0.1",
     "typedoc-plugin-mdn-links": "^3.1.17"
   }
 }
