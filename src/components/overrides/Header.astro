@@ -6,11 +6,19 @@ console.log(Astro.props.entry.slug)
 
 <Default {...Astro.props}><slot /></Default>
 
+<style is:global>
+	.header {
+		border: none !important;
+	}
+</style>
+
 {Astro.props.entry.slug === '' ?
 <style is:global>
 	.header {
-		background-color: transparent !important;
-		border: none !important;
+		background-color: transparent;
+	}
+	site-search button {
+		margin: auto;
 	}
 </style>
 : ''
