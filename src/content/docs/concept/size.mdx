@@ -29,7 +29,7 @@ incremental = true
 [profile.release]
 codegen-units = 1
 lto = true
-opt-level = s
+opt-level = "s"
 panic = "abort"
 strip = true
 ```
@@ -45,7 +45,7 @@ rustflags = ["-Zthreads=8"]
 [profile.release]
 codegen-units = 1
 lto = true
-opt-level = s
+opt-level = "s"
 panic = "abort"
 strip = true
 trim-paths = "all"
@@ -75,7 +75,7 @@ The features are documented according to the following format.
   - `release` `true`: Higher performance for release builds.
 - [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) Determines the focus of the compiler.
   - `dev` `omit | 1`: Either omit it or increase it in order to enhance the speed of the IPC during development.
-  - `release` `s`: This level de-prioritizes performance for the sake of reducing binary size without disregarding it completely.
+  - `release` `"s"`: This level de-prioritizes performance for the sake of reducing binary size without disregarding it completely.
 - [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic) Reduce size by removing panic unwinding.
   - `dev` `omit | "unwind"`: By default unwinding is used, which is preferable during development for debugging.
   - `release` `"abort"`: Increases performance and reduces size by removing panic handlers you're likely not using in production anyway.
