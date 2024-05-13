@@ -27,6 +27,7 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
 
 <div class="hero-bg">
 	<div class="bg-logo"></div>
@@ -34,7 +35,10 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	<div class="bg-grad-red"></div>
 </div>
 
-<CardGrid stagger>
+<Card title="Create a Project" icon="rocket">
+	<Cta/>
+</Card>
+<CardGrid>
 	<Card title="Frontend Independent" icon="rocket">
 		Bring your existing web stack to Tauri or start that new dream project.
 		Tauri supports any frontend framework so you don't need to change your
