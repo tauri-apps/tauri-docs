@@ -181,6 +181,10 @@ export default defineConfig({
 							collapsed: true,
 							autogenerate: { directory: 'reference/javascript' },
 						},
+						{
+							label: 'Rust (docs.rs)',
+							link: 'https://docs.rs/tauri/2.0.0-beta.19/tauri/index.html'
+						},
 					]
 				},
 				{
