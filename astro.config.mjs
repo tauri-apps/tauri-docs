@@ -107,6 +107,10 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			sidebar: [
 				{
+					label: 'Home',
+					link: '/'
+				},
+				{
 					label: 'Quick Start',
 					collapsed: true,
 					autogenerate: { directory: 'start' },
