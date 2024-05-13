@@ -123,13 +123,13 @@ fn run() {
 
 This module prevents path traversal, not allowing absolute paths or parent dir components (i.e. `/usr/path/to/file` or `../path/to/file` paths are not allowed). Paths accessed with this API must be relative to one of the base directories so if you need access to arbitrary file system paths, you must write such logic on the core layer instead.
 
-See [@tauri-apps/plugin-fs - Security](/references/javascript/fs/#security) for more information.
+See [@tauri-apps/plugin-fs - Security](/reference/javascript/fs/#security) for more information.
 
 ## Permissions
 
 By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/references/acl) for more information.
+See [Access Control List](/reference/acl) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {

@@ -42,6 +42,22 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
+	if (existsSync('../tauri/tooling/api/node_modules')) {
+		const coreJsOptions: Partial<TypeDocOptions> = {
+			entryPoints: ['../tauri/tooling/api/src/index.ts'],
+			tsconfig: '../tauri/tooling/api/tsconfig.json',
+			gitRevision: 'dev',
+			baseUrl: '/reference/javascript/api/',
+			...typeDocConfigBaseOptions,
+		};
+
+		await generateDocs(coreJsOptions);
+	} else {
+		console.log(
+			'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
+		);
+	}
+
 	const plugins = [
 		'authenticator',
 		'autostart',
@@ -76,8 +92,8 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				publicPath: `/references/javascript/`,
-				basePath: `/references/javascript/`,
+				publicPath: `/reference/javascript/`,
+				basePath: `/reference/javascript/`,
 				...typeDocConfigBaseOptions,
 				// Must go after to override base
 				entryFileName: `${plugin}.md`,
@@ -96,8 +112,8 @@ async function generator() {
 			entryPoints: ['../tauri/tooling/api/src/index.ts'],
 			tsconfig: '../tauri/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			publicPath: '/references/javascript/api/',
-			basePath: '/references/javascript/api/',
+			publicPath: '/reference/javascript/api/',
+			basePath: '/reference/javascript/api/',
 			...typeDocConfigBaseOptions,
 		};
 

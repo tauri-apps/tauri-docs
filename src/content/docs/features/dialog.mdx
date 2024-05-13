@@ -24,9 +24,9 @@ Install the dialog plugin to get started.
         Use your project's package manager to add the dependency:
 
         <CommandTabs npm="npm run tauri add dialog"
-        yarn="yarn run tauri add dialog"
-        pnpm="pnpm tauri add dialog"
-        cargo="cargo tauri add dialog" />
+                    yarn="yarn run tauri add dialog"
+                    pnpm="pnpm tauri add dialog"
+                    cargo="cargo tauri add dialog" />
 
     </TabItem>
     <TabItem label="Manual">
@@ -51,10 +51,10 @@ Install the dialog plugin to get started.
             3.  If you'd like create dialogs in JavaScript, install the npm package as well:
 
                 <CommandTabs
-                    npm="npm install @tauri-apps/plugin-dialog"
-                    yarn="yarn add @tauri-apps/plugin-dialog"
-                    pnpm="pnpm add @tauri-apps/plugin-dialog"
-                />
+                                npm="npm install @tauri-apps/plugin-dialog"
+                                yarn="yarn add @tauri-apps/plugin-dialog"
+                                pnpm="pnpm add @tauri-apps/plugin-dialog"
+                            />
 
         </Steps>
     </TabItem>
@@ -83,9 +83,9 @@ in Rust:
 
 ### JavaScript
 
-See all [Dialog Options](/references/javascript/dialog/) at the JavaScript API reference.
+See all [Dialog Options](/reference/javascript/dialog/) at the JavaScript API reference.
 
-{/* ASK */}
+{ /* ASK */}
 
 #### Create Yes/No Dialog
 
@@ -104,7 +104,7 @@ console.log(answer);
 // Prints boolean to the console
 ```
 
-{/* CONFIRM */}
+{ /* CONFIRM */}
 
 #### Create Ok/Cancel Dialog
 
@@ -123,7 +123,7 @@ console.log(confirmation);
 // Prints boolean to the console
 ```
 
-{/* MESSAGE */}
+{ /* MESSAGE */}
 
 #### Create Message Dialog
 
@@ -136,7 +136,7 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
 
-{/* OPEN */}
+{ /* OPEN */}
 
 #### Open a File Selector Dialog
 
@@ -156,7 +156,7 @@ console.log(file);
 // Prints file path and name to the console
 ```
 
-{/* SAVE */}
+{ /* SAVE */}
 
 #### Save to File Dialog
 

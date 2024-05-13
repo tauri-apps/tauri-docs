@@ -115,33 +115,78 @@ export default defineConfig({
 						},
 						{
 							label: 'What is Tauri?',
-							link: '/start/'
+							link: '/guide/'
 						},
 						{
 							label: 'Prerequisites',
-							link: '/start/prerequisites/'
+							link: '/guide/prerequisites/'
 						},
 						{
 							label: 'Create a Project',
 							collapsed: true,
-							link: '/start/create-project/'
+							link: '/guide/create-project/'
 						},
 						{
 							label: 'Frontend Configuration',
 							collapsed: true,
-							autogenerate: { directory: 'start/frontend' },
+							autogenerate: { directory: 'guide/frontend' },
 						},
 						{
 							label: 'Upgrade & Migrate',
 							collapsed: true,
-							autogenerate: { directory: 'start/migrate' },
+							autogenerate: { directory: 'guide/migrate' },
+						},
+						{
+							label: 'About',
+							collapsed: true,
+							autogenerate: { directory: 'guide/about' },
 						},
 					]
 				},
 				{
 					label: 'References',
 					collapsed: true,
-					autogenerate: { directory: 'references' },
+					items: [
+						{
+							label: 'Overview',
+							link: '/reference/'
+						},
+						{
+							label: 'Access Control List',
+							link: '/reference/acl/'
+						},
+						{
+							label: 'Command Line Interface (CLI)',
+							link: '/reference/cli/'
+						},
+						{
+							label: 'Configuration',
+							link: '/reference/config/'
+						},
+						{
+							label: 'Environment Variables',
+							link: '/reference/environment-variables/'
+						},
+						{
+							label: 'Webview Versions',
+							link: '/reference/webview-versions/'
+						},
+						{
+							label: 'Releases',
+							collapsed: true,
+							autogenerate: { directory: 'releases' },
+						},
+						{
+							label: 'JavaScript',
+							collapsed: true,
+							autogenerate: { directory: 'reference/javascript' },
+						},
+					]
+				},
+				{
+					label: 'Blog',
+					collapsed: true,
+					autogenerate: { directory: 'blog' },
 				},
 				// {
 				// 	label: 'Quick Start',
@@ -261,24 +306,24 @@ export default defineConfig({
 
 		// v1 /references
 		...i18nRedirect('/v1/references', '/concepts'),
-		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
-		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
-		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect('/v1/reference/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/reference/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/reference/architecture/security', '/concepts/tauri-security'),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication',
+			'/v1/reference/architecture/inter-process-communication',
 			'/concepts/inter-process-communication'
 		),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/v1/reference/architecture/inter-process-communication/brownfield',
 			'/concepts/inter-process-communication/brownfield'
 		),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication/isolation',
+			'/v1/reference/architecture/inter-process-communication/isolation',
 			'/concepts/inter-process-communication/isolation'
 		),
-		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
-		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
-		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+		...i18nRedirect('/v1/reference/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/reference/configuration-files', '/reference/configuration-files'),
+		...i18nRedirect('/v1/reference/webview-versions', '/reference/webview-versions'),
 
 		// Decommissioned locales -> refer to /public/_redirects file
 		// '/ko/[...slug]': '/[...slug]',
