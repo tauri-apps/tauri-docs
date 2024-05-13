@@ -25,8 +25,8 @@ Follow the link to get started for your respective operating system:
 
 Tauri requires various system dependencies for development on Linux. These may be different depending on your distribution but we've included some popular distributions below to help you get setup.
 
-{/* Note: These are the officially supported linux distributions. */}
-{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
+{ /* Note: These are the officially supported linux distributions. */}
+{ /* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
 <Tabs>
   <TabItem label="Debian">
@@ -148,7 +148,7 @@ Follow the steps below to install the required dependencies.
 1. Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation.
 2. During installation check the "Desktop development with C++" option.
 
-![Visual Studio C++ Build Tools installer screenshot](@assets/img/start/prerequisites/visual-studio-build-tools-installer.png)
+![Visual Studio C++ Build Tools installer screenshot](@assets/img/guide/prerequisites/visual-studio-build-tools-installer.png)
 
 Next: [Install WebView2](#webview2).
 
@@ -193,7 +193,7 @@ Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
 
 Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
 
-Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/start/create-project).
+Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/guide/create-project).
 
 ## Node.js
 
@@ -216,7 +216,7 @@ It's important to restart your Terminal to ensure it recognizes the new installa
 
 While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To enable these, run `corepack enable` in your Terminal. This step is optional and only needed if you prefer using a package manager other than npm.
 
-Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/start/create-project).
+Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/guide/create-project).
 
 ## Configure for Mobile Targets
 
@@ -230,7 +230,7 @@ If you'd like to target your app for Android or iOS then there are a few additio
 1. Download and install [Android Studio from the Android Developers website](https://developer.android.com/studio)
 2. Set the `JAVA_HOME` environment variable:
 
-{/* TODO: Can this be done in the 4th step? */}
+{ /* TODO: Can this be done in the 4th step? */}
 
 <Tabs>
 <TabItem label="Linux">
@@ -302,7 +302,7 @@ $VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk"
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-Next: [Setup for iOS](#ios) or [Create a project](/start/create-project).
+Next: [Setup for iOS](#ios) or [Create a project](/guide/create-project).
 
 ### iOS
 
@@ -328,7 +328,7 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 brew install cocoapods
 ```
 
-Next: [Create a project](/start/create-project).
+Next: [Create a project](/guide/create-project).
 
 ## Troubleshooting
 
@@ -336,6 +336,6 @@ If you run into any issues during installation be sure to check the [Troubleshoo
 
 <Card title="Next Steps" icon="rocket">
 
-Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/start/create-project)!
+Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/guide/create-project)!
 
 </Card>
