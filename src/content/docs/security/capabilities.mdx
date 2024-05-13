@@ -30,6 +30,11 @@ It is good practice to use individual files and only reference
 them by identifier in the `tauri.conf.json` but it also possible
 to defined them directly in the `capabilities` field.
 
+All capabilities inside the `capabilities` directory are automatically enabled
+by default.
+Once capabilities are explicitly enabled in the `tauri.conf.json`,
+only these are used in the application build. 
+
 For a full reference of the configuration scheme please see the
 [references](/references/config) section.
 
@@ -224,6 +229,3 @@ Everything can be inlined into the `tauri.conf.json` but even a
 little more advanced configuration would bloat this file and
 the goal of this approach is that the permissions are abstracted
 away whenever possible and simple to understand.
-
-Only references or definitions enabled in the `tauri.conf.json` are actually
-used in the application build.
