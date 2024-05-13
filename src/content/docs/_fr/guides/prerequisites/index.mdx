@@ -23,8 +23,8 @@ Suivez les liens pour votre système d'exploitation:
 
 Tauri exige un système varié de dépendances pour le développement sur Linux. Celles-ci peuvent être différentes selon votre distribution, mais nous avons inclus quelques distributions populaires ci-dessous pour vous aider durant l'installation.
 
-{/* Note: These are the officially supported linux distributions. */}
-{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
+{ /* Note: These are the officially supported linux distributions. */}
+{ /* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
 <Tabs>
   <TabItem label="Debian">
@@ -194,7 +194,7 @@ Voici le fichier contenant le script: [rustup.sh](https://sh.rustup.rs/)
 
 Assurez-vous de relancer votre terminal (et parfois votre système) pour que les modifications prennent effet.
 
-Suivant: [Configuration pour Mobile](#configuration-pour-mobile) si vous voulez construire une application pour Android et iOS. Dans le cas contraire, [Create a Project](/start/create-project).
+Suivant: [Configuration pour Mobile](#configuration-pour-mobile) si vous voulez construire une application pour Android et iOS. Dans le cas contraire, [Create a Project](/guide/create-project).
 
 ## Configuration pour Mobile
 
@@ -208,7 +208,7 @@ Si vous vouler que votre application soit utilisable sur Android et iOS, il faut
 1. Téléchargez et installez [Android Studio à partir du site Android Developers](https://developer.android.com/studio)
 2. Configurez la variable d'environement `JAVA_HOME`:
 
-{/* TODO: Can this be done in the 4th step? */}
+{ /* TODO: Can this be done in the 4th step? */}
 
 <Tabs>
 <TabItem label="Linux">
@@ -243,7 +243,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 4. Configurez les variables d'environemment `ANDROID_HOME` et `NDK_HOME`
 
-{/* TODO: Does the version number change below? */}
+{ /* TODO: Does the version number change below? */}
 
 <Tabs>
 <TabItem label="Linux and macOS">
@@ -256,7 +256,7 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 </TabItem>
 <TabItem label="Windows">
 
-{/* TODO: Do we need a note about this version? */}
+{ /* TODO: Do we need a note about this version? */}
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
@@ -286,7 +286,7 @@ rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-andro
   </TabItem>
 </Tabs>
 
-Suivant: [Installation pour Android](#ios) ou [Create a project](/start/create-project).
+Suivant: [Installation pour Android](#ios) ou [Create a project](/guide/create-project).
 
 ### iOS
 
@@ -302,7 +302,7 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 
 Assurez-vous d'avoir installé Xcode et non Xcode Command Line Tools dans la section [Dépendances systèmes macOS](#macos).
 
-Suivant: [Create a project](/start/create-project).
+Suivant: [Create a project](/guide/create-project).
 
 ## Problèmes
 
@@ -310,6 +310,6 @@ Si vous rencontrez un problème durant l'installation, assurez-vous de consulter
 
 <Card title="Next Steps" icon="rocket">
 
-Maintenant que vous avez installé tous les prérequis, vous êtes fin prêt pour [créer votre premier projet Tauri](/start/create-project) !
+Maintenant que vous avez installé tous les prérequis, vous êtes fin prêt pour [créer votre premier projet Tauri](/guide/create-project) !
 
 </Card>
