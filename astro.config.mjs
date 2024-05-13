@@ -111,10 +111,6 @@ export default defineConfig({
 					collapsed: true,
 					items: [
 						{
-							label: 'Home',
-							link: '/'
-						},
-						{
 							label: 'What is Tauri?',
 							link: '/guide/'
 						},
