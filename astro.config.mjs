@@ -108,7 +108,35 @@ export default defineConfig({
 				{
 					label: 'Guides',
 					collapsed: true,
-					autogenerate: { directory: 'start' },
+					items: [
+						{
+							label: 'Home',
+							link: '/'
+						},
+						{
+							label: 'What is Tauri?',
+							link: '/start/'
+						},
+						{
+							label: 'Prerequisites',
+							link: '/start/prerequisites/'
+						},
+						{
+							label: 'Create a Project',
+							collapsed: true,
+							link: '/start/create-project/'
+						},
+						{
+							label: 'Frontend Configuration',
+							collapsed: true,
+							autogenerate: { directory: 'start/frontend' },
+						},
+						{
+							label: 'Upgrade & Migrate',
+							collapsed: true,
+							autogenerate: { directory: 'start/migrate' },
+						},
+					]
 				},
 				{
 					label: 'References',
