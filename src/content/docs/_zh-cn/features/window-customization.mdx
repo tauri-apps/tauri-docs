@@ -12,8 +12,8 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 
 有三种方法可以修改 Window 的配置。
 
-- <Icon name="external" class="inline-icon" /> [通过 tauri.conf.json](/references/config/#windowconfig)
-- <Icon name="external" class="inline-icon" /> [通过 JavaScript API](/references/javascript/api/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [通过 tauri.conf.json](/reference/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [通过 JavaScript API](/reference/javascript/api/namespacewindow/#window)
 - <Icon name="external" class="inline-icon" /> [通过 Rust 的 Window](https://docs.rs/tauri/2.0.0-beta/tauri/window/struct.Window.html)
 
 ## 用法
@@ -50,7 +50,7 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/references/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
