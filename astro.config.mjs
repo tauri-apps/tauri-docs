@@ -81,6 +81,7 @@ export default defineConfig({
 			},
 			components: {
 				Sidebar: "./src/components/overrides/Sidebar.astro",
+				Header: "./src/components/overrides/Header.astro",
 				Footer: 'src/components/overrides/Footer.astro',
 				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
@@ -192,51 +193,6 @@ export default defineConfig({
 					collapsed: true,
 					autogenerate: { directory: 'blog' },
 				},
-				// {
-				// 	label: 'Quick Start',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'start' },
-				// },
-				// {
-				// 	label: 'Core Concepts',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'concepts' },
-				// },
-				// {
-				// 	label: 'Security',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'security' },
-				// },
-				// {
-				// 	label: 'Develop',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'develop' },
-				// },
-				// {
-				// 	label: 'Test',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'test' },
-				// },
-				// {
-				// 	label: 'Distribute',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'distribute' },
-				// },
-				// {
-				// 	label: 'Learn',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'learn' },
-				// },
-				// {
-				// 	label: 'Features & Recipes',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'features' },
-				// },
-				// {
-				// 	label: 'References',
-				// 	collapsed: true,
-				// 	autogenerate: { directory: 'references' },
-				// },
 			],
 			locales,
 			lastUpdated: true,
