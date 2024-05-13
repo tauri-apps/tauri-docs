@@ -80,9 +80,8 @@ export default defineConfig({
 				rss: `${site}/rss`,
 			},
 			components: {
-				SiteTitle: 'src/components/overrides/SiteTitle.astro',
+				Sidebar: "./src/components/overrides/Sidebar.astro",
 				Footer: 'src/components/overrides/Footer.astro',
-				Header: 'src/components/overrides/Header.astro',
 				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 			},
 			head: [
@@ -107,54 +106,60 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			sidebar: [
 				{
-					label: 'Home',
-					link: '/'
-				},
-				{
-					label: 'Quick Start',
+					label: 'Guides',
 					collapsed: true,
 					autogenerate: { directory: 'start' },
-				},
-				{
-					label: 'Core Concepts',
-					collapsed: true,
-					autogenerate: { directory: 'concepts' },
-				},
-				{
-					label: 'Security',
-					collapsed: true,
-					autogenerate: { directory: 'security' },
-				},
-				{
-					label: 'Develop',
-					collapsed: true,
-					autogenerate: { directory: 'develop' },
-				},
-				{
-					label: 'Test',
-					collapsed: true,
-					autogenerate: { directory: 'test' },
-				},
-				{
-					label: 'Distribute',
-					collapsed: true,
-					autogenerate: { directory: 'distribute' },
-				},
-				{
-					label: 'Learn',
-					collapsed: true,
-					autogenerate: { directory: 'learn' },
-				},
-				{
-					label: 'Features & Recipes',
-					collapsed: true,
-					autogenerate: { directory: 'features' },
 				},
 				{
 					label: 'References',
 					collapsed: true,
 					autogenerate: { directory: 'references' },
 				},
+				// {
+				// 	label: 'Quick Start',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'start' },
+				// },
+				// {
+				// 	label: 'Core Concepts',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'concepts' },
+				// },
+				// {
+				// 	label: 'Security',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'security' },
+				// },
+				// {
+				// 	label: 'Develop',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'develop' },
+				// },
+				// {
+				// 	label: 'Test',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'test' },
+				// },
+				// {
+				// 	label: 'Distribute',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'distribute' },
+				// },
+				// {
+				// 	label: 'Learn',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'learn' },
+				// },
+				// {
+				// 	label: 'Features & Recipes',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'features' },
+				// },
+				// {
+				// 	label: 'References',
+				// 	collapsed: true,
+				// 	autogenerate: { directory: 'references' },
+				// },
 			],
 			locales,
 			lastUpdated: true,
