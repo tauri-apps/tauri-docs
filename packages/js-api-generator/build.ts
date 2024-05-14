@@ -115,6 +115,7 @@ async function generateDocs(options: Partial<TypeDocOptions>) {
 
 	const app = await Application.bootstrapWithPlugins(options);
 	app.options.addReader(new TSConfigReader());
+	// @ts-ignore
 	app.renderer.defineTheme('tauri-theme', TauriTheme);
 
 	app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
