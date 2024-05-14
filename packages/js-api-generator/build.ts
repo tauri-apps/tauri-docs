@@ -1,7 +1,6 @@
 import {
 	Application,
 	DeclarationReflection,
-	Options,
 	PageEvent,
 	Reflection,
 	SignatureReflection,
@@ -49,22 +48,6 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
-	if (existsSync('../tauri/tooling/api/node_modules')) {
-		const coreJsOptions: Partial<TypeDocOptions> = {
-			entryPoints: ['../tauri/tooling/api/src/index.ts'],
-			tsconfig: '../tauri/tooling/api/tsconfig.json',
-			gitRevision: 'dev',
-			publicPath: '/references/javascript/api/',
-			...typeDocConfigBaseOptions,
-		};
-
-		await generateDocs(coreJsOptions);
-	} else {
-		console.log(
-			'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
-		);
-	}
-
 	const plugins = [
 		'authenticator',
 		'autostart',
@@ -110,6 +93,22 @@ async function generator() {
 	} else {
 		console.log(
 			'Plugins workspace submodule is not initialized, respective API routes will not be rendered.'
+		);
+	}
+
+	if (existsSync('../tauri/tooling/api/node_modules')) {
+		const coreJsOptions: Partial<TypeDocOptions> = {
+			entryPoints: ['../tauri/tooling/api/src/index.ts'],
+			tsconfig: '../tauri/tooling/api/tsconfig.json',
+			gitRevision: 'dev',
+			publicPath: '/references/javascript/api/',
+			...typeDocConfigBaseOptions,
+		};
+
+		await generateDocs(coreJsOptions);
+	} else {
+		console.log(
+			'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
 		);
 	}
 }
