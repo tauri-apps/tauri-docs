@@ -45,6 +45,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	// Tables do not create links for members so disabling for now to prevent broken links
 	// enumMembersFormat: 'table',
 	typeDeclarationFormat: 'table',
+	useHTMLAnchors: true,
 };
 
 async function generator() {
