@@ -187,7 +187,17 @@ export default defineConfig({
 				{
 					label: 'Blog',
 					collapsed: true,
-					autogenerate: { directory: 'blog' },
+					items: [
+						{
+							label: 'All posts',
+							link: '/blog/'
+						},
+						{
+							label: 'Recent posts',
+							collapsed: false,
+							autogenerate: { directory: 'blog' }, // TODO: Manually construct `items` to sort by dates
+						},
+					]
 				},
 			],
 			locales,
