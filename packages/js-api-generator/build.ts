@@ -11,11 +11,8 @@ import {
 	MarkdownPageEvent,
 	MarkdownTheme,
 	MarkdownThemeContext,
-	type MarkdownApplication,
 	type PluginOptions,
 } from 'typedoc-plugin-markdown';
-import path from 'node:path';
-import { slug } from 'github-slugger';
 import { existsSync } from 'node:fs';
 
 const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
@@ -33,17 +30,11 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	outputFileStrategy: 'modules',
 	flattenOutputFiles: true,
 	entryFileName: 'index.md',
-	// TODO: Pending https://github.com/tgreyuk/typedoc-plugin-markdown/pull/455 being released so that the patch can be removed
-	// indexFileName: 'index.md',
 	hidePageHeader: true,
 	hidePageTitle: true,
 	hideBreadcrumbs: true,
-	// hideInPageTOC: true,
-	// identifiersAsCodeBlocks: true,
 	useCodeBlocks: true,
 	propertiesFormat: 'table',
-	// Tables do not create links for members so disabling for now to prevent broken links
-	// enumMembersFormat: 'table',
 	typeDeclarationFormat: 'table',
 	useHTMLAnchors: true,
 };
@@ -84,6 +75,7 @@ async function generator() {
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
 				publicPath: `/references/javascript/`,
+				basePath: `/references/javascript/`,
 				...typeDocConfigBaseOptions,
 				// Must go after to override base
 				entryFileName: `${plugin}.md`,
@@ -103,6 +95,7 @@ async function generator() {
 			tsconfig: '../tauri/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
 			publicPath: '/references/javascript/api/',
+			basePath: '/references/javascript/api/',
 			...typeDocConfigBaseOptions,
 		};
 
@@ -169,29 +162,15 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 	};
 
 	// Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
-	override getRelativeUrl = (url: string | undefined) => {
-		if (!url) {
-			return '';
-		}
-		const filePath = path.parse(url);
-		const [, anchor] = filePath.base.split('#');
-		const segments = filePath.dir
-			.split('/')
-			.map((segment) => slug(segment))
-			.filter((segment) => segment !== '');
-		let publicPath = this.options.getValue('publicPath');
-		if (!publicPath.startsWith('/')) {
-			publicPath = `/${publicPath}`;
-		}
-		if (!publicPath.endsWith('/')) {
-			publicPath = `${publicPath}/`;
-		}
-		const filePathName = filePath.name === 'index' ? undefined : filePath.name;
-		let constructedUrl = typeof publicPath === 'string' ? publicPath : '';
-		constructedUrl += segments.length > 0 ? `${segments.join('/')}/` : '';
-		constructedUrl += filePathName ? `${slug(filePathName)}/` : '';
-		constructedUrl += anchor && anchor.length > 0 ? `#${anchor}` : '';
-		return constructedUrl;
+	override getRelativeUrl = (url: string) => {
+		url = super
+			.getRelativeUrl(url)
+			.replaceAll('.md', '')
+			.replaceAll('.', '')
+			.toLowerCase()
+			// This is required due to a bug
+			.replaceAll('namespaces/', 'namespace');
+		return url;
 	};
 }
 
