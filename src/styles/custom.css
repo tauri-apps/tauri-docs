@@ -57,6 +57,12 @@
 	color: var(--sl-color-white) !important;
 }
 
+@media (min-width: 50rem) {
+	.hero {
+		padding-block: clamp(2.5rem, calc(1rem + 10vmin), 5rem);
+	}
+}
+
 /* Index hero background */
 .hero-bg {
 	position: absolute;
