@@ -171,7 +171,9 @@ It emits the `close` and `error` events.
 import { Command } from '@tauri-apps/plugin-shell';
 const command = Command.create('node');
 command.on('close', (data) => {
-  console.log(`command finished with code ${data.code} and signal ${data.signal}`);
+  console.log(
+    `command finished with code ${data.code} and signal ${data.signal}`
+  );
 });
 command.on('error', (error) => console.error(`command error: "${error}"`));
 command.stdout.on('data', (line) => console.log(`command stdout: "${line}"`));

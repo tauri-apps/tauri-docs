@@ -581,7 +581,11 @@ Creates a notification channel.
 #### Example
 
 ```typescript
-import { createChannel, Importance, Visibility } from '@tauri-apps/plugin-notification';
+import {
+  createChannel,
+  Importance,
+  Visibility,
+} from '@tauri-apps/plugin-notification';
 await createChannel({
   id: 'new-messages',
   name: 'New Messages',
@@ -863,7 +867,10 @@ Requests the permission to send notifications.
 #### Example
 
 ```typescript
-import { isPermissionGranted, requestPermission } from '@tauri-apps/plugin-notification';
+import {
+  isPermissionGranted,
+  requestPermission,
+} from '@tauri-apps/plugin-notification';
 let permissionGranted = await isPermissionGranted();
 if (!permissionGranted) {
   const permission = await requestPermission();

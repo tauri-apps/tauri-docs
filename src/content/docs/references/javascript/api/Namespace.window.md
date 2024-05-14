@@ -806,7 +806,10 @@ Emits an event to all [targets](/references/javascript/api/namespaceevent/#event
 
 ```typescript
 import { getCurrent } from '@tauri-apps/api/window';
-await getCurrent().emit('window-loaded', { loggedIn: true, token: 'authToken' });
+await getCurrent().emit('window-loaded', {
+  loggedIn: true,
+  token: 'authToken',
+});
 ```
 
 ###### Parameters
@@ -839,7 +842,10 @@ Emits an event to all [targets](/references/javascript/api/namespaceevent/#event
 
 ```typescript
 import { getCurrent } from '@tauri-apps/api/window';
-await getCurrent().emit('main', 'window-loaded', { loggedIn: true, token: 'authToken' });
+await getCurrent().emit('main', 'window-loaded', {
+  loggedIn: true,
+  token: 'authToken',
+});
 ```
 
 ###### Parameters

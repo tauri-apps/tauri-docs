@@ -179,10 +179,13 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 ```typescript
 import { confirm } from '@tauri-apps/plugin-dialog';
 const confirmed = await confirm('Are you sure?', 'Tauri');
-const confirmed2 = await confirm('This action cannot be reverted. Are you sure?', {
-  title: 'Tauri',
-  type: 'warning',
-});
+const confirmed2 = await confirm(
+  'This action cannot be reverted. Are you sure?',
+  {
+    title: 'Tauri',
+    type: 'warning',
+  }
+);
 ```
 
 #### Since

@@ -181,7 +181,10 @@ Emits an event to all [targets](/references/javascript/api/namespaceevent/#event
 
 ```typescript
 import { getCurrent } from '@tauri-apps/api/webview';
-await getCurrent().emit('webview-loaded', { loggedIn: true, token: 'authToken' });
+await getCurrent().emit('webview-loaded', {
+  loggedIn: true,
+  token: 'authToken',
+});
 ```
 
 ###### Parameters
@@ -214,7 +217,10 @@ Emits an event to all [targets](/references/javascript/api/namespaceevent/#event
 
 ```typescript
 import { getCurrent } from '@tauri-apps/api/webview';
-await getCurrent().emitTo('main', 'webview-loaded', { loggedIn: true, token: 'authToken' });
+await getCurrent().emitTo('main', 'webview-loaded', {
+  loggedIn: true,
+  token: 'authToken',
+});
 ```
 
 ###### Parameters

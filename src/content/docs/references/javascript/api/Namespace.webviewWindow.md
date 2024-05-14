@@ -250,7 +250,10 @@ Emits an event to all [targets](/references/javascript/api/namespaceevent/#event
 
 ```typescript
 import { getCurrent } from '@tauri-apps/api/webview';
-await getCurrent().emit('webview-loaded', { loggedIn: true, token: 'authToken' });
+await getCurrent().emit('webview-loaded', {
+  loggedIn: true,
+  token: 'authToken',
+});
 ```
 
 ###### Parameters
@@ -287,7 +290,10 @@ Emits an event to all [targets](/references/javascript/api/namespaceevent/#event
 
 ```typescript
 import { getCurrent } from '@tauri-apps/api/webview';
-await getCurrent().emitTo('main', 'webview-loaded', { loggedIn: true, token: 'authToken' });
+await getCurrent().emitTo('main', 'webview-loaded', {
+  loggedIn: true,
+  token: 'authToken',
+});
 ```
 
 ###### Parameters
@@ -710,9 +716,12 @@ Listen to an emitted event on this webivew window.
 
 ```typescript
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow';
-const unlisten = await WebviewWindow.getCurrent().listen<string>('state-changed', (event) => {
-  console.log(`Got error: ${payload}`);
-});
+const unlisten = await WebviewWindow.getCurrent().listen<string>(
+  'state-changed',
+  (event) => {
+    console.log(`Got error: ${payload}`);
+  }
+);
 
 // you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
 unlisten();
@@ -1121,9 +1130,12 @@ Listen to an emitted event on this webview window only once.
 
 ```typescript
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow';
-const unlisten = await WebviewWindow.getCurrent().once<null>('initialized', (event) => {
-  console.log(`Webview initialized!`);
-});
+const unlisten = await WebviewWindow.getCurrent().once<null>(
+  'initialized',
+  (event) => {
+    console.log(`Webview initialized!`);
+  }
+);
 
 // you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
 unlisten();

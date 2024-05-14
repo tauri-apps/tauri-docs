@@ -487,7 +487,13 @@ It returns the number of cursor position.
 ###### Example
 
 ```typescript
-import { open, seek, write, SeekMode, BaseDirectory } from '@tauri-apps/plugin-fs';
+import {
+  open,
+  seek,
+  write,
+  SeekMode,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
 
 // Given hello.txt pointing to file with "Hello world", which is 11 bytes long:
 const file = await open('hello.txt', {
@@ -497,7 +503,9 @@ const file = await open('hello.txt', {
   create: true,
   dir: BaseDirectory.App,
 });
-await file.write(new TextEncoder().encode('Hello world'), { dir: BaseDirectory.App });
+await file.write(new TextEncoder().encode('Hello world'), {
+  dir: BaseDirectory.App,
+});
 
 // Seek 6 bytes from the start of the file
 console.log(await file.seek(6, SeekMode.Start)); // "6"
@@ -567,7 +575,13 @@ If `len` is not specified then the entire file contents are truncated.
 ###### Example
 
 ```typescript
-import { ftruncate, open, write, read, BaseDirectory } from '@tauri-apps/plugin-fs';
+import {
+  ftruncate,
+  open,
+  write,
+  read,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
 
 // truncate the entire file
 const file = await open('my_file.txt', {
@@ -1233,7 +1247,11 @@ with it.
 
 ```typescript
 import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
-const file = await open('foo/bar.txt', { read: true, write: true, dir: BaseDirectory.App });
+const file = await open('foo/bar.txt', {
+  read: true,
+  write: true,
+  dir: BaseDirectory.App,
+});
 // Do work with file
 await close(file.rid);
 ```
@@ -1277,7 +1295,10 @@ async function processEntriesRecursive(parent, entries) {
     console.log(`Entry: ${entry.name}`);
     if (entry.isDirectory) {
       const dir = parent + entry.name;
-      processEntriesRecursive(dir, await readDir(dir, { dir: BaseDirectory.App }));
+      processEntriesRecursive(
+        dir,
+        await readDir(dir, { dir: BaseDirectory.App })
+      );
     }
   }
 }
@@ -1540,13 +1561,20 @@ If `len` is `0` or not specified, then the entire file contents are truncated.
 #### Example
 
 ```typescript
-import { truncate, readFile, writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+import {
+  truncate,
+  readFile,
+  writeFile,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
 // truncate the entire file
 await truncate('my_file.txt', 0, { dir: BaseDirectory.App });
 
 // truncate part of the file
 let file = 'file.txt';
-await writeFile(file, new TextEncoder().encode('Hello World'), { dir: BaseDirectory.App });
+await writeFile(file, new TextEncoder().encode('Hello World'), {
+  dir: BaseDirectory.App,
+});
 await truncate(file, 7);
 const data = await readFile(file, { dir: BaseDirectory.App });
 console.log(new TextDecoder().decode(data)); // "Hello W"

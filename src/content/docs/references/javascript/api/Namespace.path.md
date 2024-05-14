@@ -1065,7 +1065,13 @@ Resolves a sequence of `paths` or `path` segments into an absolute path.
 ```typescript
 import { resolve, appDataDir } from '@tauri-apps/api/path';
 const appDataDirPath = await appDataDir();
-const path = await resolve(appDataDirPath, '..', 'users', 'tauri', 'avatar.png');
+const path = await resolve(
+  appDataDirPath,
+  '..',
+  'users',
+  'tauri',
+  'avatar.png'
+);
 ```
 
 #### Since

@@ -9,8 +9,10 @@ import {
 	type TypeDocOptions,
 } from 'typedoc';
 import {
+	MarkdownPageEvent,
 	MarkdownTheme,
-	MarkdownThemeRenderContext,
+	MarkdownThemeContext,
+	type MarkdownApplication,
 	type PluginOptions,
 } from 'typedoc-plugin-markdown';
 import path from 'node:path';
@@ -26,6 +28,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-markdown'],
 	readme: 'none',
 	logLevel: 'Warn',
+	parametersFormat: 'table',
 	// typedoc-plugin-markdown options
 	// https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/options.md
 	outputFileStrategy: 'modules',
@@ -36,8 +39,9 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 	hidePageHeader: true,
 	hidePageTitle: true,
 	hideBreadcrumbs: true,
-	hideInPageTOC: true,
-	identifiersAsCodeBlocks: true,
+	// hideInPageTOC: true,
+	// identifiersAsCodeBlocks: true,
+	useCodeBlocks: true,
 	propertiesFormat: 'table',
 	// Tables do not create links for members so disabling for now to prevent broken links
 	// enumMembersFormat: 'table',
@@ -50,7 +54,7 @@ async function generator() {
 			entryPoints: ['../tauri/tooling/api/src/index.ts'],
 			tsconfig: '../tauri/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			baseUrl: '/references/javascript/api/',
+			publicPath: '/references/javascript/api/',
 			...typeDocConfigBaseOptions,
 		};
 
@@ -95,7 +99,7 @@ async function generator() {
 				entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
 				tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
 				gitRevision: 'v2',
-				baseUrl: `/references/javascript/`,
+				publicPath: `/references/javascript/`,
 				...typeDocConfigBaseOptions,
 				// Must go after to override base
 				entryFileName: `${plugin}.md`,
@@ -112,7 +116,7 @@ async function generator() {
 
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
 async function generateDocs(options: Partial<TypeDocOptions>) {
-	const outputDir = `../../src/content/docs${options.baseUrl}`;
+	const outputDir = `../../src/content/docs${options.publicPath}`;
 
 	const app = await Application.bootstrapWithPlugins(options);
 	app.options.addReader(new TSConfigReader());
@@ -140,7 +144,7 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 		`title: "${event.model.name}"`,
 		'editUrl: false',
 		'sidebar:',
-		`  label: "${event.model.name.replace("@tauri-apps/plugin-", "")}"`,
+		`  label: "${event.model.name.replace('@tauri-apps/plugin-', '')}"`,
 		'---',
 		'',
 		event.contents,
@@ -148,66 +152,54 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 	event.contents = frontmatter.join('\n');
 }
 
-// Overrides and extensions based on https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/customizing.md
-class TauriTheme extends MarkdownTheme {
-	override getRenderContext(pageEvent: PageEvent<Reflection>): MarkdownThemeRenderContext {
-		return new TauriThemeRenderContext(pageEvent, this.application.options);
-	}
-}
-
-class TauriThemeRenderContext extends MarkdownThemeRenderContext {
-	constructor(event: PageEvent<Reflection>, options: Options) {
-		super(event, options);
-	}
-
-	// Formats `@source` to be a single line
-	override sources: (
-		reflection: DeclarationReflection | SignatureReflection,
-		headingLevel: number
-	) => string = (reflection, _) => {
-		if (!reflection.sources) {
-			return '';
-		}
-		let label = reflection.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
-		const sources = reflection.sources.map(
-			(source) => `[${source.fileName}:${source.line}](${source.url})`
-		);
-
-		return label + sources.join(', ');
+class TauriThemeRenderContext extends MarkdownThemeContext {
+	partials = {
+		...this.partials,
+		// Formats `@source` to be a single line
+		sources: (model: DeclarationReflection | SignatureReflection, options: object) => {
+			if (!model.sources) {
+				return '';
+			}
+			let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
+			const sources = model.sources.map(
+				(source) => `[${source.fileName}:${source.line}](${source.url})`
+			);
+			return label + sources.join(', ');
+		},
 	};
 
 	// Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
-	override relativeURL = (url: string | undefined) => {
+	override getRelativeUrl = (url: string | undefined) => {
 		if (!url) {
-			return null;
+			return '';
 		}
-
 		const filePath = path.parse(url);
 		const [, anchor] = filePath.base.split('#');
 		const segments = filePath.dir
 			.split('/')
 			.map((segment) => slug(segment))
 			.filter((segment) => segment !== '');
-
-		let baseUrl = this.options.getValue('baseUrl');
-
-		if (!baseUrl.startsWith('/')) {
-			baseUrl = `/${baseUrl}`;
+		let publicPath = this.options.getValue('publicPath');
+		if (!publicPath.startsWith('/')) {
+			publicPath = `/${publicPath}`;
 		}
-
-		if (!baseUrl.endsWith('/')) {
-			baseUrl = `${baseUrl}/`;
+		if (!publicPath.endsWith('/')) {
+			publicPath = `${publicPath}/`;
 		}
-
 		const filePathName = filePath.name === 'index' ? undefined : filePath.name;
-
-		let constructedUrl = typeof baseUrl === 'string' ? baseUrl : '';
+		let constructedUrl = typeof publicPath === 'string' ? publicPath : '';
 		constructedUrl += segments.length > 0 ? `${segments.join('/')}/` : '';
 		constructedUrl += filePathName ? `${slug(filePathName)}/` : '';
 		constructedUrl += anchor && anchor.length > 0 ? `#${anchor}` : '';
-
 		return constructedUrl;
 	};
+}
+
+// Overrides and extensions based on https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/customizing.md
+class TauriTheme extends MarkdownTheme {
+	getRenderContext(page: MarkdownPageEvent<Reflection>): MarkdownThemeContext {
+		return new TauriThemeRenderContext(this, page, this.application.options);
+	}
 }
 
 generator();
