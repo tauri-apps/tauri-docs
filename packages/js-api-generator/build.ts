@@ -158,9 +158,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 					return '';
 				}
 				let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
-				const sources = model.sources.map(
-					(source) => `[${source.fileName}:${source.line}](${source.url})`
-				);
+				const sources = model.sources.map((source) => `${source.url}`);
 				return label + sources.join(', ');
 			},
 		};
