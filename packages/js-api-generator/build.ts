@@ -169,6 +169,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 			.replaceAll('.', '')
 			.toLowerCase()
 			// This is required due to a bug
+			// Issue open here: https://github.com/typedoc2md/typedoc-plugin-markdown/issues/616
 			.replaceAll('namespaces/', 'namespace');
 		return url;
 	};
