@@ -1,6 +1,7 @@
 import {
 	Application,
 	DeclarationReflection,
+	Options,
 	PageEvent,
 	Reflection,
 	SignatureReflection,
@@ -11,6 +12,7 @@ import {
 	MarkdownPageEvent,
 	MarkdownTheme,
 	MarkdownThemeContext,
+	type MarkdownApplication,
 	type PluginOptions,
 } from 'typedoc-plugin-markdown';
 import { existsSync } from 'node:fs';
@@ -144,22 +146,24 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 	];
 	event.contents = frontmatter.join('\n');
 }
-
 class TauriThemeRenderContext extends MarkdownThemeContext {
-	partials = {
-		...this.partials,
-		// Formats `@source` to be a single line
-		sources: (model: DeclarationReflection | SignatureReflection, options: object) => {
-			if (!model.sources) {
-				return '';
-			}
-			let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
-			const sources = model.sources.map(
-				(source) => `[${source.fileName}:${source.line}](${source.url})`
-			);
-			return label + sources.join(', ');
-		},
-	};
+	constructor(theme: MarkdownTheme, page: MarkdownPageEvent<Reflection>, options: Options) {
+		super(theme, page, options);
+		this.partials = {
+			...this.partials,
+			// Formats `@source` to be a single line
+			sources: (model: DeclarationReflection | SignatureReflection, options: object) => {
+				if (!model.sources) {
+					return '';
+				}
+				let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
+				const sources = model.sources.map(
+					(source) => `[${source.fileName}:${source.line}](${source.url})`
+				);
+				return label + sources.join(', ');
+			},
+		};
+	}
 
 	// Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
 	override getRelativeUrl = (url: string) => {
