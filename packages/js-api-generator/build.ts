@@ -166,14 +166,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 
 	// Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
 	override getRelativeUrl = (url: string) => {
-		url = super
-			.getRelativeUrl(url)
-			.replaceAll('.md', '')
-			.replaceAll('.', '')
-			.toLowerCase()
-			// This is required due to a bug
-			// Issue open here: https://github.com/typedoc2md/typedoc-plugin-markdown/issues/616
-			.replaceAll('namespaces/', 'namespace');
+		url = super.getRelativeUrl(url).replaceAll('.md', '').replaceAll('.', '').toLowerCase();
 		return url;
 	};
 }
