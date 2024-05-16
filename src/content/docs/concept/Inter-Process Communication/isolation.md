@@ -113,4 +113,4 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
 [events]: /reference/javascript/api/namespaceevent
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 [brownfield pattern]: /concept/inter-process-communication/brownfield
-[integration testing with webdriver]: /test/webdriver
+[integration testing with webdriver]: /develop/Tests/webdriver
