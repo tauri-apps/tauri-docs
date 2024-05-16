@@ -30,7 +30,7 @@ guarantees memory safety while retaining excellent performance.
 
 <figure>
 
-![IPC Diagram](../@assets/concept/process-model.svg)
+![IPC Diagram](../../assets/concept/process-model.svg)
 
 <figcaption>Figure 1-1: Simplified representation of the Tauri process model. A single Core process manages one or more WebView processes.</figcaption>
 </figure>
