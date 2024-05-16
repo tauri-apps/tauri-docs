@@ -30,7 +30,7 @@ guarantees memory safety while retaining excellent performance.
 
 <figure>
 
-![IPC Diagram](../../../assets/concepts/process-model.svg)
+![IPC Diagram](../../../assets/concept/process-model.svg)
 
 <figcaption>Figure 1-1: Simplified representation of the Tauri process model. A single Core process manages one or more WebView processes.</figcaption>
 </figure>
@@ -50,7 +50,7 @@ Unlike other similar solutions, the WebView libraries are **not** included in yo
     macOS and [webkitgtk] on Linux.
 
 [principle of least privilege]: https://en.wikipedia.org/wiki/Principle_of_least_privilege
-[inter-process communication]: /concepts/inter-process-communication/
+[inter-process communication]: /concept/inter-process-communication/
 [ownership]: https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html
 [microsoft edge webview2]: https://docs.microsoft.com/en-us/microsoft-edge/webview2/
 [wkwebview]: https://developer.apple.com/documentation/webkit/wkwebview

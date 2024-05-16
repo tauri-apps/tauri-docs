@@ -32,10 +32,10 @@ Tauri's security model differentiates between Rust code written for the applicat
 core and frontend code written in any framework or language understood by the system
 WebView.
 
-The [IPC layer](/concepts/inter-process-communication) is the bridge for communication between these two trust
+The [IPC layer](/concept/inter-process-communication) is the bridge for communication between these two trust
 groups and ensures that boundaries are not broken.
 
-![IPC Diagram](@assets/concepts/security-boundaries.svg)
+![IPC Diagram](@assets/concept/security-boundaries.svg)
 
 Any code executed by the plugins or the application core has full
 access to all available system resources and is not constrained.
@@ -62,7 +62,7 @@ of choice, but Tauri provides generic features to control and contain the attack
 	<LinkCard title="Content Security Policy (CSP)" href="/security/csp" />
 	<LinkCard
 		title="Isolation Pattern"
-		href="/concepts/inter-process-communication/isolation"
+		href="/concept/inter-process-communication/isolation"
 	/>
 </CardGrid>
 
