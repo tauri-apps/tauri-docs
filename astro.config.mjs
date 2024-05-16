@@ -124,19 +124,49 @@ export default defineConfig({
 							link: '/guide/create-project/'
 						},
 						{
+							label: 'Core Concepts',
+							collapsed: true,
+							autogenerate: { directory: 'concept' },
+						},
+						{
+							label: 'Security',
+							collapsed: true,
+							autogenerate: { directory: 'security' },
+						},
+						{
+							label: 'Develop',
+							collapsed: true,
+							autogenerate: { directory: 'develop' },
+						},
+						{
+							label: 'Distribute',
+							collapsed: true,
+							autogenerate: { directory: 'distribute' },
+						},
+						{
+							label: 'Learn',
+							collapsed: true,
+							autogenerate: { directory: 'learn' },
+						},
+						{
+							label: 'Plugins',
+							collapsed: true,
+							autogenerate: { directory: 'feature' },
+						},
+						{
 							label: 'Frontend Configuration',
 							collapsed: true,
-							autogenerate: { directory: 'guide/frontend' },
+							autogenerate: { directory: 'frontend' },
 						},
 						{
 							label: 'Upgrade & Migrate',
 							collapsed: true,
-							autogenerate: { directory: 'guide/migrate' },
+							autogenerate: { directory: 'migrate' },
 						},
 						{
 							label: 'About',
 							collapsed: true,
-							autogenerate: { directory: 'guide/about' },
+							autogenerate: { directory: 'about' },
 						},
 					]
 				},

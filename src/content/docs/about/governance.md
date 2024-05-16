@@ -13,7 +13,7 @@ The Tauri Working Group is the collective framework created to enable this gover
 - Domains & Domain Leads
 - Teams
 
-![Tauri governance diagram](../../../../assets/about/governance/diagram.svg)
+![Tauri governance diagram](@assets/about/governance/diagram.svg)
 
 ### Working Group Members
 
