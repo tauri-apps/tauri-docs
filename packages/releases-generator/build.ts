@@ -76,6 +76,10 @@ async function generator() {
 			 */
 			const thisVersion = releases[i].version;
 
+			if (i === 0) {
+				// latest version
+				latestVersions[pkg.name] = `v${thisVersion}`;
+			}
 			//
 			const pageFrontmatter = [
 				note,
