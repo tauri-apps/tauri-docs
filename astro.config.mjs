@@ -202,7 +202,7 @@ export default defineConfig({
 						{
 							label: 'Releases',
 							collapsed: true,
-							autogenerate: { directory: 'releases' },
+							autogenerate: { directory: 'release' },
 						},
 						{
 							label: 'JavaScript',
