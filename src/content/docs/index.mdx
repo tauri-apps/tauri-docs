@@ -27,7 +27,7 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import Cta from '@fragments/cta.mdx';
 
 <div class="hero-bg">
@@ -39,6 +39,11 @@ import Cta from '@fragments/cta.mdx';
 <div class="lp-cta-card">
 <Card title="Create a Project" icon="rocket">
 	<Cta/>
+</Card>
+<Card title="New release!" icon="rocket">
+<LinkCard title="@tauri-apps/api 2.0.0" description='2024-01-03' />
+<LinkCard title="@tauri-apps/cli 1.5.3" description='2024-05-24' />
+<LinkCard title="tauri 2.3.0" description='2025-02-12' />
 </Card>
 </div>
 
