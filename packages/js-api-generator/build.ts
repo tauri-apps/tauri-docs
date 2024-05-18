@@ -47,7 +47,8 @@ async function generator() {
 			entryPoints: ['../tauri/tooling/api/src/index.ts'],
 			tsconfig: '../tauri/tooling/api/tsconfig.json',
 			gitRevision: 'dev',
-			baseUrl: '/reference/javascript/api/',
+			publicPath: '/reference/javascript/api/',
+			basePath: '/reference/javascript/api/',
 			...typeDocConfigBaseOptions,
 		};
 
