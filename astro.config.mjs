@@ -111,17 +111,32 @@ export default defineConfig({
 					collapsed: true,
 					items: [
 						{
-							label: 'What is Tauri?',
-							link: '/guide/'
-						},
-						{
-							label: 'Prerequisites',
-							link: '/guide/prerequisites/'
-						},
-						{
-							label: 'Create a Project',
+							label: 'Quick Start',
 							collapsed: true,
-							link: '/guide/create-project/'
+							items: [
+								{
+									label: 'What is Tauri?',
+									link: '/start/'
+								},
+								{
+									label: 'Prerequisites',
+									link: '/start/prerequisites/'
+								},
+								{
+									label: 'Create a Project',
+									link: '/start/create-project/'
+								},
+								{
+									label: 'Frontend Configuration',
+									collapsed: true,
+									autogenerate: { directory: 'start/frontend' },
+								},
+								{
+									label: 'Upgrade & Migrate',
+									collapsed: true,
+									autogenerate: { directory: 'start/migrate' },
+								},
+							]
 						},
 						{
 							label: 'Core Concepts',
@@ -151,17 +166,7 @@ export default defineConfig({
 						{
 							label: 'Plugins',
 							collapsed: true,
-							autogenerate: { directory: 'feature' },
-						},
-						{
-							label: 'Frontend Configuration',
-							collapsed: true,
-							autogenerate: { directory: 'frontend' },
-						},
-						{
-							label: 'Upgrade & Migrate',
-							collapsed: true,
-							autogenerate: { directory: 'migrate' },
+							autogenerate: { directory: 'plugin' },
 						},
 						{
 							label: 'About',
