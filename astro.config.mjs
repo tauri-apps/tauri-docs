@@ -180,10 +180,6 @@ export default defineConfig({
 					collapsed: true,
 					items: [
 						{
-							label: 'Overview',
-							link: '/reference/'
-						},
-						{
 							label: 'Access Control List',
 							link: '/reference/acl/'
 						},
