@@ -43,8 +43,8 @@ const links: Link[] = [
 	<Default {...Astro.props}><slot /></Default>
 
 	<starlight-select class="mobile">
-		<label for="nav-menu">
-			<select id="nav-menu">
+		<label>
+			<select aria-label="Menu">
 				<option value="" disabled selected>Menu</option>
 				{
 					links.map((link) => (
