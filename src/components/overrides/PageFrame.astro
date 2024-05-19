@@ -2,7 +2,6 @@
 import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
 import type { Props } from '@astrojs/starlight/props';
 import Sidebar from './Sidebar.astro'
-import Search from '@astrojs/starlight/components/Search.astro';
 const { labels } = Astro.props;
 ---
 
@@ -12,7 +11,6 @@ const { labels } = Astro.props;
 			<MobileMenuToggle {...Astro.props} />
 			<div id="starlight__sidebar" class="sidebar-pane">
 				<div class="sidebar-content sl-flex">
-					<!--<slot name="sidebar" />  -->
 					<Sidebar {...Astro.props} />
 				</div>
 			</div>
@@ -54,10 +52,6 @@ const { labels } = Astro.props;
 		overflow-y: auto;
 	}
 
-	:global([aria-expanded='true']) ~ .sidebar-pane {
-		--sl-sidebar-visibility: visible;
-	}
-
 	.sidebar-content {
 		height: 100%;
 		min-height: max-content;
@@ -71,14 +65,37 @@ const { labels } = Astro.props;
 			content: '';
 			padding-bottom: 1px;
 		}
-		#starlight__sidebar {
-			display: none;
-		}
 	}
 
 	.main-frame {
 		padding-top: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
 		padding-inline-start: var(--sl-content-inline-start);
+	}
+
+</style>
+
+{Astro.props.entry.slug === '' ?
+<style>
+	#starlight__sidebar {
+		display: none;
+	}
+
+	@media (min-width: 50rem) {
+		:global([data-has-sidebar]) .header {
+			padding-inline-end: var(--sl-nav-pad-x);
+		}
+		.sidebar-pane {
+			--sl-sidebar-visibility: hidden;
+			width: var(--sl-sidebar-width);
+			background-color: var(--sl-color-bg-sidebar);
+			border-inline-end: 1px solid var(--sl-color-hairline-shade);
+		}
+	}
+</style>
+: 
+<style>
+	:global([aria-expanded='true']) ~ .sidebar-pane {
+		--sl-sidebar-visibility: visible;
 	}
 
 	@media (min-width: 50rem) {
@@ -93,3 +110,4 @@ const { labels } = Astro.props;
 		}
 	}
 </style>
+}
