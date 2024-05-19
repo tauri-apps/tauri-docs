@@ -58,16 +58,6 @@ const links: Link[] = [
 			<Icon name="down-caret" class="icon caret" />
 		</label>
 	</starlight-select>
-
-	<div class="desktop">
-		{
-			links.map((link) => (
-				<a href={link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value}>
-					{link.title}
-				</a>
-			))
-		}
-	</div>
 </>
 
 <script>
