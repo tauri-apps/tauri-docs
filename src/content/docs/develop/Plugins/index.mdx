@@ -14,7 +14,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 :::tip[Plugin Development]
 
-This guide is for developing Tauri plugins. If you're looking for a list of the currently available plugins and how to use them then visit the [Features and Recipes list](/features).
+This guide is for developing Tauri plugins. If you're looking for a list of the currently available plugins and how to use them then visit the [Features and Recipes list](/plugin/).
 
 :::
 
@@ -249,7 +249,7 @@ Builder::new("<plugin-name>")
 
 The plugin APIs defined in the project's `desktop.rs` and `mobile.rs` are exported to the user as a struct with the same name as the plugin (in pascal case). When the plugin is setup, an instance of this struct is created and managed as a state so that users can retrieve it at any point in time with a `Manager` instance (such as `AppHandle`, `App`, or` Window`) through the extension trait defined in the plugin.
 
-For example, the [`global-shortcut plugin`](/feature/global-shortcut) defines a `GlobalShortcut` struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
+For example, the [`global-shortcut plugin`](/plugin/global-shortcut/) defines a `GlobalShortcut` struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
 
 ```rust title="src-tauri/src/lib.rs"
 use tauri_plugin_global_shortcut::GlobalShortcutExt;

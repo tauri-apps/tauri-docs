@@ -91,7 +91,7 @@ const { spawn, spawnSync } = require('child_process');
 let tauriDriver;
 
 exports.config = {
-	specs: ['./develop/Tests/specs/**/*.js'],
+	specs: ['./develop/tests/specs/**/*.js'],
 	maxInstances: 1,
 	capabilities: [
 		{
@@ -126,7 +126,7 @@ exports.config = {
 
 If you are interested in the properties on the `exports.config` object, I [suggest reading the documentation][webdriver documentation].
 For non-WDIO specific items, there are comments explaining why we are running commands in `onPrepare`, `beforeSession`,
-and `afterSession`. We also have our specs set to `"./develop/Tests/specs/**/*.js"`, so let's create a spec now.
+and `afterSession`. We also have our specs set to `"./develop/tests/specs/**/*.js"`, so let's create a spec now.
 
 ## Spec
 
@@ -190,15 +190,15 @@ $ wdio run wdio.conf.js
 
 Execution of 1 workers started at 2021-08-17T08:06:10.279Z
 
-[0-0] RUNNING in undefined - /develop/Tests/specs/example.e2e.js
-[0-0] PASSED in undefined - /develop/Tests/specs/example.e2e.js
+[0-0] RUNNING in undefined - /develop/tests/specs/example.e2e.js
+[0-0] PASSED in undefined - /develop/tests/specs/example.e2e.js
 
  "spec" Reporter:
 ------------------------------------------------------------------
 [wry 0.12.1 linux #0-0] Running: wry (v0.12.1) on linux
 [wry 0.12.1 linux #0-0] Session ID: 81e0107b-4d38-4eed-9b10-ee80ca47bb83
 [wry 0.12.1 linux #0-0]
-[wry 0.12.1 linux #0-0] » /develop/Tests/specs/example.e2e.js
+[wry 0.12.1 linux #0-0] » /develop/tests/specs/example.e2e.js
 [wry 0.12.1 linux #0-0] Hello Tauri
 [wry 0.12.1 linux #0-0]    ✓ should be cordial
 [wry 0.12.1 linux #0-0]    ✓ should be excited
@@ -218,7 +218,7 @@ We see the Spec Reporter tell us that all 3 tests from the `test/specs/example.e
 Using the [WebdriverIO] test suite, we just easily enabled e2e testing for our Tauri application from just a few lines
 of configuration and a single command to run it! Even better, we didn't have to modify the application at all.
 
-[example application setup]: /develop/Tests/webdriver/example/
+[example application setup]: /develop/tests/webdriver/example/
 [webdriverio]: https://webdriver.io/
 [finished example project]: https://github.com/chippers/hello_tauri
 [mocha]: https://mochajs.org/
