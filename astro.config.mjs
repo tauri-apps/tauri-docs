@@ -64,7 +64,7 @@ export default defineConfig({
 		starlight({
 			plugins: [
 				starlightBlog({ authors }),
-				// starlightLinksValidator({ errorOnRelativeLinks: false }),
+				starlightLinksValidator({ errorOnRelativeLinks: false }),
 			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
