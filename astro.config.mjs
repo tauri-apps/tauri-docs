@@ -101,6 +101,13 @@ export default defineConfig({
 						src: '/navigate.js',
 					},
 				},
+				{
+					tag: 'link',
+					attrs: {
+						rel: 'manifest',
+						href: '/manifest.json'
+					},
+				},
 			],
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
