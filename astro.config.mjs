@@ -108,6 +108,10 @@ export default defineConfig({
 						href: '/manifest.json'
 					},
 				},
+				{
+					tag: 'meta',
+					attrs: { name: 'theme-color', content: '#181818' },
+				},
 			],
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
