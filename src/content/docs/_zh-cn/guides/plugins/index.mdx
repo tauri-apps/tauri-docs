@@ -249,7 +249,7 @@ Builder::new("<plugin-name>")
 在项目的 `desktop.rs` 和 `mobile.rs` 中定义的插件 API 将作为与插件同名的结构体导出给用户（使用 Pascal 命名法）。
 设置插件时，会创建此结构体的实例并将其作为一种状态进行管理，以便用户可以通过插件中定义的扩展特性，在任何时间点使用 `Manager` 实例（如 `AppHandle`、`App` 或 `Window`）检索它。
 
-例如，[`global-shortcut` 插件](/features/global-shortcut/) 定义了一个 `GlobalShortcut` 结构体，可以被 `GlobalShortcutExt` trait 的 `global_shortcut` 方法使用：
+例如，[`global-shortcut` 插件](/feature/global-shortcut/) 定义了一个 `GlobalShortcut` 结构体，可以被 `GlobalShortcutExt` trait 的 `global_shortcut` 方法使用：
 
 ```rust
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
