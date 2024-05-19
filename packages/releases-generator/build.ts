@@ -184,9 +184,8 @@ function semverToInt(semver: string) {
 	return BASE - (major * 100000000 + minor * 1000000 + patch * 10000 + preReleaseValue);
 }
 
-// TODO: Re-enable skipping
-// if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
-generator();
-// } else {
-// 	console.info('Skipping `/release` pages build');
-// }
+if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
+	generator();
+} else {
+	console.info('Skipping `/release` pages build');
+}
