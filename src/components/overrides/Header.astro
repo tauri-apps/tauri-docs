@@ -153,16 +153,17 @@ const links: Link[] = [
 		gap: 1rem;
 	}
 </style>
-
-
 <style is:global>
 	.header {
 		border: none !important;
 	}
+body[data-mobile-menu-expanded] header {
+	background-color: var(--sl-color-bg);
+}
 </style>
 
 {Astro.props.entry.slug === '' ?
-<style is:global>
+<style>
 	.header {
 		background-color: transparent;
     	-webkit-backdrop-filter: blur(16px);
@@ -170,6 +171,11 @@ const links: Link[] = [
 		padding-inline-end: calc(var(--sl-nav-gap) + var(--sl-nav-pad-x));
 	}
 
+	@media (min-width: 50rem) {
+		header {
+			background-color: transparent !important;
+		}
+	}
 	@media (min-width: 50rem) {
 		.header {
 			padding-inline-end: var(--sl-nav-pad-y);

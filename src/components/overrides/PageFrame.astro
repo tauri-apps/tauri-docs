@@ -52,6 +52,10 @@ const { labels } = Astro.props;
 		overflow-y: auto;
 	}
 
+	:global([aria-expanded='true']) ~ .sidebar-pane {
+		--sl-sidebar-visibility: visible;
+	}
+
 	.sidebar-content {
 		height: 100%;
 		min-height: max-content;
@@ -72,32 +76,6 @@ const { labels } = Astro.props;
 		padding-inline-start: var(--sl-content-inline-start);
 	}
 
-</style>
-
-{Astro.props.entry.slug === '' ?
-<style>
-	#starlight__sidebar {
-		display: none;
-	}
-
-	@media (min-width: 50rem) {
-		:global([data-has-sidebar]) .header {
-			padding-inline-end: var(--sl-nav-pad-x);
-		}
-		.sidebar-pane {
-			--sl-sidebar-visibility: hidden;
-			width: var(--sl-sidebar-width);
-			background-color: var(--sl-color-bg-sidebar);
-			border-inline-end: 1px solid var(--sl-color-hairline-shade);
-		}
-	}
-</style>
-: 
-<style>
-	:global([aria-expanded='true']) ~ .sidebar-pane {
-		--sl-sidebar-visibility: visible;
-	}
-
 	@media (min-width: 50rem) {
 		:global([data-has-sidebar]) .header {
 			padding-inline-end: var(--sl-nav-pad-x);
@@ -110,4 +88,21 @@ const { labels } = Astro.props;
 		}
 	}
 </style>
+
+{Astro.props.entry.slug === '' ?
+<style>
+@media (min-width: 50rem) {
+	:global([aria-expanded='true']) ~ .sidebar-pane {
+		--sl-sidebar-visibility: visible;
+	}
+
+	#starlight__sidebar {
+		display: none;
+	}
+	.sidebar-pane {
+		--sl-sidebar-visibility: hidden;
+	}
+}
+</style>
+: ''
 }
