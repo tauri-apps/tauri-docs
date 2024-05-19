@@ -108,7 +108,7 @@ const links: Link[] = [
 			grid-template-columns:
         /* 1 (site title): runs up until the main content column’s left edge or the width of the title, whichever is the largest  */
 				minmax(
-					calc(var(--__sidebar-width) + max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))),
+					calc(var(--__sidebar-pad, 0rem)),
 					auto
 				)
 				/* 2 (search box): all free space that is available. */
