@@ -249,6 +249,10 @@ export default defineConfig({
 		}),
 		serviceWorker({
 			workbox: {
+				cleanupOutdatedCaches: true,
+				clientsClaim: true,
+				inlineWorkboxRuntime: true,
+				skipWaiting: true,
 				globIgnores: ["**_redirects**"]
 			}
 		}),
