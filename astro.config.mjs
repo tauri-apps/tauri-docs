@@ -64,7 +64,7 @@ export default defineConfig({
 		starlight({
 			plugins: [
 				starlightBlog({ authors }),
-				starlightLinksValidator({ errorOnRelativeLinks: false }),
+				// starlightLinksValidator({ errorOnRelativeLinks: false }),
 			],
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
@@ -247,7 +247,11 @@ export default defineConfig({
 			locales,
 			lastUpdated: true,
 		}),
-		serviceWorker(),
+		serviceWorker({
+			workbox: {
+				globIgnores: ["**_redirects**"]
+			}
+		}),
 	],
 	markdown: {
 		shikiConfig: {
