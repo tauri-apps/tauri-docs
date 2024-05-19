@@ -5,6 +5,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
+import serviceWorker from "astrojs-service-worker";
 
 const authors = {
 	nothingismagick: {
@@ -246,6 +247,7 @@ export default defineConfig({
 			locales,
 			lastUpdated: true,
 		}),
+		serviceWorker(),
 	],
 	markdown: {
 		shikiConfig: {
