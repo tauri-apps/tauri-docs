@@ -104,7 +104,7 @@ export default defineConfig({
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
 			},
-			customCss: ['./src/styles/custom.css'],
+			customCss: ['./src/styles/custom.scss'],
 			sidebar: [
 				{
 					label: 'Guides',
