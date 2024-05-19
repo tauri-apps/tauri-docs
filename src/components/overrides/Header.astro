@@ -2,6 +2,7 @@
 import type { Props } from '@astrojs/starlight/props';
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
+import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
@@ -74,7 +75,6 @@ const links: Link[] = [
 	.full-width {
 		width: 100%;
 	}
-
 	.right-group,
 	.social-icons {
 		gap: 1rem;
@@ -167,6 +167,7 @@ const links: Link[] = [
 		background-color: transparent;
     	-webkit-backdrop-filter: blur(16px);
 		backdrop-filter: blur(16px);
+		padding-inline-end: calc(var(--sl-nav-gap) + var(--sl-nav-pad-x));
 	}
 </style>
 : ''
