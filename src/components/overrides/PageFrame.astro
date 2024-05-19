@@ -9,7 +9,7 @@ const { labels } = Astro.props;
 	<header class="header"><slot name="header" /></header>
 		<nav class="sidebar" aria-label={labels['sidebarNav.accessibleLabel']}>
 			<MobileMenuToggle {...Astro.props} />
-			<div id="starlight__sidebar" class="sidebar-pane">
+			<div id="starlight__sidebar" class={Astro.props.entry.slug === ''?"sidebar-pane lp-hide":'sidebar-pane'}>
 				<div class="sidebar-content sl-flex">
 					<Sidebar {...Astro.props} />
 				</div>
@@ -22,6 +22,12 @@ const { labels } = Astro.props;
 	.page {
 		flex-direction: column;
 		min-height: 100vh;
+	}
+
+	@media (min-width: 50rem) {
+		.lp-hide {
+			display: none;
+		}
 	}
 
 	.header {
@@ -88,21 +94,3 @@ const { labels } = Astro.props;
 		}
 	}
 </style>
-
-{Astro.props.entry.slug === '' ?
-<style>
-@media (min-width: 50rem) {
-	:global([aria-expanded='true']) ~ .sidebar-pane {
-		--sl-sidebar-visibility: visible;
-	}
-
-	#starlight__sidebar {
-		display: none;
-	}
-	.sidebar-pane {
-		--sl-sidebar-visibility: hidden;
-	}
-}
-</style>
-: ''
-}
