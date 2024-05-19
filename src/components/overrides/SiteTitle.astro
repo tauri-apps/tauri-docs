@@ -18,12 +18,12 @@ type Link = {
 const links: Link[] = [
 	{
 		title: 'Guides',
-		value: '/start',
+		value: '/start/',
 		transfer: true,
 	},
 	{
 		title: 'References',
-		value: '/references',
+		value: '/reference/acl/',
 		transfer: true,
 	},
 	{
@@ -32,8 +32,8 @@ const links: Link[] = [
 		transfer: false,
 	},
 	{
-		title: 'About',
-		value: '/about',
+		title: 'Releases',
+		value: '/release/',
 		transfer: true,
 	},
 ];
@@ -162,5 +162,8 @@ const links: Link[] = [
 		select {
 			font-size: var(--sl-text-sm);
 		}
+	}
+	starlight-select {
+		margin-left: auto;
 	}
 </style>

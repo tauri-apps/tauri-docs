@@ -2,12 +2,11 @@
 import type { Props } from '@astrojs/starlight/props';
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
-import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 
 const curLocale = Astro.props.locale;
-
 
 
 type Link = {
@@ -33,11 +32,6 @@ const links: Link[] = [
 		transfer: false,
 	},
 	{
-		title: 'About',
-		value: '/about',
-		transfer: true,
-	},
-	{
 		title: 'Releases',
 		value: '/release/',
 		transfer: true,
@@ -46,7 +40,7 @@ const links: Link[] = [
 ---
 
 <div class="header sl-flex">
-	<div class="sl-flex">
+	<div class="full-width sl-flex">
 		<SiteTitle {...Astro.props} />
 	</div>
 	<div class="sl-flex">
@@ -76,6 +70,9 @@ const links: Link[] = [
 		justify-content: space-between;
 		align-items: center;
 		height: 100%;
+	}
+	.full-width {
+		width: 100%;
 	}
 
 	.right-group,

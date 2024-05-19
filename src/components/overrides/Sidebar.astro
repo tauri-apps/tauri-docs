@@ -42,6 +42,16 @@ const multiSidebarConfig: [string, boolean, Props][] = Astro.props.sidebar.map(
     ];
   }
 );
+let foundCurrentPage = false;
+for (const page of multiSidebarConfig) {
+    if (page[1]) {
+        foundCurrentPage = true;
+        break;
+    }
+}
+if (!foundCurrentPage && multiSidebarConfig.length > 0) {
+  multiSidebarConfig[0][1] = true;
+}
 ---
 
 <div class="__collapse">
