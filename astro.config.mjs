@@ -265,7 +265,7 @@ export default defineConfig({
 					options: {
 						cacheName: 'tauri-runtime',
 						expiration: {
-							maxAgeSeconds: 7 * 24 * 60 * 60 // 1 week
+							maxAgeSeconds: 24 * 60 * 60 // 1 day
 						},
 					},
 				}]
