@@ -137,7 +137,11 @@ export default defineConfig({
 								},
 								{
 									label: 'Create a Project',
-									link: '/start/create-project/'
+									link: '/start/create-project/',
+									badge: {
+										text: 'WIP',
+										variant: 'caution'
+									}
 								},
 								{
 									label: 'Frontend Configuration',
