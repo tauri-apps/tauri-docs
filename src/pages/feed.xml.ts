@@ -32,11 +32,17 @@ export async function GET(context: APIContext) {
 		site: context.site as URL,
 		items: pages.map((post) => ({
 			title: post.data.title,
-			pubDate: post.id.startsWith('blog')
-				? post.data.date
-				: getNewestCommitDate(join('src', 'content', 'docs', post.id)),
+			pubDate: post.id.startsWith('blog') ? post.data.date : getTimestamp(post.id),
 			description: post.id.startsWith('blog') ? post.data.excerpt : post.data.description,
 			link: `/${post.slug}/`,
 		})),
 	});
+}
+
+function getTimestamp(id: string): any {
+	try {
+		return getNewestCommitDate(join('src', 'content', 'docs', id));
+	} catch (e) {
+		return new Date();
+	}
 }
