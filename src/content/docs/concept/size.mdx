@@ -59,9 +59,9 @@ This is not a complete reference over all available options, merely the ones tha
 :::
 
 - [incremental:](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental) Compile your binary in smaller steps.
-- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units) Faster compile times but slower running code.
-- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) Link time optimizations.
-- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) Determines the focus of the compiler.
+- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units) Speeds up compile times at the cost of compile time optimizations.
+- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) Enables link time optimizations.
+- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) Determines the focus of the compiler. Use `3` to optimize performance, `z` to optimize for size, and `s` for something in-between.
 - [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic) Reduce size by removing panic unwinding.
 - [strip:](https://doc.rust-lang.org/cargo/reference/profiles.html#strip) Strip either symbols or debuginfo from a binary.
 - [rpath:](https://doc.rust-lang.org/cargo/reference/profiles.html#rpath) Assists in finding the dynamic libraries the binary requires by hard coding information into the binary.
