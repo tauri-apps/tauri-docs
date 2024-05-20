@@ -248,12 +248,24 @@ export default defineConfig({
 			lastUpdated: true,
 		}),
 		serviceWorker({
+			enableInDevelopment: true,
 			workbox: {
 				cleanupOutdatedCaches: true,
 				clientsClaim: true,
 				inlineWorkboxRuntime: true,
 				skipWaiting: true,
-				globIgnores: ["**_redirects**"]
+				globIgnores: ["**_redirects**"],
+				globPatterns: ["**/*.html", "**/*.js", "**/*.css"],
+				runtimeCaching: [{
+					urlPattern: new RegExp('.*'),
+					handler: 'StaleWhileRevalidate',
+					options: {
+						cacheName: 'tauri-runtime',
+						expiration: {
+							maxAgeSeconds: 7 * 24 * 60 * 60 // 1 week
+						},
+					},
+				}]
 			}
 		}),
 	],
