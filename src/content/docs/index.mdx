@@ -2,9 +2,10 @@
 title: Tauri 2.0
 description: The cross-platform app building toolkit
 i18nReady: true
-template: splash
 editUrl: false
 lastUpdated: false
+template: splash
+tableOfContents: false
 prev: false
 next: false
 hero:
@@ -17,7 +18,7 @@ hero:
       icon: right-arrow
       variant: primary
     - text: Contribution Guidelines
-      link: https://github.com/tauri-apps/tauri-docs/blob/next/.github/CONTRIBUTING.md
+      link: https://github.com/tauri-apps/tauri-docs/blob/v2/.github/CONTRIBUTING.md
       icon: open-book
       variant: minimal
     - text: Tauri 1.0 Documentation
@@ -26,7 +27,8 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
 
 <div class="hero-bg">
 	<div class="bg-logo"></div>
@@ -34,7 +36,13 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	<div class="bg-grad-red"></div>
 </div>
 
-<CardGrid stagger>
+<div class="lp-cta-card">
+<Card title="Create a Project" icon="rocket">
+	<Cta/>
+</Card>
+</div>
+
+<CardGrid>
 	<Card title="Frontend Independent" icon="rocket">
 		Bring your existing web stack to Tauri or start that new dream project.
 		Tauri supports any frontend framework so you don't need to change your
