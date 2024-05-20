@@ -5,6 +5,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
+import serviceWorker from "astrojs-service-worker";
 
 const authors = {
 	nothingismagick: {
@@ -80,10 +81,11 @@ export default defineConfig({
 				rss: `${site}/rss`,
 			},
 			components: {
-				SiteTitle: 'src/components/overrides/SiteTitle.astro',
+				Sidebar: "./src/components/overrides/Sidebar.astro",
+				Header: "./src/components/overrides/Header.astro",
 				Footer: 'src/components/overrides/Footer.astro',
-				Header: 'src/components/overrides/Header.astro',
 				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
+				PageFrame: 'src/components/overrides/PageFrame.astro',
 			},
 			head: [
 				{
@@ -100,60 +102,170 @@ export default defineConfig({
 						src: '/navigate.js',
 					},
 				},
+				{
+					tag: 'link',
+					attrs: {
+						rel: 'manifest',
+						href: '/manifest.json'
+					},
+				},
+				{
+					tag: 'meta',
+					attrs: { name: 'theme-color', content: '#181818' },
+				},
 			],
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
 			},
-			customCss: ['./src/styles/custom.css'],
+			customCss: ['./src/styles/custom.scss'],
 			sidebar: [
 				{
-					label: 'Quick Start',
+					label: 'Guides',
 					collapsed: true,
-					autogenerate: { directory: 'start' },
-				},
-				{
-					label: 'Core Concepts',
-					collapsed: true,
-					autogenerate: { directory: 'concepts' },
-				},
-				{
-					label: 'Security',
-					collapsed: true,
-					autogenerate: { directory: 'security' },
-				},
-				{
-					label: 'Develop',
-					collapsed: true,
-					autogenerate: { directory: 'develop' },
-				},
-				{
-					label: 'Test',
-					collapsed: true,
-					autogenerate: { directory: 'test' },
-				},
-				{
-					label: 'Distribute',
-					collapsed: true,
-					autogenerate: { directory: 'distribute' },
-				},
-				{
-					label: 'Learn',
-					collapsed: true,
-					autogenerate: { directory: 'learn' },
-				},
-				{
-					label: 'Features & Recipes',
-					collapsed: true,
-					autogenerate: { directory: 'features' },
+					items: [
+						{
+							label: 'Quick Start',
+							collapsed: true,
+							items: [
+								{
+									label: 'What is Tauri?',
+									link: '/start/'
+								},
+								{
+									label: 'Prerequisites',
+									link: '/start/prerequisites/'
+								},
+								{
+									label: 'Create a Project',
+									link: '/start/create-project/'
+								},
+								{
+									label: 'Frontend Configuration',
+									collapsed: true,
+									autogenerate: { directory: 'start/frontend' },
+								},
+								{
+									label: 'Upgrade & Migrate',
+									collapsed: true,
+									autogenerate: { directory: 'start/migrate' },
+								},
+							]
+						},
+						{
+							label: 'Core Concepts',
+							collapsed: true,
+							autogenerate: { directory: 'concept' },
+						},
+						{
+							label: 'Security',
+							collapsed: true,
+							autogenerate: { directory: 'security' },
+						},
+						{
+							label: 'Develop',
+							collapsed: true,
+							autogenerate: { directory: 'develop' },
+						},
+						{
+							label: 'Distribute',
+							collapsed: true,
+							autogenerate: { directory: 'distribute' },
+						},
+						{
+							label: 'Learn',
+							collapsed: true,
+							autogenerate: { directory: 'learn' },
+						},
+						{
+							label: 'Plugins',
+							collapsed: true,
+							autogenerate: { directory: 'plugin' },
+						},
+						{
+							label: 'About',
+							collapsed: true,
+							autogenerate: { directory: 'about' },
+						},
+					]
 				},
 				{
 					label: 'References',
 					collapsed: true,
-					autogenerate: { directory: 'references' },
+					items: [
+						{
+							label: 'Access Control List',
+							link: '/reference/acl/'
+						},
+						{
+							label: 'Command Line Interface (CLI)',
+							link: '/reference/cli/'
+						},
+						{
+							label: 'Configuration',
+							link: '/reference/config/'
+						},
+						{
+							label: 'Environment Variables',
+							link: '/reference/environment-variables/'
+						},
+						{
+							label: 'Webview Versions',
+							link: '/reference/webview-versions/'
+						},
+						{
+							label: 'Releases',
+							collapsed: true,
+							autogenerate: { directory: 'release' },
+						},
+						{
+							label: 'JavaScript',
+							collapsed: true,
+							autogenerate: { directory: 'reference/javascript' },
+						},
+						{
+							label: 'Rust (docs.rs)',
+							link: 'https://docs.rs/tauri/2.0.0-beta.19/tauri/index.html'
+						},
+					]
+				},
+				{
+					label: 'Blog',
+					collapsed: true,
+					items: [
+						{
+							label: 'All posts',
+							link: '/blog/'
+						},
+						{
+							label: 'Recent posts',
+							collapsed: false,
+							autogenerate: { directory: 'blog' }, // TODO: Manually construct `items` to sort by dates
+						},
+					]
 				},
 			],
 			locales,
 			lastUpdated: true,
+		}),
+		serviceWorker({
+			workbox: {
+				cleanupOutdatedCaches: true,
+				clientsClaim: true,
+				inlineWorkboxRuntime: true,
+				skipWaiting: true,
+				globIgnores: ["**_redirects**"],
+				globPatterns: ["**/*.js", "**/*.css"],
+				runtimeCaching: [{
+					urlPattern: new RegExp('.*'),
+					handler: 'StaleWhileRevalidate',
+					options: {
+						cacheName: 'tauri-runtime',
+						expiration: {
+							maxAgeSeconds: 7 * 24 * 60 * 60 // 1 week
+						},
+					},
+				}]
+			}
 		}),
 	],
 	markdown: {
@@ -224,24 +336,24 @@ export default defineConfig({
 
 		// v1 /references
 		...i18nRedirect('/v1/references', '/concepts'),
-		...i18nRedirect('/v1/references/architecture', '/concepts/architecture'),
-		...i18nRedirect('/v1/references/architecture/process-model', '/concepts/process-model'),
-		...i18nRedirect('/v1/references/architecture/security', '/concepts/tauri-security'),
+		...i18nRedirect('/v1/reference/architecture', '/concepts/architecture'),
+		...i18nRedirect('/v1/reference/architecture/process-model', '/concepts/process-model'),
+		...i18nRedirect('/v1/reference/architecture/security', '/concepts/tauri-security'),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication',
+			'/v1/reference/architecture/inter-process-communication',
 			'/concepts/inter-process-communication'
 		),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication/brownfield',
+			'/v1/reference/architecture/inter-process-communication/brownfield',
 			'/concepts/inter-process-communication/brownfield'
 		),
 		...i18nRedirect(
-			'/v1/references/architecture/inter-process-communication/isolation',
+			'/v1/reference/architecture/inter-process-communication/isolation',
 			'/concepts/inter-process-communication/isolation'
 		),
-		...i18nRedirect('/v1/references/security', '/concepts/development-security'),
-		...i18nRedirect('/v1/references/configuration-files', '/references/configuration-files'),
-		...i18nRedirect('/v1/references/webview-versions', '/references/webview-versions'),
+		...i18nRedirect('/v1/reference/security', '/concepts/development-security'),
+		...i18nRedirect('/v1/reference/configuration-files', '/reference/configuration-files'),
+		...i18nRedirect('/v1/reference/webview-versions', '/reference/webview-versions'),
 
 		// Decommissioned locales -> refer to /public/_redirects file
 		// '/ko/[...slug]': '/[...slug]',

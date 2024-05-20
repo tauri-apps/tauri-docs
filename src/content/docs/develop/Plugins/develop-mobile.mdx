@@ -338,7 +338,7 @@ class ExamplePlugin: Plugin {
 
 Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`. Those commands can be directly called from JavaScript or Rust:
 
-{/* TODO: PermissionState type should be exported in Tauri */}
+{ /* TODO: PermissionState type should be exported in Tauri */}
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -405,7 +405,7 @@ impl<R: Runtime> Notification<R> {
 
 ## Plugin Events
 
-{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+{ /* TODO: Is this section a duplicate of Lifecycle Events above? */}
 
 Plugins can emit events at any point of time using the `trigger` function:
 
@@ -456,7 +456,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/references/javascript/api/namespacecore/#addpluginlistener) helper function:
+The helper functionss can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
 
 ```javascript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';

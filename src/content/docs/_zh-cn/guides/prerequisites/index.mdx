@@ -23,8 +23,8 @@ import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 
 Tauri 在 Linux 上进行开发需要各种系统依赖项。这些可能会有所不同，具体取决于你的发行版，但我们在下面提供了一些流行的发行版来帮助你进行设置。
 
-{/* Note: These are the officially supported linux distributions. */}
-{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
+{ /* Note: These are the officially supported linux distributions. */}
+{ /* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
 <Tabs>
   <TabItem label="Debian">
@@ -207,7 +207,7 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 1. 从 Android Developers 网站下载并安装 [Android Studio](https://developer.android.com/studio)。
 2. 设置 `JAVA_HOME` 环境变量：
 
-{/* TODO: Can this be done in the 4th step? */}
+{ /* TODO: Can this be done in the 4th step? */}
 
 <Tabs>
 <TabItem label="Linux">
@@ -242,7 +242,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 4. 配置 `ANDROID_HOME` 和 `NDK_HOME` 环境变量：
 
-{/* TODO: Does the version number change below? */}
+{ /* TODO: Does the version number change below? */}
 
 <Tabs>
 <TabItem label="Linux and macOS">
@@ -255,7 +255,7 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 </TabItem>
 <TabItem label="Windows">
 
-{/* TODO: Do we need a note about this version? */}
+{ /* TODO: Do we need a note about this version? */}
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")

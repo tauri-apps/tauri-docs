@@ -25,9 +25,15 @@
 /references/v2/*            /references/:splat                   301
 
 /2/reference/js/core/namespacepath          /references/javascript/api/namespacepath 301
-/2/reference/                /references/                  301
+/2/reference/                /references/                       301
 
 
-/references/configuration-files /develop/configuration-files     301
+/references/configuration-files /develop/configuration-files    301
 
-/features/commands           /develop/calling-rust               301
+/features/commands          /develop/calling-rust               301
+
+/frontend-configuration     /start/frontend                     301
+/test                       /develop/tests                      301
+/guides/features            /guides/feature                     301
+/features                   /plugin                             301
+/start/upgrade--migrate     /start/migrate                      301

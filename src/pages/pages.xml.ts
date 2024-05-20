@@ -32,9 +32,17 @@ export async function GET(context: APIContext) {
 		description: 'The cross-platform app building toolkit',
 		site: context.site as URL,
 		items: posts.map((post) => ({
-			pubDate: getNewestCommitDate(join('src', 'content', 'docs', post.id)),
+			pubDate: getTimestamp(post.id),
 			...post.data,
 			link: `/${post.slug}/`,
 		})),
 	});
+}
+
+function getTimestamp(id: string): any {
+	try {
+		return getNewestCommitDate(join('src', 'content', 'docs', id));
+	} catch (e) {
+		return new Date();
+	}
 }
