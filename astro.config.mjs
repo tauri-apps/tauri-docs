@@ -248,7 +248,6 @@ export default defineConfig({
 			lastUpdated: true,
 		}),
 		serviceWorker({
-			enableInDevelopment: true,
 			workbox: {
 				cleanupOutdatedCaches: true,
 				clientsClaim: true,
