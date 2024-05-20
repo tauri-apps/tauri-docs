@@ -52,6 +52,11 @@ for (const page of multiSidebarConfig) {
 if (!foundCurrentPage && multiSidebarConfig.length > 0) {
   multiSidebarConfig[0][1] = true;
 }
+if (
+  !multiSidebarConfig.some(([_label, isCurrentPage, _config]) => isCurrentPage)
+) {
+  multiSidebarConfig[0][1] = true;
+}
 ---
 
 <div class="__collapse">
@@ -84,6 +89,8 @@ if (!foundCurrentPage && multiSidebarConfig.length > 0) {
     display: inline-flex;
     grid-row-start: 1;
     appearance: none;
+    width: 100%;
+    min-height: fit-content;
 
     /* Styles */
     border-radius: 0.25rem;
