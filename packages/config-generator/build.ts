@@ -4,7 +4,7 @@ import { slug } from 'github-slugger';
 
 buildConfig(
 	'../tauri/core/tauri-config-schema/schema.json',
-	'../../src/content/docs/references/config.md'
+	'../../src/content/docs/reference/config.md'
 );
 
 async function buildConfig(schemaFile: string, outputFile: string) {

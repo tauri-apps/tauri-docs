@@ -31,11 +31,11 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 {' '}
 
 <CommandTabs
-	npm="npm run tauri add cli"
-	yarn="yarn run tauri add cli"
-	pnpm="pnpm tauri add cli"
-	cargo="cargo tauri add cli"
-/>
+					npm="npm run tauri add cli"
+					yarn="yarn run tauri add cli"
+					pnpm="pnpm tauri add cli"
+					cargo="cargo tauri add cli"
+				/>
 
   </TabItem>
   <TabItem label="手动">
@@ -65,10 +65,10 @@ fn run() {
 3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
   <CommandTabs
-      npm="npm install @tauri-apps/plugin-cli"
-      yarn="yarn add @tauri-apps/plugin-cli"
-      pnpm="pnpm add @tauri-apps/plugin-cli"
-  />
+					npm="npm install @tauri-apps/plugin-cli"
+					yarn="yarn add @tauri-apps/plugin-cli"
+					pnpm="pnpm add @tauri-apps/plugin-cli"
+				/>
   </TabItem>
 </Tabs>
 
@@ -260,7 +260,7 @@ fn run() {
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/references/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
