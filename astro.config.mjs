@@ -254,7 +254,7 @@ export default defineConfig({
 				inlineWorkboxRuntime: true,
 				skipWaiting: true,
 				globIgnores: ["**_redirects**"],
-				globPatterns: ["**/*.html", "**/*.js", "**/*.css"],
+				globPatterns: ["**/*.js", "**/*.css"],
 				runtimeCaching: [{
 					urlPattern: new RegExp('.*'),
 					handler: 'StaleWhileRevalidate',
