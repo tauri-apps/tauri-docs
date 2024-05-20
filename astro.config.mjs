@@ -53,6 +53,11 @@ const authors = {
 		title: 'Tauri Security',
 		picture: '/authors/chip.png',
 	},
+	simonhyll: {
+		name: 'Simon Hyll',
+		title: 'Tauri Working Group',
+		picture: '/authors/simonhyll.png',
+	},
 };
 
 const site = 'https://v2.tauri.app';
@@ -117,7 +122,7 @@ export default defineConfig({
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
 			},
-			customCss: ['./src/styles/custom.scss'],
+			customCss: ['./src/styles/main.scss'],
 			sidebar: [
 				{
 					label: 'Guides',

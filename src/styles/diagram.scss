@@ -1,0 +1,20 @@
+.diagram {
+	width: 100%;
+	max-width: 100%;
+}
+
+.diagram > svg {
+	width: 100%;
+}
+
+.diagram path:not([stroke='none']) {
+	stroke: var(--sl-color-white);
+}
+
+.diagram rect:not([stroke='none']) {
+	stroke: var(--sl-color-white);
+}
+
+.diagram div {
+	color: var(--sl-color-white) !important;
+}
