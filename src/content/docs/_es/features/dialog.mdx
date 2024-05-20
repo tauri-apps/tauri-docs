@@ -24,9 +24,9 @@ Instala el plugin de diálogo para comenzar.
     Usa el gestor de paquetes de tu proyecto para agregar la dependencia:
 
     <CommandTabs npm="npm run tauri add dialog"
-    yarn="yarn run tauri add dialog"
-    pnpm="pnpm tauri add dialog"
-    cargo="cargo tauri add dialog" />
+                    yarn="yarn run tauri add dialog"
+                    pnpm="pnpm tauri add dialog"
+                    cargo="cargo tauri add dialog" />
 
     </TabItem>
     <TabItem label="Manual">
@@ -50,10 +50,10 @@ Instala el plugin de diálogo para comenzar.
     3. Si deseas crear diálogos en JavaScript, instala el paquete npm también:
 
     <CommandTabs
-        npm="npm install @tauri-apps/plugin-dialog"
-        yarn="yarn add @tauri-apps/plugin-dialog"
-        pnpm="pnpm add @tauri-apps/plugin-dialog"
-    />
+                    npm="npm install @tauri-apps/plugin-dialog"
+                    yarn="yarn add @tauri-apps/plugin-dialog"
+                    pnpm="pnpm add @tauri-apps/plugin-dialog"
+                />
 
 </TabItem>
 </Tabs>
@@ -80,9 +80,9 @@ en Rust:
 
 ### JavaScript
 
-Consulta todas las [Opciones de diálogo](/references/javascript/dialog/) en la referencia de la API de JavaScript.
+Consulta todas las [Opciones de diálogo](/reference/javascript/dialog/) en la referencia de la API de JavaScript.
 
-{/* ASK */}
+{ /* ASK */}
 
 #### Crear un diálogo de Si/No
 
@@ -101,7 +101,7 @@ console.log(answer);
 // Imprime un booleano en la consola
 ```
 
-{/* CONFIRM */}
+{ /* CONFIRM */}
 
 #### Crear un diálogo de Ok/Cancelar
 
@@ -120,7 +120,7 @@ console.log(confirmation);
 // Imprime un booleano en la consola
 ```
 
-{/* MESSAGE */}
+{ /* MESSAGE */}
 
 #### Crear un diálogo de mensaje
 
@@ -133,7 +133,7 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', type: 'error' });
 ```
 
-{/* OPEN */}
+{ /* OPEN */}
 
 #### Abrir un diálogo de selección de archivos
 
@@ -153,7 +153,7 @@ console.log(file);
 // Imprime la ruta y el nombre del archivo en la consola
 ```
 
-{/* SAVE */}
+{ /* SAVE */}
 
 #### Diálogo de guardar en archivo
 
