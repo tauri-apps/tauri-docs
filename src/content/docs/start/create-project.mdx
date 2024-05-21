@@ -43,16 +43,16 @@ After `create-tauri-app` has complete you can navigate into your project's folde
 import CommandTabs from '@components/CommandTabs.astro';
 
 <CommandTabs
-            npm="cd my-tauri-app
+            npm="cd tauri-app
     npm install
     npm run tauri dev"
-            yarn="cd my-tauri-app
+            yarn="cd tauri-app
     yarn install
     yarn tauri dev"
-            pnpm="cd my-tauri-app
+            pnpm="cd tauri-app
     pnpm install
     pnpm tauri dev"
-            cargo="cd my-tauri-app
+            cargo="cd tauri-app
     cargo tauri dev"
 />
 
@@ -73,22 +73,18 @@ The following example assumes you are creating a new project. If you've already 
     1. Create a new directory for your project and initialize the frontend. You can use plain HTML, CSS, and JavaScript, or any framework you prefer such as Next.js, Nuxt, Svelte, Yew, or Leptos. You just need a way of serving the app in your browser. Just as an example, this is how you would setup a simple Vite app:
 
         <CommandTabs
-            npm="mkdir my-tauri-app
-                cd my-tauri-app
+            npm="mkdir tauri-app
+                cd tauri-app
                 npm create vite@latest ."
-            yarn="mkdir my-tauri-app
-                cd my-tauri-app
+            yarn="mkdir tauri-app
+                cd tauri-app
                 yarn create vite ."
-            pnpm="mkdir my-tauri-app
-                cd my-tauri-app
+            pnpm="mkdir tauri-app
+                cd tauri-app
                 pnpm create vite ."
         />
 
-    2. Then, install Tauri's CLI tool using your package manager of choice.
-        
-        :::note
-        If you are using `cargo` to install the Tauri CLI, you can't install it locally in your project.
-        :::
+    2. Then, install Tauri's CLI tool using your package manager of choice. If you are using `cargo` to install the Tauri CLI, you will have to install it globally.
 
         <CommandTabs
             npm="npm install -D @tauri-apps/cli@next"
@@ -110,18 +106,14 @@ The following example assumes you are creating a new project. If you've already 
 
         After running the command it will display a prompt asking you for different options:
 
-        ```bash
-        ✔ What is your app name? my-tauri-app
-        ✔ What should the window title be? my-tauri-app
+        ```sh frame=none
+        ✔ What is your app name? tauri-app
+        ✔ What should the window title be? tauri-app
         ✔ Where are your web assets (HTML/CSS/JS) located, relative to the "<current dir>/src-tauri/tauri.conf.json" file that will be created? ..
         ✔ What is the url of your dev server? http://localhost:5173
         ✔ What is your frontend dev command? pnpm run dev
         ✔ What is your frontend build command? pnpm run build
         ```
-
-        :::note
-        It's important to make sure that the dev server port is correct. Tauri will run the configured dev command when you run `tauri dev` and the build command when you run `tauri build`.
-        :::
 
         This will create a `src-tauri` directory in your project with the necessary Tauri configuration files.
 
