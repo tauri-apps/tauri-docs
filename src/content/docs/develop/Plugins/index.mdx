@@ -3,17 +3,18 @@ title: Plugin Development
 i18nReady: true
 sidebar:
   label: Overview
+  order: 10
 ---
 
-{/* TODO: Add a CLI section */}
+{ /* TODO: Add a CLI section */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 
-{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+{ /* TODO: Link to windowing system, commands for sending messages, and event system */}
 
 :::tip[Plugin Development]
 
-This guide is for developing Tauri plugins. If you're looking for a list of the currently available plugins and how to use them then visit the [Features and Recipes list](/features).
+This guide is for developing Tauri plugins. If you're looking for a list of the currently available plugins and how to use them then visit the [Features and Recipes list](/plugin/).
 
 :::
 
@@ -23,13 +24,13 @@ Tauri offers a windowing system with web view functionality, a way to send messa
 
 A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events. Additionally, a plugin project can include an Android library project and a Swift package for iOS. You can learn more about developing plugins for Android and iOS in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile).
 
-{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+{ /* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
 ## Naming Convention
 
-{/* TODO: Add link to allowlist */}
+{ /* TODO: Add link to allowlist */}
 
-Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugin`](/references/config/#pluginconfig) and on the allowlist configuration.
+Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugin`](/reference/config/#pluginconfig) and on the allowlist configuration.
 
 By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community, but is not not a requirement. When initializing a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-{plugin-name}` and the JavaScript NPM package name will be `tauri-plugin-{plugin-name}-api` (although we recommend using an [NPM scope](https://docs.npmjs.com/about-scopes) if possible). The Tauri naming convention for NPM packages is `@scope-name/plugin-{plugin-name}`.
 
@@ -248,7 +249,7 @@ Builder::new("<plugin-name>")
 
 The plugin APIs defined in the project's `desktop.rs` and `mobile.rs` are exported to the user as a struct with the same name as the plugin (in pascal case). When the plugin is setup, an instance of this struct is created and managed as a state so that users can retrieve it at any point in time with a `Manager` instance (such as `AppHandle`, `App`, or` Window`) through the extension trait defined in the plugin.
 
-For example, the [`global-shortcut plugin`](/features/global-shortcut) defines a `GlobalShortcut` struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
+For example, the [`global-shortcut plugin`](/plugin/global-shortcut/) defines a `GlobalShortcut` struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
 
 ```rust title="src-tauri/src/lib.rs"
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -342,7 +343,7 @@ pub struct Entry {
 
 ###### Command Scope
 
-Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/references/acl#scopes)).
+Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl#scopes)).
 You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
@@ -456,7 +457,7 @@ fn main() {
 }
 ```
 
-See the [Access Control List](/references/acl) documentation for more information.
+See the [Access Control List](/reference/acl) documentation for more information.
 
 ## Managing State
 

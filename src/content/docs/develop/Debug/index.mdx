@@ -2,6 +2,7 @@
 title: Debug
 sidebar:
   label: Overview
+  order: 10
   badge:
     text: WIP
     variant: caution
@@ -10,3 +11,9 @@ sidebar:
 import Stub from '@components/Stub.astro';
 
 <Stub />
+
+Check if the app is running in development mode
+
+```rs
+let is_dev = tauri::dev()
+```
