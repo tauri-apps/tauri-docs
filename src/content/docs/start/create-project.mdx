@@ -65,21 +65,12 @@ You'll now see a new window open with your app running.
 If you already have an existing frontend or prefer to set it up yourself, you can use the Tauri CLI to initialize the backend for your project separately.
 
 :::note
-The following example assumes you are creating a new project. If you've already initialized the frontend of your application, you can skip to step 4.
+The following example assumes you are creating a new project. If you've already initialized the frontend of your application, you can skip the first step.
 :::
 
 <Steps>
 
-    1. First, install Tauri's CLI tool globally using your package manager of choice:
-
-        <CommandTabs
-            npm="npm install -g @tauri-apps/cli"
-            yarn="yarn global add @tauri-apps/cli"
-            pnpm="pnpm add -g @tauri-apps/cli"
-            cargo="cargo install tauri-cli"
-        />
-
-    2. Create a new directory for your project and initialize the frontend. You can use plain HTML, CSS, and JavaScript, or any framework you prefer such as Next.js, Nuxt, Svelte, Yew, or Leptos. You just need a way of serving the app in your browser. Just as an example, this is how you would setup a simple Vite app:
+    1. Create a new directory for your project and initialize the frontend. You can use plain HTML, CSS, and JavaScript, or any framework you prefer such as Next.js, Nuxt, Svelte, Yew, or Leptos. You just need a way of serving the app in your browser. Just as an example, this is how you would setup a simple Vite app:
 
         <CommandTabs
             npm="mkdir my-tauri-app
@@ -93,16 +84,31 @@ The following example assumes you are creating a new project. If you've already 
                 pnpm create vite ."
         />
 
+    2. Then, install Tauri's CLI tool using your package manager of choice.
+        
+        :::note
+        If you are using `cargo` to install the Tauri CLI, you can't install it locally in your project.
+        :::
+
+        <CommandTabs
+            npm="npm install -D @tauri-apps/cli@next"
+            yarn="yarn add -D @tauri-apps/cli@next"
+            pnpm="pnpm add -D @tauri-apps/cli@next"
+            cargo="cargo install tauri-cli@^2.0.0-beta"
+        />
+
     3. Determine the URL of your frontend development server. This is the URL that Tauri will use to load your content. For example, if you are using Vite, the default URL is `http://localhost:5173`.
 
     4. In your project directory, initialize Tauri:
 
-        ```bash
-        tauri init
-        ```
+        <CommandTabs
+            npm="npx tauri init"
+            yarn="yarn tauri init"
+            pnpm="pnpm tauri init"
+            cargo="tauri init"
+        />
 
-        After running the command it will display a prompt asking you for different options.
-        Here is an example:
+        After running the command it will display a prompt asking you for different options:
 
         ```bash
         ✔ What is your app name? my-tauri-app
@@ -114,21 +120,15 @@ The following example assumes you are creating a new project. If you've already 
         ```
 
         :::note
-        It's important to make sure that the dev server port is correct. For example, while Vite uses 5173, not every framework uses the same port. Tauri needs to know the correct port to load your content.
-
-        Tauri will run the configured dev command when you run `tauri dev` and the build command when you run `tauri build`.
+        It's important to make sure that the dev server port is correct. Tauri will run the configured dev command when you run `tauri dev` and the build command when you run `tauri build`.
         :::
 
         This will create a `src-tauri` directory in your project with the necessary Tauri configuration files.
 
-    5. Develop your frontend application as you would normally. Tauri acts as a backend, so it's up to you how much you focus on the Rust side of the code. In many cases, your main focus can be on the web technologies.
-
-    6. Edit `src-tauri/tauri.conf.json` to configure Tauri. You can set application window size, permissions, and other settings here. You can also change the dev commands and URL here if needed.
-
-    7. Verify your Tauri app is working by running the development server:
+    5. Verify your Tauri app is working by running the development server:
 
         <CommandTabs
-            npm="npm run tauri dev"
+            npm="npx tauri dev"
             yarn="yarn tauri dev"
             pnpm="pnpm tauri dev"
             cargo="cargo tauri dev"
