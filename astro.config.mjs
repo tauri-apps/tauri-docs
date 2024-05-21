@@ -137,7 +137,11 @@ export default defineConfig({
 								},
 								{
 									label: 'Create a Project',
-									link: '/start/create-project/'
+									link: '/start/create-project/',
+									badge: {
+										text: 'WIP',
+										variant: 'caution'
+									}
 								},
 								{
 									label: 'Frontend Configuration',
@@ -261,7 +265,7 @@ export default defineConfig({
 					options: {
 						cacheName: 'tauri-runtime',
 						expiration: {
-							maxAgeSeconds: 7 * 24 * 60 * 60 // 1 week
+							maxAgeSeconds: 24 * 60 * 60 // 1 day
 						},
 					},
 				}]

@@ -16,7 +16,7 @@ importers:
         version: 4.0.6
       '@astrojs/starlight':
         specifier: ^0.23.0
-        version: 0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+        version: 0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -52,13 +52,13 @@ importers:
         version: 0.33.4
       shiki:
         specifier: ^1.1.7
-        version: 1.5.2
+        version: 1.6.0
       starlight-blog:
         specifier: ^0.8.2
-        version: 0.8.2(@astrojs/starlight@0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+        version: 0.8.2(@astrojs/starlight@0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       starlight-links-validator:
         specifier: ^0.8.0
-        version: 0.8.0(@astrojs/starlight@0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+        version: 0.8.0(@astrojs/starlight@0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
 
   packages/config-generator:
     dependencies:
@@ -175,8 +175,8 @@ packages:
   '@astrojs/sitemap@3.1.4':
     resolution: {integrity: sha512-po8CqDCK14O6phU1mB5C8SyVLyQEa+7pJM8oXxs1mVh8DgvxxaA5E7lak1vzOmBcyyyHBW32jakGqNYc66sBRw==}
 
-  '@astrojs/starlight@0.23.0':
-    resolution: {integrity: sha512-DV7OEWQDVwQNXxBAGwOKd7Fwa0yb0/WamuUcQYhCIIRjFstaJ1KDc2gNOO2m3nHoCwFx4R7hj/WEeXlgHKE1tg==}
+  '@astrojs/starlight@0.23.1':
+    resolution: {integrity: sha512-BMVRpM4suTq4K2plzcISs/t5W3Xw2fHGWhSmF7lg90nps595yHp3j4gFpeukRrynwEhoNu0Bds1zgOBebC3Egg==}
     peerDependencies:
       astro: ^4.8.6
 
@@ -1373,8 +1373,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shikijs/core@1.5.2':
-    resolution: {integrity: sha512-wSAOgaz48GmhILFElMCeQypSZmj6Ru6DttOOtl3KNkdJ17ApQuGNCfzpk4cClasVrnIu45++2DBwG4LNMQAfaA==}
+  '@shikijs/core@1.6.0':
+    resolution: {integrity: sha512-NIEAi5U5R7BLkbW1pG/ZKu3eb1lzc3/+jD0lFsuxMT7zjaf9bbNwdNyMr7zh/Zl8EXQtQ+MYBAt5G+JLu+5DlA==}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
@@ -3341,8 +3341,8 @@ packages:
   shiki@0.14.7:
     resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
 
-  shiki@1.5.2:
-    resolution: {integrity: sha512-fpPbuSaatinmdGijE7VYUD3hxLozR3ZZ+iAx8Iy2X6REmJGyF5hQl94SgmiUNTospq346nXUVZx0035dyGvIVw==}
+  shiki@1.6.0:
+    resolution: {integrity: sha512-P31ROeXcVgW/k3Z+vUUErcxoTah7ZRaimctOpzGuqAntqnnSmx1HOsvnbAB8Z2qfXPRhw61yptAzCsuKOhTHwQ==}
 
   side-channel@1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
@@ -3863,6 +3863,7 @@ packages:
 
   workbox-google-analytics@6.6.0:
     resolution: {integrity: sha512-p4DJa6OldXWd6M9zRl0H6vB9lkrmqYFkRQ2xEiNdBFp9U0LhsGO7hsBscVEyH9H2/3eZZt8c97NB2FD9U2NJ+Q==}
+    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
 
   workbox-navigation-preload@6.6.0:
     resolution: {integrity: sha512-utNEWG+uOfXdaZmvhshrh7KzhDu/1iMHyQOV6Aqup8Mm78D286ugu5k9MFD9SzBT5TcwgwSORVvInaXWbvKz9Q==}
@@ -3977,7 +3978,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-rehype: 11.1.0
       remark-smartypants: 2.1.0
-      shiki: 1.5.2
+      shiki: 1.6.0
       unified: 11.0.4
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -4027,7 +4028,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))':
+  '@astrojs/starlight@0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))':
     dependencies:
       '@astrojs/mdx': 3.0.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       '@astrojs/sitemap': 3.1.4
@@ -4958,7 +4959,7 @@ snapshots:
   '@expressive-code/plugin-shiki@0.35.3':
     dependencies:
       '@expressive-code/core': 0.35.3
-      shiki: 1.5.2
+      shiki: 1.6.0
 
   '@expressive-code/plugin-text-markers@0.35.3':
     dependencies:
@@ -5208,7 +5209,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.17.2':
     optional: true
 
-  '@shikijs/core@1.5.2': {}
+  '@shikijs/core@1.6.0': {}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -5298,7 +5299,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 20.12.12
+      '@types/node': 17.0.45
 
   '@types/trusted-types@2.0.7': {}
 
@@ -5454,7 +5455,7 @@ snapshots:
       rehype: 13.0.1
       resolve: 1.22.8
       semver: 7.6.2
-      shiki: 1.5.2
+      shiki: 1.6.0
       string-width: 7.1.0
       strip-ansi: 7.1.0
       tsconfck: 3.0.3(typescript@5.4.5)
@@ -6769,14 +6770,14 @@ snapshots:
 
   mdast-util-find-and-replace@3.0.1:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       escape-string-regexp: 5.0.0
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 
   mdast-util-from-markdown@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       '@types/unist': 3.0.2
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
@@ -6793,7 +6794,7 @@ snapshots:
 
   mdast-util-gfm-autolink-literal@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       ccount: 2.0.1
       devlop: 1.1.0
       mdast-util-find-and-replace: 3.0.1
@@ -6801,7 +6802,7 @@ snapshots:
 
   mdast-util-gfm-footnote@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.0
       mdast-util-to-markdown: 2.1.0
@@ -6811,7 +6812,7 @@ snapshots:
 
   mdast-util-gfm-strikethrough@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       mdast-util-from-markdown: 2.0.0
       mdast-util-to-markdown: 2.1.0
     transitivePeerDependencies:
@@ -6819,7 +6820,7 @@ snapshots:
 
   mdast-util-gfm-table@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       devlop: 1.1.0
       markdown-table: 3.0.3
       mdast-util-from-markdown: 2.0.0
@@ -6829,7 +6830,7 @@ snapshots:
 
   mdast-util-gfm-task-list-item@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.0
       mdast-util-to-markdown: 2.1.0
@@ -6906,7 +6907,7 @@ snapshots:
   mdast-util-to-hast@13.1.0:
     dependencies:
       '@types/hast': 3.0.4
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       '@ungap/structured-clone': 1.2.0
       devlop: 1.1.0
       micromark-util-sanitize-uri: 2.0.0
@@ -7617,7 +7618,7 @@ snapshots:
 
   remark-stringify@11.0.0:
     dependencies:
-      '@types/mdast': 4.0.4
+      '@types/mdast': 4.0.3
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.4
 
@@ -7835,9 +7836,9 @@ snapshots:
       vscode-oniguruma: 1.7.0
       vscode-textmate: 8.0.0
 
-  shiki@1.5.2:
+  shiki@1.6.0:
     dependencies:
-      '@shikijs/core': 1.5.2
+      '@shikijs/core': 1.6.0
 
   side-channel@1.0.6:
     dependencies:
@@ -7894,10 +7895,10 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.8.2(@astrojs/starlight@0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
+  starlight-blog@0.8.2(@astrojs/starlight@0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
     dependencies:
       '@astrojs/rss': 4.0.5
-      '@astrojs/starlight': 0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+      '@astrojs/starlight': 0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       astro: 4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)
       astro-remote: 0.3.2
       github-slugger: 2.0.0
@@ -7905,9 +7906,9 @@ snapshots:
       marked-plaintify: 1.0.1(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  starlight-links-validator@0.8.0(@astrojs/starlight@0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
+  starlight-links-validator@0.8.0(@astrojs/starlight@0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
     dependencies:
-      '@astrojs/starlight': 0.23.0(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+      '@astrojs/starlight': 0.23.1(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       astro: 4.8.6(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
