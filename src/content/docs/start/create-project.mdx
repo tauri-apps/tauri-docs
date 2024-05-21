@@ -8,17 +8,8 @@ sidebar:
 ---
 
 import { Card } from '@astrojs/starlight/components';
-import Stub from '@components/Stub.astro';
+
 import Cta from '@fragments/cta.mdx';
-
-<Stub>
-
-- Create a new app using `create-tauri-app`
-- Manually create the app using the Tauri CLI
-- Add mobile to an existing project (revise what's here [integrate mobile](/start/create-project))
-- Frontend framework-specific guides (right now limiting to React, Angular, Vue, Svelte, and Solid)
-
-</Stub>
 
 One thing that makes Tauri so flexible is it's ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you create a new Tauri project using one of the officially maintained framework templates.
 
@@ -45,23 +36,23 @@ We recommend starting with the vanilla template (HTML, CSS, and JavaScript witho
 
 :::
 
-{/* TODO: Can CTA offer to install the deps? */}
+{ /* TODO: Can CTA offer to install the deps? */}
 
-After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/references/cli) to start the development server:
+After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/reference/cli) to start the development server:
 
 import CommandTabs from '@components/CommandTabs.astro';
 
 <CommandTabs
-	npm="cd my-tauri-app
+            npm="cd my-tauri-app
     npm install
     npm run tauri dev"
-	yarn="cd my-tauri-app
+            yarn="cd my-tauri-app
     yarn install
     yarn tauri dev"
-	pnpm="cd my-tauri-app
+            pnpm="cd my-tauri-app
     pnpm install
     pnpm tauri dev"
-	cargo="cd my-tauri-app
+            cargo="cd my-tauri-app
     cargo tauri dev"
 />
 
@@ -71,10 +62,10 @@ You'll now see a new window open with your app running.
 
 ## Next Steps
 
-- [Add and Configure a Frontend Framework](/start/frontend-configuration)
-- [Tauri Command Line Interface (CLI) Reference](/references/cli)
+- [Add and Configure a Frontend Framework](/start/frontend/)
+- [Tauri Command Line Interface (CLI) Reference](/reference/cli)
 - [Learn how to build your Tauri app](/develop)
-- [Discover additional features and recipes to extend Tauri](/features)
+- [Discover additional features to extend Tauri](/plugin)
 
 <Card title="Additional Resources" icon="document">
 
