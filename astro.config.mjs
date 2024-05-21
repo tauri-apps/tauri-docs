@@ -257,7 +257,7 @@ export default defineConfig({
 				clientsClaim: true,
 				inlineWorkboxRuntime: true,
 				skipWaiting: true,
-				globIgnores: ["**_redirects**"],
+				globIgnores: ["**_redirects**", "**_headers**"],
 				globPatterns: ["**/*.js", "**/*.css"],
 				runtimeCaching: [{
 					urlPattern: new RegExp('.*'),
