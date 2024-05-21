@@ -115,7 +115,7 @@ export default defineConfig({
 				},
 				{
 					tag: 'meta',
-					attrs: { 'http-equiv': 'Content-Security-Policy', content: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src self data: http: https:; script-src self 'unsafe-inline' 'unsafe-eval'; script-src-elem self 'unsafe-inline' 'unsafe-eval' http:; worker-src 'self' data:;" },
+					attrs: { 'http-equiv': 'Content-Security-Policy', content: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src self data: http: https:; script-src self 'unsafe-inline' 'unsafe-eval'; script-src-elem self 'unsafe-inline' 'unsafe-eval' http:; worker-src 'self' data:; frame-src 'self' https://www.youtube-nocookie.com" },
 				},
 			],
 			editLink: {
