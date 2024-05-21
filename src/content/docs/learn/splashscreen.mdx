@@ -1,9 +1,5 @@
 ---
 title: Splashscreen
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 5
@@ -221,7 +217,7 @@ If you are not an advanced user it's **highly recommended** that you use the opt
         Ok(())
     }
 
-    // And async function that does some heavy setup task
+    // An async function that does some heavy setup task
     async fn setup(app: AppHandle) -> Result<(), ()> {
         // Fake performing some heavy action for 3 seconds
         println!("Performing really heavy backend setup task...");
