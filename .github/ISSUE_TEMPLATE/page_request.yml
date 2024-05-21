@@ -6,7 +6,7 @@ name: 🤔 v2 Page Request
 title: '[request] '
 description: Request a new page or updated content
 labels: 
-  - 'type: feature request'
+  - enhancement
 
 body:
   - type: input
