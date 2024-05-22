@@ -113,10 +113,6 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: { name: 'theme-color', content: '#181818' },
 				},
-				{
-					tag: 'meta',
-					attrs: { 'http-equiv': 'Content-Security-Policy', content: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src self data: http: https:; script-src self 'unsafe-inline' 'unsafe-eval'; script-src-elem self 'unsafe-inline' 'unsafe-eval' http:; worker-src 'self' data:; frame-src 'self' https://www.youtube-nocookie.com" },
-				},
 			],
 			editLink: {
 				baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
@@ -367,6 +363,9 @@ export default defineConfig({
 		// '/ko/[...slug]': '/[...slug]',
 		// '/it/[...slug]': '/[...slug]',
 	},
+	server: {
+		headers: readHeaders(),
+	},
 	//
 });
 
@@ -382,4 +381,20 @@ function i18nRedirect(from, to) {
 			)}`)
 	);
 	return routes;
+}
+
+// Read the HTTP header file in `public/_headers`
+function readHeaders() {
+	const header_file = fs
+		.readFileSync('public/_headers', { encoding: 'utf8' })
+		.split('\n')
+		.filter(Boolean);
+	const headers = {};
+	for (const line of header_file) {
+		const [key, val] = line.trim().split(/\s*:\s*(.+)/);
+		if (key != undefined && val != undefined) {
+			headers[key] = val.toString();
+		}
+	}
+	return headers;
 }
