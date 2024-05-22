@@ -7,6 +7,7 @@ title: '[request] '
 description: Request a new page or updated content
 labels: 
   - enhancement
+  - discuss
 
 body:
   - type: input
