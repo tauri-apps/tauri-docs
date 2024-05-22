@@ -363,6 +363,9 @@ export default defineConfig({
 		// '/ko/[...slug]': '/[...slug]',
 		// '/it/[...slug]': '/[...slug]',
 	},
+	server: {
+		headers: readHeaders(),
+	},
 	//
 });
 
@@ -378,4 +381,20 @@ function i18nRedirect(from, to) {
 			)}`)
 	);
 	return routes;
+}
+
+// Read the HTTP header file in `public/_headers`
+function readHeaders() {
+	const header_file = fs
+		.readFileSync('public/_headers', { encoding: 'utf8' })
+		.split('\n')
+		.filter(Boolean);
+	const headers = {};
+	for (const line of header_file) {
+		const [key, val] = line.trim().split(/\s*:\s*(.+)/);
+		if (key != undefined && val != undefined) {
+			headers[key] = val.toString();
+		}
+	}
+	return headers;
 }
