@@ -261,11 +261,11 @@ export default defineConfig({
 				globPatterns: ["**/*.js", "**/*.css"],
 				runtimeCaching: [{
 					urlPattern: new RegExp('.*'),
-					handler: 'StaleWhileRevalidate',
+					handler: 'CacheFirst',
 					options: {
 						cacheName: 'tauri-runtime',
 						expiration: {
-							maxAgeSeconds: 24 * 60 * 60 // 1 day
+							maxAgeSeconds: 30 * 60 // 30 minutes
 						},
 					},
 				}]
