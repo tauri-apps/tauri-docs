@@ -250,7 +250,7 @@ class ExamplePlugin: Plugin {
 
 Tauri 自动为插件实现了两个命令：`checkPermissions` 和 `requestPermissions`。这些命令可以从 JavaScript 或 Rust 中直接调用。
 
-{/* TODO: PermissionState type should be exported in Tauri */}
+{ /* TODO: PermissionState type should be exported in Tauri */}
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -317,7 +317,7 @@ impl<R: Runtime> Notification<R> {
 
 ## 插件事件
 
-{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+{ /* TODO: Is this section a duplicate of Lifecycle Events above? */}
 
 插件可以使用 `trigger` 函数在任何时候触发事件：
 
@@ -368,7 +368,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-辅助函数可以通过使用 [`addPluginListener`](/references/javascript/api/namespacecore/#addpluginlistener) 函数在 NPM 包中找到并使用。
+辅助函数可以通过使用 [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) 函数在 NPM 包中找到并使用。
 
 ```javascript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
