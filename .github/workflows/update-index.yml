@@ -7,7 +7,7 @@ name: Update Search Index
 on:
   workflow_dispatch:
   push:
-    branches: [dev]
+    branches: [v1]
 
 jobs:
   update-search-index:
