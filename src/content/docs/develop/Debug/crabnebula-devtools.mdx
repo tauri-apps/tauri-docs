@@ -21,7 +21,7 @@ And initialize the plugin as soon as possible in your main function:
 ```rust
 fn main() {
     #[cfg(debug_assertions)]
-    let devtools = devtools::init(); // initialize the plugin as early as possible
+    let devtools = tauri_plugin_devtools::init(); // initialize the plugin as early as possible
 
     let mut builder = tauri::Builder::default();
 
