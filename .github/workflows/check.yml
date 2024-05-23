@@ -1,11 +1,9 @@
 # Adapted from https://github.com/withastro/starlight/blob/main/.github/workflows/format.yml
 
-name: Format
+name: Format on PR
 
 on:
-  push:
-    branches:
-      - v2
+  pull_request:
 
 jobs:
   format:
@@ -13,10 +11,6 @@ jobs:
     steps:
       - name: Check out code using Git
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          # Needs access to push to main
-          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
       - uses: pnpm/action-setup@v2
         with:
           version: 9
@@ -27,10 +21,3 @@ jobs:
       - run: pnpm i
       - name: Format with Prettier
         run: pnpm format
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: '[ci] format'
-          branch: ${{ github.head_ref }}
-          commit_user_name: tauri-bot
-          commit_user_email: tauri-bot@users.noreply.github.com
