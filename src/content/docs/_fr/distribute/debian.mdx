@@ -18,7 +18,7 @@ La version de base du paquet Debian généré par le bundler de Tauri, contient 
 
 Tauri expose quelques configurations pour le paquet Debian au cas où vous auriez besoin de plus de contrôle.
 
-Si votre application dépend de dépendances système supplémentaires, vous pouvez les spécifier dans `tauri.conf.json > bundle > linux > deb `.
+Si votre application dépend de dépendances système supplémentaires, vous pouvez les spécifier dans `tauri.conf.json > bundle > linux > deb`.
 
 Pour inclure des fichiers personnalisés dans le paquet Debian, vous pouvez fournir une liste de fichiers ou de dossiers dans `tauri.conf.json > bundle > linux > deb > files`. L'objet de configuration fait correspondre le chemin dans le paquet Debian au chemin du fichier sur votre système de fichiers, relatif au fichier `tauri.conf.json`. Voici un exemple de configuration :
 
