@@ -5,7 +5,7 @@
 name: 🤔 v2 Page Request
 title: '[request] '
 description: Request a new page or updated content
-labels: 
+labels:
   - enhancement
   - discuss
 
@@ -27,7 +27,7 @@ body:
       placeholder: First I tried searching for the issue, then I went to the sidebar to find a relevant page...
     validations:
       required: true
-  
+
   - type: input
     id: url
     attributes:

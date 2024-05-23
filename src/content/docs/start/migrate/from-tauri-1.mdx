@@ -53,11 +53,11 @@ fn main() {
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-            npm="npm install @tauri-apps/cli@next
+	npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
-            yarn="yarn upgrade @tauri-apps/cli --next
+	yarn="yarn upgrade @tauri-apps/cli --next
     yarn tauri migrate"
-            pnpm="pnpm update @tauri-apps/cli@next
+	pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
 	cargo='cargo install tauri-cli --version "^2.0.0-beta"
     cargo tauri migrate'
@@ -1158,7 +1158,6 @@ the window's `parent_window` API was renamed to `parent_raw` to support a high l
 On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri-apps/api/webviewWindow` path.
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
-
 
 ### Migrate Embedded External Binaries (Sidecar)
 

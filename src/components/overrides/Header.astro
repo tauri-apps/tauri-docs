@@ -161,7 +161,8 @@ body[data-mobile-menu-expanded] header {
 }
 </style>
 
-{Astro.props.entry.slug === '' || Astro.props.locale === Astro.props.entry.slug ?
+{
+Astro.props.entry.slug === '' || Astro.props.locale === Astro.props.entry.slug ?
 <style>
 	.header {
 		background-color: transparent;
