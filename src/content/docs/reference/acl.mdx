@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-Each Tauri [command](/develop/calling-rust) exposes a Rust function that can perform arbitrary actions using operating system APIs to the JavaScript layer, which is sandboxed by default using Web standards.
+Each Tauri [command](/develop/calling-rust/) exposes a Rust function that can perform arbitrary actions using operating system APIs to the JavaScript layer, which is sandboxed by default using Web standards.
 This introduces a risk to your application if an attacker can perform code execution accessing Tauri commands.
 
 To mitigate this, Tauri uses an Access Control List (ACL) to restrict access of plugin commands. By default all plugin commands are blocked and cannot be accessed.
