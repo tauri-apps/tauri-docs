@@ -74,7 +74,7 @@ As we make progress towards Tauri 2.0 we'll be sure to share updates to the comm
 While we're working towards Tauri 2.0 stable there are a lot of ways for the community to get involved. The more involvement and feedback we have, the better Tauri 2.0 will be for everyone. Here are just a few ways to get involved:
 
 - Test prerelease versions of Tauri and give feedback via Discord and GitHub issues.
-- Contribute to documentation and translations on https://beta.tauri.app.
+- Contribute to documentation and translations on https://v2.tauri.app.
 - Help in the Tauri community by supporting others in Discord and GitHub issues and giving feedback for major issues that arise.
 - Begin planning content around Tauri 2.0 (although we recommend waiting until at least 2.0 beta). Reach out to the Tauri Working Group on Discord if you would like to collaborate on content ideas such as videos, blogs, courses, or anything else.
 
