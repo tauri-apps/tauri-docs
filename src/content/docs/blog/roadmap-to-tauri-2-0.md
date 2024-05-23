@@ -11,9 +11,9 @@ banner:
 
 ![Hero Image](./roadmap-to-tauri-2-0/header.png)
 
-Tauri 1.0 was [released in June 2022](/blog/tauri-1-0) and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust. Tauri has been pivotal in redefining and asking the question: "What is an app?"
+Tauri 1.0 was [released in June 2022](/blog/tauri-1-0/) and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust. Tauri has been pivotal in redefining and asking the question: "What is an app?"
 
-Version 1.0 launched with support for Linux, macOS, and Windows and has been updated with new features, DX improvements, and bug fixes to bring us to [Tauri 1.4](/blog/tauri-1-4) that is available now.
+Version 1.0 launched with support for Linux, macOS, and Windows and has been updated with new features, DX improvements, and bug fixes to bring us to [Tauri 1.4](/blog/tauri-1-4/) that is available now.
 
 But there's one question the Tauri Working Group gets asked time and time again. We affectionately refer to it as "Mobile when?!?" and today we'd like to outline the path ahead of us to get to Tauri 2.0 and to answer that question.
 
