@@ -1,0 +1,28 @@
+---
+title: Build
+sidebar:
+  order: 0
+  label: Overview
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import Stub from '@components/Stub.astro';
+
+The Tauri Bundler is a Rust harness to compile your binary, package assets, and prepare a final bundle.
+
+It will detect your operating system and build a bundle accordingly. It currently supports:
+
+* [Windows](/build/windows/): `-setup.exe`, `.msi`
+* [macOS](/build/macos/): `.app`, `.dmg`
+* [Linux](/build/macos/): `.deb`, `.appimage` 
+* [iOS](/build/macos/): `.ipa` {/* TODO: add new badge to point that this is a 2.0 feature */}
+* [Android](/build/macos/): `.apk`
+
+> `bundle` vs `build`: Build can mean a lot of things. Build your project locally and run in development, build a specific plugin, etc. In this section w'll talk more about how to Bundling wich is a process of `Build` your app and generate the windows intallers, macOS bundles, Linux Bundles, etc to prepare for [distribute your app](/distribute/)
+
+## Cross Compilling
+
+{/* TODO: add link to the guide on the "next best option wich is CI/CD" */}
+Tauri relies heavily on native libraries and toolchains, so meaningful cross-compilation (e.g build a macOS installer from windows) is not possible at the current moment. The next best option is to compile utilizing a CI/CD pipeline hosted on something like GitHub Actions, Azure Pipelines, GitLab, or other options. The pipeline can run the compilation for each platform simultaneously making the compilation and release process much easier.
