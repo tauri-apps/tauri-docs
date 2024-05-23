@@ -97,6 +97,6 @@ Topics that are around understanding something can be written as a blog post (we
 
 ## Translations (i18n)
 
-Thanks for your interest in helping to translate the documentation! Visit the [translation status page](https://beta.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
+Thanks for your interest in helping to translate the documentation! Visit the [translation status page](https://v2.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
 
 Read the [Translating Guide](./TRANSLATING.md) for more information.
