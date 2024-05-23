@@ -41,7 +41,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     ```toml title="src-tauri/Cargo.toml"
     [dependencies]
     tauri-plugin-store = "2.0.0-beta"
-    # 或者使用 GIT：
+    # 或者使用 GIT:
     tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     ```
 
@@ -88,7 +88,7 @@ const val = await store.get('some-key');
 console.log(val); // { value: 5 }
 
 // 您可以在进行更改后手动保存存储
-// 否则如上所述，它将在正常退出时保存。
+// 否则如上所述,它将在正常退出时保存。
 await store.save();
 ```
 
@@ -109,8 +109,8 @@ pub fn run() {
             let path = PathBuf::from("store.bin");
 
             with_store(app.app_handle().clone(), stores, path, |store| {
-                // 注意，值必须是 serde_json::Value 的实例，
-                // 否则，它们将与 JavaScript 绑定不兼容。
+                // 注意,值必须是 serde_json::Value 的实例,
+                // 否则,它们将与 JavaScript 绑定不兼容。
                 store.insert("some-key".to_string(), json!({ "value": 5 }))?;
 
                 // 从 Store 中获取一个值。
@@ -118,7 +118,7 @@ pub fn run() {
                 println!("{}", value); // {"value":5}
 
                 // 您可以在进行更改后手动保存存储
-                // 否则如上所述，它将在正常退出时保存。
+                // 否则如上所述,它将在正常退出时保存。
                 store.save()?;
 
                 Ok(())
@@ -136,7 +136,7 @@ pub fn run() {
 
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下,所有插件命令都被阻止,无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 
@@ -157,27 +157,27 @@ pub fn run() {
 
 | 权限                  | 描述                                              |
 | --------------------- | ------------------------------------------------- |
-| `store:allow-clear`   | 在没有预先配置作用域的情况下，启用 clear 命令。   |
+| `store:allow-clear`   | 在没有预先配置作用域的情况下,启用 clear 命令。   |
 | `store:deny-clear`    | 拒绝没有任何预配置范围的 clear 命令。             |
-| `store:allow-delete`  | 在没有预先配置作用域的情况下，启用                |
+| `store:allow-delete`  | 在没有预先配置作用域的情况下,启用                |
 | `store:deny-delete`   | 拒绝没有任何预配置范围的 delete 命令。            |
-| `store:allow-entries` | 在没有预先配置作用域的情况下，启用 entries 命令。 |
+| `store:allow-entries` | 在没有预先配置作用域的情况下,启用 entries 命令。 |
 | `store:deny-entries`  | 拒绝没有任何预配置范围的 entries 命令。           |
-| `store:allow-get`     | 在没有预先配置作用域的情况下，启用 get 命令。     |
+| `store:allow-get`     | 在没有预先配置作用域的情况下,启用 get 命令。     |
 | `store:deny-get`      | 拒绝没有任何预配置范围的 get 命令。               |
-| `store:allow-has`     | 在没有预先配置作用域的情况下，启用 has 命令。     |
+| `store:allow-has`     | 在没有预先配置作用域的情况下,启用 has 命令。     |
 | `store:deny-has`      | 拒绝没有任何预配置范围的 has 命令。               |
-| `store:allow-keys`    | 在没有预先配置作用域的情况下，启用 keys 命令。    |
+| `store:allow-keys`    | 在没有预先配置作用域的情况下,启用 keys 命令。    |
 | `store:deny-keys`     | 拒绝没有任何预配置范围的 keys 命令。              |
-| `store:allow-length`  | 在没有预先配置作用域的情况下，启用 length 命令。  |
+| `store:allow-length`  | 在没有预先配置作用域的情况下,启用 length 命令。  |
 | `store:deny-length`   | 拒绝没有任何预配置范围的 length 命令。            |
-| `store:allow-load`    | 在没有预先配置作用域的情况下，启用 load 命令。    |
+| `store:allow-load`    | 在没有预先配置作用域的情况下,启用 load 命令。    |
 | `store:deny-load`     | 拒绝没有任何预配置范围的 load 命令。              |
-| `store:allow-reset`   | 在没有预先配置作用域的情况下，启用 reset 命令。   |
+| `store:allow-reset`   | 在没有预先配置作用域的情况下,启用 reset 命令。   |
 | `store:deny-reset`    | 拒绝没有任何预配置范围的 reset 命令。             |
-| `store:allow-save`    | 在没有预先配置作用域的情况下，启用 save 命令。    |
+| `store:allow-save`    | 在没有预先配置作用域的情况下,启用 save 命令。    |
 | `store:deny-save`     | 拒绝没有任何预配置范围的 save 命令。              |
-| `store:allow-set`     | 在没有预先配置作用域的情况下，启用 set 命令。     |
+| `store:allow-set`     | 在没有预先配置作用域的情况下,启用 set 命令。     |
 | `store:deny-set`      | 拒绝没有任何预配置范围的 set 命令。               |
-| `store:allow-values`  | 在没有预先配置作用域的情况下，启用 values 命令。  |
+| `store:allow-values`  | 在没有预先配置作用域的情况下,启用 values 命令。  |
 | `store:deny-values`   | 拒绝没有任何预配置范围的 values 命令。            |

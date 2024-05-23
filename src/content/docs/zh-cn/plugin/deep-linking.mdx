@@ -1,5 +1,5 @@
 ---
-title: 深度链接（deep-link）
+title: 深度链接(deep-link)
 description: 将你的 Tauri 应用程序设置为 URL 的默认处理程序。
 sidebar:
   badge:
@@ -71,7 +71,7 @@ fn run() {
 
 ### Android
 
-对于 [app links](https://developer.android.com/training/app-links#android-app-links)，你需要一个具有 `.well-known/assetlinks.json` 端点的服务器，该端点必须返回给定格式的文本响应。
+对于 [app links](https://developer.android.com/training/app-links#android-app-links),你需要一个具有 `.well-known/assetlinks.json` 端点的服务器,该端点必须返回给定格式的文本响应。
 
 ```json title=".well-known/assetlinks.json"
 [
@@ -88,13 +88,13 @@ fn run() {
 ]
 ```
 
-其中 `$APP_BUNDLE_ID` 是 `tauri.conf.json > identifier` 上定义的值，其中 `-` 替换为 `_` ， `$CERT_FINGERPRINT` 是你的应用签名证书的 SHA256 指纹列表，请参阅 [verify android applinks](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc) 以获取更多信息。
+其中 `$APP_BUNDLE_ID` 是 `tauri.conf.json > identifier` 上定义的值,其中 `-` 替换为 `_` , `$CERT_FINGERPRINT` 是你的应用签名证书的 SHA256 指纹列表,请参阅 [verify android applinks](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc) 以获取更多信息。
 
 ### iOS
 
 #### Server
 
-对于 [universal links](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=obj)，你需要一个具有 `.well-known/apple-app-site-association` 端点的服务器，该端点必须返回给定格式的文本响应。
+对于 [universal links](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=obj),你需要一个具有 `.well-known/apple-app-site-association` 端点的服务器,该端点必须返回给定格式的文本响应。
 
 ```json title=".well-known/apple-app-site-association"
 {
@@ -114,7 +114,7 @@ fn run() {
 }
 ```
 
-其中 `$DEVELOPMENT_TEAM_ID` 是 `tauri.conf.json > tauri > bundle > iOS > developmentTeam` 或 `TAURI_APPLE_DEVELOPMENT_TEAM` 环境变量上定义的值，`$APP_BUNDLE_ID`是定义在`tauri.conf.json > identifier` 上的值。请参阅 [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) 以获取更多信息。
+其中 `$DEVELOPMENT_TEAM_ID` 是 `tauri.conf.json > tauri > bundle > iOS > developmentTeam` 或 `TAURI_APPLE_DEVELOPMENT_TEAM` 环境变量上定义的值,`$APP_BUNDLE_ID`是定义在`tauri.conf.json > identifier` 上的值。请参阅 [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) 以获取更多信息。
 
 #### App
 
@@ -134,11 +134,11 @@ fn run() {
 </plist>
 ```
 
-有关更多信息，请参阅 [supporting associated domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains?language=objc)。
+有关更多信息,请参阅 [supporting associated domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains?language=objc)。
 
 ## 配置
 
-在 `tauri.conf.json > plugins > deep-link` 下，配置你想要关联到你的应用程序的域。
+在 `tauri.conf.json > plugins > deep-link` 下,配置你想要关联到你的应用程序的域。
 
 ```json title="tauri.conf.json"
 {
@@ -194,7 +194,7 @@ fn run() {
 
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。
+默认情况下,所有插件命令都被阻止,无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。

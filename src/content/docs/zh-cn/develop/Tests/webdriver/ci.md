@@ -3,14 +3,14 @@ title: 持续集成
 description: WebDriver Testing
 ---
 
-利用 Linux 和一些程序来创建模拟显示，可以在 CI 上使用 [`tauri-driver`][] 运行 [WebDriver][] 测试。 下面的示例使用 [我们之前一起构建][]的 [WebdriverIO][] 示例和 GitHub Actions。
+利用 Linux 和一些程序来创建模拟显示,可以在 CI 上使用 [`tauri-driver`][] 运行 [WebDriver][] 测试。 下面的示例使用 [我们之前一起构建][]的 [WebdriverIO][] 示例和 GitHub Actions。
 
-遵循以下假设：
+遵循以下假设:
 
-1. Tauri 应用程序位于存储库根目录中，在运行 `cargo build --release` 时构建二进制文件。
+1. Tauri 应用程序位于存储库根目录中,在运行 `cargo build --release` 时构建二进制文件。
 2. 当运行 yarn test 时保证 [WebDriverIO][] 程序位于目录 `webdriver/webdriverio` 中。
 
-以下是 Github 工作流文件中的注释，文件位于 `.github/workflows/webdriver.yml`。
+以下是 Github 工作流文件中的注释,文件位于 `.github/workflows/webdriver.yml`。
 
 ```yaml
 # run this action when the repository is pushed to

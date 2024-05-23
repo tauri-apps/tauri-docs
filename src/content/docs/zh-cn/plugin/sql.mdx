@@ -1,6 +1,6 @@
 ---
 title: SQL
-description: 插件提供了一个接口，让前端可以通过 sqlx 与 SQL 数据库进行通信
+description: 插件提供了一个接口,让前端可以通过 sqlx 与 SQL 数据库进行通信
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -9,14 +9,14 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="sql" />
 
-这个插件提供了一个接口，让前端可以通过 [sqlx](https：//github.com/launchbadge/sqlx) 与 SQL 数据库进行通信。
-它支持 SQLite、MySQL 和 PostgreSQL 驱动程序，通过 Cargo 特性来启用。
+这个插件提供了一个接口,让前端可以通过 [sqlx](https://github.com/launchbadge/sqlx) 与 SQL 数据库进行通信。
+它支持 SQLite、MySQL 和 PostgreSQL 驱动程序,通过 Cargo 特性来启用。
 
 ## 安装
 
 _这个插件要求 Rust 版本至少是 **1.75**_
 
-首先，在你的 `Cargo.toml` 文件中添加以下内容来安装插件。
+首先,在你的 `Cargo.toml` 文件中添加以下内容来安装插件。
 
 <Tabs>
   <TabItem label="crates.io">
@@ -38,7 +38,7 @@ branch = "v2"
   </TabItem>
 </Tabs>
 
-然后，你必须使用你喜欢的 JavaScript 包管理器添加 JavaScript Guest 绑定。
+然后,你必须使用你喜欢的 JavaScript 包管理器添加 JavaScript Guest 绑定。
 
 <Tabs>
 	<TabItem label="npm.io">
@@ -59,7 +59,7 @@ branch = "v2"
 
 ## 用法
 
-首先，你需要在 Tauri 中注册插件：
+首先,你需要在 Tauri 中注册插件:
 
 ```rust title="src-tauri/src/main.rs" ins={3}
 fn main() {
@@ -70,7 +70,7 @@ fn main() {
 }
 ```
 
-之后，所有插件的 API 都可以通过 JavaScript Guest 绑定使用。
+之后,所有插件的 API 都可以通过 JavaScript Guest 绑定使用。
 
 <Tabs>
   <TabItem label="SQLite">
@@ -159,14 +159,14 @@ const result = await db.execute(
 
 ## 迁移
 
-这个插件支持数据库迁移，允许你管理数据库模式随时间的变化。
+这个插件支持数据库迁移,允许你管理数据库模式随时间的变化。
 
 ### 定义迁移
 
 迁移在 Rust 中使用 [`Migration`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Migration.html) 结构体定义。
-每个迁移都应该包含唯一的版本号、描述、要执行的 SQL 和迁移类型（向上或向下）。
+每个迁移都应该包含唯一的版本号、描述、要执行的 SQL 和迁移类型(向上或向下)。
 
-迁移的例子：
+迁移的例子:
 
 ```rust
 use tauri_plugin_sql::{Migration, MigrationKind};
@@ -184,7 +184,7 @@ let migration = Migration {
 迁移用插件提供的 [`Builder`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Builder.html) 结构体注册。
 使用 `add_migrations` 方法将迁移添加到特定数据库连接的插件中。
 
-添加迁移的例子：
+添加迁移的例子:
 
 ```rust title="src-tauri/src/main.rs" {1} {6-11} {17}
 use tauri_plugin_sql::{Builder, Migration, MigrationKind};
@@ -212,10 +212,10 @@ fn main() {
 
 ### 应用迁移
 
-迁移在插件初始化时自动应用。插件针对连接字符串指定的数据库运行这些迁移。确保迁移按照正确的顺序定义，并且是幂等的（可以安全运行多次）。
+迁移在插件初始化时自动应用。插件针对连接字符串指定的数据库运行这些迁移。确保迁移按照正确的顺序定义,并且是幂等的(可以安全运行多次)。
 
 ### 迁移管理
 
-- **版本控制**：每个迁移必须有一个唯一的版本号。这对于确保迁移按正确的顺序应用至关重要。
-- **幂等性**：编写迁移时，要确保它们能够安全重新运行，而不会导致错误或意外后果。
-- **测试**：彻底测试迁移，确保它们按预期工作，并且不会损害数据库的完整性。
+- **版本控制**:每个迁移必须有一个唯一的版本号。这对于确保迁移按正确的顺序应用至关重要。
+- **幂等性**:编写迁移时,要确保它们能够安全重新运行,而不会导致错误或意外后果。
+- **测试**:彻底测试迁移,确保它们按预期工作,并且不会损害数据库的完整性。

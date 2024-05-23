@@ -10,11 +10,11 @@ Trunk 是一个用于 Rust 的 WASM 网页应用打包器。 前往 https://trun
 - 使用 SSG。Tauri 不支持基于服务端的解决方案。
 - 使用 `address = "0.0.0.0"` 以使服务器在移动端开发时可用。
 - 使用 `ws_protocol = "ws"` 以便进行移动开发时热重载 websocket 可以正常连接。
-- 启用 `withGlobalTauri` 以确保 Tauri API 在使用 `window.__TAURI__` 变量时可用，并且可以使用 `wasm-bindgen` 导入。
+- 启用 `withGlobalTauri` 以确保 Tauri API 在使用 `window.__TAURI__` 变量时可用,并且可以使用 `wasm-bindgen` 导入。
 
 ## 示例配置
 
-1. 更新 Tauri 配置：
+1. 更新 Tauri 配置:
 
 ```json
 // tauri.conf.json
@@ -31,7 +31,7 @@ Trunk 是一个用于 Rust 的 WASM 网页应用打包器。 前往 https://trun
 }
 ```
 
-2. 更新 Trunk 配置：
+2. 更新 Trunk 配置:
 
 ```toml
 # Trunk.toml

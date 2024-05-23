@@ -30,7 +30,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     <Steps>
     <ol>
       <li>
-        **安装：** 在 `Cargo.toml` 中将插件添加到项目的依赖中。
+        **安装:** 在 `Cargo.toml` 中将插件添加到项目的依赖中。
       <Tabs>
         <TabItem label="crates.io">
       ```toml title="src-tauri/Cargo.toml" ins={2}
@@ -48,7 +48,7 @@ import CommandTabs from '@components/CommandTabs.astro';
       </Tabs>
       </li>
       <li>
-        **初始化：** 更新 `lib.rs` （或者只针对桌面应用的 `main.rs`） 来初始化插件。
+        **初始化:** 更新 `lib.rs` (或者只针对桌面应用的 `main.rs`) 来初始化插件。
 
       ```rust title="src-tauri/src/lib.rs" ins={3}
       pub fn run() {
@@ -67,16 +67,16 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 用法
 
-插件已经安装并初始化，应该可以立即正常运行。尽管如此，我们也可以使用 `init()` 方法来增强它的功能。
+插件已经安装并初始化,应该可以立即正常运行。尽管如此,我们也可以使用 `init()` 方法来增强它的功能。
 
-插件的 `init()` 方法接受一个闭包，该闭包在新 App 实例启动时调用，但由插件关闭。
-这个闭包有三个参数：
+插件的 `init()` 方法接受一个闭包,该闭包在新 App 实例启动时调用,但由插件关闭。
+这个闭包有三个参数:
 
-1. **`app`**：应用程序的 [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) 。
-2. **`args`**：用户初始化新实例时传递的参数列表。
-3. **`cwd`**：当前工作目录表示启动新应用程序实例的目录。
+1. **`app`**:应用程序的 [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) 。
+2. **`args`**:用户初始化新实例时传递的参数列表。
+3. **`cwd`**:当前工作目录表示启动新应用程序实例的目录。
 
-因此，闭包应该如下所示
+因此,闭包应该如下所示
 
 ```rust
 .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
@@ -86,7 +86,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ### 关注新实例
 
-默认情况下，当应用程序已经在运行时启动新实例时，不会采取任何操作。当用户尝试打开一个新实例时，为了聚焦正在运行实例的窗口，修改回调闭包如下。
+默认情况下,当应用程序已经在运行时启动新实例时,不会采取任何操作。当用户尝试打开一个新实例时,为了聚焦正在运行实例的窗口,修改回调闭包如下。
 
 ```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
 use tauri::{AppHandle, Manager};

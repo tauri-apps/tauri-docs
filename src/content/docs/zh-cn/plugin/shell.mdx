@@ -1,6 +1,6 @@
 ---
 title: Shell
-description: 访问系统 shell，使用默认应用程序管理文件和 URL，并生成子进程。
+description: 访问系统 shell,使用默认应用程序管理文件和 URL,并生成子进程。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -43,7 +43,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
     		tauri-plugin-shell = "2.0.0-beta"
-    		# 或者使用 Git：
+    		# 或者使用 Git:
     		tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
 
@@ -115,7 +115,7 @@ if output.status.success() {
 
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下,所有插件命令都被阻止,无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 
