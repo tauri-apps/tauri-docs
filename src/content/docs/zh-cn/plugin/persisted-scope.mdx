@@ -1,5 +1,5 @@
 ---
-title: 持久化作用域(Persisted Scope)
+title: 持久化作用域（Persisted Scope）
 description: 将运行时作用域的更改持久化到文件系统上。
 ---
 
@@ -9,7 +9,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="persisted-scope" showJsLinks={false} />
 
-保存文件系统和资源作用域,并在应用重新打开时恢复它们。
+保存文件系统和资源作用域，并在应用重新打开时恢复它们。
 
 ## 支持的平台
 
@@ -32,7 +32,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
 tauri-plugin-persisted-scope = "2.0.0-beta"
-# 或者使用 Git:
+# 或者使用 Git：
 tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
 
@@ -49,4 +49,4 @@ fn run() {
 
 ## 用法
 
-安装后,插件将自动保存和恢复文件系统和资源范围。
+安装后，插件将自动保存和恢复文件系统和资源范围。

@@ -14,15 +14,15 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 :::
 
-此 WebDrive 测试示例将使用 [Selenium][] 和一个流行的 Node.js 测试套装。 您应该已经安装 node.js , 并且一起安装了 `npm` 或 `yarn` , [已完成的示例项目][] 使用了 `yarn`.
+此 WebDrive 测试示例将使用 [Selenium][] 和一个流行的 Node.js 测试套装。 您应该已经安装 node.js ， 并且一起安装了 `npm` 或 `yarn` ， [已完成的示例项目][] 使用了 `yarn`.
 
 ## 创建测试目录
 
-让我们创建一个空目录用做测试项目。 在此示例项目中我们将使用嵌套目录,因为稍后还将使用其他框架,但通常您只需要使用一个框架。创建接下来我们需要使用的目录。 创建我们将要使用的目录 `mkdir -p webdriver/selenium` 。 指南接下来的部分我们假定您也在目录 `webdriver/selenium` 中完成。
+让我们创建一个空目录用做测试项目。 在此示例项目中我们将使用嵌套目录，因为稍后还将使用其他框架，但通常您只需要使用一个框架。创建接下来我们需要使用的目录。 创建我们将要使用的目录 `mkdir -p webdriver/selenium` 。 指南接下来的部分我们假定您也在目录 `webdriver/selenium` 中完成。
 
 ## 初始化 Selenium 项目
 
-我们将使用预设的 `package.j son` 来引导此测试套件,因为我们已经选择了特定的要使用的依赖项,并希望展示一个简单的工作解决方案。 此部分的底部有一个折叠起来的内容,其中有关如何从头开始设置的指南。
+我们将使用预设的 `package.j son` 来引导此测试套件，因为我们已经选择了特定的要使用的依赖项，并希望展示一个简单的工作解决方案。 此部分的底部有一个折叠起来的内容，其中有关如何从头开始设置的指南。
 
 `package.json`:
 
@@ -42,19 +42,19 @@ import CommandTabs from '@components/CommandTabs.astro';
 }
 ```
 
-我们有一个脚本将 [Mocha][] 作为测试框架运行,暴露在 `test` 命令中。 我们还有将用于运行测试的各种依赖项。 [Mocha][] 作为测试框架, [Chai][] 作为断言库, 和 [`selenium-webdriver`][] (Node.js 中的 [Selenium][] 软件包)。
+我们有一个脚本将 [Mocha][] 作为测试框架运行，暴露在 `test` 命令中。 我们还有将用于运行测试的各种依赖项。 [Mocha][] 作为测试框架， [Chai][] 作为断言库， 和 [`selenium-webdriver`][] （Node.js 中的 [Selenium][] 软件包）。
 
 <details>
-<summary>如果你想看到如何从头开始设置一个项目,请点击我</summary>
+<summary>如果你想看到如何从头开始设置一个项目，请点击我</summary>
 
-如果你想从头安装依赖关系,只需运行以下命令。
+如果你想从头安装依赖关系，只需运行以下命令。
 
 <CommandTabs
 	npm="npm install mocha chai selenium-webdriver"
 	yarn="yarn add mocha chai selenium-webdriver"
 />
 
-我建议将 `"test": "mocha"` 命令添加到 `package.json` 的 `"scripts"` 中,这样运行 Mocha 只需要执行
+我建议将 `"test": "mocha"` 命令添加到 `package.json` 的 `"scripts"` 中，这样运行 Mocha 只需要执行
 
 <CommandTabs npm="npm test" yarn="yarn test" />
 
@@ -62,7 +62,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 测试
 
-与 [WebdriverIO 测试套件](webdriverio#config)不同,Selenium不是开箱即用的测试套件,需要开发人员来构建这些内容。 我们选择 [Mocha][], 它是相当中性的,与 WebDrivers 没有关系。 因此我们的脚本需要做一些工作才能以正确的顺序为我们设置所有内容。 [Mocha][] expects a testing file at `test/test.js` by default, so let's create that file now.
+与 [WebdriverIO 测试套件](webdriverio#config)不同，Selenium不是开箱即用的测试套件，需要开发人员来构建这些内容。 我们选择 [Mocha][], 它是相当中性的，与 WebDrivers 没有关系。 因此我们的脚本需要做一些工作才能以正确的顺序为我们设置所有内容。 [Mocha][] expects a testing file at `test/test.js` by default, so let's create that file now.
 
 `test/test.js`:
 

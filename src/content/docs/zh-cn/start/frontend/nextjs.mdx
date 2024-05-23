@@ -11,12 +11,12 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 ## 检查清单
 
 - 设置 `output: 'export'` 以启用静态导出。Tauri 不支持服务端渲染方案。
-- 为了移动端通用性,使用 `internal-ip`,因此你可以配置 `assetPrefix`。这是服务器正确解析资产文件所必需的。
-- 在 `tauri.conf.json` 中,使用 `out/` 作为 `distDir`。
+- 为了移动端通用性，使用 `internal-ip`，因此你可以配置 `assetPrefix`。这是服务器正确解析资产文件所必需的。
+- 在 `tauri.conf.json` 中，使用 `out/` 作为 `distDir`。
 
 ## 示例配置
 
-1. 安装 `internal-ip` 以用于移动端开发:
+1. 安装 `internal-ip` 以用于移动端开发：
 
 <CommandTabs
 	npm="npm install --save-dev internal-ip"
@@ -24,7 +24,7 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 	pnpm="pnpm add -D internal-ip"
 />
 
-2. 更新 Tauri 配置:
+2. 更新 Tauri 配置：
 
 <Tabs>
     <TabItem label="npm">
@@ -74,14 +74,14 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 </TabItem>
 </Tabs>
 
-3. 更新 Next.js 配置:
+3. 更新 Next.js 配置：
 
 ```ts
 // next.conf.ts
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
 	let internalHost = null;
-	// 在开发模式下,我们使用 internal-ip 提供资产
+	// 在开发模式下，我们使用 internal-ip 提供资产
 	if (!isProd) {
 		const { internalIpV4 } = await import('internal-ip');
 		internalHost = await internalIpV4();
@@ -90,12 +90,12 @@ module.exports = async (phase, { defaultConfig }) => {
 		// 确保 Next.js 使用 SSG 而不是 SSR
 		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
 		output: 'export',
-		// 注意:在 SSG 模式下使用 NextJS Image 需要此实验功能。
+		// 注意：在 SSG 模式下使用 NextJS Image 需要此实验功能。
 		// 查阅 https://nextjs.org/docs/messages/export-image-api 以获得不同的解决方案。
 		images: {
 			unoptimized: true,
 		},
-		// 配置 assetPrefix,否则服务器将无法正确解析你的资产。
+		// 配置 assetPrefix，否则服务器将无法正确解析你的资产。
 		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
 	};
 	return nextConfig;

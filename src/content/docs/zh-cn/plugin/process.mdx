@@ -9,7 +9,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="process" />
 
-这个插件提供了访问当前进程的 API。要生成子进程,请参阅 [shell](/plugin/shell) 插件。
+这个插件提供了访问当前进程的 API。要生成子进程，请参阅 [shell](/plugin/shell) 插件。
 
 ## 设置
 
@@ -18,7 +18,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 <Tabs>
     <TabItem label="自动">
 
-    使用项目的包管理器来添加依赖:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add process"
     yarn="yarn run tauri add process"
@@ -28,7 +28,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     </TabItem>
     <TabItem label="手动">
 
-    1. 运行 `cargo add tauri-plugin-process` 命令,将插件添加到项目的 `Cargo.toml` 依赖中。
+    1. 运行 `cargo add tauri-plugin-process` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
     2. 修改 `lib.rs` 来初始化插件。
 
@@ -44,7 +44,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     }
     ```
 
-    3. 如果你想在 JavaScript 中使用这个插件,还需要安装 npm 包。
+    3. 如果你想在 JavaScript 中使用这个插件，还需要安装 npm 包。
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-process"
@@ -75,7 +75,7 @@ await relaunch();
 </TabItem>
 <TabItem label="Rust">
 
-请注意,`app` 是 [`AppHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/struct.AppHandle.html) 的一个实例。
+请注意，`app` 是 [`AppHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/struct.AppHandle.html) 的一个实例。
 
 ```rust
 // exits the app with the given status code

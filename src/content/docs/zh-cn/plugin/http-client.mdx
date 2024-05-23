@@ -18,7 +18,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 <Tabs>
     <TabItem label="自动">
 
-    使用项目的包管理器来添加依赖:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add http"
     yarn="yarn run tauri add http"
@@ -28,7 +28,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     </TabItem>
     <TabItem label="手动">
 
-    1. 运行 `cargo add tauri-plugin-http` 命令,将插件添加到项目的 `cargo.toml` 依赖中。
+    1. 运行 `cargo add tauri-plugin-http` 命令，将插件添加到项目的 `cargo.toml` 依赖中。
 
     2. 修改 lib.rs 来初始化插件。
 
@@ -44,7 +44,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     }
     ```
 
-    3. 如果你想用 JavaScript 发送 http 请求,还需要安装 npm 包。
+    3. 如果你想用 JavaScript 发送 http 请求，还需要安装 npm 包。
 
     <CommandTabs
         npm="npm install @tauri-apps/plugin-http"
@@ -58,11 +58,11 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 用法
 
-http 插件既有 JavaScript API 版本,也有 Rust [reqwest](https://docs.rs/reqwest/) 重新导出的版本。
+http 插件既有 JavaScript API 版本，也有 Rust [reqwest](https://docs.rs/reqwest/) 重新导出的版本。
 
 ### JavaScript
 
-1. 为了保证你的应用安全,请配置允许的作用域。更多信息请参阅 [JavaScript API 参考](/reference/javascript/http/#security)。
+1. 为了保证你的应用安全，请配置允许的作用域。更多信息请参阅 [JavaScript API 参考](/reference/javascript/http/#security)。
 
 ```json
 //tauri.conf.json
@@ -96,7 +96,7 @@ console.log(response.statusText); // e.g. "OK"
 
 ### Rust
 
-在 Rust 中,你可以利用插件重新导出的 `reqwest` 包。更多细节请参考 [reqwest 文档](https://docs.rs/reqwest/)。
+在 Rust 中，你可以利用插件重新导出的 `reqwest` 包。更多细节请参考 [reqwest 文档](https://docs.rs/reqwest/)。
 
 ```rust
 use tauri_plugin_http::reqwest;

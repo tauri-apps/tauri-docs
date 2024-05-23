@@ -46,7 +46,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
 tauri-plugin-log = "2.0.0-beta"
-# 或者使用 Git:
+# 或者使用 Git：
 tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
 
@@ -74,7 +74,7 @@ fn run() {
 
 ## 用法
 
-1. 首先,您需要在 Tauri 上注册插件。
+1. 首先，您需要在 Tauri 上注册插件。
 
 ```rust title="src-tauri/src/lib.rs" {1} {6-14}
 use tauri_plugin_log::{Target, TargetKind};
@@ -96,12 +96,12 @@ pub fn run() {
 }
 ```
 
-2. 然后,插件的所有 api 都可以通过 JavaScript 的 guest 绑定使用:
+2. 然后，插件的所有 api 都可以通过 JavaScript 的 guest 绑定使用：
 
 ```js
 import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
 
-// 启用 TargetKind::Webview 后,这个函数将把日志打印到浏览器控制台
+// 启用 TargetKind::Webview 后，这个函数将把日志打印到浏览器控制台
 const detach = await attachConsole();
 
 trace('Trace');
@@ -114,7 +114,7 @@ detach();
 
 ## 权限
 
-默认情况下,所有插件命令都被阻止,无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 
@@ -128,8 +128,8 @@ detach();
 }
 ```
 
-| 权限            | 描述                                        |
-| --------------- | ------------------------------------------- |
-| `log:default`   | 允许日志命令。                              |
-| `log:allow-log` | 在没有预先配置作用域的情况下,允许日志命令。 |
-| `log:deny-log`  | 拒绝使用没有预先配置作用域的允许日志命令。  |
+| 权限            | 描述                                         |
+| --------------- | -------------------------------------------- |
+| `log:default`   | 允许日志命令。                               |
+| `log:allow-log` | 在没有预先配置作用域的情况下，允许日志命令。 |
+| `log:deny-log`  | 拒绝使用没有预先配置作用域的允许日志命令。   |

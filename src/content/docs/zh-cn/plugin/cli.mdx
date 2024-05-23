@@ -9,7 +9,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="cli" />
 
-Tauri 使您的应用程序能够通过 [clap](https://github.com/clap-rs/clap)(一个强大的命令行参数解析器)拥有 CLI。通过 `tauri.conf.json` 文件中的简单 CLI 定义,您可以定义接口并读取其参数匹配 JavaScript/Rust 上的映射。
+Tauri 使您的应用程序能够通过 [clap](https://github.com/clap-rs/clap)（一个强大的命令行参数解析器）拥有 CLI。通过 `tauri.conf.json` 文件中的简单 CLI 定义，您可以定义接口并读取其参数匹配 JavaScript/Rust 上的映射。
 
 ## 支持的平台
 
@@ -43,7 +43,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装插件。
 
 ```toml title="src-tauri/Cargo.toml"
-# 如果你的目标不是移动设备,你可以在 `[dependencies]` 部分添加依赖
+# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-cli = "2.0.0-beta"
 # 或者使用 Git
@@ -74,7 +74,7 @@ fn run() {
 
 ## 基本配置
 
-在 `tauri.conf.json` 中,你可以使用以下结构来配置接口:
+在 `tauri.conf.json` 中，你可以使用以下结构来配置接口：
 
 ```json title="src-tauri/tauri.conf.json"
 {
@@ -110,7 +110,7 @@ fn run() {
 
 :::note
 
-这里所有的JSON配置都只是示例,为了清晰起见,许多其他字段都被省略了。
+这里所有的JSON配置都只是示例，为了清晰起见，许多其他字段都被省略了。
 
 :::
 
@@ -122,7 +122,7 @@ fn run() {
 
 ### 位置参数
 
-位置参数由其在参数列表中的位置标识。通过以下配置:
+位置参数由其在参数列表中的位置标识。通过以下配置：
 
 ```json title="src-tauri/tauri.conf.json"
 {
@@ -141,11 +141,11 @@ fn run() {
 }
 ```
 
-用户可以以 `./app tauri.txt dest.txt` 的格式运行你的应用程序,参数匹配映射将把 `source` 定义为 `"tauri.txt"`,把 `destination` 定义为 `"dest.txt"`。
+用户可以以 `./app tauri.txt dest.txt` 的格式运行你的应用程序，参数匹配映射将把 `source` 定义为 `"tauri.txt"`，把 `destination` 定义为 `"dest.txt"`。
 
 ### 命名参数
 
-命名参数是一个 (key, value) 对,键标识值。通过以下配置:
+命名参数是一个 (key, value) 对，键标识值。通过以下配置：
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -161,11 +161,11 @@ fn run() {
 }
 ```
 
-用户可以以 `./app --type foo bar`、`./app -t foo -t bar`、`./app --type=foo,bar` 的形式运行你的应用,匹配的参数映射将会将 `type` 定义为 `["foo", "bar"]`。
+用户可以以 `./app --type foo bar`、`./app -t foo -t bar`、`./app --type=foo,bar` 的形式运行你的应用，匹配的参数映射将会将 `type` 定义为 `["foo"， "bar"]`。
 
 ### 标志参数
 
-标志参数是一个独立的键,它的存在或不存在为应用程序提供信息。通过以下配置:
+标志参数是一个独立的键，它的存在或不存在为应用程序提供信息。通过以下配置：
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -178,11 +178,11 @@ fn run() {
 }
 ```
 
-用户可以以 `./app -v -v -v`、`./app --verbose --verbose --verbose`、`./app -vvv` 的形式运行你的应用程序, 匹配的参数映射将会将 `verbose` 定义为 `true` 和 `occurrences = 3`。
+用户可以以 `./app -v -v -v`、`./app --verbose --verbose --verbose`、`./app -vvv` 的形式运行你的应用程序， 匹配的参数映射将会将 `verbose` 定义为 `true` 和 `occurrences = 3`。
 
 ## 子命令
 
-有些 CLI 应用程序有额外的接口作为子命令。例如,`git` CLI 有 `git branch`、`git commit` 和 `git push`。你可以使用 `subcommands` 数组定义额外的嵌套接口。
+有些 CLI 应用程序有额外的接口作为子命令。例如，`git` CLI 有 `git branch`、`git commit` 和 `git push`。你可以使用 `subcommands` 数组定义额外的嵌套接口。
 
 ```json title="tauri-src/tauri.conf.json"
 {
@@ -200,7 +200,7 @@ fn run() {
 }
 ```
 
-它的配置和根应用的配置一样,都有 `description`、`longDescription`、`args` 等。
+它的配置和根应用的配置一样，都有 `description`、`longDescription`、`args` 等。
 
 ## 用法
 
@@ -257,7 +257,7 @@ fn run() {
 
 ## 权限
 
-默认情况下,所有插件命令都被阻止,无法访问。
+默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
@@ -272,8 +272,8 @@ fn run() {
 }
 ```
 
-| 权限                    | 描述                                                 |
-| ----------------------- | ---------------------------------------------------- |
-| `cli:default`           | 允许读取 CLI 匹配项。                                |
-| `cli:allow-cli-matches` | 在没有预先配置作用域的情况下,启用 cli_matches 命令。 |
-| `cli:deny-cli-matches`  | 拒绝没有预先配置作用域的 cli_matches 命令。          |
+| 权限                    | 描述                                                  |
+| ----------------------- | ----------------------------------------------------- |
+| `cli:default`           | 允许读取 CLI 匹配项。                                 |
+| `cli:allow-cli-matches` | 在没有预先配置作用域的情况下，启用 cli_matches 命令。 |
+| `cli:deny-cli-matches`  | 拒绝没有预先配置作用域的 cli_matches 命令。           |

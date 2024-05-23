@@ -1,6 +1,6 @@
 ---
 title: 对话框
-description: 本机系统对话框,用于打开和保存文件,以及消息对话框。
+description: 本机系统对话框，用于打开和保存文件，以及消息对话框。
 i18nReady: true
 tableOfContents:
   maxHeadingLevel: 4
@@ -12,7 +12,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="dialog" />
 
-本机系统对话框,用于打开和保存文件,以及消息对话框。
+本机系统对话框，用于打开和保存文件，以及消息对话框。
 
 ## 设置
 
@@ -21,7 +21,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 <Tabs>
     <TabItem label="自动">
 
-    使用项目的包管理器来添加依赖:
+    使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add dialog"
                     yarn="yarn run tauri add dialog"
@@ -31,7 +31,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     </TabItem>
     <TabItem label="手动">
 
-    1. 运行 `cargo add tauri-plugin-dialog` 命令,将插件添加到项目的 `cargo .toml` 依赖中。
+    1. 运行 `cargo add tauri-plugin-dialog` 命令，将插件添加到项目的 `cargo .toml` 依赖中。
 
     2. 修改 `lib.rs` 来初始化插件。
 
@@ -47,7 +47,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     }
     ```
 
-    3. 如果你想在 JavaScript 中创建对话框,还需要安装 npm 包:
+    3. 如果你想在 JavaScript 中创建对话框，还需要安装 npm 包：
 
     <CommandTabs
                     npm="npm install @tauri-apps/plugin-dialog"
@@ -60,9 +60,9 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 用法
 
-对话框插件可以在 JavaScript 和 Rust 中使用。你可以这样使用它:
+对话框插件可以在 JavaScript 和 Rust 中使用。你可以这样使用它：
 
-在 JavaScript:
+在 JavaScript：
 
 - [创建 Yes/No 对话框](#创建-yesno-对话框)
 - [创建 Ok/Cancel 对话框](#创建-okcancel-对话框)
@@ -70,7 +70,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 - [打开一个文件选择对话框](#打开一个文件选择对话框)
 - [保存到文件对话框](#保存到文件对话框)
 
-在 Rust:
+在 Rust：
 
 - [建立一个询问对话框](#建立一个询问对话框)
 - [建立消息对话框](#建立消息对话框)
@@ -124,7 +124,7 @@ console.log(confirmation);
 
 #### 创建 Message 对话框
 
-一个带有 "Ok" 按钮的消息对话框。请注意,如果用户关闭对话框,它将返回 `false`。
+一个带有 "Ok" 按钮的消息对话框。请注意，如果用户关闭对话框，它将返回 `false`。
 
 ```js
 import { message } from '@tauri-apps/plugin-dialog';
@@ -139,7 +139,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 打开一个文件/目录选择对话框。
 
-`multiple` 选项控制对话框是否允许多重选择,而 `directory` 则控制对话框是否允许目录选择。
+`multiple` 选项控制对话框是否允许多重选择，而 `directory` 则控制对话框是否允许目录选择。
 
 ```js
 import { open } from '@tauri-apps/plugin-dialog';
@@ -195,7 +195,7 @@ let answer = app.dialog()
         .blocking_show();
 ```
 
-如果你需要一个非阻塞操作,你可以使用 `show()`:
+如果你需要一个非阻塞操作，你可以使用 `show()`：
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
@@ -213,7 +213,7 @@ app.dialog()
 
 #### 建立消息对话框
 
-一个带有 "Ok" 按钮的消息对话框。请注意,如果用户关闭对话框,它将返回 `false`。
+一个带有 "Ok" 按钮的消息对话框。请注意，如果用户关闭对话框，它将返回 `false`。
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
@@ -225,7 +225,7 @@ let ans = app.dialog()
     .blocking_show();
 ```
 
-如果你需要一个非阻塞操作,你可以使用 `show()`:
+如果你需要一个非阻塞操作，你可以使用 `show()`：
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
@@ -252,7 +252,7 @@ let file_path = app.dialog().file().blocking_pick_file();
 // return a file_path `Option`, or `None` if the user closes the dialog
 ```
 
-如果你需要一个非阻塞操作,你可以使用 `show()`:
+如果你需要一个非阻塞操作，你可以使用 `show()`：
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
@@ -276,7 +276,7 @@ let file_path = app
     // the file path is `None` if the user closed the dialog
 ```
 
-或者:
+或者：
 
 ```rust
 use tauri_plugin_dialog::DialogExt;

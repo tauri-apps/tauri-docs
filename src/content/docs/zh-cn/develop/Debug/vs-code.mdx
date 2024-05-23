@@ -5,7 +5,7 @@ title: 在 VS Code 中调试
 {/* TODO: REVISE COPY TO V2 */}
 {/* TODO: Revise this change: Debugging in VS Code > Debug in VS Code */}
 
-本指南将指导您设置 VS 代码,以调试 [Tauri 应用的核心流程].
+本指南将指导您设置 VS 代码，以调试 [Tauri 应用的核心流程].
 
 ## 先决条件
 
@@ -15,7 +15,7 @@ title: 在 VS Code 中调试
 
 ## 配置 launch.json
 
-创建一个 `.vscode/launch.json` 文件,并将下面的 JSON 内容粘贴到其中:
+创建一个 `.vscode/launch.json` 文件，并将下面的 JSON 内容粘贴到其中：
 
 ```json title=".vscode/launch.json"
 {
@@ -52,9 +52,9 @@ title: 在 VS Code 中调试
 }
 ```
 
-它直接使用 `cargo` 来构建 Rust 应用程序,并在开发和生产模式下加载它。
+它直接使用 `cargo` 来构建 Rust 应用程序，并在开发和生产模式下加载它。
 
-请注意,它不使用 Tauri CLI,因此不会执行独有的 CLI 功能。`beforeDevCommand` 和 `beforeBuildCommand` 脚本必须事先执行,或在 `preLaunchTask` 字段中配置为任务。下面是一个 `.vscode/tasks.json` 文件示例,其中有两个任务,一个是生成开发服务器的 `beforeDevCommand` 任务,另一个是 `beforeBuildCommand` 任务:
+请注意，它不使用 Tauri CLI，因此不会执行独有的 CLI 功能。`beforeDevCommand` 和 `beforeBuildCommand` 脚本必须事先执行，或在 `preLaunchTask` 字段中配置为任务。下面是一个 `.vscode/tasks.json` 文件示例，其中有两个任务，一个是生成开发服务器的 `beforeDevCommand` 任务，另一个是 `beforeBuildCommand` 任务：
 
 ```json title=".vscode/tasks.json"
 {
@@ -84,6 +84,6 @@ title: 在 VS Code 中调试
 }
 ```
 
-现在,你可以在 `src-tauri/src/main.rs` 或任何其他 Rust 文件中设置断点,并按下 `F5` 开始调试。
+现在，你可以在 `src-tauri/src/main.rs` 或任何其他 Rust 文件中设置断点，并按下 `F5` 开始调试。
 
 [Tauri 应用的核心流程]: https://tauri.app/v1/reference/architecture/process-model#the-core-process

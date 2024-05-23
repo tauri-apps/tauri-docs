@@ -9,7 +9,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="stronghold" />
 
-使用 [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs) 加密数据库和安全运行时存储秘密和密钥。
+使用 [IOTA Stronghold](https：//github.com/iotaledger/stronghold.rs) 加密数据库和安全运行时存储秘密和密钥。
 
 ## 支持的平台
 
@@ -45,7 +45,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
     		tauri-plugin-stronghold = "2.0.0-beta"
-    		# 或者使用 Git:
+    		# 或者使用 Git：
     		tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
 
@@ -83,7 +83,7 @@ pub fn run() {
 				.plugin(
 						tauri_plugin_stronghold::Builder::new(|password| {
 								// 在这里使用 argon2、blake2b 或任何其他安全算法对密码进行散列。
-								// 下面是一个使用 `rust-argon2` 板条箱对密码进行散列的示例实现:
+								// 下面是一个使用 `rust-argon2` 板条箱对密码进行散列的示例实现：
 								use argon2::{hash_raw, Config, Variant, Version};
 
 								let config = Config {
@@ -188,7 +188,7 @@ await store.remove(key);
 
 ## 权限
 
-默认情况下,所有插件命令都被阻止,无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 

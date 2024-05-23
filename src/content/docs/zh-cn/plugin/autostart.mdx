@@ -14,7 +14,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 ## 支持的平台
 
 - Windows
-- Mac(通过 AppleScript 或启动代理)
+- Mac（通过 AppleScript 或启动代理）
 - Linux
 
 ## 设置
@@ -38,7 +38,7 @@ import CommandTabs from '@components/CommandTabs.astro';
   </TabItem>
   <TabItem label="手动">
 
-1. 运行 `cargo add tauri-plugin-autostart` 命令,将插件添加到项目的 `Cargo.toml` 依赖中。
+1. 运行 `cargo add tauri-plugin-autostart` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
 
 2. 修改 `lib.rs` 来初始化插件。
 
@@ -117,7 +117,7 @@ fn run() {
 
 ## 权限
 
-默认情况下,所有插件命令都被阻止,无法访问。
+默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
@@ -135,9 +135,9 @@ fn run() {
 
 | 权限                         | 描述                                       |
 | ---------------------------- | ------------------------------------------ |
-| `autostart:allow-disable`    | 启用 disable 命令,不需要预先配置作用域。   |
+| `autostart:allow-disable`    | 启用 disable 命令，不需要预先配置作用域。  |
 | `autostart:deny-disable`     | 拒绝没有预先配置作用域的 disable 命令。    |
-| `autostart:allow-enable`     | 启用 enable 命令,不需要预先配置作用域。    |
+| `autostart:allow-enable`     | 启用 enable 命令，不需要预先配置作用域。   |
 | `autostart:deny-enable`      | 拒绝使用没有预先配置作用域的 enable 命令。 |
 | `autostart:allow-is-enabled` | 启用没有预先配置作用域的 is_enabled 命令。 |
 | `autostart:deny-is-enabled`  | 拒绝没有预先配置作用域的 is_enabled 命令。 |

@@ -19,15 +19,15 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 ## 用法
 
 - [创建自定义标题栏](#创建自定义标题栏)
-- [(macOS) 具有自定义窗口背景颜色的透明标题栏](#macos-具有自定义窗口背景颜色的透明标题栏)
+- [（macOS） 具有自定义窗口背景颜色的透明标题栏](#macos-具有自定义窗口背景颜色的透明标题栏)
 
 ### 创建自定义标题栏
 
 这些窗口特性的一个常用用途是创建自定义标题栏。这篇简短的教程将指导你完成这个过程。
 
 :::note
-对于 macOS,使用自定义标题栏也会失去系统提供的某些功能,比如[移动或对齐窗口](https://support.apple.com/start/mac-help/work-with-app-windows-mchlp2469/mac)。
-另一种自定义标题栏但保留原生功能的方法是使标题栏透明并设置窗口背景色,参见 [(macOS) 具有自定义窗口背景颜色的透明标题栏](#macos-具有自定义窗口背景颜色的透明标题栏)的用法。
+对于 macOS，使用自定义标题栏也会失去系统提供的某些功能，比如[移动或对齐窗口](https：//support.apple.com/start/mac-help/work-with-app-windows-mchlp2469/mac)。
+另一种自定义标题栏但保留原生功能的方法是使标题栏透明并设置窗口背景色，参见 [（macOS） 具有自定义窗口背景颜色的透明标题栏](#macos-具有自定义窗口背景颜色的透明标题栏)的用法。
 :::
 
 #### tauri.conf.json
@@ -46,9 +46,9 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 
 #### 权限
 
-在能力(capability)文件中添加窗口权限。
+在能力（capability）文件中添加窗口权限。
 
-默认情况下,所有插件命令都被阻止,无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
 
@@ -62,18 +62,18 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 }
 ```
 
-| 权限                                    | 描述                                                              |
-| --------------------------------------- | ----------------------------------------------------------------- |
-| `window:default`                        | 插件的默认权限。除了 `window:allow-start-dragging`。              |
-| `window:allow-close`                    | 在没有预先配置作用域的情况下,启用 close 命令。                    |
-| `window:allow-minimize`                 | 在没有预先配置作用域的情况下,启用 minimize 命令。                 |
-| `window:allow-start-dragging`           | 在没有预先配置作用域的情况下,启用 start_dragging 命令。           |
-| `window:allow-toggle-maximize`          | 在没有预先配置作用域的情况下,启用 toggle_maximize 命令。          |
-| `window:allow-internal-toggle-maximize` | 在没有预先配置作用域的情况下,启用 internal_toggle_maximize 命令。 |
+| 权限                                    | 描述                                                               |
+| --------------------------------------- | ------------------------------------------------------------------ |
+| `window:default`                        | 插件的默认权限。除了 `window:allow-start-dragging`。               |
+| `window:allow-close`                    | 在没有预先配置作用域的情况下，启用 close 命令。                    |
+| `window:allow-minimize`                 | 在没有预先配置作用域的情况下，启用 minimize 命令。                 |
+| `window:allow-start-dragging`           | 在没有预先配置作用域的情况下，启用 start_dragging 命令。           |
+| `window:allow-toggle-maximize`          | 在没有预先配置作用域的情况下，启用 toggle_maximize 命令。          |
+| `window:allow-internal-toggle-maximize` | 在没有预先配置作用域的情况下，启用 internal_toggle_maximize 命令。 |
 
 #### CSS
 
-添加下面的 CSS 示例,使其保持在屏幕顶部,并为按钮添加样式。
+添加下面的 CSS 示例，使其保持在屏幕顶部，并为按钮添加样式。
 
 ```css
 .titlebar {
@@ -125,7 +125,7 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 </div>
 ```
 
-请注意,你可能需要将其余内容向下移动,以免标题栏覆盖它。
+请注意，你可能需要将其余内容向下移动，以免标题栏覆盖它。
 
 #### JavaScript
 
@@ -147,9 +147,9 @@ document
 	?.addEventListener('click', () => appWindow.close());
 ```
 
-### (macOS) 具有自定义窗口背景颜色的透明标题栏
+### （macOS） 具有自定义窗口背景颜色的透明标题栏
 
-我们将创建主窗口,并从 Rust 侧更改其背景颜色。
+我们将创建主窗口，并从 Rust 侧更改其背景颜色。
 
 从 `tauri.conf.json` 文件中删除主窗口
 
@@ -165,7 +165,7 @@ document
     }
     ```
 
-添加 `cocoa` crate 到依赖中,这样我们就可以使用它来调用 macOS 原生 API。
+添加 `cocoa` crate 到依赖中，这样我们就可以使用它来调用 macOS 原生 API。
 
     ```toml title="src-tauri/Cargo.toml"
     [target."cfg(target_os = \"macos\")".dependencies]
