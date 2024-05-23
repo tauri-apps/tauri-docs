@@ -32,10 +32,10 @@ Tauri's security model differentiates between Rust code written for the applicat
 core and frontend code written in any framework or language understood by the system
 WebView.
 
-The [IPC layer](/concepts/inter-process-communication) is the bridge for communication between these two trust
+The [IPC layer](/concept/inter-process-communication/) is the bridge for communication between these two trust
 groups and ensures that boundaries are not broken.
 
-![IPC Diagram](@assets/concepts/security-boundaries.svg)
+![IPC Diagram](@assets/concept/security-boundaries.svg)
 
 Any code executed by the plugins or the application core has full
 access to all available system resources and is not constrained.
@@ -48,10 +48,10 @@ in the capabilities configuration.
 Learn more about the individual components and boundary enforcement:
 
 <CardGrid>
-	<LinkCard title="Permissions" href="/security/permissions" />
-	<LinkCard title="Scopes" href="/security/scope" />
-	<LinkCard title="Capabilities" href="/security/capabilities" />
-	<LinkCard title="Runtime Authority" href="/security/runtime-authority" />
+	<LinkCard title="Permissions" href="/security/permissions/" />
+	<LinkCard title="Scopes" href="/security/scope/" />
+	<LinkCard title="Capabilities" href="/security/capabilities/" />
+	<LinkCard title="Runtime Authority" href="/security/runtime-authority/" />
 </CardGrid>
 
 Tauri allows developers to choose their own frontend stack and framework.
@@ -59,10 +59,10 @@ This means that we cannot provide a hardening guide for every frontend stack of
 of choice, but Tauri provides generic features to control and contain the attack surface.
 
 <CardGrid>
-	<LinkCard title="Content Security Policy (CSP)" href="/security/csp" />
+	<LinkCard title="Content Security Policy (CSP)" href="/security/csp/" />
 	<LinkCard
 		title="Isolation Pattern"
-		href="/concepts/inter-process-communication/isolation"
+		href="/concept/inter-process-communication/isolation/"
 	/>
 </CardGrid>
 
@@ -78,13 +78,13 @@ can face and what we plan to improve or harden in the future, you
 can check out the following documents:
 
 <CardGrid>
-	<LinkCard title="Ecosystem Security" href="/security/ecosystem" />
+	<LinkCard title="Ecosystem Security" href="/security/ecosystem/" />
 	<LinkCard
 		title="Application Lifecycle Threats"
-		href="/security/development"
+		href="/security/development/"
 	/>
-	<LinkCard title="Best Practices" href="/security/best-practices" />
-	<LinkCard title="Future Work" href="/security/future" />
+	<LinkCard title="Best Practices" href="/security/best-practices/" />
+	<LinkCard title="Future Work" href="/security/future/" />
 </CardGrid>
 
 ## Coordinated Disclosure
