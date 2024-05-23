@@ -95,6 +95,33 @@ Not yet created, will be added in the future.
 
 Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation), but not all blog posts necessarily fit this specific format.
 
+### Code Blocks
+
+In general when you provide people with code samples you want to give them the highest code quality possible. However, this isn't always aligned with what's best for the user when it comes to showing off a new API. For code blocks meant to convey simple copy-paste friendly snippets of code that aim to show off a certain API we have concluded that it's better for the user if we don't necessarily aim for the highest code quality, but rather the smallest and easiest code to follow with helpful panic messages.
+
+Take the following two code samples, the first one is code from a previous version of the Tauri documentation.
+
+```rust
+// Close splashscreen
+if let Some(splashscreen) = window.get_window("splashscreen") {
+    splashscreen.close().unwrap();
+}
+// Show main window
+window.get_window("main").unwrap().show().unwrap();
+```
+There clearly is an attempt made to provide the user with the start of some error handling, something closer towhat they might have in production. However, if a user doesn't have a window labeled `splashscreen` the code won't crash and they'll have to figure out themselves what the issue is. For us to fix the code in the "proper" way we could for example add an else statement and panic in there, but is that high code quality enough? We could switch it to a `match` statement, and add our own custom error, or we could use `?` to raise the error, or we could...
+
+There's simply no end to how many improvements can be made to the code provided. By adopting our approach of making simpler more panic prone code we can get the best of both worlds, easy to follow code that provides users with simple to understand error messages regarding what went wrong.
+
+```rust
+// Close splashscreen
+window.get_window("splashscreen").expect("no window labeled 'splashscreen' found").close().unwrap();
+// Show main window
+window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
+```
+
+This simplified version is no beauty and we hope nobody actually uses it in their production environment, but it gets the point across and helps users debug issues by themselves. Error handling is something we will want to write longer blog posts regarding as it's a rather big topic to cover, but showing off an API however is best done in as few lines as possible with as expressive panics as possible.
+
 ## Translations (i18n)
 
 Thanks for your interest in helping to translate the documentation! Visit the [translation status page](https://v2.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
