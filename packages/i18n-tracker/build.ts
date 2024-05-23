@@ -12,7 +12,7 @@ const translationStatusBuilder = new TranslationStatusBuilder({
 		.filter((loc) => loc.lang !== 'en')
 		.reduce((acc, curr) => ({ [curr.lang]: curr.label, ...acc }), {}),
 	githubRepo: process.env.GITHUB_REPOSITORY || 'tauri-apps/tauri-docs',
-	gitHubRef: 'next',
+	gitHubRef: 'v2',
 	githubToken: process.env.GITHUB_TOKEN,
 });
 
