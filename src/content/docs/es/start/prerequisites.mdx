@@ -23,8 +23,8 @@ Sigue el enlace para comenzar según tu sistema operativo:
 
 Tauri requiere varias dependencias del sistema para el desarrollo en Linux. Estas pueden ser diferentes dependiendo de su distribución, pero hemos incluido algunas distribuciones populares a continuación para ayudarlo a configurar.
 
-{ /* Note: These are the officially supported linux distributions. */}
-{ /* If you wish to add another please open an issue to discuss prior to opening a PR */}
+{/* Note: These are the officially supported linux distributions. */}
+{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
 <Tabs>
   <TabItem label="Debian">
@@ -184,7 +184,7 @@ Aquí está el archivo como un script plano: [rustup.sh](https://sh.rustup.rs/)
   </TabItem>
   <TabItem label="Windows">
 
-  Visita https://www.rust-lang.org/tools/install para instalar `rustup`.
+Visita https://www.rust-lang.org/tools/install para instalar `rustup`.
 
   </TabItem>
 </Tabs>
@@ -205,7 +205,7 @@ Si deseas compilar tu aplicación para Android o iOS, entonces hay algunas depen
 1. Descarga e instala [Android Studio desde el sitio web de Android Developers](https://developer.android.com/studio)
 2. Establece la variable de entorno `JAVA_HOME`:
 
-{ /* TODO: Can this be done in the 4th step? */}
+{/* TODO: Can this be done in the 4th step? */}
 
 <Tabs>
 <TabItem label="Linux">
@@ -240,7 +240,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 4. Establece las variables de entorno `ANDROID_HOME` y `NDK_HOME`. Reemplaza los números de versión para que coincidan con la versión instalada.
 
-{ /* TODO: Does the version number change below? */}
+{/* TODO: Does the version number change below? */}
 
 <Tabs>
 <TabItem label="Linux">
@@ -261,7 +261,7 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 </TabItem>
 <TabItem label="Windows">
 
-{ /* TODO: Do we need a note about this version? */}
+{/* TODO: Do we need a note about this version? */}
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
@@ -284,9 +284,9 @@ rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-andro
   </TabItem>
   <TabItem label="Windows">
 
-  ```ps
-  rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-  ```
+```ps
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
 
   </TabItem>
 </Tabs>

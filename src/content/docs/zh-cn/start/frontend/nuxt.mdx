@@ -25,12 +25,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ```json
 // tauri.conf.json
 {
-    "build": {
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run generate",
-        "devPath": "http://localhost:3000",
-        "distDir": "../dist"
-    }
+	"build": {
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
 }
 ```
 
@@ -40,12 +40,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ```json
 // tauri.conf.json
 {
-    "build": {
-        "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn generate",
-        "devPath": "http://localhost:3000",
-        "distDir": "../dist"
-    }
+	"build": {
+		"beforeDevCommand": "yarn dev",
+		"beforeBuildCommand": "yarn generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
 }
 ```
 
@@ -55,16 +55,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ```json
 // tauri.conf.json
 {
-    "build": {
-        "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm generate",
-        "devPath": "http://localhost:3000",
-        "distDir": "../dist"
-    }
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"beforeBuildCommand": "pnpm generate",
+		"devPath": "http://localhost:3000",
+		"distDir": "../dist"
+	}
 }
 ```
 
     </TabItem>
+
 </Tabs>
 
 2. 更新 Nuxt 配置:
