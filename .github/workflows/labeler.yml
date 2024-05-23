@@ -19,4 +19,3 @@ jobs:
       - name: Rebuild i18n Dashboard
         if: contains(steps.label-pr.outputs.all-labels, 'i18n')
         run: curl -X POST -d {} https://api.netlify.com/build_hooks/$NETLIFY_BUILD_KEY
-
