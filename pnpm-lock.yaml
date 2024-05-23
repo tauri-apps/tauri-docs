@@ -55,7 +55,7 @@ importers:
         version: 1.6.0
       starlight-blog:
         specifier: ^0.8.2
-        version: 0.8.2(@astrojs/starlight@0.23.1(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+        version: 0.8.3(@astrojs/starlight@0.23.1(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       starlight-links-validator:
         specifier: ^0.8.0
         version: 0.8.0(@astrojs/starlight@0.23.1(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
@@ -2124,6 +2124,10 @@ packages:
     resolution: {integrity: sha512-M2SovcRxD4+vC493Uc2GZVcZaj66CCJhWurC4viynVSTvrpErCShNcDz1lAho6n9REQKvL/ll4A4/fw6Y9z8nw==}
     hasBin: true
 
+  fast-xml-parser@4.4.0:
+    resolution: {integrity: sha512-kLY3jFlwIYwBNDojclKsNAC12sfD6NwW74QB2CoNGPvtVxjliYehVunB3HYyNi+n4Tt1dAcgwYvmKF/Z18flqg==}
+    hasBin: true
+
   fastq@1.15.0:
     resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
 
@@ -2374,6 +2378,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -3414,8 +3419,8 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-blog@0.8.2:
-    resolution: {integrity: sha512-oIcc+gMOOR+aN8TQzZQDpstkuIPn1Lm3bG4NaQ8ntWvLueMns/rGXt8EC2/cGnEybYNMhV8/dciHk+2VB56WwQ==}
+  starlight-blog@0.8.3:
+    resolution: {integrity: sha512-8Htu5KU5Z257ilsTxo1ozcU9pEjxui7TlCa6TgLxENhls98yIXIEunrseS9XYBiivxtL6Ly7BKx5qYGtXmyrEQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.22.1'
@@ -4026,7 +4031,7 @@ snapshots:
 
   '@astrojs/rss@4.0.5':
     dependencies:
-      fast-xml-parser: 4.3.6
+      fast-xml-parser: 4.4.0
       kleur: 4.1.5
 
   '@astrojs/rss@4.0.6':
@@ -6100,6 +6105,10 @@ snapshots:
     dependencies:
       strnum: 1.0.5
 
+  fast-xml-parser@4.4.0:
+    dependencies:
+      strnum: 1.0.5
+
   fastq@1.15.0:
     dependencies:
       reusify: 1.0.4
@@ -7920,7 +7929,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.8.2(@astrojs/starlight@0.23.1(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
+  starlight-blog@0.8.3(@astrojs/starlight@0.23.1(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
     dependencies:
       '@astrojs/rss': 4.0.5
       '@astrojs/starlight': 0.23.1(astro@4.8.7(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
