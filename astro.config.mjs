@@ -5,7 +5,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
-import serviceWorker from "astrojs-service-worker";
+import serviceWorker from 'astrojs-service-worker';
 
 const authors = {
 	nothingismagick: {
@@ -81,8 +81,8 @@ export default defineConfig({
 				rss: `${site}/rss`,
 			},
 			components: {
-				Sidebar: "./src/components/overrides/Sidebar.astro",
-				Header: "./src/components/overrides/Header.astro",
+				Sidebar: './src/components/overrides/Sidebar.astro',
+				Header: './src/components/overrides/Header.astro',
 				Footer: 'src/components/overrides/Footer.astro',
 				ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
 				PageFrame: 'src/components/overrides/PageFrame.astro',
@@ -106,7 +106,7 @@ export default defineConfig({
 					tag: 'link',
 					attrs: {
 						rel: 'manifest',
-						href: '/manifest.json'
+						href: '/manifest.json',
 					},
 				},
 				{
@@ -129,19 +129,19 @@ export default defineConfig({
 							items: [
 								{
 									label: 'What is Tauri?',
-									link: '/start/'
+									link: '/start/',
 								},
 								{
 									label: 'Prerequisites',
-									link: '/start/prerequisites/'
+									link: '/start/prerequisites/',
 								},
 								{
 									label: 'Create a Project',
 									link: '/start/create-project/',
 									badge: {
 										text: 'WIP',
-										variant: 'caution'
-									}
+										variant: 'caution',
+									},
 								},
 								{
 									label: 'Frontend Configuration',
@@ -153,7 +153,7 @@ export default defineConfig({
 									collapsed: true,
 									autogenerate: { directory: 'start/migrate' },
 								},
-							]
+							],
 						},
 						{
 							label: 'Core Concepts',
@@ -190,7 +190,7 @@ export default defineConfig({
 							collapsed: true,
 							autogenerate: { directory: 'about' },
 						},
-					]
+					],
 				},
 				{
 					label: 'References',
@@ -198,23 +198,23 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Access Control List',
-							link: '/reference/acl/'
+							link: '/reference/acl/',
 						},
 						{
 							label: 'Command Line Interface (CLI)',
-							link: '/reference/cli/'
+							link: '/reference/cli/',
 						},
 						{
 							label: 'Configuration',
-							link: '/reference/config/'
+							link: '/reference/config/',
 						},
 						{
 							label: 'Environment Variables',
-							link: '/reference/environment-variables/'
+							link: '/reference/environment-variables/',
 						},
 						{
 							label: 'Webview Versions',
-							link: '/reference/webview-versions/'
+							link: '/reference/webview-versions/',
 						},
 						{
 							label: 'Releases',
@@ -228,9 +228,9 @@ export default defineConfig({
 						},
 						{
 							label: 'Rust (docs.rs)',
-							link: 'https://docs.rs/tauri/2.0.0-beta.19/tauri/index.html'
+							link: 'https://docs.rs/tauri/2.0.0-beta.19/tauri/index.html',
 						},
-					]
+					],
 				},
 				{
 					label: 'Blog',
@@ -238,14 +238,14 @@ export default defineConfig({
 					items: [
 						{
 							label: 'All posts',
-							link: '/blog/'
+							link: '/blog/',
 						},
 						{
 							label: 'Recent posts',
 							collapsed: false,
 							autogenerate: { directory: 'blog' }, // TODO: Manually construct `items` to sort by dates
 						},
-					]
+					],
 				},
 			],
 			locales,
@@ -257,19 +257,21 @@ export default defineConfig({
 				clientsClaim: true,
 				inlineWorkboxRuntime: true,
 				skipWaiting: true,
-				globIgnores: ["**_redirects**", "**_headers**"],
-				globPatterns: ["**/*.js", "**/*.css"],
-				runtimeCaching: [{
-					urlPattern: new RegExp('.*'),
-					handler: 'CacheFirst',
-					options: {
-						cacheName: 'tauri-runtime',
-						expiration: {
-							maxAgeSeconds: 30 * 60 // 30 minutes
+				globIgnores: ['**_redirects**', '**_headers**'],
+				globPatterns: ['**/*.js', '**/*.css'],
+				runtimeCaching: [
+					{
+						urlPattern: new RegExp('.*'),
+						handler: 'CacheFirst',
+						options: {
+							cacheName: 'tauri-runtime',
+							expiration: {
+								maxAgeSeconds: 30 * 60, // 30 minutes
+							},
 						},
 					},
-				}]
-			}
+				],
+			},
 		}),
 	],
 	markdown: {
@@ -376,9 +378,9 @@ function i18nRedirect(from, to) {
 		locale === 'root'
 			? (routes[from] = to)
 			: (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-				/^\/*/g,
-				''
-			)}`)
+					/^\/*/g,
+					''
+				)}`)
 	);
 	return routes;
 }

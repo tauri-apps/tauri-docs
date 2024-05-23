@@ -89,7 +89,7 @@ Additional setup is required to get tray-relative positions to work.
 		[dependencies]
 		tauri-plugin-positioner = { version = "2.0.0-beta", features = ["tray-icon"] }
 		```
-		
+
 	2. Setup `on_tray_event` for positioner plugin:
 		```rust title="src-tauri/src/lib.rs" ins={4-12}
 		fn run() {

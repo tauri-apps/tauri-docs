@@ -9,4 +9,4 @@ jobs:
     uses: tauri-apps/automation/.github/workflows/congrats.yml@main
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      
+
