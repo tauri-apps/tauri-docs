@@ -102,7 +102,7 @@ Here are some of the things people are saying about Tauri:
 </div>
 <div class="col col--10">
 
-_"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_  
+_"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_
 **- Jamie Pine**, [Spacedrive](https://www.spacedrive.com) Founder
 
 </div>
@@ -146,7 +146,7 @@ _"Tauri stands to reduce the disastrously negative environmental costs of bloate
 </div>
 <div class="col col--10">
 
-_"With its security-focused design and low memory footprint, Tauri is the electron alternative we've been waiting for. Tauri has allowed us to build a more secure, more performant desktop app while using the same web technologies, which we love. Thanks to the team for their amazing work!_  
+_"With its security-focused design and low memory footprint, Tauri is the electron alternative we've been waiting for. Tauri has allowed us to build a more secure, more performant desktop app while using the same web technologies, which we love. Thanks to the team for their amazing work!_
 _P.S.: Can't wait for mobile support!"_
 
 **- Martin Kleinschrodt**, [Padloc](https://padloc.app/) Founder

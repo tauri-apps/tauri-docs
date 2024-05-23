@@ -15,3 +15,6 @@ pnpm-lock.yaml
 # Configs
 .github
 !.github/**.md
+
+# TODO: Figure out why this format isn't acceptable
+src/components/overrides/Header.astro

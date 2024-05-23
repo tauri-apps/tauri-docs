@@ -7,7 +7,7 @@ sidebar:
     variant: caution
 ---
 
-You may need to embed external binaries to add additional functionality to your application or prevent users from installing additional dependencies (e.g., Node.js or Python). We call this binary a `sidecar`. 
+You may need to embed external binaries to add additional functionality to your application or prevent users from installing additional dependencies (e.g., Node.js or Python). We call this binary a `sidecar`.
 
 Binaries are executables written in any programming language. Common use cases are Python CLI applications or API servers bundled using `pyinstaller`.
 
@@ -17,15 +17,15 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 
 ```json title="src-tauri/tauri.conf.json"
 {
-  "tauri": {
-    "bundle": {
-      "externalBin": [
-        "/absolute/path/to/sidecar",
-        "relative/path/to/binary",
-        "binaries/my-sidecar"
-      ]
-    }
-  }
+	"tauri": {
+		"bundle": {
+			"externalBin": [
+				"/absolute/path/to/sidecar",
+				"relative/path/to/binary",
+				"binaries/my-sidecar"
+			]
+		}
+	}
 }
 ```
 
@@ -54,29 +54,29 @@ rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 Here's a Node.js script to append the target triple to a binary:
 
 ```javascript
-const execa = require('execa')
-const fs = require('fs')
+const execa = require('execa');
+const fs = require('fs');
 
-let extension = ''
+let extension = '';
 if (process.platform === 'win32') {
-  extension = '.exe'
+	extension = '.exe';
 }
 
 async function main() {
-  const rustInfo = (await execa('rustc', ['-vV'])).stdout
-  const targetTriple = /host: (\S+)/g.exec(rustInfo)[1]
-  if (!targetTriple) {
-    console.error('Failed to determine platform target triple')
-  }
-  fs.renameSync(
-    `src-tauri/binaries/sidecar${extension}`,
-    `src-tauri/binaries/sidecar-${targetTriple}${extension}`
-  )
+	const rustInfo = (await execa('rustc', ['-vV'])).stdout;
+	const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+	if (!targetTriple) {
+		console.error('Failed to determine platform target triple');
+	}
+	fs.renameSync(
+		`src-tauri/binaries/sidecar${extension}`,
+		`src-tauri/binaries/sidecar-${targetTriple}${extension}`
+	);
 }
 
 main().catch((e) => {
-  throw e
-})
+	throw e;
+});
 ```
 
 ## Running it from Rust
@@ -116,8 +116,8 @@ In the JavaScript code, import the `Command` class from the `@tauri-apps/plugin-
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
 // `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
-const sidecar_command = Command.sidecar('binaries/my-sidecar')
-const output = await sidecar_command.execute()
+const sidecar_command = Command.sidecar('binaries/my-sidecar');
+const output = await sidecar_command.execute();
 ```
 
 ## Passing arguments
@@ -130,38 +130,38 @@ First, define the arguments that need to be passed to the sidecar command in `sr
 
 ```json title="src-tauri/capabilities/main.json" ins={14-31}
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
-    {
-      "identifier": "shell:allow-execute",
-      "allow": [
-        {
-          "args": [
-            "arg1",
-            "-a",
-            "--arg2",
-            {
-              "validator": "\\S+"
-            },
-          ],
-          "cmd": "",
-          "name": "binaries/my-sidecar",
-          "sidecar": true
-        }
-      ]
-    },
-    "shell:allow-open"
-  ]
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "default",
+	"description": "Capability for the main window",
+	"windows": ["main"],
+	"permissions": [
+		"path:default",
+		"event:default",
+		"window:default",
+		"app:default",
+		"resources:default",
+		"menu:default",
+		"tray:default",
+		{
+			"identifier": "shell:allow-execute",
+			"allow": [
+				{
+					"args": [
+						"arg1",
+						"-a",
+						"--arg2",
+						{
+							"validator": "\\S+"
+						}
+					],
+					"cmd": "",
+					"name": "binaries/my-sidecar",
+					"sidecar": true
+				}
+			]
+		},
+		"shell:allow-open"
+	]
 }
 ```
 
@@ -192,26 +192,21 @@ import { Command } from '@tauri-apps/plugin-shell';
 // `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
 // notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
 const command = Command.sidecar('binaries/my-sidecar', [
-  'arg1',
-  '-a',
-  '--arg2',
-  'any-string-that-matches-the-validator',
-])
-const output = await command.execute()
+	'arg1',
+	'-a',
+	'--arg2',
+	'any-string-that-matches-the-validator',
+]);
+const output = await command.execute();
 ```
-
 
 :::note
 
-Example: For a set of arguments like: `-i /path/to/input.png -o /path/to/output.txt`, the arguments array would look like – 
+Example: For a set of arguments like: `-i /path/to/input.png -o /path/to/output.txt`, the arguments array would look like –
+
 ```json
-[
-  "-i", 
-  {"validator": "\\S+"}, 
-  "-o", 
-  {"validator": "\\S+"}
-]
-``` 
+["-i", { "validator": "\\S+" }, "-o", { "validator": "\\S+" }]
+```
 
 Here, the first and third arguments are static (`-i` and `-o`), but the second and fourth are dynamic and match the regex pattern described (`\\S+` means anything except space).
 
