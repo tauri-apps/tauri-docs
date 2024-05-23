@@ -194,4 +194,3 @@ The diverse nature of the Linux ecosystem means it is very hard to compile accur
 [610.1.1]: https://trac.webkit.org/browser/webkit/releases/WebKitGTK/webkit-2.28/Source/WebKit/Configurations/Version.xcconfig
 [608.1.6]: https://trac.webkit.org/browser/webkit/releases/WebKitGTK/webkit-2.24/Source/WebKit/Configurations/Version.xcconfig
 [606.1.4]: https://trac.webkit.org/browser/webkit/releases/WebKitGTK/webkit-2.20/Source/WebKit/Configurations/Version.xcconfig
-[605.1.3]: https://trac.webkit.org/browser/webkit/releases/WebKitGTK/webkit-2.18/Source/WebKit/Configurations/Version.xcconfig
