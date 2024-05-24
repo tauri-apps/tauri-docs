@@ -253,6 +253,7 @@ export default defineConfig({
       lastUpdated: true,
     }),
     astroD2({
+      skipGeneration: true,
       theme: {
         default: '105'
       }
