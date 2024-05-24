@@ -1,5 +1,7 @@
 ---
 title: Trademark Guidelines
+sidebar:
+  order: 0
 ---
 
 This trademark policy was prepared to help you understand how to use the TAURI trademarks, service marks and logos owned by the Tauri Programme within the Commons Conservancy.
