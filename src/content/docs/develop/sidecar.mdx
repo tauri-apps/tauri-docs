@@ -17,15 +17,15 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 
 ```json title="src-tauri/tauri.conf.json"
 {
-	"tauri": {
-		"bundle": {
-			"externalBin": [
-				"/absolute/path/to/sidecar",
-				"relative/path/to/binary",
-				"binaries/my-sidecar"
-			]
-		}
-	}
+  "tauri": {
+    "bundle": {
+      "externalBin": [
+        "/absolute/path/to/sidecar",
+        "relative/path/to/binary",
+        "binaries/my-sidecar"
+      ]
+    }
+  }
 }
 ```
 
@@ -59,23 +59,23 @@ const fs = require('fs');
 
 let extension = '';
 if (process.platform === 'win32') {
-	extension = '.exe';
+  extension = '.exe';
 }
 
 async function main() {
-	const rustInfo = (await execa('rustc', ['-vV'])).stdout;
-	const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
-	if (!targetTriple) {
-		console.error('Failed to determine platform target triple');
-	}
-	fs.renameSync(
-		`src-tauri/binaries/sidecar${extension}`,
-		`src-tauri/binaries/sidecar-${targetTriple}${extension}`
-	);
+  const rustInfo = (await execa('rustc', ['-vV'])).stdout;
+  const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+  if (!targetTriple) {
+    console.error('Failed to determine platform target triple');
+  }
+  fs.renameSync(
+    `src-tauri/binaries/sidecar${extension}`,
+    `src-tauri/binaries/sidecar-${targetTriple}${extension}`
+  );
 }
 
 main().catch((e) => {
-	throw e;
+  throw e;
 });
 ```
 
@@ -130,38 +130,38 @@ First, define the arguments that need to be passed to the sidecar command in `sr
 
 ```json title="src-tauri/capabilities/main.json" ins={14-31}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "default",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"path:default",
-		"event:default",
-		"window:default",
-		"app:default",
-		"resources:default",
-		"menu:default",
-		"tray:default",
-		{
-			"identifier": "shell:allow-execute",
-			"allow": [
-				{
-					"args": [
-						"arg1",
-						"-a",
-						"--arg2",
-						{
-							"validator": "\\S+"
-						}
-					],
-					"cmd": "",
-					"name": "binaries/my-sidecar",
-					"sidecar": true
-				}
-			]
-		},
-		"shell:allow-open"
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "args": [
+            "arg1",
+            "-a",
+            "--arg2",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "cmd": "",
+          "name": "binaries/my-sidecar",
+          "sidecar": true
+        }
+      ]
+    },
+    "shell:allow-open"
+  ]
 }
 ```
 
@@ -192,10 +192,10 @@ import { Command } from '@tauri-apps/plugin-shell';
 // `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
 // notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
 const command = Command.sidecar('binaries/my-sidecar', [
-	'arg1',
-	'-a',
-	'--arg2',
-	'any-string-that-matches-the-validator',
+  'arg1',
+  '-a',
+  '--arg2',
+  'any-string-that-matches-the-validator',
 ]);
 const output = await command.execute();
 ```

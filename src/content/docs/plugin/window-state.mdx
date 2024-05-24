@@ -35,10 +35,10 @@ Use your project's package manager to add the dependency:
 {' '}
 
 <CommandTabs
-	npm="npm run tauri add window-state"
-	yarn="yarn run tauri add window-state"
-	pnpm="pnpm tauri add window-state"
-	cargo="cargo tauri add window-state"
+  npm="npm run tauri add window-state"
+  yarn="yarn run tauri add window-state"
+  pnpm="pnpm tauri add window-state"
+  cargo="cargo tauri add window-state"
 />
 
   </TabItem>
@@ -98,8 +98,8 @@ Similarly you can manually restore a window's state from disk:
 
 ```javascript
 import {
-	restoreStateCurrent,
-	StateFlags,
+  restoreStateCurrent,
+  StateFlags,
 } from '@tauri-apps/plugin-window-state';
 
 restoreStateCurrent(StateFlags.ALL);

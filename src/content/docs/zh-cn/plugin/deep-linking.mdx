@@ -34,10 +34,10 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 {' '}
 
 <CommandTabs
-	npm="npm run tauri add deep-link"
-	yarn="yarn run tauri add deep-link"
-	pnpm="pnpm tauri add deep-link"
-	cargo="cargo tauri add deep-link"
+  npm="npm run tauri add deep-link"
+  yarn="yarn run tauri add deep-link"
+  pnpm="pnpm tauri add deep-link"
+  cargo="cargo tauri add deep-link"
 />
 
   </TabItem>
@@ -98,19 +98,19 @@ fn run() {
 
 ```json title=".well-known/apple-app-site-association"
 {
-	"applinks": {
-		"details": [
-			{
-				"appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
-				"components": [
-					{
-						"/": "/open/*",
-						"comment": "Matches any URL whose path starts with /open/"
-					}
-				]
-			}
-		]
-	}
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
+        "components": [
+          {
+            "/": "/open/*",
+            "comment": "Matches any URL whose path starts with /open/"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -142,14 +142,14 @@ fn run() {
 
 ```json title="tauri.conf.json"
 {
-	"plugins": {
-		"deep-link": {
-			"domains": [
-				{ "host": "your.website.com", "pathPrefix": ["/open"] },
-				{ "host": "another.site.br" }
-			]
-		}
-	}
+  "plugins": {
+    "deep-link": {
+      "domains": [
+        { "host": "your.website.com", "pathPrefix": ["/open"] },
+        { "host": "another.site.br" }
+      ]
+    }
+  }
 }
 ```
 
@@ -164,7 +164,7 @@ deep-link 有 JavaScript 和 Rust 两种版本。
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
 
 await onOpenUrl((urls) => {
-	console.log('deep link:', urls);
+  console.log('deep link:', urls);
 });
 ```
 
@@ -201,15 +201,15 @@ fn run() {
 
 ```json title="src-tauri/capabilities/main.json" ins={9}
 {
-	"$schema": "./schemas/mobile-schema.json",
-	"identifier": "mobile-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": [
-		// 通常需要 event:default 来监听 deep-link 事件
-		"event:default",
-		"deep-link:default"
-	]
+  "$schema": "./schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    // 通常需要 event:default 来监听 deep-link 事件
+    "event:default",
+    "deep-link:default"
+  ]
 }
 ```
 

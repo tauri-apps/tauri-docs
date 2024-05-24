@@ -17,20 +17,20 @@ title: 访问控制列表
 
 ```json title="src-tauri/capabilities/main.json
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"path:default",
-		"event:default",
-		"window:default",
-		"app:default",
-		"resources:default",
-		"menu:default",
-		"tray:default",
-		"window:allow-set-title"
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+    "window:allow-set-title"
+  ]
 }
 ```
 
@@ -43,11 +43,11 @@ title: 访问控制列表
 
 ```json title="src-tauri/capabilities/desktop.json
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "desktop-capability",
-	"windows": ["main"],
-	"platforms": ["linux", "macOS", "windows"],
-	"permissions": ["global-shortcut:allow-register"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
 }
 ```
 
@@ -55,15 +55,15 @@ title: 访问控制列表
 
 ```json title="src-tauri/capabilities/mobile.json
 {
-	"$schema": "../gen/schemas/mobile-schema.json",
-	"identifier": "mobile-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": [
-		"nfc:allow-scan",
-		"biometric:allow-authenticate",
-		"barcode-scanner:allow-scan"
-	]
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
 }
 ```
 
@@ -77,11 +77,11 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 ```json title="src-tauri/capabilities/linux.json
 {
-	"$schema": "../gen/schemas/linux-schema.json",
-	"identifier": "linux-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": ["dbus::call"]
+  "$schema": "../gen/schemas/linux-schema.json",
+  "identifier": "linux-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": ["dbus::call"]
 }
 ```
 
@@ -111,12 +111,12 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 ```json title="src-tauri/capabilities/base.json
 {
-	"permissions": [
-		{
-			"identifier": "fs:scope",
-			"allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
-		}
-	]
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+    }
+  ]
 }
 ```
 
@@ -128,12 +128,12 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 ```json title="src-tauri/capabilities/base.json
 {
-	"permissions": [
-		{
-			"identifier": "fs:allow-rename",
-			"allow": [{ "path": "$HOME/**" }]
-		}
-	]
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**" }]
+    }
+  ]
 }
 ```
 
@@ -141,13 +141,13 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 ```json title="src-tauri/capabilities/base.json
 {
-	"permissions": [
-		{
-			"identifier": "http:default",
-			"allow": [{ "url": "https://*.tauri.app" }],
-			"deny": [{ "url": "https://private.tauri.app" }]
-		}
-	]
+  "permissions": [
+    {
+      "identifier": "http:default",
+      "allow": [{ "url": "https://*.tauri.app" }],
+      "deny": [{ "url": "https://private.tauri.app" }]
+    }
+  ]
 }
 ```
 

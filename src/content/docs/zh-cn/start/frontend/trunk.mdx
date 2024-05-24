@@ -19,15 +19,15 @@ Trunk 是一个用于 Rust 的 WASM 网页应用打包器。 前往 https://trun
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "trunk serve",
-		"beforeBuildCommand": "trunk build",
-		"devPath": "http://localhost:8080",
-		"distDir": "../dist"
-	},
-	"app": {
-		"withGlobalTauri": true
-	}
+  "build": {
+    "beforeDevCommand": "trunk serve",
+    "beforeBuildCommand": "trunk build",
+    "devPath": "http://localhost:8080",
+    "distDir": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true
+  }
 }
 ```
 

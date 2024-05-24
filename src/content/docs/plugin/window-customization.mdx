@@ -57,11 +57,11 @@ See [Access Control List](/reference/acl/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["window:default", "window:allow-start-dragging"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["window:default", "window:allow-start-dragging"]
 }
 ```
 
@@ -80,27 +80,27 @@ Add this CSS sample to keep it at the top of the screen and style the buttons:
 
 ```css
 .titlebar {
-	height: 30px;
-	background: #329ea3;
-	user-select: none;
-	display: flex;
-	justify-content: flex-end;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
+  height: 30px;
+  background: #329ea3;
+  user-select: none;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .titlebar-button {
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	width: 30px;
-	height: 30px;
-	user-select: none;
-	-webkit-user-select: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .titlebar-button:hover {
-	background: #5bbec3;
+  background: #5bbec3;
 }
 ```
 
@@ -110,21 +110,21 @@ Put this at the top of your `<body>` tag:
 
 ```html
 <div data-tauri-drag-region class="titlebar">
-	<div class="titlebar-button" id="titlebar-minimize">
-		<img
-			src="https://api.iconify.design/mdi:window-minimize.svg"
-			alt="minimize"
-		/>
-	</div>
-	<div class="titlebar-button" id="titlebar-maximize">
-		<img
-			src="https://api.iconify.design/mdi:window-maximize.svg"
-			alt="maximize"
-		/>
-	</div>
-	<div class="titlebar-button" id="titlebar-close">
-		<img src="https://api.iconify.design/mdi:close.svg" alt="close" />
-	</div>
+  <div class="titlebar-button" id="titlebar-minimize">
+    <img
+      src="https://api.iconify.design/mdi:window-minimize.svg"
+      alt="minimize"
+    />
+  </div>
+  <div class="titlebar-button" id="titlebar-maximize">
+    <img
+      src="https://api.iconify.design/mdi:window-maximize.svg"
+      alt="maximize"
+    />
+  </div>
+  <div class="titlebar-button" id="titlebar-close">
+    <img src="https://api.iconify.design/mdi:close.svg" alt="close" />
+  </div>
 </div>
 ```
 
@@ -140,14 +140,14 @@ import { Window } from '@tauri-apps/api/window';
 const appWindow = new Window('main');
 
 document
-	.getElementById('titlebar-minimize')
-	?.addEventListener('click', () => appWindow.minimize());
+  .getElementById('titlebar-minimize')
+  ?.addEventListener('click', () => appWindow.minimize());
 document
-	.getElementById('titlebar-maximize')
-	?.addEventListener('click', () => appWindow.toggleMaximize());
+  .getElementById('titlebar-maximize')
+  ?.addEventListener('click', () => appWindow.toggleMaximize());
 document
-	.getElementById('titlebar-close')
-	?.addEventListener('click', () => appWindow.close());
+  .getElementById('titlebar-close')
+  ?.addEventListener('click', () => appWindow.close());
 ```
 
 ### (macOS) Transparent Titlebar with Custom Window Background Color

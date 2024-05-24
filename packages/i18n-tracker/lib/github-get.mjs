@@ -7,27 +7,27 @@ import pRetry, { AbortError } from 'p-retry';
  * @returns {Promise<any>}
  */
 export async function githubGet({ url, githubToken = undefined }) {
-	return await pRetry(
-		async () => {
-			const headers = {
-				Accept: 'application/vnd.github.v3+json',
-			};
-			if (githubToken) {
-				headers.Authorization = `token ${githubToken}`;
-			}
-			const response = await fetch(url, { headers });
-			const json = await response.json();
+  return await pRetry(
+    async () => {
+      const headers = {
+        Accept: 'application/vnd.github.v3+json',
+      };
+      if (githubToken) {
+        headers.Authorization = `token ${githubToken}`;
+      }
+      const response = await fetch(url, { headers });
+      const json = await response.json();
 
-			if (!response.ok) {
-				throw new AbortError(
-					`GitHub API call failed: GET "${url}" returned status ${
-						response.status
-					}: ${JSON.stringify(json)}`
-				);
-			}
+      if (!response.ok) {
+        throw new AbortError(
+          `GitHub API call failed: GET "${url}" returned status ${
+            response.status
+          }: ${JSON.stringify(json)}`
+        );
+      }
 
-			return json;
-		},
-		{ retries: 5 }
-	);
+      return json;
+    },
+    { retries: 5 }
+  );
 }

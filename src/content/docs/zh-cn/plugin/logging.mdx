@@ -32,10 +32,10 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 { ' ' }
 
 <CommandTabs
-	npm="npm run tauri add log"
-	yarn="yarn run tauri add log"
-	pnpm="pnpm tauri add log"
-	cargo="cargo tauri add log"
+  npm="npm run tauri add log"
+  yarn="yarn run tauri add log"
+  pnpm="pnpm tauri add log"
+  cargo="cargo tauri add log"
 />
 
   </TabItem>
@@ -120,11 +120,11 @@ detach();
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["log:default"]
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["log:default"]
 }
 ```
 

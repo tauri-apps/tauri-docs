@@ -19,15 +19,15 @@ Trunk es una herramienta de empaquetado de aplicaciones web WASM para Rust. Obt√
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "trunk serve",
-		"beforeBuildCommand": "trunk build",
-		"devPath": "http://localhost:8080",
-		"distDir": "../dist"
-	},
-	"app": {
-		"withGlobalTauri": true
-	}
+  "build": {
+    "beforeDevCommand": "trunk serve",
+    "beforeBuildCommand": "trunk build",
+    "devPath": "http://localhost:8080",
+    "distDir": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true
+  }
 }
 ```
 

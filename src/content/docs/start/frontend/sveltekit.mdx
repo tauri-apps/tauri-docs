@@ -18,9 +18,9 @@ SvelteKit is a meta-framework for Svelte. Learn more about SvelteKit at https://
 1. Install `@sveltejs/adapter-static`:
 
 <CommandTabs
-	npm="npm install --save-dev @sveltejs/adapter-static"
-	yarn="yarn add -D @sveltejs/adapter-static"
-	pnpm="pnpm add -D @sveltejs/adapter-static"
+  npm="npm install --save-dev @sveltejs/adapter-static"
+  yarn="yarn add -D @sveltejs/adapter-static"
+  pnpm="pnpm add -D @sveltejs/adapter-static"
 />
 
 2. Update Tauri configuration:
@@ -31,12 +31,12 @@ SvelteKit is a meta-framework for Svelte. Learn more about SvelteKit at https://
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "npm run dev",
-		"beforeBuildCommand": "npm run build",
-		"devUrl": "http://localhost:5173",
-		"frontendDist": "../build"
-	}
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../build"
+  }
 }
 ```
 
@@ -46,12 +46,12 @@ SvelteKit is a meta-framework for Svelte. Learn more about SvelteKit at https://
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "yarn dev",
-		"beforeBuildCommand": "yarn build",
-		"devUrl": "http://localhost:5173",
-		"frontendDist": "../build"
-	}
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../build"
+  }
 }
 ```
 
@@ -61,12 +61,12 @@ SvelteKit is a meta-framework for Svelte. Learn more about SvelteKit at https://
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "pnpm dev",
-		"beforeBuildCommand": "pnpm build",
-		"devUrl": "http://localhost:5173",
-		"frontendDist": "../build"
-	}
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../build"
+  }
 }
 ```
 
@@ -81,13 +81,13 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
-	// for more information about preprocessors
-	preprocess: vitePreprocess(),
+  // Consult https://kit.svelte.dev/docs/integrations#preprocessors
+  // for more information about preprocessors
+  preprocess: vitePreprocess(),
 
-	kit: {
-		adapter: adapter(),
-	},
+  kit: {
+    adapter: adapter(),
+  },
 };
 
 export default config;

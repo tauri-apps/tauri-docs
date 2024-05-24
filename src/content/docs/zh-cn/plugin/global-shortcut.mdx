@@ -31,10 +31,10 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 { ' ' }
 
 <CommandTabs
-	npm="npm run tauri add global-shortcut"
-	yarn="yarn run tauri add global-shortcut"
-	pnpm="pnpm tauri add global-shortcut"
-	cargo="cargo tauri add global-shortcut"
+  npm="npm run tauri add global-shortcut"
+  yarn="yarn run tauri add global-shortcut"
+  pnpm="pnpm tauri add global-shortcut"
+  cargo="cargo tauri add global-shortcut"
 />
 
   </TabItem>
@@ -82,7 +82,7 @@ fn run() {
 import { register } from '@tauri-apps/plugin-global-shortcut';
 
 await register('CommandOrControl+Shift+C', () => {
-	console.log('Shortcut triggered');
+  console.log('Shortcut triggered');
 });
 ```
 
@@ -128,15 +128,15 @@ fn run() {
 
 ```json title="src-tauri/capabilities/main.json" ins={7-9}
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"global-shortcut:allow-is-registered",
-		"global-shortcut:allow-register",
-		"global-shortcut:allow-unregister"
-	]
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "global-shortcut:allow-is-registered",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister"
+  ]
 }
 ```
 
