@@ -58,7 +58,7 @@ Specify the directory where your AuthKey file is located. See `APPLE_API_KEY`.
 ### APPLE_API_ISSUER
 Issuer ID. Required if `APPLE_API_KEY` is specified.
 ### APPLE_API_KEY_PATH
-Path to the API key `.p8` file. If not specified, the bundler searches the following directories in sequence for a private key file with the name of 'AuthKey\_<api_key>.p8': './private_keys', '~/private_keys', '~/.private_keys', and '~/.appstoreconnect/private_keys'.
+Path to the API key `.p8` file. If not specified, the bundler searches the following directories in sequence for a private key file with the name of 'AuthKey\_<api_key>.p8': './private_keys', '\~/private_keys', '\~/.private_keys', and '\~/.appstoreconnect/private_keys'.
 ### APPLE_SIGNING_IDENTITY
 The identity used to code sign. Overwrites `tauri.conf.json > bundle > macOS > signingIdentity`.
 ### APPLE_PROVIDER_SHORT_NAME
