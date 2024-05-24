@@ -44,20 +44,20 @@ branch = "v2"
 Then, you have to add JavaScript Guest bindings using your preferred JavaScript package manager.
 
 <Tabs>
-	<TabItem label="npm.io">
-		<CommandTabs
-			npm="npm add @tauri-apps/plugin-sql"
-			yarn="yarn add @tauri-apps/plugin-sql"
-			pnpm="pnpm add @tauri-apps/plugin-sql"
-		/>
-	</TabItem>
-	<TabItem label="Git">
-		<CommandTabs
-			npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-			yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-			pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-		/>
-	</TabItem>
+  <TabItem label="npm.io">
+    <CommandTabs
+      npm="npm add @tauri-apps/plugin-sql"
+      yarn="yarn add @tauri-apps/plugin-sql"
+      pnpm="pnpm add @tauri-apps/plugin-sql"
+    />
+  </TabItem>
+  <TabItem label="Git">
+    <CommandTabs
+      npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+      yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+      pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+    />
+  </TabItem>
 </Tabs>
 
 ## Usage
@@ -230,11 +230,11 @@ See [Access Control List](/reference/acl/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["sql:allow-load", "sql:allow-execute"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["sql:allow-load", "sql:allow-execute"]
 }
 ```
 

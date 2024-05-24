@@ -119,8 +119,8 @@ If the command returns an error, the promise will reject, otherwise, it resolves
 
 ```js
 invoke('my_custom_command')
-	.then((message) => console.log(message))
-	.catch((error) => console.error(error));
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error));
 ```
 
 As mentioned above, everything returned from commands must implement [`serde::Serialize`], including errors.
@@ -231,7 +231,7 @@ Since invoking the command from JavaScript already returns a promise, it works j
 
 ```js
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
-	console.log('Completed!')
+  console.log('Completed!')
 );
 ```
 
@@ -379,12 +379,12 @@ import { invoke } from '@tauri-apps/api/core';
 
 // Invocation from JavaScript
 invoke('my_custom_command', {
-	number: 42,
+  number: 42,
 })
-	.then((res) =>
-		console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
-	)
-	.catch((e) => console.error(e));
+  .then((res) =>
+    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+  )
+  .catch((e) => console.error(e));
 ```
 
 [`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-beta/tauri/async_runtime/fn.spawn.html

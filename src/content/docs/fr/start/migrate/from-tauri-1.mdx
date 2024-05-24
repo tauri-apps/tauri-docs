@@ -14,13 +14,13 @@ Ce guide vous explique comment mettre à niveau votre application basée sur Tau
 Tauri v2 contient la commande `migrate` qui simplifie votre migration:
 
 <CommandTabs
-	npm="npm install @tauri-apps/cli@latest
+  npm="npm install @tauri-apps/cli@latest
     npm run tauri migrate"
-	yarn="yarn upgrade @tauri-apps/cli --latest
+  yarn="yarn upgrade @tauri-apps/cli --latest
     yarn tauri migrate"
-	pnpm="pnpm update @tauri-apps/cli --latest
+  pnpm="pnpm update @tauri-apps/cli --latest
     pnpm tauri migrate"
-	cargo='cargo install tauri-cli --version "^2.0.0-beta"
+  cargo='cargo install tauri-cli --version "^2.0.0-beta"
     cargo tauri migrate'
 />
 
@@ -130,9 +130,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-app": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-app": "^2.0.0"
+  }
 }
 ```
 
@@ -190,9 +190,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-cli": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.0.0"
+  }
 }
 ```
 
@@ -241,9 +241,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-clipboard-manager": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-clipboard-manager": "^2.0.0"
+  }
 }
 ```
 
@@ -299,21 +299,21 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-dialog": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-dialog": "^2.0.0"
+  }
 }
 ```
 
 ```js
 import { save } from '@tauri-apps/plugin-dialog';
 const filePath = await save({
-	filters: [
-		{
-			name: 'Image',
-			extensions: ['png', 'jpeg'],
-		},
-	],
+  filters: [
+    {
+      name: 'Image',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
 });
 ```
 
@@ -365,9 +365,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-fs": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-fs": "^2.0.0"
+  }
 }
 ```
 
@@ -411,16 +411,16 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-global-shortcut": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-global-shortcut": "^2.0.0"
+  }
 }
 ```
 
 ```js
 import { register } from '@tauri-apps/plugin-global-shortcut';
 await register('CommandOrControl+Shift+C', () => {
-	console.log('Shortcut triggered');
+  console.log('Shortcut triggered');
 });
 ```
 
@@ -468,16 +468,16 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-http": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-http": "^2.0.0"
+  }
 }
 ```
 
 ```js
 import { fetch } from '@tauri-apps/plugin-http';
 const response = await fetch(
-	'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
+  'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
 );
 ```
 
@@ -534,9 +534,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-notification": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-notification": "^2.0.0"
+  }
 }
 ```
 
@@ -714,9 +714,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-os": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-os": "^2.0.0"
+  }
 }
 ```
 
@@ -769,9 +769,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-process": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-process": "^2.0.0"
+  }
 }
 ```
 
@@ -828,9 +828,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-shell": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-shell": "^2.0.0"
+  }
 }
 ```
 
@@ -1009,9 +1009,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-updater": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-updater": "^2.0.0"
+  }
 }
 ```
 
@@ -1021,13 +1021,13 @@ import { relaunch } from '@tauri-apps/plugin-process';
 
 const update = await check();
 if (update.response.available) {
-	console.log(
-		`Update to ${update.response.latestVersion} available! Date: ${update.response.date}`
-	);
-	console.log(`Release notes: ${update.response.body}`);
-	await update.downloadAndInstall();
-	// nécéssite le plugin `process`
-	await relaunch();
+  console.log(
+    `Update to ${update.response.latestVersion} available! Date: ${update.response.date}`
+  );
+  console.log(`Release notes: ${update.response.body}`);
+  await update.downloadAndInstall();
+  // nécéssite le plugin `process`
+  await relaunch();
 }
 ```
 
@@ -1096,9 +1096,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-window": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-window": "^2.0.0"
+  }
 }
 ```
 

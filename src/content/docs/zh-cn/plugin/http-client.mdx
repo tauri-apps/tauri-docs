@@ -67,11 +67,11 @@ http 插件既有 JavaScript API 版本，也有 Rust [reqwest](https://docs.rs/
 ```json
 //tauri.conf.json
 {
-	"plugins": {
-		"http": {
-			"scope": ["http://my.api.host/*"]
-		}
-	}
+  "plugins": {
+    "http": {
+      "scope": ["http://my.api.host/*"]
+    }
+  }
 }
 ```
 
@@ -82,7 +82,7 @@ import { fetch } from '@tauri-apps/plugin-http';
 
 // Send a GET request
 const response = await fetch('http://my.api.host/data.json', {
-	method: 'GET',
+  method: 'GET',
 });
 console.log(response.status); // e.g. 200
 console.log(response.statusText); // e.g. "OK"

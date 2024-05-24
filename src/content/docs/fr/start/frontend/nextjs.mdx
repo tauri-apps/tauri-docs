@@ -20,9 +20,9 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 1. Installez `internal-ip` pour le développement mobile :
 
 <CommandTabs
-	npm="npm install --save-dev internal-ip"
-	yarn="yarn add -D internal-ip"
-	pnpm="pnpm add -D internal-ip"
+  npm="npm install --save-dev internal-ip"
+  yarn="yarn add -D internal-ip"
+  pnpm="pnpm add -D internal-ip"
 />
 
 2. Mettez à jour la configuration de Tauri :
@@ -33,12 +33,12 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "npm run dev",
-		"beforeBuildCommand": "npm run build",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
 }
 ```
 
@@ -48,12 +48,12 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "yarn dev",
-		"beforeBuildCommand": "yarn generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
 }
 ```
 
@@ -63,12 +63,12 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "pnpm dev",
-		"beforeBuildCommand": "pnpm generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
 }
 ```
 
@@ -81,25 +81,25 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 // next.conf.ts
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
-	let internalHost = null;
-	// En mode développement, on utilise "internal-ip" pour se servir des assets.
+  let internalHost = null;
+  // En mode développement, on utilise "internal-ip" pour se servir des assets.
 
-	if (!isProd) {
-		const { internalIpV4 } = await import('internal-ip');
-		internalHost = await internalIpV4();
-	}
-	const nextConfig = {
-		// Assurez-vous que Next.js utilise SSG au lieu de SSR
-		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-		output: 'export',
-		// Note: Cette fonctionnalité expérimentale est requise pour utiliser NextJS Image en mode SSG.
-		// Voir https://nextjs.org/docs/messages/export-image-api pour des solutions différentes.
-		images: {
-			unoptimized: true,
-		},
-		// Configurez assetPrefix sinon le server ne résoudra pas correctement vos assets.
-		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-	};
-	return nextConfig;
+  if (!isProd) {
+    const { internalIpV4 } = await import('internal-ip');
+    internalHost = await internalIpV4();
+  }
+  const nextConfig = {
+    // Assurez-vous que Next.js utilise SSG au lieu de SSR
+    // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+    output: 'export',
+    // Note: Cette fonctionnalité expérimentale est requise pour utiliser NextJS Image en mode SSG.
+    // Voir https://nextjs.org/docs/messages/export-image-api pour des solutions différentes.
+    images: {
+      unoptimized: true,
+    },
+    // Configurez assetPrefix sinon le server ne résoudra pas correctement vos assets.
+    assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+  };
+  return nextConfig;
 };
 ```

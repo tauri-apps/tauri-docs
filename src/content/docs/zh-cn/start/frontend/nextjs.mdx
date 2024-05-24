@@ -19,9 +19,9 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 1. 安装 `internal-ip` 以用于移动端开发：
 
 <CommandTabs
-	npm="npm install --save-dev internal-ip"
-	yarn="yarn add -D internal-ip"
-	pnpm="pnpm add -D internal-ip"
+  npm="npm install --save-dev internal-ip"
+  yarn="yarn add -D internal-ip"
+  pnpm="pnpm add -D internal-ip"
 />
 
 2. 更新 Tauri 配置：
@@ -32,12 +32,12 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "npm run dev",
-		"beforeBuildCommand": "npm run build",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
 }
 ```
 
@@ -47,12 +47,12 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "yarn dev",
-		"beforeBuildCommand": "yarn generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
 }
 ```
 
@@ -62,12 +62,12 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "pnpm dev",
-		"beforeBuildCommand": "pnpm generate",
-		"devPath": "http://localhost:3000",
-		"distDir": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
 }
 ```
 
@@ -80,24 +80,24 @@ Next.js 是一个 React 框架。在 https://nextjs.org 获取更多有关 Next.
 // next.conf.ts
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
-	let internalHost = null;
-	// 在开发模式下，我们使用 internal-ip 提供资产
-	if (!isProd) {
-		const { internalIpV4 } = await import('internal-ip');
-		internalHost = await internalIpV4();
-	}
-	const nextConfig = {
-		// 确保 Next.js 使用 SSG 而不是 SSR
-		// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-		output: 'export',
-		// 注意：在 SSG 模式下使用 NextJS Image 需要此实验功能。
-		// 查阅 https://nextjs.org/docs/messages/export-image-api 以获得不同的解决方案。
-		images: {
-			unoptimized: true,
-		},
-		// 配置 assetPrefix，否则服务器将无法正确解析你的资产。
-		assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-	};
-	return nextConfig;
+  let internalHost = null;
+  // 在开发模式下，我们使用 internal-ip 提供资产
+  if (!isProd) {
+    const { internalIpV4 } = await import('internal-ip');
+    internalHost = await internalIpV4();
+  }
+  const nextConfig = {
+    // 确保 Next.js 使用 SSG 而不是 SSR
+    // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+    output: 'export',
+    // 注意：在 SSG 模式下使用 NextJS Image 需要此实验功能。
+    // 查阅 https://nextjs.org/docs/messages/export-image-api 以获得不同的解决方案。
+    images: {
+      unoptimized: true,
+    },
+    // 配置 assetPrefix，否则服务器将无法正确解析你的资产。
+    assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+  };
+  return nextConfig;
 };
 ```

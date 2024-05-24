@@ -86,33 +86,33 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 
 ```json title="src-tauri/tauri.conf.json"
 {
-	"plugins": {
-		"cli": {
-			"description": "Tauri CLI Plugin Example",
-			"args": [
-				{
-					"short": "v",
-					"name": "verbose",
-					"description": "Verbosity level"
-				}
-			],
-			"subcommands": {
-				"run": {
-					"description": "Run the application",
-					"args": [
-						{
-							"name": "debug",
-							"description": "Run application in debug mode"
-						},
-						{
-							"name": "release",
-							"description": "Run application in release mode"
-						}
-					]
-				}
-			}
-		}
-	}
+  "plugins": {
+    "cli": {
+      "description": "Tauri CLI Plugin Example",
+      "args": [
+        {
+          "short": "v",
+          "name": "verbose",
+          "description": "Verbosity level"
+        }
+      ],
+      "subcommands": {
+        "run": {
+          "description": "Run the application",
+          "args": [
+            {
+              "name": "debug",
+              "description": "Run application in debug mode"
+            },
+            {
+              "name": "release",
+              "description": "Run application in release mode"
+            }
+          ]
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -134,18 +134,18 @@ A positional argument is identified by its position in the list of arguments. Wi
 
 ```json title="src-tauri/tauri.conf.json"
 {
-	"args": [
-		{
-			"name": "source",
-			"index": 1,
-			"takesValue": true
-		},
-		{
-			"name": "destination",
-			"index": 2,
-			"takesValue": true
-		}
-	]
+  "args": [
+    {
+      "name": "source",
+      "index": 1,
+      "takesValue": true
+    },
+    {
+      "name": "destination",
+      "index": 2,
+      "takesValue": true
+    }
+  ]
 }
 ```
 
@@ -157,15 +157,15 @@ A named argument is a (key, value) pair where the key identifies the value. With
 
 ```json title="tauri-src/tauri.conf.json"
 {
-	"args": [
-		{
-			"name": "type",
-			"short": "t",
-			"takesValue": true,
-			"multiple": true,
-			"possibleValues": ["foo", "bar"]
-		}
-	]
+  "args": [
+    {
+      "name": "type",
+      "short": "t",
+      "takesValue": true,
+      "multiple": true,
+      "possibleValues": ["foo", "bar"]
+    }
+  ]
 }
 ```
 
@@ -177,12 +177,12 @@ A flag argument is a standalone key whose presence or absence provides informati
 
 ```json title="tauri-src/tauri.conf.json"
 {
-	"args": [
-		{
-			"name": "verbose",
-			"short": "v"
-		}
-	]
+  "args": [
+    {
+      "name": "verbose",
+      "short": "v"
+    }
+  ]
 }
 ```
 
@@ -222,14 +222,14 @@ import { getMatches } from '@tauri-apps/plugin-cli';
 
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {
-	// `./your-app run $ARGS` was executed
-	const args = matches.subcommand.matches.args;
-	if (args.debug?.value === true) {
-		// `./your-app run --debug` was executed
-	}
-	if (args.release?.value === true) {
-		// `./your-app run --release` was executed
-	}
+  // `./your-app run $ARGS` was executed
+  const args = matches.subcommand.matches.args;
+  if (args.debug?.value === true) {
+    // `./your-app run --debug` was executed
+  }
+  if (args.release?.value === true) {
+    // `./your-app run --release` was executed
+  }
 }
 ```
 
@@ -272,11 +272,11 @@ See [Access Control List](/reference/acl/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["cli:default"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["cli:default"]
 }
 ```
 

@@ -43,20 +43,20 @@ for core plugins and the `window.setTitle` API.
 
 ```json title="src-tauri/capabilities/main.json
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"path:default",
-		"event:default",
-		"window:default",
-		"app:default",
-		"resources:default",
-		"menu:default",
-		"tray:default",
-		"window:allow-set-title"
-	]
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+    "window:allow-set-title"
+  ]
 }
 ```
 
@@ -72,11 +72,11 @@ capability files in the `capabilities` directory.
 
 ```json title=src-tauri/tauri.conf.json
 {
-	"app": {
-		"security": {
-			"capabilities": ["my-capability", "main-capability"]
-		}
-	}
+  "app": {
+    "security": {
+      "capabilities": ["my-capability", "main-capability"]
+    }
+  }
 }
 ```
 
@@ -84,19 +84,19 @@ Inline capabilities can be mixed with pre-defined capabilities.
 
 ```json title=src-tauri/tauri.conf.json
 {
-	"app": {
-		"security": {
-			"capabilities": [
-				{
-					"identifier": "my-capability",
-					"description": "My application capability used for all windows",
-					"windows": ["*"],
-					"permissions": ["fs:default", "allow-home-read-extended"]
-				},
-				"my-second-capability"
-			]
-		}
-	}
+  "app": {
+    "security": {
+      "capabilities": [
+        {
+          "identifier": "my-capability",
+          "description": "My application capability used for all windows",
+          "windows": ["*"],
+          "permissions": ["fs:default", "allow-home-read-extended"]
+        },
+        "my-second-capability"
+      ]
+    }
+  }
 }
 ```
 
@@ -111,11 +111,11 @@ Note it enables permissions on plugins that are only available on desktop:
 
 ```json title="src-tauri/capabilities/desktop.json
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "desktop-capability",
-	"windows": ["main"],
-	"platforms": ["linux", "macOS", "windows"],
-	"permissions": ["global-shortcut:allow-register"]
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
 }
 ```
 
@@ -124,15 +124,15 @@ Note it enables permissions on plugins that are only available on mobile:
 
 ```json title="src-tauri/capabilities/mobile.json
 {
-	"$schema": "./schemas/mobile-schema.json",
-	"identifier": "mobile-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": [
-		"nfc:allow-scan",
-		"biometric:allow-authenticate",
-		"barcode-scanner:allow-scan"
-	]
+  "$schema": "./schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
 }
 ```
 
