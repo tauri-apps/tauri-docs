@@ -6,6 +6,7 @@ import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
 import serviceWorker from 'astrojs-service-worker';
+import astroD2 from 'astro-d2'
 
 const authors = {
   nothingismagick: {
@@ -251,6 +252,11 @@ export default defineConfig({
       locales,
       lastUpdated: true,
     }),
+    astroD2({
+      theme: {
+        default: '105'
+      }
+    }),
     serviceWorker({
       workbox: {
         cleanupOutdatedCaches: true,
@@ -378,9 +384,9 @@ function i18nRedirect(from, to) {
     locale === 'root'
       ? (routes[from] = to)
       : (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-          /^\/*/g,
-          ''
-        )}`)
+        /^\/*/g,
+        ''
+      )}`)
   );
   return routes;
 }

@@ -35,6 +35,36 @@ guarantees memory safety while retaining excellent performance.
 <figcaption>Figure 1-1: Simplified representation of the Tauri process model. A single Core process manages one or more WebView processes.</figcaption>
 </figure>
 
+
+```d2 sketch pad=50
+direction: right
+
+Core: {
+  shape: diamond
+}
+
+"Events & Commands 1": {
+  WebView1: WebView
+}
+
+"Events & Commands 2": {
+  WebView2: WebView
+}
+
+"Events & Commands 3": {
+  WebView3: WebView
+}
+
+Core -> "Events & Commands 1"
+Core -> "Events & Commands 2"
+Core -> "Events & Commands 3"
+
+"Events & Commands 1" -> WebView1
+"Events & Commands 2" -> WebView2
+"Events & Commands 3" -> WebView3
+
+```
+
 ## The WebView Process
 
 The Core process doesn't render the actual user interface (UI) itself; it spins up WebView processes that leverage WebView libraries provided by the operating system. A WebView is a browser-like environment that executes your HTML, CSS, and JavaScript.
