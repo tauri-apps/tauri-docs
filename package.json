@@ -25,6 +25,7 @@
     "@astrojs/starlight": "^0.23.0",
     "@types/json-schema": "^7.0.15",
     "astro": "^4.4.4",
+    "astro-d2": "^0.2.1",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
     "jsdom": "^24.0.0",
