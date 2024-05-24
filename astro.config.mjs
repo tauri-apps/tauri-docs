@@ -253,7 +253,7 @@ export default defineConfig({
       lastUpdated: true,
     }),
     astroD2({
-      skipGeneration: true,
+      skipGeneration: process.env.CONTEXT === 'production',
       theme: {
         default: '105'
       }

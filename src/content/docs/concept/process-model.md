@@ -30,12 +30,6 @@ guarantees memory safety while retaining excellent performance.
 
 <figure>
 
-![IPC Diagram](@assets/concept/process-model.svg)
-
-<figcaption>Figure 1-1: Simplified representation of the Tauri process model. A single Core process manages one or more WebView processes.</figcaption>
-</figure>
-
-
 ```d2 sketch pad=50
 direction: right
 
@@ -64,6 +58,9 @@ Core -> "Events & Commands 3"
 "Events & Commands 3" -> WebView3
 
 ```
+<figcaption>Simplified representation of the Tauri process model. A single Core process manages one or more WebView processes.</figcaption>
+</figure>
+
 
 ## The WebView Process
 
