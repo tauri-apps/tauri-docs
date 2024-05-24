@@ -37,9 +37,23 @@ Events are fire-and-forget, one-way IPC messages that are best suited to communi
 
 <figure>
 
-![IPC Diagram](@assets/concept/events.svg)
+```d2 sketch pad=50
+shape: sequence_diagram
 
-<figcaption>Figure 1-2: An event sent from the Core to the Frontend.</figcaption>
+Frontend: {
+  shape: rectangle
+  label: "Webview\nFrontend"
+}
+Core: {
+  shape: rectangle
+  label: "Core\nBackend"
+}
+
+Frontend -> Core: "Event"{style.animated: true}
+Core -> Frontend: "Event"{style.animated: true}
+```
+
+<figcaption>Events sent between the Core to the Webview.</figcaption>
 </figure>
 
 ## Commands
@@ -50,10 +64,30 @@ Because this mechanism uses a [JSON-RPC] like protocol under the hood to seriali
 
 <figure>
 
-![IPC Diagram](@assets/concept/commands.svg)
+```d2 sketch pad=50
+shape: sequence_diagram
 
-<figcaption>Figure 1-3: IPC messages involved in a command invocation.</figcaption>
+
+Frontend: {
+  label: "Webview\nFrontend"
+}
+
+Core: {
+  label: "Core\nBackend"
+}
+InvokeHandler: {
+  label: "Invoke\nHandler"
+}
+
+Frontend -> Core: "IPC Request"{style.animated: true}
+Core -> InvokeHandler: "Invoke command"{style.animated: true}
+InvokeHandler -> Core: "Serialize return"{style.animated: true}
+Core -> Frontend: "Response"{style.animated: true}
+```
+
+<figcaption>IPC messages involved in a command invocation.</figcaption>
 </figure>
+
 
 [^1]: Because Commands still use message passing under the hood, they do not share the same security pitfalls as real FFI interfaces do.
 

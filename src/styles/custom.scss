@@ -150,3 +150,8 @@ figcaption {
   font-size: 0.9rem;
   text-align: center;
 }
+
+figure > img {
+  margin-left: auto;
+  margin-right: auto;
+}
