@@ -1,0 +1,61 @@
+---
+title: Bases endurecidas para tus aplicaciones web.
+description: The cross-platform app building toolkit
+template: splash
+editUrl: false
+lastUpdated: false
+prev: false
+next: false
+hero:
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: Empezar
+      link: /es/start/
+      icon: right-arrow
+      variant: primary
+    - text: Pautas de Contribución
+      link: /es/contribute/
+      icon: open-book
+      variant: minimal
+    - text: Documentación de Tauri 1.0
+      link: https://tauri.app
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<CardGrid stagger>
+  <Card title="Frontend Independiente" icon="rocket">
+    Trae tu stack web existente a Tauri o comienza ese nuevo proyecto de en
+    sueño. Tauri soporta cualquier framework frontend, por lo que no necesitas
+    cambiar tu stack.
+  </Card>
+  <Card title="Multiplataforma" icon="rocket">
+    Construye tu aplicación para Linux, macOS, Windows, Android e iOS - todo
+    desde una sola base de código.
+  </Card>
+  <Card title="Comunicación Entre Procesos" icon="rocket">
+    Escribe tu frontend en JavaScript, la lógica de la aplicación en Rust, e
+    integra profundamente en el sistema con Swift y Kotlin.
+  </Card>
+  <Card title="Máxima Seguridad" icon="rocket">
+    Frente a la mente del equipo de Tauri que impulsa nuestras mayores
+    prioridades y mayores innovaciones.
+  </Card>
+  <Card title="Tamaño Mínimo" icon="rocket">
+    Al usar el renderizador web nativo del sistema operativo, el tamaño de una
+    aplicación Tauri puede ser tan pequeño como 600KB.
+  </Card>
+  <Card title="Impulsado por Rust" icon="rocket">
+    Con el rendimiento y la seguridad en el centro, Rust es el lenguaje para la
+    próxima generación de aplicaciones.
+  </Card>
+</CardGrid>

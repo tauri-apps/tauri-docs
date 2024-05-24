@@ -1,0 +1,315 @@
+---
+title: Prérequis
+i18nReady: true
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+Pour commencer à construire votre projet avec Tauri, vous aurez d'abord besoin d'installer quelques dépendances:
+
+1. [Dépendances Systèmes](#dépendances-systèmes)
+2. [Rust](#rust)
+3. [Configuration pour des programmes sur mobile](#configuration-pour-mobile) (requis seulement pour le développement mobile)
+
+## Dépendances Systèmes
+
+Suivez les liens pour votre système d'exploitation:
+
+- [Linux](#linux) (Voir les distributions en dessous)
+- [macOS Catalina (10.15) et plus](#macos)
+- [Windows 7 et plus](#windows)
+
+### Linux
+
+Tauri exige un système varié de dépendances pour le développement sur Linux. Celles-ci peuvent être différentes selon votre distribution, mais nous avons inclus quelques distributions populaires ci-dessous pour vous aider durant l'installation.
+
+{/* Note: These are the officially supported linux distributions. */}
+{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
+
+<Tabs>
+  <TabItem label="Debian">
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.0-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libssl-dev \
+  libgtk-3-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  gtk3 \
+  libappindicator-gtk3 \
+  librsvg
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf check-update
+sudo dnf install webkit2gtk4.0-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel
+sudo dnf group install "C Development Tools and Libraries"
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+  net-libs/webkit-gtk:4.1 \
+  dev-libs/libappindicator \
+  net-misc/curl \
+  net-misc/wget \
+  sys-apps/file
+```
+
+  </TabItem>
+  <TabItem label="openSUSE">
+
+```sh
+sudo zypper up
+sudo zypper in webkit2gtk3-soup2-devel \
+  libopenssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator3-1 \
+  librsvg-devel
+sudo zypper in -t pattern devel_basis
+```
+
+  </TabItem>
+  <TabItem label="NixOS">
+
+TODO: Need to build out NixOS instructions
+
+  </TabItem>
+</Tabs>
+
+Si votre distribution n'est pas incluse ci-dessus, vous devriez jeter un œil ici: [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) pour voir si un guide a été créé.
+
+Suivant: [Installation de Rust](#rust)
+
+### macOS
+
+Tauri utilise une plusieurs dépendances macOS et iOS de [Xcode](https://developer.apple.com/xcode/resources/).
+
+Téléchargez et installez Xcode à partir des sites suivants :
+
+- [Mac App Store](https://apps.apple.com/gb/app/xcode/id497799835?mt=12)
+- [Apple Developer website](https://developer.apple.com/xcode/resources/).
+
+Assurez-vous de lancer Xcode après installation pour qu'il puisse finir l'installation.
+
+<details>
+<summary>Développement uniquement pour les applications sur ordinateur?</summary>
+Si vous planifiez de développer des applications de bureau qui ne prennent pas en charge iOS vous pouvez installer Xcode Command Line Tools à la place:
+
+```sh
+xcode-select --install
+```
+
+</details>
+
+Suivant: [Installation de Rust](#rust)
+
+### Windows
+
+Tauri utilise les "Microsoft C++ Build Tools" ainsi que Microsoft Edge WebView2. Ils sont tous les deux requis pour le développement Windows.
+
+Suivez les étapes ci-dessous pour installer les dépendances requises.
+
+#### Microsoft C++ Build Tools
+
+1. Téléchargez l'installateur [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) et ouvrez-le pour commencer l'installation.
+2. Pendant l'installation, cochez l'option "Développement Desktop en C++" ("Desktop development with C++" en anglais) .
+
+![Visual Studio C++ Build Tools installer screenshot](./visual-studio-build-tools-installer.png)
+
+Suivant: [Installation de WebView2](#webview2).
+
+#### WebView2
+
+:::tip
+WebView 2 est déjà installé sur Windows 10 (depuis la version 1803) et versions supérieurs de Windows. Si vous développez sur l'une de ces versions, vous pouvez passer cette étape et aller directement à [l'installation de Rust](#rust).
+:::
+
+Tauri utilise Microsoft Edge WebView2 pour produire un rendu sur Windows.
+
+Installez WebView2 en visitant la [section de téléchargement de WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section)
+Téléchargez "Evergreen Boostrapper" and installez-le.
+
+Suivant: [Installation de Rust](#rust)
+
+## Rust
+
+Tauri est développé en [Rust](https://www.rust-lang.org) et l'exige pour fonctionner. Installez Rust en utilisant une des méthodes suivantes. Vous pouvez voir plus de méthodes d'installation sur https://www.rust-lang.org/tools/install.
+
+<Tabs>
+  <TabItem label="Linux and macOS" class="content">
+
+Installer via [`rustup`](https://github.com/rust-lang/rustup) en utilisant la commande:
+
+```sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[Astuce Sécurité]
+Nous avons vérifié ce script bash, et il fait ce qu'il est supposé faire. Cependant, avant d'éxécuter aveuglément un script curl-bash, il est toujours avisé d'y jeter un coup d'œil en premier lieu.
+
+Voici le fichier contenant le script: [rustup.sh](https://sh.rustup.rs/)
+:::
+
+  </TabItem>
+  <TabItem label="Windows">
+
+Visitez https://www.rust-lang.org/tools/install pour installer `rustup`.
+
+  </TabItem>
+</Tabs>
+
+Assurez-vous de relancer votre terminal (et parfois votre système) pour que les modifications prennent effet.
+
+Suivant: [Configuration pour Mobile](#configuration-pour-mobile) si vous voulez construire une application pour Android et iOS. Dans le cas contraire, [Create a Project](/start/create-project).
+
+## Configuration pour Mobile
+
+Si vous vouler que votre application soit utilisable sur Android et iOS, il faut ajouter quelques dépendances que vous devez installer:
+
+- [Android](#android)
+- [iOS](#ios)
+
+### Android
+
+1. Téléchargez et installez [Android Studio à partir du site Android Developers](https://developer.android.com/studio)
+2. Configurez la variable d'environement `JAVA_HOME`:
+
+{/* TODO: Can this be done in the 4th step? */}
+
+<Tabs>
+<TabItem label="Linux">
+
+```sh
+export JAVA_HOME=/opt/android-studio/jbr
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
+```
+
+</TabItem>
+</Tabs>
+3. Utilisez le SDK Manager dans Android Studio pour installer:
+
+- Android SDK Platform
+- Android SDK Platform-Tools
+- NDK (Side by side)
+- Android SDK Build-Tools
+- Android SDK Command-line Tools
+
+4. Configurez les variables d'environemment `ANDROID_HOME` et `NDK_HOME`
+
+{/* TODO: Does the version number change below? */}
+
+<Tabs>
+<TabItem label="Linux and macOS">
+
+```sh
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+{/* TODO: Do we need a note about this version? */}
+
+```ps
+[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\25.0.8775105", "User")
+```
+
+</TabItem>
+
+</Tabs>
+
+5. Ajoutez les "targets" Android avec `rustup`:
+
+<Tabs>
+  <TabItem label="Linux and macOS" class="content">
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+  </TabItem>
+  <TabItem label="Windows">
+
+```ps
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+  </TabItem>
+</Tabs>
+
+Suivant: [Installation pour Android](#ios) ou [Create a project](/start/create-project).
+
+### iOS
+
+:::caution[macOS Only]
+Le développement iOS exige Xcode et est seulement disponible sur macOS
+:::
+
+Ajoutez les "targets" iOS avec `rustup` dans le terminal:
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+
+Assurez-vous d'avoir installé Xcode et non Xcode Command Line Tools dans la section [Dépendances systèmes macOS](#macos).
+
+Suivant: [Create a project](/start/create-project).
+
+## Problèmes
+
+Si vous rencontrez un problème durant l'installation, assurez-vous de consulter le [guide de résolution de problèmes](/develop/debug/) ou rejoignez le [Discord de Tauri](https://discord.com/invite/tauri)
+
+<Card title="Next Steps" icon="rocket">
+
+Maintenant que vous avez installé tous les prérequis, vous êtes fin prêt pour [créer votre premier projet Tauri](/start/create-project) !
+
+</Card>
