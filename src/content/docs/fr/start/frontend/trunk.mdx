@@ -27,15 +27,15 @@ Vous devrez utiliser `cargo install --git https://github.com/amrbashir/trunk` po
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "trunk serve",
-		"beforeBuildCommand": "trunk build",
-		"devPath": "http://localhost:8080",
-		"distDir": "../dist"
-	},
-	"app": {
-		"withGlobalTauri": true
-	}
+  "build": {
+    "beforeDevCommand": "trunk serve",
+    "beforeBuildCommand": "trunk build",
+    "devPath": "http://localhost:8080",
+    "distDir": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true
+  }
 }
 ```
 

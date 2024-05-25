@@ -114,8 +114,8 @@ fn my_custom_command() -> Result<String, String> {
 
 ```js
 invoke('my_custom_command')
-	.then((message) => console.log(message))
-	.catch((error) => console.error(error));
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error));
 ```
 
 如上所述，从命令返回的所有内容都必须实现 [`serde::Serialize`]，包括错误。
@@ -228,7 +228,7 @@ async fn my_custom_command(value: &str) -> Result<String, ()> {
 
 ```js
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
-	console.log('Completed!')
+  console.log('Completed!')
 );
 ```
 
@@ -375,12 +375,12 @@ import { invoke } from '@tauri-apps/api/core';
 
 // 从 JavaScript 调用
 invoke('my_custom_command', {
-	number: 42,
+  number: 42,
 })
-	.then((res) =>
-		console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
-	)
-	.catch((e) => console.error(e));
+  .then((res) =>
+    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+  )
+  .catch((e) => console.error(e));
 ```
 
 [`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-beta/tauri/async_runtime/fn.spawn.html

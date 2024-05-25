@@ -88,9 +88,9 @@ Suivez ces étapes pour envoyer une notification:
 
 ```js
 import {
-	isPermissionGranted,
-	requestPermission,
-	sendNotification,
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
 } from '@tauri-apps/plugin-notification';
 
 // Avez-vous la permission d'envoyer une notification ?
@@ -98,13 +98,13 @@ let permissionGranted = await isPermissionGranted();
 
 // Le cas échéant on la demande
 if (!permissionGranted) {
-	const permission = await requestPermission();
-	permissionGranted = permission === 'granted';
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
 }
 
 // Une fois la permission obtenue, on envoie la notification
 if (permissionGranted) {
-	sendNotification({ title: 'Tauri', body: 'Tauri est incroyable!' });
+  sendNotification({ title: 'Tauri', body: 'Tauri est incroyable!' });
 }
 ```
 
