@@ -24,54 +24,55 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
 
 1.  ##### Update Tauri configuration
 
-      <Tabs>
-<TabItem label="npm">
+          <Tabs>
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+    <TabItem label="npm">
 
-          </TabItem>
-          <TabItem label="yarn">
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+              </TabItem>
+              <TabItem label="yarn">
 
-          </TabItem>
-          <TabItem label="pnpm">
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+              </TabItem>
+              <TabItem label="pnpm">
 
-          </TabItem>
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-      </Tabs>
+              </TabItem>
+
+          </Tabs>
 
 1.  ##### Update Nuxt configuration
 
