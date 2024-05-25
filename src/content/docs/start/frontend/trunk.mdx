@@ -23,31 +23,31 @@ Trunk is a WASM web application bundler for Rust. Learn more about Trunk at http
 
 1. ##### Update Tauri configuration
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "trunk serve",
-        "beforeBuildCommand": "trunk build",
-        "devUrl": "http://localhost:8080",
-        "frontendDist": "../dist"
-      },
-      "app": {
-        "withGlobalTauri": true
-      }
-    }
-    ```
+   ```json
+   // tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "beforeBuildCommand": "trunk build",
+       "devUrl": "http://localhost:8080",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
 
 1. ##### Update Trunk configuration
 
-    ```toml
-    # Trunk.toml
-    [watch]
-    ignore = ["./src-tauri"]
+   ```toml
+   # Trunk.toml
+   [watch]
+   ignore = ["./src-tauri"]
 
-    [serve]
-    address = "0.0.0.0"
-    ws_protocol = "ws"
-    ```
+   [serve]
+   address = "0.0.0.0"
+   ws_protocol = "ws"
+   ```
 
 </Steps>

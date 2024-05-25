@@ -22,92 +22,93 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 <Steps>
 
 1. ##### Install `internal-ip` version 7 for mobile development
-    Version 8.0.0 does **not** work!
 
-    <CommandTabs
-      npm="npm install --save-dev internal-ip@7.0.0"
-      yarn="yarn add -D internal-ip@7.0.0"
-      pnpm="pnpm add -D internal-ip@7.0.0"
-    />
+   Version 8.0.0 does **not** work!
+
+   <CommandTabs
+     npm="npm install --save-dev internal-ip@7.0.0"
+     yarn="yarn add -D internal-ip@7.0.0"
+     pnpm="pnpm add -D internal-ip@7.0.0"
+   />
 
 1. ##### Update Tauri configuration
 
-    <Tabs>
-      <TabItem label="npm">
+   <Tabs>
+  <TabItem label="npm">
 
-    ```json
-    // src-tauri/tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run build",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "npm run dev",
+       "beforeBuildCommand": "npm run build",
+       "devUrl": "http://localhost:3000",
+       "frontendDist": "../dist"
+     }
+   }
+   ```
 
-    </TabItem>
-    <TabItem label="yarn">
+   </TabItem>
+<TabItem label="yarn">
 
-    ```json
-    // src-tauri/tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "yarn dev",
+       "beforeBuildCommand": "yarn generate",
+       "devUrl": "http://localhost:3000",
+       "frontendDist": "../dist"
+     }
+   }
+   ```
 
-    </TabItem>
-    <TabItem label="pnpm">
+   </TabItem>
+<TabItem label="pnpm">
 
-    ```json
-    // src-tauri/tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "pnpm dev",
+       "beforeBuildCommand": "pnpm generate",
+       "devUrl": "http://localhost:3000",
+       "frontendDist": "../dist"
+     }
+   }
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
 1. ##### Update Next.js configuration
 
-    ```ts
-    // next.conf.mjs
-    /** @type {import('next').NextConfig} */
-    const isProd = process.env.NODE_ENV === 'production';
+   ```ts
+   // next.conf.mjs
+   /** @type {import('next').NextConfig} */
+   const isProd = process.env.NODE_ENV === 'production';
 
-    let internalHost = null;
+   let internalHost = null;
 
-    if (!isProd) {
-      const { internalIpV4 } = await import('internal-ip');
-      internalHost = await internalIpV4();
-    }
+   if (!isProd) {
+     const { internalIpV4 } = await import('internal-ip');
+     internalHost = await internalIpV4();
+   }
 
-    const nextConfig = {
-      // Ensure Next.js uses SSG instead of SSR
-      // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-      output: 'export',
-      // Note: This feature is required to use the Next.js Image component in SSG mode.
-      // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
-      images: {
-        unoptimized: true,
-      },
-      // Configure assetPrefix or else the server won't properly resolve your assets.
-      assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-    };
+   const nextConfig = {
+     // Ensure Next.js uses SSG instead of SSR
+     // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+     output: 'export',
+     // Note: This feature is required to use the Next.js Image component in SSG mode.
+     // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+     images: {
+       unoptimized: true,
+     },
+     // Configure assetPrefix or else the server won't properly resolve your assets.
+     assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+   };
 
-    export default nextConfig;
-    ```
+   export default nextConfig;
+   ```
 
 </Steps>
