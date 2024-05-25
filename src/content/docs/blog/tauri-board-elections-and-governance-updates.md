@@ -9,7 +9,7 @@ banner:
     <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
-The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/) as well as the one year milestone of the [Tauri 1.0 release](/blog/tauri-1-0). This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
+The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/) as well as the one year milestone of the [Tauri 1.0 release](/blog/tauri-1-0/). This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
 
 We wanted to celebrate these milestones but also use this as a chance to reflect on how we've grown since the Tauri 1.0 launch and how to continue evolving Tauri. The Tauri Working Group has been building the next iteration of the governance model for the past several months to make it more accessible for new and existing contributors, and ultimately sustainable for the future of Tauri.
 
