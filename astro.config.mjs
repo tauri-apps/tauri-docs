@@ -7,6 +7,7 @@ import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
+import starlightUtils from "@lorenzo_lewis/starlight-utils";
 
 const authors = {
   nothingismagick: {
@@ -64,6 +65,11 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
+        starlightUtils({
+          multiSidebar: {
+            switcherStyle: "horizontalList",
+          },
+        }),
         starlightBlog({ authors }),
         starlightLinksValidator({ errorOnRelativeLinks: false }),
       ],
@@ -82,7 +88,6 @@ export default defineConfig({
         rss: `${site}/rss`,
       },
       components: {
-        Sidebar: './src/components/overrides/Sidebar.astro',
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',

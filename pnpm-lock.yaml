@@ -17,6 +17,9 @@ importers:
       '@astrojs/starlight':
         specifier: ^0.23.0
         version: 0.23.1(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+      '@lorenzo_lewis/starlight-utils':
+        specifier: ^0.1.0
+        version: 0.1.0(@astrojs/starlight@0.23.1(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -1225,6 +1228,12 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
+  '@lorenzo_lewis/starlight-utils@0.1.0':
+    resolution: {integrity: sha512-JuyM9PXREPoGSwL3YwNiqUkU4P7raN9QiABe154mdoTl8pcjSczcETTqW0fUv8Ei5CZu7sV0GJGS6iZO5k+b8w==}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.16.0'
+      astro: '>=4.0.0'
+
   '@mdx-js/mdx@3.0.1':
     resolution: {integrity: sha512-eIQ4QTrOWyL3LWEe/bu6Taqzq2HQvHcyTMaOrI95P2/LmJE7AsfPfgJGuFLPVqBUE1BC1rik3VIhU+s9u72arA==}
 
@@ -1536,6 +1545,10 @@ packages:
     resolution: {integrity: sha512-bMxMKAjg13EBSVscxTaYA4mRc5t1UAXa2kXiGTNfZ079HIWXEkKmkgFrh/nJqamaLSrXO5H4WFFkPEaLJWbs3A==}
     engines: {node: '>= 0.4'}
 
+  ast-types@0.16.1:
+    resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
+    engines: {node: '>=4'}
+
   astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
@@ -1553,6 +1566,15 @@ packages:
 
   astro-feelback@0.3.4:
     resolution: {integrity: sha512-ra69QTsdyjzQKdYeu+qngNcPOgspaWOFJLDFdpA/JryGo55uruw76455UVt2rf3NsZulBnYHS6+upPIO5O7t7A==}
+
+  astro-integration-kit@0.13.3:
+    resolution: {integrity: sha512-hUEQMnZ7z+7ySPCX6mXnIr0BFZU1+49eQQBg4aHjKGz1o2oZ5tvuB9Tlyj/orRH9ubd+Gkd0SSoldz0BTNe4Rg==}
+    peerDependencies:
+      '@astrojs/db': ^0.9 || ^0.10 || ^0.11
+      astro: ^4.4.1
+    peerDependenciesMeta:
+      '@astrojs/db':
+        optional: true
 
   astro-remote@0.3.2:
     resolution: {integrity: sha512-Xwm6Y+ldQEnDB2l1WwVqeUs3QvUX8LtJWnovpXlf8xhpicPu159jXOhDbHZS9wilGO/+/nR67A1qskF8pDvdGQ==}
@@ -3068,6 +3090,9 @@ packages:
   path-to-regexp@6.2.2:
     resolution: {integrity: sha512-GQX3SSMokngb36+whdpRXE+3f9V8UzyAorlYvOGx87ufGHehNTn5lCxrKtLyZ4Yl/wEKnNnr98ZzOwwDZV5ogw==}
 
+  pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
+
   periscopic@3.1.0:
     resolution: {integrity: sha512-vKiQ8RRtkl9P+r/+oefh25C3fhybptkHKCZSPlcXiJux2tJF55GnEj3BVn4A5gKfq9NWWXXrxkHBwVPUfH0opw==}
 
@@ -3155,6 +3180,10 @@ packages:
   readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
+
+  recast@0.23.7:
+    resolution: {integrity: sha512-MpQlLZVpqbbxYcqEjwpRWo88sGvjOYoXptySz710RuddNMHx+wPkoNX6YyLZJlXAh5VZr1qmPrTwcTuFMh0Lag==}
+    engines: {node: '>= 4'}
 
   regenerate-unicode-properties@10.1.1:
     resolution: {integrity: sha512-X007RyZLsCJVVrjgEFVpLUTZwyOZk3oiL75ZcuYjlIWd6rNJtOjkBwQc5AsRrpbKVkxN6sklw/k/9m2jJYOf8Q==}
@@ -3550,6 +3579,9 @@ packages:
     resolution: {integrity: sha512-Q1JFAoUKE5IMfI4Z/lkE/E6+SwgzO+x4tq4v1AyBLRj8VSYvRO6A/rQrPg1yud4g0En9EKI1TvFRF2tQFcoUkg==}
     engines: {node: '>=10'}
     hasBin: true
+
+  tiny-invariant@1.3.3:
+    resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
   to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
@@ -5102,6 +5134,14 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
+  '@lorenzo_lewis/starlight-utils@0.1.0(@astrojs/starlight@0.23.1(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)))(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))':
+    dependencies:
+      '@astrojs/starlight': 0.23.1(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+      astro: 4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)
+      astro-integration-kit: 0.13.3(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@astrojs/db'
+
   '@mdx-js/mdx@3.0.1':
     dependencies:
       '@types/estree': 1.0.5
@@ -5413,6 +5453,10 @@ snapshots:
       is-array-buffer: 3.0.4
       is-shared-array-buffer: 1.0.3
 
+  ast-types@0.16.1:
+    dependencies:
+      tslib: 2.6.2
+
   astring@1.8.6: {}
 
   astro-d2@0.2.1(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
@@ -5428,6 +5472,12 @@ snapshots:
   astro-feelback@0.3.4:
     dependencies:
       '@feelback/js': 0.3.4
+
+  astro-integration-kit@0.13.3(astro@4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)):
+    dependencies:
+      astro: 4.9.1(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)(typescript@5.4.5)
+      pathe: 1.1.2
+      recast: 0.23.7
 
   astro-remote@0.3.2:
     dependencies:
@@ -7446,6 +7496,8 @@ snapshots:
 
   path-to-regexp@6.2.2: {}
 
+  pathe@1.1.2: {}
+
   periscopic@3.1.0:
     dependencies:
       '@types/estree': 1.0.5
@@ -7523,6 +7575,14 @@ snapshots:
   readdirp@3.6.0:
     dependencies:
       picomatch: 2.3.1
+
+  recast@0.23.7:
+    dependencies:
+      ast-types: 0.16.1
+      esprima: 4.0.1
+      source-map: 0.6.1
+      tiny-invariant: 1.3.3
+      tslib: 2.6.2
 
   regenerate-unicode-properties@10.1.1:
     dependencies:
@@ -8098,6 +8158,8 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
+  tiny-invariant@1.3.3: {}
+
   to-fast-properties@2.0.0: {}
 
   to-regex-range@5.0.1:
@@ -8127,8 +8189,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5
 
-  tslib@2.6.2:
-    optional: true
+  tslib@2.6.2: {}
 
   tsm@2.3.0:
     dependencies:
