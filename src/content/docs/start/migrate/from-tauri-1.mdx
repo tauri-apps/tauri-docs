@@ -1159,6 +1159,12 @@ On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
 
+### Migrate Embedded Additional Files (Resources)
+
+On the JavaScript side, make sure you [Migrate to File System Plugin](#migrate-to-file-system-plugin).
+Additionally, note the changes made to the v1 allowlist in [Migrate Permissions](#migrate-permissions).
+
+On the Rust side, make sure you [Migrate Path to Tauri Manager](#migrate-path-to-tauri-manager).
 
 ### Migrate Embedded External Binaries (Sidecar)
 
