@@ -34,10 +34,10 @@ _这个插件要求 Rust 版本至少是 **1.64**_
 {' '}
 
 <CommandTabs
-	npm="npm run tauri add barcode-scanner"
-	yarn="yarn run tauri add barcode-scanner"
-	pnpm="pnpm tauri add barcode-scanner"
-	cargo="cargo tauri add barcode-scanner"
+  npm="npm run tauri add barcode-scanner"
+  yarn="yarn run tauri add barcode-scanner"
+  pnpm="pnpm tauri add barcode-scanner"
+  cargo="cargo tauri add barcode-scanner"
 />
 
   </TabItem>
@@ -89,11 +89,11 @@ scan({ windowed: true, formats: [Format.QRCode] });
 
 ```json title="src-tauri/capabilities/mobile.json"
 {
-	"$schema": "./schemas/mobile-schema.json",
-	"identifier": "mobile-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+  "$schema": "./schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
 }
 ```
 

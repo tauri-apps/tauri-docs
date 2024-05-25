@@ -82,7 +82,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 可以在 JavaScript API 参考中查看所有 [Dialog 选项](/reference/javascript/dialog/)。
 
-{ /* ASK */}
+{/* ASK */}
 
 #### 创建 Yes/No 对话框
 
@@ -93,15 +93,15 @@ import { ask } from '@tauri-apps/plugin-dialog';
 
 // 创建 Yes/No 对话框
 const answer = await ask('This action cannot be reverted. Are you sure?', {
-	title: 'Tauri',
-	type: 'warning',
+  title: 'Tauri',
+  type: 'warning',
 });
 
 console.log(answer);
 // Prints boolean to the console
 ```
 
-{ /* CONFIRM */}
+{/* CONFIRM */}
 
 #### 创建 Ok/Cancel 对话框
 
@@ -112,15 +112,15 @@ import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
-	'This action cannot be reverted. Are you sure?',
-	{ title: 'Tauri', type: 'warning' }
+  'This action cannot be reverted. Are you sure?',
+  { title: 'Tauri', type: 'warning' }
 );
 
 console.log(confirmation);
 // Prints boolean to the console
 ```
 
-{ /* MESSAGE */}
+{/* MESSAGE */}
 
 #### 创建 Message 对话框
 
@@ -133,7 +133,7 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', type: 'error' });
 ```
 
-{ /* OPEN */}
+{/* OPEN */}
 
 #### 打开一个文件选择对话框
 
@@ -146,8 +146,8 @@ import { open } from '@tauri-apps/plugin-dialog';
 
 // Open a dialog
 const file = await open({
-	multiple: false,
-	directory: false,
+  multiple: false,
+  directory: false,
 });
 console.log(file);
 // Prints file path and name to the console
@@ -163,12 +163,12 @@ console.log(file);
 import { save } from '@tauri-apps/plugin-dialog';
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
-	filters: [
-		{
-			name: 'My Filter',
-			extensions: ['png', 'jpeg'],
-		},
-	],
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
 });
 console.log(path);
 // Prints the chosen path

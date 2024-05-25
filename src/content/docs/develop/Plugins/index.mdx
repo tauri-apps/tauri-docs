@@ -6,11 +6,11 @@ sidebar:
   order: 10
 ---
 
-{ /* TODO: Add a CLI section */}
+{/* TODO: Add a CLI section */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 
-{ /* TODO: Link to windowing system, commands for sending messages, and event system */}
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
 
 :::tip[Plugin Development]
 
@@ -24,11 +24,11 @@ Tauri offers a windowing system with web view functionality, a way to send messa
 
 A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events. Additionally, a plugin project can include an Android library project and a Swift package for iOS. You can learn more about developing plugins for Android and iOS in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile/).
 
-{ /* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
 ## Naming Convention
 
-{ /* TODO: Add link to allowlist */}
+{/* TODO: Add link to allowlist */}
 
 Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugin`](/reference/config/#pluginconfig) and on the allowlist configuration.
 
@@ -41,10 +41,10 @@ To bootstrap a new plugin project, run `plugin new`. If you do not need the NPM 
 After installing, you can run the following to create a plugin project:
 
 <CommandTabs
-	npm="npm run tauri plugin new [name]"
-	yarn="yarn tauri plugin new [name]"
-	pnpm="pnpm tauri plugin new [name]"
-	cargo="cargo tauri plugin new [name]"
+  npm="npm run tauri plugin new [name]"
+  yarn="yarn tauri plugin new [name]"
+  pnpm="pnpm tauri plugin new [name]"
+  cargo="cargo tauri plugin new [name]"
 />
 
 This will initialize the plugin at the directory `tauri-plugin-[name]` and, depending on the used CLI flags, the resulting project will look like this:

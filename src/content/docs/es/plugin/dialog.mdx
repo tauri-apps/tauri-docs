@@ -82,7 +82,7 @@ en Rust:
 
 Consulta todas las [Opciones de diálogo](/reference/javascript/dialog/) en la referencia de la API de JavaScript.
 
-{ /* ASK */}
+{/* ASK */}
 
 #### Crear un diálogo de Si/No
 
@@ -93,15 +93,15 @@ import { ask } from '@tauri-apps/plugin-dialog';
 
 // Crea un diálogo de Sí/No
 const answer = await ask('This action cannot be reverted. Are you sure?', {
-	title: 'Tauri',
-	type: 'warning',
+  title: 'Tauri',
+  type: 'warning',
 });
 
 console.log(answer);
 // Imprime un booleano en la consola
 ```
 
-{ /* CONFIRM */}
+{/* CONFIRM */}
 
 #### Crear un diálogo de Ok/Cancelar
 
@@ -112,15 +112,15 @@ import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Crea un diálogo de confirmación Ok/Cancelar
 const confirmation = await confirm(
-	'This action cannot be reverted. Are you sure?',
-	{ title: 'Tauri', type: 'warning' }
+  'This action cannot be reverted. Are you sure?',
+  { title: 'Tauri', type: 'warning' }
 );
 
 console.log(confirmation);
 // Imprime un booleano en la consola
 ```
 
-{ /* MESSAGE */}
+{/* MESSAGE */}
 
 #### Crear un diálogo de mensaje
 
@@ -133,7 +133,7 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', type: 'error' });
 ```
 
-{ /* OPEN */}
+{/* OPEN */}
 
 #### Abrir un diálogo de selección de archivos
 
@@ -146,14 +146,14 @@ import { open } from '@tauri-apps/plugin-dialog';
 
 // Abre un diálogo
 const file = await open({
-	multiple: false,
-	directory: false,
+  multiple: false,
+  directory: false,
 });
 console.log(file);
 // Imprime la ruta y el nombre del archivo en la consola
 ```
 
-{ /* SAVE */}
+{/* SAVE */}
 
 #### Diálogo de guardar en archivo
 
@@ -163,12 +163,12 @@ Abre un diálogo de guardar archivo/directorio.
 import { save } from '@tauri-apps/plugin-dialog';
 // Indica para guardar un 'My Filter' con extensión .png o .jpeg
 const path = await save({
-	filters: [
-		{
-			name: 'My Filter',
-			extensions: ['png', 'jpeg'],
-		},
-	],
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
 });
 console.log(path);
 // Imprime la ruta escogida
