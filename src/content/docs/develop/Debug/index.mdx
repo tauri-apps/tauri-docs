@@ -20,7 +20,7 @@ One of the most useful tools in your toolkit for debugging is the ability to add
 
 ### In Rust
 
-```rs
+```rs frame=none
 fn main() {
   // Tauri provided convenience function for whether you ran with `tauri dev`.
   let is_dev: bool = tauri::dev();
@@ -41,19 +41,19 @@ fn main() {
 
 The first place to look for errors is in the Rust Console. This is in the terminal where you ran, e.g., `tauri dev`. You can use the following code to print something to that console from within a Rust file:
 
-```rust
+```rust frame=none
 println!("Message from Rust: {}", msg);
 ```
 
 Sometimes you may have an error in your Rust code, and the Rust compiler can give you lots of information. If, for example, `tauri dev` crashes, you can rerun it like this on Linux and macOS:
 
-```shell
+```shell frame=none
 RUST_BACKTRACE=1 tauri dev
 ```
 
 or like this on Windows:
 
-```shell
+```shell frame=none
 set RUST_BACKTRACE=1
 tauri dev
 ```
@@ -61,7 +61,7 @@ tauri dev
 This command gives you a granular stack trace. Generally speaking, the Rust compiler helps you by
 giving you detailed information about the issue, such as:
 
-```bash
+```bash frame=none
 error[E0425]: cannot find value `sun` in this scope
   --> src/main.rs:11:5
    |
