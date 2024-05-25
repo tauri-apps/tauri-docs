@@ -19,9 +19,9 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 1. Install `internal-ip` version 7 for mobile development. Version 8.0.0 does **not** work!
 
 <CommandTabs
-	npm="npm install --save-dev internal-ip@7.0.0"
-	yarn="yarn add -D internal-ip@7.0.0"
-	pnpm="pnpm add -D internal-ip@7.0.0"
+  npm="npm install --save-dev internal-ip@7.0.0"
+  yarn="yarn add -D internal-ip@7.0.0"
+  pnpm="pnpm add -D internal-ip@7.0.0"
 />
 
 2. Update Tauri configuration:
@@ -32,12 +32,12 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "npm run dev",
-		"beforeBuildCommand": "npm run build",
-		"devUrl": "http://localhost:3000",
-		"frontendDist": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "../dist"
+  }
 }
 ```
 
@@ -47,12 +47,12 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "yarn dev",
-		"beforeBuildCommand": "yarn generate",
-		"devUrl": "http://localhost:3000",
-		"frontendDist": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn generate",
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "../dist"
+  }
 }
 ```
 
@@ -62,12 +62,12 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 ```json
 // tauri.conf.json
 {
-	"build": {
-		"beforeDevCommand": "pnpm dev",
-		"beforeBuildCommand": "pnpm generate",
-		"devUrl": "http://localhost:3000",
-		"frontendDist": "../dist"
-	}
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm generate",
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "../dist"
+  }
 }
 ```
 
@@ -84,21 +84,21 @@ const isProd = process.env.NODE_ENV === 'production';
 let internalHost = null;
 
 if (!isProd) {
-	const { internalIpV4 } = await import('internal-ip');
-	internalHost = await internalIpV4();
+  const { internalIpV4 } = await import('internal-ip');
+  internalHost = await internalIpV4();
 }
 
 const nextConfig = {
-	// Ensure Next.js uses SSG instead of SSR
-	// https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-	output: 'export',
-	// Note: This feature is required to use the Next.js Image component in SSG mode.
-	// See https://nextjs.org/docs/messages/export-image-api for different workarounds.
-	images: {
-		unoptimized: true,
-	},
-	// Configure assetPrefix or else the server won't properly resolve your assets.
-	assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+  // Ensure Next.js uses SSG instead of SSR
+  // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+  output: 'export',
+  // Note: This feature is required to use the Next.js Image component in SSG mode.
+  // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+  images: {
+    unoptimized: true,
+  },
+  // Configure assetPrefix or else the server won't properly resolve your assets.
+  assetPrefix: isProd ? null : `http://${internalHost}:3000`,
 };
 
 export default nextConfig;

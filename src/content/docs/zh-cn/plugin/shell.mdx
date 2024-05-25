@@ -81,8 +81,8 @@ Shell 插件有 JavaScript 和 Rust 两种版本。
 import { Command } from '@tauri-apps/plugin-shell';
 
 let result = await Command.create('exec-sh', [
-	'-c',
-	"echo 'Hello World!'",
+  '-c',
+  "echo 'Hello World!'",
 ]).execute();
 console.log(result);
 ```
@@ -121,28 +121,28 @@ if output.status.success() {
 
 ```json title="src-tauri/capabilities/main.json" ins={6-23}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "shell:allow-execute",
-			"allow": [
-				{
-					"name": "exec-sh",
-					"cmd": "sh",
-					"args": [
-						"-c",
-						{
-							"validator": "\\S+"
-						}
-					],
-					"sidecar": false
-				}
-			]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "exec-sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "sidecar": false
+        }
+      ]
+    }
+  ]
 }
 ```
 

@@ -96,8 +96,8 @@ import { ask } from '@tauri-apps/plugin-dialog';
 
 // Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
-	title: 'Tauri',
-	kind: 'warning',
+  title: 'Tauri',
+  kind: 'warning',
 });
 
 console.log(answer);
@@ -115,8 +115,8 @@ import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
-	'This action cannot be reverted. Are you sure?',
-	{ title: 'Tauri', kind: 'warning' }
+  'This action cannot be reverted. Are you sure?',
+  { title: 'Tauri', kind: 'warning' }
 );
 
 console.log(confirmation);
@@ -149,8 +149,8 @@ import { open } from '@tauri-apps/plugin-dialog';
 
 // Open a dialog
 const file = await open({
-	multiple: false,
-	directory: false,
+  multiple: false,
+  directory: false,
 });
 console.log(file);
 // Prints file path and name to the console
@@ -166,12 +166,12 @@ Open a file/directory save dialog.
 import { save } from '@tauri-apps/plugin-dialog';
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
-	filters: [
-		{
-			name: 'My Filter',
-			extensions: ['png', 'jpeg'],
-		},
-	],
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
 });
 console.log(path);
 // Prints the chosen path

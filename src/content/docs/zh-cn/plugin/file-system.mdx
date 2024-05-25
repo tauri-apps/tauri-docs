@@ -31,10 +31,10 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 { ' ' }
 
 <CommandTabs
-	npm="npm run tauri add fs"
-	yarn="yarn run tauri add fs"
-	pnpm="pnpm tauri add fs"
-	cargo="cargo tauri add fs"
+  npm="npm run tauri add fs"
+  yarn="yarn run tauri add fs"
+  pnpm="pnpm tauri add fs"
+  cargo="cargo tauri add fs"
 />
 
   </TabItem>
@@ -125,17 +125,17 @@ fn run() {
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"fs:default",
-		{
-			"identifier": "fs:allow-exists",
-			"allow": [{ "path": "$APPDATA/*" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
 }
 ```
 
@@ -456,16 +456,16 @@ fn run() {
 
 ```json title="src-tauri/capabilities/main.json" {7-10}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "fs:scope",
-			"allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+    }
+  ]
 }
 ```
 
@@ -473,19 +473,19 @@ fn run() {
 
 ```json title="src-tauri/capabilities/main.json" {7-14}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "fs:allow-rename",
-			"allow": [{ "path": "$HOME/**" }]
-		},
-		{
-			"identifier": "fs:allow-exists",
-			"allow": [{ "path": "$APPDATA/*" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
 }
 ```

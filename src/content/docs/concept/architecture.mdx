@@ -21,7 +21,39 @@ Tauri is not a VM or virtualized environment. Instead, it is an application tool
 
 ## Core Ecosystem
 
-![Tauri Architecture Diagram](@assets/concept/architecture.svg)
+<figure>
+
+```d2 sketch pad=50
+direction: up
+
+Core: {
+  shape: rectangle
+  "tauri": {
+    "tauri-runtime"
+    "tauri-macros"
+    "tauri-utils"
+  }
+
+  "tauri-build"
+  "tauri-codegen"
+  "tauri-runtime-wry"
+}
+
+Upstream: {
+  shape: rectangle
+  direction: right
+  WRY
+  TAO
+}
+
+Core."tauri"."tauri-runtime" -> Core."tauri-runtime-wry"{style.animated: true}
+
+Upstream.WRY -> Upstream.TAO{style.animated: true}
+Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
+```
+
+<figcaption>Simplified representation of the Tauri architecture.</figcaption>
+</figure>
 
 ### tauri
 
