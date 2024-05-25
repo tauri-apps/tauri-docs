@@ -7,7 +7,7 @@ import starlightLinksValidator from 'starlight-links-validator';
 import starlightBlog from 'starlight-blog';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
-import starlightUtils from "@lorenzo_lewis/starlight-utils";
+import starlightUtils from '@lorenzo_lewis/starlight-utils';
 
 const authors = {
   nothingismagick: {
@@ -67,7 +67,7 @@ export default defineConfig({
       plugins: [
         starlightUtils({
           multiSidebar: {
-            switcherStyle: "horizontalList",
+            switcherStyle: 'horizontalList',
           },
         }),
         starlightBlog({ authors }),
