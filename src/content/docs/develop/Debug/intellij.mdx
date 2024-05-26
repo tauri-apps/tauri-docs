@@ -55,7 +55,7 @@ On Windows you must also make sure that CLion uses the correct debugger toolchai
 
 The above configuration will use Cargo directly to build the Rust application and attach the debugger to it. This means we completely sidestep the Tauri CLI, so features like the `beforeDevCommand` and `beforeBuildCommand` will **not** be executed. We need to take care of that by opening a new Terminal and starting running the development server manually:
 
-```sh
+```sh frame=none
 pnpm vite dev
 ```
 
