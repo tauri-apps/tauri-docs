@@ -23,7 +23,7 @@ const { npm, yarn, pnpm, bun, cargo } = Astro.props;
   }
   {
     yarn && (
-      <TabItem label="Yarn">
+      <TabItem label="yarn">
         <Code code={yarn} lang="sh" theme="css-variables" frame="none" />
       </TabItem>
     )
@@ -44,7 +44,7 @@ const { npm, yarn, pnpm, bun, cargo } = Astro.props;
   }
   {
     cargo && (
-      <TabItem label="Cargo">
+      <TabItem label="cargo">
         <Code code={cargo} lang="sh" theme="css-variables" frame="none" />
       </TabItem>
     )
