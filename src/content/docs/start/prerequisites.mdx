@@ -148,7 +148,7 @@ Follow the steps below to install the required dependencies.
 1. Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation.
 2. During installation check the "Desktop development with C++" option.
 
-![Visual Studio C++ Build Tools installer screenshot](@assets/img/start/prerequisites/visual-studio-build-tools-installer.png)
+![Visual Studio C++ Build Tools installer screenshot](@assets/start/prerequisites/visual-studio-build-tools-installer.png)
 
 Next: [Install WebView2](#webview2).
 
@@ -185,8 +185,8 @@ Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
 
   </TabItem>
   <TabItem label="Windows">
-  
-  Visit https://www.rust-lang.org/tools/install to install `rustup`.
+
+Visit https://www.rust-lang.org/tools/install to install `rustup`.
 
   </TabItem>
 </Tabs>
@@ -298,22 +298,9 @@ $VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk"
 
 5. Add the Android targets with `rustup`:
 
-<Tabs>
-  <TabItem label="Linux and macOS" class="content">
-
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
-
-  </TabItem>
-  <TabItem label="Windows">
-  
-  ```ps
-  rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-  ```
-
-  </TabItem>
-</Tabs>
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project).
 

@@ -10,7 +10,7 @@ Tauri provides application and plugin developers with a capabilities system,
 to granually enable and constrain the core exposure to the application frontend running in the
 system WebView.
 
-Capabilities are a set of [permissions](/security/permissions) mapped
+Capabilities are a set of [permissions](/security/permissions/) mapped
 to application windows and webviews by their respective label.
 Capabilities can affect multiple windows and webviews and these can be
 referenced in multiple capabilities.
@@ -30,33 +30,38 @@ It is good practice to use individual files and only reference
 them by identifier in the `tauri.conf.json` but it also possible
 to defined them directly in the `capabilities` field.
 
+All capabilities inside the `capabilities` directory are automatically enabled
+by default.
+Once capabilities are explicitly enabled in the `tauri.conf.json`,
+only these are used in the application build.
+
 For a full reference of the configuration scheme please see the
-[references](/references/config) section.
+[references](/reference/config/) section.
 
 The following example JSON defines a capability that enables default functionality
 for core plugins and the `window.setTitle` API.
 
 ```json title="src-tauri/capabilities/main.json
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"path:default",
-		"event:default",
-		"window:default",
-		"app:default",
-		"resources:default",
-		"menu:default",
-		"tray:default",
-		"window:allow-set-title"
-	]
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+    "window:allow-set-title"
+  ]
 }
 ```
 
 These snippets are part of the
-[Tauri configuration](/develop/configuration-files#tauri-config) file.
+[Tauri configuration](/develop/configuration-files/#tauri-config) file.
 
 This is likely the most common configuration method,
 where the individual capabilities are inlined and only
@@ -67,11 +72,11 @@ capability files in the `capabilities` directory.
 
 ```json title=src-tauri/tauri.conf.json
 {
-	"app": {
-		"security": {
-			"capabilities": ["my-capability", "main-capability"]
-		}
-	}
+  "app": {
+    "security": {
+      "capabilities": ["my-capability", "main-capability"]
+    }
+  }
 }
 ```
 
@@ -79,19 +84,19 @@ Inline capabilities can be mixed with pre-defined capabilities.
 
 ```json title=src-tauri/tauri.conf.json
 {
-	"app": {
-		"security": {
-			"capabilities": [
-				{
-					"identifier": "my-capability",
-					"description": "My application capability used for all windows",
-					"windows": ["*"],
-					"permissions": ["fs:default", "allow-home-read-extended"]
-				},
-				"my-second-capability"
-			]
-		}
-	}
+  "app": {
+    "security": {
+      "capabilities": [
+        {
+          "identifier": "my-capability",
+          "description": "My application capability used for all windows",
+          "windows": ["*"],
+          "permissions": ["fs:default", "allow-home-read-extended"]
+        },
+        "my-second-capability"
+      ]
+    }
+  }
 }
 ```
 
@@ -106,11 +111,11 @@ Note it enables permissions on plugins that are only available on desktop:
 
 ```json title="src-tauri/capabilities/desktop.json
 {
-	"$schema": "./schemas/desktop-schema.json",
-	"identifier": "desktop-capability",
-	"windows": ["main"],
-	"platforms": ["linux", "macOS", "windows"],
-	"permissions": ["global-shortcut:allow-register"]
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
 }
 ```
 
@@ -119,15 +124,15 @@ Note it enables permissions on plugins that are only available on mobile:
 
 ```json title="src-tauri/capabilities/mobile.json
 {
-	"$schema": "./schemas/mobile-schema.json",
-	"identifier": "mobile-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": [
-		"nfc:allow-scan",
-		"biometric:allow-authenticate",
-		"barcode-scanner:allow-scan"
-	]
+  "$schema": "./schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
 }
 ```
 
@@ -224,6 +229,3 @@ Everything can be inlined into the `tauri.conf.json` but even a
 little more advanced configuration would bloat this file and
 the goal of this approach is that the permissions are abstracted
 away whenever possible and simple to understand.
-
-Only references or definitions enabled in the `tauri.conf.json` are actually
-used in the application build.

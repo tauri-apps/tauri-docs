@@ -20,10 +20,10 @@ The Tauri team is excited to announce the 1.4 release. This version includes sev
 Make sure to update both NPM and Cargo dependencies to the 1.4.0 release. You can update the dependencies with:
 
 <CommandTabs
-	npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
-	yarn="yarn upgrade @tauri-apps/cli @tauri-apps/api --latest"
-	pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
-	cargo="cargo update"
+  npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+  yarn="yarn upgrade @tauri-apps/cli @tauri-apps/api --latest"
+  pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+  cargo="cargo update"
 />
 
 ## What's in 1.4.0
@@ -54,7 +54,7 @@ Tauri 1.4 still has a minimum supported Rust version of 1.60, but due to some de
 
 ### Unit tests
 
-The `tauri` crate now exposes the `test` module under the `test` Cargo feature. This module is still unstable but allows you to unit test your application by creating a `tauri::App` instance that can execute without spawning windows. See the [documentation](https://docs.rs/tauri/1/tauri/test/index.html) for more information and examples.
+The `tauri` crate now exposes the `test` module under the `test` Cargo feature. This module is still unstable but allows you to unit test your application by creating a `tauri::App` instance that can execute without spawning windows. See the [documentation](https://docs.rs/tauri/1/tauri/develop/tests/index.html) for more information and examples.
 
 ### Other changes
 

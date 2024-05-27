@@ -3,6 +3,7 @@ title: Plugin Development
 i18nReady: true
 sidebar:
   label: Overview
+  order: 10
 ---
 
 {/* TODO: Add a CLI section */}
@@ -13,7 +14,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 :::tip[Plugin Development]
 
-This guide is for developing Tauri plugins. If you're looking for a list of the currently available plugins and how to use them then visit the [Features and Recipes list](/features).
+This guide is for developing Tauri plugins. If you're looking for a list of the currently available plugins and how to use them then visit the [Features and Recipes list](/plugin/).
 
 :::
 
@@ -21,7 +22,7 @@ Plugins are able to hook into the Tauri lifecycle, expose Rust code that relies 
 
 Tauri offers a windowing system with web view functionality, a way to send messages between the Rust process and the web view, and an event system along with several tools to enhance the development experience. By design, the Tauri core does not contain features not needed by everyone. Instead it offers a mechanism to add external functionalities into a Tauri application called plugins.
 
-A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events. Additionally, a plugin project can include an Android library project and a Swift package for iOS. You can learn more about developing plugins for Android and iOS in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile).
+A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events. Additionally, a plugin project can include an Android library project and a Swift package for iOS. You can learn more about developing plugins for Android and iOS in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile/).
 
 {/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
@@ -29,7 +30,7 @@ A Tauri plugin is composed of a Cargo crate and an optional NPM package that pro
 
 {/* TODO: Add link to allowlist */}
 
-Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugin`](/references/config/#pluginconfig) and on the allowlist configuration.
+Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugin`](/reference/config/#pluginconfig) and on the allowlist configuration.
 
 By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community, but is not not a requirement. When initializing a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-{plugin-name}` and the JavaScript NPM package name will be `tauri-plugin-{plugin-name}-api` (although we recommend using an [NPM scope](https://docs.npmjs.com/about-scopes) if possible). The Tauri naming convention for NPM packages is `@scope-name/plugin-{plugin-name}`.
 
@@ -40,10 +41,10 @@ To bootstrap a new plugin project, run `plugin new`. If you do not need the NPM 
 After installing, you can run the following to create a plugin project:
 
 <CommandTabs
-	npm="npm run tauri plugin new [name]"
-	yarn="yarn tauri plugin new [name]"
-	pnpm="pnpm tauri plugin new [name]"
-	cargo="cargo tauri plugin new [name]"
+  npm="npm run tauri plugin new [name]"
+  yarn="yarn tauri plugin new [name]"
+  pnpm="pnpm tauri plugin new [name]"
+  cargo="cargo tauri plugin new [name]"
 />
 
 This will initialize the plugin at the directory `tauri-plugin-[name]` and, depending on the used CLI flags, the resulting project will look like this:
@@ -72,7 +73,7 @@ If you have an existing plugin and would like to add Android or iOS capabilities
 
 Plugins can run native mobile code written in Kotlin (or Java) and Swift. The default plugin template includes an Android library project using Kotlin and a Swift package. It includes an example mobile command showing how to trigger its execution from Rust code.
 
-Read more about developing plugins for mobile in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile).
+Read more about developing plugins for mobile in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile/).
 
 ## Plugin Configuration
 
@@ -124,7 +125,7 @@ Plugins can hook into several lifecycle events:
 - [on_event](#on_event): Event loop events
 - [on_drop](#on_drop): Plugin is being deconstructed
 
-There are additional [lifecycle events for mobile plugins](/develop/plugins/develop-mobile#lifecycle-events).
+There are additional [lifecycle events for mobile plugins](/develop/plugins/develop-mobile/#lifecycle-events).
 
 ### setup
 
@@ -248,7 +249,7 @@ Builder::new("<plugin-name>")
 
 The plugin APIs defined in the project's `desktop.rs` and `mobile.rs` are exported to the user as a struct with the same name as the plugin (in pascal case). When the plugin is setup, an instance of this struct is created and managed as a state so that users can retrieve it at any point in time with a `Manager` instance (such as `AppHandle`, `App`, or` Window`) through the extension trait defined in the plugin.
 
-For example, the [`global-shortcut plugin`](/features/global-shortcut) defines a `GlobalShortcut` struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
+For example, the [`global-shortcut plugin`](/plugin/global-shortcut/) defines a `GlobalShortcut` struct that can be read by using the `global_shortcut` method of the `GlobalShortcutExt` trait:
 
 ```rust title="src-tauri/src/lib.rs"
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -263,7 +264,7 @@ tauri::Builder::default()
 
 ## Adding Commands
 
-Commands are defined in the `commands.rs` file. They are regular Tauri applications commands. They can access the AppHandle and Window instances directly, access state, and take input the same way as application commands. Read the [Commands guide](/develop/calling-rust) for more details on Tauri commands.
+Commands are defined in the `commands.rs` file. They are regular Tauri applications commands. They can access the AppHandle and Window instances directly, access state, and take input the same way as application commands. Read the [Commands guide](/develop/calling-rust/) for more details on Tauri commands.
 
 This command shows how to get access to the `AppHandle` and `Window` instance via dependency injection, and takes two input parameters (`on_progress` and `url`):
 
@@ -342,7 +343,7 @@ pub struct Entry {
 
 ###### Command Scope
 
-Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/references/acl#scopes)).
+Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/#scopes)).
 You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
@@ -456,8 +457,8 @@ fn main() {
 }
 ```
 
-See the [Access Control List](/references/acl) documentation for more information.
+See the [Access Control List](/reference/acl/) documentation for more information.
 
 ## Managing State
 
-A plugin can manage state in the same way a Tauri application does. Read the [State Management guide](/develop/state-management) for more information.
+A plugin can manage state in the same way a Tauri application does. Read the [State Management guide](/develop/state-management/) for more information.

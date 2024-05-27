@@ -4,6 +4,9 @@
 /ko/*  /:splat  302
 /it/*  /:splat  302
 
+# blog rss
+/blog.xml                   /blog/rss.xml                        301
+
 # Docs rework
 
 /guides                     /start                               301
@@ -17,17 +20,23 @@
 /guides/upgrade-migrate     /start/upgrade--migrate              301
 /guides/upgrade-migrate/*   /start/upgrade--migrate/:splat       301
 
-/references/v2/cli          /references/cli                      301      
-/references/v2/acl          /references/acl                      301     
+/references/v2/cli          /references/cli                      301
+/references/v2/acl          /references/acl                      301
 /references/v2/config       /references/config                   301
 /references/v2/js           /references/javascript/api           301
 /references/v2/js/*         /references/javascript/api/:splat    301
 /references/v2/*            /references/:splat                   301
 
 /2/reference/js/core/namespacepath          /references/javascript/api/namespacepath 301
-/2/reference/                /references/                  301
+/2/reference/                /references/                       301
 
 
-/references/configuration-files /develop/configuration-files     301
+/references/configuration-files /develop/configuration-files    301
 
-/features/commands           /develop/calling-rust               301
+/features/commands          /develop/calling-rust               301
+
+/frontend-configuration     /start/frontend                     301
+/test                       /develop/tests                      301
+/guides/features            /guides/feature                     301
+/features                   /plugin                             301
+/start/upgrade--migrate     /start/migrate                      301

@@ -18,7 +18,7 @@ Here we describe classical threats and what you SHOULD do about them.
 
 All of these distinct steps are described in the following sections.
 
-![Threat Stages During Development](@assets/concepts/application-flow-simple.svg)
+![Threat Stages During Development](@assets/concept/application-flow-simple.svg)
 
 ### Upstream Threats
 
@@ -71,14 +71,7 @@ consult a professional OPS architect and build it properly.
 We assume the webview is insecure, which has led Tauri to implement several protections
 regarding webview access to system APIs in the context of loading untrusted userland content.
 
-Using the [Content Security Policy](@concepts/security/csp.mdx) will lockdown types of
+Using the [Content Security Policy](/security/csp/) will lockdown types of
 communication that the Webview can undertake.
-Furthermore, [Capabilities](@concepts/security/capabilities.mdx) can prevent untrusted content or scripts from accessing
+Furthermore, [Capabilities](/security/capabilities/) can prevent untrusted content or scripts from accessing
 the API within the Webview.
-
-:::caution
-
-And please, whatever you do, **DO NOT** trust the results of cryptography using
-private keys in the Webview.
-
-:::

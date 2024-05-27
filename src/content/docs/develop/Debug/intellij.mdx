@@ -11,7 +11,7 @@ sidebar:
 {/* TODO: Add support to light/dark mode images */}
 {/* TODO: Revise this change: Debugging in CLion > Debug in CLion */}
 
-In this guide, we’ll be setting up IntelliJ CLion for debugging the [Core Process of your Tauri app].
+In this guide, we'll be setting up IntelliJ CLion for debugging the [Core Process of your Tauri app](/concept/process-model/#the-core-process).
 
 ## Prerequisites
 
@@ -26,24 +26,24 @@ By default, Tauri places the Rust project in a subdirectory called `src-tauri`. 
 members = ["src-tauri"]
 ```
 
-Before you proceed, make sure that your project is fully loaded. If the indexing is finished and the Cargo tool window shows all the modules and targets of the workspace, you’re good to go.
+Before you proceed, make sure that your project is fully loaded. If the indexing is finished and the Cargo tool window shows all the modules and targets of the workspace, you're good to go.
 
 ## Run/Debug Configuration
 
 We will set up a Run/Debug configuration that we can use to launch our Tauri app in debugging mode. To create a configuration, go to Edit Configurations, click **+**, and then select Cargo Command.
 
-![Add Run/Debug Configuration](../../../../assets/img/guides/debugging/clion/add-cargo-config-light.png)
-{/* ![Add Run/Debug Configuration](../../../../assets/img/debugging/clion/add-cargo-config-dark.png#gh-dark-mode-only) */}
+![Add Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-light.png)
+{/* ![Add Run/Debug Configuration](@assets/debugging/clion/add-cargo-config-dark.png#gh-dark-mode-only) */}
 
 With that created we need to configure CLion so it instructs Cargo to build our app without any default features. This will tell Tauri to use your development server instead of reading assets from disk. Normally this flag is passed by the Tauri CLI, but since we're completely sidestepping that here, we need to pass the flag manually.
 
-![Add `--no-default-features` flag](../../../../assets/img/guides/debugging/clion/set-no-default-features-light.png)
-{/* ![Add `--no-default-features` flag](../../../../assets/img/guides/debugging/clion/set-no-default-features-dark.png#gh-dark-mode-only) */}
+![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-light.png)
+{/* ![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-dark.png#gh-dark-mode-only) */}
 
 Now we can optionally rename the Run/Debug Configuration to something more memorable, in this example we called it "Run Tauri App", but you can name it whatever you want.
 
-![Rename Configuration](../../../../assets/img/guides/debugging/clion/rename-configuration-light.png)
-{/* ![Rename Configuration](../../../../assets/img/guides/debugging/clion/rename-configuration-dark.png#gh-dark-mode-only) */}
+![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-light.png)
+{/* ![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-dark.png#gh-dark-mode-only) */}
 
 :::caution
 
@@ -55,7 +55,7 @@ On Windows you must also make sure that CLion uses the correct debugger toolchai
 
 The above configuration will use Cargo directly to build the Rust application and attach the debugger to it. This means we completely sidestep the Tauri CLI, so features like the `beforeDevCommand` and `beforeBuildCommand` will **not** be executed. We need to take care of that by opening a new Terminal and starting running the development server manually:
 
-```sh
+```sh frame=none
 pnpm vite dev
 ```
 
@@ -64,5 +64,3 @@ pnpm vite dev
 ## Launch a Debugging Session
 
 With the development server running and the Run/Debug Configuration selected in the Switcher, you can now start a new debugging session by clicking Debug. CLion will automatically recognize breakpoints placed in any Rust file in your project.
-
-[core process of your tauri app]: https://tauri.app/v1/references/architecture/process-model#the-core-process
