@@ -10,6 +10,7 @@ sidebar:
 
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 <Stub />
 
@@ -26,14 +27,16 @@ Tauri Action leverages GitHub Actions to simultaneously build your application a
 
 This GitHub Action may also be used as a testing pipeline for your Tauri app, guaranteeing compilation runs fine on all platforms for each pull request sent, even if you don't wish to create a new release.
 
-:::info Code Signing
+
+{/* TODO: This component */}
+<Aside>
+Code Signing
 
 To setup code signing for both Windows and macOS on your workflow, follow the specific guide for each platform:
 
 - [Windows Code Signing with GitHub Actions]
 - [macOS Code Signing with GitHub Actions]
-
-:::
+</Aside>
 
 ### Getting Started
 
