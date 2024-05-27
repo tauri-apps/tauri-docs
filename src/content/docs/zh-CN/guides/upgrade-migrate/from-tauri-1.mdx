@@ -1159,9 +1159,9 @@ tauri::Builder::default()
 
 ### 迁移 嵌入式外部二进制文件（Sidecar）
 
-在 Tauri v1 中，外部二进制文件及其参数在 allowlist（允许列表）中定义。在 v2 中，请使用新的权限系统。请阅读[迁移权限](#迁移-Permissions) 了解更多信息。
+在 Tauri v1 中，外部二进制文件及其参数在 allowlist（允许列表）中定义。在 v2 中，请使用新的权限系统。请阅读[迁移权限](#迁移-permissions) 了解更多信息。
 
-在 JavaScript 方面，请确保您已[迁移至 Shell 插件](#迁移至-Shell-插件)。
+在 JavaScript 方面，请确保您已[迁移至 Shell 插件](#迁移至-shell-插件)。
 
 在 Rust 方面，`tauri::api::process` API 已被移除。请改用 `tauri_plugin_shell::ShellExt` 和 `tauri_plugin_shell::process::CommandEvent` API。参阅[嵌入外部二进制文件](/develop/sidecar/#running-it-from-rust) 指南了解如何操作。
 
