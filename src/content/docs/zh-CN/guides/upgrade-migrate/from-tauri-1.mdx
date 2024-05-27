@@ -25,7 +25,7 @@ Tauri v2 CLI 包含一个 `migrate` 命令行工具，可以自动执行大部�
 
 {/* TODO: 2.0 */}
 
-在[命令行界面参考](/2/reference/cli#migrate)中了解有关 `migrate` 命令行工具的更多信息
+在[命令行界面参考](/reference/cli#migrate)中了解有关 `migrate` 命令行工具的更多信息
 
 ## 变化总结
 
@@ -40,7 +40,7 @@ Tauri v2 CLI 包含一个 `migrate` 命令行工具，可以自动执行大部�
 - `tauri > updater > endpoints` 已被移至 `plugins > updater`。
 - `tauri > systemTray` 已被重命名为 `tauri > trayIcon`。
 
-[Tauri 2.0 配置 API 参考](/2/reference/config)
+[Tauri 2.0 配置 API 参考](/reference/config)
 
 ### 新 Cargo 功能
 
@@ -60,17 +60,17 @@ Tauri v2 CLI 包含一个 `migrate` 命令行工具，可以自动执行大部�
 ### Rust Crate 变更
 
 - 删除了 `api` 模块。每个 API 模块都可以在 Tauri 插件中找到。
-- 删除了 `api::dialog` 模块。请改用`tauri-plugin-dialog`。[迁移](#迁移至-dialog（对话框）插件)
+- 删除了 `api::dialog` 模块。请改用`tauri-plugin-dialog`。[迁移](#迁移至-dialog-插件)
 - 删除了 `api::file` 模块。请改用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/)。
 - 删除了 `api::http` 模块。请改用 `tauri-plugin-http`。[迁移](#迁移至-http-插件)
 - `api::ip` 模块已重写并移至 `tauri::ipc`。请查看新的 API，特别是 `tauri::ipc::Channel`。
-- `api::path` 模块函数和 `tauri::PathResolved` 已移至 `tauri::Manager::path`。[迁移](#迁移-path（路径）至-tauri-manager（管理器）)
+- `api::path` 模块函数和 `tauri::PathResolved` 已移至 `tauri::Manager::path`。[迁移](#迁移-path-至-tauri-manager)
 - 删除了 `api::process::Command`、`tauri::api::shell` 和 `tauri::Manager::shell_scope` API。请改用 `tauri-plugin-shell`。[迁移](#迁移至-shell-插件)
 - `api::process::current_binary` 和 `tauri::api::process::restart` 已移至 `tauri::process`。
 - `api::version` 模块已被删除。请改用 [semver crate](https://docs.rs/semver/latest/semver/)。
-- 删除了 `App::clipboard_manager` 和 `AppHandle::clipboard_manager`。请改用 `tauri-plugin-clipboard`。[迁移](#迁移至-clipboard（剪贴板）插件)
-- 删除了 `App::get_cli_matches`。请改用 `tauri-plugin-cli`。[迁移](#迁移至-cli（命令行）插件)
-- 删除了 `App::global_shortcut_manager` 和 `AppHandle::global_shortcut_manager`。请改用`tauri-plugin-global-shortcut`。[迁移](#迁移至-global-shortcut（全局快捷键）插件)
+- 删除了 `App::clipboard_manager` 和 `AppHandle::clipboard_manager`。请改用 `tauri-plugin-clipboard`。[迁移](#迁移至-clipboard-插件)
+- 删除了 `App::get_cli_matches`。请改用 `tauri-plugin-cli`。[迁移](#迁移至-cli-插件)
+- 删除了 `App::global_shortcut_manager` 和 `AppHandle::global_shortcut_manager`。请改用`tauri-plugin-global-shortcut`。[迁移](#迁移至-global-shortcut-插件)
 - 删除了 `Manager::fs_scope`。文件系统可以通过`tauri_plugin_fs::FsExt`访问。
 - `Plugin::PluginApi` 现在接收插件配置作为第二个参数。
 - 删除了 `Plugin::setup_with_config`。请改用更新后的 `tauri::Plugin::PluginApi`。
@@ -78,34 +78,34 @@ Tauri v2 CLI 包含一个 `migrate` 命令行工具，可以自动执行大部�
 - `scope::IpcScope` 被删除，请使用 `scope::ipc::Scope` 代替。
 - `scope::IpcScope` 被删除，请使用 `scope::ipc::Scope` 代替。
 - 删除了 `scope::FsScope`、`scope::GlobPattern` 和 `scope::FsScopeEvent`，现请改用 `scope::fs::Scope`、`scope::fs::Pattern` 和 `scope::fs::Event`。
-- 删除了 `updater` 模块。请改用 `tauri-plugin-updater`。[迁移](#迁移至-updater（升级器）插件)
+- 删除了 `updater` 模块。请改用 `tauri-plugin-updater`。[迁移](#迁移至-updater-插件)
 - `Env.args` 字段已被删除，请使用 `Env.args_os` 字段代替。
-- 删除了 `Menu`、`MenuEvent`、`CustomMenuItem`、`Submenu`、`WindowMenuEvent`、`MenuItem` 和 `Builder::on_menu_event` API。[迁移](#迁移至-menu（菜单）)
-- 删除了 `SystemTray`、`SystemTrayHandle`、`SystemTrayMenu`、`SystemTrayMenuItemHandle`、`SystemTraySubmenu`、`MenuEntry` 和 `SystemTrayMenuItem` API。[迁移](#迁移至-tray-icon（任务栏托盘图标）模块)
+- 删除了 `Menu`、`MenuEvent`、`CustomMenuItem`、`Submenu`、`WindowMenuEvent`、`MenuItem` 和 `Builder::on_menu_event` API。[迁移](#迁移至-menu)
+- 删除了 `SystemTray`、`SystemTrayHandle`、`SystemTrayMenu`、`SystemTrayMenuItemHandle`、`SystemTraySubmenu`、`MenuEntry` 和 `SystemTrayMenuItem` API。[迁移](#迁移至-tray-icon-模块)
 
 ### JavaScript API 接口变更
 
 `@tauri-apps/api` 包不再提供非核心模块，现仅提供`tauri`、`path`和`event`模块。所有其他内容均已移至插件。
 
-- 删除了 `@tauri-apps/api/app` 模块。请改用 `@tauri-apps/plugin-app`。[迁移](#迁移至-app（应用）插件)
-- 删除了 `@tauri-apps/api/cli` 模块。请改用 `@tauri-apps/plugin-cli`。[迁移](#迁移至-cli（命令行）插件)
-- 删除了 `@tauri-apps/api/clipboard` 模块。请改用 `@tauri-apps/plugin-clipboard`。[迁移](#迁移至-clipboard（剪贴板）插件)
-- 删除了 `@tauri-apps/api/dialog` 模块。请改用 `@tauri-apps/plugin-dialog`。[迁移](#迁移至-dialog（对话框）插件)
-- 删除了 `@tauri-apps/api/fs` 模块。请改用 `@tauri-apps/plugin-fs`。[迁移](#迁移至-file-system（文件系统）插件)
-- 删除了 `@tauri-apps/api/global-shortcut` 模块。请改用 `@tauri-apps/plugin-global-shortcut`。[迁移](#迁移至-global-shortcut（全局快捷键）插件)
+- 删除了 `@tauri-apps/api/app` 模块。请改用 `@tauri-apps/plugin-app`。[迁移](#迁移至-app-插件)
+- 删除了 `@tauri-apps/api/cli` 模块。请改用 `@tauri-apps/plugin-cli`。[迁移](#迁移至-cli-插件)
+- 删除了 `@tauri-apps/api/clipboard` 模块。请改用 `@tauri-apps/plugin-clipboard`。[迁移](#迁移至-clipboard-插件)
+- 删除了 `@tauri-apps/api/dialog` 模块。请改用 `@tauri-apps/plugin-dialog`。[迁移](#迁移至-dialog-插件)
+- 删除了 `@tauri-apps/api/fs` 模块。请改用 `@tauri-apps/plugin-fs`。[迁移](#迁移至-file-system-插件)
+- 删除了 `@tauri-apps/api/global-shortcut` 模块。请改用 `@tauri-apps/plugin-global-shortcut`。[迁移](#迁移至-global-shortcut-插件)
 - 删除了 `@tauri-apps/api/http` 模块。请改用 `@tauri-apps/plugin-http`。[迁移](#迁移至-http-插件)
-- 删除了 `@tauri-apps/api/os` 模块。请改用 `@tauri-apps/plugin-os`。[迁移](#迁移至-os（系统）插件)
-- 删除了 `@tauri-apps/api/notification` 模块。请改用`@tauri-apps/plugin-notification`。[迁移](#迁移至-notification（通知）插件)
-- 删除了 `@tauri-apps/api/process` 模块。请改用`@tauri-apps/plugin-process`。[迁移](#迁移至-process（进程）插件)
+- 删除了 `@tauri-apps/api/os` 模块。请改用 `@tauri-apps/plugin-os`。[迁移](#迁移至-os-插件)
+- 删除了 `@tauri-apps/api/notification` 模块。请改用`@tauri-apps/plugin-notification`。[迁移](#迁移至-notification-插件)
+- 删除了 `@tauri-apps/api/process` 模块。请改用`@tauri-apps/plugin-process`。[迁移](#迁移至-process-插件)
 - 删除了 `@tauri-apps/api/shell` 模块。请改用`@tauri-apps/plugin-shell`。[迁移](#迁移至-shell-插件)
-- 删除了 `@tauri-apps/api/updater` 模块。使用 `@tauri-apps/plugin-updater` 代替。[迁移](#迁移至-updater（升级器）插件)
-- 删除了 `@tauri-apps/api/window` 模块。使用 `@tauri-apps/plugin-window` 代替。[迁移](#迁移至-window（窗体）插件)
+- 删除了 `@tauri-apps/api/updater` 模块。使用 `@tauri-apps/plugin-updater` 代替。[迁移](#迁移至-updater-插件)
+- 删除了 `@tauri-apps/api/window` 模块。使用 `@tauri-apps/plugin-window` 代替。[迁移](#迁移至-window-插件)
 
 ## 详细的迁移步骤
 
 将 Tauri 1.0 应用程序迁移到 Tauri 2.0 时可能会遇到的常见场景。
 
-### 迁移至 App（应用）插件
+### 迁移至 App 插件
 
 JavaScript 的 `@tauri-apps/api/app` API 已被删除。请改用 `@tauri-apps/plugin-app` 插件：
 
@@ -165,7 +165,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 CLI（命令行）插件
+### 迁移至 CLI 插件
 
 Rus 的 `App::get_cli_matches` 与 JavaScript 的 `@tauri-apps/api/cli` API 已被移除。请用 `@tauri-apps/plugin-cli` 插件代替：
 
@@ -221,7 +221,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 Clipboard（剪贴板）插件
+### 迁移至 Clipboard 插件
 
 Rust 的 `App::clipboard_manager` 和 `AppHandle::clipboard_manager` 与 JavaScript 的 `@tauri-apps/api/clipboard` API 已被移除。请用 `@tauri-apps/plugin-clipboard-manager` 插件代替：
 
@@ -274,7 +274,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### 迁移至 Dialog（对话框）插件
+### 迁移至 Dialog 插件
 
 Rust 的 `tauri::api::dialog` 与 JavaScript 的 `@tauri-apps/api/dialog` API 已被移除。请用 `@tauri-apps/plugin-dialog` 插件代替：
 
@@ -340,7 +340,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### 迁移至 File System（文件系统）插件
+### 迁移至 File System 插件
 
 Rust 的 `App::get_cli_matches` 与 JavaScript 的 `@tauri-apps/api/fs` API 已被移除。请用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 与 JavaScript 的 `@tauri-apps/plugin-fs` 插件代替：
 
@@ -386,7 +386,7 @@ await createDir('db', { dir: BaseDirectory.AppLocalData });
 </TabItem>
 </Tabs>
 
-### 迁移至 Global Shortcut（全局快捷键）插件
+### 迁移至 Global Shortcut 插件
 
 Rust 的 `App::global_shortcut_manager` 和 `AppHandle::global_shortcut_manager` 与 JavaScript 的 `@tauri-apps/api/global-shortcut` API 已被移除。请用 `@tauri-apps/plugin-global-shortcut` 插件代替：
 
@@ -509,7 +509,7 @@ HTTP 插件包装了 [reqwest](https://docs.rs/reqwest/latest/reqwest/)，所以
 </TabItem>
 </Tabs>
 
-### 迁移至 Notification（通知）插件
+### 迁移至 Notification 插件
 
 Rust 的 `tauri::api::notification` 与 JavaScript 的 `@tauri-apps/api/notification` API 已被移除。请用 `@tauri-apps/plugin-notification` 插件代替：
 
@@ -574,7 +574,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 Menu（菜单）模块
+### 迁移至 Menu 模块
 
 Rust 的 `Menu` 菜单 API 已被移至 `tauri::menu` 模块并用 [muda crate](https://github.com/tauri-apps/muda) 重构。
 
@@ -689,7 +689,7 @@ tauri::Builder::default()
 如果您不希望在选择菜单项时触发所有侦听器，请不要共享菜单项并使用专用实例，您可以将其移至 `tauri::Window/WindowBuilder::on_menu_event` 闭包中。
 :::
 
-### 迁移至 OS（系统）插件
+### 迁移至 OS 插件
 
 Rust 的 `tauri::api::os` 与 JavaScript 的 `@tauri-apps/api/os` API 已被移除。请用 `@tauri-apps/plugin-os` 插件代替：
 
@@ -744,7 +744,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 Process（进程）插件
+### 迁移至 Process 插件
 
 Rust 的 `tauri::api::process` 与 JavaScript 的 `@tauri-apps/api/process` API 已被移除。请用 `@tauri-apps/plugin-process` 插件代替：
 
@@ -930,7 +930,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 Tray Icon（任务栏托盘图标）模块
+### 迁移至 Tray Icon 模块
 
 Rust 的 `SystemTray` API 为一致性已重命名为 `TrayIcon`。新的 API 现可在 Rust 中的 `tray` 模块找到。
 
@@ -944,9 +944,9 @@ let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 
 更多信息请详阅 [TrayIconBuilder](https://docs.rs/tauri/2.0.0-alpha/tauri/tray/struct.TrayIconBuilder.html)。
 
-#### 迁移至 Menu（菜单）
+#### 迁移至 Menu
 
-使用 `tauri::menu::Menu` 代替 `tauri::SystemTrayMenu`, `tauri::menu::Submenu` 来代替 `tauri::SystemTraySubmenu` 还有 `tauri::menu::PredefinedMenuItem` 来代替 `tauri::SystemTrayMenuItem`。[迁移](#迁移至-menu（菜单）)
+使用 `tauri::menu::Menu` 代替 `tauri::SystemTrayMenu`, `tauri::menu::Submenu` 来代替 `tauri::SystemTraySubmenu` 还有 `tauri::menu::PredefinedMenuItem` 来代替 `tauri::SystemTrayMenuItem`。[迁移](#迁移至-menu)
 
 #### 任务栏托盘事件
 
@@ -985,7 +985,7 @@ tauri::Builder::default()
     })
 ```
 
-### 迁移至 Updater（升级器）插件
+### 迁移至 Updater 插件
 
 Rust 的 `tauri::updater` 与 JavaScript 的 `@tauri-apps/api-updater` API 已被移除。请使用 `@tauri-apps/plugin-updater` 设置自定义更新程序目标：
 
@@ -1071,7 +1071,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移至 Window（窗体）插件
+### 迁移至 Window 插件
 
 Rust 的 `tauri::window` 与 JavaScript 的 `@tauri-apps/api/window` API 已被移除。请用 `@tauri-apps/plugin-window` 插件代替：
 
@@ -1129,7 +1129,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移 Path（路径）至 Tauri Manager（管理器）
+### 迁移 Path 至 Tauri Manager
 
 Rust 的 `tauri::api::path` 模块函数和 `tauri::PathResolver` 已被移至 `tauri::Manager::path`：
 
@@ -1159,7 +1159,7 @@ tauri::Builder::default()
 
 ### 迁移 嵌入式外部二进制文件（Sidecar）
 
-在 Tauri v1 中，外部二进制文件及其参数在 allowlist（允许列表）中定义。在 v2 中，请使用新的权限系统。请阅读[迁移权限](#迁移-Permissions（权限配置）) 了解更多信息。
+在 Tauri v1 中，外部二进制文件及其参数在 allowlist（允许列表）中定义。在 v2 中，请使用新的权限系统。请阅读[迁移权限](#迁移-Permissions) 了解更多信息。
 
 在 JavaScript 方面，请确保您已[迁移至 Shell 插件](#迁移至-Shell-插件)。
 
@@ -1167,7 +1167,7 @@ tauri::Builder::default()
 
 Tauri v2 中，`process-command-api` feature flag（功能标识）已被移除。因此，运行外部二进制文件不再需要在 Tauri 配置中定义此功能。
 
-### 迁移 Permissions（权限配置）
+### 迁移 Permissions
 
 Tauri v1 的权限配置系统已被完全重写，现已可适用于单个插件，并且对于多窗口和远程链接支持来说，更加容易配置。
 此新系统的运作逻辑与 ACL（访问控制列表）相似，您可以允许或拒绝命令、为一组特定的窗口和站域分配权限以及自定访问范围。
