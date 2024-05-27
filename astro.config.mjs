@@ -171,11 +171,6 @@ export default defineConfig({
 							autogenerate: { directory: 'develop' },
 						},
 						{
-							label: 'Build',
-							collapsed: true,
-							autogenerate: { directory: 'build' },
-						},
-						{
 							label: 'Distribute',
 							collapsed: true,
 							autogenerate: { directory: 'distribute' },
