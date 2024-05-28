@@ -35,7 +35,9 @@ At the top of the file, define your package name and assign it the variable `pkg
 ### Generating `SRCINFO`
 In order to push your repo to the aur you must generate an `srcinfo` file. This can be done with this command.
 
-`makepkg --printsrcinfo >> .SRCINFO`
+```sh
+makepkg --printsrcinfo >> .SRCINFO
+```
 ### Testing
 Testing the app is extremely simple. All you have to do is run makepkg -f within the same directory as the pkgbuild file and see if it works
 
