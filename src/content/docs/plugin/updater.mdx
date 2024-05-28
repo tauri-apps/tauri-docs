@@ -80,64 +80,28 @@ To sign your updates you need two things:
 1. The public key, which will be set in the `tauri.config.json` to validate the artifacts before the installation.
 2. The private key, which is used to sign your installer files. You should NEVER share this key with anyone. Also, if you lose this key you will NOT be able to publish new updates to the users that have the app already installed. It is important to store this key in a safe place!
 
-To generate the keys on Linux and macOS you can use the Tauri CLI:
+##### To generate the keys on Linux and macOS you can use the Tauri CLI:
 
 <Tabs>
-  <TabItem label="npm">
-  ```zsh
-  npm run tauri signer generate -- -w ~/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="yarn">
-  ```zsh
-  yarn tauri signer generate -w ~/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="pnpm">
-  ```zsh
-  pnpm tauri signer generate -w ~/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="bun">
-  ```zsh
-  bunx tauri signer generate -w ~/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="cargo">
-  ```zsh
-  cargo tauri signer generate -w ~/.tauri/myapp.key
-  ```
-  </TabItem>
+  <CommandTabs
+    npm="npm run tauri signer generate -- -w ~/.tauri/myapp.key"
+    yarn="yarn tauri signer generate -w ~/.tauri/myapp.key"
+    pnpm="pnpm tauri signer generate -w ~/.tauri/myapp.key"
+    bun="bunx tauri signer generate -w ~/.tauri/myapp.key"
+    cargo="cargo tauri signer generate -w ~/.tauri/myapp.key"
+  />
 </Tabs>
 
-If you are on Windows, you should use $HOME/.tauri/myapp.key or a different path of your choice instead:
+##### If you are on Windows, you should use `$HOME/.tauri/myapp.key` or a different path of your choice instead:
 
 <Tabs>
-  <TabItem label="npm">
-  ```cmd
-  npm run tauri signer generate -- -w $HOME/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="yarn">
-  ```cmd
-  yarn tauri signer generate -w $HOME/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="pnpm">
-  ```cmd
-  pnpm tauri signer generate -w $HOME/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="bun">
-  ```cmd
-  bunx tauri signer generate -w $HOME/.tauri/myapp.key
-  ```
-  </TabItem>
-  <TabItem label="cargo">
-  ```cmd
-  cargo tauri signer generate -w $HOME/.tauri/myapp.key
-  ```
-  </TabItem>
+  <CommandTabs
+    npm="npm run tauri signer generate -- -w $HOME/.tauri/myapp.key"
+    yarn="yarn tauri signer generate -w $HOME/.tauri/myapp.key"
+    pnpm="pnpm tauri signer generate -w $HOME/.tauri/myapp.key"
+    bun="bunx tauri signer generate -w $HOME/.tauri/myapp.key"
+    cargo="cargo tauri signer generate -w $HOME/.tauri/myapp.key"
+  />
 </Tabs>
 
 ### Building
@@ -146,7 +110,7 @@ While building your update artifacts, you need to have the private key in your E
 
 <Tabs>
   <TabItem label="Mac/Linux">
-  ```zsh
+  ```sh frame=none
   export TAURI_SIGNING_PRIVATE_KEY=""
   # optionally also add a password
   export TAURI_KEY_PASSWORD=""
@@ -154,7 +118,7 @@ While building your update artifacts, you need to have the private key in your E
   </TabItem>
   <TabItem label="Windows">
   Run this in `PowerShell`:
-  ```cmd
+  ```ps frame=none
   $env:TAURI_SIGNING_PRIVATE_KEY=""
   <# optionally also add a password #>
   $env:TAURI_KEY_PASSWORD=""
@@ -199,7 +163,7 @@ Each updater URL can contain the following dynamic variables, allowing you to de
 - `{{target}}`: The operating system name (one of Linux, windows or Darwin).
 - `{{arch}}`: The architecture of the machine (one of x86_64, i686, aarch64 or armv7).
 
-```json
+```json title=tauri.conf.json
 {
   // other configuration
   "plugins": {
