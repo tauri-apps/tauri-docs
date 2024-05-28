@@ -11,9 +11,9 @@ banner:
 
 ![Hero Image](./roadmap-to-tauri-2-0/header.png)
 
-Tauri 1.0 was [released in June 2022](/blog/tauri-1-0) and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust. Tauri has been pivotal in redefining and asking the question: "What is an app?"
+Tauri 1.0 was [released in June 2022](/blog/tauri-1-0/) and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust. Tauri has been pivotal in redefining and asking the question: "What is an app?"
 
-Version 1.0 launched with support for Linux, macOS, and Windows and has been updated with new features, DX improvements, and bug fixes to bring us to [Tauri 1.4](/blog/tauri-1-4) that is available now.
+Version 1.0 launched with support for Linux, macOS, and Windows and has been updated with new features, DX improvements, and bug fixes to bring us to [Tauri 1.4](/blog/tauri-1-4/) that is available now.
 
 But there's one question the Tauri Working Group gets asked time and time again. We affectionately refer to it as "Mobile when?!?" and today we'd like to outline the path ahead of us to get to Tauri 2.0 and to answer that question.
 
@@ -74,7 +74,7 @@ As we make progress towards Tauri 2.0 we'll be sure to share updates to the comm
 While we're working towards Tauri 2.0 stable there are a lot of ways for the community to get involved. The more involvement and feedback we have, the better Tauri 2.0 will be for everyone. Here are just a few ways to get involved:
 
 - Test prerelease versions of Tauri and give feedback via Discord and GitHub issues.
-- Contribute to documentation and translations on https://beta.tauri.app.
+- Contribute to documentation and translations on https://v2.tauri.app.
 - Help in the Tauri community by supporting others in Discord and GitHub issues and giving feedback for major issues that arise.
 - Begin planning content around Tauri 2.0 (although we recommend waiting until at least 2.0 beta). Reach out to the Tauri Working Group on Discord if you would like to collaborate on content ideas such as videos, blogs, courses, or anything else.
 

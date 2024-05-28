@@ -1,0 +1,50 @@
+---
+title: Configuración del Frontend
+i18nReady: true
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri es agnóstico al frontend y soporta la mayoría de los frameworks de frontend sin necesidad de demasiada configuración. Sin embargo, en casos puntuales algún framework podría necesitar configuración extra para funcionar con Tauri. Debajo puedes consultar una lista de frameworks con sus configuraciones recomendadas.
+
+Si un framework no aparece en esta lista puede que funcione con Tauri sin necesidad de configuraciones adicionales o puede que aún no haya sido documentado. Todas las contribuciones para añadir un framework que requiera configuraciones adicionales son bienvenidas en la comunidad de Tauri.
+
+:::tip[¿No ves un framework en concreto?]
+
+¿Falta algún framework en esta lista? Puede que funcione con Tauri sin necesidad de configuraciones adicionales. En la [checklist de configuración](#checklist-de-configuración) podrás encontrar configuraciones comunes.
+
+:::
+
+## JavaScript
+
+<CardGrid>
+  <LinkCard title="Next.js" href="/start/frontend/nextjs" />
+  <LinkCard title="Nuxt" href="/start/frontend/nuxt" />
+  <LinkCard title="Qwik" href="/start/frontend/qwik" />
+  <LinkCard title="Svelte" href="/start/frontend/svelte" />
+  <LinkCard title="Vite" href="/start/frontend/vite" />
+  <LinkCard title="Webpack" href="/start/frontend/webpack" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+  <LinkCard title="Leptos" href="/start/frontend/leptos" />
+  <LinkCard title="Sycamore" href="/start/frontend/sycamore" />
+  <LinkCard title="Trunk" href="/start/frontend/trunk" />
+  <LinkCard title="Yew" href="/start/frontend/yew" />
+</CardGrid>
+
+## Checklist de Configuración
+
+Conceptualmente Tauri desempeña el rol de un servidor web estático. Necesitas proveer a Tauri de un directorio con HTML, CSS, Javascript y posiblemente WASM que puedan ser servidos a la webview de Tauri.
+
+Debajo puedes consultar una checklist de escenarios comunes al integrar un frontend con Tauri:
+
+{/* TODO: Link to core concept of SSG/SSR, etc. */}
+{/* TODO: Link to mobile development server guide */}
+{/* TODO: Concept of how to do a client-server relationship? */}
+
+- Usa la generación de sitios estáticos (SSG). Tauri no soporta alternativas basadas en servidores de manera oficial (como SSR).
+- Para el desarrollo de apps móviles, es necesario un servidor de desarrollo de algun tipo para servir el frontend desde tu IP interna.
+- Usa una relación cliente-servidor adecuada entre tu APP y tus APIs (no uses soluciones híbridas con SSR).

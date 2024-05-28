@@ -1,0 +1,51 @@
+---
+title: Trunk
+i18nReady: true
+---
+
+Trunk est un bundler d'applications web WASM pour Rust. Apprenez-en plus au sujet de Trunk sur https://trunkrs.dev. Ce guide est valable à partir de Trunk 0.17.5.
+
+:::caution[Note sur le Support Mobile]
+
+Le développement mobile avec Tauri est actuellement impossible avec la version officielle de Trunk. Si vous développez pour mobile vous aurez besoin d'utiliser https://github.com/amrbashir/trunk jusqu'à ce que https://github.com/thedodd/trunk/pull/494 et https://github.com/thedodd/trunk/pull/500 soient fusionnées et disponibles.
+
+Vous devrez utiliser `cargo install --git https://github.com/amrbashir/trunk` pour installer Trunk, ensuite définissez `serve.ws_protocol = "ws"` dans `Trunk.toml`.
+
+:::
+
+## Liste de contrôle
+
+- Utilisez SSG, Tauri ne supporte pas officielement les solutions basées sur un serveur.
+
+- Utilisez `address = "0.0.0.0"` pour que le serveur web soit disponible sur le réseau pour le développement mobile.
+- Activez `withGlobalTauri` pour vous assurer que les APIs de Tauri sont disponibles dans la variable `window.__TAURI__` et peuvent être importées en utilisant `wasm-bindgen`.
+
+## Exemple de configuration
+
+1. Mettez à jour votre configuration de Tauri :
+
+```json
+// tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "trunk serve",
+    "beforeBuildCommand": "trunk build",
+    "devPath": "http://localhost:8080",
+    "distDir": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true
+  }
+}
+```
+
+2. Mettez à jour la configuration de Trunk :
+
+```toml
+# Trunk.toml
+[watch]
+ignore = ["./src-tauri"]
+
+[serve]
+address = "0.0.0.0"
+```

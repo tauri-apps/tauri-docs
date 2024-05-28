@@ -129,21 +129,21 @@ See [@tauri-apps/plugin-fs - Security](/reference/javascript/fs/#security) for m
 
 By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Access Control List](/reference/acl/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"fs:default",
-		{
-			"identifier": "fs:allow-exists",
-			"allow": [{ "path": "$APPDATA/*" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
 }
 ```
 
@@ -464,16 +464,16 @@ To allow any `fs` command to access specific scopes:
 
 ```json title="src-tauri/capabilities/main.json" {7-10}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "fs:scope",
-			"allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+    }
+  ]
 }
 ```
 
@@ -481,19 +481,19 @@ To allow specific `fs` command to access specific scopes:
 
 ```json title="src-tauri/capabilities/main.json" {7-14}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "fs:allow-rename",
-			"allow": [{ "path": "$HOME/**" }]
-		},
-		{
-			"identifier": "fs:allow-exists",
-			"allow": [{ "path": "$APPDATA/*" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
 }
 ```
