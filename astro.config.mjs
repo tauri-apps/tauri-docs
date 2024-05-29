@@ -127,31 +127,52 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Guides',
+          translations: {
+            'zh-CN': '指引',
+          },
           collapsed: true,
           items: [
             {
               label: 'Quick Start',
+              translations: {
+                'zh-CN': '快速开始',
+              },
               collapsed: true,
               items: [
                 {
                   label: 'What is Tauri?',
+                  translations: {
+                    'zh-CN': '什么是 Tauri？',
+                  },
                   link: '/start/',
                 },
                 {
                   label: 'Prerequisites',
+                  translations: {
+                    'zh-CN': '前置条件',
+                  },
                   link: '/start/prerequisites/',
                 },
                 {
                   label: 'Create a Project',
+                  translations: {
+                    'zh-CN': '创建项目',
+                  },
                   link: '/start/create-project/',
                 },
                 {
                   label: 'Frontend Configuration',
+                  translations: {
+                    'zh-CN': '前端配置',
+                  },
                   collapsed: true,
                   autogenerate: { directory: 'start/frontend' },
                 },
                 {
                   label: 'Upgrade & Migrate',
+                  translations: {
+                    'zh-CN': '升级和迁移',
+                  },
                   collapsed: true,
                   autogenerate: { directory: 'start/migrate' },
                 },
@@ -159,36 +180,57 @@ export default defineConfig({
             },
             {
               label: 'Core Concepts',
+              translations: {
+                'zh-CN': '核心概念',
+              },
               collapsed: true,
               autogenerate: { directory: 'concept' },
             },
             {
               label: 'Security',
+              translations: {
+                'zh-CN': '安全',
+              },
               collapsed: true,
               autogenerate: { directory: 'security' },
             },
             {
               label: 'Develop',
+              translations: {
+                'zh-CN': '开发',
+              },
               collapsed: true,
               autogenerate: { directory: 'develop' },
             },
             {
               label: 'Distribute',
+              translations: {
+                'zh-CN': '分发',
+              },
               collapsed: true,
               autogenerate: { directory: 'distribute' },
             },
             {
               label: 'Learn',
+              translations: {
+                'zh-CN': '学习',
+              },
               collapsed: true,
               autogenerate: { directory: 'learn' },
             },
             {
               label: 'Plugins',
+              translations: {
+                'zh-CN': '插件',
+              },
               collapsed: true,
               autogenerate: { directory: 'plugin' },
             },
             {
               label: 'About',
+              translations: {
+                'zh-CN': '关于',
+              },
               collapsed: true,
               autogenerate: { directory: 'about' },
             },
@@ -196,30 +238,51 @@ export default defineConfig({
         },
         {
           label: 'References',
+          translations: {
+            'zh-CN': '参考',
+          },
           collapsed: true,
           items: [
             {
               label: 'Access Control List',
+              translations: {
+                'zh-CN': '访问控制列表',
+              },
               link: '/reference/acl/',
             },
             {
               label: 'Command Line Interface (CLI)',
+              translations: {
+                'zh-CN': '命令行接口（CLI）',
+              },
               link: '/reference/cli/',
             },
             {
               label: 'Configuration',
+              translations: {
+                'zh-CN': '配置',
+              },
               link: '/reference/config/',
             },
             {
               label: 'Environment Variables',
+              translations: {
+                'zh-CN': '环境变量',
+              },
               link: '/reference/environment-variables/',
             },
             {
               label: 'Webview Versions',
+              translations: {
+                'zh-CN': 'Webview 版本',
+              },
               link: '/reference/webview-versions/',
             },
             {
               label: 'Releases',
+              translations: {
+                'zh-CN': '发行版',
+              },
               collapsed: true,
               autogenerate: { directory: 'release' },
             },
@@ -236,6 +299,9 @@ export default defineConfig({
         },
         {
           label: 'Blog',
+          translations: {
+            'zh-CN': '博客',
+          },
           collapsed: true,
           items: [
             {
