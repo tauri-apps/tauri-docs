@@ -3,6 +3,6 @@
   "cloneSubmodules": true,
   "git-submodules": {
     "enabled": true,
-    "schedule": ["every friday at 1am"]
+    "schedule": ["every weekend"]
   }
 }
