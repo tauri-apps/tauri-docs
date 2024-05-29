@@ -199,8 +199,9 @@ export default defineConfig({
           collapsed: true,
           items: [
             {
-              label: 'Access Control List',
-              link: '/reference/acl/',
+              label: 'Security',
+              collapsed: true,
+              autogenerate: { directory: 'reference/acl' },
             },
             {
               label: 'Command Line Interface (CLI)',

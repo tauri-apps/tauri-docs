@@ -2,12 +2,31 @@ import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-sc
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
-buildConfig(
+generatePageFromSchema(
   '../tauri/core/tauri-config-schema/schema.json',
-  '../../src/content/docs/reference/config.md'
+  '../../src/content/docs/reference/config.md',
+  'Configuration'
 );
 
-async function buildConfig(schemaFile: string, outputFile: string) {
+generatePageFromSchema(
+  '../tauri/core/tauri-acl-schema/capability-schema.json',
+  '../../src/content/docs/reference/acl/capability.md',
+  'Capability'
+);
+
+generatePageFromSchema(
+  '../tauri/core/tauri-acl-schema/permission-schema.json',
+  '../../src/content/docs/reference/acl/permission.md',
+  'Permission'
+);
+
+generatePageFromSchema(
+  '../tauri/core/tauri-acl-schema/scope-schema.json',
+  '../../src/content/docs/reference/acl/scope.md',
+  'Scope'
+);
+
+async function generatePageFromSchema(schemaFile: string, outputFile: string, pageTitle: string, sidebarOrder: number = 1) {
   if (!existsSync(schemaFile)) {
     throw Error('Could not find the Tauri config schema. Is the Tauri submodule initialized?');
   }
@@ -15,7 +34,15 @@ async function buildConfig(schemaFile: string, outputFile: string) {
   let schema: JSONSchema7 = (await import(schemaFile)).default;
 
   const output = [
-    '---\n# NOTE: This file is auto-generated in packages/config-generator/build.ts\n# For corrections please edit https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs directly\n\ntitle: Configuration\nsidebar:\n  order: 1\n---',
+    `---
+  # NOTE: This file is auto-generated. Do not edit here!
+  # For corrections please directly edit the documentation of the underlying Rust source code.
+  # Example for the configuration reference: 
+  # - https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs
+  
+  title: ${pageTitle}
+  sidebar:
+    order: ${sidebarOrder}\n---`,
   ];
 
   output.push(
