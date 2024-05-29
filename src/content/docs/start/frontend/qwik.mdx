@@ -54,23 +54,22 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       pnpm="pnpm tauri init --ci"
     />
 
-
 1.  ##### Tauri configuration
 
     <Tabs>
 
     <TabItem label="npm">
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "frontendDist": "../dist",
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run build"
-      }
-    }
-    ```
-    </TabItem>
+```json
+// tauri.conf.json
+{
+  "build": {
+    "frontendDist": "../dist",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  }
+}
+```
+</TabItem>
 
     <TabItem label="yarn">
 
@@ -84,6 +83,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       }
     }
     ```
+
     </TabItem>
 
     <TabItem label="pnpm">
@@ -98,15 +98,17 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       }
     }
     ```
+
     </TabItem>
 
     </Tabs>
 
     optional with customized port:
+
     ```json
     {
       "build": {
-        "devUrl": "http://localhost:5173",
+        "devUrl": "http://localhost:5173"
       }
     }
     ```
@@ -118,6 +120,5 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       yarn="yarn tauri dev"
       pnpm="pnpm tauri dev"
     />
-    
 
 </Steps>
