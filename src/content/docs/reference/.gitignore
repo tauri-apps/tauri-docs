@@ -1,4 +1,4 @@
 config.md
-acl/
+acl/*.md
 javascript/*
 !javascript/index.mdx
