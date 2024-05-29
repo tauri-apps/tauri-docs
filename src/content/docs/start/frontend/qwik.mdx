@@ -1,14 +1,123 @@
 ---
 title: Qwik
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+i18nReady: true
 tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 5
 ---
 
-import Stub from '@components/Stub.astro';
+import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
-<Stub />
+This guide will walk you through creating your Tauri app using the Qwik web framework. Learn more about Qwik at https://qwik.dev.
+
+## Checklist
+
+- Use [SGG](https://qwik.dev/docs/guides/static-site-generation/). Tauri doesn't support server-based solutions.
+- Use `dist/` as `frontendDist` in `tauri.conf.json`.
+
+## Example Setup
+
+<Steps>
+
+1.  ##### Create new Qwik app
+
+    <CommandTabs
+      npm="npm create qwik@latest"
+      yarn="yarn create qwik@latest"
+      pnpm="pnpm create qwik@latest"
+    />
+
+    ```shell
+    cd <PROJECT>
+    ```
+
+1.  ##### Install `static adapter`
+
+    <CommandTabs
+      npm="npm run qwik add static"
+      yarn="yarn qwik add static"
+      pnpm="pnpm qwik add static"
+    />
+
+1.  ##### Integrate `tauri` to your project
+
+    <CommandTabs
+      npm="npm install -D @tauri-apps/cli"
+      yarn="yarn add -D @tauri-apps/cli"
+      pnpm="pnpm add -D @tauri-apps/cli"
+    />
+
+    <CommandTabs
+      npm="npm run tauri init --ci"
+      yarn="yarn tauri init --ci"
+      pnpm="pnpm tauri init --ci"
+    />
+
+
+1.  ##### Tauri configuration
+
+    <Tabs>
+
+    <TabItem label="npm">
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "frontendDist": "../dist",
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build"
+      }
+    }
+    ```
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "frontendDist": "../dist",
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build"
+      }
+    }
+    ```
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "frontendDist": "../dist",
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build"
+      }
+    }
+    ```
+    </TabItem>
+
+    </Tabs>
+
+    optional with customized port:
+    ```json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173",
+      }
+    }
+    ```
+
+1.  ##### Start your `tauri` app
+
+    <CommandTabs
+      npm="npm run tauri dev"
+      yarn="yarn tauri dev"
+      pnpm="pnpm tauri dev"
+    />
+    
+
+</Steps>
