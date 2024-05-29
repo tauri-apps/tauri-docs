@@ -5,6 +5,8 @@
 [submodule "packages/awesome-tauri"]
 	path = packages/awesome-tauri
 	url = https://github.com/tauri-apps/awesome-tauri
+	branch = dev
 [submodule "packages/tauri"]
 	path = packages/tauri
 	url = https://github.com/tauri-apps/tauri.git
+	branch = dev
