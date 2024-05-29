@@ -28,7 +28,7 @@ generatePageFromSchema(
 
 async function generatePageFromSchema(schemaFile: string, outputFile: string, pageTitle: string, sidebarOrder: number = 1) {
   if (!existsSync(schemaFile)) {
-    throw Error('Could not find the Tauri config schema. Is the Tauri submodule initialized?');
+    throw Error(`Could not find the Tauri config schema ${schemaFile}. Is the Tauri submodule initialized?`);
   }
 
   let schema: JSONSchema7 = (await import(schemaFile)).default;
