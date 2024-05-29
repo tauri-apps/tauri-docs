@@ -109,7 +109,7 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
 ```
 
 [transport_layer_security]: https://en.wikipedia.org/wiki/Transport_Layer_Security
-[security: threat models]: /security/development/
+[security: threat models]: /security/lifecycle/
 [events]: /reference/javascript/api/namespaceevent/
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 [brownfield pattern]: /concept/inter-process-communication/brownfield/
