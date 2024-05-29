@@ -3,34 +3,24 @@
 name: Format
 
 on:
-  push:
-    branches:
-      - v2
+  pull_request:
 
 jobs:
   format:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code using Git
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          # Needs access to push to main
-          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
+        uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 9
+
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'pnpm'
       - run: pnpm i
+
       - name: Format with Prettier
         run: pnpm format
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: '[ci] format'
-          branch: ${{ github.head_ref }}
-          commit_user_name: tauri-bot
-          commit_user_email: tauri-bot@users.noreply.github.com
