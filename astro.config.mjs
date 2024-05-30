@@ -244,11 +244,12 @@ export default defineConfig({
           collapsed: true,
           items: [
             {
-              label: 'Access Control List',
+              label: 'Security',
               translations: {
-                'zh-CN': '访问控制列表',
+                'zh-CN': '安全',
               },
-              link: '/reference/acl/',
+              collapsed: true,
+              autogenerate: { directory: 'reference/acl' },
             },
             {
               label: 'Command Line Interface (CLI)',
