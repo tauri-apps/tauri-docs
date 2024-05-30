@@ -21,7 +21,7 @@
 /guides/upgrade-migrate/*   /start/upgrade--migrate/:splat       301
 
 /references/v2/cli          /references/cli                      301
-/references/v2/acl          /references/acl                      301
+/references/v2/acl          /references/acl/capability               301
 /references/v2/config       /references/config                   301
 /references/v2/js           /references/javascript/api           301
 /references/v2/js/*         /references/javascript/api/:splat    301
