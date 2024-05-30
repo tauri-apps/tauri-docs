@@ -252,7 +252,7 @@ export default defineConfig({
               autogenerate: { directory: 'reference/acl' },
             },
             {
-              label: 'Command Line Interface (CLI)',
+              label: 'Command Line Interface',
               translations: {
                 'zh-CN': '命令行接口（CLI）',
               },
