@@ -117,39 +117,13 @@ const links: Link[] = [
 			align-content: center;
 		}
 	}
-
-	.action {
-		gap: 0.5em;
-		align-items: center;
-		padding: 0.5rem 1.125rem;
-		color: var(--sl-color-gray-1);
-		line-height: 1.1875;
-		text-decoration: none;
-		font-size: var(--sl-text-sm);
-	}
-	.action:hover {
+	a:hover {
 		color: var(--sl-color-gray-2);
 	}
-	.action.primary {
-		background: var(--sl-color-text-accent);
-		color: var(--sl-color-black);
-	}
-	.action.secondary {
-		border: 1px solid;
-	}
-	.action.minimal {
-		padding-inline: 0;
-	}
-
-	@media (min-width: 50rem) {
-		.action {
-			font-size: var(--sl-text-base);
-			padding: 1rem 1.25rem;
+	:root[data-theme='light'] {
+		a:hover {
+			color: var(--sl-color-gray-3);
 		}
-	}
-
-	.release-link {
-		gap: 1rem;
 	}
 </style>
 <style is:global>
