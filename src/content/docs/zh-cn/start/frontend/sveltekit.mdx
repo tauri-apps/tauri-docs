@@ -1,0 +1,118 @@
+---
+title: SvelteKit
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的信息，请访问 https://kit.svelte.dev/ 。本指南适用于 SvelteKit 2.5.7 / Svelte 4.2.15 版本。
+
+## 清单
+
+- Tauri 不支持基于服务器的解决方案。请通过 `static-adapter` 使用 [SSG](https://kit.svelte.dev/docs/adapter-static) 或者 [SPA](https://kit.svelte.dev/docs/single-page-apps) via `static-adapter`。
+- 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `build/` 。
+
+## 示例配置
+
+<Steps>
+1.  ##### 安装 `@sveltejs/adapter-static`
+
+    <CommandTabs
+      npm="npm install --save-dev @sveltejs/adapter-static"
+      yarn="yarn add -D @sveltejs/adapter-static"
+      pnpm="pnpm add -D @sveltejs/adapter-static"
+    />
+
+2.  ##### 更新 Tauri 配置
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../build"
+          }
+        }
+        ```
+
+        </TabItem>
+
+        <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../build"
+          }
+        }
+        ```
+
+        </TabItem>
+
+        <TabItem label="pnpm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../build"
+          }
+        }
+        ```
+
+        </TabItem>
+
+        </Tabs>
+
+3.  ##### 更新 SvelteKit 配置
+
+    ```js title="svelte.config.js" {1}
+    import adapter from '@sveltejs/adapter-static';
+    import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+    /** @type {import('@sveltejs/kit').Config} */
+    const config = {
+      // Consult https://kit.svelte.dev/docs/integrations#preprocessors
+      // for more information about preprocessors
+      preprocess: vitePreprocess(),
+
+      kit: {
+        adapter: adapter(),
+      },
+    };
+
+    export default config;
+    ```
+
+4.  ##### 禁用 SSR
+
+    最后，我们需要通过添加一个名为 `+layout.ts` 文件（如果您不使用 TypeScript，则为 `+layout.js`）并包含以下内容来禁用 SSR 并启用预渲染。
+
+    ```ts
+    // src/routes/+layout.ts
+    export const prerender = true;
+    export const ssr = false;
+    ```
+
+    请注意，`static-adapter` 不需要您禁用整个应用程序的 SSR，但它使得使用依赖于全局 window 对象的 API（例如 Tauri 的 API）成为可能，而无需进行[客户端检查](https://kit.svelte.dev/docs/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window)。
+
+    此外，如果您更喜欢单页面应用（SPA）模式而不是 SSG，您可以根据[适配器文档](https://kit.svelte.dev/docs/single-page-apps)更改适配器配置和 `+layout.ts`。
+
+</Steps>
