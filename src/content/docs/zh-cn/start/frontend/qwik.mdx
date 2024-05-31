@@ -9,18 +9,18 @@ tableOfContents:
 import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-This guide will walk you through creating your Tauri app using the Qwik web framework. Learn more about Qwik at https://qwik.dev.
+本指南将引导您使用 Qwik Web 框架创建 Tauri 应用程序。了解更多关于 Qwik 的信息，请访问 https://qwik.dev 。
 
-## Checklist
+## 清单
 
-- Use [SSG](https://qwik.dev/docs/guides/static-site-generation/). Tauri doesn't support server-based solutions.
-- Use `dist/` as `frontendDist` in `tauri.conf.json`.
+- Tauri 不支持基于服务器的解决方案。请使用 [SSG](https://qwik.dev/docs/guides/static-site-generation/)。
+- 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `dist/` 。
 
-## Example Configuration
+## 示例配置
 
 <Steps>
 
-1.  ##### Create a new Qwik app
+1.  ##### 创建一个新的 Qwik 应用程序
 
     <CommandTabs
       npm={`npm create qwik@latest
@@ -31,7 +31,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
     cd <PROJECT>`}
     />
 
-1.  ##### Install the `static adapter`
+1.  ##### 安装 `static adapter`
 
     <CommandTabs
       npm="npm run qwik add static"
@@ -39,7 +39,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       pnpm="pnpm qwik add static"
     />
 
-1.  ##### Add the Tauri CLI to your project
+1.  ##### 将 Tauri CLI 添加到您的项目中
 
     <CommandTabs
       npm="npm install -D @tauri-apps/cli"
@@ -47,7 +47,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       pnpm="pnpm add -D @tauri-apps/cli"
     />
 
-1.  ##### Initiate a new Tauri project
+1.  ##### 初始化一个新的 Tauri 项目
 
     <CommandTabs
       npm="npm run tauri init"
@@ -55,7 +55,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       pnpm="pnpm tauri init"
     />
 
-1.  ##### Tauri configuration
+1.  ##### Tauri 配置
 
     <Tabs>
 
@@ -109,7 +109,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
 
     </Tabs>
 
-1.  ##### Start your `tauri` app
+1.  ##### 启动你的 `tauri` 应用
 
     <CommandTabs
       npm="npm run tauri dev"
