@@ -35,7 +35,7 @@ v1 版本中负责在 Rust 和 JavaScript 间传递消息的进程间通信（IP
 
 ### 多 webview 支持
 
-Tauri 现在支持在同一个窗口内添加多个 webview 了。这也是[功能需求](https://github.com/tauri-apps/tauri/issues/4338)中得到高度参与的项目。
+Tauri 现在支持在同一个窗口内添加多个 webview 了。这也是最备受期待的[功能需求](https://github.com/tauri-apps/tauri/issues/2709)。
 
 需要注意的是，这项功能当下还是一项未最终完成的特性，被隐藏在 `unstable` Cargo 特性标签下，我们还在与社群一起评议 API 设计方案。
 
