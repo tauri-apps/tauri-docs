@@ -343,7 +343,7 @@ pub struct Entry {
 
 ###### Command Scope
 
-Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/#scopes)).
+Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/scope)).
 You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
@@ -457,7 +457,7 @@ fn main() {
 }
 ```
 
-See the [Access Control List](/reference/acl/) documentation for more information.
+See the [Permissions Overview](/security/permissions/) documentation for more information.
 
 ## Managing State
 

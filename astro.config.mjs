@@ -244,14 +244,15 @@ export default defineConfig({
           collapsed: true,
           items: [
             {
-              label: 'Access Control List',
+              label: 'Security',
               translations: {
-                'zh-CN': '访问控制列表',
+                'zh-CN': '安全',
               },
-              link: '/reference/acl/',
+              collapsed: true,
+              autogenerate: { directory: 'reference/acl' },
             },
             {
-              label: 'Command Line Interface (CLI)',
+              label: 'Command Line Interface',
               translations: {
                 'zh-CN': '命令行接口（CLI）',
               },
@@ -293,7 +294,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-beta.19/tauri/index.html',
+              link: 'https://docs.rs/tauri/2.0.0-beta.22/tauri/index.html',
             },
           ],
         },
