@@ -209,7 +209,7 @@ Simplemente renombra la importación del módulo:
 
 ### Migrar al plugin CLI
 
-Las APIs de Rust `App::get_cli_matches` JavaScript `@tauri-apps/api/cli` han sido eliminadas. Utiliza en su lugar el plugin `@tauri-apps/plugin-cli`:
+Las APIs de Rust `App::get_cli_matches` y JavaScript `@tauri-apps/api/cli` han sido eliminadas. Utiliza en su lugar el plugin `@tauri-apps/plugin-cli`:
 
 1. Agrega a las dependencias de Cargo:
 
@@ -219,7 +219,7 @@ Las APIs de Rust `App::get_cli_matches` JavaScript `@tauri-apps/api/cli` han sid
 tauri-plugin-cli = "2"
 ```
 
-2. Úsalo en un proyecto JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -265,7 +265,7 @@ fn main() {
 
 ### Migrar al Plugin de Portapapeles
 
-Las APIs Rust `App::clipboard_manager` y `AppHandle::clipboard_manager`, y la API JavaScript `@tauri-apps/api/clipboard` han sido eliminadas. En su lugar, utiliza el plugin `@tauri-apps/plugin-clipboard-manager`:
+Las APIs de Rust `App::clipboard_manager`,`AppHandle::clipboard_manager` y la API JavaScript `@tauri-apps/api/clipboard` han sido eliminadas. En su lugar, utiliza el plugin `@tauri-apps/plugin-clipboard-manager`:
 
 ```toml
 [dependencies]
@@ -318,7 +318,7 @@ tauri::Builder::default()
 
 ### Migrar al Plugin de diálogo
 
-Las APIs de Rust `tauri::api::dialog` JavaScript `@tauri-apps/api/dialog` han sido eliminadas. Utiliza en su lugar el plugin `@tauri-apps/plugin-dialog`:
+Las APIs de Rust `tauri::api::dialog` y JavaScript `@tauri-apps/api/dialog` han sido eliminadas. Utiliza en su lugar el plugin `@tauri-apps/plugin-dialog`:
 
 1. Agrega a las dependencias de Cargo:
 
@@ -328,7 +328,7 @@ Las APIs de Rust `tauri::api::dialog` JavaScript `@tauri-apps/api/dialog` han si
 tauri-plugin-dialog = "2"
 ```
 
-2. Úsalo en un proyecto JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -394,7 +394,7 @@ Las APIs de Rust `App::get_cli_matches` y JavaScript `@tauri-apps/api/fs` han si
 tauri-plugin-fs = "2"
 ```
 
-2. Úsalo en un proyecto JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -452,7 +452,7 @@ Las APIs de Rust `App::global_shortcut_manager` y `AppHandle::global_shortcut_ma
 tauri-plugin-global-shortcut = "2"
 ```
 
-2. Úsalo en un proyecto JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -517,7 +517,7 @@ Las APIs de Rust `tauri::api::http` y JavaScript `@tauri-apps/api/http` han sido
 tauri-plugin-http = "2"
 ```
 
-2. Úsalo en un proyecto de JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -583,7 +583,7 @@ Las APIs de Rust `tauri::api::notification` y JavaScript `@tauri-apps/api/notifi
 tauri-plugin-notification = "2"
 ```
 
-2. Úsalo en proyectos JavaScript o Rust:
+2. Úsalo en proyectos con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -663,7 +663,7 @@ tauri::Builder::default()
     })
 ```
 
-#### Use `tauri::menu::PredefinedMenuItem`
+#### Usa `tauri::menu::PredefinedMenuItem`
 
 Utiliza `tauri::menu::PredefinedMenuItem` en lugar de `tauri::MenuItem`:
 
@@ -745,7 +745,7 @@ tauri::Builder::default()
 Ten en cuenta que hay dos formas de verificar qué elemento del menú fue seleccionado: mover el elemento al cierre del controlador de eventos y comparar los identificadores, o definir un identificador personalizado para el elemento a través del constructor with_id y usar esa cadena de identificación para comparar.
 
 :::tip
-Los elementos del menú pueden compartirse entre menús, y el evento del menú está vinculado a un elemento del menú en lugar de a un menú o ventana.
+Los elementos del menú pueden compartirse entre menús y el evento del menú está vinculado a un elemento del menú en lugar de a un menú o ventana.
 Si no deseas que se activen todos los escuchadores cuando se selecciona un elemento del menú, no compartas los elementos del menú y utiliza instancias dedicadas en su lugar, que podrías mover al cierre de `tauri::WebviewWindow/WebviewWindowBuilder::on_menu_event`.
 :::
 
@@ -816,7 +816,7 @@ Las APIs `tauri::api::process` de Rust y `@tauri-apps/api/process` de JavaScript
 tauri-plugin-process = "2"
 ```
 
-2. Úsalo en proyectos JavaScript o Rust:
+2. Úsalo en proyectos con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -875,7 +875,7 @@ Las APIs `tauri::api::shell` de Rust y `@tauri-apps/api/shell` de JavaScript han
 tauri-plugin-shell = "2"
 ```
 
-2. Úsalo en un proyecto JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -1057,7 +1057,7 @@ Las APIs `tauri::updater` de Rust y `@tauri-apps/api-updater` de JavaScript han 
 tauri-plugin-updater = "2"
 ```
 
-2. Úsalo en un proyecto JavaScript o Rust:
+2. Úsalo en un proyecto con JavaScript o Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -1165,7 +1165,7 @@ En Tauri v1, los binarios externos y sus argumentos se definían en la lista bla
 
 En el lado de JavaScript, asegúrate de [Migrar al Plugin Shell](#migrar-al-plugin-shell).
 
-En el lado de Rust, la API `tauri::api::process` ha sido eliminada. Usa `tauri_plugin_shell::ShellExt` y las APIs `tauri_plugin_shell::process::CommandEvent` en su lugar. Lee la guía [Incrustar Binarios Externos](/develop/sidecar/#running-it-from-rust) para ver cómo.
+En el lado de Rust, la API `tauri::api::process` ha sido eliminada. Usa `tauri_plugin_shell::ShellExt` y las APIs `tauri_plugin_shell::process::CommandEvent` en su lugar. Lee la guía de [Incrustar Binarios Externos](/develop/sidecar/#running-it-from-rust) para ver cómo.
 
 El indicador de características "process-command-api" ha sido eliminado en la v2. Por lo tanto, ejecutar los binarios externos ya no requiere que esta característica esté definida en la configuración de Tauri.
 
