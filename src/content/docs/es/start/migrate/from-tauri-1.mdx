@@ -159,7 +159,7 @@ El paquete `@tauri-apps/api` ya no proporciona módulos no centrales. Sólo se e
 
 ### Cambios en las variables de entorno
 
-Most of the environment variables read and written by the Tauri CLI were renamed for consistency and prevention of mistakes:
+La mayoría de las variables de entorno leídas y escritas por el CLI de Tauri fueron renombradas por consistencia y prevención de errores:
 
 - `TAURI_PRIVATE_KEY` -> `TAURI_SIGNING_PRIVATE_KEY`
 - `TAURI_KEY_PASSWORD` -> `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
@@ -370,8 +370,8 @@ tauri::Builder::default()
     .plugin(tauri_plugin_dialog::init())
     .setup(|app| {
         app.dialog().file().pick_file(|file_path| {
-            // do something with the optional file path here
-            // the file path is `None` if the user closed the dialog
+            // haz algo con la ruta opcional del archivo
+            // la ruta del archivo es `None` si el usuario cerró el diálogo
         });
 
         app.dialog().message("Tauri is Awesome!").show();
@@ -494,9 +494,9 @@ tauri::Builder::default()
         .build(),
     )
     .setup(|app| {
-        // register a global shortcut
-        // on macOS, the Cmd key is used
-        // on Windows and Linux, the Ctrl key is used
+        // registrar un atajo global
+        // en macOS, se usa la tecla Cmd
+        // en Windows y Linux, se usa la tecla Ctrl
         app.global_shortcut().register("CmdOrCtrl+Y")?;
         Ok(())
     })
