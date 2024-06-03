@@ -1,12 +1,15 @@
 ---
 title: Next.js
 i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-Next.js is a React framework. Learn more about Next.js at https://nextjs.org. This guide is accurate as of Next.js 14.2.3.
+Next.js is a meta framework for React. Learn more about Next.js at https://nextjs.org. This guide is accurate as of Next.js 14.2.3.
 
 ## Checklist
 
@@ -16,90 +19,100 @@ Next.js is a React framework. Learn more about Next.js at https://nextjs.org. Th
 
 ## Example Configuration
 
-1. Install `internal-ip` version 7 for mobile development. Version 8.0.0 does **not** work!
+<Steps>
 
-<CommandTabs
-  npm="npm install --save-dev internal-ip@7.0.0"
-  yarn="yarn add -D internal-ip@7.0.0"
-  pnpm="pnpm add -D internal-ip@7.0.0"
-/>
+1.  ##### Install `internal-ip` version 7 for mobile development
 
-2. Update Tauri configuration:
+    Version 8.0.0 does **not** work!
 
-<Tabs>
-	<TabItem label="npm">
+    <CommandTabs
+      npm="npm install --save-dev internal-ip@7.0.0"
+      yarn="yarn add -D internal-ip@7.0.0"
+      pnpm="pnpm add -D internal-ip@7.0.0"
+    />
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
-    "devUrl": "http://localhost:3000",
-    "frontendDist": "../dist"
-  }
-}
-```
+1.  ##### Update Tauri configuration
 
-</TabItem>
-<TabItem label="yarn">
+          <Tabs>
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn generate",
-    "devUrl": "http://localhost:3000",
-    "frontendDist": "../dist"
-  }
-}
-```
+      <TabItem label="npm">
 
-</TabItem>
-<TabItem label="pnpm">
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm generate",
-    "devUrl": "http://localhost:3000",
-    "frontendDist": "../dist"
-  }
-}
-```
+          </TabItem>
 
-</TabItem>
-</Tabs>
+    <TabItem label="yarn">
 
-3. Update Next.js configuration:
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn generate",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
 
-```ts
-// next.conf.mjs
-/** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
+          </TabItem>
 
-let internalHost = null;
+    <TabItem label="pnpm">
 
-if (!isProd) {
-  const { internalIpV4 } = await import('internal-ip');
-  internalHost = await internalIpV4();
-}
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm generate",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
 
-const nextConfig = {
-  // Ensure Next.js uses SSG instead of SSR
-  // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-  output: 'export',
-  // Note: This feature is required to use the Next.js Image component in SSG mode.
-  // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
-  images: {
-    unoptimized: true,
-  },
-  // Configure assetPrefix or else the server won't properly resolve your assets.
-  assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-};
+          </TabItem>
 
-export default nextConfig;
-```
+    </Tabs>
+
+1.  ##### Update Next.js configuration
+
+    ```ts
+    // next.conf.mjs
+    /** @type {import('next').NextConfig} */
+    const isProd = process.env.NODE_ENV === 'production';
+
+    let internalHost = null;
+
+    if (!isProd) {
+      const { internalIpV4 } = await import('internal-ip');
+      internalHost = await internalIpV4();
+    }
+
+    const nextConfig = {
+      // Ensure Next.js uses SSG instead of SSR
+      // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+      output: 'export',
+      // Note: This feature is required to use the Next.js Image component in SSG mode.
+      // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+      images: {
+        unoptimized: true,
+      },
+      // Configure assetPrefix or else the server won't properly resolve your assets.
+      assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+    };
+
+    export default nextConfig;
+    ```
+
+</Steps>
