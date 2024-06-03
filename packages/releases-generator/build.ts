@@ -128,13 +128,13 @@ async function generator() {
 
   const indexPageContent = `import { LinkCard, CardGrid } from '@astrojs/starlight/components';\n
 <CardGrid>
-	<LinkCard title="tauri" href="/release/tauri/${latestVersions['tauri']}" />
-	<LinkCard title="@tauri-apps/api" href="/release/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
-	<LinkCard title="tauri-cli (Rust)" href="/release/tauri-cli/${latestVersions['tauri-cli']}" />
-	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/release/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
-	<LinkCard title="tauri-bundler" href="/release/tauri-bundler/${latestVersions['tauri-bundler']}" />
-	<LinkCard title="wry" href="/release/wry/${latestVersions['wry']}" />
-	<LinkCard title="tao" href="/release/tao/${latestVersions['tao']}" />
+	<LinkCard title="tauri" href="/release/tauri/${latestVersions['tauri']}/" />
+	<LinkCard title="@tauri-apps/api" href="/release/@tauri-apps/api/${latestVersions['@tauri-apps/api']}/" />
+	<LinkCard title="tauri-cli (Rust)" href="/release/tauri-cli/${latestVersions['tauri-cli']}/" />
+	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/release/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}/" />
+	<LinkCard title="tauri-bundler" href="/release/tauri-bundler/${latestVersions['tauri-bundler']}/" />
+	<LinkCard title="wry" href="/release/wry/${latestVersions['wry']}/" />
+	<LinkCard title="tao" href="/release/tao/${latestVersions['tao']}/" />
 </CardGrid>`;
 
   writeFileSync(join(baseDir, 'index.mdx'), `${indexPage}\n${indexPageContent}`);
