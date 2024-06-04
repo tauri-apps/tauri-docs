@@ -7,37 +7,37 @@ const packages = [
   {
     name: 'tauri',
     url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/tauri/release/tag',
+    tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: '@tauri-apps/api',
     url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/tauri/release/tag',
+    tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'tauri-cli',
     url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/tauri/release/tag',
+    tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: '@tauri-apps/cli',
     url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/node/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/tauri/release/tag',
+    tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'tauri-bundler',
     url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/tauri/release/tag',
+    tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'wry',
     url: 'https://raw.githubusercontent.com/tauri-apps/wry/dev/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/wry/release/tag',
+    tag: 'https://github.com/tauri-apps/wry/releases/tag',
   },
   {
     name: 'tao',
     url: 'https://raw.githubusercontent.com/tauri-apps/tao/dev/CHANGELOG.md',
-    tag: 'https://github.com/tauri-apps/tao/release/tag',
+    tag: 'https://github.com/tauri-apps/tao/releases/tag',
   },
 ];
 
@@ -128,13 +128,13 @@ async function generator() {
 
   const indexPageContent = `import { LinkCard, CardGrid } from '@astrojs/starlight/components';\n
 <CardGrid>
-	<LinkCard title="tauri" href="/release/tauri/${latestVersions['tauri']}" />
-	<LinkCard title="@tauri-apps/api" href="/release/@tauri-apps/api/${latestVersions['@tauri-apps/api']}" />
-	<LinkCard title="tauri-cli (Rust)" href="/release/tauri-cli/${latestVersions['tauri-cli']}" />
-	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/release/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}" />
-	<LinkCard title="tauri-bundler" href="/release/tauri-bundler/${latestVersions['tauri-bundler']}" />
-	<LinkCard title="wry" href="/release/wry/${latestVersions['wry']}" />
-	<LinkCard title="tao" href="/release/tao/${latestVersions['tao']}" />
+	<LinkCard title="tauri" href="/release/tauri/${latestVersions['tauri']}/" />
+	<LinkCard title="@tauri-apps/api" href="/release/@tauri-apps/api/${latestVersions['@tauri-apps/api']}/" />
+	<LinkCard title="tauri-cli (Rust)" href="/release/tauri-cli/${latestVersions['tauri-cli']}/" />
+	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/release/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}/" />
+	<LinkCard title="tauri-bundler" href="/release/tauri-bundler/${latestVersions['tauri-bundler']}/" />
+	<LinkCard title="wry" href="/release/wry/${latestVersions['wry']}/" />
+	<LinkCard title="tao" href="/release/tao/${latestVersions['tao']}/" />
 </CardGrid>`;
 
   writeFileSync(join(baseDir, 'index.mdx'), `${indexPage}\n${indexPageContent}`);
