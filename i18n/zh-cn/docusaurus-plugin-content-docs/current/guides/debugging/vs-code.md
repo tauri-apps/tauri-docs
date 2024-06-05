@@ -47,7 +47,7 @@ This guide will walk you through setting up VS Code for debugging the [Core Proc
 
 这直接使用 `cargo` 来构建Rust 应用程序，并在开发和生产模式中加载它。
 
-请注意，它不使用 Tauri CLI，因此不会执行独占的 CLI 功能。 `before DevCommand` 和 `preambular Build` 脚本必须事先执行或配置为 `LaunchTask` 任务。 下面的 `.vscode/missions. son` 示例文件包含两个任务。 一个是 `beforeDevCommand` 用于生成开发服务器的，另一个是 `beforeBuildCommand`:
+请注意，它不使用 Tauri CLI，因此不会执行独占的 CLI 功能。 `before DevCommand` 和 `preambular Build` 脚本必须事先执行或配置为 `LaunchTask` 任务。 下面的 `.vscode/tasks.json` 示例文件包含两个任务。 一个是 `beforeDevCommand` 用于生成开发服务器的，另一个是 `beforeBuildCommand`:
 
 ```json title=".vscode/tasks.json"
 {
