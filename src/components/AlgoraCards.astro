@@ -1,0 +1,20 @@
+---
+import { LinkCard } from '@astrojs/starlight/components'
+import { algora } from "@algora/sdk";
+
+const { items, next_cursor } = await algora.bounty.list.query({ org: "tauri-apps", limit: 10, status: "active"  });
+console.log(items)
+console.log(next_cursor)
+const bounties = [
+    {title:"[request] Broken links", description:"$250 000", href:""},
+    {title:"[docs] Migrate Distribute Debian Package", description:"$100 000", href:""},
+    {title:"Add Bun to command groups and make casing consistent", description:"$50 000", href:""}
+]
+---
+
+{
+    bounties.map((bounty) => (
+      <LinkCard title={bounty.title} description={bounty.description} href={bounty.href} />
+    ))
+}
+
