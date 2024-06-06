@@ -1,5 +1,7 @@
 ---
 title: The Tauri Book
+sidebar:
+  order: 0
 ---
 
 :::note[Progress Update]
