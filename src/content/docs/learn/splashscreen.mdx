@@ -222,8 +222,8 @@ If you are not an advanced user it's **highly recommended** that you use the opt
             // and unhide the main window!
             let splash_window = app.get_webview_window("splashscreen").unwrap();
             let main_window = app.get_webview_window("main").unwrap();
-            splash_window.close();
-            main_window.show();
+            splash_window.close().unwrap();
+            main_window.show().unwrap();
         }
         Ok(())
     }
