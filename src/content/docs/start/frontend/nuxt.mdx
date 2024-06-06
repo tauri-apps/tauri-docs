@@ -8,7 +8,7 @@ tableOfContents:
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
-Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.7.
+Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.11.
 
 ## Checklist
 
@@ -82,6 +82,8 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
       devtools: { enabled: true },
       // Enable SSG
       ssr: false,
+      // Enables the development server to be discoverable by other devices for mobile development
+      devServer: { host: '0.0.0.0' },
       vite: {
         // Better support for Tauri CLI output
         clearScreen: false,
@@ -92,8 +94,6 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
         server: {
           // Tauri requires a consistent port
           strictPort: true,
-          // Enables the development server to be discoverable by other devices for mobile development
-          host: '0.0.0.0',
           hmr: {
             // Use websocket for mobile hot reloading
             protocol: 'ws',
