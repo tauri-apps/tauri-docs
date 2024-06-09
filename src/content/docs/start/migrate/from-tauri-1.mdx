@@ -1015,7 +1015,7 @@ Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submen
 ```rust
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
-    tray::{ClickType, TrayIconBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
 };
 
 tauri::Builder::default()
@@ -1031,11 +1031,16 @@ tauri::Builder::default()
                 _ => (),
             })
             .on_tray_icon_event(|tray, event| {
-                if event.click_type == ClickType::Left {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
                     let app = tray.app_handle();
-                    if let Some(webview_window) = app.get_webview_window("main") {
-                    let _ = webview_window.show();
-                    let _ = webview_window.set_focus();
+                    if let Some(window) = app.get_window("main") {
+                    let _ = window.show();
+                    let _ = window.set_focus();
                     }
                 }
             })
