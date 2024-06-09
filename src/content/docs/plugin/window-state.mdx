@@ -35,10 +35,10 @@ Use your project's package manager to add the dependency:
 {' '}
 
 <CommandTabs
-	npm="npm run tauri add window-state"
-	yarn="yarn run tauri add window-state"
-	pnpm="pnpm tauri add window-state"
-	cargo="cargo tauri add window-state"
+  npm="npm run tauri add window-state"
+  yarn="yarn run tauri add window-state"
+  pnpm="pnpm tauri add window-state"
+  cargo="cargo tauri add window-state"
 />
 
   </TabItem>
@@ -98,8 +98,8 @@ Similarly you can manually restore a window's state from disk:
 
 ```javascript
 import {
-	restoreStateCurrent,
-	StateFlags,
+  restoreStateCurrent,
+  StateFlags,
 } from '@tauri-apps/plugin-window-state';
 
 restoreStateCurrent(StateFlags.ALL);
@@ -130,7 +130,7 @@ window.restore_state(StateFlags::all()); // will restore the window's state from
 By default all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={4-5}
 {
@@ -142,9 +142,9 @@ See [Access Control List](/reference/acl) for more information.
 }
 ```
 
-| Permission                                | Description                                                                |
-| ----------------------------------------- | -------------------------------------------------------------------------- |
-| `window-state:allow-restore-state`        | Enables the restore_state command without any pre-configured scope.        |
-| `window-state:deny-restore-state`         | Denies the restore_state command without any pre-configured scope.         |
-| `window-state:allow-save-window-state`    | Enables the save_window_state command without any pre-configured scope.    |
-| `window-state:deny-save-window-state`     | Denies the save_window_state command without any pre-configured scope.     |
+| Permission                             | Description                                                             |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| `window-state:allow-restore-state`     | Enables the restore_state command without any pre-configured scope.     |
+| `window-state:deny-restore-state`      | Denies the restore_state command without any pre-configured scope.      |
+| `window-state:allow-save-window-state` | Enables the save_window_state command without any pre-configured scope. |
+| `window-state:deny-save-window-state`  | Denies the save_window_state command without any pre-configured scope.  |

@@ -43,7 +43,7 @@ Install the deep-link plugin to get started.
   </TabItem>
   <TabItem label="Manual">
     <Steps>
-    
+
       1.  Run `cargo add tauri-plugin-deep-link` to add the plugin to the project's dependencies in `Cargo.toml`.
 
       2.  Modify `lib.rs` to initialize the plugin:
@@ -102,19 +102,19 @@ For [universal links](https://developer.apple.com/documentation/xcode/allowing-a
 
 ```json title=".well-known/apple-app-site-association"
 {
-	"applinks": {
-		"details": [
-			{
-				"appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
-				"components": [
-					{
-						"/": "/open/*",
-						"comment": "Matches any URL whose path starts with /open/"
-					}
-				]
-			}
-		]
-	}
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
+        "components": [
+          {
+            "/": "/open/*",
+            "comment": "Matches any URL whose path starts with /open/"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -146,14 +146,14 @@ Under `tauri.conf.json > plugins > deep-link`, configure the domains you want to
 
 ```json title="tauri.conf.json"
 {
-	"plugins": {
-		"deep-link": {
-			"domains": [
-				{ "host": "your.website.com", "pathPrefix": ["/open"] },
-				{ "host": "another.site.br" }
-			]
-		}
-	}
+  "plugins": {
+    "deep-link": {
+      "domains": [
+        { "host": "your.website.com", "pathPrefix": ["/open"] },
+        { "host": "another.site.br" }
+      ]
+    }
+  }
 }
 ```
 
@@ -168,7 +168,7 @@ The deep-link plugin is available in both JavaScript and Rust.
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
 
 await onOpenUrl((urls) => {
-	console.log('deep link:', urls);
+  console.log('deep link:', urls);
 });
 ```
 
@@ -201,19 +201,19 @@ fn run() {
 By default all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={9}
 {
-	"$schema": "../gen/schemas/mobile-schema.json",
-	"identifier": "mobile-capability",
-	"windows": ["main"],
-	"platforms": ["iOS", "android"],
-	"permissions": [
-		// Usually you will need event:default to listen to the deep-link event
-		"event:default",
-		"deep-link:default"
-	]
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    // Usually you will need event:default to listen to the deep-link event
+    "event:default",
+    "deep-link:default"
+  ]
 }
 ```
 
