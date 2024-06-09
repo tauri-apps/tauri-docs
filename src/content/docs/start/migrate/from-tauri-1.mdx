@@ -1038,9 +1038,9 @@ tauri::Builder::default()
                 } = event
                 {
                     let app = tray.app_handle();
-                    if let Some(window) = app.get_window("main") {
-                    let _ = window.show();
-                    let _ = window.set_focus();
+                    if let Some(webview_window) = app.get_webview_window("main") {
+                    let _ = webview_window.show();
+                    let _ = webview_window.set_focus();
                     }
                 }
             })
