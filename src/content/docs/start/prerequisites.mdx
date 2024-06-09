@@ -289,8 +289,9 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-$VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk"
-[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$VERSION", "User")
+$VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk" -Name
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
+
 ```
 
 </TabItem>
