@@ -132,15 +132,12 @@ and hand crafted.
     }
     ```
 
-    Expose the new command in the frontend module:
-
-    :::note
+    Expose the new command in the frontend module.
 
     This step is essential for the example application to sucessfully
-    import the frontend module but as soon as the command handler is generated
-    the command can be manually invoked from the frontend.
-    
-    :::
+    import the frontend module. This is for convenience and has
+    no security impact, as the command handler is already generated
+    and the command can be manually invoked from the frontend.
 
     ```ts title="guest-js/index.ts" ins={6-9}
     import { invoke } from '@tauri-apps/api/core'
@@ -194,14 +191,14 @@ and hand crafted.
 
 5. ### Invoke Test Command from Example Application
     
-    The created plugin directory structure contains an `example/tauri-app` folder,
+    The created plugin directory structure contains an `examples/tauri-app` folder,
     which has a ready to use Tauri application to test out the plugin.
 
     Since we added a new command we need to slightly modify the frontend to
     invoke our new command instead.
 
     <ShowSolution>
-    ```svelte del={11-13,42-45} ins={14-16,45-49}
+    ```svelte title="src/App.svelte" del={11-13,42-45} ins={14-16,45-49}
     <script>
       import Greet from './lib/Greet.svelte'
       import { execute, writeCustomFile } from 'tauri-plugin-test-api'
@@ -276,7 +273,7 @@ and hand crafted.
     we now know that have not added our default permission to the capability of the test
     application.
 
-    ```json title="src-tauri/capabilities/main.json" ins={15}
+    ```json title="src-tauri/capabilities/default.json" ins={15}
     {
       "$schema": "../gen/schemas/desktop-schema.json",
       "identifier": "main-capability",
