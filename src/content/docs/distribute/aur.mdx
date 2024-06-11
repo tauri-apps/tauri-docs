@@ -18,7 +18,7 @@ After completing the steps above, create a file with the name `PKGBUILD`. Once t
 
 ### Writing a PKGBUILD file
 
-```
+```ini title="PKGBUILD"
 pkgname=<pkgname>
 pkgver=1.0.0
 pkgrel=1
@@ -58,7 +58,7 @@ Testing the app is extremely simple. All you have to do is run makepkg -f within
 
 Finally, after the testing phase is over, you can publish the application to the arch user repository with these commands.
 
-```
+```sh
 git add .
 
 git commit -m "Initial Commit"
