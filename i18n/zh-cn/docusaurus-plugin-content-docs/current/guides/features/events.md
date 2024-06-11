@@ -1,58 +1,58 @@
 # 事件
 
-The Tauri event system is a multi-producer multi-consumer communication primitive that allows message passing between the frontend and the backend. It is analogous to the command system, but a payload type check must be written on the event handler and it simplifies communication from the backend to the frontend, working like a channel.
+Tauri 的事件系统采用多生产者-多消费者的通信原语来进行前后端的信息传递。它类似于 `command` 系统，但必须在事件处理程序上编写有效的负载（`payload`）类型检查。Tauri 的事件系统简化了前后端的通信，以类似于频道（`channel`）的方式工作。
 
-A Tauri application can listen and emit global and window-specific events. Usage from the frontend and the backend is described below.
+Tauri 应用程序可以监听和触发全局事件和特定窗口事件。下面将分别阐述在前端和后端的用法。
 
-## Frontend
+## 前端
 
-The event system is accessible on the frontend on the `event` and `window` modules of the `@tauri-apps/api` package.
+事件系统可以通过前端 `@tauri-apps/api` 包中的 `event` 和 `window` 模块访问。
 
-### Global events
+### 全局事件
 
-To use the global event channel, import the `event` module and use the `emit` and `listen` functions:
+若要使用全局事件频道，需要引入 `event` 模块，并使用 `emit` 和 `listen` 函数：
 
 ```js
 import { emit, listen } from '@tauri-apps/api/event'
 
-// listen to the `click` event and get a function to remove the event listener
-// there's also a `once` function that subscribes to an event and automatically unsubscribes the listener on the first event
+// 监听 `click` 事件并获取一个函数以移除事件监听器
+// 也可以使用 `once` 函数订阅一个事件并在第一个事件后自动取消订阅监听器
 const unlisten = await listen('click', (event) => {
-  // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
-  // event.payload is the payload object
+  // event.event 是事件名称 (当你想用一个回调函数处理不同类型的事件时很有用)
+  // event.payload 是负载对象
 })
 
-// emits the `click` event with the object payload
+// 携带负载对象触发 `click` 事件
 emit('click', {
   theMessage: 'Tauri is awesome!',
 })
 ```
 
-### Window-specific events
+### 特定窗口事件
 
-Window-specific events are exposed on the `window` module.
+特定窗口事件暴露在 `Window` 模块：
 
 ```js
 import { appWindow, WebviewWindow } from '@tauri-apps/api/window'
 
-// emit an event that is only visible to the current window
+// 触发一个仅当前窗口可见的事件
 appWindow.emit('event', { message: 'Tauri is awesome!' })
 
-// create a new webview window and emit an event only to that window
+// 创建一个新的 webview 窗口并触发一个仅对它可见的事件
 const webview = new WebviewWindow('window')
 webview.emit('event')
 ```
 
-## Backend
+## 后端
 
-On the backend, the global event channel is exposed on the `App` struct, and window-specific events can be emitted using the `Window` trait.
+在后端，全局事件频道暴露在 `App` 结构体中，特定窗口事件则可以使用 `Window` trait 来触发。
 
-### Global events
+### 全局事件
 
 ```rust
 use tauri::Manager;
 
-// the payload type must implement `Serialize` and `Clone`.
+// 负载类型必须实现 `Serialize` 和 `Clone`。
 #[derive(Clone, serde::Serialize)]
 struct Payload {
   message: String,
@@ -61,15 +61,15 @@ struct Payload {
 fn main() {
   tauri::Builder::default()
     .setup(|app| {
-      // listen to the `event-name` (emitted on any window)
+      // 监听 `event-name`（无论其在什么窗口中触发）
       let id = app.listen_global("event-name", |event| {
         println!("got event-name with payload {:?}", event.payload());
       });
-      // unlisten to the event using the `id` returned on the `listen_global` function
-      // a `once_global` API is also exposed on the `App` struct
+      // 使用 `listen_global` 函数返回的 `id` 取消监听事件
+      // `App` 结构上也暴露了 `once_global` API 可供使用
       app.unlisten(id);
 
-      // emit the `event-name` event to all webview windows on the frontend
+      // 在前端的所有 Webview 窗口触发 `event-name` 事件
       app.emit_all("event-name", Payload { message: "Tauri is awesome!".into() }).unwrap();
       Ok(())
     })
@@ -78,20 +78,20 @@ fn main() {
 }
 ```
 
-### Window-specific events
+### 特定窗口事件
 
-To use the window-specific event channel, a `Window` object can be obtained on a command handler or with the `get_window` function:
+使用特定窗口事件，可以在 `command` 函数中获取 `Window` 对象，或者使用 `get_window` 函数。
 
 ```rust
 use tauri::{Manager, Window};
 
-// the payload type must implement `Serialize` and `Clone`.
+// 负载类型必须实现 `Serialize` 和 `Clone`。
 #[derive(Clone, serde::Serialize)]
 struct Payload {
   message: String,
 }
 
-// init a background process on the command, and emit periodic events only to the window that used the command
+// 在 command 中初始化后台进程，并仅向使用该命令的窗口发出周期性事件
 #[tauri::command]
 fn init_process(window: Window) {
   std::thread::spawn(move || {
@@ -104,19 +104,19 @@ fn init_process(window: Window) {
 fn main() {
   tauri::Builder::default()
     .setup(|app| {
-      // `main` here is the window label; it is defined on the window creation or under `tauri.conf.json`
-      // the default value is `main`. note that it must be unique
+      // `main` 在此处是窗口的标签；它在窗口创建时定义或在 `tauri.conf.json` 中定义
+      // 默认值为 `main`。请注意，它必须是唯一的
       let main_window = app.get_window("main").unwrap();
 
-      // listen to the `event-name` (emitted on the `main` window)
+      // 监听 `event-name`（在 `main` 窗口中触发）
       let id = main_window.listen("event-name", |event| {
         println!("got window event-name with payload {:?}", event.payload());
       });
-      // unlisten to the event using the `id` returned on the `listen` function
-      // an `once` API is also exposed on the `Window` struct
+      // 使用 `listen` 函数返回的 `id` 取消监听事件
+      // `Window` 结构上也暴露了 `once` API 可供使用
       main_window.unlisten(id);
 
-      // emit the `event-name` event to the `main` window
+      // 在 `main` 窗口中触发 `event-name` 事件
       main_window.emit("event-name", Payload { message: "Tauri is awesome!".into() }).unwrap();
       Ok(())
     })
