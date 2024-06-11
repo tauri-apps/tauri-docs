@@ -4,10 +4,10 @@ sidebar:
   order: 1
   badge:
     text: WIP
-    variant: caution
+    variant: note
 ---
 
-{/* TODO: REVISE COPY TO V2 */}
+{/* TODO: Add plugin update example to the cargo packages */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -27,14 +27,6 @@ You can also detect what the latest version of Tauri is on the command line, usi
   npm="npm outdated @tauri-apps/cli"
   yarn="yarn outdated @tauri-apps/cli"
   pnpm="pnpm outdated @tauri-apps/cli"
-/>
-
-Alternatively, if you are using the `vue-cli-plugin-tauri` approach:
-
-<CommandTabs
-  npm="npm install vue-cli-plugin-tauri@latest"
-  yarn="yarn up vue-cli-plugin-tauri"
-  pnpm="pnpm update vue-cli-plugin-tauri --latest"
 />
 
 ## Update Cargo Packages

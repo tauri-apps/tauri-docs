@@ -3,7 +3,7 @@ title: Configuration Files
 sidebar:
   order: 1
   badge:
-    text: WIP
+    text: "1.x"
     variant: caution
 ---
 
