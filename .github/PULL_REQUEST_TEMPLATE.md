@@ -1,6 +1,8 @@
 <!-- Thank you for opening a PR! We really appreciate you taking the time to help out 🙌 -->
 
 #### Description
+<!-- Translators, try to follow this pattern when naming your PRs:
+"i18(language code): (short description)" -->
 - What does this PR change? Give us a brief description. <!-- If it's an update try adding the commits as reference -->
 - Closes # <!-- Add an issue number if this PR will close it or remove it. -->
 
