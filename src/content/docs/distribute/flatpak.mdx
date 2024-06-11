@@ -1,11 +1,8 @@
 ---
 title: Flatpak / Flathub
-draft: true
+draft: false
 sidebar:
   order: 1
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 For detailed information on how Flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
@@ -32,45 +29,11 @@ sudo apt install flatpak flatpak-builder
 flatpak install flathub org.Gnome.Platform//46 org.Gnome.Sdk//46
 ```
 
-**3. Build the .deb of your tauri-app**
+**3. [Build the .deb of your tauri-app](https://tauri.app/v1/guides/building/linux#debian)**
 
 TODO: Link to Build guide
 
-**4. Build and install the flatpak**
-
-TODO: manifest should probably come first
-
-```shell
-# Build the flatpak into a local repo
-flatpak-builder --repo=<repo folder name> --force-clean build-dir <your flatpak id>
-
-# Add the repo to your flatpak's list (host)
-flatpak --user remote-add --no-gpg-verify <local repo name> <repo folder name>
-
-# Install the flatpak (host)
-flatpak -y --user install <local repo name> <your flatpak id>
-
-# Run it (host)
-flatpak run <your flatpak id>
-
-# Update it (host)
-flatpak -y --user update <your flatpak id>
-```
-
-If you are developing in a container that shares files with the host, you can install the flatpak on your host.
-Any command with a `(host)` label can be executed on your host, while commands without this label must be executed inside the container.
-`(host)` commands must be executed from inside the flatpak directory on your host.
-
-## Manifest Template
-
-The following information works for the standard tauri-app, which can be created with
-
-```shell
-cargo create-tauri-app -t vanilla -m cargo -y --beta
-```
-
-The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
-Assume the flatpak manifest is in `/flatpak/org.your.id.yml` and the tauri project is in `/tauri-app`.
+**4. Create the manifest**
 
 ```yaml
 id: org.your.id
@@ -106,6 +69,32 @@ modules:
       - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/yourapp.png /app/share/icons/hicolor/256x256@2/apps/org.your.id.png
       - install -Dm644 org.your.id.metainfo.xml /app/share/metainfo/org.your.id.rosary.metainfo.xml
 ```
+**5. Install, and Test the app**
+```shell
+# Build the flatpak into a local repo
+flatpak-builder --repo=<repo folder name> --force-clean build-dir <your flatpak id>
+
+# Add the repo to your flatpak's list (host)
+flatpak --user remote-add --no-gpg-verify <local repo name> <repo folder name>
+
+# Install the flatpak (host)
+flatpak -y --user install <local repo name> <your flatpak id>
+
+# Run it (host)
+flatpak run <your flatpak id>
+
+# Update it (host)
+flatpak -y --user update <your flatpak id>
+```
+
+If you are developing in a container that shares files with the host, you can install the flatpak on your host.
+Any command with a `(host)` label can be executed on your host, while commands without this label must be executed inside the container.
+`(host)` commands must be executed from inside the flatpak directory on your host.
+
+
+
+The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
+Assume the flatpak manifest is in `/flatpak/org.your.id.yml` and the tauri project is in `/tauri-app`.
 
 ## Adding additional libraries
 
@@ -115,23 +104,23 @@ However, this is not recommended for the final build of the flatpak, as your loc
 This can introduce various bugs that can be very hard to find.
 Therefore, it is recommended to build the library your program depends on from source inside the flatpak as a build step.
 
-## Publishing to flathub
-**1. Fork The [Flathub Repository]("https://github.com/flathub/flathub/fork").
-**2. Clone the Fork
-```sh
+## Submitting to flathub
+**1. Fork The [Flathub Repository]("https://github.com/flathub/flathub/fork")**
+**2. Clone the Fork**
+```shell
 git clone --branch=new-pr git@github.com:your_github_username/flathub.git
 ```
-**3. Enter the repository
-```sh
+**3. Enter the repository**
+```shell
 cd flathub
 ```
-**4. Create a new branch
-```sh
+**4. Create a new branch**
+```shell
 git checkout -b your_app_name
 ```
-**5. Add your apps manifest to branch. Commit it, and then push it.
-**6. Open a pull request against the `new-pr` branch on github
-**7. Your app will now enter the review process in which you may be asked to make changes to your project.
+**5. Add your apps manifest to branch. Commit it, and then push it.**
+**6. Open a pull request against the `new-pr` branch on github**
+**7. Your app will now enter the review process in which you may be asked to make changes to your project.**
 
 When your pull request is approved then you will recieve an invitation to edit your apps repository. From here on you can update your app continuosly.
 
