@@ -1,21 +1,8 @@
 <!-- Thank you for opening a PR! We really appreciate you taking the time to help out 🙌 -->
 
-#### What kind of changes does this PR include?
-<!-- Delete any that don’t apply -->
-<!-- Translators, try to follow this pattern when naming your PRs:
-"i18(language code): (short description)" -->
-
-- Minor content fixes (broken links, typos, etc.)
-- New or updated content
-- Translated content
-- Changes to the docs site code
-- Something else!
-
 #### Description
-<!-- Delete any that don’t apply -->
-- Closes # <!-- Add an issue number if this PR will close it. -->
 - What does this PR change? Give us a brief description. <!-- If it's an update try adding the commits as reference -->
-- Did you change something visual? A before/after screenshot can be helpful.
+- Closes # <!-- Add an issue number if this PR will close it or remove it. -->
 
 <!--
 Here’s what will happen next:
