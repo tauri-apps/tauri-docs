@@ -1,0 +1,114 @@
+---
+title: Flatpak / Flathub
+draft: true
+sidebar:
+  order: 1
+  badge:
+    text: WIP
+    variant: caution
+---
+
+For detailed information on how Flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
+
+This guide assumes you want to distribute your Flatpak via [Flathub](https://flathub.org/), the most commonly used platform for Flatpak distribution. If you plan on using other platforms, please consult their documentation instead.
+
+TODO: deb vs from source
+
+## Build locally
+
+To test your app inside the Flatpak runtime you can build the Flatpak locally first before uploading your app to Flathub. This can also be helpful if you want to quickly share development builds.
+
+**1. Install `flatpak` and `flatpak-builder`**
+
+To build Flatpaks locally you need the `flatpak` and `flatpak-builder` tools. For example on Ubuntu you can run this command:
+
+```sh
+sudo apt install flatpak flatpak-builder
+```
+
+**2. Install the Flatpak Runtime**
+
+```shell
+flatpak install flathub org.Gnome.Platform//46 org.Gnome.Sdk//46
+```
+
+**3. Build the .deb of your tauri-app**
+
+TODO: Link to Build guide
+
+**4. Build and install the flatpak**
+
+TODO: manifest should probably come first
+
+```shell
+# Build the flatpak into a local repo
+flatpak-builder --repo=<repo folder name> --force-clean build-dir <your flatpak id>
+
+# Add the repo to your flatpak's list (host)
+flatpak --user remote-add --no-gpg-verify <local repo name> <repo folder name>
+
+# Install the flatpak (host)
+flatpak -y --user install <local repo name> <your flatpak id>
+
+# Run it (host)
+flatpak run <your flatpak id>
+
+# Update it (host)
+flatpak -y --user update <your flatpak id>
+```
+
+If you are developing in a container that shares files with the host, you can install the flatpak on your host.
+Any command with a `(host)` label can be executed on your host, while commands without this label must be executed inside the container.
+`(host)` commands must be executed from inside the flatpak directory on your host.
+
+## Manifest Template
+
+The following information works for the standard tauri-app, which can be created with
+
+```shell
+cargo create-tauri-app -t vanilla -m cargo -y --beta
+```
+
+The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
+Assume the flatpak manifest is in `/flatpak/org.your.id.yml` and the tauri project is in `/tauri-app`.
+
+```yaml
+id: org.your.id
+
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+
+command: tauri-app
+finish-args:
+  - --socket=wayland # Permission needed to show the window
+  - --socket=fallback-x11 # Permission needed to show the window
+  - --device=dri # OpenGL, not necessary for all projects
+
+modules:
+  - name: binary
+    buildsystem: simple
+    sources:
+      - type: file
+        path: ../tauri-app/src-tauri/target/release/bundle/deb/tauri-app_0.1.0_amd64/data/usr/bin/tauri-app
+        # This path points to the binary file which was created in the .deb bundle.
+        # Tauri also creates a folder which corresponds to the content of the unpacked .deb.
+    build-commands:
+      - 'install -Dm755 tauri-app /app/bin/tauri-app'
+```
+
+## Adding additional libraries
+
+If your final binary requires more libraries than the default tauri app, you need to add them in your flatpak manifest.
+There are two ways to do this. For fast local development, it may work to simply include the already built library file (`.so`) from your local system.
+However, this is not recommended for the final build of the flatpak, as your local library file is not built for the flatpak runtime environment.
+This can introduce various bugs that can be very hard to find.
+Therefore, it is recommended to build the library your program depends on from source inside the flatpak as a build step.
+
+You can read more about this [in the flatpak documentation](https://docs.flatpak.org/en/latest/dependencies.html#bundling)
+
+## Publishing to Flathub
+
+import Stub from '@components/Stub.astro';
+
+<Stub>https://docs.flathub.org/docs/for-app-authors/submission/</Stub>
