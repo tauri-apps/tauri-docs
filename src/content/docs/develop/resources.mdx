@@ -29,9 +29,23 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 }
 ```
 
+Alternatively the `resources` config also accepts a map object if you want to change where the files will be copied to. Here is a sample that shows how to include files from different sources into the same `resources` folder:
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": {
+      "/absolute/path/to/textfile.txt": "resources/textfile.txt",
+      "relative/path/to/jsonfile.json": "resources/jsonfile.json",
+      "resources/*": "resources/"
+    }
+  },
+}
+```
+
 :::note
 
-Absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/*"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
+Absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
 
 :::
 
@@ -88,11 +102,11 @@ Note that you must configure the access control list to enable any [`plugin-fs`]
 
 ```json title=src-tauri/capabilities/main.json ins={14-15}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
     "path:default",
     "event:default",
     "window:default",
@@ -102,13 +116,15 @@ Note that you must configure the access control list to enable any [`plugin-fs`]
     "tray:default",
     "fs:allow-read-text-file",
     "fs:allow-resource-read-recursive"
-	]
+  ]
 }
 ```
+
 :::note
 Here we use `fs:allow-resource-read-recursive` to allow for full recursive read access to the complete `$RESOURCE` folder, files, and subdirectories.
 For more information, read [Scope Permissions] for other options, or [Scopes] for more fine-grained control.
 :::
+
 ```javascript
 import { resolveResource } from '@tauri-apps/api/path';
 import { readTextFile } from '@tauri-apps/plugin-fs';
@@ -117,6 +133,7 @@ const resourcePath = await resolveResource("lang/de.json");
 const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```
+
 [tauri.bundle]: ../../reference/config/#bundleconfig
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
