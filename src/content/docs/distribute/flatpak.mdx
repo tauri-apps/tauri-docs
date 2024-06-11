@@ -3,7 +3,7 @@ title: Flatpak / Flathub
 sidebar:
   order: 1
 ---
-
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 For detailed information on how Flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
 
 This guide assumes you want to distribute your Flatpak via [Flathub](https://flathub.org/), the most commonly used platform for Flatpak distribution. If you plan on using other platforms, please consult their documentation instead.
@@ -15,10 +15,23 @@ To test your app inside the Flatpak runtime you can build the Flatpak locally fi
 **1. Install `flatpak` and `flatpak-builder`**
 
 To build Flatpaks locally you need the `flatpak` and `flatpak-builder` tools. For example on Ubuntu you can run this command:
+<Tabs>
+  <TabItem label="Debian">
 
 ```sh
+sudo apt update
 sudo apt install flatpak flatpak-builder
 ```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed flatpak flatpak-builder
+```
+</TabItem>
+</Tabs>
 
 **2. Install the Flatpak Runtime**
 
