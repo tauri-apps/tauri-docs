@@ -8,7 +8,7 @@ tableOfContents:
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
-Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，请访问 https://nuxt.com 。本指南适用于 Nuxt 3.7版本。
+Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，请访问 https://nuxt.com 。本指南适用于 Nuxt 3.11 版本。
 
 ## 检查清单
 
@@ -24,56 +24,57 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
 
 1.  更新 Tauri 配置：
 
-    <Tabs>
+        <Tabs>
+
     <TabItem label="npm">
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
-
-        </TabItem>
-
-    <TabItem label="yarn">
-
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn generate",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
-
-        </TabItem>
-
-    <TabItem label="pnpm">
-
-          ```json
-          // tauri.conf.json
-          {
-            "build": {
-              "beforeDevCommand": "pnpm dev",
-              "beforeBuildCommand": "pnpm generate",
-              "devUrl": "http://localhost:3000",
-              "frontendDist": "../dist"
-            }
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
           }
-          ```
+        }
+        ```
 
-        </TabItem>
+            </TabItem>
 
-    </Tabs>
+        <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+            </TabItem>
+
+        <TabItem label="pnpm">
+
+              ```json
+              // tauri.conf.json
+              {
+                "build": {
+                  "beforeDevCommand": "pnpm dev",
+                  "beforeBuildCommand": "pnpm generate",
+                  "devUrl": "http://localhost:3000",
+                  "frontendDist": "../dist"
+                }
+              }
+              ```
+
+            </TabItem>
+
+        </Tabs>
 
 2.  更新 Nuxt 配置：
 
@@ -83,6 +84,8 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
       devtools: { enabled: true },
       // 启用 SSG
       ssr: false,
+      // 使开发服务器能够被其他设备发现，以便进行移动端开发。
+      devServer: { host: '0.0.0.0' },
       vite: {
         // 为 Tauri 命令输出提供更好的支持
         clearScreen: false,
@@ -93,8 +96,6 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
         server: {
           // Tauri需要一个确定的端口
           strictPort: true,
-          // 使开发服务器能够被用于移动开发的其他设备发现
-          host: '0.0.0.0',
           hmr: {
             // 使用 websocket 以支持移动端热重载
             protocol: 'ws',
