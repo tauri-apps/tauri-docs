@@ -32,6 +32,21 @@ sudo pacman -Syu
 sudo pacman -S --needed flatpak flatpak-builder
 ```
 </TabItem>
+<TabItem label="Fedora">
+
+```sh
+sudo dnf check-update
+sudo dnf install flatpak flatpak-builder
+```
+</TabItem>
+<TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+sys-apps/flatpak \
+dev-util/flatpak-builder
+```
+</TabItem>
 </Tabs>
 
 **2. Install the Flatpak Runtime**
