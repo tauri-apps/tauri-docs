@@ -1015,7 +1015,7 @@ Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submen
 ```rust
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
-    tray::{ClickType, TrayIconBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
 };
 
 tauri::Builder::default()
@@ -1031,7 +1031,12 @@ tauri::Builder::default()
                 _ => (),
             })
             .on_tray_icon_event(|tray, event| {
-                if event.click_type == ClickType::Left {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
                     let _ = webview_window.show();
@@ -1159,6 +1164,13 @@ On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
 
+### Migrate Embedded Additional Files (Resources)
+
+On the JavaScript side, make sure you [Migrate to File System Plugin](#migrate-to-file-system-plugin).
+Additionally, note the changes made to the v1 allowlist in [Migrate Permissions](#migrate-permissions).
+
+On the Rust side, make sure you [Migrate Path to Tauri Manager](#migrate-path-to-tauri-manager).
+
 ### Migrate Embedded External Binaries (Sidecar)
 
 In Tauri v1, the external binaries and their arguments were defined in the allowlist. In v2, use the new permissions system. Read [Migrate Permissions](#migrate-permissions) for more information.
@@ -1178,4 +1190,4 @@ To enable permissions for your app, you must create capability files inside the 
 
 The `migrate` CLI command automatically parses your v1 allowlist and generates the associated capability file.
 
-To learn more about permissions and capabilities, see [the documentation](/reference/acl/).
+To learn more about permissions and capabilities, see [the security documentation](/security/).

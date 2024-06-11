@@ -38,6 +38,7 @@ sudo apt install libwebkit2gtk-4.1-dev \
   curl \
   wget \
   file \
+  libxdo-dev \
   libssl-dev \
   libayatana-appindicator3-dev \
   librsvg2-dev
@@ -288,7 +289,7 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-$VERSION = Get-ChildItem -Path "$env:LocalAppData\Android\Sdk\ndk"
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 [System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
 
