@@ -3,12 +3,7 @@ title: Debug
 sidebar:
   label: Overview
   order: 10
-  badge:
-    text: WIP
-    variant: caution
 ---
-
-{/* TODO: REVISE COPY TO V2 */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -22,9 +17,19 @@ One of the most useful tools in your toolkit for debugging is the ability to add
 
 ```rs frame=none
 fn main() {
-  // Tauri provided convenience function for whether you ran with `tauri dev`.
+  // Whether the current instance was started with `tauri dev` or not.
+  #[cfg(dev)]
+  {
+    // `tauri dev` only code
+  }
+  if cfg!(dev) {
+    // `tauri dev` only code
+  } else {
+    // `tauri build` only code
+  }
   let is_dev: bool = tauri::is_dev();
-  // If debug assertions are enabled or not.
+
+  // Whether debug assertions are enabled or not. This is true for `tauri dev` and `tauri build --debug`.
   #[cfg(debug_assertions)]
   {
     // Debug only code
@@ -36,6 +41,8 @@ fn main() {
   }
 }
 ```
+
+{/* TODO: js version */}
 
 ## Rust Console
 
@@ -51,10 +58,10 @@ Sometimes you may have an error in your Rust code, and the Rust compiler can giv
 RUST_BACKTRACE=1 tauri dev
 ```
 
-or like this on Windows:
+or like this on Windows (PowerShell):
 
-```shell frame=none
-set RUST_BACKTRACE=1
+```powershell frame=none
+$env:RUST_BACKTRACE=1
 tauri dev
 ```
 
