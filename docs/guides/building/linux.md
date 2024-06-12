@@ -3,8 +3,8 @@ sidebar_position: 4
 ---
 
 import TauriBuild from './\_tauri-build.md'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Linux Bundle
 
