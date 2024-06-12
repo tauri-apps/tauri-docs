@@ -251,6 +251,7 @@ Follow the instructions in the [arm-runner-action repository] README to set up t
 Customize the last step in the GitHub Action YAML to generate a `.deb` file instead of an `.img` file:
 <Tabs>
   <TabItem value="armv8" label="Armv8" default>
+  
 ```yaml
   name: Raspberry Pi compile
   on:
@@ -297,8 +298,10 @@ Customize the last step in the GitHub Action YAML to generate a `.deb` file inst
             name: Debian Bundle
             path: ${{ github.workspace }}/target/release/bundle/deb/tauri_1.4_arm64.deb
 ```
+
   </TabItem>
   <TabItem value="armv7" label="Armv7" default>
+    
 ```yaml
 name: Raspberry Pi compile
 on:
