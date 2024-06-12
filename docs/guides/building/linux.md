@@ -3,6 +3,8 @@ sidebar_position: 4
 ---
 
 import TauriBuild from './\_tauri-build.md'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Linux Bundle
 
@@ -247,7 +249,8 @@ Alternatively you can use the `--bundles` flag when calling `tauri build`.
 Follow the instructions in the [arm-runner-action repository] README to set up the GitHub Action. If you're new to GitHub Actions, read the [GitHub Actions guide] first.
 
 Customize the last step in the GitHub Action YAML to generate a `.deb` file instead of an `.img` file:
-
+<Tabs>
+  <TabItem value="armv8" label="Armv8" default>
 ```yaml
 name: Raspberry Pi compile
 on:
@@ -294,7 +297,56 @@ jobs:
           name: Debian Bundle
           path: ${{ github.workspace }}/target/release/bundle/deb/tauri_1.4_arm64.deb
 ```
+  </TabItem>
+  <TabItem value="armv8" label="Armv8" default>
+```yaml
+name: Raspberry Pi compile
+on:
+  workflow_dispatch:
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pguyot/arm-runner-action@v2.5.2
+        with:
+          base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv7-Bullseye.img.xz
+          cpu: cortex-a53
+          bind_mount_repository: true
+          image_additional_mb: 10240
+          optimize_image: false
+          commands: |
+            # Rust complains (rightly) that $HOME doesn't match eid home
+            export HOME=/root
+            # Workaround to CI worker being stuck on Updating crates.io index
+            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+            # Install setup prerequisites
+            apt-get update -y --allow-releaseinfo-change
+            apt-get upgrade -y
+            apt-get autoremove -y
+            apt-get install curl
+            curl https://sh.rustup.rs -sSf | sh -s -- -y
+            . "$HOME/.cargo/env"
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash
+            # Install framework specific packages
+            apt-get install -y nodejs
+            npm install next@latest react@latest react-dom@latest eslint-config-next@latest
+            # Install build tools and tauri-cli requirements
+            apt-get install -y libwebkit2gtk-4.0-dev build-essential wget libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+            cargo install tauri-cli
+            # Install frontend dependencies
+            npm install
+            # Build the application
+            cargo tauri build
+      - name: Upload deb bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: Debian Bundle
+          path: ${{ github.workspace }}/target/release/bundle/deb/tauri_1.4_armhf.deb
+```
+  </TabItem>
+</Tabs>
 Adjust the `path` variable to match your application's version and name:
 `${{ github.workspace }}/target/release/bundle/deb/[name]_[version]_arm64.deb`.
 
