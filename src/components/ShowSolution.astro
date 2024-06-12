@@ -1,6 +1,6 @@
 ---
 let { text } = Astro.props;
-text = text ?? "Show solution";
+text = text ?? 'Show solution';
 ---
 
 <show-solution class="show-solution">
@@ -16,28 +16,22 @@ text = text ?? "Show solution";
     #button: HTMLButtonElement | null = null;
     constructor() {
       super();
-      this.#button = this.querySelector("button");
-      this.#button?.addEventListener("click", this.#toggle);
-      this.#contentDiv = this.querySelector("div");
+      this.#button = this.querySelector('button');
+      this.#button?.addEventListener('click', this.#toggle);
+      this.#contentDiv = this.querySelector('div');
     }
     #toggle = () => {
       if (this.#button)
-        if (this.#contentDiv?.classList.contains("hidden")) {
-          this.#contentDiv.classList.remove("hidden");
-          this.#button.innerText = this.#button.innerText.replace(
-            "Show",
-            "Hide"
-          );
+        if (this.#contentDiv?.classList.contains('hidden')) {
+          this.#contentDiv.classList.remove('hidden');
+          this.#button.innerText = this.#button.innerText.replace('Show', 'Hide');
         } else {
-          this.#contentDiv?.classList.add("hidden");
-          this.#button.innerText = this.#button.innerText.replace(
-            "Hide",
-            "Show"
-          );
+          this.#contentDiv?.classList.add('hidden');
+          this.#button.innerText = this.#button.innerText.replace('Hide', 'Show');
         }
     };
   }
-  customElements.define("show-solution", ShowSolution);
+  customElements.define('show-solution', ShowSolution);
 </script>
 
 <style>

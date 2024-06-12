@@ -74,10 +74,15 @@ Assuming a **fully trusted** web service on `https://trusted.example` it is now 
 Shared domains **MUST NOT** be used for this in any circumstances. We do not limit access to paths or specific files. You can only scope with **trusted** _(sub)domains_[^6]. Another very risky catch is that developers must be sure that the domain ownership does not change over the lifetime of the application. Domain takeover could lead to compromised user devices.
 
 [^1]: _Inter-Process Communication_, in this instance the communication between the Tauri core and the frontend code run inside the webview.
+
 [^2]: _Security Impact_: What is the theoretical biggest impact of this threat combination? This highly depends on correct scoping of Tauri API endpoints and hardening of custom implemented Tauri commands.
+
 [^3]: _Exposure_: Describes the exposed scope items of this feature to either an user or adversary. It is possible to restrict exposure to only certain domains, windows or only to custom implemented commands.
+
 [^4]: _Adversary Capabilities_: Which kind of privileges has the adversary? Can range from tricking user into entering malicious input to code execution in the frontend via cross-site-scripting (which is the highest privilege for frontend code in our case). Common capabilities are described in the [OWASP documentation](https://owasp.org/www-community/attacks/).
+
 [^5]: _An application can be exploited if it parses user input for making an URL redirection decision, which is then not properly validated._ [Wikipedia Source](https://en.wikipedia.org/wiki/Open_redirect)
+
 [^6]: see the [Reqwest reference](https://docs.rs/reqwest/latest/reqwest/struct.Url.html#method.domain)
 
 ### Browser Arguments [#5799](https://github.com/tauri-apps/tauri/pull/5799)

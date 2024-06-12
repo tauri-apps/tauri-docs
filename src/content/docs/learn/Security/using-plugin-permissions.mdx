@@ -83,10 +83,10 @@ permissions are used.
     ```rust title="src-tauri/src/lib.rs" ins={4}
     #[cfg_attr(mobile, tauri::mobile_entry_point)]
     fn run() {
-    	tauri::Builder::default()
-    		.plugin(tauri_plugin_fs::init())
-    		.run(tauri::generate_context!())
-    		.expect("error while running tauri application");
+      tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
     }
     ```
     </ShowSolution>
@@ -284,7 +284,7 @@ permissions are used.
 
         ```sh
         [Error] Unhandled Promise Rejection: fs.write_text_file not allowed. Permissions associated with this command: fs:allow-app-write, fs:allow-app-write-recursive, fs:allow-appcache-write, fs:allow-appcache-write-recursive, fs:allow-appconf...
-	      (anonymous function) (main.ts:5)
+        (anonymous function) (main.ts:5)
         ```
         Then you very likely did not properly follow the [previous instructions](#find-the-right-permissions).
         </ShowSolution>

@@ -22,7 +22,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
       "relative/path/to/jsonfile.json",
       "resources/*"
     ]
-  },
+  }
 }
 ```
 
@@ -36,7 +36,7 @@ Alternatively the `resources` config also accepts a map object if you want to ch
       "relative/path/to/jsonfile.json": "resources/jsonfile.json",
       "resources/*": "resources/"
     }
-  },
+  }
 }
 ```
 
@@ -126,7 +126,7 @@ For more information, read [Scope Permissions] for other options, or [Scopes] fo
 import { resolveResource } from '@tauri-apps/api/path';
 import { readTextFile } from '@tauri-apps/plugin-fs';
 
-const resourcePath = await resolveResource("lang/de.json");
+const resourcePath = await resolveResource('lang/de.json');
 const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```

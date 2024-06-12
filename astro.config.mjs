@@ -388,7 +388,7 @@ export default defineConfig({
     // v1 /guides/debugging -> /guides/debug
     ...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
     ...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
-    ...i18nRedirect('/v1/guides/debugging/clion', '/guides/debug/clion'),
+    ...i18nRedirect('/v1/guides/debugging/rustrover', '/guides/debug/rustrover'),
     // v1 /guides/development -> /guides/develop
     ...i18nRedirect(
       '/v1/guides/development/development-cycle',

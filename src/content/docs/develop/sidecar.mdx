@@ -2,9 +2,6 @@
 title: Embedding External Binaries
 sidebar:
   order: 1
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 You may need to embed external binaries to add additional functionality to your application or prevent users from installing additional dependencies (e.g., Node.js or Python). We call this binary a `sidecar`.
@@ -78,6 +75,8 @@ main().catch((e) => {
   throw e;
 });
 ```
+
+Note that this script will not work if you compile for a different architecture than the one its running on.
 
 ## Running it from Rust
 
@@ -199,15 +198,3 @@ const command = Command.sidecar('binaries/my-sidecar', [
 ]);
 const output = await command.execute();
 ```
-
-:::note
-
-Example: For a set of arguments like: `-i /path/to/input.png -o /path/to/output.txt`, the arguments array would look like –
-
-```json
-["-i", { "validator": "\\S+" }, "-o", { "validator": "\\S+" }]
-```
-
-Here, the first and third arguments are static (`-i` and `-o`), but the second and fourth are dynamic and match the regex pattern described (`\\S+` means anything except space).
-
-:::
