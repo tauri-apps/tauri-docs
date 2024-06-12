@@ -20,7 +20,6 @@ To build Flatpaks locally you need the `flatpak` and `flatpak-builder` tools. Fo
   <TabItem label="Debian">
 
 ```sh
-sudo apt update
 sudo apt install flatpak flatpak-builder
 ```
 
@@ -28,14 +27,12 @@ sudo apt install flatpak flatpak-builder
   <TabItem label="Arch">
 
 ```sh
-sudo pacman -Syu
 sudo pacman -S --needed flatpak flatpak-builder
 ```
   </TabItem>
   <TabItem label="Fedora">
 
 ```sh
-sudo dnf check-update
 sudo dnf install flatpak flatpak-builder
 ```
   </TabItem>
@@ -55,7 +52,7 @@ dev-util/flatpak-builder
 flatpak install flathub org.Gnome.Platform//46 org.Gnome.Sdk//46
 ```
 
-**3. [Build the .deb of your tauri-app](https://tauri.app/v1/guides/building/linux#debian)**
+**3. [Build the .deb of your tauri-app](https://deploy-preview-2279--tauri-v2.netlify.app/reference/config/#bundleconfig)**
 
 **4. Create the manifest**
 
@@ -80,7 +77,7 @@ modules:
       - type: file
         url: https://github.com/your_username/your_repository/releases/download/v1.0.1/yourapp_1.0.1_amd64.deb
         sha256: 08305b5521e2cf0622e084f2b8f7f31f8a989fc7f407a7050fa3649facd61469 # This is required if you are using a remote source
-        only-arches: [x86_64] #This allows you to make your source architecture specific so that arm users dont install amd64 apps. Another acceptable value is [aarch64].
+        only-arches: [x86_64] #This source is only used on x86_64 Computers
         # This path points to the binary file which was created in the .deb bundle.
         # Tauri also creates a folder which corresponds to the content of the unpacked .deb.
     build-commands:
@@ -95,25 +92,16 @@ modules:
 ```
 **5. Install, and Test the app**
 ```shell
-# Build the flatpak into a local repo
-flatpak-builder --repo=<repo folder name> --force-clean build-dir <your flatpak id>
 
-# Add the repo to your flatpak's list (host)
-flatpak --user remote-add --no-gpg-verify <local repo name> <repo folder name>
-
-# Install the flatpak (host)
+# Install the flatpak
 flatpak -y --user install <local repo name> <your flatpak id>
 
-# Run it (host)
+# Run it
 flatpak run <your flatpak id>
 
-# Update it (host)
+# Update it
 flatpak -y --user update <your flatpak id>
 ```
-
-If you are developing in a container that shares files with the host, you can install the flatpak on your host.
-Any command with a `(host)` label can be executed on your host, while commands without this label must be executed inside the container.
-`(host)` commands must be executed from inside the flatpak directory on your host.
 
 
 
@@ -154,6 +142,3 @@ When your pull request is approved then you will recieve an invitation to edit y
 
 You can read more about this [in the flatpak documentation](https://docs.flatpak.org/en/latest/dependencies.html#bundling)
 
-import Stub from '@components/Stub.astro';
-
-<Stub />
