@@ -2,9 +2,9 @@
 sidebar_position: 4
 ---
 
-import TauriBuild from './\_tauri-build.md'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import TauriBuild from './\_tauri-build.md';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Linux Bundle
 
@@ -298,7 +298,7 @@ jobs:
           path: ${{ github.workspace }}/target/release/bundle/deb/tauri_1.4_arm64.deb
 ```
   </TabItem>
-  <TabItem value="armv8" label="Armv8" default>
+  <TabItem value="armv7" label="Armv7" default>
 ```yaml
 name: Raspberry Pi compile
 on:
