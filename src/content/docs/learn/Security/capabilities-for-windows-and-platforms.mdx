@@ -94,25 +94,32 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
     #### Separate capability files per category
 
     It is recommended to separate the capability files per category of actions they enable.
-  
+
     <ShowSolution>
     JSON files in the `src-tauri/capabilities` will be taken into account for the capability system.
-    Here we separate capabilities related to the filesystem and dialog window.
+    Here we separate capabilities related to the filesystem and dialog window into `filesystem.json`
+    and `dialog.json`.
 
-    *filetree:*
+    *filetree of the Tauri project:*
     ```
+    /src
     /src-tauri
       /capabilities
         filesystem.json
         dialog.json
+      tauri.conf.json
+    package.json
+    README.md
     ```
     </ShowSolution>
 
     #### Give filesystem capabilities to the `first` window
-  
+
     We give the `first` window the capability to have read access to the content of the `$HOME` directory.
 
     <ShowSolution>
+    Use the `windows` field in a capability file with one or multiple window labels.
+
     *filesystem.json:*
     ```json
     {
@@ -132,6 +139,8 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
     We give to `first` and `second` windows the capability to create a "Yes/No" dialog
 
     <ShowSolution>
+    Use the `windows` field in a capability file with one or multiple window labels.
+
     *dialog.json:*
 
     ```json
@@ -151,8 +160,10 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
 
     We now want to customize the capabilities to be active only on certain platforms.
     We make our filesystem capabilities only active on `linux` and `windows`.
-  
+
     <ShowSolution>
+    Use the `platforms` field in a capability file to make it platform-specific.
+
     *filesystem.json:*
     ```json
     {
@@ -172,3 +183,9 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
 
 </Steps>
 
+## Conclusion and Resources
+
+We have learned how to create multiple windows in a Tauri app and give them specific capabilities. Furthermore these capabilities can also be targeted to certain platforms.
+
+An example application that used window capabilities can be found in the [`api` example](https://github.com/tauri-apps/tauri/tree/dev/examples/api) of the [Tauri Github repository](https://github.com/tauri-apps/tauri).
+The fields that can be used in a capability file are listed in the [References/Security/Capability section](reference/acl/capability).
