@@ -252,7 +252,7 @@ Customize the last step in the GitHub Action YAML to generate a `.deb` file inst
 <Tabs>
   <TabItem value="armv8" label="Armv8" default>
   
-```
+```sh
 
 name: Raspberry Pi compile
 on:
@@ -303,7 +303,7 @@ jobs:
   </TabItem>
   <TabItem value="armv7" label="Armv7" default>
     
-```
+```sh
 
 name: Raspberry Pi compile
 on:
