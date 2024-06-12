@@ -347,8 +347,6 @@ jobs:
 ```
   </TabItem>
 </Tabs>
-Adjust the `path` variable to match your application's version and name:
-`${{ github.workspace }}/target/release/bundle/deb/[name]_[version]_arm64.deb`.
 
 [resource]: resources.md
 [sidecar]: sidecar.md
