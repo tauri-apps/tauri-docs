@@ -398,6 +398,9 @@ export default defineConfig({
       '/v1/guides/development/updating-dependencies',
       '/guides/develop/updating-dependencies'
     ),
+    // v1 /guides/distribution -> /guides/distribute
+    ...i18nRedirect('/v1/guides/distribution/publishing', '/guides/distribute/'),
+    ...i18nRedirect('/v1/guides/distribution/updater', '/plugin/updater/'),
     // v1 /guides/testing -> /guides/test
     ...i18nRedirect('/v1/guides/testing/mocking', '/guides/test/mocking'),
     ...i18nRedirect('/v1/guides/testing/webdriver/ci', '/guides/test/webdriver/ci'),
