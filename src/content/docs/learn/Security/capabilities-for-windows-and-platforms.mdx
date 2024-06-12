@@ -1,7 +1,7 @@
 ---
 title: Capabilities for Different Windows and Platforms
 sidebar:
-  order: 1
+  order: 11
   badge:
     text: WIP
 ---
@@ -120,8 +120,7 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
     <ShowSolution>
     Use the `windows` field in a capability file with one or multiple window labels.
 
-    *filesystem.json:*
-    ```json
+    ```json title="filesystem.json"
     {
       "identifier": "fs-read-home",
       "description": "Allow access file access to home directory",
@@ -141,9 +140,7 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
     <ShowSolution>
     Use the `windows` field in a capability file with one or multiple window labels.
 
-    *dialog.json:*
-
-    ```json
+    ```json title="dialog.json"
     {
       "identifier": "dialog",
       "description": "Allow to open a dialog",
@@ -164,8 +161,7 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
     <ShowSolution>
     Use the `platforms` field in a capability file to make it platform-specific.
 
-    *filesystem.json:*
-    ```json
+    ```json title="filesystem.json"
     {
       "identifier": "fs-read-home",
       "description": "Allow access file access to home directory",
@@ -173,7 +169,7 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
       "windows": ["first"],
       "permissions": [
         "fs:allow-home-read",
-      ]
+      ],
       "platforms": ["linux", "windows"]
     }
     ```
@@ -188,4 +184,4 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
 We have learned how to create multiple windows in a Tauri app and give them specific capabilities. Furthermore these capabilities can also be targeted to certain platforms.
 
 An example application that used window capabilities can be found in the [`api` example](https://github.com/tauri-apps/tauri/tree/dev/examples/api) of the [Tauri Github repository](https://github.com/tauri-apps/tauri).
-The fields that can be used in a capability file are listed in the [References/Security/Capability section](reference/acl/capability).
+The fields that can be used in a capability file are listed in the [Capability](/reference/acl/capability) reference.
