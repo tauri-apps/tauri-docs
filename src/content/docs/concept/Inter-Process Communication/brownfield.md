@@ -16,20 +16,6 @@ If you are unfamiliar with Brownfield software development in general, the [Brow
 provides a nice summary. For Tauri, the existing software is current browser support and behavior, instead of
 legacy systems.
 
-## Incompatibilities
-
-The first incompatibility category is simple: any browser-specific APIs will not work properly inside Tauri (even while
-using the Brownfield pattern). If the API is not widely supported across browsers, it probably won't be supported
-across all platforms while using Tauri.
-
-The second incompatibility category is features that are planned for Tauri, but are currently not fully implemented. Here
-is a list of examples:
-
-- [WebRTC support on Linux](https://github.com/tauri-apps/wry/issues/85)
-- [Some permissions APIs](https://github.com/tauri-apps/wry/issues/81)
-- [Download Links/Blob as URL](https://github.com/tauri-apps/wry/issues/349)
-- [Better i18n](https://github.com/tauri-apps/wry/issues/442)
-
 ## Configuration
 
 Because the Brownfield pattern is the default pattern, it doesn't require a configuration option to be set. To explicitly set
