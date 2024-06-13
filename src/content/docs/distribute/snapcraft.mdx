@@ -1,147 +1,144 @@
 ---
-title: Snapcraft
+title: Github Actions
 sidebar:
   order: 1
 ---
-# Prerequisites
+## Contents
+- Cross platform compilation and automating releases
+- Compiling for arm using [Pguyots](https://github.com/pguyot) arm-runner
+- Compiling on self hosted runners
 
-import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
-
-**1. Install snap** 
-<Tabs>
-  <TabItem label="Debian">
-```sh
-  sudo apt install snapd
-```
-  </TabItem>
-<TabItem label="Arch">
-```sh
-sudo pacman -S --needed git base-devel
-  git clone https://aur.archlinux.org/snapd.git
-  cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
-  sudo systemctl start snapd.socket
-  sudo systemctl enable --now snapd.apparmor.service
-```
-  </TabItem>
-<TabItem label="Fedora">
-```sh
-  sudo dnf install snapd
-  sudo ln -s /var/lib/snapd/snap /snap # Enables classic snap support
-  #Reboot your system after doing this
-```
-  </TabItem>
-</Tabs>
-**2. Installing Core**
-<Tabs>
-  <TabItem label="V1">
-```sh
-  sudo snap install core20
-```
-  </TabItem>
-<TabItem label="V2">
-```sh
-  sudo snap install core22
-```
-  </TabItem>
-</Tabs>
-**3. Installing snapcraft**
-```sh
-  sudo snap install snapcraft --classic
-```
-1. Create an UbuntuOne account
-2. Go to the [Snapcraft](https://snapcraft.io) website and register an App name
-3. Create a snapcraft.yaml file in your projects root.
-4. Adjust the names in the snapcraft.yaml file
+### Basic Cross Platform Compilation
 
 ```yaml
-name: app
-base: core22
-version: '2.0.4'
-summary: Your summary # 79 char long summary
-description: |
-  Your Description
+name: 'publish'
 
-grade: stable
-confinement: strict
+on:
+  push:
+    branches:
+      - release
 
-apps:
-  app:
-    command: bin/app
-    desktop: usr/share/applications/app.desktop
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        settings:
+          - platform: 'macos-latest' # for Arm based macs (M1 and above).
+            args: '--target aarch64-apple-darwin'
+          - platform: 'macos-latest' # for Intel based macs.
+            args: '--target x86_64-apple-darwin'
+          - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: ''
+          - platform: 'windows-latest'
+            args: ''
 
-package-repositories:
-  - type: apt
-    components: [main]
-    suites: [noble]
-    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
-    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
+    runs-on: ${{ matrix.settings.platform }}
+    steps:
+      - uses: actions/checkout@v4
 
-parts:
-  prep:
-    plugin: dump
-    build-snaps:
-      - node/20/stable
-      - rustup/latest/stable
-    build-packages:
-      - libwebkit2gtk-4.1-dev
-      - build-essential 
-      - curl 
-      - wget 
-      - file 
-      - libxdo-dev 
-      - libssl-dev 
-      - libayatana-appindicator3-dev 
-      - librsvg2-dev
-      - dpkg
-    stage-packages:
-      - libwebkit2gtk-4.1-0
-      - libglu1-mesa
-      - libsoup-3.0-0
-      - freeglut3
-    source: .
-    override-pull: |
-      set -eu
-      craftctl default
-      rustup default nightly
-      npm install
-      npm run tauri build -- --bundles deb
-      dpkg -x src-tauri/target/release/bundle/deb/*.deb here
-      sed -i -e "s|Icon=app|Icon=/usr/share/icons/hicolor/32x32/apps/app.png|g" here/usr/share/applications/app.desktop
-      cp -r here/* .
-    organize:
-      usr/bin/app: bin/app
-```
-// TODO: ADD EXPLANATION
+      - name: install dependencies (ubuntu only)
+        if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+        # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
+        # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
 
-# Explanation
-- The `name` variable defines the name of your app and is required to be set to the name that you have registered earlier.
-- The `base`variable defines which core you are using. For Tauri V1 you can use core20, but for Tauri v2 you must use core22
-- The `Version variable` defines the version, and should be updated with each change to the source repository.
-- The `apps` section allows you to expose the desktop and binary files to allow the user to run your app
-- The `package-repositories` section allows you to add a package repository to help you satisfy your dependencies. This is not required for Tauri V1.
-- `build-packages`/`build-snaps` defines the build dependencies for your snap.
-- `stage-packages`/`stage-snaps` defines the runtime dependencies for your snap.
-- The `override-pull` section runs a series of commands before the sources are pulled.
-- `craftctl default` performs the default pull commands.
-- The `organize` section moves your files to the proper directories so that the binary and desktop file can be exposed to the `apps` sections
-### Building
-```sh
-sudo snapcraft
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'yarn' # Set this to npm, yarn or pnpm.
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.settings.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: yarn install # change this to npm or pnpm depending on which one you use.
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.settings.args }}
 ```
 
-### Testing
-```sh
-snap run your-app
+### Arm Runner Compilation
+The process in which you cross compile is quite similar to version 1, however one small change is
+that the base_image uses `Bookworm` instead of `Bullseye`
+
+In order to compile from source you must install nodejs from a snap as the debian version is too old to be used.
+```yaml
+name: Raspberry Pi compile
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pguyot/arm-runner-action@v2.5.2
+        with:
+          base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bookworm.img.xz
+          cpu: cortex-a53
+          bind_mount_repository: true
+          image_additional_mb: 10240
+          optimize_image: false
+          commands: |
+            # Rust complains (rightly) that $HOME doesn't match eid home
+            export HOME=/root
+            # Workaround to CI worker being stuck on Updating crates.io index
+            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+            # Install setup prerequisites
+            apt-get update -y --allow-releaseinfo-change
+            apt-get upgrade -y
+            apt-get autoremove -y
+            apt-get install curl
+            curl https://sh.rustup.rs -sSf | sh -s -- -y
+            . "$HOME/.cargo/env"
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash
+            # Install framework specific packages
+            apt-get install -y snap
+            sudo snap install node --channel=20/stable --classic
+            npm install next@latest react@latest react-dom@latest eslint-config-next@latest
+            # Install build tools and tauri-cli requirements
+            apt-get install -y libwebkit2gtk-4.1-dev build-essential wget libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+            # Install frontend dependencies
+            npm install
+            # Build the application
+            npm run tauri build
+      - name: Upload deb bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: Debian Bundle
+          path: ${{ github.workspace }}src-tauri/target/release/bundle/deb/tauri_1.4_arm64.deb
 ```
-### Releasing Manually
-```sh
-snapcraft login # Login with your UbuntuOne credentials
-snapcraft upload --release=stable mysnap_latest_amd64.snap
+### Cross Compiling with self hosted runners
+Cross Compiling with self hosted runners is by far the simplest method for compiling for aarch64. You simply have to update the platform in matrix settings
+Before you must install an action-runner for each platform option you wish to support by following this (guide)[https://docs.github.com/en/enterprise-cloud@latest/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners]
+
+```yaml
+- platform: 'ARM64'
+  args: ''
+- platform: 'ARM'
+  args: ''
 ```
 
-### Building automatically
-1. On your apps developer page click on the `builds` tab
-2. Click `login with github`
-3. Enter in your repository's details.
