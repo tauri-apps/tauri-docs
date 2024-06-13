@@ -3,10 +3,57 @@ title: Snapcraft
 sidebar:
   order: 1
 ---
-1. Create an Ubuntuone account
+# Prerequisites
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+**1. Install snap** 
+<Tabs>
+  <TabItem label="Debian">
+```sh
+  sudo apt install snapd
+```
+  </TabItem>
+<TabItem label="Arch">
+```sh
+  sudo pacman -S --needed git base-devel
+  git clone https://aur.archlinux.org/snapd.git
+  cd snapd
+  makepkg -si
+  sudo systemctl enable --now snapd.socket
+  sudo systemctl start snapd.socket
+  sudo systemctl enable --now snapd.apparmor.service
+```
+  </TabItem>
+<TabItem label="Fedora">
+```sh
+  sudo dnf install snapd
+  sudo ln -s /var/lib/snapd/snap /snap # Enables classic snap support
+  #Reboot your system after doing this
+```
+  </TabItem>
+</Tabs>
+**2. Installing Core**
+<Tabs>
+  <TabItem label="V1">
+```sh
+  sudo snap install core20
+```
+  </TabItem>
+<TabItem label="V2">
+```sh
+  sudo snap install core22
+```
+  </TabItem>
+</Tabs>
+**3. Installing snapcraft**
+```sh
+  sudo snap install snapcraft --classic
+```
+1. Create an UbuntuOne account
 2. Go to the [Snapcraft](https://snapcraft.io) website and register an App name
 3. Create a snapcraft.yaml file in your projects root.
-4. Adjust the names
+4. Adjust the names in the snapcraft.yaml file
 5. Once your app name has been approved enter your pages listing and click on the `builds` tab
 6. Link to your repository
 
@@ -67,4 +114,31 @@ parts:
       cp -r here/* .
     organize:
       usr/bin/app: bin/app
+```
+// TODO: ADD EXPLANATION
+
+# Explanation
+- The `name` variable defines the name of your app and is required to be set to the name that you have registered earlier.
+- The `base`variable defines which core you are using. For Tauri V1 you can use core20, but for Tauri v2 you must use core22
+- The `Version variable` defines the version, and should be updated with each change to the source repository.
+- The `apps` section allows you to expose the desktop and binary files to allow the user to run your app
+- The `package-repositories` section allows you to add a package repository to help you satisfy your dependencies. This is not required for Tauri V1.
+- `build-packages`/`build-snaps` defines the build dependencies for your snap.
+- `stage-packages`/`stage-snaps` defines the runtime dependencies for your snap.
+- The `override-pull` section runs a series of commands before the sources are pulled.
+- `craftctl default` performs the default pull commands.
+- The `organize` section moves your files to the proper directories so that the binary and desktop file can be exposed to the `apps` sections
+### Building
+```sh
+sudo snapcraft
+```
+
+### Testing
+```sh
+snap run your-app
+```
+### Releasing Manually
+```sh
+snapcraft login
+snapcraft upload --release=stable mysnap_latest_amd64.snap
 ```
