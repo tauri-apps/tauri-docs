@@ -16,7 +16,7 @@ import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
   </TabItem>
 <TabItem label="Arch">
 ```sh
-  sudo pacman -S --needed git base-devel
+sudo pacman -S --needed git base-devel
   git clone https://aur.archlinux.org/snapd.git
   cd snapd
   makepkg -si
@@ -54,8 +54,6 @@ import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 2. Go to the [Snapcraft](https://snapcraft.io) website and register an App name
 3. Create a snapcraft.yaml file in your projects root.
 4. Adjust the names in the snapcraft.yaml file
-5. Once your app name has been approved enter your pages listing and click on the `builds` tab
-6. Link to your repository
 
 ```yaml
 name: app
@@ -139,6 +137,11 @@ snap run your-app
 ```
 ### Releasing Manually
 ```sh
-snapcraft login
+snapcraft login # Login with your UbuntuOne credentials
 snapcraft upload --release=stable mysnap_latest_amd64.snap
 ```
+
+### Building automatically
+1. On your apps developer page click on the `builds` tab
+2. Click `login with github`
+3. Enter in your repository's details.
