@@ -8,9 +8,9 @@ sidebar:
 
 _**This is the default pattern.**_
 
-This is the simplest and most straightforward pattern to use Tauri with, because it tries to be as compatible as possible with
-existing frontend projects. In short, it tries to require nothing additional to what an existing web
-frontend might use inside a browser. Not _**everything**_ that works in existing browser applications will work out-of-the-box; see the [Incompatibility section](#incompatibilities) for more details.
+This is the simplest and most straightforward pattern to use Tauri with, because it tries to be as compatible as possible with existing frontend projects. In short, it tries to require nothing
+additional to what an existing web frontend might use inside a browser.
+Not _**everything**_ that works in existing browser applications will work out-of-the-box.
 
 If you are unfamiliar with Brownfield software development in general, the [Brownfield Wikipedia article]
 provides a nice summary. For Tauri, the existing software is current browser support and behavior, instead of
