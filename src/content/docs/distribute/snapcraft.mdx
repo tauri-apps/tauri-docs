@@ -1,0 +1,77 @@
+---
+title: Snap
+sidebar:
+  order: 1
+  badge:
+    text: WIP
+    variant: caution
+---
+# Publishing a Snap
+
+1. Create an Ubuntuone account
+2. Go to the [Snapcraft](https://snapcraft.io) website and register an App name
+3. Create a snapcraft.yaml file in your projects root.
+4. Adjust the names
+
+```yaml
+name: app
+base: core22
+adopt-info: metapart
+version: '2.0.4'
+summary: Your summary # 79 char long summary
+description: |
+  Your Description
+
+grade: stable
+confinement: strict
+
+apps:
+  app:
+    command: bin/app
+    desktop: usr/share/applications/app.desktop
+
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [noble]
+    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
+    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
+
+parts:
+  prep:
+    plugin: dump
+    build-snaps:
+      - node/20/stable
+      - rustup/latest/stable
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - build-essential 
+      - curl 
+      - wget 
+      - file 
+      - libxdo-dev 
+      - libssl-dev 
+      - libayatana-appindicator3-dev 
+      - librsvg2-dev
+      - dpkg
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libglu1-mesa
+      - libsoup-3.0-0
+      - freeglut3
+    source: .
+    override-pull: |
+      set -eu
+      craftctl default
+      rustup default nightly
+      npm install
+      npm run tauri build -- --bundles deb
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb here
+      sed -i -e "s|Icon=app|Icon=/usr/share/icons/hicolor/32x32/apps/app.png|g" here/usr/share/applications/app.desktop
+      cp -r here/* .
+    organize:
+      usr/bin/app: bin/app
+```
+import Stub from '@components/Stub.astro';
+
+<Stub />
