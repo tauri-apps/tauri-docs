@@ -4,9 +4,10 @@ sidebar:
   order: 1
 ---
 
-#### 1. Fork the repository
-#### 2. Create a pacscript
-Adjust the name, arch, url, maintainer, and source as you require. All packages that use a debian source must be suffixed with `-deb`
+1. Fork the [pacstall](https://github.com/pacstall/pacstall-programs/fork) repository
+2. Create a pacscript
+
+Adjust the name, arch, url, maintainer, and source as you require.
 ```ini
 pkgname="rosary-deb" # Any packages that use a deb source need to end with -deb
 gives="${pkgname/-deb/}"
@@ -33,4 +34,4 @@ Your packages name must be added to the packagelist file. This can be automated 
 ls -1 packages > packagelist
 ```
 #### 5. Push your changes
-#### 6. Open a pull request
+#### 6. Open a pull request against the master branch of the pacstall-programs repository
