@@ -22,16 +22,18 @@ sha256sums_amd64=('81c917fdce366aa6d417fdae65306c5f4860fb9dc26c8ffa9a9b62c0d206c
 sha256sums_arm64=('bad20bfad1c337db35ee3f95d59ad5e70c4947b64aa6118de0953ddfec4c1538')
 sha256sums_armhf=('8a8140bf7dcea4852a265b55bca332bb904d249627521b1bd1a985b383fd8307')
 ```
-#### 3. Generate .SRCINFO
+3. Generate .SRCINFO
+
 Similary to the AUR each package must have a .SRCINFO file in order to be accepted.
 ```sh
 ./scripts/srcinfo.sh packages/${pkgname}/${pkgname}.pacscript
 ```
 
-#### 4. Add Your Package to the Packagelist
+4. Add Your Package to the Packagelist
+
 Your packages name must be added to the packagelist file. This can be automated by using the following command.
 ```sh
 ls -1 packages > packagelist
 ```
-#### 5. Push your changes
-#### 6. Open a pull request against the master branch of the pacstall-programs repository
+5. Push your changes
+6. Open a pull request against the master branch of the pacstall-programs repository
