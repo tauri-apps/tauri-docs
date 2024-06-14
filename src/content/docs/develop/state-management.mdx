@@ -33,7 +33,7 @@ You can later access your state via the `App` instance:
 let data = app.state::<AppData>();
 ```
 
-For accessing state in commands, see the [Accessing State](#accessing-state) section.
+For more info, including accessing state in commands, see the [Accessing State](#accessing-state) section.
 
 ## Mutability
 
@@ -75,11 +75,17 @@ state.counter += 1;
 
 At the end of the scope, or when the `MutexGuard` is otherwise dropped, the mutex is unlocked automatically so that other parts of your application can access and mutate the data within.
 
+### Do you need `Arc`?
+
+It's common to see `Arc` used in Rust to share ownership of a value across multiple threads. However, in Tauri, you typically don't need to use `Arc` to wrap your state's `Mutex` because the state is already internally managed and shared across threads.
+
+The only time in which it would make sense to use `Arc` for your state is when you need to share the state across multiple parts of your application that are not managed by Tauri itself.
+
 ## Accessing State
 
 You are now storing state in your application, but the obvious next question would be how to access the state in commands.
 
-To build on the previous example, this is how you can access state (and optionally modify it) within commands:
+This is how you can access state (and optionally modify it) within commands:
 
 ```rust
 use tauri::State;
@@ -94,13 +100,64 @@ fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
 
 For more information on commands, see [Calling Rust from the Frontend](/develop/calling-rust).
 
-### Do you need `Arc`?
+### Async Commands
 
-It's common to see `Arc` used in Rust to share ownership of a value across multiple threads. However, in Tauri, you typically don't need to use `Arc` to wrap your state's `Mutex` because the state is already internally managed and shared across threads.
+To quote the [Tokio documentation](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), it's usually fine to use the standard library's `Mutex`:
 
-The only time in which it would make sense to use `Arc` for your state is when you need to share the state across multiple parts of your application that are not managed by Tauri itself.
+> Contrary to popular belief, it is ok and often preferred to use the ordinary Mutex from the standard library in asynchronous code ... The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection.
 
-### Mismatching Types
+It's a good idea to read the linked documentation page fully to understand the trade-offs between the two. However, if you are using `async` commands and want to use Tokio's async `Mutex`, you can set it up the same way and access the state like this:
+
+```rust
+use tauri::{async_runtime::Mutex, State};
+
+#[tauri::command]
+async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
+  let mut state = state.lock().await;
+  state.counter += 1;
+  Ok(state.counter)
+}
+```
+
+Note that the return type must be `Result` if you use asynchronous commands.
+
+### Outside of Commands
+
+Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of the `AppHandle` to get the state:
+
+```rust
+use tauri::{Builder, GlobalWindowEvent, Manager};
+
+#[derive(Default)]
+struct AppState {
+  counter: u32,
+}
+
+// In an event handler:
+fn on_window_event(event: GlobalWindowEvent) {
+    // Get a handle to the app so we can get the global state.
+    let app_handle = event.window().app_handle();
+    let state = app_handle.state::<Mutex<AppState>>();
+
+    // Lock the mutex to mutably access the state.
+    let mut state = state.lock().unwrap();
+    state.counter += 1;
+}
+
+// In `fn main()`:
+Builder::default()
+  .setup(|app| {
+    app.manage(Mutex::new(AppState::default()));
+    Ok(())
+  })
+  .on_window_event(on_window_event)
+  .run(tauri::generate_context!())
+  .unwrap();
+```
+
+This method is useful when you cannot rely on command injection. For example, if you need to move the state into a thread where using an `AppHandle` is easier, or if you are not in a command context.
+
+## Mismatching Types
 
 :::caution
 If you use the wrong type for the `State` parameter, you will get a runtime panic instead of compile time error.
@@ -122,24 +179,3 @@ type AppState = Mutex<AppStateInner>;
 ```
 
 However, make sure not to wrap it in a `Mutex` twice if you do this, otherwise you will run into the same issue.
-
-### Async Mutex
-
-To quote the [Tokio documentation](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), it's usually fine to use the standard library's `Mutex`:
-
-> Contrary to popular belief, it is ok and often preferred to use the ordinary Mutex from the standard library in asynchronous code ... The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection.
-
-It's a good idea to read the linked documentation page fully to understand the trade-offs between the two. However, if you are using `async` commands and want to use Tokio's async `Mutex`, you can set it up the same way and access the state like this:
-
-```rust
-use tauri::{async_runtime::Mutex, State};
-
-#[tauri::command]
-async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
-  let mut state = state.lock().await;
-  state.counter += 1;
-  Ok(state.counter)
-}
-```
-
-Note that the return type must be `Result` if you use asynchronous commands.
