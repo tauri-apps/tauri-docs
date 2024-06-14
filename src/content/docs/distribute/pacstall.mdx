@@ -1,0 +1,36 @@
+---
+title: Pacstall
+sidebar:
+  order: 1
+---
+
+#### 1. Fork the repository
+#### 2. Create a pacscript
+Adjust the 
+```ini
+pkgname="rosary-deb" # Any packages that use a deb source need to end with -deb
+gives="${pkgname/-deb/}"
+pkgver="2.0.3"
+pkgdesc="A Bible App developed with tauri"
+arch=('amd64' 'arm64' 'armhf')
+url="https://github.com/Username/Repo"
+maintainer=("Your Name <firstname.lastname@mail.com>")
+depends=('libwebkit2gtk-4.1' 'build-essential' 'curl' 'wget' 'file' 'libxdo-dev' 'libssl-dev' 'libayatana-appindicator3-dev' 'librsvg2-dev')
+source=("https://github.com/Your_Username/Repo/releases/download/v${pkgver}/app-name_${pkgver}_${CARCH}.deb")
+sha256sums_amd64=('81c917fdce366aa6d417fdae65306c5f4860fb9dc26c8ffa9a9b62c0d206c54a')
+sha256sums_arm64=('bad20bfad1c337db35ee3f95d59ad5e70c4947b64aa6118de0953ddfec4c1538')
+sha256sums_armhf=('8a8140bf7dcea4852a265b55bca332bb904d249627521b1bd1a985b383fd8307')
+```
+#### 3. Generate .SRCINFO
+Similary to the AUR each package must have a .SRCINFO file in order to be accepted.
+```sh
+./scripts/srcinfo.sh packages/${pkgname}/${pkgname}.pacscript
+```
+
+#### 4. Add Your Package to the Packagelist
+Your packages name must be added to the packagelist file. This can be automated by using the following command.
+```sh
+ls -1 packages > packagelist
+```
+#### 5. Push your changes
+#### 6. Open a pull request
