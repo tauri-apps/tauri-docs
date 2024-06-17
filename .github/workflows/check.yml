@@ -1,6 +1,6 @@
 # Adapted from https://github.com/withastro/starlight/blob/main/.github/workflows/format.yml
 
-name: Format on PR
+name: Check formatting
 
 on:
   pull_request:
@@ -23,4 +23,4 @@ jobs:
       - run: pnpm i
 
       - name: Format with Prettier
-        run: pnpm format
+        run: pnpm format:check
