@@ -60,8 +60,8 @@ importers:
         specifier: ^1.1.7
         version: 1.6.5
       starlight-blog:
-        specifier: ^0.8.2
-        version: 0.8.3(@astrojs/starlight@0.24.2(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)))(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5))
+        specifier: ^0.9.0
+        version: 0.9.0(@astrojs/starlight@0.24.2(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)))(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5))
       starlight-links-validator:
         specifier: ^0.9.0
         version: 0.9.0(@astrojs/starlight@0.24.2(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)))(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5))
@@ -3476,12 +3476,12 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-blog@0.8.3:
-    resolution: {integrity: sha512-8Htu5KU5Z257ilsTxo1ozcU9pEjxui7TlCa6TgLxENhls98yIXIEunrseS9XYBiivxtL6Ly7BKx5qYGtXmyrEQ==}
+  starlight-blog@0.9.0:
+    resolution: {integrity: sha512-SpQulRfi8/lQ1XYz+YZ26/4o/gCeCqQ/IsMNRYD8erpxcBNq0/iGax32E3TsJVO2E9iM32LHvMrp0pF+vwk7fg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.22.1'
-      astro: '>=4.2.7'
+      '@astrojs/starlight': '>=0.24.0'
+      astro: '>=4.8.6'
 
   starlight-links-validator@0.9.0:
     resolution: {integrity: sha512-DJQDncEJBuuguPHJKP/SMmYdToWCFeEpZuRV5z9Qqgif3njJiF7dBRDAFdNIM2TCNADAZdseMOcR0iUpnvvjLQ==}
@@ -8079,7 +8079,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.8.3(@astrojs/starlight@0.24.2(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)))(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)):
+  starlight-blog@0.9.0(@astrojs/starlight@0.24.2(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)))(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5)):
     dependencies:
       '@astrojs/rss': 4.0.5
       '@astrojs/starlight': 0.24.2(astro@4.10.2(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0)(typescript@5.4.5))
