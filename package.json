@@ -38,7 +38,7 @@
     "semver": "^7.6.0",
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
-    "starlight-blog": "^0.8.2",
+    "starlight-blog": "^0.9.0",
     "starlight-links-validator": "^0.9.0"
   },
   "packageManager": "pnpm@9.3.0",
