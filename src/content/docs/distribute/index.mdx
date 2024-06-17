@@ -8,6 +8,22 @@ sidebar:
     variant: caution
 ---
 
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+
+<CardGrid>
+  <LinkCard
+    title="Flathub"
+    href="/distribute/flatpak/"
+    description="Architecture and ecosystem."
+  />
+  <LinkCard
+    title="AUR"
+    href="/distribute/aur"
+    description="The inner workings on the IPC."
+  />
+</CardGrid>
 import Stub from '@components/Stub.astro';
 
 <Stub />
