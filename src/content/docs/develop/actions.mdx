@@ -133,15 +133,4 @@ jobs:
           name: Debian Bundle
           path: ${{ github.workspace }}src-tauri/target/release/bundle/deb/tauri_1.4_arm64.deb
 ```
-### Cross Compiling with self hosted runners
-Cross Compiling with self hosted runners is by far the simplest method for compiling for aarch64. You simply have to update the platform in matrix settings
-Before you must install an action-runner for each platform option you wish to support by following this [guide](https://docs.github.com/en/enterprise-cloud@latest/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners)
-
-````yaml
-- platform: 'ARM64'
-  args: ''
-- platform: 'ARM'
-  args: ''
-````
-
 
