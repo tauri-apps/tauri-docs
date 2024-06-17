@@ -9,38 +9,38 @@ import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 
 **1. Install snap** 
 <Tabs>
-  <TabItem label="Debian">
-```sh
+<TabItem label="Debian">
+```shell
   sudo apt install snapd
 ```
-  </TabItem>
+</TabItem>
 <TabItem label="Arch">
-```sh
+```shell
 sudo pacman -S --needed git base-devel
-  git clone https://aur.archlinux.org/snapd.git
-  cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
-  sudo systemctl start snapd.socket
-  sudo systemctl enable --now snapd.apparmor.service
+git clone https://aur.archlinux.org/snapd.git
+cd snapd
+makepkg -si
+sudo systemctl enable --now snapd.socket
+sudo systemctl start snapd.socket
+sudo systemctl enable --now snapd.apparmor.service
 ```
-  </TabItem>
+</TabItem>
 <TabItem label="Fedora">
-```sh
-  sudo dnf install snapd
-  sudo ln -s /var/lib/snapd/snap /snap # Enables classic snap support
-  #Reboot your system after doing this
+```shell
+sudo dnf install snapd
+sudo ln -s /var/lib/snapd/snap /snap # Enables classic snap support
+#Reboot your system after doing this
 ```
-  </TabItem>
+</TabItem>
 </Tabs>
 **2. Installing Core**
 
-```sh
+```shell
   sudo snap install core22
 ```
 
 **3. Installing snapcraft**
-```sh
+```shell
   sudo snap install snapcraft --classic
 ```
 1. Create an UbuntuOne account
@@ -106,7 +106,6 @@ parts:
     organize:
       usr/bin/app: bin/app
 ```
-// TODO: ADD EXPLANATION
 
 # Explanation
 - The `name` variable defines the name of your app and is required to be set to the name that you have registered earlier.
@@ -125,11 +124,11 @@ sudo snapcraft
 ```
 
 ### Testing
-```sh
+```shell
 snap run your-app
 ```
 ### Releasing Manually
-```sh
+```shell
 snapcraft login # Login with your UbuntuOne credentials
 snapcraft upload --release=stable mysnap_latest_amd64.snap
 ```
