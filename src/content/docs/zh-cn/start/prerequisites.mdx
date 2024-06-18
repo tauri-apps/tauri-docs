@@ -36,6 +36,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
   curl \
   wget \
   file \
+  libxdo-dev \
   libssl-dev \
   libgtk-3-dev \
   libayatana-appindicator3-dev \
@@ -242,24 +243,29 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 4. 配置 `ANDROID_HOME` 和 `NDK_HOME` 环境变量：
 
-{/* TODO: Does the version number change below? */}
-
 <Tabs>
-<TabItem label="Linux and macOS">
+<TabItem label="Linux">
+
+```sh
+export ANDROID_HOME="$HOME/Android/Sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="macOS">
 
 ```sh
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 ```
 
 </TabItem>
 <TabItem label="Windows">
 
-{/* TODO: Do we need a note about this version? */}
-
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\25.0.8775105", "User")
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
 
 </TabItem>
