@@ -1,11 +1,370 @@
 ---
-title: Red Hat Package Manager
+title: RPM
 sidebar:
   order: 1
-  badge:
-    text: WIP
-    variant: caution
 ---
-import Stub from '@components/Stub.astro';
 
-<Stub />
+import CommandTabs from '@components/CommandTabs.astro';
+
+# Packaging for RPM
+
+## Getting information about the RPM package
+
+if you want to get information about your package for example the version, release, and the architecture you can use the following command:
+
+```bash
+rpm -qi package_name
+```
+here what a the output of the command will look like:
+
+```bash
+rpm -qi tauri-app-0.0.0-1.x86_64.rpm
+Name        : tauri-app
+Epoch       : 0
+Version     : 0.0.0
+Release     : 1
+Architecture: x86_64
+Install Date: (not installed)
+Group       : Unspecified
+Size        : 11456527
+License     :
+Signature   : EdDSA/SHA512, jeu 30 mai 2024 10:32:44, Key ID f1dbd23fecdd57e8
+Source RPM  : (none)
+Build Date  : mer 22 mai 2024 14:09:10
+Build Host  : (none)
+Summary     : A Tauri App
+Description :
+A Tauri App
+Distribution: (none)
+```
+
+## Configuring the RPM package
+
+### Add post, pre-install/remove script to the package
+
+add post, pre-install/remove options let you run scripts before or after the installation or removal of the package.
+for example, you can use this to start a service after the installation of the package.
+
+1. Create a folder `scripts` in src-tauri directory
+
+```bash
+mkdir scripts
+```
+
+2. Now create the script file in the folder
+
+```bash
+touch src-tauri/scripts/postinstall.sh \
+touch src-tauri/scripts/preinstall.sh \
+touch src-tauri/scripts/preremove.sh \
+touch src-tauri/scripts/postremove.sh
+```
+
+Now if we look inside `/src-tauri/scripts` we will see:
+
+```bash
+ls src-tauri/scripts/
+postinstall.sh  postremove.sh  preinstall.sh  preremove.sh
+```
+
+3. Now let us add some content to the scripts
+
+preinstall.sh:
+
+```bash
+echo "-------------"
+echo "This is pre"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+postinstall.sh:
+
+```bash
+echo "-------------"
+echo "This is post"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+preremove.sh:
+
+```bash
+echo "-------------"
+echo "This is preun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+postremove.sh:
+
+```bash
+echo "-------------"
+echo "This is postun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+4.  Let  add the script we made in the `tauri.conf.json` file
+
+``` json title="tauri.conf.json"
+{
+  "productName": "tauri-app",
+  "version": "0.0.0",
+  "identifier": "com.tauri.devthom",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "tauri-app",
+        "width": 800,
+        "height": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Utility",
+    "linux": {
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1",
+        // add the script here
+        "preInstallScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postInstallScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "preRemoveScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh"
+      }
+    }
+  }
+}
+```
+### Setting the conflict,provides,depends,files,obsoletes,desktopTemplate, and epoch  to the package
+
+- **conflict**: Used to prevent the installation of the package if the package as conflict with another package.
+for exemple if you update one rpm package that your app depends on and the new version of the package is not compatible with your app.
+
+- **provides**: Used to tell the list of RPM dependencies your application provides.
+
+- **depends**: Used to tell the list of RPM dependencies your application needs to run.
+
+- **files**: will be used to tell what files to include on the package.
+
+- **obsoletes**: will be used to tell the list of RPM dependencies your application obsoletes.
+
+:::note
+if this package is installed, packages listed as “obsoletes” will be automatically removed (if they are present).
+:::
+
+- **desktopTemplate**: Used to add custom  desktop file to the package.
+
+- **epoch**: Define weighted dependencies based on version numbers.
+
+:::caution
+it is important to know that it is not recommended to use epoch unless you have a good reason to do so.
+Because it will alter the way the package manager handle comparing package version.
+:::
+
+to use it add this to your `tauri.conf.json` :
+
+```json title="tauri.conf.json"
+{
+  "productName": "tauri-app",
+  "version": "0.0.0",
+  "identifier": "com.tauri.devthom",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "tauri-app",
+        "width": 800,
+        "height": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Utility",
+    "linux": {
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1",
+          "preInstallScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postInstallScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "preRemoveScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh"
+        "conflicts": ["oldLib.rpm"],
+        "depends": ["newLib.rpm"],
+        "obsoletes": ["veryoldLib.rpm"],
+        "provides": ["coolLib.rpm"],
+        "desktopTemplate": "/path/to/your/project/src-tauri/desktop-template.desktop"
+      }
+    }
+  }
+}
+```
+### Add a license to the package
+
+to add a license to the package you will need to add this to  the cargo.toml file:
+
+```toml
+package]
+name = "tauri-app"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+"license" = "MIT" # add the license here
+# ...  rest of the file
+```
+
+## Building the RPM package
+
+To build the RPM package, you can use the following command:
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  cargo="cargo tauri build"
+/>
+
+This command will build the RPM package in the `src-tauri/target/release/bundle/rpm` directory.
+
+## Signing the RPM package manually
+
+To sign the RPM package  you will need to generate a GPG key and then sign the package with it.
+
+### Generate a GPG key
+
+To generate a GPG key you can use the following command:
+
+```bash
+gpg --gen-key
+gpg (GnuPG) 2.4.5; Copyright (C) 2024 g10 Code GmbH
+...
+GnuPG needs to construct a user ID to identify your key.
+```
+
+Now you will be asked to enter your name, email, and a passphrase.
+
+```bash
+Real name: Tauri-App
+Email address: Dev@tauri.app
+You selected this USER-ID:
+    "Tauri-App <Dev@tauri.app>"
+
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? o
+...
+public and secret key created and signed.
+
+pub   ed25519 2024-05-30 [SC] [expires: 2027-05-30]
+      2A0D30287277E2E7186AC426F1DBD23FECDD57E8
+uid                      Tauri-App <Dev@tauri.app>
+sub   cv25519 2024-05-30 [E] [expires: 2027-05-30]
+```
+
+to list all the keys you have use the following command:
+
+```bash
+gpg --list-keys
+```
+
+Now you can export the public key with the following command:
+
+```bash
+gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
+```
+After that import the key to the rpm database:
+
+```bash
+```bash
+sudo rpm --import RPM-GPG-KEY-Tauri-App
+# to verify the key is imported
+rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
+gpg-pubkey-ecdd57e8-66588654 --> Tauri-App <Dev@tauri.app> public key
+```
+
+now that the key is imported we have to  edit the file ~/.rpmmacros in order to utilize the key.
+
+```bash
+cat ~/.rpmmacros
+%_signature gpg
+%_gpg_path /home/johndoe/.gnupg
+%_gpg_name Tauri-App
+%_gpgbin /usr/bin/gpg2
+```
+
+Finally, you can sign the package with the following command:
+
+```bash
+cd your-project/src-tauri/target/release/bundle/rpm
+rpm --addsign tauri-app-0.0.0-1.x86_64.rpm
+```
+
+:::note
+You can also use `rpmsign --addsign` to sign the package.
+:::
+
+you should be prompted to enter the passphrase you used when generating the key.
+
+### Verify the signature
+
+to verify the signature you can use the following command:
+
+```bash
+rpm -K tauri-app-0.0.0-1.x86_64.rpm
+```
+
+If the signature is valid you should see:
+
+```bash
+tauri-app-0.0.0-1.x86_64.rpm: digests signatures OK
+```
+
+## Sign with tauri
+
+### **Work in progress**
