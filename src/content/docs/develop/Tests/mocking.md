@@ -2,12 +2,7 @@
 title: Mock Tauri APIs
 sidebar:
   order: 10
-  badge:
-    text: WIP
-    variant: caution
 ---
-
-<!-- {/*TODO: REVISE COPY TO V2 */} -->
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
@@ -71,7 +66,7 @@ import { beforeAll, expect, test, vi } from "vitest";
 import { randomFillSync } from "crypto";
 
 import { mockIPC } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
@@ -95,7 +90,7 @@ test("invoke", async () => {
   });
 
   // we can use the spying tools provided by vitest to track the mocked function
-  const spy = vi.spyOn(window, "__TAURI_IPC__");
+  const spy = vi.spyOn(window, "__TAURI_INTERNALS__.invoke");
 
   expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
   expect(spy).toHaveBeenCalled();
@@ -160,17 +155,15 @@ beforeAll(() => {
 test('invoke', async () => {
   mockWindows('main', 'second', 'third');
 
-  const { getCurrent, getAll } = await import('@tauri-apps/api/window');
+  const { getCurrent, getAll } = await import('@tauri-apps/api/webviewWindow');
 
   expect(getCurrent()).toHaveProperty('label', 'main');
   expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
 });
 ```
 
-<!-- TODO: Updates links to v2 -->
-
-[`@tauri-apps/api/mocks`]: https://tauri.app/v1/api/js/mocks/
-[`mockipc()`]: https://tauri.app/v1/api/js/mocks#mockipc
-[`mockwindows()`]: https://tauri.app/v1/api/js/mocks#mockwindows
-[`clearmocks()`]: https://tauri.app/v1/api/js/mocks#clearmocks
+[`@tauri-apps/api/mocks`]: ../../reference/javascript/api/namespacemocks/
+[`mockipc()`]: ../../reference/javascript/api/namespacemocks/#mockipc
+[`mockwindows()`]: ../../reference/javascript/api/namespacemocks/#mockwindows
+[`clearmocks()`]: ../../reference/javascript/api/namespacemocks/#clearmocks
 [vitest]: https://vitest.dev

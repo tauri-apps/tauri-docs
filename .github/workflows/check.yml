@@ -1,6 +1,6 @@
 # Adapted from https://github.com/withastro/starlight/blob/main/.github/workflows/format.yml
 
-name: Format on PR
+name: Check formatting
 
 on:
   pull_request:
@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code using Git
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 9
+
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'pnpm'
       - run: pnpm i
+
       - name: Format with Prettier
-        run: pnpm format
+        run: pnpm format:check

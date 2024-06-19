@@ -4,7 +4,7 @@ import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
-import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import ThemeSelect from './ThemeSelect.astro';
 
 const curLocale = Astro.props.locale;
 
@@ -23,12 +23,12 @@ const links: Link[] = [
 	},
 	{
 		title: 'References',
-		value: '/reference/acl/',
+		value: '/reference/acl/capability/',
 		transfer: true,
 	},
 	{
 		title: 'Blog',
-		value: '/blog',
+		value: '/blog/',
 		transfer: false,
 	},
 	{
@@ -59,8 +59,8 @@ const links: Link[] = [
 		<div class="sl-flex social-icons">
 			<SocialIcons {...Astro.props} />
 		</div>
-		<ThemeSelect {...Astro.props} />
 		<LanguageSelect {...Astro.props} />
+		<ThemeSelect {...Astro.props} />
 	</div>
 </div>
 
@@ -117,39 +117,13 @@ const links: Link[] = [
 			align-content: center;
 		}
 	}
-
-	.action {
-		gap: 0.5em;
-		align-items: center;
-		padding: 0.5rem 1.125rem;
-		color: var(--sl-color-gray-1);
-		line-height: 1.1875;
-		text-decoration: none;
-		font-size: var(--sl-text-sm);
-	}
-	.action:hover {
+	a:hover {
 		color: var(--sl-color-gray-2);
 	}
-	.action.primary {
-		background: var(--sl-color-text-accent);
-		color: var(--sl-color-black);
-	}
-	.action.secondary {
-		border: 1px solid;
-	}
-	.action.minimal {
-		padding-inline: 0;
-	}
-
-	@media (min-width: 50rem) {
-		.action {
-			font-size: var(--sl-text-base);
-			padding: 1rem 1.25rem;
+	:root[data-theme='light'] {
+		a:hover {
+			color: var(--sl-color-gray-3);
 		}
-	}
-
-	.release-link {
-		gap: 1rem;
 	}
 </style>
 <style is:global>

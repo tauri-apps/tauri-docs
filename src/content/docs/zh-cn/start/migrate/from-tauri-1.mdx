@@ -1020,7 +1020,7 @@ let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```rust
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
-    tray::{ClickType, TrayIconBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
 };
 
 tauri::Builder::default()
@@ -1036,7 +1036,12 @@ tauri::Builder::default()
                 _ => (),
             })
             .on_tray_icon_event(|tray, event| {
-                if event.click_type == ClickType::Left {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
                     let _ = webview_window.show();
@@ -1173,4 +1178,4 @@ tauri::Builder::default()
 
 `migrate` 命令行工具命令会自动解析你的授权许可列表 v1 并生成相关的许可配置文件。
 
-要了解有关权限和功能的更多信息，请参阅[该文档](/reference/acl/)。
+要了解有关权限和功能的更多信息，请参阅[该文档](/security/capabilities/)。
