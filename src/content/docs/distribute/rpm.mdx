@@ -8,45 +8,21 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 # Packaging for RPM
 
-## Getting information about the RPM package
-
-if you want to get information about your package for example the version, release, and the architecture you can use the following command:
-
-```bash
-rpm -qi package_name
-```
-
-here what a the output of the command will look like:
-
-```bash
-rpm -qi tauri-app-0.0.0-1.x86_64.rpm
-Name        : tauri-app
-Epoch       : 0
-Version     : 0.0.0
-Release     : 1
-Architecture: x86_64
-Install Date: (not installed)
-Group       : Unspecified
-Size        : 11456527
-License     :
-Signature   : EdDSA/SHA512, jeu 30 mai 2024 10:32:44, Key ID f1dbd23fecdd57e8
-Source RPM  : (none)
-Build Date  : mer 22 mai 2024 14:09:10
-Build Host  : (none)
-Summary     : A Tauri App
-Description :
-A Tauri App
-Distribution: (none)
-```
+This guide covers how to distribute and manage RPM packages, including retrieving package information, configuring scripts, setting dependencies, and signing packages.
 
 ## Configuring the RPM package
 
+Tauri allows you to configure the RPM package by adding scripts, setting dependencies, adding a license, custom files, and more.
+For more information about what could be configure please check: [RpmConfig](https://v2.tauri.app/reference/config/#rpmconfig).
+
 ### Add post, pre-install/remove script to the package
 
-add post, pre-install/remove options let you run scripts before or after the installation or removal of the package.
-for example, you can use this to start a service after the installation of the package.
+The RPM package manager provides a way to run scripts before or after the installation or removal of the package.
+For example, you can use this to start a service after the installation of the package.
 
-1. Create a folder `scripts` in src-tauri directory
+Here's a example how to add these scripts:
+
+1. Create a folder `scripts` in `src-tauri` directory in your project.
 
 ```bash
 mkdir scripts
@@ -70,9 +46,7 @@ postinstall.sh  postremove.sh  preinstall.sh  preremove.sh
 
 3. Now let us add some content to the scripts
 
-preinstall.sh:
-
-```bash
+```bash title="preinstall.sh"
 echo "-------------"
 echo "This is pre"
 echo "Install Value: $1"
@@ -81,9 +55,7 @@ echo "Uninstall Value: $1"
 echo "-------------"
 ```
 
-postinstall.sh:
-
-```bash
+```bash title="postinstall.sh"
 echo "-------------"
 echo "This is post"
 echo "Install Value: $1"
@@ -92,9 +64,7 @@ echo "Uninstall Value: $1"
 echo "-------------"
 ```
 
-preremove.sh:
-
-```bash
+```bash title="preremove.sh"
 echo "-------------"
 echo "This is preun"
 echo "Install Value: $1"
@@ -103,9 +73,7 @@ echo "Uninstall Value: $1"
 echo "-------------"
 ```
 
-postremove.sh:
-
-```bash
+```bash title="postremove.sh"
 echo "-------------"
 echo "This is postun"
 echo "Install Value: $1"
@@ -120,7 +88,7 @@ echo "-------------"
 {
   "productName": "tauri-app",
   "version": "0.0.0",
-  "identifier": "com.tauri.devthom",
+  "identifier": "com.tauri.dev",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -252,10 +220,10 @@ to use it add this to your `tauri.conf.json` :
 
 ### Add a license to the package
 
-to add a license to the package you will need to add this to the cargo.toml file:
+to add a license to the package you will need to add this to the `src-tauri/cargo.toml` file:
 
 ```toml
-package]
+[package]
 name = "tauri-app"
 version = "0.0.0"
 description = "A Tauri App"
@@ -280,93 +248,12 @@ This command will build the RPM package in the `src-tauri/target/release/bundle/
 
 ## Signing the RPM package
 
-### sign manually RPM package
-
-To sign the RPM package you will need to generate a GPG key and then sign the package with it.
+Tauri by default let you sign the package with the key you have in your system during the build process.
+To do this you will need to generate a GPG key
 
 #### Generate a GPG key
 
 To generate a GPG key you can use the following command:
-
-```bash
-gpg --gen-key
-gpg (GnuPG) 2.4.5; Copyright (C) 2024 g10 Code GmbH
-...
-GnuPG needs to construct a user ID to identify your key.
-```
-
-Now you will be asked to enter your name, email, and a passphrase.
-
-```bash
-Real name: Tauri-App
-Email address: Dev@tauri.app
-You selected this USER-ID:
-    "Tauri-App <Dev@tauri.app>"
-
-Change (N)ame, (E)mail, or (O)kay/(Q)uit? o
-...
-public and secret key created and signed.
-
-pub   ed25519 2024-05-30 [SC] [expires: 2027-05-30]
-      2A0D30287277E2E7186AC426F1DBD23FECDD57E8
-uid                      Tauri-App <Dev@tauri.app>
-sub   cv25519 2024-05-30 [E] [expires: 2027-05-30]
-```
-
-to list all the keys you have use the following command:
-
-```bash
-gpg --list-keys
-```
-
-Now you can export the public key with the following command:
-
-```bash
-gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
-```
-
-After that import the key to the rpm database:
-
-```bash
-sudo rpm --import RPM-GPG-KEY-Tauri-App
-# to verify the key is imported
-rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
-gpg-pubkey-ecdd57e8-66588654 --> Tauri-App <Dev@tauri.app> public key
-```
-
-now that the key is imported we have to edit the file ~/.rpmmacros in order to utilize the key.
-
-```bash
-cat ~/.rpmmacros
-%_signature gpg
-%_gpg_path /home/johndoe/.gnupg
-%_gpg_name Tauri-App
-%_gpgbin /usr/bin/gpg2
-%__gpg_sign_cmd %{__gpg} \
-    gpg --force-v3-sigs --digest-algo=sha1 --batch --no-verbose --no-armor \
-    --passphrase-fd 3 --no-secmem-warning -u "%{_gpg_name}" \
-    -sbo %{__signature_filename} %{__plaintext_filename}
-```
-
-Finally, you can sign the package with the following command:
-
-```bash
-cd your-project/src-tauri/target/release/bundle/rpm
-rpm --addsign tauri-app-0.0.0-1.x86_64.rpm
-```
-
-:::note
-You can also use `rpmsign --addsign` to sign the package.
-:::
-
-you should be prompted to enter the passphrase you used when generating the key.
-
-### Sign with tauri
-
-Tauri by default let you sign the package with the key you have in your system during the build process.
-To do this you will need to generate a GPG key
-
-to generate a GPG key you can use the following command:
 
 ```bash
 gpg --gen-key
@@ -398,9 +285,11 @@ Now you can build the package with the following command:
 
 ### Verify the signature
 
-to verify the signature you can use the following command:
+:::note
+this should be done only to test the signature locally.
+:::
 
-before veryfiyng the signature you will need to create and import the public key to the rpm database:
+Before verifying the signature you will need to create and import the public key to the rpm database:
 
 ```bash
 gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
@@ -410,7 +299,7 @@ gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
 sudo rpm --import RPM-GPG-KEY-Tauri-App
 ```
 
-now that the key is imported we have to edit the file ~/.rpmmacros in order to utilize the key.
+Now that the key is imported we have to edit the file `~/.rpmmacros` to utilize the key.
 
 ```bash title="~/.rpmmacros"
 %_signature gpg
@@ -423,8 +312,105 @@ now that the key is imported we have to edit the file ~/.rpmmacros in order to u
     -sbo %{__signature_filename} %{__plaintext_filename}
 ```
 
-Finally, you can verify the package with the following command:
+Finally, you can verify the package using the following command:
 
 ```bash
 rpm  -v --checksig tauri-app-0.0.0-1.x86_64.rpm
+```
+
+## Debugging the RPM package
+
+in this section, we will see how to debug the RPM package by checking the content of the package and getting information about the package.
+
+### Getting information about the package
+
+if you want to get information about your package for example the version, release, and the architecture you can use the following command:
+
+```bash
+rpm -qip package_name.rpm
+```
+
+here what a the output of the command will look like:
+
+```bash
+Name        : tauri-app
+Epoch       : 0
+Version     : 0.0.0
+Release     : 1
+Architecture: x86_64
+Install Date: (not installed)
+Group       : Unspecified
+Size        : 11411503
+License     : MIT
+Signature   : RSA/SHA256, jeu 20 jun 2024 11:33:40, Key ID ae2e3ea8e4eb24fd
+Source RPM  : (none)
+Build Date  : jeu 20 jun 2024 11:33:40
+Build Host  : (none)
+Summary     : A Tauri App
+Description :
+A Tauri App
+Distribution: (none)
+```
+
+### query specific information about the package
+
+for example, if you want to get the name, version, release, architecture, and the size of the package you can use the following command:
+
+```bash
+rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' package_name.rpm
+```
+
+:::note
+queryformat is a format string that can be used to get specific information about the package.
+the information that can be retrieved are from the rpm -qip command.
+:::
+
+### Checking the content of the package
+
+To check the content of the package you can use the following command:
+
+```bash
+rpm -qlp package_name.rpm
+```
+
+this command will list all the files that are included in the package.
+
+### Debugging scripts
+
+To debug post/pre-install/remove scripts you can use the following command:
+
+```bash
+rpm -qp --scripts package_name.rpm
+```
+
+this command will print the content of the scripts.
+
+### Checking dependencies
+
+To check the dependencies of the package you can use the following command:
+
+```bash
+rpm -qp --requires package_name.rpm
+```
+
+### List packages that depend on a specific package
+
+To list the packages that depend on a specific package you can use the following command:
+
+```bash
+rpm -q --whatrequires package_name.rpm
+```
+
+### Debugging Installation Issues
+
+If you encounter issues during the installation of an RPM package, you can use the -vv (very verbose) option to get detailed output:
+
+```bash
+rpm -ivvh package_name.rpm
+```
+
+Or for an already installed package:
+
+```bash
+rpm -Uvvh package_name.rpm
 ```
