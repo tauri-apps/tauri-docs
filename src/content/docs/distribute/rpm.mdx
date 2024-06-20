@@ -157,8 +157,8 @@ if this package is installed, packages listed as “obsoletes” will be automat
 - **epoch**: Define weighted dependencies based on version numbers.
 
 :::caution
-it is important to know that it is not recommended to use epoch unless you have a good reason to do so.
-Because it will alter the way the package manager handle comparing package version.
+It is important to know that it is not recommended to use epoch unless you have a good reason to do so.
+Because it will alter the way the package manager handle comparing package version. For more information about epoch please check [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers).
 :::
 
 to use it add this to your `tauri.conf.json` :
@@ -361,7 +361,7 @@ rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' packa
 ```
 
 :::note
-queryformat is a format string that can be used to get specific information about the package.
+*`--queryformat`* is a format string that can be used to get specific information about the package.
 the information that can be retrieved are from the rpm -qip command.
 :::
 
