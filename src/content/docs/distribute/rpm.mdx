@@ -15,6 +15,7 @@ if you want to get information about your package for example the version, relea
 ```bash
 rpm -qi package_name
 ```
+
 here what a the output of the command will look like:
 
 ```bash
@@ -79,6 +80,7 @@ echo "Upgrade Value: $1"
 echo "Uninstall Value: $1"
 echo "-------------"
 ```
+
 postinstall.sh:
 
 ```bash
@@ -112,9 +114,9 @@ echo "Uninstall Value: $1"
 echo "-------------"
 ```
 
-4.  Let  add the script we made in the `tauri.conf.json` file
+4.  Let add the script we made in the `tauri.conf.json` file
 
-``` json title="tauri.conf.json"
+```json title="tauri.conf.json"
 {
   "productName": "tauri-app",
   "version": "0.0.0",
@@ -164,10 +166,11 @@ echo "-------------"
   }
 }
 ```
-### Setting the conflict,provides,depends,files,obsoletes,desktopTemplate, and epoch  to the package
+
+### Setting the conflict,provides,depends,files,obsoletes,desktopTemplate, and epoch to the package
 
 - **conflict**: Used to prevent the installation of the package if the package as conflict with another package.
-for exemple if you update one rpm package that your app depends on and the new version of the package is not compatible with your app.
+  for exemple if you update one rpm package that your app depends on and the new version of the package is not compatible with your app.
 
 - **provides**: Used to tell the list of RPM dependencies your application provides.
 
@@ -181,7 +184,7 @@ for exemple if you update one rpm package that your app depends on and the new v
 if this package is installed, packages listed as “obsoletes” will be automatically removed (if they are present).
 :::
 
-- **desktopTemplate**: Used to add custom  desktop file to the package.
+- **desktopTemplate**: Used to add custom desktop file to the package.
 
 - **epoch**: Define weighted dependencies based on version numbers.
 
@@ -246,9 +249,10 @@ to use it add this to your `tauri.conf.json` :
   }
 }
 ```
+
 ### Add a license to the package
 
-to add a license to the package you will need to add this to  the cargo.toml file:
+to add a license to the package you will need to add this to the cargo.toml file:
 
 ```toml
 package]
@@ -274,11 +278,13 @@ To build the RPM package, you can use the following command:
 
 This command will build the RPM package in the `src-tauri/target/release/bundle/rpm` directory.
 
-## Signing the RPM package manually
+## Signing the RPM package
 
-To sign the RPM package  you will need to generate a GPG key and then sign the package with it.
+### sign manually RPM package
 
-### Generate a GPG key
+To sign the RPM package you will need to generate a GPG key and then sign the package with it.
+
+#### Generate a GPG key
 
 To generate a GPG key you can use the following command:
 
@@ -318,9 +324,9 @@ Now you can export the public key with the following command:
 ```bash
 gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
 ```
+
 After that import the key to the rpm database:
 
-```bash
 ```bash
 sudo rpm --import RPM-GPG-KEY-Tauri-App
 # to verify the key is imported
@@ -328,7 +334,7 @@ rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
 gpg-pubkey-ecdd57e8-66588654 --> Tauri-App <Dev@tauri.app> public key
 ```
 
-now that the key is imported we have to  edit the file ~/.rpmmacros in order to utilize the key.
+now that the key is imported we have to edit the file ~/.rpmmacros in order to utilize the key.
 
 ```bash
 cat ~/.rpmmacros
@@ -336,6 +342,10 @@ cat ~/.rpmmacros
 %_gpg_path /home/johndoe/.gnupg
 %_gpg_name Tauri-App
 %_gpgbin /usr/bin/gpg2
+%__gpg_sign_cmd %{__gpg} \
+    gpg --force-v3-sigs --digest-algo=sha1 --batch --no-verbose --no-armor \
+    --passphrase-fd 3 --no-secmem-warning -u "%{_gpg_name}" \
+    -sbo %{__signature_filename} %{__plaintext_filename}
 ```
 
 Finally, you can sign the package with the following command:
@@ -351,20 +361,70 @@ You can also use `rpmsign --addsign` to sign the package.
 
 you should be prompted to enter the passphrase you used when generating the key.
 
+### Sign with tauri
+
+Tauri by default let you sign the package with the key you have in your system during the build process.
+To do this you will need to generate a GPG key
+
+to generate a GPG key you can use the following command:
+
+```bash
+gpg --gen-key
+```
+
+Follow the instruction to generate the key.
+
+When the key is generated you will need to add it to your environment variable.
+you can do this by adding the following to your `.bashrc` or `.zshrc` file or just export it in the terminal:
+
+```bash
+export TAURI_SIGNING_RPM_KEY=$(cat /home/johndoe/my_super_private.key)
+```
+
+If you have a passphrase for the key you can add it to the environment variable:
+
+```bash
+export TAURI_SIGNING_RPM_KEY_PASSPHRASE=password
+```
+
+Now you can build the package with the following command:
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  cargo="cargo tauri build"
+/>
+
 ### Verify the signature
 
 to verify the signature you can use the following command:
 
-```bash
-rpm -K tauri-app-0.0.0-1.x86_64.rpm
-```
-
-If the signature is valid you should see:
+before veryfiyng the signature you will need to create and import the public key to the rpm database:
 
 ```bash
-tauri-app-0.0.0-1.x86_64.rpm: digests signatures OK
+gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
 ```
 
-## Sign with tauri
+```bash
+sudo rpm --import RPM-GPG-KEY-Tauri-App
+```
 
-### **Work in progress**
+now that the key is imported we have to edit the file ~/.rpmmacros in order to utilize the key.
+
+```bash title="~/.rpmmacros"
+%_signature gpg
+%_gpg_path /home/johndoe/.gnupg
+%_gpg_name Tauri-App
+%_gpgbin /usr/bin/gpg2
+%__gpg_sign_cmd %{__gpg} \
+    gpg --force-v3-sigs --digest-algo=sha1 --batch --no-verbose --no-armor \
+    --passphrase-fd 3 --no-secmem-warning -u "%{_gpg_name}" \
+    -sbo %{__signature_filename} %{__plaintext_filename}
+```
+
+Finally, you can verify the package with the following command:
+
+```bash
+rpm  -v --checksig tauri-app-0.0.0-1.x86_64.rpm
+```
