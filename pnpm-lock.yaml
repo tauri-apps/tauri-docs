@@ -58,7 +58,7 @@ importers:
         version: 0.33.4
       shiki:
         specifier: ^1.1.7
-        version: 1.8.0
+        version: 1.9.0
       starlight-blog:
         specifier: ^0.9.0
         version: 0.9.0(@astrojs/starlight@0.24.4(astro@4.11.0(@types/node@20.14.7)(sass@1.77.6)(terser@5.31.0)(typescript@5.5.2)))(astro@4.11.0(@types/node@20.14.7)(sass@1.77.6)(terser@5.31.0)(typescript@5.5.2))
@@ -1255,8 +1255,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shikijs/core@1.8.0':
-    resolution: {integrity: sha512-wzVkFzqAVhIOvRTSDwHWVQIpRU66sCjZ/cg5E4bO9jtTEKj94HTRKVVDYgM6ein5KfBCFB61hN3RuSFcpYPq7g==}
+  '@shikijs/core@1.9.0':
+    resolution: {integrity: sha512-cbSoY8P/jgGByG8UOl3jnP/CWg/Qk+1q+eAKWtcrU3pNoILF8wTsLB0jT44qUBV8Ce1SvA9uqcM9Xf+u3fJFBw==}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
@@ -3276,8 +3276,8 @@ packages:
   shiki@0.14.7:
     resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
 
-  shiki@1.8.0:
-    resolution: {integrity: sha512-Nyoc/J7bMfJ44rOoVspOYHafTZvvkmLOXRwwj4Wo/QhonIv6SA9WETZE8+2ziVjT956EyfrmXGvYD3RMh1MTfw==}
+  shiki@1.9.0:
+    resolution: {integrity: sha512-i6//Lqgn7+7nZA0qVjoYH0085YdNk4MC+tJV4bo+HgjgRMJ0JmkLZzFAuvVioJqLkcGDK5GAMpghZEZkCnwxpQ==}
 
   side-channel@1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
@@ -3922,7 +3922,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-rehype: 11.1.0
       remark-smartypants: 2.1.0
-      shiki: 1.8.0
+      shiki: 1.9.0
       unified: 11.0.4
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -4857,7 +4857,7 @@ snapshots:
   '@expressive-code/plugin-shiki@0.35.3':
     dependencies:
       '@expressive-code/core': 0.35.3
-      shiki: 1.8.0
+      shiki: 1.9.0
 
   '@expressive-code/plugin-text-markers@0.35.3':
     dependencies:
@@ -5117,7 +5117,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.18.0':
     optional: true
 
-  '@shikijs/core@1.8.0': {}
+  '@shikijs/core@1.9.0': {}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -5374,7 +5374,7 @@ snapshots:
       rehype: 13.0.1
       resolve: 1.22.8
       semver: 7.6.2
-      shiki: 1.8.0
+      shiki: 1.9.0
       string-width: 7.1.0
       strip-ansi: 7.1.0
       tsconfck: 3.1.0(typescript@5.5.2)
@@ -7805,9 +7805,9 @@ snapshots:
       vscode-oniguruma: 1.7.0
       vscode-textmate: 8.0.0
 
-  shiki@1.8.0:
+  shiki@1.9.0:
     dependencies:
-      '@shikijs/core': 1.8.0
+      '@shikijs/core': 1.9.0
 
   side-channel@1.0.6:
     dependencies:
