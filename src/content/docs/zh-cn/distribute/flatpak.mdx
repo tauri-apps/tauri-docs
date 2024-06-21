@@ -1,0 +1,153 @@
+---
+title: Flathub
+sidebar:
+  order: 1
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+要了解 Flatpak 的工作原理的详细信息，您可以阅读[构建您的第一个 Flatpak](https://docs.flatpak.org/en/latest/first-build.html)。
+
+本指南假设您希望通过 [Flathub](https://flathub.org/) 来分发您的 Flatpak，这是最常用的 Flatpak 分发平台。如果您计划使用其他平台，请参阅它们的文档。
+
+### 前置条件
+
+为了在 Flatpak 运行时中测试您的应用程序，您可以先在本地构建 Flatpak，然后再将应用程序上传到 Flathub。如果您想快速共享开发版本，这也会很有帮助。
+
+**1. 安装 `flatpak` 和 `flatpak-builder`**
+
+要在本地构建 Flatpaks，您需要使用 `flatpak` 和 `flatpak-builder` 工具。例如，在 Ubuntu 上您可以运行以下命令。
+
+<Tabs>
+  <TabItem label="Debian">
+
+```sh
+sudo apt install flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -S --needed flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf install flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+sys-apps/flatpak \
+dev-util/flatpak-builder
+```
+
+  </TabItem>
+</Tabs>
+
+**2. 安装 Flatpak 运行时**
+
+```shell
+flatpak install flathub org.Gnome.Platform//46 org.Gnome.Sdk//46
+```
+
+**3. [为你的 tauri-app 构建 .deb 文件](https://deploy-preview-2279--tauri-v2.netlify.app/reference/config/#bundleconfig)**
+
+**4. 创建 manifest**
+
+```yaml
+id: org.your.id
+
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+
+command: tauri-app
+finish-args:
+  - --socket=wayland # Permission needed to show the window
+  - --socket=fallback-x11 # Permission needed to show the window
+  - --device=dri # OpenGL, not necessary for all projects
+  - --share=ipc
+
+modules:
+  - name: binary
+    buildsystem: simple
+    sources:
+      - type: file
+        url: https://github.com/your_username/your_repository/releases/download/v1.0.1/yourapp_1.0.1_amd64.deb
+        sha256: 08305b5521e2cf0622e084f2b8f7f31f8a989fc7f407a7050fa3649facd61469 # This is required if you are using a remote source
+        only-arches: [x86_64] #This source is only used on x86_64 Computers
+        # This path points to the binary file which was created in the .deb bundle.
+        # Tauri also creates a folder which corresponds to the content of the unpacked .deb.
+    build-commands:
+      - ar -x *.deb
+      - tar -xf data.tar.gz
+      - 'install -Dm755 usr/bin/tauri-app /app/bin/tauri-app'
+      - install -Dm644 usr/share/applications/yourapp.desktop /app/share/applications/org.your.id.desktop
+      - install -Dm644 usr/share/icons/hicolor/128x128/apps/yourapp.png /app/share/icons/hicolor/128x128/apps/org.your.id.png
+      - install -Dm644 usr/share/icons/hicolor/32x32/apps/yourapp.png /app/share/icons/hicolor/32x32/apps/org.your.id.png
+      - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/yourapp.png /app/share/icons/hicolor/256x256@2/apps/org.your.id.png
+      - install -Dm644 org.your.id.metainfo.xml /app/share/metainfo/org.your.id.rosary.metainfo.xml
+```
+
+Gnome 46 运行时包含了标准 Tauri 应用程序的所有依赖项，并且它们的版本都是正确的。
+
+**5. 安装并测试该应用程序**
+
+```shell
+
+# Install the flatpak
+flatpak -y --user install <local repo name> <your flatpak id>
+
+# Run it
+flatpak run <your flatpak id>
+
+# Update it
+flatpak -y --user update <your flatpak id>
+```
+
+## 添加额外的库
+
+如果您的最终二进制文件比默认的 tauri 应用程序需要更多的库，您需要在 flatpak 清单中添加它们。
+有两种方法可以做到这一点。对于快速本地开发，可能只需将已经构建好的库文件（.so）从本地系统包含进来就可以工作。
+然而，这不推荐用于 flatpak 的最终构建，因为您本地的库文件并非为 flatpak 运行时环境构建而成。
+这可能会引入各种很难找到的错误。
+因此，建议将程序依赖的库从源代码在 flatpak 内部进行构建步骤。
+
+## 提交到 flathub
+
+**_1. Fork [Flathub 存储库](https://github.com/flathub/flathub/fork)_**
+
+**_2. 克隆 Fork 的仓库_**
+
+```shell
+git clone --branch=new-pr git@github.com:your_github_username/flathub.git
+```
+
+**_3. 进入存储库_**
+
+```shell
+cd flathub
+```
+
+**_4. 创建一个新分支_**
+
+```shell
+git checkout -b your_app_name
+```
+
+**_5. 将您的应用程序清单添加到分支中。提交更改，然后推送它们。_**
+
+**_6. 在 github 上对 `new-pr` 分支发起一个 pull request。_**
+
+**_7. 您的应用现在将进入审核流程，可能会要求您对项目进行更改。_**
+
+当您的拉取请求被批准后，您将收到一个编辑应用程序存储库的邀请。从此以后，您可以持续更新您的应用程序。
+
+您可以在 [flatpak 文档](https://docs.flatpak.org/en/latest/dependencies.html#bundling)中阅读更多相关信息。
