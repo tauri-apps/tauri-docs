@@ -1,6 +1,7 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "cloneSubmodules": true,
+  "labels": ["dependencies"],
   "git-submodules": {
     "enabled": true,
     "schedule": ["every weekend"]
