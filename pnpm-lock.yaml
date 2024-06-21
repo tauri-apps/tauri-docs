@@ -73,7 +73,7 @@ importers:
         version: 7.0.15
       '@types/node':
         specifier: ^20.11.20
-        version: 20.14.6
+        version: 20.14.7
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1317,9 +1317,6 @@ packages:
 
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
-
-  '@types/node@20.14.6':
-    resolution: {integrity: sha512-JbA0XIJPL1IiNnU7PFxDXyfAwcwVVrOoqyzzyQTyMeVhBzkJVMSkC1LlVsRQ2lpqiY4n6Bb9oCS6lzDKVQxbZw==}
 
   '@types/node@20.14.7':
     resolution: {integrity: sha512-uTr2m2IbJJucF3KUxgnGOZvYbN0QgkGyWxG6973HCpMYFy2KfcgYuIwkJQMQkt1VbBMlvWRbpshFTLxnxCZjKQ==}
@@ -5193,10 +5190,6 @@ snapshots:
       '@types/unist': 3.0.2
 
   '@types/node@17.0.45': {}
-
-  '@types/node@20.14.6':
-    dependencies:
-      undici-types: 5.26.5
 
   '@types/node@20.14.7':
     dependencies:
