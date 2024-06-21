@@ -3,4 +3,17 @@
 i18n:
   - src/content/docs/es/**/*
   - src/content/docs/fr/**/*
+  - src/content/docs/it/**/*
+  - src/content/docs/zh-cn/**/*
+
+"i18n: es":
+  - src/content/docs/es/**/*
+
+"i18n: fr":
+  - src/content/docs/fr/**/*
+
+"i18n: it":
+  - src/content/docs/it/**/*
+
+"i18n: zh-cn":
   - src/content/docs/zh-cn/**/*
