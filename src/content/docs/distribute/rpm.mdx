@@ -137,7 +137,7 @@ echo "-------------"
 ### Setting the Conflict, Provides, Depends, Files, Obsoletes, DesktopTemplate, and Epoch
 
 - **conflict**: Prevents the installation of the package if it conflicts with another package.
-For example, if you update an RPM package that your app depends on and the new version is incompatible with your app.
+  For example, if you update an RPM package that your app depends on and the new version is incompatible with your app.
 
 - **provides**: Lists the RPM dependencies that your application provides.
 
@@ -341,7 +341,7 @@ rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' packa
 ```
 
 :::note
-_`--queryformat`_  is a format string that can be used to get specific information about the package.
+_`--queryformat`_ is a format string that can be used to get specific information about the package.
 The information that can be retrieved is from the rpm -qip command.
 :::
 
