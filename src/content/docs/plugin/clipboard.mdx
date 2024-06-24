@@ -11,6 +11,7 @@ import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import Permissions from '@components/Permissions.astro';
 
 <PluginLinks plugin="clipboard-manager" />
 
@@ -111,3 +112,6 @@ println!("{:?}", content.unwrap());
 
 </TabItem>
 </Tabs>
+
+
+<Permissions plugin="clipboard-manager" />

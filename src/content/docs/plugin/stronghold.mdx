@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import Permissions from '@components/Permissions.astro';
 
 <PluginLinks plugin="stronghold" />
 
@@ -221,27 +222,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission                             | Description                                                               |
-| -------------------------------------- | ------------------------------------------------------------------------- |
-| `stronghold:allow-create-client`       | Enables the create_client command without any pre-configured scope.       |
-| `stronghold:deny-create-client`        | Denies the create_client command without any pre-configured scope.        |
-| `stronghold:allow-destroy`             | Enables the destroy command without any pre-configured scope.             |
-| `stronghold:deny-destroy`              | Denies the destroy command without any pre-configured scope.              |
-| `stronghold:allow-execute-procedure`   | Enables the execute_procedure command without any pre-configured scope.   |
-| `stronghold:deny-execute-procedure`    | Denies the execute_procedure command without any pre-configured scope.    |
-| `stronghold:allow-get-store-record`    | Enables the get_store_record command without any pre-configured scope.    |
-| `stronghold:deny-get-store-record`     | Denies the get_store_record command without any pre-configured scope.     |
-| `stronghold:allow-initialize`          | Enables the initialize command without any pre-configured scope.          |
-| `stronghold:deny-initialize`           | Denies the initialize command without any pre-configured scope.           |
-| `stronghold:allow-load-client`         | Enables the load_client command without any pre-configured scope.         |
-| `stronghold:deny-load-client`          | Denies the load_client command without any pre-configured scope.          |
-| `stronghold:allow-remove-secret`       | Enables the remove_secret command without any pre-configured scope.       |
-| `stronghold:deny-remove-secret`        | Denies the remove_secret command without any pre-configured scope.        |
-| `stronghold:allow-remove-store-record` | Enables the remove_store_record command without any pre-configured scope. |
-| `stronghold:deny-remove-store-record`  | Denies the remove_store_record command without any pre-configured scope.  |
-| `stronghold:allow-save`                | Enables the save command without any pre-configured scope.                |
-| `stronghold:deny-save`                 | Denies the save command without any pre-configured scope.                 |
-| `stronghold:allow-save-secret`         | Enables the save_secret command without any pre-configured scope.         |
-| `stronghold:deny-save-secret`          | Denies the save_secret command without any pre-configured scope.          |
-| `stronghold:allow-save-store-record`   | Enables the save_store_record command without any pre-configured scope.   |
-| `stronghold:deny-save-store-record`    | Denies the save_store_record command without any pre-configured scope.    |
+<Permissions plugin="stronghold" />

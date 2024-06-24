@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import Permissions from '@components/Permissions.astro';
 
 <PluginLinks plugin="fs" />
 
@@ -501,3 +502,5 @@ To allow specific `fs` command to access specific scopes:
   ]
 }
 ```
+
+<Permissions plugin="fs" />

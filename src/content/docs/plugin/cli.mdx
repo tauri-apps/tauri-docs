@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import Permissions from '@components/Permissions.astro';
 
 <PluginLinks plugin="cli" />
 
@@ -284,8 +285,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `cli:default`           | Allows reading the CLI matches.                                   |
-| `cli:allow-cli-matches` | Enables the cli_matches command without any pre-configured scope. |
-| `cli:deny-cli-matches`  | Denies the cli_matches command without any pre-configured scope.  |
+<Permissions plugin="cli" />

@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import Permissions from '@components/Permissions.astro';
 
 <PluginLinks plugin="upload" />
 
@@ -99,3 +100,5 @@ download(
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
+
+<Permissions plugin="upload" />

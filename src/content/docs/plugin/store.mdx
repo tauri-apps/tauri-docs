@@ -6,6 +6,7 @@ description: Persistent key value storage.
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import Permissions from '@components/Permissions.astro';
 
 <PluginLinks plugin="store" />
 
@@ -161,29 +162,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission            | Description                                                   |
-| --------------------- | ------------------------------------------------------------- |
-| `store:allow-clear`   | Enables the clear command without any pre-configured scope.   |
-| `store:deny-clear`    | Denies the clear command without any pre-configured scope.    |
-| `store:allow-delete`  | Enables the delete command without any pre-configured scope.  |
-| `store:deny-delete`   | Denies the delete command without any pre-configured scope.   |
-| `store:allow-entries` | Enables the entries command without any pre-configured scope. |
-| `store:deny-entries`  | Denies the entries command without any pre-configured scope.  |
-| `store:allow-get`     | Enables the get command without any pre-configured scope.     |
-| `store:deny-get`      | Denies the get command without any pre-configured scope.      |
-| `store:allow-has`     | Enables the has command without any pre-configured scope.     |
-| `store:deny-has`      | Denies the has command without any pre-configured scope.      |
-| `store:allow-keys`    | Enables the keys command without any pre-configured scope.    |
-| `store:deny-keys`     | Denies the keys command without any pre-configured scope.     |
-| `store:allow-length`  | Enables the length command without any pre-configured scope.  |
-| `store:deny-length`   | Denies the length command without any pre-configured scope.   |
-| `store:allow-load`    | Enables the load command without any pre-configured scope.    |
-| `store:deny-load`     | Denies the load command without any pre-configured scope.     |
-| `store:allow-reset`   | Enables the reset command without any pre-configured scope.   |
-| `store:deny-reset`    | Denies the reset command without any pre-configured scope.    |
-| `store:allow-save`    | Enables the save command without any pre-configured scope.    |
-| `store:deny-save`     | Denies the save command without any pre-configured scope.     |
-| `store:allow-set`     | Enables the set command without any pre-configured scope.     |
-| `store:deny-set`      | Denies the set command without any pre-configured scope.      |
-| `store:allow-values`  | Enables the values command without any pre-configured scope.  |
-| `store:deny-values`   | Denies the values command without any pre-configured scope.   |
+<Permissions plugin="store" />
