@@ -19,15 +19,15 @@ For detailed information about configurable options, please refer to: [RpmConfig
 
 The RPM package manager allows you to run scripts before or after the installation or removal of the package. For example, you can use these scripts to start a service after the package is installed.
 
-Here's a example how to add these scripts:
+Here's an example of how to add these scripts:
 
-1. Create a folder `scripts` in `src-tauri` directory in your project.
+1. Create a folder named `scripts` in the `src-tauri` directory in your project.
 
 ```bash
-mkdir scripts
+mkdir src-tauri/scripts
 ```
 
-2. Now create the script file in the folder
+2. Create the script files in the folder.
 
 ```bash
 touch src-tauri/scripts/postinstall.sh \
@@ -43,7 +43,7 @@ ls src-tauri/scripts/
 postinstall.sh  postremove.sh  preinstall.sh  preremove.sh
 ```
 
-3. Now let us add some content to the scripts
+3. Add some content to the scripts
 
 ```bash title="preinstall.sh"
 echo "-------------"
@@ -81,7 +81,7 @@ echo "Uninstall Value: $1"
 echo "-------------"
 ```
 
-4.  Let add the script we made in the `tauri.conf.json` file
+4. Add the scripts to the`tauri.conf.json` file
 
 ```json title="tauri.conf.json"
 {
@@ -134,10 +134,10 @@ echo "-------------"
 }
 ```
 
-### Setting the conflict,provides,depends,files,obsoletes,desktopTemplate, and epoch to the package
+### Setting the Conflict, Provides, Depends, Files, Obsoletes, DesktopTemplate, and Epoch
 
 - **conflict**: Prevents the installation of the package if it conflicts with another package.
-  For example, if you update an RPM package that your app depends on and the new version is incompatible with your app.
+For example, if you update an RPM package that your app depends on and the new version is incompatible with your app.
 
 - **provides**: Lists the RPM dependencies that your application provides.
 
@@ -148,7 +148,8 @@ echo "-------------"
 - **obsoletes**: Lists the RPM dependencies that your application obsoletes.
 
 :::note
-If this package is installed, packages listed as “obsoletes” will be automatically removed if present.
+If this package is installed, packages listed as “obsoletes” will be automatically removed
+if present.
 :::
 
 - **desktopTemplate**: Adds a custom desktop file to the package.
@@ -160,7 +161,7 @@ It is not recommended to use epoch unless necessary, as it alters how the packag
 For more information about epoch, please check: [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers).
 :::
 
-to use it add this to your `tauri.conf.json` :
+To use these options, add the following to your `tauri.conf.json` :
 
 ```json title="tauri.conf.json"
 {
@@ -219,7 +220,7 @@ to use it add this to your `tauri.conf.json` :
 
 ### Add a license to the package
 
-To add a license to the package you will need to add this to the `src-tauri/cargo.toml` file:
+To add a license to the package, add the following to the `src-tauri/cargo.toml` file:
 
 ```toml title="src-tauri/cargo.toml"
 [package]
@@ -247,8 +248,8 @@ This command will build the RPM package in the `src-tauri/target/release/bundle/
 
 ## Signing the RPM package
 
-Tauri by default let you sign the package with the key you have in your system during the build process.
-To do this you will need to generate a GPG key
+Tauri allows you to sign the package with the key you have in your system during the build process.
+To do this, you will need to generate a GPG key.
 
 #### Generate a GPG key
 
@@ -260,14 +261,14 @@ gpg --gen-key
 
 Follow the instruction to generate the key.
 
-When the key is generated you will need to add it to your environment variable.
-you can do this by adding the following to your `.bashrc` or `.zshrc` file or just export it in the terminal:
+Once the key is generated, you will need to add it to your environment variable.
+You can do this by adding the following to your .bashrc or .zshrc file or just export it in the terminal:
 
 ```bash
 export TAURI_SIGNING_RPM_KEY=$(cat /home/johndoe/my_super_private.key)
 ```
 
-If you have a passphrase for the key you can add it to the environment variable:
+If you have a passphrase for the key, you can add it to the environment variable:
 
 ```bash
 export TAURI_SIGNING_RPM_KEY_PASSPHRASE=password
@@ -285,10 +286,10 @@ Now you can build the package with the following command:
 ### Verify the signature
 
 :::note
-this should be done only to test the signature locally.
+This should be done only to test the signature locally.
 :::
 
-Before verifying the signature you will need to create and import the public key to the rpm database:
+Before verifying the signature, you will need to create and import the public key to the RPM database:
 
 ```bash
 gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
@@ -298,7 +299,7 @@ gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
 sudo rpm --import RPM-GPG-KEY-Tauri-App
 ```
 
-Now that the key is imported we have to edit the file `~/.rpmmacros` to utilize the key.
+Now that the key is imported, we have to edit the `~/.rpmmacros` file to utilize the key.
 
 ```bash title="~/.rpmmacros"
 %_signature gpg
@@ -319,11 +320,13 @@ rpm  -v --checksig tauri-app-0.0.0-1.x86_64.rpm
 
 ## Debugging the RPM package
 
-in this section, we will see how to debug the RPM package by checking the content of the package and getting information about the package.
+In this section, we will see how to debug the RPM package by checking the content of the package
+and getting information about the package.
 
 ### Getting information about the package
 
-if you want to get information about your package for example the version, release, and the architecture you can use the following command:
+To get information about your package, such as the version, release, and architecture,
+use the following command:
 
 ```bash
 rpm -qip package_name.rpm
@@ -331,40 +334,40 @@ rpm -qip package_name.rpm
 
 ### query specific information about the package
 
-for example, if you want to get the name, version, release, architecture, and the size of the package you can use the following command:
+For example, if you want to get the name, version, release, architecture, and size of the package, use the following command:
 
 ```bash
 rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' package_name.rpm
 ```
 
 :::note
-_`--queryformat`_ is a format string that can be used to get specific information about the package.
-the information that can be retrieved are from the rpm -qip command.
+_`--queryformat`_  is a format string that can be used to get specific information about the package.
+The information that can be retrieved is from the rpm -qip command.
 :::
 
 ### Checking the content of the package
 
-To check the content of the package you can use the following command:
+To check the content of the package, use the following command:
 
 ```bash
 rpm -qlp package_name.rpm
 ```
 
-this command will list all the files that are included in the package.
+This command will list all the files that are included in the package.
 
 ### Debugging scripts
 
-To debug post/pre-install/remove scripts you can use the following command:
+To debug post/pre-install/remove scripts, use the following command:
 
 ```bash
 rpm -qp --scripts package_name.rpm
 ```
 
-this command will print the content of the scripts.
+This command will print the content of the scripts.
 
 ### Checking dependencies
 
-To check the dependencies of the package you can use the following command:
+To check the dependencies of the package, use the following command:
 
 ```bash
 rpm -qp --requires package_name.rpm
@@ -372,7 +375,7 @@ rpm -qp --requires package_name.rpm
 
 ### List packages that depend on a specific package
 
-To list the packages that depend on a specific package you can use the following command:
+To list the packages that depend on a specific package, use the following command:
 
 ```bash
 rpm -q --whatrequires package_name.rpm
@@ -380,7 +383,8 @@ rpm -q --whatrequires package_name.rpm
 
 ### Debugging Installation Issues
 
-If you encounter issues during the installation of an RPM package, you can use the -vv (very verbose) option to get detailed output:
+If you encounter issues during the installation of an RPM package,
+you can use the `-vv` (very verbose) option to get detailed output:
 
 ```bash
 rpm -ivvh package_name.rpm
