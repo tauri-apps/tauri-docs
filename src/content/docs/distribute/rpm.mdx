@@ -12,13 +12,12 @@ This guide covers how to distribute and manage RPM packages, including retrievin
 
 ## Configuring the RPM package
 
-Tauri allows you to configure the RPM package by adding scripts, setting dependencies, adding a license, custom files, and more.
-For more information about what could be configure please check: [RpmConfig](https://v2.tauri.app/reference/config/#rpmconfig).
+Tauri allows you to configure the RPM package by adding scripts, setting dependencies, adding a license, including custom files, and more.
+For detailed information about configurable options, please refer to: [RpmConfig](https://v2.tauri.app/reference/config/#rpmconfig).
 
 ### Add post, pre-install/remove script to the package
 
-The RPM package manager provides a way to run scripts before or after the installation or removal of the package.
-For example, you can use this to start a service after the installation of the package.
+The RPM package manager allows you to run scripts before or after the installation or removal of the package. For example, you can use these scripts to start a service after the package is installed.
 
 Here's a example how to add these scripts:
 
@@ -137,28 +136,28 @@ echo "-------------"
 
 ### Setting the conflict,provides,depends,files,obsoletes,desktopTemplate, and epoch to the package
 
-- **conflict**: Used to prevent the installation of the package if the package as conflict with another package.
-  for exemple if you update one rpm package that your app depends on and the new version of the package is not compatible with your app.
+- **conflict**: Prevents the installation of the package if it conflicts with another package.
+  For example, if you update an RPM package that your app depends on and the new version is incompatible with your app.
 
-- **provides**: Used to tell the list of RPM dependencies your application provides.
+- **provides**: Lists the RPM dependencies that your application provides.
 
-- **depends**: Used to tell the list of RPM dependencies your application needs to run.
+- **depends**: Lists the RPM dependencies that your application needs to run.
 
-- **files**: will be used to tell what files to include on the package.
+- **files**: Specifies which files to include in the package.
 
-- **obsoletes**: will be used to tell the list of RPM dependencies your application obsoletes.
+- **obsoletes**: Lists the RPM dependencies that your application obsoletes.
 
 :::note
-if this package is installed, packages listed as “obsoletes” will be automatically removed (if they are present).
+If this package is installed, packages listed as “obsoletes” will be automatically removed if present.
 :::
 
-- **desktopTemplate**: Used to add custom desktop file to the package.
+- **desktopTemplate**: Adds a custom desktop file to the package.
 
-- **epoch**: Define weighted dependencies based on version numbers.
+- **epoch**: Defines weighted dependencies based on version numbers.
 
 :::caution
-It is important to know that it is not recommended to use epoch unless you have a good reason to do so.
-Because it will alter the way the package manager handle comparing package version. For more information about epoch please check [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers).
+It is not recommended to use epoch unless necessary, as it alters how the package manager compares package versions.
+For more information about epoch, please check: [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers).
 :::
 
 to use it add this to your `tauri.conf.json` :
@@ -220,16 +219,16 @@ to use it add this to your `tauri.conf.json` :
 
 ### Add a license to the package
 
-to add a license to the package you will need to add this to the `src-tauri/cargo.toml` file:
+To add a license to the package you will need to add this to the `src-tauri/cargo.toml` file:
 
-```toml
+```toml title="src-tauri/cargo.toml"
 [package]
 name = "tauri-app"
 version = "0.0.0"
 description = "A Tauri App"
 authors = ["you"]
 edition = "2021"
-"license" = "MIT" # add the license here
+license = "MIT" # add the license here
 # ...  rest of the file
 ```
 
@@ -330,28 +329,6 @@ if you want to get information about your package for example the version, relea
 rpm -qip package_name.rpm
 ```
 
-here what a the output of the command will look like:
-
-```bash
-Name        : tauri-app
-Epoch       : 0
-Version     : 0.0.0
-Release     : 1
-Architecture: x86_64
-Install Date: (not installed)
-Group       : Unspecified
-Size        : 11411503
-License     : MIT
-Signature   : RSA/SHA256, jeu 20 jun 2024 11:33:40, Key ID ae2e3ea8e4eb24fd
-Source RPM  : (none)
-Build Date  : jeu 20 jun 2024 11:33:40
-Build Host  : (none)
-Summary     : A Tauri App
-Description :
-A Tauri App
-Distribution: (none)
-```
-
 ### query specific information about the package
 
 for example, if you want to get the name, version, release, architecture, and the size of the package you can use the following command:
@@ -361,7 +338,7 @@ rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' packa
 ```
 
 :::note
-*`--queryformat`* is a format string that can be used to get specific information about the package.
+_`--queryformat`_ is a format string that can be used to get specific information about the package.
 the information that can be retrieved are from the rpm -qip command.
 :::
 
