@@ -19,35 +19,34 @@ To sign your app, use the following instructions.
 <Steps>
 1. Create an `upload` Keystore
 
-    If you have an existing keystore, skip to the next step. If not, create one using one of the following methods:
+   If you have an existing keystore, skip to the next step. If not, create one using one of the following methods:
 
-    1. Following the [Android Studio key generation steps](https://developer.android.com/studio/publish/app-signing#sign-apk)
-    2. Running the following at the command line:
+   1. Following the [Android Studio key generation steps](https://developer.android.com/studio/publish/app-signing#sign-apk)
+   2. Running the following at the command line:
+      On Mac/Linux, use the following command:
 
-        On Mac/Linux, use the following command:
+      ```
+      keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+      ```
 
-        ```
-        keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
-        ```
+      On Windows, use the following command:
 
-        On Windows, use the following command:
+      ```
+      keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+      ```
 
-        ```
-        keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
-        ```
+      This command stores the `upload-keystore.jks` file in your home directory. If you want to store it elsewhere, change the argument you pass to the `-keystore` parameter. However, keep the `keystore` file private; don't check it into public source control!
 
-        This command stores the `upload-keystore.jks` file in your home directory. If you want to store it elsewhere, change the argument you pass to the `-keystore` parameter. However, keep the `keystore` file private; don't check it into public source control!
+      :::note
+      - The `keytool` command might not be in your path—it's part of Java, which is installed as part of Android Studio. You may find it installed in the JDK that is installed with Android Studio, for example:
+         - Linux: `/opt/android-studio/jbr/bin/keytool`
+         - macOS: `/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool`
+         - Windows: `C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\keytool.exe`
 
-        :::note
-        - The `keytool` command might not be in your path—it's part of Java, which is installed as part of Android Studio. You may find it installed in the JDK that is installed with Android Studio, for example:
-            - Linux: `/opt/android-studio/jbr/bin/keytool`
-            - macOS: `/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool`
-            - Windows: `C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\keytool.exe`
+         Then use that fully qualified path. If your path includes space-separated names, such as Program Files, use platform-appropriate notation for the names. For example, on Mac/Linux use `Program\ Files`, and on Windows use `"Program Files"`.
 
-        Then use that fully qualified path. If your path includes space-separated names, such as Program Files, use platform-appropriate notation for the names. For example, on Mac/Linux use `Program\ Files`, and on Windows use `"Program Files"`.
-
-        - The `-storetype JKS` tag is only required for Java 9 or newer. As of the Java 9 release, the keystore type defaults to PKS12.
-        :::
+      - The `-storetype JKS` tag is only required for Java 9 or newer. As of the Java 9 release, the keystore type defaults to PKS12.
+      :::
 
 2. Reference the Keystore from the App
 
