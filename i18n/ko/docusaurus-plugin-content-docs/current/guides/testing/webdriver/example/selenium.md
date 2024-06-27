@@ -139,7 +139,7 @@ before(async function () {
 
   const capabilities = new Capabilities()
   capabilities.set('tauri:options', { application })
-  capabilities.setBrowserName('wry')
+  capabilities.setBrowserName('')
 
   // start the webdriver client
   driver = await new Builder()
