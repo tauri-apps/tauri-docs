@@ -1,3 +1,16 @@
+diff --git a/schemas/sidebar.ts b/schemas/sidebar.ts
+index 86eb7f87e48d2f1b2cb096efa7a5bfaae63939bf..d1cf4ca8f280082ebf1c41c8c849e838d2250f3d 100644
+--- a/schemas/sidebar.ts
++++ b/schemas/sidebar.ts
+@@ -49,6 +49,8 @@ const AutoSidebarGroupSchema = SidebarGroupSchema.extend({
+ 		// TODO: not supported by Docusaurus but would be good to have
+ 		/** How many directories deep to include from this directory in the sidebar. Default: `Infinity`. */
+ 		// depth: z.number().optional(),
++		sort: z.enum(['date']).optional(),
++		order: z.enum(['ascending','descending']).optional()
+ 	}),
+ });
+ export type AutoSidebarGroup = z.infer<typeof AutoSidebarGroupSchema>;
 diff --git a/utils/navigation.ts b/utils/navigation.ts
 index aa4ab1f4db2f4fcb6adb8122cadb89e3e05791b9..e4a85077b588de3e33cf64e7eb4fb91501fc1c13 100644
 --- a/utils/navigation.ts
