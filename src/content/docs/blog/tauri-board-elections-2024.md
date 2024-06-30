@@ -46,4 +46,4 @@ All domains within Tauri are equally important to providing the best experience 
 
 ---
 
-We hope that these changes provide the foundation to continue the journey the Tauri Working Group has been on while also catalyzing the continued growth and sustainability of the organization. You can learn more about these updates in the [Governance and Guidance repo on GitHub](https://github.com/tauri-apps/governance-and-guidance).
+With your help, we can continue to improve and catalyze the growth and sustainability of the organization. You can learn more in the [Governance and Guidance repo on GitHub](https://github.com/tauri-apps/governance-and-guidance).
