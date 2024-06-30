@@ -312,7 +312,7 @@ export default defineConfig({
             {
               label: 'Recent posts',
               collapsed: false,
-              autogenerate: { directory: 'blog' }, // TODO: Manually construct `items` to sort by dates
+              autogenerate: { directory: 'blog', sort: 'date', order: 'descending' },
             },
           ],
         },
