@@ -89,39 +89,7 @@ echo "-------------"
 
 ```json title="tauri.conf.json"
 {
-  "productName": "tauri-app",
-  "version": "0.0.0",
-  "identifier": "com.tauri.dev",
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
-  },
-  "app": {
-    "withGlobalTauri": true,
-    "windows": [
-      {
-        "title": "tauri-app",
-        "width": 800,
-        "height": 600
-      }
-    ],
-    "security": {
-      "csp": null
-    }
-  },
   "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "category": "Utility",
     "linux": {
       "rpm": {
         "epoch": 0,
@@ -169,48 +137,10 @@ To use these options, add the following to your `tauri.conf.json` :
 
 ```json title="tauri.conf.json"
 {
-  "productName": "tauri-app",
-  "version": "0.0.0",
-  "identifier": "com.tauri.devthom",
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
-  },
-  "app": {
-    "withGlobalTauri": true,
-    "windows": [
-      {
-        "title": "tauri-app",
-        "width": 800,
-        "height": 600
-      }
-    ],
-    "security": {
-      "csp": null
-    }
-  },
   "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "category": "Utility",
     "linux": {
       "rpm": {
-        "epoch": 0,
-        "files": {},
-        "release": "1",
-          "preInstallScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
-        "postInstallScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
-        "preRemoveScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
-        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh"
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
         "conflicts": ["oldLib.rpm"],
         "depends": ["newLib.rpm"],
         "obsoletes": ["veryoldLib.rpm"],
@@ -240,30 +170,9 @@ And for  `src-tauri/tauri.conf.json`
 
 ```json title="src-tauri/tauri.conf.json"
 {
-  "productName": "tauri-app",
-  "version": "0.0.0",
-  "identifier": "com.tauri.devthom",
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
-  },
- #... other things found in the src-tauri/tauri.conf.json
-
   "bundle": {
     "licenseFile": "../LICENSE", # put the path to the license file here
     "license": "MIT", # add the license here
-    "active": true,
-    "targets": "all",
-    "license": "MIT",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
   }
 }
 ```
