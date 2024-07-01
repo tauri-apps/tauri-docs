@@ -8,6 +8,10 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 # Packaging for RPM
 
+:::note
+Some sections in this guide are optional. This includes configuring scripts and certain other steps. Feel free to adapt the instructions based on your specific needs and requirements.
+:::
+
 This guide covers how to distribute and manage RPM packages, including retrieving package information, configuring scripts, setting dependencies, and signing packages.
 
 ## Configuring the RPM package
@@ -220,7 +224,7 @@ To use these options, add the following to your `tauri.conf.json` :
 
 ### Add a license to the package
 
-To add a license to the package, add the following to the `src-tauri/cargo.toml` file:
+To add a license to the package, add the following to the `src-tauri/cargo.toml` or in the `src-tauri/tauri.conf.json` file:
 
 ```toml title="src-tauri/cargo.toml"
 [package]
@@ -231,6 +235,37 @@ authors = ["you"]
 edition = "2021"
 license = "MIT" # add the license here
 # ...  rest of the file
+```
+And for  `src-tauri/tauri.conf.json`
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "productName": "tauri-app",
+  "version": "0.0.0",
+  "identifier": "com.tauri.devthom",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+ #... other things found in the src-tauri/tauri.conf.json
+
+  "bundle": {
+    "licenseFile": "../LICENSE", # put the path to the license file here
+    "license": "MIT", # add the license here
+    "active": true,
+    "targets": "all",
+    "license": "MIT",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+  }
+}
 ```
 
 ## Building the RPM package
@@ -332,7 +367,7 @@ use the following command:
 rpm -qip package_name.rpm
 ```
 
-### query specific information about the package
+### Query specific information about the package
 
 For example, if you want to get the name, version, release, architecture, and size of the package, use the following command:
 
