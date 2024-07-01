@@ -44,5 +44,10 @@
   "packageManager": "pnpm@9.4.0",
   "engines": {
     "pnpm": "^9.0.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@astrojs/starlight@0.24.5": "patches/@astrojs__starlight@0.24.5.patch"
+    }
   }
 }
