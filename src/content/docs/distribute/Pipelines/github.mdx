@@ -1,21 +1,20 @@
 ---
 title: GitHub
-sidebar:
-  order: 1
 ---
 
-## Contents
+This guide will show you how to use [tauri-action](https://github.com/tauri-apps/tauri-action) in GitHub Actions to easily build and upload your app, and how to make Tauri's updater query the newly created GitHub release for updates.
 
-- Cross platform compilation and automating releases
-- Compiling for arm using [Pguyots](https://github.com/pguyot) arm-runner
-- Compiling on self hosted runners
+Lastly, it will also show how to set up a more complicated build pipeline for Linux Arm AppImages.
 
-### Basic Cross Platform Compilation
+{/* TODO: Migrate more of the v1 guide (explanations etc.) */}
+
+## Basic Cross Platform Compilation
 
 ```yaml
 name: 'publish'
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - release
@@ -32,7 +31,7 @@ jobs:
             args: '--target aarch64-apple-darwin'
           - platform: 'macos-latest' # for Intel based macs.
             args: '--target x86_64-apple-darwin'
-          - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
+          - platform: 'ubuntu-22.04'
             args: ''
           - platform: 'windows-latest'
             args: ''
@@ -46,8 +45,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-        # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
-        # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
 
       - name: setup node
         uses: actions/setup-node@v4
@@ -82,19 +79,29 @@ jobs:
           args: ${{ matrix.args }}
 ```
 
-### Arm Runner Compilation
+For more configuration options, check out the [`tauri-action`](https://github.com/tauri-apps/tauri-action) repository and its [examples](https://github.com/tauri-apps/tauri-action/blob/dev/examples/).
 
-The process in which you cross compile is quite similar to version 1, however one small change is
-that the base_image uses `Bookworm` instead of `Bullseye`. It is important to note that the `VERSION` variable must be adjusted to your version in `tauri.conf.json` each time you update.
+## Arm Runner Compilation
+
+This workflow uses [`arm-runner-action`](https://github.com/pguyot/arm-runner-action) to compile directly on an emulated Arm runner. This bridges the gap for missing cross-architecture build support in the AppImage tooling.
+
+:::danger
+`arm-runner-action` is **much** slower than GitHub's standard runners, so be careful in private repositories where you're invoiced for build minutes. An uncached build for a fresh `create-tauri-app` project needs ~1 hour.
+:::
 
 ```yaml
-name: Raspberry Pi compile
+name: 'publish Linux Arm builds'
+
 on:
   workflow_dispatch:
-env:
-  VERSION: 2.0.5
+  push:
+    branches:
+      - release
+
 jobs:
   build:
+    runs-on: ubuntu-22.04
+
     strategy:
       matrix:
         arch: [aarch64, armv7l]
@@ -103,52 +110,114 @@ jobs:
             cpu: cortex-a72
             base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bookworm.img.xz
             deb: arm64
-            other: aarch64
+            rpm: aarch64
+            appimage: aarch64
           - arch: armv7l
             cpu: cortex-a53
             deb: armhfp
-            other: arm
+            rpm: arm
+            appimage: armhf
             base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv7-Bookworm.img.xz
-    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - uses: pguyot/arm-runner-action@v2.5.2
+
+      - name: Setup cache dir on /mnt
+        run: |
+          sudo mkdir /mnt/cache
+          WORKSPACE_OWNER="$(stat -c '%U:%G' "${GITHUB_WORKSPACE}")"
+          sudo chown -R "${WORKSPACE_OWNER}" /mnt/cache
+
+      - name: Setup image cache
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: /mnt/cache/cache.img
+          key: image-cache-${{ matrix.arch }}-1
+          save-always: true
+
+      - name: Setup image
+        uses: pguyot/arm-runner-action@v2.6.5
+        id: install_deps
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           base_image: ${{ matrix.base_image }}
           cpu: ${{ matrix.cpu }}
           bind_mount_repository: true
-          image_additional_mb: 10240
-          optimize_image: false
+          image_additional_mb: 4096
+          optimize_image: no
           commands: |
-            # Rust complains (rightly) that $HOME doesn't match eid home
+            # Prevent Rust from complaining about $HOME not matching eid home
             export HOME=/root
+
             # Workaround to CI worker being stuck on Updating crates.io index
             export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+
             # Install setup prerequisites
             apt-get update -y --allow-releaseinfo-change
             apt-get autoremove -y
-            apt-get install -y curl npm libwebkit2gtk-4.1-dev build-essential libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
-            curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
+            apt-get install -y curl libwebkit2gtk-4.1-dev build-essential libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2
+            curl https://sh.rustup.rs -sSf | sh -s -- -y
             . "$HOME/.cargo/env"
-            # curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash
-            # Install framework specific packages
-            sudo npm install --force -g npm@latest
-            sudo npm install --force -g nodejs@latest
-            # Install Rust Nightly
-            rustup default nightly # Only Enable for nightly builds
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
+            apt-get install -y nodejs
+
+      - name: Move and rename image with dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ steps.install_deps.outputs.image }} /mnt/cache/cache.img
+
+      - name: Cache rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          cache-on-failure: true
+
+      - name: Build app
+        uses: pguyot/arm-runner-action@v2.6.5
+        with:
+          base_image: file:///mnt/cache/cache.img
+          cpu: ${{ matrix.cpu }}
+          bind_mount_repository: true
+          image_additional_mb: 15360
+          optimize_image: no
+          exit_on_fail: no
+          commands: |
+            # Prevent Rust from complaining about $HOME not matching eid home
+            export HOME=/root
+
+            # Workaround to CI worker being stuck on Updating crates.io index
+            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+
+            . "$HOME/.cargo/env"
+
             # Install frontend dependencies
             npm install
+
             # Build the application
-            npm run tauri build -- --bundles deb rpm
+            npm run tauri build -- --verbose
+
+            ls src-tauri/target/release/bundle/deb
+            ls src-tauri/target/release/bundle/rpm
+            ls src-tauri/target/release/bundle/appimage
+
+      # TODO: Combine this with the basic workflow and upload the files to the Release.
+      # TODO: Read the version from tauri.conf.json
       - name: Upload deb bundle
         uses: actions/upload-artifact@v3
         with:
           name: Debian Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/Rosary_${{ env.VERSION }}_${{ matrix.deb }}.deb
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/appname_0.0.0_${{ matrix.deb }}.deb
 
       - name: Upload rpm bundle
         uses: actions/upload-artifact@v3
         with:
           name: RPM Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/rosary_${{ env.VERSION }}-1_${{ matrix.other }}.rpm
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname_0.0.0-1_${{ matrix.rpm }}.rpm
+
+      - name: Upload appimage bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: AppImage Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_0.0.0-_${{ matrix.appimage }}.AppImage
 ```
