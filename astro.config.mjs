@@ -8,6 +8,8 @@ import starlightBlog from 'starlight-blog';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import starlightUtils from '@lorenzo_lewis/starlight-utils';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const authors = {
   nothingismagick: {
@@ -121,7 +123,7 @@ export default defineConfig({
         },
       ],
       editLink: {
-        baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
+        baseUrl: process.env.NODE_ENV === 'development' ? `vscode://file/${path.dirname(fileURLToPath(import.meta.url))}` : 'https://github.com/tauri-apps/tauri-docs/edit/v2',
       },
       customCss: ['./src/styles/custom.scss'],
       sidebar: [
