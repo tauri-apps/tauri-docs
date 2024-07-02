@@ -1,6 +1,7 @@
 ---
 import type { Props } from '@astrojs/starlight/props';
 import placeholder from '@assets/logo-outline.svg'
+import placeholderHover from '@assets/cuddlyferris.svg'
 import { Icon } from '@astrojs/starlight/components';
 
 const people = {
@@ -8,7 +9,7 @@ const people = {
         name: 'Simon Hyll',
         picture: 'https://avatars.githubusercontent.com/u/79983560?v=4',
         since: new Date(),
-        hover: 'https://rustacean.net/assets/cuddlyferris.svg',
+        hover: placeholderHover.src,
         socials: {
             youtube: 'https://www.youtube.com/@hyllsimon',
         }
@@ -17,7 +18,7 @@ const people = {
         name: 'Fabian the Faceless',
         picture: placeholder.src,
         since: new Date(),
-        hover: 'https://rustacean.net/assets/cuddlyferris.svg',
+        hover: placeholderHover.src,
         socials: {}
     }
 }
