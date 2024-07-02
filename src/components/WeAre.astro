@@ -1,0 +1,84 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import placeholder from '@assets/logo-outline.svg'
+import { Icon } from '@astrojs/starlight/components';
+
+const people = {
+    simon: {
+        name: 'Simon Hyll',
+        picture: 'https://simon.hyll.nu/_astro/me.VdWBaCnO.jpg',
+        since: new Date(),
+        hover: 'https://foundation.rust-lang.org/img/ferris/bec.png',
+        socials: {
+            youtube: 'https://www.youtube.com/@hyllsimon',
+        }
+    },
+    fabian: {
+        name: 'Fabian the Faceless',
+        picture: placeholder.src,
+        since: new Date(),
+        hover: 'https://foundation.rust-lang.org/img/ferris/bec.png',
+        socials: {}
+    }
+}
+const name = Astro.props.name
+const person = people[name]
+---
+
+{person ?
+    <div class="we-are">
+        <img src={person.picture} 
+    onmouseover={"this.src='" + person.hover + "'"}
+    onmouseout={"this.src='"+person.picture+"'"}>
+        <div class="details">
+            <span class="name">{person.name}</span>
+            <span class="since">Since: {person.since.toLocaleDateString()}</span>
+            <div class="socials">
+                {Object.keys(person.socials).map(social=>(
+                    <a href={person.socials[social]} target="_blank"><Icon name={social} size="1.5rem" /></a>
+                ))}
+            </div>
+        </div>
+    </div>
+: ''}
+
+<style>
+.we-are {
+    display: flex;
+    width: 100%;
+    background-color: var(--sl-color-gray-6);
+    position: relative;
+    border-radius: 0.5rem;
+    border: 1px solid var(--sl-color-gray-5);
+}
+.we-are img {
+    position: relative;
+    max-width: 3cm;
+    max-height: 3cm;
+    min-height: 3cm;
+    min-width: 3cm;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    display: inline-block;
+    border: 1px solid var(--sl-color-gray-5);
+    object-fit: cover;
+}
+.we-are span.name {
+    line-height: 100%;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.we-are span.since {
+    display: block;
+}
+.we-are div.details {
+    display: inline-block;
+    height: 100%;
+}
+.we-are div.details div.socials {
+    display: flex;
+}
+.we-are div.details div.socials a {
+    margin-right: 0.5rem;
+}
+</style>
