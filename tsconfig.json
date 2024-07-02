@@ -3,9 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@fragments/*": ["src/content/docs/_fragments/*"]
+      "@components/*": ["src/components/*"],
+      "@fragments/*": ["src/content/docs/_fragments/*"],
+      "@lib/*": ["src/lib/*"],
     }
   }
 }
