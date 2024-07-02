@@ -58,7 +58,9 @@ const people: People = {
         seat: "board",
         since: new Date()
       }],
-      socials: {}
+      socials: {
+        youtube: 'https://www.youtube.com/@JacobBolda'
+      }
     },
     lorenzolewis: {
       name: 'Lorenzo Lewis',
