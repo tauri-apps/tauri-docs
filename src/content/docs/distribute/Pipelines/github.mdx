@@ -122,30 +122,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup cache dir on /mnt
-        run: |
-          sudo mkdir /mnt/cache
-          WORKSPACE_OWNER="$(stat -c '%U:%G' "${GITHUB_WORKSPACE}")"
-          sudo chown -R "${WORKSPACE_OWNER}" /mnt/cache
-
-      - name: Setup image cache
-        uses: actions/cache@v4
-        id: cache
+      - name: Cache rust build artifacts
+        uses: Swatinem/rust-cache@v2
         with:
-          path: /mnt/cache/cache.img
-          key: image-cache-${{ matrix.arch }}-1
-          save-always: true
+          workspaces: src-tauri
+          cache-on-failure: true
 
-      - name: Setup image
+      - name: Build app
         uses: pguyot/arm-runner-action@v2.6.5
-        id: install_deps
-        if: steps.cache.outputs.cache-hit != 'true'
         with:
           base_image: ${{ matrix.base_image }}
           cpu: ${{ matrix.cpu }}
           bind_mount_repository: true
-          image_additional_mb: 4096
+          image_additional_mb: 10240
           optimize_image: no
+          #exit_on_fail: no
           commands: |
             # Prevent Rust from complaining about $HOME not matching eid home
             export HOME=/root
@@ -156,40 +147,11 @@ jobs:
             # Install setup prerequisites
             apt-get update -y --allow-releaseinfo-change
             apt-get autoremove -y
-            apt-get install -y curl libwebkit2gtk-4.1-dev build-essential libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2
+            apt-get install -y --no-install-recommends --no-install-suggests curl libwebkit2gtk-4.1-dev build-essential libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2 file
             curl https://sh.rustup.rs -sSf | sh -s -- -y
             . "$HOME/.cargo/env"
             curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
             apt-get install -y nodejs
-
-      - name: Move and rename image with dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          mv ${{ steps.install_deps.outputs.image }} /mnt/cache/cache.img
-
-      - name: Cache rust build artifacts
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: src-tauri
-          cache-on-failure: true
-
-      - name: Build app
-        uses: pguyot/arm-runner-action@v2.6.5
-        with:
-          base_image: file:///mnt/cache/cache.img
-          cpu: ${{ matrix.cpu }}
-          bind_mount_repository: true
-          image_additional_mb: 15360
-          optimize_image: no
-          exit_on_fail: no
-          commands: |
-            # Prevent Rust from complaining about $HOME not matching eid home
-            export HOME=/root
-
-            # Workaround to CI worker being stuck on Updating crates.io index
-            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
-
-            . "$HOME/.cargo/env"
 
             # Install frontend dependencies
             npm install
@@ -197,12 +159,7 @@ jobs:
             # Build the application
             npm run tauri build -- --verbose
 
-            ls src-tauri/target/release/bundle/deb
-            ls src-tauri/target/release/bundle/rpm
-            ls src-tauri/target/release/bundle/appimage
-
       # TODO: Combine this with the basic workflow and upload the files to the Release.
-      # TODO: Read the version from tauri.conf.json
       - name: Upload deb bundle
         uses: actions/upload-artifact@v3
         with:
@@ -213,11 +170,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: RPM Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname_0.0.0-1_${{ matrix.rpm }}.rpm
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-0.0.0-1.${{ matrix.rpm }}.rpm
 
       - name: Upload appimage bundle
         uses: actions/upload-artifact@v3
         with:
           name: AppImage Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_0.0.0-_${{ matrix.appimage }}.AppImage
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_0.0.0_${{ matrix.appimage }}.AppImage
 ```
