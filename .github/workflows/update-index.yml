@@ -14,7 +14,6 @@ jobs:
     concurrency:
       group: search-indexing
       cancel-in-progress: true
-    if: (github.event_name == 'push' && github.ref_name == 'v1')
     runs-on: ubuntu-latest
     env:
       MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
