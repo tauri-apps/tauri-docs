@@ -266,7 +266,7 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="bundleconfig.active">`active`<a class="hash-link" href="#bundleconfig.active"></a></div> | boolean | `false` | Whether Tauri should bundle your application or just output the executable. |
-| <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "appimage", "nsis", "msi", "app", "dmg", "updater"] or "all". |
+| <div className="anchor-with-padding" id="bundleconfig.targets">`targets`<a class="hash-link" href="#bundleconfig.targets"></a></div> | [`BundleTarget`](#bundletarget) | [view](#bundletarget) | The bundle targets, currently supports ["deb", "rpm", "appimage", "nsis", "msi", "app", "dmg", "updater"] or "all". |
 | <div className="anchor-with-padding" id="bundleconfig.identifier">`identifier`<a class="hash-link" href="#bundleconfig.identifier"></a></div> | string (required) |  | The application identifier in reverse domain name notation (e.g. `com.tauri.example`). This string must be unique across applications since it is used in system configurations like the bundle ID and path to the webview data directory. This string must contain only alphanumeric characters (A–Z, a–z, and 0–9), hyphens (-), and periods (.). |
 | <div className="anchor-with-padding" id="bundleconfig.publisher">`publisher`<a class="hash-link" href="#bundleconfig.publisher"></a></div> | string? | _null_ | The application's publisher. Defaults to the second element in the identifier string. Currently maps to the Manufacturer property of the Windows Installer. |
 | <div className="anchor-with-padding" id="bundleconfig.icon">`icon`<a class="hash-link" href="#bundleconfig.icon"></a></div> | string[] | [] | The app's icons |
@@ -275,8 +275,11 @@ Type: `object`
 | <div className="anchor-with-padding" id="bundleconfig.category">`category`<a class="hash-link" href="#bundleconfig.category"></a></div> | string? | _null_ | The application kind.<br /><br />Should be one of the following: Business, DeveloperTool, Education, Entertainment, Finance, Game, ActionGame, AdventureGame, ArcadeGame, BoardGame, CardGame, CasinoGame, DiceGame, EducationalGame, FamilyGame, KidsGame, MusicGame, PuzzleGame, RacingGame, RolePlayingGame, SimulationGame, SportsGame, StrategyGame, TriviaGame, WordGame, GraphicsAndDesign, HealthcareAndFitness, Lifestyle, Medical, Music, News, Photography, Productivity, Reference, SocialNetworking, Sports, Travel, Utility, Video, Weather. |
 | <div className="anchor-with-padding" id="bundleconfig.shortdescription">`shortDescription`<a class="hash-link" href="#bundleconfig.shortdescription"></a></div> | string? | _null_ | A short description of your application. |
 | <div className="anchor-with-padding" id="bundleconfig.longdescription">`longDescription`<a class="hash-link" href="#bundleconfig.longdescription"></a></div> | string? | _null_ | A longer, multi-line description of the application. |
+| <div className="anchor-with-padding" id="bundleconfig.uselocaltoolsdir">`useLocalToolsDir`<a class="hash-link" href="#bundleconfig.uselocaltoolsdir"></a></div> | boolean | `false` | Whether to use the project's `target` directory, for caching build tools (e.g., Wix and NSIS) when building this application. Defaults to `false`.<br /><br />If true, tools will be cached in `target\.tauri-tools`. If false, tools will be cached in the current user's platform-specific cache directory.<br /><br />An example where it can be appropriate to set this to `true` is when building this application as a Windows System user (e.g., AWS EC2 workloads), because the Window system's app data directory is restricted. |
 | <div className="anchor-with-padding" id="bundleconfig.appimage">`appimage`<a class="hash-link" href="#bundleconfig.appimage"></a></div> | [`AppImageConfig`](#appimageconfig) | [view](#appimageconfig) | Configuration for the AppImage bundle. |
 | <div className="anchor-with-padding" id="bundleconfig.deb">`deb`<a class="hash-link" href="#bundleconfig.deb"></a></div> | [`DebConfig`](#debconfig) | [view](#debconfig) | Configuration for the Debian bundle. |
+| <div className="anchor-with-padding" id="bundleconfig.rpm">`rpm`<a class="hash-link" href="#bundleconfig.rpm"></a></div> | [`RpmConfig`](#rpmconfig) | [view](#rpmconfig) | Configuration for the RPM bundle. |
+| <div className="anchor-with-padding" id="bundleconfig.dmg">`dmg`<a class="hash-link" href="#bundleconfig.dmg"></a></div> | [`DmgConfig`](#dmgconfig) | [view](#dmgconfig) | DMG-specific settings. |
 | <div className="anchor-with-padding" id="bundleconfig.macos">`macOS`<a class="hash-link" href="#bundleconfig.macos"></a></div> | [`MacConfig`](#macconfig) | [view](#macconfig) | Configuration for the macOS bundles. |
 | <div className="anchor-with-padding" id="bundleconfig.externalbin">`externalBin`<a class="hash-link" href="#bundleconfig.externalbin"></a></div> | array? | _null_ | A list of—either absolute or relative—paths to binaries to embed with your application.<br /><br />Note that Tauri will look for system-specific binaries following the pattern "binary-name{-target-triple}{.system-extension}".<br /><br />E.g. for the external binary "my-binary", Tauri looks for:<br /><br />- "my-binary-x86_64-pc-windows-msvc.exe" for Windows<br />- "my-binary-x86_64-apple-darwin" for macOS<br />- "my-binary-x86_64-unknown-linux-gnu" for Linux<br /><br />so don't forget to provide binaries for all targeted platforms. |
 | <div className="anchor-with-padding" id="bundleconfig.windows">`windows`<a class="hash-link" href="#bundleconfig.windows"></a></div> | [`WindowsConfig`](#windowsconfig) | [view](#windowsconfig) | Configuration for the Windows bundle. |
@@ -299,6 +302,7 @@ A bundle referenced by tauri-bundler.
 Can be any **ONE** of the following types:
 
 - "deb": The debian bundle (.deb).
+- "rpm": The RPM bundle (.rpm).
 - "appimage": The AppImage bundle (.appimage).
 - "msi": The Microsoft Installer bundle (.msi).
 - "nsis": The NSIS bundle (.exe).
@@ -335,11 +339,72 @@ Type: `object`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | <div className="anchor-with-padding" id="debconfig.depends">`depends`<a class="hash-link" href="#debconfig.depends"></a></div> | array? | _null_ | The list of deb dependencies your application relies on. |
+| <div className="anchor-with-padding" id="debconfig.provides">`provides`<a class="hash-link" href="#debconfig.provides"></a></div> | array? | _null_ | The list of dependencies the package provides. |
+| <div className="anchor-with-padding" id="debconfig.conflicts">`conflicts`<a class="hash-link" href="#debconfig.conflicts"></a></div> | array? | _null_ | The list of package conflicts. |
+| <div className="anchor-with-padding" id="debconfig.replaces">`replaces`<a class="hash-link" href="#debconfig.replaces"></a></div> | array? | _null_ | The list of package replaces. |
 | <div className="anchor-with-padding" id="debconfig.files">`files`<a class="hash-link" href="#debconfig.files"></a></div> | object | _null_ | The files to include on the package. |
 | <div className="anchor-with-padding" id="debconfig.desktoptemplate">`desktopTemplate`<a class="hash-link" href="#debconfig.desktoptemplate"></a></div> | string? | _null_ | Path to a custom desktop file Handlebars template.<br /><br />Available variables: `categories`, `comment` (optional), `exec`, `icon` and `name`. |
 | <div className="anchor-with-padding" id="debconfig.section">`section`<a class="hash-link" href="#debconfig.section"></a></div> | string? | _null_ | Define the section in Debian Control file. See : https://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections |
 | <div className="anchor-with-padding" id="debconfig.priority">`priority`<a class="hash-link" href="#debconfig.priority"></a></div> | string? | _null_ | Change the priority of the Debian Package. By default, it is set to `optional`. Recognized Priorities as of now are :  `required`, `important`, `standard`, `optional`, `extra` |
 | <div className="anchor-with-padding" id="debconfig.changelog">`changelog`<a class="hash-link" href="#debconfig.changelog"></a></div> | string? | _null_ | Path of the uncompressed Changelog file, to be stored at /usr/share/doc/package-name/changelog.gz. See https://www.debian.org/doc/debian-policy/ch-docs.html#changelog-files-and-release-notes |
+
+
+##### RpmConfig
+
+Configuration for RPM bundles.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="rpmconfig.license">`license`<a class="hash-link" href="#rpmconfig.license"></a></div> | string? | _null_ | The package's license identifier. If not set, defaults to the license from the Cargo.toml file. |
+| <div className="anchor-with-padding" id="rpmconfig.depends">`depends`<a class="hash-link" href="#rpmconfig.depends"></a></div> | array? | _null_ | The list of RPM dependencies your application relies on. |
+| <div className="anchor-with-padding" id="rpmconfig.provides">`provides`<a class="hash-link" href="#rpmconfig.provides"></a></div> | array? | _null_ | The list of RPM dependencies your application provides. |
+| <div className="anchor-with-padding" id="rpmconfig.conflicts">`conflicts`<a class="hash-link" href="#rpmconfig.conflicts"></a></div> | array? | _null_ | The list of RPM dependencies your application conflicts with. They must not be present in order for the package to be installed. |
+| <div className="anchor-with-padding" id="rpmconfig.obsoletes">`obsoletes`<a class="hash-link" href="#rpmconfig.obsoletes"></a></div> | array? | _null_ | The list of RPM dependencies your application supersedes<br />- if this package is installed, packages listed as “obsoletes” will be automatically removed (if they are present). |
+| <div className="anchor-with-padding" id="rpmconfig.release">`release`<a class="hash-link" href="#rpmconfig.release"></a></div> | string | _null_ | The RPM release tag. |
+| <div className="anchor-with-padding" id="rpmconfig.epoch">`epoch`<a class="hash-link" href="#rpmconfig.epoch"></a></div> | integer _(format: `uint32`)_ | `0` | The RPM epoch. |
+| <div className="anchor-with-padding" id="rpmconfig.files">`files`<a class="hash-link" href="#rpmconfig.files"></a></div> | object | _null_ | The files to include on the package. |
+| <div className="anchor-with-padding" id="rpmconfig.desktoptemplate">`desktopTemplate`<a class="hash-link" href="#rpmconfig.desktoptemplate"></a></div> | string? | _null_ | Path to a custom desktop file Handlebars template.<br /><br />Available variables: `categories`, `comment` (optional), `exec`, `icon` and `name`. |
+
+
+##### DmgConfig
+
+Configuration for Apple Disk Image (.dmg) bundles.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="dmgconfig.background">`background`<a class="hash-link" href="#dmgconfig.background"></a></div> | string? | _null_ | Image to use as the background in dmg file. Accepted formats: `png`/`jpg`/`gif`. |
+| <div className="anchor-with-padding" id="dmgconfig.windowposition">`windowPosition`<a class="hash-link" href="#dmgconfig.windowposition"></a></div> | [`Position`](#position)? | [view](#position) | Position of volume window on screen. |
+| <div className="anchor-with-padding" id="dmgconfig.windowsize">`windowSize`<a class="hash-link" href="#dmgconfig.windowsize"></a></div> | [`Size`](#size) | [view](#size) | Size of volume window. |
+| <div className="anchor-with-padding" id="dmgconfig.appposition">`appPosition`<a class="hash-link" href="#dmgconfig.appposition"></a></div> | [`Position`](#position) | [view](#position) | Position of app file on window. |
+| <div className="anchor-with-padding" id="dmgconfig.applicationfolderposition">`applicationFolderPosition`<a class="hash-link" href="#dmgconfig.applicationfolderposition"></a></div> | [`Position`](#position) | [view](#position) | Position of application folder on window. |
+
+
+###### Position
+
+Position coordinates struct.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="position.x">`x`<a class="hash-link" href="#position.x"></a></div> | integer _(format: `uint32`)_ (required) |  | X coordinate. |
+| <div className="anchor-with-padding" id="position.y">`y`<a class="hash-link" href="#position.y"></a></div> | integer _(format: `uint32`)_ (required) |  | Y coordinate. |
+
+
+###### Size
+
+Size of the window.
+
+Type: `object`
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| <div className="anchor-with-padding" id="size.width">`width`<a class="hash-link" href="#size.width"></a></div> | integer _(format: `uint32`)_ (required) |  | Width of the window. |
+| <div className="anchor-with-padding" id="size.height">`height`<a class="hash-link" href="#size.height"></a></div> | integer _(format: `uint32`)_ (required) |  | Height of the window. |
 
 
 ##### MacConfig
@@ -376,6 +441,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="windowsconfig.allowdowngrades">`allowDowngrades`<a class="hash-link" href="#windowsconfig.allowdowngrades"></a></div> | boolean | `true` | Validates a second app installation, blocking the user from installing an older version if set to `false`.<br /><br />For instance, if `1.2.1` is installed, the user won't be able to install app version `1.2.0` or `1.1.5`.<br /><br />The default value of this flag is `true`. |
 | <div className="anchor-with-padding" id="windowsconfig.wix">`wix`<a class="hash-link" href="#windowsconfig.wix"></a></div> | [`WixConfig`](#wixconfig)? | [view](#wixconfig) | Configuration for the MSI generated with WiX. |
 | <div className="anchor-with-padding" id="windowsconfig.nsis">`nsis`<a class="hash-link" href="#windowsconfig.nsis"></a></div> | [`NsisConfig`](#nsisconfig)? | [view](#nsisconfig) | Configuration for the installer generated with NSIS. |
+| <div className="anchor-with-padding" id="windowsconfig.signcommand">`signCommand`<a class="hash-link" href="#windowsconfig.signcommand"></a></div> | string? | _null_ | Specify a custom command to sign the binaries. This command needs to have a `%1` in it which is just a placeholder for the binary path, which we will detect and replace before calling the command.<br /><br />Example: ```text sign-cli --arg1 --arg2 %1 ```<br /><br />By Default we use `signtool.exe` which can be found only on Windows so if you are on another platform and want to cross-compile and sign you will need to use another tool like `osslsigncode`. |
 
 
 ###### WebviewInstallMode
