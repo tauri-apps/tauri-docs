@@ -36,7 +36,7 @@ Provides the platform-specific path segment delimiter:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/path.ts#L660)
+**Defined in:** [path.ts:660](https://github.com/tauri-apps/tauri/blob/0a00375/tooling/api/src/path.ts#L660)
 
 ### `sep`
 
@@ -48,7 +48,7 @@ Provides the platform-specific path segment separator:
 
 **Since**: 1.0.0
 
-**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/path.ts#L651)
+**Defined in:** [path.ts:651](https://github.com/tauri-apps/tauri/blob/0a00375/tooling/api/src/path.ts#L651)
 
 ## Functions
 
@@ -193,9 +193,8 @@ Returns the last portion of a `path`. Trailing directory separators are ignored.
 **Example**
 
 ```typescript
-import { basename, resolveResource } from '@tauri-apps/api/path';
-const resourcePath = await resolveResource('app.conf');
-const base = await basename(resourcePath);
+import { basename } from '@tauri-apps/api/path';
+const base = await basename('path/to/app.conf');
 assert(base === 'app.conf');
 ```
 
@@ -311,9 +310,9 @@ Returns the directory name of a `path`. Trailing directory separators are ignore
 **Example**
 
 ```typescript
-import { dirname, appDataDir } from '@tauri-apps/api/path';
-const appDataDirPath = await appDataDir();
-const dir = await dirname(appDataDirPath);
+import { dirname } from '@tauri-apps/api/path';
+const dir = await dirname('/path/to/somedir/');
+assert(dir === 'somedir');
 ```
 
 **Since**: 1.0.0
@@ -404,10 +403,9 @@ Returns the extension of the `path`.
 **Example**
 
 ```typescript
-import { extname, resolveResource } from '@tauri-apps/api/path';
-const resourcePath = await resolveResource('app.conf');
-const ext = await extname(resourcePath);
-assert(ext === 'conf');
+import { extname } from '@tauri-apps/api/path';
+const ext = await extname('/path/to/file.html');
+assert(ext === 'html');
 ```
 
 **Since**: 1.0.0

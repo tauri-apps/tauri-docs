@@ -14,7 +14,7 @@ Command arguments.
 
 **Since**: 1.0.0
 
-**Defined in:** [tauri.ts:66](https://github.com/tauri-apps/tauri/blob/e816a46/tooling/api/src/tauri.ts#L66)
+**Defined in:** [tauri.ts:66](https://github.com/tauri-apps/tauri/blob/0a00375/tooling/api/src/tauri.ts#L66)
 
 ## Functions
 
@@ -28,6 +28,19 @@ Example CSP value: `"csp": "default-src 'self'; img-src 'self' asset: https://as
 
 Additionally, `asset` must be added to [`tauri.allowlist.protocol`](https://tauri.app/v1/api/config/#allowlistconfig.protocol)
 in `tauri.conf.json` and its access scope must be defined on the `assetScope` array on the same `protocol` object.
+For example:
+```json
+{
+  "tauri": {
+    "allowlist": {
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$APPDATA/assets/*"]
+      }
+    }
+  }
+}
+```
 
 **Example**
 
