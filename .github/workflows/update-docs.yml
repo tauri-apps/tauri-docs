@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
-name: update-docs
+name: Generate v1 API/Config docs
 
 on:
   push:
@@ -134,7 +134,7 @@ jobs:
         with:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Rust & TS docs'
-          branch: docs/release
+          branch: ci/v1/update-api-docs
           path: tauri-docs
           title: Update Docs
           labels: 'new release'
