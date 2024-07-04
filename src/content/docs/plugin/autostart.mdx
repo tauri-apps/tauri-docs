@@ -36,6 +36,7 @@ Install the autostart plugin to get started.
       npm="npm run tauri add autostart"
       yarn="yarn run tauri add autostart"
       pnpm="pnpm tauri add autostart"
+      bun="bun tauri add autostart"
       cargo="cargo tauri add autostart"
     />
 
@@ -65,6 +66,7 @@ Install the autostart plugin to get started.
                 npm="npm install @tauri-apps/plugin-autostart"
                 yarn="yarn add @tauri-apps/plugin-autostart"
                 pnpm="pnpm add @tauri-apps/plugin-autostart"
+                bun="bun add @tauri-apps/plugin-autostart"
             />
 
       </Steps>
@@ -128,7 +130,7 @@ fn run() {
 By default all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json"
 {

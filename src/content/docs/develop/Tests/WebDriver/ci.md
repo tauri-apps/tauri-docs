@@ -4,7 +4,7 @@ description: WebDriver Testing
 sidebar:
   order: 21
   badge:
-    text: WIP
+    text: Broken
     variant: caution
 ---
 

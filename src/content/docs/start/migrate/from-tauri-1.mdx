@@ -2,7 +2,7 @@
 title: Upgrade from Tauri 1.0
 i18nReady: true
 sidebar:
-  order: 12
+  order: 15
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -53,19 +53,19 @@ fn main() {
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-            npm="npm install @tauri-apps/cli@next
+  npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
-            yarn="yarn upgrade @tauri-apps/cli --next
+  yarn="yarn upgrade @tauri-apps/cli --next
     yarn tauri migrate"
-            pnpm="pnpm update @tauri-apps/cli@next
+  pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-	cargo='cargo install tauri-cli --version "^2.0.0-beta"
+  cargo='cargo install tauri-cli --version "^2.0.0-beta"
     cargo tauri migrate'
 />
 
 {/* TODO: 2.0 */}
 
-Learn more about the `migrate` command in the [Command Line Interface reference](/reference/cli#migrate)
+Learn more about the `migrate` command in the [Command Line Interface reference](/reference/cli/#migrate)
 
 ## Summary of Changes
 
@@ -96,7 +96,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `build > distDir` renamed to `frontendDist`.
 - `build > devPath` renamed to `devUrl`.
 
-[Tauri 2.0 Configuration API reference](/reference/config)
+[Tauri 2.0 Configuration API reference](/reference/config/)
 
 ### New Cargo Features
 
@@ -234,9 +234,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-cli": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.0.0"
+  }
 }
 ```
 
@@ -285,9 +285,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-clipboard-manager": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-clipboard-manager": "^2.0.0"
+  }
 }
 ```
 
@@ -343,21 +343,21 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-dialog": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-dialog": "^2.0.0"
+  }
 }
 ```
 
 ```js
 import { save } from '@tauri-apps/plugin-dialog';
 const filePath = await save({
-	filters: [
-		{
-			name: 'Image',
-			extensions: ['png', 'jpeg'],
-		},
-	],
+  filters: [
+    {
+      name: 'Image',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
 });
 ```
 
@@ -409,9 +409,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-fs": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-fs": "^2.0.0"
+  }
 }
 ```
 
@@ -467,16 +467,16 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-global-shortcut": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-global-shortcut": "^2.0.0"
+  }
 }
 ```
 
 ```js
 import { register } from '@tauri-apps/plugin-global-shortcut';
 await register('CommandOrControl+Shift+C', () => {
-	console.log('Shortcut triggered');
+  console.log('Shortcut triggered');
 });
 ```
 
@@ -532,16 +532,16 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-http": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-http": "^2.0.0"
+  }
 }
 ```
 
 ```js
 import { fetch } from '@tauri-apps/plugin-http';
 const response = await fetch(
-	'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
+  'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
 );
 ```
 
@@ -598,9 +598,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-notification": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-notification": "^2.0.0"
+  }
 }
 ```
 
@@ -776,9 +776,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-os": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-os": "^2.0.0"
+  }
 }
 ```
 
@@ -831,9 +831,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-process": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-process": "^2.0.0"
+  }
 }
 ```
 
@@ -890,9 +890,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-shell": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-shell": "^2.0.0"
+  }
 }
 ```
 
@@ -1015,7 +1015,7 @@ Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submen
 ```rust
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
-    tray::{ClickType, TrayIconBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
 };
 
 tauri::Builder::default()
@@ -1031,7 +1031,12 @@ tauri::Builder::default()
                 _ => (),
             })
             .on_tray_icon_event(|tray, event| {
-                if event.click_type == ClickType::Left {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
                     let _ = webview_window.show();
@@ -1073,9 +1078,9 @@ fn main() {
 ```json
 // package.json
 {
-	"dependencies": {
-		"@tauri-apps/plugin-updater": "^2.0.0"
-	}
+  "dependencies": {
+    "@tauri-apps/plugin-updater": "^2.0.0"
+  }
 }
 ```
 
@@ -1085,11 +1090,11 @@ import { relaunch } from '@tauri-apps/plugin-process';
 
 const update = await check();
 if (update?.available) {
-	console.log(`Update to ${update.version} available! Date: ${update.date}`);
-	console.log(`Release notes: ${update.body}`);
-	await update.downloadAndInstall();
-	// requires the `process` plugin
-	await relaunch();
+  console.log(`Update to ${update.version} available! Date: ${update.date}`);
+  console.log(`Release notes: ${update.body}`);
+  await update.downloadAndInstall();
+  // requires the `process` plugin
+  await relaunch();
 }
 ```
 
@@ -1159,6 +1164,12 @@ On the JavaScript side, the `WebviewWindow` class is now exported in the `@tauri
 
 The `onMenuClicked` function was removed, you can intercept menu events when creating a menu in JavaScript instead.
 
+### Migrate Embedded Additional Files (Resources)
+
+On the JavaScript side, make sure you [Migrate to File System Plugin](#migrate-to-file-system-plugin).
+Additionally, note the changes made to the v1 allowlist in [Migrate Permissions](#migrate-permissions).
+
+On the Rust side, make sure you [Migrate Path to Tauri Manager](#migrate-path-to-tauri-manager).
 
 ### Migrate Embedded External Binaries (Sidecar)
 
@@ -1179,4 +1190,4 @@ To enable permissions for your app, you must create capability files inside the 
 
 The `migrate` CLI command automatically parses your v1 allowlist and generates the associated capability file.
 
-To learn more about permissions and capabilities, see [the documentation](/reference/acl).
+To learn more about permissions and capabilities, see [the security documentation](/security/).

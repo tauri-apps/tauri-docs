@@ -35,6 +35,7 @@ Install the store plugin to get started.
     <CommandTabs npm="npm run tauri add store"
     yarn="yarn run tauri add store"
     pnpm="pnpm tauri add store"
+    bun="bun tauri add store"
     cargo="cargo tauri add store" />
 
     </TabItem>
@@ -67,6 +68,7 @@ Install the store plugin to get started.
             npm = "npm install @tauri-apps/plugin-store"
             yarn = "yarn add @tauri-apps/plugin-store"
             pnpm = "pnpm add @tauri-apps/plugin-store"
+            bun = "bun add @tauri-apps/plugin-store"
             />
         </Steps>
     </TabItem>
@@ -142,20 +144,20 @@ pub fn run() {
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6-11}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"store:allow-get",
-		"store:allow-set",
-		"store:allow-save",
-		"store:allow-load"
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "store:allow-get",
+    "store:allow-set",
+    "store:allow-save",
+    "store:allow-load"
+  ]
 }
 ```
 

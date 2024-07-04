@@ -4,11 +4,17 @@
   "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "useTabs": true,
+  "useTabs": false,
   "plugins": ["prettier-plugin-astro"],
   "overrides": [
     {
-      "files": [".*", "*.json", "*.md", "*.toml", "*.yml"],
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    },
+    {
+      "files": ["*.json", "*.md", "*.toml", "*.yml"],
       "options": {
         "useTabs": false
       }

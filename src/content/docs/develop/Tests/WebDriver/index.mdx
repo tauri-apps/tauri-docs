@@ -5,11 +5,11 @@ sidebar:
   order: 10
   label: Overview
   badge:
-    text: WIP
+    text: Broken
     variant: caution
 ---
 
-{ /* TODO: REVISE COPY TO V2 */}
+{/* TODO: REVISE COPY TO V2 */}
 
 :::caution[Currently in pre-alpha]
 
@@ -60,19 +60,25 @@ can look at https://github.com/chippers/hello_tauri.
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid>
-	<LinkCard title="Setup" href="/start/develop/tests/webdriver/example/" />
-	<LinkCard title="Selenium" href="/start/develop/tests/webdriver/example/selenium" />
-	<LinkCard
-				title="WebdriverIO"
-				href="/start/develop/tests/webdriver/example/webdriverio"
-			/>
+  <LinkCard title="Setup" href="/develop/tests/webdriver/example/" />
+  <LinkCard
+    title="Selenium"
+    href="/develop/tests/webdriver/example/selenium/"
+  />
+  <LinkCard
+    title="WebdriverIO"
+    href="/develop/tests/webdriver/example/webdriverio/"
+  />
 </CardGrid>
 
 ## Continuous Integration (CI)
 
 The above examples also comes with a CI script to test with GitHub actions, but you may still be interested in the below WebDriver CI guide as it explains the concept a bit more.
 
-<LinkCard title="Continuous Integration (CI)" href="/start/develop/tests/webdriver/ci" />
+<LinkCard
+  title="Continuous Integration (CI)"
+  href="/develop/tests/webdriver/ci/"
+/>
 
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver

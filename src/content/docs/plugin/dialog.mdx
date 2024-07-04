@@ -26,6 +26,7 @@ Install the dialog plugin to get started.
         <CommandTabs npm="npm run tauri add dialog"
                     yarn="yarn run tauri add dialog"
                     pnpm="pnpm tauri add dialog"
+                    bun="bun tauri add dialog"
                     cargo="cargo tauri add dialog" />
 
     </TabItem>
@@ -51,10 +52,11 @@ Install the dialog plugin to get started.
             3.  If you'd like create dialogs in JavaScript, install the npm package as well:
 
                 <CommandTabs
-                                npm="npm install @tauri-apps/plugin-dialog"
-                                yarn="yarn add @tauri-apps/plugin-dialog"
-                                pnpm="pnpm add @tauri-apps/plugin-dialog"
-                            />
+                    npm="npm install @tauri-apps/plugin-dialog"
+                    yarn="yarn add @tauri-apps/plugin-dialog"
+                    pnpm="pnpm add @tauri-apps/plugin-dialog"
+                    bun="bun add @tauri-apps/plugin-dialog"
+                />
 
         </Steps>
     </TabItem>
@@ -85,7 +87,7 @@ in Rust:
 
 See all [Dialog Options](/reference/javascript/dialog/) at the JavaScript API reference.
 
-{ /* ASK */}
+{/* ASK */}
 
 #### Create Yes/No Dialog
 
@@ -96,15 +98,15 @@ import { ask } from '@tauri-apps/plugin-dialog';
 
 // Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
-	title: 'Tauri',
-	kind: 'warning',
+  title: 'Tauri',
+  kind: 'warning',
 });
 
 console.log(answer);
 // Prints boolean to the console
 ```
 
-{ /* CONFIRM */}
+{/* CONFIRM */}
 
 #### Create Ok/Cancel Dialog
 
@@ -115,15 +117,15 @@ import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
-	'This action cannot be reverted. Are you sure?',
-	{ title: 'Tauri', kind: 'warning' }
+  'This action cannot be reverted. Are you sure?',
+  { title: 'Tauri', kind: 'warning' }
 );
 
 console.log(confirmation);
 // Prints boolean to the console
 ```
 
-{ /* MESSAGE */}
+{/* MESSAGE */}
 
 #### Create Message Dialog
 
@@ -136,7 +138,7 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
 
-{ /* OPEN */}
+{/* OPEN */}
 
 #### Open a File Selector Dialog
 
@@ -149,14 +151,14 @@ import { open } from '@tauri-apps/plugin-dialog';
 
 // Open a dialog
 const file = await open({
-	multiple: false,
-	directory: false,
+  multiple: false,
+  directory: false,
 });
 console.log(file);
 // Prints file path and name to the console
 ```
 
-{ /* SAVE */}
+{/* SAVE */}
 
 #### Save to File Dialog
 
@@ -166,12 +168,12 @@ Open a file/directory save dialog.
 import { save } from '@tauri-apps/plugin-dialog';
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
-	filters: [
-		{
-			name: 'My Filter',
-			extensions: ['png', 'jpeg'],
-		},
-	],
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
 });
 console.log(path);
 // Prints the chosen path

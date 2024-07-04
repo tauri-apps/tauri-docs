@@ -27,6 +27,7 @@ Install the http plugin to get started.
         <CommandTabs npm="npm run tauri add http"
         yarn="yarn run tauri add http"
         pnpm="pnpm tauri add http"
+        bun="bun tauri add http"
         cargo="cargo tauri add http" />
 
     </TabItem>
@@ -55,6 +56,7 @@ Install the http plugin to get started.
                 npm="npm install @tauri-apps/plugin-http"
                 yarn="yarn add @tauri-apps/plugin-http"
                 pnpm="pnpm add @tauri-apps/plugin-http"
+                bun="bun add @tauri-apps/plugin-http"
             />
 
         </Steps>
@@ -75,17 +77,17 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
     ```json
     //src-tauri/capabilities/base.json
     {
-    	"permissions": [
-    		{
-    			"identifier": "http:default",
-    			"allow": [{ "url": "https://*.tauri.app" }],
-    			"deny": [{ "url": "https://private.tauri.app" }]
-    		}
-    	]
+      "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": [{ "url": "https://*.tauri.app" }],
+          "deny": [{ "url": "https://private.tauri.app" }]
+        }
+      ]
     }
     ```
 
-    For more information, please see the documentation for [Access Control Lists](/reference/acl/)
+    For more information, please see the documentation for [Permissions Overview](/security/permissions/)
 
 2.  Send a request
 
@@ -94,7 +96,7 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
 
     // Send a GET request
     const response = await fetch('http://test.tauri.app/data.json', {
-    	method: 'GET',
+      method: 'GET',
     });
     console.log(response.status); // e.g. 200
     console.log(response.statusText); // e.g. "OK"

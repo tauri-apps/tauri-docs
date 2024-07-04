@@ -38,6 +38,7 @@ Install the global-shortcut plugin to get started.
       npm="npm run tauri add global-shortcut"
       yarn="yarn run tauri add global-shortcut"
       pnpm="pnpm tauri add global-shortcut"
+      bun="bun tauri add global-shortcut"
       cargo="cargo tauri add global-shortcut"
     />
 
@@ -72,6 +73,7 @@ Install the global-shortcut plugin to get started.
           npm = "npm install @tauri-apps/plugin-global-shortcut"
           yarn = "yarn add @tauri-apps/plugin-global-shortcut"
           pnpm = "pnpm add @tauri-apps/plugin-global-shortcut"
+          bun = "bun add @tauri-apps/plugin-global-shortcut"
         />
 
     </Steps>
@@ -90,7 +92,7 @@ The global-shortcut plugin is available in both JavaScript and Rust.
 import { register } from '@tauri-apps/plugin-global-shortcut';
 
 await register('CommandOrControl+Shift+C', () => {
-	console.log('Shortcut triggered');
+  console.log('Shortcut triggered');
 });
 ```
 
@@ -132,19 +134,19 @@ fn run() {
 
 By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-9}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"global-shortcut:allow-is-registered",
-		"global-shortcut:allow-register",
-		"global-shortcut:allow-unregister"
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "global-shortcut:allow-is-registered",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister"
+  ]
 }
 ```
 
