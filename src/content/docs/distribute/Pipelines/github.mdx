@@ -2,13 +2,64 @@
 title: GitHub
 ---
 
-This guide will show you how to use [tauri-action](https://github.com/tauri-apps/tauri-action) in GitHub Actions to easily build and upload your app, and how to make Tauri's updater query the newly created GitHub release for updates.
+This guide will show you how to use [tauri-action](https://github.com/tauri-apps/tauri-action) in [GitHub Actions](https://docs.github.com/en/actions) to easily build and upload your app, and how to make Tauri's updater query the newly created GitHub release for updates.
 
 Lastly, it will also show how to set up a more complicated build pipeline for Linux Arm AppImages.
 
-{/* TODO: Migrate more of the v1 guide (explanations etc.) */}
+:::note[Code Signing]
 
-## Basic Cross Platform Compilation
+To set up code signing for Windows and macOS in your workflow, follow the specific guide for each platform:
+
+- TODO: Windows Code Signing
+- TODO: macOS Code Signing
+
+:::
+
+## Getting Started
+
+To set up `tauri-action` you must first set up a GitHub repository. You can also use this action on a repository that does not have Tauri configured yet since it can automatically initialize Tauri for you, please see the [action's readme](https://github.com/tauri-apps/tauri-action/#project-initialization) for necessary configuration options.
+
+Go to the Actions tab on your GitHub project page and select "New workflow", then choose "Set up a workflow yourself". Replace the file with the workflow from [below](#example-workflow) or from one of the [action's examples](https://github.com/tauri-apps/tauri-action/tree/dev/examples).
+
+## Configuration
+
+Please see the `tauri-action` [readme](https://github.com/tauri-apps/tauri-action/#inputs) for all available configuration options.
+
+When your app is not on the root of the repository, use the `projectPath` input.
+
+You may freely modify the worfklow name, change its triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow since this runs the build script and releases your app.
+
+### How to Trigger
+
+The release workflow shown below and in the `tauri-action` examples is triggered by pushed to the `release` branch. The action automatically creates a git tag and a title for the GitHub release using the application version.
+
+As another example, you can also change the trigger to run the workflow on the push of a version git tag such as `app-v0.7.0`:
+
+```yaml
+name: 'publish'
+
+on:
+  push:
+    tags:
+      - 'app-v*'
+```
+
+For a full list of possible trigger configurations, check out the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows).
+
+## Example Workflow
+
+Below is an example workflow that has been set up to run every time you push to the `release` branch.
+
+This workflow will build and release your app for Linux x64, Windows x64, macOS x64 and macOS Arm64 (M1 and above).
+
+The steps this workflow takes are:
+
+1. Checkout the repository using `actions/checkout@v4`.
+2. Install Linux system dependencies required to build the app.
+3. Set up Node.js LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
+4. Set up Rust and a cache for Rust's build artifacts using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
+5. Install the frontend dependencies and, if not configured as [`beforeBuildCommand`](../../reference/config.md#beforebuildcommand), run the web app's build script.
+6. Lastly, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create a GitHub release.
 
 ```yaml
 name: 'publish'
@@ -81,16 +132,22 @@ jobs:
 
 For more configuration options, check out the [`tauri-action`](https://github.com/tauri-apps/tauri-action) repository and its [examples](https://github.com/tauri-apps/tauri-action/blob/dev/examples/).
 
+:::caution
+
+Carefully read through the [Usage limits, billing, and administration](https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration) documentation for GitHub Actions.
+
+:::
+
 ## Arm Runner Compilation
 
-This workflow uses [`arm-runner-action`](https://github.com/pguyot/arm-runner-action) to compile directly on an emulated Arm runner. This bridges the gap for missing cross-architecture build support in the AppImage tooling.
+This workflow uses [`pguyot/arm-runner-action`](https://github.com/pguyot/arm-runner-action) to compile directly on an emulated Arm runner. This bridges the gap for missing cross-architecture build support in the AppImage tooling.
 
 :::danger
 `arm-runner-action` is **much** slower than GitHub's standard runners, so be careful in private repositories where you're invoiced for build minutes. An uncached build for a fresh `create-tauri-app` project needs ~1 hour.
 :::
 
 ```yaml
-name: 'publish Linux Arm builds'
+name: 'Publish Linux Arm builds'
 
 on:
   workflow_dispatch:
@@ -159,22 +216,38 @@ jobs:
             # Build the application
             npm run tauri build -- --verbose
 
+      - name: Get app version
+        run: echo "APP_VERSION=$(jq -r .version src-tauri/tauri.conf.json)" >> $GITHUB_ENV
+
       # TODO: Combine this with the basic workflow and upload the files to the Release.
       - name: Upload deb bundle
         uses: actions/upload-artifact@v3
         with:
           name: Debian Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/appname_0.0.0_${{ matrix.deb }}.deb
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/appname_${{ env.APP_VERSION }}_${{ matrix.deb }}.deb
 
       - name: Upload rpm bundle
         uses: actions/upload-artifact@v3
         with:
           name: RPM Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-0.0.0-1.${{ matrix.rpm }}.rpm
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-${{ env.APP_VERSION }}-1.${{ matrix.rpm }}.rpm
 
       - name: Upload appimage bundle
         uses: actions/upload-artifact@v3
         with:
           name: AppImage Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_0.0.0_${{ matrix.appimage }}.AppImage
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_${{ env.APP_VERSION }}_${{ matrix.appimage }}.AppImage
+```
+
+## Troubleshooting
+
+### GitHub Environment Token
+
+The GitHub Token is automatically issued by GitHub for each workflow run without further configuration, which means there is no risk of secret leakage. This token however only has read permissions by default and you may get a "Resource not accessible by integration" error when running the workflow. If this happens, you may need to add write permissions to this token. To do this, go to your GitHub project settings, select `Actions`, scroll down to `Workflow permissions`, and check "Read and write permissions".
+
+You can see the GitHub Token being passed to the workflow via this line in the workflow:
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
