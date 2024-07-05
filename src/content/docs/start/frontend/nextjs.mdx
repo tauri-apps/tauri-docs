@@ -15,7 +15,7 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 
 - Use static exports by setting `output: 'export'`. Tauri doesn't support server-based solutions.
 - Use `internal-ip` for mobile compatibility so you can configure `assetPrefix`. This is required so that the server properly resolves assets.
-- Use `out/` as `frontendDist` in `tauri.conf.json`.
+- Use the `out` directory as `frontendDist` in `tauri.conf.json`.
 
 ## Example Configuration
 
@@ -44,7 +44,7 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
         "beforeDevCommand": "npm run dev",
         "beforeBuildCommand": "npm run build",
         "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
+        "frontendDist": "../out"
       }
     }
     ```
@@ -60,7 +60,7 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
         "beforeDevCommand": "yarn dev",
         "beforeBuildCommand": "yarn generate",
         "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
+        "frontendDist": "../out"
       }
     }
     ```
@@ -76,7 +76,7 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
         "beforeDevCommand": "pnpm dev",
         "beforeBuildCommand": "pnpm generate",
         "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
+        "frontendDist": "../out"
       }
     }
     ```
