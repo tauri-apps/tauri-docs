@@ -117,9 +117,23 @@ if (permissionGranted) {
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+```rust
+tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
+    .setup(|app| {
+        use tauri_plugin_notification::NotificationExt;
+        app.notification()
+            .builder()
+            .title("Tauri")
+            .body("Tauri is awesome")
+            .show()
+            .unwrap();
 
-<Stub />
+        Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+```
 
 </TabItem>
 </Tabs>
