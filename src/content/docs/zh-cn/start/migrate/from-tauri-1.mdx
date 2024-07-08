@@ -1177,13 +1177,13 @@ tauri::Builder::default()
 
 此外，请注意[迁移授权许可](#迁移授权许可)中对 v1 的授权许可列表所作的更改。
 
-在 Rust 侧，请确保[将 Path 迁移到 Tauri Manager](#迁移-Path-到-Tauri-Manager).
+在 Rust 侧，请确保[将 Path 迁移到 Tauri Manager](#迁移-path-到-tauri-manager).
 
 ### 迁移嵌入的外部二进制文档 (Sidecar)
 
 在 Tauri v1 中，外部的二进制文件和其参数在许可列表中被定义。而在 v2 中，使用了新的权限系统。有关详细信息，请阅读[迁移授权许可](#迁移授权许可)。
 
-在 JavaScript 侧，请确保[迁移到 Shell 插件](#迁移到-Shell-插件).
+在 JavaScript 侧，请确保[迁移到 Shell 插件](#迁移到-shell-插件).
 
 在 Rust 侧，`tauri::api::process` API 已经被移除，使用 `tauri_plugin_shell::ShellExt` 和 `tauri_plugin_shell::process::CommandEvent` 作为替代。[嵌入的外部二进制文档](/develop/sidecar/#running-it-from-rust)将指导你如何迁移。
 
