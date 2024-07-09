@@ -38,11 +38,16 @@
     "semver": "^7.6.0",
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
-    "starlight-blog": "^0.9.0",
+    "starlight-blog": "^0.11.0",
     "starlight-links-validator": "^0.9.0"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.5.0",
   "engines": {
     "pnpm": "^9.0.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@astrojs/starlight@0.24.5": "patches/@astrojs__starlight@0.24.5.patch"
+    }
   }
 }
