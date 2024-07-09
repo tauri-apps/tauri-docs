@@ -26,6 +26,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     <CommandTabs npm="npm run tauri add dialog"
                     yarn="yarn run tauri add dialog"
                     pnpm="pnpm tauri add dialog"
+                    bun="bun tauri add dialog"
                     cargo="cargo tauri add dialog" />
 
     </TabItem>
@@ -50,10 +51,11 @@ import CommandTabs from '@components/CommandTabs.astro';
     3. 如果你想在 JavaScript 中创建对话框，还需要安装 npm 包：
 
     <CommandTabs
-                    npm="npm install @tauri-apps/plugin-dialog"
-                    yarn="yarn add @tauri-apps/plugin-dialog"
-                    pnpm="pnpm add @tauri-apps/plugin-dialog"
-                />
+        npm="npm install @tauri-apps/plugin-dialog"
+        yarn="yarn add @tauri-apps/plugin-dialog"
+        pnpm="pnpm add @tauri-apps/plugin-dialog"
+        bun="bun add @tauri-apps/plugin-dialog"
+    />
 
 </TabItem>
 </Tabs>
