@@ -93,7 +93,7 @@ You can use `saveWindowState` to manually save the window state:
 ```javascript
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
 // when using `"withGlobalTauri": true`, you may use
-// const { Store } = window.__TAURI_PLUGIN_STORE__;
+// const { saveWindowState, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 saveWindowState(StateFlags.ALL);
 ```
