@@ -34,10 +34,11 @@ Install the websocket plugin to get started.
     		{ ' ' }
 
     		<CommandTabs
-    			npm="npm run tauri add websocket"
-    			yarn="yarn run tauri add websocket"
-    			pnpm="pnpm tauri add websocket"
-    			cargo="cargo tauri add websocket"
+                npm="npm run tauri add websocket"
+                yarn="yarn run tauri add websocket"
+                pnpm="pnpm tauri add websocket"
+                bun="bun tauri add websocket"
+                cargo="cargo tauri add websocket"
     		/>
     </TabItem>
 
@@ -67,9 +68,10 @@ Install the websocket plugin to get started.
     	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
     		<CommandTabs
-    			npm = "npm install @tauri-apps/plugin-websocket"
-    			yarn = "yarn add @tauri-apps/plugin-websocket"
-    			pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                npm = "npm install @tauri-apps/plugin-websocket"
+                yarn = "yarn add @tauri-apps/plugin-websocket"
+                pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                bun = "bun add @tauri-apps/plugin-websocket"
     		/>
 
     	</Steps>
@@ -87,7 +89,7 @@ import WebSocket from '@tauri-apps/plugin-websocket';
 const ws = await WebSocket.connect('ws://127.0.0.1:8080');
 
 ws.addListener((msg) => {
-	console.log('Received Message:', msg);
+  console.log('Received Message:', msg);
 });
 
 await ws.send('Hello World!');
@@ -99,15 +101,15 @@ await ws.disconnect();
 
 By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["websocket:default"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["websocket:default"]
 }
 ```
 

@@ -1,29 +1,29 @@
 ---
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 type Entry = {
-	name: string;
-	description: string;
-	href: string;
+  name: string;
+  description: string;
+  href: string;
 };
 
 const list: Entry[] = [
-	{
-		name: 'Have something to share?',
-		description: 'Open a pull request to show us your amazing resource',
-		href: 'https://github.com/tauri-apps/tauri-docs/pulls',
-	},
-	{
-		name: 'Github OAuth with Lucia',
-		description: 'Authenticate users with a simple JS server',
-		href: 'https://lucia-auth.com/guidebook/github-oauth-native/tauri',
-	},
+  {
+    name: 'Have something to share?',
+    description: 'Open a pull request to show us your amazing resource',
+    href: 'https://github.com/tauri-apps/tauri-docs/pulls',
+  },
+  {
+    name: 'Github OAuth with Lucia',
+    description: 'Authenticate users with a simple JS server',
+    href: 'https://lucia-auth.com/guidebook/github-oauth-native/tauri',
+  },
 ];
 ---
 
 <CardGrid>
-	{
-		list
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.map((item) => <LinkCard title={item.name} href={item.href} description={item.description} />)
-	}
+  {
+    list
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((item) => <LinkCard title={item.name} href={item.href} description={item.description} />)
+  }
 </CardGrid>

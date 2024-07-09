@@ -4,5 +4,5 @@ const enabled = process.env.TAURI_DEBUG && Astro.slots.has('default');
 ---
 
 <Card title="Demo">
-	{enabled ? <slot /> : <p>Try it in the Tauri Docs app (coming soon)</p>}
+  {enabled ? <slot /> : <p>Try it in the Tauri Docs app (coming soon)</p>}
 </Card>

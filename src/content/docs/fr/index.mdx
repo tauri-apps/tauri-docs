@@ -1,0 +1,64 @@
+---
+title: Une fondation robuste pour vos applications web.
+description: Les outils de création d'applications multiplatformes
+i18nReady: true
+template: splash
+editUrl: false
+lastUpdated: false
+prev: false
+next: false
+hero:
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: Commencer
+      link: /fr/start/
+      icon: right-arrow
+      variant: primary
+    - text: Règles de contribution
+
+      link: /fr/contribute/
+
+      icon: open-book
+      variant: minimal
+    - text: Documentation de Tauri 1.0
+      link: https://tauri.app
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<CardGrid stagger>
+  <Card title="Frontend Indépendant" icon="rocket">
+    Importez votre configuration web existant dans Tauri ou démarrez votre
+    nouveau projet de rêve. Tauri supporte n'importe quel framework frontend,
+    vous n'avez donc pas besoin de changer votre configuration.
+  </Card>
+  <Card title="Multiplatforme" icon="rocket">
+    Développez vos applications pour Linux, macOS, Windows, Android et iOS -
+    tout cela à partir du même code.
+  </Card>
+  <Card title="Communication Inter-Processus" icon="rocket">
+    Écrivez votre frontend en Javascript, la logique de l'application en Rust,
+    puis intégrez le tout profondément dans le système avec Swift et Kotlin.
+  </Card>
+  <Card title="Sécurité Maximale" icon="rocket">
+    C'est la première préoccupation de l'équipe Tauri, qui dirige nos priorités
+    et nos plus grandes innovations.
+  </Card>
+  <Card title="Poids Minimal" icon="rocket">
+    En utilisant le moteur de rendu web natif du système d'exploitation, le
+    poids d'une application Tauri peut atteindre 600 Ko.
+  </Card>
+  <Card title="Fonctionne avec Rust" icon="rocket">
+    Avec la performance et la sécurité au cœur de ses priorités, Rust est le
+    langage de la nouvelle génération d'applications.
+  </Card>
+</CardGrid>

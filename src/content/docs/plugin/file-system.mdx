@@ -35,10 +35,11 @@ Install the fs plugin to get started.
     	{ ' ' }
 
     	<CommandTabs
-    		npm="npm run tauri add fs"
-    		yarn="yarn run tauri add fs"
-    		pnpm="pnpm tauri add fs"
-    		cargo="cargo tauri add fs"
+            npm="npm run tauri add fs"
+            yarn="yarn run tauri add fs"
+            pnpm="pnpm tauri add fs"
+            bun="bun tauri add fs"
+            cargo="cargo tauri add fs"
     	/>
 
     </TabItem>
@@ -69,9 +70,10 @@ Install the fs plugin to get started.
     	3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
     		<CommandTabs
-    			npm = "npm install @tauri-apps/plugin-fs"
-    			yarn = "yarn add @tauri-apps/plugin-fs"
-    			pnpm = "pnpm add @tauri-apps/plugin-fs"
+                npm = "npm install @tauri-apps/plugin-fs"
+                yarn = "yarn add @tauri-apps/plugin-fs"
+                pnpm = "pnpm add @tauri-apps/plugin-fs"
+                bun = "bun add @tauri-apps/plugin-fs"
     		/>
 
     	</Steps>
@@ -129,21 +131,21 @@ See [@tauri-apps/plugin-fs - Security](/reference/javascript/fs/#security) for m
 
 By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		"fs:default",
-		{
-			"identifier": "fs:allow-exists",
-			"allow": [{ "path": "$APPDATA/*" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
 }
 ```
 
@@ -464,16 +466,16 @@ To allow any `fs` command to access specific scopes:
 
 ```json title="src-tauri/capabilities/main.json" {7-10}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "fs:scope",
-			"allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+    }
+  ]
 }
 ```
 
@@ -481,19 +483,19 @@ To allow specific `fs` command to access specific scopes:
 
 ```json title="src-tauri/capabilities/main.json" {7-14}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": [
-		{
-			"identifier": "fs:allow-rename",
-			"allow": [{ "path": "$HOME/**" }]
-		},
-		{
-			"identifier": "fs:allow-exists",
-			"allow": [{ "path": "$APPDATA/*" }]
-		}
-	]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
 }
 ```

@@ -1,0 +1,61 @@
+---
+title: Mise à jour des dépendances
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+## Mettre à jour les packages npm
+
+Si vous utilisez le package `tauri` :
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+  yarn="yarn up @tauri-apps/cli @tauri-apps/api"
+  pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+/>
+
+Vous pouvez également détecter la dernière version de Tauri sur la ligne de commande, en utilisant :
+
+<CommandTabs
+  npm="npm outdated @tauri-apps/cli"
+  yarn="yarn outdated @tauri-apps/cli"
+  pnpm="pnpm outdated @tauri-apps/cli"
+/>
+
+Sinon, si vous utilisez l'approche `vue-cli-plugin-tauri` :
+
+<CommandTabs
+  npm="npm install vue-cli-plugin-tauri@latest"
+  yarn="yarn up vue-cli-plugin-tauri"
+  pnpm="pnpm update vue-cli-plugin-tauri --latest"
+/>
+
+## Mettre à jour les packages Cargo
+
+Vous pouvez vérifier les packages obsolètes avec [`cargo outdated`][] ou sur les pages crates.io : [tauri][] / [tauri-build][].
+
+Accédez à `src-tauri/Cargo.toml` et remplacez `tauri` et `tauri-build` par
+
+```toml
+[build-dependencies]
+tauri-build = "%version%"
+
+[dependencies]
+tauri = { version = "%version%" }
+```
+
+où `%version%` est le numéro de version correspondant ci-dessus.
+
+Ensuite, procédez comme suit :
+
+```shell
+cd src-tauri
+cargo update
+```
+
+Vous pouvez également exécuter la commande `cargo upgrade` fournie par [cargo-edit][] qui fait tout cela automatiquement.
+
+[`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
+[tauri]: https://crates.io/crates/tauri/versions
+[tauri-build]: https://crates.io/crates/tauri-build/versions
+[cargo-edit]: https://github.com/killercup/cargo-edit

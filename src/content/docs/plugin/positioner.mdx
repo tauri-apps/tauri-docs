@@ -41,10 +41,11 @@ If you only intend on moving the window from Rust code, you only need the depend
     	{ ' ' }
 
     	<CommandTabs
-    		npm="npm run tauri add positioner"
-    		yarn="yarn run tauri add positioner"
-    		pnpm="pnpm tauri add positioner"
-    		cargo="cargo tauri add positioner"
+            npm="npm run tauri add positioner"
+            yarn="yarn run tauri add positioner"
+            pnpm="pnpm tauri add positioner"
+            bun="bun tauri add positioner"
+            cargo="cargo tauri add positioner"
     	/>
 
     </TabItem>
@@ -73,10 +74,11 @@ If you only intend on moving the window from Rust code, you only need the depend
     	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
   			<CommandTabs
-				  npm = "npm install @tauri-apps/plugin-positioner"
-				  yarn = "yarn add @tauri-apps/plugin-positioner"
-				  pnpm = "pnpm add @tauri-apps/plugin-positioner"
-				/>
+              npm = "npm install @tauri-apps/plugin-positioner"
+              yarn = "yarn add @tauri-apps/plugin-positioner"
+              pnpm = "pnpm add @tauri-apps/plugin-positioner"
+              bun = "bun add @tauri-apps/plugin-positioner"
+            />
 		</Steps>
 	</TabItem>
 </Tabs>
@@ -89,25 +91,26 @@ Additional setup is required to get tray-relative positions to work.
 		[dependencies]
 		tauri-plugin-positioner = { version = "2.0.0-beta", features = ["tray-icon"] }
 		```
-		
-	2. Setup `on_tray_event` for positioner plugin:
-		```rust title="src-tauri/src/lib.rs" ins={4-12}
-		fn run() {
-			tauri::Builder::default()
-				.plugin(tauri_plugin_positioner::init())
-				// This is required to get tray-relative positions to work
-				.setup(|app| {
-					TrayIconBuilder::new()
-						.on_tray_icon_event(|app, event| {
-							tauri_plugin_positioner::on_tray_event(app.app_handle(), &event);
-						})
-						.build(app)?;
-					Ok(())
-				})
-				.run(tauri::generate_context!())
-				.expect("error while running tauri application");
-		}
-		```
+
+    2. Setup `on_tray_event` for positioner plugin:
+    	```rust title="src-tauri/src/lib.rs" ins={4-12}
+    	fn run() {
+    		tauri::Builder::default()
+    			.plugin(tauri_plugin_positioner::init())
+    			// This is required to get tray-relative positions to work
+    			.setup(|app| {
+    				TrayIconBuilder::new()
+    					.on_tray_icon_event(|app, event| {
+    						tauri_plugin_positioner::on_tray_event(app.app_handle(), &event);
+    					})
+    					.build(app)?;
+    				Ok(())
+    			})
+    			.run(tauri::generate_context!())
+    			.expect("error while running tauri application");
+    	}
+    	```
+
 </Steps>
 
 ## Usage
@@ -134,7 +137,7 @@ let _ = win.as_ref().window().move_window(Position::TopRight);
 By default all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl) for more information.
+See [Permissions Overview](/security/permissions/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={4}
 {
