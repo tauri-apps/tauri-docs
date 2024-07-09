@@ -64,7 +64,8 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
-  trailingSlash: 'always',
+  // TODO: Fix trailing slashes throughout the docs
+  // trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
