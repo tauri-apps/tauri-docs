@@ -92,6 +92,8 @@ You can use `saveWindowState` to manually save the window state:
 
 ```javascript
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { saveWindowState, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 saveWindowState(StateFlags.ALL);
 ```
@@ -103,6 +105,8 @@ import {
   restoreStateCurrent,
   StateFlags,
 } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { restoreStateCurrent, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 restoreStateCurrent(StateFlags.ALL);
 ```

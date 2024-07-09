@@ -83,8 +83,10 @@ Install the websocket plugin to get started.
 
 The websocket plugin is available in JavaScript.
 
-```js
+```javascript
 import WebSocket from '@tauri-apps/plugin-websocket';
+// when using `"withGlobalTauri": true`, you may use
+// const WebSocket = window.__TAURI_PLUGIN_WEBSOCKET__;
 
 const ws = await WebSocket.connect('ws://127.0.0.1:8080');
 
