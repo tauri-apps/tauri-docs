@@ -84,6 +84,9 @@ The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://d
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const V = window.__TAURI_PLUGIN_SQL__;
+
 const db = await Database.load('sqlite:test.db');
 await db.execute('INSERT INTO ...');
 ```
@@ -93,6 +96,9 @@ await db.execute('INSERT INTO ...');
 ```javascript
 
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI_PLUGIN_SQL__;
+
 const db = await Database.load('mysql://user:pass@host/database');
 await db.execute('INSERT INTO ...');
 

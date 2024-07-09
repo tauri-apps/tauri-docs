@@ -74,8 +74,10 @@ The clipboard plugin is available in both JavaScript and Rust.
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+// when using `"withGlobalTauri": true`, you may use
+// const { writeText, readText } = window.__TAURI_PLUGIN_CLIPBOARD_MANAGER__;
 
 // Write content to clipboard
 await writeText('Tauri is awesome!');

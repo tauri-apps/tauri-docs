@@ -117,7 +117,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 
 **Frontend code to call the plugin command:**
 
-```js
+```javascript
 import { invoke } from '@tauri-apps/api/tauri';
 invoke('plugin:example|ping', { value: 'Tauri' }).then(({ value }) =>
   console.log('Response', value)

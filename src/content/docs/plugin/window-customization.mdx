@@ -137,8 +137,10 @@ Note that you may need to move the rest of your content down so that the titleba
 
 Use this code snippet to make the buttons work:
 
-```js
+```javascript
 import { Window } from '@tauri-apps/api/window';
+// when using `"withGlobalTauri": true`, you may use
+// const { Window } = window.__TAURI__.window;
 
 const appWindow = new Window('main');
 
