@@ -139,6 +139,8 @@ Use this code snippet to make the buttons work:
 
 ```js
 import { Window } from '@tauri-apps/api/window';
+// when using `"withGlobalTauri": true`, you may use
+// const { Window } = window.__TAURI__.window;
 
 const appWindow = new Window('main');
 

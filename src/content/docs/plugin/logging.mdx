@@ -112,6 +112,8 @@ Install the log plugin to get started.
 
         ```js
         import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
+        // when using `"withGlobalTauri": true`, you may use
+        // const { trace, info, error, attachConsole } = window.__TAURI_PLUGIN_LOG__;
 
         // with TargetKind::Webview enabled, this function will print logs to the browser console
         const detach = await attachConsole();
