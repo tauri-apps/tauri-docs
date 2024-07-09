@@ -64,6 +64,7 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
+  trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
