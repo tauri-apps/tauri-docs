@@ -132,7 +132,6 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `Plugin::setup_with_config` removed. Use the updated `tauri::Plugin::PluginApi` instead.
 - `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` and `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` removed. Enable each core plugin individually via `scope::ipc::RemoteDomainAccessScope::add_plugin` instead.
 - `scope::IpcScope` removed, use `scope::ipc::Scope` instead.
-- `scope::IpcScope` removed, use `scope::ipc::Scope` instead.
 - `scope::FsScope`, `scope::GlobPattern` and `scope::FsScopeEvent` removed, use `scope::fs::Scope`, `scope::fs::Pattern` and `scope::fs::Event` respectively.
 - `updater` module removed. Use `tauri-plugin-updater` instead. [Migration](#migrate-to-updater-plugin)
 - `Env.args` field has been removed, use `Env.args_os` field instead.
@@ -1006,7 +1005,7 @@ See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-beta/tauri/tray/struct.TrayIco
 
 #### Migrate to Menu
 
-Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submenu` instead of `tauri::SystemTraySubmenu` and `tauri::menu::PredefinedMenuItem` instead of `tauri::SystemTrayMenuItem`. [Migration](#migrate-to-menu)
+Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submenu` instead of `tauri::SystemTraySubmenu` and `tauri::menu::PredefinedMenuItem` instead of `tauri::SystemTrayMenuItem`.
 
 #### Tray Events
 
