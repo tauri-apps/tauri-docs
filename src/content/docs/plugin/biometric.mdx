@@ -176,3 +176,69 @@ try{
 
 </TabItem>
 </Tabs>
+
+## Permissions
+
+By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+
+See [Permissions Overview](/security/permissions/) for more information.
+
+<table>
+<tr>
+<th>Identifier</th>
+<th>Description</th>
+</tr>
+
+
+<tr>
+<td>
+
+`biometric:allow-authenticate`
+
+</td>
+<td>
+
+Enables the authenticate command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`biometric:deny-authenticate`
+
+</td>
+<td>
+
+Denies the authenticate command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`biometric:allow-status`
+
+</td>
+<td>
+
+Enables the status command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`biometric:deny-status`
+
+</td>
+<td>
+
+Denies the status command without any pre-configured scope.
+
+</td>
+</tr>
+</table>
