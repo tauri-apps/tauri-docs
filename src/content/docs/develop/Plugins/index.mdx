@@ -103,12 +103,12 @@ struct Config {
   timeout: usize,
 }
 
-pub fn init<R: Runtime>() -> TauriPlugin<R> {
+pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
   // Make the plugin config optional
   // by using `Builder::<R, Option<Config>>` instead
   Builder::<R, Config>::new("<plugin-name>")
     .setup(|app, api| {
-      let timeout = api.config.timeout;
+      let timeout = api.config().timeout;
       Ok(())
     })
     .build()
