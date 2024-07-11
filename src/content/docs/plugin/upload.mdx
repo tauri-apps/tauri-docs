@@ -80,7 +80,7 @@ import { upload } from '@tauri-apps/plugin-upload';
 upload(
   'https://example.com/file-upload',
   './path/to/my/file.txt',
-  (uploading) => console.log(`Uploaded ${uploading.progress} of ${uploading.total} bytes`), // a callback that will be called with the upload progress
+  ({ progress, total }) => console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
