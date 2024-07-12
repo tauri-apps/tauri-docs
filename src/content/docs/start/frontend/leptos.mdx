@@ -1,0 +1,59 @@
+---
+title: Leptos
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Leptos is a Rust based web framework. You can read more about Leptos on their [official website](https://leptos.dev/). This guide is accurate as of Leptos version 0.6.
+
+## Checklist
+
+- Use SSG, Tauri doesn't officially support server based solutions.
+- Use `serve.address = "0.0.0.0"` so that the webserver is available on the network for mobile development.
+- Use `serve.ws_protocol = "ws"` so that the hot-reload websocket can connect properly for mobile development.
+- Enable `withGlobalTauri` to ensure that Tauri APIs are available in the `window.__TAURI__` variable and can be imported using `wasm-bindgen`.
+
+## Example Configuration
+
+<Steps>
+
+1. ##### Update Tauri configuration
+
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "devUrl": "http://localhost:1420",
+       "beforeBuildCommand": "trunk build",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
+
+1. ##### Update Trunk configuration
+
+   ```toml
+   // Trunk.toml
+   [build]
+   target = "./index.html"
+
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   address = "0.0.0.0"
+   port = 1420
+   open = false
+   ws_protocol = "ws"
+
+   ```
+
+</Steps>

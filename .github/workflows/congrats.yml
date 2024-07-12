@@ -2,11 +2,10 @@ name: Congrats
 
 on:
   push:
-    branches: [next]
+    branches: [v2]
 
 jobs:
   congrats:
     uses: tauri-apps/automation/.github/workflows/congrats.yml@main
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      

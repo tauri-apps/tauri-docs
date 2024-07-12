@@ -1,23 +1,23 @@
 ---
 import { Card } from '@astrojs/starlight/components';
 
-const baseUrl = 'https://github.com/tauri-apps/tauri-docs/tree/next';
+const baseUrl = 'https://github.com/tauri-apps/tauri-docs/tree/v2';
 ---
 
 <Card title="Contribute" icon="pencil">
-	<p>
-		This is a stub and is waiting for contributions. Get involved by
-		<a href={baseUrl}>visiting us on GitHub</a> or <a href="https://discord.com/invite/tauri"
-			>joining us on Discord</a
-		>.
-	</p>
+  <p>
+    This is a stub and is waiting for contributions. Get involved by
+    <a href={baseUrl}>visiting us on GitHub</a> or <a href="https://discord.com/invite/tauri"
+      >joining us on Discord</a
+    >.
+  </p>
 
-	{
-		Astro.slots.has('default') && (
-			<>
-				<div>Here are some ideas to get you started:</div>
-				<slot />
-			</>
-		)
-	}
+  {
+    Astro.slots.has('default') && (
+      <>
+        <div>Here are some ideas to get you started:</div>
+        <slot />
+      </>
+    )
+  }
 </Card>

@@ -1,0 +1,76 @@
+---
+const { section } = Astro.props;
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import { JSDOM } from 'jsdom';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { readFile } from 'fs/promises';
+
+const md = await createMarkdownProcessor();
+const res = readFile(
+  join(
+    dirname(dirname(dirname(fileURLToPath(import.meta.url)))),
+    'packages/awesome-tauri/README.md'
+  ),
+  'utf-8'
+);
+const content = await md.render(await res);
+const dom = new JSDOM('<!DOCTYPE html>' + content.code);
+const document = dom.window.document;
+let categories = document.querySelectorAll('h3');
+let cards = [];
+const sections = {
+  plugins: 'Plugins',
+  'plugins-no-official': 'Plugins',
+  integrations: 'Integrations',
+  articles: 'Articles',
+  guides: 'Guides',
+  tutorials: 'Tutorials',
+  templates: 'Templates',
+  'applications-audio-video': 'Audio & Video',
+  'applications-chatgpt-clients': 'ChatGPT clients',
+  'applications-data': 'Data',
+  'applications-developer-tools': 'Developer tools',
+  'applications-email-feeds': 'Email & Feeds',
+  'applications-file-management': 'File management',
+  'applications-finance': 'Finance',
+  'applications-gaming': 'Gaming',
+  'applications-information': 'Information',
+  'applications-learning': 'Learning',
+  'applications-networking': 'Networking',
+  'applications-office-writing': 'Office & Writing',
+  'applications-productivity': 'Productivity',
+  'applications-search': 'Search',
+  'applications-security': 'Security',
+  'applications-social-media': 'Social media',
+  'applications-utilities': 'Utilities',
+};
+
+for (const header of categories) {
+  if (header.textContent === sections[section]) {
+    let list = header.nextSibling.nextSibling as HTMLElement;
+    for (const entry: HTMLLinkElement of list.children) {
+      if (section.includes('-no-official')) {
+        let img = entry.children[1];
+        if (img && img.src && img.src.includes('official')) continue;
+        img = entry.children[2];
+        if (img && img.src && img.src.includes('official')) continue;
+      }
+      cards.push({
+        href: entry.children[0].href,
+        name: entry.children[0].textContent,
+        description: entry.textContent.split(' - ')[1],
+      });
+    }
+  }
+}
+---
+
+<CardGrid>
+  {
+    cards.map((card) => (
+      <LinkCard title={card.name} description={card.description} href={card.href} />
+    ))
+  }
+</CardGrid>

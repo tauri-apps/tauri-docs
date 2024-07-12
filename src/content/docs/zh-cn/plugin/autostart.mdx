@@ -1,0 +1,145 @@
+---
+title: 自动启动
+description: 在系统启动时自动启动应用程序。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="autostart" />
+
+在系统启动时自动启动应用程序。
+
+## 支持的平台
+
+- Windows
+- Mac（通过 AppleScript 或启动代理）
+- Linux
+
+## 设置
+
+请安装 autostart 插件。
+
+<Tabs>
+  <TabItem label="自动">
+
+使用项目的包管理器来添加依赖。
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add autostart"
+  yarn="yarn run tauri add autostart"
+  pnpm="pnpm tauri add autostart"
+  bun="bun tauri add autostart"
+  cargo="cargo tauri add autostart"
+/>
+
+  </TabItem>
+  <TabItem label="手动">
+
+1. 运行 `cargo add tauri-plugin-autostart` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="lib.rs" ins={1, 6}
+use tauri_plugin_autostart::MacosLauncher;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"]) /* arbitrary number of args to pass to your app */))
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 你可以使用你喜欢的 JavaScript 包管理器来安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+      npm="npm install @tauri-apps/plugin-autostart"
+      yarn="yarn add @tauri-apps/plugin-autostart"
+      pnpm="pnpm add @tauri-apps/plugin-autostart"
+      bun="bun add @tauri-apps/plugin-autostart"
+  />
+  </TabItem>
+</Tabs>
+
+## 用法
+
+autostart 插件有 JavaScript 和 Rust 两种版本。
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```javascript
+import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
+
+// 启用 autostart
+await enable();
+// 检查 enable 状态
+console.log(`registered for autostart? ${await isEnabled()}`);
+// 禁用 autostart
+disable();
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust
+use tauri_plugin_autostart::MacosLauncher;
+use tauri_plugin_autostart::ManagerExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec!["--flag1", "--flag2"]),
+        ))
+        .setup(|app| {
+            // Get the autostart manager
+            let autostart_manager = app.autolaunch();
+            // 启用 autostart
+            let _ = autostart_manager.enable();
+            // 检查 enable 状态
+            println!("registered for autostart? {}", autostart_manager.is_enabled().unwrap());
+            // 禁用 autostart
+            let _ = autostart_manager.disable();
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。
+你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json"
+{
+  "permissions": [
+    ...,
+    "autostart:allow-enable",
+    "autostart:allow-disable",
+    "autostart:allow-is-enabled"
+  ]
+}
+```
+
+| 权限                         | 描述                                       |
+| ---------------------------- | ------------------------------------------ |
+| `autostart:allow-disable`    | 启用 disable 命令，不需要预先配置作用域。  |
+| `autostart:deny-disable`     | 拒绝没有预先配置作用域的 disable 命令。    |
+| `autostart:allow-enable`     | 启用 enable 命令，不需要预先配置作用域。   |
+| `autostart:deny-enable`      | 拒绝使用没有预先配置作用域的 enable 命令。 |
+| `autostart:allow-is-enabled` | 启用没有预先配置作用域的 is_enabled 命令。 |
+| `autostart:deny-is-enabled`  | 拒绝没有预先配置作用域的 is_enabled 命令。 |

@@ -1,0 +1,112 @@
+---
+title: Nuxt
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，请访问 https://nuxt.com 。本指南适用于 Nuxt 3.11 版本。
+
+## 检查清单
+
+- 配置 `ssr: false` 以启用 SSG。Tauri 不支持基于服务端的解决方案。
+- 将主机设置为 `0.0.0.0`。
+- 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `dist/`。
+- 使用 `nuxi generate` 编译。
+- （可选）：在 `nuxt.config.ts` 中使用 `telemetry: false` 禁用遥测。
+
+## 示例配置
+
+<Steps>
+
+1.  更新 Tauri 配置：
+
+        <Tabs>
+
+    <TabItem label="npm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+            </TabItem>
+
+        <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+            </TabItem>
+
+        <TabItem label="pnpm">
+
+              ```json
+              // tauri.conf.json
+              {
+                "build": {
+                  "beforeDevCommand": "pnpm dev",
+                  "beforeBuildCommand": "pnpm generate",
+                  "devUrl": "http://localhost:3000",
+                  "frontendDist": "../dist"
+                }
+              }
+              ```
+
+            </TabItem>
+
+        </Tabs>
+
+2.  更新 Nuxt 配置：
+
+    ```ts
+    export default defineNuxtConfig({
+      // （可选） 启用 Nuxt 调试工具
+      devtools: { enabled: true },
+      // 启用 SSG
+      ssr: false,
+      // 使开发服务器能够被其他设备发现，以便进行移动端开发。
+      devServer: { host: '0.0.0.0' },
+      vite: {
+        // 为 Tauri 命令输出提供更好的支持
+        clearScreen: false,
+        // 启用环境变量
+        // 其他环境变量可以在如下网页中获知：
+        // https://v2.tauri.app/reference/environment-variables/
+        envPrefix: ['VITE_', 'TAURI_'],
+        server: {
+          // Tauri需要一个确定的端口
+          strictPort: true,
+          hmr: {
+            // 使用 websocket 以支持移动端热重载
+            protocol: 'ws',
+            // 确保它在网络上可用
+            host: '0.0.0.0',
+            // 使用 hmr 的特定端口
+            port: 5183,
+          },
+        },
+      },
+    });
+    ```
+
+</Steps>

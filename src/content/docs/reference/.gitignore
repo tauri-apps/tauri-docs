@@ -1,0 +1,4 @@
+config.md
+acl/*.md
+javascript/*
+!javascript/index.mdx

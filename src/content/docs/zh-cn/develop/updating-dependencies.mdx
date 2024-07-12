@@ -1,0 +1,61 @@
+---
+title: 更新依赖关系
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+## 更新 npm 包
+
+如果您正在使用 `tauri` 包：
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+  yarn="yarn up @tauri-apps/cli @tauri-apps/api"
+  pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+/>
+
+您还可以通过以下方式检测最新版本的 Tauri 在命令行上：
+
+<CommandTabs
+  npm="npm outdated @tauri-apps/cli"
+  yarn="yarn outdated @tauri-apps/cli"
+  pnpm="pnpm outdated @tauri-apps/cli"
+/>
+
+或者，如果您正在使用 `vue-cli-plugin-tauri` 方法：
+
+<CommandTabs
+  npm="npm install vue-cli-plugin-tauri@latest"
+  yarn="yarn up vue-cli-plugin-tauri"
+  pnpm="pnpm update vue-cli-plugin-tauri --latest"
+/>
+
+## 更新 Cargo 包
+
+您可以用 [`Cargo outdated`][] 或在 crates.io 页面上检查过期的包： [tauri][] / [tauri-build][]
+
+打开 `src-tauri/Cargo.toml` 并更改 `tauri` 和 `tauri-build`
+
+```toml
+[build-dependencies]
+tauri-build = "%version%"
+
+[dependencies]
+tauri = { version = "%version%" }
+```
+
+其中 `%version%` 是上面相应的版本号
+
+然后执行以下操作：
+
+```shell
+cd src-tauri
+cargo update
+```
+
+或者，您可以运行 `cargo upgrade` 命令，由 [ cargo-edit][] 提供，这将自动完成所有这一切。
+
+[`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
+[tauri]: https://crates.io/crates/tauri/versions
+[tauri-build]: https://crates.io/crates/tauri-build/versions
+[cargo-edit]: https://github.com/killercup/cargo-edit
