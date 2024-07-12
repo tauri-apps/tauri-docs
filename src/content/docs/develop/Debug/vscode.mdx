@@ -110,8 +110,8 @@ Install the (C/C++)[https://marketplace.visualstudio.com/items?itemName=ms-vscod
       // (to debug release build, change `target/debug` to `release/debug`)
       "program": "${workspaceRoot}/src-tauri/target/debug/your-app-name-here.exe",
       "cwd": "${workspaceRoot}",
-      "preLaunchTask": "ui:dev",
-    },
+      "preLaunchTask": "ui:dev"
+    }
   ]
 }
 ```
@@ -127,7 +127,7 @@ Install the (C/C++)[https://marketplace.visualstudio.com/items?itemName=ms-vscod
     {
       "label": "build:debug",
       "type": "cargo",
-      "command": "build",
+      "command": "build"
     },
     {
       "label": "ui:dev",
@@ -138,20 +138,15 @@ Install the (C/C++)[https://marketplace.visualstudio.com/items?itemName=ms-vscod
       "isBackground": true,
       // change this to your `beforeDevCommand`:
       "command": "yarn",
-      "args": [
-        "dev"
-      ]
+      "args": ["dev"]
     },
     {
       "label": "dev",
-      "dependsOn": [
-        "build:debug",
-        "ui:dev"
-      ],
+      "dependsOn": ["build:debug", "ui:dev"],
       "group": {
-        "kind": "build",
-      },
-    },
+        "kind": "build"
+      }
+    }
   ]
 }
 ```
