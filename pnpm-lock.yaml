@@ -24,10 +24,10 @@ importers:
         version: 0.24.5(patch_hash=kv7yo3q5mkk7b2of2xzi4btao4)(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3))
       '@fontsource-variable/inter':
         specifier: ^5.0.16
-        version: 5.0.16
+        version: 5.0.19
       '@fontsource/noto-sans-sc':
         specifier: ^5.0.17
-        version: 5.0.17
+        version: 5.0.19
       '@lorenzo_lewis/starlight-utils':
         specifier: ^0.1.0
         version: 0.1.2(@astrojs/starlight@0.24.5(patch_hash=kv7yo3q5mkk7b2of2xzi4btao4)(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3)))(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3))
@@ -43,16 +43,15 @@ importers:
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
-
       astro-og-canvas:
         specifier: ^0.4.2
-        version: 0.4.2(astro@4.4.4)
-      canvaskit-wasm:
-        specifier: ^0.39.1
-        version: 0.39.1
+        version: 0.4.2(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3))
       astrojs-service-worker:
         specifier: ^2.0.0
         version: 2.0.0(@types/babel__core@7.20.5)(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3))
+      canvaskit-wasm:
+        specifier: ^0.39.1
+        version: 0.39.1
       jsdom:
         specifier: ^24.0.0
         version: 24.1.0
@@ -968,6 +967,12 @@ packages:
   '@feelback/js@0.3.4':
     resolution: {integrity: sha512-xr7gTqSJcVUYQlELs1TntYovCBjMcYUr/hGKTnDoF64/lig5CbX4bOmqLoF50IImCy5q3oIwg9w+TSFvtBwsIA==}
 
+  '@fontsource-variable/inter@5.0.19':
+    resolution: {integrity: sha512-V5KPpF5o0sI1uNWAdFArC87NDOb/ZJDPXLomEiKmDCYMlDUCTn2flkuAZkyME2rtGOKO7vzCuDJAND0m/5PhDA==}
+
+  '@fontsource/noto-sans-sc@5.0.19':
+    resolution: {integrity: sha512-WI9j4N3sz9RQElaBpkIE/gnaX6VhIO4ajOq1FVEVKSrxyfAhXtFBGZuG7KBqhWbWrx/DYrxOjK2O9BPxIWKORA==}
+
   '@img/sharp-darwin-arm64@0.33.4':
     resolution: {integrity: sha512-p0suNqXufJs9t3RqLBO6vvrgr5OhgbWp76s5gTRvdmxmuv9E1rcaqGUsl3l4mKVmXPkTkTErXediAui4x+8PSA==}
     engines: {glibc: '>=2.26', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
@@ -1349,6 +1354,9 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
+  '@webgpu/types@0.1.21':
+    resolution: {integrity: sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==}
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1454,6 +1462,12 @@ packages:
     peerDependenciesMeta:
       '@astrojs/db':
         optional: true
+
+  astro-og-canvas@0.4.2:
+    resolution: {integrity: sha512-OQsH6Gr2HX9ZRHdVy2OcXVBIPI65WvEtLG/60krnphh8d3ldhuAFunymYaNGcrdSZcYgXkHWejbPt//3qaRidA==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      astro: ^3.0.0 || ^4.0.0
 
   astro-remote@0.3.2:
     resolution: {integrity: sha512-Xwm6Y+ldQEnDB2l1WwVqeUs3QvUX8LtJWnovpXlf8xhpicPu159jXOhDbHZS9wilGO/+/nR67A1qskF8pDvdGQ==}
@@ -1563,6 +1577,12 @@ packages:
 
   caniuse-lite@1.0.30001640:
     resolution: {integrity: sha512-lA4VMpW0PSUrFnkmVuEKBUovSWKhj7puyCg8StBChgu298N1AtuF1sKWEvfDuimSEDbhlb/KqPKC3fs1HbuQUA==}
+
+  canvaskit-wasm@0.37.2:
+    resolution: {integrity: sha512-212imazRF98gLOTiU4JAXM7xDvaknI7jaPtAg4ETXGW5rLQs6pomgIvVPUSfoKnQVTdGgzj+B4e+/u0Da20aGg==}
+
+  canvaskit-wasm@0.39.1:
+    resolution: {integrity: sha512-Gy3lCmhUdKq+8bvDrs9t8+qf7RvcjuQn+we7vTVVyqgOVO1UVfHpsnBxkTZw+R4ApEJ3D5fKySl9TU11hmjl/A==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -4799,21 +4819,11 @@ snapshots:
       '@expressive-code/core': 0.35.3
 
   '@feelback/js@0.3.4': {}
-  /@fontsource-variable/inter@5.0.16:
-    resolution: {integrity: sha512-k+BUNqksTL+AN+o+OV7ILeiE9B5M5X+/jA7LWvCwjbV9ovXTqZyKRhA/x7uYv/ml8WQ0XNLBM7cRFIx4jW0/hg==}
-    dev: false
 
-  /@fontsource/noto-sans-sc@5.0.17:
-    resolution: {integrity: sha512-qwaGUXrnu15f+D/4WAWzasIO6OdJ9GCbh0JDTJXn6QDkC33j/rwGkhXcWwYfunUlVWPTilQP5gaviH3bDNt84g==}
-    dev: false
+  '@fontsource-variable/inter@5.0.19': {}
 
-  /@img/sharp-darwin-arm64@0.33.2:
-    resolution: {integrity: sha512-itHBs1rPmsmGF9p4qRe++CzCgd+kFYktnsoR1sbIAfsRMrJZau0Tt1AH9KVnufc2/tU02Gf6Ibujx+15qRE03w==}
-    engines: {glibc: '>=2.26', node: ^18.17.0 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0', yarn: '>=3.2.0'}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    
+  '@fontsource/noto-sans-sc@5.0.19': {}
+
   '@img/sharp-darwin-arm64@0.33.4':
     optionalDependencies:
       '@img/sharp-libvips-darwin-arm64': 1.0.2
@@ -5158,17 +5168,9 @@ snapshots:
 
   '@types/unist@3.0.2': {}
 
-
-  /@webgpu/types@0.1.21:
-    resolution: {integrity: sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==}
-    dev: false
-
-  /acorn-jsx@5.3.2(acorn@8.11.3):
-    resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
-    peerDependencies:
-      acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
-
   '@ungap/structured-clone@1.2.0': {}
+
+  '@webgpu/types@0.1.21': {}
 
   acorn-jsx@5.3.2(acorn@8.12.0):
     dependencies:
@@ -5266,24 +5268,18 @@ snapshots:
     dependencies:
       '@feelback/js': 0.3.4
 
-
-  /astro-og-canvas@0.4.2(astro@4.4.4):
-    resolution: {integrity: sha512-OQsH6Gr2HX9ZRHdVy2OcXVBIPI65WvEtLG/60krnphh8d3ldhuAFunymYaNGcrdSZcYgXkHWejbPt//3qaRidA==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      astro: ^3.0.0 || ^4.0.0
-    dependencies:
-      astro: 4.4.4
-      canvaskit-wasm: 0.37.2
-      deterministic-object-hash: 2.0.2
-      entities: 4.5.0
-    dev: false
-
   astro-integration-kit@0.14.0(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3)):
     dependencies:
       astro: 4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3)
       pathe: 1.1.2
       recast: 0.23.9
+
+  astro-og-canvas@0.4.2(astro@4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3)):
+    dependencies:
+      astro: 4.11.5(@types/node@20.14.10)(sass@1.77.7)(terser@5.31.0)(typescript@5.5.3)
+      canvaskit-wasm: 0.37.2
+      deterministic-object-hash: 2.0.2
+      entities: 4.5.0
 
   astro-remote@0.3.2:
     dependencies:
@@ -5485,23 +5481,13 @@ snapshots:
 
   caniuse-lite@1.0.30001640: {}
 
+  canvaskit-wasm@0.37.2: {}
 
-  /canvaskit-wasm@0.37.2:
-    resolution: {integrity: sha512-212imazRF98gLOTiU4JAXM7xDvaknI7jaPtAg4ETXGW5rLQs6pomgIvVPUSfoKnQVTdGgzj+B4e+/u0Da20aGg==}
-    dev: false
-
-  /canvaskit-wasm@0.39.1:
-    resolution: {integrity: sha512-Gy3lCmhUdKq+8bvDrs9t8+qf7RvcjuQn+we7vTVVyqgOVO1UVfHpsnBxkTZw+R4ApEJ3D5fKySl9TU11hmjl/A==}
+  canvaskit-wasm@0.39.1:
     dependencies:
       '@webgpu/types': 0.1.21
-    dev: false
-
-  /ccount@2.0.1:
-    resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
-    dev: false
 
   ccount@2.0.1: {}
-
 
   chalk@2.4.2:
     dependencies:
