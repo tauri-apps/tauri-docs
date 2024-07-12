@@ -108,24 +108,24 @@ echo "-------------"
 
 ### 设置 Conflict、 Provides、 Depends、 Files、 Obsoletes、 DesktopTemplate 和 Epoch
 
-- **conflict**: 防止安装与另一个包冲突的包。
+- **conflict**：防止安装与另一个包冲突的包。
   例如，如果您更新了应用程序所依赖的 RPM 包，但新版本与您的应用程序不兼容。
 
-- **provides**: 列出应用程序提供的 RPM 依赖项。
+- **provides**：列出应用程序提供的 RPM 依赖项。
 
-- **depends**: 列出应用程序运行所需的 RPM 依赖项。
+- **depends**：列出应用程序运行所需的 RPM 依赖项。
 
-- **files**: 指定包中包含的文件。
+- **files**：指定包中包含的文件。
 
-- **obsoletes**: 列出您的应用程序废弃的 RPM 依赖项。
+- **obsoletes**：列出您的应用程序废弃的 RPM 依赖项。
 
 :::note
 如果安装了这个软件包，那么被列为“过时”的软件包将会在存在的情况下自动删除。
 :::
 
-- **desktopTemplate**: 向包中添加自定义桌面文件。
+- **desktopTemplate**：向包中添加自定义桌面文件。
 
-- **epoch**: 基于版本号定义加权依赖关系。
+- **epoch**：基于版本号定义加权依赖关系。
 
 :::caution
 除非必要，否则不建议使用 epoch，因为它会改变包管理器比较包版本的方式。
