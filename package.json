@@ -21,6 +21,8 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.0.16",
+    "@fontsource/noto-sans-sc": "^5.0.17",
     "@astrojs/markdown-remark": "^5.0.0",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/starlight": "^0.24.0",
@@ -29,6 +31,8 @@
     "astro": "^4.4.4",
     "astro-d2": "^0.3.0",
     "astro-feelback": "^0.3.4",
+    "astro-og-canvas": "^0.4.2",
+    "canvaskit-wasm": "^0.39.1",
     "astrojs-service-worker": "^2.0.0",
     "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
