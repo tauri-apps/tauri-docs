@@ -71,8 +71,10 @@ The process plugin is available in both JavaScript and Rust.
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { exit, relaunch } from '@tauri-apps/plugin-process';
+// when using `"withGlobalTauri": true`, you may use
+// const { exit, relaunch } = window.__TAURI_PLUGIN_PROCESS__;
 
 // exits the app with the given status code
 await exit(0);

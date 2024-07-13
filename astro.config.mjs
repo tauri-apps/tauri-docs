@@ -8,6 +8,8 @@ import starlightBlog from 'starlight-blog';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import starlightUtils from '@lorenzo_lewis/starlight-utils';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const authors = {
   nothingismagick: {
@@ -62,6 +64,8 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
+  // TODO: Fix trailing slashes throughout the docs
+  // trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
@@ -121,9 +125,15 @@ export default defineConfig({
         },
       ],
       editLink: {
-        baseUrl: 'https://github.com/tauri-apps/tauri-docs/edit/v2',
+        baseUrl:
+          process.env.NODE_ENV === 'development'
+            ? `vscode://file/${path.dirname(fileURLToPath(import.meta.url))}`
+            : 'https://github.com/tauri-apps/tauri-docs/edit/v2',
       },
       customCss: ['./src/styles/custom.scss'],
+      expressiveCode: {
+        styleOverrides: { borderRadius: '0.5rem' },
+      },
       sidebar: [
         {
           label: 'Guides',
@@ -312,7 +322,7 @@ export default defineConfig({
             {
               label: 'Recent posts',
               collapsed: false,
-              autogenerate: { directory: 'blog' }, // TODO: Manually construct `items` to sort by dates
+              autogenerate: { directory: 'blog', sort: 'date', order: 'descending' },
             },
           ],
         },

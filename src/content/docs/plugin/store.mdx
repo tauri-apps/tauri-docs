@@ -1,10 +1,6 @@
 ---
 title: Store
 description: Persistent key value storage.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -13,7 +9,9 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="store" />
 
-Simple, persistent key-value store.
+This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](develop/state-management) for more information on additional options.
+
+This store will allow you to persist state to a file which can be saved and loaded on demand including between app restarts. Note that this process is asynchronous which will require handling it within your code. It can be used both in the webview or within Rust.
 
 ## Supported Platforms
 
@@ -80,8 +78,10 @@ Install the store plugin to get started.
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { Store } from '@tauri-apps/plugin-store';
+// when using `"withGlobalTauri": true`, you may use
+// const { Store } = window.__TAURI_PLUGIN_STORE__;
 
 // Store will be loaded automatically when used in JavaScript binding.
 const store = new Store('store.bin');

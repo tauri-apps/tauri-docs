@@ -136,7 +136,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { show, hide } from '@tauri-apps/plugin-app';
 await hide();
 await show();
@@ -196,7 +196,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { getMatches } from '@tauri-apps/plugin-cli';
 const matches = await getMatches();
 ```
@@ -247,7 +247,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 await writeText('Tauri is awesome!');
 assert(await readText(), 'Tauri is awesome!');
@@ -305,7 +305,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 const filePath = await save({
   filters: [
@@ -371,7 +371,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { createDir, BaseDirectory } from '@tauri-apps/plugin-fs';
 await createDir('db', { dir: BaseDirectory.AppLocalData });
 ```
@@ -417,7 +417,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { register } from '@tauri-apps/plugin-global-shortcut';
 await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');
@@ -474,7 +474,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { fetch } from '@tauri-apps/plugin-http';
 const response = await fetch(
   'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
@@ -485,7 +485,7 @@ const response = await fetch(
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_dialog::reqwest;
+use tauri_plugin_http::reqwest;
 
 tauri::Builder::default()
     .plugin(tauri_plugin_http::init())
@@ -540,7 +540,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { sendNotification } from '@tauri-apps/plugin-notification';
 sendNotification('Tauri is awesome!');
 ```
@@ -720,7 +720,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { arch } from '@tauri-apps/plugin-os';
 const architecture = await arch();
 ```
@@ -775,7 +775,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { exit, relaunch } from '@tauri-apps/plugin-process';
 await exit(0);
 await relaunch();
@@ -834,7 +834,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { Command, open } from '@tauri-apps/plugin-shell';
 const output = await Command.create('echo', 'message').execute();
 
@@ -1020,7 +1020,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 
@@ -1107,7 +1107,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { appWindow } from '@tauri-apps/plugin-window';
 await appWindow.setTitle('Tauri');
 ```

@@ -21,10 +21,11 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     使用项目的包管理器来添加依赖。
 
     <CommandTabs
-    npm="npm run tauri add upload"
-    yarn="yarn run tauri add upload"
-    pnpm="pnpm tauri add upload"
-    cargo="cargo tauri add upload"
+    	npm="npm run tauri add upload"
+    	yarn="yarn run tauri add upload"
+    	pnpm="pnpm tauri add upload"
+    	bun="bun tauri add upload"
+    	cargo="cargo tauri add upload"
     />
 
     </TabItem>
@@ -53,6 +54,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     			npm="npm install @tauri-apps/plugin-upload"
     			yarn="yarn add @tauri-apps/plugin-upload"
     			pnpm="pnpm add @tauri-apps/plugin-upload"
+    			bun="bun add @tauri-apps/plugin-upload"
     		/>
 
     	</Steps>
@@ -66,7 +68,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
 下面是一个使用插件上传和下载文件的例子：
 
-```js
+```javascript
 import { upload } from '@tauri-apps/plugin-upload';
 
 upload(
@@ -77,7 +79,7 @@ upload(
 );
 ```
 
-```js
+```javascript
 import { download } from '@tauri-apps/plugin-upload';
 
 download(
