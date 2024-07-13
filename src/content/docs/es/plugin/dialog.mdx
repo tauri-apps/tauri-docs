@@ -88,7 +88,7 @@ Consulta todas las [Opciones de diálogo](/reference/javascript/dialog/) en la r
 
 Muestra un diálogo de pregunta con botones `Yes` y `No`.
 
-```js
+```javascript
 import { ask } from '@tauri-apps/plugin-dialog';
 
 // Crea un diálogo de Sí/No
@@ -107,7 +107,7 @@ console.log(answer);
 
 Muestra un diálogo de pregunta con botones `Ok` y `Cancel`.
 
-```js
+```javascript
 import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Crea un diálogo de confirmación Ok/Cancelar
@@ -126,7 +126,7 @@ console.log(confirmation);
 
 Muestra un diálogo de mensaje con un botón `Ok`. Ten en cuenta que si el usuario cierra el diálogo, devolverá `false`.
 
-```js
+```javascript
 import { message } from '@tauri-apps/plugin-dialog';
 
 // Muestra un mensaje
@@ -141,7 +141,7 @@ Abre un diálogo de selección de archivos/directorios.
 
 La opción `multiple` controla si el diálogo permite la selección múltiple o no, mientras que `directory`, si es una selección de directorio o no.
 
-```js
+```javascript
 import { open } from '@tauri-apps/plugin-dialog';
 
 // Abre un diálogo
@@ -159,7 +159,7 @@ console.log(file);
 
 Abre un diálogo de guardar archivo/directorio.
 
-```js
+```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 // Indica para guardar un 'My Filter' con extensión .png o .jpeg
 const path = await save({

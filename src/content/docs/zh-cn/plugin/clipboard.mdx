@@ -24,6 +24,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     <CommandTabs npm="npm run tauri add clipboard-manager"
     yarn="yarn run tauri add clipboard-manager"
     pnpm="pnpm tauri add clipboard-manager"
+    bun="bun tauri add clipboard-manager"
     cargo="cargo tauri add clipboard-manager" />
 
     </TabItem>
@@ -51,6 +52,7 @@ import CommandTabs from '@components/CommandTabs.astro';
         npm="npm install @tauri-apps/plugin-clipboard-manager"
         yarn="yarn add @tauri-apps/plugin-clipboard-manager"
         pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+        bun="bun add @tauri-apps/plugin-clipboard-manager"
     />
 
     </TabItem>
@@ -66,7 +68,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 
 // 将内容写到剪贴板

@@ -35,7 +35,7 @@ pub fn run() {
 
 Now, you can invoke the command from your JavaScript code:
 
-```js
+```javascript
 // When using the Tauri API npm package:
 import { invoke } from '@tauri-apps/api/core';
 
@@ -60,7 +60,7 @@ fn my_custom_command(invoke_message: String) {
 
 Arguments should be passed as a JSON object with camelCase keys:
 
-```js
+```javascript
 invoke('my_custom_command', { invokeMessage: 'Hello!' });
 ```
 
@@ -78,7 +78,7 @@ fn my_custom_command(invoke_message: String) {
 
 The corresponding JavaScript:
 
-```js
+```javascript
 invoke('my_custom_command', { invoke_message: 'Hello!' });
 ```
 
@@ -95,7 +95,7 @@ fn my_custom_command() -> String {
 
 The `invoke` function returns a promise that resolves with the returned value:
 
-```js
+```javascript
 invoke('my_custom_command').then((message) => console.log(message));
 ```
 
@@ -117,7 +117,7 @@ fn my_custom_command() -> Result<String, String> {
 
 If the command returns an error, the promise will reject, otherwise, it resolves:
 
-```js
+```javascript
 invoke('my_custom_command')
   .then((message) => console.log(message))
   .catch((error) => console.error(error));
@@ -229,7 +229,7 @@ async fn my_custom_command(value: &str) -> Result<String, ()> {
 
 Since invoking the command from JavaScript already returns a promise, it works just like any other command:
 
-```js
+```javascript
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
   console.log('Completed!')
 );
@@ -374,7 +374,7 @@ pub fn run() {
 }
 ```
 
-```js
+```javascript
 import { invoke } from '@tauri-apps/api/core';
 
 // Invocation from JavaScript

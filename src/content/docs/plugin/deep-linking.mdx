@@ -166,8 +166,10 @@ The deep-link plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
+// when using `"withGlobalTauri": true`, you may use
+// const { onOpenUrl } = window.__TAURI_PLUGIN_DEEP_LINK__;
 
 await onOpenUrl((urls) => {
   console.log('deep link:', urls);
