@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+
+let base = Astro.url.origin;
+if (process.env.CONTEXT !== 'production') {
+	base = process.env.DEPLOY_URL ?? '';
+}
+
+const a = `${base}/open-graph/blog/partnership-crabnebula.png`;
+const b = `${base}/open-graph/plugin/cli.png`;
+const c = `${base}/open-graph/zh-cn/plugin/notification.png`;
+const d = `${base}/open-graph/zh-cn/plugin.png`;
+const e = `${base}/open-graph/fr/plugin.png`;
+const f = `${base}/open-graph/blog/tauri-board-elections-and-governance-updates.png`;
+const g = `${base}/open-graph/blog/tauri-2-0-0-alpha-4.png`;
+const h = `${base}/open-graph/reference/environment-variables.png`;
+const i = `${base}/open-graph/blog/tauri-community-growth-and-feedback.png`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="noindex">
+		<title>Preview</title>
+	</head>
+	<body>
+		<Image src={a} alt="_" width={600} height={315} />
+		<Image src={b} alt="_" width={600} height={315} />
+		<Image src={c} alt="_" width={600} height={315} />
+		<Image src={d} alt="_" width={600} height={315} />
+		<Image src={e} alt="_" width={600} height={315} />
+		<Image src={f} alt="_" width={600} height={315} />
+		<Image src={g} alt="_" width={600} height={315} />
+		<Image src={h} alt="_" width={600} height={315} />
+		<Image src={i} alt="_" width={600} height={315} />
+	</body>
+</html>
