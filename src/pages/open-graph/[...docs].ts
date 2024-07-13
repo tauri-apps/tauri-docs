@@ -23,7 +23,7 @@ function clampTwoLines(txt: string, fontSize: number): string {
   // it can vary based on font, as of now it matches Inter.
   // Maybe this can help? https://github.com/adambisek/string-pixel-width/blob/master/src/pixelWidthCalculator.html
   // or this https://github.com/Evgenus/js-server-text-width
-  let MAX_LEN = 70;
+  let MAX_LEN = 73;
   // title:
   if (fontSize > 60) {
     MAX_LEN = 48;
@@ -32,7 +32,33 @@ function clampTwoLines(txt: string, fontSize: number): string {
     txt = txt.trim().substring(0, MAX_LEN).trim();
     txt[txt.length - 1] === '.' ? (txt += '..') : (txt += '...');
   }
-  return txt;
+  const arTxt = breakText(txt, 2, 80 / 2);
+  return arTxt.join('');
+}
+
+function breakText(str: string, maxLines: number, maxLineLen: number) {
+  const segmenterTitle = new Intl.Segmenter('en-US', { granularity: 'word' });
+  const segments = segmenterTitle.segment(str);
+
+  let linesOut = [''];
+  let lineNo = 0;
+  let offsetInLine = 0;
+  for (const word of Array.from(segments)) {
+    if (offsetInLine + word.segment.length >= maxLineLen) {
+      lineNo++;
+      offsetInLine = 0;
+      linesOut.push('');
+    }
+
+    if (lineNo >= maxLines) {
+      return linesOut.slice(0, maxLines);
+    }
+
+    linesOut[lineNo] += word.segment;
+    offsetInLine += word.segment.length;
+  }
+
+  return linesOut;
 }
 
 // REFERENCE:
