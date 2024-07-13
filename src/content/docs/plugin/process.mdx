@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Permissions from '@components/Permissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -98,3 +99,5 @@ app.restart();
 
 </TabItem>
 </Tabs>
+
+<Permissions plugin="process" />

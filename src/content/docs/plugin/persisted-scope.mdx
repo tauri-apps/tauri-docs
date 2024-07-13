@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Permissions from '@components/Permissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -57,3 +58,5 @@ Currently manual install is required for setting up persisted-scope plugin.
 ## Usage
 
 After setup the plugin will automatically save and restore filesystem and asset scopes.
+
+<Permissions plugin="persisted-scope" />
