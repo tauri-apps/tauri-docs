@@ -35,12 +35,12 @@ if (isDev) {
 ---
 
 <Default {...Astro.props}><slot /></Default>
+
+<!-- og-images -->
 <meta property="og:image" content={canonicalImageSrc} />
 <meta name="twitter:image" content={canonicalImageSrc} />
 
-
-<!-- // -->
-<script src="/navigate.js"></script>
+<!-- other -->
+<script is:inline src="/navigate.js"></script>
 <link rel="manifest" href="/manifest.json" />
-
 <meta name="theme-color" content="#181818" />
