@@ -4,6 +4,6 @@ import { allPages } from '../../utils/content';
 // https://www.github.com/withastro/docs/pull/4266/commits/030073f32d6dfe586c6e1da8d48d6b5485541ba2
 
 export function GET() {
-	allPages[0];
-	return new Response('');
+  allPages[0];
+  return new Response('');
 }

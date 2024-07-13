@@ -14,11 +14,11 @@ const paths = new Set(routes.map(({ params }) => params.docs));
  * @returns Path to the OpenGraph image if found. Otherwise, `undefined`.
  */
 export function getOgImageUrl(path: string, isFallback: boolean): string | undefined {
-	let imagePath = path.replace(/^\//, '').replace(/\/$/, '') + '.png';
+  let imagePath = path.replace(/^\//, '').replace(/\/$/, '') + '.png';
 
-	if (isFallback) {
-		// Remove the language segment for fallback pages.
-		imagePath = imagePath.slice(imagePath.indexOf('/') + 1);
-	}
-	if (paths.has(imagePath)) return '/open-graph/' + imagePath;
+  if (isFallback) {
+    // Remove the language segment for fallback pages.
+    imagePath = imagePath.slice(imagePath.indexOf('/') + 1);
+  }
+  if (paths.has(imagePath)) return '/open-graph/' + imagePath;
 }

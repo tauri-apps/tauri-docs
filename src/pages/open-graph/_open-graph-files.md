@@ -9,8 +9,3 @@ src/utils/content.ts    -   Export docs collection
 src/utils/getOgImageUrl.ts  -   Used in the head override to get the url for current page
 src/pages/open-graph/[...docs].ts   -   Customize and generate each image and rtlLanguages
 ```
-
-
-
-
-
