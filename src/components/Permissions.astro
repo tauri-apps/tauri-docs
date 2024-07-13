@@ -41,8 +41,6 @@ const md = await createMarkdownProcessor();
 const pageContent: string = await importMDX(plugin);
 const content = await md.render(pageContent);
 
-const code = `<code dir="auto">${plugin}:	</code>`;
 ---
 
-<p set:html={prefix} />
 <Fragment set:html={content.code} />
