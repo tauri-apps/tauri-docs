@@ -92,6 +92,7 @@ export default defineConfig({
         rss: `${site}/rss`,
       },
       components: {
+        Head: 'src/components/overrides/Head.astro',
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
