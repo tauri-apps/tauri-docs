@@ -30,10 +30,17 @@ let canonicalImageSrc = new URL(imageSrc, Astro.site);
 // Override URL for development environment
 const isDev = import.meta.env.DEV;
 if (isDev) {
-  canonicalImageSrc = new URL(imageSrc, 'http://localhost:4321/');
+  canonicalImageSrc = new URL(imageSrc, Astro.url);
 }
 ---
 
 <Default {...Astro.props}><slot /></Default>
 <meta property="og:image" content={canonicalImageSrc} />
 <meta name="twitter:image" content={canonicalImageSrc} />
+
+
+<!-- // -->
+<script src="/navigate.js"></script>
+<link rel="manifest" href="/manifest.json" />
+
+<meta name="theme-color" content="#181818" />

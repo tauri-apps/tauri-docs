@@ -98,33 +98,7 @@ export default defineConfig({
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
         PageFrame: 'src/components/overrides/PageFrame.astro',
       },
-      head: [
-        {
-          tag: 'meta',
-          attrs: { property: 'og:image', content: site + '/og.png?v=1' },
-        },
-        {
-          tag: 'meta',
-          attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
-        },
-        {
-          tag: 'script',
-          attrs: {
-            src: '/navigate.js',
-          },
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'manifest',
-            href: '/manifest.json',
-          },
-        },
-        {
-          tag: 'meta',
-          attrs: { name: 'theme-color', content: '#181818' },
-        },
-      ],
+      // head: moved to Head.astro override
       editLink: {
         baseUrl:
           process.env.NODE_ENV === 'development'
