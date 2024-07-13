@@ -42,7 +42,6 @@ const pageContent: string = await importMDX(plugin);
 const content = await md.render(pageContent);
 
 const code = `<code dir="auto">${plugin}:	</code>`;
-const prefix = `Prefix: ${code}`;
 ---
 
 <p set:html={prefix} />
