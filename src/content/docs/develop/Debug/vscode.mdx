@@ -87,11 +87,11 @@ Now you can set breakpoints in `src-tauri/src/main.rs` or any other Rust file an
 
 ## With Visual Studio Windows Debugger on Windows
 
-Visual Studio Windows Debugger is faster and has better support for enums than [`vscode-lldb`] on Windows
+Visual Studio Windows Debugger is a Windows-only debugger that is generally faster than [`vscode-lldb`] with better support for some Rust features such as enums.
 
 ### Prerequisites
 
-Install the [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) extension and follow https://code.visualstudio.com/docs/cpp/config-msvc#_prerequisites to install Visual Studio Windows Debugger
+Install the [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) extension and follow https://code.visualstudio.com/docs/cpp/config-msvc#_prerequisites to install Visual Studio Windows Debugger.
 
 ### Configure launch.json and tasks.json
 
@@ -106,8 +106,8 @@ Install the [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscod
       "name": "Launch App Debug",
       "type": "cppvsdbg",
       "request": "launch",
-      // change the exe name to your actuall exe name
-      // (to debug release build, change `target/debug` to `release/debug`)
+      // change the exe name to your actual exe name
+      // (to debug release builds, change `target/debug` to `release/debug`)
       "program": "${workspaceRoot}/src-tauri/target/debug/your-app-name-here.exe",
       "cwd": "${workspaceRoot}",
       "preLaunchTask": "ui:dev"
@@ -116,7 +116,7 @@ Install the [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscod
 }
 ```
 
-`tasks.json` is the same as with lldb, except you need to add a config group and target your `preLaunchTask` from `launch.json` to it if you want it to always compile before launching
+`tasks.json` is the same as with `lldb`, except you need to add a config group and target your `preLaunchTask` from `launch.json` to it if you want it to always compile before launching.
 
 ```json title=".vscode/tasks.json"
 {
