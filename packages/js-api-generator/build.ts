@@ -188,7 +188,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
     }
 
     url = decodeURI(
-      super.getRelativeUrl(url).replaceAll('.md', '').replaceAll('.', '').toLowerCase()
+      super.getRelativeUrl(url).replaceAll('.md', '/').replaceAll('.', '').toLowerCase()
     ).replaceAll('\\', '/');
     return url;
   };
