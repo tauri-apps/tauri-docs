@@ -57,7 +57,7 @@ importers:
         version: 1.77.8
       semver:
         specifier: ^7.6.0
-        version: 7.6.2
+        version: 7.6.3
       sharp:
         specifier: ^0.33.2
         version: 0.33.4
@@ -3205,8 +3205,8 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
-  semver@7.6.2:
-    resolution: {integrity: sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==}
+  semver@7.6.3:
+    resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -5294,7 +5294,7 @@ snapshots:
       preferred-pm: 3.1.4
       prompts: 2.4.2
       rehype: 13.0.1
-      semver: 7.6.2
+      semver: 7.6.3
       shiki: 1.10.3
       string-width: 7.2.0
       strip-ansi: 7.1.0
@@ -7571,7 +7571,7 @@ snapshots:
 
   semver@6.3.1: {}
 
-  semver@7.6.2: {}
+  semver@7.6.3: {}
 
   serialize-javascript@4.0.0:
     dependencies:
@@ -7597,7 +7597,7 @@ snapshots:
     dependencies:
       color: 4.2.3
       detect-libc: 2.0.3
-      semver: 7.6.2
+      semver: 7.6.3
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.33.4
       '@img/sharp-darwin-x64': 0.33.4
