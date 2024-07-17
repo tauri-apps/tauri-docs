@@ -51,7 +51,7 @@ jobs:
           sudo apt-get install -y
           libgtk-3-dev
           libayatana-appindicator3-dev
-          libwebkit2gtk-4.0-dev
+          libwebkit2gtk-4.1-dev
           webkit2gtk-driver
           xvfb
 
