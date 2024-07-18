@@ -1,0 +1,95 @@
+---
+title: System Tray
+tableOfContents:
+  maxHeadingLevel: 4
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+Tauri allows you to create and customize a system tray for your application. This can enhance the user experience by providing quick access to common actions.
+
+## Configuration
+
+First, update your `Cargo.toml` to include the necessary features for the system tray.
+
+```toml title="src-tauri/Cargo.toml" ins={2-4}
+tauri = { version = "2.0.0-beta", features = [ 
+    'tray-icon',
+    'image-ico',
+    'image-png',
+] }
+```
+
+## Creating system tray
+
+Edit your `src-tauri/src/main.rs` like this:
+
+```rust title="src-tauri/rcs/main.rs" ins={1-5,9-59}
+use tauri::{
+  Manager,
+  image::Image,
+  tray::{ClickType, TrayIconBuilder},
+};
+
+fn main() {
+    tauri::Builder::default()
+        .setup(|app| {
+            let _tray = TrayIconBuilder::new()
+                .icon(Image::from_path("./icons/icon.png")?)
+                .on_tray_icon_event(|tray, event| {
+                    // match event {
+                    //     TrayIconEvent::Click(id, position, rect, button, button_state) => {}
+                    // }
+
+                    if let TrayIconEvent::Click {
+                        id: _,
+                        position: _,
+                        rect: _,
+                        button: MouseButton::Left,
+                        button_state: _,
+                    } = event
+                    {
+                        let app = tray.app_handle();
+
+                        #[cfg(not(target_os = "macos"))]
+                        {
+                            if let Some(webview_window) = app.get_webview_window("main") {
+                                let _ = webview_window.show();
+                                let _ = webview_window.set_focus();
+                            }
+                        }
+
+                        #[cfg(target_os = "macos")]
+                        {
+                            tauri::AppHandle::show(&app.app_handle()).unwrap();
+                        }
+                    }
+                })
+                .build(app)?;
+
+            Ok(())
+        })
+        .on_window_event(|window, event| match event {
+            tauri::WindowEvent::CloseRequested { api, .. } => {
+                #[cfg(not(target_os = "macos"))]
+                {
+                    window.hide().unwrap();
+                }
+
+                #[cfg(target_os = "macos")]
+                {
+                    tauri::AppHandle::hide(&window.app_handle()).unwrap();
+                }
+                api.prevent_close();
+            }
+            _ => {}
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
