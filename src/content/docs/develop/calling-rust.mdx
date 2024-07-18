@@ -47,21 +47,10 @@ const invoke = window.__TAURI__.invoke;
 invoke('my_custom_command');
 ```
 
-If you are using rust-based frontend and want to use `invoke()` without arguments,
-because rust doesn't support optional arguments,
-you will need to change code on your frontend from this:
+When using a Rust frontend to call `invoke()` without arguments, you will need to change adapt your frontend code as below.
+The reason is that Rust doesn't support optional arguments.
 
-```rust
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
-    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
-}
-```
-
-to this
-
-```rust
+```rust ins={4-5}
 #[wasm_bindgen]
 extern "C" {
     // invoke without arguments
