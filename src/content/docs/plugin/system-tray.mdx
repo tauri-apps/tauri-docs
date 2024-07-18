@@ -28,7 +28,7 @@ tauri = { version = "2.0.0-beta", features = [
 
 Edit your `src-tauri/src/main.rs` like this:
 
-```rust title="src-tauri/rcs/main.rs" ins={1-5,9-59}
+```rust title="src-tauri/rcs/main.rs" ins={1-5,9-55}
 use tauri::{
   Manager,
   image::Image,
@@ -41,10 +41,6 @@ fn main() {
             let _tray = TrayIconBuilder::new()
                 .icon(Image::from_path("./icons/icon.png")?)
                 .on_tray_icon_event(|tray, event| {
-                    // match event {
-                    //     TrayIconEvent::Click(id, position, rect, button, button_state) => {}
-                    // }
-
                     if let TrayIconEvent::Click {
                         id: _,
                         position: _,
