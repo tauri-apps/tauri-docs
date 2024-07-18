@@ -47,7 +47,7 @@ const invoke = window.__TAURI__.invoke;
 invoke('my_custom_command');
 ```
 
-When using a Rust frontend to call `invoke()` without arguments, you will need to change adapt your frontend code as below.
+When using a Rust frontend to call `invoke()` without arguments, you will need to adapt your frontend code as below.
 The reason is that Rust doesn't support optional arguments.
 
 ```rust ins={4-5}
