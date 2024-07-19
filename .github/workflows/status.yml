@@ -8,6 +8,9 @@ jobs:
   set_statuses:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.issue.labels.*.name, 'manual') && !contains(github.event.pull_request.labels.*.name, 'manual') }}
+    permissions:
+      pull-requests: write
+      issues: write
     steps:
       - name: Get project data
         env:
