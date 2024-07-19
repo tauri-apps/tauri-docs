@@ -98,7 +98,7 @@ jobs:
           echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
 
       - name: Is Backlog
-        if: ${{ github.event_name == 'issues' && (github.event.issue.milestone == null || contains(github.event.issue.labels.*.name, 'upstream') || contains(github.event.issue.labels.*.name, 'discuss')) }}
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] == null || github.event.issue.milestone == null || contains(github.event.issue.labels.*.name, 'upstream') || contains(github.event.issue.labels.*.name, 'discuss')) }}
         run: |
           echo 'STATUS_ID='${{ env.BACKLOG_STATUS_ID }} >> $GITHUB_ENV
       #===== END ISSUES =====#
