@@ -1,4 +1,4 @@
-name: 'Status Update'
+name: 'Status Updater'
 
 on:
   issues:
@@ -83,7 +83,7 @@ jobs:
 
       #===== ISSUES =====#
       - name: Is Ready
-        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null) }}
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.milestone != null) }}
         run: |
           echo 'STATUS_ID='${{ env.READY_STATUS_ID }} >> $GITHUB_ENV
 
