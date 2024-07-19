@@ -88,7 +88,7 @@ jobs:
           echo 'STATUS_ID='${{ env.READY_STATUS_ID }} >> $GITHUB_ENV
 
       - name: Is In progress
-        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null) }}
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.milestone != null && github.event.issue.assignees[0] != null) }}
         run: |
           echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
 
