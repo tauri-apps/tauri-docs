@@ -26,17 +26,22 @@ tauri = { version = "2.0.0-beta", features = [
 
 ## Creating system tray
 
-Edit your `src-tauri/src/main.rs` like this:
+1. Add required imports to your `src-tauri/src/main.rs`:
 
-```rust title="src-tauri/rcs/main.rs" ins={1-5,9-55}
+```rust title="src-tauri/rcs/main.rs" ins={1-5}
 use tauri::{
     image::Image,
     tray::{MouseButton, TrayIconBuilder, TrayIconEvent},
     Manager,
 };
+```
 
+2. Setup `TrayIconBuilder::new()` in `.setup()`:
+
+```
 fn main() {
     tauri::Builder::default()
+        // ..
         .setup(|app| {
             let _tray = TrayIconBuilder::new()
                 .icon(Image::from_path("./icons/icon.png")?)
@@ -70,6 +75,16 @@ fn main() {
 
             Ok(())
         })
+        // ..
+}
+```
+
+3. Hide window on app close:
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        // ..
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
                 #[cfg(not(target_os = "macos"))]
@@ -85,8 +100,7 @@ fn main() {
             }
             _ => {}
         })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        // ..
 }
 ```
 
