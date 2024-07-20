@@ -223,7 +223,7 @@ rustup target add x86_64-pc-windows-msvc
 Instead of setting the Windows SDKs up manually we will use [`cargo-xwin`] as Tauri's "runner":
 
 ```sh
-cargo install cargo-xwin
+cargo install --locked cargo-xwin
 ```
 
 By default `cargo-xwin` will download the Windows SDKs into a project-local folder. If you have multiple projects and want to share those files you can set the `XWIN_CACHE_DIR` environment variable with a path to the preferred location.
