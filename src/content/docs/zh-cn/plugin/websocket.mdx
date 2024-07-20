@@ -33,6 +33,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     			npm="npm run tauri add websocket"
     			yarn="yarn run tauri add websocket"
     			pnpm="pnpm tauri add websocket"
+    			bun="bun tauri add websocket"
     			cargo="cargo tauri add websocket"
     		/>
     </TabItem>
@@ -66,6 +67,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     			npm = "npm install @tauri-apps/plugin-websocket"
     			yarn = "yarn add @tauri-apps/plugin-websocket"
     			pnpm = "pnpm add @tauri-apps/plugin-websocket"
+    			bun="bun add @tauri-apps/plugin-websocket"
     		/>
 
     	</Steps>
@@ -77,7 +79,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
 WebSocket 插件可以在 JavaScript 中使用。
 
-```js
+```javascript
 import WebSocket from '@tauri-apps/plugin-websocket';
 
 const ws = await WebSocket.connect('ws://127.0.0.1:8080');

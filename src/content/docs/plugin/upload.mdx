@@ -72,24 +72,30 @@ Once you've completed the registration and setup process for the plugin, you can
 
 Here's an example of how you can use the plugin to upload and download files:
 
-```js
+```javascript
 import { upload } from '@tauri-apps/plugin-upload';
+// when using `"withGlobalTauri": true`, you may use
+// const { upload } = window.__TAURI_PLUGIN_UPLOAD__;
 
 upload(
   'https://example.com/file-upload',
   './path/to/my/file.txt',
-  (progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
+  ({ progress, total }) =>
+    console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
 
-```js
+```javascript
 import { download } from '@tauri-apps/plugin-upload';
+// when using `"withGlobalTauri": true`, you may use
+// const { download } = window.__TAURI_PLUGIN_UPLOAD__;
 
 download(
   'https://example.com/file-download-link',
   './path/to/save/my/file.txt',
-  (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
+  ({ progress, total }) =>
+    console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
