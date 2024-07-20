@@ -30,9 +30,9 @@ Edit your `src-tauri/src/main.rs` like this:
 
 ```rust title="src-tauri/rcs/main.rs" ins={1-5,9-55}
 use tauri::{
-  Manager,
-  image::Image,
-  tray::{ClickType, TrayIconBuilder},
+    image::Image,
+    tray::{MouseButton, TrayIconBuilder, TrayIconEvent},
+    Manager,
 };
 
 fn main() {
