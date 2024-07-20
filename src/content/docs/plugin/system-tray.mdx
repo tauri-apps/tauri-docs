@@ -41,30 +41,31 @@ fn main() {
             let _tray = TrayIconBuilder::new()
                 .icon(Image::from_path("./icons/icon.png")?)
                 .on_tray_icon_event(|tray, event| {
-                    if let TrayIconEvent::Click {
-                        id: _,
-                        position: _,
-                        rect: _,
-                        button: MouseButton::Left,
-                        button_state: _,
-                    } = event
-                    {
-                        let app = tray.app_handle();
+                    match event {
+                        TrayIconEvent::Click {
+                            id: _,
+                            position: _,
+                            rect: _,
+                            button: MouseButton::Left,
+                            button_state: _,
+                        } => {
+                            let app = tray.app_handle();
 
-                        #[cfg(not(target_os = "macos"))]
-                        {
-                            if let Some(webview_window) = app.get_webview_window("main") {
-                                let _ = webview_window.show();
-                                let _ = webview_window.set_focus();
+                            #[cfg(not(target_os = "macos"))]
+                            {
+                                if let Some(webview_window) = app.get_webview_window("main") {
+                                    let _ = webview_window.show();
+                                    let _ = webview_window.set_focus();
+                                }
+                            }
+
+                            #[cfg(target_os = "macos")]
+                            {
+                                tauri::AppHandle::show(&app.app_handle()).unwrap();
                             }
                         }
-
-                        #[cfg(target_os = "macos")]
-                        {
-                            tauri::AppHandle::show(&app.app_handle()).unwrap();
-                        }
+                        _ => (),
                     }
-                })
                 .build(app)?;
 
             Ok(())
