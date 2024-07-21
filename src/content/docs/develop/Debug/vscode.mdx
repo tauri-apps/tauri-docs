@@ -116,7 +116,9 @@ Install the [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscod
 }
 ```
 
-`tasks.json` is the same as with `lldb`, except you need to add a config group and target your `preLaunchTask` from `launch.json` to it if you want it to always compile before launching.
+Note that it does not use the Tauri CLI, so exclusive CLI features are not executed. The `tasks.json` is the same as with `lldb`, except you need to add a config group and target your `preLaunchTask` from `launch.json` to it if you want it to always compile before launching.
+
+Here is an example of running a dev server (equivalent of `beforeDevCommand`) and the compilation (`cargo build`) as a group, to use it, change the `preLaunchTask` config in `launch.json` to `dev` (or anything you named your group).
 
 ```json title=".vscode/tasks.json"
 {
