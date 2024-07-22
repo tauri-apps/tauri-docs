@@ -12,6 +12,8 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
     steps:
       - name: Set up GitHub CLI
         run: |
