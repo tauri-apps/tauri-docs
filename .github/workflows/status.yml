@@ -8,13 +8,12 @@ jobs:
   set_statuses:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.issue.labels.*.name, 'manual') && !contains(github.event.pull_request.labels.*.name, 'manual') }}
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
     env:
-      GITHUB_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
+      BOT_PAT: ${{ secrets.ORG_TAURI_BOT_PAT }}
     steps:
+      - name: Set up GitHub CLI
+        run: |
+          echo "${{ secrets.BOT_PAT }}" | gh auth login --with-token
       - name: Get project data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
