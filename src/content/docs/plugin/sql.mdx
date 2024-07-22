@@ -236,8 +236,8 @@ To apply the migrations when the plugin is initialized, add the connection strin
 Alternatively, the client side `load()` also runs the migrations for a given connection string:
 
 ```ts
-import Database from "@tauri-apps/plugin-sql";
-const db = await Database.load("sqlite:mydatabase.db");
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
 ```
 
 Ensure that the migrations are defined in the correct order and are safe to run multiple times.
