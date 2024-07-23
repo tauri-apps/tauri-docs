@@ -7,11 +7,10 @@ on:
 jobs:
   auto_assign:
     runs-on: ubuntu-latest
-
     steps:
       - name: Auto-assign PR to author
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
         run: |
           pr_number=${{ github.event.pull_request.number }}
           pr_author=${{ github.event.pull_request.user.login }}
