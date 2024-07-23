@@ -26,62 +26,221 @@ tauri = { version = "2.0.0-beta", features = [
 
 ## Creating system tray
 
-1. Add required imports to your `src-tauri/src/main.rs`:
+1. Create `menu_plugin.rs` in `src-tauri/src` and paste there code below:
 
-```rust title="src-tauri/rcs/main.rs" ins={1-5}
+```rust title="src-tauri/src/menu_plugin.rs"
 use tauri::{
-    image::Image,
-    tray::{MouseButton, TrayIconBuilder, TrayIconEvent},
-    Manager,
+    command,
+    plugin::{Builder, TauriPlugin},
+    Runtime,
 };
-```
 
-2. Setup `TrayIconBuilder::new()` in `.setup()`:
+#[cfg(not(target_os = "macos"))]
+#[command]
+pub fn toggle<R: tauri::Runtime>(window: tauri::Window<R>) {
+    if window.is_menu_visible().unwrap_or_default() {
+        let _ = window.hide_menu();
+    } else {
+        let _ = window.show_menu();
+    }
+}
 
-```
-fn main() {
-    tauri::Builder::default()
-        // ..
-        .setup(|app| {
-            let _tray = TrayIconBuilder::new()
-                .icon(Image::from_path("./icons/icon.png")?)
-                .on_tray_icon_event(|tray, event| {
-                    match event {
-                        TrayIconEvent::Click {
-                            id: _,
-                            position: _,
-                            rect: _,
-                            button: MouseButton::Left,
-                            button_state: _,
-                        } => {
-                            let app = tray.app_handle();
+#[cfg(target_os = "macos")]
+#[command]
+pub fn toggle<R: tauri::Runtime>(
+    app: tauri::AppHandle<R>,
+    app_menu: tauri::State<'_, crate::AppMenu<R>>,
+) {
+    if let Some(menu) = app.remove_menu().unwrap() {
+        app_menu.0.lock().unwrap().replace(menu);
+    } else {
+        app.set_menu(app_menu.0.lock().unwrap().clone().expect("no app menu"))
+            .unwrap();
+    }
+}
 
-                            #[cfg(not(target_os = "macos"))]
-                            {
-                                if let Some(webview_window) = app.get_webview_window("main") {
-                                    let _ = webview_window.show();
-                                    let _ = webview_window.set_focus();
-                                }
-                            }
+#[command]
+pub fn popup<R: tauri::Runtime>(
+    window: tauri::Window<R>,
+    popup_menu: tauri::State<'_, crate::PopupMenu<R>>,
+) {
+    window.popup_menu(&popup_menu.0).unwrap();
+}
 
-                            #[cfg(target_os = "macos")]
-                            {
-                                tauri::AppHandle::show(&app.app_handle()).unwrap();
-                            }
-                        }
-                        _ => (),
-                    }
-                .build(app)?;
-
-            Ok(())
-        })
-        // ..
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+    Builder::new("app-menu")
+        .invoke_handler(tauri::generate_handler![popup, toggle])
+        .build()
 }
 ```
 
-3. Hide window on app close:
+2. Create `tray.rs` in the same directory with code below:
 
-```rust
+```rust title="src-tauri/src/tray.rs"
+use std::sync::atomic::{AtomicBool, Ordering};
+use tauri::{
+    include_image,
+    menu::{Menu, MenuItem},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    Manager, Runtime, WebviewUrl,
+};
+pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
+    let toggle_i = MenuItem::with_id(app, "toggle", "Toggle", true, None::<&str>)?;
+    let new_window_i = MenuItem::with_id(app, "new-window", "New window", true, None::<&str>)?;
+    let icon_i_1 = MenuItem::with_id(app, "icon-1", "Icon 1", true, None::<&str>)?;
+    let icon_i_2 = MenuItem::with_id(app, "icon-2", "Icon 2", true, None::<&str>)?;
+    #[cfg(target_os = "macos")]
+    let set_title_i = MenuItem::with_id(app, "set-title", "Set Title", true, None::<&str>)?;
+    let switch_i = MenuItem::with_id(app, "switch-menu", "Switch Menu", true, None::<&str>)?;
+    let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+    let remove_tray_i =
+        MenuItem::with_id(app, "remove-tray", "Remove Tray icon", true, None::<&str>)?;
+    let menu1 = Menu::with_items(
+        app,
+        &[
+            &toggle_i,
+            &new_window_i,
+            &icon_i_1,
+            &icon_i_2,
+            #[cfg(target_os = "macos")]
+            &set_title_i,
+            &switch_i,
+            &quit_i,
+            &remove_tray_i,
+        ],
+    )?;
+    let menu2 = Menu::with_items(
+        app,
+        &[&toggle_i, &new_window_i, &switch_i, &quit_i, &remove_tray_i],
+    )?;
+
+    let is_menu1 = AtomicBool::new(true);
+
+    let _ = TrayIconBuilder::with_id("tray-1")
+        .tooltip("Tauri")
+        .icon(app.default_window_icon().unwrap().clone())
+        .menu(&menu1)
+        .menu_on_left_click(false)
+        .on_menu_event(move |app, event| match event.id.as_ref() {
+            "quit" => {
+                app.exit(0);
+            }
+            "remove-tray" => {
+                app.remove_tray_by_id("tray-1");
+            }
+            "toggle" => {
+                if let Some(window) = app.get_webview_window("main") {
+                    let new_title = if window.is_visible().unwrap_or_default() {
+                        let _ = window.hide();
+                        "Show"
+                    } else {
+                        let _ = window.show();
+                        let _ = window.set_focus();
+                        "Hide"
+                    };
+                    toggle_i.set_text(new_title).unwrap();
+                }
+            }
+            "new-window" => {
+                let _webview = tauri::WebviewWindowBuilder::new(
+                    app,
+                    "new",
+                    WebviewUrl::App("index.html".into()),
+                )
+                .title("Tauri")
+                .build()
+                .unwrap();
+            }
+            #[cfg(target_os = "macos")]
+            "set-title" => {
+                if let Some(tray) = app.tray_by_id("tray-1") {
+                    let _ = tray.set_title(Some("Tauri"));
+                }
+            }
+            i @ "icon-1" | i @ "icon-2" => {
+                if let Some(tray) = app.tray_by_id("tray-1") {
+                    // let icon = if i == "icon-1" {
+                    //     include_image!("../../public/tauri.svg")
+                    // } else {
+                    //     include_image!("../../public/tauri.svg")
+                    // };
+                    let _ = tray.set_icon(Some(include_image!("../.icons/tauri.ico")));
+                }
+            }
+            "switch-menu" => {
+                let flag = is_menu1.load(Ordering::Relaxed);
+                let (menu, tooltip) = if flag {
+                    (menu2.clone(), "Menu 2")
+                } else {
+                    (menu1.clone(), "Tauri")
+                };
+                if let Some(tray) = app.tray_by_id("tray-1") {
+                    let _ = tray.set_menu(Some(menu));
+                    let _ = tray.set_tooltip(Some(tooltip));
+                }
+                is_menu1.store(!flag, Ordering::Relaxed);
+            }
+
+            _ => {}
+        })
+        .on_tray_icon_event(|tray, event| {
+            if let TrayIconEvent::Click {
+                button: MouseButton::Left,
+                button_state: MouseButtonState::Up,
+                ..
+            } = event
+            {
+                let app = tray.app_handle();
+                if let Some(window) = app.get_webview_window("main") {
+                    let _ = window.show();
+                    let _ = window.set_focus();
+                }
+            }
+        })
+        .build(app);
+
+    Ok(())
+}
+```
+
+This code creates a tray with two menus that you can switch between in the UI of menus.
+
+3. In `.setup()` in your main file initialize `tray` and `menu`:
+
+```rust title="src-tauri/src/main.rs" ins={4-28}
+fn main() {
+    tauri::Builder::default()
+        // ...
+        .setup(|app| {
+            #[cfg(all(desktop))]
+            {
+                let handle = app.handle();
+                tray::create_tray(handle)?;
+                handle.plugin(menu_plugin::init())?;
+            }
+
+            #[cfg(target_os = "macos")]
+            app.manage(AppMenu::<R>(Default::default()));
+
+            #[cfg(all(desktop))]
+            app.manage(PopupMenu(
+                tauri::menu::MenuBuilder::new(app)
+                    .check("check", "Tauri is awesome!")
+                    .text("text", "Do something")
+                    .copy()
+                    .build()?,
+            ));
+            Ok(())
+        })
+        // ...
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+4. Hide window on app close:
+
+```rust title="src-tauri/src/main.rs" ins={4-18}
 fn main() {
     tauri::Builder::default()
         // ..
@@ -101,6 +260,8 @@ fn main() {
             _ => {}
         })
         // ..
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
