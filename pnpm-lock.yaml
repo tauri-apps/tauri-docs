@@ -132,7 +132,7 @@ importers:
         version: 0.25.13(typescript@5.5.4)
       typedoc-plugin-markdown:
         specifier: ^4.0.2
-        version: 4.0.3(typedoc@0.25.13(typescript@5.5.4))
+        version: 4.2.2(typedoc@0.25.13(typescript@5.5.4))
       typedoc-plugin-mdn-links:
         specifier: ^3.1.25
         version: 3.2.5(typedoc@0.25.13(typescript@5.5.4))
@@ -3488,10 +3488,11 @@ packages:
     resolution: {integrity: sha512-/OxDN6OtAk5KBpGb28T+HZc2M+ADtvRxXrKKbUwtsLgdoxgX13hyy7ek6bFRl5+aBs2yZzB0c4CnQfAtVypW/g==}
     engines: {node: '>= 0.4'}
 
-  typedoc-plugin-markdown@4.0.3:
-    resolution: {integrity: sha512-0tZbeVGGCd4+lpoIX+yHWgUfyaLZCQCgJOpuVdTtOtD3+jKaedJ4sl/tkNaYBPeWVKiyDkSHfGuHkq53jlzIFg==}
+  typedoc-plugin-markdown@4.2.2:
+    resolution: {integrity: sha512-4Amnhjiw4L9aN5yBn6Ryh5WZr+uW41e6IU3EuQCNcVWgHQC+tlNIbbQMKVYAb33ES7yaM01dAXGS4BdJtQi7mA==}
+    engines: {node: '>= 18'}
     peerDependencies:
-      typedoc: 0.25.x
+      typedoc: 0.26.x
 
   typedoc-plugin-mdn-links@3.2.5:
     resolution: {integrity: sha512-duQ0H7+bATNSWVQRt3HubspZ9gqgSZxiQkenlTJ8lGsUrldZwpjG56hJqLD6BspNJfEnElP9hIU7yY5+/vF1Eg==}
@@ -7953,7 +7954,7 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  typedoc-plugin-markdown@4.0.3(typedoc@0.25.13(typescript@5.5.4)):
+  typedoc-plugin-markdown@4.2.2(typedoc@0.25.13(typescript@5.5.4)):
     dependencies:
       typedoc: 0.25.13(typescript@5.5.4)
 
