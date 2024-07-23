@@ -18,11 +18,22 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ### 1. Start Your Dev server
 
-Now that you have [everything set up](../start/), you should start your application development server provided by your UI framework or bundler (assuming you're using one, of course). If you followed our guides you will have `beforeDevCommand` configured to do this for you in step 2.
+Now that you have [everything set up](../start/), you should start your application development server
+provided by your UI framework or bundler (assuming you're using one, of course).
+If you followed our guides you will have `beforeDevCommand` configured to do this for you in step 2.
 
 :::note
 
 Every framework has its own development tooling. It is outside of the scope of this document to cover them all or stay up to date.
+
+:::
+
+:::caution[Plain/Vanilla Dev Server Security]
+
+The built-in Tauri development server does not support mutual authentication
+or encryption. You should never use it for development on untrusted networks.
+See the [development server security considerations](/security/lifecycle#development-server)
+for a more detailed explanation.
 
 :::
 
@@ -41,7 +52,7 @@ Once Rust has finished building, the webview opens, displaying your web app. You
 
 Note that Tauri's APIs only work in your app windows, so once you start using them you won't be able to open your frontend in your system's browser anymore.
 
-:::caution[About Cargo.toml and Source Control]
+:::note[About Cargo.toml and Source Control]
 
 In your project repository, you **SHOULD** commit the `src-tauri/Cargo.lock` along with the `src-tauri/Cargo.toml` to git because Cargo uses the lockfile to provide deterministic builds. As a result, it is recommended that all applications check in their `Cargo.lock`. You **SHOULD NOT** commit the `src-tauri/target` folder or any of its contents.
 
