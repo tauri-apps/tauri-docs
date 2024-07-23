@@ -76,7 +76,7 @@ and you would be well off to address this head-on.
 Tauri application frontends can be developed using a number of web frameworks.
 Each of these frameworks usually ship their own development server, which is exposing
 the frontend assets via an open port to the local system or network.
-This allows the frontend to be hot-reloaded and debugged in the WebView or Browser. 
+This allows the frontend to be hot-reloaded and debugged in the WebView or Browser.
 
 In practice this connection is often neither encrypted nor authenticated by default.
 This is also the case for the built-in Tauri development server and exposes your
@@ -88,7 +88,7 @@ in the worst case.
 You should only develop on trusted networks where you can safely expose your
 development device. If this is not possible you MUST ensure that your development
 server uses **mutual** authentication and encryption (e.g. mTLS) for connections
-with your development devices. 
+with your development devices.
 
 :::note
 The built-in Tauri development server does not support
