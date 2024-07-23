@@ -2,6 +2,7 @@
 title: Mock Tauri APIs
 sidebar:
   order: 10
+i18nReady: true
 ---
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
