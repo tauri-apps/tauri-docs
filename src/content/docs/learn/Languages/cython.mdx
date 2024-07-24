@@ -1,0 +1,121 @@
+---
+title: Python using Cython
+sidebar:
+  order: 11
+tableOfContents:
+  maxHeadingLevel: 6
+---
+
+import {Steps} from '@astrojs/starlight/components'
+import ShowSolution from '@components/ShowSolution.astro';
+
+While [the PyInstaller approach](/learn/languages/python/) is a convenient solution for packaging a Python app as an executable it doesn't offer a library
+alternative. This means that your Python code always gets executed as a separate process, with all the performance
+and inter-process communication issues that such an approach comes with.
+
+To improve upon this we can leverage Cython instead to compile our Python code as a C library. **This is not a
+plug-and-play sort of solution**, if your project was not developed with Cython in mind you will likely have to
+refactor it quite a bit, but the end result will be much better.
+
+<Steps>
+1. ##### Initialize a new Tauri app
+    ```bash title="projects-dir $" frame=editor
+    pnpm create tauri-app --beta --mobile
+    cd tauri-app
+    # Always try building before you get too far
+    pnpm install
+    pnpm tauri dev
+    ```
+1. ##### Initialize a new Python project
+    We're going to be using Poetry in this lab but the instructions are easily adaptable for non-Poetry projects.
+    In this lab we'll develop it in a `src-py` folder next to `src-tauri`. For simple projects this structure
+    will work just fine.
+
+    <details>
+    <summary>Why should I use Poetry?</summary>
+
+    Besides simplified management of dependencies and your virtual environment Poetry offers you a lockfile mechanism
+    that vanilla Python doesn't which helps protect your project against supply chain attacks.
+
+    </details>
+
+    ```bash title="tauri-app $" frame=editor
+    mkdir src-py && cd src-py
+    poetry init --name my_tauri_app
+    ```
+    <ShowSolution>
+    ```toml
+    # src-py/pyproject.toml
+    [tool.poetry]
+    name = "my_tauri_app"
+    version = "0.1.0"
+    description = ""
+    authors = []
+    license = "MIT"
+    readme = "README.md"
+
+    [tool.poetry.dependencies]
+    python = "^3.12"
+
+    [build-system]
+    requires = ["poetry-core"]
+    build-backend = "poetry.core.masonry.api"
+    ```
+    </ShowSolution>
+1. ##### Add Cython
+    This will add Cython to your `pyproject.toml` and install it.
+    ```bash title="tauri-app/src-py $" frame=editor
+    poetry add cython
+    ```
+1. ##### Write a `commands.pyx` script
+    In this lab we're just going to make a basic `greet` function which takes a `name` as input
+    and returns a friendly message.
+
+    <details>
+    <summary>That's not Python!</summary>
+    If the syntax looks scary it's because we're using Cython. You can cythonize normal
+    Python scripts but you'll likely run into FFI related issues. This lab won't go into
+    how Cython and its syntax works.
+    </details>
+
+    ```python
+    # src-py/commands.pyx
+    cdef extern char* greet(const char* name):
+        return b"Hello " + name + b" from Cython!"
+    ```
+1. ##### Write a `setup.py` script
+    This isn't the only way to do it but it's the way we're going for in this lab.
+    ```python
+    # src-py/setup.py
+    from setuptools import setup
+    from Cython.Build import cythonize
+    from setuptools.extension import Extension
+
+    extensions = [
+        Extension(
+            "my_tauri_app",
+            ["commands.pyx"],
+            library_dirs=[],
+            libraries=[],
+            extra_compile_args=[],
+            extra_link_args=[]
+        )
+    ]
+
+    setup(
+        name="my_tauri_app",
+        ext_modules=cythonize(extensions),
+    )
+    ```
+1. ##### Compile your Python backend
+    This will use Cython to compile your `commands.pyx` file into a shared library that we can make use of in our Tauri app.
+    ```bash title="tauri-app/src-py $" frame=editor
+    poetry run python setup.py build_ext --inplace
+    ```
+1. ##### Add your library as a resource
+
+1. ##### Load the shared library in Rust
+1. ##### Update the `beforeBuildCommand`
+    To simplify the building process make sure you update the `beforeBuildCommand` to include the command for building the Python project.
+1. ##### Build your app
+</Steps>
