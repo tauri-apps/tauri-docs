@@ -71,22 +71,18 @@ grade: stable
 confinement: strict
 
 layout:
-  /usr/libexec/webkit2gtk-4.1:
-    symlink: $SNAP/usr/libexec/webkit2gtk-4.1
-  /usr/lib/x86_64-linux-gnu/webkit2gtk-4.1:
-    symlink: $SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1
-  /usr/lib/aarch64-linux-gnu/webkit2gtk-4.1:
-    symlink: $SNAP/usr/lib/aarch64-linux-gnu/webkit2gtk-4.1
-  /usr/lib/webkit2gtk-4.1/injected-bundle:
-    symlink: $SNAP/usr/lib/webkit2gtk-4.1/injected-bundle
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1
 
 apps:
   appname:
     command: usr/bin/appname
     desktop: usr/share/applications/appname.desktop
-    plugs:
-      - wayland
-      - x11
+    extensions: [gnome]
+    #plugs:
+    #  - network
+    # Add whatever plugs you need here, see https://snapcraft.io/docs/snapcraft-interfaces for more info.
+    # The gnome extension already includes [ desktop, desktop-legacy, gsettings, opengl, wayland, x11, mount-observe, calendar-service ]
 
 package-repositories:
   - type: apt
@@ -115,8 +111,6 @@ parts:
     stage-packages:
       - libwebkit2gtk-4.1-0
       - libayatana-appindicator3-1
-      - libglu1-mesa
-      - freeglut3
     source: .
     override-build: |
       set -eu
