@@ -4,11 +4,11 @@ sidebar:
   order: 1
 ---
 
-你可能需要将一些不直接属于前端（你的 `frontendDist`）的额外的文件包含在你的应用程序包中，又或是这些文件太大无法内联到二进制文件中。我们称这些文件为 `资源(resources)`。
+你可能需要将一些不直接属于前端（你的 `frontendDist`）的额外的文件包含在你的应用程序包中，又或是这些文件太大无法内联到二进制文件中。我们称这些文件为 `资源（resources）`。
 
 要打包你需要的文件，你可以在 `tauri.conf.json` 文件中的 `bundle` 对象中添加 `resources` 属性。
 
-在 [此处][tauri.bundle] 查看更多关于 `tauri.conf.json` 配置。
+在[此处][tauri.bundle]查看更多关于 `tauri.conf.json` 配置。
 
 `resources` 期望获得一个字符串列表，其中包含了指向附加文件的绝对或相对路径的。如果需要从目录中包含多个文件，它支持使用 glob 模式。
 
