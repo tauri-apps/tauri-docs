@@ -207,7 +207,9 @@ This code creates a tray with two menus that you can switch between in the UI of
 
 3. In `.setup()` in your main file initialize `tray` and `menu`:
 
-```rust title="src-tauri/src/main.rs" ins={4-28}
+```rust title="src-tauri/src/main.rs" ins={1,4-28}
+use tauri::{Manager, Runtime};
+
 fn main() {
     tauri::Builder::default()
         // ...
