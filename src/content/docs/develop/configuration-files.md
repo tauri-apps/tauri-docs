@@ -7,8 +7,6 @@ sidebar:
     variant: caution
 ---
 
-{/_ TODO: Add .taurignore - doesn't have to be in this file but we need it somewhere _/}
-
 Since Tauri is a toolkit for building applications there can be many files to configure project settings. Some common files that you may run across are `tauri.conf.json`, `package.json` and `Cargo.toml`. We briefly explain each on this page to help point you in the right direction for which file to modify.
 
 ## Tauri Config
