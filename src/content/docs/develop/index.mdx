@@ -90,6 +90,21 @@ Developing for mobile is similar to how desktop development works, but you must 
 The first time you run this command, the Rust package manager may need **several minutes** to download and build all the required packages.
 Since they are cached, subsequent builds are much faster, as only your code needs rebuilding.
 
+#### Development Server
+
+To run your application on mobile you must expose your development server in your public network.
+Usually this can be done by providing a `--host` CLI option on your [beforeDevCommand](../reference/config.md#beforedevcommand)
+or defining a host in the UI framework or JavaScript bundler configuration.
+
+Check your framework's setup guide for more information.
+
+:::note
+Projects created with [create-tauri-app](https://github.com/tauri-apps/create-tauri-app) configures
+your development server for mobile dev out of the box.
+:::
+
+#### Device Selection
+
 By default the mobile dev command tries to run your application in a connected device,
 and fallbacks to prompting you to select a simulator to use.
 To define the run target upfront you can provide the device or simulator name as argument:
