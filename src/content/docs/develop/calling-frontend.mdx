@@ -10,7 +10,13 @@ using channels or directly evaluating JavaScript code.
 ## Event System
 
 Tauri ships a simple event system you can use to communicate between Rust and your frontend.
+Tauri ships a simple event system you can use to (bi-directional) communicate between Rust and your frontend.
 The [AppHandle] and [WebviewWindow] types all implement the event system traits [Listener] and [Emitter].
+
+The event system was designed for situations where small amounts of data need to be streamed or you need to implement a multi consumer multi producer pattern (e.g. push notification system).
+The event system is not designed for low latency or high throughput situations.
+
+The major differences between a [Tauri command] and a Tauri event are that events have no strong type support, event payloads are always json (de)serialized making them not suitable for bigger messages and there is no support of the [capability] system to fine grain control event data and channels.
 
 Events are either global (delivered to all listeners) or webview-specific (only delivered to the webview matching a given label).
 
