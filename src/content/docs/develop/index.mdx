@@ -166,7 +166,13 @@ It is recommended to use the `tauri [android|ios] dev --open` command and keep t
 
 #### Troubleshooting
 
-1. Network Permission Prompt on First Execution
+1. Error running build script on Xcode
+
+Tauri hooks into the iOS Xcode project by creating a build phase that executes the Tauri CLI to compile the Rust source
+as a library that is loaded at runtime. The build phase is executed on the Xcode process context, so it might not be able
+to use shell modifications such as PATH additions, so be careful when using tools such as Node.js version managers which may not be compatible.
+
+2. Network permission prompt on first iOS app execution
 
 On the first time you execute `tauri ios dev` you might see iOS prompting you for permission to find and connect
 to devices on your local network. This permission is required because to access your development server from an iOS device,
