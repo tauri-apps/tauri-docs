@@ -158,6 +158,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
     'editUrl: false',
     'sidebar:',
     `  label: "${event.model.name.replace('@tauri-apps/plugin-', '')}"`,
+    'tableOfContents:',
+    '  maxHeadingLevel: 5',
     '---',
     '',
     event.contents,
