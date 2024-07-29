@@ -9,14 +9,19 @@ using channels or directly evaluating JavaScript code.
 
 ## Event System
 
-Tauri ships a simple event system you can use to communicate between Rust and your frontend.
-Tauri ships a simple event system you can use to (bi-directional) communicate between Rust and your frontend.
-The [AppHandle] and [WebviewWindow] types all implement the event system traits [Listener] and [Emitter].
+Tauri ships a simple event system you can use to have bi-directional communication between Rust and your frontend.
 
-The event system was designed for situations where small amounts of data need to be streamed or you need to implement a multi consumer multi producer pattern (e.g. push notification system).
+The event system was designed for situations where small amounts of data need to be streamed
+or you need to implement a multi consumer multi producer pattern (e.g. push notification system).
+
 The event system is not designed for low latency or high throughput situations.
+See the [channels section](#channels) for the implementation optimized for streaming data.
 
-The major differences between a [Tauri command] and a Tauri event are that events have no strong type support, event payloads are always json (de)serialized making them not suitable for bigger messages and there is no support of the [capability] system to fine grain control event data and channels.
+The major differences between a Tauri command and a Tauri event are that events have no strong type support,
+event payloads are always JSON strings making them not suitable for bigger messages
+and there is no support of the [capabilities] system to fine grain control event data and channels.
+
+The [AppHandle] and [WebviewWindow] types implement the event system traits [Listener] and [Emitter].
 
 Events are either global (delivered to all listeners) or webview-specific (only delivered to the webview matching a given label).
 
@@ -139,38 +144,40 @@ The `@tauri-apps/api` NPM package offers APIs to listen to both global and webvi
 - Listening to global events
 
   ```ts
-  import { listen } from "@tauri-apps/api/event"
+  import { listen } from '@tauri-apps/api/event';
 
   type DownloadStarted = {
-    url: string,
-    downloadId: number,
-    contentLength: number,
-  }
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
 
-  listen<DownloadStarted>("download-started", (event) => {
-    console.log(`downloading ${event.payload.contentLength} bytes from ${event.payload.url}`)
-  })
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
   ```
 
 - Listening to webview-specific events
 
   ```ts
-  import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 
-  const appWebview = getCurrentWebviewWindow()
-  appWebview.listen<string>("logged-in", (event) => {
-    localStorage.setItem("session-token", event.payload)
-  })
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
   ```
 
 The `listen` function keeps the event listener registered for the entire lifetime of the application.
 To stop listening on an event you can use the `unlisten` function which is returned by the `listen` function:
 
 ```js
-import { listen } from "@tauri-apps/api/event"
+import { listen } from '@tauri-apps/api/event';
 
-const unlisten = await listen("download-started", (event) => {})
-unlisten()
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
 ```
 
 :::note
@@ -184,13 +191,13 @@ This does not apply to a Single Page Application (SPA) router though.
 Additionally Tauri provides a utility function for listening to an event exactly once:
 
 ```js
-import { once } from "@tauri-apps/api/event"
-import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 
-once("ready", (event) => {})
+once('ready', (event) => {});
 
-const appWebview = getCurrentWebviewWindow()
-appWebview.once("ready", () => {})
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
 ```
 
 :::note
@@ -330,37 +337,40 @@ fn download(app: AppHandle, url: String, on_event: Channel<DownloadEvent>) {
 When calling the download command you must create the channel and provide it as an argument:
 
 ```ts
-import { invoke, Channel } from "@tauri-apps/api/core"
+import { invoke, Channel } from '@tauri-apps/api/core';
 
-type DownloadEvent = {
-  event: "started",
-  data: {
-    url: string,
-    downloadId: number,
-    contentLength: number,
-  }
-} | {
-  event: "progress",
-  data: {
-    downloadId: number,
-    chunkLength: number,
-  } 
-} | {
-  event: "finished",
-  data: {
-    downloadId: number,
-  }
-}
+type DownloadEvent =
+  | {
+      event: 'started';
+      data: {
+        url: string;
+        downloadId: number;
+        contentLength: number;
+      };
+    }
+  | {
+      event: 'progress';
+      data: {
+        downloadId: number;
+        chunkLength: number;
+      };
+    }
+  | {
+      event: 'finished';
+      data: {
+        downloadId: number;
+      };
+    };
 
-const onEvent = new Channel<DownloadEvent>()
+const onEvent = new Channel<DownloadEvent>();
 onEvent.onmessage = (message) => {
-  console.log(`got download event ${message.event}`)
-}
+  console.log(`got download event ${message.event}`);
+};
 
-await invoke("download", {
-  url: "https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri-config-schema/schema.json",
+await invoke('download', {
+  url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri-config-schema/schema.json',
   onEvent,
-})
+});
 ```
 
 ## Evaluating JavaScript
@@ -392,3 +402,4 @@ If the script to be evaluated is not so simple and must use input from Rust obje
 [Clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
 [Serialize]: https://serde.rs/impl-serialize.html
 [Calling Rust from the Frontend]: ../calling-rust
+[capabilities]: ../../security/capabilities
