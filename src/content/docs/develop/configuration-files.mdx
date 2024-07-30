@@ -108,7 +108,7 @@ If you want to use a specific crate version you can use exact versions instead b
 tauri-build = { version = "=2.0.0-beta.19" }
 ```
 
-An additional thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the your Tauri configuration. For more information about `tauri` feature see the [documentation][tauri Cargo features].
+An additional thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the your Tauri configuration. For more information about `tauri` feature flags see the [documentation][tauri Cargo features].
 
 When you build your application a `Cargo.lock` file is produced. This file is used primarily for ensuring that the same dependencies are used across machines during development (similar to `yarn.lock`, `pnpm-lock.yaml` or `package-lock.json` in Node.js). It is recommended to commit this file to your source repository so you get consistent builds.
 
