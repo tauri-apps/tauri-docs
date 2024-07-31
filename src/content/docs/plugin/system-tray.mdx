@@ -205,12 +205,12 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
 
 This code creates a tray with two menus that you can switch between in the UI of menus.
 
-3. In `.setup()` in your main file initialize `tray` and `menu`:
+3. In `.setup()` in your `lib.rs` file initialize `tray` and `menu`:
 
-```rust title="src-tauri/src/main.rs" ins={1,6-26}
+```rust title="src-tauri/src/lib.rs" ins={1,6-26}
 use tauri::{Manager, Runtime};
 
-fn main() {
+pub fn run() {
     tauri::Builder::default()
         // ...
         .setup(|app| {
@@ -242,8 +242,8 @@ fn main() {
 
 4. Hide window on app close:
 
-```rust title="src-tauri/src/main.rs" ins={4-14}
-fn main() {
+```rust title="src-tauri/src/lib.rs" ins={4-14}
+pub fn run() {
     tauri::Builder::default()
         // ..
         .on_window_event(|window, event| match event {
