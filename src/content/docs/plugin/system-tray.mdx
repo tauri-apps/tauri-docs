@@ -25,6 +25,7 @@ tauri = { version = "2.0.0-beta", features = [
 ```
 
 ## Creating system tray and menu for it.
+
 1. Start with creating `menu_plugin.rs` in `src-tauri/src` and paste there this code:
 
 ```rust title="src-tauri/src/menu_plugin.rs"
@@ -74,7 +75,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 ```
 
 2. Create `tray.rs` in the same directory with code featured below.
-    This code features basic menu.
+   This code features basic menu.
 
 ```rust title="src-tauri/src/tray.rs"
 use tauri::{
@@ -337,4 +338,3 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
     Ok(())
 }
 ```
-
