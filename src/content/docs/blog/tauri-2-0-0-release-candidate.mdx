@@ -25,7 +25,7 @@ We have been asked countless times "_Wen Tauri 2.0?_" and always gave broad answ
 
 This is one of the reasons for the long alpha and beta stage and why we waited with the release candidate, as we strive to get things right and simple to use.
 
-Another reason is that we made the mistake of overpomising this major version with "_mobile as a first class citizen_" and realized over the past months that we
+Another reason is that we made the mistake of overpromising this major version with "_mobile as a first class citizen_" and realized over the past months that we
 can only build the foundation for mobile on our own and need to iterate on this together with the community and our adopters to get it right.
 
 This doesn't mean that mobile is broken and unsupported. We have mobile plugins in our official plugin repository and have seen developers who have built cool apps on Android and iOS with Tauri.
@@ -41,11 +41,11 @@ What you can expect from stable after this release candidate is:
 - Clearer and comprehensive documentation
 - Less critical bugs preventing productive usage
 
-We plan to release the stable version for 2.0 in the end of August. This will, at the time of writing, allow for a ~4 week release candiate cycle.
+We plan to release the stable version for 2.0 in the end of August. This will, at the time of writing, allow for a ~4 week release candidate cycle.
 
 After the stable release our focus will be shifting to providing feature parity wherever possible and to improve the development process for mobile. This will happen in minor releases of Tauri.
 
-Feature parity and plugin development will be aligned with major versions of Tauri but will be mostly independent from Tauri core features and happen in our [plugin-workspace](https://github.com/tauri-apps/plugins-workspace) repostory.
+Feature parity and plugin development will be aligned with major versions of Tauri but will be mostly independent from Tauri core features and happen in our [plugin-workspace](https://github.com/tauri-apps/plugins-workspace) repository.
 
 Developer experience is a very important topic for us. If you have improvement suggestions or want to improve the status quo on your own please do not hesitate to reach out with PRs, issues or friendly conversations on our discord server.
 
@@ -69,7 +69,7 @@ or
 npm run tauri migrate
 ```
 
-:::tip[Update the CLI first]
+:::tip[Update the CLI]
 For this to succeed you must be sure to be on the latest (RC not beta) version of the Tauri [CLI](https://github.com/tauri-apps/tauri/releases?q=tauri-cli&expanded=false). If your are still on beta you can update with the CLI `cargo install tauri-cli` or `npm update tauri-cli`.
 :::
 
@@ -79,7 +79,7 @@ For downstream consumers of Tauri as a library or app developers fiddling with t
 
 ### Tauri Core Plugins
 
-With Tauri 2.0 we migrated most of the 1.x core functionality into seperate plugins, which allows us to iterate on these independently of Tauri's core and lowers the barrier for first contributors on functionality.
+With Tauri 2.0 we migrated most of the 1.x core functionality into separate plugins, which allows us to iterate on these independently of Tauri's core and lowers the barrier for first contributors on functionality.
 
 This migration also included keeping some functionality inside Tauri as pseudo plugins. Fully qualified plugins need to implement the [`Plugin Trait`](https://docs.rs/tauri/2.0.0-beta.25/tauri/plugin/trait.Plugin.html) and need to be individual crates following the `tauri-plugin-<plugin name>` naming scheme. For core plugins, the second condition was not possible as we would have circular dependencies on Tauri. So we created pseudo plugins, which are always initialized by Tauri itself and only implement the plugin trait. These are for example `window`, `path` or `webview`. Right now these are allowed in the [capabilities](https://v2.tauri.app/security/capabilities/) of your Tauri application in the following way:
 
@@ -143,7 +143,7 @@ With a coordinated effort between multiple working group members we partially ch
 
 This was motivated by a recent security advisory [CVE-2024-35222](https://github.com/tauri-apps/tauri/security/advisories/GHSA-57fm-592m-34r7), as the fix needed to introduce additional fields to a structure that was directly publicly exposed and caused breaking changes to some projects and internal usage.
 
-We concluded that this overexposure will hinder us in the future and will cause unecessary breaking changes, so we decided that going from beta to RC will be the last chance for us to implement this until we start down the road of Tauri 3.0.
+We concluded that this overexposure will hinder us in the future and will cause unnecessary breaking changes, so we decided that going from beta to RC will be the last chance for us to implement this until we start down the road of Tauri 3.0.
 
 We reduced the amount of publicly exposed components, which are meant for internal use. Additionally, we made our publicly exposed structures either non-exhaustive or transformed them into exposing builder patterns or constructors. In some cases we added a new `extend` field to allow dynamic additions in the future. Finally, we made sure to document which modules of Tauri are considered unstable.
 
@@ -169,15 +169,15 @@ The whole audit was funded by the great folks at [NLNet](https://nlnet.nl/) and 
 
 ## Call to Action
 
-All of the above topics share a common theme. These would not have been possible without the continous support of the community, our working group and other movements working towards improving the status quo.
+All of the above topics share a common theme. These would not have been possible without the continuous support of the community, our working group and other movements working towards improving the status quo.
 
-Before we are going to release Tauri 2.0 we want to make sure that your voices are heard, your PRs are acknowleged and the documentation is helpful for **YOU** so that you can build the next generation of cross platform apps.
+Before we are going to release Tauri 2.0 we want to make sure that your voices are heard, your PRs are acknowledged and the documentation is helpful for **YOU** so that you can build the next generation of cross platform apps.
 
 Currently we have over 30 people in our working group on Github but even more involved in our [Discord](https://discord.gg/tauri). These awesome people are mostly working on Tauri in their free time with very few exceptions. We currently see a number of issues, PRs and discussions being unsolved and open for longer than we would like to.
 
 To improve this situation we ask **YOU** to get involved into the Tauri project.We have all kinds of situations where we are able to accept event the tiniest contribution.
 
-If you are familiar with Tauri and have used it already during your journey, please take your time to check out the [Github Discssions](https://github.com/tauri-apps/tauri/discussions), [Github Issues](https://github.com/tauri-apps/tauri/issues) and our [Discord Support](). Maybe you have already solved the issues your fellow newcomers to Tauri are experiencing right now.
+If you are familiar with Tauri and have used it already during your journey, please take your time to check out the [Github Discussions](https://github.com/tauri-apps/tauri/discussions), [Github Issues](https://github.com/tauri-apps/tauri/issues) and our [Discord Support](). Maybe you have already solved the issues your fellow newcomers to Tauri are experiencing right now.
 
 If you think that some of these problems you have seen are generic and should be documented somewhere we probably have the perfect place for it in our official [documentation](https://v2.tauri.app).
 
