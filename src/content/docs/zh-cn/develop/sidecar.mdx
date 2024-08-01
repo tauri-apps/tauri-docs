@@ -91,7 +91,7 @@ let (mut rx, mut _child) = sidecar_command
   .expect("Failed to spawn sidecar");
 
 tauri::async_runtime::spawn(async move {
-  // 读取诸如stdout之类的事件
+  // 读取诸如 stdout 之类的事件
   while let Some(event) = rx.recv().await {
     if let CommandEvent::Stdout(line) = event {
       window
