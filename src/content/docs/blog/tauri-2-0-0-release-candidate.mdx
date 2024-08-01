@@ -1,5 +1,5 @@
 ---
-title: Tauri 2.0 Release Candidate Announcement
+title: Tauri 2.0 Release Candidate
 date: 2024-08-01
 authors: [tweidinger]
 excerpt: 'Tauri 2.0 is on track to stable and now enters the release candidate phase. Read more about breaking changes and our plans for stable.'
@@ -21,11 +21,11 @@ A simplified [TL;DR](#too-long-didnt-read) can be found at the end of this post.
 
 With this release candidate we want to communicate our expectations and timeline for the stable release.
 
-We have been asked countless times "*Wen Tauri 2.0?*" and always gave broad answers. Especially in open source projects overpromising can be a quick way to burn out developers and maintainers or lead to angry comments from disappointed adopters.
+We have been asked countless times "_Wen Tauri 2.0?_" and always gave broad answers. Especially in open source projects overpromising can be a quick way to burn out developers and maintainers or lead to angry comments from disappointed adopters.
 
 This is one of the reasons for the long alpha and beta stage and why we waited with the release candidate, as we strive to get things right and simple to use.
 
-Another reason is that we made the mistake of overpomising this major version with "*mobile as a first class citizen*" and realized over the past months that we
+Another reason is that we made the mistake of overpomising this major version with "_mobile as a first class citizen_" and realized over the past months that we
 can only build the foundation for mobile on our own and need to iterate on this together with the community and our adopters to get it right.
 
 This doesn't mean that mobile is broken and unsupported. We have mobile plugins in our official plugin repository and have seen developers who have built cool apps on Android and iOS with Tauri.
@@ -34,7 +34,7 @@ Our partner [CrabNebula](https://crabnebula.dev) also provided us with feedback 
 
 We see improvements to be made in the development experience for mobile and we acknowledge that not all of our desktop features and plugins are ported or available on mobile yet.
 
-This causes us to say that we don't want to raise expectations that Tauri 2.0 will be _the_ "*mobile as a first class citizen*" release but we want to make clear that you can develop production ready mobile applications with Tauri **NOW**.
+This causes us to say that we don't want to raise expectations that Tauri 2.0 will be _the_ "_mobile as a first class citizen_" release but we want to make clear that you can develop production ready mobile applications with Tauri **NOW**.
 
 What you can expect from stable after this release candidate is:
 
@@ -51,7 +51,7 @@ Developer experience is a very important topic for us. If you have improvement s
 
 ## Breaking Changes
 
-Before we enter the "*no more breaking changes*" expectation phase we discussed and planned some from our perspective necessary breaking changes a while ago.
+Before we enter the "_no more breaking changes_" expectation phase we discussed and planned some from our perspective necessary breaking changes a while ago.
 
 These changes affect a lot of developers, so we wanted to bundle them and make it as painless as possible to upgrade from the latest beta to release candidate or stable.
 
@@ -63,12 +63,11 @@ You should be able to automatically migrate from the latest beta to release cand
 cargo tauri migrate
 ```
 
-or 
+or
 
 ```shell
 npm run tauri migrate
 ```
-
 
 :::tip[Update the CLI first]
 For this to succeed you must be sure to be on the latest (RC not beta) version of the Tauri [CLI](https://github.com/tauri-apps/tauri/releases?q=tauri-cli&expanded=false). If your are still on beta you can update with the CLI `cargo install tauri-cli` or `npm update tauri-cli`.
@@ -101,9 +100,10 @@ This migration also included keeping some functionality inside Tauri as pseudo p
 ```
 
 This has multiple problems:
-* Any plugin crate which has a colliding name will break our build process (e.g. `tauri-plugin-window` crate) and our cli for adding plugins (e.g. `cargo tauri add window`)
-* We can't use any core pseudo plugin naming that is already used by existing plugins (e.g. if we would ever want to create`tauri-plugin-mobile-core` and it is already used we will encounter the first problem)
-* It is unclear for developers what is a core plugin and what is a dedicated plugin when looking at capabilities
+
+- Any plugin crate which has a colliding name will break our build process (e.g. `tauri-plugin-window` crate) and our cli for adding plugins (e.g. `cargo tauri add window`)
+- We can't use any core pseudo plugin naming that is already used by existing plugins (e.g. if we would ever want to create`tauri-plugin-mobile-core` and it is already used we will encounter the first problem)
+- It is unclear for developers what is a core plugin and what is a dedicated plugin when looking at capabilities
 
 Our approach is to use a fixed namespace for core plugins, which is documented and enforced by the Tauri core. All plugins starting with `core:` or the plugin name `core` are now considered core pseudo plugins and will only be initialized if they are in the Tauri codebase.
 
@@ -139,7 +139,6 @@ We consider the core default exposure to be reasonably secure and safe to enable
 
 To migrate from the latest beta version you need to prepend all core permission identifiers in your capabilities with `core:` or switch to the `core:default` permission and remove old core plugin identifiers.
 
-
 ### Rust API Surface Refactor
 
 With a coordinated effort between multiple working group members we partially changed our Rust API exposure. This affects only consumers of our Rust API and should have no breaking change impact for Tauri application developers.
@@ -150,10 +149,9 @@ We concluded that this overexposure will hinder us in the future and will cause 
 
 We reduced the amount of publicly exposed components, which are meant for internal use. Additionally, we made our publicly exposed structures either non-exhaustive or transformed them into exposing builder patterns or constructors. In some cases we added a new `extend` field to allow dynamic additions in the future. Finally, we made sure to document which modules of Tauri are considered unstable.
 
-This will help us to provide (security) fixes or changes without breaking interfaces that are considered stable. 
+This will help us to provide (security) fixes or changes without breaking interfaces that are considered stable.
 
 Please take a closer look at the introduced and discussed changes in the [#10158](https://github.com/tauri-apps/tauri/pull/10158) pull request.
-
 
 ## External Security Audit
 
@@ -163,9 +161,9 @@ The audit concluded some time ago and all issues were fixed and retested. Report
 
 We have been quiet on this front for some time as we have been busy fixing and discussing issues discovered during the beta versions.
 
-We never marketed version 2 beta releases as production ready but were aware of some apps deployed into production. This caused us to announce and distribute a security patch for one of the findings ([CVE-2024-35222](https://github.com/tauri-apps/tauri/security/advisories/GHSA-57fm-592m-34r7)) which was also independently discovered  by a Tauri community member.
+We never marketed version 2 beta releases as production ready but were aware of some apps deployed into production. This caused us to announce and distribute a security patch for one of the findings ([CVE-2024-35222](https://github.com/tauri-apps/tauri/security/advisories/GHSA-57fm-592m-34r7)) which was also independently discovered by a Tauri community member.
 
-All other findings were fixed in multiple beta versions but we did not create advisories for these. We concluded a full heads up could wait until the release candidate, as the findings mainly affect the development phase or have no critical severity. 
+All other findings were fixed in multiple beta versions but we did not create advisories for these. We concluded a full heads up could wait until the release candidate, as the findings mainly affect the development phase or have no critical severity.
 
 With the release candidate we added the full report to our repository. Please take your time to read the report and learn more about the awesome work of [@gronke](https://github.com/gronke) and [@pcwizz](https://github.com/pcwizz) from [RadicallyOpenSecurity](https://www.radicallyopensecurity.com/).
 
@@ -193,9 +191,8 @@ If you have followed our project for a while but never made a contribution we wo
 
 ## Too Long Didn't Read
 
-* Tauri 2.0 Release Candidate out now!
-* Some migration from beta is needed. Check out [`tauri migrate`](https://v2.tauri.app/start/migrate/from-tauri-1/#automated-migration).
-* External Security Audit for 2.0 is available [here](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf)
-* Documentation is our focus until stable release
-* Tauri is looking for more contributors and community involvement
-
+- Tauri 2.0 Release Candidate out now!
+- Some migration from beta is needed. Check out [`tauri migrate`](https://v2.tauri.app/start/migrate/from-tauri-1/#automated-migration).
+- External Security Audit for 2.0 is available [here](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf)
+- Documentation is our focus until stable release
+- Tauri is looking for more contributors and community involvement
