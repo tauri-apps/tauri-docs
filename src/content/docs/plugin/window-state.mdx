@@ -38,6 +38,7 @@ Use your project's package manager to add the dependency:
   npm="npm run tauri add window-state"
   yarn="yarn run tauri add window-state"
   pnpm="pnpm tauri add window-state"
+  bun="bun tauri add window-state"
   cargo="cargo tauri add window-state"
 />
 
@@ -71,6 +72,7 @@ Use your project's package manager to add the dependency:
             npm="npm install @tauri-apps/plugin-window-state"
             yarn="yarn add @tauri-apps/plugin-window-state"
             pnpm="pnpm add @tauri-apps/plugin-window-state"
+            bun="bun add @tauri-apps/plugin-window-state"
         />
 
       </Steps>
@@ -90,6 +92,8 @@ You can use `saveWindowState` to manually save the window state:
 
 ```javascript
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { saveWindowState, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 saveWindowState(StateFlags.ALL);
 ```
@@ -101,6 +105,8 @@ import {
   restoreStateCurrent,
   StateFlags,
 } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { restoreStateCurrent, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 restoreStateCurrent(StateFlags.ALL);
 ```

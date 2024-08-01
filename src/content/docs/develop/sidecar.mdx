@@ -2,6 +2,7 @@
 title: Embedding External Binaries
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 You may need to embed external binaries to add additional functionality to your application or prevent users from installing additional dependencies (e.g., Node.js or Python). We call this binary a `sidecar`.
@@ -14,14 +15,12 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 
 ```json title="src-tauri/tauri.conf.json"
 {
-  "tauri": {
-    "bundle": {
-      "externalBin": [
-        "/absolute/path/to/sidecar",
-        "relative/path/to/binary",
-        "binaries/my-sidecar"
-      ]
-    }
+  "bundle": {
+    "externalBin": [
+      "/absolute/path/to/sidecar",
+      "relative/path/to/binary",
+      "binaries/my-sidecar"
+    ]
   }
 }
 ```

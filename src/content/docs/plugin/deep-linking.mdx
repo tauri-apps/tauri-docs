@@ -17,6 +17,9 @@ Set your Tauri application as the default handler for an URL.
 
 ## Supported Platforms
 
+- Windows
+- Linux
+- macOS
 - Android
 - iOS
 
@@ -37,6 +40,7 @@ Install the deep-link plugin to get started.
       npm="npm run tauri add deep-link"
       yarn="yarn run tauri add deep-link"
       pnpm="pnpm tauri add deep-link"
+      bun="bun tauri add deep-link"
       cargo="cargo tauri add deep-link"
     />
 
@@ -64,6 +68,7 @@ Install the deep-link plugin to get started.
               npm="npm install @tauri-apps/plugin-deep-link"
               yarn="yarn add @tauri-apps/plugin-deep-link"
               pnpm="pnpm add @tauri-apps/plugin-deep-link"
+              bun="bun add @tauri-apps/plugin-deep-link"
           />
 
     </Steps>
@@ -142,16 +147,19 @@ See [supporting associated domains](https://developer.apple.com/documentation/xc
 
 ## Configuration
 
-Under `tauri.conf.json > plugins > deep-link`, configure the domains you want to associate with your application:
+Under `tauri.conf.json > plugins > deep-link`, configure the domains (mobile) and schemes (desktop) you want to associate with your application:
 
 ```json title="tauri.conf.json"
 {
   "plugins": {
     "deep-link": {
-      "domains": [
+      "mobile": [
         { "host": "your.website.com", "pathPrefix": ["/open"] },
         { "host": "another.site.br" }
-      ]
+      ],
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
     }
   }
 }
@@ -164,8 +172,10 @@ The deep-link plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
+// when using `"withGlobalTauri": true`, you may use
+// const { onOpenUrl } = window.__TAURI_PLUGIN_DEEP_LINK__;
 
 await onOpenUrl((urls) => {
   console.log('deep link:', urls);

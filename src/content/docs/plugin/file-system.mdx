@@ -35,10 +35,11 @@ Install the fs plugin to get started.
     	{ ' ' }
 
     	<CommandTabs
-    		npm="npm run tauri add fs"
-    		yarn="yarn run tauri add fs"
-    		pnpm="pnpm tauri add fs"
-    		cargo="cargo tauri add fs"
+            npm="npm run tauri add fs"
+            yarn="yarn run tauri add fs"
+            pnpm="pnpm tauri add fs"
+            bun="bun tauri add fs"
+            cargo="cargo tauri add fs"
     	/>
 
     </TabItem>
@@ -69,9 +70,10 @@ Install the fs plugin to get started.
     	3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
     		<CommandTabs
-    			npm = "npm install @tauri-apps/plugin-fs"
-    			yarn = "yarn add @tauri-apps/plugin-fs"
-    			pnpm = "pnpm add @tauri-apps/plugin-fs"
+                npm = "npm install @tauri-apps/plugin-fs"
+                yarn = "yarn add @tauri-apps/plugin-fs"
+                pnpm = "pnpm add @tauri-apps/plugin-fs"
+                bun = "bun add @tauri-apps/plugin-fs"
     		/>
 
     	</Steps>
@@ -86,8 +88,10 @@ The fs plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript" >
 
-```js
+```javascript
 import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+// when using `"withGlobalTauri": true`, you may use
+// const { exists, BaseDirectory } = window.__TAURI_PLUGIN_FS__;
 
 // Check if the `$APPDATA/avatar.png` file exists
 await exists('avatar.png', { baseDir: BaseDirectory.AppData });

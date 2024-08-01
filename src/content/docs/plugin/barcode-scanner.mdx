@@ -37,6 +37,7 @@ Install the barcode-scanner plugin to get started.
       npm="npm run tauri add barcode-scanner"
       yarn="yarn run tauri add barcode-scanner"
       pnpm="pnpm tauri add barcode-scanner"
+      bun="bun tauri add barcode-scanner"
       cargo="cargo tauri add barcode-scanner"
     />
 
@@ -64,6 +65,7 @@ Install the barcode-scanner plugin to get started.
               npm="npm install @tauri-apps/plugin-barcode-scanner"
               yarn="yarn add @tauri-apps/plugin-barcode-scanner"
               pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+              bun="bun add @tauri-apps/plugin-barcode-scanner"
           />
 
     </Steps>
@@ -75,8 +77,10 @@ Install the barcode-scanner plugin to get started.
 
 The barcode scanner plugin is available in JavaScript.
 
-```js
+```javascript
 import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
+// when using `"withGlobalTauri": true`, you may use
+// const { scan, Format } = window.__TAURI_PLUGIN_BARCODE_SCANNER__;
 
 // `windowed: true` actually sets the webview to transparent
 // instead of opening a separate view for the camera

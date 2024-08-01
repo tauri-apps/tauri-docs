@@ -49,6 +49,7 @@ Then, you have to add JavaScript Guest bindings using your preferred JavaScript 
       npm="npm add @tauri-apps/plugin-sql"
       yarn="yarn add @tauri-apps/plugin-sql"
       pnpm="pnpm add @tauri-apps/plugin-sql"
+      bun="bun add @tauri-apps/plugin-sql"
     />
   </TabItem>
   <TabItem label="Git">
@@ -56,6 +57,7 @@ Then, you have to add JavaScript Guest bindings using your preferred JavaScript 
       npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
       yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
       pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+      bun="bun add https://github.com/tauri-apps/tauri-plugin-sql#v2"
     />
   </TabItem>
 </Tabs>
@@ -78,10 +80,13 @@ Afterwards all the plugin's APIs are available through the JavaScript guest bind
 <Tabs>
   <TabItem label="SQLite">
 
-The path is relative to `tauri::api::path::BaseDirectory::App`
+The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-beta/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const V = window.__TAURI_PLUGIN_SQL__;
+
 const db = await Database.load('sqlite:test.db');
 await db.execute('INSERT INTO ...');
 ```
@@ -91,6 +96,9 @@ await db.execute('INSERT INTO ...');
 ```javascript
 
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI_PLUGIN_SQL__;
+
 const db = await Database.load('mysql://user:pass@host/database');
 await db.execute('INSERT INTO ...');
 
@@ -213,7 +221,26 @@ fn main() {
 
 ### Applying Migrations
 
-Migrations are applied automatically when the plugin is initialized. The plugin runs these migrations against the database specified by the connection string. Ensure that the migrations are defined in the correct order and are idempotent (safe to run multiple times).
+To apply the migrations when the plugin is initialized, add the connection string to the `tauri.conf.json` file:
+
+```json title="src-tauri/tauri.conf.json" {3-5}
+{
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:mydatabase.db"]
+    }
+  }
+}
+```
+
+Alternatively, the client side `load()` also runs the migrations for a given connection string:
+
+```ts
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
+```
+
+Ensure that the migrations are defined in the correct order and are safe to run multiple times.
 
 ### Migration Management
 

@@ -34,10 +34,11 @@ Install the stronghold plugin to get started.
     	{ ' ' }
 
     	<CommandTabs
-    		npm="npm run tauri add stronghold"
-    		yarn="yarn run tauri add stronghold"
-    		pnpm="pnpm tauri add stronghold"
-    		cargo="cargo tauri add stronghold"
+            npm="npm run tauri add stronghold"
+            yarn="yarn run tauri add stronghold"
+            pnpm="pnpm tauri add stronghold"
+            bun="bun tauri add stronghold"
+            cargo="cargo tauri add stronghold"
     	/>
     </TabItem>
 
@@ -67,9 +68,10 @@ Install the stronghold plugin to get started.
     	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
     		<CommandTabs
-    			npm = "npm install @tauri-apps/plugin-stronghold"
-    			yarn = "yarn add @tauri-apps/plugin-stronghold"
-    			pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+                npm = "npm install @tauri-apps/plugin-stronghold"
+                yarn = "yarn add @tauri-apps/plugin-stronghold"
+                pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+                bun = "bun add @tauri-apps/plugin-stronghold"
     		/>
 
     	</Steps>
@@ -136,9 +138,13 @@ pub fn run() {
 
 The stronghold plugin is available in JavaScript.
 
-```js
+```javascript
 import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
+// when using `"withGlobalTauri": true`, you may use
+// const { Client, Stronghold } = window.__TAURI_PLUGIN_STRONGHOLD__;
 import { appDataDir } from '@tauri-apps/api/path';
+// when using `"withGlobalTauri": true`, you may use
+// const { appDataDir } = window.__TAURI__.path;
 
 const initStronghold = async () => {
 	const vaultPath = `${await appDataDir()}/vault.hold`;
