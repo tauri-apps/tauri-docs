@@ -72,13 +72,10 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
 
 2. In `.setup()` in your `lib.rs` file initialize `tray` and `menu`:
 
-```rust title="src-tauri/src/lib.rs" ins={1,6-26}
+```rust title="src-tauri/src/lib.rs" ins={1-3,9-13}
 use tauri::{Manager, Runtime};
-
 #[cfg(desktop)]
 mod tray;
-#[cfg(desktop)]
-pub struct PopupMenu<R: Runtime>(tauri::menu::Menu<R>);
 
 pub fn run() {
     tauri::Builder::default()
@@ -89,18 +86,6 @@ pub fn run() {
                 let handle = app.handle();
                 tray::create_tray(handle)?;
             }
-
-            #[cfg(target_os = "macos")]
-            app.manage(AppMenu::<R>(Default::default()));
-
-            #[cfg(all(desktop))]
-            app.manage(PopupMenu(
-                tauri::menu::MenuBuilder::new(app)
-                    .check("check", "Tauri is awesome!")
-                    .text("text", "Do something")
-                    .copy()
-                    .build()?,
-            ));
             Ok(())
         })
         // ...
