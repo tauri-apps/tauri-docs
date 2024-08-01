@@ -15,19 +15,20 @@ struct AppData {
   welcome_message: &'static str,
 }
 
-// In `fn main()`:
-Builder::default()
-  .setup(|app| {
-    app.manage(AppData {
-      welcome_message: "Welcome to Tauri!",
-    });
-    Ok(())
-  })
-  .run(tauri::generate_context!())
-  .unwrap();
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(AppData {
+        welcome_message: "Welcome to Tauri!",
+      });
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
 ```
 
-You can later access your state via the `App` instance:
+You can later access your state with any type that implements the `Manager` trait, for example the `App` instance:
 
 ```rust
 let data = app.state::<AppData>();
@@ -37,9 +38,9 @@ For more info, including accessing state in commands, see the [Accessing State](
 
 ## Mutability
 
-In Rust, values which can be shared between multiple owners (for example, sent to different threads) cannot be mutable. This is to prevent multiple owners from modifying the value at the same time, which can lead to issues such as data races.
+In Rust, you cannot directly mutate values which are shared between multiple threads or when ownership is controlled through a shared pointer such as `Arc` (or Tauri's `State`). Doing so could cause data races (for example, two writes happening simultaneously).
 
-To work around this, you can use the standard library's `Mutex` to wrap your state. This allows you to lock the value when you need to modify it, and unlock it when you are done.
+To work around this, you can use a concept known as [interior mutability](https://doc.rust-lang.org/book/ch15-05-interior-mutability.html). For example, the standard library's `Mutex` can be used to wrap your state. This allows you to lock the value when you need to modify it, and unlock it when you are done.
 
 ```rust
 use std::sync::Mutex;
@@ -51,14 +52,15 @@ struct AppState {
   counter: u32,
 }
 
-// In `fn main()`:
-Builder::default()
-  .setup(|app| {
-    app.manage(Mutex::new(AppState::default()));
-    Ok(())
-  })
-  .run(tauri::generate_context!())
-  .unwrap();
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AppState::default()));
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
 ```
 
 The state can now be modified by locking the mutex:
@@ -75,21 +77,23 @@ state.counter += 1;
 
 At the end of the scope, or when the `MutexGuard` is otherwise dropped, the mutex is unlocked automatically so that other parts of your application can access and mutate the data within.
 
+### When to use an async mutex
+
+To quote the [Tokio documentation](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), it's often fine to use the standard library's `Mutex` instead of an async mutex such as the one Tokio provides:
+
+> Contrary to popular belief, it is ok and often preferred to use the ordinary Mutex from the standard library in asynchronous code ... The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection.
+
+It's a good idea to read the linked documentation fully to understand the trade-offs between the two. One reason you _would_ need an async mutex is if you need to hold the `MutexGuard` across await points.
+
 ### Do you need `Arc`?
 
-It's common to see `Arc` used in Rust to share ownership of a value across multiple threads. However, in Tauri, you typically don't need to use `Arc` to wrap your state's `Mutex` because the state is already internally managed and shared across threads.
-
-The only time in which it would make sense to use `Arc` for your state is when you need to share the state across multiple parts of your application that are not managed by Tauri itself.
+It's common to see `Arc` used in Rust to share ownership of a value across multiple threads (usually paired with a `Mutex` in the form of `Arc<Mutex<T>>`). However, you don't need to use `Arc` for things stored in `State` because Tauri will do this for you.
 
 ## Accessing State
 
-You are now storing state in your application, but the obvious next question would be how to access the state in commands.
-
-This is how you can access state (and optionally modify it) within commands:
+### Access state in commands
 
 ```rust
-use tauri::State;
-
 #[tauri::command]
 fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
   let mut state = state.lock().unwrap();
@@ -100,17 +104,11 @@ fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
 
 For more information on commands, see [Calling Rust from the Frontend](/develop/calling-rust).
 
-### Async Commands
+#### Async commands
 
-To quote the [Tokio documentation](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), it's usually fine to use the standard library's `Mutex`:
-
-> Contrary to popular belief, it is ok and often preferred to use the ordinary Mutex from the standard library in asynchronous code ... The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection.
-
-It's a good idea to read the linked documentation page fully to understand the trade-offs between the two. However, if you are using `async` commands and want to use Tokio's async `Mutex`, you can set it up the same way and access the state like this:
+If you are using `async` commands and want to use Tokio's async `Mutex`, you can set it up the same way and access the state like this:
 
 ```rust
-use tauri::{async_runtime::Mutex, State};
-
 #[tauri::command]
 async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
   let mut state = state.lock().await;
@@ -121,9 +119,9 @@ async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> 
 
 Note that the return type must be `Result` if you use asynchronous commands.
 
-### Outside of Commands
+### Access state with the `Manager` trait
 
-Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of the `AppHandle` to get the state:
+Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of types that implement the `Manager` trait (such as the `AppHandle`) to get the state:
 
 ```rust
 use tauri::{Builder, GlobalWindowEvent, Manager};
@@ -144,15 +142,16 @@ fn on_window_event(event: GlobalWindowEvent) {
     state.counter += 1;
 }
 
-// In `fn main()`:
-Builder::default()
-  .setup(|app| {
-    app.manage(Mutex::new(AppState::default()));
-    Ok(())
-  })
-  .on_window_event(on_window_event)
-  .run(tauri::generate_context!())
-  .unwrap();
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AppState::default()));
+      Ok(())
+    })
+    .on_window_event(on_window_event)
+    .run(tauri::generate_context!())
+    .unwrap();
+}
 ```
 
 This method is useful when you cannot rely on command injection. For example, if you need to move the state into a thread where using an `AppHandle` is easier, or if you are not in a command context.
@@ -178,4 +177,4 @@ struct AppStateInner {
 type AppState = Mutex<AppStateInner>;
 ```
 
-However, make sure not to wrap it in a `Mutex` twice if you do this, otherwise you will run into the same issue.
+However, make sure to use the type alias as it is, and not wrap it in a `Mutex` a second time, otherwise you will run into the same issue.
