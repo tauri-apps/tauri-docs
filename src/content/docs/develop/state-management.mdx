@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-In a Tauri application, you often need to keep track of the current state of your application or manage the lifecycle of things associated with it. Tauri provides an easy way to manage the state of your application using the `Manager` API, and read it when commands are called.
+In a Tauri application, you often need to keep track of the current state of your application or manage the lifecycle of things associated with it. Tauri provides an easy way to manage the state of your application using the [`Manager`] API, and read it when commands are called.
 
 Here is a simple example:
 
@@ -28,7 +28,7 @@ fn main() {
 }
 ```
 
-You can later access your state with any type that implements the `Manager` trait, for example the `App` instance:
+You can later access your state with any type that implements the [`Manager`] trait, for example the [`App`] instance:
 
 ```rust
 let data = app.state::<AppData>();
@@ -38,9 +38,9 @@ For more info, including accessing state in commands, see the [Accessing State](
 
 ## Mutability
 
-In Rust, you cannot directly mutate values which are shared between multiple threads or when ownership is controlled through a shared pointer such as `Arc` (or Tauri's `State`). Doing so could cause data races (for example, two writes happening simultaneously).
+In Rust, you cannot directly mutate values which are shared between multiple threads or when ownership is controlled through a shared pointer such as [`Arc`] (or Tauri's [`State`]). Doing so could cause data races (for example, two writes happening simultaneously).
 
-To work around this, you can use a concept known as [interior mutability](https://doc.rust-lang.org/book/ch15-05-interior-mutability.html). For example, the standard library's `Mutex` can be used to wrap your state. This allows you to lock the value when you need to modify it, and unlock it when you are done.
+To work around this, you can use a concept known as [interior mutability](https://doc.rust-lang.org/book/ch15-05-interior-mutability.html). For example, the standard library's [`Mutex`] can be used to wrap your state. This allows you to lock the value when you need to modify it, and unlock it when you are done.
 
 ```rust
 use std::sync::Mutex;
@@ -79,7 +79,7 @@ At the end of the scope, or when the `MutexGuard` is otherwise dropped, the mute
 
 ### When to use an async mutex
 
-To quote the [Tokio documentation](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), it's often fine to use the standard library's `Mutex` instead of an async mutex such as the one Tokio provides:
+To quote the [Tokio documentation](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), it's often fine to use the standard library's [`Mutex`] instead of an async mutex such as the one Tokio provides:
 
 > Contrary to popular belief, it is ok and often preferred to use the ordinary Mutex from the standard library in asynchronous code ... The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection.
 
@@ -87,7 +87,7 @@ It's a good idea to read the linked documentation fully to understand the trade-
 
 ### Do you need `Arc`?
 
-It's common to see `Arc` used in Rust to share ownership of a value across multiple threads (usually paired with a `Mutex` in the form of `Arc<Mutex<T>>`). However, you don't need to use `Arc` for things stored in `State` because Tauri will do this for you.
+It's common to see [`Arc`] used in Rust to share ownership of a value across multiple threads (usually paired with a [`Mutex`] in the form of `Arc<Mutex<T>>`). However, you don't need to use [`Arc`] for things stored in [`State`] because Tauri will do this for you.
 
 ## Accessing State
 
@@ -106,7 +106,7 @@ For more information on commands, see [Calling Rust from the Frontend](/develop/
 
 #### Async commands
 
-If you are using `async` commands and want to use Tokio's async `Mutex`, you can set it up the same way and access the state like this:
+If you are using `async` commands and want to use Tokio's async [`Mutex`], you can set it up the same way and access the state like this:
 
 ```rust
 #[tauri::command]
@@ -117,11 +117,11 @@ async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> 
 }
 ```
 
-Note that the return type must be `Result` if you use asynchronous commands.
+Note that the return type must be [`Result`] if you use asynchronous commands.
 
-### Access state with the `Manager` trait
+### Access state with the [`Manager`] trait
 
-Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of types that implement the `Manager` trait (such as the `AppHandle`) to get the state:
+Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of types that implement the [`Manager`] trait (such as the `AppHandle`) to get the state:
 
 ```rust
 use tauri::{Builder, GlobalWindowEvent, Manager};
@@ -159,7 +159,7 @@ This method is useful when you cannot rely on command injection. For example, if
 ## Mismatching Types
 
 :::caution
-If you use the wrong type for the `State` parameter, you will get a runtime panic instead of compile time error.
+If you use the wrong type for the [`State`] parameter, you will get a runtime panic instead of compile time error.
 
 For example, if you use `State<'_, AppState>` instead of `State<'_, Mutex<AppState>>`, there won't be any state managed with that type.
 :::
@@ -177,4 +177,11 @@ struct AppStateInner {
 type AppState = Mutex<AppStateInner>;
 ```
 
-However, make sure to use the type alias as it is, and not wrap it in a `Mutex` a second time, otherwise you will run into the same issue.
+However, make sure to use the type alias as it is, and not wrap it in a [`Mutex`] a second time, otherwise you will run into the same issue.
+
+[`Manager`]: https://docs.rs/tauri/latest/tauri/trait.Manager.html
+[`State`]: https://docs.rs/tauri/latest/tauri/struct.State.html
+[`Mutex`]: https://doc.rust-lang.org/stable/std/sync/struct.Mutex.html
+[`Arc`]: https://doc.rust-lang.org/stable/std/sync/struct.Arc.html
+[`App`]: https://docs.rs/tauri/latest/tauri/struct.App.html
+[`Result`]: https://doc.rust-lang.org/stable/std/result/index.html
