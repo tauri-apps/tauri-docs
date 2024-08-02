@@ -97,7 +97,7 @@ tauri::async_runtime::spawn(async move {
       window
         .emit("message", Some(format!("'{}'", line)))
         .expect("failed to emit event");
-      // 写入标准输入
+      // 写入标 stdin
       child.write("message from Rust\n".as_bytes()).unwrap();
     }
   }
