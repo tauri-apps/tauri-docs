@@ -26,7 +26,7 @@ Firstly, you have to install Core plugin by adding the following to your `Cargo.
 ```toml title="src-tauri/Cargo.toml"
 [dependencies.tauri-plugin-sql]
 features = ["sqlite"] # or "postgres", or "mysql"
-version = "2.0.0-beta"
+version = "2.0.0-rc"
 ```
   </TabItem>
   <TabItem label="Git">
@@ -80,7 +80,7 @@ Afterwards all the plugin's APIs are available through the JavaScript guest bind
 <Tabs>
   <TabItem label="SQLite">
 
-The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-beta/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
+The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-rc/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';

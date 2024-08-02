@@ -80,7 +80,7 @@ For downstream consumers of Tauri as a library or app developers fiddling with t
 
 With Tauri 2.0 we migrated most of the 1.x core functionality into separate plugins, which allows us to iterate on these independently of Tauri's core and lowers the barrier for first contributors on functionality.
 
-This migration also included keeping some functionality inside Tauri as pseudo plugins. Fully qualified plugins need to implement the [`Plugin Trait`](https://docs.rs/tauri/2.0.0-beta.25/tauri/plugin/trait.Plugin.html) and need to be individual crates following the `tauri-plugin-<plugin name>` naming scheme. For core plugins, the second condition was not possible as we would have circular dependencies on Tauri. So we created pseudo plugins, which are always initialized by Tauri itself and only implement the plugin trait. These are for example `window`, `path` or `webview`. Right now these are allowed in the [capabilities](https://v2.tauri.app/security/capabilities/) of your Tauri application in the following way:
+This migration also included keeping some functionality inside Tauri as pseudo plugins. Fully qualified plugins need to implement the [`Plugin Trait`](https://docs.rs/tauri/2.0.0-rc/tauri/plugin/trait.Plugin.html) and need to be individual crates following the `tauri-plugin-<plugin name>` naming scheme. For core plugins, the second condition was not possible as we would have circular dependencies on Tauri. So we created pseudo plugins, which are always initialized by Tauri itself and only implement the plugin trait. These are for example `window`, `path` or `webview`. Right now these are allowed in the [capabilities](https://v2.tauri.app/security/capabilities/) of your Tauri application in the following way:
 
 ```json
 ...
