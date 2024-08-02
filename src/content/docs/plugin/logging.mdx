@@ -51,7 +51,7 @@ Install the log plugin to get started.
 
         ```toml title="src-tauri/Cargo.toml"
         [dependencies]
-        tauri-plugin-log = "2.0.0-beta"
+        tauri-plugin-log = "2.0.0-rc"
         # alternatively with Git:
         tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
         ```
@@ -132,7 +132,7 @@ Install the log plugin to get started.
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {

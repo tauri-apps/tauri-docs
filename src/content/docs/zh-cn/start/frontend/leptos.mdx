@@ -1,0 +1,59 @@
+---
+title: Leptos
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Leptos 是一个基于 Rust 的 Web 框架。您可以在他们的[官方网站](https://leptos.dev/)上了解更多关于 Leptos 的信息。本指南适用于 Leptos 的 0.6 版本。
+
+## 检查清单
+
+- 使用 SSG，Tauri 不支持基于服务器的解决方案。
+- 使用 `serve.address = "0.0.0.0"`，以使服务器在移动端开发时可用。
+- 使用 `serve.ws_protocol = "ws"` 以便进行移动开发时热重载 websocket 可以正常连接。
+- 启用 `withGlobalTauri` 以确保 Tauri API 在使用 `window.__TAURI__` 变量时可用，并且可以使用 `wasm-bindgen` 导入。
+
+## 示例配置
+
+<Steps>
+
+1. ##### 更新 Tauri 配置
+
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "devUrl": "http://localhost:1420",
+       "beforeBuildCommand": "trunk build",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
+
+1. ##### 更新 Trunk 配置
+
+   ```toml
+   // Trunk.toml
+   [build]
+   target = "./index.html"
+
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   address = "0.0.0.0"
+   port = 1420
+   open = false
+   ws_protocol = "ws"
+
+   ```
+
+</Steps>

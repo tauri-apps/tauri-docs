@@ -9,7 +9,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="store" />
 
-This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](develop/state-management) for more information on additional options.
+This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](/develop/state-management) for more information on additional options.
 
 This store will allow you to persist state to a file which can be saved and loaded on demand including between app restarts. Note that this process is asynchronous which will require handling it within your code. It can be used both in the webview or within Rust.
 
@@ -43,7 +43,7 @@ Install the store plugin to get started.
 
             ```toml title="src-tauri/Cargo.toml"
             [dependencies]
-            tauri-plugin-store = "2.0.0-beta"
+            tauri-plugin-store = "2.0.0-rc"
             # alternatively with Git:
             tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
             ```
@@ -144,7 +144,7 @@ pub fn run() {
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6-11}
 {

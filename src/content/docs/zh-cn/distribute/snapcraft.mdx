@@ -4,11 +4,11 @@ sidebar:
   order: 1
 ---
 
-## Prerequisites
+## 前置条件
 
 import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 
-**1. Install `snap`**
+**1. 安装 `snap`**
 
 {/* prettier-ignore */}
 <Tabs>
@@ -35,29 +35,29 @@ import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
     sudo ln -s /var/lib/snapd/snap /snap
     ```
 
-    Reboot your system afterwards.
+    然后重新启动系统。
 
   </TabItem>
 </Tabs>
 
-**2. Install a base snap**
+**2. 安装 snap 基座**
 
 ```shell
 sudo snap install core22
 ```
 
-**3. Install `snapcraft`**
+**3. 安装 `snapcraft`**
 
 ```shell
 sudo snap install snapcraft --classic
 ```
 
-## Configuration
+## 配置
 
-1. Create an UbuntuOne account.
-2. Go to the [Snapcraft](https://snapcraft.io) website and register an App name.
-3. Create a snapcraft.yaml file in your projects root.
-4. Adjust the names in the snapcraft.yaml file.
+1. 创建一个 UbuntuOne 账号。
+2. 请前往 [Snapcraft](https://snapcraft.io) 网站注册一个应用名称。
+3. 在你项目的根目录创建一个 snapcraft.yaml 文件。
+4. 调整 snapcraft.yaml 文件中的 name。
 
 ```yaml
 name: appname
@@ -71,18 +71,22 @@ grade: stable
 confinement: strict
 
 layout:
-  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1:
-    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1
+  /usr/libexec/webkit2gtk-4.1:
+    symlink: $SNAP/usr/libexec/webkit2gtk-4.1
+  /usr/lib/x86_64-linux-gnu/webkit2gtk-4.1:
+    symlink: $SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1
+  /usr/lib/aarch64-linux-gnu/webkit2gtk-4.1:
+    symlink: $SNAP/usr/lib/aarch64-linux-gnu/webkit2gtk-4.1
+  /usr/lib/webkit2gtk-4.1/injected-bundle:
+    symlink: $SNAP/usr/lib/webkit2gtk-4.1/injected-bundle
 
 apps:
   appname:
     command: usr/bin/appname
     desktop: usr/share/applications/appname.desktop
-    extensions: [gnome]
-    #plugs:
-    #  - network
-    # Add whatever plugs you need here, see https://snapcraft.io/docs/snapcraft-interfaces for more info.
-    # The gnome extension already includes [ desktop, desktop-legacy, gsettings, opengl, wayland, x11, mount-observe, calendar-service ]
+    plugs:
+      - wayland
+      - x11
 
 package-repositories:
   - type: apt
@@ -111,6 +115,8 @@ parts:
     stage-packages:
       - libwebkit2gtk-4.1-0
       - libayatana-appindicator3-1
+      - libglu1-mesa
+      - freeglut3
     source: .
     override-build: |
       set -eu
@@ -120,42 +126,40 @@ parts:
       sed -i -e "s|Icon=appname|Icon=/usr/share/icons/hicolor/32x32/apps/appname.png|g" $SNAPCRAFT_PART_INSTALL/usr/share/applications/appname.desktop
 ```
 
-### Explanation
+### 解释
 
-- The `name` variable defines the name of your app and is required to be set to the name that you have registered earlier.
-- The `base` variable defines which core you are using.
-- The `version` variable defines the version, and should be updated with each change to the source repository.
-- The `apps` section allows you to expose the desktop and binary files to allow the user to run your app.
-- The `package-repositories` section allows you to add a package repository to help you satisfy your dependencies.
-- `build-packages`/`build-snaps` defines the build dependencies for your snap.
-- `stage-packages`/`stage-snaps` defines the runtime dependencies for your snap.
-- The `override-pull` section runs a series of commands before the sources are pulled.
-- `craftctl default` performs the default pull commands.
-- The `organize` section moves your files to the proper directories so that the binary and desktop file can be exposed to the `apps` sections.
+- `name` 变量定义了你的应用程序的名称，并且必须设置为之前注册的名称。
+- `base` 变量定义了你正在使用的核心。
+- `version` 变量定义了版本，并且应该随着源代码库的每次更改而更新。
+- `apps` 部分允许你公开桌面和二进制文件以供用户运行你的应用。
+- `package-repositories` 部分允许你添加一个包仓库来帮助你满足你的依赖。
+- `build-packages`/`build-snaps` 为你的 snap 定义构建依赖。
+- `stage-packages`/`stage-snaps` 定义了你的 snap 的运行时依赖。
+- `override-pull` 部分在拉取数据源之前运行一系列命令。
+- `craftctl default` 执行默认的拉取命令。
+- `organize` 部分将文件移动到合适的目录，以便二进制文件和桌面文件可以暴露给 `apps` 部分。
 
-## Building
+## 构建
 
 ```sh
 sudo snapcraft
 ```
 
-## Testing
-
-{/* TODO: This seems to be wrong */}
+## 测试
 
 ```shell
 snap run your-app
 ```
 
-## Releasing Manually
+## 手动发布
 
 ```shell
-snapcraft login # Login with your UbuntuOne credentials
+snapcraft login # 用你的 UbuntuOne 凭证登录
 snapcraft upload --release=stable mysnap_latest_amd64.snap
 ```
 
-## Building automatically
+## 自动构建
 
-1. On your apps developer page click on the `builds` tab.
-2. Click `login with github`.
-3. Enter in your repository's details.
+1. 在你的 app 开发者页面上，点击 `builds` 选项卡。
+2. 点击 `login with github`.
+3. 输入存储库的详细信息。
