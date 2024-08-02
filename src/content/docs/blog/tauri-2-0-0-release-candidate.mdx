@@ -141,6 +141,89 @@ We consider the core default exposure to be reasonably secure and safe to enable
 
 To migrate from the latest beta version you need to prepend all core permission identifiers in your capabilities with `core:` or switch to the `core:default` permission and remove old core plugin identifiers.
 
+### Development Server for Mobile
+
+We introduced changes to the network exposure of the built-in development server [PR #10437](https://github.com/tauri-apps/tauri/pull/10437) and [PR #10456](https://github.com/tauri-apps/tauri/pull/10456).
+With the changes shipped in the 2.0.0-rc.0 release of the Tauri CLI, we can connect to your development server running on localhost when targetting
+Android and iOS (previously this was only possible when developing a desktop application).
+
+This means you no longer need to expose your development server on the public network.
+
+:::note
+When running your app on a physical iOS device we actually need to bind the development server
+on a TUN address provided by the device.
+
+This kind of connection is currently only possible when Xcode is opened and connected to your device,
+so we do not use this interface by default - we have to bind your development server to your public network address
+while we find out a way to connect to the device ourselves.
+
+To use the iOS device's address instead of the public network, run `tauri ios dev --force-ip-prompt`
+to select the iOS device's TUN address (ends with **::2**).
+
+The IP address your frontend must listen to is provided by the `TAURI_DEV_HOST` environment variable.
+
+Here's an example of a Vite configuration migration:
+
+- 2.0.0-beta:
+
+```js
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { internalIpV4Sync } from 'internal-ip';
+
+const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: mobile ? '0.0.0.0' : false,
+    port: 1420,
+    strictPort: true,
+    hmr: mobile
+      ? {
+          protocol: 'ws',
+          host: internalIpV4Sync(),
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+- 2.0.0-rc:
+
+```js
+import { defineConfig } from 'vite';
+import Unocss from 'unocss/vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+const host = process.env.TAURI_DEV_HOST;
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host: host,
+          port: 1430,
+        }
+      : undefined,
+  },
+});
+```
+
+:::
+
+:::note
+This means the `internal-ip` NPM package is no longer required, you can directly use the TAURI_DEV_HOST value instead.
+:::
+
 ### Rust API Surface Refactor
 
 With a coordinated effort between multiple working group members we partially changed our Rust API exposure. This affects only consumers of our Rust API and should have no breaking change impact for Tauri application developers.
