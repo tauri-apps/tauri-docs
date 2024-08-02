@@ -59,29 +59,19 @@ These changes affect a lot of developers, so we wanted to bundle them and make i
 
 For app developers we have breaking changes in how core plugins are referenced in the permissions.
 
-You should be able to automatically migrate from the latest beta to release candidate.
+You should be able to automatically migrate from the latest beta to release candidate. For this to succeed you must be sure to be on the latest (RC not beta) version of the Tauri [CLI](https://github.com/tauri-apps/tauri/releases?q=tauri-cli&expanded=false).
 
-:::tip[Update the CLI]
-For this to succeed you must be sure to be on the latest (RC not beta) version of the Tauri [CLI](https://github.com/tauri-apps/tauri/releases?q=tauri-cli&expanded=false).
-
-<CommandTabs
-npm="npm install @tauri-apps/cli@next @tauri-apps/api@next"
-yarn="yarn upgrade @tauri-apps/cli@next @tauri-apps/api@next"
-pnpm="pnpm update @tauri-apps/cli@next @tauri-apps/api@next"
-cargo='cargo add tauri@2.0.0-rc.0
-cargo add tauri-build@2.0.0-rc.0 --build
-cargo install tauri-cli --version "^2.0.0-rc"'
-/>
-
-:::
-
-::tip[Automated Migrate]
+:::tip[Automated Migrate]
 
 <CommandTabs
-npm="npm run tauri migrate"
-yarn="yarn run tauri migrate"
-pnpm="pnpm tauri migrate"
-cargo="cargo tauri migrate"
+  npm="npm install @tauri-apps/cli@next
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli --next
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@next
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0-rc"
+    cargo tauri migrate'
 />
 
 :::
