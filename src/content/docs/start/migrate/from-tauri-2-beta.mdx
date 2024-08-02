@@ -122,12 +122,12 @@ export default defineConfig({
 
 - 2.0.0-rc:
 
-```
-import { defineConfig } from 'vite'
-import Unocss from 'unocss/vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+```js
+import { defineConfig } from 'vite';
+import Unocss from 'unocss/vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
-const host = process.env.TAURI_DEV_HOST
+const host = process.env.TAURI_DEV_HOST;
 
 export default defineConfig({
   plugins: [svelte()],
@@ -140,12 +140,11 @@ export default defineConfig({
       ? {
           protocol: 'ws',
           host: host,
-          port: 1430
+          port: 1430,
         }
       : undefined,
-  }
-})
-
+  },
+});
 ```
 
 :::note
