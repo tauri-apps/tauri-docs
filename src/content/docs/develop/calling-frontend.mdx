@@ -4,6 +4,11 @@ sidebar:
   order: 1
 ---
 
+import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
+
+This document includes guides on how to communicate with your application frontend from your Rust code.
+To see how to communicate with your Rust code from your frontend, see [Calling Rust from the Frontend].
+
 The Rust side of your Tauri application can call the frontend by leveraging the Tauri event system,
 using channels or directly evaluating JavaScript code.
 
@@ -78,7 +83,7 @@ fn open_file(app: AppHandle, path: std::path::PathBuf) {
 :::note
 Webview-specific events are **not** triggered to regular global event listeners.
 To listen to **any** event you must use the `listen_any` function instead of `listen`,
-which acts as a catch-all for emitted events.
+which defines the listener to act as a catch-all for emitted events.
 :::
 
 ### Event Payload
@@ -139,144 +144,7 @@ Tauri provides APIs to listen to events on both the webview and the Rust interfa
 
 #### Listening to Events on the Frontend
 
-The `@tauri-apps/api` NPM package offers APIs to listen to both global and webview-specific events.
-
-- Listening to global events
-
-  ```ts
-  import { listen } from '@tauri-apps/api/event';
-
-  type DownloadStarted = {
-    url: string;
-    downloadId: number;
-    contentLength: number;
-  };
-
-  listen<DownloadStarted>('download-started', (event) => {
-    console.log(
-      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
-    );
-  });
-  ```
-
-- Listening to webview-specific events
-
-  ```ts
-  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
-
-  const appWebview = getCurrentWebviewWindow();
-  appWebview.listen<string>('logged-in', (event) => {
-    localStorage.setItem('session-token', event.payload);
-  });
-  ```
-
-The `listen` function keeps the event listener registered for the entire lifetime of the application.
-To stop listening on an event you can use the `unlisten` function which is returned by the `listen` function:
-
-```js
-import { listen } from '@tauri-apps/api/event';
-
-const unlisten = await listen('download-started', (event) => {});
-unlisten();
-```
-
-:::note
-Always use the unlisten function when your execution context goes out of scope
-such as when a component is unmounted.
-
-When the page is reloaded or you navigate to another URL the listeners are unregistered automatically.
-This does not apply to a Single Page Application (SPA) router though.
-:::
-
-Additionally Tauri provides a utility function for listening to an event exactly once:
-
-```js
-import { once } from '@tauri-apps/api/event';
-import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
-
-once('ready', (event) => {});
-
-const appWebview = getCurrentWebviewWindow();
-appWebview.once('ready', () => {});
-```
-
-:::note
-Events emitted in the frontend also triggers listeners registed by these APIs.
-For more information see the [Calling Rust from the Frontend] documentation.
-:::
-
-#### Listening to Events on Rust
-
-Global and webview-specific events are also delivered to listeners registered in Rust.
-
-- Listening to global events
-
-  ```rust title="src-tauri/src/lib.rs"
-  use tauri::Listener;
-
-  #[cfg_attr(mobile, tauri::mobile_entry_point)]
-  pub fn run() {
-    tauri::Builder::default()
-      .setup(|app| {
-        app.listen("download-started", |event| {
-          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.data) {
-            println!("downloading {}", payload.url);
-          }
-        });
-        Ok(())
-      })
-      .run(tauri::generate_context!())
-      .expect("error while running tauri application");
-  }
-  ```
-
-- Listening to webview-specific events
-
-  ```rust title="src-tauri/src/lib.rs"
-  use tauri::{Listener, Manager};
-
-  #[cfg_attr(mobile, tauri::mobile_entry_point)]
-  pub fn run() {
-    tauri::Builder::default()
-      .setup(|app| {
-        let webview = app.get_webview_window("main").unwrap();
-        webview.listen("logged-in", |event| {
-          let session_token = event.data;
-          // save token..
-        });
-        Ok(())
-      })
-      .run(tauri::generate_context!())
-      .expect("error while running tauri application");
-  }
-  ```
-
-The `listen` function keeps the event listener registered for the entire lifetime of the application.
-To stop listening on an event you can use the `unlisten` function:
-
-```rust
-// unlisten outside of the event handler scope:
-let event_id = app.listen("download-started", |event| {});
-app.unlisten(event_id);
-
-// unlisten when some event criteria is matched
-let handle = app.handle().clone();
-app.listen("status-changed", |event| {
-  if event.data == "ready" {
-    handle.unlisten(event.id);
-  }
-});
-```
-
-Additionally Tauri provides a utility function for listening to an event exactly once:
-
-```rust
-app.once("ready", |event| {
-  println!("app is ready");
-});
-```
-
-In this case the event listener is immediately unregistered after its first trigger.
+<FrontendListen />
 
 ## Channels
 
@@ -401,5 +269,5 @@ If the script to be evaluated is not so simple and must use input from Rust obje
 [Emitter#emit_filter]: https://docs.rs/tauri/2.0.0-rc/tauri/webview/trait.Emitter.html#method.emit_filter
 [Clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
 [Serialize]: https://serde.rs/impl-serialize.html
-[Calling Rust from the Frontend]: ../calling-rust
-[capabilities]: ../../security/capabilities
+[Calling Rust from the Frontend]: /develop/calling-rust
+[capabilities]: /security/capabilities
