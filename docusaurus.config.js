@@ -132,7 +132,7 @@ const navbarItems = [
     dropdownItemsAfter: [
       {
         href: 'https://v2.tauri.app/',
-        label: 'v2 (Beta)',
+        label: 'v2 (RC)',
         target: '_self',
       },
     ],
@@ -250,7 +250,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>🚀 The <a id='announcement-link' href='https://v2.tauri.app/blog/tauri-2-0-0-beta/'>Beta for Tauri 2.0</a> has launched!</b>",
+          "<b>🚀 The <a id='announcement-link' href='https://v2.tauri.app/blog/tauri-2-0-0-release-candidate/'>RC for Tauri 2.0</a> has launched!</b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },
@@ -327,7 +327,8 @@ async function siteConfig() {
               return sidebarItems.filter(
                 (item) =>
                   // This makes sure that the landing pages are not duplicated in the sidebars
-                  item.id !== 'guides/readme' && item.id !== 'references/readme'
+                  item.id !== 'guides/readme' &&
+                  item.id !== 'references/readme',
               )
             },
           },
