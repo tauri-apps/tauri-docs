@@ -1,12 +1,138 @@
 ---
 title: 调试
-description: 调试工作流程的技巧和窍门
+sidebar:
+  label: 概览
+  order: 10
+i18nReady: true
 ---
 
-import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
-<CardGrid>
-  <LinkCard title="应用调试" href="/zh-cn/develop/Debug/application//" />
-  <LinkCard title="在 VS Code 中调试" href="/zh-cn/develop/debug/vscode" />
-  <LinkCard title="在 RustRover 中调试" href="/zh-cn/develop/debug/rustrover" />
-</CardGrid>
+随着逐渐深入Tauri,你可能碰到一个问题需要调试。错误详情在许多地方输出,Tauri 提供了很多工具时代调试过程更加直接。
+## 代码开发
+
+调试工具箱中最有用的工具就是可以在你的代码中添加调试语句。一般而言你不想在生产环境中保留这些调试语句，这个工具可以检测你是在开发环境运行代码还是在日常使用中运行代码。
+
+### 在Rust中
+
+```rs frame=none
+fn main() {
+  // Whether the current instance was started with `tauri dev` or not.
+  #[cfg(dev)]
+  {
+    // `tauri dev` only code
+  }
+  if cfg!(dev) {
+    // `tauri dev` only code
+  } else {
+    // `tauri build` only code
+  }
+  let is_dev: bool = tauri::is_dev();
+
+  // Whether debug assertions are enabled or not. This is true for `tauri dev` and `tauri build --debug`.
+  #[cfg(debug_assertions)]
+  {
+    // Debug only code
+  }
+  if cfg!(debug_assertions) {
+    // Debug only code
+  } else {
+    // Production only code
+  }
+}
+```
+
+{/* TODO: js version */}
+
+## Rust控制台
+
+第一个查看错误的地方就是Rust控制台。在终端中运行,比如,`tauri dev`。你可以使用下面的代码从一个rust文件输出一些内容到控制台:
+```rust frame=none
+println!("Message from Rust: {}", msg);
+```
+
+有时候你rust代码中可能有一个错误,rust编译器会给你提供许多信息。比如，如果`tauri dev` 命令执行崩溃，你可以在Linux和macOS中重新运行：
+```shell frame=none
+RUST_BACKTRACE=1 tauri dev
+```
+
+或者在Windows (PowerShell):
+```powershell frame=none
+$env:RUST_BACKTRACE=1
+tauri dev
+```
+
+
+这个命令给你提供了一个更详细的栈追踪信息。一般而言,Rust 编译器通过给你提供关于问题的详细信息来帮助你，比如：
+```bash frame=none
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
+```
+
+## WebView控制台
+
+在WebView中右击,选择`检查元素`。打开一个web-inspector,类似于你在Chrome 或 Firefox中经常使用的开发工具。
+你也可以在Linux 和 Windows系统中使用`Ctrl + Shift + i`快捷键,在macOS中使用`Command + Option + i`打开检查器。
+
+
+这个检查器是和平台相关,Linux系统中使用webkit2gtk WebInspector,macOS中使用Safari's inspector,Windows中使用Microsoft Edge DevTools
+### 以编程方式打开开发工具
+
+你可以使用[`WebviewWindow::open_devtools`] 和 [`WebviewWindow::close_devtools`]函数来控制检查器窗口的可见性:
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(debug_assertions)] // only include this code on debug builds
+    {
+      let window = app.get_webview_window("main").unwrap();
+      window.open_devtools();
+      window.close_devtools();
+    }
+    Ok(())
+  });
+```
+
+### 在生产中使用检查器
+
+默认情况下,检查器只在开发环境中启用,以及使用cargo feature来启用调试版本。
+#### 创建调试版本
+
+运行 `tauri build --debug` 命令来创建调试版本。
+<CommandTabs
+  npm="npm run tauri build -- --debug"
+  yarn="yarn tauri build --debug"
+  pnpm="pnpm tauri build --debug"
+  cargo="cargo tauri build --debug"
+/>
+
+
+正如正常的构建和开发流程，第一次运行这个命令构建会花一些时间,但是后面再运行就快多了。最后的打包程序包含开发控制台，它的目录位于`src-tauri/target/debug/bundle`。
+
+你也可以通过终端构建程序，给你提供Rust编译器信息(如果出错)或者你通过`println`函数输出的信息。浏览`src-tauri/target/(release|debug)/[app name]`文件,在你的控制台中直接运行或者双击可执行程序(注：使用这个方法,一旦出现错误控制台就会关闭).
+##### 启用开发工具特性
+
+:::danger
+
+开发工具API在macOS中是私有的,使用私有API会阻止你的程序在App Store上架。
+:::
+
+在生产版本启用开发者工具,你必须在`src-tauri/Cargo.toml`文件中启用`devtools` Cargo 特性：
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "devtools"] }
+```
+
+## 调试核心进程
+
+核心进程由Rust驱动,你可以使用GDB或LLDB来调试。你可以按照[在 VS Code中调试]的指导来学习如何使用LLDB VS Code 扩展来调试Tauri程序的核心进程。
+
+[debugging in vs code]: /develop/debug/vscode/
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0-rc/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0-rc/tauri/webview/struct.WebviewWindow.html#method.close_devtools
