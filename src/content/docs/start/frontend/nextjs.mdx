@@ -78,11 +78,11 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 
     ```ts
     // next.conf.mjs
-    /** @type {import('next').NextConfig} */
     const isProd = process.env.NODE_ENV === 'production';
 
     const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
 
+    /** @type {import('next').NextConfig} */
     const nextConfig = {
       // Ensure Next.js uses SSG instead of SSR
       // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
