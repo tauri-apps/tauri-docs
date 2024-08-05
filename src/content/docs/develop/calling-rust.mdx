@@ -191,7 +191,7 @@ It also gives you full control over the way your error type gets serialized. In 
 
 ## Async Commands
 
-Asynchronous functions are benefical in Tauri to perform heavy work in a manner that doesn't result in UI freezes or slowdowns.
+Asynchronous functions are beneficial in Tauri to perform heavy work in a manner that doesn't result in UI freezes or slowdowns.
 
 :::note
 
@@ -349,6 +349,57 @@ pub fn run() {
 }
 ```
 
+## Sending or Receiving Raw Bytes
+
+By default, values are serialized/deserialized into JSON before being transferred to the Rust or frontend side.
+When passing large amount of data, Tauri provides a way to send raw byte arrays instead of JSON to achieve better performance.
+
+#### JavaScript side
+
+Sending raw bytes from JavaScript requires to call `invoke` with three arguments.
+First one being the Rust command name. Second argument is the raw bytes argument that needs to be one of these types: `Array`, `ArrayBuffer` or an [`ArrayBuffer` view](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/isView).
+Last argument contains headers that can be used to pass additional arguments to the Rust command.
+
+Raw bytes will be returned as `ArrayBuffer`.
+
+```javascript
+// Typed array is used to send raw bytes
+let bytes = new Uint8Array(10000).fill(1);
+// Additional argument `foo` is passed in headers
+let res = await invoke('raw_bytes_command', bytes, { headers: { foo: 'Foo' } });
+console.log(res instanceof ArrayBuffer);
+```
+
+:::note
+
+On Linux, the feature `linux-ipc-protocol` must be activated in the Rust `Cargo.toml` to send raw bytes to the Rust side.
+
+:::
+
+#### Rust side
+
+To receive raw bytes the type `tauri::ipc::Request` must be used in the Rust command arguments.
+Additional arguments can be retrieved through the request header.
+
+To return raw bytes the type `tauri::ipc::Response` must be used.
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn raw_bytes_command(request: tauri::ipc::Request<'_>) -> tauri::Result<tauri::ipc::Response> {
+    if let tauri::ipc::InvokeBody::Raw(data) = request.body() {
+      // `data` has type `&Vec<u8>`
+    	println!("Print bytes: {:?}", data)
+    	// Additional argument foo
+      let foo = request.headers().get("foo").unwrap().to_str().unwrap();
+    	println!("Print foo: {}", foo);
+    	// Returning raw bytes to the frontend
+    	Ok(tauri::ipc::Response::new(data.to_vec()))
+    } else {
+        unreachable!()
+    }
+}
+```
+
 ## Complete Example
 
 Any or all of the above features can be combined:
@@ -384,6 +435,19 @@ async fn my_custom_command(
 	}
 }
 
+#[tauri::command]
+async fn raw_bytes_command(request: tauri::ipc::Request<'_>) -> tauri::Result<tauri::ipc::Response> {
+    if let tauri::ipc::InvokeBody::Raw(data) = request.body() {
+    	println!("Print bytes: {:?}", data)
+      let foo = request.headers().get("foo").unwrap().to_str().unwrap();
+    	println!("Print foo: {}", foo);
+    	Ok(tauri::ipc::Response::new(data.to_vec()))
+    } else {
+        unreachable!()
+    }
+}
+
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
 	tauri::Builder::default()
@@ -405,6 +469,10 @@ invoke('my_custom_command', {
     console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
   )
   .catch((e) => console.error(e));
+
+// Invocation using raw bytes
+let bytes = new Uint8Array(10000).fill(1);
+await invoke('raw_bytes_command', bytes, { headers: { foo: 'Foo' } });
 ```
 
 [`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-rc/tauri/async_runtime/fn.spawn.html
