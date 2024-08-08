@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened]
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
 
 jobs:
   set_statuses:
@@ -13,12 +13,7 @@ jobs:
     permissions:
       pull-requests: write
       issues: write
-    env:
-      GITHUB_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
     steps:
-      - name: Set up GitHub CLI
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
       - name: Get project data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
