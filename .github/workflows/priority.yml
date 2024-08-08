@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened]
   pull_request:
-    types: [opened, reopened]
+    #types: [opened]
 
 jobs:
   set_statuses:
@@ -20,6 +20,7 @@ jobs:
           ORGANIZATION: tauri-apps
           PROJECT_NUMBER: 27
         run: |
+          gh project view 27
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
               organization(login: $org){
