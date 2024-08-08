@@ -14,13 +14,16 @@ jobs:
       pull-requests: write
       issues: write
     steps:
+      - name: test
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh project view 27 --owner tauri-apps
       - name: Get project data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORGANIZATION: tauri-apps
           PROJECT_NUMBER: 27
         run: |
-          gh project view 27 --owner tauri-apps
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
               organization(login: $org){
