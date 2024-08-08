@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened]
   pull_request:
-    types: [opened, reopened]
+    types: [opened]
 
 jobs:
   set_statuses:
@@ -18,16 +18,16 @@ jobs:
           echo "PROJECT_ID=$(gh project view 27 --owner tauri-apps --format json --jq '.id')" >> $GITHUB_ENV
           gh project field-list 27 --owner tauri-apps --format json > project_data.json
           echo 'PRIORITY_FIELD_ID='$(jq '.fields[] | select(.name== "Priority") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'LOW_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Low") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'MEDIUM_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Medium") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'HIGH_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="High") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'CRITICAL_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Critical") |.id' project_data.json) >> $GITHUB_ENV
+          echo 'LOW_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Low") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'MEDIUM_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Medium") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'HIGH_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="High") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'CRITICAL_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Critical") | .id' project_data.json) >> $GITHUB_ENV
 
       - name: Default priority
         run: |
           echo 'PRIORITY_ID='${{ env.LOW_PRIORITY_ID }} >> $GITHUB_ENV
 
-      - name: Add/get item id
+      - name: Add project item / Get item id
         env:
           GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |
