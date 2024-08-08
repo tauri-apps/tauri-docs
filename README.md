@@ -36,3 +36,5 @@ For the complete list of sponsors please visit our [website](https://tauri.app#s
 MIT License
 
 Copyright (c) 2020-2023 Tauri Programme within The Commons Conservancy
+
+dummy commit
