@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: test
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: gh project view 27 --owner tauri-apps
       - name: Get project data
         env:
