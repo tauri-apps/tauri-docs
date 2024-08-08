@@ -2,18 +2,17 @@
 title: 在 VS Code 中调试
 ---
 
-{/* TODO: REVISE COPY TO V2 */}
-{/* TODO: Revise this change: Debugging in VS Code > Debug in VS Code */}
+本指南将指导您设置 VS 代码，以调试 [Tauri 应用的核心流程](https://tauri.app/v1/reference/architecture/process-model#the-core-process)。
 
-本指南将指导您设置 VS 代码，以调试 [Tauri 应用的核心流程].
+## 所有具有 vscode-lldb 扩展的平台
 
-## 先决条件
+### 先决条件
 
 安装 [`vscode-lldb`] 扩展。
 
 [`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
 
-## 配置 launch.json
+### 配置 launch.json
 
 创建一个 `.vscode/launch.json` 文件，并将下面的 JSON 内容粘贴到其中：
 
@@ -86,4 +85,70 @@ title: 在 VS Code 中调试
 
 现在，你可以在 `src-tauri/src/main.rs` 或任何其他 Rust 文件中设置断点，并按下 `F5` 开始调试。
 
-[Tauri 应用的核心流程]: https://tauri.app/v1/reference/architecture/process-model#the-core-process
+## 在 Windows 上使用 Visual Studio Windows 调试器
+
+Visual Studio Windows Debugger 是一个仅适用于 Windows 的调试器，通常比 [`vscode-lldb`] 更快，并且对一些 Rust 特性（如枚举）提供更好的支持。
+
+### 先决条件
+
+安装 [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) 扩展，并按照 https://code.visualstudio.com/docs/cpp/config-msvc#_prerequisites 中的步骤安装 Visual Studio Windows 调试器。
+
+### 配置 launch.json 和 tasks.json
+
+```json title=".vscode/launch.json"
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch App Debug",
+      "type": "cppvsdbg",
+      "request": "launch",
+      // change the exe name to your actual exe name
+      // (to debug release builds, change `target/debug` to `release/debug`)
+      "program": "${workspaceRoot}/src-tauri/target/debug/your-app-name-here.exe",
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "ui:dev"
+    }
+  ]
+}
+```
+
+请注意，它不使用 Tauri CLI，因此独占的 CLI 功能不会被执行。`tasks.json` 与 `lldb` 相同，只是如果您希望在启动之前始终进行编译，则需要添加一个配置组，并将其 `launch.json` 中的 `preLaunchTask` 指向它。
+
+这是一个运行开发服务器（相当于 `beforeDevCommand`）和编译（`cargo build`）作为一组的示例，要使用它，请将 `launch.json` 中的 `preLaunchTask` 配置更改为 `dev`（或任何你命名的组）。
+
+```json title=".vscode/tasks.json"
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build:debug",
+      "type": "cargo",
+      "command": "build"
+    },
+    {
+      "label": "ui:dev",
+      "type": "shell",
+      // `dev` keeps running in the background
+      // ideally you should also configure a `problemMatcher`
+      // see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
+      "isBackground": true,
+      // change this to your `beforeDevCommand`:
+      "command": "yarn",
+      "args": ["dev"]
+    },
+    {
+      "label": "dev",
+      "dependsOn": ["build:debug", "ui:dev"],
+      "group": {
+        "kind": "build"
+      }
+    }
+  ]
+}
+```
