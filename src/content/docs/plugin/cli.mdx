@@ -51,7 +51,7 @@ Install the CLI plugin to get started.
     			```toml title="src-tauri/Cargo.toml"
     			# you can add the dependencies on the `[dependencies]` section if you do not target mobile
     			[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-    			tauri-plugin-cli = "2.0.0-beta"
+    			tauri-plugin-cli = "2.0.0-rc"
     			# alternatively with Git:
     			tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     			```
@@ -219,8 +219,10 @@ The CLI plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { getMatches } from '@tauri-apps/plugin-cli';
+// when using `"withGlobalTauri": true`, you may use
+// const { getMatches } = window.__TAURI_PLUGIN_CLI_;
 
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {
@@ -267,10 +269,9 @@ fn run() {
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {

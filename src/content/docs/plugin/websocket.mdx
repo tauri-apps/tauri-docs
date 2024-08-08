@@ -49,7 +49,7 @@ Install the websocket plugin to get started.
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-websocket = "2.0.0-beta"
+    		tauri-plugin-websocket = "2.0.0-rc"
     		# alternatively with Git:
     		tauri-plugin-websocket = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -83,8 +83,10 @@ Install the websocket plugin to get started.
 
 The websocket plugin is available in JavaScript.
 
-```js
+```javascript
 import WebSocket from '@tauri-apps/plugin-websocket';
+// when using `"withGlobalTauri": true`, you may use
+// const WebSocket = window.__TAURI_PLUGIN_WEBSOCKET__;
 
 const ws = await WebSocket.connect('ws://127.0.0.1:8080');
 
@@ -99,9 +101,11 @@ await ws.disconnect();
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+See the [Capabilities Overview](/security/capabilities/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {

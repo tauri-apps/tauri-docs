@@ -55,7 +55,7 @@ If you only intend on moving the window from Rust code, you only need the depend
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-positioner = "2.0.0-beta"
+    		tauri-plugin-positioner = "2.0.0-rc"
     		# alternatively with Git:
     		tauri-plugin-positioner = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -89,7 +89,7 @@ Additional setup is required to get tray-relative positions to work.
 	1. Add `tray-icon` feature to your `Cargo.toml` file:
 		```toml title="src-tauri/Cargo.toml" ins={2}
 		[dependencies]
-		tauri-plugin-positioner = { version = "2.0.0-beta", features = ["tray-icon"] }
+		tauri-plugin-positioner = { version = "2.0.0-rc", features = ["tray-icon"] }
 		```
 
     2. Setup `on_tray_event` for positioner plugin:
@@ -119,6 +119,8 @@ The plugin's APIs are available through the JavaScript guest bindings:
 
 ```javascript
 import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
+// when using `"withGlobalTauri": true`, you may use
+// const { moveWindow, Position } = window.__TAURI_PLUGIN_POSITIONER__;
 
 moveWindow(Position.TopRight);
 ```
@@ -134,10 +136,9 @@ let _ = win.as_ref().window().move_window(Position::TopRight);
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={4}
 {

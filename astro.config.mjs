@@ -64,6 +64,8 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
+  // TODO: Fix trailing slashes throughout the docs
+  // trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
@@ -302,7 +304,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-beta.22/tauri/index.html',
+              link: 'https://docs.rs/tauri/2.0.0-rc/tauri/index.html',
             },
           ],
         },

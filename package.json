@@ -27,7 +27,7 @@
     "@lorenzo_lewis/starlight-utils": "^0.1.0",
     "@types/json-schema": "^7.0.15",
     "astro": "^4.4.4",
-    "astro-d2": "^0.3.0",
+    "astro-d2": "^0.4.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
     "jsdom": "^24.0.0",
@@ -39,9 +39,9 @@
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
     "starlight-blog": "^0.11.0",
-    "starlight-links-validator": "^0.9.0"
+    "starlight-links-validator": "^0.10.0"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.6.0",
   "engines": {
     "pnpm": "^9.0.0"
   },

@@ -1,0 +1,165 @@
+---
+title: Snapcraft
+sidebar:
+  order: 1
+---
+
+## 前置条件
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+**1. 安装 `snap`**
+
+{/* prettier-ignore */}
+<Tabs>
+  <TabItem label="Debian">
+    ```shell
+    sudo apt install snapd
+    ```
+  </TabItem>
+  <TabItem label="Arch">
+    ```shell
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/snapd.git
+    cd snapd
+    makepkg -si
+    sudo systemctl enable --now snapd.socket
+    sudo systemctl start snapd.socket
+    sudo systemctl enable --now snapd.apparmor.service
+    ```
+  </TabItem>
+  <TabItem label="Fedora">
+    ```shell
+    sudo dnf install snapd
+    # Enable classic snap support
+    sudo ln -s /var/lib/snapd/snap /snap
+    ```
+
+    然后重新启动系统。
+
+  </TabItem>
+</Tabs>
+
+**2. 安装 snap 基座**
+
+```shell
+sudo snap install core22
+```
+
+**3. 安装 `snapcraft`**
+
+```shell
+sudo snap install snapcraft --classic
+```
+
+## 配置
+
+1. 创建一个 UbuntuOne 账号。
+2. 请前往 [Snapcraft](https://snapcraft.io) 网站注册一个应用名称。
+3. 在你项目的根目录创建一个 snapcraft.yaml 文件。
+4. 调整 snapcraft.yaml 文件中的 name。
+
+```yaml
+name: appname
+base: core22
+version: '0.1.0'
+summary: Your summary # 79 char long summary
+description: |
+  Your description
+
+grade: stable
+confinement: strict
+
+layout:
+  /usr/libexec/webkit2gtk-4.1:
+    symlink: $SNAP/usr/libexec/webkit2gtk-4.1
+  /usr/lib/x86_64-linux-gnu/webkit2gtk-4.1:
+    symlink: $SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1
+  /usr/lib/aarch64-linux-gnu/webkit2gtk-4.1:
+    symlink: $SNAP/usr/lib/aarch64-linux-gnu/webkit2gtk-4.1
+  /usr/lib/webkit2gtk-4.1/injected-bundle:
+    symlink: $SNAP/usr/lib/webkit2gtk-4.1/injected-bundle
+
+apps:
+  appname:
+    command: usr/bin/appname
+    desktop: usr/share/applications/appname.desktop
+    plugs:
+      - wayland
+      - x11
+
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [noble]
+    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
+    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
+
+parts:
+  build-app:
+    plugin: dump
+    build-snaps:
+      - node/20/stable
+      - rustup/latest/stable
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - build-essential
+      - curl
+      - wget
+      - file
+      - libxdo-dev
+      - libssl-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+      - dpkg
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libayatana-appindicator3-1
+      - libglu1-mesa
+      - freeglut3
+    source: .
+    override-build: |
+      set -eu
+      npm install
+      npm run tauri build -- --bundles deb
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb $SNAPCRAFT_PART_INSTALL/
+      sed -i -e "s|Icon=appname|Icon=/usr/share/icons/hicolor/32x32/apps/appname.png|g" $SNAPCRAFT_PART_INSTALL/usr/share/applications/appname.desktop
+```
+
+### 解释
+
+- `name` 变量定义了你的应用程序的名称，并且必须设置为之前注册的名称。
+- `base` 变量定义了你正在使用的核心。
+- `version` 变量定义了版本，并且应该随着源代码库的每次更改而更新。
+- `apps` 部分允许你公开桌面和二进制文件以供用户运行你的应用。
+- `package-repositories` 部分允许你添加一个包仓库来帮助你满足你的依赖。
+- `build-packages`/`build-snaps` 为你的 snap 定义构建依赖。
+- `stage-packages`/`stage-snaps` 定义了你的 snap 的运行时依赖。
+- `override-pull` 部分在拉取数据源之前运行一系列命令。
+- `craftctl default` 执行默认的拉取命令。
+- `organize` 部分将文件移动到合适的目录，以便二进制文件和桌面文件可以暴露给 `apps` 部分。
+
+## 构建
+
+```sh
+sudo snapcraft
+```
+
+## 测试
+
+```shell
+snap run your-app
+```
+
+## 手动发布
+
+```shell
+snapcraft login # 用你的 UbuntuOne 凭证登录
+snapcraft upload --release=stable mysnap_latest_amd64.snap
+```
+
+## 自动构建
+
+1. 在你的 app 开发者页面上，点击 `builds` 选项卡。
+2. 点击 `login with github`.
+3. 输入存储库的详细信息。

@@ -1,6 +1,6 @@
 # Adapted from https://github.com/withastro/starlight/blob/main/.github/workflows/format.yml
 
-name: Check formatting
+name: 'Check formatting'
 
 on:
   pull_request:
