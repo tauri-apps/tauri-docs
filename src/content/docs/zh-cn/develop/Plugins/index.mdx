@@ -452,7 +452,7 @@ permissions = ["allow-request"]
 为每个命令定义权限的最简单方法是使用 `build.rs` 文件中定义的插件构建脚本中定义的自动生成选项。
 在 `COMMANDS` 常量中，使用蛇形命名法定义命令列表（应与命令函数名称匹配），Tauri将自动生成 `allow-$commandname` 和 `deny-$commandname` 权限。
 
-下面的例子生成了 `allow-upload` 和 `deny-upload` 权限:
+下面的例子生成了 `allow-upload` 和 `deny-upload` 权限：
 
 ```rust title="src/commands.rs"
 const COMMANDS: &[&str] = &["upload"];
