@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="deep-link" />
 
@@ -226,8 +227,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-| Permission                    | Description                                                       |
-| ----------------------------- | ----------------------------------------------------------------- |
-| `deep-link:default`           | Allows reading the opened deep link via the get_current command.  |
-| `deep-link:allow-get-current` | Enables the get_current command without any pre-configured scope. |
-| `deep-link:deny-get-current`  | Denies the get_current command without any pre-configured scope.  |
+<PluginPermissions plugin="deep-link" />
