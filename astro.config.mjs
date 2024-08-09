@@ -96,6 +96,7 @@ export default defineConfig({
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
         PageFrame: 'src/components/overrides/PageFrame.astro',
+        TableOfContents: 'src/components/overrides/TableOfContents.astro',
       },
       head: [
         {
