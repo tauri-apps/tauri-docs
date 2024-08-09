@@ -5,7 +5,7 @@ i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import Permissions from '@components/Permissions.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
@@ -163,4 +163,4 @@ tauri::Builder::default()
 
 Aside from normal sanitization procedures of user input there are currently no known security considerations.
 
-<Permissions plugin="notification" />
+<PluginPermissions plugin="notification" />
