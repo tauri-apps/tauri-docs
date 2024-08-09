@@ -1,13 +1,8 @@
 ---
 title: Updater
 description: In-app updates for Tauri applications.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
-import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
@@ -311,9 +306,215 @@ The required keys are `"url"`, `"version"` and `"signature"`; the others are opt
 ```
 
 :::tip
-CrabNebula, an official Tauri partner, offers a dynamic update server. For more information, see the [Distributing with CrabNebula Cloud](distribute/crabnebula-cloud/) documentation. {/* TODO: Fix link once docs were ported */}
+CrabNebula, an official Tauri partner, offers a dynamic update server. For more information, see the [Distributing with CrabNebula Cloud] documentation.
 :::
 
 ## Checking for Updates
 
-<Stub />
+The default API for checking updates and installing them leverages the configured endpoints
+and can be accessed by both JavaScript and Rust code.
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update) {
+  console.log(
+    `found update ${update.version} from ${update.date} with notes ${update.body}`
+  );
+  let downloaded = 0;
+  let contentLength = 0;
+  // alternatively we could also call update.download() and update.install() separately
+  await update.downloadAndInstall((event) => {
+    switch (event.event) {
+      case 'Started':
+        contentLength = event.data.contentLength;
+        console.log(`started downloading ${event.data.contentLength} bytes`);
+        break;
+      case 'Progress':
+        downloaded += event.data.chunkLength;
+        console.log(`downloaded ${downloaded} from ${contentLength}`);
+        break;
+      case 'Finished':
+        console.log('download finished');
+        break;
+    }
+  });
+
+  console.log('update installed');
+  await relaunch();
+}
+```
+
+For more information see the [JavaScript API documentation].
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_updater::UpdaterExt;
+
+fn run() {
+  tauri::Builder::default()
+    .setup(|app| {
+      let handle = app.handle().clone();
+      tauri::async_runtime::spawn(async move {
+        update(handle).await;
+      });
+      Ok(())
+    })
+}
+async fn update(app: tauri::AppHandle) -> tauri::Result<()> {
+  if let Some(update) = app.updater()?.check().await? {
+    let mut downloaded = 0;
+
+    // alternatively we could also call update.download() and update.install() separately
+    update.download_and_install(|chunk_length, content_length| {
+      downloaded += chunk_length;
+      println!("downloaded {downloaded} from {content_length:?}");
+    }, || {
+      println!("download finished");
+    }).await?;
+
+    println!("update installed");
+    app.restart();
+  }
+
+  Ok(())
+}
+
+```
+
+:::tip
+To notify the frontend of the download progress consider using a command with a [channel].
+:::
+
+For more information see the [Rust API documentation].
+
+</TabItem>
+</Tabs>
+
+Note that restarting your app immediately after installing an update is not required and you can choose
+how to handle the update by either waiting until the user manually restarts the app, or prompting him to select when to do so.
+
+:::note
+On Windows the application is automatically exited when the install step is executed due to a limitation of Windows installers.
+:::
+
+When checking and downloading updates it is possible to define a custom request timeout, a proxy and request headers.
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  proxy: '<proxy url>',
+  timeout: 30 /* seconds */,
+  headers: {
+    Authorization: 'Bearer <token>',
+  },
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .timeout(std::time::Duration::from_secs(30))
+  .proxy("<proxy-url>".parse().expect("invalid URL"))
+  .header("Authorization", "Bearer <token>")
+  .build()?
+  .check()
+  .await?;
+```
+
+  </TabItem>
+</Tabs>
+
+### Updater Builder
+
+The Rust API also allows the updater to be configured at runtime for more flexibility.
+
+- `endpoints` and `pubkey`:
+
+  ```rust
+  use tauri_plugin_updater::UpdaterExt;
+  let channel = if beta { "beta" } else { "stable" };
+  let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}");
+
+  let update = app
+    .updater_builder()
+    .endpoints(vec![update_url])
+    // setting the pubkey at runtime is optional, but can be done if you have custom key rotation logic
+    .pubkey("<insert public key here>")
+    // by default Tauri does not allow downgrades and only
+    .version_comparator(|current, update| {
+      true
+      // default: `update.version > current`
+    })
+    .build()?
+    .check()
+    .await?;
+  ```
+
+  :::tip
+  Note that when using format!() to interpolate the update URL you need double escapes for the variables
+  e.g. `{{{{target}}}}`.
+  :::
+
+- Allowing downgrades:
+
+  By default Tauri checks if the update version is greater than the current app version to verify if it should update or not.
+  To allow downgrades, you must use the updater builder's `version_comparator` API:
+
+  ```rust
+  use tauri_plugin_updater::UpdaterExt;
+
+  let update = app
+    .updater_builder()
+    .version_comparator(|current, update| {
+      // default comparison: `update.version > current`
+      update.version != current
+    })
+    .build()?
+    .check()
+    .await?;
+  ```
+
+- `before_exit` hook
+
+  Due to a limitation of Windows installers, Tauri will automatically quit your application before installing updates on Windows.
+  To perform an action before that happens, use the `on_before_exit` function:
+
+  ```rust
+  use tauri_plugin_updater::UpdaterExt;
+
+  let update = app
+    .updater_builder()
+    .on_before_exit(|| {
+      println!("app is about to exit on Windows!");
+    })
+    .build()?
+    .check()
+    .await?;
+  ```
+
+:::note
+The values from the [configuration](#tauri-configuration) are used as fallback if any of the builder values are not set.
+:::
+
+[Distributing with CrabNebula Cloud]: /distribute/crabnebula-cloud
+[channel]: /develop/calling-frontend/#channels
+[JavaScript API Documentation]: /reference/javascript/updater/
+[Rust API Documentation]: https://docs.rs/tauri-plugin-updater
