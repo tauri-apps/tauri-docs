@@ -111,8 +111,9 @@ TODO: Need to build out NixOS instructions
   </TabItem>
   <TabItem label="Flatpak sanbox">
 
-Execute the Flatpak app (eg, your IDE) within the Gnome SDK runtime:
+Install the Gnome SDK runtime (version 45 here - you could try newer versions) and execute the Flatpak app (eg, your IDE) within it:
 ```
+flatpak install org.gnome.Sdk//45
 flatpak run --runtime=org.gnome.Sdk//45 <app_id>
 ```
 
