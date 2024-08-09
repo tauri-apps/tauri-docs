@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -269,22 +270,16 @@ fn run() {
 
 ## Permissions
 
-By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
-
-See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
-
-```json title="src-tauri/capabilities/main.json" ins={6}
-{
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": ["cli:default"]
-}
-```
-
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `cli:default`           | Allows reading the CLI matches.                                   |
-| `cli:allow-cli-matches` | Enables the cli_matches command without any pre-configured scope. |
-| `cli:deny-cli-matches`  | Denies the cli_matches command without any pre-configured scope.  |
+<PluginPermissions plugin="cli">
+  <div slot="capability">
+    ```json title="src-tauri/capabilities/main.json" ins={6}
+    {
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "main-capability",
+      "description": "Capability for the main window",
+      "windows": ["main"],
+      "permissions": ["cli:default"]
+    }
+    ```
+  </div>
+</PluginPermissions>

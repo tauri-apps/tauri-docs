@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -123,46 +124,33 @@ if output.status.success() {
 
 ## Permissions
 
-By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
-
-See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
-
-See the [Capabilities Overview](/security/capabilities/) for more information.
-
-```json title="src-tauri/capabilities/main.json" ins={6-23}
-{
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": [
+<PluginPermissions plugin="shell">
+  <div slot="capability">
+    ```json title="src-tauri/capabilities/main.json" ins={6-23}
     {
-      "identifier": "shell:allow-execute",
-      "allow": [
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "main-capability",
+      "description": "Capability for the main window",
+      "windows": ["main"],
+      "permissions": [
         {
-          "name": "exec-sh",
-          "cmd": "sh",
-          "args": [
-            "-c",
+          "identifier": "shell:allow-execute",
+          "allow": [
             {
-              "validator": "\\S+"
+              "name": "exec-sh",
+              "cmd": "sh",
+              "args": [
+                "-c",
+                {
+                  "validator": "\\S+"
+                }
+              ],
+              "sidecar": false
             }
-          ],
-          "sidecar": false
+          ]
         }
       ]
     }
-  ]
-}
-```
-
-| Permission                | Description                                                       |
-| ------------------------- | ----------------------------------------------------------------- |
-| `shell:allow-execute`     | Enables the execute command without any pre-configured scope.     |
-| `shell:deny-execute`      | Denies the execute command without any pre-configured scope.      |
-| `shell:allow-kill`        | Enables the kill command without any pre-configured scope.        |
-| `shell:deny-kill`         | Denies the kill command without any pre-configured scope.         |
-| `shell:allow-open`        | Enables the open command without any pre-configured scope.        |
-| `shell:deny-open`         | Denies the open command without any pre-configured scope.         |
-| `shell:allow-stdin-write` | Enables the stdin_write command without any pre-configured scope. |
-| `shell:deny-stdin-write`  | Denies the stdin_write command without any pre-configured scope.  |
+    ```
+  </div>
+</PluginPermissions>

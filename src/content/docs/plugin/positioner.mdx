@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -136,21 +137,15 @@ let _ = win.as_ref().window().move_window(Position::TopRight);
 
 ## Permissions
 
-By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
-
-See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
-
-```json title="src-tauri/capabilities/main.json" ins={4}
-{
-  "permissions": [
-    ...,
-    "positioner:default",
-  ]
-}
-```
-
-| Permission                     | Description                                                       |
-| ------------------------------ | ----------------------------------------------------------------- |
-| `positioner:allow-move-window` | Enables the move_window command without any pre-configured scope. |
-| `positioner:deny-move-window`  | Denies the move_window command without any pre-configured scope.  |
-| `positioner:default`           | Allows the move_window command.                                   |
+<PluginPermissions plugin="positioner">
+	<div slot="capability">
+		```json title="src-tauri/capabilities/main.json" ins={4}
+		{
+			"permissions": [
+				...,
+				"positioner:default",
+			]
+		}
+		```
+	</div>
+</PluginPermissions>

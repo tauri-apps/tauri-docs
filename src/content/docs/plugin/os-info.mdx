@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -101,36 +102,17 @@ println!("Platform: {}", platform);
 
 ## Permissions
 
-By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
-
-See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
-
-```json title="src-tauri/capabilities/main.json" ins={4-6}
-{
-  "permissions": [
-    ...,
-    "os:allow-arch",
-    "os:allow-hostname",
-    "os:allow-os-type"
-  ]
-}
-```
-
-| Permission               | Description                                                         |
-| ------------------------ | ------------------------------------------------------------------- |
-| `os:allow-arch`          | Enables the arch command without any pre-configured scope.          |
-| `os:deny-arch`           | Denies the arch command without any pre-configured scope.           |
-| `os:allow-exe-extension` | Enables the exe-extension command without any pre-configured scope. |
-| `os:deny-exe-extension`  | Denies the exe-extension command without any pre-configured scope.  |
-| `os:allow-family`        | Enables the family command without any pre-configured scope.        |
-| `os:deny-family`         | Denies the family command without any pre-configured scope.         |
-| `os:allow-hostname`      | Enables the hostname command without any pre-configured scope.      |
-| `os:deny-hostname`       | Denies the hostname command without any pre-configured scope.       |
-| `os:allow-locale`        | Enables the locale command without any pre-configured scope.        |
-| `os:deny-locale`         | Denies the locale command without any pre-configured scope.         |
-| `os:allow-os-type`       | Enables the os-type command without any pre-configured scope.       |
-| `os:deny-os-type`        | Denies the os-type command without any pre-configured scope.        |
-| `os:allow-platform`      | Enables the platform command without any pre-configured scope.      |
-| `os:deny-platform`       | Denies the platform command without any pre-configured scope.       |
-| `os:allow-version`       | Enables the version command without any pre-configured scope.       |
-| `os:deny-version`        | Denies the version command without any pre-configured scope.        |
+<PluginPermissions plugin="os">
+  <div slot="capability">
+    ```json title="src-tauri/capabilities/main.json" ins={4-6}
+    {
+      "permissions": [
+        ...,
+        "os:allow-arch",
+        "os:allow-hostname",
+        "os:allow-os-type"
+      ]
+    }
+    ```
+  </div>
+</PluginPermissions>

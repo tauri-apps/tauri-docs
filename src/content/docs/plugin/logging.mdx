@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -130,22 +131,16 @@ Install the log plugin to get started.
 
 ## Permissions
 
-By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
-
-See the [Capabilities Overview](/security/capabilities/) for more information.
-
-```json title="src-tauri/capabilities/main.json" ins={6}
-{
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": ["log:default"]
-}
-```
-
-| Permission      | Description                                               |
-| --------------- | --------------------------------------------------------- |
-| `log:default`   | Allows the log command.                                   |
-| `log:allow-log` | Enables the log command without any pre-configured scope. |
-| `log:deny-log`  | Denies the log command without any pre-configured scope.  |
+<PluginPermissions plugin="log">
+  <div slot="capability">
+    ```json title="src-tauri/capabilities/main.json" ins={6}
+    {
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "main-capability",
+      "description": "Capability for the main window",
+      "windows": ["main"],
+      "permissions": ["log:default"]
+    }
+    ```
+  </div>
+</PluginPermissions>

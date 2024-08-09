@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -90,31 +91,16 @@ scan({ windowed: true, formats: [Format.QRCode] });
 
 ## Permissions
 
-By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
-
-See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
-
-```json title="src-tauri/capabilities/mobile.json"
-{
-  "$schema": "../gen/schemas/mobile-schema.json",
-  "identifier": "mobile-capability",
-  "windows": ["main"],
-  "platforms": ["iOS", "android"],
-  "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
-}
-```
-
-| Permission                                  | Description                                                               |
-| ------------------------------------------- | ------------------------------------------------------------------------- |
-| `barcode-scanner:allow-cancel`              | Enables the cancel command without any pre-configured scope.              |
-| `barcode-scanner:deny-cancel`               | Denies the cancel command without any pre-configured scope.               |
-| `barcode-scanner:allow-check-permissions`   | Enables the check_permissions command without any pre-configured scope.   |
-| `barcode-scanner:deny-check-permissions`    | Denies the check_permissions command without any pre-configured scope.    |
-| `barcode-scanner:allow-open-app-settings`   | Enables the open_app_settings command without any pre-configured scope.   |
-| `barcode-scanner:deny-open-app-settings`    | Denies the open_app_settings command without any pre-configured scope.    |
-| `barcode-scanner:allow-request-permissions` | Enables the request_permissions command without any pre-configured scope. |
-| `barcode-scanner:deny-request-permissions`  | Denies the request_permissions command without any pre-configured scope.  |
-| `barcode-scanner:allow-scan`                | Enables the scan command without any pre-configured scope.                |
-| `barcode-scanner:deny-scan`                 | Denies the scan command without any pre-configured scope.                 |
-| `barcode-scanner:allow-vibrate`             | Enables the vibrate command without any pre-configured scope.             |
-| `barcode-scanner:deny-vibrate`              | Denies the vibrate command without any pre-configured scope.              |
+<PluginPermissions plugin="barcode-scanner">
+  <div slot="capability">
+    ```json title="src-tauri/capabilities/mobile.json"
+    {
+      "$schema": "../gen/schemas/mobile-schema.json",
+      "identifier": "mobile-capability",
+      "windows": ["main"],
+      "platforms": ["iOS", "android"],
+      "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+    }
+    ```
+  </div>
+</PluginPermissions>
