@@ -70,12 +70,12 @@ Install the Tauri updater plugin to get started.
 
 Tauri's updater needs a signature to verify that the update is from a trusted source. This cannot be disabled.
 
-To sign your updates you need two things:
+To sign your updates you need two keys:
 
 1. The public key, which will be set in the `tauri.config.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
 2. The private key, which is used to sign your installer files. You should NEVER share this key with anyone. Also, if you lose this key you will NOT be able to publish new updates to the users that have the app already installed. It is important to store this key in a safe place!
 
-To generate the keys the Tauri CLI provides the `signer generate` command. On Linux you can run this to create the keys in the home folder:
+To generate the keys the Tauri CLI provides the `signer generate` command. You can run this to create the keys in the home folder:
 
 <Tabs>
   <CommandTabs
@@ -87,21 +87,9 @@ To generate the keys the Tauri CLI provides the `signer generate` command. On Li
   />
 </Tabs>
 
-If you are on Windows, you should use `$HOME/.tauri/myapp.key` or a different path of your choice instead:
-
-<Tabs>
-  <CommandTabs
-    npm="npm run tauri signer generate -- -w $HOME/.tauri/myapp.key"
-    yarn="yarn tauri signer generate -w $HOME/.tauri/myapp.key"
-    pnpm="pnpm tauri signer generate -w $HOME/.tauri/myapp.key"
-    bun="bunx tauri signer generate -w $HOME/.tauri/myapp.key"
-    cargo="cargo tauri signer generate -w $HOME/.tauri/myapp.key"
-  />
-</Tabs>
-
 ### Building
 
-While building your update artifacts, you need to have the private key you generated above in your Environment variables. `.env` files do _not_ work!
+While building your update artifacts, you need to have the private key you generated above in your environment variables. `.env` files do _not_ work!
 
 <Tabs>
   <TabItem label="Mac/Linux">
@@ -121,10 +109,19 @@ While building your update artifacts, you need to have the private key you gener
   </TabItem>
 </Tabs>
 
-After that, you can run Tauri build as usual and Tauri will generate the update bundles and their signatures. The generated files depend on the `createUpdaterArtifacts` {/* [`createUpdaterArtifacts`](/reference/config/#createupdaterartifacts) */} value configured below.
+After that, you can run Tauri build as usual and Tauri will generate the update bundles and their signatures.
+The generated files depend on the [`createUpdaterArtifacts`] configuration value configured below.
 
 <Tabs>
-  <TabItem label="Default">
+  <TabItem label="v2">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": true
+  }
+}
+```
 
 On Linux, Tauri will create the normal AppImage inside the `target/release/bundle/appimage/` folder:
 
@@ -148,6 +145,14 @@ On Windows, Tauri will create the normal MSI and NSIS installers inside the targ
 
 </TabItem>
 <TabItem label="v1 compatible">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": "v1Compatible"
+  }
+}
+```
 
 On Linux, Tauri will create a .tar.gz archive from the AppImage inside the `target/release/bundle/appimage/` folder:
 
@@ -208,6 +213,10 @@ Each updater URL can contain the following dynamic variables, allowing you to de
   }
 }
 ```
+
+:::tip
+Custom variables are not supported, but you can define a [custom `{{target}}`](#custom-target).
+:::
 
 ### `installMode` on Windows
 
@@ -559,6 +568,59 @@ let update = app
   </TabItem>
 </Tabs>
 
+### Custom Target
+
+By default the updater lets you use the `{{target}}` and `{{arch}}` variables to determine which update asset must be delivered.
+If you need more information on your updates (e.g. when distributing a Universal macOS binary option or having more build flavors)
+you can set a custom target.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  target: 'macos-universal',
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+On the Rust side you can either change the default target globally when initializing the plugin or via the updater builder:
+
+```rust
+tauri_plugin_updater::Builder::new().target("macos-universal").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .target("macos-universal")
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+The default `$target-$arch` key can be retrieved using `tauri_plugin_updater::target()`
+which returns an `Option<String>` that is `None` when the updater is not supported on the current platform.
+:::
+
+  </TabItem>
+</Tabs>
+
+:::note
+
+- When using a custom target it might be easier to use it exclusively to determine the update platform,
+  so you could remove the `{{arch}}` variable.
+- The value provided as target is the key that is matched against the platform key when using a [Static JSON file](#static-json-file).
+
+:::
+
 ### Updater Builder
 
 The Rust API also allows the updater to be configured at runtime for more flexibility.
@@ -631,6 +693,7 @@ The Rust API also allows the updater to be configured at runtime for more flexib
 The values from the [configuration](#tauri-configuration) are used as fallback if any of the builder values are not set.
 :::
 
+[`createUpdaterArtifacts`]: /reference/config/#createupdaterartifacts
 [Distributing with CrabNebula Cloud]: /distribute/crabnebula-cloud
 [channel]: /develop/calling-frontend/#channels
 [JavaScript API Documentation]: /reference/javascript/updater/
