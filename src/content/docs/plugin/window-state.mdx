@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="window-state" />
 
@@ -147,9 +148,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-| Permission                             | Description                                                             |
-| -------------------------------------- | ----------------------------------------------------------------------- |
-| `window-state:allow-restore-state`     | Enables the restore_state command without any pre-configured scope.     |
-| `window-state:deny-restore-state`      | Denies the restore_state command without any pre-configured scope.      |
-| `window-state:allow-save-window-state` | Enables the save_window_state command without any pre-configured scope. |
-| `window-state:deny-save-window-state`  | Denies the save_window_state command without any pre-configured scope.  |
+<PluginPermissions plugin="window-state" />

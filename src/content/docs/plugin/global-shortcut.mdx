@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="global-shortcut" />
 
@@ -154,15 +155,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information.
 }
 ```
 
-| Permission                             | Description                                                          |
-| -------------------------------------- | -------------------------------------------------------------------- |
-| `global-shortcut:allow-is-registered`  | Enables the is_registered command without any pre-configured scope.  |
-| `global-shortcut:deny-is-registered`   | Denies the is_registered command without any pre-configured scope.   |
-| `global-shortcut:allow-register`       | Enables the register command without any pre-configured scope.       |
-| `global-shortcut:deny-register`        | Denies the register command without any pre-configured scope.        |
-| `global-shortcut:allow-register-all`   | Enables the register_all command without any pre-configured scope.   |
-| `global-shortcut:deny-register-all`    | Denies the register_all command without any pre-configured scope.    |
-| `global-shortcut:allow-unregister`     | Enables the unregister command without any pre-configured scope.     |
-| `global-shortcut:deny-unregister`      | Denies the unregister command without any pre-configured scope.      |
-| `global-shortcut:allow-unregister-all` | Enables the unregister_all command without any pre-configured scope. |
-| `global-shortcut:deny-unregister-all`  | Denies the unregister_all command without any pre-configured scope.  |
+<PluginPermissions plugin="global-shortcut" />
