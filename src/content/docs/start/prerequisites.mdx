@@ -109,6 +109,14 @@ sudo zypper in -t pattern devel_basis
 TODO: Need to build out NixOS instructions
 
   </TabItem>
+  <TabItem label="Flatpak sanbox">
+
+Execute the Flatpak app (eg, your IDE) within the Gnome SDK runtime:
+```
+flatpak run --runtime=org.gnome.Sdk//45 <app_id>
+```
+
+  </TabItem>
 </Tabs>
 
 If your distribution isn't included above then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
