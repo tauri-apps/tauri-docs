@@ -576,7 +576,51 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 
 ### Scopes
 
-To allow any `fs` command to access specific scopes:
+This plugin permissions includes scopes for defining which paths are allowed or explicitly rejected.
+For more information on scopes, see the [Command Scopes].
+
+Each `allow` or `deny` scope must include an array listing all paths that should be allowed or denied.
+The scope entries are in the `{ path: string }` format.
+
+:::note
+`deny` take precedence over `allow` so if a path is denied by a scope, it will be blocked at runtime
+even if it is allowed by another scope.
+:::
+
+Scope entries can use `$<path>` variables to reference common system paths such as the home directory,
+the app resources directory and the config directory. The following table lists all common paths you can reference:
+
+| Path                                                                                            | Variable      |
+| ----------------------------------------------------------------------------------------------- | ------------- |
+| [appConfigDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appconfigdir)       | $APPCONFIG    |
+| [appDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appdatadir)           | $APPDATA      |
+| [appLocalDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appLocaldatadir) | $APPLOCALDATA |
+| [appcacheDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appcachedir)         | $APPCACHE     |
+| [applogDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#applogdir)             | $APPLOG       |
+| [audioDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#audiodir)               | $AUDIO        |
+| [cacheDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#cachedir)               | $CACHE        |
+| [configDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#configdir)             | $CONFIG       |
+| [dataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#datadir)                 | $DATA         |
+| [localDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#localdatadir)       | $LOCALDATA    |
+| [desktopDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#desktopdir)           | $DESKTOP      |
+| [documentDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#documentdir)         | $DOCUMENT     |
+| [downloadDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#downloaddir)         | $DOWNLOAD     |
+| [executableDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#executabledir)     | $EXE          |
+| [fontDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#fontdir)                 | $FONT         |
+| [homeDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#homedir)                 | $HOME         |
+| [pictureDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#picturedir)           | $PICTURE      |
+| [publicDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#publicdir)             | $PUBLIC       |
+| [runtimeDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#runtimedir)           | $RUNTIME      |
+| [templateDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#templatedir)         | $TEMPLATE     |
+| [videoDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#videodir)               | $VIDEO        |
+| [resourceDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#resourcedir)         | $RESOURCE     |
+| [tempDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#tempdir)                 | $TEMP         |
+
+#### Examples
+
+- global scope
+
+To apply a scope to any `fs` command, use the `fs:scope` permission:
 
 ```json title="src-tauri/capabilities/main.json" {7-10}
 {
@@ -593,9 +637,10 @@ To allow any `fs` command to access specific scopes:
 }
 ```
 
-To allow specific `fs` command to access specific scopes:
+To apply a scope to a specific `fs` command,
+use the the object form of permissions `{ "identifier": string, "allow"?: [], "deny"?: [] }`:
 
-```json title="src-tauri/capabilities/main.json" {7-14}
+```json title="src-tauri/capabilities/main.json" {7-18}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -607,6 +652,10 @@ To allow specific `fs` command to access specific scopes:
       "allow": [{ "path": "$HOME/**" }]
     },
     {
+      "identifier": "fs:allow-rename",
+      "deny": [{ "path": "$HOME/.config/**" }]
+    },
+    {
       "identifier": "fs:allow-exists",
       "allow": [{ "path": "$APPDATA/*" }]
     }
@@ -614,6 +663,10 @@ To allow specific `fs` command to access specific scopes:
 }
 ```
 
+In the above example you can use the [`exists`](#exists) API using any `$APPDATA` sub path (does not include sub-directories)
+and the [`rename`](#rename)
+
 [base directory]: /reference/javascript/api/namespacepath/#basedirectory
 [path API]: reference/javascript/api/namespacepath
 [@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
+[Command Scopes]: /security/scope/
