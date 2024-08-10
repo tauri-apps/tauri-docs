@@ -137,27 +137,27 @@ The file system plugin offers two ways of manipulating paths: the [base director
 
 - base directory
 
-Every API has an options argument that lets you define a [baseDir][base directory] that acts as the working directory of the operation.
+  Every API has an options argument that lets you define a [baseDir][base directory] that acts as the working directory of the operation.
 
-```js
-import { readFile } from '@tauri-apps/plugin-fs';
-const contents = await readFile('avatars/tauri.png', {
-  baseDir: BaseDirectory.Home,
-});
-```
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  const contents = await readFile('avatars/tauri.png', {
+    baseDir: BaseDirectory.Home,
+  });
+  ```
 
-In the above example the ~/avatars/tauri.png file is read since we are using the **Home** base directory.
+  In the above example the ~/avatars/tauri.png file is read since we are using the **Home** base directory.
 
 - path API
 
-Alternatively you can use the path APIs to perform path manipulations.
+  Alternatively you can use the path APIs to perform path manipulations.
 
-```js
-import { readFile } from '@tauri-apps/plugin-fs';
-import * as path from '@tauri-apps/api/path';
-const home = await path.homeDir();
-const contents = await readFile(await path.join(home, 'avatars/tauri.png'));
-```
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  import * as path from '@tauri-apps/api/path';
+  const home = await path.homeDir();
+  const contents = await readFile(await path.join(home, 'avatars/tauri.png'));
+  ```
 
 ## Files
 
@@ -172,30 +172,125 @@ await file.write(new TextEncoder().encode('Hello world'));
 await file.close();
 ```
 
+:::note
+Always call `file.close()` when you are done manipulating the file.
+:::
+
+### Open
+
+Opens a file and returns a handle to it.
+With this API you have more control over how the file should be opened
+(read-only mode, write-only mode, append instead of overwrite, only create if it does not exist, etc).
+
+:::note
+Always call `file.close()` when you are done manipulating the file.
+:::
+
+- read-only
+
+  This is the default mode.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    read: true,
+    baseDir: BaseDirectory.App,
+  });
+  const buf = new Uint8Array();
+  await file.read(buf);
+  const textContents = new TextDecoder().decode(buf);
+  await file.close();
+  ```
+
+- write-only
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    baseDir: BaseDirectory.App,
+  });
+  await file.write(new TextEncoder().encode('Hello world'));
+  await file.close();
+  ```
+
+  By default the file is truncated. See the following example to learn how to append to the existing contents instead.
+
+- append
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    append: true,
+    baseDir: BaseDirectory.App,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Note that `{ append: true }` has the same effect as `{ write: true, append: true }`.
+
+- create
+
+  By default the `open` API only opens existing files. To create the file if it does not exist,
+  opening it if it does, set `create` to `true`:
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    create: true,
+    baseDir: BaseDirectory.App,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  In order for the file to be created, `write` or `append` must also be set to `true`.
+
+  To fail if the file already exists, see `createNew`.
+
+- createNew
+
+  `createNew` works similarly to `create`, but if the file does not exist, the operation fails.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    createNew: true,
+    baseDir: BaseDirectory.App,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  In order for the file to be created, `write` must also be set to `true`.
+
 ### Read
 
 The plugin offers separate APIs for reading text and binary files for performance.
 
 - text files
 
-```js
-import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
-const configToml = await readTextFile('config.toml', {
-  baseDir: BaseDirectory.AppConfig,
-});
-```
+  ```js
+  import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const configToml = await readTextFile('config.toml', {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
 
-If the file is large you can stream its lines with the `readTextFileLines` API:
+  If the file is large you can stream its lines with the `readTextFileLines` API:
 
-```typescript
-import { readTextFileLines, BaseDirectory } from '@tauri-apps/plugin-fs';
-const lines = await readTextFileLines('app.logs', {
-  baseDir: BaseDirectory.AppLog,
-});
-for await (const line of lines) {
-  console.log(line);
-}
-```
+  ```typescript
+  import { readTextFileLines, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const lines = await readTextFileLines('app.logs', {
+    baseDir: BaseDirectory.AppLog,
+  });
+  for await (const line of lines) {
+    console.log(line);
+  }
+  ```
 
 - binary files
 
@@ -325,38 +420,42 @@ To watch a directory or file for changes, use the `watch` or `watchImmediate` fu
 
 - watch
 
-`watch` is debounced so it only emits events after a certain delay:
+  `watch` is debounced so it only emits events after a certain delay:
 
-```js
-import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
-await watch(
-  'app.log',
-  (event) => {
-    console.log('app.log event', event);
-  },
-  {
-    baseDir: BaseDirectory.AppLog,
-  }
-);
-```
+  ```js
+  import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watch(
+    'app.log',
+    (event) => {
+      console.log('app.log event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      delayMs: 500,
+    }
+  );
+  ```
 
 - watchImmediate
 
-`watchImmediate` immediately notifies listeners of an event:
+  `watchImmediate` immediately notifies listeners of an event:
 
-```js
-import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
-await watch(
-  'logs',
-  (event) => {
-    console.log('logs directory event', event);
-  },
-  {
-    baseDir: BaseDirectory.AppLog,
-    recursive: true,
-  }
-);
-```
+  ```js
+  import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watch(
+    'logs',
+    (event) => {
+      console.log('logs directory event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      recursive: true,
+    }
+  );
+  ```
+
+By default watch operations on a directory are not recursive.
+Set the `recursive` option to `true` to recursively watch for changes on all sub-directories.
 
 ## Permissions
 
