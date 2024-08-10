@@ -176,6 +176,30 @@ await file.close();
 Always call `file.close()` when you are done manipulating the file.
 :::
 
+### Write
+
+The plugin offers separate APIs for writing text and binary files for performance.
+
+- text files
+
+  ```js
+  import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = JSON.stringify({ notifications: true });
+  await writeTextFile('config.json', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+- binary files
+
+  ```js
+  import { writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = new Uint8Array(); // fill a byte array
+  await writeFile('config', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
 ### Open
 
 Opens a file and returns a handle to it.
@@ -214,7 +238,8 @@ Always call `file.close()` when you are done manipulating the file.
   await file.close();
   ```
 
-  By default the file is truncated. See the following example to learn how to append to the existing contents instead.
+  By default the file is truncated on any `file.write()` call.
+  See the following example to learn how to append to the existing contents instead.
 
 - append
 
@@ -229,6 +254,25 @@ Always call `file.close()` when you are done manipulating the file.
   ```
 
   Note that `{ append: true }` has the same effect as `{ write: true, append: true }`.
+
+- truncate
+
+  When the `truncate` option is set and the file already exists, it will be truncated to length 0.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    truncate: true,
+    baseDir: BaseDirectory.App,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  This option requires `write` to be `true`.
+
+  You can use it along the `append` option if you want to rewrite an existing file using multiple `file.write()` calls.
 
 - create
 
@@ -294,12 +338,12 @@ The plugin offers separate APIs for reading text and binary files for performanc
 
 - binary files
 
-```js
-import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
-const icon = await readFile('icon.png', {
-  baseDir: BaseDirectory.Resources,
-});
-```
+  ```js
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const icon = await readFile('icon.png', {
+    baseDir: BaseDirectory.Resources,
+  });
+  ```
 
 ### Remove
 
@@ -347,6 +391,55 @@ import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
 const metadata = await stat('app.db', {
   baseDir: BaseDirectory.AppLocalData,
 });
+```
+
+### Rename
+
+The `rename` function takes the source and destination paths.
+Note that you must configure each base directory separately.
+
+```js
+import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
+await rename('user.db.bk', 'user.db', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+In the above example the \<app-local-data\>/user.db.bk file is renamed to $TMPDIR/user.db.
+
+### Truncate
+
+Truncates or extends the specified file to reach the specified file length (defaults to 0).
+
+- truncate to 0 length
+
+```typescript
+import { truncate } from '@tauri-apps/plugin-fs';
+await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
+```
+
+- truncate to a specific length
+
+```typescript
+import {
+  truncate,
+  readTextFile,
+  writeTextFile,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
+
+const filePath = 'file.txt';
+await writeTextFile(filePath, 'Hello World', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+await truncate(filePath, 7, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+const data = await readTextFile(filePath, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+console.log(data); // "Hello W"
 ```
 
 ## Directories
