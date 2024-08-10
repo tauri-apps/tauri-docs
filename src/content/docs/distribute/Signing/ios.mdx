@@ -1,0 +1,35 @@
+---
+title: iOS Codesign
+sidebar:
+  label: iOS
+  order: 3
+---
+
+Code signing on iOS requires enrolling to the [Apple Developer] program.
+
+### Continuous Integration (CI)
+
+The easiest way to sign your iOS bundle for distribution on CI systems is to manually provide the certificate and mobile provisioning profile.
+
+## Signing Certificate
+
+After enrolling, navigate to the [Certificates] page to create a new Apple Distribution certificate.
+Download the new certificate and install it to the macOS Keychain.
+
+To export the certificate key, open the "Keychain Access" app, expand the certificate's entry, right-click on the key item and select "Export \<key-name\>" item.
+Select the path of the exported .p12 file and remember its password.
+Run `base64 -i <path-to-certificate.p12> | pbcopy` to convert the certificate to base64 and copy it to the clipboard, and paste that value to the `IOS_CERTIFICATE` environment variable.
+The certificate password must be set to the `IOS_CERTIFICATE_PASSWORD` variable.
+
+## Provisioning Profile
+
+Additionally, you must provide the provisioning profile for your application. In the [Identifiers](https://developer.apple.com/account/resources/identifiers/list) page, create a new App ID and make sure its "Bundle ID" value matches the identifier set in the [`identifier`] configuration.
+
+Navigate to the [Profiles](https://developer.apple.com/account/resources/profiles/list) page to create a new provisioning profile. For App Store distribution, it must be an "App Store Connect" profile. Select the appropriate App ID and link the certificate you previously created.
+
+After creating the provisioning profile, download it and run `base64 -i <path-to-profile.mobileprovision> | pbcopy` to convert the profile to base64 and copy it to the clipboard, and paste that value to the `IOS_MOBILE_PROVISION` environment variable.
+
+Now you can build your iOS application and distribute on the App Store!
+
+[Certificates]: https://developer.apple.com/account/resources/certificates/list
+[Apple Developer]: https://developer.apple.com
