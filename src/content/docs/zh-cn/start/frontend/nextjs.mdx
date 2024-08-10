@@ -78,11 +78,11 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
 
     ```ts
     // next.conf.mjs
-    /** @type {import('next').NextConfig} */
     const isProd = process.env.NODE_ENV === 'production';
 
     const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
 
+    /** @type {import('next').NextConfig} */
     const nextConfig = {
       // 确保 Next.js 使用 SSG 而不是 SSR
       // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports

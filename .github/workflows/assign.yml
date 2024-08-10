@@ -1,7 +1,7 @@
 name: 'Auto Assign'
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened]
 
 jobs:
@@ -10,11 +10,7 @@ jobs:
     steps:
       - name: Auto-assign PR to author
         env:
-          GH_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
-        run: |
-          pr_number=${{ github.event.pull_request.number }}
-          pr_author=${{ github.event.pull_request.user.login }}
-          gh api -X POST \
-            -H "Accept: application/vnd.github+json" \
-            "/repos/${{ github.repository }}/issues/${pr_number}/assignees" \
-            -f assignees='["'${pr_author}'"]'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # The gh cli currently does not consider the pr author an assignable user if they aren't part of the org
+        run: gh api -X POST /repos/tauri-apps/tauri-docs/issues/${{ github.event.pull_request.number }}/assignees -f "assignees[]=${{ github.event.pull_request.user.login }}"
+        #run: gh pr edit ${{ github.event.pull_request.number }} --add-assignee ${{ github.event.pull_request.user.login }} -R ${{ github.repository }}
