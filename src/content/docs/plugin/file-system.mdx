@@ -1,10 +1,6 @@
 ---
 title: File System
 description: Access the file system.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -21,6 +17,8 @@ Access the file system.
 - Windows
 - Linux
 - macOS
+- Android (in progress)
+- iOS (in progress)
 
 ## Setup
 
@@ -126,17 +124,245 @@ fn run() {
 
 ## Security
 
-This module prevents path traversal, not allowing absolute paths or parent dir components (i.e. `/usr/path/to/file` or `../path/to/file` paths are not allowed). Paths accessed with this API must be relative to one of the base directories so if you need access to arbitrary file system paths, you must write such logic on the core layer instead.
+This module prevents path traversal, not allowing parent directory accessors to be used
+(i.e. "/usr/path/to/../file" or "../path/to/file" paths are not allowed).
+Paths accessed with this API must be either relative to one of the [base directories][base directory]
+or created with the [path API].
 
-See [@tauri-apps/plugin-fs - Security](/reference/javascript/fs/#security) for more information.
+See [@tauri-apps/plugin-fs - Security] for more information.
+
+## Paths
+
+The file system plugin offers two ways of manipulating paths: the [base directory] and the [path API].
+
+- base directory
+
+Every API has an options argument that lets you define a [baseDir][base directory] that acts as the working directory of the operation.
+
+```js
+import { readFile } from '@tauri-apps/plugin-fs';
+const contents = await readFile('avatars/tauri.png', {
+  baseDir: BaseDirectory.Home,
+});
+```
+
+In the above example the ~/avatars/tauri.png file is read since we are using the **Home** base directory.
+
+- path API
+
+Alternatively you can use the path APIs to perform path manipulations.
+
+```js
+import { readFile } from '@tauri-apps/plugin-fs';
+import * as path from '@tauri-apps/api/path';
+const home = await path.homeDir();
+const contents = await readFile(await path.join(home, 'avatars/tauri.png'));
+```
+
+## Files
+
+### Create
+
+Creates a file and returns a handle to it. If the file already exists, it is truncated.
+
+```js
+import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
+const file = await create('foo/bar.txt', { baseDir: BaseDirectory.App });
+await file.write(new TextEncoder().encode('Hello world'));
+await file.close();
+```
+
+### Read
+
+The plugin offers separate APIs for reading text and binary files for performance.
+
+- text files
+
+```js
+import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+const configToml = await readTextFile('config.toml', {
+  baseDir: BaseDirectory.AppConfig,
+});
+```
+
+If the file is large you can stream its lines with the `readTextFileLines` API:
+
+```typescript
+import { readTextFileLines, BaseDirectory } from '@tauri-apps/plugin-fs';
+const lines = await readTextFileLines('app.logs', {
+  baseDir: BaseDirectory.AppLog,
+});
+for await (const line of lines) {
+  console.log(line);
+}
+```
+
+- binary files
+
+```js
+import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+const icon = await readFile('icon.png', {
+  baseDir: BaseDirectory.Resources,
+});
+```
+
+### Remove
+
+Call `remove()` to delete a file. If the file does not exist, an error is returned.
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('user.db', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Copy
+
+The `copyFile` function takes the source and destination paths.
+Note that you must configure each base directory separately.
+
+```js
+import { copyFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+await copyFile('user.db', 'user.db.bk', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+In the above example the \<app-local-data\>/user.db file is copied to $TMPDIR/user.db.bk.
+
+### Exists
+
+Use the `exists()` function to check if a file exists:
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('token', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Metadata
+
+File metadata can be retrieved with the `stat` and the `lstat` functions.
+`stat` follows symlinks (and returns an error if the actual file it points to is not allowed by the scope)
+and `lstat` does not follow symlinks, returning the information of the symlink itself.
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('app.db', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+## Directories
+
+### Create
+
+To create a directory, call the `mkdir` function:
+
+```js
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Read
+
+The `readDir` function recursively lists the entries of a directory:
+
+```typescript
+import { readDir, BaseDirectory } from '@tauri-apps/plugin-fs';
+const entries = await readDir('users', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Remove
+
+Call `remove()` to delete a directory. If the directory does not exist, an error is returned.
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', { baseDir: BaseDirectory.AppLocalData });
+```
+
+If the directory is not empty, the `recursive` option must be set to `true`:
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', {
+  baseDir: BaseDirectory.AppLocalData,
+  recursive: true,
+});
+```
+
+### Exists
+
+Use the `exists()` function to check if a directory exists:
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Metadata
+
+Directory metadata can be retrieved with the `stat` and the `lstat` functions.
+`stat` follows symlinks (and returns an error if the actual file it points to is not allowed by the scope)
+and `lstat` does not follow symlinks, returning the information of the symlink itself.
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('databases', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+## Watching changes
+
+To watch a directory or file for changes, use the `watch` or `watchImmediate` functions.
+
+- watch
+
+`watch` is debounced so it only emits events after a certain delay:
+
+```js
+import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+await watch(
+  'app.log',
+  (event) => {
+    console.log('app.log event', event);
+  },
+  {
+    baseDir: BaseDirectory.AppLog,
+  }
+);
+```
+
+- watchImmediate
+
+`watchImmediate` immediately notifies listeners of an event:
+
+```js
+import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+await watch(
+  'logs',
+  (event) => {
+    console.log('logs directory event', event);
+  },
+  {
+    baseDir: BaseDirectory.AppLog,
+    recursive: true,
+  }
+);
+```
 
 ## Permissions
 
 By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
-
-See the [Capabilities Overview](/security/capabilities/) for more information.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {
@@ -195,3 +421,7 @@ To allow specific `fs` command to access specific scopes:
   ]
 }
 ```
+
+[base directory]: /reference/javascript/api/namespacepath/#basedirectory
+[path API]: reference/javascript/api/namespacepath
+[@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
