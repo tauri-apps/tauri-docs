@@ -9,6 +9,7 @@ tableOfContents:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="dialog" />
 
@@ -304,3 +305,5 @@ app.dialog()
         // return a file_path `Option`, or `None` if the user closes the dialog
     });
 ```
+
+<PluginPermissions plugin="dialog" />

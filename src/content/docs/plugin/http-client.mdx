@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="http" />
 
@@ -121,3 +122,5 @@ let res = reqwest::get("http://my.api.host/data.json").await;
 println!("{:?}", res.status()); // e.g. 200
 println!("{:?}", res.text().await); // e.g Ok("{ Content }")
 ```
+
+<PluginPermissions plugin="http" />
