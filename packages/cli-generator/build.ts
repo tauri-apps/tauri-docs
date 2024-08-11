@@ -32,7 +32,9 @@ function getSubcommands(commandOutput: string): Command[] {
 }
 
 function generateCommandDoc(command: string, level: number, subcommandList: Command[]): string {
-  const output = execSync(`pnpm tauri ${command} --help`).toString().replace('pnpm tauri', 'tauri');
+  const output = execSync(`pnpm tauri ${command} --help`)
+    .toString()
+    .replace('pnpm run build', 'tauri');
   const subcommands = getSubcommands(output);
 
   subcommandList.push(
