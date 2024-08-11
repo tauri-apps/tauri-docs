@@ -1,0 +1,150 @@
+---
+title: 定位器（Positioner）
+description: 将窗口移动到公共位置。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="positioner" />
+
+把窗口放在你熟悉的地方。
+
+这个插件是 [electron-positioner](https://github.com/jenslind/electron-positioner) 的 Tauri 版本。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+请安装定位器插件。
+
+:::note
+如果你只想从 Rust 代码中移动窗口，你只需要 `src-tauri/Cargo.toml` 中的依赖，并且如果你选择自动安装，可以从 `lib.rs` 中删除插件注册。
+:::
+
+<Tabs>
+	<TabItem label="自动" >
+
+    	使用项目的包管理器来添加依赖。
+
+    	{ ' ' }
+
+    	<CommandTabs
+    		npm="npm run tauri add positioner"
+    		yarn="yarn run tauri add positioner"
+    		pnpm="pnpm tauri add positioner"
+    		bun="bun tauri add positioner"
+    		cargo="cargo tauri add positioner"
+    	/>
+
+    </TabItem>
+    <TabItem label = "手动">
+    	<Steps>
+    	1. 在你的 `Cargo.toml` 文件中添加以下内容来安装定位器插件。
+
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-positioner = "2.0.0-rc"
+    		# 或者使用 Git：
+    		tauri-plugin-positioner = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
+
+    	2. 修改 `lib.rs` 来初始化插件。
+
+    		```rust title="src-tauri/src/lib.rs" ins={3}
+    		fn run() {
+    		    tauri::Builder::default()
+    		        .plugin(tauri_plugin_positioner::init())
+    		        .run(tauri::generate_context!())
+    		        .expect("error while running tauri application");
+    		}
+    		```
+
+    	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  			<CommandTabs
+				npm="npm install @tauri-apps/plugin-positioner"
+				yarn="yarn add @tauri-apps/plugin-positioner"
+				pnpm="pnpm add @tauri-apps/plugin-positioner"
+				bun="bun add @tauri-apps/plugin-positioner"
+			/>
+		</Steps>
+	</TabItem>
+</Tabs>
+
+需要额外的设置才能使托盘相对位置工作。
+
+<Steps>
+	1. 在你的 `Cargo.toml` 文件中添加 `tray-icon` 功能。
+		```toml title="src-tauri/Cargo.toml" ins={2}
+		[dependencies]
+		tauri-plugin-positioner = { version = "2.0.0-rc", features = ["tray-icon"] }
+		```
+
+    2. 为定位器插件设置 `on_tray_event`。
+    	```rust title="src-tauri/src/lib.rs" ins={4-12}
+    	fn run() {
+    		tauri::Builder::default()
+    			.plugin(tauri_plugin_positioner::init())
+    			// This is required to get tray-relative positions to work
+    			.setup(|app| {
+    				TrayIconBuilder::new()
+    					.on_tray_icon_event(|app, event| {
+    						tauri_plugin_positioner::on_tray_event(app.app_handle(), &event);
+    					})
+    					.build(app)?;
+    				Ok(())
+    			})
+    			.run(tauri::generate_context!())
+    			.expect("error while running tauri application");
+    	}
+    	```
+
+</Steps>
+
+## 用法
+
+插件的 API 可以通过 JavaScript Guest 绑定获得。
+
+```javascript
+import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
+
+moveWindow(Position.TopRight);
+```
+
+你可以直接通过 Rust 导入和使用 Window trait 扩展。
+
+```rust
+use tauri_plugin_positioner::{WindowExt, Position};
+
+let mut win = app.get_webview_window("main").unwrap();
+let _ = win.as_ref().window().move_window(Position::TopRight);
+```
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "positioner:default",
+  ]
+}
+```
+
+| 权限                           | 描述                                                  |
+| ------------------------------ | ----------------------------------------------------- |
+| `positioner:allow-move-window` | 在没有预先配置的作用域的情况下启用 move_window 命令。 |
+| `positioner:deny-move-window`  | 拒绝没有任何预配置范围的 move_window 命令。           |
+| `positioner:default`           | 允许 move_window 命令。                               |

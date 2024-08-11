@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="window-state" />
 
@@ -35,10 +36,11 @@ Use your project's package manager to add the dependency:
 {' '}
 
 <CommandTabs
-	npm="npm run tauri add window-state"
-	yarn="yarn run tauri add window-state"
-	pnpm="pnpm tauri add window-state"
-	cargo="cargo tauri add window-state"
+  npm="npm run tauri add window-state"
+  yarn="yarn run tauri add window-state"
+  pnpm="pnpm tauri add window-state"
+  bun="bun tauri add window-state"
+  cargo="cargo tauri add window-state"
 />
 
   </TabItem>
@@ -49,7 +51,7 @@ Use your project's package manager to add the dependency:
 
         ```toml title="src-tauri/Cargo.toml"
         [dependencies]
-        tauri-plugin-window-state = "2.0.0-beta"
+        tauri-plugin-window-state = "2.0.0-rc"
         # alternatively with Git:
         tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
         ```
@@ -71,6 +73,7 @@ Use your project's package manager to add the dependency:
             npm="npm install @tauri-apps/plugin-window-state"
             yarn="yarn add @tauri-apps/plugin-window-state"
             pnpm="pnpm add @tauri-apps/plugin-window-state"
+            bun="bun add @tauri-apps/plugin-window-state"
         />
 
       </Steps>
@@ -90,6 +93,8 @@ You can use `saveWindowState` to manually save the window state:
 
 ```javascript
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { saveWindowState, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 saveWindowState(StateFlags.ALL);
 ```
@@ -98,9 +103,11 @@ Similarly you can manually restore a window's state from disk:
 
 ```javascript
 import {
-	restoreStateCurrent,
-	StateFlags,
+  restoreStateCurrent,
+  StateFlags,
 } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { restoreStateCurrent, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
 
 restoreStateCurrent(StateFlags.ALL);
 ```
@@ -127,10 +134,9 @@ window.restore_state(StateFlags::all()); // will restore the window's state from
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={4-5}
 {
@@ -142,9 +148,4 @@ See [Access Control List](/reference/acl/) for more information.
 }
 ```
 
-| Permission                                | Description                                                                |
-| ----------------------------------------- | -------------------------------------------------------------------------- |
-| `window-state:allow-restore-state`        | Enables the restore_state command without any pre-configured scope.        |
-| `window-state:deny-restore-state`         | Denies the restore_state command without any pre-configured scope.         |
-| `window-state:allow-save-window-state`    | Enables the save_window_state command without any pre-configured scope.    |
-| `window-state:deny-save-window-state`     | Denies the save_window_state command without any pre-configured scope.     |
+<PluginPermissions plugin="window-state" />

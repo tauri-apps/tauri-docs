@@ -1,0 +1,221 @@
+---
+title: 窗口自定义
+tableOfContents:
+  maxHeadingLevel: 4
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创建自定义标题栏、透明窗口、强制大小约束等。
+
+## 配置
+
+有三种方法可以修改 Window 的配置。
+
+- <Icon name="external" class="inline-icon" /> [通过
+  tauri.conf.json](/reference/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [通过 JavaScript
+  API](/reference/javascript/api/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [通过 Rust 的
+  Window](https://docs.rs/tauri/2.0.0-rc/tauri/window/struct.Window.html)
+
+## 用法
+
+- [创建自定义标题栏](#创建自定义标题栏)
+- [（macOS） 具有自定义窗口背景颜色的透明标题栏](#macos-具有自定义窗口背景颜色的透明标题栏)
+
+### 创建自定义标题栏
+
+这些窗口特性的一个常用用途是创建自定义标题栏。这篇简短的教程将指导你完成这个过程。
+
+:::note
+对于 macOS，使用自定义标题栏也会失去系统提供的某些功能，比如[移动或对齐窗口](https：//support.apple.com/start/mac-help/work-with-app-windows-mchlp2469/mac)。
+另一种自定义标题栏但保留原生功能的方法是使标题栏透明并设置窗口背景色，参见 [（macOS） 具有自定义窗口背景颜色的透明标题栏](#macos-具有自定义窗口背景颜色的透明标题栏)的用法。
+:::
+
+#### tauri.conf.json
+
+在你的 `tauri.conf.json` 文件中将 `decorations` 设置为 `false`。
+
+```json title="tauri.conf.json" {4}
+"tauri": {
+	"windows": [
+		{
+			"decorations": false
+		}
+	]
+}
+```
+
+#### 权限
+
+在能力（capability）文件中添加窗口权限。
+
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={7-8}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["window:default", "window:allow-start-dragging"]
+}
+```
+
+| 权限                                    | 描述                                                               |
+| --------------------------------------- | ------------------------------------------------------------------ |
+| `window:default`                        | 插件的默认权限。除了 `window:allow-start-dragging`。               |
+| `window:allow-close`                    | 在没有预先配置作用域的情况下，启用 close 命令。                    |
+| `window:allow-minimize`                 | 在没有预先配置作用域的情况下，启用 minimize 命令。                 |
+| `window:allow-start-dragging`           | 在没有预先配置作用域的情况下，启用 start_dragging 命令。           |
+| `window:allow-toggle-maximize`          | 在没有预先配置作用域的情况下，启用 toggle_maximize 命令。          |
+| `window:allow-internal-toggle-maximize` | 在没有预先配置作用域的情况下，启用 internal_toggle_maximize 命令。 |
+
+#### CSS
+
+添加下面的 CSS 示例，使其保持在屏幕顶部，并为按钮添加样式。
+
+```css
+.titlebar {
+  height: 30px;
+  background: #329ea3;
+  user-select: none;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.titlebar-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.titlebar-button:hover {
+  background: #5bbec3;
+}
+```
+
+#### HTML
+
+将以下内容放在 `<body>` 标签的顶部。
+
+```html
+<div data-tauri-drag-region class="titlebar">
+  <div class="titlebar-button" id="titlebar-minimize">
+    <img
+      src="https://api.iconify.design/mdi:window-minimize.svg"
+      alt="minimize"
+    />
+  </div>
+  <div class="titlebar-button" id="titlebar-maximize">
+    <img
+      src="https://api.iconify.design/mdi:window-maximize.svg"
+      alt="maximize"
+    />
+  </div>
+  <div class="titlebar-button" id="titlebar-close">
+    <img src="https://api.iconify.design/mdi:close.svg" alt="close" />
+  </div>
+</div>
+```
+
+请注意，你可能需要将其余内容向下移动，以免标题栏覆盖它。
+
+#### JavaScript
+
+使用下面的代码片段来实现按钮。
+
+```javascript
+import { Window } from '@tauri-apps/api/window';
+
+const appWindow = new Window('main');
+
+document
+  .getElementById('titlebar-minimize')
+  ?.addEventListener('click', () => appWindow.minimize());
+document
+  .getElementById('titlebar-maximize')
+  ?.addEventListener('click', () => appWindow.toggleMaximize());
+document
+  .getElementById('titlebar-close')
+  ?.addEventListener('click', () => appWindow.close());
+```
+
+### （macOS） 具有自定义窗口背景颜色的透明标题栏
+
+我们将创建主窗口，并从 Rust 侧更改其背景颜色。
+
+从 `tauri.conf.json` 文件中删除主窗口
+
+    ```json title="tauri.conf.json" del={3-7}
+    "tauri": {
+    	"windows": [
+    		{
+    			"title": "Transparent Titlebar Window",
+    			"width": 800,
+    			"height": 600
+    		}
+    	],
+    }
+    ```
+
+添加 `cocoa` crate 到依赖中，这样我们就可以使用它来调用 macOS 原生 API。
+
+    ```toml title="src-tauri/Cargo.toml"
+    [target."cfg(target_os = \"macos\")".dependencies]
+    cocoa = "0.25"
+    ```
+
+创建主窗口并更改其背景颜色。
+
+    ```rust title="src-tauri/src/lib.rs"
+    use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
+
+    fn run() {
+    	tauri::Builder::default()
+    		.setup(|app| {
+    			let win_builder =
+    				WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
+    					.title("Transparent Titlebar Window")
+    					.inner_size(800.0, 600.0);
+
+    			// 仅在 macOS 时设置透明标题栏
+    			#[cfg(target_os = "macos")]
+    			let win_builder = win_builder.title_bar_style(TitleBarStyle::Transparent);
+
+    			let window = win_builder.build().unwrap();
+
+    			// 仅在构建 macOS 时设置背景颜色
+    			#[cfg(target_os = "macos")]
+    			{
+    				use cocoa::appkit::{NSColor, NSWindow};
+    				use cocoa::base::{id, nil};
+
+    				let ns_window = window.ns_window().unwrap() as id;
+    				unsafe {
+    					let bg_color = NSColor::colorWithRed_green_blue_alpha_(
+    							nil,
+    							50.0 / 255.0,
+    							158.0 / 255.0,
+    							163.5 / 255.0,
+    							1.0,
+    					);
+    					ns_window.setBackgroundColor_(bg_color);
+    				}
+    			}
+
+    			Ok(())
+    		})
+    		.run(tauri::generate_context!())
+    		.expect("error while running tauri application");
+    }
+    ```

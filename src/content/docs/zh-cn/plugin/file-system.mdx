@@ -1,0 +1,493 @@
+---
+title: 文件系统
+description: 访问文件系统。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="fs" />
+
+访问文件系统。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+安装 fs 插件开始。
+
+<Tabs>
+  <TabItem label="自动" >
+
+使用项目的包管理器来添加依赖：
+
+{ ' ' }
+
+<CommandTabs
+  npm="npm run tauri add fs"
+  yarn="yarn run tauri add fs"
+  pnpm="pnpm tauri add fs"
+  bun="bun tauri add fs"
+  cargo="cargo tauri add fs"
+/>
+
+  </TabItem>
+  <TabItem label = "手动">
+
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装 fs 插件。
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-fs = "2.0.0-rc"
+# 或者使用 Git：
+tauri-plugin-fs = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+	  npm="npm install @tauri-apps/plugin-fs"
+	  yarn="yarn add @tauri-apps/plugin-fs"
+	  pnpm="pnpm add @tauri-apps/plugin-fs"
+	  bun="bun add @tauri-apps/plugin-fs"
+	/>
+  </TabItem>
+</Tabs>
+
+## 用法
+
+fs 插件有 JavaScript 和 Rust 两种版本。
+
+<Tabs>
+  <TabItem label="JavaScript" >
+
+```javascript
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+
+// 检查 `$APPDATA/avatar.png` 文件是否存在
+await exists('avatar.png', { baseDir: BaseDirectory.AppData });
+```
+
+  </TabItem>
+  <TabItem label = "Rust" >
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_fs::FsExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+  tauri::Builder::default()
+      .plugin(tauri_plugin_fs::init())
+      .setup(|app| {
+          // 允许指定目录
+          let scope = app.fs_scope();
+        	scope.allow_directory("/path/to/directory", false);
+          dbg!(scope.allowed());
+
+          Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 安全
+
+这个模块阻止路径遍历，不允许绝对路径或父目录组件（即 `/usr/path/to/file` 或 `../path/to/file` 路径是不允许的）。使用这个 API 访问的路径必须相对于一个基本目录，因此如果你需要访问任意的文件系统路径，你必须在核心层上编写这样的逻辑。
+
+更多信息请参见 [@tauri-apps/plugin-fs - Security](/reference/javascript/fs/#security)。
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+### 默认权限
+
+这个配置文件定义了授予文件系统的默认权限。
+
+#### 授予的权限
+
+这个默认权限设置启用了所有与读相关的命令，并允许访问 `$APP` 文件夹和在其中创建的子目录。 `$APP` 文件夹的位置取决于应用程序运行的操作系统。
+
+通常情况下，在访问其中的文件或文件夹之前，需要在运行时由应用程序手动创建 `$APP` 文件夹。
+
+#### 拒绝的权限
+
+这个默认权限设置默认阻止访问 Tauri 应用程序的关键组件。在 Windows 上，webview 数据文件夹访问被拒绝。
+
+| 权限              | 描述                                                    |
+| ----------------- | ------------------------------------------------------- |
+| `fs:default`      |                                                         |
+| `fs:deny-default` | 默认情况下拒绝访问与 Tauri 相关文件和文件夹的危险操作。 |
+
+### 作用域范围
+
+| 权限                                    | 描述                                                                                                                                                    |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fs:allow-app-read-recursive`           | 这允许对完整的 `$APP` 文件夹、文件和子目录进行完全递归读访问。                                                                                          |
+| `fs:allow-app-write-recursive`          | 这个允许对整个 `$APP` 文件夹、文件和子目录的完全递归写访问。                                                                                            |
+| `fs:allow-app-read`                     | 这个允许对 `$APP` 文件夹的非递归读访问。                                                                                                                |
+| `fs:allow-app-write`                    | 这个允许对 `$APP` 文件夹的非递归写访问。                                                                                                                |
+| `fs:allow-app-meta-recursive`           | 这允许读取 `$APP` 文件夹的元数据，包括文件列表和统计信息。                                                                                              |
+| `fs:allow-app-meta`                     | 这允许读取 `$APP` 文件夹的元数据，包括文件列表和统计信息。                                                                                              |
+| `fs:scope-app-recursive`                | 这个作用域可以递归访问整个 `$APP` 文件夹，包括子目录和文件。                                                                                            |
+| `fs:scope-app`                          | 这个作用域允许访问 `$APP` 文件夹中的所有文件和顶级目录的列表内容。                                                                                      |
+| `fs:scope-app-index`                    | 这个作用域允许列出 `$APP` 文件夹中的所有文件和文件夹。                                                                                                  |
+| `fs:allow-appcache-read-recursive`      | 这个允许完全递归读取整个 `$APPCACHE` 文件夹、文件和子目录。                                                                                             |
+| `fs:allow-appcache-write-recursive`     | 这个允许完全递归写入整个 `$APPCACHE` 文件夹、文件和子目录。                                                                                             |
+| `fs:allow-appcache-read`                | 这个允许非递归读取 `$APPCACHE` 文件夹。                                                                                                                 |
+| `fs:allow-appcache-write`               | 这允许对 `$APPCACHE` 文件夹进行非递归写访问。                                                                                                           |
+| `fs:allow-appcache-meta-recursive`      | 这允许读取 `$APPCACHE` 文件夹的元数据，包括文件列表和统计信息。                                                                                         |
+| `fs:allow-appcache-meta`                | 这允许读取 `$APPCACHE` 文件夹的元数据，包括文件列表和统计信息。                                                                                         |
+| `fs:scope-appcache-recursive`           | 这个作用域递归访问整个 `$APPCACHE` 文件夹，包括子目录和文件。                                                                                           |
+| `fs:scope-appcache`                     | 这个作用域允许访问 `$APPCACHE` 文件夹中的所有文件和顶级目录的内容列表                                                                                   |
+| `fs:scope-appcache-index`               | 这个范围允许列出 `$APPCACHE` 文件夹中的所有文件和文件夹。                                                                                               |
+| `fs:allow-appconfig-read-recursive`     | 这个选项允许对整个 `$APPCONFIG` 文件夹、文件和子目录进行完全递归读取访问。                                                                              |
+| `fs:allow-appconfig-write-recursive`    | 这个选项允许对整个 `$APPCONFIG` 文件夹、文件和子目录进行完全递归写入访问。                                                                              |
+| `fs:allow-appconfig-read`               | 这个选项允许对 `$APPCONFIG` 文件夹进行非递归读取访问。                                                                                                  |
+| `fs:allow-appconfig-write`              | 这个选项允许对 `$APPCONFIG` 文件夹进行非递归写入访问。                                                                                                  |
+| `fs:allow-appconfig-meta-recursive`     | 这允许读取 `$APPCONFIG` 文件夹的元数据，包括文件列表和统计信息。                                                                                        |
+| `fs:allow-appconfig-meta`               | 这允许读取 `$APPCONFIG` 文件夹的元数据，包括文件列表和统计信息。                                                                                        |
+| `fs:scope-appconfig-recursive`          | 这个作用域递归访问完整的 `$APPCONFIG` 文件夹，包括子目录和文件。                                                                                        |
+| `fs:scope-appconfig`                    | 这个作用域允许访问 `$APPCONFIG` 文件夹中的所有文件和顶级目录的内容列表                                                                                  |
+| `fs:scope-appconfig-index`              | 这个作用域允许列出 `$APPCONFIG` 文件夹中的所有文件和文件夹。                                                                                            |
+| `fs:allow-appdata-read-recursive`       | 这允许对完整的 `$APPDATA` 文件夹、文件和子目录进行完全递归读访问。                                                                                      |
+| `fs:allow-appdata-write-recursive`      | 这允许对完整的 `$APPDATA` 文件夹、文件和子目录进行完全递归写访问。                                                                                      |
+| `fs:allow-appdata-read`                 | 这允许对 `$APPDATA` 文件夹进行非递归读访问。                                                                                                            |
+| `fs:allow-appdata-write`                | 这允许对 `$APPDATA` 文件夹进行非递归写访问。                                                                                                            |
+| `fs:allow-appdata-meta-recursive`       | 这允许读取 `$APPDATA` 文件夹的元数据，包括文件列表和统计信息。                                                                                          |
+| `fs:allow-appdata-meta`                 | 这允许读取 `$APPDATA` 文件夹的元数据，包括文件列表和统计信息。                                                                                          |
+| `fs:scope-appdata-recursive`            | 这个作用域递归访问完整的 `$APPDATA` 文件夹，包括子目录和文件。                                                                                          |
+| `fs:scope-appdata`                      | 这个作用域允许访问 `$APPDATA` 文件夹中的所有文件和顶级目录的内容列表。                                                                                  |
+| `fs:scope-appdata-index`                | 这个作用域允许列出 `$APPDATA` 文件夹中的所有文件和文件夹。                                                                                              |
+| `fs:allow-applocaldata-read-recursive`  | 这个选项允许对整个 `$APPLOCALDATA` 文件夹、文件和子目录进行完全递归读取访问。                                                                           |
+| `fs:allow-applocaldata-write-recursive` | 这个选项允许对整个 `$APPLOCALDATA` 文件夹、文件和子目录进行完全递归写入访问。                                                                           |
+| `fs:allow-applocaldata-read`            | 这个选项允许对 `$APPLOCALDATA` 文件夹进行非递归读取访问。                                                                                               |
+| `fs:allow-applocaldata-write`           | 这个选项允许对 `$APPLOCALDATA` 文件夹进行非递归写入访问。                                                                                               |
+| `fs:allow-applocaldata-meta-recursive`  | 这允许读取访问元数据的`$APPLOCALDATA`文件夹，包括文件列表和统计数据。                                                                                   |
+| `fs:allow-applocaldata-meta`            | 这允许读取访问元数据的`$APPLOCALDATA`文件夹，包括文件列表和统计数据。                                                                                   |
+| `fs:scope-applocaldata-recursive`       | 这个作用域递归访问完整的`$APPLOCALDATA`文件夹，包括子目录和文件。                                                                                       |
+| `fs:scope-applocaldata`                 | 这个作用域允许访问所有文件和`$APPLOCALDATA`文件夹中顶级目录的内容列表。                                                                                 |
+| `fs:scope-applocaldata-index`           | 这个作用域允许列出`$APPLOCALDATA`文件夹中的所有文件和文件夹。                                                                                           |
+| `fs:allow-applog-read-recursive`        | 这允许对完整的 `$APPLOG` 文件夹、文件和子目录进行完全递归读访问。                                                                                       |
+| `fs:allow-applog-write-recursive`       | 这允许对完整的 `$APPLOG` 文件夹、文件和子目录进行完全递写访问。                                                                                         |
+| `fs:allow-applog-read`                  | 这允许对 `$APPLOG` 文件夹进行非递归读访问。                                                                                                             |
+| `fs:allow-applog-write`                 | 这允许对 `$APPLOG` 文件夹进行非递归写访问。                                                                                                             |
+| `fs:allow-applog-meta-recursive`        | 这允许读取 `$APPLOG` 文件夹的元数据，包括文件列表和统计信息。                                                                                           |
+| `fs:allow-applog-meta`                  | 这允许读取 `$APPLOG` 文件夹的元数据，包括文件列表和统计信息。                                                                                           |
+| `fs:scope-applog-recursive`             | 这个作用域递归访问完整的 `$APPLOG` 文件夹，包括子目录和文件。                                                                                           |
+| `fs:scope-applog`                       | 这个作用域允许访问 `$APPLOG` 文件夹中的所有文件和顶级目录的内容列表。                                                                                   |
+| `fs:scope-applog-index`                 | 这个作用域允许列出 `$APPLOG` 文件夹中的所有文件和文件夹。                                                                                               |
+| `fs:allow-audio-read-recursive`         | 这个允许对完整的 `$AUDIO` 文件夹、文件和子目录进行完全递归读访问。                                                                                      |
+| `fs:allow-audio-write-recursive`        | 这个允许对完整的 `$AUDIO` 文件夹、文件和子目录进行完全递归写访问。                                                                                      |
+| `fs:allow-audio-read`                   | 这个允许对 `$AUDIO` 文件夹进行非递归读访问。                                                                                                            |
+| `fs:allow-audio-write`                  | 这个允许对 `$AUDIO` 文件夹进行非递归写访问。                                                                                                            |
+| `fs:allow-audio-meta-recursive`         | 这个允许对 `$AUDIO` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                  |
+| `fs:allow-audio-meta`                   | 这个允许对 `$AUDIO` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                  |
+| `fs:scope-audio-recursive`              | 这个作用域递归访问完整的 `$AUDIO` 文件夹，包括子目录和文件。                                                                                            |
+| `fs:scope-audio`                        | 这个作用域允许访问 `$AUDIO` 文件夹中的所有文件和顶级目录的列表内容。                                                                                    |
+| `fs:scope-audio-index`                  | 这个作用域允许列出 `$AUDIO` 文件夹中的所有文件和文件夹。                                                                                                |
+| `fs:allow-cache-read-recursive`         | 这个允许对完整的 `$CACHE` 文件夹、文件和子目录进行完全递归读访问。                                                                                      |
+| `fs:allow-cache-write-recursive`        | 这个允许对完整的 `$CACHE` 文件夹、文件和子目录进行完全递归写访问。                                                                                      |
+| `fs:allow-cache-read`                   | 这个允许对 `$CACHE` 文件夹进行非递归读访问。                                                                                                            |
+| `fs:allow-cache-write`                  | 这个允许对 `$CACHE` 文件夹进行非递归写访问。                                                                                                            |
+| `fs:allow-cache-meta-recursive`         | 这个允许对 `$CACHE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                  |
+| `fs:allow-cache-meta`                   | 这个允许对 `$CACHE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                  |
+| `fs:scope-cache-recursive`              | 这个作用域递归访问完整的 `$CACHE` 文件夹，包括子目录和文件。                                                                                            |
+| `fs:scope-cache`                        | 这个作用域允许访问 `$CACHE` 文件夹中的所有文件和顶级目录的列表内容。                                                                                    |
+| `fs:scope-cache-index`                  | 这个作用域允许列出 `$CACHE` 文件夹中的所有文件和文件夹。                                                                                                |
+| `fs:allow-config-read-recursive`        | 这个允许对完整的 `$CONFIG` 文件夹、文件和子目录进行完全递归读访问。                                                                                     |
+| `fs:allow-config-write-recursive`       | 这个允许对完整的 `$CONFIG` 文件夹、文件和子目录进行完全递归写访问。                                                                                     |
+| `fs:allow-config-read`                  | 这个允许对 `$CONFIG` 文件夹进行非递归读访问。                                                                                                           |
+| `fs:allow-config-write`                 | 这个允许对 `$CONFIG` 文件夹进行非递归写访问。                                                                                                           |
+| `fs:allow-config-meta-recursive`        | 这个允许对 `$CONFIG` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                 |
+| `fs:allow-config-meta`                  | 这个允许对 `$CONFIG` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                 |
+| `fs:scope-config-recursive`             | 这个作用域递归访问完整的 `$CONFIG` 文件夹，包括子目录和文件。                                                                                           |
+| `fs:scope-config`                       | 这个作用域允许访问 `$CONFIG` 文件夹中的所有文件和顶级目录的列表内容。                                                                                   |
+| `fs:scope-config-index`                 | 这个作用域允许列出 `$CONFIG` 文件夹中的所有文件和文件夹。                                                                                               |
+| `fs:allow-data-read-recursive`          | 这个允许对完整的 `$DATA` 文件夹、文件和子目录进行完全递归读访问。                                                                                       |
+| `fs:allow-data-write-recursive`         | 这个允许对完整的 `$DATA` 文件夹、文件和子目录进行完全递归写访问。                                                                                       |
+| `fs:allow-data-read`                    | 这个允许对 `$DATA` 文件夹进行非递归读访问。                                                                                                             |
+| `fs:allow-data-write`                   | 这个允许对 `$DATA` 文件夹进行非递归写访问。                                                                                                             |
+| `fs:allow-data-meta-recursive`          | 这个允许对 `$DATA` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:allow-data-meta`                    | 这个允许对 `$DATA` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:scope-data-recursive`               | 这个作用域递归访问完整的 `$DATA` 文件夹，包括子目录和文件。                                                                                             |
+| `fs:scope-data`                         | 这个作用域允许访问 `$DATA` 文件夹中的所有文件和顶级目录的列表内容。                                                                                     |
+| `fs:scope-data-index`                   | 这个作用域允许列出 `$DATA` 文件夹中的所有文件和文件夹。                                                                                                 |
+| `fs:allow-desktop-read-recursive`       | 这个允许对整个 `$DESKTOP` 文件夹、文件和子目录进行完全递归读访问。                                                                                      |
+| `fs:allow-desktop-write-recursive`      | 这个允许对整个 `$DESKTOP` 文件夹、文件和子目录进行完全递归写访问。                                                                                      |
+| `fs:allow-desktop-read`                 | 这个允许对 `$DESKTOP` 文件夹进行非递归读访问。                                                                                                          |
+| `fs:allow-desktop-write`                | 这个允许对 `$DESKTOP` 文件夹进行非递归写访问。                                                                                                          |
+| `fs:allow-desktop-meta-recursive`       | 这个允许对 `$DESKTOP` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                |
+| `fs:allow-desktop-meta`                 | 这个允许对 `$DESKTOP` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                |
+| `fs:scope-desktop-recursive`            | 这个作用域递归访问整个 `$DESKTOP` 文件夹，包括子目录和文件。                                                                                            |
+| `fs:scope-desktop`                      | 这个作用域允许访问 `$DESKTOP` 文件夹中的所有文件和顶级目录的列表内容。                                                                                  |
+| `fs:scope-desktop-index`                | 这个作用域允许列出 `$DESKTOP` 文件夹中的所有文件和文件夹。                                                                                              |
+| `fs:allow-document-read-recursive`      | 这个允许对完整的 `$DOCUMENT` 文件夹、文件和子目录进行完全递归读访问。                                                                                   |
+| `fs:allow-document-write-recursive`     | 这个允许对完整的 `$DOCUMENT` 文件夹、文件和子目录进行完全递归写访问。                                                                                   |
+| `fs:allow-document-read`                | 这个允许对 `$DOCUMENT` 文件夹进行非递归读访问。                                                                                                         |
+| `fs:allow-document-write`               | 这个允许对 `$DOCUMENT` 文件夹进行非递归写访问。                                                                                                         |
+| `fs:allow-document-meta-recursive`      | 这个允许对 `$DOCUMENT` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:allow-document-meta`                | 这个允许对 `$DOCUMENT` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:scope-document-recursive`           | 这个作用域递归访问完整的 `$DOCUMENT` 文件夹，包括子目录和文件。                                                                                         |
+| `fs:scope-document`                     | 这个作用域允许访问 `$DOCUMENT` 文件夹中的所有文件和顶级目录的列表内容。                                                                                 |
+| `fs:scope-document-index`               | 这个作用域允许列出 `$DOCUMENT` 文件夹中的所有文件和文件夹。                                                                                             |
+| `fs:allow-download-read-recursive`      | 这个允许对完整的 `$DOWNLOAD` 文件夹、文件和子目录进行完全递归读访问。                                                                                   |
+| `fs:allow-download-write-recursive`     | 这个允许对完整的 `$DOWNLOAD` 文件夹、文件和子目录进行完全递归写访问。                                                                                   |
+| `fs:allow-download-read`                | 这个允许对 `$DOWNLOAD` 文件夹进行非递归读访问。                                                                                                         |
+| `fs:allow-download-write`               | 这个允许对 `$DOWNLOAD` 文件夹进行非递归写访问。                                                                                                         |
+| `fs:allow-download-meta-recursive`      | 这个允许对 `$DOWNLOAD` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:allow-download-meta`                | 这个允许对 `$DOWNLOAD` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:scope-download-recursive`           | 这个作用域递归访问整个 `$DOWNLOAD` 文件夹，包括子目录和文件。                                                                                           |
+| `fs:scope-download`                     | 这个作用域允许访问 `$DOWNLOAD` 文件夹中的所有文件和顶级目录的列表内容。                                                                                 |
+| `fs:scope-download-index`               | 这个作用域允许列出 `$DOWNLOAD` 文件夹中的所有文件和文件夹。                                                                                             |
+| `fs:allow-exe-read-recursive`           | 这个允许对完整的 `$EXE` 文件夹、文件和子目录进行完全递归读访问。                                                                                        |
+| `fs:allow-exe-write-recursive`          | 这个允许对完整的 `$EXE` 文件夹、文件和子目录进行完全递归写访问。                                                                                        |
+| `fs:allow-exe-read`                     | 这个允许对 `$EXE` 文件夹进行非递归读访问。                                                                                                              |
+| `fs:allow-exe-write`                    | 这个允许对 `$EXE` 文件夹进行非递归写访问。                                                                                                              |
+| `fs:allow-exe-meta-recursive`           | 这个允许对 `$EXE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                    |
+| `fs:allow-exe-meta`                     | 这个允许对 `$EXE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                    |
+| `fs:scope-exe-recursive`                | 这个作用域递归访问完整的 `$EXE` 文件夹，包括子目录和文件。                                                                                              |
+| `fs:scope-exe`                          | 这个作用域允许访问 `$EXE` 文件夹中的所有文件和顶级目录的列表内容。                                                                                      |
+| `fs:scope-exe-index`                    | 这个作用域允许列出 `$EXE` 文件夹中的所有文件和文件夹。                                                                                                  |
+| `fs:allow-font-read-recursive`          | 这个允许对整个 `$FONT` 文件夹、文件和子目录进行完全递归读访问。                                                                                         |
+| `fs:allow-font-write-recursive`         | 这个允许对整个 `$FONT` 文件夹、文件和子目录进行完全递归写访问。                                                                                         |
+| `fs:allow-font-read`                    | 这个允许对 `$FONT` 文件夹进行非递归读访问。                                                                                                             |
+| `fs:allow-font-write`                   | 这个允许对 `$FONT` 文件夹进行非递归写访问。                                                                                                             |
+| `fs:allow-font-meta-recursive`          | 这个允许对 `$FONT` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:allow-font-meta`                    | 这个允许对 `$FONT` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:scope-font-recursive`               | 这个作用域递归访问整个 `$FONT` 文件夹，包括子目录和文件。                                                                                               |
+| `fs:scope-font`                         | 这个作用域允许访问 `$FONT` 文件夹中的所有文件和顶级目录的列表内容。                                                                                     |
+| `fs:scope-font-index`                   | 这个作用域允许列出 `$FONT` 文件夹中的所有文件和文件夹。                                                                                                 |
+| `fs:allow-home-read-recursive`          | 这个允许对整个 `$HOME` 文件夹、文件和子目录进行完全递归读访问。                                                                                         |
+| `fs:allow-home-write-recursive`         | 这个允许对整个 `$HOME` 文件夹、文件和子目录进行完全递归写访问。                                                                                         |
+| `fs:allow-home-read`                    | 这个允许对 `$HOME` 文件夹进行非递归读访问。                                                                                                             |
+| `fs:allow-home-write`                   | 这个允许对 `$HOME` 文件夹进行非递归写访问。                                                                                                             |
+| `fs:allow-home-meta-recursive`          | 这个允许对 `$HOME` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:allow-home-meta`                    | 这个允许对 `$HOME` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:scope-home-recursive`               | 这个作用域递归访问整个 `$HOME` 文件夹，包括子目录和文件。                                                                                               |
+| `fs:scope-home`                         | 这个作用域允许访问 `$HOME` 文件夹中的所有文件和顶级目录的列表内容。                                                                                     |
+| `fs:scope-home-index`                   | 这个作用域允许列出 `$HOME` 文件夹中的所有文件和文件夹。                                                                                                 |
+| `fs:allow-localdata-read-recursive`     | 这个允许对完整的 `$LOCALDATA` 文件夹、文件和子目录进行完全递归读访问。                                                                                  |
+| `fs:allow-localdata-write-recursive`    | 这个允许对完整的 `$LOCALDATA` 文件夹、文件和子目录进行完全递归写访问。                                                                                  |
+| `fs:allow-localdata-read`               | 这个允许对 `$LOCALDATA` 文件夹进行非递归读访问。                                                                                                        |
+| `fs:allow-localdata-write`              | 这个允许对 `$LOCALDATA` 文件夹进行非递归写访问。                                                                                                        |
+| `fs:allow-localdata-meta-recursive`     | 这个允许对 `$LOCALDATA` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                              |
+| `fs:allow-localdata-meta`               | 这个允许对 `$LOCALDATA` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                              |
+| `fs:scope-localdata-recursive`          | 这个作用域递归访问完整的 `$LOCALDATA` 文件夹，包括子目录和文件。                                                                                        |
+| `fs:scope-localdata`                    | 这个作用域允许访问 `$LOCALDATA` 文件夹中的所有文件和顶级目录的列表内容。                                                                                |
+| `fs:scope-localdata-index`              | 这个作用域允许列出 `$LOCALDATA` 文件夹中的所有文件和文件夹。                                                                                            |
+| `fs:allow-log-read-recursive`           | 这个允许对完整的 `$LOG` 文件夹、文件和子目录进行完全递归读访问。                                                                                        |
+| `fs:allow-log-write-recursive`          | 这个允许对完整的 `$LOG` 文件夹、文件和子目录进行完全递归写访问。                                                                                        |
+| `fs:allow-log-read`                     | 这个允许对 `$LOG` 文件夹进行非递归读访问。                                                                                                              |
+| `fs:allow-log-write`                    | 这个允许对 `$LOG` 文件夹进行非递归写访问。                                                                                                              |
+| `fs:allow-log-meta-recursive`           | 这个允许对 `$LOG` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                    |
+| `fs:allow-log-meta`                     | 这个允许对 `$LOG` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                    |
+| `fs:scope-log-recursive`                | 这个作用域递归访问完整的 `$LOG` 文件夹，包括子目录和文件。                                                                                              |
+| `fs:scope-log`                          | 这个作用域允许访问 `$LOG` 文件夹中的所有文件和顶级目录的列表内容。                                                                                      |
+| `fs:scope-log-index`                    | 这个作用域允许列出 `$LOG` 文件夹中的所有文件和文件夹。                                                                                                  |
+| `fs:allow-picture-read-recursive`       | 这个允许对完整的 `$PICTURE` 文件夹、文件和子目录进行完全递归读访问。                                                                                    |
+| `fs:allow-picture-write-recursive`      | 这个允许对完整的 `$PICTURE` 文件夹、文件和子目录进行完全递归写访问。                                                                                    |
+| `fs:allow-picture-read`                 | 这个允许对 `$PICTURE` 文件夹进行非递归读访问。                                                                                                          |
+| `fs:allow-picture-write`                | 这个允许对 `$PICTURE` 文件夹进行非递归写访问。                                                                                                          |
+| `fs:allow-picture-meta-recursive`       | 这个允许对 `$PICTURE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                |
+| `fs:allow-picture-meta`                 | 这个允许对 `$PICTURE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                |
+| `fs:scope-picture-recursive`            | 这个作用域递归访问完整的 `$PICTURE` 文件夹，包括子目录和文件。                                                                                          |
+| `fs:scope-picture`                      | 这个作用域允许访问 `$PICTURE` 文件夹中的所有文件和顶级目录的列表内容。                                                                                  |
+| `fs:scope-picture-index`                | 这个作用域允许列出 `$PICTURE` 文件夹中的所有文件和文件夹。                                                                                              |
+| `fs:allow-public-read-recursive`        | 这个允许对完整的 `$PUBLIC` 文件夹、文件和子目录进行完全递归读访问。                                                                                     |
+| `fs:allow-public-write-recursive`       | 这个允许对完整的 `$PUBLIC` 文件夹、文件和子目录进行完全递归写访问。                                                                                     |
+| `fs:allow-public-read`                  | 这个允许对 `$PUBLIC` 文件夹进行非递归读访问。                                                                                                           |
+| `fs:allow-public-write`                 | 这个允许对 `$PUBLIC` 文件夹进行非递归写访问。                                                                                                           |
+| `fs:allow-public-meta-recursive`        | 这个允许对 `$PUBLIC` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                 |
+| `fs:allow-public-meta`                  | 这个允许对 `$PUBLIC` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                 |
+| `fs:scope-public-recursive`             | 这个作用域递归访问完整的 `$PUBLIC` 文件夹，包括子目录和文件。                                                                                           |
+| `fs:scope-public`                       | 这个作用域允许访问 `$PUBLIC` 文件夹中的所有文件和顶级目录的列表内容。                                                                                   |
+| `fs:scope-public-index`                 | 这个作用域允许列出 `$PUBLIC` 文件夹中的所有文件和文件夹。                                                                                               |
+| `fs:allow-resource-read-recursive`      | 这个允许对完整的 `$RESOURCE` 文件夹、文件和子目录进行完全递归读访问。                                                                                   |
+| `fs:allow-resource-write-recursive`     | 这个允许对完整的 `$RESOURCE` 文件夹、文件和子目录进行完全递归写访问。                                                                                   |
+| `fs:allow-resource-read`                | 这个允许对 `$RESOURCE` 文件夹进行非递归读访问。                                                                                                         |
+| `fs:allow-resource-write`               | 这个允许对 `$RESOURCE` 文件夹进行非递归写访问。                                                                                                         |
+| `fs:allow-resource-meta-recursive`      | 这个允许对 `$RESOURCE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:allow-resource-meta`                | 这个允许对 `$RESOURCE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:scope-resource-recursive`           | 这个作用域递归访问完整的 `$RESOURCE` 文件夹，包括子目录和文件。                                                                                         |
+| `fs:scope-resource`                     | 这个作用域允许访问 `$RESOURCE` 文件夹中的所有文件和顶级目录的列表内容。                                                                                 |
+| `fs:scope-resource-index`               | 这个作用域允许列出 `$RESOURCE` 文件夹中的所有文件和文件夹。                                                                                             |
+| `fs:allow-runtime-read-recursive`       | 这个允许对完整的 `$RUNTIME` 文件夹、文件和子目录进行完全递归读访问。                                                                                    |
+| `fs:allow-runtime-write-recursive`      | 这个允许对完整的 `$RUNTIME` 文件夹、文件和子目录进行完全递归写访问。                                                                                    |
+| `fs:allow-runtime-read`                 | 这个允许对 `$RUNTIME` 文件夹进行非递归读访问                                                                                                            |
+| `fs:allow-runtime-write`                | 这个允许对 `$RUNTIME` 文件夹进行非递归写访问                                                                                                            |
+| `fs:allow-runtime-meta-recursive`       | 这个允许对 `$RUNTIME` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                |
+| `fs:allow-runtime-meta`                 | 这个允许对 `$RUNTIME` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                |
+| `fs:scope-runtime-recursive`            | 这个作用域递归访问完整的 `$RUNTIME` 文件夹，包括子目录和文件。                                                                                          |
+| `fs:scope-runtime`                      | 这个作用域允许访问 `$RUNTIME` 文件夹中的所有文件和顶级目录的列表内容。                                                                                  |
+| `fs:scope-runtime-index`                | 这个作用域允许列出 `$RUNTIME` 文件夹中的所有文件和文件夹。                                                                                              |
+| `fs:allow-temp-read-recursive`          | 这个允许对完整的 `$TEMP` 文件夹、文件和子目录进行完全递归读访问。                                                                                       |
+| `fs:allow-temp-write-recursive`         | 这个允许对完整的 `$TEMP` 文件夹、文件和子目录进行完全递归写访问。                                                                                       |
+| `fs:allow-temp-read`                    | 这个允许对 `$TEMP` 文件夹进行非递归读访问。                                                                                                             |
+| `fs:allow-temp-write`                   | 这个允许对 `$TEMP` 文件夹进行非递归写访问。                                                                                                             |
+| `fs:allow-temp-meta-recursive`          | 这个允许对 `$TEMP` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:allow-temp-meta`                    | 这个允许对 `$TEMP` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                                   |
+| `fs:scope-temp-recursive`               | 这个作用域递归访问完整的 `$TEMP` 文件夹，包括子目录和文件。                                                                                             |
+| `fs:scope-temp`                         | 这个作用域允许访问 `$TEMP` 文件夹中的所有文件和顶级目录的列表内容。                                                                                     |
+| `fs:scope-temp-index`                   | 这个作用域允许列出 `$TEMP` 文件夹中的所有文件和文件夹。                                                                                                 |
+| `fs:allow-template-read-recursive`      | 这个允许对完整的 `$TEMPLATE` 文件夹、文件和子目录进行完全递归读访问。                                                                                   |
+| `fs:allow-template-write-recursive`     | 这个允许对完整的 `$TEMPLATE` 文件夹、文件和子目录进行完全递归写访问。                                                                                   |
+| `fs:allow-template-read`                | 这个允许对 `$TEMPLATE` 文件夹进行非递归读访问。                                                                                                         |
+| `fs:allow-template-write`               | 这个允许对 `$TEMPLATE` 文件夹进行非递归写访问。                                                                                                         |
+| `fs:allow-template-meta-recursive`      | 这个允许对 `$TEMPLATE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:allow-template-meta`                | 这个允许对 `$TEMPLATE` 文件夹的元数据进行读访问，包括文件列表和统计信息。                                                                               |
+| `fs:scope-template-recursive`           | 这个作用域允许递归访问整个 `$TEMPLATE` 文件夹，包括子目录和文件。                                                                                       |
+| `fs:scope-template`                     | 这个作用域允许访问 `$TEMPLATE` 文件夹中的所有文件和顶级目录的列表内容。                                                                                 |
+| `fs:scope-template-index`               | 这个作用域允许列出 `$TEMPLATE` 文件夹中的所有文件和文件夹。                                                                                             |
+| `fs:allow-video-read-recursive`         | 这个允许对整个 `$VIDEO` 文件夹、文件和子目录进行完全递归读访问                                                                                          |
+| `fs:allow-video-write-recursive`        | 这个允许对整个 `$VIDEO` 文件夹、文件和子目录进行完全递归写访问。                                                                                        |
+| `fs:allow-video-read`                   | 这个允许对 `$VIDEO` 文件夹进行非递归读访问。                                                                                                            |
+| `fs:allow-video-write`                  | 这个允许对 `$VIDEO` 文件夹进行非递归写访问。                                                                                                            |
+| `fs:allow-video-meta-recursive`         | 这允许读取 `$VIDEO` 文件夹的元数据，包括文件列表和统计信息。                                                                                            |
+| `fs:allow-video-meta`                   | 这允许读取 `$VIDEO` 文件夹的元数据，包括文件列表和统计信息。                                                                                            |
+| `fs:scope-video-recursive`              | 这个作用域允许递归访问整个 `$VIDEO` 文件夹，包括子目录和文件。                                                                                          |
+| `fs:scope-video`                        | 这个作用域允许访问 `$VIDEO` 文件夹中所有文件和顶级目录的列表内容。                                                                                      |
+| `fs:scope-video-index`                  | 这个作用域允许列出 `$VIDEO` 文件夹中的所有文件和文件夹。                                                                                                |
+| `fs:deny-webview-data-linux`            | 这会拒绝对linux上的`$APPLOCALDATA`文件夹的读访问，因为webview数据和配置值都存储在这里。允许访问可能会导致敏感信息泄露，应该仔细考虑。                   |
+| `fs:deny-webview-data-windows`          | 这会拒绝对 Windows 上的 `$APPLOCALDATA/EBWebView` 文件夹的读访问，因为 webview 数据和配置值都存储在这里。允许访问可能会导致敏感信息泄露，应该仔细考虑。 |
+
+### 命令的权限
+
+| 权限                                 | 描述                                                                     |
+| ------------------------------------ | ------------------------------------------------------------------------ |
+| `fs:allow-copy-file`                 | 在没有预先配置的作用域的情况下启用 copy_file 命令。                      |
+| `fs:deny-copy-file`                  | 拒绝没有任何预配置范围的 copy_file 命令。                                |
+| `fs:allow-create`                    | 在没有预先配置的作用域的情况下启用 create 命令。                         |
+| `fs:deny-create`                     | 拒绝没有任何预配置范围的 create 命令。                                   |
+| `fs:allow-exists`                    | 在没有预先配置的作用域的情况下启用 exists 命令。                         |
+| `fs:deny-exists`                     | 拒绝没有任何预配置范围的 exists 命令。                                   |
+| `fs:allow-fstat`                     | 在没有预先配置的作用域的情况下启用 fstat 命令。                          |
+| `fs:deny-fstat`                      | 拒绝没有任何预配置范围的 fstat 命令。                                    |
+| `fs:allow-ftruncate`                 | 在没有预先配置的作用域的情况下启用 ftruncate 命令。                      |
+| `fs:deny-ftruncate`                  | 拒绝没有任何预配置范围的 ftruncate 命令。                                |
+| `fs:allow-lstat`                     | 在没有预先配置的作用域的情况下启用 lstat 命令。                          |
+| `fs:deny-lstat`                      | 拒绝没有任何预配置范围的 lstat 命令。                                    |
+| `fs:allow-mkdir`                     | 在没有预先配置的作用域的情况下启用 mkdir 命令。                          |
+| `fs:deny-mkdir`                      | 拒绝没有任何预配置范围的 mkdir 命令。                                    |
+| `fs:allow-open`                      | 在没有预先配置的作用域的情况下启用 open 命令。                           |
+| `fs:deny-open`                       | 拒绝没有任何预配置范围的 open 命令。                                     |
+| `fs:allow-read`                      | 在没有预先配置的作用域的情况下启用 read 命令。                           |
+| `fs:deny-read`                       | 拒绝没有任何预配置范围的 read 命令。                                     |
+| `fs:allow-read-dir`                  | 在没有预先配置的作用域的情况下启用 read_dir 命令。                       |
+| `fs:deny-read-dir`                   | 拒绝没有任何预配置范围的 read_dir 命令。                                 |
+| `fs:allow-read-file`                 | 在没有预先配置的作用域的情况下启用 read_file 命令。                      |
+| `fs:deny-read-file`                  | 拒绝没有任何预配置范围的 read_file 命令。                                |
+| `fs:allow-read-text-file`            | 在没有预先配置的作用域的情况下启用 read_text_file 命令。                 |
+| `fs:deny-read-text-file`             | 拒绝没有任何预配置范围的 read_text_file 命令。                           |
+| `fs:allow-read-text-file-lines`      | 在没有预先配置的作用域的情况下启用 read_text_file_lines 命令。           |
+| `fs:deny-read-text-file-lines`       | 拒绝没有任何预配置范围的 read_text_file_lines 命令。                     |
+| `fs:allow-read-text-file-lines-next` | 在没有预先配置的作用域的情况下启用 read_text_file_lines_next 命令。      |
+| `fs:deny-read-text-file-lines-next`  | 拒绝没有任何预配置范围的 read_text_file_lines_next 命令。                |
+| `fs:allow-remove`                    | 在没有预先配置的作用域的情况下启用 remove 命令。                         |
+| `fs:deny-remove`                     | 拒绝没有任何预配置范围的 remove 命令。                                   |
+| `fs:allow-rename`                    | 在没有预先配置的作用域的情况下启用 rename 命令。                         |
+| `fs:deny-rename`                     | 拒绝没有任何预配置范围的 rename 命令。                                   |
+| `fs:allow-seek`                      | 在没有预先配置的作用域的情况下启用 seek 命令。                           |
+| `fs:deny-seek`                       | 拒绝没有任何预配置范围的 seek 命令。                                     |
+| `fs:allow-stat`                      | 在没有预先配置的作用域的情况下启用 stat 命令。                           |
+| `fs:deny-stat`                       | 拒绝没有任何预配置范围的 stat 命令。                                     |
+| `fs:allow-truncate`                  | 在没有预先配置的作用域的情况下启用 truncate 命令。                       |
+| `fs:deny-truncate`                   | 拒绝没有任何预配置范围的 truncate 命令。                                 |
+| `fs:allow-unwatch`                   | 在没有预先配置的作用域的情况下启用 unwatch 命令。                        |
+| `fs:deny-unwatch`                    | 拒绝没有任何预配置范围的 unwatch 命令。                                  |
+| `fs:allow-watch`                     | 在没有预先配置的作用域的情况下启用 watch 命令。                          |
+| `fs:deny-watch`                      | 拒绝没有任何预配置范围的 watch 命令。                                    |
+| `fs:allow-write`                     | 在没有预先配置的作用域的情况下启用 write 命令。                          |
+| `fs:deny-write`                      | 拒绝没有任何预配置范围的 write 命令。                                    |
+| `fs:allow-write-file`                | 在没有预先配置的作用域的情况下启用 write_file 命令。                     |
+| `fs:deny-write-file`                 | 拒绝没有任何预配置范围的 write_file 命令。                               |
+| `fs:allow-write-text-file`           | 在没有预先配置的作用域的情况下启用 write_text_file 命令。                |
+| `fs:deny-write-text-file`            | 拒绝没有任何预配置范围的 write_text_file 命令。                          |
+| `fs:read-all`                        | 在没有预先配置可访问路径的情况下启用所有与读相关命令。                   |
+| `fs:read-dirs`                       | 在没有预先配置可访问路径的情况下启用所有与目录读和文件元数据相关的命令。 |
+| `fs:read-files`                      | 在没有预先配置可访问路径的情况下启用所有与文件读相关的命令。             |
+| `fs:read-meta`                       | 在没有预先配置可访问路径的情况下启用所有与索引或元数据相关的命令。       |
+| `fs:scope`                           | 可用于修改全局作用域的空权限。                                           |
+| `fs:write-all`                       | 在没有预先配置可访问路径的情况下启用所有与写相关命令。                   |
+| `fs:write-files`                     | 在没有预先配置可访问路径的情况下启用所有与文件写相关的命令。             |
+
+### 作用域范围
+
+允许任何 `fs` 命令访问特定的作用域：
+
+```json title="src-tauri/capabilities/main.json" {7-10}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+    }
+  ]
+}
+```
+
+允许特定的 `fs` 命令访问特定的作用域：
+
+```json title="src-tauri/capabilities/main.json" {7-14}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```

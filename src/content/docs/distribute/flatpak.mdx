@@ -1,0 +1,153 @@
+---
+title: Flathub
+sidebar:
+  order: 1
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+For detailed information on how Flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
+
+This guide assumes you want to distribute your Flatpak via [Flathub](https://flathub.org/), the most commonly used platform for Flatpak distribution. If you plan on using other platforms, please consult their documentation instead.
+
+## Prerequisites
+
+To test your app inside the Flatpak runtime you can build the Flatpak locally first before uploading your app to Flathub. This can also be helpful if you want to quickly share development builds.
+
+**1. Install `flatpak` and `flatpak-builder`**
+
+To build Flatpaks locally you need the `flatpak` and `flatpak-builder` tools. For example on Ubuntu you can run this command:
+
+<Tabs>
+  <TabItem label="Debian">
+
+```sh
+sudo apt install flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -S --needed flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf install flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+sys-apps/flatpak \
+dev-util/flatpak-builder
+```
+
+  </TabItem>
+</Tabs>
+
+**2. Install the Flatpak Runtime**
+
+```shell
+flatpak install flathub org.Gnome.Platform//46 org.Gnome.Sdk//46
+```
+
+**3. [Build the .deb of your tauri-app](https://deploy-preview-2279--tauri-v2.netlify.app/reference/config/#bundleconfig)**
+
+**4. Create the manifest**
+
+```yaml
+id: org.your.id
+
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+
+command: tauri-app
+finish-args:
+  - --socket=wayland # Permission needed to show the window
+  - --socket=fallback-x11 # Permission needed to show the window
+  - --device=dri # OpenGL, not necessary for all projects
+  - --share=ipc
+
+modules:
+  - name: binary
+    buildsystem: simple
+    sources:
+      - type: file
+        url: https://github.com/your_username/your_repository/releases/download/v1.0.1/yourapp_1.0.1_amd64.deb
+        sha256: 08305b5521e2cf0622e084f2b8f7f31f8a989fc7f407a7050fa3649facd61469 # This is required if you are using a remote source
+        only-arches: [x86_64] #This source is only used on x86_64 Computers
+        # This path points to the binary file which was created in the .deb bundle.
+        # Tauri also creates a folder which corresponds to the content of the unpacked .deb.
+    build-commands:
+      - ar -x *.deb
+      - tar -xf data.tar.gz
+      - 'install -Dm755 usr/bin/tauri-app /app/bin/tauri-app'
+      - install -Dm644 usr/share/applications/yourapp.desktop /app/share/applications/org.your.id.desktop
+      - install -Dm644 usr/share/icons/hicolor/128x128/apps/yourapp.png /app/share/icons/hicolor/128x128/apps/org.your.id.png
+      - install -Dm644 usr/share/icons/hicolor/32x32/apps/yourapp.png /app/share/icons/hicolor/32x32/apps/org.your.id.png
+      - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/yourapp.png /app/share/icons/hicolor/256x256@2/apps/org.your.id.png
+      - install -Dm644 org.your.id.metainfo.xml /app/share/metainfo/org.your.id.rosary.metainfo.xml
+```
+
+The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
+
+**5. Install, and Test the app**
+
+```shell
+
+# Install the flatpak
+flatpak -y --user install <local repo name> <your flatpak id>
+
+# Run it
+flatpak run <your flatpak id>
+
+# Update it
+flatpak -y --user update <your flatpak id>
+```
+
+## Adding additional libraries
+
+If your final binary requires more libraries than the default tauri app, you need to add them in your flatpak manifest.
+There are two ways to do this. For fast local development, it may work to simply include the already built library file (`.so`) from your local system.
+However, this is not recommended for the final build of the flatpak, as your local library file is not built for the flatpak runtime environment.
+This can introduce various bugs that can be very hard to find.
+Therefore, it is recommended to build the library your program depends on from source inside the flatpak as a build step.
+
+## Submitting to flathub
+
+**_1. Fork The [Flathub Repository](https://github.com/flathub/flathub/fork)_**
+
+**_2. Clone the Fork_**
+
+```shell
+git clone --branch=new-pr git@github.com:your_github_username/flathub.git
+```
+
+**_3. Enter the repository_**
+
+```shell
+cd flathub
+```
+
+**_4. Create a new branch_**
+
+```shell
+git checkout -b your_app_name
+```
+
+**_5. Add your apps manifest to the branch. Commit your changes, and then push them._**
+
+**_6. Open a pull request against the `new-pr` branch on github_**
+
+**_7. Your app will now enter the review process in which you may be asked to make changes to your project._**
+
+When your pull request is approved then you will receive an invitation to edit your apps repository. From here on you can update your app continuously.
+
+You can read more about this [in the flatpak documentation](https://docs.flatpak.org/en/latest/dependencies.html#bundling)

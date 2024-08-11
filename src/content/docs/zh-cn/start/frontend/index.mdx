@@ -1,0 +1,50 @@
+---
+title: 前端配置
+i18nReady: true
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri 与前端无关，支持大多数开箱即用的前端框架。但是，有时框架需要一些额外的配置才能与 Tauri 集成。以下是具有推荐配置的框架列表。
+
+如果未列出框架，那么它可能与Tauri一起使用时无需其他配置，或者可能尚未记录。欢迎任何添加可能需要额外配置的框架的贡献，以帮助 Tauri 社区中的其他人。
+
+:::tip[未列出的前端框架？]
+
+没有列出框架？可能它可以与 Tauri 一起使用，而无需任何其他配置。阅读[配置清单](#配置清单)，以了解要检查的任何常见配置。
+
+:::
+
+## JavaScript
+
+<CardGrid>
+  <LinkCard title="Next.js" href="/zh-cn/start/frontend/nextjs" />
+  <LinkCard title="Nuxt" href="/zh-cn/start/frontend/nuxt" />
+  <LinkCard title="Qwik" href="/zh-cn/start/frontend/qwik" />
+  <LinkCard title="Svelte" href="/zh-cn/start/frontend/svelte" />
+  <LinkCard title="Vite" href="/zh-cn/start/frontend/vite" />
+  <LinkCard title="Webpack" href="/zh-cn/start/frontend/webpack" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+  <LinkCard title="Leptos" href="/zh-cn/start/frontend/leptos" />
+  <LinkCard title="Sycamore" href="/zh-cn/start/frontend/sycamore" />
+  <LinkCard title="Trunk" href="/zh-cn/start/frontend/trunk" />
+  <LinkCard title="Yew" href="/zh-cn/start/frontend/yew" />
+</CardGrid>
+
+## 配置清单
+
+概念上 Tauri 如同静态 Web 主机。你需要为 Tauri 提供一个文件夹，其中包含一些 HTML、CSS、Javascript 甚至可能是 WASM，供给 Tauri 的 webview 渲染器显示。
+
+以下是将前端与 Tauri 集成所需的常见场景清单：
+
+{/* TODO: Link to core concept of SSG/SSR, etc. */}
+{/* TODO: Link to mobile development server guide */}
+{/* TODO: Concept of how to do a client-server relationship? */}
+
+- 使用静态站点生成（SSG）。Tauri 并不正式支持基于服务器的替代方案（例如 SSR）。
+- 对于移动开发，需要某种开发服务器，可以在你的内部 IP 上托管前端。
+- 在应用和 API 之间使用适当的客户端-服务器关系（没有使用 SSR 的混合解决方案）。

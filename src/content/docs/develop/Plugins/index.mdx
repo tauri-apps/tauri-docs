@@ -6,11 +6,11 @@ sidebar:
   order: 10
 ---
 
-{ /* TODO: Add a CLI section */}
+{/* TODO: Add a CLI section */}
 
 import CommandTabs from '@components/CommandTabs.astro';
 
-{ /* TODO: Link to windowing system, commands for sending messages, and event system */}
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
 
 :::tip[Plugin Development]
 
@@ -24,13 +24,13 @@ Tauri offers a windowing system with web view functionality, a way to send messa
 
 A Tauri plugin is composed of a Cargo crate and an optional NPM package that provides API bindings for its commands and events. Additionally, a plugin project can include an Android library project and a Swift package for iOS. You can learn more about developing plugins for Android and iOS in the [Mobile Plugin Development guide](/develop/plugins/develop-mobile/).
 
-{ /* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
 ## Naming Convention
 
-{ /* TODO: Add link to allowlist */}
+{/* TODO: Add link to allowlist */}
 
-Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugin`](/reference/config/#pluginconfig) and on the allowlist configuration.
+Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugins`](/reference/config/#pluginconfig) and on the allowlist configuration.
 
 By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community, but is not not a requirement. When initializing a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-{plugin-name}` and the JavaScript NPM package name will be `tauri-plugin-{plugin-name}-api` (although we recommend using an [NPM scope](https://docs.npmjs.com/about-scopes) if possible). The Tauri naming convention for NPM packages is `@scope-name/plugin-{plugin-name}`.
 
@@ -41,10 +41,10 @@ To bootstrap a new plugin project, run `plugin new`. If you do not need the NPM 
 After installing, you can run the following to create a plugin project:
 
 <CommandTabs
-	npm="npm run tauri plugin new [name]"
-	yarn="yarn tauri plugin new [name]"
-	pnpm="pnpm tauri plugin new [name]"
-	cargo="cargo tauri plugin new [name]"
+  npm="npm run tauri plugin new [name]"
+  yarn="yarn tauri plugin new [name]"
+  pnpm="pnpm tauri plugin new [name]"
+  cargo="cargo tauri plugin new [name]"
 />
 
 This will initialize the plugin at the directory `tauri-plugin-[name]` and, depending on the used CLI flags, the resulting project will look like this:
@@ -103,12 +103,12 @@ struct Config {
   timeout: usize,
 }
 
-pub fn init<R: Runtime>() -> TauriPlugin<R> {
+pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
   // Make the plugin config optional
   // by using `Builder::<R, Option<Config>>` instead
   Builder::<R, Config>::new("<plugin-name>")
     .setup(|app, api| {
-      let timeout = api.config.timeout;
+      let timeout = api.config().timeout;
       Ok(())
     })
     .build()
@@ -193,7 +193,7 @@ Builder::new("<plugin-name>")
 - **When**: Event loop events
 - **Why**: Handle core events such as window events, menu events and application exit requested
 
-With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-beta/tauri/enum.RunEvent.html).
+With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-rc/tauri/enum.RunEvent.html).
 
 ```rust title="src/lib.rs"
 use std::{collections::HashMap, fs::write, sync::Mutex};
@@ -311,7 +311,7 @@ Permissions are defined as JSON or TOML files inside the `permissions` directory
 
 ##### Permissions
 
-A permission describe privileges of your plugin commands. It can allow or deny a list of commands and associate command-specific and global scopes.
+A permission describes privileges of your plugin commands. It can allow or deny a list of commands and associate command-specific and global scopes.
 
 ```toml title="permissions/start-server.toml"
 "$schema" = "schemas/schema.json"
@@ -343,8 +343,8 @@ pub struct Entry {
 
 ###### Command Scope
 
-Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/#scopes)).
-You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) struct:
+Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/scope)).
+You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-rc/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
 use tauri::ipc::CommandScope;
@@ -370,7 +370,7 @@ description = "This scope permits spawning the `node` binary."
 binary = "node"
 ```
 
-You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.GlobalScope.html) struct:
+You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0-rc/tauri/ipc/struct.GlobalScope.html) struct:
 
 ```rust title="src/commands.rs"
 use tauri::ipc::GlobalScope;
@@ -457,7 +457,7 @@ fn main() {
 }
 ```
 
-See the [Access Control List](/reference/acl/) documentation for more information.
+See the [Permissions Overview](/security/permissions/) documentation for more information.
 
 ## Managing State
 

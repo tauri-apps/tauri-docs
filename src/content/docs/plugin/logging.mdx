@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="log" />
 
@@ -39,6 +40,7 @@ Install the log plugin to get started.
       npm="npm run tauri add log"
       yarn="yarn run tauri add log"
       pnpm="pnpm tauri add log"
+      bun="bun tauri add log"
       cargo="cargo tauri add log"
     />
 
@@ -50,7 +52,7 @@ Install the log plugin to get started.
 
         ```toml title="src-tauri/Cargo.toml"
         [dependencies]
-        tauri-plugin-log = "2.0.0-beta"
+        tauri-plugin-log = "2.0.0-rc"
         # alternatively with Git:
         tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
         ```
@@ -73,6 +75,7 @@ Install the log plugin to get started.
           npm = "npm install @tauri-apps/plugin-log"
           yarn = "yarn add @tauri-apps/plugin-log"
           pnpm = "pnpm add @tauri-apps/plugin-log"
+          bun = "bun add @tauri-apps/plugin-log"
         />
 
     </Steps>
@@ -83,33 +86,35 @@ Install the log plugin to get started.
 ## Usage
 
   <Steps>
-  
-  1.  First, you need to register the plugin with Tauri.
 
-      ```rust title="src-tauri/src/lib.rs" {1} {6-14}
-      use tauri_plugin_log::{Target, TargetKind};
+1.  First, you need to register the plugin with Tauri.
 
-      #[cfg_attr(mobile, tauri::mobile_entry_point)]
-      pub fn run() {
-          tauri::Builder::default()
-              .plugin(
-                  tauri_plugin_log::Builder::new()
-                      .targets([
-                          Target::new(TargetKind::Stdout),
-                          Target::new(TargetKind::LogDir { file_name: None }),
-                          Target::new(TargetKind::Webview),
-                      ])
-                      .build(),
-              )
-              .run(tauri::generate_context!())
-              .expect("error while running tauri application");
-      }
-      ```
+    ```rust title="src-tauri/src/lib.rs" {1} {6-14}
+    use tauri_plugin_log::{Target, TargetKind};
+
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            .plugin(
+                tauri_plugin_log::Builder::new()
+                    .targets([
+                        Target::new(TargetKind::Stdout),
+                        Target::new(TargetKind::LogDir { file_name: None }),
+                        Target::new(TargetKind::Webview),
+                    ])
+                    .build(),
+            )
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
 
 2.  Afterwards, all the plugin's APIs are available through the JavaScript guest bindings:
 
-        ```js
+        ```javascript
         import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
+        // when using `"withGlobalTauri": true`, you may use
+        // const { trace, info, error, attachConsole } = window.__TAURI_PLUGIN_LOG__;
 
         // with TargetKind::Webview enabled, this function will print logs to the browser console
         const detach = await attachConsole();
@@ -128,20 +133,16 @@ Install the log plugin to get started.
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["log:default"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["log:default"]
 }
 ```
 
-| Permission      | Description                                               |
-| --------------- | --------------------------------------------------------- |
-| `log:default`   | Allows the log command.                                   |
-| `log:allow-log` | Enables the log command without any pre-configured scope. |
-| `log:deny-log`  | Denies the log command without any pre-configured scope.  |
+<PluginPermissions plugin="log" />

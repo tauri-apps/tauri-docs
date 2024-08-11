@@ -1,0 +1,113 @@
+---
+title: 应用调试
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+{/* TODO: Update links and internal navigation */}
+{/* TODO: Revise this change: Application Debugging > Application Debug */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+在 Tauri 中的所有动态部分，您可能会遇到需要调试的问题。有很多位置会打印错误详细信息，Tauri 还包含一些工具来简化调试过程。
+
+## Rust 控制台
+
+查找错误的第一个地方是 Rust 控制台。它位于您运行 `tauri dev` 等命令的终端中。您可以使用以下代码从 Rust 文件内部向该控制台打印内容：
+
+```rust
+println!("来自 Rust 的信息: {}", msg);
+```
+
+有时，您的 Rust 代码中可能存在错误，Rust 编译器可以为您提供大量信息。例如，如果 `tauri dev` 崩溃，您可以在 Linux 和 macOS 上像这样重新运行它：
+
+```shell
+RUST_BACKTRACE=1 tauri dev
+```
+
+或在 Windows 上像这样重新运行它：
+
+```shell
+set RUST_BACKTRACE=1
+tauri dev
+```
+
+此命令为您提供了详细的堆栈跟踪。一般来说，Rust 编译器会通过为您提供有关该问题的大量信息来帮助您，例如：
+
+```bash
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
+```
+
+## WebView 控制台
+
+在 WebView 中右键单击, 然后选择 `Inspect Element`. 这将打开一个类似于您熟悉的 Chrome 或 Firefox 开发工具的 Web 检查器。
+您还可以使用 Linux 和 Windows 上的 `Ctrl + Shift + i` 快捷键，以及macOS 上的 `Command + Option + i` 快捷键打开检查器.
+
+检查器是平台特定的，在 Linux 上使用 webkit2gtk 的 WebInspector，在 macOS 上使用 Safari 的检查器，在 Windows 上使用 Microsoft Edge DevTools。
+
+### 通过程序打开 Devtools
+
+您可以使用 [`WebviewWindow::open_devtools`] 和 [`WebviewWindow::close_devtools`] 函数来控制检查器窗口的可见性：
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(debug_assertions)] // 仅在调试构建时包含此代码
+    {
+      let window = app.get_webview_window("main").unwrap();
+      window.open_devtools();
+      window.close_devtools();
+    }
+    Ok(())
+  });
+```
+
+### 在生产中使用检查器
+
+默认情况下，检查器只在开发和调试版本中启用，除非使用 Cargo 功能将其启用。
+
+#### 创建调试构建
+
+要创建调试构建，请运行 `tauri build --debug` 命令.
+
+<CommandTabs
+  npm="npm run tauri build -- --debug"
+  yarn="yarn tauri build --debug"
+  pnpm="pnpm tauri build --debug"
+  cargo="cargo tauri build --debug"
+/>
+
+与正常的构建和开发过程一样，首次运行此命令需要一些时间，但在后续运行中速度显著提高。
+最终打包的应用程序启用了开发控制台，并放置在 `src-tauri/target/debug/bundle` 中。
+
+你还可以从终端运行已构建的应用程序，查看 Rust 编译器注释（在出错的情况下）或你的 `println` 信息。浏览到 `src-tauri/target/(release|debug)/[应用程序名称]`文件，然后直接在控制台中运行，或双击文件系统中的可执行文件（注意：使用此方法时，控制台会在出错时关闭）。
+
+##### 启用 Devtools 功能
+
+:::danger
+
+在 macOS 上，开发工具 API 是私有的。在 macOS 上使用私有 API 会导致您的应用程序无法被 App Store 接受。
+
+:::
+
+要在生产构建中启用 devtools，必须在 `src-tauri/Cargo.toml` 文件中启用 `devtools` Cargo 功能：
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "devtools"] }
+```
+
+## 调试核心进程
+
+核心进程由 Rust 支持，因此您可以使用 GDB 或 LLDB 进行调试。您可以按照[在 VS Code 中调试]指南学习如何使用 LLDB VS 代码扩展来调试 Tauri 应用程序的核心进程。
+
+[在 VS Code 中调试]: /develop/debug/vscode
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0-rc/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0-rc/tauri/webview/struct.WebviewWindow.html#method.close_devtools

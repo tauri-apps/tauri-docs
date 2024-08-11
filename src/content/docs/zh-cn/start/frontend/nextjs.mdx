@@ -1,0 +1,114 @@
+---
+title: Next.js
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的信息，请访问 https://nextjs.org 。本指南适用于 Next.js 14.2.3 版本。
+
+## 检查清单
+
+- 通过设置 `output: 'export'` 来使用静态导出。Tauri 不支持基于服务器的解决方案。
+- 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `out/`。
+
+## 示例配置
+
+<Steps>
+
+1.  ##### 更新 Tauri 配置
+
+          <Tabs>
+
+      <TabItem label="npm">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    </Tabs>
+
+2.  ##### 更新 Next.js 配置
+
+    ```ts
+    // next.conf.mjs
+    const isProd = process.env.NODE_ENV === 'production';
+
+    const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
+
+    /** @type {import('next').NextConfig} */
+    const nextConfig = {
+      // 确保 Next.js 使用 SSG 而不是 SSR
+      // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+      output: 'export',
+      // 注意：在 SSG 模式下使用 Next.js 的 Image 组件需要此功能。
+      // 请参阅 https://nextjs.org/docs/messages/export-image-api 了解不同的解决方法。
+      images: {
+        unoptimized: true,
+      },
+      // 配置 assetPrefix，否则服务器无法正确解析您的资产。
+      assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+    };
+
+    export default nextConfig;
+    ```
+
+3.  ##### 更新 package.json 配置
+
+        ```json
+        "scripts": {
+          "dev": "next dev",
+          "build": "next build",
+          "start": "next start",
+          "lint": "next lint",
+          "tauri": "tauri"
+        }
+        ```
+
+</Steps>

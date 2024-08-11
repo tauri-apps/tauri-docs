@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="websocket" />
 
@@ -34,10 +35,11 @@ Install the websocket plugin to get started.
     		{ ' ' }
 
     		<CommandTabs
-    			npm="npm run tauri add websocket"
-    			yarn="yarn run tauri add websocket"
-    			pnpm="pnpm tauri add websocket"
-    			cargo="cargo tauri add websocket"
+                npm="npm run tauri add websocket"
+                yarn="yarn run tauri add websocket"
+                pnpm="pnpm tauri add websocket"
+                bun="bun tauri add websocket"
+                cargo="cargo tauri add websocket"
     		/>
     </TabItem>
 
@@ -48,7 +50,7 @@ Install the websocket plugin to get started.
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-websocket = "2.0.0-beta"
+    		tauri-plugin-websocket = "2.0.0-rc"
     		# alternatively with Git:
     		tauri-plugin-websocket = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -67,9 +69,10 @@ Install the websocket plugin to get started.
     	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
     		<CommandTabs
-    			npm = "npm install @tauri-apps/plugin-websocket"
-    			yarn = "yarn add @tauri-apps/plugin-websocket"
-    			pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                npm = "npm install @tauri-apps/plugin-websocket"
+                yarn = "yarn add @tauri-apps/plugin-websocket"
+                pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                bun = "bun add @tauri-apps/plugin-websocket"
     		/>
 
     	</Steps>
@@ -81,13 +84,15 @@ Install the websocket plugin to get started.
 
 The websocket plugin is available in JavaScript.
 
-```js
+```javascript
 import WebSocket from '@tauri-apps/plugin-websocket';
+// when using `"withGlobalTauri": true`, you may use
+// const WebSocket = window.__TAURI_PLUGIN_WEBSOCKET__;
 
 const ws = await WebSocket.connect('ws://127.0.0.1:8080');
 
 ws.addListener((msg) => {
-	console.log('Received Message:', msg);
+  console.log('Received Message:', msg);
 });
 
 await ws.send('Hello World!');
@@ -97,24 +102,18 @@ await ws.disconnect();
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["websocket:default"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["websocket:default"]
 }
 ```
 
-| Permission                | Description                                                   |
-| ------------------------- | ------------------------------------------------------------- |
-| `websocket:default`       | Allows connecting and sending data to a WebSocket server      |
-| `websocket:allow-connect` | Enables the connect command without any pre-configured scope. |
-| `websocket:deny-connect`  | Denies the connect command without any pre-configured scope.  |
-| `websocket:allow-send`    | Enables the send command without any pre-configured scope.    |
-| `websocket:deny-send`     | Denies the send command without any pre-configured scope.     |
+<PluginPermissions plugin="websocket" />

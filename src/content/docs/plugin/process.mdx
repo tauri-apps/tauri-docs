@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -27,6 +28,7 @@ Install the plugin-process to get started.
     <CommandTabs npm="npm run tauri add process"
     yarn="yarn run tauri add process"
     pnpm="pnpm tauri add process"
+    bun="bun tauri add process"
     cargo="cargo tauri add process" />
 
     </TabItem>
@@ -55,6 +57,7 @@ Install the plugin-process to get started.
                 npm="npm install @tauri-apps/plugin-process"
                 yarn="yarn add @tauri-apps/plugin-process"
                 pnpm="pnpm add @tauri-apps/plugin-process"
+                bun="bun add @tauri-apps/plugin-process"
             />
 
         </Steps>
@@ -69,8 +72,10 @@ The process plugin is available in both JavaScript and Rust.
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { exit, relaunch } from '@tauri-apps/plugin-process';
+// when using `"withGlobalTauri": true`, you may use
+// const { exit, relaunch } = window.__TAURI_PLUGIN_PROCESS__;
 
 // exits the app with the given status code
 await exit(0);
@@ -82,7 +87,7 @@ await relaunch();
 </TabItem>
 <TabItem label="Rust">
 
-Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/struct.AppHandle.html).
+Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/struct.AppHandle.html).
 
 ```rust
 // exits the app with the given status code
@@ -94,3 +99,5 @@ app.restart();
 
 </TabItem>
 </Tabs>
+
+<PluginPermissions plugin="process" />

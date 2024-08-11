@@ -78,7 +78,7 @@ For the purposes of this example, let's imagine we are in the same directory as 
 
 `../dist-isolation/index.js`:
 
-```js
+```javascript
 window.__TAURI_ISOLATION_HOOK__ = (payload) => {
   // let's not verify or modify anything, just print the content from the hook
   console.log('hook', payload);
@@ -109,7 +109,7 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
 ```
 
 [transport_layer_security]: https://en.wikipedia.org/wiki/Transport_Layer_Security
-[security: threat models]: /security/development/
+[security: threat models]: /security/lifecycle/
 [events]: /reference/javascript/api/namespaceevent/
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 [brownfield pattern]: /concept/inter-process-communication/brownfield/

@@ -1,0 +1,120 @@
+---
+title: Qwik
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+本指南将引导您使用 Qwik Web 框架创建 Tauri 应用程序。了解更多关于 Qwik 的信息，请访问 https://qwik.dev 。
+
+## 清单
+
+- Tauri 不支持基于服务器的解决方案。请使用 [SSG](https://qwik.dev/docs/guides/static-site-generation/)。
+- 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `dist/` 。
+
+## 示例配置
+
+<Steps>
+
+1.  ##### 创建一个新的 Qwik 应用程序
+
+    <CommandTabs
+      npm={`npm create qwik@latest
+    cd <PROJECT>`}
+      yarn={`yarn create qwik@latest
+    cd <PROJECT>`}
+      pnpm={`pnpm create qwik@latest
+    cd <PROJECT>`}
+    />
+
+1.  ##### 安装 `static adapter`
+
+    <CommandTabs
+      npm="npm run qwik add static"
+      yarn="yarn qwik add static"
+      pnpm="pnpm qwik add static"
+    />
+
+1.  ##### 将 Tauri CLI 添加到您的项目中
+
+    <CommandTabs
+      npm="npm install -D @tauri-apps/cli"
+      yarn="yarn add -D @tauri-apps/cli"
+      pnpm="pnpm add -D @tauri-apps/cli"
+    />
+
+1.  ##### 初始化一个新的 Tauri 项目
+
+    <CommandTabs
+      npm="npm run tauri init"
+      yarn="yarn tauri init"
+      pnpm="pnpm tauri init"
+    />
+
+1.  ##### Tauri 配置
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+1.  ##### 启动你的 `tauri` 应用
+
+    <CommandTabs
+      npm="npm run tauri dev"
+      yarn="yarn tauri dev"
+      pnpm="pnpm tauri dev"
+    />
+
+</Steps>

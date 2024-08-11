@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -26,7 +27,7 @@ Firstly, you have to install Core plugin by adding the following to your `Cargo.
 ```toml title="src-tauri/Cargo.toml"
 [dependencies.tauri-plugin-sql]
 features = ["sqlite"] # or "postgres", or "mysql"
-version = "2.0.0-beta"
+version = "2.0.0-rc"
 ```
   </TabItem>
   <TabItem label="Git">
@@ -44,20 +45,22 @@ branch = "v2"
 Then, you have to add JavaScript Guest bindings using your preferred JavaScript package manager.
 
 <Tabs>
-	<TabItem label="npm.io">
-		<CommandTabs
-			npm="npm add @tauri-apps/plugin-sql"
-			yarn="yarn add @tauri-apps/plugin-sql"
-			pnpm="pnpm add @tauri-apps/plugin-sql"
-		/>
-	</TabItem>
-	<TabItem label="Git">
-		<CommandTabs
-			npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-			yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-			pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-		/>
-	</TabItem>
+  <TabItem label="npm.io">
+    <CommandTabs
+      npm="npm add @tauri-apps/plugin-sql"
+      yarn="yarn add @tauri-apps/plugin-sql"
+      pnpm="pnpm add @tauri-apps/plugin-sql"
+      bun="bun add @tauri-apps/plugin-sql"
+    />
+  </TabItem>
+  <TabItem label="Git">
+    <CommandTabs
+      npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+      yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+      pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+      bun="bun add https://github.com/tauri-apps/tauri-plugin-sql#v2"
+    />
+  </TabItem>
 </Tabs>
 
 ## Usage
@@ -78,10 +81,13 @@ Afterwards all the plugin's APIs are available through the JavaScript guest bind
 <Tabs>
   <TabItem label="SQLite">
 
-The path is relative to `tauri::api::path::BaseDirectory::App`
+The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-rc/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const V = window.__TAURI_PLUGIN_SQL__;
+
 const db = await Database.load('sqlite:test.db');
 await db.execute('INSERT INTO ...');
 ```
@@ -91,6 +97,9 @@ await db.execute('INSERT INTO ...');
 ```javascript
 
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI_PLUGIN_SQL__;
+
 const db = await Database.load('mysql://user:pass@host/database');
 await db.execute('INSERT INTO ...');
 
@@ -213,7 +222,26 @@ fn main() {
 
 ### Applying Migrations
 
-Migrations are applied automatically when the plugin is initialized. The plugin runs these migrations against the database specified by the connection string. Ensure that the migrations are defined in the correct order and are idempotent (safe to run multiple times).
+To apply the migrations when the plugin is initialized, add the connection string to the `tauri.conf.json` file:
+
+```json title="src-tauri/tauri.conf.json" {3-5}
+{
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:mydatabase.db"]
+    }
+  }
+}
+```
+
+Alternatively, the client side `load()` also runs the migrations for a given connection string:
+
+```ts
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
+```
+
+Ensure that the migrations are defined in the correct order and are safe to run multiple times.
 
 ### Migration Management
 
@@ -223,10 +251,9 @@ Migrations are applied automatically when the plugin is initialized. The plugin 
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
@@ -234,20 +261,19 @@ See [Access Control List](/reference/acl/) for more information.
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
-  "permissions": [
-    "sql:allow-load",
-    "sql:allow-execute",
-  ]
+  "permissions": ["sql:allow-load", "sql:allow-execute"]
 }
 ```
 
-| Permission | Description |
-|------|-----|
-|`sql:allow-close`|Enables the close command without any pre-configured scope.|
-|`sql:deny-close`|Denies the close command without any pre-configured scope.|
-|`sql:allow-execute`|Enables the execute command without any pre-configured scope.|
-|`sql:deny-execute`|Denies the execute command without any pre-configured scope.|
-|`sql:allow-load`|Enables the load command without any pre-configured scope.|
-|`sql:deny-load`|Denies the load command without any pre-configured scope.|
-|`sql:allow-select`|Enables the select command without any pre-configured scope.|
-|`sql:deny-select`|Denies the select command without any pre-configured scope.|
+| Permission          | Description                                                   |
+| ------------------- | ------------------------------------------------------------- |
+| `sql:allow-close`   | Enables the close command without any pre-configured scope.   |
+| `sql:deny-close`    | Denies the close command without any pre-configured scope.    |
+| `sql:allow-execute` | Enables the execute command without any pre-configured scope. |
+| `sql:deny-execute`  | Denies the execute command without any pre-configured scope.  |
+| `sql:allow-load`    | Enables the load command without any pre-configured scope.    |
+| `sql:deny-load`     | Denies the load command without any pre-configured scope.     |
+| `sql:allow-select`  | Enables the select command without any pre-configured scope.  |
+| `sql:deny-select`   | Denies the select command without any pre-configured scope.   |
+
+<PluginPermissions plugin="sql" />

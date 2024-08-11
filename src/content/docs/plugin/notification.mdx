@@ -5,6 +5,7 @@ i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
@@ -25,6 +26,7 @@ Install the notifications plugin to get started.
         <CommandTabs npm="npm run tauri add notification"
         yarn="yarn run tauri add notification"
         pnpm="pnpm tauri add notification"
+        bun="bun tauri add notification"
         cargo="cargo tauri add notification" />
 
     </TabItem>
@@ -53,6 +55,7 @@ Install the notifications plugin to get started.
                 npm="npm install @tauri-apps/plugin-notification"
                 yarn="yarn add @tauri-apps/plugin-notification"
                 pnpm="pnpm add @tauri-apps/plugin-notification"
+                bun="bun add @tauri-apps/plugin-notification"
             />
 
         </Steps>
@@ -90,34 +93,50 @@ Follow these steps to send a notification:
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import {
-	isPermissionGranted,
-	requestPermission,
-	sendNotification,
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
 } from '@tauri-apps/plugin-notification';
+// when using `"withGlobalTauri": true`, you may use
+// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI_PLUGIN_NOTIFICATION__;
 
 // Do you have permission to send a notification?
 let permissionGranted = await isPermissionGranted();
 
 // If not we need to request it
 if (!permissionGranted) {
-	const permission = await requestPermission();
-	permissionGranted = permission === 'granted';
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
 }
 
 // Once permission has been granted we can send the notification
 if (permissionGranted) {
-	sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+  sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
 }
 ```
 
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+```rust
+tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
+    .setup(|app| {
+        use tauri_plugin_notification::NotificationExt;
+        app.notification()
+            .builder()
+            .title("Tauri")
+            .body("Tauri is awesome")
+            .show()
+            .unwrap();
 
-<Stub />
+        Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+```
 
 </TabItem>
 </Tabs>
@@ -143,3 +162,5 @@ if (permissionGranted) {
 ## Security Considerations
 
 Aside from normal sanitization procedures of user input there are currently no known security considerations.
+
+<PluginPermissions plugin="notification" />

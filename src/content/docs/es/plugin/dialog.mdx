@@ -1,0 +1,290 @@
+---
+title: Diálogo
+description: Diálogos nativos del sistema para abrir y guardar archivos junto con diálogos de mensajes.
+i18nReady: true
+tableOfContents:
+  maxHeadingLevel: 4
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="dialog" />
+
+Los diálogos nativos del sistema para abrir y guardar archivos junto con diálogos de mensajes.
+
+## Configuración
+
+Instala el plugin de diálogo para comenzar.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Usa el gestor de paquetes de tu proyecto para agregar la dependencia:
+
+    <CommandTabs npm="npm run tauri add dialog"
+                    yarn="yarn run tauri add dialog"
+                    pnpm="pnpm tauri add dialog"
+                    cargo="cargo tauri add dialog" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. Ejecuta `cargo add tauri-plugin-dialog` para agregar el plugin a las dependencias del proyecto en `Cargo.toml`.
+
+    2. Modifica `lib.rs` para inicializar el plugin:
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Inicializa el plugin
+            .plugin(tauri_plugin_dialog::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. Si deseas crear diálogos en JavaScript, instala el paquete npm también:
+
+    <CommandTabs
+                    npm="npm install @tauri-apps/plugin-dialog"
+                    yarn="yarn add @tauri-apps/plugin-dialog"
+                    pnpm="pnpm add @tauri-apps/plugin-dialog"
+                />
+
+</TabItem>
+</Tabs>
+
+## Uso
+
+El plugin de diálogo está disponible tanto en JavaScript como en Rust. Aquí tienes cómo puedes usarlo:
+
+en JavaScript:
+
+- [Crear un diálogo de Si/No](#crear-un-diálogo-de-sino)
+- [Crear un diálogo de Ok/Cancelar](#crear-un-diálogo-de-okcancelar)
+- [Crear un diálogo de mensaje](#crear-un-diálogo-de-mensaje)
+- [Abrir un diálogo de selección de archivos](#abrir-un-diálogo-de-selección-de-archivos)
+- [Diálogo de guardar en archivo](#diálogo-de-guardar-en-archivo)
+
+en Rust:
+
+- [Construir un diálogo de pregunta](#construir-un-diálogo-de-pregunta)
+- [Construir un diálogo de mensaje](#construir-un-diálogo-de-mensaje)
+- [Construir un diálogo de selección de archivos](#construir-un-diálogo-de-selección-de-archivos)
+
+---
+
+### JavaScript
+
+Consulta todas las [Opciones de diálogo](/reference/javascript/dialog/) en la referencia de la API de JavaScript.
+
+{/* ASK */}
+
+#### Crear un diálogo de Si/No
+
+Muestra un diálogo de pregunta con botones `Yes` y `No`.
+
+```javascript
+import { ask } from '@tauri-apps/plugin-dialog';
+
+// Crea un diálogo de Sí/No
+const answer = await ask('This action cannot be reverted. Are you sure?', {
+  title: 'Tauri',
+  type: 'warning',
+});
+
+console.log(answer);
+// Imprime un booleano en la consola
+```
+
+{/* CONFIRM */}
+
+#### Crear un diálogo de Ok/Cancelar
+
+Muestra un diálogo de pregunta con botones `Ok` y `Cancel`.
+
+```javascript
+import { confirm } from '@tauri-apps/plugin-dialog';
+
+// Crea un diálogo de confirmación Ok/Cancelar
+const confirmation = await confirm(
+  'This action cannot be reverted. Are you sure?',
+  { title: 'Tauri', type: 'warning' }
+);
+
+console.log(confirmation);
+// Imprime un booleano en la consola
+```
+
+{/* MESSAGE */}
+
+#### Crear un diálogo de mensaje
+
+Muestra un diálogo de mensaje con un botón `Ok`. Ten en cuenta que si el usuario cierra el diálogo, devolverá `false`.
+
+```javascript
+import { message } from '@tauri-apps/plugin-dialog';
+
+// Muestra un mensaje
+await message('File not found', { title: 'Tauri', type: 'error' });
+```
+
+{/* OPEN */}
+
+#### Abrir un diálogo de selección de archivos
+
+Abre un diálogo de selección de archivos/directorios.
+
+La opción `multiple` controla si el diálogo permite la selección múltiple o no, mientras que `directory`, si es una selección de directorio o no.
+
+```javascript
+import { open } from '@tauri-apps/plugin-dialog';
+
+// Abre un diálogo
+const file = await open({
+  multiple: false,
+  directory: false,
+});
+console.log(file);
+// Imprime la ruta y el nombre del archivo en la consola
+```
+
+{/* SAVE */}
+
+#### Diálogo de guardar en archivo
+
+Abre un diálogo de guardar archivo/directorio.
+
+```javascript
+import { save } from '@tauri-apps/plugin-dialog';
+// Indica para guardar un 'My Filter' con extensión .png o .jpeg
+const path = await save({
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
+});
+console.log(path);
+// Imprime la ruta escogida
+```
+
+---
+
+### Rust
+
+Consulta la [referencia de la API de Rust](https://docs.rs/tauri-plugin-dialog/) para ver todas las opciones disponibles.
+
+#### Construir un diálogo de pregunta
+
+Muestra una diálogo de pregunta con botones `Absolutely` y `Totally`.
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+let answer = app.dialog()
+        .message("Tauri is Awesome")
+        .title("Tauri is Awesome")
+        .ok_button_label("Absolutely")
+        .cancel_button_label("Totally")
+        .blocking_show();
+```
+
+Si necesitas una operación no bloqueante puedes usar `show()` en su lugar:
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+app.dialog()
+    .message("Tauri is Awesome")
+    .title("Tauri is Awesome")
+    .ok_button_label("Absolutely")
+    .cancel_button_label("Totally")
+    .show(|result| match result {
+        true => // hacer algo,
+        false =>// hacer algo,
+    });
+```
+
+#### Construir un diálogo de mensaje
+
+Muestra un diálogo de mensaje con un botón `Ok`. Ten en cuenta que si el usuario cierra el diálogo, devolverá `false`.
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+
+let ans = app.dialog()
+    .message("File not found")
+    .kind(MessageDialogKind::Error)
+    .title("Warning")
+    .blocking_show();
+```
+
+Si necesitas una operación no bloqueante puedes usar `show()` en su lugar:
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+
+app.dialog()
+    .message("Tauri is Awesome")
+    .kind(MessageDialogKind::Info)
+    .title("Information")
+    .ok_button_label("Absolutely")
+    .show(|result| match result {
+        true => // hacer algo,
+        false => // hacer algo,
+    });
+```
+
+#### Construir un diálogo de selección de archivos
+
+#### Seleccionar archivos
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+let file_path = app.dialog().file().blocking_pick_file();
+// devuelve un `Option` de file_path, o `None` si el usuario cierra el diálogo
+```
+
+Si necesitas una operación no bloqueante puedes usar `show()` en su lugar:
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+app.dialog().file().pick_file(|file_path| {
+    // devuelve un `Option` de file_path, o `None` si el usuario cierra el diálogo
+    })
+```
+
+#### Guardar archivos
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+let file_path = app
+    .dialog()
+    .file()
+    .add_filter("My Filter", &["png", "jpeg"])
+    .blocking_save_file();
+    // haz algo con la ruta de archivo opcional aquí
+    // la ruta del archivo es `None` si el usuario cierra el diálogo
+```
+
+o, alternativamente:
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+app.dialog()
+    .file()
+    .add_filter("My Filter", &["png", "jpeg"])
+    .pick_file(|file_path| {
+        // devuelve un `Option` de file_path, o `None` si el usuario cierra el diálogo
+    });
+```

@@ -1,0 +1,469 @@
+---
+title: 插件开发
+i18nReady: true
+sidebar:
+  label: Overview
+  order: 10
+---
+
+{/* TODO: Add a CLI section */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[插件开发]
+
+这个指南是用于指导开发 Tauri 插件。如果你想要寻找关于当前可用的插件的列表及其使用说明，请前往[功能及秘诀列表](/zh-cn/plugin)。
+
+:::
+
+插件可以挂载到 Tauri 的生命周期中，暴露需求 webview API 的 Rust 代码，使用 Rust、Kotlin 或 Swift 代码处理命令并能处理更多需求。
+
+Tauri 提供了一个基于 webview 功能的视窗系统，一个在 Rust 进程和 webview 之间发送信息的方式，一个事件系统，以及一些增强开发体验的工具。
+设计上 Tauri Core 只包含所有人都需要的功能。相对地，它提供了一种将外部功能添加到 Tauri 应用程序中的机制，被称为插件。
+
+一个 Tauri 插件由一个 Cargo 包和一个可选的 NPM 包（用于提供命令和事件 API 绑定）构成。
+同时，一个插件项目可以包含一个 Android 库项目和/或一个用于 iOS 的 Swift 包。
+你可以查阅[移动端插件开发指南](/zh-cn/develop/plugins/develop-mobile)以获取更多关于开发安卓或 iOS 插件的信息。
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## 命名规范
+
+{/* TODO: Add link to allowlist */}
+
+Tauri 插件具有一个前缀（Rust 包使用 `tauri-plugin-` 前缀，NPM 包使用 `@tauri-apps/plugin-` 前缀），随后是插件名称。
+插件名称由插件配置中的 [`tauri.conf.json > plugin`](/reference/config/#pluginconfig) 和许可列表中的配置确定。
+
+默认情况下，Tauri 会在你的插件 crate 前面加上 `tauri-plugin-`。这有助于你的插件被 Tauri 社区发现，但不是必须的。初始化新插件项目时，必须提供其名称。生成包名称将为 `tauri-plugin-{plugin-name}`，JavaScript NPM 包名称为 `tauri-plugin-{plugin-name}-api`（尽管我们建议使用 [NPM 范围](https://docs.npmjs.com/about-scopes)如果可能的话）。NPM 包的 Tauri 命名约定是 `@scope-name/plugin-{plugin-name}`。
+
+## 初始化插件项目
+
+使用引导创建一个新的插件项目，请运行 `plugin new`。如果不需要相应的 NPM 程序包，请使用 `--no-api` 命令行标志。如果你想要初始化一个支持 Android 和/或 iOS 的插件，请使用 `--android` 和/或 `--ios` 命令行标志。
+
+完成安装后，你可以运行下列指令来创建一个插件：
+
+<CommandTabs
+  npm="npm run tauri plugin new [name]"
+  yarn="yarn tauri plugin new [name]"
+  pnpm="pnpm tauri plugin new [name]"
+  cargo="cargo tauri plugin new [name]"
+/>
+
+这会在 `tauri-plugin-[name]` 目录下初始化插件，取决于初始化插件时所选择的命令行标志，项目将具有以下结构：
+
+```
+. tauri-plugin-[name]/
+├── src/                - Rust 代码
+│ ├── commands.rs       - 定义 webview 可用的命令
+| ├── desktop.rs        - 桌面实现
+| ├── error.rs          - 用于返回 results 的默认的错误类型
+│ ├── lib.rs            - 重新导出适当的实现、设置状态……
+│ ├── mobile.rs         - 移动端实现
+│ └── models.rs         - 公共的结构体
+├── permissions/        - 这将托管（生成的）命令的权限文件
+├── android             - 安卓库
+├── ios                 - Swift 包
+├── guest-js            - JavaScript API 绑定的源代码
+├── dist-js             - 从 guest-js 转译的资源
+├── Cargo.toml          - Cargo 包元数据
+└── package.json        - NPM 包元数据
+```
+
+如果你有一个现有的插件，并且想添加 Android 或 iOS 功能，你可以使用 `plugin android add` 和 `plugin ios add` 来引导移动端库项目，并指导你完成所需的更改。
+
+## 移动端插件开发
+
+插件可以运行用 Kotlin（或 Java）和 Swift 编写的本地移动代码。默认的插件模板包括一个使用 Kotlin 的 Android 库项目和一个 Swift 包。它包括一个示例移动端命令，展示了如何从 Rust 代码触发其执行。
+
+在[移动端插件开发指南](/develop/plugins/develop-mobile)中阅读更多关于开发移动端插件的信息。
+
+## 插件配置
+
+在使用插件的 Tauri 应用中，插件配置由 `tauri.conf.json` 中的 `plugin-name` 项配置（其中 `plugin-name` 表示你的插件的名称）：
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+插件的配置是在 `Builder` 上设置的，并在运行时进行解析。以下是用于指定插件配置的 `Config` 结构体的示例：
+
+```rust title="src/lib.rs"
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+// 定义插件配置
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  // 如果想要使插件可选，请使用 `Builder::<R, Option<Config>>` 替换
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config.timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## 生命周期事件
+
+插件可以挂载到如下生命周期事件中：
+
+- [`setup`](#setup): 插件初始化
+- [`on_navigation`](#on_navigation): Webview 将要触发导航时
+- [`on_webview_ready`](#on_webview_ready): 新窗口创建时
+- [`on_event`](#on_event): 事件循环
+- [`on_drop`](#on_drop): 插件被析构时
+
+还有一些特定的[移动端插件生命周期事件](/zh-cn/develop/plugins/develop-mobile#生命周期事件)。
+
+### `setup`
+
+- **当**：插件被初始化时
+- **为了**：注册移动端插件、管理状态、运行背景任务
+
+```rust title="src/lib.rs"
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### `on_navigation`
+
+- **当**：Webview 尝试导航时
+- **为了**：验证导航或跟随 URL 变化
+
+返回 `false` 将会取消导航。
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // 如果被禁止，取消导航
+    url.scheme() != "forbidden"
+  })
+```
+
+### `on_webview_ready`
+
+- **当**：新窗口被创建时
+- **为了**：对每个窗口运行初始化命令
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
+  })
+```
+
+### `on_event`
+
+- **当**：触发事件循环事件
+- **为了**：管理核心事件，例如窗口事件、菜单事件和应用退出请求
+
+在这个生命周期钩子中，你会被任何[事件循环事件](https://docs.rs/tauri/2.0.0-rc/tauri/enum.RunEvent.html)通知。
+
+```rust title="src/lib.rs"
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // 用户请求关闭一个窗口，但没有剩余的窗口
+
+        // 我们可以阻止应用程序退出
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // 应用程序将退出，你可以在此处进行清理
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### `on_drop`
+
+- **当**：插件将被析构时
+- **为了**：在插件被消除时运行代码
+
+查看 [`rust-std Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) 以获取更多信息。
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // 插件将要被销毁
+  })
+```
+
+## 暴露 Rust API
+
+在项目的 `desktop.rs` 和 `mobile.rs` 中定义的插件 API 将作为与插件同名的结构体导出给用户（使用 Pascal 命名法）。
+设置插件时，会创建此结构体的实例并将其作为一种状态进行管理，以便用户可以通过插件中定义的扩展特性，在任何时间点使用 `Manager` 实例（如 `AppHandle`、`App` 或 `Window`）检索它。
+
+例如，[`global-shortcut` 插件](/plugin/global-shortcut/) 定义了一个 `GlobalShortcut` 结构体，可以被 `GlobalShortcutExt` trait 的 `global_shortcut` 方法使用：
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## 添加命令
+
+命令在 `command.rs` 文件中定义。它们是常规的 Tauri 应用程序命令。它们可以直接访问 `AppHandle` 和 `Window` 实例，获取状态，并以与应用命令同样的方式获取输入。
+阅读[命令指南](/develop/calling-rust/)以获取更多关于 Tauri 命令的信息。
+
+这个命令展示了如何使用依赖注入访问 `AppHandle` 和 `Window` 实例，并接受两个输入参数（`on_progress` 和 `url`）：
+
+```rust title="src/commands.rs"
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // 在这里实现命令逻辑
+  on_progress.send(100).unwrap();
+}
+```
+
+为了将命令暴露给 webview，你需要在 `lib.rs` 中将命令挂载到 `invoke_handler()` 中：
+
+```rust title="src/lib.rs"
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+在 `webview-src/index.ts` 中定义一个绑定函数，然后插件用户就可以轻松地在 JavaScript 中调用这个命令：
+
+```js name="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/tauri'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+确保在测试 TypeScript 代码之前先构建它。
+
+### 命令权限
+
+默认情况下，前端无法访问您的命令。如果您尝试执行其中之一，您将收到拒绝错误拒绝。
+要实际暴露命令，您还需要定义允许每个命令的权限。
+
+#### 权限文件
+
+权限被定义在 `permissions` 目录下的 JSON 或 TOML 文件种。每个文件都可以定义一系列的权限、权限集和插件的默认权限。
+
+##### 权限
+
+权限描述了您的插件命令的权限。它可以允许或拒绝命令列表并将特定命令和全局范围关联起来。
+
+```toml title="permissions/start-server.toml"
+"$schema" = "schemas/schema.json"
+
+[[permission]]
+identifier = "allow-start-server"
+description = "Enables the start_server command."
+commands.allow = ["start_server"]
+
+[[permission]]
+identifier = "deny-start-server"
+description = "Denies the start_server command."
+commands.deny = ["start_server"]
+```
+
+##### 范围
+
+范围允许您的插件对各个命令定义更深层次的限制。
+每个权限文件都可以定义一些范围对象的列表，这些对象定义特定的命令或全局插件所允许或拒绝的内容。
+
+让我们定义一个示例结构，它将保存允许 `shell` 插件生成的二进制文件列表的范围数据：
+
+```rust title="src/scope.rs"
+#[derive(Debug, schemars::JsonSchema)]
+pub struct Entry {
+    pub binary: String,
+}
+```
+
+###### 命令范围
+
+您的插件使用者可以在其功能文件中定义特定命令的范围（请参阅[文档](/reference/acl/scope)）。
+您可以使用 [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) 结构体读取特定命令的范围：
+
+```rust title="src/commands.rs"
+use tauri::ipc::CommandScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+  let allowed = command_scope.allows();
+  let denied = command_scope.denies();
+  todo!()
+}
+```
+
+###### 全局范围
+
+当权限文件没有定义任何允许或拒绝权限的命令时，它被视为范围权限，并且它将为您的插件定义全局范围：
+
+```toml title="permissions/spawn-node.toml"
+[[permission]]
+identifier = "allow-spawn-node"
+description = "This scope permits spawning the `node` binary."
+
+[[permission.scope.allow]]
+binary = "node"
+```
+
+你可以使用 [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.GlobalScope.html) 结构体来获取全局范围的命令:
+
+```rust title="src/commands.rs"
+use tauri::ipc::GlobalScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+  let allowed = scope.allows();
+  let denied = scope.denies();
+  todo!()
+}
+```
+
+:::note
+我们建议检查全局和命令范围以获得灵活性
+:::
+
+###### Schema
+
+范围条目需要 `schemars` 依赖项来生成 JSON 模式，以便插件使用者知道范围的格式并在其 IDE 中自动完成。
+
+要定义模式，首先将依赖项添加到 Cargo.toml 文件中:
+
+```toml
+# 我们需要将模式添加到依赖项和构建依赖项中，
+# 因为 scope.rs 模块在应用程序代码和构建脚本之间共享
+[dependencies]
+schemars = "0.8"
+
+[build-dependencies]
+schemars = "0.8"
+```
+
+在您的构建脚本中，添加如下代码：
+
+```rust title="build.rs"
+#[path = "src/scope.rs"]
+mod scope;
+
+const COMMANDS: &[&str] = &[];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS)
+        .global_scope_schema(schemars::schema_for!(scope::Entry))
+        .build();
+}
+```
+
+##### 权限集
+
+权限集是单独权限的组，可以帮助用户以更高的抽象级别管理您的插件。
+例如，如果单个 API 使用多个命令，或者命令集合之间存在逻辑连接，则您应该定义一个包含它们的集合：
+
+```toml title="permissions/websocket.toml"
+"$schema" = "schemas/schema.json"
+[[set]]
+identifier = "allow-websocket"
+description = "Allows connecting and sending messages through a WebSocket"
+permissions = ["allow-connect", "allow-send"]
+```
+
+##### 默认权限
+
+默认权限是一个带有 `default` 标识符的特殊权限集。这是您的命令默认所需的权限。
+例如，如果没有允许 `request` 命令，`http` 插件将毫无用处：
+
+```toml title="permissions/default.toml"
+"$schema" = "schemas/schema.json"
+[default]
+description = "Allows making HTTP requests"
+permissions = ["allow-request"]
+```
+
+#### 自动生成权限
+
+为每个命令定义权限的最简单方法是使用 `build.rs` 文件中定义的插件构建脚本中定义的自动生成选项。
+在 `COMMANDS` 常量中，使用蛇形命名法定义命令列表（应与命令函数名称匹配），Tauri将自动生成 `allow-$commandname` 和 `deny-$commandname` 权限。
+
+下面的例子生成了 `allow-upload` 和 `deny-upload` 权限：
+
+```rust title="src/commands.rs"
+const COMMANDS: &[&str] = &["upload"];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS).build();
+}
+```
+
+有关更多信息，请参阅[权限概述文档](/security/permissions/) 。
+
+## 管理状态
+
+插件可以像 Tauri 应用程序一样管理状态。阅读[状态管理指南](/develop/state-management)以获取更多信息。

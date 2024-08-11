@@ -1,0 +1,385 @@
+---
+title: 移动端插件开发
+i18nReady: true
+---
+
+:::tip[插件开发]
+
+确保你已经熟悉[插件开发](/zh-cn/develop/plugins)中的概念，因为本指南大量使用基于那篇文章的概念。
+
+:::
+
+插件可以运行用 Kotlin（或 Java）和 Swift 编写的本地代码。
+默认插件模板包括一个使用 Kotlin 的安卓库项目和一个 Swift 包，其中包括一个示例指令，展示如何从 Rust 代码调用外部插件。
+
+## 初始化插件项目
+
+按照[插件开发](/zh-cn/develop/plugins/#初始化插件项目)中的步骤初始化新的插件项目。
+
+如果你有一个现有的插件，并且想添加安卓或 iOS 的功能，你可以使用 `plugin android init` 和 `plugin ios init`来添加构建移动端插件项目，并指导你完成所需的更改。
+
+默认的插件模板将插件的实现分为两个独立的模块：`desktop.rs` 和 `mobile.rs`。
+
+桌面实现使用 Rust 代码来实现功能，而移动端实现会向本地移动端代码库发送消息以执行功能并返回结果。如果两个实现存在共享逻辑，可以在 `lib.rs` 中定义：
+
+```rust
+// lib.rs
+use tauri::Runtime;
+
+impl<R: Runtime> <plugin-name><R> {
+  pub fn do_something(&self) {
+    // 一些桌面和移动设备之间共享的实现
+  }
+}
+```
+
+这一实现简化了共享 API 的过程，该 API 可被指令和 Rust 代码使用。
+
+### 开发一个安卓插件
+
+一个安卓 Tauri 插件的定义为一个扩展了 `app.tauri.plugin.Plugin` 并具有 `app.tauri.annotation.TauriPlugin` 注解的 Kotlin 类。每个有 `app.tauri.annotation.Command` 注解的方法都可以被 Rust 或 JavaScript 调用。
+
+Tauri 使用 Kotlin 作为默认的安卓插件实现，但是你也可以使用 Java 作为替代。在创建一个插件后，在 Android Studio 中右键 Kotlin 插件类并点击菜单中的 ”将 Kotlin 文件转换为 Java 文件“ 按钮。Anroid Studio 会指导你完成到 Java 项目的迁移。
+
+### 开发一个 iOS 插件
+
+一个 iOS Tauri 插件由一个扩展了 `Tauri` 包的 `Plugin` 类定义。每个具有 `@objc` 属性和 `(_ invode: Invoke)` 参数的函数（例如 `@objc private func download(_ invoke: Invoke) { }`）都可以被 Rust 或 JavaScript 调用。
+
+插件被定义为一个 [Swift 包](https://www.swift.org/package-manager/)，因此你可以使用它的包管理器以管理依赖
+
+## 插件配置
+
+前往插件开发指南的[插件配置](/zh-cn/develop/plugins/#插件配置)章节以获取更多关于插件开发的配置信息。
+
+移动设备上的插件实例具有用于插件配置的获取器：
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    val timeout = this.config.getInt("timeout", 30)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 生命周期事件
+
+插件可以连接到几个生命周期事件中：
+
+- [`load`](#load)：当插件被加载到 webview 中时触发
+- [`onNewIntent`](#onnewintent)：（仅安卓）当活动被重启时触发
+
+在插件开发指南中还有一些其他[插件生命周期事件](/zh-cn/develop/plugins#生命周期事件)的介绍。
+
+### `load`
+
+- **当**：插件被加载到 webview 中
+- **为了**：加载插件初始化代码
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    // 在这里启动插件
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### `onNewIntent`
+
+**备注**：这只在安卓系统上有效。
+
+- **当**：活动项目重启。查阅 [Activity#`onNewIntent`](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) 以获取更多信息。
+- **为了**：处理活动重启，例如通知被点击或者深链接被使用。
+
+```kotlin
+// import android.content.Intent
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun onNewIntent(intent: Intent) {
+    // 处理重启事件
+  }
+}
+```
+
+## 添加移动端命令
+
+在相应的移动端项目中有一个插件类，可以在其中定义能够通过 Rust 代码调用的命令：
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val allowEdit = invoke.getBoolean("allowEdit", false)
+    val quality = invoke.getInt("quality", 100)
+
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+    @objc public func openCamera(_ invoke: Invoke) {
+    let allowEdit = invoke.getBool("allowEdit", false)
+    let quality = invoke.getInt("quality", 100)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+使用 [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/plugin/struct.PluginHandle.html) 以在 Rust 中创建一个移动端命令：
+
+```rust
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> <plugin-name;pascal-case><R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
+```
+
+## 权限许可
+
+如果插件需要最终用户的权限，Tauri 简化了检查和请求权限的过程。
+
+<Tabs>
+<TabItem label="Android">
+
+首先定义所需权限的列表和别名，以在代码中标识每个权限组。这是在 `TauriPlugin` 注解中完成的：
+
+```kotlin
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
+class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+首先重写 `checkPermissions` 和 `requestPermissions` 方法：
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // 在这里配置权限许可
+    // 然后解决请求
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Tauri 自动为插件实现了两个命令：`checkPermissions` 和 `requestPermissions`。这些命令可以从 JavaScript 或 Rust 中直接调用。
+
+{/* TODO: PermissionState type should be exported in Tauri */}
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { invoke } from '@tauri-apps/api/tauri'
+
+type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+
+interface Permissions {
+  postNotification: PermissionState
+}
+
+// 查询权限许可状态
+const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+
+if (permission.postNotification === 'prompt-with-rationale') {
+  // 告诉用户为什么需要权限
+}
+
+// 请求权限
+if (permission.postNotification.startsWith('prompt')) {
+  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use serde::{Serialize, Deserialize};
+use tauri::Runtime;
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PermissionResponse {
+  pub post_notification: PermissionState,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestPermission {
+  post_notification: bool,
+}
+
+impl<R: Runtime> Notification<R> {
+  pub fn request_post_notification_permission(&self) -> crate::Result<PermissionState> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("requestPermissions", RequestPermission { post_notification: true })
+      .map(|r| r.post_notification)
+      .map_err(Into::into)
+  }
+
+  pub fn check_permissions(&self) -> crate::Result<PermissionResponse> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("checkPermissions", ())
+      .map_err(Into::into)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 插件事件
+
+{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+
+插件可以使用 `trigger` 函数在任何时候触发事件：
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+    override fun load(webView: WebView) {
+      trigger("load", JSObject())
+    }
+
+    override fun onNewIntent(intent: Intent) {
+      // 处理新意图
+      if (intent.action == Intent.ACTION_VIEW) {
+        val data = intent.data.toString()
+        val event = JSObject()
+        event.put("data", data)
+        trigger("newIntent", event)
+      }
+    }
+
+    @Command
+    fun openCamera(invoke: Invoke) {
+      val payload = JSObject()
+      payload.put("open", true)
+      trigger("camera", payload)
+    }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+辅助函数可以通过使用 [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) 函数在 NPM 包中找到并使用。
+
+```javascript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+
+export async function onRequest(
+    handler: (url: string) => void
+): Promise<PluginListener> {
+    return await addPluginListener(
+        '<plugin-name>',
+        'event-name',
+        handler
+    );
+}
+```

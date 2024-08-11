@@ -1,0 +1,53 @@
+---
+title: 为 Web 应用提供坚实的基础
+description: 跨平台应用构建工具包
+i18nReady: true
+template: splash
+hero:
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: 快速入门
+      link: /zh-cn/start/
+      icon: right-arrow
+      variant: primary
+    - text: 贡献指南
+      link: https://github.com/tauri-apps/tauri-docs/blob/v2/.github/CONTRIBUTING.md
+      icon: open-book
+      variant: minimal
+    - text: Tauri 1.0 文档
+      link: https://v1.tauri.app
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<CardGrid stagger>
+  <Card title="独立于前端" icon="rocket">
+    将你现有的网络技术栈带到 Tauri 或开始新的项目。 Tauri
+    支持任何前端框架，所以你不需要改变你的技术栈。
+  </Card>
+  <Card title="跨平台" icon="rocket">
+    使用单个代码库为 Linux、macOS、Windows、Android 和 iOS 构建你的应用程序。
+  </Card>
+  <Card title="进程间通讯" icon="rocket">
+    用 JavaScript 编写前端，用 Rust 编写应用程序逻辑，并使用 Swift 和 Kotlin
+    在系统中深入集成。
+  </Card>
+  <Card title="高安全性" icon="rocket">
+    Tauri 团队的首要目标，推动我们的首要任务和最大的创新。
+  </Card>
+  <Card title="最小化体积" icon="rocket">
+    使用操作系统的本地网页渲染器，Tauri 应用的体积可以达到最小 600KB。
+  </Card>
+  <Card title="由 Rust 驱动" icon="rocket">
+    以性能和安全性为中心，Rust 是下一代应用程序的语言。
+  </Card>
+</CardGrid>

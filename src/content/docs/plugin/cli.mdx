@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="cli" />
 
@@ -35,11 +36,12 @@ Install the CLI plugin to get started.
     	{' '}
 
     	<CommandTabs
-					npm="npm run tauri add cli"
-					yarn="yarn run tauri add cli"
-					pnpm="pnpm tauri add cli"
-					cargo="cargo tauri add cli"
-				/>
+            npm="npm run tauri add cli"
+            yarn="yarn run tauri add cli"
+            pnpm="pnpm tauri add cli"
+            bun="bun tauri add cli"
+            cargo="cargo tauri add cli"
+    	/>
 
   	</TabItem>
     <TabItem label="Manual">
@@ -50,7 +52,7 @@ Install the CLI plugin to get started.
     			```toml title="src-tauri/Cargo.toml"
     			# you can add the dependencies on the `[dependencies]` section if you do not target mobile
     			[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-    			tauri-plugin-cli = "2.0.0-beta"
+    			tauri-plugin-cli = "2.0.0-rc"
     			# alternatively with Git:
     			tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     			```
@@ -70,10 +72,11 @@ Install the CLI plugin to get started.
     		3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
     			<CommandTabs
-								npm="npm install @tauri-apps/plugin-cli"
-								yarn="yarn add @tauri-apps/plugin-cli"
-								pnpm="pnpm add @tauri-apps/plugin-cli"
-							/>
+                    npm="npm install @tauri-apps/plugin-cli"
+                    yarn="yarn add @tauri-apps/plugin-cli"
+                    pnpm="pnpm add @tauri-apps/plugin-cli"
+                    bun="bun add @tauri-apps/plugin-cli"
+                />
 
     	</Steps>
     </TabItem>
@@ -86,33 +89,33 @@ Under `tauri.conf.json`, you have the following structure to configure the inter
 
 ```json title="src-tauri/tauri.conf.json"
 {
-	"plugins": {
-		"cli": {
-			"description": "Tauri CLI Plugin Example",
-			"args": [
-				{
-					"short": "v",
-					"name": "verbose",
-					"description": "Verbosity level"
-				}
-			],
-			"subcommands": {
-				"run": {
-					"description": "Run the application",
-					"args": [
-						{
-							"name": "debug",
-							"description": "Run application in debug mode"
-						},
-						{
-							"name": "release",
-							"description": "Run application in release mode"
-						}
-					]
-				}
-			}
-		}
-	}
+  "plugins": {
+    "cli": {
+      "description": "Tauri CLI Plugin Example",
+      "args": [
+        {
+          "short": "v",
+          "name": "verbose",
+          "description": "Verbosity level"
+        }
+      ],
+      "subcommands": {
+        "run": {
+          "description": "Run the application",
+          "args": [
+            {
+              "name": "debug",
+              "description": "Run application in debug mode"
+            },
+            {
+              "name": "release",
+              "description": "Run application in release mode"
+            }
+          ]
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -126,7 +129,7 @@ All JSON configurations here are just samples, many other fields have been omitt
 
 The `args` array represents the list of arguments accepted by its command or subcommand.
 
-{ /* TODO: List available configuration */}
+{/* TODO: List available configuration */}
 
 ### Positional Arguments
 
@@ -134,18 +137,18 @@ A positional argument is identified by its position in the list of arguments. Wi
 
 ```json title="src-tauri/tauri.conf.json"
 {
-	"args": [
-		{
-			"name": "source",
-			"index": 1,
-			"takesValue": true
-		},
-		{
-			"name": "destination",
-			"index": 2,
-			"takesValue": true
-		}
-	]
+  "args": [
+    {
+      "name": "source",
+      "index": 1,
+      "takesValue": true
+    },
+    {
+      "name": "destination",
+      "index": 2,
+      "takesValue": true
+    }
+  ]
 }
 ```
 
@@ -157,15 +160,15 @@ A named argument is a (key, value) pair where the key identifies the value. With
 
 ```json title="tauri-src/tauri.conf.json"
 {
-	"args": [
-		{
-			"name": "type",
-			"short": "t",
-			"takesValue": true,
-			"multiple": true,
-			"possibleValues": ["foo", "bar"]
-		}
-	]
+  "args": [
+    {
+      "name": "type",
+      "short": "t",
+      "takesValue": true,
+      "multiple": true,
+      "possibleValues": ["foo", "bar"]
+    }
+  ]
 }
 ```
 
@@ -177,12 +180,12 @@ A flag argument is a standalone key whose presence or absence provides informati
 
 ```json title="tauri-src/tauri.conf.json"
 {
-	"args": [
-		{
-			"name": "verbose",
-			"short": "v"
-		}
-	]
+  "args": [
+    {
+      "name": "verbose",
+      "short": "v"
+    }
+  ]
 }
 ```
 
@@ -217,19 +220,21 @@ The CLI plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { getMatches } from '@tauri-apps/plugin-cli';
+// when using `"withGlobalTauri": true`, you may use
+// const { getMatches } = window.__TAURI_PLUGIN_CLI_;
 
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {
-	// `./your-app run $ARGS` was executed
-	const args = matches.subcommand.matches.args;
-	if (args.debug?.value === true) {
-		// `./your-app run --debug` was executed
-	}
-	if (args.release?.value === true) {
-		// `./your-app run --release` was executed
-	}
+  // `./your-app run $ARGS` was executed
+  const args = matches.subcommand.matches.args;
+  if (args.debug?.value === true) {
+    // `./your-app run --debug` was executed
+  }
+  if (args.release?.value === true) {
+    // `./your-app run --release` was executed
+  }
 }
 ```
 
@@ -265,23 +270,18 @@ fn run() {
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["cli:default"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["cli:default"]
 }
 ```
 
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `cli:default`           | Allows reading the CLI matches.                                   |
-| `cli:allow-cli-matches` | Enables the cli_matches command without any pre-configured scope. |
-| `cli:deny-cli-matches`  | Denies the cli_matches command without any pre-configured scope.  |
+<PluginPermissions plugin="cli" />

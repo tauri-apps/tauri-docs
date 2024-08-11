@@ -1,0 +1,141 @@
+---
+title: 通知提示
+description: 向用户发送本地通知提示。
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import Stub from '@components/Stub.astro';
+
+<PluginLinks plugin="notification" />
+
+使用通知提示插件以向你的用户发送原生通知。
+
+## 配置
+
+首先，下载通知提示插件
+
+<Tabs>
+    <TabItem label="自动">
+
+    使用你的项目的包管理器以添加依赖：
+
+    <CommandTabs npm="npm run tauri add notification"
+    yarn="yarn run tauri add notification"
+    pnpm="pnpm tauri add notification"
+    bun="bun tauri add notification"
+    cargo="cargo tauri add notification" />
+
+    </TabItem>
+    <TabItem label="手动">
+
+    1. 运行 `cargo add tauri-plugin-notification` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+
+    2. 修改 `lib.rs` 以初始化插件：
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // 初始化插件
+            .plugin(tauri_plugin_notification::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. 如果你想要在 JavaScript 中使用通知提示，请安装相应的 npm 包：
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-notification"
+        yarn="yarn add @tauri-apps/plugin-notification"
+        pnpm="pnpm add @tauri-apps/plugin-notification"
+        bun="bun add @tauri-apps/plugin-notification"
+    />
+
+    </TabItem>
+
+</Tabs>
+
+## 使用
+
+以下是一些如何使用通知插件的示例：
+
+- [向用户发送通知](#发送通知)
+- [向通知中添加一个行为](#行为动作)
+- [向通知添加附件](#附件)
+- [在特定频道中发送通知](#频道)
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+通知插件有 JavaScript 和 Rust 两种版本。
+
+### 发送通知
+
+{/* TODO: Demo component */}
+
+按照以下步骤发送通知：
+
+1. 检查是否授予了权限
+2. 如果未授予，请求权限
+3. 发送通知
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
+
+// 你有发送通知的权限吗？
+let permissionGranted = await isPermissionGranted();
+
+// 如果没有，我们需要请求它
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+
+// 一旦获得许可，我们就可以发送通知
+if (permissionGranted) {
+  sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+{/* TODO: */}
+
+<Stub />
+
+</TabItem>
+</Tabs>
+
+### 行为动作
+
+{/* TODO: */}
+
+<Stub />
+
+### 附件
+
+{/* TODO: */}
+
+<Stub />
+
+### 频道
+
+{/* TODO: */}
+
+<Stub />
+
+## 安全考虑
+
+除了用户输入的正常数据净化程序之外，目前还没有已知的安全考虑因素。

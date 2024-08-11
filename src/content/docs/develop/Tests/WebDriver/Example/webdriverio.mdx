@@ -3,7 +3,7 @@ title: WebdriverIO
 sidebar:
   order: 31
   badge:
-    text: WIP
+    text: Broken
     variant: caution
 ---
 
@@ -38,20 +38,20 @@ guide on setting it up from scratch.
 
 ```json
 {
-	"name": "webdriverio",
-	"version": "1.0.0",
-	"private": true,
-	"scripts": {
-		"test": "wdio run wdio.conf.js"
-	},
-	"dependencies": {
-		"@wdio/cli": "^7.9.1"
-	},
-	"devDependencies": {
-		"@wdio/local-runner": "^7.9.1",
-		"@wdio/mocha-framework": "^7.9.1",
-		"@wdio/spec-reporter": "^7.9.0"
-	}
+  "name": "webdriverio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "wdio run wdio.conf.js"
+  },
+  "dependencies": {
+    "@wdio/cli": "^7.9.1"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "^7.9.1",
+    "@wdio/mocha-framework": "^7.9.1",
+    "@wdio/spec-reporter": "^7.9.0"
+  }
 }
 ```
 
@@ -82,7 +82,7 @@ config file which controls most aspects of our testing suite.
 
 `wdio.conf.js`:
 
-```js
+```javascript
 const os = require('os');
 const path = require('path');
 const { spawn, spawnSync } = require('child_process');
@@ -91,36 +91,36 @@ const { spawn, spawnSync } = require('child_process');
 let tauriDriver;
 
 exports.config = {
-	specs: ['./develop/tests/specs/**/*.js'],
-	maxInstances: 1,
-	capabilities: [
-		{
-			maxInstances: 1,
-			'tauri:options': {
-				application: '../../target/release/hello-tauri-webdriver',
-			},
-		},
-	],
-	reporters: ['spec'],
-	framework: 'mocha',
-	mochaOpts: {
-		ui: 'bdd',
-		timeout: 60000,
-	},
+  specs: ['./develop/tests/specs/**/*.js'],
+  maxInstances: 1,
+  capabilities: [
+    {
+      maxInstances: 1,
+      'tauri:options': {
+        application: '../../target/release/hello-tauri-webdriver',
+      },
+    },
+  ],
+  reporters: ['spec'],
+  framework: 'mocha',
+  mochaOpts: {
+    ui: 'bdd',
+    timeout: 60000,
+  },
 
-	// ensure the rust project is built since we expect this binary to exist for the webdriver sessions
-	onPrepare: () => spawnSync('cargo', ['build', '--release']),
+  // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
+  onPrepare: () => spawnSync('cargo', ['build', '--release']),
 
-	// ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
-	beforeSession: () =>
-		(tauriDriver = spawn(
-			path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
-			[],
-			{ stdio: [null, process.stdout, process.stderr] }
-		)),
+  // ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
+  beforeSession: () =>
+    (tauriDriver = spawn(
+      path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+      [],
+      { stdio: [null, process.stdout, process.stderr] }
+    )),
 
-	// clean up the `tauri-driver` process we spawned at the start of the session
-	afterSession: () => tauriDriver.kill(),
+  // clean up the `tauri-driver` process we spawned at the start of the session
+  afterSession: () => tauriDriver.kill(),
 };
 ```
 
@@ -135,38 +135,38 @@ run them as it sees fit. Let's create our spec now in the directory we specified
 
 `test/specs/example.e2e.js`:
 
-```js
+```javascript
 // calculates the luma from a hex color `#abcdef`
 function luma(hex) {
-	if (hex.startsWith('#')) {
-		hex = hex.substring(1);
-	}
+  if (hex.startsWith('#')) {
+    hex = hex.substring(1);
+  }
 
-	const rgb = parseInt(hex, 16);
-	const r = (rgb >> 16) & 0xff;
-	const g = (rgb >> 8) & 0xff;
-	const b = (rgb >> 0) & 0xff;
-	return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  const rgb = parseInt(hex, 16);
+  const r = (rgb >> 16) & 0xff;
+  const g = (rgb >> 8) & 0xff;
+  const b = (rgb >> 0) & 0xff;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 describe('Hello Tauri', () => {
-	it('should be cordial', async () => {
-		const header = await $('body > h1');
-		const text = await header.getText();
-		expect(text).toMatch(/^[hH]ello/);
-	});
+  it('should be cordial', async () => {
+    const header = await $('body > h1');
+    const text = await header.getText();
+    expect(text).toMatch(/^[hH]ello/);
+  });
 
-	it('should be excited', async () => {
-		const header = await $('body > h1');
-		const text = await header.getText();
-		expect(text).toMatch(/!$/);
-	});
+  it('should be excited', async () => {
+    const header = await $('body > h1');
+    const text = await header.getText();
+    expect(text).toMatch(/!$/);
+  });
 
-	it('should be easy on the eyes', async () => {
-		const body = await $('body');
-		const backgroundColor = await body.getCSSProperty('background-color');
-		expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100);
-	});
+  it('should be easy on the eyes', async () => {
+    const body = await $('body');
+    const backgroundColor = await body.getCSSProperty('background-color');
+    expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100);
+  });
 });
 ```
 

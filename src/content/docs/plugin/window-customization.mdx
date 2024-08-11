@@ -16,9 +16,12 @@ Tauri provides lots of options for customizing the look and feel of your app's w
 
 There are three ways to change the window configuration:
 
-- <Icon name="external" class="inline-icon" /> [Through tauri.conf.json](/reference/config/#windowconfig)
-- <Icon name="external" class="inline-icon" /> [Through the JavaScript API](/reference/javascript/api/namespacewindow/#window)
-- <Icon name="external" class="inline-icon" /> [Through the Window in Rust](https://docs.rs/tauri/2.0.0-beta/tauri/window/struct.Window.html)
+- <Icon name="external" class="inline-icon" /> [Through
+  tauri.conf.json](/reference/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [Through the JavaScript
+  API](/reference/javascript/api/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [Through the Window in
+  Rust](https://docs.rs/tauri/2.0.0-rc/tauri/window/struct.Window.html)
 
 ## Usage
 
@@ -53,15 +56,15 @@ Add window permissions in capability file.
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
-	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "main-capability",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"permissions": ["window:default", "window:allow-start-dragging"]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["window:default", "window:allow-start-dragging"]
 }
 ```
 
@@ -80,27 +83,27 @@ Add this CSS sample to keep it at the top of the screen and style the buttons:
 
 ```css
 .titlebar {
-	height: 30px;
-	background: #329ea3;
-	user-select: none;
-	display: flex;
-	justify-content: flex-end;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
+  height: 30px;
+  background: #329ea3;
+  user-select: none;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .titlebar-button {
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	width: 30px;
-	height: 30px;
-	user-select: none;
-	-webkit-user-select: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .titlebar-button:hover {
-	background: #5bbec3;
+  background: #5bbec3;
 }
 ```
 
@@ -110,21 +113,21 @@ Put this at the top of your `<body>` tag:
 
 ```html
 <div data-tauri-drag-region class="titlebar">
-	<div class="titlebar-button" id="titlebar-minimize">
-		<img
-			src="https://api.iconify.design/mdi:window-minimize.svg"
-			alt="minimize"
-		/>
-	</div>
-	<div class="titlebar-button" id="titlebar-maximize">
-		<img
-			src="https://api.iconify.design/mdi:window-maximize.svg"
-			alt="maximize"
-		/>
-	</div>
-	<div class="titlebar-button" id="titlebar-close">
-		<img src="https://api.iconify.design/mdi:close.svg" alt="close" />
-	</div>
+  <div class="titlebar-button" id="titlebar-minimize">
+    <img
+      src="https://api.iconify.design/mdi:window-minimize.svg"
+      alt="minimize"
+    />
+  </div>
+  <div class="titlebar-button" id="titlebar-maximize">
+    <img
+      src="https://api.iconify.design/mdi:window-maximize.svg"
+      alt="maximize"
+    />
+  </div>
+  <div class="titlebar-button" id="titlebar-close">
+    <img src="https://api.iconify.design/mdi:close.svg" alt="close" />
+  </div>
 </div>
 ```
 
@@ -134,21 +137,26 @@ Note that you may need to move the rest of your content down so that the titleba
 
 Use this code snippet to make the buttons work:
 
-```js
-import { Window } from '@tauri-apps/api/window';
+```javascript
+import { getCurrentWindow } from '@tauri-apps/api/window';
 
-const appWindow = new Window('main');
+// when using `"withGlobalTauri": true`, you may use
+// const { getCurrentWindow } = window.__TAURI__.window;
+
+const appWindow = getCurrentWindow();
 
 document
-	.getElementById('titlebar-minimize')
-	?.addEventListener('click', () => appWindow.minimize());
+  .getElementById('titlebar-minimize')
+  ?.addEventListener('click', () => appWindow.minimize());
 document
-	.getElementById('titlebar-maximize')
-	?.addEventListener('click', () => appWindow.toggleMaximize());
+  .getElementById('titlebar-maximize')
+  ?.addEventListener('click', () => appWindow.toggleMaximize());
 document
-	.getElementById('titlebar-close')
-	?.addEventListener('click', () => appWindow.close());
+  .getElementById('titlebar-close')
+  ?.addEventListener('click', () => appWindow.close());
 ```
+
+Note that if you are using a Rust-based frontend, you can copy the code above into a `<script>` element in your `index.html` file.
 
 ### (macOS) Transparent Titlebar with Custom Window Background Color
 

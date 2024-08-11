@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="os" />
 
@@ -27,6 +28,7 @@ Install the OS Information plugin to get started.
     <CommandTabs npm="npm run tauri add os"
           yarn="yarn run tauri add os"
           pnpm="pnpm tauri add os"
+          bun="bun tauri add os"
           cargo="cargo tauri add os" />
 
   </TabItem>
@@ -52,9 +54,10 @@ Install the OS Information plugin to get started.
     3.  If you'd like to use in JavaScript then install the npm package as well:
 
         <CommandTabs
-                npm="npm install @tauri-apps/plugin-os"
+            npm="npm install @tauri-apps/plugin-os"
             yarn="yarn add @tauri-apps/plugin-os"
             pnpm="pnpm add @tauri-apps/plugin-os"
+            bun="bun add @tauri-apps/plugin-os"
         />
 
     </Steps>
@@ -75,8 +78,10 @@ With this plugin you can query multiple information from current operational sys
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { platform } from '@tauri-apps/plugin-os';
+// when using `"withGlobalTauri": true`, you may use
+// const { platform } = window.__TAURI_PLUGIN_OS__;
 
 const currentPlatform = await platform();
 console.log(currentPlatform);
@@ -97,10 +102,9 @@ println!("Platform: {}", platform);
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Access Control List](/reference/acl/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={4-6}
 {
@@ -113,21 +117,4 @@ See [Access Control List](/reference/acl/) for more information.
 }
 ```
 
-| Permission               | Description                                                         |
-| ------------------------ | ------------------------------------------------------------------- |
-| `os:allow-arch`          | Enables the arch command without any pre-configured scope.          |
-| `os:deny-arch`           | Denies the arch command without any pre-configured scope.           |
-| `os:allow-exe-extension` | Enables the exe-extension command without any pre-configured scope. |
-| `os:deny-exe-extension`  | Denies the exe-extension command without any pre-configured scope.  |
-| `os:allow-family`        | Enables the family command without any pre-configured scope.        |
-| `os:deny-family`         | Denies the family command without any pre-configured scope.         |
-| `os:allow-hostname`      | Enables the hostname command without any pre-configured scope.      |
-| `os:deny-hostname`       | Denies the hostname command without any pre-configured scope.       |
-| `os:allow-locale`        | Enables the locale command without any pre-configured scope.        |
-| `os:deny-locale`         | Denies the locale command without any pre-configured scope.         |
-| `os:allow-os-type`       | Enables the os-type command without any pre-configured scope.       |
-| `os:deny-os-type`        | Denies the os-type command without any pre-configured scope.        |
-| `os:allow-platform`      | Enables the platform command without any pre-configured scope.      |
-| `os:deny-platform`       | Denies the platform command without any pre-configured scope.       |
-| `os:allow-version`       | Enables the version command without any pre-configured scope.       |
-| `os:deny-version`        | Denies the version command without any pre-configured scope.        |
+<PluginPermissions plugin="os" />

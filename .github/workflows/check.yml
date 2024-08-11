@@ -1,0 +1,25 @@
+# Adapted from https://github.com/withastro/starlight/blob/main/.github/workflows/format.yml
+
+name: 'Check formatting'
+
+on:
+  pull_request:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code using Git
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm i
+
+      - name: Check formatting
+        run: pnpm format:check

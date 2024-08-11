@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="http" />
 
@@ -27,6 +28,7 @@ Install the http plugin to get started.
         <CommandTabs npm="npm run tauri add http"
         yarn="yarn run tauri add http"
         pnpm="pnpm tauri add http"
+        bun="bun tauri add http"
         cargo="cargo tauri add http" />
 
     </TabItem>
@@ -55,6 +57,7 @@ Install the http plugin to get started.
                 npm="npm install @tauri-apps/plugin-http"
                 yarn="yarn add @tauri-apps/plugin-http"
                 pnpm="pnpm add @tauri-apps/plugin-http"
+                bun="bun add @tauri-apps/plugin-http"
             />
 
         </Steps>
@@ -75,26 +78,26 @@ The http plugin is available in both as an JavaScript API and in Rust as a [reqw
     ```json
     //src-tauri/capabilities/base.json
     {
-    	"permissions": [
-    		{
-    			"identifier": "http:default",
-    			"allow": [{ "url": "https://*.tauri.app" }],
-    			"deny": [{ "url": "https://private.tauri.app" }]
-    		}
-    	]
+      "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": [{ "url": "https://*.tauri.app" }],
+          "deny": [{ "url": "https://private.tauri.app" }]
+        }
+      ]
     }
     ```
 
-    For more information, please see the documentation for [Access Control Lists](/reference/acl/)
+    For more information, please see the documentation for [Permissions Overview](/security/permissions/)
 
 2.  Send a request
 
-    ```js
+    ```javascript
     import { fetch } from '@tauri-apps/plugin-http';
 
     // Send a GET request
     const response = await fetch('http://test.tauri.app/data.json', {
-    	method: 'GET',
+      method: 'GET',
     });
     console.log(response.status); // e.g. 200
     console.log(response.statusText); // e.g. "OK"
@@ -119,3 +122,5 @@ let res = reqwest::get("http://my.api.host/data.json").await;
 println!("{:?}", res.status()); // e.g. 200
 println!("{:?}", res.text().await); // e.g Ok("{ Content }")
 ```
+
+<PluginPermissions plugin="http" />
