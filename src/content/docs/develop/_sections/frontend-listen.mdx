@@ -1,0 +1,146 @@
+---
+title: Calling the Frontend from Rust
+sidebar:
+  order: 1
+---
+
+The `@tauri-apps/api` NPM package offers APIs to listen to both global and webview-specific events.
+
+- Listening to global events
+
+  ```ts
+  import { listen } from '@tauri-apps/api/event';
+
+  type DownloadStarted = {
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
+
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
+  ```
+
+- Listening to webview-specific events
+
+  ```ts
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
+  ```
+
+The `listen` function keeps the event listener registered for the entire lifetime of the application.
+To stop listening on an event you can use the `unlisten` function which is returned by the `listen` function:
+
+```js
+import { listen } from '@tauri-apps/api/event';
+
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
+```
+
+:::note
+Always use the unlisten function when your execution context goes out of scope
+such as when a component is unmounted.
+
+When the page is reloaded or you navigate to another URL the listeners are unregistered automatically.
+This does not apply to a Single Page Application (SPA) router though.
+:::
+
+Additionally Tauri provides a utility function for listening to an event exactly once:
+
+```js
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+once('ready', (event) => {});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
+```
+
+:::note
+Events emitted in the frontend also triggers listeners registed by these APIs.
+For more information see the [Calling Rust from the Frontend] documentation.
+:::
+
+#### Listening to Events on Rust
+
+Global and webview-specific events are also delivered to listeners registered in Rust.
+
+- Listening to global events
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::Listener;
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        app.listen("download-started", |event| {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.data) {
+            println!("downloading {}", payload.url);
+          }
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+- Listening to webview-specific events
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::{Listener, Manager};
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        let webview = app.get_webview_window("main").unwrap();
+        webview.listen("logged-in", |event| {
+          let session_token = event.data;
+          // save token..
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+The `listen` function keeps the event listener registered for the entire lifetime of the application.
+To stop listening on an event you can use the `unlisten` function:
+
+```rust
+// unlisten outside of the event handler scope:
+let event_id = app.listen("download-started", |event| {});
+app.unlisten(event_id);
+
+// unlisten when some event criteria is matched
+let handle = app.handle().clone();
+app.listen("status-changed", |event| {
+  if event.data == "ready" {
+    handle.unlisten(event.id);
+  }
+});
+```
+
+Additionally Tauri provides a utility function for listening to an event exactly once:
+
+```rust
+app.once("ready", |event| {
+  println!("app is ready");
+});
+```
+
+In this case the event listener is immediately unregistered after its first trigger.
+
+[Calling Rust from the Frontend]: /develop/calling-rust
