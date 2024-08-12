@@ -1,0 +1,222 @@
+---
+title: 深度链接（deep-link）
+description: 将你的 Tauri 应用程序设置为 URL 的默认处理程序。
+sidebar:
+  badge:
+    text: New
+    variant: tip
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="deep-link" />
+
+将你的 Tauri 应用程序设置为 URL 的默认处理程序。
+
+## 支持的平台
+
+- Android
+- iOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+请安装 deep-link 插件。
+
+<Tabs>
+  <TabItem label="自动">
+
+使用项目的包管理器来添加依赖。
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add deep-link"
+  yarn="yarn run tauri add deep-link"
+  pnpm="pnpm tauri add deep-link"
+  bun="bun tauri add deep-link"
+  cargo="cargo tauri add deep-link"
+/>
+
+  </TabItem>
+  <TabItem label="手动">
+
+1. 运行 `cargo add tauri-plugin-deep-link` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+      npm="npm install @tauri-apps/plugin-deep-link"
+      yarn="yarn add @tauri-apps/plugin-deep-link"
+      pnpm="pnpm add @tauri-apps/plugin-deep-link"
+      bun="bun add @tauri-apps/plugin-deep-link"
+  />
+  </TabItem>
+</Tabs>
+
+## 设置
+
+### Android
+
+对于 [app links](https://developer.android.com/training/app-links#android-app-links)，你需要一个具有 `.well-known/assetlinks.json` 端点的服务器，该端点必须返回给定格式的文本响应。
+
+```json title=".well-known/assetlinks.json"
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "$APP_BUNDLE_ID",
+      "sha256_cert_fingerprints": [
+        $CERT_FINGERPRINT
+      ]
+    }
+  }
+]
+```
+
+其中 `$APP_BUNDLE_ID` 是 `tauri.conf.json > identifier` 上定义的值，其中 `-` 替换为 `_` ， `$CERT_FINGERPRINT` 是你的应用签名证书的 SHA256 指纹列表，请参阅 [verify android applinks](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc) 以获取更多信息。
+
+### iOS
+
+#### Server
+
+对于 [universal links](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=obj)，你需要一个具有 `.well-known/apple-app-site-association` 端点的服务器，该端点必须返回给定格式的文本响应。
+
+```json title=".well-known/apple-app-site-association"
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
+        "components": [
+          {
+            "/": "/open/*",
+            "comment": "Matches any URL whose path starts with /open/"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+其中 `$DEVELOPMENT_TEAM_ID` 是 `tauri.conf.json > tauri > bundle > iOS > developmentTeam` 或 `TAURI_APPLE_DEVELOPMENT_TEAM` 环境变量上定义的值，`$APP_BUNDLE_ID`是定义在`tauri.conf.json > identifier` 上的值。请参阅 [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) 以获取更多信息。
+
+#### App
+
+你还需要将相关域名添加到应用的 `entitlement` 文件中。
+
+```xml title="src-tauri/gen/apple/[App Name]_iOS/[App Name]_iOS.entitlements" ins={5-9}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:your.website.com</string>
+		<string>applinks:nother.site.br</string>
+	</array>
+</dict>
+</plist>
+```
+
+有关更多信息，请参阅 [supporting associated domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains?language=objc)。
+
+## 配置
+
+在 `tauri.conf.json > plugins > deep-link` 下，配置你想要关联到你的应用程序的域。
+
+```json title="tauri.conf.json"
+{
+  "plugins": {
+    "deep-link": {
+      "domains": [
+        { "host": "your.website.com", "pathPrefix": ["/open"] },
+        { "host": "another.site.br" }
+      ]
+    }
+  }
+}
+```
+
+## 用法
+
+deep-link 有 JavaScript 和 Rust 两种版本。
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```javascript
+import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
+
+await onOpenUrl((urls) => {
+  console.log('deep link:', urls);
+});
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_cli::CliExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            app.listen("deep-link://new-url", |url| {
+              dbg!(url);
+            });
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。
+你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={9}
+{
+  "$schema": "./schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    // 通常需要 event:default 来监听 deep-link 事件
+    "event:default",
+    "deep-link:default"
+  ]
+}
+```
+
+| 权限                          | 描述                                                  |
+| ----------------------------- | ----------------------------------------------------- |
+| `deep-link:default`           | 允许通过 get_current 命令读取打开的深度链接。         |
+| `deep-link:allow-get-current` | 在没有预先配置的作用域的情况下启用 get_current 命令。 |
+| `deep-link:deny-get-current`  | 拒绝没有任何预配置范围的 get_current 命令。           |

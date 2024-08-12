@@ -1,0 +1,281 @@
+---
+title: 命令行接口 (CLI)
+description: 从命令行接口解析参数。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="cli" />
+
+Tauri 使您的应用程序能够通过 [clap](https://github.com/clap-rs/clap)（一个强大的命令行参数解析器）拥有 CLI。通过 `tauri.conf.json` 文件中的简单 CLI 定义，您可以定义接口并读取其参数匹配 JavaScript/Rust 上的映射。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+请安装 CLI 插件。
+
+<Tabs>
+  <TabItem label="自动">
+
+使用项目的包管理器来添加依赖。
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add cli"
+  yarn="yarn run tauri add cli"
+  pnpm="pnpm tauri add cli"
+  bun="bun tauri add cli"
+  cargo="cargo tauri add cli"
+/>
+
+  </TabItem>
+  <TabItem label="手动">
+
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装插件。
+
+```toml title="src-tauri/Cargo.toml"
+# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
+tauri-plugin-cli = "2.0.0-rc"
+# 或者使用 Git
+tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+					npm="npm install @tauri-apps/plugin-cli"
+					yarn="yarn add @tauri-apps/plugin-cli"
+					pnpm="pnpm add @tauri-apps/plugin-cli"
+          bun="bun add @tauri-apps/plugin-cli"
+				/>
+  </TabItem>
+</Tabs>
+
+## 基本配置
+
+在 `tauri.conf.json` 中，你可以使用以下结构来配置接口：
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "plugins": {
+    "cli": {
+      "description": "Tauri CLI Plugin Example",
+      "args": [
+        {
+          "short": "v",
+          "name": "verbose",
+          "description": "Verbosity level"
+        }
+      ],
+      "subcommands": {
+        "run": {
+          "description": "Run the application",
+          "args": [
+            {
+              "name": "debug",
+              "description": "Run application in debug mode"
+            },
+            {
+              "name": "release",
+              "description": "Run application in release mode"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+:::note
+
+这里所有的JSON配置都只是示例，为了清晰起见，许多其他字段都被省略了。
+
+:::
+
+## 添加参数
+
+`args` 数组表示其命令或子命令接受的参数列表。
+
+{/* TODO: List available configuration */}
+
+### 位置参数
+
+位置参数由其在参数列表中的位置标识。通过以下配置：
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "source",
+      "index": 1,
+      "takesValue": true
+    },
+    {
+      "name": "destination",
+      "index": 2,
+      "takesValue": true
+    }
+  ]
+}
+```
+
+用户可以以 `./app tauri.txt dest.txt` 的格式运行你的应用程序，参数匹配映射将把 `source` 定义为 `"tauri.txt"`，把 `destination` 定义为 `"dest.txt"`。
+
+### 命名参数
+
+命名参数是一个 (key, value) 对，键标识值。通过以下配置：
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "type",
+      "short": "t",
+      "takesValue": true,
+      "multiple": true,
+      "possibleValues": ["foo", "bar"]
+    }
+  ]
+}
+```
+
+用户可以以 `./app --type foo bar`、`./app -t foo -t bar`、`./app --type=foo,bar` 的形式运行你的应用，匹配的参数映射将会将 `type` 定义为 `["foo"， "bar"]`。
+
+### 标志参数
+
+标志参数是一个独立的键，它的存在或不存在为应用程序提供信息。通过以下配置：
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "verbose",
+      "short": "v"
+    }
+  ]
+}
+```
+
+用户可以以 `./app -v -v -v`、`./app --verbose --verbose --verbose`、`./app -vvv` 的形式运行你的应用程序， 匹配的参数映射将会将 `verbose` 定义为 `true` 和 `occurrences = 3`。
+
+## 子命令
+
+有些 CLI 应用程序有额外的接口作为子命令。例如，`git` CLI 有 `git branch`、`git commit` 和 `git push`。你可以使用 `subcommands` 数组定义额外的嵌套接口。
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "cli": {
+    ...
+    "subcommands": {
+      "branch": {
+        "args": []
+      },
+      "push": {
+        "args": []
+      }
+    }
+  }
+}
+```
+
+它的配置和根应用的配置一样，都有 `description`、`longDescription`、`args` 等。
+
+## 用法
+
+CLI 有 JavaScript 和 Rust 两种版本。
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```javascript
+import { getMatches } from '@tauri-apps/plugin-cli';
+
+const matches = await getMatches();
+if (matches.subcommand?.name === 'run') {
+  // `./your-app run $ARGS` was executed
+  const args = matches.subcommand.matches.args;
+  if (args.debug?.value === true) {
+    // `./your-app run --debug` was executed
+  }
+  if (args.release?.value === true) {
+    // `./your-app run --release` was executed
+  }
+}
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs" {1, 6-18}
+use tauri_plugin_cli::CliExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+   tauri::Builder::default()
+       .plugin(tauri_plugin_cli::init())
+       .setup(|app| {
+           match app.cli().matches() {
+               // `matches` here is a Struct with { args, subcommand }.
+               // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurrences }.
+               // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
+               Ok(matches) => {
+                   println!("{:?}", matches)
+               }
+               Err(_) => {}
+           }
+           Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。
+你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={6}
+{
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["cli:default"]
+}
+```
+
+| 权限                    | 描述                                                  |
+| ----------------------- | ----------------------------------------------------- |
+| `cli:default`           | 允许读取 CLI 匹配项。                                 |
+| `cli:allow-cli-matches` | 在没有预先配置作用域的情况下，启用 cli_matches 命令。 |
+| `cli:deny-cli-matches`  | 拒绝没有预先配置作用域的 cli_matches 命令。           |

@@ -1,0 +1,473 @@
+---
+title: Mobile Plugin Development
+i18nReady: true
+---
+
+:::tip[Plugin Development]
+
+Be sure that you're familiar with the concepts covered in the [Plugin Development guide](/develop/plugins/) as many concepts in this guide build on top of foundations covered there.
+
+:::
+
+Plugins can run native mobile code written in Kotlin (or Java) and Swift. The default plugin template includes an Android library project using Kotlin and a Swift package including an example mobile command showing how to trigger its execution from Rust code.
+
+## Initialize Plugin Project
+
+Follow the steps in the [Plugin Development guide](/develop/plugins/#initialize-plugin-project) to initialize a new plugin project.
+
+If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use `plugin android init` and `plugin ios init` to bootstrap the mobile library projects and guide you through the changes needed.
+
+The default plugin template splits the plugin's implementation into two separate modules: `desktop.rs` and `mobile.rs`.
+
+The desktop implementation uses Rust code to implement a functionality, while the mobile implementation sends a message to the native mobile code to execute a function and get a result back. If shared logic is needed across both implementations, it can be defined in `lib.rs`:
+
+```rust
+// lib.rs
+use tauri::Runtime;
+
+impl<R: Runtime> <plugin-name><R> {
+  pub fn do_something(&self) {
+    // do something that is a shared implementation between desktop and mobile
+  }
+}
+```
+
+This implementation simplifies the process of sharing an API that can be used both by commands and Rust code.
+
+### Develop an Android Plugin
+
+A Tauri plugin for Android is defined as a Kotlin class that extends `app.tauri.plugin.Plugin` and is annoted with `app.tauri.annotation.TauriPlugin`. Each method annotated with `app.tauri.annotation.Command` can be called by Rust or JavaScript.
+
+Tauri uses Kotlin by default for the Android plugin implementation, but you can switch to Java if you prefer. After generating a plugin, right click the Kotlin plugin class in Android Studio and select the "Convert Kotlin file to Java file" option from the menu. Android Studio will guide you through the project migration to Java.
+
+### Develop an iOS Plugin
+
+A Tauri plugin for iOS is defined as a Swift class that extends the `Plugin` class from the `Tauri` package. Each function with the `@objc` attribute and the `(_ invoke: Invoke)` parameter (for example `@objc private func download(_ invoke: Invoke) { }`) can be called by Rust or JavaScript.
+
+The plugin is defined as a [Swift package](https://www.swift.org/package-manager/) so that you can use its package manager to manage dependencies.
+
+## Plugin Configuration
+
+Refer to the [Plugin Configuration section](/develop/plugins/#plugin-configuration) of the Plugin Development guide for more details on developing plugin configurations.
+
+The plugin instance on mobile has a getter for the plugin configuration:
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    val timeout = this.config.getInt("timeout", 30)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Lifecycle Events
+
+Plugins can hook into several lifecycle events:
+
+- [load](#load): When the plugin is loaded into the web view
+- [onNewIntent](#onnewintent): Android only, when the activity is re-launched
+
+There are also the additional [lifecycle events for plugins](/develop/plugins/#lifecycle-events) in the Plugin Development guide.
+
+### load
+
+- **When**: When the plugin is loaded into the web view
+- **Why**: Execute plugin initialization code
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    // perform plugin setup here
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### onNewIntent
+
+**Note**: This is only available on Android.
+
+- **When**: When the activity is re-launched. See [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) for more information.
+- **Why**: Handle application re-launch such as when a notification is clicked or a deep link is accessed.
+
+```kotlin
+import android.app.Activity
+import android.content.Intent
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun onNewIntent(intent: Intent) {
+    // handle new intent event
+  }
+}
+```
+
+## Adding Mobile Commands
+
+There is a plugin class inside the respective mobile projects where commands can be defined that can be called by the Rust code:
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+</TabItem>
+</Tabs>
+
+Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
+
+```rust
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> <plugin-name;pascal-case><R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
+```
+
+## Command Arguments
+
+Arguments are serialized to commands and can be parsed on the mobile plugin with the `Invoke::parseArgs` function, taking a class describing the argument object.
+
+### Android
+
+On Android, the arguments are defined as a class annotated with `@app.tauri.annotation.InvokeArg`. Inner objects must also be annotated:
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.Command
+import app.tauri.annotation.InvokeArg
+import app.tauri.annotation.TauriPlugin
+
+@InvokeArg
+internal class OpenAppArgs {
+  lateinit var name: String
+  var timeout: Int? = null
+}
+
+@InvokeArg
+internal class OpenArgs {
+  lateinit var requiredArg: String
+  var allowEdit: Boolean = false
+  var quality: Int = 100
+  var app: OpenAppArgs? = null
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val args = invoke.parseArgs(OpenArgs::class.java)
+  }
+}
+```
+
+:::note
+Optional arguments are defined as `var <argumentName>: Type? = null`
+
+Arguments with default values are defined as `var <argumentName>: Type = <default-value>`
+
+Required arguments are defined as `lateinit var <argumentName>: Type`
+:::
+
+### iOS
+
+On iOS, the arguments are defined as a class that inherits `Decodable`. Inner objects must also inherit the Decodable protocol:
+
+```swift
+class OpenAppArgs: Decodable {
+  let name: String
+  var timeout: Int?
+}
+
+class OpenArgs: Decodable {
+  let requiredArg: String
+  var allowEdit: Bool?
+  var quality: UInt8?
+  var app: OpenAppArgs?
+}
+
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    let args = try invoke.parseArgs(OpenArgs.self)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+:::note
+Optional arguments are defined as `var <argumentName>: Type?`
+
+Arguments with default values are **NOT** supported.
+Use a nullable type and set the default value on the command function instead.
+
+Required arguments are defined as `let <argumentName>: Type`
+:::
+
+## Permissions
+
+If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
+
+<Tabs>
+<TabItem label="Android">
+
+First define the list of permissions needed and an alias to identify each group in code. This is done inside the `TauriPlugin` annotation:
+
+```kotlin
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
+class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+First override the `checkPermissions` and `requestPermissions` functions:
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // request permissions here
+    // then resolve the request
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`. Those commands can be directly called from JavaScript or Rust:
+
+{/* TODO: PermissionState type should be exported in Tauri */}
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { invoke } from '@tauri-apps/api/tauri'
+
+type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+
+interface Permissions {
+  postNotification: PermissionState
+}
+
+// check permission state
+const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+
+if (permission.postNotification === 'prompt-with-rationale') {
+  // show information to the user about why permission is needed
+}
+
+// request permission
+if (permission.postNotification.startsWith('prompt')) {
+  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use serde::{Serialize, Deserialize};
+use tauri::Runtime;
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PermissionResponse {
+  pub post_notification: PermissionState,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestPermission {
+  post_notification: bool,
+}
+
+impl<R: Runtime> Notification<R> {
+  pub fn request_post_notification_permission(&self) -> crate::Result<PermissionState> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("requestPermissions", RequestPermission { post_notification: true })
+      .map(|r| r.post_notification)
+      .map_err(Into::into)
+  }
+
+  pub fn check_permissions(&self) -> crate::Result<PermissionResponse> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("checkPermissions", ())
+      .map_err(Into::into)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Plugin Events
+
+{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+
+Plugins can emit events at any point of time using the `trigger` function:
+
+<Tabs>
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+    override fun load(webView: WebView) {
+      trigger("load", JSObject())
+    }
+
+    override fun onNewIntent(intent: Intent) {
+      // handle new intent event
+      if (intent.action == Intent.ACTION_VIEW) {
+        val data = intent.data.toString()
+        val event = JSObject()
+        event.put("data", data)
+        trigger("newIntent", event)
+      }
+    }
+
+    @Command
+    fun openCamera(invoke: Invoke) {
+      val payload = JSObject()
+      payload.put("open", true)
+      trigger("camera", payload)
+    }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+The helper functions can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
+
+```javascript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+
+export async function onRequest(
+	handler: (url: string) => void
+): Promise<PluginListener> {
+	return await addPluginListener(
+		'<plugin-name>',
+		'event-name',
+		handler
+	);
+}
+```

@@ -1,0 +1,91 @@
+---
+title: 上传
+description: 通过 HTTP 上传文件
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="upload" />
+
+通过 HTTP 从磁盘上传文件到远程服务器。从远程 HTTP 服务器下载文件到磁盘。
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+<Tabs>
+	<TabItem label="自动">
+
+    使用项目的包管理器来添加依赖。
+
+    <CommandTabs
+    	npm="npm run tauri add upload"
+    	yarn="yarn run tauri add upload"
+    	pnpm="pnpm tauri add upload"
+    	bun="bun tauri add upload"
+    	cargo="cargo tauri add upload"
+    />
+
+    </TabItem>
+    <TabItem label="手动">
+
+    	<Steps>
+
+    	1. 运行 `cargo add tauri-plugin-upload` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
+
+    	2. 修改 `lib.rs` 来初始化插件。
+
+    		```rust title="src-tauri/src/lib.rs" ins={5}
+    		#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    		pb fn run() {
+    			tauri::Builder::default()
+    				// Initialize the plugin
+    				.plugin(tauri_plugin_upload::init())
+        			.run(tauri::generate_context!())
+        			.expect("error while running tauri application");
+    		}
+    		```
+
+    	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+    		<CommandTabs
+    			npm="npm install @tauri-apps/plugin-upload"
+    			yarn="yarn add @tauri-apps/plugin-upload"
+    			pnpm="pnpm add @tauri-apps/plugin-upload"
+    			bun="bun add @tauri-apps/plugin-upload"
+    		/>
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+一旦完成了插件的注册和设置过程，就可以通过 JavaScript Guest 绑定访问它的所有 API。
+
+下面是一个使用插件上传和下载文件的例子：
+
+```javascript
+import { upload } from '@tauri-apps/plugin-upload';
+
+upload(
+  'https://example.com/file-upload',
+  './path/to/my/file.txt',
+  (progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // 上传进度时调用的回调函数
+  { 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
+);
+```
+
+```javascript
+import { download } from '@tauri-apps/plugin-upload';
+
+download(
+  'https://example.com/file-download-link',
+  './path/to/save/my/file.txt',
+  (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // 下载进度时调用的回调函数
+  { 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
+);
+```

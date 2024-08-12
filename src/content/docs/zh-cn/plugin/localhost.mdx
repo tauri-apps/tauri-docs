@@ -1,0 +1,70 @@
+---
+title: Localhost
+description: 在生产环境中使用 localhost 服务器。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="localhost" showJsLinks={false} />
+
+通过 localhost 服务器而不是默认的自定义协议公开你的应用资源。
+
+:::caution
+这个插件带来了相当大的安全风险，你只应该在知道你在做什么的情况下使用它。如果有疑问，请使用默认的自定义协议实现。
+:::
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+1. 通过将以下内容添加到 `Cargo.toml` 中来安装 localhost 插件。
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-localhost = "2.0.0-rc"
+# 或者使用 Git：
+tauri-plugin-localhost = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="src-tauri/src/lib.rs" ins={3}
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_localhost::Builder::new().build())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+## 用法
+
+Rust 提供了 localhost 插件。
+
+```rust title="src-tauri/src/lib.rs" {4} {7-14}
+use tauri::{webview::WebviewWindowBuilder, WebviewUrl};
+
+fn run() {
+  let port: u16 = 9527;
+
+  tauri::Builder::default()
+      .plugin(tauri_plugin_localhost::Builder::new(port).build())
+      .setup(move |app| {
+          let url = format!("http://localhost:{}", port).parse().unwrap();
+          WebviewWindowBuilder::new(app, "main".to_string(), WebviewUrl::External(url))
+              .title("Localhost Example")
+              .build()?;
+          Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+}
+```

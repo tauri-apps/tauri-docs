@@ -1,0 +1,118 @@
+---
+title: WebSocket
+description: 在 JavaScript 中使用 Rust 客户端打开 WebSocket 连接。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="websocket" />
+
+在 JavaScript 中使用 Rust 客户端打开 WebSocket 连接。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+首先安装 WebSocket 插件。
+
+<Tabs>
+	<TabItem label="自动" >
+		使用项目的包管理器来添加依赖。
+
+    		{ ' ' }
+
+    		<CommandTabs
+    			npm="npm run tauri add websocket"
+    			yarn="yarn run tauri add websocket"
+    			pnpm="pnpm tauri add websocket"
+    			bun="bun tauri add websocket"
+    			cargo="cargo tauri add websocket"
+    		/>
+    </TabItem>
+
+    <TabItem label = "手动">
+    	<Steps>
+
+    	1. 在你的 `Cargo.toml` 文件中添加以下内容来安装 websocket 插件。
+
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-websocket = "2.0.0-rc"
+    		# 或者使用 Git：
+    		tauri-plugin-websocket = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
+
+    	2. 修改 `lib.rs` 来初始化插件。
+
+    		```rust title="src-tauri/src/lib.rs" ins={3}
+    		fn run() {
+    				tauri::Builder::default()
+    						.plugin(tauri_plugin_websocket::init())
+    						.run(tauri::generate_context!())
+    						.expect("error while running tauri application");
+    		}
+    		```
+
+    	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+    		<CommandTabs
+    			npm = "npm install @tauri-apps/plugin-websocket"
+    			yarn = "yarn add @tauri-apps/plugin-websocket"
+    			pnpm = "pnpm add @tauri-apps/plugin-websocket"
+    			bun="bun add @tauri-apps/plugin-websocket"
+    		/>
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+WebSocket 插件可以在 JavaScript 中使用。
+
+```javascript
+import WebSocket from '@tauri-apps/plugin-websocket';
+
+const ws = await WebSocket.connect('ws://127.0.0.1:8080');
+
+ws.addListener((msg) => {
+  console.log('Received Message:', msg);
+});
+
+await ws.send('Hello World!');
+
+await ws.disconnect();
+```
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["websocket:default"]
+}
+```
+
+| 权限                      | 描述                                              |
+| ------------------------- | ------------------------------------------------- |
+| `websocket:default`       | 允许连接和发送数据到 WebSocket 服务器             |
+| `websocket:allow-connect` | 在没有预先配置的作用域的情况下启用 connect 命令。 |
+| `websocket:deny-connect`  | 拒绝没有任何预配置范围的 connect 命令。           |
+| `websocket:allow-send`    | 在没有预先配置的作用域的情况下启用 send 命令。    |
+| `websocket:deny-send`     | 拒绝没有任何预配置范围的 send 命令。              |

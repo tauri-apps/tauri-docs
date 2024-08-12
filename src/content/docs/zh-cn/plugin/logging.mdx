@@ -1,0 +1,137 @@
+---
+title: 日志记录
+description: 可配置的日志记录。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="log" />
+
+为你的 Tauri 应用程序配置日志记录。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+- iOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+请安装日志插件。
+
+<Tabs>
+  <TabItem label="自动" >
+
+使用项目的包管理器来添加依赖。
+
+{ ' ' }
+
+<CommandTabs
+  npm="npm run tauri add log"
+  yarn="yarn run tauri add log"
+  pnpm="pnpm tauri add log"
+  bun="bun tauri add log"
+  cargo="cargo tauri add log"
+/>
+
+  </TabItem>
+  <TabItem label = "手动">
+
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装日志插件。
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-log = "2.0.0-rc"
+# 或者使用 Git：
+tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_log::Builder::new().build())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+    npm = "npm install @tauri-apps/plugin-log"
+    yarn = "yarn add @tauri-apps/plugin-log"
+    pnpm = "pnpm add @tauri-apps/plugin-log"
+    bun="bun add @tauri-apps/plugin-log"
+  />
+  </TabItem>
+</Tabs>
+
+## 用法
+
+1. 首先，您需要在 Tauri 上注册插件。
+
+```rust title="src-tauri/src/lib.rs" {1} {6-14}
+use tauri_plugin_log::{Target, TargetKind};
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .targets([
+                    Target::new(TargetKind::Stdout),
+                    Target::new(TargetKind::LogDir { file_name: None }),
+                    Target::new(TargetKind::Webview),
+                ])
+                .build(),
+        )
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+2. 然后，插件的所有 api 都可以通过 JavaScript 的 guest 绑定使用：
+
+```javascript
+import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
+
+// 启用 TargetKind::Webview 后，这个函数将把日志打印到浏览器控制台
+const detach = await attachConsole();
+
+trace('Trace');
+info('Info');
+error('Error');
+
+// 将浏览器控制台与日志流分离
+detach();
+```
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={6}
+{
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["log:default"]
+}
+```
+
+| 权限            | 描述                                         |
+| --------------- | -------------------------------------------- |
+| `log:default`   | 允许日志命令。                               |
+| `log:allow-log` | 在没有预先配置作用域的情况下，允许日志命令。 |
+| `log:deny-log`  | 拒绝使用没有预先配置作用域的允许日志命令。   |

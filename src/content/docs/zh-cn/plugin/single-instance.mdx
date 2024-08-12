@@ -1,0 +1,114 @@
+---
+title: 单例
+description: 确保一次只运行一个 Tauri 应用程序实例。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="single-instance" showJsLinks={false} />
+
+使用单实例插件确保 Tauri 应用程序在同一时间只运行单个实例。
+
+## 设置
+
+请安装单例插件。
+
+<Tabs>
+    <TabItem label="自动">
+
+    使用项目的包管理器来添加依赖。
+
+    <CommandTabs npm="npm run tauri add single-instance"
+      yarn="yarn run tauri add single-instance"
+      pnpm="pnpm tauri add single-instance"
+      bun="bun tauri add single-instance"
+      cargo="cargo tauri add single-instance" />
+
+    </TabItem>
+    <TabItem label="手动">
+    <Steps>
+    <ol>
+      <li>
+        **安装：** 在 `Cargo.toml` 中将插件添加到项目的依赖中。
+      <Tabs>
+        <TabItem label="crates.io">
+      ```toml title="src-tauri/Cargo.toml" ins={2}
+      [dependencies]
+      tauri-plugin-single-instance = "2.0.0-rc"
+      ```
+        </TabItem>
+        <TabItem label="Git">
+
+      ```toml title="src-tauri/Cargo.toml" ins={2}
+      [dependencies]
+      tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+      ```
+        </TabItem>
+      </Tabs>
+      </li>
+      <li>
+        **初始化：** 更新 `lib.rs` （或者只针对桌面应用的 `main.rs`） 来初始化插件。
+
+      ```rust title="src-tauri/src/lib.rs" ins={3}
+      pub fn run() {
+          tauri::Builder::default()
+              .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}))
+              .run(tauri::generate_context!())
+              .expect("error while running tauri application");
+      }
+      ```
+      </li>
+    </ol>
+    </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+插件已经安装并初始化，应该可以立即正常运行。尽管如此，我们也可以使用 `init()` 方法来增强它的功能。
+
+插件的 `init()` 方法接受一个闭包，该闭包在新 App 实例启动时调用，但由插件关闭。
+这个闭包有三个参数：
+
+1. **`app`**：应用程序的 [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) 。
+2. **`args`**：用户初始化新实例时传递的参数列表。
+3. **`cwd`**：当前工作目录表示启动新应用程序实例的目录。
+
+因此，闭包应该如下所示
+
+```rust
+.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+  // 在这里写代码 ……
+}))
+```
+
+### 关注新实例
+
+默认情况下，当应用程序已经在运行时启动新实例时，不会采取任何操作。当用户尝试打开一个新实例时，为了聚焦正在运行实例的窗口，修改回调闭包如下。
+
+```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
+use tauri::{AppHandle, Manager};
+
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = show_window(app);
+        }))
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+
+fn show_window(app: &AppHandle) {
+    let windows = app.webview_windows();
+
+    windows
+        .values()
+        .next()
+        .expect("Sorry, no window found")
+        .set_focus()
+        .expect("Can't Bring Window to Focus");
+}
+```

@@ -1,0 +1,162 @@
+---
+title: AUR
+sidebar:
+  order: 1
+---
+
+# 发布到 Arch 用户仓库
+
+## 设置
+
+首先，前往 `https://aur.archlinux.org` 创建一个账户。确保添加正确的 SSH 密钥。接下来，使用以下命令克隆一个空的 Git 存储库。
+
+```sh
+git clone https://aur.archlinux.org/your-repo-name
+```
+
+完成上述步骤后，创建一个名为 `PKGBUILD` 的文件。一旦文件创建成功，您可以继续进行下一步。
+
+### 编写一个 PKGBUILD 文件
+
+```ini title="PKGBUILD"
+pkgname=<pkgname>
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Description of your app"
+arch=('x86_64' 'aarch64')
+url="https://github.com/<user>/<project>"
+license=('mit')
+depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk')
+options=('!strip' '!emptydirs')
+install=${pkgname}.install
+source_x86_64=("https://github.com/<user>/<project>/releases/download/v$pkgver/appname_"$pkgver"_amd64.deb")
+source_aarch64=("https://github.com/<user>/<project>/releases/download/v$pkgver/appname_"$pkgver"_arm64.deb")
+```
+
+- 在文件的顶部，定义你的包名并将其赋值给变量 `pkgname`。
+- 设置你的 `pkgver` 变量。通常最好在源变量中使用这个变量来增加可维护性。
+- `pkgdesc` 变量在你的 aur 仓库页面上告诉访问者你的应用程序是做什么的。
+- `arch` 变量控制哪些架构可以安装你的软件包。
+- `url` 变量虽然不是必需的，但有助于使您的软件包看起来更专业。
+- `install` 变量定义一个运行安装命令的文件。
+- `depends` 变量包含了一系列必需的项目，这些项目是使你的应用程序运行所必须的。对于任何 Tauri 应用程序，你必须包括上述所有依赖项。
+- `source` 变量是必需的，它定义了上游软件包所在的位置。您可以通过在变量名末尾添加架构来使 `source` 与特定架构相关联。
+
+### 生成 `SRCINFO`
+
+为了将您的 repo 推送到 aur，您必须生成一个 `srcinfo` 文件。可以使用以下命令完成此操作。
+
+```sh
+makepkg --printsrcinfo >> .SRCINFO
+```
+
+### 测试
+
+测试这个应用程序非常简单。你只需要在与 pkgbuild 文件相同的目录中运行 makepkg -f 命令，然后看它是否正常工作。
+
+### 发布
+
+最后，在测试阶段结束后，您可以使用以下命令将应用程序发布到用户存储库。
+
+```sh
+git add .
+
+git commit -m "Initial Commit"
+
+git push
+```
+
+如果一切顺利，你的仓库现在应该会出现在 AUR 网站上。
+
+## 示例
+
+### 从 Debian 软件包中提取
+
+```ini title="PKGBUILD"
+# Maintainer:
+# Contributor:
+pkgname=<pkgname>
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Description of your app"
+arch=('x86_64' 'aarch64')
+url="https://github.com/<user>/<project>"
+license=('mit')
+depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk')
+options=('!strip' '!emptydirs')
+install=${pkgname}.install
+source_x86_64=("https://github.com/<user>/<project>/releases/download/v$pkgver/appname_"$pkgver"_amd64.deb")
+source_aarch64=("https://github.com/<user>/<project>/releases/download/v$pkgver/appname_"$pkgver"_arm64.deb")
+sha256sums_x86_64=('ca85f11732765bed78f93f55397b4b4cbb76685088553dad612c5062e3ec651f')
+sha256sums_aarch64=('ed2dc3169d34d91188fb55d39867713856dd02a2360ffe0661cb2e19bd701c3c')
+package() {
+
+	# Extract package data
+	tar -xz -f data.tar.gz -C "${pkgdir}"
+
+}
+```
+
+```ini title="my-tauri-app.install"
+post_install() {
+	gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+	update-desktop-database -q
+}
+
+post_upgrade() {
+	post_install
+}
+
+post_remove() {
+	gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+	update-desktop-database -q
+}
+
+```
+
+### 从源码构建
+
+```ini title="PKGBUILD"
+# Maintainer:
+pkgname=<pkgname>-git
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Description of your app"
+arch=('any')
+url="https://github.com/<user>/<project>"
+license=('mit')
+depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk')
+makedepends=('git' 'file' 'openssl' 'appmenu-gtk-module' 'libappindicator-gtk3' 'librsvg' 'base-devel' 'curl' 'wget' 'rustup' 'npm' 'nodejs' 'dpkg')
+provides=('<pkgname>')
+conflicts=('<binname>' '<pkgname>')
+options=('!strip' '!emptydirs')
+source=('git+https://github.com/<user>/<project>')
+sha256sums=('SKIP')
+prepare() {
+	cd <project>
+	npm install
+	npm run tauri build
+}
+package() {
+	cd "$srcdir"/<project>/src-tauri/target/*unknown-linux*/release/bundle/deb
+	dpkg-deb -x *.deb here
+	cd here
+
+	install -Dm755 usr/bin/myapp "$pkgdir"/usr/bin/myapp
+
+    # Install desktop file
+    install -Dm644 usr/share/applications/myapp.desktop "$pkgdir"/usr/share/applications/myapp.desktop
+
+    # Install icons
+    install -Dm644 usr/share/icons/hicolor/128x128/apps/myapp.png "$pkgdir"/usr/share/icons/hicolor/128x128/apps/myapp.png
+    install -Dm644 usr/share/icons/hicolor/256x256@2/apps/myapp.png "$pkgdir"/usr/share/icons/hicolor/256x256@2/apps/myapp.png
+    install -Dm644 usr/share/icons/hicolor/32x32/apps/myapp.png "$pkgdir"/usr/share/icons/hicolor/32x32/apps/myapp.png
+	# Extract package data
+}
+```
+
+[`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-rc/tauri/async_runtime/fn.spawn.html
+[`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
+[`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
+[`thiserror`]: https://github.com/dtolnay/thiserror
+[`result`]: https://doc.rust-lang.org/std/result/index.html

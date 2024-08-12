@@ -1,0 +1,230 @@
+---
+title: Deep Linking
+description: Set your Tauri application as the default handler for an URL.
+sidebar:
+  badge:
+    text: New
+    variant: tip
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin="deep-link" />
+
+Set your Tauri application as the default handler for an URL.
+
+## Supported Platforms
+
+- Windows
+- Linux
+- macOS
+- Android
+- iOS
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.75**_
+
+Install the deep-link plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add deep-link"
+      yarn="yarn run tauri add deep-link"
+      pnpm="pnpm tauri add deep-link"
+      bun="bun tauri add deep-link"
+      cargo="cargo tauri add deep-link"
+    />
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+      1.  Run `cargo add tauri-plugin-deep-link` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+      2.  Modify `lib.rs` to initialize the plugin:
+
+          ```rust title="lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          fn run() {
+              tauri::Builder::default()
+                  .plugin(tauri_plugin_deep_link::init())
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-deep-link"
+              yarn="yarn add @tauri-apps/plugin-deep-link"
+              pnpm="pnpm add @tauri-apps/plugin-deep-link"
+              bun="bun add @tauri-apps/plugin-deep-link"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Setting up
+
+### Android
+
+For [app links](https://developer.android.com/training/app-links#android-app-links), you need a server with a `.well-known/assetlinks.json` endpoint that must return a text response in the given format:
+
+```json title=".well-known/assetlinks.json"
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "$APP_BUNDLE_ID",
+      "sha256_cert_fingerprints": [
+        $CERT_FINGERPRINT
+      ]
+    }
+  }
+]
+```
+
+Where `$APP_BUNDLE_ID` is the value defined on `tauri.conf.json > identifier` with `-` replaced with `_` and `$CERT_FINGERPRINT` is a list of SHA256 fingerprints of your app's signing certificates, see [verify android applinks](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc) for more information.
+
+### iOS
+
+#### Server
+
+For [universal links](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc), you need a server with a `.well-known/apple-app-site-association` endpoint that must return a text response in the given format:
+
+```json title=".well-known/apple-app-site-association"
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
+        "components": [
+          {
+            "/": "/open/*",
+            "comment": "Matches any URL whose path starts with /open/"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Where `$DEVELOPMENT_TEAM_ID` is the value defined on `tauri.conf.json > tauri > bundle > iOS > developmentTeam` or the `TAURI_APPLE_DEVELOPMENT_TEAM` environment variable and `$APP_BUNDLE_ID` is the value defined on `tauri.conf.json > identifier`. See [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) for more information.
+
+#### App
+
+You also need to add the associated domains to your app's `entitlements` file:
+
+```xml title="src-tauri/gen/apple/[App Name]_iOS/[App Name]_iOS.entitlements" ins={5-9}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:your.website.com</string>
+		<string>applinks:nother.site.br</string>
+	</array>
+</dict>
+</plist>
+```
+
+See [supporting associated domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains?language=objc) for more information.
+
+## Configuration
+
+Under `tauri.conf.json > plugins > deep-link`, configure the domains (mobile) and schemes (desktop) you want to associate with your application:
+
+```json title="tauri.conf.json"
+{
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        { "host": "your.website.com", "pathPrefix": ["/open"] },
+        { "host": "another.site.br" }
+      ],
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
+    }
+  }
+}
+```
+
+## Usage
+
+The deep-link plugin is available in both JavaScript and Rust.
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```javascript
+import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
+// when using `"withGlobalTauri": true`, you may use
+// const { onOpenUrl } = window.__TAURI_PLUGIN_DEEP_LINK__;
+
+await onOpenUrl((urls) => {
+  console.log('deep link:', urls);
+});
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            app.listen("deep-link://new-url", |url| {
+              dbg!(url);
+            });
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={9}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    // Usually you will need event:default to listen to the deep-link event
+    "event:default",
+    "deep-link:default"
+  ]
+}
+```
+
+<PluginPermissions plugin="deep-link" />

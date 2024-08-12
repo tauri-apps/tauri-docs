@@ -1,0 +1,43 @@
+---
+title: Distribute
+sidebar:
+  order: 0
+  label: Overview
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard
+    title="AUR"
+    href="/distribute/aur"
+    description="Distribution using the Arch User Repository"
+  />
+  <LinkCard
+    title="Android APK/AAB Signing"
+    href="/distribute/apk-sign"
+    description="Sign APK and AAB packages"
+  />
+  <LinkCard
+    title="Flathub"
+    href="/distribute/flatpak/"
+    description="Distribute as a flatpak"
+  />
+  <LinkCard
+    title="Snapcraft"
+    href="/distribute/snapcraft/"
+    description="Distribute on Snapcraft.io"
+  />
+  <LinkCard
+    title="RPM"
+    href="/distribute/rpm"
+    description="Distribute as an RPM package"
+  />
+</CardGrid>
+
+import Stub from '@components/Stub.astro';
+
+<Stub />

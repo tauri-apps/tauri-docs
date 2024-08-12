@@ -1,0 +1,141 @@
+---
+title: Notifications
+description: Envoie une notification native à l'utilisateur.
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import Stub from '@components/Stub.astro';
+
+<PluginLinks plugin="notification" version="2.0.0-rc.0" />
+
+Envoie une notification native à votre utilisateur via le plugin de notification.
+
+## Installation
+
+Pour commencer, installez le plugin de notifications.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Utilisez le gestionnaire de package (package manager) de votre projet pour ajouter la dépendance:
+
+    <CommandTabs npm="npm run tauri add notification"
+    yarn="yarn run tauri add notification"
+    pnpm="pnpm tauri add notification"
+    cargo="cargo tauri add notification" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. Executez `cargo add tauri-plugin-notification` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml`.
+
+    2. Modifiez `lib.rs` pour initialisez le plugin:
+
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialisation du plugin
+            .plugin(tauri_plugin_notification::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. Si vous voulez utiliser les notification de JavaScript, vous devez aussi installer le package npm:
+
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-notification"
+        yarn="yarn add @tauri-apps/plugin-notification"
+        pnpm="pnpm add @tauri-apps/plugin-notification"
+    />
+
+    </TabItem>
+
+</Tabs>
+
+## Utilisation
+
+Voici quelques exemples montrant comment utiliser le plugin de notification:
+
+- [Envoyer une notification aux utilisateurs](#envoyer-une-notification)
+- [Ajouter une action à une notification](#actions)
+- [Ajouter une pièce jointe à une notification](#attachments)
+- [Envoyer une notification dans un channel spécifique](#channels)
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+Le plugin de notification est disponible aussi bien en JavaScript qu'en Rust.
+
+### Envoyer une Notification
+
+{/* TODO: Demo component */}
+
+Suivez ces étapes pour envoyer une notification:
+
+1. Vérifier si la permission est accordée
+2. Demander la permission si elle n’est pas accordée
+3. Envoyer la notification
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
+
+// Avez-vous la permission d'envoyer une notification ?
+let permissionGranted = await isPermissionGranted();
+
+// Le cas échéant on la demande
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+
+// Une fois la permission obtenue, on envoie la notification
+if (permissionGranted) {
+  sendNotification({ title: 'Tauri', body: 'Tauri est incroyable!' });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+{/* TODO: */}
+
+<Stub />
+
+</TabItem>
+</Tabs>
+
+### Actions
+
+{/* TODO: */}
+
+<Stub />
+
+### Attachments
+
+{/* TODO: */}
+
+<Stub />
+
+### Channels
+
+{/* TODO: */}
+
+<Stub />
+
+## Sécurité à prendre en compte
+
+Mis à part les procédures normales de nettoyage des entrées de l'utilisateur, il n'y a actuellement aucun problème de sécurité connu.

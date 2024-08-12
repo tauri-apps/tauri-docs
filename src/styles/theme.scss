@@ -1,0 +1,26 @@
+:root {
+  --sl-hue-orange: 42;
+  --sl-color-orange-low: hsl(var(--sl-hue-orange), 100%, 15%);
+  --sl-color-orange: hsl(var(--sl-hue-orange), 100%, 60%);
+  --sl-color-orange-high: hsl(var(--sl-hue-orange), 100%, 90%);
+  --sl-hue-blue: 186;
+  --sl-color-blue-low: hsl(var(--sl-hue-blue), 72%, 15%);
+  --sl-color-blue: hsl(var(--sl-hue-blue), 72%, 50%);
+  --sl-color-blue-high: hsl(var(--sl-hue-blue), 72%, 90%);
+  --sl-hue-accent: var(--sl-hue-blue);
+  --sl-color-accent-low: var(--sl-color-blue-low);
+  --sl-color-accent: var(--sl-color-blue);
+  --sl-color-accent-high: var(--sl-color-blue-high);
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #eeeeee;
+  --sl-color-gray-2: #c2c2c2;
+  --sl-color-gray-3: #8b8b8b;
+  --sl-color-gray-4: #585858;
+  --sl-color-gray-5: #383838;
+  --sl-color-gray-6: #272727;
+  --sl-color-black: #181818;
+
+  /* Custom */
+  --tauri-transition-speed: 200ms;
+}

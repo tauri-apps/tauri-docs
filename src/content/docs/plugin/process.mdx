@@ -1,0 +1,103 @@
+---
+title: Process
+description: Access the current process.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="process" />
+
+This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/plugin/shell) plugin.
+
+## Setup
+
+Install the plugin-process to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add process"
+    yarn="yarn run tauri add process"
+    pnpm="pnpm tauri add process"
+    bun="bun tauri add process"
+    cargo="cargo tauri add process" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1.  Run `cargo add tauri-plugin-process` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+        2.  Modify `lib.rs` to initialize the plugin:
+
+            ```rust ins={6}
+            // lib.rs
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    // Initialize the plugin
+                    .plugin(tauri_plugin_process::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  If you'd like to utilize the plugin in JavaScript then install the npm package as well:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-process"
+                yarn="yarn add @tauri-apps/plugin-process"
+                pnpm="pnpm add @tauri-apps/plugin-process"
+                bun="bun add @tauri-apps/plugin-process"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The process plugin is available in both JavaScript and Rust.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+// when using `"withGlobalTauri": true`, you may use
+// const { exit, relaunch } = window.__TAURI_PLUGIN_PROCESS__;
+
+// exits the app with the given status code
+await exit(0);
+
+// restarts the app
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/struct.AppHandle.html).
+
+```rust
+// exits the app with the given status code
+app.exit(0);
+
+// restarts the app
+app.restart();
+```
+
+</TabItem>
+</Tabs>
+
+<PluginPermissions plugin="process" />

@@ -1,0 +1,120 @@
+---
+title: OS Information
+description: Read information about the operating system.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin="os" />
+
+Read information about the operating system using the OS Information plugin.
+
+## Setup
+
+Install the OS Information plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add os"
+          yarn="yarn run tauri add os"
+          pnpm="pnpm tauri add os"
+          bun="bun tauri add os"
+          cargo="cargo tauri add os" />
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+    1.  Run `cargo add tauri-plugin-os` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+    2.  Modify `lib.rs` to initialize the plugin:
+
+        ```rust
+        // lib.rs
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                // Initialize the plugin
+                .plugin(tauri_plugin_os::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3.  If you'd like to use in JavaScript then install the npm package as well:
+
+        <CommandTabs
+            npm="npm install @tauri-apps/plugin-os"
+            yarn="yarn add @tauri-apps/plugin-os"
+            pnpm="pnpm add @tauri-apps/plugin-os"
+            bun="bun add @tauri-apps/plugin-os"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+With this plugin you can query multiple information from current operational system. See all available functions in the [JavaScript API](/reference/javascript/os/) or [Rust API](https://docs.rs/tauri-plugin-os/) references.
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+#### Example: OS Platform
+
+`platform` returns a string describing the specific operating system in use. The value is set at compile time. Possible values are `linux`, `macos`, `ios`, `freebsd`, `dragonfly`, `netbsd`, `openbsd`, `solaris`, `android`, `windows`.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { platform } from '@tauri-apps/plugin-os';
+// when using `"withGlobalTauri": true`, you may use
+// const { platform } = window.__TAURI_PLUGIN_OS__;
+
+const currentPlatform = await platform();
+console.log(currentPlatform);
+// Prints "windows" to the console
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+let platform = tauri_plugin_os::platform();
+println!("Platform: {}", platform);
+// Prints "windows" to the terminal
+```
+
+</TabItem>
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={4-6}
+{
+  "permissions": [
+    ...,
+    "os:allow-arch",
+    "os:allow-hostname",
+    "os:allow-os-type"
+  ]
+}
+```
+
+<PluginPermissions plugin="os" />
