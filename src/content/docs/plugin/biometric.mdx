@@ -99,11 +99,12 @@ if (status.isAvailable) {
 ```rust
 use tauri_plugin_biometric::BiometricExt;
 
-fn check_biometric(app_handle: tauri::AppHandle){
-    if app_handle.biometric().status().unwrap().is_available {
+fn check_biometric(app_handle: tauri::AppHandle) {
+    let status = app_handle.biometric().status().unwrap();
+    if status.is_available {
         println!("Yes! Biometric Authentication is available");
     } else {
-        println!("No! Biometric Authentication is not available due to : {}", app_handle.biometric().status().unwrap().error.unwrap());
+        println!("No! Biometric Authentication is not available due to: {}", status.error.unwrap());
     }
 }
 ```
@@ -123,7 +124,7 @@ To prompt the user for Biometric Authentication, utilize the `authenticate()` me
 import { authenticate } from '@tauri-apps/plugin-biometric';
 
 const options = {
-  // Set True if you want the user to be able to authenticate using phone password
+  // Set true if you want the user to be able to authenticate using phone password
   allowDeviceCredential: false,
   cancelTitle: "Feature won't work if Canceled",
 
@@ -155,7 +156,7 @@ use tauri_plugin_biometric::{BiometricExt, AuthOptions};
 
 fn bio_auth(app_handle: tauri::AppHandle) {
 
-    let options = AuthOptions{
+    let options = AuthOptions {
         // Set True if you want the user to be able to authenticate using phone password
         allow_device_credential:false,
         cancel_title: Some("Feature won't work if Canceled".to_string()),
@@ -169,9 +170,9 @@ fn bio_auth(app_handle: tauri::AppHandle) {
         confirmation_required: Some(true),
     };
 
-    // If the authentication was succesfull, the function returns Result::Ok()
-    // And Result::Error() otherwise
-    match app_handle.biometric().authenticate("This feature is locked".to_string(), options){
+    // if the authentication was succesfull, the function returns Result::Ok()
+    // otherwise returns Result::Error()
+    match app_handle.biometric().authenticate("This feature is locked".to_string(), options) {
         Ok(_) => {
             println!("Hooray! Successfully Authenticated! We can now perform the locked Tauri function!");
         }
