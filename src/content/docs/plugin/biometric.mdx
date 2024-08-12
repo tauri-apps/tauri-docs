@@ -66,6 +66,7 @@ Install the biometric plugin to get started.
             />
         </Steps>
     </TabItem>
+
 </Tabs>
 
 ## Usage
@@ -77,6 +78,22 @@ This plugin enables you to verify the availability of Biometric Authentication o
 You can check the status of Biometric Authentication, including its availability and the types of biometric authentication methods supported.
 
 <Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { checkStatus } from '@tauri-apps/plugin-biometric';
+
+const status = await checkStatus();
+if (status.isAvailable) {
+  console.log('Yes! Biometric Authentication is available');
+} else {
+  console.log(
+    'No! Biometric Authentication is not available due to ' + status.error
+  );
+}
+```
+
+</TabItem>
 <TabItem label="Rust">
 
 ```rust
@@ -92,20 +109,6 @@ fn check_biometric(app_handle: tauri::AppHandle){
 ```
 
 </TabItem>
-
-<TabItem label="JavaScript">
-
-```javascript
-import { checkStatus } from '@tauri-apps/plugin-biometric';
-
-const status = await checkStatus();
-if (status.isAvailable){
-    console.log("Yes! Biometric Authentication is available");
-} else {
-    console.log("No! Biometric Authentication is not available due to "+status.error);
-}
-```
-</TabItem>
 </Tabs>
 
 ### Authenticate
@@ -113,13 +116,45 @@ if (status.isAvailable){
 To prompt the user for Biometric Authentication, utilize the `authenticate()` method.
 
 <Tabs>
+
+<TabItem label="JavaScript">
+
+```javascript ins={18}
+import { authenticate } from '@tauri-apps/plugin-biometric';
+
+const options = {
+  // Set True if you want the user to be able to authenticate using phone password
+  allowDeviceCredential: false,
+  cancelTitle: "Feature won't work if Canceled",
+
+  // iOS only feature
+  fallbackTitle: 'Sorry, authentication failed',
+
+  // Android only features
+  title: 'Tauri feature',
+  subtitle: 'Authenticate to access the locked Tauri function',
+  confirmationRequired: true,
+};
+
+try {
+  await authenticate('This feature is locked', options);
+  console.log(
+    'Hooray! Successfully Authenticated! We can now perform the locked Tauri function!'
+  );
+} catch (err) {
+  console.log('Oh no! Authentication failed because ' + err.message);
+}
+```
+
+</TabItem>
+
 <TabItem label="Rust">
 
 ```rust ins={21}
 use tauri_plugin_biometric::{BiometricExt, AuthOptions};
 
 fn bio_auth(app_handle: tauri::AppHandle) {
-    
+
     let options = AuthOptions{
         // Set True if you want the user to be able to authenticate using phone password
         allow_device_credential:false,
@@ -135,7 +170,7 @@ fn bio_auth(app_handle: tauri::AppHandle) {
     };
 
     // If the authentication was succesfull, the function returns Result::Ok()
-    // And Result::Error() otherwise 
+    // And Result::Error() otherwise
     match app_handle.biometric().authenticate("This feature is locked".to_string(), options){
         Ok(_) => {
             println!("Hooray! Successfully Authenticated! We can now perform the locked Tauri function!");
@@ -144,34 +179,6 @@ fn bio_auth(app_handle: tauri::AppHandle) {
             println!("Oh no! Authentication failed because : {e}");
         }
     }
-}
-```
-</TabItem>
-
-<TabItem label="JavaScript">
-
-```javascript ins={18}
-import { authenticate } from '@tauri-apps/plugin-biometric';
-
-const options = {
-    // Set True if you want the user to be able to authenticate using phone password
-    allowDeviceCredential:false,
-    cancelTitle: "Feature won't work if Canceled",
-
-    // iOS only feature
-    fallbackTitle: "Sorry, authentication failed",
-
-    // Android only features
-    title: "Tauri feature",
-    subtitle: "Authenticate to access the locked Tauri function",
-    confirmationRequired: true,
-};
-
-try{
-    await authenticate("This feature is locked", options);
-    console.log("Hooray! Successfully Authenticated! We can now perform the locked Tauri function!");
-} catch(err) {
-    console.log("Oh no! Authentication failed because " + err.message);
 }
 ```
 
