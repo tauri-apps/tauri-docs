@@ -6,6 +6,7 @@ description: Prompt the user for biometric authentication on Android and iOS.
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="biometric" />
 
@@ -183,62 +184,4 @@ By default all plugin commands are blocked and cannot be accessed. You must defi
 
 See [Permissions Overview](/security/permissions/) for more information.
 
-<table>
-<tr>
-<th>Identifier</th>
-<th>Description</th>
-</tr>
-
-
-<tr>
-<td>
-
-`biometric:allow-authenticate`
-
-</td>
-<td>
-
-Enables the authenticate command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`biometric:deny-authenticate`
-
-</td>
-<td>
-
-Denies the authenticate command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`biometric:allow-status`
-
-</td>
-<td>
-
-Enables the status command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`biometric:deny-status`
-
-</td>
-<td>
-
-Denies the status command without any pre-configured scope.
-
-</td>
-</tr>
-</table>
+<PluginPermissions plugin="biometric" />

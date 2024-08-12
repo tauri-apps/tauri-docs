@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="websocket" />
 
@@ -49,7 +50,7 @@ Install the websocket plugin to get started.
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-websocket = "2.0.0-beta"
+    		tauri-plugin-websocket = "2.0.0-rc"
     		# alternatively with Git:
     		tauri-plugin-websocket = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -101,9 +102,9 @@ await ws.disconnect();
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
@@ -115,10 +116,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission                | Description                                                   |
-| ------------------------- | ------------------------------------------------------------- |
-| `websocket:default`       | Allows connecting and sending data to a WebSocket server      |
-| `websocket:allow-connect` | Enables the connect command without any pre-configured scope. |
-| `websocket:deny-connect`  | Denies the connect command without any pre-configured scope.  |
-| `websocket:allow-send`    | Enables the send command without any pre-configured scope.    |
-| `websocket:deny-send`     | Denies the send command without any pre-configured scope.     |
+<PluginPermissions plugin="websocket" />

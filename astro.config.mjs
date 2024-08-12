@@ -75,7 +75,10 @@ export default defineConfig({
           },
         }),
         starlightBlog({ authors }),
-        starlightLinksValidator({ errorOnRelativeLinks: false }),
+        starlightLinksValidator({
+          errorOnRelativeLinks: false,
+          exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
+        }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
@@ -304,7 +307,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-beta.22/tauri/index.html',
+              link: 'https://docs.rs/tauri/2.0.0-rc/tauri/index.html',
             },
           ],
         },

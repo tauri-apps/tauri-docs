@@ -36,62 +36,52 @@ jobs:
     name: WebDriverIO Test Runner
 
     # we want to run on the latest linux environment
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     # the steps our job runs **in order**
     steps:
       # checkout the code on the workflow runner
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # install system dependencies that Tauri needs to compile on Linux.
       # note the extra dependencies for `tauri-driver` to run which are: `webkit2gtk-driver` and `xvfb`
       - name: Tauri dependencies
-        run: >-
-          sudo apt-get update &&
-          sudo apt-get install -y
-          libgtk-3-dev
-          libayatana-appindicator3-dev
-          libwebkit2gtk-4.0-dev
-          webkit2gtk-driver
-          xvfb
+        run: |
+          sudo apt update && sudo apt install -y \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            libwebkit2gtk-4.0-dev \
+            webkit2gtk-driver \
+            xvfb
 
-      # install the latest Rust stable
-      - name: Rust stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+      - name: Setup rust-toolchain stable
+        id: rust-toolchain
+        uses: dtolnay/rust-toolchain@stable
 
       # we run our rust tests before the webdriver tests to avoid testing a broken application
       - name: Cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
+        run: cargo test
 
       # build a release build of our application to be used during our WebdriverIO tests
       - name: Cargo build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release
+        run: cargo build --release
 
       # install the latest stable node version at the time of writing
-      - name: Node v16
-        uses: actions/setup-node@v2
+      - name: Node 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20
+          cache: 'yarn'
 
       # install our Node.js dependencies with Yarn
       - name: Yarn install
-        run: yarn install
+        run: yarn install --frozen-lockfile
         working-directory: webdriver/webdriverio
 
       # install the latest version of `tauri-driver`.
       # note: the tauri-driver version is independent of any other Tauri versions
       - name: Install tauri-driver
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: tauri-driver
+        run: cargo install tauri-driver
 
       # run the WebdriverIO test suite.
       # we run it through `xvfb-run` (the dependency we installed earlier) to have a fake

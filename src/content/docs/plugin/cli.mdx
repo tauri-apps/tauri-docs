@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="cli" />
 
@@ -51,7 +52,7 @@ Install the CLI plugin to get started.
     			```toml title="src-tauri/Cargo.toml"
     			# you can add the dependencies on the `[dependencies]` section if you do not target mobile
     			[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-    			tauri-plugin-cli = "2.0.0-beta"
+    			tauri-plugin-cli = "2.0.0-rc"
     			# alternatively with Git:
     			tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     			```
@@ -269,10 +270,9 @@ fn run() {
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
@@ -284,8 +284,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission              | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `cli:default`           | Allows reading the CLI matches.                                   |
-| `cli:allow-cli-matches` | Enables the cli_matches command without any pre-configured scope. |
-| `cli:deny-cli-matches`  | Denies the cli_matches command without any pre-configured scope.  |
+<PluginPermissions plugin="cli" />

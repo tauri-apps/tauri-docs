@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -26,7 +27,7 @@ Firstly, you have to install Core plugin by adding the following to your `Cargo.
 ```toml title="src-tauri/Cargo.toml"
 [dependencies.tauri-plugin-sql]
 features = ["sqlite"] # or "postgres", or "mysql"
-version = "2.0.0-beta"
+version = "2.0.0-rc"
 ```
   </TabItem>
   <TabItem label="Git">
@@ -80,7 +81,7 @@ Afterwards all the plugin's APIs are available through the JavaScript guest bind
 <Tabs>
   <TabItem label="SQLite">
 
-The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-beta/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
+The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-rc/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
@@ -221,7 +222,26 @@ fn main() {
 
 ### Applying Migrations
 
-Migrations are applied automatically when the plugin is initialized. The plugin runs these migrations against the database specified by the connection string. Ensure that the migrations are defined in the correct order and are idempotent (safe to run multiple times).
+To apply the migrations when the plugin is initialized, add the connection string to the `tauri.conf.json` file:
+
+```json title="src-tauri/tauri.conf.json" {3-5}
+{
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:mydatabase.db"]
+    }
+  }
+}
+```
+
+Alternatively, the client side `load()` also runs the migrations for a given connection string:
+
+```ts
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
+```
+
+Ensure that the migrations are defined in the correct order and are safe to run multiple times.
 
 ### Migration Management
 
@@ -231,10 +251,9 @@ Migrations are applied automatically when the plugin is initialized. The plugin 
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
@@ -256,3 +275,5 @@ See [Permissions Overview](/security/permissions/) for more information.
 | `sql:deny-load`     | Denies the load command without any pre-configured scope.     |
 | `sql:allow-select`  | Enables the select command without any pre-configured scope.  |
 | `sql:deny-select`   | Denies the select command without any pre-configured scope.   |
+
+<PluginPermissions plugin="sql" />
