@@ -6,6 +6,7 @@ description: Configurable logging.
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="log" />
 
@@ -352,7 +353,7 @@ tauri_plugin_log::Builder::new()
 By default, all plugin commands are blocked and cannot be accessed.
 You must define a list of permissions in your `capabilities` configuration.
 
-See the [Capabilities Overview](/security/capabilities/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {
@@ -364,10 +365,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information.
 }
 ```
 
-| Permission      | Description                                               |
-| --------------- | --------------------------------------------------------- |
-| `log:default`   | Allows the log command.                                   |
-| `log:allow-log` | Enables the log command without any pre-configured scope. |
-| `log:deny-log`  | Denies the log command without any pre-configured scope.  |
-
-[`log` crate]: https://docs.rs/log/latest/log/
+<PluginPermissions plugin="log" />
