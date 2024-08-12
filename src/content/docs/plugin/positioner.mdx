@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="positioner" />
 
@@ -149,8 +150,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-| Permission                     | Description                                                       |
-| ------------------------------ | ----------------------------------------------------------------- |
-| `positioner:allow-move-window` | Enables the move_window command without any pre-configured scope. |
-| `positioner:deny-move-window`  | Denies the move_window command without any pre-configured scope.  |
-| `positioner:default`           | Allows the move_window command.                                   |
+<PluginPermissions plugin="positioner" />

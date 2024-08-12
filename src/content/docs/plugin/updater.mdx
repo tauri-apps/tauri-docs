@@ -4,6 +4,7 @@ description: In-app updates for Tauri applications.
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
 
@@ -720,3 +721,5 @@ The values from the [configuration](#tauri-configuration) are used as fallback i
 [channel]: /develop/calling-frontend/#channels
 [JavaScript API Documentation]: /reference/javascript/updater/
 [Rust API Documentation]: https://docs.rs/tauri-plugin-updater
+
+<PluginPermissions plugin="updater" />

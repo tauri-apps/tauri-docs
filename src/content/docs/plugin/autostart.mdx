@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="autostart" />
 
@@ -144,11 +145,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-| Permission                   | Description                                                      |
-| ---------------------------- | ---------------------------------------------------------------- |
-| `autostart:allow-disable`    | Enables the disable command without any pre-configured scope.    |
-| `autostart:deny-disable`     | Denies the disable command without any pre-configured scope.     |
-| `autostart:allow-enable`     | Enables the enable command without any pre-configured scope.     |
-| `autostart:deny-enable`      | Denies the enable command without any pre-configured scope.      |
-| `autostart:allow-is-enabled` | Enables the is_enabled command without any pre-configured scope. |
-| `autostart:deny-is-enabled`  | Denies the is_enabled command without any pre-configured scope.  |
+<PluginPermissions plugin="autostart" />
