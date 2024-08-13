@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -274,3 +275,5 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 | `sql:deny-load`     | Denies the load command without any pre-configured scope.     |
 | `sql:allow-select`  | Enables the select command without any pre-configured scope.  |
 | `sql:deny-select`   | Denies the select command without any pre-configured scope.   |
+
+<PluginPermissions plugin="sql" />

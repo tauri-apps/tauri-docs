@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="barcode-scanner" />
 
@@ -104,17 +105,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-| Permission                                  | Description                                                               |
-| ------------------------------------------- | ------------------------------------------------------------------------- |
-| `barcode-scanner:allow-cancel`              | Enables the cancel command without any pre-configured scope.              |
-| `barcode-scanner:deny-cancel`               | Denies the cancel command without any pre-configured scope.               |
-| `barcode-scanner:allow-check-permissions`   | Enables the check_permissions command without any pre-configured scope.   |
-| `barcode-scanner:deny-check-permissions`    | Denies the check_permissions command without any pre-configured scope.    |
-| `barcode-scanner:allow-open-app-settings`   | Enables the open_app_settings command without any pre-configured scope.   |
-| `barcode-scanner:deny-open-app-settings`    | Denies the open_app_settings command without any pre-configured scope.    |
-| `barcode-scanner:allow-request-permissions` | Enables the request_permissions command without any pre-configured scope. |
-| `barcode-scanner:deny-request-permissions`  | Denies the request_permissions command without any pre-configured scope.  |
-| `barcode-scanner:allow-scan`                | Enables the scan command without any pre-configured scope.                |
-| `barcode-scanner:deny-scan`                 | Denies the scan command without any pre-configured scope.                 |
-| `barcode-scanner:allow-vibrate`             | Enables the vibrate command without any pre-configured scope.             |
-| `barcode-scanner:deny-vibrate`              | Denies the vibrate command without any pre-configured scope.              |
+<PluginPermissions plugin="barcode-scanner" />

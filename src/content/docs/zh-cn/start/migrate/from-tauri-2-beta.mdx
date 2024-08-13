@@ -1,0 +1,150 @@
+---
+title: 从 Tauri 2.0 Beta 升级
+i18nReady: false
+sidebar:
+  order: 16
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+本指南将引导您将 Tauri 2.0 Beta 应用程序升级到 Tauri 2.0 RC 版本。
+
+## 自动迁移
+
+Tauri v2 CLI 包含一个 `migrate` 命令，它自动化了大部分过程，并帮助您完成迁移。
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@next
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@next
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@next
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0-rc"
+    cargo tauri migrate'
+/>
+
+有关 `migrate` 命令的更多信息，请参阅[命令行接口参考](/reference/cli/#migrate)
+
+## 破坏性变更
+
+从 Beta 版到发布 RC 版，我们有几个重大变化。这些可以自动迁移（见上文），也可以手动执行。
+
+### Tauri 核心插件
+
+我们在功能中改变了 Tauri 内置插件的处理方式 [PR #10390](https://github.com/tauri-apps/tauri/pull/10390)。
+
+要从最新的 Beta 版本迁移，您需要在您的能力中添加所有核心权限标识符 `core:`，或者切换到 `core:default` 权限并删除旧的核心插件标识符。
+
+```json
+...
+"permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "image:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+]
+...
+```
+
+```json
+...
+"permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:image:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+]
+...
+```
+
+我们还添加了一个新的特殊权限集 `core:default`，其中包含所有核心插件的默认权限，这样您就可以简化在能力配置中的权限模板。
+
+```json
+...
+"permissions": [
+    "core:default"
+]
+...
+```
+
+### 内置开发服务器
+
+我们对内置开发服务器的网络公开在 [PR #10437](https://github.com/tauri-apps/tauri/pull/10437) 和 [PR #10456](https://github.com/tauri-apps/tauri/pull/10456) 进行了更改。
+
+内置的移动开发服务器不再公开网络范围，并且将本地机器上的流量直接隧道传输到设备。
+
+目前，在 iOS 设备上运行时（无论是直接运行还是通过 Xcode），此改进不会自动应用。
+在这种情况下，我们默认使用开发服务器的公共网络地址，但有一种方法可以绕过这个问题，即打开 Xcode 以自动建立您的 macOS 机器与连接的 iOS 设备之间的连接，然后运行 `tauri ios dev --force-ip-prompt` 来选择 iOS 设备的 TUN 地址（以 **::2** 结尾）。
+
+如果打算在物理 iOS 设备上运行，您的开发服务器配置需要适应此更改。
+以前我们建议检查 `TAURI_ENV_PLATFORM` 环境变量是否与 `android` 或 `ios` 匹配，
+但是现在除非使用 iOS 设备，否则我们可以连接到本地主机，您应该检查 `TAURI_DEV_HOST` 环境变量。
+以下是一个 Vite 配置迁移的示例。
+
+- 2.0.0-beta：
+
+```js
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { internalIpV4Sync } from 'internal-ip';
+
+const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: mobile ? '0.0.0.0' : false,
+    port: 1420,
+    strictPort: true,
+    hmr: mobile
+      ? {
+          protocol: 'ws',
+          host: internalIpV4Sync(),
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+- 2.0.0-rc：
+
+```js
+import { defineConfig } from 'vite';
+import Unocss from 'unocss/vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+const host = process.env.TAURI_DEV_HOST;
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host: host,
+          port: 1430,
+        }
+      : undefined,
+  },
+});
+```
+
+:::note
+不再需要使用 `internal-ip` NPM 包，您可以直接使用 TAURI_DEV_HOST 值替代。
+:::
