@@ -154,7 +154,8 @@ Next: [Install Rust](#rust)
 
 ### macOS
 
-Tauri requires various system dependencies for development on MacOS. This may depend on the type of package manager you use or don't have a package manager at all. 
+Tauri requires various system dependencies for development on MacOS. This may depend on the type of package manager you use or don't have a package manager at all.
+
 <Tabs>
   <TabItem label="MacOS">
   Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) and various macOS and iOS development dependencies.
@@ -176,15 +177,26 @@ xcode-select --install
 
 </details>
 
-Next: [Install Rust](#rust)
   </TabItem>
     <TabItem label="Nix">
 
     Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) and various macOS and iOS development dependencies.
 
+    The required dependencies can be installed by adding the following packages to your shell.
+    ```nix
+    darwin.apple_sdk.frameworks.WebKit
+    darwin.apple_sdk.frameworks.AppKit
+    darwin.apple_sdk.frameworks.CoreServices
+    darwin.apple_sdk.frameworks.Foundation
+    darwin.apple_sdk.frameworks.Security
+    ```
 
+    You have installed all of the required xcode dependencies.
 
   </TabItem>
+
+Next: [Install Rust](#rust)
+
 </Tabs>
 
 ### Windows
@@ -239,6 +251,16 @@ Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
 Visit https://www.rust-lang.org/tools/install to install `rustup`.
 
   </TabItem>
+  <TabItem label="Nix/NixOS"> 
+  Add the following packages below to install Rust on nix/NixOS.
+  ```nix
+  cargo
+  rustc
+  rustfmt
+  rustup # if you want to use rustup
+  ```
+</TabItem>
+
 </Tabs>
 
 Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
@@ -251,6 +273,8 @@ Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd lik
 Only if you intend to use a JavaScript frontend framework
 :::
 
+<Tabs>
+<TabItem label="Linux/macOS/Windows">
 1. Go to [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it.
 
 2. Check if Node was succesfully installed by running:
@@ -260,11 +284,21 @@ node -v
 # v20.10.0
 npm -v
 # 10.2.3
-```
+````
 
 It's important to restart your Terminal to ensure it recognizes the new installation. In some cases, you might need to restart your computer.
 
 While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To enable these, run `corepack enable` in your Terminal. This step is optional and only needed if you prefer using a package manager other than npm.
+
+  </TabItem>
+  <TabItem label="Nix/NixOS">
+  To install Node.js Add the following packages below to install Node.js on nix/NixOS.
+  ```nix
+  nodejs-slim # feel free to change the version
+  npm
+  ```
+  </TabItem>
+</Tabs>
 
 Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/start/create-project/).
 
@@ -277,7 +311,13 @@ If you'd like to target your app for Android or iOS then there are a few additio
 
 ### Android
 
-1. Download and install [Android Studio from the Android Developers website](https://developer.android.com/studio)
+:::caution[Nix/NixOS]
+Android development only supports Linux Nix/NixOS.
+If you are using Nix on darwin you could try the [homebrew route through nix-darwin](https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews) to install Android Studio.
+:::
+
+1. Download and install [Android Studio from the Android Developers website](https://developer.android.com/studio) or if you are using Nix/NixOS by adding the package to your system `android-studio`.
+
 2. Set the `JAVA_HOME` environment variable:
 
 {/* TODO: Can this be done in the 4th step? */}
@@ -302,6 +342,10 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ```ps
 [System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
 ```
+
+</TabItem>
+<TabItem label="Nix/NixOS">
+{/* TODO: Add NixOS instructions */}
 
 </TabItem>
 </Tabs>
@@ -343,7 +387,9 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 ```
 
 </TabItem>
-
+<TabItem label="Nix/NixOS">
+{/* TODO: Add NixOS instructions */}
+</TabItem>
 </Tabs>
 
 5. Add the Android targets with `rustup`:
@@ -360,6 +406,8 @@ Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 iOS development requires Xcode and is only available on macOS. Be sure that you've installed Xcode and not Xcode Command Line Tools in the [macOS system dependencies section](#macos).
 :::
 
+<Tabs>
+<TabItem label="macOS">
 1. Add the iOS targets with `rustup` in Terminal:
 
 ```sh
@@ -383,6 +431,18 @@ Next: [Create a project](/start/create-project/).
 ## Troubleshooting
 
 If you run into any issues during installation be sure to check the [Troubleshooting Guide](/develop/debug/) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
+
+</TabItem>
+<TabItem label="Nix/NixOS">
+1. Add the iOS targets with `rustup` in Terminal:
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+TODO: Find out what you need to install for NixOS
+
+</TabItem>
+</Tabs>
 
 <Card title="Next Steps" icon="rocket">
 
