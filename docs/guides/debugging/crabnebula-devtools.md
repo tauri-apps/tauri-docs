@@ -30,7 +30,7 @@ fn main() {
 ```
 
 :::note
-在这种情况下，我们建议只初始化用于调试程序的 devtools 插件。
+如上述代码一样，我们建议只在调试模式下初始化 devtools 插件。
 :::
 
 更多信息，请参阅 [CrabNebula DevTools] 文档。
