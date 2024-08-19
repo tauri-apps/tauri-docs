@@ -12,7 +12,7 @@
 cargo add devtools
 ```
 
-并尽快在主函数中初始化插件：
+并在主函数中尽可能的提前初始化插件：
 
 ```rust
 fn main() {
