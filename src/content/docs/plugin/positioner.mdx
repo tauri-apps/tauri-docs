@@ -102,7 +102,7 @@ Additional setup is required to get tray-relative positions to work.
     			.setup(|app| {
     				TrayIconBuilder::new()
     					.on_tray_icon_event(|app, event| {
-    						tauri_plugin_positioner::on_tray_event(app.app_handle(), &event);
+    						tauri_plugin_positioner::on_tray_event(app.handle(), &event);
     					})
     					.build(app)?;
     				Ok(())
