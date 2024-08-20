@@ -112,10 +112,10 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let stores = app.app_handle().state::<StoreCollection<Wry>>();
+            let stores = app.handle().try_state::<StoreCollection<Wry>>().ok_or("Store not found")?;
             let path = PathBuf::from("store.bin");
 
-            with_store(app.app_handle().clone(), stores, path, |store| {
+            with_store(app.handle().clone(), stores, path, |store| {
                 // Note that values must be serde_json::Value instances,
                 // otherwise, they will not be compatible with the JavaScript bindings.
                 store.insert("some-key".to_string(), json!({ "value": 5 }))?;
