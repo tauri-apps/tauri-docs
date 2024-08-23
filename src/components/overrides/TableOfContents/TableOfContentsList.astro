@@ -4,10 +4,11 @@ import type { TocItem } from 'node_modules/@astrojs/starlight/utils/generateToC'
 interface Props {
   toc: TocItem[];
   depth?: number;
+  collapseLevel?: number;
   isMobile?: boolean;
 }
 
-const { toc, isMobile = false, depth = 0 } = Astro.props;
+const { toc, isMobile = false, depth = 0, collapseLevel = 1 } = Astro.props;
 ---
 
 <ul class:list={{ isMobile }}>
@@ -27,7 +28,7 @@ const { toc, isMobile = false, depth = 0 } = Astro.props;
         )}
 
         {heading.children.length > 0 && (
-          <details open>
+          <details open={depth < collapseLevel}>
             <summary>
               <a href={'#' + heading.slug}>
                 <span>{heading.text}</span>
