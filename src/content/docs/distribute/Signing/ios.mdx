@@ -40,6 +40,15 @@ Select the path of the exported .p12 file and remember its password.
 Run `base64 -i <path-to-certificate.p12> | pbcopy` to convert the certificate to base64 and copy it to the clipboard, and paste that value to the `IOS_CERTIFICATE` environment variable.
 The certificate password must be set to the `IOS_CERTIFICATE_PASSWORD` variable.
 
+:::note
+You must use an appropriate certificate type for each export method:
+
+- debugging: Apple Development or iOS App Development
+- app-store-connect: Apple Distribution or iOS Distribution (App Store Connect and Ad Hoc)
+- ad-hoc: Apple Distribution or iOS Distribution (App Store Connect and Ad Hoc)
+
+:::
+
 ## Provisioning Profile
 
 Additionally, you must provide the provisioning profile for your application. In the [Identifiers](https://developer.apple.com/account/resources/identifiers/list) page, create a new App ID and make sure its "Bundle ID" value matches the identifier set in the [`identifier`] configuration.
