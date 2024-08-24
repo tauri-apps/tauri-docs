@@ -41,6 +41,13 @@ The Tauri CLI can package your app for macOS and iOS. Running on a macOS machine
 Code signing is required. See the documentation for [macOS][macOS code signing] and [iOS][iOS code signing].
 :::
 
+Note that Tauri leverages Xcode for the iOS app so you can use Xcode to archive and distribute for iOS instead of the Tauri CLI.
+To open the iOS project in Xcode for building you must run the following command:
+
+```
+tauri ios build --open
+```
+
 ### macOS
 
 To upload your app to the App Store, first you must ensure all required configuration options are set
