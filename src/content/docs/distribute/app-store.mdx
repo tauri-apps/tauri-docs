@@ -108,6 +108,25 @@ After creating the provisioning profile, download it and save it to a known loca
 }
 ```
 
+- Info.plist
+
+Your app must comply with encryption export regulations.
+See the [official documentation](https://developer.apple.com/documentation/security/complying-with-encryption-export-regulations?language=objc)
+for more information.
+
+Create a Info.plist file in the src-tauri folder:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/> # or `true` if your app uses encryption
+</dict>
+</plist>
+```
+
 - Entitlements
 
 Your app must include the App Sandbox capability to be distributed in the App Store.
