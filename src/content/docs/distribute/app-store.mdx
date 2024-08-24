@@ -8,7 +8,7 @@ App Store is the app marketplace maintained by Apple.
 You can distribute your Tauri app targetting macOS and iOS.
 
 This guide only covers details for distributing apps directly to the App Store.
-See the general [macOS guide][macOS distribution guide] for more information on macOS distribution options and configurations.
+See the general [DMG guide][DMG distribution guide] for more information on macOS distribution options and configurations.
 
 ## Requirements
 
@@ -207,7 +207,7 @@ And change the CLI command and output path based on the Mac system you are runni
 
 :::
 
-See the [macOS distribution guide] for more information on configuration options.
+See the [DMG distribution guide] for more information on configuration options.
 
 To generate a signed `.pkg` from your app bundle, run the following command:
 
@@ -266,7 +266,7 @@ The APPLE\*API_ISSUER (Issuer ID) is presented above the keys table, and the APP
 You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
 The private key file path must be saved as `AuthKey\_<APPLE_API_KEY_ID>.p8` in one of these directories:`<current-working-directory>/private_keys`, `~/private_keys`, `~/.private_keys`or`~/.appstoreconnect/private_keys`.
 
-[macOS distribution guide]: /distribute/macos
+[DMG distribution guide]: /distribute/dmg
 [Apple Developer]: https://developer.apple.com
 [macOS code signing]: /distribute/signing/macos
 [iOS code signing]: /distribute/signing/ios
