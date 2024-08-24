@@ -83,8 +83,7 @@ See the [official documentation](https://developer.android.com/studio/publish/ap
 Create a file named `[project]/src-tauri/gen/android/keystore.properties` that contains a reference to your keystore:
 
 ```
-storePassword=<password defined when keytool was executed>
-keyPassword=<password defined when keytool was executed>
+password=<password defined when keytool was executed>
 keyAlias=upload
 storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks or C:\\Users\\<user name>\\upload-keystore.jks>
 ```
@@ -100,8 +99,7 @@ You will usually generate this file in your CI/CD platform. The following snippe
   run: |
     cd src-tauri/gen/android
     echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" > keystore.properties
-    echo "storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> keystore.properties
-    echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
+    echo "password=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
     base64 -d <<< "${{ secrets.ANDROID_KEY_BASE64 }}" > $RUNNER_TEMP/keystore.jks
     echo "storeFile=$RUNNER_TEMP/keystore.jks" >> keystore.properties
 ```
@@ -131,9 +129,9 @@ Configure gradle to use your upload key when building your app in release mode b
             }
 
             keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
+            keyPassword = keystoreProperties["password"] as String
             storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+            storePassword = keystoreProperties["password"] as String
         }
     }
 
