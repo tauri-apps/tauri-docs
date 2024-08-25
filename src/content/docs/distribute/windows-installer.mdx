@@ -219,7 +219,7 @@ This is the default setting for building the Windows Installer. It downloads the
 Requires an internet connection but results in a smaller installer size.
 This is not recommended if you're going to be distributing to Windows 7 via `.msi` installers.
 
-```json title="tauri.config.json"
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -236,7 +236,7 @@ This is not recommended if you're going to be distributing to Windows 7 via `.ms
 To embed the WebView2 Bootstrapper, set the [webviewInstallMode] to `embedBootstrapper`.
 This increases the installer size by around 1.8MB, but increases compatibility with Windows 7 systems.
 
-```json title="tauri.config.json"
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -253,7 +253,7 @@ This increases the installer size by around 1.8MB, but increases compatibility w
 To embed the WebView2 Bootstrapper, set the [webviewInstallMode] to `offlineInstaller`.
 This increases the installer size by around 127MB, but allows your application to be installed even if an internet connection is not available.
 
-```json title="tauri.config.json"
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -288,7 +288,7 @@ Expand .\Microsoft.WebView2.FixedVersionRuntime.128.0.2739.42.x64.cab -F:* ./src
 
 3. Configure the WebView2 runtime path in `tauri.conf.json`:
 
-```json title="tauri.config.json"
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -314,7 +314,7 @@ Your application WILL NOT work if the user does not have the runtime installed a
 
 :::
 
-```json title="tauri.config.json"
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -504,6 +504,25 @@ Currently, Tauri references the following locale strings: `LaunchApp`, `Downgrad
 You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`.
 See the [WiX localization documentation] for more information.
 
+### Minimum Webview2 version
+
+If your app requires features only available in newer Webview2 versions (such as custom URI schemes), you can instruct the Windows installer
+to verify the current Webview2 version and run the Webview2 bootstrapper if it does not match the target version.
+
+This is only supported for NSIS installers.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "minimumWebview2Version": "110.0.1531.0"
+      }
+    }
+  }
+}
+```
+
 [wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
 [nsis]: https://nsis.sourceforge.io/Main_Page
 [platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
@@ -522,3 +541,7 @@ See the [WiX localization documentation] for more information.
 [tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler/src/bundle/windows/templates/nsis-languages
 [tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
 [signing documentation]: /distribute/signing/windows
+
+```
+
+```

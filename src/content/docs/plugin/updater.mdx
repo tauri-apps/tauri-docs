@@ -73,7 +73,7 @@ Tauri's updater needs a signature to verify that the update is from a trusted so
 
 To sign your updates you need two keys:
 
-1. The public key, which will be set in the `tauri.config.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
+1. The public key, which will be set in the `tauri.conf.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
 2. The private key, which is used to sign your installer files. You should NEVER share this key with anyone. Also, if you lose this key you will NOT be able to publish new updates to the users that have the app already installed. It is important to store this key in a safe place!
 
 To generate the keys the Tauri CLI provides the `signer generate` command. You can run this to create the keys in the home folder:
@@ -183,7 +183,7 @@ On Windows, Tauri will create .zip archives from the MSI and NSIS installers ins
 
 ## Tauri Configuration
 
-Set up the `tauri.config.json` in this format for the updater to start working.
+Set up the `tauri.conf.json` in this format for the updater to start working.
 
 | Keys                     | Description                                                                                                                                                                                                                                                                                    |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
