@@ -92,7 +92,7 @@ To define the entitlements required by your application, you must create the ent
 
 2. Configure Tauri to use the Entitlements.plist file:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "macOS": {
@@ -109,7 +109,7 @@ See the [official documentation](https://developer.apple.com/documentation/bundl
 By default your Tauri application supports macOS 10.13 and above. If you are using an API that requires a newer macOS system and want to enforce that requirement in your app bundle,
 you can configure the [`tauri.conf.json > bundle > macOS > minimumSystemVersion`] value:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "macOS": {
@@ -124,7 +124,7 @@ you can configure the [`tauri.conf.json > bundle > macOS > minimumSystemVersion`
 If your application requires additional macOS frameworks to run, you can list them in the [`tauri.conf.json > bundle > macOS > frameworks`] configuration.
 The frameworks list can include either system or custom frameworks and dylib files.
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "macOS": {
@@ -152,7 +152,7 @@ You can use the [`tauri.conf.json > bundle > macOS > files`] configuration to ad
 which maps the destination path to its source relative to the `tauri.conf.json` file.
 The files are added to the `<product-name>.app/Contents` folder.
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "macOS": {
