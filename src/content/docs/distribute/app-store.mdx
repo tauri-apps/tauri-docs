@@ -22,9 +22,12 @@ Additionally, you must setup code signing for [macOS][macOS code signing] and [i
 
 After running `tauri ios init` to setup the Xcode project, you can use the `tauri icon` command to update the app icons.
 
-```
-tauri icon /path/to/app-icon.png --ios-color #fff
-```
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png --ios-color #fff"
+  yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
+  pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
+  cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff
+/>
 
 The `--ios-color` argument defines the background color for the iOS icons.
 
