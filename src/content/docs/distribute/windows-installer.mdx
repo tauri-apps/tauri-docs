@@ -551,6 +551,33 @@ Then you must configure Tauri to use that hook file:
 }
 ```
 
+### Install Modes
+
+By default the installer will install your application for the current user only.
+The advantage of this option is that the installer does not require Administrator privileges to run,
+but the app is installed in the `%LOCALAPPDATA%` folder instead of `C:/Program Files`.
+
+If you prefer your app installation to be available system-wide (which requires Administrator privileges)
+you can set [installMode] to `perMachine`:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "installMode": "perMachine"
+      }
+    }
+  }
+}
+```
+
+Alternatively you can let the user choose whether the app should be installed for the current user only or system-wide
+by setting the [installMode] to `both`.
+Note that the installer will require Administrator privileges to execute.
+
+See [NSISInstallerMode] for more information.
+
 ### Internationalization
 
 The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations.
@@ -612,3 +639,5 @@ to verify the current Webview2 version and run the Webview2 bootstrapper if it d
 [signing documentation]: /distribute/signing/windows
 [WiX configuration]: /reference/config/#wixconfig
 [NSIS configuration]: /reference/config/#nsisconfig
+[installMode]: /reference/config/#installmode
+[NSISInstallerMode]: /reference/config/#nsisinstallermode
