@@ -554,10 +554,26 @@ Then you must configure Tauri to use that hook file:
 ### Internationalization
 
 The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations.
+
 You can specify which languages to include using the [`tauri.bundle.windows.nsis.languages`](/reference/config/#languages) property.
 A list of languages supported by NSIS is available in [the NSIS GitHub project].
-here are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo].
+There are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo].
 You can also provide [custom translation files](/reference/config/#customlanguagefiles).
+
+By default the operating system default language is used to determine the installer language.
+You can also configure the installer to display a language selector before the installer contents are rendered:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "displayLanguageSelector": true
+      }
+    }
+  }
+}
+```
 
 ### Minimum Webview2 version
 
