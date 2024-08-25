@@ -383,14 +383,14 @@ In this example, we will define a fragment that writes two registry entries:
 </Wix>
 ```
 
-Save the fragment file with the `.wxs` extension in the `src-tauri/windows/wix-installer-fragments` folder and reference it on `tauri.conf.json`:
+Save the fragment file with the `.wxs` extension in the `src-tauri/windows/fragments` folder and reference it on `tauri.conf.json`:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
       "wix": {
-        "fragmentPaths": ["./windows/wix-installer-fragments/registry.wxs"],
+        "fragmentPaths": ["./windows/fragments/registry.wxs"],
         "componentRefs": ["MyFragmentRegistryEntries"]
       }
     }
@@ -413,7 +413,7 @@ You can find the language names to use in the Language-Culture column on [Micros
 
 To create a single installer targeting a specific language, set the `language` value to a string:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -430,7 +430,7 @@ To create a single installer targeting a specific language, set the `language` v
 To compile an installer targeting a list of languages, use an array.
 A specific installer for each language will be created, with the language key as a suffix:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -446,7 +446,7 @@ A specific installer for each language will be created, with the language key as
 
 A configuration object can be defined for each language to configure localization strings:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "windows": {
@@ -505,6 +505,51 @@ The NSIS Installer's `.nsi` script defined by Tauri is configured to work for th
 of simple webview-based applications (you can find it [here][default nsis template]).
 It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition.
 If you need a completely different installer, a custom template file can be configured on [`tauri.bundle.windows.nsis.template`].
+
+### Extending the Installer
+
+If you only need to extend some installation steps you might be able to use installer hooks instead of replacing the entire installer template.
+
+Supported hooks are:
+
+- `NSIS_HOOK_PREINSTALL`: Runs before copying files, setting registry key values and creating shortcuts.
+- `NSIS_HOOK_POSTINSTALL`: Runs after the installer has finished copying all files, setting the registry keys and created shortcuts.
+- `NSIS_HOOK_PREUNINSTALL`: Runs before removing any files, registry keys and shortcuts.
+- `NSIS_HOOK_POSTUNINSTALL`: Runs after files, registry keys and shortcuts have been removed.
+
+For example, create a `hooks.nsi` file in the `src-tauri/windows` folder and define the hooks you need:
+
+```nsh
+!macro NSIS_HOOK_PREINSTALL
+  MessageBox MB_OK "PreInstall"
+!macroend
+
+!macro NSIS_HOOK_POSTINSTALL
+  MessageBox MB_OK "PostInstall"
+!macroend
+
+!macro NSIS_HOOK_PREUNINSTALL
+  MessageBox MB_OK "PreUnInstall"
+!macroend
+
+!macro NSIS_HOOK_POSTUNINSTALL
+  MessageBox MB_OK "PostUninstall"
+!macroend
+```
+
+Then you must configure Tauri to use that hook file:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "installerHooks": "./windows/hooks.nsi"
+      }
+    }
+  }
+}
+```
 
 ### Internationalization
 
