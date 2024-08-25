@@ -94,6 +94,28 @@ Additionally you can set the initial window position via [`tauri.conf.json > bun
 
 ## Icon position
 
+You can change the app and _Applications folder_ icon position
+with the [appPosition] and [applicationFolderPosition] configuration values respectively:
+
+```json title="tauri.conf.json" ins={5-12}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 220
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 220
+        }
+      }
+    }
+  }
+}
+```
+
 :::caution
 Due to a known issue, icon sizes and positions are not applied when creating DMGs on CI/CD platforms.
 See [tauri-apps/tauri#1731] for more information.
@@ -101,4 +123,6 @@ See [tauri-apps/tauri#1731] for more information.
 
 [App Bundle distribution guide]: /distribute/macos-application-bundle
 [App Store distribution guide]: /distribute/app-store
+[appPosition]: /reference/config/#appposition
+[applicationFolderPosition]: /reference/config/#applicationfolderposition
 [tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731
