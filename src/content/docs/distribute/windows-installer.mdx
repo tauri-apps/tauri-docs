@@ -326,20 +326,24 @@ Your application WILL NOT work if the user does not have the runtime installed a
 }
 ```
 
-## Customizing the WiX Installer Template
+## Customizing the WiX Installer
+
+See the [WiX configuration] for the complete list of customization options.
+
+### Installer Template
 
 The `.msi` Windows Installer package is built using the [WiX Toolset v3].
-Currently, apart from pre-defined [configurations](/reference/config/#wixconfig), you can change it by using a custom WiX source code
+Currently, apart from pre-defined [configurations][WiX configuration], you can change it by using a custom WiX source code
 (an XML file with a `.wxs` file extension) or through WiX fragments.
 
-### Replacing the Installer Code with a Custom WiX File
+#### Replacing the Installer Code with a Custom WiX File
 
 The Windows Installer XML defined by Tauri is configured to work for the common use case
 of simple webview-based applications (you can find it [here][default wix template]).
 It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition.
 If you need a completely different installer, a custom template file can be configured on [`tauri.bundle.windows.wix.template`].
 
-### Extending the Installer with WiX Fragments
+#### Extending the Installer with WiX Fragments
 
 A [WiX fragment] is a container where you can configure almost everything offered by WiX.
 In this example, we will define a fragment that writes two registry entries:
@@ -398,27 +402,14 @@ Note that `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` and `Merge` e
 of `tauri.conf.json` on the `componentGroupRefs`, `componentRefs`, `featureGroupRefs`, `featureRefs` and `mergeRefs`
 respectively to be included in the installer.
 
-## Customizing the NSIS Installer Template
-
-The NSIS Installer's `.nsi` script defined by Tauri is configured to work for the common use case
-of simple webview-based applications (you can find it [here][default nsis template]).
-It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition.
-If you need a completely different installer, a custom template file can be configured on [`tauri.bundle.windows.nsis.template`].
-
-## Internationalization
-
-The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations.
-You can specify which languages to include using the [`tauri.bundle.windows.nsis.languages`](/reference/config/#languages) property.
-A list of languages supported by NSIS is available in [the NSIS GitHub project].
-here are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo].
-You can also provide [custom translation files](/reference/config/#customlanguagefiles).
+### Internationalization
 
 The WiX Installer is built using the `en-US` language by default.
 Internationalization (i18n) can be configured using the [`tauri.bundle.windows.wix.language`] property,
 defining the languages Tauri should build an installer against.
 You can find the language names to use in the Language-Culture column on [Microsoft's website][localizing the error and actiontext tables].
 
-### Compiling a WiX Installer for a Single Language
+#### Compiling a WiX Installer for a Single Language
 
 To create a single installer targeting a specific language, set the `language` value to a string:
 
@@ -434,7 +425,7 @@ To create a single installer targeting a specific language, set the `language` v
 }
 ```
 
-### Compiling a WiX Installer for Each Language in a List
+#### Compiling a WiX Installer for Each Language in a List
 
 To compile an installer targeting a list of languages, use an array.
 A specific installer for each language will be created, with the language key as a suffix:
@@ -451,7 +442,7 @@ A specific installer for each language will be created, with the language key as
 }
 ```
 
-### Configuring the WiX Installer for Each Language
+#### Configuring the WiX Installer Strings for Each Language
 
 A configuration object can be defined for each language to configure localization strings:
 
@@ -504,12 +495,29 @@ Currently, Tauri references the following locale strings: `LaunchApp`, `Downgrad
 You can define your own strings and reference them on your custom template or fragments with `"!(loc.TheStringId)"`.
 See the [WiX localization documentation] for more information.
 
+## Customizing the NSIS Installer
+
+See the [NSIS configuration] for the complete list of customization options.
+
+### Installer Template
+
+The NSIS Installer's `.nsi` script defined by Tauri is configured to work for the common use case
+of simple webview-based applications (you can find it [here][default nsis template]).
+It uses [handlebars] so the Tauri CLI can brand your installer according to your `tauri.conf.json` definition.
+If you need a completely different installer, a custom template file can be configured on [`tauri.bundle.windows.nsis.template`].
+
+### Internationalization
+
+The NSIS Installer is a multi-language installer, which means you always have a single installer which contains all the selected translations.
+You can specify which languages to include using the [`tauri.bundle.windows.nsis.languages`](/reference/config/#languages) property.
+A list of languages supported by NSIS is available in [the NSIS GitHub project].
+here are a few [Tauri-specific translations] required, so if you see untranslated texts feel free to open a feature request in [Tauri's main repo].
+You can also provide [custom translation files](/reference/config/#customlanguagefiles).
+
 ### Minimum Webview2 version
 
 If your app requires features only available in newer Webview2 versions (such as custom URI schemes), you can instruct the Windows installer
 to verify the current Webview2 version and run the Webview2 bootstrapper if it does not match the target version.
-
-This is only supported for NSIS installers.
 
 ```json title="tauri.conf.json"
 {
@@ -541,7 +549,5 @@ This is only supported for NSIS installers.
 [tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler/src/bundle/windows/templates/nsis-languages
 [tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
 [signing documentation]: /distribute/signing/windows
-
-```
-
-```
+[WiX configuration]: /reference/config/#wixconfig
+[NSIS configuration]: /reference/config/#nsisconfig
