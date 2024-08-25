@@ -107,7 +107,7 @@ when compiling the app for distribution outside the App Store.
 
 Your app must define its [`tauri.conf.json > bundle > category`] to be displayed in the App Store:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={3}
 {
   "bundle": {
     "category": "Utility"
@@ -128,7 +128,7 @@ Select the appropriate App ID and link the certificate you are using for code si
 
 After creating the provisioning profile, download it and save it to a known location and configure Tauri to include it in your app bundle:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={4-6}
 {
   "bundle": {
     "macOS": {
@@ -187,7 +187,7 @@ and `$TEAM_ID` with your Apple Developer team ID, which can be found in the `App
 
 And reference that file in the macOS bundle configuration [`tauri.conf.json > bundle > macOS > entitlements`]:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={4}
 {
   "bundle": {
     "macOS": {
@@ -215,7 +215,7 @@ The above command creates an Universal App Binary application, supporting both A
 
 If you prefer to only support Apple Silicon instead, you must change [`tauri.conf.json > bundle > macOS > minimumSystemVersion`] to `12.0`:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={4}
 {
   "bundle": {
     "macOS": {

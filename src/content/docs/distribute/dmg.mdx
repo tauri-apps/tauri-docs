@@ -4,6 +4,7 @@ sidebar:
   order: 1
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
 import { Image } from 'astro:assets';
 import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
 import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
@@ -41,7 +42,7 @@ To create an Apple Disk Image for your app you can use the Tauri CLI and run the
 
 You can set a custom background image to the DMG installation window with the [`tauri.conf.json > bundle > macOS > dmg > background`] configuration option:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={4-6}
 {
   "bundle": {
     "macOS": {
@@ -59,7 +60,7 @@ For instance your DMG background image can include an arrow to indicate to the u
 
 The default window size is 660x400. If you need a different size to fit your custom background image, set the [`tauri.conf.json > bundle > macOS > dmg > windowSize`] configuration:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={5-8}
 {
   "bundle": {
     "macOS": {
@@ -76,7 +77,7 @@ The default window size is 660x400. If you need a different size to fit your cus
 
 Additionally you can set the initial window position via [`tauri.conf.json > bundle > macOS > dmg > windowPosition`]:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={5-8}
 {
   "bundle": {
     "macOS": {
