@@ -50,7 +50,7 @@ Tauri derives the version code from the value defined in [`tauri.conf.json > ver
 You can set a custom version code in the [`tauri.conf.json > bundle > android > versionCode`] configuration
 if you need a different version code scheme e.g. sequential codes:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "android": {
@@ -108,7 +108,7 @@ See the [Android documentation](https://developer.android.com/training/basics/su
 
 If your app must execute on a newer Android version, you can configure [`tauri.conf.json > bundle > android > minSdkVersion`]:
 
-```json
+```json title="tauri.conf.json"
 {
   "bundle": {
     "android": {
