@@ -4,6 +4,8 @@ sidebar:
   order: 1
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
+
 App Store is the app marketplace maintained by Apple.
 You can distribute your Tauri app targetting macOS and iOS.
 
@@ -44,9 +46,12 @@ Code signing is required. See the documentation for [macOS][macOS code signing] 
 Note that Tauri leverages Xcode for the iOS app so you can use Xcode to archive and distribute for iOS instead of the Tauri CLI.
 To open the iOS project in Xcode for building you must run the following command:
 
-```
-tauri ios build --open
-```
+<CommandTabs
+  npm="npm run tauri ios build --open"
+  yarn="yarn tauri ios build --open"
+  pnpm="pnpm tauri ios build --open"
+  cargo="cargo tauri ios build --open"
+/>
 
 ### macOS
 
@@ -79,9 +84,12 @@ To apply the following config changes only when building for App Store, you can 
 
 Then merge that config file with the main one when building your Tauri app for App Store:
 
-```
-tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json
-```
+<CommandTabs
+  npm="npm run tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+/>
 
 This is particularly useful when setting up your CI/CD to upload your app to the App Store while not requiring the provision profile locally or
 when compiling the app for distribution outside the App Store.
@@ -255,9 +263,12 @@ Your app will then be validated by Apple and available in TestFlight if approved
 
 To build your iOS app, run the `tauri ios build` command:
 
-```
-tauri ios build --export-method app-store-connect
-```
+<CommandTabs
+  npm="npm run tauri ios build --export-method app-store-connect"
+  yarn="yarn tauri ios build --export-method app-store-connect"
+  pnpm="pnpm tauri ios build --export-method app-store-connect"
+  cargo="cargo tauri ios build --export-method app-store-connect"
+/>
 
 The generated IPA file can be found in `src-tauri/gen/apple/build/arm64/$APPNAME.ipa`.
 

@@ -17,6 +17,15 @@ This guide only covers details for distributing apps outside the App Store using
 See the [App Bundle distribution guide] for more information on macOS distribution options and configurations.
 To distribute your macOS app in the App Store, see the [App Store distribution guide].
 
+To create an Apple Disk Image for your app you can use the Tauri CLI and run the `tauri build` command in a Mac computer:
+
+<CommandTabs
+  npm="npm run tauri build --bundles dmg"
+  yarn="yarn tauri build --bundles dmg"
+  pnpm="pnpm tauri build --bundles dmg"
+  cargo="cargo tauri build --bundles dmg"
+/>
+
 <Image
   class="dark:sl-hidden"
   src={StandardDmgLight}

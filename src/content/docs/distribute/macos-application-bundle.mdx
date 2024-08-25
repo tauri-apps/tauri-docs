@@ -4,8 +4,19 @@ sidebar:
   order: 1
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
+
 An application bundle is the package format that is executed on macOS. It is a simple directory that includes everything your application requires for successful operation,
 including your app executable, resources, the Info.plist file and other files such as macOS frameworks.
+
+To package your app as a macOS application bundle you can use the Tauri CLI and run the `tauri build` command in a Mac computer:
+
+<CommandTabs
+  npm="npm run tauri build --bundles app"
+  yarn="yarn tauri build --bundles app"
+  pnpm="pnpm tauri build --bundles app"
+  cargo="cargo tauri build --bundles app"
+/>
 
 ## File structure
 
