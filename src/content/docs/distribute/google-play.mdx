@@ -4,6 +4,8 @@ sidebar:
   order: 1
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
+
 Google Play is the Android app distribution service maintained by Google.
 
 This guide covers the requirements for publishing your Android app on Google Play.
@@ -46,11 +48,11 @@ You can build an Android App Bundle (AAB) to upload to Google Play by running th
   cargo="cargo tauri android build --aab"
 />
 
-Tauri derives the version code from the value defined in [`tauri.conf.json > version`] (`versionCode = major\*1000000 + minor\*1000 + patch`).
+Tauri derives the version code from the value defined in [`tauri.conf.json > version`] (`versionCode = major*1000000 + minor*1000 + patch`).
 You can set a custom version code in the [`tauri.conf.json > bundle > android > versionCode`] configuration
 if you need a different version code scheme e.g. sequential codes:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={4}
 {
   "bundle": {
     "android": {
@@ -108,7 +110,7 @@ See the [Android documentation](https://developer.android.com/training/basics/su
 
 If your app must execute on a newer Android version, you can configure [`tauri.conf.json > bundle > android > minSdkVersion`]:
 
-```json title="tauri.conf.json"
+```json title="tauri.conf.json" ins={4}
 {
   "bundle": {
     "android": {
