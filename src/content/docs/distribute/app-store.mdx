@@ -85,13 +85,17 @@ To apply the following config changes only when building for App Store, you can 
 }
 ```
 
-Then merge that config file with the main one when building your Tauri app for App Store:
+Then merge that config file with the main one when bundling your Tauri app for App Store:
 
 <CommandTabs
-  npm="npm run tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
-  yarn="yarn tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
-  pnpm="pnpm tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
-  cargo="cargo tauri build --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  npm="npm run tauri build --no-bundle
+npm run tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+pnpm tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+cargo tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
 />
 
 This is particularly useful when setting up your CI/CD to upload your app to the App Store while not requiring the provision profile locally or
