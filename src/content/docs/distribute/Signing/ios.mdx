@@ -8,6 +8,7 @@ sidebar:
 Code signing on iOS is required to distribute your application through the official [Apple App Store] or possibly alternative marketplaces in the European Union and in general to install and execute on end user devices.
 
 ## Prerequisites
+
 Code signing on iOS requires enrolling to the [Apple Developer] program, which at the time of writing costs 99$ per year.
 You also need an Apple device where you perform the code signing. This is required by the signing process and due to the [Apple TOS].
 
@@ -32,16 +33,32 @@ The private key file path must be set via the `APPLE_API_KEY_PATH` environment v
 
 ## Manual Signing
 
-To manually sign your iOS app you can provide the certificate and mobile provisioning profile via environment variables.
+To manually sign your iOS app you can provide the certificate and mobile provisioning profile via environment variables:
 
-## Signing Certificate
+- **IOS_CERTIFICATE**: base64 representation of the certificate exported from the Keychain.
+- **IOS_CERTIFICATE_PASSWORD**: password of the certificate set when exporting it from the Keychain.
+- **IOS_MOBILE_PROVISION**: base64 representation of the provisioning profile.
+
+The following sections explain how to get these values.
+
+### Signing Certificate
 
 After enrolling, navigate to the [Certificates] page to create a new Apple Distribution certificate.
 Download the new certificate and install it to the macOS Keychain.
 
-To export the certificate key, open the "Keychain Access" app, expand the certificate's entry, right-click on the key item and select "Export \<key-name\>" item.
+To export the certificate key, open the "Keychain Access" app, expand the certificate's entry,
+right-click on the key item and select "Export \<key-name\>" item.
 Select the path of the exported .p12 file and remember its password.
-Run `base64 -i <path-to-certificate.p12> | pbcopy` to convert the certificate to base64 and copy it to the clipboard, and paste that value to the `IOS_CERTIFICATE` environment variable.
+
+Run the following `base64` command to convert the certificate to base64 and copy it to the clipboard:
+
+```
+base64 -i <path-to-certificate.p12> | pbcopy
+```
+
+The value in the clipboard is now the base64 representation of the signing certificate.
+Save it and use it as the `IOS_CERTIFICATE` environment variable value.
+
 The certificate password must be set to the `IOS_CERTIFICATE_PASSWORD` variable.
 
 :::tip[Choose Certificate Type]
@@ -53,13 +70,24 @@ You must use an appropriate certificate type for each export method:
 
 :::
 
-## Provisioning Profile
+### Provisioning Profile
 
-Additionally, you must provide the provisioning profile for your application. In the [Identifiers](https://developer.apple.com/account/resources/identifiers/list) page, create a new App ID and make sure its "Bundle ID" value matches the identifier set in the [`identifier`] configuration.
+Additionally, you must provide the provisioning profile for your application.
+In the [Identifiers](https://developer.apple.com/account/resources/identifiers/list) page,
+create a new App ID and make sure its "Bundle ID" value matches the identifier set in the [`identifier`] configuration.
 
-Navigate to the [Profiles](https://developer.apple.com/account/resources/profiles/list) page to create a new provisioning profile. For App Store distribution, it must be an "App Store Connect" profile. Select the appropriate App ID and link the certificate you previously created.
+Navigate to the [Profiles](https://developer.apple.com/account/resources/profiles/list) page to create a new provisioning profile.
+For App Store distribution, it must be an "App Store Connect" profile.
+Select the appropriate App ID and link the certificate you previously created.
 
-After creating the provisioning profile, download it and run `base64 -i <path-to-profile.mobileprovision> | pbcopy` to convert the profile to base64 and copy it to the clipboard, and paste that value to the `IOS_MOBILE_PROVISION` environment variable.
+After creating the provisioning profile, download it and run the following `base64` command to convert the profile and copy it to the clipboard:
+
+```
+base64 -i <path-to-profile.mobileprovision> | pbcopy
+```
+
+The value in the clipboard is now the base64 representation of the provisioning profile.
+Save it and use it as the `IOS_MOBILE_PROVISION` environment variable value.
 
 Now you can build your iOS application and distribute on the App Store!
 
@@ -67,3 +95,4 @@ Now you can build your iOS application and distribute on the App Store!
 [Apple Developer]: https://developer.apple.com
 [Apple App Store]: https://www.apple.com/app-store/
 [App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
+[`identifier`]: /reference/config/#identifier
