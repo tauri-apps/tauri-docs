@@ -42,7 +42,7 @@ importers:
         version: 2.0.0(@types/babel__core@7.20.5)(astro@4.14.4(@types/node@22.4.1)(rollup@2.79.1)(sass@1.77.8)(terser@5.31.0)(typescript@5.5.4))
       jsdom:
         specifier: ^24.0.0
-        version: 24.1.1
+        version: 24.1.2
       prettier:
         specifier: ^3.2.5
         version: 3.3.3
@@ -2584,8 +2584,8 @@ packages:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
     hasBin: true
 
-  jsdom@24.1.1:
-    resolution: {integrity: sha512-5O1wWV99Jhq4DV7rCLIoZ/UIhyQeDR7wHVyZAHAshbrvZsLs+Xzz7gtwnlJTJDjleiTKh54F4dXrX70vJQTyJQ==}
+  jsdom@24.1.2:
+    resolution: {integrity: sha512-Fzeg0F93nMZ/dJncmxsXqL7oU/RBvE33RAvr+8otVU9719wHEyV9bUoIfylWWKiuARRV/6tHLX/0W1pe2IixsA==}
     engines: {node: '>=18'}
     peerDependencies:
       canvas: ^2.11.2
@@ -6684,7 +6684,7 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  jsdom@24.1.1:
+  jsdom@24.1.2:
     dependencies:
       cssstyle: 4.0.1
       data-urls: 5.0.0
