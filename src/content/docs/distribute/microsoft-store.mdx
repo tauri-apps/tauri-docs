@@ -11,9 +11,6 @@ Microsoft Store is the Windows app store operated by Microsoft.
 This guide only covers details for distributing Windows Apps directly to the Microsoft Store.
 See the [Windows Installer guide] for more information on Windows installer distribution options and configurations.
 
-Code signing is automatically managed by Microsoft during the submission process,
-so you do not need to worry about it.
-
 ## Requirements
 
 To publish apps on the Microsoft Store you must have a Microsoft account
@@ -41,7 +38,7 @@ Click `New Product`, select `EXE or MSI app` and reserve a unique name for your 
 
 Currently Tauri only generates [EXE and MSI][Windows Installer guide] installers, so you must create a Microsoft Store application
 that only links to the unpacked application.
-The installer linked in the Microsoft Installer must be offline.
+The installer linked in the Microsoft Installer must be offline, [handle auto-updates] and be [code signed].
 
 See the [official publish documentation] for more information.
 
@@ -111,6 +108,8 @@ and link it in your application page in the Microsoft Store website.
 [Windows Installer guide]: /distribute/windows-installer
 [enroll]: https://learn.microsoft.com/en-us/windows/apps/get-started/sign-up
 [Apps and Games]: https://partner.microsoft.com/en-us/dashboard/apps-and-games/overview
+[handle auto-updates]: /plugin/updater
+[code signed]: /distribute/signing/windows
 [Offline Installer]: /distribute/windows-installer/#offline-installer
 [official publish documentation]: https://learn.microsoft.com/en-us/windows/apps/publish/
 [publisher]: /reference/config/#publisher
