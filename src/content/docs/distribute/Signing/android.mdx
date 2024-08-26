@@ -40,7 +40,7 @@ keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -storetype JKS
 This command stores the `upload-keystore.jks` file in your home directory.
 If you want to store it elsewhere, change the argument you pass to the `-keystore` parameter.
 
-:::note
+:::tip
 
 - The `keytool` command might not be in your PATH.
   You may find it installed in the JDK that is installed with Android Studio:
@@ -70,7 +70,7 @@ If you want to store it elsewhere, change the argument you pass to the `-keystor
 
 :::
 
-:::caution
+:::caution[Security Warning]
 
 Keep the `keystore` file private; don't check it into public source control!
 
@@ -88,7 +88,7 @@ keyAlias=upload
 storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks or C:\\Users\\<user name>\\upload-keystore.jks>
 ```
 
-:::caution
+:::caution[Security Warning]
 Keep the `keystore.properties` file private; don't check it into public source control.
 :::
 

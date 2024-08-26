@@ -6,6 +6,9 @@ sidebar:
 ---
 
 This guide provides information on code signing for Linux packages.
+While artifact signing is not required for your application to be deployed on Linux, it can be used to increase trust into your deployed application. Signing the binaries allows your end user to verify that these are genuine and have not been modified by another untrusted entity.
+
+This requires you to publish your signature and public key on an authenticated channel (e.g. your website served via TLS), so the end user can download and verify.
 
 ## Requirements
 

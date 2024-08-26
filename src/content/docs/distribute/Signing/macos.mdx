@@ -5,7 +5,12 @@ sidebar:
   order: 1
 ---
 
-Code signing on macOS requires enrolling to the [Apple Developer] program.
+Code signing is required on macOS to allow your application to be listed in the [Apple App Store] and to prevent a warning that your application is broken and can not be started, when downloaded from the browser.
+
+## Prerequisites
+
+Code signing on macOS requires enrolling to the [Apple Developer] program, which at the time of writing costs 99$ per year.
+You also need an Apple device where you perform the code signing. This is required by the signing process and due to the [Apple TOS].
 
 ## Signing
 
@@ -88,5 +93,6 @@ Notarization is required when using a _Developer ID Application_ certificate.
 
 [Certificates]: https://developer.apple.com/account/resources/certificates/list
 [Apple Developer]: https://developer.apple.com
+[Apple App Store]: https://www.apple.com/app-store/
 [App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
 [`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity

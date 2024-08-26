@@ -5,9 +5,9 @@ sidebar:
   order: 2
 ---
 
-Code signing your application lets users know that they downloaded the official executable of your app and not some 3rd party malware that poses as your app.
-While it is not required, it improves users' confidence in your app.
+Code signing is required on Windows to allow your application to be listed in the [Microsoft Store] and to prevent a [SmartScreen] warning that your application is not trusted and can not be started, when downloaded from the browser.
 
+It is not required to execute your application on Windows, as long as your end user is okay with ignoring the [SmartScreen] warning or your user does not download via the browser.
 This guide covers signing via OV (Organization Validated) certificates and Azure Key Vault. If you use any other signing mechanism not documented here,
 check out your certificate issuer documentation and refer to the [custom sign command](#custom-sign-command) section.
 
@@ -276,3 +276,5 @@ When cross compiling Windows installers from Linux and macOS machines, you **mus
 [relic]: https://github.com/sassoftware/relic
 [relic releases page]: https://github.com/sassoftware/relic/releases/
 [bundle > windows > signCommand]: /reference/config/#signcommand
+[SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
+[Microsoft Store]: https://apps.microsoft.com/

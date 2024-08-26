@@ -5,13 +5,17 @@ sidebar:
   order: 4
 ---
 
-Code signing on iOS requires enrolling to the [Apple Developer] program.
+Code signing on iOS is required to distribute your application through the official [Apple App Store] or possibly alternative marketplaces in the European Union and in general to install and execute on end user devices.
+
+## Prerequisites
+Code signing on iOS requires enrolling to the [Apple Developer] program, which at the time of writing costs 99$ per year.
+You also need an Apple device where you perform the code signing. This is required by the signing process and due to the [Apple TOS].
 
 To distribute iOS applications you must have your bundle identifier registered in the App Store Connect,
 an appropriate iOS code signing certificate and a mobile provisioning profile that links them together and enables the iOS capabilities used by your app.
 These requirements can be either automatically managed by Xcode or provided manually.
 
-### Automatic Signing
+## Automatic Signing
 
 Letting Xcode manage the signing and provisioning for your app is the most convenient way to export your iOS app to be distributed.
 It automatically registers your bundle identifier, manages iOS capabilities changes, and configures an appropriate certificate based on your export method.
@@ -22,11 +26,11 @@ To register your account, open the Xcode application and open the Settings page 
 To use the automatic signing in CI/CD platforms you must create an App Store Connect API key
 and define the `APPLE_API_ISSUER`, `APPLE_API_KEY` and `APPLE_API_KEY_PATH` environment variables.\
 Open the [App Store Connect's Users and Access page], select the Keys tab, click on the Add button and select a name and the Developer access.
-The APPLE_API_ISSUER (Issuer ID) is presented above the keys table, and the APPLE_API_KEY is the value on the Key ID column on that table.
+The `APPLE_API_ISSUER` (Issuer ID) is presented above the keys table, and the `APPLE_API_KEY` is the value on the Key ID column on that table.
 You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
-The private key file path must be set via the APPLE_API_KEY_PATH environment variable.
+The private key file path must be set via the `APPLE_API_KEY_PATH` environment variable.
 
-### Manual Signing
+## Manual Signing
 
 To manually sign your iOS app you can provide the certificate and mobile provisioning profile via environment variables.
 
@@ -40,12 +44,12 @@ Select the path of the exported .p12 file and remember its password.
 Run `base64 -i <path-to-certificate.p12> | pbcopy` to convert the certificate to base64 and copy it to the clipboard, and paste that value to the `IOS_CERTIFICATE` environment variable.
 The certificate password must be set to the `IOS_CERTIFICATE_PASSWORD` variable.
 
-:::note
+:::tip[Choose Certificate Type]
 You must use an appropriate certificate type for each export method:
 
-- debugging: Apple Development or iOS App Development
-- app-store-connect: Apple Distribution or iOS Distribution (App Store Connect and Ad Hoc)
-- ad-hoc: Apple Distribution or iOS Distribution (App Store Connect and Ad Hoc)
+- **debugging**: Apple Development or iOS App Development
+- **app-store-connect**: Apple Distribution or iOS Distribution (App Store Connect and Ad Hoc)
+- **ad-hoc**: Apple Distribution or iOS Distribution (App Store Connect and Ad Hoc)
 
 :::
 
@@ -61,4 +65,5 @@ Now you can build your iOS application and distribute on the App Store!
 
 [Certificates]: https://developer.apple.com/account/resources/certificates/list
 [Apple Developer]: https://developer.apple.com
+[Apple App Store]: https://www.apple.com/app-store/
 [App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
