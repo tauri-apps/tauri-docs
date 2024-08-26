@@ -58,7 +58,7 @@ Tauri allows you to build "[local first](https://twitter.com/schickling/status/1
 
 ### Environment
 
-The apps you make are [lean and performant](https://tauri.app/v1/references/benchmarks), which reduces electricity, storage space, and general natural resource consumption. Every byte saved is a leaf on a tree that gets to grow.
+The apps you make are [lean and performant](https://tauri.app/v1/reference/benchmarks), which reduces electricity, storage space, and general natural resource consumption. Every byte saved is a leaf on a tree that gets to grow.
 
 To illustrate this, we compiled some numbers on the ecological impact of your app's size. As you can see, even small increases in size have a hefty impact on the environment!
 
@@ -102,7 +102,7 @@ Here are some of the things people are saying about Tauri:
 </div>
 <div class="col col--10">
 
-_"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_  
+_"Spacedrive had to feel native across all platforms, all while being lightweight, instant to launch and extremely fast to use. This just wasn't possible with a web-based UI — until now, thanks to Tauri."_
 **- Jamie Pine**, [Spacedrive](https://www.spacedrive.com) Founder
 
 </div>
@@ -146,7 +146,7 @@ _"Tauri stands to reduce the disastrously negative environmental costs of bloate
 </div>
 <div class="col col--10">
 
-_"With its security-focused design and low memory footprint, Tauri is the electron alternative we've been waiting for. Tauri has allowed us to build a more secure, more performant desktop app while using the same web technologies, which we love. Thanks to the team for their amazing work!_  
+_"With its security-focused design and low memory footprint, Tauri is the electron alternative we've been waiting for. Tauri has allowed us to build a more secure, more performant desktop app while using the same web technologies, which we love. Thanks to the team for their amazing work!_
 _P.S.: Can't wait for mobile support!"_
 
 **- Martin Kleinschrodt**, [Padloc](https://padloc.app/) Founder

@@ -1,0 +1,202 @@
+@import url('./theme.scss');
+@import url('./overrides.scss');
+
+.content details {
+  padding: 0 1rem;
+}
+
+.content details[open] {
+  background-color: var(--sl-color-gray-6);
+  padding-bottom: rem;
+}
+
+.content summary {
+  cursor: pointer;
+  padding: 1rem 0;
+}
+
+/* Heading link styling */
+.heading-link::after {
+  content: '#';
+  padding-inline-start: 0.25em;
+  opacity: 0;
+  transition: var(--tauri-transition-speed);
+}
+
+.heading-link:hover::after {
+  color: var(--sl-color-text-accent);
+  opacity: 1;
+}
+
+.heading-link {
+  text-decoration: none;
+  color: var(--sl-color-white) !important;
+}
+
+@media (min-width: 50rem) {
+  .hero {
+    padding-block: clamp(2.5rem, calc(1rem + 10vmin), 5rem);
+  }
+}
+
+/* Index hero background */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -1;
+  opacity: 0.7;
+  overflow: hidden;
+  background: linear-gradient(-90deg, var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(-90deg, var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px),
+    linear-gradient(-90deg, var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(-90deg, transparent 6px, transparent 6px, transparent 156px, transparent 156px),
+    linear-gradient(var(--sl-color-gray-6) 1px, transparent 1px), transparent;
+  background-size:
+    32px 32px,
+    32px 32px,
+    256px 256px,
+    256px 256px,
+    256px 256px,
+    256px 256px,
+    256px 256px,
+    256px 256px;
+}
+
+/* Transition hero background grid smoothly to page background color. */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 70% 0 0;
+  background: linear-gradient(transparent, var(--sl-color-bg));
+}
+
+.bg-grad {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 150vh;
+  height: 150vh;
+  opacity: 0.3;
+  background: radial-gradient(circle, var(--sl-color-accent) 0%, transparent 70%);
+  animation: 6s intro;
+}
+
+.bg-grad-red {
+  position: absolute;
+  top: 0%;
+  left: -50%;
+  width: 150vh;
+  height: 150vh;
+  opacity: 0.3;
+  background: radial-gradient(circle, var(--sl-color-orange) 0%, transparent 70%);
+  animation: 14s intro;
+}
+
+:root[data-theme='light'] {
+  .bg-grad {
+    opacity: 0.9;
+  }
+
+  .bg-grad-red {
+    opacity: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    opacity: 0.4;
+    overflow: hidden;
+    background: linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px),
+      linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(
+        -90deg,
+        transparent 6px,
+        transparent 6px,
+        transparent 156px,
+        transparent 156px
+      ),
+      linear-gradient(var(--sl-color-gray-5) 1px, transparent 1px), transparent;
+    background-size:
+      32px 32px,
+      32px 32px,
+      256px 256px,
+      256px 256px,
+      256px 256px,
+      256px 256px,
+      256px 256px,
+      256px 256px;
+  }
+}
+
+/* Tauri logo on index page */
+.hero > img {
+  animation: 3s intro;
+  opacity: 0.7;
+}
+
+.sl-markdown-content .inline-icon {
+  display: inline-block;
+}
+
+:root[data-theme='light'] .hero > img {
+  filter: invert(1);
+}
+
+@keyframes intro {
+  0% {
+    scale: 1.4;
+    opacity: 0;
+  }
+
+  80% {
+    scale: 0.9;
+  }
+
+  100% {
+  }
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none !important;
+  }
+}
+
+.lp-cta-card {
+  max-width: 750px;
+  margin: auto;
+}
+
+article.card {
+  border-radius: 0.5rem;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+figcaption {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+figure > img {
+  margin-left: auto;
+  margin-right: auto;
+}

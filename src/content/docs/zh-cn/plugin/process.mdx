@@ -1,0 +1,91 @@
+---
+title: 进程
+description: 访问当前进程。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="process" />
+
+这个插件提供了访问当前进程的 API。要生成子进程，请参阅 [shell](/plugin/shell) 插件。
+
+## 设置
+
+从安装 `plugin-process` 开始使用。
+
+<Tabs>
+    <TabItem label="自动">
+
+    使用项目的包管理器来添加依赖：
+
+    <CommandTabs npm="npm run tauri add process"
+        yarn="yarn run tauri add process"
+        pnpm="pnpm tauri add process"
+        bun="bun tauri add process"
+        cargo="cargo tauri add process" />
+
+    </TabItem>
+    <TabItem label="手动">
+
+    1. 运行 `cargo add tauri-plugin-process` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
+
+    2. 修改 `lib.rs` 来初始化插件。
+
+    ```rust ins={6}
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // Initialize the plugin
+            .plugin(tauri_plugin_process::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. 如果你想在 JavaScript 中使用这个插件，还需要安装 npm 包。
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-process"
+        yarn="yarn add @tauri-apps/plugin-process"
+        pnpm="pnpm add @tauri-apps/plugin-process"
+        bun="bun add @tauri-apps/plugin-process"
+    />
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+这个插件有 JavaScript 和 Rust 两种版本。
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+
+// exits the app with the given status code
+await exit(0);
+
+// restarts the app
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+请注意，`app` 是 [`AppHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/struct.AppHandle.html) 的一个实例。
+
+```rust
+// exits the app with the given status code
+app.exit(0);
+
+// restarts the app
+app.restart();
+```
+
+</TabItem>
+</Tabs>

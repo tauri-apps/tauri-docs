@@ -1,0 +1,108 @@
+---
+title: Barcode Scanner
+description: Allows your mobile application to use the camera to scan QR codes, EAN-13 and other types of barcodes.
+sidebar:
+  badge:
+    text: New
+    variant: tip
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin="barcode-scanner" />
+
+Allows your mobile application to use the camera to scan QR codes, EAN-13 and other kinds of barcodes.
+
+## Supported Platforms
+
+- Android
+- iOS
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.64**_
+
+Install the barcode-scanner plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add barcode-scanner"
+      yarn="yarn run tauri add barcode-scanner"
+      pnpm="pnpm tauri add barcode-scanner"
+      bun="bun tauri add barcode-scanner"
+      cargo="cargo tauri add barcode-scanner"
+    />
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+      1.  Run `cargo add tauri-plugin-barcode-scanner` to add the plugin to the project's dependencies in `Cargo.toml`.
+
+      2.  Modify `lib.rs` to initialize the plugin:
+
+          ```rust title="lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          fn run() {
+              tauri::Builder::default()
+                  .plugin(tauri_plugin_barcode_scanner::init())
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-barcode-scanner"
+              yarn="yarn add @tauri-apps/plugin-barcode-scanner"
+              pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+              bun="bun add @tauri-apps/plugin-barcode-scanner"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+The barcode scanner plugin is available in JavaScript.
+
+```javascript
+import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
+// when using `"withGlobalTauri": true`, you may use
+// const { scan, Format } = window.__TAURI_PLUGIN_BARCODE_SCANNER__;
+
+// `windowed: true` actually sets the webview to transparent
+// instead of opening a separate view for the camera
+// make sure your user interface is ready to show what is underneath with a transparent element
+scan({ windowed: true, formats: [Format.QRCode] });
+```
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+}
+```
+
+<PluginPermissions plugin="barcode-scanner" />

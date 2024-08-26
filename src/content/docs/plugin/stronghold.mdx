@@ -1,0 +1,225 @@
+---
+title: Stronghold
+description: Encrypted, secure database.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin="stronghold" />
+
+Store secrets and keys using the [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs) encrypted database and secure runtime.
+
+## Supported Platforms
+
+- Windows
+- Linux
+- macOS
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.75**_
+
+Install the stronghold plugin to get started.
+
+<Tabs>
+	<TabItem label="Automatic" >
+		Use your project's package manager to add the dependency:
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add stronghold"
+            yarn="yarn run tauri add stronghold"
+            pnpm="pnpm tauri add stronghold"
+            bun="bun tauri add stronghold"
+            cargo="cargo tauri add stronghold"
+    	/>
+    </TabItem>
+
+    <TabItem label = "Manual">
+    	<Steps>
+
+    	1. Install the stronghold plugin by adding the following to your `Cargo.toml` file:
+
+    		```toml title="src-tauri/Cargo.toml"
+    		[dependencies]
+    		tauri-plugin-stronghold = "2.0.0-rc"
+    		# alternatively with Git:
+    		tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+    		```
+
+    	2. Modify `lib.rs` to initialize the plugin:
+
+    		```rust title="src-tauri/src/lib.rs" ins={3}
+    		fn run() {
+    				tauri::Builder::default()
+    						.plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+    						.run(tauri::generate_context!())
+    						.expect("error while running tauri application");
+    		}
+    		```
+
+    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+    		<CommandTabs
+                npm = "npm install @tauri-apps/plugin-stronghold"
+                yarn = "yarn add @tauri-apps/plugin-stronghold"
+                pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+                bun = "bun add @tauri-apps/plugin-stronghold"
+    		/>
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+### Initialize with custom password hash function
+
+```rust title="src-tauri/src/lib.rs"
+pub fn run() {
+		tauri::Builder::default()
+				.plugin(
+						tauri_plugin_stronghold::Builder::new(|password| {
+								// Hash the password here with e.g. argon2, blake2b or any other secure algorithm
+								// Here is an example implementation using the `rust-argon2` crate for hashing the password
+								use argon2::{hash_raw, Config, Variant, Version};
+
+								let config = Config {
+										lanes: 4,
+										mem_cost: 10_000,
+										time_cost: 10,
+										variant: Variant::Argon2id,
+										version: Version::Version13,
+										..Default::default()
+								};
+								let salt = "your-salt".as_bytes();
+								let key =
+										hash_raw(password.as_ref(), salt, &config).expect("failed to hash password");
+
+								key.to_vec()
+						})
+						.build(),
+				)
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
+}
+```
+
+### Initialize with argon2 password hash function
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+pub fn run() {
+		tauri::Builder::default()
+				.setup(|app| {
+						let salt_path = app
+								.path()
+								.app_local_data_dir()
+								.expect("could not resolve app local data path")
+								.join("salt.txt");
+						app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+						Ok(())
+				})
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
+}
+```
+
+### Usage from JavaScript
+
+The stronghold plugin is available in JavaScript.
+
+```javascript
+import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
+// when using `"withGlobalTauri": true`, you may use
+// const { Client, Stronghold } = window.__TAURI_PLUGIN_STRONGHOLD__;
+import { appDataDir } from '@tauri-apps/api/path';
+// when using `"withGlobalTauri": true`, you may use
+// const { appDataDir } = window.__TAURI__.path;
+
+const initStronghold = async () => {
+	const vaultPath = `${await appDataDir()}/vault.hold`;
+	const vaultPassword = 'vault password';
+	const stronghold = await Stronghold.load(vaultPath, vaultPassword);
+
+	let client: Client;
+	const clientName = 'name your client';
+	try {
+		client = await stronghold.loadClient(clientName);
+	} catch {
+		client = await stronghold.createClient(clientName);
+	}
+
+	return {
+		stronghold,
+		client,
+	};
+};
+
+// Insert a record to the store
+async function insertRecord(store: any, key: string, value: string) {
+	const data = Array.from(new TextEncoder().encode(value));
+	await store.insert(key, data);
+}
+
+// Read a record from store
+async function getRecord(store: any, key: string): Promise<string> {
+	const data = await store.get(key);
+	return new TextDecoder().decode(new Uint8Array(data));
+}
+
+const { stronghold, client } = await initStronghold();
+
+const store = client.getStore();
+const key = 'my_key';
+
+// Insert a record to the store
+insertRecord(store, key, 'secret value');
+
+// Read a record from store
+const value = await getRecord(store, key);
+console.log(value); // 'secret value'
+
+// Save your updates
+await stronghold.save();
+
+// Remove a record from store
+await store.remove(key);
+```
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={8-14}
+{
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "main-capability",
+	"description": "Capability for the main window",
+	"windows": ["main"],
+	"permissions": [
+		"path:default",
+		"stronghold:allow-initialize",
+		"stronghold:allow-create-client",
+		"stronghold:allow-load-client",
+		"stronghold:allow-save",
+		"stronghold:allow-save-store-record"
+		"stronghold:allow-get-store-record",
+		"stronghold:allow-remove-store-record",
+	]
+}
+```
+
+<PluginPermissions plugin="stronghold" />

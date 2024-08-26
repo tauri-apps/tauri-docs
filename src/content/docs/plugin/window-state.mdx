@@ -1,0 +1,151 @@
+---
+title: Window State
+description: Persist window sizes and positions.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin="window-state" />
+
+Save window positions and sizes and restore them when the app is reopened.
+
+## Supported Platforms
+
+- Windows
+- Linux
+- macOS
+
+## Setup
+
+_This plugin requires a Rust version of at least **1.75**_
+
+Install the window-state plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+Use your project's package manager to add the dependency:
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add window-state"
+  yarn="yarn run tauri add window-state"
+  pnpm="pnpm tauri add window-state"
+  bun="bun tauri add window-state"
+  cargo="cargo tauri add window-state"
+/>
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+    1.  Install the Core plugin by adding the following to your `Cargo.toml` file:
+
+        ```toml title="src-tauri/Cargo.toml"
+        [dependencies]
+        tauri-plugin-window-state = "2.0.0-rc"
+        # alternatively with Git:
+        tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+        ```
+
+    2.  Modify `lib.rs` to initialize the plugin:
+
+        ```rust title="src-tauri/src/lib.rs" {3}
+        fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_window_state::Builder::default().build())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3.  Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+        <CommandTabs
+            npm="npm install @tauri-apps/plugin-window-state"
+            yarn="yarn add @tauri-apps/plugin-window-state"
+            pnpm="pnpm add @tauri-apps/plugin-window-state"
+            bun="bun add @tauri-apps/plugin-window-state"
+        />
+
+      </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+After adding the all windows will remember their state when the app is being closed and will restore to their previous state on the next launch.
+
+You can also access the window-state plugin in both JavaScript and Rust.
+
+### JavaScript
+
+You can use `saveWindowState` to manually save the window state:
+
+```javascript
+import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { saveWindowState, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
+
+saveWindowState(StateFlags.ALL);
+```
+
+Similarly you can manually restore a window's state from disk:
+
+```javascript
+import {
+  restoreStateCurrent,
+  StateFlags,
+} from '@tauri-apps/plugin-window-state';
+// when using `"withGlobalTauri": true`, you may use
+// const { restoreStateCurrent, StateFlags } = window.__TAURI_PLUGIN_WINDOW_STATE__;
+
+restoreStateCurrent(StateFlags.ALL);
+```
+
+### Rust
+
+You can use the `save_window_state()` method exposed by the `AppHandleExt` trait:
+
+```rust
+use tauri_plugin_window_state::{AppHandleExt, StateFlags};
+
+// `tauri::AppHandle` now has the following additional method
+app.save_window_state(StateFlags::all()); // will save the state of all open windows to disk
+```
+
+Similarly you can manually restore a window's state from disk using the `restore_state()` method exposed by the `WindowExt` trait:
+
+```rust
+use tauri_plugin_window_state::{WindowExt, StateFlags};
+
+// all `Window` types now have the following additional method
+window.restore_state(StateFlags::all()); // will restore the window's state from disk
+```
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={4-5}
+{
+  "permissions": [
+    ...,
+    "window-state:allow-restore-state",
+    "window-state:allow-save-window-state",
+  ]
+}
+```
+
+<PluginPermissions plugin="window-state" />

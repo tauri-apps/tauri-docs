@@ -1,0 +1,156 @@
+---
+title: 全局快捷方式
+description: 注册全局快捷方式。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="global-shortcut" />
+
+注册全局快捷方式。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+请安装全局快捷方式插件。
+
+<Tabs>
+  <TabItem label="自动" >
+
+使用项目的包管理器来添加依赖。
+
+{ ' ' }
+
+<CommandTabs
+  npm="npm run tauri add global-shortcut"
+  yarn="yarn run tauri add global-shortcut"
+  pnpm="pnpm tauri add global-shortcut"
+  bun="bun tauri add global-shortcut"
+  cargo="cargo tauri add global-shortcut"
+/>
+
+  </TabItem>
+  <TabItem label = "手动">
+
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装全局快捷方式插件。
+
+```toml title="src-tauri/Cargo.toml"
+# 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
+tauri-plugin-global-shortcut = "2.0.0-rc"
+# 或者使用 Git
+tauri-plugin-global-shortcut = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="src-tauri/src/lib.rs" ins={3}
+fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+    npm="npm install @tauri-apps/plugin-global-shortcut"
+    yarn="yarn add @tauri-apps/plugin-global-shortcut"
+    pnpm="pnpm add @tauri-apps/plugin-global-shortcut"
+    bun="bun add @tauri-apps/plugin-global-shortcut"
+  />
+  </TabItem>
+</Tabs>
+
+## 用法
+
+全局快捷方式插件有 JavaScript 和 Rust 两种版本。
+
+<Tabs>
+  <TabItem label="JavaScript" >
+
+```javascript
+import { register } from '@tauri-apps/plugin-global-shortcut';
+
+await register('CommandOrControl+Shift+C', () => {
+  console.log('Shortcut triggered');
+});
+```
+
+  </TabItem>
+  <TabItem label = "Rust" >
+
+```rust title="src-tauri/src/lib.rs"
+fn run() {
+    tauri::Builder::default()
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut};
+
+                let ctrl_n_shortcut = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyN);
+                app.handle().plugin(
+                    tauri_plugin_global_shortcut::Builder::new().with_handler(move |_app, shortcut| {
+                        println!("{:?}", shortcut);
+                        if shortcut == &ctrl_n_shortcut {
+                            println!("Ctrl-N Detected!");
+                        }
+                    })
+                    .build(),
+                )?;
+
+                app.global_shortcut().register(ctrl_n_shortcut)?;
+            }
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={7-9}
+{
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "global-shortcut:allow-is-registered",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister"
+  ]
+}
+```
+
+| 权限                                   | 描述                                                     |
+| -------------------------------------- | -------------------------------------------------------- |
+| `global-shortcut:allow-is-registered`  | 在没有预先配置作用域的情况下，启用 is_registered 命令。  |
+| `global-shortcut:deny-is-registered`   | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-register`       | 在没有预先配置作用域的情况下，启用 register 命令。       |
+| `global-shortcut:deny-register`        | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-register-all`   | 在没有预先配置作用域的情况下，启用 is_registered 命令。  |
+| `global-shortcut:deny-register-all`    | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-unregister`     | 在没有预先配置作用域的情况下，启用 is_registered 命令。  |
+| `global-shortcut:deny-unregister`      | 拒绝没有任何预先配置的作用域的 is_registered 命令。      |
+| `global-shortcut:allow-unregister-all` | 在没有预先配置作用域的情况下，启用 unregister_all 命令。 |
+| `global-shortcut:deny-unregister-all`  | 拒绝没有任何预先配置的作用域的 unregister_all 命令。     |

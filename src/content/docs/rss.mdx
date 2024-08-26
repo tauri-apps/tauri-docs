@@ -1,0 +1,24 @@
+---
+title: Tauri RSS Feeds
+i18nReady: true
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<LinkCard
+  title="All updates"
+  description="Get notified about any updates across the entire site."
+  href="/feed.xml"
+/>
+
+<LinkCard
+  title="Blog updates"
+  description="Stay up-to-date with the latest blog posts and articles."
+  href="/blog/rss.xml"
+/>
+
+<LinkCard
+  title="Pages updates"
+  description="Receive updates for the main website pages."
+  href="/pages.xml"
+/>

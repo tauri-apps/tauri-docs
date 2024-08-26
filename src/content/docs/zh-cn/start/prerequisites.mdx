@@ -1,0 +1,332 @@
+---
+title: 前置要求
+i18nReady: true
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+为了开始使用 Tauri 构建项目，你首先需要安装一些依赖项：
+
+1. [系统依赖项](#系统依赖项)
+2. [Rust](#rust)
+3. [移动端配置](#移动端配置) （仅在针对移动设备进行开发时才需要）
+
+## 系统依赖项
+
+点击链接开始配置，适用于你使用的操作系统：
+
+- [Linux](#linux) （特定发行版请参考下文）
+- [macOS Catalina (10.15) 或更新](#macos)
+- [Windows 7 或更新](#windows)
+
+### Linux
+
+Tauri 在 Linux 上进行开发需要各种系统依赖项。这些可能会有所不同，具体取决于你的发行版，但我们在下面提供了一些流行的发行版来帮助你进行设置。
+
+{/* Note: These are the officially supported linux distributions. */}
+{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
+
+<Tabs>
+  <TabItem label="Debian">
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.0-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libxdo-dev \
+  libssl-dev \
+  libgtk-3-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  gtk3 \
+  libappindicator-gtk3 \
+  librsvg
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf check-update
+sudo dnf install webkit2gtk4.0-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel
+sudo dnf group install "C Development Tools and Libraries"
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+  net-libs/webkit-gtk:4.1 \
+  dev-libs/libappindicator \
+  net-misc/curl \
+  net-misc/wget \
+  sys-apps/file
+```
+
+  </TabItem>
+  <TabItem label="openSUSE">
+
+```sh
+sudo zypper up
+sudo zypper in webkit2gtk3-soup2-devel \
+  libopenssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator3-1 \
+  librsvg-devel
+sudo zypper in -t pattern devel_basis
+```
+
+  </TabItem>
+  <TabItem label="NixOS">
+
+TODO: Need to build out NixOS instructions
+
+  </TabItem>
+</Tabs>
+
+如果你的发行版未包含在上面，那么你可能需要查阅 [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) 以获知是否已有指南被创建。
+
+下一步：[下载并安装 Rust](#rust)
+
+### macOS
+
+Tauri 使用 [Xcode](https://developer.apple.com/xcode/resources/) 以及各种 macOS 和 iOS 开发依赖项。
+
+从以下位置之一下载并安装 Xcode：
+
+- [Mac App Store](https://apps.apple.com/gb/app/xcode/id497799835?mt=12)
+- [Apple Developer 网站](https://developer.apple.com/xcode/resources/).
+
+请务必在安装后启动 Xcode，以使它完成设置。
+
+<details>
+<summary>仅针对桌面目标进行开发？</summary>
+如果你只打算开发桌面应用程序而不针对 iOS，那么你可以改为安装 Xcode 命令行工具：
+
+```sh
+xcode-select --install
+```
+
+</details>
+
+下一步：[下载并安装 Rust](#rust)
+
+### Windows
+
+Tauri 使用 Microsoft C++ 构建工具进行开发以及 Microsoft Edge WebView2。这些都是在 Windows 上进行开发所必需的。
+
+按照以下步骤安装所需的依赖项。
+
+#### Microsoft C++ 构建工具
+
+1. 下载 [Microsoft C++ 构建工具](https://visualstudio.microsoft.com/visual-cpp-build-tools/) 安装程序并打开它以开始安装。
+2. 在安装过程中，选中“使用 C++ 进行桌面开发”选项。
+
+![Visual Studio C++ 构建工具 安装程序 截图](./visual-studio-build-tools-installer.png)
+
+下一步：[下载并安装 WebView2](#webview2).
+
+#### WebView2
+
+:::tip[提示]
+WebView 2 已安装在 Windows 10（从版本 1803 开始）和更高版本的 Windows 上。如果你正在这些版本之一上进行开发，则可以跳过此步骤并直接转到 [下载并安装 Rust](#rust)。
+:::
+
+Tauri 使用 Microsoft Edge WebView2 在 Windows 上呈现内容。
+
+通过访问 [WebView2 Runtime 下载区](https://developer.microsoft.com/zh-cn/microsoft-edge/webview2/#download-section) 安装 WebView2。下载“常青版独立安装程序（Evergreen Boostrapper）”并安装它。
+
+下一步：[下载并安装 Rust](#rust)
+
+## Rust
+
+Tauri 使用 [Rust](https://www.rust-lang.org) 构建并需要它进行开发。使用以下方法之一安装 Rust。你可以在 https://www.rust-lang.org/tools/install 查看更多安装方法。
+
+<Tabs>
+  <TabItem label="Linux and macOS" class="content">
+
+使用 [`rustup`](https://github.com/rust-lang/rustup) 安装：
+
+```sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[安全提示]
+我们已经审核了这个 bash 脚本，它做了它所说的应该做的事情。尽管如此，在盲目地使用脚本之前，先看一看总是明智的。
+
+以下是作为纯文本的脚本文件：[rustup.sh](https://sh.rustup.rs/)
+:::
+
+  </TabItem>
+  <TabItem label="Windows">
+
+前往 https://www.rust-lang.org/tools/install 下载 `rustup`。
+
+  </TabItem>
+</Tabs>
+
+请务必重新启动终端（在某些情况下重新启动系统）以使更改生效。
+
+下一步：如果你想要在 Android 或 iOS 上开发应用，前往[配置移动端](#移动端配置)。否则前往[创建新项目](/start/create-project)。
+
+## 移动端配置
+
+如果你想将应用适配到 Android 或 iOS，则需要安装一些其他依赖项：
+
+- [Android](#android)
+- [iOS](#ios)
+
+### Android
+
+1. 从 Android Developers 网站下载并安装 [Android Studio](https://developer.android.com/studio)。
+2. 设置 `JAVA_HOME` 环境变量：
+
+{/* TODO: Can this be done in the 4th step? */}
+
+<Tabs>
+<TabItem label="Linux">
+
+```sh
+export JAVA_HOME=/opt/android-studio/jbr
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
+```
+
+</TabItem>
+</Tabs>
+3. 使用 Android Studio 中的 SDK Manager 安装以下内容：
+
+- Android SDK Platform
+- Android SDK Platform-Tools
+- NDK (Side by side)
+- Android SDK Build-Tools
+- Android SDK Command-line Tools
+
+4. 配置 `ANDROID_HOME` 和 `NDK_HOME` 环境变量：
+
+<Tabs>
+<TabItem label="Linux">
+
+```sh
+export ANDROID_HOME="$HOME/Android/Sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
+```
+
+</TabItem>
+
+</Tabs>
+
+5. 使用 `rustup` 添加 Android 编译目标：
+
+<Tabs>
+  <TabItem label="Linux and macOS" class="content">
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+  </TabItem>
+  <TabItem label="Windows">
+
+```ps
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+  </TabItem>
+</Tabs>
+
+下一步：[配置 iOS](#ios)或[创建新项目](/start/create-project)。
+
+### iOS
+
+:::caution[仅 macOS]
+
+iOS 开发需要 Xcode，并且仅在 macOS 上可用。确保你在 [macOS 系统依赖项部分](#macos)中安装了 Xcode 而不是 Xcode 命令行工具。
+
+:::
+
+1. 在终端中使用 `rustup` 将 iOS 添加为编译目标：
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+
+2. 安装 [Homebrew](https://brew.sh)：
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+3. 使用 Homebrew 安装 [Cocoapods](https://cocoapods.org)：
+
+```sh
+brew install cocoapods
+```
+
+下一步：[创建新项目](/start/create-project)。
+
+## 故障排除
+
+如果你在安装过程中遇到任何问题，请务必查看[故障诊断指南](/develop/debug/)或联系 [Tauri Discord](https://discord.com/invite/tauri) 以寻求帮助。
+
+<Card title="下一步" icon="rocket">
+
+现在，你已经安装了所有前置要求，你可以准备好[创建你的第一个 Tauri 应用程序](/start/create-project)！
+
+</Card>

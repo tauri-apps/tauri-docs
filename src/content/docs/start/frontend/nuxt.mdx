@@ -1,0 +1,110 @@
+---
+title: Nuxt
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.11.
+
+## Checklist
+
+- Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
+- Set host to `0.0.0.0`.
+- Use `dist/` as `frontendDist` in `tauri.conf.json`.
+- Compile using `nuxi generate`.
+- (Optional): Disable telemetry by setting `telemetry: false` in `nuxt.config.ts`.
+
+## Example Configuration
+
+<Steps>
+
+1.  ##### Update Tauri configuration
+
+          <Tabs>
+
+    <TabItem label="npm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="pnpm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+
+          </Tabs>
+
+1.  ##### Update Nuxt configuration
+
+    ```ts
+    export default defineNuxtConfig({
+      // (optional) Enable the Nuxt devtools
+      devtools: { enabled: true },
+      // Enable SSG
+      ssr: false,
+      // Enables the development server to be discoverable by other devices for mobile development
+      devServer: { host: '0.0.0.0' },
+      vite: {
+        // Better support for Tauri CLI output
+        clearScreen: false,
+        // Enable environment variables
+        // Additional environment variables can be found at
+        // https://v2.tauri.app/reference/environment-variables/
+        envPrefix: ['VITE_', 'TAURI_'],
+        server: {
+          // Tauri requires a consistent port
+          strictPort: true,
+          hmr: {
+            // Use websocket for mobile hot reloading
+            protocol: 'ws',
+            // Make sure it's available on the network
+            host: '0.0.0.0',
+            // Use a specific port for hmr
+            port: 5183,
+          },
+        },
+      },
+    });
+    ```
+
+</Steps>

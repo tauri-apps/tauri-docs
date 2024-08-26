@@ -1,0 +1,103 @@
+---
+title: Nuxt
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Apprenez-en plus au sujet de Nuxt sur https://nuxt.com. Ce guide est valable à partir de Nuxt 3.7.
+
+## Liste de contrôle
+
+- Utilisez SSG en définissant `ssr: false`. Tauri ne supporte pas les solutions basées sur serveur.
+- Définisez "host" sur `0.0.0.0`.
+- Utilisez `dist/` en tant que `distDir` dans `tauri.conf.json`.
+- Compilez en utilisant `nuxi generate`.
+- (Optionnel): Désactivez la télémétrie en définisant `telemetry: false` dans `nuxt.config.ts`.
+
+## Exemple de configuration
+
+1. Mettez à jour la configuration de Tauri :
+
+<Tabs>
+	<TabItem label="npm">
+
+```json
+// tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
+}
+```
+
+    </TabItem>
+    <TabItem label="yarn">
+
+```json
+// tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
+}
+```
+
+    </TabItem>
+    <TabItem label="pnpm">
+
+```json
+// tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm generate",
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
+  }
+}
+```
+
+    </TabItem>
+
+</Tabs>
+
+2. Mettez à jour la configuration de Nuxt :
+
+```ts
+export default defineNuxtConfig({
+  // (optionnel) Activez les outils de développement Nuxt
+  devtools: { enabled: true },
+  // Activez SSG
+  ssr: false,
+  vite: {
+    // Meilleur compatibilité pour la sortie "Tauri CLI"
+    clearScreen: false,
+    // Activez les variables d'environnement
+    // Vous pouvez trouver les variables d'environnements additionnelles sur
+    // https://v2.tauri.app/reference/environment-variables/
+    envPrefix: ['VITE_', 'TAURI_'],
+    server: {
+      // Tauri requiert un port constant
+      strictPort: true,
+      // Active le serveur de développement pour être visible par les autres appareils pour le développement mobile
+      host: '0.0.0.0',
+      hmr: {
+        // Utilisez le websocket pour le rechargement à chaud
+
+        protocol: 'ws',
+        // Assurez-vous que ce soit disponible sur le réseau
+        host: '0.0.0.0',
+        // Utilisez un port spécifique pour hmr
+        port: 5183,
+      },
+    },
+  },
+});
+```

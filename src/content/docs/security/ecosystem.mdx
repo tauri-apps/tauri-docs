@@ -1,0 +1,45 @@
+---
+title: Tauri Ecosystem Security
+sidebar:
+  order: 7
+---
+
+Our Tauri organization ecosystem is hosted on GitHub and facilitates several
+features to make our repositories more resilient against adversaries targeting
+our source code and releases.
+
+To reduce risk and to comply with commonly adopted best practices we have the following methods
+in place.
+
+### Build Pipelines
+
+The process of releasing our source-code artifacts is highly automated
+in GitHub build pipelines using GitHub actions, yet mandates kickoff and review from real humans.
+
+### Signed Commits
+
+Our core repositores require signed commits to reduce risk of impersonation and
+to allow identification of attributed commits after detection of possible compromise.
+
+### Code Review
+
+All Pull Requests (PRs) merged into our repositories need approval from at least one maintainer of the
+project, which in most cases is the working group.
+Code is generally reviewed in PRs and default security workflows and checks are run to ensure
+the code adheres to common standards.
+
+### Release Process
+
+Our working group reviews code changes, tags PRs with scope, and makes sure that everything stays up to date.
+We strive to internally audit all security relevant PRs before publishing minor and major releases.
+
+And when its time to publish a new version, one of the maintainers tags a new release on dev, which:
+
+- Validates core
+- Runs tests
+- Audits security for crates and npm
+- Generates changelogs
+- Creates artifacts
+- Creates a draft release
+
+Then the maintainer reviews the release notes, edits if necessary, and a new release is forged.

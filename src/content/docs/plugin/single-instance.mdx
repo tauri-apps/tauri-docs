@@ -1,0 +1,122 @@
+---
+title: Single Instance
+description: Ensure that a single instance of your Tauri app is running at a time.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="single-instance" showJsLinks={false} />
+
+Ensure that a single instance of your tauri app is running at a time using the Single Instance Plugin.
+
+## Setup
+
+Install the Single Instance plugin to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add single-instance"
+    yarn="yarn run tauri add single-instance"
+    pnpm="pnpm tauri add single-instance"
+    bun="bun tauri add single-instance"
+    cargo="cargo tauri add single-instance" />
+
+    </TabItem>
+    <TabItem label="Manual">
+    <Steps>
+    <ol>
+      <li>
+        **Install :** Add the plugin to the project's dependencies in `Cargo.toml`.
+      <Tabs>
+        <TabItem label="crates.io">
+      ```toml title="src-tauri/Cargo.toml" ins={2}
+      [dependencies]
+      tauri-plugin-single-instance = "2.0.0-rc"
+      ```
+        </TabItem>
+        <TabItem label="Git">
+
+      ```toml title="src-tauri/Cargo.toml" ins={2}
+      [dependencies]
+      tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+      ```
+        </TabItem>
+      </Tabs>
+      </li>
+      <li>
+        **Initialize :** Update `lib.rs` (or `main.rs` for desktop-only apps) to initialize the plugin:
+
+      ```rust title="src-tauri/src/lib.rs" ins={3}
+      pub fn run() {
+          tauri::Builder::default()
+              .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}))
+              .run(tauri::generate_context!())
+              .expect("error while running tauri application");
+      }
+      ```
+      </li>
+    </ol>
+    </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The plugin is already installed and initialized, and it should be functioning correctly right away. Nevertheless, we can also enhance its functionality with the `init()` method.
+
+The plugin `init()` method takes a closure that is invoked when a new app instance was started, but closed by the plugin.
+The closure has three arguments:
+
+  <Steps>
+
+1. **`app` :** The [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) of the application.
+2. **`args` :** The list of arguments, that was passed by the user to initiate this new instance.
+3. **`cwd` :** The Current Working Directory denotes the directory from which the new application instance was launched.
+
+  </Steps>
+
+So, the closure should look like below
+
+```rust
+.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+  // Write your code here...
+}))
+```
+
+### Focusing on New Instance
+
+By default, when you initiate a new instance while the application is already running, no action is taken. To focus the window of the running instance when user tries to open a new instance, alter the callback closure as follows:
+
+```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
+use tauri::{AppHandle, Manager};
+
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = show_window(app);
+        }))
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+
+fn show_window(app: &AppHandle) {
+    let windows = app.webview_windows();
+
+    windows
+        .values()
+        .next()
+        .expect("Sorry, no window found")
+        .set_focus()
+        .expect("Can't Bring Window to Focus");
+}
+```

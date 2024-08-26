@@ -2,8 +2,8 @@
 
 Welcome to Tauri Docs! We're excited to have you 🥳
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/next)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/next)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/v2)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/v2)
 
 There are a number of ways to get involved:
 
@@ -16,7 +16,7 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` c
 ## Getting Started
 
 1. Clone this repo
-2. Run `pnpm i`
+2. Run `pnpm i && pnpm dev:setup`
 3. Run `pnpm dev` to start the local server
 
 ### Gitpod
@@ -95,8 +95,19 @@ Not yet created, will be added in the future.
 
 Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation), but not all blog posts necessarily fit this specific format.
 
+### Diagrams
+
+We use [Astro D2](https://astro-d2.vercel.app/) to generate diagrams. Because Netlify does not support compiling the diagrams in its end we have to push the prebuilt images manually. This is annoying, but not the end of the world seeing as we've previously been pushing the images manually anyway.
+
+If you make an update to a diagram you'll need to [install D2](https://github.com/terrastruct/d2/blob/master/docs/INSTALL.md) on your system, then when you run either the `build` or `dev` commands you'll need to enable building the diagrams by setting the environment variable `CONTEXT=d2`.
+
+```sh
+# Adapt the command as relevant for your system to define the variable
+CONTEXT=d2 pnpm dev
+```
+
 ## Translations (i18n)
 
-Thanks for your interest in helping to translate the documentation! Visit the [translation status page](https://beta.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
+Thanks for your interest in helping to translate the documentation! Visit the [translation status page](https://v2.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
 
 Read the [Translating Guide](./TRANSLATING.md) for more information.

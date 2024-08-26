@@ -5,9 +5,13 @@
 **/dist
 **/.astro
 
+# Generated reference docs
+src/content/docs/reference
+
 # Git Modules
 packages/tauri
 packages/plugins-workspace
+packages/awesome-tauri
 
 # Files
 pnpm-lock.yaml
@@ -15,3 +19,15 @@ pnpm-lock.yaml
 # Configs
 .github
 !.github/**.md
+
+# TODO: Figure out why this format isn't acceptable
+# https://github.com/withastro/prettier-plugin-astro/issues/407
+src/components/overrides/Header.astro
+
+# TODO: Prettier breaks these pages
+src/content/docs/learn/Security/capabilities-for-windows-and-platforms.mdx
+src/content/docs/learn/Security/using-plugin-permissions.mdx
+src/content/docs/learn/Security/writing-plugin-permissions.mdx
+src/content/docs/start/frontend/qwik.mdx
+src/content/docs/zh-cn/start/frontend/qwik.mdx
+src/content/docs/learn/splashscreen.mdx

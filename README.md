@@ -4,10 +4,10 @@
 
 Welcome to the home for Tauri 2.0 documentation - we're excited to have you! ✨
 
-This repo is used to build the docs for the **prerelease** version of Tauri 2.0 at https://beta.tauri.app.
+This repo is used to build the docs for the **prerelease** version of Tauri 2.0 at https://v2.tauri.app.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/next)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/next)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tauri-apps/tauri-docs/tree/v2)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tauri-apps/tauri-docs/tree/v2)
 
 ## Get Involved
 

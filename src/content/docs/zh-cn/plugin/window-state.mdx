@@ -1,0 +1,144 @@
+---
+title: 窗口状态
+description: 保持窗口大小和位置。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="window-state" />
+
+保存窗口位置和大小，并在应用程序重新打开时恢复它们。
+
+## 支持的平台
+
+- Windows
+- Linux
+- macOS
+
+## 设置
+
+_这个插件要求 Rust 版本至少是 **1.75**_
+
+请安装窗口状态插件。
+
+<Tabs>
+  <TabItem label="自动">
+
+使用项目的包管理器来添加依赖。
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add window-state"
+  yarn="yarn run tauri add window-state"
+  pnpm="pnpm tauri add window-state"
+  bun="bun tauri add window-state"
+  cargo="cargo tauri add window-state"
+/>
+
+  </TabItem>
+  <TabItem label="手动">
+
+1. 通过将以下内容添加到 `Cargo.toml` 的文件中来安装插件。
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-window-state = "2.0.0-rc"
+# 或者使用 Git：
+tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+```
+
+2. 修改 `lib.rs` 来初始化插件。
+
+```rust title="src-tauri/src/main.rs" {3}
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_window_state::Builder::default().build())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+  <CommandTabs
+      npm="npm install @tauri-apps/plugin-window-state"
+      yarn="yarn add @tauri-apps/plugin-window-state"
+      pnpm="pnpm add @tauri-apps/plugin-window-state"
+      bun="bun add @tauri-apps/plugin-window-state"
+  />
+  </TabItem>
+</Tabs>
+
+## 用法
+
+添加后，当应用程序被关闭时，将记住所有窗口的状态，并在下一次启动时恢复到之前的状态。
+
+你也可以在 JavaScript 和 Rust 中访问窗口状态插件。
+
+### JavaScript
+
+你可以使用 `saveWindowState` 手动保存窗口状态：
+
+```javascript
+import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+
+saveWindowState(StateFlags.ALL);
+```
+
+同样，你可以手动从磁盘恢复窗口的状态：
+
+```javascript
+import {
+  restoreStateCurrent,
+  StateFlags,
+} from '@tauri-apps/plugin-window-state';
+
+restoreStateCurrent(StateFlags.ALL);
+```
+
+### Rust
+
+你可以使用由 `AppHandleExt` 特征暴露的 `save_window_state()` 方法：
+
+```rust
+use tauri_plugin_window_state::{AppHandleExt, StateFlags};
+
+// `tauri::AppHandle` 现在有了以下额外的方法
+app.save_window_state(StateFlags::all()); // 将所有打开窗口的状态保存到磁盘
+```
+
+同样，你可以使用 `WindowExt` 特征暴露的 `restore_state()` 方法从磁盘手动恢复窗口的状态：
+
+```rust
+use tauri_plugin_window_state::{WindowExt, StateFlags};
+
+// 所有的 `Window` 类型现在都有以下额外的方法
+window.restore_state(StateFlags::all()); // 将从磁盘恢复窗口的状态
+```
+
+## 权限
+
+默认情况下，所有插件命令都被阻止，无法访问。
+你必须在你的 `capabilities` 配置中定义一个权限列表。
+
+更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+
+```json title="src-tauri/capabilities/main.json" ins={4-5}
+{
+  "permissions": [
+    ...,
+    "window-state:allow-restore-window-state",
+    "window-state:allow-save-window-state",
+  ]
+}
+```
+
+| 权限                                      | 描述                                                         |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| `window-state:allow-restore-window-state` | 启用 restore_window_state 命令，不需要任何预先配置的作用域。 |
+| `window-state:deny-restore-window-state`  | 拒绝没有任何预配置范围的 restore_window_state 命令。         |
+| `window-state:allow-save-window-state`    | 启用 save_window_state 命令，不需要预先配置作用域。          |
+| `window-state:deny-save-window-state`     | 拒绝没有任何预先配置的作用域的 save_window_state 命令。      |
