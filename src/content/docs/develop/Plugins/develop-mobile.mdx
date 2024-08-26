@@ -344,7 +344,7 @@ Tauri automatically implements two commands for the plugin: `checkPermissions` a
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 
 type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
 
@@ -459,7 +459,7 @@ class ExamplePlugin: Plugin {
 The helper functions can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
 
 ```javascript
-import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
 
 export async function onRequest(
 	handler: (url: string) => void
