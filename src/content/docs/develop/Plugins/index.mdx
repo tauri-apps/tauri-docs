@@ -289,7 +289,7 @@ Builder::new("<plugin-name>")
 Define a binding function in `webview-src/index.ts` so that plugin users can easily call the command in JavaScript:
 
 ```js name="webview-src/index.ts"
-import { invoke, Channel } from '@tauri-apps/api/tauri'
+import { invoke, Channel } from '@tauri-apps/api/core'
 
 export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
   const onProgress = new Channel<number>()
