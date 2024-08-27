@@ -16,7 +16,7 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` c
 ## Getting Started
 
 1. Clone this repo
-2. Run `pnpm i`
+2. Run `pnpm i && pnpm dev:setup`
 3. Run `pnpm dev` to start the local server
 
 ### Gitpod
