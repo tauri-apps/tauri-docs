@@ -10,6 +10,43 @@ sidebar:
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
+## Signing
+
+Code signing enhances the security of your application by applying a digital signature to your
+application's executables and bundles, validating your identity of the provider of your application.
+
+Signing is required on most platforms. See the documentation for each platform for more information.
+
+<CardGrid>
+  <LinkCard
+    title="macOS"
+    href="/distribute/signing/ios"
+    description="Code signing and notarization for macOS apps"
+  />
+  <LinkCard
+    title="Windows"
+    href="/distribute/signing/ios"
+    description="Code signing Windows installers"
+  />
+  <LinkCard
+    title="Linux"
+    href="/distribute/signing/ios"
+    description="Code signing Linux packages"
+  />
+  <LinkCard
+    title="Android"
+    href="/distribute/signing/android"
+    description="Code signing for Android"
+  />
+  <LinkCard
+    title="iOS"
+    href="/distribute/signing/ios"
+    description="Code signing for iOS"
+  />
+</CardGrid>
+
+## Distributing
+
 <CardGrid>
   <LinkCard
     title="AUR"
@@ -17,19 +54,14 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
     description="Distribution using the Arch User Repository"
   />
   <LinkCard
-    title="Android APK/AAB Signing"
-    href="/distribute/apk-sign"
-    description="Sign APK and AAB packages"
-  />
-  <LinkCard
     title="CrabNebula Cloud"
     href="/distribute/crabnebula-cloud"
-    description="Distribute your app using Crabnebula"
+    description="Distribute your app using CrabNebula"
   />
   <LinkCard
     title="Flathub"
     href="/distribute/flatpak/"
-    description="Distribute as a flatpak"
+    description="Distribute as a Flatpak"
   />
   <LinkCard
     title="Snapcraft"
