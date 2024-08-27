@@ -1,0 +1,128 @@
+---
+title: DMG
+sidebar:
+  order: 1
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Image } from 'astro:assets';
+import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
+import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
+
+The DMG (Apple Disk Image) format is a common macOS installer file that wrapps your [App Bundle][App Bundle distribution guide] in a user-friendly installation window.
+
+The installer window includes your app icon and the Applications folder icon, where the user is expected to drag the app icon to the Applications folder icon to install it.
+It is the most common installation method for macOS applications distributed outside the App Store.
+
+This guide only covers details for distributing apps outside the App Store using the DMG format.
+See the [App Bundle distribution guide] for more information on macOS distribution options and configurations.
+To distribute your macOS app in the App Store, see the [App Store distribution guide].
+
+To create an Apple Disk Image for your app you can use the Tauri CLI and run the `tauri build` command in a Mac computer:
+
+<CommandTabs
+  npm="npm run tauri build --bundles dmg"
+  yarn="yarn tauri build --bundles dmg"
+  pnpm="pnpm tauri build --bundles dmg"
+  cargo="cargo tauri build --bundles dmg"
+/>
+
+<Image
+  class="dark:sl-hidden"
+  src={StandardDmgLight}
+  alt="Standard DMG window"
+/>
+<Image
+  class="light:sl-hidden"
+  src={StandardDmgDark}
+  alt="Standard DMG window"
+/>
+
+## Window background
+
+You can set a custom background image to the DMG installation window with the [`tauri.conf.json > bundle > macOS > dmg > background`] configuration option:
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "background": "./images/"
+      }
+    }
+  }
+}
+```
+
+For instance your DMG background image can include an arrow to indicate to the user that it must drag the app icon to the Applications folder.
+
+## Window size and position
+
+The default window size is 660x400. If you need a different size to fit your custom background image, set the [`tauri.conf.json > bundle > macOS > dmg > windowSize`] configuration:
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 800,
+          "height": 600
+        }
+      }
+    }
+  }
+}
+```
+
+Additionally you can set the initial window position via [`tauri.conf.json > bundle > macOS > dmg > windowPosition`]:
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowPosition": {
+          "x": 400,
+          "y": 400
+        }
+      }
+    }
+  }
+}
+```
+
+## Icon position
+
+You can change the app and _Applications folder_ icon position
+with the [appPosition] and [applicationFolderPosition] configuration values respectively:
+
+```json title="tauri.conf.json" ins={5-12}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 220
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 220
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+Due to a known issue, icon sizes and positions are not applied when creating DMGs on CI/CD platforms.
+See [tauri-apps/tauri#1731] for more information.
+:::
+
+[App Bundle distribution guide]: /distribute/macos-application-bundle
+[App Store distribution guide]: /distribute/app-store
+[appPosition]: /reference/config/#appposition
+[applicationFolderPosition]: /reference/config/#applicationfolderposition
+[tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731
