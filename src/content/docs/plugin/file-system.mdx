@@ -86,8 +86,8 @@ The fs plugin is available in both JavaScript and Rust.
 
 :::note[Rust Exposure]
 
-The exposed API on the Rust side is only intended to manipulate the [Scope](#scopes) of the plugin but
-does not expose any functional API to access the file system. Please use [`tokio::fs`](https://docs.rs/tokio/latest/tokio/fs/index.html) or the
+The exposed API on the Rust side is mostly intended to manipulate the [Scope](#scopes) of the plugin.
+It does expose some APIs to access the file system on mobile, but the recommendation is to use [`tokio::fs`](https://docs.rs/tokio/latest/tokio/fs/index.html) or the
 [`std::fs`](https://doc.rust-lang.org/std/fs/index.html) for accessing the file system.
 
 :::
