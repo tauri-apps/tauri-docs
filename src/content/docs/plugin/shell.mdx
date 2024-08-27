@@ -8,7 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
@@ -44,34 +44,32 @@ Install the shell plugin to get started.
     </TabItem>
     <TabItem label = "Manual">
     	<Steps>
-    	1. Install the shell plugin by adding the following to your `Cargo.toml` file:
+          1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-    		```toml title="src-tauri/Cargo.toml"
-    		[dependencies]
-    		tauri-plugin-shell = "2.0.0-rc"
-    		# alternatively with Git:
-    		tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    		```
+              ```sh frame=none
+              cargo add tauri-plugin-shell
+              ```
 
-    	2. Modify `lib.rs` to initialize the plugin:
+          2. Modify `lib.rs` to initialize the plugin:
 
-    		```rust title="src-tauri/src/lib.rs" ins={3}
-    		fn run() {
-    				tauri::Builder::default()
-    						.plugin(tauri_plugin_shell::init())
-    						.run(tauri::generate_context!())
-    						.expect("error while running tauri application");
-    		}
-    		```
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_shell::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
 
-    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+          3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-    		<CommandTabs
-                npm = "npm install @tauri-apps/plugin-shell"
-                yarn = "yarn add @tauri-apps/plugin-shell"
-                pnpm = "pnpm add @tauri-apps/plugin-shell"
-                bun = "bun add @tauri-apps/plugin-shell"
-    		/>
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-shell"
+                  yarn = "yarn add @tauri-apps/plugin-shell"
+                  pnpm = "pnpm add @tauri-apps/plugin-shell"
+                  bun = "bun add @tauri-apps/plugin-shell"
+              />
     	</Steps>
     </TabItem>
 

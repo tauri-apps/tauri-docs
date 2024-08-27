@@ -21,8 +21,7 @@ The default plugin template splits the plugin's implementation into two separate
 
 The desktop implementation uses Rust code to implement a functionality, while the mobile implementation sends a message to the native mobile code to execute a function and get a result back. If shared logic is needed across both implementations, it can be defined in `lib.rs`:
 
-```rust
-// lib.rs
+```rust title="src/lib.rs"
 use tauri::Runtime;
 
 impl<R: Runtime> <plugin-name><R> {

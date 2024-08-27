@@ -281,7 +281,6 @@ async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: C
 To expose the command to the webview, you must hook into the `invoke_handler()` call in `lib.rs`:
 
 ```rust title="src/lib.rs"
-// lib.rs
 Builder::new("<plugin-name>")
     .invoke_handler(tauri::generate_handler![commands::upload])
 ```
