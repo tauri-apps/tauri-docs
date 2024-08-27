@@ -47,19 +47,17 @@ Use your project's package manager to add the dependency:
   <TabItem label="Manual">
     <Steps>
 
-    1.  Install the Core plugin by adding the following to your `Cargo.toml` file:
+    1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-        ```toml title="src-tauri/Cargo.toml"
-        [dependencies]
-        tauri-plugin-window-state = "2.0.0-rc"
-        # alternatively with Git:
-        tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+        ```sh frame=none
+        cargo add tauri-plugin-window-state
         ```
 
     2.  Modify `lib.rs` to initialize the plugin:
 
-        ```rust title="src-tauri/src/lib.rs" {3}
-        fn run() {
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
             tauri::Builder::default()
                 .plugin(tauri_plugin_window_state::Builder::default().build())
                 .run(tauri::generate_context!())
