@@ -77,7 +77,7 @@ The localhost plugin is available in Rust.
 ```rust title="src-tauri/src/lib.rs" {4} {7-14}
 use tauri::{webview::WebviewWindowBuilder, WebviewUrl};
 
-fn run() {
+pub fn run() {
   let port: u16 = 9527;
 
   tauri::Builder::default()

@@ -56,7 +56,7 @@ Install the global-shortcut plugin to get started.
     2.  Modify `lib.rs` to initialize the plugin:
 
         ```rust title="src-tauri/src/lib.rs" ins={4-5}
-        fn run() {
+        pub fn run() {
             tauri::Builder::default()
                 .setup(|app| {
                     #[cfg(desktop)]
@@ -103,7 +103,7 @@ await register('CommandOrControl+Shift+C', () => {
   <TabItem label = "Rust" >
 
 ```rust title="src-tauri/src/lib.rs"
-fn run() {
+pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
             #[cfg(desktop)]

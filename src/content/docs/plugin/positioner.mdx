@@ -94,7 +94,7 @@ Additional setup is required to get tray-relative positions to work.
 
     2. Setup `on_tray_event` for positioner plugin:
     	```rust title="src-tauri/src/lib.rs" ins={4-12}
-    	fn run() {
+    	pub fn run() {
     		tauri::Builder::default()
     			.plugin(tauri_plugin_positioner::init())
     			// This is required to get tray-relative positions to work
