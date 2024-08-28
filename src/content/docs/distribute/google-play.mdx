@@ -9,9 +9,11 @@ import CommandTabs from '@components/CommandTabs.astro';
 Google Play is the Android app distribution service maintained by Google.
 
 This guide covers the requirements for publishing your Android app on Google Play.
-Note that Tauri uses an Android Studio project under the hood, so any official practice for
+:::note
+Tauri uses an Android Studio project under the hood, so any official practice for
 building and publishing Android apps also apply to your app.
 See the [official documentation] for more information.
+:::
 
 ## Requirements
 
@@ -34,8 +36,7 @@ After running `tauri android init` to setup the Xcode project, you can use the `
 
 ## Setting up
 
-After creating a Play Console developer account, the first step to distribute your Tauri app in Google Play
-is to register your app in Google Play Console website, which will guide you through all the required forms and setup tasks.
+Once you've created a Play Console developer account, you need to register your app on the Google [Play Console] website. It will guide you through all the required forms and setup tasks.
 
 ## Build
 
@@ -91,8 +92,9 @@ To only compile for a subset of targets, you can use the `--target` argument:
 
 By default the generated AAB and APK is universal, containing all supported targets.
 To generate individual bundles per target, use the `--split-per-abi` argument.
-Note that this is only useful for testing or distribution outside Google Play, as it reduces the file size but is less convenient to upload
-(Google Play handles the supported architectures for you).
+:::note
+This is only useful for testing or distribution outside Google Play, as it reduces the file size but is less convenient to upload. Google Play handles the supported architectures for you.
+:::
 
 <CommandTabs
   npm="npm run tauri android build --apk --split-per-abi"
