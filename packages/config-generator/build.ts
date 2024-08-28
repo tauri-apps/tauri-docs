@@ -3,25 +3,25 @@ import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
 generatePageFromSchema(
-  '../tauri/core/tauri-config-schema/schema.json',
+  '../tauri/core/tauri-schema-generator/config.schema.json',
   '../../src/content/docs/reference/config.md',
   'Configuration'
 );
 
 generatePageFromSchema(
-  '../tauri/core/tauri-acl-schema/capability-schema.json',
+  '../tauri/core/tauri-schema-generator/capability.schema.json',
   '../../src/content/docs/reference/acl/capability.md',
   'Capability'
 );
 
 generatePageFromSchema(
-  '../tauri/core/tauri-acl-schema/permission-schema.json',
+  '../tauri/core/tauri-schema-generator/permission.schema.json',
   '../../src/content/docs/reference/acl/permission.md',
   'Permission'
 );
 
 generatePageFromSchema(
-  '../tauri/core/tauri-acl-schema/scope-schema.json',
+  '../tauri/core/tauri-schema-generator/scope.schema.json',
   '../../src/content/docs/reference/acl/scope.md',
   'Scope'
 );
