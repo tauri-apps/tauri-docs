@@ -11,7 +11,7 @@ banner:
 
 ![Hero Image](./tauri_2_0_0_alpha_0/header.png)
 
-Tauri v2 has been in progress for [over a year](/blog/tauri-mobile-alpha) and it is now ready to take the next step towards being stable! We have just released [Tauri v2.0.0-beta.0](https://github.com/tauri-apps/tauri/releases/tag/tauri-v2.0.0-beta.0) which represents a major milestone from our [roadmap](/blog/roadmap-to-tauri-2-0/#beta).
+Tauri v2 has been in progress for [over a year](/blog/tauri-mobile-alpha/) and it is now ready to take the next step towards being stable! We have just released [Tauri v2.0.0-beta.0](https://github.com/tauri-apps/tauri/releases/tag/tauri-v2.0.0-beta.0) which represents a major milestone from our [roadmap](/blog/roadmap-to-tauri-2-0/#beta).
 
 The v2 release introduces mobile support to Tauri and also comes with several new features that have been requested by the community. Let's get a high level overview of the major changes:
 
