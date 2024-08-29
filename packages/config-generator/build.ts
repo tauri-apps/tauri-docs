@@ -3,25 +3,25 @@ import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
 generatePageFromSchema(
-  '../tauri/core/tauri-config-schema/schema.json',
+  '../tauri/crates/tauri-schema-generator/schemas/config.schema.json',
   '../../src/content/docs/reference/config.md',
   'Configuration'
 );
 
 generatePageFromSchema(
-  '../tauri/core/tauri-acl-schema/capability-schema.json',
+  '../tauri/crates/tauri-schema-generator/schemas/capability.schema.json',
   '../../src/content/docs/reference/acl/capability.md',
   'Capability'
 );
 
 generatePageFromSchema(
-  '../tauri/core/tauri-acl-schema/permission-schema.json',
+  '../tauri/crates/tauri-schema-generator/schemas/permission.schema.json',
   '../../src/content/docs/reference/acl/permission.md',
   'Permission'
 );
 
 generatePageFromSchema(
-  '../tauri/core/tauri-acl-schema/scope-schema.json',
+  '../tauri/crates/tauri-schema-generator/schemas/scope.schema.json',
   '../../src/content/docs/reference/acl/scope.md',
   'Scope'
 );
@@ -45,7 +45,7 @@ async function generatePageFromSchema(
   # NOTE: This file is auto-generated. Do not edit here!
   # For corrections please directly edit the documentation of the underlying Rust source code.
   # Example for the configuration reference: 
-  # - https://github.com/tauri-apps/tauri/blob/dev/core/tauri-utils/src/config.rs
+  # - https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-utils/src/config.rs
   
   title: ${pageTitle}
   sidebar:
