@@ -45,7 +45,7 @@ sidebar:
 要导出证书密钥，请打开 "Keychain Access" 应用程序，展开证书条目，
 右键点击密钥项目，并选择 "Export \<key-name\>" 选项。选择导出的 .p12 文件的路径，并记住其密码。
 
-运行以下 `base64` 命令将证书转换为base64格式并复制到剪贴板：
+运行以下 `base64` 命令将证书转换为 base64 格式并复制到剪贴板：
 
 ```
 base64 -i <path-to-certificate.p12> | pbcopy
@@ -71,7 +71,7 @@ base64 -i <path-to-certificate.p12> | pbcopy
 在 [Identifiers](https://developer.apple.com/account/resources/identifiers/list) 页面中，
 创建一个新的应用程序 ID，并确保其 "Bundle ID" 值与 [`identifier`] 配置中设置的标识符匹配。
 
-导航到 [Profiles](https://developer.apple.com/account/resources/profiles/list)页面以创建新的预配配置文件。
+导航到 [Profiles](https://developer.apple.com/account/resources/profiles/list) 页面以创建新的预配配置文件。
 对于 App Store 分发，必须选择 "App Store Connect" 配置文件。选择合适的 App ID 并链接你之前创建的证书。
 
 创建配置文件后，下载它并运行以下 `base64` 命令来转换该配置文件并将其复制到剪贴板：
