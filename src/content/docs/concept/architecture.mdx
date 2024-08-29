@@ -59,7 +59,7 @@ Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
 
 [View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri)
 
-This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/reference/config) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
+This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/reference/config/) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
 
 ### tauri-runtime
 
@@ -89,7 +89,7 @@ Applies the macros at build-time to rig some special features needed by `cargo`.
 
 [View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen)
 
-Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](/reference/config) at compile time and generates the Config struct.
+Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](/reference/config/) at compile time and generates the Config struct.
 
 ### tauri-runtime-wry
 
@@ -168,7 +168,7 @@ Allows you to very quickly install Tauri in a vue-cli project.
 
 ## Plugins
 
-[Tauri Plugin Guide](/develop/plugins)
+[Tauri Plugin Guide](/develop/plugins/)
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 

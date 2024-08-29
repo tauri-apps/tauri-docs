@@ -2,7 +2,7 @@
 title: 访问控制列表
 ---
 
-每个 Tauri [命令](/develop/calling-rust)都向 JavaScript 层公开一个 Rust 函数，该函数可以使用操作系统 API 执行任意操作，默认情况下，该层使用 Web 标准进行沙箱化。
+每个 Tauri [命令](/develop/calling-rust/)都向 JavaScript 层公开一个 Rust 函数，该函数可以使用操作系统 API 执行任意操作，默认情况下，该层使用 Web 标准进行沙箱化。
 如果攻击者可以执行访问 Tauri 命令的代码，这将给您的应用程序带来风险。
 
 为了缓解这种情况，Tauri 使用访问控制列表（Access Control List；ACL）来限制插件命令的访问。默认情况下，所有插件命令都被阻止，无法访问。若要启用对应用程序所需命令的访问，必须定义需要访问的权限列表。
