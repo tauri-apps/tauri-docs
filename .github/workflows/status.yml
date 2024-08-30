@@ -56,6 +56,7 @@ jobs:
       #===== END ISSUES =====#
 
       - name: Set fields
+        if: ${{ github.event.issue.status == 'open' || github.event.pull_request.status == 'open' }}
         env:
           GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: gh project item-edit --id ${{ env.ITEM_ID }} --project-id ${{ env.PROJECT_ID }} --field-id ${{ env.STATUS_FIELD_ID }} --single-select-option-id ${{ env.STATUS_ID }}
