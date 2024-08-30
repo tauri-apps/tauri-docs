@@ -48,7 +48,7 @@ With the certificate installed in your Mac computer keychain, you can configure 
 
 The name of the certificate's keychain entry represents the `signing identity`, which can also be found by executing:
 
-````
+```
 security find-identity -v -p codesigning
 ```
 
@@ -74,9 +74,11 @@ and configure the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environme
 2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the certificate's `.p12` file and define a password for the exported certificate.
 4. Convert the `.p12` file to base64 running the following script on the terminal:
-  ```
-  openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
-  ```
+
+```
+openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
+```
+
 5. Set the contents of the `certificate-base64.txt` file to the `APPLE_CERTIFICATE` environment variable.
 6. Set the certificate password to the `APPLE_CERTIFICATE_PASSWORD` environment variable.
 
@@ -106,4 +108,3 @@ Notarization is required when using a _Developer ID Application_ certificate.
 [`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity
 [creating a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
 [Certificates, IDs & Profiles page]: https://developer.apple.com/account/resources/certificates/list
-````
