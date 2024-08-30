@@ -5,8 +5,7 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@fragments/*": ["src/content/docs/_fragments/*"],
-      "@tauri/*": ["packages/tauri/*"]
+      "@fragments/*": ["src/content/docs/_fragments/*"]
     }
   }
 }
