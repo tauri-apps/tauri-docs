@@ -97,15 +97,10 @@ console.log(content);
 ```rust
 use tauri_plugin_clipboard_manager::ClipboardExt;
 
-// Write content to clipboard
-let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
-    label: Some("Label".to_string()),
-    text: "Tauri is awesome!".to_string(),
-};
-app.clipboard().write(clipboard_content).unwrap();
+app.clipboard().write_text("Tauri is awesome!".to_string()).unwrap();
 
 // Read content from clipboard
-let content = app.clipboard().read();
+let content = app.clipboard().read_text();
 println!("{:?}", content.unwrap());
 // Prints "Tauri is awesome!" to the terminal
 
