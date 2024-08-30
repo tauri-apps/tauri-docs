@@ -92,7 +92,7 @@ export default defineConfig({
         discord: 'https://discord.com/invite/tauri',
         twitter: 'https://twitter.com/TauriApps',
         mastodon: 'https://fosstodon.org/@TauriApps',
-        rss: `${site}/rss`,
+        rss: `${site}/rss/`,
       },
       components: {
         Header: './src/components/overrides/Header.astro',
