@@ -107,4 +107,4 @@ export class StarlightTOC extends HTMLElement {
   }
 }
 
-customElements.define('starlight-toc', StarlightTOC);
+customElements.define('tauri-starlight-toc', StarlightTOC);
