@@ -55,7 +55,7 @@ Install the fs plugin to get started.
 
             ```rust title="src-tauri/src/lib.rs" ins={4}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
               tauri::Builder::default()
                 .plugin(tauri_plugin_fs::init())
                 .run(tauri::generate_context!())
@@ -100,7 +100,7 @@ await exists('avatar.png', { baseDir: BaseDirectory.AppData });
 use tauri_plugin_fs::FsExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
+pub fn run() {
   tauri::Builder::default()
       .plugin(tauri_plugin_fs::init())
       .setup(|app| {

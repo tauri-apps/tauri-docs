@@ -59,7 +59,7 @@ Install the deep-link plugin to get started.
 
           ```rust title="src-tauri/src/lib.rs" ins={4}
           #[cfg_attr(mobile, tauri::mobile_entry_point)]
-          fn run() {
+          pub fn run() {
               tauri::Builder::default()
                   .plugin(tauri_plugin_deep_link::init())
                   .run(tauri::generate_context!())
@@ -194,7 +194,7 @@ await onOpenUrl((urls) => {
 use tauri_plugin_deep_link::DeepLinkExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
+pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
         .setup(|app| {
