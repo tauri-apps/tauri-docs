@@ -159,7 +159,7 @@ document
 Note that if you are using a Rust-based frontend, you can copy the code above into a `<script>` element in your `index.html` file.
 
 :::note
-`data-tauri-drag-region` will only work on the element to which it is directly applied. If you want the drag behavior to apply to child elements as well, you'll need to add it to each child individually. 
+`data-tauri-drag-region` will only work on the element to which it is directly applied. If you want the drag behavior to apply to child elements as well, you'll need to add it to each child individually.
 
 This behavior is preserved so that interactive elements like buttons and inputs can function properly.
 :::
@@ -174,8 +174,9 @@ From the code in the previous section, we remove `data-tauri-drag-region` and ad
 
 ```html del={1} ins={2}
 <div data-tauri-drag-region class="titlebar">
-<div id="titlebar" class="titlebar">
-  <!-- ... -->
+  <div id="titlebar" class="titlebar">
+    <!-- ... -->
+  </div>
 </div>
 ```
 
@@ -186,12 +187,13 @@ Add an event listener to the titlebar element:
 ```js {2-9}
 // ...
 document.getElementById('titlebar')?.addEventListener('mousedown', (e) => {
-  if (e.buttons === 1) { // Primary (left) button
+  if (e.buttons === 1) {
+    // Primary (left) button
     e.detail === 2
       ? appWindow.toggleMaximize() // Maximize on double click
-      : appWindow.startDragging() // Else start dragging
+      : appWindow.startDragging(); // Else start dragging
   }
-})
+});
 ```
 
 ### (macOS) Transparent Titlebar with Custom Window Background Color
