@@ -3,9 +3,6 @@ title: Debian
 i18nReady: true
 sidebar:
   order: 1
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 ## Debian
@@ -23,19 +20,12 @@ Pour inclure des fichiers personnalisés dans le paquet Debian, vous pouvez four
 {
   // ...autre configurations
   "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
     "linux": {
-      //... toutes les configurations liées à Linux vont ici 
       "deb": {
-        "files": {} // Les fichiers à inclure dans le paquet.
+       "files": {
+          "/usr/share/README.md": "../README.md", // copie le fichier README.md dans /usr/share/README.md
+          "usr/share/assets": "../assets/" // copies toutes le dossier assets dans /usr/share/assets
+        }
       },
     }
   }
