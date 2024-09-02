@@ -26,6 +26,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     <CommandTabs npm="npm run tauri add dialog"
                     yarn="yarn run tauri add dialog"
                     pnpm="pnpm tauri add dialog"
+                    bun="bun tauri add dialog"
                     cargo="cargo tauri add dialog" />
 
     </TabItem>
@@ -50,10 +51,11 @@ import CommandTabs from '@components/CommandTabs.astro';
     3. 如果你想在 JavaScript 中创建对话框，还需要安装 npm 包：
 
     <CommandTabs
-                    npm="npm install @tauri-apps/plugin-dialog"
-                    yarn="yarn add @tauri-apps/plugin-dialog"
-                    pnpm="pnpm add @tauri-apps/plugin-dialog"
-                />
+        npm="npm install @tauri-apps/plugin-dialog"
+        yarn="yarn add @tauri-apps/plugin-dialog"
+        pnpm="pnpm add @tauri-apps/plugin-dialog"
+        bun="bun add @tauri-apps/plugin-dialog"
+    />
 
 </TabItem>
 </Tabs>
@@ -88,13 +90,13 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 显示一个带有 "Yes" 和 "No" 按钮的提问对话框。
 
-```js
+```javascript
 import { ask } from '@tauri-apps/plugin-dialog';
 
 // 创建 Yes/No 对话框
 const answer = await ask('This action cannot be reverted. Are you sure?', {
   title: 'Tauri',
-  type: 'warning',
+  kind: 'warning',
 });
 
 console.log(answer);
@@ -107,13 +109,13 @@ console.log(answer);
 
 显示一个带有 "Ok" 和 "Cancel" 按钮的提问对话框。
 
-```js
+```javascript
 import { confirm } from '@tauri-apps/plugin-dialog';
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
   'This action cannot be reverted. Are you sure?',
-  { title: 'Tauri', type: 'warning' }
+  { title: 'Tauri', kind: 'warning' }
 );
 
 console.log(confirmation);
@@ -126,11 +128,11 @@ console.log(confirmation);
 
 一个带有 "Ok" 按钮的消息对话框。请注意，如果用户关闭对话框，它将返回 `false`。
 
-```js
+```javascript
 import { message } from '@tauri-apps/plugin-dialog';
 
 // Shows message
-await message('File not found', { title: 'Tauri', type: 'error' });
+await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
 
 {/* OPEN */}
@@ -141,7 +143,7 @@ await message('File not found', { title: 'Tauri', type: 'error' });
 
 `multiple` 选项控制对话框是否允许多重选择，而 `directory` 则控制对话框是否允许目录选择。
 
-```js
+```javascript
 import { open } from '@tauri-apps/plugin-dialog';
 
 // Open a dialog
@@ -159,7 +161,7 @@ console.log(file);
 
 打开一个文件/目录保存对话框。
 
-```js
+```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({

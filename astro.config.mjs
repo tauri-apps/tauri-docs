@@ -64,6 +64,8 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
+  // TODO: Fix trailing slashes throughout the docs
+  // trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
@@ -73,7 +75,10 @@ export default defineConfig({
           },
         }),
         starlightBlog({ authors }),
-        starlightLinksValidator({ errorOnRelativeLinks: false }),
+        starlightLinksValidator({
+          errorOnRelativeLinks: false,
+          exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
+        }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
@@ -87,13 +92,14 @@ export default defineConfig({
         discord: 'https://discord.com/invite/tauri',
         twitter: 'https://twitter.com/TauriApps',
         mastodon: 'https://fosstodon.org/@TauriApps',
-        rss: `${site}/rss`,
+        rss: `${site}/rss/`,
       },
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
         PageFrame: 'src/components/overrides/PageFrame.astro',
+        TableOfContents: 'src/components/overrides/TableOfContents.astro',
       },
       head: [
         {
@@ -123,7 +129,10 @@ export default defineConfig({
         },
       ],
       editLink: {
-        baseUrl: process.env.NODE_ENV === 'development' ? `vscode://file/${path.dirname(fileURLToPath(import.meta.url))}` : 'https://github.com/tauri-apps/tauri-docs/edit/v2',
+        baseUrl:
+          process.env.NODE_ENV === 'development'
+            ? `vscode://file/${path.dirname(fileURLToPath(import.meta.url))}`
+            : 'https://github.com/tauri-apps/tauri-docs/edit/v2',
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
@@ -299,7 +308,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-beta.22/tauri/index.html',
+              link: 'https://docs.rs/tauri/2.0.0-rc/tauri/index.html',
             },
           ],
         },

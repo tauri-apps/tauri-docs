@@ -1,0 +1,339 @@
+---
+title: RPM
+sidebar:
+  order: 1
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+# 打包为 RPM
+
+:::note
+这个指南中的一些部分是可选的。这包括配置脚本和其他特定步骤。根据您的具体需求和要求，可以自由地调整指示內容。
+:::
+
+本指南介绍了如何分发和管理 RPM 软件包，包括获取软件包信息、配置脚本、设置依赖关系和签名软件包。
+
+## RPM 包配置
+
+Tauri 允许您通过添加脚本、设置依赖项、添加许可证、包含自定义文件等来配置 RPM 软件包。
+有关可配置选项的详细信息，请参考：[RpmConfig](https://v2.tauri.app/reference/config/#rpmconfig)。
+
+### 添加 post、pre-install/remove 脚本到安装包
+
+RPM 软件包管理器允许您在安装或删除软件包之前或之后运行脚本。例如，您可以使用这些脚本在软件包安装后启动一个服务。
+
+下面是添加这些脚本的示例：
+
+1. 在项目的 `src-tauri` 目录下创建一个名为 `scripts` 的文件夹。
+
+```bash
+mkdir src-tauri/scripts
+```
+
+2. 在文件夹中创建脚本文件。
+
+```bash
+touch src-tauri/scripts/postinstall.sh \
+touch src-tauri/scripts/preinstall.sh \
+touch src-tauri/scripts/preremove.sh \
+touch src-tauri/scripts/postremove.sh
+```
+
+现在如果我们查看 `/src-tauri/scripts`，我们将看到。
+
+```bash
+ls src-tauri/scripts/
+postinstall.sh  postremove.sh  preinstall.sh  preremove.sh
+```
+
+3. 向脚本添加一些内容。
+
+```bash title="preinstall.sh"
+echo "-------------"
+echo "This is pre"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="postinstall.sh"
+echo "-------------"
+echo "This is post"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="preremove.sh"
+echo "-------------"
+echo "This is preun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="postremove.sh"
+echo "-------------"
+echo "This is postun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+4. 将脚本添加到 `tauri.conf.json` 文件中
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1",
+        // 在此添加脚本
+        "preInstallScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postInstallScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "preRemoveScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh"
+      }
+    }
+  }
+}
+```
+
+### 设置 Conflict、 Provides、 Depends、 Files、 Obsoletes、 DesktopTemplate 和 Epoch
+
+- **conflict**：防止安装与另一个包冲突的包。
+  例如，如果您更新了应用程序所依赖的 RPM 包，但新版本与您的应用程序不兼容。
+
+- **provides**：列出应用程序提供的 RPM 依赖项。
+
+- **depends**：列出应用程序运行所需的 RPM 依赖项。
+
+- **files**：指定包中包含的文件。
+
+- **obsoletes**：列出您的应用程序废弃的 RPM 依赖项。
+
+:::note
+如果安装了这个软件包，那么被列为“过时”的软件包将会在存在的情况下自动删除。
+:::
+
+- **desktopTemplate**：向包中添加自定义桌面文件。
+
+- **epoch**：基于版本号定义加权依赖关系。
+
+:::caution
+除非必要，否则不建议使用 epoch，因为它会改变包管理器比较包版本的方式。
+有关 epoch 的更多信息，请查看：[RPM 打包指南](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers)。
+:::
+
+要使用这些选项，请将以下内容添加到你的 `tauri.conf.json` 文件中。
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "conflicts": ["oldLib.rpm"],
+        "depends": ["newLib.rpm"],
+        "obsoletes": ["veryoldLib.rpm"],
+        "provides": ["coolLib.rpm"],
+        "desktopTemplate": "/path/to/your/project/src-tauri/desktop-template.desktop"
+      }
+    }
+  }
+}
+```
+
+### 给包添加一个许可证
+
+要给包添加许可证，请将以下内容添加到 `src-tauri/cargo.toml` 或者 `src-tauri/tauri.conf.json` 文件中：
+
+```toml title="src-tauri/cargo.toml"
+[package]
+name = "tauri-app"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+license = "MIT" # add the license here
+# ...  rest of the file
+```
+
+对于 `src-tauri/tauri.conf.json`
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "licenseFile": "../LICENSE", // 将许可证文件路径放在此
+    "license": "MIT" // 将许可证添加在此
+  }
+}
+```
+
+## 构建 RPM 包
+
+要构建 RPM 包，你可以使用以下命令。
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  cargo="cargo tauri build"
+/>
+
+这个命令会在 `src-tauri/target/release/bundle/rpm` 目录下构建 RPM 包。
+
+## 签名 RPM 包
+
+Tauri 允许您在构建过程中使用系统中的密钥对包进行签名。为此，你需要生成一个 GPG 密钥。
+
+#### 生成 GPG 密钥
+
+要生成 GPG 密钥，可以使用以下命令。
+
+```bash
+gpg --gen-key
+```
+
+按照说明生成密钥。
+
+生成密钥后，需要将其添加到环境变量中。
+你可以将以下内容添加到 .bashrc 或 .zshrc 文件中，或者直接在终端中导出。
+
+```bash
+export TAURI_SIGNING_RPM_KEY=$(cat /home/johndoe/my_super_private.key)
+```
+
+如果密钥有密码，可以将其添加到环境变量中。
+
+```bash
+export TAURI_SIGNING_RPM_KEY_PASSPHRASE=password
+```
+
+现在你可以使用以下命令构建包。
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  cargo="cargo tauri build"
+/>
+
+### 验证签名
+
+:::note
+只有在本地测试签名时才应该这样做。
+:::
+
+在验证签名之前，需要先创建并导入公钥到 RPM 数据库。
+
+```bash
+gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
+```
+
+```bash
+sudo rpm --import RPM-GPG-KEY-Tauri-App
+```
+
+现在密钥已经导入，我们必须编辑 `~/.rpmmacros` 文件来使用密钥。
+
+```bash title="~/.rpmmacros"
+%_signature gpg
+%_gpg_path /home/johndoe/.gnupg
+%_gpg_name Tauri-App
+%_gpgbin /usr/bin/gpg2
+%__gpg_sign_cmd %{__gpg} \
+    gpg --force-v3-sigs --digest-algo=sha1 --batch --no-verbose --no-armor \
+    --passphrase-fd 3 --no-secmem-warning -u "%{_gpg_name}" \
+    -sbo %{__signature_filename} %{__plaintext_filename}
+```
+
+最后，你可以使用以下命令来验证这个包。
+
+```bash
+rpm  -v --checksig tauri-app-0.0.0-1.x86_64.rpm
+```
+
+## 调试 RPM 包
+
+在本节中，我们将看到如何通过检查 RPM 包的内容来调试 RPM 包以及获取有关包的信息。
+
+### 获取关于包的信息
+
+要获取有关包的信息，如版本、发行版和架构，
+使用下面的命令:
+
+```bash
+rpm -qip package_name.rpm
+```
+
+### 查询包的详细信息
+
+例如，如果你想获取包的名称、版本、发行版、架构和大小，可以使用以下命令。
+
+```bash
+rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' package_name.rpm
+```
+
+:::note
+_`--queryformat`_ 是一个格式字符串，可用于获取关于包的特定信息。
+可以检索的信息来自 rpm -qip 命令。
+:::
+
+### 检查包的内容
+
+要检查包的内容，可以使用以下命令。
+
+```bash
+rpm -qlp package_name.rpm
+```
+
+该命令将列出该包中包含的所有文件。
+
+### 调试脚本
+
+要调试 post/pre-install/remove 脚本，使用以下命令。
+
+```bash
+rpm -qp --scripts package_name.rpm
+```
+
+这个命令会打印脚本的内容。
+
+### 检查依赖关系
+
+要检查包的依赖关系，使用以下命令。
+
+```bash
+rpm -qp --requires package_name.rpm
+```
+
+### 列出依赖于特定包的包
+
+要列出依赖于特定包的包，可以使用以下命令。
+
+```bash
+rpm -q --whatrequires package_name.rpm
+```
+
+### 调试安装问题
+
+如果您在安装 RPM 包期间遇到问题，
+你可以使用 `-vv`（very verbose）选项来获得详细的输出。
+
+```bash
+rpm -ivvh package_name.rpm
+```
+
+或者对于已经安装的包。
+
+```bash
+rpm -Uvvh package_name.rpm
+```

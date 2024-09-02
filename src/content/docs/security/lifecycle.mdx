@@ -71,6 +71,30 @@ which are usually considered to be attacks on direct dependencies of your projec
 However, a growing class of attacks in the wild directly target development machines,
 and you would be well off to address this head-on.
 
+### Development Server
+
+Tauri application frontends can be developed using a number of web frameworks.
+Each of these frameworks usually ship their own development server, which is exposing
+the frontend assets via an open port to the local system or network.
+This allows the frontend to be hot-reloaded and debugged in the WebView or Browser.
+
+In practice this connection is often neither encrypted nor authenticated by default.
+This is also the case for the built-in Tauri development server and exposes your
+frontend and assets to the local network. Additionally, this allows attackers
+to push their own frontend code to development devices in the same network as the attacker.
+Depending on what kind of functionality is exposed this could lead to device compromise
+in the worst case.
+
+You should only develop on trusted networks where you can safely expose your
+development device. If this is not possible you MUST ensure that your development
+server uses **mutual** authentication and encryption (e.g. mTLS) for connections
+with your development devices.
+
+:::note
+The built-in Tauri development server does not support
+mutual authentication and transport encryption at the moment and should not be used on untrusted networks.
+:::
+
 ### Harden Development machines
 
 Hardening your development systems depends on various factors and on your personal
@@ -163,4 +187,4 @@ Furthermore, [Capabilities](/security/capabilities/) can prevent untrusted conte
 the API within the Webview.
 
 We also recommend to setup an easy and secure way to report vulnerabilities similar to
-[our process](/security#coordinated-disclosure).
+[our process](/security/#coordinated-disclosure).

@@ -1,0 +1,16 @@
+name: 'Auto Assign'
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  auto_assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-assign PR to author
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # The gh cli currently does not consider the pr author an assignable user if they aren't part of the org
+        run: gh api -X POST /repos/tauri-apps/tauri-docs/issues/${{ github.event.pull_request.number }}/assignees -f "assignees[]=${{ github.event.pull_request.user.login }}"
+        #run: gh pr edit ${{ github.event.pull_request.number }} --add-assignee ${{ github.event.pull_request.user.login }} -R ${{ github.repository }}

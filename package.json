@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev:setup:submodules": "git submodule update --init",
-    "dev:setup:tauri": "pnpm install -C packages/tauri/tooling/api --ignore-workspace --no-frozen-lockfile",
+    "dev:setup:tauri": "pnpm install -C packages/tauri/packages/api --ignore-workspace --no-frozen-lockfile",
     "dev:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
     "dev": "astro dev",
@@ -15,9 +15,10 @@
     "build:references": "pnpm --filter js-api-generator run build",
     "build:releases": "pnpm --filter releases-generator run build",
     "build:config": "pnpm --filter config-generator run build",
+    "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:releases && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -27,10 +28,10 @@
     "@lorenzo_lewis/starlight-utils": "^0.1.0",
     "@types/json-schema": "^7.0.15",
     "astro": "^4.4.4",
-    "astro-d2": "^0.3.0",
+    "astro-d2": "^0.4.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
-    "jsdom": "^24.0.0",
+    "jsdom": "^25.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.14.0",
     "rehype-autolink-headings": "^7.1.0",
@@ -38,10 +39,10 @@
     "semver": "^7.6.0",
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
-    "starlight-blog": "^0.10.0",
-    "starlight-links-validator": "^0.9.0"
+    "starlight-blog": "^0.12.0",
+    "starlight-links-validator": "^0.10.0"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.7.1",
   "engines": {
     "pnpm": "^9.0.0"
   },

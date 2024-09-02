@@ -2,6 +2,7 @@
 title: Mock Tauri APIs
 sidebar:
   order: 10
+i18nReady: true
 ---
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
@@ -28,12 +29,12 @@ The following examples use [Vitest], but you can use any other frontend testing 
 
 :::
 
-```js
+```javascript
 import { beforeAll, expect, test } from "vitest";
 import { randomFillSync } from "crypto";
 
 import { mockIPC } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
@@ -61,7 +62,7 @@ test("invoke simple", async () => {
 Sometimes you want to track more information about an IPC call; how many times was the command invoked? Was it invoked at all?
 You can use [`mockIPC()`] with other spying and mocking tools to test this:
 
-```js
+```javascript
 import { beforeAll, expect, test, vi } from "vitest";
 import { randomFillSync } from "crypto";
 
@@ -99,7 +100,7 @@ test("invoke", async () => {
 
 To mock IPC requests to a sidecar or shell command you need to grab the ID of the event handler when `spawn()` or `execute()` is called and use this ID to emit events the backend would send back:
 
-```js
+```javascript
 mockIPC(async (cmd, args) => {
   if (args.message.cmd === 'execute') {
     const eventCallbackId = `_${args.message.onEventFn}`;
@@ -134,7 +135,7 @@ You can use the [`mockWindows()`] method to create fake window labels. The first
 
 :::
 
-```js
+```javascript
 import { beforeAll, expect, test } from 'vitest';
 import { randomFillSync } from 'crypto';
 

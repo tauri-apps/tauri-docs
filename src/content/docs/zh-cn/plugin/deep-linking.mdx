@@ -37,6 +37,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
   npm="npm run tauri add deep-link"
   yarn="yarn run tauri add deep-link"
   pnpm="pnpm tauri add deep-link"
+  bun="bun tauri add deep-link"
   cargo="cargo tauri add deep-link"
 />
 
@@ -63,6 +64,7 @@ fn run() {
       npm="npm install @tauri-apps/plugin-deep-link"
       yarn="yarn add @tauri-apps/plugin-deep-link"
       pnpm="pnpm add @tauri-apps/plugin-deep-link"
+      bun="bun add @tauri-apps/plugin-deep-link"
   />
   </TabItem>
 </Tabs>
@@ -160,7 +162,7 @@ deep-link 有 JavaScript 和 Rust 两种版本。
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
 
 await onOpenUrl((urls) => {
@@ -197,7 +199,7 @@ fn run() {
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={9}
 {

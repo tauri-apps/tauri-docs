@@ -1,4 +1,4 @@
-name: Congrats
+name: 'Congrats'
 
 on:
   push:

@@ -13,7 +13,7 @@ One thing that makes Tauri so flexible is it's ability to work with virtually an
 `create-tauri-app` currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore-rs.netlify.app/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri).
 
 {/* TODO: redirect to integrate to existing front-end project specific docs */}
-Alternatively, you can [add Tauri to an existing project](/start/create-project/) to quickly turn your existing codebase into a Tauri app.
+Alternatively, you can [add Tauri to an existing project](#manual-setup-tauri-cli) to quickly turn your existing codebase into a Tauri app.
 
 ## Using `create-tauri-app`
 
@@ -37,7 +37,7 @@ We recommend starting with the vanilla template (HTML, CSS, and JavaScript witho
 
 {/* TODO: Can CTA offer to install the deps? */}
 
-After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/reference/cli) to start the development server:
+After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/reference/cli/) to start the development server:
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -89,7 +89,7 @@ The following example assumes you are creating a new project. If you've already 
             npm="npm install -D @tauri-apps/cli@next"
             yarn="yarn add -D @tauri-apps/cli@next"
             pnpm="pnpm add -D @tauri-apps/cli@next"
-            cargo="cargo install tauri-cli@^2.0.0-beta"
+            cargo="cargo install tauri-cli@^2.0.0-rc"
         />
 
     3. Determine the URL of your frontend development server. This is the URL that Tauri will use to load your content. For example, if you are using Vite, the default URL is `http://localhost:5173`.
@@ -100,7 +100,7 @@ The following example assumes you are creating a new project. If you've already 
             npm="npx tauri init"
             yarn="yarn tauri init"
             pnpm="pnpm tauri init"
-            cargo="tauri init"
+            cargo="cargo tauri init"
         />
 
         After running the command it will display a prompt asking you for different options:

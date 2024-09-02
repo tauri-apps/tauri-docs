@@ -82,7 +82,7 @@ config file which controls most aspects of our testing suite.
 
 `wdio.conf.js`:
 
-```js
+```javascript
 const os = require('os');
 const path = require('path');
 const { spawn, spawnSync } = require('child_process');
@@ -135,7 +135,7 @@ run them as it sees fit. Let's create our spec now in the directory we specified
 
 `test/specs/example.e2e.js`:
 
-```js
+```javascript
 // calculates the luma from a hex color `#abcdef`
 function luma(hex) {
   if (hex.startsWith('#')) {

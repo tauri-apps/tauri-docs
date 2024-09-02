@@ -78,7 +78,7 @@ For the purposes of this example, let's imagine we are in the same directory as 
 
 `../dist-isolation/index.js`:
 
-```js
+```javascript
 window.__TAURI_ISOLATION_HOOK__ = (payload) => {
   // let's not verify or modify anything, just print the content from the hook
   console.log('hook', payload);

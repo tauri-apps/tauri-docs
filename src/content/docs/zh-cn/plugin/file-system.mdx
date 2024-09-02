@@ -34,6 +34,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
   npm="npm run tauri add fs"
   yarn="yarn run tauri add fs"
   pnpm="pnpm tauri add fs"
+  bun="bun tauri add fs"
   cargo="cargo tauri add fs"
 />
 
@@ -44,7 +45,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
-tauri-plugin-fs = "2.0.0-beta"
+tauri-plugin-fs = "2.0.0-rc"
 # 或者使用 Git：
 tauri-plugin-fs = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
@@ -64,9 +65,10 @@ fn run() {
 3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
   <CommandTabs
-	  npm = "npm install @tauri-apps/plugin-fs"
-	  yarn = "yarn add @tauri-apps/plugin-fs"
-	  pnpm = "pnpm add @tauri-apps/plugin-fs"
+	  npm="npm install @tauri-apps/plugin-fs"
+	  yarn="yarn add @tauri-apps/plugin-fs"
+	  pnpm="pnpm add @tauri-apps/plugin-fs"
+	  bun="bun add @tauri-apps/plugin-fs"
 	/>
   </TabItem>
 </Tabs>
@@ -78,7 +80,7 @@ fs 插件有 JavaScript 和 Rust 两种版本。
 <Tabs>
   <TabItem label="JavaScript" >
 
-```js
+```javascript
 import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
 
 // 检查 `$APPDATA/avatar.png` 文件是否存在
@@ -121,7 +123,7 @@ fn run() {
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={7-11}
 {

@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="deep-link" />
 
@@ -17,6 +18,9 @@ Set your Tauri application as the default handler for an URL.
 
 ## Supported Platforms
 
+- Windows
+- Linux
+- macOS
 - Android
 - iOS
 
@@ -45,11 +49,15 @@ Install the deep-link plugin to get started.
   <TabItem label="Manual">
     <Steps>
 
-      1.  Run `cargo add tauri-plugin-deep-link` to add the plugin to the project's dependencies in `Cargo.toml`.
+      1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+          ```sh frame=none
+          cargo add tauri-plugin-deep-link@2.0.0-rc
+          ```
 
       2.  Modify `lib.rs` to initialize the plugin:
 
-          ```rust title="lib.rs" ins={4}
+          ```rust title="src-tauri/src/lib.rs" ins={4}
           #[cfg_attr(mobile, tauri::mobile_entry_point)]
           fn run() {
               tauri::Builder::default()
@@ -144,16 +152,19 @@ See [supporting associated domains](https://developer.apple.com/documentation/xc
 
 ## Configuration
 
-Under `tauri.conf.json > plugins > deep-link`, configure the domains you want to associate with your application:
+Under `tauri.conf.json > plugins > deep-link`, configure the domains (mobile) and schemes (desktop) you want to associate with your application:
 
 ```json title="tauri.conf.json"
 {
   "plugins": {
     "deep-link": {
-      "domains": [
+      "mobile": [
         { "host": "your.website.com", "pathPrefix": ["/open"] },
         { "host": "another.site.br" }
-      ]
+      ],
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
     }
   }
 }
@@ -166,8 +177,10 @@ The deep-link plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
+// when using `"withGlobalTauri": true`, you may use
+// const { onOpenUrl } = window.__TAURI_PLUGIN_DEEP_LINK__;
 
 await onOpenUrl((urls) => {
   console.log('deep link:', urls);
@@ -200,10 +213,9 @@ fn run() {
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={9}
 {
@@ -219,8 +231,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission                    | Description                                                       |
-| ----------------------------- | ----------------------------------------------------------------- |
-| `deep-link:default`           | Allows reading the opened deep link via the get_current command.  |
-| `deep-link:allow-get-current` | Enables the get_current command without any pre-configured scope. |
-| `deep-link:deny-get-current`  | Denies the get_current command without any pre-configured scope.  |
+<PluginPermissions plugin="deep-link" />

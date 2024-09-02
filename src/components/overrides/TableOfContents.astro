@@ -1,0 +1,25 @@
+---
+import TableOfContentsList from './TableOfContents/TableOfContentsList.astro';
+import type { Props as BaseProps } from '@astrojs/starlight/props';
+
+type Props = BaseProps & {
+  toc: BaseProps['toc'] & {
+    collapseLevel?: number;
+  };
+};
+
+const { labels, toc } = Astro.props;
+---
+
+{
+  toc && (
+    <tauri-starlight-toc data-min-h={toc.minHeadingLevel} data-max-h={toc.maxHeadingLevel}>
+      <nav aria-labelledby="starlight__on-this-page">
+        <h2 id="starlight__on-this-page">{labels['tableOfContents.onThisPage']}</h2>
+        <TableOfContentsList toc={toc.items} collapseLevel={toc.collapseLevel} />
+      </nav>
+    </tauri-starlight-toc>
+  )
+}
+
+<script src="./TableOfContents/starlight-toc"></script>

@@ -60,20 +60,29 @@ sudo snap install snapcraft --classic
 4. Adjust the names in the snapcraft.yaml file.
 
 ```yaml
-name: app
+name: appname
 base: core22
-version: '2.0.4'
+version: '0.1.0'
 summary: Your summary # 79 char long summary
 description: |
-  Your Description
+  Your description
 
 grade: stable
 confinement: strict
 
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1
+
 apps:
-  app:
-    command: bin/app
-    desktop: usr/share/applications/app.desktop
+  appname:
+    command: usr/bin/appname
+    desktop: usr/share/applications/appname.desktop
+    extensions: [gnome]
+    #plugs:
+    #  - network
+    # Add whatever plugs you need here, see https://snapcraft.io/docs/snapcraft-interfaces for more info.
+    # The gnome extension already includes [ desktop, desktop-legacy, gsettings, opengl, wayland, x11, mount-observe, calendar-service ]
 
 package-repositories:
   - type: apt
@@ -83,7 +92,7 @@ package-repositories:
     url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
 
 parts:
-  prep:
+  build-app:
     plugin: dump
     build-snaps:
       - node/20/stable
@@ -101,28 +110,21 @@ parts:
       - dpkg
     stage-packages:
       - libwebkit2gtk-4.1-0
-      - libglu1-mesa
-      - libsoup-3.0-0
-      - freeglut3
+      - libayatana-appindicator3-1
     source: .
-    override-pull: |
+    override-build: |
       set -eu
-      craftctl default
-      rustup default nightly
       npm install
       npm run tauri build -- --bundles deb
-      dpkg -x src-tauri/target/release/bundle/deb/*.deb here
-      sed -i -e "s|Icon=app|Icon=/usr/share/icons/hicolor/32x32/apps/app.png|g" here/usr/share/applications/app.desktop
-      cp -r here/* .
-    organize:
-      usr/bin/app: bin/app
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb $SNAPCRAFT_PART_INSTALL/
+      sed -i -e "s|Icon=appname|Icon=/usr/share/icons/hicolor/32x32/apps/appname.png|g" $SNAPCRAFT_PART_INSTALL/usr/share/applications/appname.desktop
 ```
 
 ### Explanation
 
 - The `name` variable defines the name of your app and is required to be set to the name that you have registered earlier.
-- The `base`variable defines which core you are using.
-- The `Version variable` defines the version, and should be updated with each change to the source repository.
+- The `base` variable defines which core you are using.
+- The `version` variable defines the version, and should be updated with each change to the source repository.
 - The `apps` section allows you to expose the desktop and binary files to allow the user to run your app.
 - The `package-repositories` section allows you to add a package repository to help you satisfy your dependencies.
 - `build-packages`/`build-snaps` defines the build dependencies for your snap.
@@ -138,6 +140,8 @@ sudo snapcraft
 ```
 
 ## Testing
+
+{/* TODO: This seems to be wrong */}
 
 ```shell
 snap run your-app

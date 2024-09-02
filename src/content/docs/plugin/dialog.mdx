@@ -9,6 +9,7 @@ tableOfContents:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="dialog" />
 
@@ -33,16 +34,18 @@ Install the dialog plugin to get started.
     <TabItem label="Manual">
         <Steps>
 
-            1.  Run `cargo add tauri-plugin-dialog` to add the plugin to the project's dependencies in `Cargo.toml`.
+            1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+                ```sh frame=none
+                cargo add tauri-plugin-dialog
+                ```
 
             2.  Modify `lib.rs` to initialize the plugin:
 
-                ```rust
-                // lib.rs
+                ```rust title="src-tauri/src/lib.rs" ins={4}
                 #[cfg_attr(mobile, tauri::mobile_entry_point)]
                 pub fn run() {
                     tauri::Builder::default()
-                        // Initialize the plugin
                         .plugin(tauri_plugin_dialog::init())
                         .run(tauri::generate_context!())
                         .expect("error while running tauri application");
@@ -93,8 +96,10 @@ See all [Dialog Options](/reference/javascript/dialog/) at the JavaScript API re
 
 Shows a question dialog with `Yes` and `No` buttons.
 
-```js
+```javascript
 import { ask } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { ask } = window.__TAURI_PLUGIN_DIALOG__;
 
 // Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
@@ -112,8 +117,10 @@ console.log(answer);
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
 
-```js
+```javascript
 import { confirm } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { confirm } = window.__TAURI_PLUGIN_DIALOG__;
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
@@ -131,8 +138,10 @@ console.log(confirmation);
 
 Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
 
-```js
+```javascript
 import { message } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { message } = window.__TAURI_PLUGIN_DIALOG__;
 
 // Shows message
 await message('File not found', { title: 'Tauri', kind: 'error' });
@@ -146,8 +155,10 @@ Open a file/directory selection dialog.
 
 The `multiple` option controls whether the dialog allows multiple selection or not, while the `directory`, whether is a directory selection or not.
 
-```js
+```javascript
 import { open } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { open } = window.__TAURI_PLUGIN_DIALOG__;
 
 // Open a dialog
 const file = await open({
@@ -155,7 +166,7 @@ const file = await open({
   directory: false,
 });
 console.log(file);
-// Prints file path and name to the console
+// Prints file path or URI
 ```
 
 {/* SAVE */}
@@ -164,8 +175,11 @@ console.log(file);
 
 Open a file/directory save dialog.
 
-```js
+```javascript
 import { save } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { save } = window.__TAURI_PLUGIN_DIALOG__;
+
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
   filters: [
@@ -293,3 +307,5 @@ app.dialog()
         // return a file_path `Option`, or `None` if the user closes the dialog
     });
 ```
+
+<PluginPermissions plugin="dialog" />

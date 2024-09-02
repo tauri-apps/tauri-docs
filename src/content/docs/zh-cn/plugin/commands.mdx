@@ -30,7 +30,7 @@ pub fn run() {
 
 现在，你可以从 JavaScript 代码中调用该命令。
 
-```js
+```javascript
 // 当使用 Tauri API 的 npm 包时
 import { invoke } from '@tauri-apps/api/core';
 
@@ -55,7 +55,7 @@ fn my_custom_command(invoke_message: String) {
 
 参数应该作为一个带有 camelCase 键的 JSON 对象传递。
 
-```js
+```javascript
 invoke('my_custom_command', { invokeMessage: 'Hello!' });
 ```
 
@@ -73,7 +73,7 @@ fn my_custom_command(invoke_message: String) {
 
 对应的 JavaScript 代码。
 
-```js
+```javascript
 invoke('my_custom_command', { invoke_message: 'Hello!' });
 ```
 
@@ -90,7 +90,7 @@ fn my_custom_command() -> String {
 
 `invoke` 函数返回一个 promise，其 resolve 接收一个返回值。
 
-```js
+```javascript
 invoke('my_custom_command').then((message) => console.log(message));
 ```
 
@@ -112,7 +112,7 @@ fn my_custom_command() -> Result<String, String> {
 
 如果命令返回错误，promise 将 reject，否则 resolve。
 
-```js
+```javascript
 invoke('my_custom_command')
   .then((message) => console.log(message))
   .catch((error) => console.error(error));
@@ -226,7 +226,7 @@ async fn my_custom_command(value: &str) -> Result<String, ()> {
 
 因为在 JavaScript 中调用这个命令会返回一个 promise，所以它的工作方式和其他命令一样。
 
-```js
+```javascript
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
   console.log('Completed!')
 );
@@ -370,7 +370,7 @@ pub fn run() {
 }
 ```
 
-```js
+```javascript
 import { invoke } from '@tauri-apps/api/core';
 
 // 从 JavaScript 调用
@@ -383,7 +383,7 @@ invoke('my_custom_command', {
   .catch((e) => console.error(e));
 ```
 
-[`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-beta/tauri/async_runtime/fn.spawn.html
+[`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0-rc/tauri/async_runtime/fn.spawn.html
 [`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
 [`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
 [`thiserror`]: https://github.com/dtolnay/thiserror

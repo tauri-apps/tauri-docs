@@ -8,8 +8,9 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="shell" />
 
@@ -43,34 +44,32 @@ Install the shell plugin to get started.
     </TabItem>
     <TabItem label = "Manual">
     	<Steps>
-    	1. Install the shell plugin by adding the following to your `Cargo.toml` file:
+          1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-    		```toml title="src-tauri/Cargo.toml"
-    		[dependencies]
-    		tauri-plugin-shell = "2.0.0-beta"
-    		# alternatively with Git:
-    		tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    		```
+              ```sh frame=none
+              cargo add tauri-plugin-shell
+              ```
 
-    	2. Modify `lib.rs` to initialize the plugin:
+          2. Modify `lib.rs` to initialize the plugin:
 
-    		```rust title="src-tauri/src/lib.rs" ins={3}
-    		fn run() {
-    				tauri::Builder::default()
-    						.plugin(tauri_plugin_shell::init())
-    						.run(tauri::generate_context!())
-    						.expect("error while running tauri application");
-    		}
-    		```
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_shell::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
 
-    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+          3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-    		<CommandTabs
-                npm = "npm install @tauri-apps/plugin-shell"
-                yarn = "yarn add @tauri-apps/plugin-shell"
-                pnpm = "pnpm add @tauri-apps/plugin-shell"
-                bun = "bun add @tauri-apps/plugin-shell"
-    		/>
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-shell"
+                  yarn = "yarn add @tauri-apps/plugin-shell"
+                  pnpm = "pnpm add @tauri-apps/plugin-shell"
+                  bun = "bun add @tauri-apps/plugin-shell"
+              />
     	</Steps>
     </TabItem>
 
@@ -83,8 +82,10 @@ The shell plugin is available in both JavaScript and Rust.
 <Tabs>
 	<TabItem label="JavaScript" >
 
-```js
+```javascript
 import { Command } from '@tauri-apps/plugin-shell';
+// when using `"withGlobalTauri": true`, you may use
+// const { Command } = window.__TAURI_PLUGIN_SHELL__;
 
 let result = await Command.create('exec-sh', [
   '-c',
@@ -121,9 +122,9 @@ if output.status.success() {
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6-23}
 {
@@ -152,13 +153,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission                | Description                                                       |
-| ------------------------- | ----------------------------------------------------------------- |
-| `shell:allow-execute`     | Enables the execute command without any pre-configured scope.     |
-| `shell:deny-execute`      | Denies the execute command without any pre-configured scope.      |
-| `shell:allow-kill`        | Enables the kill command without any pre-configured scope.        |
-| `shell:deny-kill`         | Denies the kill command without any pre-configured scope.         |
-| `shell:allow-open`        | Enables the open command without any pre-configured scope.        |
-| `shell:deny-open`         | Denies the open command without any pre-configured scope.         |
-| `shell:allow-stdin-write` | Enables the stdin_write command without any pre-configured scope. |
-| `shell:deny-stdin-write`  | Denies the stdin_write command without any pre-configured scope.  |
+<PluginPermissions plugin="shell" />

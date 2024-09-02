@@ -5,6 +5,18 @@ i18nReady: true
 
 import { LinkCard } from '@astrojs/starlight/components';
 
-<LinkCard title="所有更新" href="/feed.xml" />
-<LinkCard title="博客更新" href="/blog/rss.xml" />
-<LinkCard title="页面更新" href="/pages.xml" />
+<LinkCard
+  title="所有更新"
+  description="及时了解整个网站的任何更新。"
+  href="/feed.xml"
+/>
+<LinkCard
+  title="博客更新"
+  description="保持与最新的博客和文章同步。"
+  href="/blog/rss.xml"
+/>
+<LinkCard
+  title="页面更新"
+  description="接收主网站页面的更新。"
+  href="/pages.xml"
+/>

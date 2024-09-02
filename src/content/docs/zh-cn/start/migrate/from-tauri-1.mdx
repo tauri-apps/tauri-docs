@@ -1,6 +1,8 @@
 ---
 title: 升级自 Tauri 1.0
 i18nReady: true
+sidebar:
+  order: 15
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -13,7 +15,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 Tauri 的移动端界面要求你的项目输出链接库（shared library）。
 如果你的现有应用程序以支持移动端为目标，则必须更改你的 crate 类型，以便在生成桌面端可执行文件的同时也生成链接库。
 
-1. 修改 Cargo 配置文件以生成链接库。
+1. 添加下列配置到你的 Cargo 配置文件以生成链接库。
 
 ```toml
 // src-tauri/Cargo.toml
@@ -54,17 +56,17 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 <CommandTabs
   npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli --next
+  yarn="yarn upgrade @tauri-apps/cli@next
     yarn tauri migrate"
   pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-beta"
+  cargo='cargo install tauri-cli --version "^2.0.0-rc"
     cargo tauri migrate'
 />
 
 {/* TODO: 2.0 */}
 
-在[命令行界面参考](/reference/cli#migrate)中了解有关 `migrate` 命令的更多信息。
+在[命令行界面参考](/reference/cli/#migrate)中了解有关 `migrate` 命令的更多信息。
 
 ## 变化摘要
 
@@ -75,9 +77,10 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 - `package > productName` 和 `package > version` 被移动到顶层字段。
 - `package` 被移除。
 - `tauri` 键被重命名为 `app`。
-- `tauri > allowlist` 被移除。
+- `tauri > allowlist` 被移除，详情参考[迁移授权许可](#迁移授权许可)。
 - `tauri > allowlist > protocol > assetScope` 被移动到 `app > security > assetProtocol > scope`。
 - `tauri > cli` 被移动到 `plugins > cli`。
+- `tauri > windows > fileDropEnabled` 被重命名为 `app > windows > dragDropEnabled`。
 - `tauri > updater > active` 被移除。
 - `tauri > updater > dialog` 被移除。
 - `tauri > updater` 被移动到 `plugins > updater`。
@@ -94,7 +97,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 - `build > distDir` 被重命名为 `frontendDist`。
 - `build > devPath` 被重命名为 `devUrl`。
 
-[Tauri 2.0 配置 API 参考资料](/reference/config)
+[Tauri 2.0 配置 API 参考资料](/reference/config/)
 
 ### 全新的 Cargo 功能
 
@@ -130,8 +133,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 - `Plugin::setup_with_config` 被移除。使用更新后的 `tauri::Plugin::PluginApi` 作为替代。
 - `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` 和 `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` 被移除。通过 `scope::ipc::RemoteDomainAccessScope::add_plugin` 单独启用每个核心插件。
 - `scope::IpcScope` 被移除。使用 `scope::ipc::Scope` 作为替代。
-- `scope::IpcScope` 被移除。使用 `scope::ipc::Scope` 作为替代。
-- `scope::FsScope`、`scope::GlobPattern` 和 `scope::FsScopeEvent` 被移除。使用 `scope::fs::Scope`、`scope::fs::Pattern` 和 `scope::fs::Event` 作为替代。
+- `scope::FsScope`、`scope::GlobPattern` 和 `scope::FsScopeEvent` 被移除。分别使用 `scope::fs::Scope`、`scope::fs::Pattern` 和 `scope::fs::Event` 作为替代。
 - `updater` 模块被移除。使用 `tauri-plugin-updater` 作为替代。[迁移](#迁移到更新插件)
 - `Env.args` 字段被移除。使用 `Env.args_os` 字段作为替代。
 - `Menu`、`MenuEvent`、`CustomMenuItem`、`Submenu`、`WindowMenuEvent`、`MenuItem` 和 `Builder::on_menu_event` API 被移除。[迁移](#迁移到托盘菜单)
@@ -182,7 +184,7 @@ Tauri 命令行工具读取和写入的大部分环境变量都重新命名，�
 
 - `emit` 函数现在会向所有事件侦听器发送事件。
 - 添加一个新的 `emit_to` 函数以向特定目标触发事件。
-- `emit_filter` 现在基于 [`EventTarget`](https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html) 进行过滤，而不是基于一个视窗。
+- `emit_filter` 现在基于 [`EventTarget`](https://docs.rs/tauri/2.0.0-rc/tauri/event/enum.EventTarget.html) 进行过滤，而不是基于一个视窗。
 - 将 `listen_global` 重命名为 `listen_any`。现在，它可以监听所有事件，无论其过滤器和目标是什么。
 
 ### 多 webview 支持
@@ -210,7 +212,7 @@ Tauri v2 引入了多 webview 支持，目前处在 `unstable` feature 标识之
 
 Rust 的 `App::get_cli_matches` 和 JavaScript 的 `@tauri-apps/api/cli` API 被移除。使用 `@tauri-apps/plugin-cli` 插件作为替代：
 
-1. 添加到 Cargo 的依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -239,7 +241,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { getMatches } from '@tauri-apps/plugin-cli';
 const matches = await getMatches();
 ```
@@ -290,7 +292,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 await writeText('Tauri is awesome!');
 assert(await readText(), 'Tauri is awesome!');
@@ -319,7 +321,7 @@ tauri::Builder::default()
 
 Rust 的 `tauri::api::dialog` 和 JavaScript 的 `@tauri-apps/api/dialog` API 被移除。使用 `@tauri-apps/plugin-dialog` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -348,7 +350,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 const filePath = await save({
   filters: [
@@ -385,7 +387,7 @@ tauri::Builder::default()
 
 Rust 的 `App::get_cli_matches` 和 JavaScript 的 `@tauri-apps/api/fs` API 被移除。使用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 或 JavaScript 的 `@tauri-apps/plugin-fs` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -414,7 +416,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 ```
@@ -442,7 +444,7 @@ await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 
 Rust 的 `App::global_shortcut_manager` 和 `AppHandle::global_shortcut_manager` 以及 JavaScript 的 `@tauri-apps/api/global-shortcut` API 被移除。使用 `@tauri-apps/plugin-global-shortcut` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -472,7 +474,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { register } from '@tauri-apps/plugin-global-shortcut';
 await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');
@@ -508,7 +510,7 @@ tauri::Builder::default()
 
 Rust 的 `tauri::api::http` 和 JavaScript 的 `@tauri-apps/api/http` API 被移除。使用 `@tauri-apps/plugin-http` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -537,7 +539,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { fetch } from '@tauri-apps/plugin-http';
 const response = await fetch(
   'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
@@ -548,7 +550,7 @@ const response = await fetch(
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_dialog::reqwest;
+use tauri_plugin_http::reqwest;
 
 tauri::Builder::default()
     .plugin(tauri_plugin_http::init())
@@ -574,7 +576,7 @@ HTTP 插件重导出了 [reqwest](https://docs.rs/reqwest/latest/reqwest/)。所
 
 Rust 的 `tauri::api::notification` 和 JavaScript 的 `@tauri-apps/api/notification` API 被移除。使用 `@tauri-apps/plugin-notification` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -603,7 +605,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { sendNotification } from '@tauri-apps/plugin-notification';
 sendNotification('Tauri is awesome!');
 ```
@@ -612,7 +614,8 @@ sendNotification('Tauri is awesome!');
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_notification::{NotificationExt, PermissionState};
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
 
 fn main() {
     tauri::Builder::default()
@@ -716,7 +719,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` 现在接收一个闭包，因为菜单需要一个 `Manager` 实例来构造。参考[相关文档](https://docs.rs/tauri/2.0.0-beta/tauri/struct.Builder.html#method.menu)以获取更多信息。
+`tauri::Builder::menu` 现在接收一个闭包，因为菜单需要一个 `Manager` 实例来构造。参考[相关文档](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu)以获取更多信息。
 
 #### 菜单事件
 
@@ -758,7 +761,7 @@ tauri::Builder::default()
 
 Rust 的 `tauri::api::os` 和 JavaScript 的 `@tauri-apps/api/os` API 被移除。使用 `@tauri-apps/plugin-os` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -787,7 +790,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { arch } from '@tauri-apps/plugin-os';
 const architecture = await arch();
 ```
@@ -842,7 +845,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { exit, relaunch } from '@tauri-apps/plugin-process';
 await exit(0);
 await relaunch();
@@ -872,7 +875,7 @@ fn main() {
 
 Rust 的 `tauri::api::shell` 和 JavaScript 的 `@tauri-apps/api/shell` API 被移除。使用 `@tauri-apps/plugin-shell` 插件作为替代：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 # Cargo.toml
@@ -901,7 +904,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { Command, open } from '@tauri-apps/plugin-shell';
 const output = await Command.create('echo', 'message').execute();
 
@@ -1007,7 +1010,7 @@ Rust 的 `SystemTray` API 被重命名为 `TrayIcon` 以确保一致性。新的
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-查阅 [`TrayIconBuilder`](https://docs.rs/tauri/2.0.0-beta/tauri/tray/struct.TrayIconBuilder.html) 以获取更多信息。
+查阅 [`TrayIconBuilder`](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) 以获取更多信息。
 
 #### 迁移到托盘菜单
 
@@ -1062,7 +1065,7 @@ tauri::Builder::default()
 Rust 的 `tauri::updater` 和 JavaScript 的 `@tauri-apps/api-updater` API 被移除。
 使用 `@tauri-apps/plugin-updater` 设置一个自定义的更新器：
 
-1. 添加到 Cargo 依赖项：
+1. 添加 Cargo 依赖项：
 
 ```toml
 [dependencies]
@@ -1090,7 +1093,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 
@@ -1169,13 +1172,31 @@ tauri::Builder::default()
 
 `onMenuClicked` 函数已被移除。你可以在 JavaScript 中创建菜单时拦截菜单事件。
 
+### 迁移嵌入的附加文件 (Resources)
+
+在 JavaScript 侧，请确保[迁移到文件系统插件](#迁移到文件系统插件)。
+
+此外，请注意[迁移授权许可](#迁移授权许可)中对 v1 的授权许可列表所作的更改。
+
+在 Rust 侧，请确保[将 Path 迁移到 Tauri Manager](#迁移-path-到-tauri-manager).
+
+### 迁移嵌入的外部二进制文档 (Sidecar)
+
+在 Tauri v1 中，外部的二进制文件和其参数在许可列表中被定义。而在 v2 中，使用了新的权限系统。有关详细信息，请阅读[迁移授权许可](#迁移授权许可)。
+
+在 JavaScript 侧，请确保[迁移到 Shell 插件](#迁移到-shell-插件).
+
+在 Rust 侧，`tauri::api::process` API 已经被移除，使用 `tauri_plugin_shell::ShellExt` 和 `tauri_plugin_shell::process::CommandEvent` 作为替代。[嵌入的外部二进制文档](/develop/sidecar/#running-it-from-rust)将指导你如何迁移。
+
+在 v2 中移除了 "process-command-api" 特性。因此，运行外部的二进制文件不需要再在 Tauri 配置文件中配置。
+
 ### 迁移授权许可
 
 授权许可列表 v1 已被重写为一个全新的权限系统，可用于单个插件，并可为多窗口和远程 URL 支持进行更多配置。
-这个新系统的工作原理类似于访问控制列表（ACL），你可以允许或拒绝命令，将权限分配给一组特定的窗口和域，并定义访问范围。
+这个新系统的工作原理类似于访问控制列表（ACL），你可以允许或拒绝命令、将权限分配给一组特定的窗口和域，并定义访问范围。
 
 要为应用程序启用权限，您必须在 `src-tauri/capabilities` 文件夹内创建许可配置文件，随后 Tauri 会自动为您配置其他一切。
 
 `migrate` 命令行工具命令会自动解析你的授权许可列表 v1 并生成相关的许可配置文件。
 
-要了解有关权限和功能的更多信息，请参阅[该文档](/security/capabilities/)。
+要了解有关权限和功能的更多信息，请参阅[安全文档](/security/)。

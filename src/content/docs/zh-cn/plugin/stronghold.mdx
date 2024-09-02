@@ -33,6 +33,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     		npm="npm run tauri add stronghold"
     		yarn="yarn run tauri add stronghold"
     		pnpm="pnpm tauri add stronghold"
+    		bun="bun tauri add stronghold"
     		cargo="cargo tauri add stronghold"
     	/>
     </TabItem>
@@ -44,7 +45,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-stronghold = "2.0.0-beta"
+    		tauri-plugin-stronghold = "2.0.0-rc"
     		# 或者使用 Git：
     		tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -63,9 +64,10 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
     		<CommandTabs
-    			npm = "npm install @tauri-apps/plugin-stronghold"
-    			yarn = "yarn add @tauri-apps/plugin-stronghold"
-    			pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+    			npm="npm install @tauri-apps/plugin-stronghold"
+    			yarn="yarn add @tauri-apps/plugin-stronghold"
+    			pnpm="pnpm add @tauri-apps/plugin-stronghold"
+    			bun="bun add @tauri-apps/plugin-stronghold"
     		/>
 
     	</Steps>
@@ -132,7 +134,7 @@ pub fn run() {
 
 Stronghold 插件可以在 JavaScript 中使用。
 
-```js
+```javascript
 import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
 import { appDataDir } from '@tauri-apps/api/path';
 
@@ -190,7 +192,7 @@ await store.remove(key);
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={8-14}
 {

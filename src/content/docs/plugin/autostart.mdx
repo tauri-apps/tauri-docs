@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="autostart" />
 
@@ -44,17 +45,23 @@ Install the autostart plugin to get started.
     <TabItem label="Manual">
       <Steps>
 
-        1. Run `cargo add tauri-plugin-autostart` to add the plugin to the project's dependencies in `Cargo.toml`.
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-autostart --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
-            ```rust title="lib.rs" ins={1, 6}
-            use tauri_plugin_autostart::MacosLauncher;
-
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
             fn run() {
                 tauri::Builder::default()
-                    .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"]) /* arbitrary number of args to pass to your app */))
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_autostart::init(tauri_plugin_autostart::MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"]) /* arbitrary number of args to pass to your app */));
+                        Ok(())
+                    })
                     .run(tauri::generate_context!())
                     .expect("error while running tauri application");
             }
@@ -81,8 +88,10 @@ The autostart plugin is available in both JavaScript and Rust.
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
+// when using `"withGlobalTauri": true`, you may use
+// const { enable, isEnabled, disable } = window.__TAURI_PLUGIN_AUTOSTART__;
 
 // Enable autostart
 await enable();
@@ -127,10 +136,9 @@ fn run() {
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json"
 {
@@ -143,11 +151,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission                   | Description                                                      |
-| ---------------------------- | ---------------------------------------------------------------- |
-| `autostart:allow-disable`    | Enables the disable command without any pre-configured scope.    |
-| `autostart:deny-disable`     | Denies the disable command without any pre-configured scope.     |
-| `autostart:allow-enable`     | Enables the enable command without any pre-configured scope.     |
-| `autostart:deny-enable`      | Denies the enable command without any pre-configured scope.      |
-| `autostart:allow-is-enabled` | Enables the is_enabled command without any pre-configured scope. |
-| `autostart:deny-is-enabled`  | Denies the is_enabled command without any pre-configured scope.  |
+<PluginPermissions plugin="autostart" />

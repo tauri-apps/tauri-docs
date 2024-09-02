@@ -10,6 +10,7 @@ sidebar:
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="upload" />
 
@@ -37,29 +38,32 @@ _This plugin requires a Rust version of at least **1.75**_
 
     	<Steps>
 
-    	1. Run `cargo add tauri-plugin-upload` to add the plugin to the project's dependencies in `Cargo.toml`.
+          1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-    	2. Modify `lib.rs` to initialize the plugin:
+              ```sh frame=none
+              cargo add tauri-plugin-upload
+              ```
 
-    		```rust title="src-tauri/src/lib.rs" ins={5}
-    		#[cfg_attr(mobile, tauri::mobile_entry_point)]
-    		pb fn run() {
-    			tauri::Builder::default()
-    				// Initialize the plugin
-    				.plugin(tauri_plugin_upload::init())
-        			.run(tauri::generate_context!())
-        			.expect("error while running tauri application");
-    		}
-    		```
+          2. Modify `lib.rs` to initialize the plugin:
 
-    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pb fn run() {
+                tauri::Builder::default()
+                  .plugin(tauri_plugin_upload::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+              }
+              ```
 
-    		<CommandTabs
-                npm="npm install @tauri-apps/plugin-upload"
-                yarn="yarn add @tauri-apps/plugin-upload"
-                pnpm="pnpm add @tauri-apps/plugin-upload"
-                bun="bun add @tauri-apps/plugin-upload"
-    		/>
+          3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+              <CommandTabs
+                  npm="npm install @tauri-apps/plugin-upload"
+                  yarn="yarn add @tauri-apps/plugin-upload"
+                  pnpm="pnpm add @tauri-apps/plugin-upload"
+                  bun="bun add @tauri-apps/plugin-upload"
+              />
 
     	</Steps>
     </TabItem>
@@ -72,24 +76,32 @@ Once you've completed the registration and setup process for the plugin, you can
 
 Here's an example of how you can use the plugin to upload and download files:
 
-```js
+```javascript
 import { upload } from '@tauri-apps/plugin-upload';
+// when using `"withGlobalTauri": true`, you may use
+// const { upload } = window.__TAURI_PLUGIN_UPLOAD__;
 
 upload(
   'https://example.com/file-upload',
   './path/to/my/file.txt',
-  (progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
+  ({ progress, total }) =>
+    console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
 
-```js
+```javascript
 import { download } from '@tauri-apps/plugin-upload';
+// when using `"withGlobalTauri": true`, you may use
+// const { download } = window.__TAURI_PLUGIN_UPLOAD__;
 
 download(
   'https://example.com/file-download-link',
   './path/to/save/my/file.txt',
-  (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
+  ({ progress, total }) =>
+    console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
+
+<PluginPermissions plugin="upload" />

@@ -1,0 +1,62 @@
+name: 'Status Updater'
+
+on:
+  issues:
+  pull_request_target:
+
+jobs:
+  set_statuses:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.issue.labels.*.name, 'manual') && !contains(github.event.pull_request.labels.*.name, 'manual') }}
+    steps:
+      - name: Get project data
+        env:
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: |
+          echo "PROJECT_ID=$(gh project view 27 --owner tauri-apps --format json --jq '.id')" >> $GITHUB_ENV
+          gh project field-list 27 --owner tauri-apps --format json > project_data.json
+          echo 'STATUS_FIELD_ID='$(jq '.fields[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'BACKLOG_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="🪵 Backlog") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'READY_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="💪 Ready") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'IN_PROGRESS_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="🏗️ In progress") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'IN_REVIEW_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="📋 In review") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'DONE_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="✅ Done") | .id' project_data.json) >> $GITHUB_ENV
+
+      - name: Add project item / Get item id
+        env:
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: echo "ITEM_ID=$(gh project item-add 27 --owner tauri-apps --url https://github.com/tauri-apps/tauri-docs/issues/${{ github.event.pull_request.number || github.event.issue.number }} --format json --jq '.id')" >> $GITHUB_ENV
+
+      #===== PULL REQUESTS =====#
+      - name: Is In progress
+        if: ${{ github.event_name == 'pull_request_target' && (github.event.pull_request.draft == true || github.event.pull_request.mergeable == false) }}
+        run: echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
+
+      - name: Is In review
+        if: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.draft == false && github.event.pull_request.mergeable == true }}
+        run: echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
+      #===== END PULL REQUESTS =====#
+
+      #===== ISSUES =====#
+      - name: Is Ready
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.milestone != null) }}
+        run: echo 'STATUS_ID='${{ env.READY_STATUS_ID }} >> $GITHUB_ENV
+
+      - name: Is In progress
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.milestone != null && github.event.issue.assignees[0] != null) }}
+        run: echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
+
+      - name: Is In review
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.pull_request.merged_at != null) }}
+        run: echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
+
+      - name: Is Backlog
+        if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] == null || github.event.issue.milestone == null || contains(github.event.issue.labels.*.name, 'upstream') || contains(github.event.issue.labels.*.name, 'discuss')) }}
+        run: echo 'STATUS_ID='${{ env.BACKLOG_STATUS_ID }} >> $GITHUB_ENV
+      #===== END ISSUES =====#
+
+      - name: Set fields
+        if: ${{ github.event.issue.status == 'open' || github.event.pull_request.status == 'open' }}
+        env:
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: gh project item-edit --id ${{ env.ITEM_ID }} --project-id ${{ env.PROJECT_ID }} --field-id ${{ env.STATUS_FIELD_ID }} --single-select-option-id ${{ env.STATUS_ID }}

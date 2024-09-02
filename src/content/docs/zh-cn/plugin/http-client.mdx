@@ -4,7 +4,7 @@ description: 访问用 Rust 编写的 HTTP 客户端。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="http" />
@@ -21,9 +21,10 @@ import CommandTabs from '@components/CommandTabs.astro';
     使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add http"
-    yarn="yarn run tauri add http"
-    pnpm="pnpm tauri add http"
-    cargo="cargo tauri add http" />
+      yarn="yarn run tauri add http"
+      pnpm="pnpm tauri add http"
+      bun="bun tauri add http"
+      cargo="cargo tauri add http" />
 
     </TabItem>
     <TabItem label="手动">
@@ -50,6 +51,7 @@ import CommandTabs from '@components/CommandTabs.astro';
         npm="npm install @tauri-apps/plugin-http"
         yarn="yarn add @tauri-apps/plugin-http"
         pnpm="pnpm add @tauri-apps/plugin-http"
+        bun="bun add @tauri-apps/plugin-http"
     />
 
     </TabItem>
@@ -62,37 +64,43 @@ http 插件既有 JavaScript API 版本，也有 Rust [reqwest](https://docs.rs/
 
 ### JavaScript
 
-1. 为了保证你的应用安全，请配置允许的作用域。更多信息请参阅 [JavaScript API 参考](/reference/javascript/http/#security)。
+<Steps>
 
-```json
-//tauri.conf.json
-{
-  "plugins": {
-    "http": {
-      "scope": ["http://my.api.host/*"]
-    }
-  }
-}
-```
+1. 配置允许访问的 URL
+
+   ```json
+   //src-tauri/capabilities/base.json
+   {
+     "permissions": [
+       {
+         "identifier": "http:default",
+         "allow": [{ "url": "https://*.tauri.app" }],
+         "deny": [{ "url": "https://private.tauri.app" }]
+       }
+     ]
+   }
+   ```
+
+   更多信息，请参阅[权限概述](/security/permissions/)的文档。
 
 2. 发送请求
 
-```js
-import { fetch } from '@tauri-apps/plugin-http';
+   ```javascript
+   import { fetch } from '@tauri-apps/plugin-http';
 
-// Send a GET request
-const response = await fetch('http://my.api.host/data.json', {
-  method: 'GET',
-});
-console.log(response.status); // e.g. 200
-console.log(response.statusText); // e.g. "OK"
-```
+   // Send a GET request
+   const response = await fetch('http://my.api.host/data.json', {
+     method: 'GET',
+   });
+   console.log(response.status); // e.g. 200
+   console.log(response.statusText); // e.g. "OK"
+   ```
 
-:::note
+   :::note
+   当前的 `fetch` 方法是一个 Rust 后端 API。 它试图与 [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 尽可能接近和兼容。
+   :::
 
-当前的 `fetch` 方法是一个 Rust 后端 API。 它试图与 [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 尽可能接近和兼容。
-
-:::
+</Steps>
 
 ### Rust
 

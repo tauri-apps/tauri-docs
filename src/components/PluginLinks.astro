@@ -9,7 +9,7 @@ const { plugin, showJsLinks = true } = Astro.props;
 const github = `https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/${plugin}`;
 const npm = showJsLinks ? `https://www.npmjs.com/package/@tauri-apps/plugin-${plugin}` : undefined;
 const cratesio = `https://crates.io/crates/tauri-plugin-${plugin}`;
-const jsApi = showJsLinks ? `/reference/v2/js/${plugin}` : undefined;
+const jsApi = showJsLinks ? `/reference/javascript/${plugin}/` : undefined;
 const docsrs = `https://docs.rs/tauri-plugin-${plugin}`;
 const hasApiLinks = jsApi || docsrs;
 ---

@@ -27,7 +27,7 @@ Tauri 提供 mockIPC 函数来拦截 IPC 请求。 您可以 [在此处][<code>m
 
 :::
 
-```js
+```javascript
 import { beforeAll, expect, test } from "vitest";
 import { randomFillSync } from "crypto";
 
@@ -59,7 +59,7 @@ test("invoke simple", async () => {
 
 有时您想跟踪有关 IPC 呼叫的更多信息; 调用了多少次命令？ 它被调用了吗？ 您可以将 [`mockIPC()`][] 与其他侦测和 mocking 工具来测试这一点：
 
-```js
+```javascript
 import { beforeAll, expect, test, vi } from "vitest";
 import { randomFillSync } from "crypto";
 
@@ -97,7 +97,7 @@ test("invoke", async () => {
 
 要模拟对 sidecar 或 shell 命令的 IPC 请求，当事件 `spawn()` 或 `execute()` 被调用时获取处理程序的 ID，并使用此 ID 返回给后端：
 
-```js
+```javascript
 mockIPC(async (cmd, args) => {
   if (args.message.cmd === 'execute') {
     const eventCallbackId = `_${args.message.onEventFn}`;
@@ -131,7 +131,7 @@ mockIPC(async (cmd, args) => {
 
 :::
 
-```js
+```javascript
 import { beforeAll, expect, test } from 'vitest';
 import { randomFillSync } from 'crypto';
 

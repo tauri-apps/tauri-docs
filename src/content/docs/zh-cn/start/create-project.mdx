@@ -1,0 +1,142 @@
+---
+title: 创建项目
+sidebar:
+  order: 3
+---
+
+import { Card, Steps } from '@astrojs/starlight/components';
+
+import Cta from '@fragments/cta.mdx';
+
+Tauri 如此灵活的一点在于它能够与几乎任何前端框架配合工作。
+我们创建了 [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) 工具，帮助您使用官方维护的框架模板创建新的 Tauri 项目。
+
+`create-tauri-app` 目前包含以下模板：无框架（纯HTML、CSS and JavaScript）、[Vue.js](https://vuejs.org)、[Svelte](https://svelte.dev)、[React](https://reactjs.org/)、[SolidJS](https://www.solidjs.com/)、[Angular](https://angular.io/)、[Preact](https://preactjs.com/)、[Yew](https://yew.rs/)、[Leptos](https://github.com/leptos-rs/leptos) 和 [Sycamore](https://sycamore-rs.netlify.app/)。您还可以在[Awesome Tauri 仓库](https://github.com/tauri-apps/awesome-tauri)中找到或添加您自己的社区模板和框架。
+
+{/* TODO: redirect to integrate to existing front-end project specific docs */}
+或者，您可以[`将 Tauri 添加到现有的项目中`](#使用-tauri-cli-手动创建)以便快速地将现有代码库转换为 Tauri 应用。
+
+## 使用 `create-tauri-app`
+
+要开始使用 `create-tauri-app`，请在您希望设置项目的文件夹中运行以下其中一个命令。如果您不确定要使用哪个命令，我们建议在 Linux 和 macOS 上使用 Bash 命令，在 Windows 上使用 PowerShell 命令。
+
+<Cta />
+
+请跟随提示选择您的项目名称、前端语言、包管理器以及前端框架，还有一些前端框架选项（如果有的话）。
+
+:::tip[不确定怎么选择？]
+
+{/* TODO: redirect to integrate to existing front-end project specific docs */}
+我们建议从基础模板开始（使用HTML、CSS和JavaScript，不使用前端框架），以便快速入门。随后您可以随时[引入前端框架](/zh-cn/start/create-project/)。
+
+- 选择您的前端语言：`TypeScript / JavaScript`
+- 选择您的包管理器：`pnpm`
+- 选择您的UI模板：`Vanilla`
+- 选择您的UI风格：`TypeScript`
+
+:::
+
+{/* TODO: Can CTA offer to install the deps? */}
+
+在 `create-tauri-app` 创建完项目后，您可以进入项目文件夹，安装依赖，然后使用 [Tauri CLI](/reference/cli/) 启动开发服务器：
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+<CommandTabs
+  npm="cd tauri-app
+    npm install
+    npm run tauri dev"
+  yarn="cd tauri-app
+    yarn install
+    yarn tauri dev"
+  pnpm="cd tauri-app
+    pnpm install
+    pnpm tauri dev"
+  cargo="cd tauri-app
+    cargo tauri dev"
+/>
+
+您将会看到一个新的窗口被打开，该窗口正在运行您的应用。
+
+**恭喜您！**您已经创建了您自己的 Tauri 应用！🚀
+
+## 使用 Tauri CLI 手动创建
+
+如果您已经有现有的前端项目或者更愿意自行设置，您可以使用 Tauri CLI 单独初始化您项目的后端部分。
+
+:::note
+以下示例假设您正在创建一个新项目。如果您已经初始化了应用程序的前端部分，您可以跳过第一步。
+:::
+
+<Steps>
+
+    1. 为您的项目创建一个新的目录，并初始化前端部分。您可以使用纯 HTML、CSS 和 JavaScript，或者任何您喜欢的框架，比如 Next.js、Nuxt、Svelte、Yew 或 Leptos。您只需要一种方式在浏览器中提供应用程序。下面是一个设置简单的 Vite 应用程序的示例：
+
+        <CommandTabs
+            npm="mkdir tauri-app
+                cd tauri-app
+                npm create vite@latest ."
+            yarn="mkdir tauri-app
+                cd tauri-app
+                yarn create vite ."
+            pnpm="mkdir tauri-app
+                cd tauri-app
+                pnpm create vite ."
+        />
+
+    2. 接着，使用您选择的包管理器安装 Tauri 的 CLI 工具。如果您使用 `cargo` 来安装 Tauri CLI，您需要全局安装它。
+
+        <CommandTabs
+            npm="npm install -D @tauri-apps/cli@next"
+            yarn="yarn add -D @tauri-apps/cli@next"
+            pnpm="pnpm add -D @tauri-apps/cli@next"
+            cargo="cargo install tauri-cli@^2.0.0-rc"
+        />
+
+    3. 确定您的前端开发服务器的 URL。这个 URL 是 Tauri 用来加载您的内容的地址。例如，如果您正在使用 Vite，那么默认的 URL 是 http://localhost:5173 。
+
+    4. 在您的项目目录下初始化 Tauri：
+
+        <CommandTabs
+            npm="npx tauri init"
+            yarn="yarn tauri init"
+            pnpm="pnpm tauri init"
+            cargo="cargo tauri init"
+        />
+
+        在执行这个指令时会显示一个提示框，提示您为不同的选项输入不同的值：
+
+        ```sh frame=none
+        ✔ What is your app name? tauri-app
+        ✔ What should the window title be? tauri-app
+        ✔ Where are your web assets located? ..
+        ✔ What is the url of your dev server? http://localhost:5173
+        ✔ What is your frontend dev command? pnpm run dev
+        ✔ What is your frontend build command? pnpm run build
+        ```
+
+        这将会在您的项目中创建一个 `src-tauri` 目录，其中包含了重要的 Tauri 配置文件。
+
+    5. 通过运行开发服务器来验证您的 Tauri 应用是否正常工作：
+
+        <CommandTabs
+            npm="npx tauri dev"
+            yarn="yarn tauri dev"
+            pnpm="pnpm tauri dev"
+            cargo="cargo tauri dev"
+        />
+
+        这个指令将会编译 Rust 代码，并打开一个窗口展示您的网页内容。
+
+</Steps>
+
+**恭喜！**您已经通过 Tauri CLI 创建了一个新的 Tauri 项目！🚀
+
+## 下一步
+
+{/* TODO: Some documents need to be translated. */}
+
+- [添加和配置前端框架](/zh-cn/start/frontend/)
+- [Tauri 命令行(CLI) 参考](/reference/cli/)
+- [了解怎样构建您的 Tauri 应用](/develop/)
+- [探索扩展 Tauri 的附加功能](/plugin/)

@@ -42,10 +42,10 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
-  if (existsSync('../tauri/tooling/api/node_modules')) {
+  if (existsSync('../tauri/packages/api/node_modules')) {
     const coreJsOptions: Partial<TypeDocOptions> = {
-      entryPoints: ['../tauri/tooling/api/src/index.ts'],
-      tsconfig: '../tauri/tooling/api/tsconfig.json',
+      entryPoints: ['../tauri/packages/api/src/index.ts'],
+      tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
       publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
@@ -108,10 +108,10 @@ async function generator() {
     );
   }
 
-  if (existsSync('../tauri/tooling/api/node_modules')) {
+  if (existsSync('../tauri/packages/api/node_modules')) {
     const coreJsOptions: Partial<TypeDocOptions> = {
-      entryPoints: ['../tauri/tooling/api/src/index.ts'],
-      tsconfig: '../tauri/tooling/api/tsconfig.json',
+      entryPoints: ['../tauri/packages/api/src/index.ts'],
+      tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
       publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
@@ -158,6 +158,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
     'editUrl: false',
     'sidebar:',
     `  label: "${event.model.name.replace('@tauri-apps/plugin-', '')}"`,
+    'tableOfContents:',
+    '  maxHeadingLevel: 5',
     '---',
     '',
     event.contents,
@@ -183,7 +185,13 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 
   // Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
   override getRelativeUrl = (url: string) => {
-    url = super.getRelativeUrl(url).replaceAll('.md', '').replaceAll('.', '').toLowerCase();
+    if (/^(http|ftp)s?:\/\//.test(url)) {
+      return url;
+    }
+
+    url = decodeURI(
+      super.getRelativeUrl(url).replaceAll('.md', '/').replaceAll('.', '').toLowerCase()
+    ).replaceAll('\\', '/');
     return url;
   };
 }

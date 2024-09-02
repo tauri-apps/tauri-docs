@@ -21,9 +21,10 @@ import CommandTabs from '@components/CommandTabs.astro';
     使用项目的包管理器来添加依赖：
 
     <CommandTabs npm="npm run tauri add os"
-                    yarn="yarn run tauri add os"
-    pnpm="pnpm tauri add os"
-    cargo="cargo tauri add os" />
+        yarn="yarn run tauri add os"
+        pnpm="pnpm tauri add os"
+        bun="bun tauri add os"
+        cargo="cargo tauri add os" />
 
     </TabItem>
     <TabItem label="手动">
@@ -50,6 +51,7 @@ import CommandTabs from '@components/CommandTabs.astro';
         npm="npm install @tauri-apps/plugin-os"
         yarn="yarn add @tauri-apps/plugin-os"
         pnpm="pnpm add @tauri-apps/plugin-os"
+        bun="bun add @tauri-apps/plugin-os"
     />
 
     </TabItem>
@@ -69,7 +71,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 <Tabs>
 <TabItem label="JavaScript">
 
-```js
+```javascript
 import { platform } from '@tauri-apps/plugin-os';
 
 const currentPlatform = await platform();

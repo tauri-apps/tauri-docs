@@ -32,6 +32,7 @@ import CommandTabs from '@components/CommandTabs.astro';
   npm="npm run tauri add autostart"
   yarn="yarn run tauri add autostart"
   pnpm="pnpm tauri add autostart"
+  bun="bun tauri add autostart"
   cargo="cargo tauri add autostart"
 />
 
@@ -60,6 +61,7 @@ fn run() {
       npm="npm install @tauri-apps/plugin-autostart"
       yarn="yarn add @tauri-apps/plugin-autostart"
       pnpm="pnpm add @tauri-apps/plugin-autostart"
+      bun="bun add @tauri-apps/plugin-autostart"
   />
   </TabItem>
 </Tabs>
@@ -71,7 +73,7 @@ autostart 插件有 JavaScript 和 Rust 两种版本。
 <Tabs>
   <TabItem label="JavaScript">
 
-```js
+```javascript
 import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
 
 // 启用 autostart
@@ -120,7 +122,7 @@ fn run() {
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json"
 {

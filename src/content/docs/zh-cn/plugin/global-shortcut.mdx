@@ -34,6 +34,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
   npm="npm run tauri add global-shortcut"
   yarn="yarn run tauri add global-shortcut"
   pnpm="pnpm tauri add global-shortcut"
+  bun="bun tauri add global-shortcut"
   cargo="cargo tauri add global-shortcut"
 />
 
@@ -45,7 +46,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 ```toml title="src-tauri/Cargo.toml"
 # 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-global-shortcut = "2.0.0-beta"
+tauri-plugin-global-shortcut = "2.0.0-rc"
 # 或者使用 Git
 tauri-plugin-global-shortcut = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
@@ -64,9 +65,10 @@ fn run() {
 3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
   <CommandTabs
-    npm = "npm install @tauri-apps/plugin-global-shortcut"
-    yarn = "yarn add @tauri-apps/plugin-global-shortcut"
-    pnpm = "pnpm add @tauri-apps/plugin-global-shortcut"
+    npm="npm install @tauri-apps/plugin-global-shortcut"
+    yarn="yarn add @tauri-apps/plugin-global-shortcut"
+    pnpm="pnpm add @tauri-apps/plugin-global-shortcut"
+    bun="bun add @tauri-apps/plugin-global-shortcut"
   />
   </TabItem>
 </Tabs>
@@ -78,7 +80,7 @@ fn run() {
 <Tabs>
   <TabItem label="JavaScript" >
 
-```js
+```javascript
 import { register } from '@tauri-apps/plugin-global-shortcut';
 
 await register('CommandOrControl+Shift+C', () => {
@@ -99,7 +101,7 @@ fn run() {
 
                 let ctrl_n_shortcut = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyN);
                 app.handle().plugin(
-                    tauri_plugin_global_shortcut::Builder::with_handler(move |_app, shortcut| {
+                    tauri_plugin_global_shortcut::Builder::new().with_handler(move |_app, shortcut| {
                         println!("{:?}", shortcut);
                         if shortcut == &ctrl_n_shortcut {
                             println!("Ctrl-N Detected!");
@@ -124,7 +126,7 @@ fn run() {
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={7-9}
 {

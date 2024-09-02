@@ -1,0 +1,114 @@
+---
+title: 安卓 APK/AAB 签名
+sidebar:
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+要在 Play 商店上发布，您需要使用数字证书对应用程序进行签名。
+
+安卓使用两个签名密钥：上传和应用签名。
+
+开发者将使用上传密钥签名的 `.aab` 或 `.apk` 文件上传到Play商店。
+最终用户下载使用应用签名密钥签名的 `.apk` 文件。
+要创建您的应用签名密钥，请按照[官方 Play 商店文档](https://support.google.com/googleplay/android-developer/answer/9842756?hl=en&visit_id=638549803861403647-3347771264&rd=1)中描述的步骤来进行。
+
+请按照以下说明对您的应用进行签名。
+
+<Steps>
+1. 创建一个 `upload` 密钥库
+
+    如果您已经有一个密钥库，请跳到下一步。如果没有，请使用以下方法之一创建一个。
+
+    1.  按照 [Android Studio 密钥生成步骤](https://developer.android.com/studio/publish/app-signing#sign-apk)
+    2.  在命令行中运行如下命令：
+        在 Mac/Linux 中，执行如下命令：
+
+        ```
+        keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+        ```
+
+        在 Windows 上，执行如下命令：
+
+        ```
+        keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+        ```
+
+        这个命令将 `upload-keystore.jks` 文件存储在你的家目录中。如果你想把它存储在其他地方，可以改变传递给 `-keystore` 参数的参数值。然而，请保持 `keystore` 文件的私密性，不要将其提交到公共源代码控制！
+
+        :::note
+
+        - `keytool` 命令可能不在您的环境变量中 - 它是 Java 的一部分，作为 Android Studio 的一部分安装。例如，您可能会发现它安装在 Android Studio 附带的 JDK 中。
+
+            - Linux: `/opt/android-studio/jbr/bin/keytool`
+            - macOS: `/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool`
+            - Windows: `C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\keytool.exe`
+
+            然后使用完整的路径。如果您的路径包含以空格分隔的名称，例如 Program Files，请使用适合平台的符号表示这些名称。例如，在 Mac/Linux 上使用 `Program\ Files`，在Windows上使用 `"Program Files"`。
+
+        - `-storetype JKS` 标签仅适用于 Java 9 或更新版本。从 Java 9 版本开始，默认的密钥库类型为 PKS12。
+        :::
+
+3.  从应用程序中引用密钥库
+
+    创建一个名为 `[project]/src-tauri/gen/android/keystore.properties` 的文件，其中包含对你的密钥库的引用。
+
+    ```
+    storePassword=<password from previous step>
+    keyPassword=<password from previous step>
+    keyAlias=upload
+    storeFile=<密钥存储文件的位置，例如 /Users/<user name>/upload-keystore.jks 或 C:\\Users\\<user name>\\upload-keystore.jks>
+    ```
+
+    :::caution
+    请保持 `keystore.properties` 文件的私密性，不要将其提交到公共源代码控制中。
+    :::
+
+4.  在 Gradle 中配置签名
+
+    通过编辑 `[project]/src-tauri/gen/android/app/build.gradle.kts` 文件，配置 gradle 在发布模式下构建应用时使用您的上传密钥。
+
+    1.  在文件开头添加所需的导入。
+
+        ```kotlin
+        import java.util.Properties
+        import java.io.FileInputStream
+        ```
+
+    2.  在 `buildTypes` 代码块之前添加 `release` 签名配置。
+
+        ```kotlin {3-12}
+        signingConfigs {
+            create("release") {
+                val keystorePropertiesFile = rootProject.file("keystore.properties")
+                val keystoreProperties = Properties()
+                if (keystorePropertiesFile.exists()) {
+                    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+                }
+
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
+        }
+
+        buildTypes {
+            ...
+        }
+        ```
+
+    3.  在 `buildTypes` 块中的 `release` 配置中使用新的 `release` 签名配置。
+
+        ```kotlin {3}
+        buildTypes {
+            getByName("release") {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
+        ```
+
+</Steps>
+
+你应用的发布版本现在会自动签名。

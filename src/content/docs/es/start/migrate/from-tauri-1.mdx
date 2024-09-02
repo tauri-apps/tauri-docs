@@ -55,11 +55,11 @@ La CLI de Tauri v2 incluye un comando `migrate` que automatiza la mayor parte de
 <CommandTabs
   npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli --next
+  yarn="yarn upgrade @tauri-apps/cli@next
     yarn tauri migrate"
   pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-beta"
+  cargo='cargo install tauri-cli --version "^2.0.0-rc"
     cargo tauri migrate'
 />
 
@@ -183,7 +183,7 @@ El sistema de eventos fue rediseñado para ser más fácil de usar. En lugar de 
 
 - La función `emit` ahora emite el evento a todos los escuchadores de eventos.
 - Se agregó una nueva función `emit_to` para desencadenar un evento a un objetivo específico.
-- `emit_filter` ahora filtra en función de [`EventTarget`](https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html) en lugar de una ventana.
+- `emit_filter` ahora filtra en función de [`EventTarget`](https://docs.rs/tauri/2.0.0-rc/tauri/event/enum.EventTarget.html) en lugar de una ventana.
 - Se renombró `listen_global` a `listen_any`. Ahora escucha todos los eventos independientemente de sus filtros y objetivos.
 
 ### Soporte Multiwebview
@@ -240,7 +240,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { getMatches } from '@tauri-apps/plugin-cli';
 const matches = await getMatches();
 ```
@@ -291,7 +291,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 await writeText('Tauri is awesome!');
 assert(await readText(), 'Tauri is awesome!');
@@ -349,7 +349,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 const filePath = await save({
   filters: [
@@ -415,7 +415,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 ```
@@ -473,7 +473,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { register } from '@tauri-apps/plugin-global-shortcut';
 await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');
@@ -538,7 +538,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { fetch } from '@tauri-apps/plugin-http';
 const response = await fetch(
   'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
@@ -549,7 +549,7 @@ const response = await fetch(
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_dialog::reqwest;
+use tauri_plugin_http::reqwest;
 
 tauri::Builder::default()
     .plugin(tauri_plugin_http::init())
@@ -604,7 +604,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { sendNotification } from '@tauri-apps/plugin-notification';
 sendNotification('Tauri is awesome!');
 ```
@@ -613,7 +613,8 @@ sendNotification('Tauri is awesome!');
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_notification::{NotificationExt, PermissionState};
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
 
 fn main() {
     tauri::Builder::default()
@@ -714,7 +715,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` ahora toma un cierre porque el menú necesita una instancia de Manager para ser construido. Consulta [la documentación](https://docs.rs/tauri/2.0.0-beta/tauri/struct.Builder.html#method.menu) para obtener más información.
+`tauri::Builder::menu` ahora toma un cierre porque el menú necesita una instancia de Manager para ser construido. Consulta [la documentación](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu) para obtener más información.
 
 #### Eventos de Menú
 
@@ -782,7 +783,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { arch } from '@tauri-apps/plugin-os';
 const architecture = await arch();
 ```
@@ -837,7 +838,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { exit, relaunch } from '@tauri-apps/plugin-process';
 await exit(0);
 await relaunch();
@@ -896,7 +897,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { Command, open } from '@tauri-apps/plugin-shell';
 const output = await Command.create('echo', 'message').execute();
 
@@ -1002,7 +1003,7 @@ Utiliza `tauri::tray::TrayIconBuilder` en lugar de `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("mi-bandeja").build(app)?;
 ```
 
-Consulta [TrayIconBuilder](https://docs.rs/tauri/2.0.0-beta/tauri/tray/struct.TrayIconBuilder.html) para más información.
+Consulta [TrayIconBuilder](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) para más información.
 
 #### Migrar a Menú
 
@@ -1079,7 +1080,7 @@ fn main() {
 }
 ```
 
-```js
+```javascript
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 

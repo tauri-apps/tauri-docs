@@ -35,6 +35,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
   npm="npm run tauri add log"
   yarn="yarn run tauri add log"
   pnpm="pnpm tauri add log"
+  bun="bun tauri add log"
   cargo="cargo tauri add log"
 />
 
@@ -45,7 +46,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
-tauri-plugin-log = "2.0.0-beta"
+tauri-plugin-log = "2.0.0-rc"
 # 或者使用 Git：
 tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
@@ -68,6 +69,7 @@ fn run() {
     npm = "npm install @tauri-apps/plugin-log"
     yarn = "yarn add @tauri-apps/plugin-log"
     pnpm = "pnpm add @tauri-apps/plugin-log"
+    bun="bun add @tauri-apps/plugin-log"
   />
   </TabItem>
 </Tabs>
@@ -98,7 +100,7 @@ pub fn run() {
 
 2. 然后，插件的所有 api 都可以通过 JavaScript 的 guest 绑定使用：
 
-```js
+```javascript
 import { trace, info, error, attachConsole } from '@tauri-apps/plugin-log';
 
 // 启用 TargetKind::Webview 后，这个函数将把日志打印到浏览器控制台
@@ -116,7 +118,7 @@ detach();
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {

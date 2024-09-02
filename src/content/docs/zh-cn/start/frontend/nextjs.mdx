@@ -14,22 +14,11 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
 ## 检查清单
 
 - 通过设置 `output: 'export'` 来使用静态导出。Tauri 不支持基于服务器的解决方案。
-- 使用 `internal-ip` 以实现移动设备兼容性，这样您就可以配置 `assetPrefix`。这是必需的，以便服务器正确解析资源。
 - 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `out/`。
 
 ## 示例配置
 
 <Steps>
-
-1.  ##### 安装 `internal-ip` 版本 7 以进行移动端开发。
-
-    版本 8.0.0 **无法**运作！
-
-    <CommandTabs
-      npm="npm install --save-dev internal-ip@7.0.0"
-      yarn="yarn add -D internal-ip@7.0.0"
-      pnpm="pnpm add -D internal-ip@7.0.0"
-    />
 
 1.  ##### 更新 Tauri 配置
 
@@ -58,7 +47,7 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
     {
       "build": {
         "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn generate",
+        "beforeBuildCommand": "yarn build",
         "devUrl": "http://localhost:3000",
         "frontendDist": "../dist"
       }
@@ -74,7 +63,7 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
     {
       "build": {
         "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm generate",
+        "beforeBuildCommand": "pnpm build",
         "devUrl": "http://localhost:3000",
         "frontendDist": "../dist"
       }
@@ -85,20 +74,15 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
 
     </Tabs>
 
-1.  ##### 更新 Next.js 配置
+2.  ##### 更新 Next.js 配置
 
     ```ts
     // next.conf.mjs
-    /** @type {import('next').NextConfig} */
     const isProd = process.env.NODE_ENV === 'production';
 
-    let internalHost = null;
+    const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
 
-    if (!isProd) {
-      const { internalIpV4 } = await import('internal-ip');
-      internalHost = await internalIpV4();
-    }
-
+    /** @type {import('next').NextConfig} */
     const nextConfig = {
       // 确保 Next.js 使用 SSG 而不是 SSR
       // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
@@ -115,7 +99,7 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
     export default nextConfig;
     ```
 
-1.  ##### 更新 package.json 配置
+3.  ##### 更新 package.json 配置
 
         ```json
         "scripts": {

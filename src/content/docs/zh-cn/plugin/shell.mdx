@@ -33,6 +33,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     		npm="npm run tauri add shell"
     		yarn="yarn run tauri add shell"
     		pnpm="pnpm tauri add shell"
+    		bun="bun tauri add shell"
     		cargo="cargo tauri add shell"
     	/>
     </TabItem>
@@ -42,7 +43,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-shell = "2.0.0-beta"
+    		tauri-plugin-shell = "2.0.0-rc"
     		# 或者使用 Git：
     		tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -64,6 +65,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
     			npm = "npm install @tauri-apps/plugin-shell"
     			yarn = "yarn add @tauri-apps/plugin-shell"
     			pnpm = "pnpm add @tauri-apps/plugin-shell"
+    			bun="bun add @tauri-apps/plugin-shell"
     		/>
     	</Steps>
     </TabItem>
@@ -77,7 +79,7 @@ Shell 插件有 JavaScript 和 Rust 两种版本。
 <Tabs>
 	<TabItem label="JavaScript" >
 
-```js
+```javascript
 import { Command } from '@tauri-apps/plugin-shell';
 
 let result = await Command.create('exec-sh', [
@@ -117,7 +119,7 @@ if output.status.success() {
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={6-23}
 {
