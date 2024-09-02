@@ -250,15 +250,11 @@ class ExamplePlugin: Plugin {
 
 Tauri 自动为插件实现了两个命令：`checkPermissions` 和 `requestPermissions`。这些命令可以从 JavaScript 或 Rust 中直接调用。
 
-{/* TODO: PermissionState type should be exported in Tauri */}
-
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/tauri'
-
-type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+import { invoke, PermissionState } from '@tauri-apps/api/core'
 
 interface Permissions {
   postNotification: PermissionState
@@ -282,7 +278,7 @@ if (permission.postNotification.startsWith('prompt')) {
 
 ```rust
 use serde::{Serialize, Deserialize};
-use tauri::Runtime;
+use tauri::{plugin::PermissionState, Runtime};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
