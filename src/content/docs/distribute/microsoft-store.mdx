@@ -91,11 +91,13 @@ Since the publisher name cannot match the product name, the following configurat
 
 In this case you can define the [publisher] value separately to fix this conflict:
 
-```json title=tauri.conf.json ins={4}
+```json title=tauri.conf.json ins={4-6}
 {
   "productName": "Example",
   "identifier": "com.example.app",
-  "publisher": "Example Inc."
+  "bundle": {
+    "publisher": "Example Inc."    
+  }
 }
 ```
 
