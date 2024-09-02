@@ -56,7 +56,7 @@ Install the barcode-scanner plugin to get started.
 
           ```rust title="src-tauri/src/lib.rs" ins={5-6}
           #[cfg_attr(mobile, tauri::mobile_entry_point)]
-          fn run() {
+          pub fn run() {
               tauri::Builder::default()
                   .setup(|app| {
                       #[cfg(mobile)]
