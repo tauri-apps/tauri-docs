@@ -8,7 +8,7 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
@@ -52,36 +52,35 @@ If you only intend on moving the window from Rust code, you only need the depend
     </TabItem>
     <TabItem label = "Manual">
     	<Steps>
-    	1. Install the positioner plugin by adding the following to your `Cargo.toml` file:
+    			1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-    		```toml title="src-tauri/Cargo.toml"
-    		[dependencies]
-    		tauri-plugin-positioner = "2.0.0-rc"
-    		# alternatively with Git:
-    		tauri-plugin-positioner = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    		```
+    				```sh frame=none
+    				cargo add tauri-plugin-positioner
+    				```
 
-    	2. Modify `lib.rs` to initialize the plugin:
+    			2. Modify `lib.rs` to initialize the plugin:
 
-    		```rust title="src-tauri/src/lib.rs" ins={3}
-    		fn run() {
-    		    tauri::Builder::default()
-    		        .plugin(tauri_plugin_positioner::init())
-    		        .run(tauri::generate_context!())
-    		        .expect("error while running tauri application");
-    		}
-    		```
+    				```rust title="src-tauri/src/lib.rs" ins={4}
+    				#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    				pub fn run() {
+    						tauri::Builder::default()
+    								.plugin(tauri_plugin_positioner::init())
+    								.run(tauri::generate_context!())
+    								.expect("error while running tauri application");
+    				}
+    				```
 
-    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    			3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-  			<CommandTabs
-              npm = "npm install @tauri-apps/plugin-positioner"
-              yarn = "yarn add @tauri-apps/plugin-positioner"
-              pnpm = "pnpm add @tauri-apps/plugin-positioner"
-              bun = "bun add @tauri-apps/plugin-positioner"
-            />
-		</Steps>
-	</TabItem>
+    				<CommandTabs
+    							npm = "npm install @tauri-apps/plugin-positioner"
+    							yarn = "yarn add @tauri-apps/plugin-positioner"
+    							pnpm = "pnpm add @tauri-apps/plugin-positioner"
+    							bun = "bun add @tauri-apps/plugin-positioner"
+    						/>
+    	</Steps>
+    </TabItem>
+
 </Tabs>
 
 Additional setup is required to get tray-relative positions to work.
@@ -95,7 +94,7 @@ Additional setup is required to get tray-relative positions to work.
 
     2. Setup `on_tray_event` for positioner plugin:
     	```rust title="src-tauri/src/lib.rs" ins={4-12}
-    	fn run() {
+    	pub fn run() {
     		tauri::Builder::default()
     			.plugin(tauri_plugin_positioner::init())
     			// This is required to get tray-relative positions to work

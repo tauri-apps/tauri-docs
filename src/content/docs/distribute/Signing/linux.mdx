@@ -1,0 +1,58 @@
+---
+title: Linux Code Signing
+sidebar:
+  label: Linux
+  order: 3
+---
+
+This guide provides information on code signing for Linux packages.
+While artifact signing is not required for your application to be deployed on Linux,
+it can be used to increase trust into your deployed application.
+Signing the binaries allows your end user to verify that these are genuine and have not been modified by another untrusted entity.
+
+## Signing for AppImages
+
+The AppImage can be signed using either gpg or gpg2.
+
+### Prerequisites
+
+A key for signing must be prepared. A new one can be generated using:
+
+```shell
+gpg2 --full-gen-key
+```
+
+Please refer to the gpg or gpg2 documentation for additional information.
+You should take additional care to back up your private and public keys in a secure location.
+
+### Signing
+
+You can embed a signature in the AppImage by setting the following environment variables:
+
+- **SIGN**: set to `1` to sign the AppImage.
+- **SIGN_KEY**: optional variable to use a specific GPG Key ID for signing.
+- **APPIMAGETOOL_SIGN_PASSPHRASE**: the signing key password. If unset, gpg shows a dialog so you can input it. You must set this when building in CI/CD platforms.
+- **APPIMAGETOOL_FORCE_SIGN**: by default the AppImage is generated even if signing fails. To exit on errors, you can set this variable to `1`.
+
+You can display the signature embedded in the AppImage by running the following command:
+
+```shell
+./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
+```
+
+Note that you need to change the $APPNAME and $VERSION values with the correct ones based on your configuration.
+
+:::caution
+
+**The signature is not verified**
+
+AppImage does not validate the signature, so you can't rely on it to check whether the file has been tampered with or not.
+To validate the signature, you must provide an external tool for your users.
+This requires you to publish your public key on an authenticated channel (e.g. your website served via TLS),
+so the end user can download and verify.
+
+See [the official AppImage documentation] for additional information.
+
+:::
+
+[the official appimage documentation]: https://docs.appimage.org/packaging-guide/optional/signatures.html

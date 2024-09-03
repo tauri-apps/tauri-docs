@@ -39,15 +39,23 @@ Install the Tauri updater plugin to get started.
     <TabItem label="Manual">
       <Steps>
 
-        1. Run `cargo add tauri-plugin-updater` to add the plugin to the project's dependencies in `Cargo.toml`.
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-updater --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
-            ```rust title="lib.rs" ins={4}
+            ```rust title="lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
-                    .plugin(tauri_plugin_updater::Builder::new().build())
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                        Ok(())
+                    })
                     .run(tauri::generate_context!())
                     .expect("error while running tauri application");
             }
@@ -73,7 +81,7 @@ Tauri's updater needs a signature to verify that the update is from a trusted so
 
 To sign your updates you need two keys:
 
-1. The public key, which will be set in the `tauri.config.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
+1. The public key, which will be set in the `tauri.conf.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
 2. The private key, which is used to sign your installer files. You should NEVER share this key with anyone. Also, if you lose this key you will NOT be able to publish new updates to the users that have the app already installed. It is important to store this key in a safe place!
 
 To generate the keys the Tauri CLI provides the `signer generate` command. You can run this to create the keys in the home folder:
@@ -183,7 +191,7 @@ On Windows, Tauri will create .zip archives from the MSI and NSIS installers ins
 
 ## Tauri Configuration
 
-Set up the `tauri.config.json` in this format for the updater to start working.
+Set up the `tauri.conf.json` in this format for the updater to start working.
 
 | Keys                     | Description                                                                                                                                                                                                                                                                                    |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -374,7 +382,7 @@ For more information see the [JavaScript API documentation].
 ```rust title="src-tauri/src/lib.rs"
 use tauri_plugin_updater::UpdaterExt;
 
-fn run() {
+pub fn run() {
   tauri::Builder::default()
     .setup(|app| {
       let handle = app.handle().clone();

@@ -21,8 +21,7 @@ The default plugin template splits the plugin's implementation into two separate
 
 The desktop implementation uses Rust code to implement a functionality, while the mobile implementation sends a message to the native mobile code to execute a function and get a result back. If shared logic is needed across both implementations, it can be defined in `lib.rs`:
 
-```rust
-// lib.rs
+```rust title="src/lib.rs"
 use tauri::Runtime;
 
 impl<R: Runtime> <plugin-name><R> {
@@ -336,17 +335,14 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`. Those commands can be directly called from JavaScript or Rust:
-
-{/* TODO: PermissionState type should be exported in Tauri */}
+Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`.
+Those commands can be directly called from JavaScript or Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/tauri'
-
-type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+import { invoke, PermissionState } from '@tauri-apps/api/core'
 
 interface Permissions {
   postNotification: PermissionState
@@ -370,7 +366,7 @@ if (permission.postNotification.startsWith('prompt')) {
 
 ```rust
 use serde::{Serialize, Deserialize};
-use tauri::Runtime;
+use tauri::{plugin::PermissionState, Runtime};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -459,7 +455,7 @@ class ExamplePlugin: Plugin {
 The helper functions can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
 
 ```javascript
-import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
 
 export async function onRequest(
 	handler: (url: string) => void

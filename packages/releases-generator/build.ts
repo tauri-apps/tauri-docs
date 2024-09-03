@@ -6,27 +6,27 @@ const note =
 const packages = [
   {
     name: 'tauri',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: '@tauri-apps/api',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/packages/api/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'tauri-cli',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-cli/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: '@tauri-apps/cli',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/node/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/packages/cli/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'tauri-bundler',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-bundler/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {

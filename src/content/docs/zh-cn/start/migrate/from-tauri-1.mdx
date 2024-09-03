@@ -66,7 +66,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 
 {/* TODO: 2.0 */}
 
-在[命令行界面参考](/reference/cli#migrate)中了解有关 `migrate` 命令的更多信息。
+在[命令行界面参考](/reference/cli/#migrate)中了解有关 `migrate` 命令的更多信息。
 
 ## 变化摘要
 
@@ -97,7 +97,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 - `build > distDir` 被重命名为 `frontendDist`。
 - `build > devPath` 被重命名为 `devUrl`。
 
-[Tauri 2.0 配置 API 参考资料](/reference/config)
+[Tauri 2.0 配置 API 参考资料](/reference/config/)
 
 ### 全新的 Cargo 功能
 
@@ -614,7 +614,8 @@ sendNotification('Tauri is awesome!');
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_notification::{NotificationExt, PermissionState};
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
 
 fn main() {
     tauri::Builder::default()
