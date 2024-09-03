@@ -80,7 +80,7 @@ openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
 
 - APPLE_API_ISSUER、APPLE_API_KEY 和 APPLE_API_KEY_PATH：使用 App Store Connect API 密钥进行身份验证
 
-  打开 [App Store Connect 用户和访问页面]，选择 Keys 选项卡，单击 Add 按钮并选择名称和开发者权限。
+  打开 [App Store Connect 用户和访问页面]，选择 Integrations 选项卡，单击 Add 按钮并选择名称和开发者权限。
   在 keys 表中可以看到 APPLE_API_ISSUER （颁发者 ID），而 APPLE_API_KEY 是该表中 Key ID 列的值。
   你还需要下载私钥，它只能下载一次，并且只有在页面重新加载后才可见（该按钮显示在新创建密钥的表格行上）。
   私钥文件路径必须通过 APPLE_API_KEY_PATH 环境变量设置。
