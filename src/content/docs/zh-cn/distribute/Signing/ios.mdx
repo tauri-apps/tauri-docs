@@ -23,7 +23,7 @@ sidebar:
 要注册您的帐户，请打开 Xcode 应用程序，然后在 `Xcode > Settings` 菜单中打开设置页面，切换到账户选项卡，并点击 `+` 图标。
 
 要使用 CI/CD 平台上的自动签名功能，您必须创建一个 App Store Connect API 密钥，并定义 `APPLE_API_ISSUER`、`APPLE_API_KEY` 和 `APPLE_API_KEY_PATH` 环境变量。
-打开 [App Store Connect 用户和访问页面]，选择 Keys 选项卡，单击 Add 按钮并选择名称和开发者访问权限。
+打开 [App Store Connect 用户和访问页面]，选择 Integrations 选项卡，单击 Add 按钮并选择名称和管理员访问权限。
 `APPLE_API_ISSUER`（颁发者 ID）显示在 keys 表的上方，而 `APPLE_API_KEY` 是该表的 Key ID 列的值。
 你还需要下载私钥，它只能下载一次，并且只有在页面重新加载后才可见(该按钮显示在新创建密钥的表格行上)。
 私钥文件路径必须通过 `APPLE_API_KEY_PATH` 环境变量设置。
