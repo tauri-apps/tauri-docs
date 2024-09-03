@@ -28,10 +28,10 @@ gpg2 --full-gen-key
 
 可以通过设置以下环境变量在 AppImage 中嵌入签名：
 
-- **SIGN**: 设置为 `1` 为 AppImage 签名。
-- **SIGN_KEY**: 可选变量，用于使用特定的 GPG 密钥 ID 进行签名。
-- **APPIMAGETOOL_SIGN_PASSPHRASE**: 签名密钥密码。如果未设置，gpg 将显示一个对话框，以便您可以输入它。在构建 CI/CD 平台时必须设置此参数。
-- **APPIMAGETOOL_FORCE_SIGN**: 默认情况下，即使签名失败，也会生成 AppImage。要在发生错误时退出，你可以将此变量设置为 `1`。
+- **SIGN**：设置为 `1` 为 AppImage 签名。
+- **SIGN_KEY**：可选变量，用于使用特定的 GPG 密钥 ID 进行签名。
+- **APPIMAGETOOL_SIGN_PASSPHRASE**：签名密钥密码。如果未设置，gpg 将显示一个对话框，以便您可以输入它。在构建 CI/CD 平台时必须设置此参数。
+- **APPIMAGETOOL_FORCE_SIGN**：默认情况下，即使签名失败，也会生成 AppImage。要在发生错误时退出，你可以将此变量设置为 `1`。
 
 可以通过运行以下命令显示 AppImage 中嵌入的签名。
 
