@@ -1,0 +1,284 @@
+---
+title: Windows 代码签名
+sidebar:
+  label: Windows
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+在 Windows 上，代码签名是必需的，以允许您的应用程序出现在 [Microsoft Store] 中，并防止从浏览器下载应用程序时出现 [SmartScreen] 警告，即您的应用程序不受信任且无法启动。
+
+只要你的终端用户可以忽略 [SmartScreen] 警告，或者你的用户不通过浏览器下载，则不需要在 Windows 上不需要执行你的应用程序。
+本指南涵盖了通过 OV（组织验证）证书和 Azure 密钥库进行签名。
+如果您使用本文未介绍的任何其他签名机制，例如 EV （Extended Validation，扩展验证）证书，
+查看您的证书颁发者文档并参考[自定义签名命令](#自定义签名命令)一节。
+
+## OV 证书
+
+:::danger
+本指南仅适用于 2023 年 6 月 1 日前获得的 OV 代码签名证书!对于在该日期之后收到的 EV 证书和 OV 证书的代码签名，请查阅证书颁发机构的文档。
+:::
+
+:::note
+如果您使用 EV 证书为应用程序签名，它将立即获得微软 SmartScreen 的认可，并且不会向用户显示任何警告。
+
+如果你选择 OV 证书，这种证书通常更便宜，而且个人可以获得，微软 SmartScreen 仍然会在用户下载应用程序时向他们显示警告。
+你的证书可能需要一段时间才能建立足够的认可。您可以选择[提交您的应用程序]到 Microsoft 进行手动审查。
+虽然不能保证，但如果应用程序不包含任何恶意代码，微软可能会授予额外的认可，并可能删除该特定上传文件的警告。
+
+查看[对比](https://www.digicert.com/difference-between-dv-ov-and-ev-ssl-certificates)了解更多关于 OV 和 EV 证书的信息。
+:::
+
+### 前置条件
+
+- Windows - 你也可以使用其他平台，但本教程使用 Powershell 的原生功能。
+- 一个工作的 Tauri 应用程序
+- 代码签名证书 - 代码签名证书——你可以在 [Microsoft 文档]中列出的服务中获取。对于非 EV 证书，可能还有其他的权威机构，请您自己比较并选择一个，风险自负。
+  - 请确保获取**代码签名**证书，SSL 证书不起作用!
+
+### 开始
+
+要让 Windows 为代码签名做好准备，我们必须做几件事。这包括将我们的证书转换为特定的格式，安装此证书，以及从证书中解码所需的信息。
+
+<Steps>
+
+1. #### 将 `.cer` 转换为 `.pfx`
+
+   - 你将需要以下内容：
+
+     - 证书文件 (我是 `cert.cer`)
+     - 私钥文件 (我是 `private-key.key`)
+
+   - 打开一个命令提示符，使用 `cd Documents/Certs` 切换到当前目录
+
+   - 使用 `openssl pkcs12 -export -in cert.cer -inkey private-key.key -out certificate.pfx` 将您的 `.cer` 文件转换为 `.pfx` 文件
+
+   - 你应该被提示输入导出密码**别忘了!**
+
+2. #### 将你的 `.pfx` 文件导入密钥库。
+
+   - 我们现在需要导入我们的 `.pfx` 文件。
+
+   - 使用 `$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'` 将您的导出密码分配到一个变量
+
+   - 现在使用 `Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $WINDOWS_PFX_PASSWORD -Force -AsPlainText)` 导入证书。
+
+3. #### 准备变量
+
+   - 开始 ➡️ 打开 `certmgr.msc` 以打开个人证书管理，然后打开"个人/证书"。
+
+   - 找到刚导入的证书，双击它，然后点击 Details 选项卡。
+
+   - 签名哈希算法将是我们的 `digestAlgorithm`。(提示：这很可能是 `sha256`)
+
+   - 向下滚动到拇指指纹。应该有一个类似于 `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`的值。这是我们的 `certificateThumbprint`。
+
+   - 我们还需要一个时间戳 URL；这是一个时间服务器，用于验证证书签名的时间。我使用的是 `http://timestamp.comodoca.com`，但是无论你从谁那里获得证书，他可能也有一个。
+
+</Steps>
+
+### 准备 `tauri.conf.json` 文件
+
+1. 现在我们有了 `certificateThumbprint`、`digestAlgorithm` 和 `timestampUrl`，我们将打开 `tauri.conf.json` 文件。
+
+2. 在 `tauri.conf.json` 文件中，你需要找到 `tauri` -> `bundle` -> `windows` 部分。我们已经获取了三个变量的信息。请按照下面的示例填写它们。
+
+```json tauri.conf.json
+"windows": {
+        "certificateThumbprint": "A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0",
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "http://timestamp.comodoca.com"
+}
+```
+
+3. 保存并运行 `tauri build`
+
+4. 在控制台输出中，你应该看到如下输出。
+
+```
+info: signing app
+info: running signtool "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.19041.0\\x64\\signtool.exe"
+info: "Done Adding Additional Store\r\nSuccessfully signed: APPLICATION FILE PATH HERE
+```
+
+这表明你已经成功地对 `.exe` 进行了签名。
+
+就是这样!您已经成功设置了用于 Windows 签名的 Tauri 应用程序。
+
+### 使用 GitHub Actions 为你的应用签名。
+
+我们还可以创建一个工作流，使用 GitHub Actions 对应用程序进行签名。
+
+#### GitHub 密钥
+
+我们需要添加一些 GitHub 密钥来正确配置 GitHub Action。你可以随意命名它们。
+
+- 你可以查看 [encrypted secrets] 指南，了解如何添加 GitHub 密钥。
+
+我们使用的密钥如下。
+
+|         GitHub 密钥          |                                                 变量值                                                  |
+| :--------------------------: | :-----------------------------------------------------------------------------------------------------: |
+|     WINDOWS_CERTIFICATE      | 将您的 .pfx 证书进行 Base64 编码，可以使用 `certutil -encode certificate.pfx base64cert.txt` 命令完成。 |
+| WINDOWS_CERTIFICATE_PASSWORD |                                 在创建 .pfx 证书时使用的证书导出密码。                                  |
+
+#### 工作流的修改
+
+1. 我们需要在工作流中添加一个步骤来将证书导入 Windows 环境。该工作流完成以下工作。
+
+   1. 将 GitHub 密钥分配给环境变量
+   2. 创建一个新的 `certificate` 目录
+   3. 将 `WINDOWS_CERTIFICATE` 导入到 tempCert.txt 文件中
+   4. 使用 `certutil` 将 tempCert.txt 从 base64 解码为 `.pfx` 文件。
+   5. 移除 tempCert.txt 文件
+   6. 将 `.pfx` 文件导入到 Windows 的证书存储中，并将 `WINDOWS_CERTIFICATE_PASSWORD` 转换为安全字符串，以便在导入命令中使用。
+
+2. 我们将使用 [`tauri-action` 发布模板]。
+
+```yml
+name: 'publish'
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+      - name: install app dependencies and build it
+        run: yarn && yarn build
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # 这个操作会自动将 \_\_VERSION\_\_ 替换为应用的版本号
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+```
+
+3. 就在上面 `-name: install app dependencies and build it` 你需要添加以下步骤
+
+```yml
+- name: import windows certificate
+  if: matrix.platform == 'windows-latest'
+  env:
+    WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+    WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+  run: |
+    New-Item -ItemType directory -Path certificate
+    Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+    certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+    Remove-Item -path certificate -include tempCert.txt
+    Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+```
+
+4. 保存并推送到仓库。
+
+5. 您的工作流现在可以导入您的 Windows 证书并将其导入 GitHub Actions 程序，从而实现自动代码签名！
+
+## Azure Key Vault
+
+你可以通过提供 Azure Key Vault 的证书和凭据对 Windows 可执行文件进行签名。
+
+:::note
+本指南使用 [relic]，因为它支持基于秘密的身份验证，如果你喜欢，你可以配置其他工具。
+要下载 relic，请查看它的[发布页面][relic releases page]或运行 `go install github.com/sassoftware/relic/v8@latest`。
+:::
+
+1. Key Vault
+
+在 [Azure 门户]中，点击 “create” 按钮，导航到 [Key vaults 服务]来创建一个新的密钥库。
+记住“密钥库名称”，因为你将需要这些信息来配置证书 URL。
+
+2. 证书
+
+创建密钥库后，选择它并转到 “Objects > Certificates” 页面创建新证书，并单击 “Generate/Import” 按钮。
+记住“证书名称”，因为你需要这些信息来配置证书的 URL。
+
+3. Tauri 配置
+
+[relic] 使用配置文件来确定应该使用哪个签名密钥。对于 Azure Key Vault，你还需要证书 URL。
+在 `src-tauri` 文件夹中创建一个 `relic.conf` 文件，并配置 relic 以使用你的证书:
+
+```yml title=src-tauri/relic.conf
+tokens:
+  azure:
+    type: azure
+
+keys:
+  azure:
+    token: azure
+    id: https://\<KEY_VAULT_NAME\>.vault.azure.net/certificates/\<CERTIFICATE_NAME\>
+```
+
+注意，你必须将 \<KEY_VAULT_NAME\> 和 \<CERTIFICATE_NAME\> 替换为前面步骤中的适当名称。
+
+要配置 Tauri 使用 Azure Key Vault 配置进行签名，请更改 [bundle > windows > signCommand] 配置值：
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "windows": {
+      "signCommand": "relic sign --file %1 --key azure --config relic.conf"
+    }
+  }
+}
+```
+
+4. 凭证
+
+[relic] 必须通过 Azure 进行身份验证才能加载证书。
+在 Azure portal 的登录页面中，转到 “Microsoft Entra ID” 服务，并转到 “Manage > App registrations” 页面。
+点击 “New registration” 创建新应用。创建应用后，您将重定向到应用详情页面，在那里您可以看到“应用（客户端）ID” 和“目录（租户）ID” 值。
+将这些 ID 分别设置为 `AZURE_VAULT_ID` 和 `AZURE_TENANT_ID` 环境变量。
+
+在 “Manage > Certificates & secrets” 页面单击 “New client secret” 按钮，并将 “Value” 列中的文本设置为 “AZURE_CLIENT_SECRET” 环境变量的值。
+
+设置好所有凭据后，回到您的密钥库页面并导航到“访问控制（IAM）”页面。
+您必须为新创建的应用程序分配 “Key Vault Certificate User” 和 “Key Vault Crypto User” 角色。
+
+设置好所有这些变量后，运行 `tauri build` 将生成签名的Windows安装程序！
+
+## 自定义签名命令
+
+在上面的 [Azure Key Vault](#azure-key-vault)文档中，我们使用了一个强大的 Tauri Windows 签名配置来强制 Tauri CLI 使用特殊的 shell 命令来签署 Windows 安装程序可执行文件。
+[bundle > windows > signCommand] 配置选项可以用于使用任何能够签署 Windows 可执行文件的代码签名工具。
+
+:::tip
+在交叉编译 Linux 和 macOS 机器上的 Windows 安装程序时，你**必须**使用自定义的 sign 命令，因为默认实现只能在 Windows 机器上工作。
+:::
+
+[Azure 门户]: https://portal.azure.com
+[Key vaults service]: https://portal.azure.com/#browse/Microsoft.KeyVault%2Fvaults
+[Microsoft 文档]: https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage
+[提交您的应用程序]: https://www.microsoft.com/en-us/wdsi/filesubmission/
+[encrypted secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
+[`tauri-action` 发布模板]: https://github.com/tauri-apps/tauri-action
+[relic]: https://github.com/sassoftware/relic
+[relic releases page]: https://github.com/sassoftware/relic/releases/
+[bundle > windows > signCommand]: /reference/config/#signcommand
+[SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
+[Microsoft Store]: https://apps.microsoft.com/
