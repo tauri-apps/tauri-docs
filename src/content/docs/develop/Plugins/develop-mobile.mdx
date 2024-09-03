@@ -335,17 +335,14 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`. Those commands can be directly called from JavaScript or Rust:
-
-{/* TODO: PermissionState type should be exported in Tauri */}
+Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`.
+Those commands can be directly called from JavaScript or Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/core'
-
-type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+import { invoke, PermissionState } from '@tauri-apps/api/core'
 
 interface Permissions {
   postNotification: PermissionState
@@ -369,7 +366,7 @@ if (permission.postNotification.startsWith('prompt')) {
 
 ```rust
 use serde::{Serialize, Deserialize};
-use tauri::Runtime;
+use tauri::{plugin::PermissionState, Runtime};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
