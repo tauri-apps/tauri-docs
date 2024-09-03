@@ -17,14 +17,13 @@ Tauri allows you to create and customize a system tray for your application. Thi
 First of all, update your `Cargo.toml` to include the necessary feature for the system tray.
 
 ```toml title="src-tauri/Cargo.toml" ins={2-4}
-tauri = { version = "2.0.0-beta", features = [
+tauri = { version = "2.0.0-rc", features = [
     'tray-icon',
 ```
 
-## Creating system tray.
+## Creating the system tray in Rust
 
-1. Create `tray.rs` in the same directory with code featured below.
-   This code builds tray and its menu.
+1. Create a `tray.rs` file in the `src` directory with this code:
 
 ```rust title="src-tauri/src/tray.rs"
 use tauri::{
@@ -32,6 +31,7 @@ use tauri::{
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
     Manager, Runtime,
 };
+
 pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
     let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
     let menu = Menu::with_items(app, &[&quit_i])?;
@@ -67,7 +67,11 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
 }
 ```
 
-2. In `.setup()` in your `lib.rs` file initialize `tray`:
+If you prefer, you can also inline this code into `lib.rs`.
+
+2. Initialize the tray:
+
+Now you can call the function declared above in `lib.rs`:
 
 ```rust title="src-tauri/src/lib.rs" ins={1-2,8-12}
 #[cfg(desktop)]
