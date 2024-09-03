@@ -41,7 +41,7 @@ To include custom files in the Debian package, you can provide a list of files o
       "deb": {
         "files": {
           "/usr/share/README.md": "../README.md", // copies the README.md file to /usr/share/README.md
-          "usr/share/assets": "../assets/" // copies the entire assets directory to /usr/share/assets
+          "/usr/share/assets": "../assets/" // copies the entire assets directory to /usr/share/assets
         }
       }
     }
