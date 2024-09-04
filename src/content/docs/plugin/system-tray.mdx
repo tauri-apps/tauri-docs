@@ -1,0 +1,95 @@
+---
+title: System Tray
+tableOfContents:
+  maxHeadingLevel: 4
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+Tauri allows you to create and customize a system tray for your application. This can enhance the user experience by providing quick access to common actions.
+
+## Configuration
+
+First of all, update your `Cargo.toml` to include the necessary feature for the system tray.
+
+```toml title="src-tauri/Cargo.toml" ins={2-4}
+tauri = { version = "2.0.0-rc", features = [
+    'tray-icon',
+```
+
+## Creating the system tray in Rust
+
+1. Create a `tray.rs` file in the `src` directory with this code:
+
+```rust title="src-tauri/src/tray.rs"
+use tauri::{
+    menu::{Menu, MenuItem},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    Manager, Runtime,
+};
+
+pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
+    let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+    let menu = Menu::with_items(app, &[&quit_i])?;
+
+    let _ = TrayIconBuilder::with_id("tray")
+        .icon(app.default_window_icon().unwrap().clone())
+        .menu(&menu)
+        .menu_on_left_click(false)
+        .on_menu_event(move |app, event| match event.id.as_ref() {
+            "quit" => {
+                app.exit(0);
+            }
+            // Add more events here
+            _ => {}
+        })
+        .on_tray_icon_event(|tray, event| {
+            if let TrayIconEvent::Click {
+                button: MouseButton::Left,
+                button_state: MouseButtonState::Up,
+                ..
+            } = event
+            {
+                let app = tray.app_handle();
+                if let Some(window) = app.get_webview_window("main") {
+                    let _ = window.show();
+                    let _ = window.set_focus();
+                }
+            }
+        })
+        .build(app);
+
+    Ok(())
+}
+```
+
+If you prefer, you can also inline this code into `lib.rs`.
+
+2. Initialize the tray:
+
+Now you can call the function declared above in `lib.rs`:
+
+```rust title="src-tauri/src/lib.rs" ins={1-2,8-12}
+#[cfg(desktop)]
+mod tray;
+
+pub fn run() {
+    tauri::Builder::default()
+        // ...
+        .setup(|app| {
+            #[cfg(all(desktop))]
+            {
+                let handle = app.handle();
+                tray::create_tray(handle)?;
+            }
+            Ok(())
+        })
+        // ...
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
