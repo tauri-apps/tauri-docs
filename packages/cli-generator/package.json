@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@tauri-apps/cli": "2.0.0-rc.11",
+    "@tauri-apps/cli": "2.0.0-rc.12",
     "@types/node": "^20.11.20",
     "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
