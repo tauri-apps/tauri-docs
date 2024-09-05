@@ -96,7 +96,7 @@ import { ask } from '@tauri-apps/plugin-dialog';
 // 创建 Yes/No 对话框
 const answer = await ask('This action cannot be reverted. Are you sure?', {
   title: 'Tauri',
-  type: 'warning',
+  kind: 'warning',
 });
 
 console.log(answer);
@@ -115,7 +115,7 @@ import { confirm } from '@tauri-apps/plugin-dialog';
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
   'This action cannot be reverted. Are you sure?',
-  { title: 'Tauri', type: 'warning' }
+  { title: 'Tauri', kind: 'warning' }
 );
 
 console.log(confirmation);
@@ -132,7 +132,7 @@ console.log(confirmation);
 import { message } from '@tauri-apps/plugin-dialog';
 
 // Shows message
-await message('File not found', { title: 'Tauri', type: 'error' });
+await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
 
 {/* OPEN */}

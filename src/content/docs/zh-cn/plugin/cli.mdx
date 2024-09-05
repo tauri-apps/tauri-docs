@@ -46,7 +46,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 ```toml title="src-tauri/Cargo.toml"
 # 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-cli = "2.0.0-beta"
+tauri-plugin-cli = "2.0.0-rc"
 # 或者使用 Git
 tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
@@ -262,7 +262,7 @@ fn run() {
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={6}
 {

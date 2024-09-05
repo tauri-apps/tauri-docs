@@ -8,79 +8,104 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="sql" />
 
 Plugin providing an interface for the frontend to communicate with SQL databases through [sqlx](https://github.com/launchbadge/sqlx). It supports the SQLite, MySQL and PostgreSQL drivers, enabled by a Cargo feature.
 
-## Install
+## Setup
 
 _This plugin requires a Rust version of at least **1.75**_
 
-Firstly, you have to install Core plugin by adding the following to your `Cargo.toml` file:
+Install the SQL plugin to get started.
 
 <Tabs>
-  <TabItem label="crates.io">
-```toml title="src-tauri/Cargo.toml"
-[dependencies.tauri-plugin-sql]
-features = ["sqlite"] # or "postgres", or "mysql"
-version = "2.0.0-beta"
-```
-  </TabItem>
-  <TabItem label="Git">
+    <TabItem label="Automatic">
 
-```toml title="src-tauri/Cargo.toml"
-[dependencies.tauri-plugin-sql]
-features = ["sqlite"] # or "postgres", or "mysql"
-git = "https://github.com/tauri-apps/plugins-workspace"
-branch = "v2"
-```
+        Use your project's package manager to add the dependency:
 
-  </TabItem>
+        <CommandTabs npm="npm run tauri add sql"
+        yarn="yarn run tauri add sql"
+        pnpm="pnpm tauri add sql"
+        bun="bun tauri add sql"
+        cargo="cargo tauri add sql" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+        <Steps>
+
+        1.  Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-sql
+            ```
+
+        2.  Modify `lib.rs` to initialize the plugin:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    		    pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_sql::Builder::default().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.	Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-sql"
+                yarn="yarn add @tauri-apps/plugin-sql"
+                pnpm="pnpm add @tauri-apps/plugin-sql"
+                bun="bun add @tauri-apps/plugin-sql"
+            />
+
+        </Steps>
+
+</TabItem>
 </Tabs>
 
-Then, you have to add JavaScript Guest bindings using your preferred JavaScript package manager.
+After installing the plugin, you must select the supported database engine.
+The available engines are Sqlite, MySQL and PostgreSQL.
+Run the following command in the `src-tauri` folder to enable your preferred engine:
 
 <Tabs>
-  <TabItem label="npm.io">
-    <CommandTabs
-      npm="npm add @tauri-apps/plugin-sql"
-      yarn="yarn add @tauri-apps/plugin-sql"
-      pnpm="pnpm add @tauri-apps/plugin-sql"
-      bun="bun add @tauri-apps/plugin-sql"
-    />
+  <TabItem label="Sqlite">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features sqlite
+    ```
+
   </TabItem>
-  <TabItem label="Git">
-    <CommandTabs
-      npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-      yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-      pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-      bun="bun add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-    />
+  <TabItem label="MySQL">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features mysql
+    ```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+  
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features postgres
+    ```
+  
   </TabItem>
 </Tabs>
 
 ## Usage
 
-First you need to register the core plugin with Tauri:
-
-```rust title="src-tauri/src/main.rs" ins={3}
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_sql::Builder::default().build())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
-
-Afterwards all the plugin's APIs are available through the JavaScript guest bindings:
+All the plugin's APIs are available through the JavaScript guest bindings:
 
 <Tabs>
   <TabItem label="SQLite">
 
-The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-beta/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
+The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0-rc/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
@@ -250,10 +275,9 @@ Ensure that the migrations are defined in the correct order and are safe to run 
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed.
-You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={7-8}
 {
@@ -275,3 +299,5 @@ See [Permissions Overview](/security/permissions/) for more information.
 | `sql:deny-load`     | Denies the load command without any pre-configured scope.     |
 | `sql:allow-select`  | Enables the select command without any pre-configured scope.  |
 | `sql:deny-select`   | Denies the select command without any pre-configured scope.   |
+
+<PluginPermissions plugin="sql" />

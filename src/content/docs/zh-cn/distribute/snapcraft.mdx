@@ -60,20 +60,33 @@ sudo snap install snapcraft --classic
 4. 调整 snapcraft.yaml 文件中的 name。
 
 ```yaml
-name: app
+name: appname
 base: core22
-version: '2.0.4'
+version: '0.1.0'
 summary: Your summary # 79 char long summary
 description: |
-  Your Description
+  Your description
 
 grade: stable
 confinement: strict
 
+layout:
+  /usr/libexec/webkit2gtk-4.1:
+    symlink: $SNAP/usr/libexec/webkit2gtk-4.1
+  /usr/lib/x86_64-linux-gnu/webkit2gtk-4.1:
+    symlink: $SNAP/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1
+  /usr/lib/aarch64-linux-gnu/webkit2gtk-4.1:
+    symlink: $SNAP/usr/lib/aarch64-linux-gnu/webkit2gtk-4.1
+  /usr/lib/webkit2gtk-4.1/injected-bundle:
+    symlink: $SNAP/usr/lib/webkit2gtk-4.1/injected-bundle
+
 apps:
-  app:
-    command: bin/app
-    desktop: usr/share/applications/app.desktop
+  appname:
+    command: usr/bin/appname
+    desktop: usr/share/applications/appname.desktop
+    plugs:
+      - wayland
+      - x11
 
 package-repositories:
   - type: apt
@@ -83,7 +96,7 @@ package-repositories:
     url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
 
 parts:
-  prep:
+  build-app:
     plugin: dump
     build-snaps:
       - node/20/stable
@@ -101,21 +114,16 @@ parts:
       - dpkg
     stage-packages:
       - libwebkit2gtk-4.1-0
+      - libayatana-appindicator3-1
       - libglu1-mesa
-      - libsoup-3.0-0
       - freeglut3
     source: .
-    override-pull: |
+    override-build: |
       set -eu
-      craftctl default
-      rustup default nightly
       npm install
       npm run tauri build -- --bundles deb
-      dpkg -x src-tauri/target/release/bundle/deb/*.deb here
-      sed -i -e "s|Icon=app|Icon=/usr/share/icons/hicolor/32x32/apps/app.png|g" here/usr/share/applications/app.desktop
-      cp -r here/* .
-    organize:
-      usr/bin/app: bin/app
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb $SNAPCRAFT_PART_INSTALL/
+      sed -i -e "s|Icon=appname|Icon=/usr/share/icons/hicolor/32x32/apps/appname.png|g" $SNAPCRAFT_PART_INSTALL/usr/share/applications/appname.desktop
 ```
 
 ### 解释

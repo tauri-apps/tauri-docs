@@ -12,20 +12,11 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 
 - Utilisez des exports statiques en définissant `output: 'export'`. Tauri ne supporte pas les solutions basées sur un serveur.
 
-- Utilisez `internal-ip` pour une compatibilité sur mobile pour pouvoir configurer `assetPrefix`. Ceci est requis pour que le serveur résolve correctement les assets.
 - Utilisez `out/` en tant que `distDir` dans `tauri.conf.json`.
 
 ## Exemple de configuration
 
-1. Installez `internal-ip` pour le développement mobile :
-
-<CommandTabs
-  npm="npm install --save-dev internal-ip"
-  yarn="yarn add -D internal-ip"
-  pnpm="pnpm add -D internal-ip"
-/>
-
-2. Mettez à jour la configuration de Tauri :
+1. Mettez à jour la configuration de Tauri :
 
 <Tabs>
 	<TabItem label="npm">
@@ -75,19 +66,14 @@ Next.js est un framework React. Apprenez-en plus au sujet de Next.js sur https:/
 </TabItem>
 </Tabs>
 
-3. Mettez à jour la configuration de Next.js :
+2. Mettez à jour la configuration de Next.js :
 
 ```ts
 // next.conf.ts
 const isProd = process.env.NODE_ENV === 'production';
 module.exports = async (phase, { defaultConfig }) => {
-  let internalHost = null;
-  // En mode développement, on utilise "internal-ip" pour se servir des assets.
-
-  if (!isProd) {
-    const { internalIpV4 } = await import('internal-ip');
-    internalHost = await internalIpV4();
-  }
+  // En mode développement, on utilise TAURI_DEV_HOST pour se servir des assets si besoin.
+  const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
   const nextConfig = {
     // Assurez-vous que Next.js utilise SSG au lieu de SSR
     // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports

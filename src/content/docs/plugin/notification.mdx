@@ -5,6 +5,7 @@ i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
@@ -32,16 +33,18 @@ Install the notifications plugin to get started.
     <TabItem label="Manual">
         <Steps>
 
-        1.  Run `cargo add tauri-plugin-notification` to add the plugin to the project's dependencies in `Cargo.toml`.
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-notification
+            ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
-            ```rust
-            // lib.rs
+            ```rust title="src-tauri/src/lib.rs" ins={4}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
             pub fn run() {
                 tauri::Builder::default()
-                    // Initialize the plugin
                     .plugin(tauri_plugin_notification::init())
                     .run(tauri::generate_context!())
                     .expect("error while running tauri application");
@@ -161,3 +164,5 @@ tauri::Builder::default()
 ## Security Considerations
 
 Aside from normal sanitization procedures of user input there are currently no known security considerations.
+
+<PluginPermissions plugin="notification" />

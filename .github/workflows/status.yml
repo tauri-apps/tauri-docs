@@ -2,7 +2,7 @@ name: 'Status Updater'
 
 on:
   issues:
-  pull_request:
+  pull_request_target:
 
 jobs:
   set_statuses:
@@ -11,116 +11,52 @@ jobs:
     steps:
       - name: Get project data
         env:
-          GH_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
-          ORGANIZATION: tauri-apps
-          PROJECT_NUMBER: 27
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |
-          gh api graphql -f query='
-            query($org: String!, $number: Int!) {
-              organization(login: $org){
-                projectV2(number: $number) {
-                  id
-                  fields(first: 20) {
-                    nodes {
-                      ... on ProjectV2Field {
-                        id
-                        name
-                      }
-                      ... on ProjectV2SingleSelectField {
-                        id
-                        name
-                        options {
-                          id
-                          name
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
-          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
-          echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'BACKLOG_STATUS_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="🪵 Backlog") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'READY_STATUS_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="💪 Ready") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'IN_PROGRESS_STATUS_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="🏗️ In progress") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'IN_REVIEW_STATUS_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="📋 In review") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'DONE_STATUS_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="✅ Done") |.id' project_data.json) >> $GITHUB_ENV
+          echo "PROJECT_ID=$(gh project view 27 --owner tauri-apps --format json --jq '.id')" >> $GITHUB_ENV
+          gh project field-list 27 --owner tauri-apps --format json > project_data.json
+          echo 'STATUS_FIELD_ID='$(jq '.fields[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'BACKLOG_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="🪵 Backlog") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'READY_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="💪 Ready") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'IN_PROGRESS_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="🏗️ In progress") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'IN_REVIEW_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="📋 In review") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'DONE_STATUS_ID='$(jq '.fields[] | select(.name== "Status") | .options[] | select(.name=="✅ Done") | .id' project_data.json) >> $GITHUB_ENV
 
-      - name: Add/get item id
+      - name: Add project item / Get item id
         env:
-          GH_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
-        run: |
-          if [ "${{ github.event.pull_request.node_id }}" != "" ]; then
-            echo "NODE_ID=${{ github.event.pull_request.node_id }}" >> $GITHUB_ENV
-          else
-            echo "NODE_ID=${{ github.event.issue.node_id }}" >> $GITHUB_ENV
-          fi
-          item_id=$(gh api graphql -f query='
-            mutation($project: ID!, $node: ID!) {
-              addProjectV2ItemById(input: {projectId: $project, contentId: $node}) {
-                item {
-                  id
-                }
-              }
-            }' -f project=$PROJECT_ID -f node=$NODE_ID --jq '.data.addProjectV2ItemById.item.id')
-          echo 'ITEM_ID='$item_id >> $GITHUB_ENV
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: echo "ITEM_ID=$(gh project item-add 27 --owner tauri-apps --url https://github.com/tauri-apps/tauri-docs/issues/${{ github.event.pull_request.number || github.event.issue.number }} --format json --jq '.id')" >> $GITHUB_ENV
 
       #===== PULL REQUESTS =====#
       - name: Is In progress
-        if: ${{ github.event_name == 'pull_request' && (github.event.pull_request.draft == true || github.event.pull_request.mergeable == false) }}
-        run: |
-          echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
+        if: ${{ github.event_name == 'pull_request_target' && (github.event.pull_request.draft == true || github.event.pull_request.mergeable == false) }}
+        run: echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
 
       - name: Is In review
-        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && github.event.pull_request.mergeable == true }}
-        run: |
-          echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
+        if: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.draft == false && github.event.pull_request.mergeable == true }}
+        run: echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
       #===== END PULL REQUESTS =====#
 
       #===== ISSUES =====#
       - name: Is Ready
         if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.milestone != null) }}
-        run: |
-          echo 'STATUS_ID='${{ env.READY_STATUS_ID }} >> $GITHUB_ENV
+        run: echo 'STATUS_ID='${{ env.READY_STATUS_ID }} >> $GITHUB_ENV
 
       - name: Is In progress
         if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.milestone != null && github.event.issue.assignees[0] != null) }}
-        run: |
-          echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
+        run: echo 'STATUS_ID='${{ env.IN_PROGRESS_STATUS_ID }} >> $GITHUB_ENV
 
       - name: Is In review
         if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] != null && github.event.issue.pull_request.merged_at != null) }}
-        run: |
-          echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
+        run: echo 'STATUS_ID='${{ env.IN_REVIEW_STATUS_ID }} >> $GITHUB_ENV
 
       - name: Is Backlog
         if: ${{ github.event_name == 'issues' && (github.event.issue.labels[0] == null || github.event.issue.milestone == null || contains(github.event.issue.labels.*.name, 'upstream') || contains(github.event.issue.labels.*.name, 'discuss')) }}
-        run: |
-          echo 'STATUS_ID='${{ env.BACKLOG_STATUS_ID }} >> $GITHUB_ENV
+        run: echo 'STATUS_ID='${{ env.BACKLOG_STATUS_ID }} >> $GITHUB_ENV
       #===== END ISSUES =====#
 
       - name: Set fields
+        if: ${{ github.event.issue.status == 'open' || github.event.pull_request.status == 'open' }}
         env:
-          GH_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
-        run: |
-          gh api graphql -f query='
-            mutation (
-              $project: ID!
-              $item: ID!
-              $status_field: ID!
-              $status_value: String!
-            ) {
-              set_status: updateProjectV2ItemFieldValue(input: {
-                projectId: $project
-                itemId: $item
-                fieldId: $status_field
-                value: {
-                  singleSelectOptionId: $status_value
-                }
-              }) {
-                projectV2Item {
-                  id
-                }
-              }
-            }' -f project=${{ env.PROJECT_ID }} -f item=${{ env.ITEM_ID }} -f status_field=${{ env.STATUS_FIELD_ID }} -f status_value=${{ env.STATUS_ID }} --silent
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: gh project item-edit --id ${{ env.ITEM_ID }} --project-id ${{ env.PROJECT_ID }} --field-id ${{ env.STATUS_FIELD_ID }} --single-select-option-id ${{ env.STATUS_ID }}

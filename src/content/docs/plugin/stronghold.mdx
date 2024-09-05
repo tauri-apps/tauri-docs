@@ -8,8 +8,9 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="stronghold" />
 
@@ -45,34 +46,32 @@ Install the stronghold plugin to get started.
     <TabItem label = "Manual">
     	<Steps>
 
-    	1. Install the stronghold plugin by adding the following to your `Cargo.toml` file:
+    			1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-    		```toml title="src-tauri/Cargo.toml"
-    		[dependencies]
-    		tauri-plugin-stronghold = "2.0.0-beta"
-    		# alternatively with Git:
-    		tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    		```
+    				```sh frame=none
+    				cargo add tauri-plugin-stronghold
+    				```
 
-    	2. Modify `lib.rs` to initialize the plugin:
+    			2. Modify `lib.rs` to initialize the plugin:
 
-    		```rust title="src-tauri/src/lib.rs" ins={3}
-    		fn run() {
-    				tauri::Builder::default()
-    						.plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
-    						.run(tauri::generate_context!())
-    						.expect("error while running tauri application");
-    		}
-    		```
+    				```rust title="src-tauri/src/lib.rs" ins={4}
+    				#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    				pub fn run() {
+    						tauri::Builder::default()
+    								.plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+    								.run(tauri::generate_context!())
+    								.expect("error while running tauri application");
+    				}
+    				```
 
-    	3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+    			3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
 
-    		<CommandTabs
-                npm = "npm install @tauri-apps/plugin-stronghold"
-                yarn = "yarn add @tauri-apps/plugin-stronghold"
-                pnpm = "pnpm add @tauri-apps/plugin-stronghold"
-                bun = "bun add @tauri-apps/plugin-stronghold"
-    		/>
+    				<CommandTabs
+    								npm = "npm install @tauri-apps/plugin-stronghold"
+    								yarn = "yarn add @tauri-apps/plugin-stronghold"
+    								pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+    								bun = "bun add @tauri-apps/plugin-stronghold"
+    				/>
 
     	</Steps>
     </TabItem>
@@ -198,9 +197,9 @@ await store.remove(key);
 
 ## Permissions
 
-By default all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={8-14}
 {
@@ -221,27 +220,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission                             | Description                                                               |
-| -------------------------------------- | ------------------------------------------------------------------------- |
-| `stronghold:allow-create-client`       | Enables the create_client command without any pre-configured scope.       |
-| `stronghold:deny-create-client`        | Denies the create_client command without any pre-configured scope.        |
-| `stronghold:allow-destroy`             | Enables the destroy command without any pre-configured scope.             |
-| `stronghold:deny-destroy`              | Denies the destroy command without any pre-configured scope.              |
-| `stronghold:allow-execute-procedure`   | Enables the execute_procedure command without any pre-configured scope.   |
-| `stronghold:deny-execute-procedure`    | Denies the execute_procedure command without any pre-configured scope.    |
-| `stronghold:allow-get-store-record`    | Enables the get_store_record command without any pre-configured scope.    |
-| `stronghold:deny-get-store-record`     | Denies the get_store_record command without any pre-configured scope.     |
-| `stronghold:allow-initialize`          | Enables the initialize command without any pre-configured scope.          |
-| `stronghold:deny-initialize`           | Denies the initialize command without any pre-configured scope.           |
-| `stronghold:allow-load-client`         | Enables the load_client command without any pre-configured scope.         |
-| `stronghold:deny-load-client`          | Denies the load_client command without any pre-configured scope.          |
-| `stronghold:allow-remove-secret`       | Enables the remove_secret command without any pre-configured scope.       |
-| `stronghold:deny-remove-secret`        | Denies the remove_secret command without any pre-configured scope.        |
-| `stronghold:allow-remove-store-record` | Enables the remove_store_record command without any pre-configured scope. |
-| `stronghold:deny-remove-store-record`  | Denies the remove_store_record command without any pre-configured scope.  |
-| `stronghold:allow-save`                | Enables the save command without any pre-configured scope.                |
-| `stronghold:deny-save`                 | Denies the save command without any pre-configured scope.                 |
-| `stronghold:allow-save-secret`         | Enables the save_secret command without any pre-configured scope.         |
-| `stronghold:deny-save-secret`          | Denies the save_secret command without any pre-configured scope.          |
-| `stronghold:allow-save-store-record`   | Enables the save_store_record command without any pre-configured scope.   |
-| `stronghold:deny-save-store-record`    | Denies the save_store_record command without any pre-configured scope.    |
+<PluginPermissions plugin="stronghold" />

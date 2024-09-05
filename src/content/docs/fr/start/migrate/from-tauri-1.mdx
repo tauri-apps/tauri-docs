@@ -16,17 +16,17 @@ Tauri v2 contient la commande `migrate` qui simplifie votre migration:
 <CommandTabs
   npm="npm install @tauri-apps/cli@latest
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli --latest
+  yarn="yarn upgrade @tauri-apps/cli@next
     yarn tauri migrate"
-  pnpm="pnpm update @tauri-apps/cli --latest
+  pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-beta"
+  cargo='cargo install tauri-cli --version "^2.0.0-rc"
     cargo tauri migrate'
 />
 
 {/* TODO: 2.0 */}
 
-Apprenez-en plus à-propos de la commande `migrate` dans l'[interface de référence des commandes](/reference/cli#migrate)
+Apprenez-en plus à-propos de la commande `migrate` dans l'[interface de référence des commandes](/reference/cli/#migrate)
 
 ## Sommaire des Changements
 
@@ -42,7 +42,7 @@ Voici ci-dessous un sommaire des changement entre Tauri 1.0 et Tauri 2.0:
 - `tauri > updater > endpoints` déplacé vers `plugins > updater`.
 - `tauri > systemTray` renomé en `tauri > trayIcon`.
 
-[Référence de l'API de configuration de Tauri 2.0](/reference/config)
+[Référence de l'API de configuration de Tauri 2.0](/reference/config/)
 
 ### Nouvelles Fonctionnalités de Cargo
 
@@ -549,7 +549,8 @@ sendNotification('Tauri is awesome!');
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_notification::{NotificationExt, PermissionState};
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
 
 fn main() {
     tauri::Builder::default()
@@ -652,7 +653,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` prend maintenant une "closure" car le menu a besoin d'une instance de "Manager" pour être construit. Voir [la documentation](https://docs.rs/tauri/2.0.0-beta/tauri/struct.Builder.html#method.menu) pour plus d'information.
+`tauri::Builder::menu` prend maintenant une "closure" car le menu a besoin d'une instance de "Manager" pour être construit. Voir [la documentation](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu) pour plus d'information.
 
 #### Evenement du Menu
 
@@ -940,7 +941,7 @@ Utilisez `tauri::tray::TrayIconBuilder` à la place de `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-Voir [TrayIconBuilder](https://docs.rs/tauri/2.0.0-beta/tauri/tray/struct.TrayIconBuilder.html) pour plus d'informations.
+Voir [TrayIconBuilder](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) pour plus d'informations.
 
 #### Migrer vers un Menu
 

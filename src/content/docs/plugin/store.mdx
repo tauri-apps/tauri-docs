@@ -6,10 +6,11 @@ description: Persistent key value storage.
 import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin="store" />
 
-This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](/develop/state-management) for more information on additional options.
+This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](/develop/state-management/) for more information on additional options.
 
 This store will allow you to persist state to a file which can be saved and loaded on demand including between app restarts. Note that this process is asynchronous which will require handling it within your code. It can be used both in the webview or within Rust.
 
@@ -39,20 +40,17 @@ Install the store plugin to get started.
     </TabItem>
     <TabItem label="Manual">
         <Steps>
-        1.  Install the store plugin by adding the following to your `Cargo.toml` file:
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-            ```toml title="src-tauri/Cargo.toml"
-            [dependencies]
-            tauri-plugin-store = "2.0.0-beta"
-            # alternatively with Git:
-            tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+            ```sh frame=none
+            cargo add tauri-plugin-store
             ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
             ```rust title="src-tauri/src/lib.rs" ins={4}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
                     .plugin(tauri_plugin_store::Builder::new().build())
                     .run(tauri::generate_context!())
@@ -111,10 +109,10 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let stores = app.app_handle().state::<StoreCollection<Wry>>();
+            let stores = app.handle().try_state::<StoreCollection<Wry>>().ok_or("Store not found")?;
             let path = PathBuf::from("store.bin");
 
-            with_store(app.app_handle().clone(), stores, path, |store| {
+            with_store(app.handle().clone(), stores, path, |store| {
                 // Note that values must be serde_json::Value instances,
                 // otherwise, they will not be compatible with the JavaScript bindings.
                 store.insert("some-key".to_string(), json!({ "value": 5 }))?;
@@ -144,7 +142,7 @@ pub fn run() {
 
 By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
 
-See [Permissions Overview](/security/permissions/) for more information.
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
 ```json title="src-tauri/capabilities/main.json" ins={6-11}
 {
@@ -161,29 +159,4 @@ See [Permissions Overview](/security/permissions/) for more information.
 }
 ```
 
-| Permission            | Description                                                   |
-| --------------------- | ------------------------------------------------------------- |
-| `store:allow-clear`   | Enables the clear command without any pre-configured scope.   |
-| `store:deny-clear`    | Denies the clear command without any pre-configured scope.    |
-| `store:allow-delete`  | Enables the delete command without any pre-configured scope.  |
-| `store:deny-delete`   | Denies the delete command without any pre-configured scope.   |
-| `store:allow-entries` | Enables the entries command without any pre-configured scope. |
-| `store:deny-entries`  | Denies the entries command without any pre-configured scope.  |
-| `store:allow-get`     | Enables the get command without any pre-configured scope.     |
-| `store:deny-get`      | Denies the get command without any pre-configured scope.      |
-| `store:allow-has`     | Enables the has command without any pre-configured scope.     |
-| `store:deny-has`      | Denies the has command without any pre-configured scope.      |
-| `store:allow-keys`    | Enables the keys command without any pre-configured scope.    |
-| `store:deny-keys`     | Denies the keys command without any pre-configured scope.     |
-| `store:allow-length`  | Enables the length command without any pre-configured scope.  |
-| `store:deny-length`   | Denies the length command without any pre-configured scope.   |
-| `store:allow-load`    | Enables the load command without any pre-configured scope.    |
-| `store:deny-load`     | Denies the load command without any pre-configured scope.     |
-| `store:allow-reset`   | Enables the reset command without any pre-configured scope.   |
-| `store:deny-reset`    | Denies the reset command without any pre-configured scope.    |
-| `store:allow-save`    | Enables the save command without any pre-configured scope.    |
-| `store:deny-save`     | Denies the save command without any pre-configured scope.     |
-| `store:allow-set`     | Enables the set command without any pre-configured scope.     |
-| `store:deny-set`      | Denies the set command without any pre-configured scope.      |
-| `store:allow-values`  | Enables the values command without any pre-configured scope.  |
-| `store:deny-values`   | Denies the values command without any pre-configured scope.   |
+<PluginPermissions plugin="store" />

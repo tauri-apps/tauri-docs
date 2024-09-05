@@ -8,12 +8,13 @@ sidebar:
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="process" />
 
-This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/plugin/shell) plugin.
+This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/plugin/shell/) plugin.
 
 ## Setup
 
@@ -34,16 +35,18 @@ Install the plugin-process to get started.
     <TabItem label="Manual">
         <Steps>
 
-        1.  Run `cargo add tauri-plugin-process` to add the plugin to the project's dependencies in `Cargo.toml`.
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-process
+            ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
-            ```rust ins={6}
-            // lib.rs
+            ```rust title="src-tauri/src/lib.rs" ins={4}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
             pub fn run() {
                 tauri::Builder::default()
-                    // Initialize the plugin
                     .plugin(tauri_plugin_process::init())
                     .run(tauri::generate_context!())
                     .expect("error while running tauri application");
@@ -86,7 +89,7 @@ await relaunch();
 </TabItem>
 <TabItem label="Rust">
 
-Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-beta/tauri/struct.AppHandle.html).
+Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/struct.AppHandle.html).
 
 ```rust
 // exits the app with the given status code
@@ -98,3 +101,5 @@ app.restart();
 
 </TabItem>
 </Tabs>
+
+<PluginPermissions plugin="process" />

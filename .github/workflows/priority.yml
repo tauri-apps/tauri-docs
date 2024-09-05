@@ -3,103 +3,39 @@ name: 'Priority Updater'
 on:
   issues:
     types: [opened]
-  pull_request:
+  pull_request_target:
     types: [opened]
 
 jobs:
   set_statuses:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.issue.labels.*.name, 'manual') && !contains(github.event.pull_request.labels.*.name, 'manual') }}
-    permissions:
-      pull-requests: write
-      issues: write
-    env:
-      GITHUB_TOKEN: ${{ secrets.ORG_TAURI_BOT_PAT }}
     steps:
-      - name: Set up GitHub CLI
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
       - name: Get project data
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ORGANIZATION: tauri-apps
-          PROJECT_NUMBER: 27
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |
-          gh api graphql -f query='
-            query($org: String!, $number: Int!) {
-              organization(login: $org){
-                projectV2(number: $number) {
-                  id
-                  fields(first: 20) {
-                    nodes {
-                      ... on ProjectV2Field {
-                        id
-                        name
-                      }
-                      ... on ProjectV2SingleSelectField {
-                        id
-                        name
-                        options {
-                          id
-                          name
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
-          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
-          echo 'PRIORITY_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Priority") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'LOW_PRIORITY_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Priority") | .options[] | select(.name=="Low") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'MEDIUM_PRIORITY_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Priority") | .options[] | select(.name=="Medium") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'HIGH_PRIORITY_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Priority") | .options[] | select(.name=="High") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'CRITICAL_PRIORITY_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Priority") | .options[] | select(.name=="Critical") |.id' project_data.json) >> $GITHUB_ENV
+          echo "PROJECT_ID=$(gh project view 27 --owner tauri-apps --format json --jq '.id')" >> $GITHUB_ENV
+          gh project field-list 27 --owner tauri-apps --format json > project_data.json
+          echo 'PRIORITY_FIELD_ID='$(jq '.fields[] | select(.name== "Priority") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'LOW_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Low") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'MEDIUM_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Medium") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'HIGH_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="High") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'CRITICAL_PRIORITY_ID='$(jq '.fields[] | select(.name== "Priority") | .options[] | select(.name=="Critical") | .id' project_data.json) >> $GITHUB_ENV
 
       - name: Default priority
         run: |
           echo 'PRIORITY_ID='${{ env.LOW_PRIORITY_ID }} >> $GITHUB_ENV
 
-      - name: Add/get item id
+      - name: Add project item / Get item id
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |
-          if [ "${{ github.event.pull_request.node_id }}" != "" ]; then
-            echo "NODE_ID=${{ github.event.pull_request.node_id }}" >> $GITHUB_ENV
-          else
-            echo "NODE_ID=${{ github.event.issue.node_id }}" >> $GITHUB_ENV
-          fi
-          item_id=$(gh api graphql -f query='
-            mutation($project: ID!, $node: ID!) {
-              addProjectV2ItemById(input: {projectId: $project, contentId: $node}) {
-                item {
-                  id
-                }
-              }
-            }' -f project=$PROJECT_ID -f node=$NODE_ID --jq '.data.addProjectV2ItemById.item.id')
-          echo 'ITEM_ID='$item_id >> $GITHUB_ENV
+          echo "ITEM_ID=$(gh project item-add 27 --owner tauri-apps --url https://github.com/tauri-apps/tauri-docs/issues/${{ github.event.pull_request.number || github.event.issue.number }} --format json --jq '.id')" >> $GITHUB_ENV
 
       - name: Set fields
+        if: ${{ github.event.issue.status == 'open' || github.event.pull_request.status == 'open' }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |
-          gh api graphql -f query='
-            mutation (
-              $project: ID!
-              $item: ID!
-              $priority_field: ID!
-              $priority_value: String!
-            ) {
-              set_priority: updateProjectV2ItemFieldValue(input: {
-                projectId: $project
-                itemId: $item
-                fieldId: $priority_field
-                value: {
-                  singleSelectOptionId: $priority_value
-                }
-              }) {
-                projectV2Item {
-                  id
-                }
-              }
-            }' -f project=${{ env.PROJECT_ID }} -f item=${{ env.ITEM_ID }} -f priority_field=${{ env.PRIORITY_FIELD_ID }} -f priority_value=${{ env.PRIORITY_ID }} --silent
+          gh project item-edit --id ${{ env.ITEM_ID }} --project-id ${{ env.PROJECT_ID }} --field-id ${{ env.PRIORITY_FIELD_ID }} --single-select-option-id ${{ env.PRIORITY_ID }}

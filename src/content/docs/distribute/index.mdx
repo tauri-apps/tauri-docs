@@ -10,16 +10,88 @@ sidebar:
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
+## Signing
+
+Code signing enhances the security of your application by applying a digital signature to your
+application's executables and bundles, validating your identity of the provider of your application.
+
+Signing is required on most platforms. See the documentation for each platform for more information.
+
 <CardGrid>
   <LinkCard
+    title="macOS"
+    href="/distribute/signing/macos/"
+    description="Code signing and notarization for macOS apps"
+  />
+  <LinkCard
+    title="Windows"
+    href="/distribute/signing/windows/"
+    description="Code signing Windows installers"
+  />
+  <LinkCard
+    title="Linux"
+    href="/distribute/signing/linux/"
+    description="Code signing Linux packages"
+  />
+  <LinkCard
+    title="Android"
+    href="/distribute/signing/android/"
+    description="Code signing for Android"
+  />
+  <LinkCard
+    title="iOS"
+    href="/distribute/signing/ios/"
+    description="Code signing for iOS"
+  />
+</CardGrid>
+
+## Distributing
+
+<CardGrid>
+  <LinkCard
+    title="App Store"
+    href="/distribute/app-store/"
+    description="Distribute iOS and macOS apps to the App Store"
+  />
+  <LinkCard
+    title="App Bundle"
+    href="/distribute/macos-application-bundle/"
+    description="Distribute macOS apps as an App Bundle"
+  />
+  <LinkCard
     title="AUR"
-    href="/distribute/aur"
-    description="Distribution using the Arch User Repository"
+    href="/distribute/aur/"
+    description="Distribute using the Arch User Repository"
+  />
+  <LinkCard
+    title="CrabNebula Cloud"
+    href="/distribute/crabnebula-cloud/"
+    description="Distribute your app using CrabNebula"
+  />
+  <LinkCard
+    title="DMG"
+    href="/distribute/dmg/"
+    description="Distribute macOS apps as Apple Disk Images"
   />
   <LinkCard
     title="Flathub"
     href="/distribute/flatpak/"
-    description="Distribute as a flatpak"
+    description="Distribute as a Flatpak"
+  />
+  <LinkCard
+    title="Google Play"
+    href="/distribute/google-play/"
+    description="Distribute Android apps to Google Play"
+  />
+  <LinkCard
+    title="Microsoft Store"
+    href="/distribute/microsoft-store/"
+    description="Distribute Windows apps to the Microsoft Store"
+  />
+  <LinkCard
+    title="RPM"
+    href="/distribute/rpm/"
+    description="Distribute as an RPM package"
   />
   <LinkCard
     title="Snapcraft"
@@ -27,9 +99,9 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
     description="Distribute on Snapcraft.io"
   />
   <LinkCard
-    title="RPM"
-    href="/distribute/rpm"
-    description="Distribute as an RPM package"
+    title="Windows Installer"
+    href="/distribute/windows-installer/"
+    description="Distribute installers for Windows"
   />
 </CardGrid>
 

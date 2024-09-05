@@ -56,17 +56,17 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 <CommandTabs
   npm="npm install @tauri-apps/cli@next
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli --next
+  yarn="yarn upgrade @tauri-apps/cli@next
     yarn tauri migrate"
   pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-beta"
+  cargo='cargo install tauri-cli --version "^2.0.0-rc"
     cargo tauri migrate'
 />
 
 {/* TODO: 2.0 */}
 
-在[命令行界面参考](/reference/cli#migrate)中了解有关 `migrate` 命令的更多信息。
+在[命令行界面参考](/reference/cli/#migrate)中了解有关 `migrate` 命令的更多信息。
 
 ## 变化摘要
 
@@ -97,7 +97,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 - `build > distDir` 被重命名为 `frontendDist`。
 - `build > devPath` 被重命名为 `devUrl`。
 
-[Tauri 2.0 配置 API 参考资料](/reference/config)
+[Tauri 2.0 配置 API 参考资料](/reference/config/)
 
 ### 全新的 Cargo 功能
 
@@ -184,7 +184,7 @@ Tauri 命令行工具读取和写入的大部分环境变量都重新命名，�
 
 - `emit` 函数现在会向所有事件侦听器发送事件。
 - 添加一个新的 `emit_to` 函数以向特定目标触发事件。
-- `emit_filter` 现在基于 [`EventTarget`](https://docs.rs/tauri/2.0.0-beta/tauri/event/enum.EventTarget.html) 进行过滤，而不是基于一个视窗。
+- `emit_filter` 现在基于 [`EventTarget`](https://docs.rs/tauri/2.0.0-rc/tauri/event/enum.EventTarget.html) 进行过滤，而不是基于一个视窗。
 - 将 `listen_global` 重命名为 `listen_any`。现在，它可以监听所有事件，无论其过滤器和目标是什么。
 
 ### 多 webview 支持
@@ -614,7 +614,8 @@ sendNotification('Tauri is awesome!');
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_notification::{NotificationExt, PermissionState};
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
 
 fn main() {
     tauri::Builder::default()
@@ -718,7 +719,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` 现在接收一个闭包，因为菜单需要一个 `Manager` 实例来构造。参考[相关文档](https://docs.rs/tauri/2.0.0-beta/tauri/struct.Builder.html#method.menu)以获取更多信息。
+`tauri::Builder::menu` 现在接收一个闭包，因为菜单需要一个 `Manager` 实例来构造。参考[相关文档](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu)以获取更多信息。
 
 #### 菜单事件
 
@@ -1009,7 +1010,7 @@ Rust 的 `SystemTray` API 被重命名为 `TrayIcon` 以确保一致性。新的
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-查阅 [`TrayIconBuilder`](https://docs.rs/tauri/2.0.0-beta/tauri/tray/struct.TrayIconBuilder.html) 以获取更多信息。
+查阅 [`TrayIconBuilder`](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) 以获取更多信息。
 
 #### 迁移到托盘菜单
 

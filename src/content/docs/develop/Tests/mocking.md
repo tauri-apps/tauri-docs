@@ -2,6 +2,7 @@
 title: Mock Tauri APIs
 sidebar:
   order: 10
+i18nReady: true
 ---
 
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
@@ -33,7 +34,7 @@ import { beforeAll, expect, test } from "vitest";
 import { randomFillSync } from "crypto";
 
 import { mockIPC } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {

@@ -45,7 +45,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
-tauri-plugin-window-state = "2.0.0-beta"
+tauri-plugin-window-state = "2.0.0-rc"
 # 或者使用 Git：
 tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
@@ -124,7 +124,7 @@ window.restore_state(StateFlags::all()); // 将从磁盘恢复窗口的状态
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={4-5}
 {

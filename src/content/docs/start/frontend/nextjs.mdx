@@ -2,6 +2,7 @@
 title: Next.js
 i18nReady: true
 tableOfContents:
+  collapseLevel: 1
   minHeadingLevel: 2
   maxHeadingLevel: 5
 ---
@@ -14,22 +15,11 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 ## Checklist
 
 - Use static exports by setting `output: 'export'`. Tauri doesn't support server-based solutions.
-- Use `internal-ip` for mobile compatibility so you can configure `assetPrefix`. This is required so that the server properly resolves assets.
 - Use the `out` directory as `frontendDist` in `tauri.conf.json`.
 
 ## Example Configuration
 
 <Steps>
-
-1.  ##### Install `internal-ip` version 7 for mobile development
-
-    Version 8.0.0 does **not** work!
-
-    <CommandTabs
-      npm="npm install --save-dev internal-ip@7.0.0"
-      yarn="yarn add -D internal-ip@7.0.0"
-      pnpm="pnpm add -D internal-ip@7.0.0"
-    />
 
 1.  ##### Update Tauri configuration
 
@@ -85,20 +75,15 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 
     </Tabs>
 
-1.  ##### Update Next.js configuration
+2.  ##### Update Next.js configuration
 
     ```ts
     // next.conf.mjs
-    /** @type {import('next').NextConfig} */
     const isProd = process.env.NODE_ENV === 'production';
 
-    let internalHost = null;
+    const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
 
-    if (!isProd) {
-      const { internalIpV4 } = await import('internal-ip');
-      internalHost = await internalIpV4();
-    }
-
+    /** @type {import('next').NextConfig} */
     const nextConfig = {
       // Ensure Next.js uses SSG instead of SSR
       // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
@@ -115,7 +100,7 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
     export default nextConfig;
     ```
 
-1.  ##### Update package.json configuration
+3.  ##### Update package.json configuration
 
         ```json
         "scripts": {

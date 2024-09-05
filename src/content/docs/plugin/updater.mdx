@@ -1,14 +1,10 @@
 ---
 title: Updater
 description: In-app updates for Tauri applications.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
-import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
 
@@ -43,15 +39,23 @@ Install the Tauri updater plugin to get started.
     <TabItem label="Manual">
       <Steps>
 
-        1. Run `cargo add tauri-plugin-updater` to add the plugin to the project's dependencies in `Cargo.toml`.
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-updater --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
-            ```rust title="lib.rs" ins={4}
+            ```rust title="lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
-                    .plugin(tauri_plugin_updater::Builder::new().build())
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                        Ok(())
+                    })
                     .run(tauri::generate_context!())
                     .expect("error while running tauri application");
             }
@@ -75,12 +79,12 @@ Install the Tauri updater plugin to get started.
 
 Tauri's updater needs a signature to verify that the update is from a trusted source. This cannot be disabled.
 
-To sign your updates you need two things:
+To sign your updates you need two keys:
 
-1. The public key, which will be set in the `tauri.config.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
+1. The public key, which will be set in the `tauri.conf.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
 2. The private key, which is used to sign your installer files. You should NEVER share this key with anyone. Also, if you lose this key you will NOT be able to publish new updates to the users that have the app already installed. It is important to store this key in a safe place!
 
-To generate the keys the Tauri CLI provides the `signer generate` command. On Linux you can run this to create the keys in the home folder:
+To generate the keys the Tauri CLI provides the `signer generate` command. You can run this to create the keys in the home folder:
 
 <Tabs>
   <CommandTabs
@@ -92,21 +96,9 @@ To generate the keys the Tauri CLI provides the `signer generate` command. On Li
   />
 </Tabs>
 
-If you are on Windows, you should use `$HOME/.tauri/myapp.key` or a different path of your choice instead:
-
-<Tabs>
-  <CommandTabs
-    npm="npm run tauri signer generate -- -w $HOME/.tauri/myapp.key"
-    yarn="yarn tauri signer generate -w $HOME/.tauri/myapp.key"
-    pnpm="pnpm tauri signer generate -w $HOME/.tauri/myapp.key"
-    bun="bunx tauri signer generate -w $HOME/.tauri/myapp.key"
-    cargo="cargo tauri signer generate -w $HOME/.tauri/myapp.key"
-  />
-</Tabs>
-
 ### Building
 
-While building your update artifacts, you need to have the private key you generated above in your Environment variables. `.env` files do _not_ work!
+While building your update artifacts, you need to have the private key you generated above in your environment variables. `.env` files do _not_ work!
 
 <Tabs>
   <TabItem label="Mac/Linux">
@@ -126,10 +118,19 @@ While building your update artifacts, you need to have the private key you gener
   </TabItem>
 </Tabs>
 
-After that, you can run Tauri build as usual and Tauri will generate the update bundles and their signatures. The generated files depend on the `createUpdaterArtifacts` {/* [`createUpdaterArtifacts`](/reference/config/#createupdaterartifacts) */} value configured below.
+After that, you can run Tauri build as usual and Tauri will generate the update bundles and their signatures.
+The generated files depend on the [`createUpdaterArtifacts`] configuration value configured below.
 
 <Tabs>
-  <TabItem label="Default">
+  <TabItem label="v2">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": true
+  }
+}
+```
 
 On Linux, Tauri will create the normal AppImage inside the `target/release/bundle/appimage/` folder:
 
@@ -153,6 +154,14 @@ On Windows, Tauri will create the normal MSI and NSIS installers inside the targ
 
 </TabItem>
 <TabItem label="v1 compatible">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": "v1Compatible"
+  }
+}
+```
 
 On Linux, Tauri will create a .tar.gz archive from the AppImage inside the `target/release/bundle/appimage/` folder:
 
@@ -182,7 +191,7 @@ On Windows, Tauri will create .zip archives from the MSI and NSIS installers ins
 
 ## Tauri Configuration
 
-Set up the `tauri.config.json` in this format for the updater to start working.
+Set up the `tauri.conf.json` in this format for the updater to start working.
 
 | Keys                     | Description                                                                                                                                                                                                                                                                                    |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -213,6 +222,10 @@ Each updater URL can contain the following dynamic variables, allowing you to de
   }
 }
 ```
+
+:::tip
+Custom variables are not supported, but you can define a [custom `{{target}}`](#custom-target).
+:::
 
 ### `installMode` on Windows
 
@@ -249,6 +262,11 @@ When using static, you just need to return a JSON containing the required inform
 | `pub_date`  | The date must be formatted according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) if present.                                                   |
 | `platforms` | Each platform key is in the `OS-ARCH` format, where `OS` is one of `linux`, `darwin` or `windows`, and `ARCH` is one of `x86_64`, `aarch64`, `i686` or `armv7`. |
 | `signature` | The content of the generated `.sig` file, which may change with each build. A path or URL does not work!                                                        |
+
+:::info
+When using [custom targets](#custom-target) the provided target string is matched against the `platforms` key
+instead of the default `OS-ARCH` value.
+:::
 
 The required keys are `"version"`, `"platforms.[target].url"` and `"platforms.[target].signature"`; the others are optional.
 
@@ -311,9 +329,405 @@ The required keys are `"url"`, `"version"` and `"signature"`; the others are opt
 ```
 
 :::tip
-CrabNebula, an official Tauri partner, offers a dynamic update server. For more information, see the [Distributing with CrabNebula Cloud](distribute/crabnebula-cloud/) documentation. {/* TODO: Fix link once docs were ported */}
+CrabNebula, an official Tauri partner, offers a dynamic update server. For more information, see the [Distributing with CrabNebula Cloud] documentation.
 :::
 
 ## Checking for Updates
 
-<Stub />
+The default API for checking updates and installing them leverages the configured endpoints
+and can be accessed by both JavaScript and Rust code.
+
+<Tabs>
+  <TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update) {
+  console.log(
+    `found update ${update.version} from ${update.date} with notes ${update.body}`
+  );
+  let downloaded = 0;
+  let contentLength = 0;
+  // alternatively we could also call update.download() and update.install() separately
+  await update.downloadAndInstall((event) => {
+    switch (event.event) {
+      case 'Started':
+        contentLength = event.data.contentLength;
+        console.log(`started downloading ${event.data.contentLength} bytes`);
+        break;
+      case 'Progress':
+        downloaded += event.data.chunkLength;
+        console.log(`downloaded ${downloaded} from ${contentLength}`);
+        break;
+      case 'Finished':
+        console.log('download finished');
+        break;
+    }
+  });
+
+  console.log('update installed');
+  await relaunch();
+}
+```
+
+For more information see the [JavaScript API documentation].
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_updater::UpdaterExt;
+
+pub fn run() {
+  tauri::Builder::default()
+    .setup(|app| {
+      let handle = app.handle().clone();
+      tauri::async_runtime::spawn(async move {
+        update(handle).await;
+      });
+      Ok(())
+    })
+}
+async fn update(app: tauri::AppHandle) -> tauri::Result<()> {
+  if let Some(update) = app.updater()?.check().await? {
+    let mut downloaded = 0;
+
+    // alternatively we could also call update.download() and update.install() separately
+    update.download_and_install(|chunk_length, content_length| {
+      downloaded += chunk_length;
+      println!("downloaded {downloaded} from {content_length:?}");
+    }, || {
+      println!("download finished");
+    }).await?;
+
+    println!("update installed");
+    app.restart();
+  }
+
+  Ok(())
+}
+
+```
+
+:::tip
+To notify the frontend of the download progress consider using a command with a [channel].
+
+<details>
+  <summary>Updater command</summary>
+
+```rust
+use std::sync::Mutex;
+use serde::Serialize;
+use tauri::{ipc::Channel, AppHandle, State};
+use tauri_plugin_updater::{Update, UpdaterExt};
+
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error(transparent)]
+  Updater(#[from] tauri_plugin_updater::Error),
+  #[error("there is no pending update")]
+  NoPendingUpdate,
+}
+
+impl Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+  where
+    S: serde::Serializer,
+  {
+    serializer.serialize_str(self.to_string().as_str())
+  }
+}
+
+type Result<T> = std::result::Result<T, Error>;
+
+#[derive(Clone, Serialize)]
+#[serde(tag = "event", content = "data")]
+enum DownloadEvent {
+  #[serde(rename_all = "camelCase")]
+  Started {
+    content_length: Option<u64>,
+  },
+  #[serde(rename_all = "camelCase")]
+  Progress {
+    chunk_length: usize,
+  },
+  Finished,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct UpdateMetadata {
+  version: String,
+  current_version: String,
+}
+
+#[tauri::command]
+async fn fetch_update(
+  app: AppHandle,
+  pending_update: State<'_, PendingUpdate>,
+) -> Result<Option<UpdateMetadata>> {
+  let channel = "stable";
+  let url = url::Url::parse(&format!(
+    "https://cdn.myupdater.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}?channel={channel}",
+  )).expect("invalid URL");
+
+  let update = app
+    .updater_builder()
+    .endpoints(vec![url])
+    .build()?
+    .check()
+    .await?;
+
+  let update_metadata = update.as_ref().map(|update| UpdateMetadata {
+    version: update.version.clone(),
+    current_version: update.current_version.clone(),
+  });
+
+  *pending_update.0.lock().unwrap() = update;
+
+  Ok(update_metadata)
+}
+
+#[tauri::command]
+async fn install_update(pending_update: State<'_, PendingUpdate>, on_event: Channel<DownloadEvent>) -> Result<()> {
+  let Some(update) = pending_update.0.lock().unwrap().take() else {
+    return Err(Error::NoPendingUpdate);
+  };
+
+  let started = false;
+
+  update
+    .download_and_install(
+      |chunk_length, content_length| {
+        if !started {
+          let _ = on_event.send(DownloadEvent::Started { content_length });
+          started = true;
+        }
+
+        let _ = on_event.send(DownloadEvent::Progress { chunk_length });
+      },
+      || {
+        let _ = on_event.send(DownloadEvent::Finished);
+      },
+    )
+    .await?;
+
+  Ok(())
+}
+
+struct PendingUpdate(Mutex<Option<Update>>);
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+  tauri::Builder::default()
+    .plugin(tauri_plugin_process::init())
+    .plugin(tauri_plugin_updater::Builder::new().build())
+    .invoke_handler(tauri::generate_handler![fetch_update, install_update])
+    .manage(PendingUpdate(Mutex::new(None)))
+}
+```
+
+</details>
+:::
+
+For more information see the [Rust API documentation].
+
+</TabItem>
+</Tabs>
+
+Note that restarting your app immediately after installing an update is not required and you can choose
+how to handle the update by either waiting until the user manually restarts the app, or prompting him to select when to do so.
+
+:::note
+On Windows the application is automatically exited when the install step is executed due to a limitation of Windows installers.
+:::
+
+When checking and downloading updates it is possible to define a custom request timeout, a proxy and request headers.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  proxy: '<proxy url>',
+  timeout: 30 /* seconds */,
+  headers: {
+    Authorization: 'Bearer <token>',
+  },
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .timeout(std::time::Duration::from_secs(30))
+  .proxy("<proxy-url>".parse().expect("invalid URL"))
+  .header("Authorization", "Bearer <token>")
+  .build()?
+  .check()
+  .await?;
+```
+
+  </TabItem>
+</Tabs>
+
+### Runtime Configuration
+
+The updater APIs also allows the updater to be configured at runtime for more flexibility.
+For security reasons some APIs are only available for Rust.
+
+#### Endpoints
+
+Setting the URLs that should be requested to check updates at runtime allows
+more dynamic updates such as separate release channels:
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let channel = if beta { "beta" } else { "stable" };
+let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}");
+
+let update = app
+  .updater_builder()
+  .endpoints(vec![update_url])
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+Note that when using format!() to interpolate the update URL you need double escapes for the variables
+e.g. `{{{{target}}}}`.
+:::
+
+#### Public key
+
+Setting the public key at runtime can be useful to implement a key rotation logic.
+It can be set by either the plugin builder or updater builder:
+
+```rust
+tauri_plugin_updater::Builder::new().pubkey("<your public key>").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .pubkey("<your public key>")
+  .build()?
+  .check()
+  .await?;
+```
+
+#### Custom target
+
+By default the updater lets you use the `{{target}}` and `{{arch}}` variables to determine which update asset must be delivered.
+If you need more information on your updates (e.g. when distributing a Universal macOS binary option or having more build flavors)
+you can set a custom target.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  target: 'macos-universal',
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+Custom targets can be set by either the plugin builder or updater builder:
+
+```rust
+tauri_plugin_updater::Builder::new().target("macos-universal").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .target("macos-universal")
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+The default `$target-$arch` key can be retrieved using `tauri_plugin_updater::target()`
+which returns an `Option<String>` that is `None` when the updater is not supported on the current platform.
+:::
+
+  </TabItem>
+</Tabs>
+
+:::note
+
+- When using a custom target it might be easier to use it exclusively to determine the update platform,
+  so you could remove the `{{arch}}` variable.
+- The value provided as target is the key that is matched against the platform key when using a [Static JSON file](#static-json-file).
+
+:::
+
+#### Allowing downgrades
+
+By default Tauri checks if the update version is greater than the current app version to verify if it should update or not.
+To allow downgrades, you must use the updater builder's `version_comparator` API:
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .version_comparator(|current, update| {
+    // default comparison: `update.version > current`
+    update.version != current
+  })
+  .build()?
+  .check()
+  .await?;
+```
+
+#### Windows before exit hook
+
+Due to a limitation of Windows installers, Tauri will automatically quit your application before installing updates on Windows.
+To perform an action before that happens, use the `on_before_exit` function:
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .on_before_exit(|| {
+    println!("app is about to exit on Windows!");
+  })
+  .build()?
+  .check()
+  .await?;
+```
+
+:::note
+The values from the [configuration](#tauri-configuration) are used as fallback if any of the builder values are not set.
+:::
+
+[`createUpdaterArtifacts`]: /reference/config/#createupdaterartifacts
+[Distributing with CrabNebula Cloud]: /distribute/crabnebula-cloud
+[channel]: /develop/calling-frontend/#channels
+[JavaScript API Documentation]: /reference/javascript/updater/
+[Rust API Documentation]: https://docs.rs/tauri-plugin-updater
+
+<PluginPermissions plugin="updater" />

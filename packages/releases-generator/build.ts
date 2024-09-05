@@ -6,27 +6,27 @@ const note =
 const packages = [
   {
     name: 'tauri',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/core/tauri/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: '@tauri-apps/api',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/api/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/packages/api/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'tauri-cli',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-cli/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: '@tauri-apps/cli',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/cli/node/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/packages/cli/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
     name: 'tauri-bundler',
-    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/tooling/bundler/CHANGELOG.md',
+    url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-bundler/CHANGELOG.md',
     tag: 'https://github.com/tauri-apps/tauri/releases/tag',
   },
   {
@@ -126,16 +126,46 @@ async function generator() {
     '---',
   ].join('\n');
 
-  const indexPageContent = `import { LinkCard, CardGrid } from '@astrojs/starlight/components';\n
-<CardGrid>
-	<LinkCard title="tauri" href="/release/tauri/${latestVersions['tauri']}/" />
-	<LinkCard title="@tauri-apps/api" href="/release/@tauri-apps/api/${latestVersions['@tauri-apps/api']}/" />
-	<LinkCard title="tauri-cli (Rust)" href="/release/tauri-cli/${latestVersions['tauri-cli']}/" />
-	<LinkCard title="@tauri-apps/cli (JavaScript)" href="/release/@tauri-apps/cli/${latestVersions['@tauri-apps/cli']}/" />
-	<LinkCard title="tauri-bundler" href="/release/tauri-bundler/${latestVersions['tauri-bundler']}/" />
-	<LinkCard title="wry" href="/release/wry/${latestVersions['wry']}/" />
-	<LinkCard title="tao" href="/release/tao/${latestVersions['tao']}/" />
-</CardGrid>`;
+  const links = [
+    { title: 'tauri', key: 'tauri' },
+    { title: '@tauri-apps/api', key: '@tauri-apps/api' },
+    { title: 'tauri-cli (Rust)', key: 'tauri-cli' },
+    { title: '@tauri-apps/cli (JavaScript)', key: '@tauri-apps/cli' },
+    { title: 'tauri-bundler', key: 'tauri-bundler' },
+    { title: 'wry', key: 'wry' },
+    { title: 'tao', key: 'tao' },
+  ];
+
+  const generateLinkCards = (links: any[], latestVersions: { [x: string]: any }) => {
+    return links
+      .map(
+        (link) => `
+      <LinkCard 
+        key="${link.key}" 
+        title="${link.title}" 
+        description="${latestVersions[link.key]}"
+        href="/release/${link.key}/${latestVersions[link.key]}/" 
+      />
+    `
+      )
+      .join('\n');
+  };
+
+  const indexPageContent = `
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+export const latestVersions = ${JSON.stringify(latestVersions)};
+
+export const links = ${JSON.stringify(links)};
+
+export const LinkCards = () => (
+  <CardGrid>
+    ${generateLinkCards(links, latestVersions)}
+  </CardGrid>
+);
+
+<LinkCards />
+`;
 
   writeFileSync(join(baseDir, 'index.mdx'), `${indexPage}\n${indexPageContent}`);
 }
