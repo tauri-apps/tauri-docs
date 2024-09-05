@@ -13,8 +13,8 @@
   "dependencies": {
     "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
-    "typedoc": "^0.26.0",
-    "typedoc-plugin-markdown": "^4.0.2",
-    "typedoc-plugin-mdn-links": "^3.1.25"
+    "typedoc": "^0.26.6",
+    "typedoc-plugin-markdown": "^4.2.6",
+    "typedoc-plugin-mdn-links": "^3.2.11"
   }
 }
