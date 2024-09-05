@@ -13,7 +13,7 @@ interface Props {
 const { npm, yarn, pnpm, bun, cargo } = Astro.props;
 ---
 
-<Tabs>
+<Tabs syncKey="cmd">
   {
     npm && (
       <TabItem label="npm">

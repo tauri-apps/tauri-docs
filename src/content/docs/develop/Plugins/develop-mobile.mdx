@@ -51,7 +51,7 @@ Refer to the [Plugin Configuration section](/develop/plugins/#plugin-configurati
 
 The plugin instance on mobile has a getter for the plugin configuration:
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -95,7 +95,7 @@ There are also the additional [lifecycle events for plugins](/develop/plugins/#l
 - **When**: When the plugin is loaded into the web view
 - **Why**: Execute plugin initialization code
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -151,7 +151,7 @@ There is a plugin class inside the respective mobile projects where commands can
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -299,7 +299,7 @@ Required arguments are defined as `let <argumentName>: Type`
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 First define the list of permissions needed and an alias to identify each group in code. This is done inside the `TauriPlugin` annotation:
@@ -405,7 +405,7 @@ impl<R: Runtime> Notification<R> {
 
 Plugins can emit events at any point of time using the `trigger` function:
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
