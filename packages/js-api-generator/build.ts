@@ -60,7 +60,6 @@ async function generator() {
   }
 
   const plugins = [
-    'authenticator',
     'autostart',
     'barcode-scanner',
     'biometric',
