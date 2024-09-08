@@ -4,13 +4,19 @@ sidebar:
   order: 1
 ---
 
+import CommandTabs from '@components/CommandTabs.astro';
+
 Since Tauri is a toolkit for building applications there can be many files to configure project settings. Some common files that you may run across are `tauri.conf.json`, `package.json` and `Cargo.toml`. We briefly explain each on this page to help point you in the right direction for which files to modify.
 
 ## Tauri Config
 
 The Tauri configuration is used to define the source of your Web app, describe your application's metadata, configure bundles, set plugin configurations, modify runtime behavior by configuring windows, tray icons, menus and more.
 
-This file is used by the Tauri runtime and the Tauri CLI. You can define build settings (such as the [command run before `tauri build`][before-build-command] or [`tauri dev`][before-dev-command] kicks in), set the [name](/reference/config/#productname) and [version of your app](/reference/config/#version), [control the Tauri runtime][appconfig], and [configure plugins]. You can find all of the options in the [configuration reference].
+This file is used by the Tauri runtime and the Tauri CLI. You can define build settings (such as the [command run before `tauri build`][before-build-command] or [`tauri dev`][before-dev-command] kicks in), set the [name](/reference/config/#productname) and [version of your app](/reference/config/#version), [control the Tauri runtime][appconfig], and [configure plugins].
+
+:::tip
+You can find all of the options in the [configuration reference].
+:::
 
 ### Supported Formats
 
@@ -70,6 +76,103 @@ endpoints = ["https://my.app.updater/{{target}}/{{current_version}}"]
 ```
 
 Note that JSON5 and TOML supports comments, and TOML can use kebab-case for config names which are more idiomatic.
+
+### Platform-specific Configuration
+
+In addition to the default configuration file, Tauri can read a platform-specific configuration from:
+
+- `tauri.linux.conf.json` or `Tauri.linux.toml` for Linux
+- `tauri.windows.conf.json` or `Tauri.windows.toml` for Windows
+- `tauri.macos.conf.json` or `Tauri.macos.toml` for macOS
+- `tauri.android.conf.json` or `Tauri.android.toml` for Android
+- `tauri.ios.conf.json` or `Tauri.ios.toml` for iOS
+
+The platform-specific configuration file gets merged with the main configuration object following the [JSON Merge Patch (RFC 7396)] specification.
+
+For example, given the following base `tauri.conf.json`:
+
+```json title=tauri.conf.json
+{
+  "productName": "MyApp",
+  "bundle": {
+    "resources": ["./resources"]
+  },
+  "plugins": {
+    "deep-link": {}
+  }
+}
+```
+
+And the given `tauri.linux.conf.json`:
+
+```json title=tauri.linux.conf.json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+The resolved configuration for Linux would be the following object:
+
+```json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    }
+  }
+}
+```
+
+Additionally you can provide a configuration to be merged via the CLI, see the following section for more information.
+
+### Extending the Configuration
+
+The Tauri CLI allows you to extend the Tauri configuration when running one of the `dev`, `android dev`, `ios dev`, `build`, `android build`, `ios build` or `bundle` commands.
+The configuration extension can be provided by the `--config` argument either as a raw JSON string or as a path to a JSON file.
+Tauri uses the [JSON Merge Patch (RFC 7396)] specification to merge the provided configuration value with the originally resolved configuration object.
+
+This mechanism can be used to define multiple flavours of your application or have more flexibility when configuring your application bundles.
+
+For instance to distribute a completely isolated _beta_ application you can use this feature to configure a separate application name and identifier:
+
+```json title=src-tauri/tauri.beta.conf.json
+{
+  "productName": "My App Beta",
+  "identifier": "com.myorg.myappbeta"
+}
+```
+
+<CommandTabs
+  npm="npm run tauri build --config src-tauri/tauri.beta.conf.json"
+  yarn="yarn tauri build --config src-tauri/tauri.beta.conf.json"
+  pnpm="pnpm tauri build --config src-tauri/tauri.beta.conf.json"
+  cargo="cargo tauri build --config src-tauri/tauri.beta.conf.json"
+/>
+
+And to distribute this separate _beta_ app you provide this configuration file when building it:
+
+```
+
+```
 
 ## `Cargo.toml`
 
@@ -164,3 +267,4 @@ To learn more about the `package.json` file format please refer to the [official
 [cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
 [npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
 [tauri Cargo features]: https://docs.rs/tauri/2.0.0-rc/tauri/#cargo-features
+[JSON Merge Patch (RFC 7396)]: https://datatracker.ietf.org/doc/html/rfc7396
