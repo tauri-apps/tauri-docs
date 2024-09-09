@@ -112,7 +112,7 @@ pub fn run() {
 
                 let ctrl_n_shortcut = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyN);
                 app.handle().plugin(
-                    tauri_plugin_global_shortcut::Builder::new().with_handler(move |_app, shortcut| {
+                    tauri_plugin_global_shortcut::Builder::new().with_handler(move |_app, shortcut, event| {
                         println!("{:?}", shortcut);
                         if shortcut == &ctrl_n_shortcut {
                             match event.state() {
