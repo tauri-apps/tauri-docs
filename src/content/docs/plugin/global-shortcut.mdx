@@ -108,7 +108,7 @@ pub fn run() {
         .setup(|app| {
             #[cfg(desktop)]
             {
-                use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut};
+                use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut, ShortcutState};
 
                 let ctrl_n_shortcut = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyN);
                 app.handle().plugin(
