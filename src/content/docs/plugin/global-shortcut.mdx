@@ -115,7 +115,14 @@ pub fn run() {
                     tauri_plugin_global_shortcut::Builder::new().with_handler(move |_app, shortcut| {
                         println!("{:?}", shortcut);
                         if shortcut == &ctrl_n_shortcut {
-                            println!("Ctrl-N Detected!");
+                            match event.state() {
+                              ShortcutState::Pressed => {
+                                println!("Ctrl-N Pressed!");
+                              }
+                              ShortcutState::Released => {
+                                println!("Ctrl-N Released!");
+                              }
+                            }
                         }
                     })
                     .build(),
