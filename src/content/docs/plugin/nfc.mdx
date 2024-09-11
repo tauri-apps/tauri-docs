@@ -83,6 +83,23 @@ Install the nfc plugin to get started.
   </TabItem>
 </Tabs>
 
+## Configuration
+
+On iOS the NFC plugin requires the `NFCReaderUsageDescription` information property list value, which should describe why your app needs to scan or write to NFC tags.
+
+In the `src-tauri/Info.ios.plist` file, add the following snippet:
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NFCReaderUsageDescription</key>
+		<string>Read QR codes</string>
+	</dict>
+</plist>
+```
+
 ## Usage
 
 <Stub>

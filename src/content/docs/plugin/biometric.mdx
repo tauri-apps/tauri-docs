@@ -70,6 +70,23 @@ Install the biometric plugin to get started.
 
 </Tabs>
 
+## Configuration
+
+On iOS the biometric plugin requires the `NSFaceIDUsageDescription` information property list value, which should describe why your app needs to use biometric authentication.
+
+In the `src-tauri/Info.ios.plist` file, add the following snippet:
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Authenticate with biometric</string>
+	</dict>
+</plist>
+```
+
 ## Usage
 
 This plugin enables you to verify the availability of Biometric Authentication on a device, prompt the user for biometric authentication, and check the result to determine if the authentication was successful or not.

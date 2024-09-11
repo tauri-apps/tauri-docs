@@ -82,6 +82,23 @@ Install the barcode-scanner plugin to get started.
   </TabItem>
 </Tabs>
 
+## Configuration
+
+On iOS the barcode scanner plugin requires the `NSCameraUsageDescription` information property list value, which should describe why your app needs to use the camera.
+
+In the `src-tauri/Info.ios.plist` file, add the following snippet:
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSCameraUsageDescription</key>
+		<string>Read QR codes</string>
+	</dict>
+</plist>
+```
+
 ## Usage
 
 The barcode scanner plugin is available in JavaScript.
