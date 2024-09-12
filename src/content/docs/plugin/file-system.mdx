@@ -547,6 +547,16 @@ To watch a directory or file for changes, use the `watch` or `watchImmediate` fu
 By default watch operations on a directory are not recursive.
 Set the `recursive` option to `true` to recursively watch for changes on all sub-directories.
 
+:::note
+The watch functions require the `watch` feature flag:
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-fs = { version = "2.0.0-rc", features = ["watch"] }
+```
+
+:::
+
 ## Permissions
 
 By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
