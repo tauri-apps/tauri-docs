@@ -96,7 +96,7 @@ By default, when you initiate a new instance while the application is already ru
 use tauri::{AppHandle, Manager};
 
 pub fn run() {
-    let mut builder = ;tauri::Builder::default()
+    let mut builder = tauri::Builder::default();
     #[cfg(desktop)]
     {
         builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
