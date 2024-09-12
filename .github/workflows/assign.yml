@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Auto-assign PR to author
+        if: ${{ github.event.pull_request.user.type != 'Bot' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # The gh cli currently does not consider the pr author an assignable user if they aren't part of the org
