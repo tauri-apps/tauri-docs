@@ -157,7 +157,7 @@ such as download progress, child process output and WebSocket messages.
 Let's rewrite our download command example to use channels instead of the event system:
 
 ```rust title="src-tauri/src/lib.rs"
-use tauri::{AppHandle, Channel};
+use tauri::{AppHandle, ipc::Channel};
 use serde::Serialize;
 
 #[derive(Clone, Serialize)]
