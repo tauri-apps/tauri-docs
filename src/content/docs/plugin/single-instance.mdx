@@ -74,9 +74,9 @@ The closure has three arguments:
 
   <Steps>
 
-1. **`app` :** The [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) of the application.
-2. **`args` :** The list of arguments, that was passed by the user to initiate this new instance.
-3. **`cwd` :** The Current Working Directory denotes the directory from which the new application instance was launched.
+1. **`app`:** The [AppHandle](https://docs.rs/tauri/2.0.0-rc/tauri/struct.AppHandle.html) of the application.
+2. **`args`:** The list of arguments, that was passed by the user to initiate this new instance.
+3. **`cwd`:** The Current Working Directory denotes the directory from which the new application instance was launched.
 
   </Steps>
 
@@ -96,10 +96,15 @@ By default, when you initiate a new instance while the application is already ru
 use tauri::{AppHandle, Manager};
 
 pub fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+    let mut builder = ;tauri::Builder::default()
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
             let _ = show_window(app);
-        }))
+        }));
+    }
+
+    builder
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
