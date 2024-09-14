@@ -32,8 +32,8 @@ importers:
         specifier: ^4.4.4
         version: 4.15.6(@types/node@22.5.4)(rollup@2.79.1)(sass@1.78.0)(terser@5.31.0)(typescript@5.6.2)
       astro-d2:
-        specifier: ^0.4.0
-        version: 0.4.0(astro@4.15.6(@types/node@22.5.4)(rollup@2.79.1)(sass@1.78.0)(terser@5.31.0)(typescript@5.6.2))
+        specifier: ^0.5.0
+        version: 0.5.0(astro@4.15.6(@types/node@22.5.4)(rollup@2.79.1)(sass@1.78.0)(terser@5.31.0)(typescript@5.6.2))
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
@@ -1511,8 +1511,8 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro-d2@0.4.0:
-    resolution: {integrity: sha512-MYtz46dDlY4CVXFYlY7qqUfJ6+pz7X91vll+OBciBCf0azUvEX3S/f65uTONBBp6lql3uTu0XzcMw/ftpTz0Sg==}
+  astro-d2@0.5.0:
+    resolution: {integrity: sha512-jOrQpHjSQ7qyFd3YleDaKJmXV6tx/Pbnk1b+aK+RswbuOcLdKLQdITsWuBoSS9b3Xpvelv9WR0sulO1bYOEc6w==}
     engines: {node: '>=18'}
     peerDependencies:
       astro: '>=4.0.0'
@@ -5319,7 +5319,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-d2@0.4.0(astro@4.15.6(@types/node@22.5.4)(rollup@2.79.1)(sass@1.78.0)(terser@5.31.0)(typescript@5.6.2)):
+  astro-d2@0.5.0(astro@4.15.6(@types/node@22.5.4)(rollup@2.79.1)(sass@1.78.0)(terser@5.31.0)(typescript@5.6.2)):
     dependencies:
       astro: 4.15.6(@types/node@22.5.4)(rollup@2.79.1)(sass@1.78.0)(terser@5.31.0)(typescript@5.6.2)
       unist-util-visit: 5.0.0
