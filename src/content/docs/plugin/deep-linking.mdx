@@ -215,8 +215,12 @@ and on mobile the `https://another.site.br/*` and `https://your.website.com/open
 
 The deep-link plugin is available in both JavaScript and Rust.
 
+### Listening to Deep Links
+
 <Tabs>
   <TabItem label="JavaScript">
+
+When a deep link triggers your app to be opened, the `onOpenUrl` callback is executed:
 
 ```javascript
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
@@ -231,6 +235,8 @@ await onOpenUrl((urls) => {
   </TabItem>
   <TabItem label="Rust">
 
+When a deep link triggers your app to be opened, the `on_open_url` closure is called:
+
 ```rust title="src-tauri/src/lib.rs"
 use tauri_plugin_deep_link::DeepLinkExt;
 
@@ -239,8 +245,8 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
         .setup(|app| {
-            app.listen("deep-link://new-url", |url| {
-              dbg!(url);
+            app.deep_link().on_open_url(|event| {
+                println!("deep link URLs: {:?}", event.urls());
             });
             Ok(())
         })
@@ -251,6 +257,57 @@ pub fn run() {
 
   </TabItem>
 </Tabs>
+
+:::note
+The open URL event is triggered with a list of URLs that were requested to be compatible with the macOS API for deep links,
+but in most cases your app will only receive a single URL.
+:::
+
+### Registering Desktop Deep Links at Runtime
+
+The [configuration](#configuration) section describes how to define static deep link schemes for your application.
+
+On Linux and Windows it is possible to also associate schemes with your application at runtime via the `register` Rust function.
+
+In the following snippet, we will register the `my-app` scheme at runtime. After executing the app for the first time,
+the operating system will open `my-app://*` URLs with our application:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            #[cfg(desktop)]
+            app.deep_link().register("my-app")?;
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+:::note
+Registering the deep links at runtime can be useful for developing on Linux and Windows
+as by default the deep link is only registered when your app is installed.
+
+Installing an AppImage can be complicated as it requires an AppImage launcher.
+
+Registering the deep links at runtime might be preferred, so Tauri also includes a
+helper function to force register all statically configured deep links at runtime.
+Calling this function also ensures the deep links is registered for development mode:
+
+```rust
+#[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
+{
+  use tauri_plugin_deep_link::DeepLinkExt;
+  app.deep_link().register_all()?;
+}
+```
+
+:::
 
 ## Testing
 
@@ -285,6 +342,8 @@ pub fn run() {
 :::note
 Installing an AppImage that supports deep links on Linux requires an AppImage launcher to integrate the AppImage with the operating system.
 Using the `register_all` function you can support deep links out of the box, without requiring your users to use external tools.
+
+See the [Registering Desktop Deep Links at Runtime](#registering-desktop-deep-links-at-runtime) section for more information.
 :::
 
 :::warn
@@ -294,7 +353,11 @@ which must be installed in the `/Applications` directory.
 
 #### Windows
 
-To trigger a deep link on Linux you can either open `<scheme>://url` in the browser
+To trigger a deep link on Linux you can either open `<scheme>://url` in the browser or run the following command in the terminal:
+
+```sh
+
+```
 
 #### Linux
 
