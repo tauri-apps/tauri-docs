@@ -343,6 +343,9 @@ pub fn run() {
 Installing an AppImage that supports deep links on Linux requires an AppImage launcher to integrate the AppImage with the operating system.
 Using the `register_all` function you can support deep links out of the box, without requiring your users to use external tools.
 
+When the AppImage is moved to a different location in the file system, the deep link is invalidated since it leverages an absolute path
+to the executable, which makes registering the schemes at runtime even more important.
+
 See the [Registering Desktop Deep Links at Runtime](#registering-desktop-deep-links-at-runtime) section for more information.
 :::
 
