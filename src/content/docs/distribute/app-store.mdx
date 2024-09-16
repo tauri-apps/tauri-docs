@@ -1,7 +1,7 @@
 ---
 title: App Store
 sidebar:
-	order: 1
+  order: 1
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -23,10 +23,10 @@ Additionally, you must setup code signing for [macOS][macOS code signing] and [i
 After running `tauri ios init` to setup the Xcode project, you can use the `tauri icon` command to update the app icons.
 
 <CommandTabs
-	npm="npm run tauri icon /path/to/app-icon.png --ios-color #fff"
-	yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
-	pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
-	cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
+  npm="npm run tauri icon /path/to/app-icon.png --ios-color #fff"
+  yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
+  pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
+  cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
 />
 
 The `--ios-color` argument defines the background color for the iOS icons.
@@ -52,10 +52,10 @@ Note that Tauri leverages Xcode for the iOS app so you can use Xcode to archive 
 To open the iOS project in Xcode for building you must run the following command:
 
 <CommandTabs
-	npm="npm run tauri ios build --open"
-	yarn="yarn tauri ios build --open"
-	pnpm="pnpm tauri ios build --open"
-	cargo="cargo tauri ios build --open"
+  npm="npm run tauri ios build --open"
+  yarn="yarn tauri ios build --open"
+  pnpm="pnpm tauri ios build --open"
+  cargo="cargo tauri ios build --open"
 />
 
 ### macOS
@@ -76,27 +76,27 @@ To apply the following config changes only when building for App Store, you can 
 
 ```json title="src-tauri/tauri.appstore.conf.json
 {
-	"bundle": {
-		"macOS": {
-			"entitlements": "./Entitlements.plist",
-			"files": {
-				"embedded.provisionprofile": "path/to/profile-name.provisionprofile"
-			}
-		}
-	}
+  "bundle": {
+    "macOS": {
+      "entitlements": "./Entitlements.plist",
+      "files": {
+        "embedded.provisionprofile": "path/to/profile-name.provisionprofile"
+      }
+    }
+  }
 }
 ```
 
 Then merge that config file with the main one when bundling your Tauri app for App Store:
 
 <CommandTabs
-	npm="npm run tauri build --no-bundle
+  npm="npm run tauri build --no-bundle
 npm run tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
-	yarn="yarn tauri build --no-bundle
+  yarn="yarn tauri build --no-bundle
 yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
-	pnpm="pnpm tauri build --no-bundle
+  pnpm="pnpm tauri build --no-bundle
 pnpm tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
-	cargo="cargo tauri build --no-bundle
+  cargo="cargo tauri build --no-bundle
 cargo tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
 />
 
@@ -111,9 +111,9 @@ Your app must define its [`tauri.conf.json > bundle > category`] to be displayed
 
 ```json title="tauri.conf.json" ins={3}
 {
-	"bundle": {
-		"category": "Utility"
-	}
+  "bundle": {
+    "category": "Utility"
+  }
 }
 ```
 
@@ -132,13 +132,13 @@ After creating the provisioning profile, download it and save it to a known loca
 
 ```json title="tauri.conf.json" ins={4-6}
 {
-	"bundle": {
-		"macOS": {
-			"files": {
-				"embedded.provisionprofile": "path/to/profile-name.provisionprofile"
-			}
-		}
-	}
+  "bundle": {
+    "macOS": {
+      "files": {
+        "embedded.provisionprofile": "path/to/profile-name.provisionprofile"
+      }
+    }
+  }
 }
 ```
 
@@ -183,12 +183,12 @@ Create a `Entitlements.plist` file in the `src-tauri` folder:
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-		<key>com.apple.security.app-sandbox</key>
-		<true/>
-		<key>com.apple.application-identifier</key>
-		<string>$TEAM_ID.$IDENTIFIER</string>
-		<key>com.apple.developer.team-identifier</key>
-		<string>$TEAM_ID</string>
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+    <key>com.apple.application-identifier</key>
+    <string>$TEAM_ID.$IDENTIFIER</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>$TEAM_ID</string>
 </dict>
 </plist>
 ```
@@ -201,11 +201,11 @@ And reference that file in the macOS bundle configuration [`tauri.conf.json > bu
 
 ```json title="tauri.conf.json" ins={4}
 {
-	"bundle": {
-		"macOS": {
-			"entitlements": "./Entitlements.plist"
-		}
-	}
+  "bundle": {
+    "macOS": {
+      "entitlements": "./Entitlements.plist"
+    }
+  }
 }
 ```
 
@@ -229,25 +229,25 @@ If you prefer to only support Apple Silicon instead, you must change [`tauri.con
 
 ```json title="tauri.conf.json" ins={4}
 {
-	"bundle": {
-		"macOS": {
-			"minimumSystemVersion": "12.0"
-		}
-	}
+  "bundle": {
+    "macOS": {
+      "minimumSystemVersion": "12.0"
+    }
+  }
 }
 ```
 
 And change the CLI command and output path based on the Mac system you are running:
 
 - if your build system uses an Apple Silicon chip, remove the `--target universal-apple-darwin` arguments and use `target/release`
-	instead of `target/universal-apple-darwin/release` in the paths referenced below.
+  instead of `target/universal-apple-darwin/release` in the paths referenced below.
 - if your build system uses an Intel chip:
-	- install the Rust Apple Silicon target:
-		```
-		rustup target add aarch64-apple-darwin
-		```
-	- change the `universal-apple-darwin` argument to `aarch64-apple-darwin`
-		and use `target/aarch64-apple-darwin/release` instead of `target/universal-apple-darwin/release` in the paths referenced below.
+  - install the Rust Apple Silicon target:
+    ```
+    rustup target add aarch64-apple-darwin
+    ```
+  - change the `universal-apple-darwin` argument to `aarch64-apple-darwin`
+    and use `target/aarch64-apple-darwin/release` instead of `target/universal-apple-darwin/release` in the paths referenced below.
 
 :::
 
@@ -283,10 +283,10 @@ Your app will then be validated by Apple and available in TestFlight if approved
 To build your iOS app, run the `tauri ios build` command:
 
 <CommandTabs
-	npm="npm run tauri ios build --export-method app-store-connect"
-	yarn="yarn tauri ios build --export-method app-store-connect"
-	pnpm="pnpm tauri ios build --export-method app-store-connect"
-	cargo="cargo tauri ios build --export-method app-store-connect"
+  npm="npm run tauri ios build --export-method app-store-connect"
+  yarn="yarn tauri ios build --export-method app-store-connect"
+  pnpm="pnpm tauri ios build --export-method app-store-connect"
+  cargo="cargo tauri ios build --export-method app-store-connect"
 />
 
 The generated IPA file can be found in `src-tauri/gen/apple/build/arm64/$APPNAME.ipa`.
