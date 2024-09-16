@@ -44,7 +44,7 @@ _这个插件要求 Rust 版本至少是 **1.64**_
   </TabItem>
   <TabItem label="手动">
 
-1. 运行 `tauri-plugin-barcode-scanner` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+1. 运行 `cargo add tauri-plugin-barcode-scanner` 以将插件添加到 `Cargo.toml` 的项目依赖中。
 
 2. 修改 `lib.rs` 来初始化插件。
 
@@ -87,7 +87,7 @@ scan({ windowed: true, formats: [Format.QRCode] });
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/mobile.json"
 {

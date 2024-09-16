@@ -57,43 +57,43 @@ Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
 
 ### tauri
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri)
 
-This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/reference/config) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
+This is the major crate that holds everything together. It brings the runtimes, macros, utilities and API into one final product. It reads the [`tauri.conf.json`](/reference/config/) file at compile time to bring in features and undertake the actual configuration of the app (and even the `Cargo.toml` file in the project's folder). It handles script injection (for polyfills / prototype revision) at runtime, hosts the API for systems interaction, and even manages the updating process.
 
 ### tauri-runtime
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime)
 
 The glue layer between Tauri itself and lower-level webview libraries.
 
 ### tauri-macros
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-macros)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-macros)
 
-Creates macros for the context, handler, and commands by leveraging the [`tauri-codegen`](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen) crate.
+Creates macros for the context, handler, and commands by leveraging the [`tauri-codegen`](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen) crate.
 
 ### tauri-utils
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-utils)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-utils)
 
 Common code that is reused in many places and offers useful utilities like parsing configuration files, detecting platform triples, injecting the CSP, and managing assets.
 
 ### tauri-build
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-build)
 
 Applies the macros at build-time to rig some special features needed by `cargo`.
 
 ### tauri-codegen
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen)
 
-Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](/reference/config) at compile time and generates the Config struct.
+Embeds, hashes, and compresses assets, including icons for the app as well as the system tray. Parses [`tauri.conf.json`](/reference/config/) at compile time and generates the Config struct.
 
 ### tauri-runtime-wry
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/core/tauri-runtime-wry)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime-wry)
 
 This crate opens up direct systems-level interactions specifically for WRY, such as printing, monitor detection, and other windowing-related tasks.
 
@@ -101,27 +101,27 @@ This crate opens up direct systems-level interactions specifically for WRY, such
 
 ### API (JavaScript / TypeScript)
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/tooling/api)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/packages/api)
 
 A typescript library that creates `cjs` and `esm` JavaScript endpoints for you to import into your frontend framework so that the Webview can call and listen to backend activity. Also ships in pure typescript, because for some frameworks this is more optimal. It uses the message passing of webviews to their hosts.
 
 ### Bundler (Rust / Shell)
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/tooling/bundler)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler)
 
 A library that builds a Tauri app for the platform it detects or is told. Currently supports macOS, Windows and Linux - but in the near future will support mobile platforms as well. May be used outside of Tauri projects.
 
 ### cli.rs (Rust)
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/tooling/cli)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-cli)
 
 This Rust executable provides the full interface to all of the required activities for which the CLI is required. It runs on macOS, Windows, and Linux.
 
 ### cli.js (JavaScript)
 
-[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/tooling/cli/node)
+[View on GitHub](https://github.com/tauri-apps/tauri/tree/dev/packages/cli)
 
-Wrapper around [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/tooling/cli) using [`napi-rs`](https://github.com/napi-rs/napi-rs) to produce npm packages for each platform.
+Wrapper around [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-cli) using [`napi-rs`](https://github.com/napi-rs/napi-rs) to produce npm packages for each platform.
 
 ### create-tauri-app (JavaScript)
 
@@ -168,7 +168,7 @@ Allows you to very quickly install Tauri in a vue-cli project.
 
 ## Plugins
 
-[Tauri Plugin Guide](/develop/plugins)
+[Tauri Plugin Guide](/develop/plugins/)
 
 Generally speaking, plugins are authored by third parties (even though there may be official, supported plugins). A plugin generally does 3 things:
 
@@ -178,9 +178,9 @@ Generally speaking, plugins are authored by third parties (even though there may
 
 Here are some examples of Tauri Plugins:
 
+- [tauri-plugin-fs](https://github.com/tauri-apps/tauri-plugin-fs)
 - [tauri-plugin-sql](https://github.com/tauri-apps/tauri-plugin-sql)
 - [tauri-plugin-stronghold](https://github.com/tauri-apps/tauri-plugin-stronghold)
-- [tauri-plugin-authenticator](https://github.com/tauri-apps/tauri-plugin-authenticator)
 
 ## License
 

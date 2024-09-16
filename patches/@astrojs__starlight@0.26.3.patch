@@ -1,5 +1,5 @@
 diff --git a/schemas/sidebar.ts b/schemas/sidebar.ts
-index 86eb7f87e48d2f1b2cb096efa7a5bfaae63939bf..d1cf4ca8f280082ebf1c41c8c849e838d2250f3d 100644
+index b71d159ed44f89ef83298a7036a66edf25945f20..7706b3b25b0e62f2735f0cad61780f9c745b131b 100644
 --- a/schemas/sidebar.ts
 +++ b/schemas/sidebar.ts
 @@ -49,6 +49,8 @@ const AutoSidebarGroupSchema = SidebarGroupSchema.extend({
@@ -9,13 +9,13 @@ index 86eb7f87e48d2f1b2cb096efa7a5bfaae63939bf..d1cf4ca8f280082ebf1c41c8c849e838
 +		sort: z.enum(['date']).optional(),
 +		order: z.enum(['ascending','descending']).optional()
  	}),
- });
+ }).strict();
  export type AutoSidebarGroup = z.infer<typeof AutoSidebarGroupSchema>;
 diff --git a/utils/navigation.ts b/utils/navigation.ts
-index aa4ab1f4db2f4fcb6adb8122cadb89e3e05791b9..e4a85077b588de3e33cf64e7eb4fb91501fc1c13 100644
+index cd1475d15221caca34d03bfdc026f211b41e0c07..b72b230da9262f76e8e7573e5b8aeb59aaec01e4 100644
 --- a/utils/navigation.ts
 +++ b/utils/navigation.ts
-@@ -91,7 +91,7 @@ function groupFromAutogenerateConfig(
+@@ -96,7 +96,7 @@ function groupFromAutogenerateConfig(
  	routes: Route[],
  	currentPathname: string
  ): Group {
@@ -24,19 +24,17 @@ index aa4ab1f4db2f4fcb6adb8122cadb89e3e05791b9..e4a85077b588de3e33cf64e7eb4fb915
  	const localeDir = locale ? locale + '/' + directory : directory;
  	const dirDocs = routes.filter(
  		(doc) =>
-@@ -99,8 +99,9 @@ function groupFromAutogenerateConfig(
- 			stripExtension(doc.id) === localeDir ||
+@@ -105,7 +105,8 @@ function groupFromAutogenerateConfig(
  			// Match against `foo/anything/else.md`.
  			doc.id.startsWith(localeDir + '/')
--	);
+ 	);
 -	const tree = treeify(dirDocs, localeDir);
-+	)
 +	const sorted = !sort ? dirDocs : dirDocs.sort(sortHandler(sort, order)).map((doc, i) => {doc.entry.data.sidebar.order = i; return doc});
 +	const tree = treeify(sorted, localeDir);
  	return {
  		type: 'group',
  		label: pickLang(item.translations, localeToLang(locale)) || item.label,
-@@ -110,6 +111,13 @@ function groupFromAutogenerateConfig(
+@@ -115,6 +116,13 @@ function groupFromAutogenerateConfig(
  	};
  }
  

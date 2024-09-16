@@ -35,22 +35,23 @@ Install the biometric plugin to get started.
     </TabItem>
     <TabItem label="Manual">
         <Steps>
-        1.  Install the biometric plugin by adding the following to your `Cargo.toml` file:
+        1.  Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-            ```toml title="src-tauri/Cargo.toml"
-            [dependencies]
-            tauri-plugin-biometric = "2.0.0-beta"
-            # alternatively with Git:
-            tauri-plugin-biometric = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+            ```sh frame=none
+            cargo add tauri-plugin-biometric --target 'cfg(any(target_os = "android", target_os = "ios"))'
             ```
 
         2.  Modify `lib.rs` to initialize the plugin:
 
-            ```rust title="src-tauri/src/lib.rs" ins={4}
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
-                    .plugin(tauri_plugin_biometric::Builder::new().build())
+                    .setup(|app| {
+                        #[cfg(mobile)]
+                        app.handle().plugin(tauri_plugin_biometric::Builder::new().build());
+                        Ok(())
+                    })
                     .run(tauri::generate_context!())
                     .expect("error while running tauri application");
             }
@@ -68,6 +69,23 @@ Install the biometric plugin to get started.
     </TabItem>
 
 </Tabs>
+
+## Configuration
+
+On iOS the biometric plugin requires the `NSFaceIDUsageDescription` information property list value, which should describe why your app needs to use biometric authentication.
+
+In the `src-tauri/Info.ios.plist` file, add the following snippet:
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Authenticate with biometric</string>
+	</dict>
+</plist>
+```
 
 ## Usage
 

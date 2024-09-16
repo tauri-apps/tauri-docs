@@ -13,7 +13,7 @@ The Tauri Programme is celebrating its third anniversary of Tauri becoming a pro
 
 ## Board Elections
 
-The Tauri Board of Directors is the central decision-making body for the Tauri Programme and is responsible for its overall health and stability. Additional details can be found on the [Tauri Governance page](/about/governance).
+The Tauri Board of Directors is the central decision-making body for the Tauri Programme and is responsible for its overall health and stability. Additional details can be found on the [Tauri Governance page](/about/governance/).
 
 In order to provide continuity from one year to another, the elections of seats are staggered over the course of 2 years. This means that one year a portion of the seats are elected, and the following year the remaining seats are elected. A Tauri Director seat is an elected position with a term of 2 years. The Board has a minimum of 3 Directors and a maximum of 7. This year there are 2 seats open for election.
 
@@ -21,7 +21,7 @@ In order to provide continuity from one year to another, the elections of seats 
 
 There are 3 steps to express interest and apply for candidacy:
 
-1. Learn about the role of a Tauri Board Director on the [Governance page](/about/governance#tauri-board--board-directors).
+1. Learn about the role of a Tauri Board Director on the [Governance page](/about/governance/#tauri-board--board-directors).
 2. Prepare a written introduction about yourself that covers who you are, your history and relevance for Tauri, and what you would like to bring to the Board.
 3. **Apply prior to July 5th, 2024** by emailing [board@tauri.app](mailto:board@tauri.app), messaging the `@board` role on the [Tauri Discord](https://discord.com/invite/tauri), or by directly messaging Jacob Bolda on Discord (`@jacobbolda`) or email ([jacob@tauri.app](mailto:jacob@tauri.app)).
 

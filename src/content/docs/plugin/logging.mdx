@@ -45,20 +45,17 @@ Install the log plugin to get started.
   <TabItem label = "Manual">
     <Steps>
 
-    1.  Install the log plugin by adding the following to your `Cargo.toml` file:
+    1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
-        ```toml title="src-tauri/Cargo.toml"
-        [dependencies]
-        tauri-plugin-log = "2.0.0-rc"
-        # alternatively with Git:
-        tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
+        ```sh frame=none
+        cargo add tauri-plugin-log
         ```
 
     2.  Modify `lib.rs` to initialize the plugin:
 
         ```rust title="src-tauri/src/lib.rs" ins={4}
         #[cfg_attr(mobile, tauri::mobile_entry_point)]
-        fn run() {
+        pub fn run() {
             tauri::Builder::default()
                 .plugin(tauri_plugin_log::Builder::new().build())
                 .run(tauri::generate_context!())
@@ -195,7 +192,9 @@ To forward all your logs to the terminal, enable the `Stdout` or `Stderr` target
 
 ```rust
 tauri_plugin_log::Builder::new()
-  .target(tauri_plugin_log::TargetKind::Stdout)
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Stdout,
+  ))
   .build()
 ```
 
@@ -207,7 +206,9 @@ To view all your Rust logs in the webview console, enable the `Webview` target a
 
 ```rust
 tauri_plugin_log::Builder::new()
-  .target(tauri_plugin_log::TargetKind::Webview)
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Webview,
+  ))
   .build()
 ```
 
@@ -225,9 +226,11 @@ To write all logs to a file, you can use either the `LogDir` or the `Folder` tar
 
 ```rust
 tauri_plugin_log::Builder::new()
-  .target(tauri_plugin_log::TargetKind::LogDir {
-    file_name: Some("logs".to_string())
-  })
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::LogDir {
+      file_name: Some("logs".to_string()),
+    },
+  ))
   .build()
 ```
 
@@ -246,10 +249,12 @@ The Folder target lets you write logs to a custom location in the filesystem.
 
 ```rust
 tauri_plugin_log::Builder::new()
-  .target(tauri_plugin_log::TargetKind::Folder {
-    path: std::path::PathBuf::from("/path/to/logs"),
-    file_name: None,
-  })
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Folder {
+      path: std::path::PathBuf::from("/path/to/logs"),
+      file_name: None,
+    },
+  ))
   .build()
 ```
 

@@ -34,6 +34,7 @@ jobs:
           echo "ITEM_ID=$(gh project item-add 27 --owner tauri-apps --url https://github.com/tauri-apps/tauri-docs/issues/${{ github.event.pull_request.number || github.event.issue.number }} --format json --jq '.id')" >> $GITHUB_ENV
 
       - name: Set fields
+        if: ${{ github.event.issue.status == 'open' || github.event.pull_request.status == 'open' }}
         env:
           GH_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |

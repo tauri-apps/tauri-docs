@@ -1,0 +1,144 @@
+---
+import type { TocItem } from 'node_modules/@astrojs/starlight/utils/generateToC';
+
+interface Props {
+  toc: TocItem[];
+  depth?: number;
+  collapseLevel?: number;
+  isMobile?: boolean;
+}
+
+const { toc, isMobile = false, depth = 0, collapseLevel = 1 } = Astro.props;
+---
+
+<ul class:list={{ isMobile }}>
+  {
+    toc.map((heading) => (
+      <li>
+        {heading.children.length === 0 && (
+          <>
+            <a href={'#' + heading.slug}>
+              <span>{heading.text}</span>
+            </a>
+
+            {heading.children.length > 0 && (
+              <Astro.self toc={heading.children} depth={depth + 1} isMobile={isMobile} />
+            )}
+          </>
+        )}
+
+        {heading.children.length > 0 && (
+          <details open={depth < collapseLevel}>
+            <summary>
+              <a href={'#' + heading.slug}>
+                <span>{heading.text}</span>
+              </a>
+            </summary>
+
+            {heading.children.length > 0 && (
+              <Astro.self toc={heading.children} depth={depth + 1} isMobile={isMobile} />
+            )}
+          </details>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style define:vars={{ depth }}>
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    --pad-inline: 0.5rem;
+    display: block;
+    border-radius: 0.25rem;
+    padding-block: 0.25rem;
+    padding-inline: calc(1rem * var(--depth) + var(--pad-inline)) var(--pad-inline);
+    line-height: 1.25;
+  }
+
+  a[aria-current='true'] {
+    color: var(--sl-color-text-accent);
+  }
+
+  details > summary {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details > summary::after {
+    content: '▶';
+    color: transparent;
+    width: 16px;
+    height: 16px;
+    transition: 0.2s;
+    /* Chevron SVG icon (Black) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 16px 16px;
+    opacity: 0.5;
+  }
+
+  details > summary:hover::after {
+    opacity: 1;
+  }
+
+  :root[data-theme='dark'] {
+    details > summary::after {
+      /* Chevron SVG icon (White) */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z'/%3E%3C/svg%3E");
+    }
+  }
+
+  details[open] > summary::after {
+    transform: rotate(90deg);
+  }
+
+  .isMobile a {
+    --pad-inline: 1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--pad-inline);
+    border-top: 1px solid var(--sl-color-gray-6);
+    border-radius: 0;
+    padding-block: 0.5rem;
+    color: var(--sl-color-text);
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+    outline-offset: var(--sl-outline-offset-inside);
+  }
+
+  .isMobile:first-child > li:first-child > a {
+    border-top: 0;
+  }
+
+  .isMobile a[aria-current='true'],
+  .isMobile a[aria-current='true']:hover,
+  .isMobile a[aria-current='true']:focus {
+    color: var(--sl-color-white);
+    background-color: unset;
+  }
+
+  .isMobile a[aria-current='true']::after {
+    content: '';
+    width: 1rem;
+    background-color: var(--sl-color-text-accent);
+    /* Check mark SVG icon */
+    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNCAxNCc+PHBhdGggZD0nTTEwLjkxNCA0LjIwNmEuNTgzLjU4MyAwIDAgMC0uODI4IDBMNS43NCA4LjU1NyAzLjkxNCA2LjcyNmEuNTk2LjU5NiAwIDAgMC0uODI4Ljg1N2wyLjI0IDIuMjRhLjU4My41ODMgMCAwIDAgLjgyOCAwbDQuNzYtNC43NmEuNTgzLjU4MyAwIDAgMCAwLS44NTdaJy8+PC9zdmc+Cg==');
+    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNCAxNCc+PHBhdGggZD0nTTEwLjkxNCA0LjIwNmEuNTgzLjU4MyAwIDAgMC0uODI4IDBMNS43NCA4LjU1NyAzLjkxNCA2LjcyNmEuNTk2LjU5NiAwIDAgMC0uODI4Ljg1N2wyLjI0IDIuMjRhLjU4My41ODMgMCAwIDAgLjgyOCAwbDQuNzYtNC43NmEuNTgzLjU4MyAwIDAgMCAwLS44NTdaJy8+PC9zdmc+Cg==');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    flex-shrink: 0;
+  }
+</style>

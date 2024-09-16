@@ -21,8 +21,7 @@ The default plugin template splits the plugin's implementation into two separate
 
 The desktop implementation uses Rust code to implement a functionality, while the mobile implementation sends a message to the native mobile code to execute a function and get a result back. If shared logic is needed across both implementations, it can be defined in `lib.rs`:
 
-```rust
-// lib.rs
+```rust title="src/lib.rs"
 use tauri::Runtime;
 
 impl<R: Runtime> <plugin-name><R> {
@@ -52,7 +51,7 @@ Refer to the [Plugin Configuration section](/develop/plugins/#plugin-configurati
 
 The plugin instance on mobile has a getter for the plugin configuration:
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -96,7 +95,7 @@ There are also the additional [lifecycle events for plugins](/develop/plugins/#l
 - **When**: When the plugin is loaded into the web view
 - **Why**: Execute plugin initialization code
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -152,7 +151,7 @@ There is a plugin class inside the respective mobile projects where commands can
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -300,7 +299,7 @@ Required arguments are defined as `let <argumentName>: Type`
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 First define the list of permissions needed and an alias to identify each group in code. This is done inside the `TauriPlugin` annotation:
@@ -336,17 +335,14 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`. Those commands can be directly called from JavaScript or Rust:
-
-{/* TODO: PermissionState type should be exported in Tauri */}
+Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`.
+Those commands can be directly called from JavaScript or Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/tauri'
-
-type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+import { invoke, PermissionState } from '@tauri-apps/api/core'
 
 interface Permissions {
   postNotification: PermissionState
@@ -370,7 +366,7 @@ if (permission.postNotification.startsWith('prompt')) {
 
 ```rust
 use serde::{Serialize, Deserialize};
-use tauri::Runtime;
+use tauri::{plugin::PermissionState, Runtime};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -409,7 +405,7 @@ impl<R: Runtime> Notification<R> {
 
 Plugins can emit events at any point of time using the `trigger` function:
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -459,7 +455,7 @@ class ExamplePlugin: Plugin {
 The helper functions can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
 
 ```javascript
-import { addPluginListener, PluginListener } from '@tauri-apps/api/tauri';
+import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
 
 export async function onRequest(
 	handler: (url: string) => void
