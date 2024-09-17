@@ -161,13 +161,12 @@ The deep link plugin has integration with the [single instance] plugin if you pr
 tauri-plugin-single-instance = { version = "2.0.0-rc", features = ["deep-link"] }
 ```
 
-- Then configure the single instance plugin **after** the deep link plugin:
+- Then configure the single instance plugin which should always be the first plugin you register:
 
 ```rust title="src-tauri/lib.rs"
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let mut builder = tauri::Builder::default()
-      .plugin(tauri_plugin_deep_link::init());
+    let mut builder = tauri::Builder::default();
 
     #[cfg(desktop)]
     {
@@ -176,6 +175,8 @@ pub fn run() {
           // when defining deep link schemes at runtime, you must also check `argv` here
         }));
     }
+
+    builder = builder.plugin(tauri_plugin_deep_link::init());
 }
 ```
 
