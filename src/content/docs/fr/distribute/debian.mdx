@@ -6,6 +6,7 @@ sidebar:
 ---
 
 ## Debian
+
 La version de base du paquet Debian généré par le bundler de Tauri, contient tout ce dont vous avez besoin pour distribuer votre application sur les distributions Linux basées sur Debian. Il définit les icônes de votre application, génère un fichier Desktop et spécifie les dépendances `libwebkit2gtk-4.1` et `libgtk-3-0`, avec `libappindicator3-1` si votre application utilise la zone de notification du système.
 
 ### Custom Files
@@ -22,14 +23,12 @@ Pour inclure des fichiers personnalisés dans le paquet Debian, vous pouvez four
   "bundle": {
     "linux": {
       "deb": {
-       "files": {
+        "files": {
           "/usr/share/README.md": "../README.md", // copie le fichier README.md dans /usr/share/README.md
           "/usr/share/assets": "../assets/" // copies toutes le dossier assets dans /usr/share/assets
         }
-      },
+      }
     }
   }
 }
-
 ```
-
