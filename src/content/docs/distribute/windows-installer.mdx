@@ -624,8 +624,8 @@ to verify the current Webview2 version and run the Webview2 bootstrapper if it d
 [platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 [webviewinstallmode]: /reference/config/#webviewinstallmode
 [download-webview2-runtime]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
-[default wix template]: https://github.com/tauri-apps/tauri/blob/dev/packages/tauri-bundler/src/bundle/windows/templates/main.wxs
-[default nsis template]: https://github.com/tauri-apps/tauri/blob/dev/packages/tauri-bundler/src/bundle/windows/templates/installer.nsi
+[default wix template]: https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-bundler/src/bundle/windows/msi/main.wxs
+[default nsis template]: https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-bundler/src/bundle/windows/nsis/installer.nsi
 [handlebars]: https://docs.rs/handlebars/latest/handlebars/
 [`tauri.bundle.windows.wix.template`]: /reference/config/#template-2
 [`tauri.bundle.windows.nsis.template`]: /reference/config/#template-1
@@ -634,7 +634,7 @@ to verify the current Webview2 version and run the Webview2 bootstrapper if it d
 [wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
 [localizing the error and actiontext tables]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
 [the nsis github project]: https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files
-[tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/packages/tauri-bundler/src/bundle/windows/templates/nsis-languages
+[tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler/src/bundle/windows/nsis/languages
 [tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
 [signing documentation]: /distribute/sign/windows
 [WiX configuration]: /reference/config/#wixconfig
