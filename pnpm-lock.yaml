@@ -14,13 +14,13 @@ importers:
   .:
     dependencies:
       '@astrojs/markdown-remark':
-        specifier: ^5.0.0
+        specifier: ^5.2.0
         version: 5.2.0
       '@astrojs/rss':
-        specifier: ^4.0.5
+        specifier: ^4.0.7
         version: 4.0.7
       '@astrojs/starlight':
-        specifier: ^0.28.0
+        specifier: ^0.28.1
         version: 0.28.1(patch_hash=5ks2kbrw4rj2cgj3w5pymglnvm)(astro@4.15.7(@types/node@22.5.4)(rollup@2.79.1)(sass@1.79.1)(terser@5.31.0)(typescript@5.6.2))
       '@lorenzo_lewis/starlight-utils':
         specifier: ^0.1.0
@@ -29,7 +29,7 @@ importers:
         specifier: ^7.0.15
         version: 7.0.15
       astro:
-        specifier: ^4.4.4
+        specifier: ^4.15.7
         version: 4.15.7(@types/node@22.5.4)(rollup@2.79.1)(sass@1.79.1)(terser@5.31.0)(typescript@5.6.2)
       astro-d2:
         specifier: ^0.5.0
