@@ -22,12 +22,12 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^5.0.0",
-    "@astrojs/rss": "^4.0.5",
-    "@astrojs/starlight": "^0.27.0",
+    "@astrojs/markdown-remark": "^5.2.0",
+    "@astrojs/rss": "^4.0.7",
+    "@astrojs/starlight": "^0.28.1",
     "@lorenzo_lewis/starlight-utils": "^0.1.0",
     "@types/json-schema": "^7.0.15",
-    "astro": "^4.4.4",
+    "astro": "^4.15.7",
     "astro-d2": "^0.5.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
