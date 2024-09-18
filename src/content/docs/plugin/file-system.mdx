@@ -531,8 +531,8 @@ To watch a directory or file for changes, use the `watch` or `watchImmediate` fu
   `watchImmediate` immediately notifies listeners of an event:
 
   ```js
-  import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
-  await watch(
+  import { watchImmediate, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watchImmediate(
     'logs',
     (event) => {
       console.log('logs directory event', event);
