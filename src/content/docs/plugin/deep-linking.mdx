@@ -350,7 +350,7 @@ to the executable, which makes registering the schemes at runtime even more impo
 See the [Registering Desktop Deep Links at Runtime](#registering-desktop-deep-links-at-runtime) section for more information.
 :::
 
-:::warn
+:::caution
 Registering deep links at runtime is not possible on macOS, so deep links can only be tested on the bundled application,
 which must be installed in the `/Applications` directory.
 :::
@@ -400,8 +400,8 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
   "windows": ["main"],
   "platforms": ["iOS", "android"],
   "permissions": [
-    // Usually you will need event:default to listen to the deep-link event
-    "event:default",
+    // Usually you will need core:event:default to listen to the deep-link event
+    "core:event:default",
     "deep-link:default"
   ]
 }
