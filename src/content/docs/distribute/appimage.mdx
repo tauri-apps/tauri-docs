@@ -31,13 +31,19 @@ To include custom files in the AppImage that you do not want to include via Taur
       "appimage": {
         "files": {
           "/usr/share/README.md": "../README.md", // copies the ../README.md file to <appimage>/usr/share/README.md
-          "/assets": "../assets/" // copies the entire ../assets directory to <appimage>/assets
+          "/usr/assets": "../assets/" // copies the entire ../assets directory to <appimage>/usr/assets
         }
       }
     }
   }
 }
 ```
+
+:::note
+
+Note that the destination paths must currently begin with `/usr/`.
+
+:::
 
 ## AppImages for ARM-based devices
 
