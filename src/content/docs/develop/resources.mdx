@@ -51,11 +51,11 @@ In Tauri's [permission system](../reference/acl/), absolute paths and paths cont
 In the following explanations "target resource directory" is either the value after the colon in the object notation, or a reconstruction of the original file paths in the array notation.
 
 - `"dir/file.txt"`: copies the `file.txt` file into the target resource directory.
+- `"dir/"`: copies all files **and directories** _recursively_ into the target resource directory. Use this if you also want to preserve the file system structure of your files and directories.
 - `"dir/*"`: copies all files in the `dir` directory _non-recursively_ (sub-directories will be ignored) into the target resource directory.
 - `"dir/**`: throws an error because `**` only matches directories and therefore no files can be found.
 - `"dir/**/*"`: copies all files in the `dir` directory _recursively_ (all files in `dir/` and all files in all sub-directories) into the target resource directory.
 - `"dir/**/**`: throws an error because `**` only matches directories and therefore no files can be found.
-- `"dir/"`: copies all files **and directories** _recursively_ into the target resource directory. Use this if you also want to preserve the file system structure of your files and directories.
 
 ## Accessing files in Rust
 
