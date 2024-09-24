@@ -1,5 +1,5 @@
 diff --git a/schemas/sidebar.ts b/schemas/sidebar.ts
-index b71d159ed44f89ef83298a7036a66edf25945f20..7706b3b25b0e62f2735f0cad61780f9c745b131b 100644
+index 2c4cc1d588f27b0106a82135ca3772cba86c5309..59a46a986a3fac739043c71f8a97801fa50e3e64 100644
 --- a/schemas/sidebar.ts
 +++ b/schemas/sidebar.ts
 @@ -49,6 +49,8 @@ const AutoSidebarGroupSchema = SidebarGroupSchema.extend({
@@ -12,29 +12,29 @@ index b71d159ed44f89ef83298a7036a66edf25945f20..7706b3b25b0e62f2735f0cad61780f9c
  }).strict();
  export type AutoSidebarGroup = z.infer<typeof AutoSidebarGroupSchema>;
 diff --git a/utils/navigation.ts b/utils/navigation.ts
-index cd1475d15221caca34d03bfdc026f211b41e0c07..b72b230da9262f76e8e7573e5b8aeb59aaec01e4 100644
+index 526d9f29ddc4a2a050be1869b708065a401758f3..9b6a2151b2500a131425a7d4d7279bdab7d54173 100644
 --- a/utils/navigation.ts
 +++ b/utils/navigation.ts
-@@ -96,7 +96,7 @@ function groupFromAutogenerateConfig(
+@@ -97,7 +97,7 @@ function groupFromAutogenerateConfig(
  	routes: Route[],
  	currentPathname: string
  ): Group {
 -	const { collapsed: subgroupCollapsed, directory } = item.autogenerate;
-+	const { collapsed: subgroupCollapsed, directory, sort, order } = item.autogenerate;
++	const { collapsed: subgroupCollapsed, directory , sort, order } = item.autogenerate;
  	const localeDir = locale ? locale + '/' + directory : directory;
  	const dirDocs = routes.filter(
  		(doc) =>
-@@ -105,7 +105,8 @@ function groupFromAutogenerateConfig(
+@@ -106,7 +106,8 @@ function groupFromAutogenerateConfig(
  			// Match against `foo/anything/else.md`.
  			doc.id.startsWith(localeDir + '/')
  	);
 -	const tree = treeify(dirDocs, localeDir);
 +	const sorted = !sort ? dirDocs : dirDocs.sort(sortHandler(sort, order)).map((doc, i) => {doc.entry.data.sidebar.order = i; return doc});
 +	const tree = treeify(sorted, localeDir);
+ 	const label = pickLang(item.translations, localeToLang(locale)) || item.label;
  	return {
  		type: 'group',
- 		label: pickLang(item.translations, localeToLang(locale)) || item.label,
-@@ -115,6 +116,13 @@ function groupFromAutogenerateConfig(
+@@ -117,6 +118,13 @@ function groupFromAutogenerateConfig(
  	};
  }
  
