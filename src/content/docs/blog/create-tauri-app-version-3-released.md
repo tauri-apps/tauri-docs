@@ -33,7 +33,7 @@ yarn create tauri-app --alpha
 npm create tauri-app -- --alpha
 
 # Cargo
-cargo install create-tauri-app
+cargo install create-tauri-app --locked
 cargo create-tauri-app --alpha
 
 # Bash
@@ -145,7 +145,7 @@ yarn create tauri-app@2
 npm create tauri-app@2
 
 # Cargo
-cargo install create-tauri-app --version 2.8.0
+cargo install create-tauri-app --version 2.8.0 --locked
 cargo create-tauri-app
 
 # Bash

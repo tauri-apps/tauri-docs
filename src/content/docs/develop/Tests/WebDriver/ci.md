@@ -81,7 +81,7 @@ jobs:
       # install the latest version of `tauri-driver`.
       # note: the tauri-driver version is independent of any other Tauri versions
       - name: Install tauri-driver
-        run: cargo install tauri-driver
+        run: cargo install tauri-driver --locked
 
       # run the WebdriverIO test suite.
       # we run it through `xvfb-run` (the dependency we installed earlier) to have a fake
