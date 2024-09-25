@@ -81,9 +81,18 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 <TabItem label="iOS">
 
 ```swift
+struct Config: Decodable {
+  let timeout: Int?
+}
+
 class ExamplePlugin: Plugin {
+  var timeout: Int? = 3000
+
   @objc public override func load(webview: WKWebView) {
-    let timeout = self.config["timeout"] as? Int ?? 30
+    do {
+      let config = try parseConfig(Config.self)
+      self.timeout = config.timeout
+    } catch {}
   }
 }
 ```
