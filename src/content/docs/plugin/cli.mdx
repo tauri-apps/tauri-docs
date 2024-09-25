@@ -1,10 +1,6 @@
 ---
 title: Command Line Interface (CLI)
 description: Parse arguments from the command line interface.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -19,6 +15,7 @@ Tauri enables your app to have a CLI through [clap](https://github.com/clap-rs/c
 ## Supported Platforms
 
 - Windows
+  - Due to an OS limitation, production apps are not be able to write text back to the calling console by default. Please check out [tauri#8305](https://github.com/tauri-apps/tauri/issues/8305#issuecomment-1826871949) for a workaround.{/* TODO: Inline the instructions into this guide */}
 - Linux
 - macOS
 

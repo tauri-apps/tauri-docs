@@ -22,12 +22,12 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^5.0.0",
-    "@astrojs/rss": "^4.0.5",
-    "@astrojs/starlight": "^0.27.0",
+    "@astrojs/markdown-remark": "^5.2.0",
+    "@astrojs/rss": "^4.0.7",
+    "@astrojs/starlight": "0.28.2",
     "@lorenzo_lewis/starlight-utils": "^0.1.0",
     "@types/json-schema": "^7.0.15",
-    "astro": "^4.4.4",
+    "astro": "^4.15.7",
     "astro-d2": "^0.5.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
@@ -42,13 +42,13 @@
     "starlight-blog": "^0.12.0",
     "starlight-links-validator": "^0.12.0"
   },
-  "packageManager": "pnpm@9.10.0",
+  "packageManager": "pnpm@9.11.0",
   "engines": {
     "pnpm": "^9.0.0"
   },
   "pnpm": {
     "patchedDependencies": {
-      "@astrojs/starlight": "patches/@astrojs__starlight@0.26.3.patch"
+      "@astrojs/starlight@0.28.2": "patches/@astrojs__starlight@0.28.2.patch"
     }
   }
 }
