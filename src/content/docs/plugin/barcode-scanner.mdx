@@ -11,6 +11,7 @@ import PluginLinks from '@components/PluginLinks.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
 
 <PluginLinks plugin="barcode-scanner" />
 
@@ -18,8 +19,7 @@ Allows your mobile application to use the camera to scan QR codes, EAN-13 and ot
 
 ## Supported Platforms
 
-- Android
-- iOS
+<Compatibility plugin="barcode-scanner" />
 
 ## Setup
 
