@@ -16,18 +16,28 @@ async function main() {
   const baseRustVersion = '1.75';
 
   const tables: Record<string, any> = {};
-
   for (const plugin of plugins) {
+    // using Record<string, any> but it's not reaaaally safe, might as well use any
     const pluginPath = path.join(baseDir, plugin, 'Cargo.toml');
     try {
       const data = TOML.parse(await readFile(pluginPath, 'utf-8'));
-      const hasSpecificRustVersion =
-        data.package['rust-version'] && !data.package['rust-version'].workspace;
 
-        // todo: platforms as an array
+      const pkg = data.package as Record<string, any>;
+
+      const hasSpecificRustVersion = pkg['rust-version'] && !pkg['rust-version'].workspace;
+
+      const platformsSupport: Record<string, any> = pkg.metadata.platforms.support;
+
+      //  todo: fix platforms case iOS, Windows...
+
+      const support = Object.entries(platformsSupport).map(([platform, supportInfo]) => ({
+        platform,
+        ...supportInfo,
+      }));
+
       tables[plugin] = {
-        rustVersion: hasSpecificRustVersion ? data.package['rust-version'] : baseRustVersion,
-        ...data.package.metadata.platforms,
+        rustVersion: hasSpecificRustVersion ? pkg['rust-version'] : baseRustVersion,
+        support,
       };
     } catch (error) {
       continue;
