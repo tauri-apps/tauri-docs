@@ -1,3 +1,84 @@
 ---
+import { getSupportIcon, type PluginData } from './_helpers';
+import data from './_tableContent.json';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 
+const md = await createMarkdownProcessor();
+
+function avoidTableRepetition(current: string, last: string) {
+  if (current === last) {
+    return '';
+  }
+  return current;
+}
+
+function getTableData(data: Record<string, PluginData>) {
+  const tableData: {
+    platform: string;
+    level: string;
+    notes?: string;
+    plugin: string;
+    rustVersion: string;
+  }[] = [];
+  let lastPlugin = '';
+  let lastVersion = '';
+  for (const [plugin, info] of Object.entries(data)) {
+    info.support.forEach((support) => {
+      let currentPlugin = plugin;
+      let currentVersion = info.rustVersion;
+
+      tableData.push({
+        plugin: avoidTableRepetition(currentPlugin, lastPlugin),
+        rustVersion: avoidTableRepetition(currentVersion, lastVersion),
+        ...support,
+        level: getSupportIcon(support.level),
+      });
+      lastPlugin = plugin;
+      lastVersion = info.rustVersion;
+    });
+  }
+  return tableData;
+}
+
+const pluginData: Record<string, PluginData> = data;
+const tableData = getTableData(pluginData);
 ---
+
+<table>
+  <thead>
+    <tr>
+      <th>Plugin</th>
+      <th>Rust Version</th>
+      <th>Platform</th>
+      <th>Support Level</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      tableData.map((row) => {
+        return (
+          <tr>
+            <td>{row.plugin}</td>
+            <td>{row.rustVersion}</td>
+            <td>{row.platform}</td>
+            <td>{row.level}</td>
+            <td>{row.notes}</td>
+          </tr>
+        );
+      })
+    }
+  </tbody>
+</table>
+
+<style>
+  table {
+    width: 100%;
+  }
+  table td {
+    width: 1px;
+  }
+  table td:last-child {
+    width: 100%;
+  }
+</style>

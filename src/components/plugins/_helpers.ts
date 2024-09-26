@@ -1,13 +1,25 @@
 export interface PluginSupport {
   platform: string;
-  level: SupportLevel;
+  level: string;
   // possible markdown
   notes?: string;
 }
 
-export type SupportLevel = 'full' | 'partial' | 'none';
-
 export interface PluginData {
   rustVersion: string;
   support: PluginSupport[];
+}
+
+export function getSupportIcon(supportLevel: string) {
+  // todo: icons + hover tooltip
+  switch (supportLevel) {
+    case 'full':
+      return '⏺︎';
+    case 'partial':
+      return '◐︎';
+    case 'none':
+      return '⨯';
+    default:
+      return '';
+  }
 }

@@ -1,21 +1,8 @@
 ---
-import type { PluginData, SupportLevel } from './_helpers';
+import { type PluginData, getSupportIcon } from './_helpers';
 import data from './_tableContent.json';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 
-function getIcon(supportLevel: SupportLevel) {
-  // todo: icons + hover tooltip
-  switch (supportLevel) {
-    case 'full':
-      return '⏺︎';
-    case 'partial':
-      return '◐︎';
-    case 'none':
-      return '⨯';
-    default:
-      return '';
-  }
-}
 const { plugin } = Astro.props;
 
 interface Props {
@@ -49,7 +36,7 @@ const versionText = await md.render(
         return (
           <tr>
             <td>{platform}</td>
-            <td>{getIcon(level)}</td>
+            <td>{getSupportIcon(level)}</td>
             <td>
               <div set:html={parsedNotes.code} />
             </td>
@@ -66,7 +53,6 @@ const versionText = await md.render(
   }
   table td {
     width: 1px;
-    white-space: nowrap;
   }
   table td:last-child {
     width: 100%;
