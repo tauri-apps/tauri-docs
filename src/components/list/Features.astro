@@ -1,5 +1,35 @@
 ---
 import Directory from './Directory.astro';
+
+// import { type PluginData, getPlatformSupportIcon } from 'src/components/plugins/_helpers';
+// import data from 'src/components/plugins/_tableContent.json';
+
+// const fallBackNames: Record<string, string> = {
+//   clipboard: 'clipboard-manager',
+//   'deep-linking': 'deep-link',
+//   dialog: 'dialog',
+//   'file-system': 'fs',
+//   'http-client': 'http',
+//   localhost: 'localhost',
+//   logging: 'log',
+//   nfc: 'nfc',
+//   'os-info': 'os',
+// };
+
+// function fetchData(pluginSlug: string) {
+//   // assuming slug is "locale?/plugin/{pluginName}"
+//   const plugin = pluginSlug.split('plugin/')[1];
+//   let pluginData: PluginData = data[plugin];
+//   if (!pluginData) {
+//     pluginData = data[fallBackNames[plugin]];
+//     if (!pluginData) {
+//       console.log('Missing plugin data or name mismatch:\n', plugin);
+//       return '';
+//     }
+//   }
+//   return pluginData.support.map((plat) => getPlatformSupportIcon(plat.level, plat.platform));
+// }
 ---
 
+<!-- WIP TODO: Icons --><!-- <Directory slug="plugin" callback={fetchData} /> -->
 <Directory slug="plugin" />

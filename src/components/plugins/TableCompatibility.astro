@@ -1,5 +1,5 @@
 ---
-import { getSupportIcon, type PluginData } from './_helpers';
+import { getSupportText, getSupportIcon, type PluginData } from './_helpers';
 import data from './_tableContent.json';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 
@@ -47,9 +47,10 @@ const tableData = getTableData(pluginData);
             <td>{rustVersion}</td>
             {platforms.map((platform) => {
               const { notes, level, levelIcon } = row[platform];
-              let title = `support: ${level}`;
-              if (level === 'partial') {
-                title = `${level} support: ${notes}`;
+              let title = getSupportText(level);
+
+              if (notes) {
+                title = `${title}:  ${notes}`;
               }
               return (
                 <td>

@@ -1,5 +1,5 @@
 ---
-import { type PluginData, getSupportIcon } from './_helpers';
+import { type PluginData, getSupportIcon, getSupportText } from './_helpers';
 import data from './_tableContent.json';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 
@@ -32,11 +32,14 @@ const versionText = await md.render(
       pluginData.support.map(async (t) => {
         const { platform, notes, level } = t;
         const parsedNotes = await md.render(notes || '');
-
+        const icon = getSupportIcon(level);
+        const title = getSupportText(level);
         return (
           <tr>
             <td>{platform}</td>
-            <td>{getSupportIcon(level)}</td>
+            <td>
+              <div title={title} class="icon" set:html={icon} />
+            </td>
             <td>
               <div set:html={parsedNotes.code} />
             </td>
@@ -48,6 +51,9 @@ const versionText = await md.render(
 </table>
 
 <style>
+  .icon {
+    width: 1rem;
+  }
   table {
     width: 100%;
   }
