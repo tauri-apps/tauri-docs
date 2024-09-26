@@ -12,6 +12,7 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
+    "build:compat": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
     "build:releases": "pnpm --filter releases-generator run build",
     "build:config": "pnpm --filter config-generator run build",

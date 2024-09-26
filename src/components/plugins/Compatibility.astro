@@ -1,0 +1,16 @@
+---
+import type { PluginData } from './_helpers';
+import data from './_tableContent.json';
+
+const { plugin } = Astro.props;
+
+interface Props {
+  plugin: string;
+}
+
+const pluginData: PluginData = data[plugin];
+---
+
+_This plugin requires a Rust version of at least **${pluginData.rustVersion}**_ ${
+  pluginData.support
+}
