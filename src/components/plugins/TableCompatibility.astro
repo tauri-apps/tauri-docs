@@ -5,42 +5,27 @@ import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 
 const md = await createMarkdownProcessor();
 
-function avoidTableRepetition(current: string, last: string) {
-  if (current === last) {
-    return '';
-  }
-  return current;
-}
+const pluginData: Record<string, PluginData> = data;
+
+const platforms = Array.from(
+  new Set(Object.values(pluginData).flatMap((info) => info.support.map((s) => s.platform)))
+).sort();
 
 function getTableData(data: Record<string, PluginData>) {
-  const tableData: {
-    platform: string;
-    level: string;
-    notes?: string;
-    plugin: string;
-    rustVersion: string;
-  }[] = [];
-  let lastPlugin = '';
-  let lastVersion = '';
-  for (const [plugin, info] of Object.entries(data)) {
+  return Object.entries(data).map(([plugin, info]) => {
+    const row: Record<string, any> = { plugin, rustVersion: info.rustVersion };
     info.support.forEach((support) => {
-      let currentPlugin = plugin;
-      let currentVersion = info.rustVersion;
-
-      tableData.push({
-        plugin: avoidTableRepetition(currentPlugin, lastPlugin),
-        rustVersion: avoidTableRepetition(currentVersion, lastVersion),
-        ...support,
-        level: getSupportIcon(support.level),
-      });
-      lastPlugin = plugin;
-      lastVersion = info.rustVersion;
+      row[support.platform] = {
+        level: support.level,
+        levelIcon: getSupportIcon(support.level),
+        notes: support.notes,
+      };
     });
-  }
-  return tableData;
+    return row;
+  });
 }
+// TODO: support markdown on notes: have to change the table structure because as of now the notes are a tooltip
 
-const pluginData: Record<string, PluginData> = data;
 const tableData = getTableData(pluginData);
 ---
 
@@ -49,21 +34,34 @@ const tableData = getTableData(pluginData);
     <tr>
       <th>Plugin</th>
       <th>Rust Version</th>
-      <th>Platform</th>
-      <th>Support Level</th>
-      <th>Notes</th>
+      {platforms.map((platform) => <th>{platform}</th>)}
     </tr>
   </thead>
   <tbody>
     {
       tableData.map((row) => {
+        const { plugin, rustVersion } = row;
         return (
           <tr>
-            <td>{row.plugin}</td>
-            <td>{row.rustVersion}</td>
-            <td>{row.platform}</td>
-            <td>{row.level}</td>
-            <td>{row.notes}</td>
+            <td>{plugin}</td>
+            <td>{rustVersion}</td>
+            {platforms.map((platform) => {
+              const { notes, level, levelIcon } = row[platform];
+              let title = `support: ${level}`;
+              if (level === 'partial') {
+                title = `${level} support: ${notes}`;
+              }
+              return (
+                <td>
+                  {platform && (
+                    <div class="support" title={title}>
+                      <div class="icon" set:html={levelIcon} />
+                      {notes && '*'}
+                    </div>
+                  )}
+                </td>
+              );
+            })}
           </tr>
         );
       })
@@ -75,10 +73,16 @@ const tableData = getTableData(pluginData);
   table {
     width: 100%;
   }
-  table td {
-    width: 1px;
+
+  .support {
+    cursor: help;
   }
-  table td:last-child {
-    width: 100%;
+  .icon {
+    width: 1rem;
+    display: inline-block;
+  }
+  .notes {
+    margin-left: 0.5rem;
+    font-size: 0.8em;
   }
 </style>
