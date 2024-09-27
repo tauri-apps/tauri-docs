@@ -5,20 +5,25 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: upload
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="upload" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Upload files from disk to a remote server over HTTP. Download files from a remote HTTP server to disk.
 
-## Setup
+## Supported Platforms
 
-_This plugin requires a Rust version of at least **1.75**_
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
 
 <Tabs>
 	<TabItem label="Automatic">
@@ -104,4 +109,4 @@ download(
 );
 ```
 
-<PluginPermissions plugin="upload" />
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -4,16 +4,23 @@ description: Native system dialogs for opening and saving files along with messa
 i18nReady: true
 tableOfContents:
   maxHeadingLevel: 4
+plugin: dialog
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="dialog" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Native system dialogs for opening and saving files along with message dialogs.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -308,4 +315,4 @@ app.dialog()
     });
 ```
 
-<PluginPermissions plugin="dialog" />
+<PluginPermissions plugin={frontmatter.plugin} />

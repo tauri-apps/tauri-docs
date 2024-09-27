@@ -5,25 +5,25 @@ sidebar:
   badge:
     text: New
     variant: tip
+plugin: barcode-scanner
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
-import Compatibility from '@components/plugins/Compatibility.astro';
 
-<PluginLinks plugin="barcode-scanner" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Allows your mobile application to use the camera to scan QR codes, EAN-13 and other kinds of barcodes.
 
 ## Supported Platforms
 
-<Compatibility plugin="barcode-scanner" />
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the barcode-scanner plugin to get started.
 
@@ -130,4 +130,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="barcode-scanner" />
+<PluginPermissions plugin={frontmatter.plugin} />

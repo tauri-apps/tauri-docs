@@ -4,10 +4,12 @@ description: 在生产环境中使用 localhost 服务器。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="localhost" showJsLinks={false} />
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
 
 通过 localhost 服务器而不是默认的自定义协议公开你的应用资源。
 
@@ -22,8 +24,6 @@ import CommandTabs from '@components/CommandTabs.astro';
 - macOS
 
 ## 设置
-
-_这个插件要求 Rust 版本至少是 **1.75**_
 
 1. 通过将以下内容添加到 `Cargo.toml` 中来安装 localhost 插件。
 

@@ -5,16 +5,23 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: process
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="process" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/plugin/shell/) plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -102,4 +109,4 @@ app.restart();
 </TabItem>
 </Tabs>
 
-<PluginPermissions plugin="process" />
+<PluginPermissions plugin={frontmatter.plugin} />

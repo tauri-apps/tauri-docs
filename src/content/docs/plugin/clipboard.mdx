@@ -5,17 +5,24 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: clipboard-manager
 ---
 
 import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="clipboard-manager" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Read and write to the system clipboard using the clipboard plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -110,4 +117,4 @@ println!("{:?}", content.unwrap());
 </TabItem>
 </Tabs>
 
-<PluginPermissions plugin="clipboard-manager" />
+<PluginPermissions plugin={frontmatter.plugin} />

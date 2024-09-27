@@ -1,14 +1,17 @@
 ---
 title: Store
 description: Persistent key value storage.
+plugin: store
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="store" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](/develop/state-management/) for more information on additional options.
 
@@ -16,11 +19,7 @@ This store will allow you to persist state to a file which can be saved and load
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -159,4 +158,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="store" />
+<PluginPermissions plugin={frontmatter.plugin} />
