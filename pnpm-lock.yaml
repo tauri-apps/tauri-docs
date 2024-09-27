@@ -96,7 +96,7 @@ importers:
         version: 2.2.5
       '@types/node':
         specifier: ^20.11.20
-        version: 20.16.5
+        version: 20.16.9
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
