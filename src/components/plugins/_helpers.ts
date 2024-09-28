@@ -67,10 +67,10 @@ export function getSupportIcon(supportLevel: string) {
 }
 
 // depends on /assets/platforms.svg
-function renderPlatformIcon({ opacity = 1, iconId }: { opacity?: number; iconId: IconId }) {
+function renderPlatformIcon(iconId: IconId) {
   return `
   <div style="padding-inline-end: 4px">
-    <svg width="24" height="24" opacity="${opacity}">
+    <svg width="24" height="24">
       <use xlink:href="/assets/platforms.svg#${iconId}"></use>
     </svg>
   </div>
@@ -87,11 +87,10 @@ export function getPlatformSupportIcon(supportLevel: string, platform: Platform)
   };
 
   const iconId = iconMap[platform];
-  const opacity = supportLevel === 'partial' ? 0.25 : 1;
 
   if (supportLevel !== 'full' && supportLevel !== 'partial') {
     return '';
   }
 
-  return renderPlatformIcon({ iconId, opacity });
+  return renderPlatformIcon(iconId);
 }
