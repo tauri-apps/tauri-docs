@@ -479,7 +479,7 @@ mod app_updates {
 
       let update = app
           .updater_builder()
-          .endpoints(vec![url])
+          .endpoints(vec![url])?
           .build()?
           .check()
           .await?;
@@ -613,7 +613,7 @@ let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch
 
 let update = app
   .updater_builder()
-  .endpoints(vec![update_url])
+  .endpoints(vec![update_url])?
   .build()?
   .check()
   .await?;
