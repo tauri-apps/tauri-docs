@@ -154,7 +154,7 @@ if (!sortAlphabetically) {
       return (
         <CustomLinkCard
           title={item.entry.data.title}
-          href={`/${item.slug}`}
+          href={`/${item.slug}/`}
           description={item.entry.data.description}
           footer={callback instanceof Function && callback(item.slug)}
         />
@@ -167,7 +167,7 @@ if (!sortAlphabetically) {
         <CustomLinkCard
           class="fallback-badge"
           title={item.entry.data.title}
-          href={`/${item.slug}`}
+          href={`/${item.slug}/`}
           description={item.entry.data.description}
           footer={callback instanceof Function && callback(item.slug)}
         />
