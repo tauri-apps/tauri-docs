@@ -23,7 +23,9 @@ function fetchData(pluginSlug: string) {
   if (!pluginData) {
     pluginData = data[fallBackNames[plugin]];
     if (!pluginData) {
-      console.log(`[Plugin Support] '${plugin}' data is missing or it's name doesn't match any existing plugin` );
+      console.log(
+        `[Plugin Support] '${plugin}' data is missing or it's name doesn't match any existing plugin`
+      );
       return '';
     }
   }
