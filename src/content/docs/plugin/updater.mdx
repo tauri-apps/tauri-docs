@@ -193,11 +193,12 @@ On Windows, Tauri will create .zip archives from the MSI and NSIS installers ins
 
 Set up the `tauri.conf.json` in this format for the updater to start working.
 
-| Keys                     | Description                                                                                                                                                                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `createUpdaterArtifacts` | Setting this to `true` tells Tauri's app bundler to create updater artifacts. If you're migrating your app from an older Tauri version, set it to `"v1Compatible"` instead. **This setting will be removed in v3** so make sure to change it to `true` once all your users are migrated to v2. |
-| `pubkey`                 | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
-| `endpoints`              | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
+| Keys                                 | Description                                                                                                                                                                                                                                                                                    |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createUpdaterArtifacts`             | Setting this to `true` tells Tauri's app bundler to create updater artifacts. If you're migrating your app from an older Tauri version, set it to `"v1Compatible"` instead. **This setting will be removed in v3** so make sure to change it to `true` once all your users are migrated to v2. |
+| `pubkey`                             | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
+| `endpoints`                          | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
+| `dangerousInsecureTransportProtocol` | Setting this to `true` allows the updater to accept non-HTTPS endpoints. Use this configuration with caution!                                                                                                                                                                                  |
 
 Each updater URL can contain the following dynamic variables, allowing you to determine server-side if an update is available.
 
@@ -479,7 +480,7 @@ mod app_updates {
 
       let update = app
           .updater_builder()
-          .endpoints(vec![url])
+          .endpoints(vec![url])?
           .build()?
           .check()
           .await?;
@@ -613,7 +614,7 @@ let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch
 
 let update = app
   .updater_builder()
-  .endpoints(vec![update_url])
+  .endpoints(vec![update_url])?
   .build()?
   .check()
   .await?;
