@@ -14,6 +14,14 @@ import Stub from '@components/Stub.astro';
 
 Send native notifications to your user using the notification plugin.
 
+## Supported Platforms
+
+- Windows
+- macOS
+- Linux
+- iOS
+- Android
+
 ## Setup
 
 Install the notifications plugin to get started.
@@ -67,33 +75,97 @@ Install the notifications plugin to get started.
 
 ## Usage
 
+The notification plugin is available in both JavaScript and Rust.
+
 Here are a few examples of how to use the notification plugin:
 
-- [Send notification to users](#send-notification)
+- [Send notifications](#send-notification)
 - [Add an action to a notification](#actions)
 - [Add an attachment to a notification](#attachments)
 - [Send a notification in a specific channel](#channels)
 
 {/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
 
-The notification plugin is available in both JavaScript and Rust.
+### Requesting Permission
+
+To send notifications to the user, appropriate permissions must be obtained beforehand.
+
+<Steps>
+<ol>
+    <li>
+    Check if permission is granted
+    <Tabs>
+        <TabItem label="Rust">
+        ```rust {1} {6}
+        use tauri_plugin_notification::NotificationExt;
+
+        #[tauri::command]
+        fn send_notification(app_handle: tauri::AppHandle) {
+            // Do you have permission to send a notification?
+            let mut state = app_handle.notification().permission_state().unwrap();
+        }
+        ```
+        </TabItem>
+        <TabItem label="JavaScript">
+        ```js
+        import isPermissionGranted from '@tauri-apps/plugin-notification';
+
+        // Do you have permission to send a notification?
+        let permissionGranted = await isPermissionGranted();
+        ```
+        </TabItem>
+    </Tabs>
+    </li>
+
+    <li>
+    Request permission if not granted
+    <Tabs>
+        <TabItem label="Rust">
+        ```rust {2} {10-12}
+        use tauri_plugin_notification::NotificationExt;
+        use tauri_plugin_notification::PermissionState;
+
+        #[tauri::command]
+        fn send_notification(app_handle: tauri::AppHandle) {
+            // Do you have permission to send a notification?
+            let mut state = app_handle.notification().permission_state().unwrap();
+
+            // If permissions are not already granted, we will need to request them.
+            if state != PermissionState::Granted {
+                state = app_handle.notification().request_permission().unwrap();
+            }
+        }
+        ```
+        </TabItem>
+        <TabItem label="JavaScript">
+        ```js {3} {10-13}
+        import {
+            isPermissionGranted,
+            requestPermission,
+        } from '@tauri-apps/plugin-notification';
+
+        // Do you have permission to send a notification?
+        let permissionGranted = await isPermissionGranted();
+
+        // If permissions are not already granted, we will need to request them.
+        if (!permissionGranted) {
+            const permission = await requestPermission();
+            permissionGranted = permission === 'granted';
+        }
+        ```
+        </TabItem>
+    </Tabs>
+    </li>
+
+</ol>
+</Steps>
 
 ### Send Notification
 
-{/* TODO: Demo component */}
-
-Follow these steps to send a notification:
-
-    <Steps>
-    1. Check if permission is granted
-
-    2. Request permission if not granted
-
-    3. Send the notification
-    </Steps>
-
 <Tabs>
 <TabItem label="JavaScript">
+
+After ensuring the user has granted permissions to receive notifications, you can use the `sendNotification` API:
 
 ```javascript
 import {
@@ -102,7 +174,7 @@ import {
   sendNotification,
 } from '@tauri-apps/plugin-notification';
 // when using `"withGlobalTauri": true`, you may use
-// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI_PLUGIN_NOTIFICATION__;
+// const { isPermissionGranted, requestPermission, sendNotification } = window.__TAURI_PLUGIN_NOTIFICATION__;
 
 // Do you have permission to send a notification?
 let permissionGranted = await isPermissionGranted();
