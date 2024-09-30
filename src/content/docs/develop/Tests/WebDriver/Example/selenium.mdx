@@ -2,9 +2,6 @@
 title: Selenium
 sidebar:
   order: 31
-  badge:
-    text: Broken
-    variant: caution
 ---
 
 {/* TODO: REVISE COPY TO V2 */}
@@ -57,19 +54,22 @@ that we will be using to run the tests. [Mocha] as the testing framework, [Chai]
 [`selenium-webdriver`] which is the Node.js [Selenium] package.
 
 <details>
-<summary>Click me if you want to see how to set a project up from scratch</summary>
+  <summary>Click me if you want to see how to set a project up from scratch</summary>
 
-If you want to install the dependencies from scratch, just run the following command.
+  If you want to install the dependencies from scratch, just run the following command.
 
-<CommandTabs
-  npm="npm install mocha chai selenium-webdriver"
-  yarn="yarn add mocha chai selenium-webdriver"
-/>
+  {' '}
+  <CommandTabs
+    npm="npm install mocha chai selenium-webdriver"
+    yarn="yarn add mocha chai selenium-webdriver"
+  />
 
-I suggest also adding a `"test": "mocha"` item in the `package.json` `"scripts"` key so that running Mocha can be called
-simply with
+  I suggest also adding a `"test": "mocha"` item in the `package.json` `"scripts"` key so that running Mocha can be
+  called
+  simply with
 
-<CommandTabs npm="npm test" yarn="yarn test" />
+  {' '}
+  <CommandTabs npm="npm test" yarn="yarn test" />
 
 </details>
 
@@ -201,9 +201,9 @@ tests!
 With [Selenium] and some hooking up to a test suite, we just enabled e2e testing without modifying our Tauri
 application at all!
 
-[example application setup]: /develop/tests/webdriver/example/
-[selenium]: https://selenium.dev/
-[finished example project]: https://github.com/chippers/hello_tauri
-[mocha]: https://mochajs.org/
-[chai]: https://www.chaijs.com/
-[`selenium-webdriver`]: https://www.npmjs.com/package/selenium-webdriver
+[example application setup] /develop/tests/webdriver/example/
+[selenium] https://selenium.dev/
+[finished example project] https://github.com/chippers/hello_tauri
+[mocha] https://mochajs.org/
+[chai] https://www.chaijs.com/
+[`selenium-webdriver`] https://www.npmjs.com/package/selenium-webdriver
