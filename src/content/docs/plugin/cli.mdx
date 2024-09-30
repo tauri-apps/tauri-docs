@@ -223,7 +223,7 @@ The CLI plugin is available in both JavaScript and Rust.
 ```javascript
 import { getMatches } from '@tauri-apps/plugin-cli';
 // when using `"withGlobalTauri": true`, you may use
-// const { getMatches } = window.__TAURI_PLUGIN_CLI_;
+// const { getMatches } = window.__TAURI__.cli;
 
 const matches = await getMatches();
 if (matches.subcommand?.name === 'run') {
