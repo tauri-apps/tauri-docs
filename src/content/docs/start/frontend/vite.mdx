@@ -21,69 +21,69 @@ This guide is accurate as of Vite 5.4.8.
 
 1.  ##### Update Tauri configuration
 
-    Assuming you have the following `dev` and `build` scripts in your `package.json`:
+Assuming you have the following `dev` and `build` scripts in your `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  }
+}
+```
+
+You can configura the Tauri CLI to use your Vite development server and dist folder
+along with the hooks to automatically run the Vite scripts:
+
+          <Tabs>
+
+      <TabItem label="npm">
 
     ```json
+    // tauri.conf.json
     {
-      "scripts": {
-        "dev": "vite dev",
-        "build": "vite build"
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
       }
     }
     ```
 
-    You can configura the Tauri CLI to use your Vite development server and dist folder
-    along with the hooks to automatically run the Vite scripts:
+          </TabItem>
 
-    <Tabs>
+    <TabItem label="yarn">
 
-        <TabItem label="npm">
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
 
-        ```json
-        // tauri.conf.json
-        {
-          "build": {
-            "beforeDevCommand": "npm run dev",
-            "beforeBuildCommand": "npm run build",
-            "devUrl": "http://localhost:5173",
-            "frontendDist": "../dist"
-          }
-        }
-        ```
+          </TabItem>
 
-        </TabItem>
+    <TabItem label="pnpm">
 
-        <TabItem label="yarn">
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
 
-        ```json
-        // tauri.conf.json
-        {
-          "build": {
-            "beforeDevCommand": "yarn dev",
-            "beforeBuildCommand": "yarn build",
-            "devUrl": "http://localhost:5173",
-            "frontendDist": "../dist"
-          }
-        }
-        ```
-
-        </TabItem>
-
-        <TabItem label="pnpm">
-
-        ```json
-        // tauri.conf.json
-        {
-          "build": {
-            "beforeDevCommand": "pnpm dev",
-            "beforeBuildCommand": "pnpm build",
-            "devUrl": "http://localhost:5173",
-            "frontendDist": "../dist"
-          }
-        }
-        ```
-
-        </TabItem>
+          </TabItem>
 
     </Tabs>
 
@@ -118,4 +118,4 @@ This guide is accurate as of Vite 5.4.8.
         });
         ```
 
-</Steps>
+    </Steps>
