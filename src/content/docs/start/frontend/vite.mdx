@@ -21,99 +21,100 @@ This guide is accurate as of Vite 5.4.8.
 
 1.  ##### Update Tauri configuration
 
-Assuming you have the following `dev` and `build` scripts in your `package.json`:
+  Assuming you have the following `dev` and `build` scripts in your `package.json`:
 
-```json
-{
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build"
+  ```json
+  {
+    "scripts": {
+      "dev": "vite dev",
+      "build": "vite build"
+    }
   }
-}
-```
+  ```
 
-You can configura the Tauri CLI to use your Vite development server and dist folder
-along with the hooks to automatically run the Vite scripts:
+  You can configura the Tauri CLI to use your Vite development server and dist folder
+  along with the hooks to automatically run the Vite scripts:
 
-          <Tabs>
+      <Tabs>
 
-      <TabItem label="npm">
+        <TabItem label="npm">
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run build",
-        "devUrl": "http://localhost:5173",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-          </TabItem>
+        </TabItem>
 
-    <TabItem label="yarn">
+      <TabItem label="yarn">
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn build",
-        "devUrl": "http://localhost:5173",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-          </TabItem>
+        </TabItem>
 
-    <TabItem label="pnpm">
+        <TabItem label="pnpm">
 
-    ```json
-    // tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm build",
-        "devUrl": "http://localhost:5173",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-          </TabItem>
+        </TabItem>
 
-    </Tabs>
+      </Tabs>
 
-1.  ##### Update Vite configuration:
+2.  ##### Update Vite configuration:
 
-    ```js title="vite.config.js" {1}
-    import { defineConfig } from 'vite';
-
-    export default defineConfig({
-      // prevent vite from obscuring rust errors
-      clearScreen: false,
-      server: {
-        // Tauri expects a fixed port, fail if that port is not available
-        strictPort: true,
-        // if the host Tauri is expecting is set, use it
-        host: host || false,
-        port: 5173,
-      },
-      // to access the Tauri environment variables set by the CLI with information about the current target
-      envPrefix: ['VITE_', 'TAURI_ENV_*'],
-      build: {
-        // Tauri uses Chromium on Windows and WebKit on macOS and Linux
-        target:
-          process.env.TAURI_ENV_PLATFORM == 'windows'
-            ? 'chrome105'
-            : 'safari13',
-        // don't minify for debug builds
-        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
-        // produce sourcemaps for debug builds
-        sourcemap: !!process.env.TAURI_ENV_DEBUG,
-      },
-    });
-    ```
+  ```js title="vite.config.js" {1}
+  import { defineConfig } from 'vite';
+  
+  export default defineConfig({
+    // prevent vite from obscuring rust errors
+    clearScreen: false,
+    server: {
+      // Tauri expects a fixed port, fail if that port is not available
+      strictPort: true,
+      // if the host Tauri is expecting is set, use it
+      host: host || false,
+      port: 5173,
+    },
+    // to access the Tauri environment variables set by the CLI with information about the current target
+    envPrefix: ['VITE_', 'TAURI_ENV_*'],
+    build: {
+      // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+      target:
+        process.env.TAURI_ENV_PLATFORM == 'windows'
+          ? 'chrome105'
+          : 'safari13',
+      // don't minify for debug builds
+      minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+      // produce sourcemaps for debug builds
+      sourcemap: !!process.env.TAURI_ENV_DEBUG,
+    },
+  });
+  ```
+</Steps>
