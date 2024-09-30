@@ -1,10 +1,6 @@
 ---
 title: Stronghold
 description: Encrypted, secure database.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 plugin: stronghold
 ---
 
@@ -17,7 +13,7 @@ import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
-Store secrets and keys using the [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs) encrypted database and secure runtime.
+Store secrets and keys using the [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs) secret management engine.
 
 ## Supported Platforms
 
@@ -79,7 +75,38 @@ Install the stronghold plugin to get started.
 
 ## Usage
 
+The plugin must be initialized with a password hash function, which takes the password string and must return a 32 bytes hash derived from it.
+
+### Initialize with argon2 password hash function
+
+The Stronghold plugin offers a default hash function using the [argon2] algorithm.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+pub fn run() {
+		tauri::Builder::default()
+				.setup(|app| {
+						let salt_path = app
+								.path()
+								.app_local_data_dir()
+								.expect("could not resolve app local data path")
+								.join("salt.txt");
+						app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+						Ok(())
+				})
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
+}
+```
+
 ### Initialize with custom password hash function
+
+Alternatively you can provide your own hash algorithm by using the `tauri_plugin_stronghold::Builder::new` constructor.
+
+:::note
+The password hash must contain exactly 32 bytes. This is a Stronghold requirement.
+:::
 
 ```rust title="src-tauri/src/lib.rs"
 pub fn run() {
@@ -106,27 +133,6 @@ pub fn run() {
 						})
 						.build(),
 				)
-				.run(tauri::generate_context!())
-				.expect("error while running tauri application");
-}
-```
-
-### Initialize with argon2 password hash function
-
-```rust title="src-tauri/src/lib.rs"
-use tauri::Manager;
-
-pub fn run() {
-		tauri::Builder::default()
-				.setup(|app| {
-						let salt_path = app
-								.path()
-								.app_local_data_dir()
-								.expect("could not resolve app local data path")
-								.join("salt.txt");
-						app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
-						Ok(())
-				})
 				.run(tauri::generate_context!())
 				.expect("error while running tauri application");
 }
@@ -220,3 +226,5 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 ```
 
 <PluginPermissions plugin={frontmatter.plugin} />
+
+[argon2]: https://docs.rs/rust-argon2/latest/argon2/
