@@ -84,7 +84,7 @@ The shell plugin is available in both JavaScript and Rust.
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
 // when using `"withGlobalTauri": true`, you may use
-// const { Command } = window.__TAURI_PLUGIN_SHELL__;
+// const { Command } = window.__TAURI__.shell;
 
 let result = await Command.create('exec-sh', [
   '-c',
