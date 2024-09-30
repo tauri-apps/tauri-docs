@@ -13,7 +13,6 @@ Trunk is a WASM web application bundler for Rust. Learn more about Trunk at http
 ## Checklist
 
 - Use SSG, Tauri doesn't officially support server based solutions.
-- Use `serve.address = "0.0.0.0"` so that the webserver is available on the network for mobile development.
 - Use `serve.ws_protocol = "ws"` so that the hot-reload websocket can connect properly for mobile development.
 - Enable `withGlobalTauri` to ensure that Tauri APIs are available in the `window.__TAURI__` variable and can be imported using `wasm-bindgen`.
 
@@ -46,7 +45,6 @@ Trunk is a WASM web application bundler for Rust. Learn more about Trunk at http
    ignore = ["./src-tauri"]
 
    [serve]
-   address = "0.0.0.0"
    ws_protocol = "ws"
    ```
 
