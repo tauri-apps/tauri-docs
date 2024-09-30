@@ -106,7 +106,7 @@ Shows a question dialog with `Yes` and `No` buttons.
 ```javascript
 import { ask } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { ask } = window.__TAURI_PLUGIN_DIALOG__;
+// const { ask } = window.__TAURI__.dialog;
 
 // Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
@@ -127,7 +127,7 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 ```javascript
 import { confirm } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { confirm } = window.__TAURI_PLUGIN_DIALOG__;
+// const { confirm } = window.__TAURI__.dialog;
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
@@ -148,7 +148,7 @@ Shows a message dialog with an `Ok` button. Keep in mind that if the user closes
 ```javascript
 import { message } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { message } = window.__TAURI_PLUGIN_DIALOG__;
+// const { message } = window.__TAURI__.dialog;
 
 // Shows message
 await message('File not found', { title: 'Tauri', kind: 'error' });
@@ -165,7 +165,7 @@ The `multiple` option controls whether the dialog allows multiple selection or n
 ```javascript
 import { open } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { open } = window.__TAURI_PLUGIN_DIALOG__;
+// const { open } = window.__TAURI__.dialog;
 
 // Open a dialog
 const file = await open({
@@ -185,7 +185,7 @@ Open a file/directory save dialog.
 ```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { save } = window.__TAURI_PLUGIN_DIALOG__;
+// const { save } = window.__TAURI__.dialog;
 
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({

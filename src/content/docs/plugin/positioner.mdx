@@ -126,7 +126,7 @@ The plugin's APIs are available through the JavaScript guest bindings:
 ```javascript
 import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
 // when using `"withGlobalTauri": true`, you may use
-// const { moveWindow, Position } = window.__TAURI_PLUGIN_POSITIONER__;
+// const { moveWindow, Position } = window.__TAURI__.positioner;
 
 moveWindow(Position.TopRight);
 ```

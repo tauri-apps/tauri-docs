@@ -84,7 +84,7 @@ Here's an example of how you can use the plugin to upload and download files:
 ```javascript
 import { upload } from '@tauri-apps/plugin-upload';
 // when using `"withGlobalTauri": true`, you may use
-// const { upload } = window.__TAURI_PLUGIN_UPLOAD__;
+// const { upload } = window.__TAURI__.upload;
 
 upload(
   'https://example.com/file-upload',
@@ -98,7 +98,7 @@ upload(
 ```javascript
 import { download } from '@tauri-apps/plugin-upload';
 // when using `"withGlobalTauri": true`, you may use
-// const { download } = window.__TAURI_PLUGIN_UPLOAD__;
+// const { download } = window.__TAURI__.upload;
 
 download(
   'https://example.com/file-download-link',

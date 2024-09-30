@@ -90,7 +90,7 @@ With this plugin you can query multiple information from current operational sys
 ```javascript
 import { platform } from '@tauri-apps/plugin-os';
 // when using `"withGlobalTauri": true`, you may use
-// const { platform } = window.__TAURI_PLUGIN_OS__;
+// const { platform } = window.__TAURI__.os;
 
 const currentPlatform = await platform();
 console.log(currentPlatform);
