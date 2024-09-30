@@ -1,22 +1,23 @@
 ---
 title: Updater
 description: In-app updates for Tauri applications.
+plugin: updater
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
 
-<PluginLinks plugin="updater" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Automatically update your Tauri app with an update server or a static JSON.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -745,4 +746,4 @@ The values from the [configuration](#tauri-configuration) are used as fallback i
 [JavaScript API Documentation]: /reference/javascript/updater/
 [Rust API Documentation]: https://docs.rs/tauri-plugin-updater
 
-<PluginPermissions plugin="updater" />
+<PluginPermissions plugin={frontmatter.plugin} />

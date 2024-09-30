@@ -1,20 +1,25 @@
 ---
 title: SQL
 description: 插件提供了一个接口，让前端可以通过 sqlx 与 SQL 数据库进行通信
+plugin: sql
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="sql" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 这个插件提供了一个接口，让前端可以通过 [sqlx](https：//github.com/launchbadge/sqlx) 与 SQL 数据库进行通信。
 它支持 SQLite、MySQL 和 PostgreSQL 驱动程序，通过 Cargo 特性来启用。
 
-## 安装
+## Supported Platforms
 
-_这个插件要求 Rust 版本至少是 **1.75**_
+<Compatibility plugin={frontmatter.plugin} />
+
+## 安装
 
 首先，在你的 `Cargo.toml` 文件中添加以下内容来安装插件。
 

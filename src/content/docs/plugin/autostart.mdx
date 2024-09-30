@@ -5,22 +5,23 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: autostart
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="autostart" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Automatically launch your application at system startup.
 
 ## Supported Platforms
 
-- Windows
-- Mac (via AppleScript or Launch Agent)
-- Linux
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -155,4 +156,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="autostart" />
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -5,26 +5,25 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: stronghold
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="stronghold" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Store secrets and keys using the [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs) encrypted database and secure runtime.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the stronghold plugin to get started.
 
@@ -220,4 +219,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="stronghold" />
+<PluginPermissions plugin={frontmatter.plugin} />

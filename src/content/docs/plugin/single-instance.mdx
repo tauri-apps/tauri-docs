@@ -5,15 +5,22 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: single-instance
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="single-instance" showJsLinks={false} />
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
 
 Ensure that a single instance of your tauri app is running at a time using the Single Instance Plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 

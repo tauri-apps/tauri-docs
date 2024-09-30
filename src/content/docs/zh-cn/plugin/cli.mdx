@@ -1,25 +1,24 @@
 ---
 title: 命令行接口 (CLI)
 description: 从命令行接口解析参数。
+plugin: cli
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="cli" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Tauri 使您的应用程序能够通过 [clap](https://github.com/clap-rs/clap)（一个强大的命令行参数解析器）拥有 CLI。通过 `tauri.conf.json` 文件中的简单 CLI 定义，您可以定义接口并读取其参数匹配 JavaScript/Rust 上的映射。
 
 ## 支持的平台
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
-
-_这个插件要求 Rust 版本至少是 **1.75**_
 
 请安装 CLI 插件。
 
