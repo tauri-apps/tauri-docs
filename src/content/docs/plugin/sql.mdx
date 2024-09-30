@@ -5,20 +5,25 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: sql
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="sql" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Plugin providing an interface for the frontend to communicate with SQL databases through [sqlx](https://github.com/launchbadge/sqlx). It supports the SQLite, MySQL and PostgreSQL drivers, enabled by a Cargo feature.
 
-## Setup
+## Supported Platforms
 
-_This plugin requires a Rust version of at least **1.75**_
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
 
 Install the SQL plugin to get started.
 
@@ -300,4 +305,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 | `sql:allow-select`  | Enables the select command without any pre-configured scope.  |
 | `sql:deny-select`   | Denies the select command without any pre-configured scope.   |
 
-<PluginPermissions plugin="sql" />
+<PluginPermissions plugin={frontmatter.plugin} />

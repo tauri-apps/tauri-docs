@@ -5,3 +5,4 @@ packages:
   - 'packages/cli-generator'
   - 'packages/tauri-typedoc-theme'
   - 'packages/releases-generator'
+  - 'packages/compatibility-table'

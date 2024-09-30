@@ -1,27 +1,32 @@
 ---
 title: Command Line Interface (CLI)
 description: Parse arguments from the command line interface.
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+plugin: cli
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="cli" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Tauri enables your app to have a CLI through [clap](https://github.com/clap-rs/clap), a robust command line argument parser. With a simple CLI definition in your `tauri.conf.json` file, you can define your interface and read its argument matches map on JavaScript and/or Rust.
 
 ## Supported Platforms
 
+<Compatibility plugin={frontmatter.plugin} />
+
 - Windows
   - Due to an OS limitation, production apps are not be able to write text back to the calling console by default. Please check out [tauri#8305](https://github.com/tauri-apps/tauri/issues/8305#issuecomment-1826871949) for a workaround.{/* TODO: Inline the instructions into this guide */}
-- Linux
-- macOS
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the CLI plugin to get started.
 
@@ -279,4 +284,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="cli" />
+<PluginPermissions plugin={frontmatter.plugin} />

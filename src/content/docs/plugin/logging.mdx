@@ -1,28 +1,25 @@
 ---
 title: Logging
 description: Configurable logging.
+plugin: log
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="log" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Configurable logging for your Tauri app.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the log plugin to get started.
 
@@ -370,4 +367,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="log" />
+<PluginPermissions plugin={frontmatter.plugin} />

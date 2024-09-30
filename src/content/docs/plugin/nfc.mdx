@@ -5,6 +5,7 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: nfc
 ---
 
 import Stub from '@components/Stub.astro';
@@ -12,19 +13,17 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
 
-<PluginLinks plugin="nfc" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Read and write NFC tags on Android and iOS.
 
 ## Supported Platforms
 
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the nfc plugin to get started.
 
@@ -108,4 +107,4 @@ Based on https://github.com/tauri-apps/plugins-workspace/tree/plugins/nfc
 
 </Stub>
 
-<PluginPermissions plugin="nfc" />
+<PluginPermissions plugin={frontmatter.plugin} />

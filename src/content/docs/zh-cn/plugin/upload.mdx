@@ -1,19 +1,24 @@
 ---
 title: 上传
 description: 通过 HTTP 上传文件
+plugin: upload
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="upload" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 通过 HTTP 从磁盘上传文件到远程服务器。从远程 HTTP 服务器下载文件到磁盘。
 
-## 设置
+## 支持的平台
 
-_这个插件要求 Rust 版本至少是 **1.75**_
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
 
 <Tabs>
 	<TabItem label="自动">

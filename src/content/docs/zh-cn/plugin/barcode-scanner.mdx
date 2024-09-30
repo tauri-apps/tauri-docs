@@ -5,20 +5,22 @@ sidebar:
   badge:
     text: New
     variant: tip
+plugin: barcode-scanner
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="barcode-scanner" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 允许您的移动应用程序使用相机扫描 QR 码、EAN-13 和其他类型的条形码。
 
 ## 支持的平台
 
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 

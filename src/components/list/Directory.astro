@@ -4,8 +4,11 @@ import {
   stripLeadingAndTrailingSlashes,
   ensureTrailingSlash,
 } from 'node_modules/@astrojs/starlight/utils/path';
-import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { CardGrid } from '@astrojs/starlight/components';
 import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
+
+// custom component copied from starlight/components/LinkCard
+import CustomLinkCard from '@components/plugins/CustomLinkCard.astro';
 
 interface Props {
   /**
@@ -28,6 +31,11 @@ interface Props {
    * Use this to ignore sidebar order
    */
   sortAlphabetically?: boolean;
+
+  /*
+   * specifically to support compatibility footer in CustomLink card
+   */
+  callback?: Function;
 }
 
 function hasSidebarOrder(page: Route): number | undefined {
@@ -43,7 +51,12 @@ function compareOrder(a: Route, b: Route): boolean {
 }
 
 let { slug } = Astro.props;
-const { filterOutByTitle = [], filterOutByFileName = [], sortAlphabetically = false } = Astro.props;
+const {
+  filterOutByTitle = [],
+  filterOutByFileName = [],
+  sortAlphabetically = false,
+  callback,
+} = Astro.props;
 
 const defaultLocale = config.defaultLocale.lang || 'en';
 const localesList = config.isMultilingual ? Object.keys(config.locales) : [defaultLocale];
@@ -137,22 +150,26 @@ if (!sortAlphabetically) {
 
 <CardGrid>
   {
-    mainList.map((item) => (
-      <LinkCard
-        title={item.entry.data.title}
-        href={`/${item.slug}`}
-        description={item.entry.data.description}
-      />
-    ))
+    mainList.map((item) => {
+      return (
+        <CustomLinkCard
+          title={item.entry.data.title}
+          href={`/${item.slug}/`}
+          description={item.entry.data.description}
+          footer={callback instanceof Function && callback(item.slug)}
+        />
+      );
+    })
   }
   {
     locale !== defaultLocale &&
       fallbackList.map((item) => (
-        <LinkCard
+        <CustomLinkCard
           class="fallback-badge"
           title={item.entry.data.title}
-          href={`/${item.slug}`}
+          href={`/${item.slug}/`}
           description={item.entry.data.description}
+          footer={callback instanceof Function && callback(item.slug)}
         />
       ))
   }

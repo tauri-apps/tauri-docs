@@ -5,28 +5,25 @@ sidebar:
   badge:
     text: New
     variant: tip
+plugin: deep-link
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="deep-link" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Set your Tauri application as the default handler for an URL.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the deep-link plugin to get started.
 
@@ -407,7 +404,7 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="deep-link" />
+<PluginPermissions plugin={frontmatter.plugin} />
 
 [`tauri.conf.json > identifier`]: /reference/config/#identifier
 [verify Android applinks]: https://developer.android.com/training/app-links/verify-android-applinks#web-assoc

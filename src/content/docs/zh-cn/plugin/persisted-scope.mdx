@@ -4,10 +4,12 @@ description: 将运行时作用域的更改持久化到文件系统上。
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="persisted-scope" showJsLinks={false} />
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
 
 保存文件系统和资源作用域，并在应用重新打开时恢复它们。
 
@@ -18,8 +20,6 @@ import CommandTabs from '@components/CommandTabs.astro';
 - macOS
 
 ## 设置
-
-_这个插件要求 Rust 版本至少是 **1.75**_
 
 请安装 persistent-scope 插件。
 

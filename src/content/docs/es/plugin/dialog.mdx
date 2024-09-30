@@ -4,15 +4,22 @@ description: Diálogos nativos del sistema para abrir y guardar archivos junto c
 i18nReady: true
 tableOfContents:
   maxHeadingLevel: 4
+plugin: dialog
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="dialog" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Los diálogos nativos del sistema para abrir y guardar archivos junto con diálogos de mensajes.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Configuración
 

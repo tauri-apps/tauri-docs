@@ -1,21 +1,22 @@
 ---
 title: 自动启动
 description: 在系统启动时自动启动应用程序。
+plugin: autostart
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="autostart" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 在系统启动时自动启动应用程序。
 
 ## 支持的平台
 
-- Windows
-- Mac（通过 AppleScript 或启动代理）
-- Linux
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 

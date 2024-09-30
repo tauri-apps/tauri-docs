@@ -5,14 +5,17 @@ sidebar:
   badge:
     text: WIP
     variant: caution
+plugin: positioner
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="positioner" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Position your windows at well-known locations.
 
@@ -20,13 +23,9 @@ This plugin is a port of [electron-positioner](https://github.com/jenslind/elect
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the positioner plugin to get started.
 
@@ -156,4 +155,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="positioner" />
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,25 +1,24 @@
 ---
 title: Stronghold
 description: 加密的、安全的数据库。
+plugin: stronghold
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="stronghold" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 使用 [IOTA Stronghold](https：//github.com/iotaledger/stronghold.rs) 加密数据库和安全运行时存储秘密和密钥。
 
 ## 支持的平台
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
-
-_这个插件要求 Rust 版本至少是 **1.75**_
 
 安装 stronghold 插件开始。
 
