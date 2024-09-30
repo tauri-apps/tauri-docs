@@ -223,7 +223,7 @@ When a deep link triggers your app to be opened, the `onOpenUrl` callback is exe
 ```javascript
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
 // when using `"withGlobalTauri": true`, you may use
-// const { onOpenUrl } = window.__TAURI_PLUGIN_DEEP_LINK__;
+// const { onOpenUrl } = window.__TAURI__.deepLink;
 
 await onOpenUrl((urls) => {
   console.log('deep link:', urls);

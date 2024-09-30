@@ -87,7 +87,7 @@ The global-shortcut plugin is available in both JavaScript and Rust.
 ```javascript
 import { register } from '@tauri-apps/plugin-global-shortcut';
 // when using `"withGlobalTauri": true`, you may use
-// const { register } = window.__TAURI_PLUGIN_GLOBAL_SHORTCUT__;
+// const { register } = window.__TAURI__.globalShortcut;
 
 await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');

@@ -78,7 +78,7 @@ Install the store plugin to get started.
 ```javascript
 import { Store } from '@tauri-apps/plugin-store';
 // when using `"withGlobalTauri": true`, you may use
-// const { Store } = window.__TAURI_PLUGIN_STORE__;
+// const { Store } = window.__TAURI__.store;
 
 // Store will be loaded automatically when used in JavaScript binding.
 const store = new Store('store.bin');

@@ -88,7 +88,7 @@ The autostart plugin is available in both JavaScript and Rust.
 ```javascript
 import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
 // when using `"withGlobalTauri": true`, you may use
-// const { enable, isEnabled, disable } = window.__TAURI_PLUGIN_AUTOSTART__;
+// const { enable, isEnabled, disable } = window.__TAURI__.autostart;
 
 // Enable autostart
 await enable();
