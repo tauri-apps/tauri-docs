@@ -3,11 +3,25 @@ title: Learn
 sidebar:
   order: 0
   label: Overview
-  badge:
-    text: Stub
-    variant: caution
 ---
 
-import Stub from '@components/Stub.astro';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-<Stub />
+The Learning category is intended to provide end-to-end learning experiences on a Tauri related topic.
+
+These tutorials will guide you through a specific topic and help you apply knowledge from the guides and reference documentation.
+
+For security related topics, you can learn about the permissions system. You will get practical insight into how to use it, extend it, and write your own permissions.
+
+<CardGrid>
+  <LinkCard title="Using Plugin Permissions" href="/learn/security/using-plugin-permissions/" />
+  <LinkCard title="Capabilities for Different Windows and Platforms" href="/learn/security/capabilities-for-windows-and-platforms/" />
+  <LinkCard title="Writing Plugin Permissions" href="/learn/security/writing-plugin-permissions/" />
+</CardGrid>
+
+To learn how to write your own splash screen or use a node.js sidecar, check out:
+
+<CardGrid>
+  <LinkCard title="Splashcreen" href="/learn/splashscreen/" />
+  <LinkCard title="Node.js as a Sidecar" href="/learn/sidecar-nodejs/" />
+</CardGrid>
