@@ -17,7 +17,6 @@ Vous devrez utiliser `cargo install --git https://github.com/amrbashir/trunk` po
 
 - Utilisez SSG, Tauri ne supporte pas officielement les solutions basées sur un serveur.
 
-- Utilisez `address = "0.0.0.0"` pour que le serveur web soit disponible sur le réseau pour le développement mobile.
 - Activez `withGlobalTauri` pour vous assurer que les APIs de Tauri sont disponibles dans la variable `window.__TAURI__` et peuvent être importées en utilisant `wasm-bindgen`.
 
 ## Exemple de configuration
@@ -45,7 +44,4 @@ Vous devrez utiliser `cargo install --git https://github.com/amrbashir/trunk` po
 # Trunk.toml
 [watch]
 ignore = ["./src-tauri"]
-
-[serve]
-address = "0.0.0.0"
 ```
