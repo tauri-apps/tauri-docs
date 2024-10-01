@@ -37,6 +37,7 @@ import { mockIPC } from "@tauri-apps/api/mocks";
 import { invoke } from "@tauri-apps/api/core";
 
 // jsdom doesn't come with a WebCrypto implementation
+// just a note https://github.com/capricorn86/happy-dom does
 beforeAll(() => {
   Object.defineProperty(window, 'crypto', {
     value: {
