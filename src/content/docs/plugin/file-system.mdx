@@ -74,6 +74,46 @@ Install the fs plugin to get started.
 
 </Tabs>
 
+## Configuration
+
+### Android
+
+When using the audio, cache, documents, downloads, picture, public or video directories your app must have access to the external storage.
+
+Include the following permissions to the `manifest` tag in the `gen/android/app/src/main/AndroidManifest.xml` file:
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+### iOS
+
+Apple requires app developers to specify approved reasons for API usage to enhance user privacy.
+
+You must create a `PrivacyInfo.xcprivacy` file in the `src-tauri/gen/apple` folder
+with the required [NSPrivacyAccessedAPICategoryFileTimestamp] key and the [C617.1] recommended reason.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>C617.1</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>
+```
+
 ## Usage
 
 The fs plugin is available in both JavaScript and Rust.
@@ -670,6 +710,8 @@ use the the object form of permissions `{ "identifier": string, "allow"?: [], "d
 In the above example you can use the [`exists`](#exists) API using any `$APPDATA` sub path (does not include sub-directories)
 and the [`rename`](#rename)
 
+[NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
 [base directory]: /reference/javascript/api/namespacepath/#basedirectory
 [path API]: reference/javascript/api/namespacepath
 [@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
