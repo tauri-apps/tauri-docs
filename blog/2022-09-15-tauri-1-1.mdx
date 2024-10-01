@@ -110,19 +110,19 @@ In the 1.0 releases Tauri supports the `JSON` configuration format by default, a
 ```json title=tauri.conf.json
 {
   "build": {
-      "devPath": "http://localhost:8000",
-      "distDir": "../dist"
+    "devPath": "http://localhost:8000",
+    "distDir": "../dist"
   }
 }
 ```
 
 ```json5 title=tauri.conf.json5
 {
-  "build": {
-      // devServer URL (comments are allowed!)
-      "devPath": "http://localhost:8000",
-      "distDir": "../dist"
-  }
+  build: {
+    // devServer URL (comments are allowed!)
+    devPath: 'http://localhost:8000',
+    distDir: '../dist',
+  },
 }
 ```
 
