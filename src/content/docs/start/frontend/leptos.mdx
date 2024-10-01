@@ -13,7 +13,6 @@ Leptos is a Rust based web framework. You can read more about Leptos on their [o
 ## Checklist
 
 - Use SSG, Tauri doesn't officially support server based solutions.
-- Use `serve.address = "0.0.0.0"` so that the webserver is available on the network for mobile development.
 - Use `serve.ws_protocol = "ws"` so that the hot-reload websocket can connect properly for mobile development.
 - Enable `withGlobalTauri` to ensure that Tauri APIs are available in the `window.__TAURI__` variable and can be imported using `wasm-bindgen`.
 
@@ -49,7 +48,6 @@ Leptos is a Rust based web framework. You can read more about Leptos on their [o
    ignore = ["./src-tauri"]
 
    [serve]
-   address = "0.0.0.0"
    port = 1420
    open = false
    ws_protocol = "ws"
