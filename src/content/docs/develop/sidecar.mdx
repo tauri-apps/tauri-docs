@@ -79,6 +79,11 @@ Note that this script will not work if you compile for a different architecture 
 
 ## Running it from Rust
 
+:::note
+Please follow the shell [plugin guide](/plugin/shell/) first to set up and initialize the plugin correctly.
+Without the plugin being initialized and configured the example won't work.
+:::
+
 On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `shell().sidecar()` function on the AppHandle:
 
 ```rust

@@ -1,10 +1,6 @@
 ---
 title: Window State
 description: Persist window sizes and positions.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 plugin: window-state
 ---
 
@@ -139,12 +135,11 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4-5}
+```json title="src-tauri/capabilities/main.json" ins={4}
 {
   "permissions": [
     ...,
-    "window-state:allow-restore-state",
-    "window-state:allow-save-window-state",
+    "window-state:default",
   ]
 }
 ```

@@ -4,23 +4,12 @@ description: WebDriver Testing
 sidebar:
   order: 10
   label: Overview
-  badge:
-    text: Broken
-    variant: caution
 ---
-
-{/* TODO: REVISE COPY TO V2 */}
-
-:::caution[Currently in pre-alpha]
-
-Webdriver support for Tauri is still in pre-alpha. Tooling that is dedicated to it, such as [tauri-driver], is still in
-active development and may change as necessary over time. Additionally, only Windows and Linux are currently supported.
-
-:::
 
 [WebDriver] is a standardized interface to interact with web documents primarily intended for automated testing.
 Tauri supports the [WebDriver] interface by leveraging the native platform's [WebDriver] server underneath a
-cross-platform wrapper [`tauri-driver`].
+cross-platform wrapper [`tauri-driver`]. On desktop, only Windows and Linux are supported due macOS not having
+a WKWebView driver tool available. iOS and Android work through Appium 2, but the process is not currently streamlined.
 
 ## System Dependencies
 
@@ -31,7 +20,7 @@ cargo install tauri-driver --locked
 ```
 
 Because we currently utilize the platform's native [WebDriver] server, there are some requirements for running
-[`tauri-driver`] on supported platforms. Platform support is currently limited to Linux and Windows.
+[`tauri-driver`] on supported platforms.
 
 ### Linux
 

@@ -1,10 +1,6 @@
 ---
 title: Process
 description: Access the current process.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 plugin: process
 ---
 
@@ -108,5 +104,20 @@ app.restart();
 
 </TabItem>
 </Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "process:default",
+  ]
+}
+```
 
 <PluginPermissions plugin={frontmatter.plugin} />
