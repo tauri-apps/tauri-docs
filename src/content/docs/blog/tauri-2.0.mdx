@@ -1,0 +1,295 @@
+---
+title: Tauri 2.0 Stable Release
+date: 2024-10-02
+authors: [tweidinger]
+excerpt: 'Tauri 2.0 stable is released!'
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+import Cta from '@fragments/cta.mdx';
+import FeaturesList from '@components/list/Features.astro';
+
+We are very proud to finally announce the stable release for the new major version of Tauri.
+Welcome to Tauri 2.0!
+
+<div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+  <div style="padding-inline-end: 10px">
+    <svg width="48" height="48">
+      <use xlink:href="/assets/platforms.svg#wpf-android-os"></use>
+    </svg>
+  </div>
+  <div style="padding-inline-end: 10px">
+    <svg width="48" height="48">
+      <use xlink:href="/assets/platforms.svg#simple-icons-ios"></use>
+    </svg>
+  </div>
+  <div style="padding-inline-end: 10px">
+    <svg width="48" height="48">
+      <use xlink:href="/assets/platforms.svg#cib-linux"></use>
+    </svg>
+  </div>
+  <div style="padding-inline-end: 10px">
+    <svg width="48" height="48">
+      <use xlink:href="/assets/platforms.svg#wpf-mac-os"></use>
+    </svg>
+  </div>
+  <div style="padding-inline-end: 10px">
+    <svg width="48" height="48">
+      <use xlink:href="/assets/platforms.svg#bi-windows"></use>
+    </svg>
+  </div>
+</div>
+
+## What is Tauri?
+
+:::note[Definition]
+Tauri is a framework for building tiny and fast binaries for all major desktop (macOS, linux, windows) and mobile (iOS, Android) platforms.
+
+Developers can integrate any frontend framework that compiles to HTML, JavaScript, and CSS for building their user experience while leveraging languages such as Rust, Swift, and Kotlin for backend logic when needed.
+:::
+
+In a Tauri application the frontend is written in your favorite web frontend stack.
+This runs inside the operating system WebView and communicates with the application core written mostly in Rust.
+
+![a graph showing the IPC bridge between the Application Core and the System's WebView](@assets/security/tauri-trust-boundaries.svg)
+
+:::tip[No Rust Skills Needed!]
+You don't need to write Code in Rust, Swift or Kotlin in most cases. Tauri already offers an extensive JavaScript API.
+:::
+
+### When Should I Use Tauri?
+
+If you check **any** of the boxes below, you should use Tauri:
+
+- [ ] Do you want a single UI codebase for all platforms?
+- [ ] Do you want to reach as many users as possible on their platform (eg. Windows, MacOS, Linux, Android, iOS)?
+- [ ] Are you a frontend web developer and want to write native applications?
+- [ ] Are you a Rust developer looking to write applications with a nice looking UI with the option to do it in Rust?
+- [ ] Do you have an existing team of web developers and want to expand to native application markets with low upfront investment?
+- [ ] Do you have an existing team of rustaceans and want everything written in Rust?
+
+## How Popular is Tauri?
+
+![a graph showing the progression of Tauri GitHub stars over the years, starting with 0 at 2019 and continuing to grow past 80.000 in 2024](@assets/blog/tauri-star-history.png)
+
+On GitHub the Tauri repository has [~4,878 Pull Requests](https://github.com/tauri-apps/tauri/pulls?q=is%3Apr+is%3Aclosed) and [~3,570 Issues](https://github.com/tauri-apps/tauri/issues?q=is%3Aissue+is%3Aclosed) closed and around [1000 discussions](https://github.com/tauri-apps/tauri/discussions), at the time of writing.
+To get a more detailed insight take a look at [the OSSinsight analysis](https://ossinsight.io/analyze/tauri-apps/tauri) of the Tauri repository.
+
+Our [Discord Server](https://discord.gg/tauri) currently has ~17,700 members. We are seeing a lot of individual user support, questions on Tauri itself, questions directly to the working group or just discussions between fellow Tauri app developers.
+
+We are very happy about the positive and supportive community and grateful to all the community members answering or helping others in Discord or GitHub.
+
+We maintain a curated list of Tauri related projects, applications, plugins, guides and more at [awesome-tauri](https://github.com/tauri-apps/awesome-tauri?tab=readme-ov-file#applications). Check this out if you want to get inspiration, see what others are building and ideally create a PR to add your project.
+
+Of course this is only a representative sample set and we don't know exactly who else is building on Tauri.
+
+## How Did We Get to 2.0?
+
+In June 2022 we released Tauri 1.0 with a great impact on the desktop operating system market and how cross platform applications can be built.
+
+In the end of 2022 we released our initial alpha version of 2.0 to get initial feedback and to test out how mobile interaction should be defined.
+
+After the initial alpha we spent close to two years refining and changing the architecture of Tauri in public. After we saw the broad picture clear enough ourselves we released the beta in Februrary this year. At the same time we collaborated and worked with external security auditors to check our decisions, architecture changes and much more.
+
+This August we published the release candidate version of 2.0 to iron out major bugs and to get more feedback from productive use. At the same time the external audit was concluded and made public.
+
+The release candidate time frame was considerably shorter and consisted mainly of high impact bugfixes and documentation improvements. Some breaking changes we had to make during the release candidate phase were bundled up until the end and are now included in the stable release. Take a look at the [migration section](#migration) if your main concern is upgrading from a previous version.
+
+In total we spent over two years working on improvements, new features, bugfixes, documentation, rewrites and a lot of discussions.
+
+This all happened while we released 8 minor versions of the Tauri 1.x branch and backported security fixes and other important bug fixes in several patch releases.
+
+## Who Made This Release Possible?
+
+This release and Tauri itself is only possible due to massive amount of contributions from [Lucas](https://github.com/lucasfernog), who has provided a constant stream of code changes over the years :heart:.
+
+![Lucas' contribution graph, with 2744 commits, over 896.000 additions and 688.000 deletions.](@assets/blog/lucas-commit-graph.png)
+
+Obviously, Lucas is not the only individual working and contributing to Tauri, but we feel he deserves a very special mention for carrying, starting, and supporting the project and its community throughout the years.
+
+We have had major contributions to the Tauri repository in 2.0 from [Amr](), [Fabian-Lars](), [Tony](), [Chip](), [icb]() , [Simon](), [Oliver Lemasle]() and many more contributors ([source data](https://github.com/tauri-apps/tauri/graphs/contributors?from=9%2F24%2F2022)).
+
+We received an increasing number of drive-by contributors (one or very few PRs). We are grateful for these, but naming everyone would make this a very long list here.
+
+We have a lot(!) of [repositories](https://github.com/orgs/tauri-apps/repositories) in our organization, which are supporting the success of Tauri and without community and working group contributions Tauri would not be where it is now. A big thank you to everyone involved!
+
+Another special shout out and thanks for their constant involvement in the community goes to [Fabian-Lars]() and [Simon](). If you have been involved in Tauri's Discord or Github discussions you likely know their name or avatar.
+
+If you ever searched on Google or YouTube for Tauri, you have probably seen one of [Jacob's streams](). If that's not the case please make sure to check it out and subscribe as his sessions are beyond just educational.
+
+Another special place in our heart has the [Tauri Board](), highlighting [Daniel Yvetot-Thompson]() for the numerous hours, sweat, blood and dedication to make Tauri known and sustainable.
+
+One important thing we should not forget, is that we aquired support from a stable partner of this open source project.
+
+![CrabNebula Logo](@assets/blog/crabnebula.svg)
+
+[CrabNebula](https://crabnebula.dev/) granted multiple people mentioned above and others that are not mentioned here, the privilege to work on the Tauri ecosystem not only in their private time, but also during work time. You can find the [partnership announcement](<(https://v2.tauri.app/blog/partnership-crabnebula/)>) on our blog and we have been more than happy about this collaboration over the last year.
+
+In 2024 alone they spent over **2,870** work hours on this project, which massively pushed the progress and allows us to announce the stable 2.0 release today.
+
+If you were not aware of CrabNebula yet, make sure to check out their [products and services](https://crabnebula.dev/) and consider the symbiotic relationship with Tauri if you are interested into not only improving your workflows but also supporting the Tauri ecosystem.
+
+## What Makes 2.0 Great?
+
+With this major release we improved and changed several aspects of how and where you can build, develop and publish your Tauri app. In the following sections we have more detailed insight. This does not cover everything but should give you a decent impression on what you can expect from Tauri.
+
+### Getting Started Experience
+
+One thing your are always going to be go trough when starting with a new framework or tool is the initial onboarding or getting started process.
+
+We value developer experience (DX) and try to make this initial process as seamless as building and distributing your final application.
+
+For this we created another project, which is called [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) or in short CTA.
+This tool allows developers to start from scratch to a running Tauri app in a few minutes instead of hours.
+
+<Cta />
+
+Of course you need to install some prerequisites on your development system before you can start building your application. For this we have extensive guides with operating system specific sections in our [official documentation](https://v2.tauri.app/start/prerequisites/).
+
+This whole onboarding experience has been improved and now also bootstraps mobile development templates for iOS and Android.
+
+### Hot-Module Replacement
+
+After the initial onboarding you will regularly develop and debug your Tauri application. We considered what would improve your development process already in 1.x of Tauri and extended the Hot-Module Replacement (HMR) to mobile devices and emulators.
+
+This means that all changes to the frontend of your application do not require a rebuild of your whole application and you can live preview how it will look like in the device or operating system your are developing for.
+
+TODO: Showcase HMR on all supported Platforms - GIF/Video/Image?
+
+### Plugins
+
+With Tauri 2.0 we built a more advanced plugin system. We transferred a lot of our previous functionality into our official plugins (see [plugins-workspace](https://github.com/tauri-apps/plugins-workspace)), to allow the community an easier entry into contributing to Tauri. We also hope to attract more maintainers for plugins and to speed up the process of implementing new features.
+
+This move to plugins has another benefit. We are going to be able to define a definition of done for Tauri's core. We hope to stabilize the core functionality and offer a stable framework, where the moving parts are mostly plugins offering access to system specific functionality.
+
+You no longer need to understand all of Tauri to improve or implement specific features. The plugins usually do not depend on other plugins, with some exceptions. This means to implement a new file system access functionality it is only required to contribute to the `fs` plugin instead of Tauri itself.
+
+As this release also targets mobile platforms, the plugin system also supports mobile plugins. You can write or re-use native code in Swift on iOS and Kotlin on Android and directly expose functions to the Tauri frontend using [`Annotations`](https://kotlinlang.org/docs/annotations.html) (`@Command` on Android), implementing a [`Subclass`](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/inheritance#Subclassing) (`YourPluginClass: Plugin`) on iOS, or by invoking the Swift or Kotlin code from a Rust based Tauri command. Check out the [documentation](https://v2.tauri.app/develop/plugins/) on how to write your own plugin.
+
+As we are releasing Tauri as 2.0, the official plugins will follow the major version of Tauri to make compatibility with Tauri's major version visible at a glance. Not all plugins are as stable as Tauri itself though.
+
+Each plugins stableness is defined per plugin and documented (soon) in the plugin documentation. The plugin API can possibly break in minor versions, but we will try to keep these changes to a minimum, especiallty for plugins considered stable.
+
+:::tip
+You can pin your plugin versions to only patch updates if you need absolute stable interfaces. We generally try to backport security updates and will announce advisories on GitHub.
+:::
+
+<FeaturesList />
+
+### Mobile Support
+
+A very much awaited part of this release is the mobile operating system support. The previous version of Tauri allowed to have a single UI code base for desktop operating systems but now this extends to iOS and Android.
+
+We have investigated and experimented with different solutions to support mobile and decided on using the operating system native language (Swift and Kotlin) to build an interface for the Rust code and to allow developers to write part of their functionality in these languages.
+
+This means you can re-use existing logic of your Swift or Kotlin app that interacts with the system and expose it to Rust or the frontend. Right now this works as mentioned above via the plugin system.
+
+We support development with an emulator or a real device and provide a lot of tooling to make the process as seamless as possible. We are not completely happy about the developer experience at the moment but are actively improving to bring it up to par with the desktop experience.
+
+On mobile not all of the official plugins are supported. Some are by design not a good fit for mobile and some are just not implemented to support mobile yet. If you would like to contribute on this part check the [last section](#call-to-action) of this post.
+
+### The Allowlist is Dead, Long Live the Allowlist
+
+Yes, there is no `allowlist` anymore, as we hit the limits of this system pretty quick. We made it exclusive for Tauri core features and it did not even cover all of Tauri's APIs. Our new system not only covers all of Tauri's core API surface, it also supports app and plugin developers to implement their own access control and scoping with a unified approach.
+
+The new system we implemented is using [`permissions`](https://v2.tauri.app/security/permissions/) - _"On-off toggles for Tauri commands"_, [`scopes`](https://v2.tauri.app/security/scope/) - _"Parameter validation for Tauri commands"_ and [`capabilities`](https://v2.tauri.app/security/capabilities/) - _"Attaching permissions and scopes to Windows and WebViews"_, to create a flexible but simple to use access control system.
+
+It allows to create named permission or scope files and to re-use and combine them with other named permissions or scopes. This makes it possible to build more fine grained descriptive sets containing several simple or complex permissions and scopes.
+
+As a plugin developer you can abstract away several base permissions into a `default` permission. This can be based on your default security assumptions and threat model. All official Tauri plugin default permissions are reasonable secure by default.
+
+As an app developer you can use, extend or reduce plugin permissions. Of course you can also build permissions and scopes for your own application.
+
+With this addition, Tauri's core is now able to understand if a command invoke message from a frontend WebView is allowed to reach the command function. It is also able to attach the configured scope to the message.
+
+The command implementation is responsible for interpreting and enforcing the scope. You can read more about our Threat Model and approach to security in our [documentation](https://v2.tauri.app/security/).
+
+### External Security Audit
+
+The major changes and architecture of v2 was independently audited by [Radically Open Security](https://www.radicallyopensecurity.com/) during the beta and release candidate period. Please take your time to read the [report](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf) and learn more about the awesome work of [@gronke](https://github.com/gronke) and [@pcwizz](https://github.com/pcwizz).
+
+The whole audit was funded by the great folks at [NLNet](https://nlnet.nl/) and we are super grateful to be in the privileged position to get fully funded external security audits for major releases.
+
+The results of this audit caused us to rewrite parts of how our dev server is exposed, specifically for mobile development. Without the help and guidance of the auditors this rewrite would not have been possible :heart:.
+
+Additionally, we hardened our iFrame API exposure, fixed scope validation and resource identifier access for the `fs` and `http` plugin, improved our inter process communication stability and a lot of other security related fixes and improvements.
+
+### Inter Process Communication (IPC) Rewrite
+
+With the rewrite of our IPC layer we now support a long wished feature of Raw Payloads and generally changed how it works under the hood.
+
+Previously **all** IPC payloads were json serialized and deserialized which caused an overhead. This was noticeable once more than a few kilobytes were transfered between frontend and backend.
+
+The new system supports [Raw Requests](https://v2.tauri.app/develop/calling-rust/#accessing-raw-request). These speed up the transfer of large data from backend to frontend and vice versa, where you can either use raw bytes directly or use your own (de)serialization process (eg. bson, protobuf, avro and others).
+
+For directly reading files from the filesystem into the WebView we still recommend the [`convertFileSrc`](https://v2.tauri.app/reference/javascript/api/namespacecore/#convertfilesrc) functionality, as it is most likely still faster if you do not need to process the data on the Rust backend.
+
+### Distribution Guides
+
+With Tauri 2.0 the distribution diversity greatly increased. Partially, due to the mobile ecosystem and partially due to our community contributions.
+
+We have official guides on how to ship to the [Apple Appstore](https://v2.tauri.app/distribute/app-store/), [Google Play](https://v2.tauri.app/distribute/google-play/), [Microsoft Store](https://v2.tauri.app/distribute/microsoft-store/), [CrabNebula Cloud](https://v2.tauri.app/distribute/crabnebula-cloud/), [Flathub](https://v2.tauri.app/distribute/flatpak/), [Snapcraft](https://v2.tauri.app/distribute/snapcraft/), [AUR](https://v2.tauri.app/distribute/aur/) and more distribution formats in our [distribution docs](https://v2.tauri.app/distribute/).
+
+:::note[Github Action]
+Our GitHub acion (`tauri-action`) is in progress to support automated building for the mobile operating systems but does not support it yet.
+:::
+
+## Changelog
+
+This section contains all change going from 1.x in a concise list.
+
+TODO: port changelog from https://hackmd.io/@amrbashir/HyzGpkSCA
+
+## Migration
+
+As we try to make the migration from previous Tauri versions as smooth as possible, we have documentation available to guide you trough the process.
+
+If you are migrating from a 1.x release please check out this [migration guide](https://v2.tauri.app/start/migrate/from-tauri-1/).
+
+For upgrading from a 2.0 beta or release candidate version check out this [migration guide](https://v2.tauri.app/start/migrate/from-tauri-2-beta/).
+
+The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@next
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@next
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@next
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri migrate'
+/>
+
+:::caution[Rust Migration]
+We can not automatically migrate your Rust code, so make sure to go through the documentation and rust docs of the 2.0 version.
+:::
+
+## Call To Action
+
+If you are familiar with Tauri and have used it already during your journey, please take your time to check out the [Github Discssions](https://github.com/tauri-apps/tauri/discussions), [Github Issues](https://github.com/tauri-apps/tauri/issues). Maybe you have already solved the issues your fellow newcomers to Tauri are experiencing right now.
+
+If you think that some of these problems you have seen are generic and should be documented somewhere we probably have the perfect place for it in our official [documentation](https://v2.tauri.app).
+
+To contribute improvements or additions we are open for PRs in the [tauri-docs](https://github.com/tauri-apps/tauri-docs) repository. Please make sure you've read the [guidelines](https://github.com/tauri-apps/tauri-docs/blob/v2/.github/CONTRIBUTING.md) for contribution though.
+
+If you are in the position to understand and translate the current documentation into your native language we appreciate [content translations](https://v2.tauri.app/contribute/translate-status) to our documentation.
+
+The repositories surrounding Tauri are also looking for contributors, especially we would love more maintainers and contributors to the [`plugin-workspace`](https://github.com/tauri-apps/plugins-workspace).
+
+The plugins are now a major part of the development and user experience of Tauri and all kind of help is welcome there. From discussing new plugin ideas, collaborating with others to write new plugins, contributing PRs to fix bugs in existing plugins or documenting weird workarounds and knowledge in the plugin readme or code.
+
+## Roadmap
+
+You probably expect solid plans for the future and new cool ideas from us.
+We currently have some in mind but have not committed to a roadmap beyond 2.x yet.
+
+We mainly want to focus on improving this major version with a better developer experience, better documentation and less impactful bugs. We want to improve especially the mobile development experience and make the whole flow from idea to published application as seamless as possible.
+
+Things on our radar for the future we feel we should mention at least:
+
+- Providing or Bundling Chromium Embedded Framework (CEF) for Linux as an alternative to WebKit2GTK
+- [Servo]() as Tauri WebView ([POC in Wry](https://github.com/tauri-apps/wry/tree/servo-wry-demo))
+
+If you want to collaborate on these ideas, please let us know and we will figure it out together.
