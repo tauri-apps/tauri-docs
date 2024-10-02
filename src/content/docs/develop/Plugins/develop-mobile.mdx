@@ -189,6 +189,33 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 }
 ```
 
+If you want to use a Kotlin `suspend` function, you need to use a custom coroutine scope
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+// Change to Dispatchers.IO if it is intended for fetching data
+val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    scope.launch {
+      openCameraInner(invoke)
+    }
+  }
+
+  private suspend fun openCameraInner(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
 </TabItem>
 <TabItem label="iOS">
 
