@@ -132,7 +132,7 @@ const navbarItems = [
     dropdownItemsAfter: [
       {
         href: 'https://v2.tauri.app/',
-        label: 'v2 (RC)',
+        label: 'v2',
         target: '_self',
       },
     ],
