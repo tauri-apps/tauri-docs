@@ -3,6 +3,34 @@ import { writeFileSync } from 'node:fs';
 import TOML from '@iarna/toml';
 import path from 'path';
 
+const desktopOnlySupport = [
+  {
+    platform: 'windows',
+    level: 'full',
+    notes: '',
+  },
+  {
+    platform: 'linux',
+    level: 'full',
+    notes: '',
+  },
+  {
+    platform: 'macos',
+    level: 'full',
+    notes: '',
+  },
+  {
+    platform: 'android',
+    level: 'none',
+    notes: '',
+  },
+  {
+    platform: 'ios',
+    level: 'none',
+    notes: '',
+  },
+];
+
 // todo: resolve dir
 const baseDir = '../plugins-workspace';
 const pluginDir = '../plugins-workspace/plugins';
@@ -38,6 +66,16 @@ async function main() {
       continue;
     }
   }
+
+  tables['system-tray'] = {
+    rustVersion: baseRustVersion,
+    support: desktopOnlySupport,
+  };
+
+  tables['window-customization'] = {
+    rustVersion: baseRustVersion,
+    support: desktopOnlySupport,
+  };
 
   writeFileSync('../../src/components/plugins/_tableContent.json', JSON.stringify(tables, null, 2));
 }
