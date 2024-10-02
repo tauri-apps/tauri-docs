@@ -50,13 +50,11 @@ Let's create a new Node.js project to contain our sidecar implementation.
 Create a new directory (in this example we will call it `sidecar-app`)
 and run the `init` command of your preferred Node.js package manager inside the directory:
 
-{' '}
 <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
 
 We will compile our Node.js application to a self container binary using [pkg].
 Let's install it as a development dependency:
 
-{' '}
 <CommandTabs
   npm="npm add pkg --save-dev"
   yarn="yarn add pkg --dev"
@@ -91,7 +89,6 @@ switch (command) {
 
 To package our Node.js application to a self contained binary, we can run the following `pkg` command:
 
-{' '}
 <CommandTabs
   npm="npm run pkg -- --output app"
   yarn="yarn pkg --output app"
