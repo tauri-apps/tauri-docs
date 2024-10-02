@@ -73,7 +73,8 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### Tauri Configuration
 
-- `package > productName` and `package > version` moved to top-level field.
+- `package > productName` and `package > version` moved to top-level object.
+- the binary name is no longer renamed to match `productName` automatically, so you must add a `mainBinaryName` string to the top-level object matching `productName`.
 - `package` removed.
 - `tauri` key renamed to `app`.
 - `tauri > allowlist` removed. Refer to [Migrate Permissions](#migrate-permissions).
@@ -83,6 +84,8 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > updater > active` removed.
 - `tauri > updater > dialog` removed.
 - `tauri > updater` moved to `plugins > updater`.
+- `bundle > createUpdaterArtifacts` added, must be set when using the app updater.
+    - set it to `v1Compatible` when upgrading from v1 apps that were already distributed. See the [updater guide](/plugins/updater) for more information.
 - `tauri > systemTray` renamed to `app > trayIcon`.
 - `tauri > pattern` moved to `app > security > pattern`.
 - `tauri > bundle` moved top-level.
@@ -92,6 +95,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > bundle > macOS > license` removed, use `bundle > licenseFile` instead.
 - `tauri > bundle > windows > wix > license` removed, use `bundle > licenseFile` instead.
 - `tauri > bundle > windows > nsis > license` removed, use `bundle > licenseFile` instead.
+- `tauri > bundle > windows > webviewFixedRuntimePath` removed, use `bundle > windows > webviewInstallMode` instead.
 - `build > withGlobalTauri` moved to `app > withGlobalTauri`.
 - `build > distDir` renamed to `frontendDist`.
 - `build > devPath` renamed to `devUrl`.
@@ -155,6 +159,8 @@ The `@tauri-apps/api` package no longer provides non-core modules. Only the prev
 - `@tauri-apps/api/shell` module removed. Use `@tauri-apps/plugin-shell` instead. [Migration](#migrate-to-shell-plugin)
 - `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
 - `@tauri-apps/api/window` module renamed to `@tauri-apps/api/webviewWindow`. [Migration](#migrate-to-new-window-api)
+
+The v1 plugins are now published as `@tauri-apps/plugin-<plugin-name>`. Previously they were available from git as `tauri-plugin-<plugin-name>-api`.
 
 ### Environment Variables Changes
 
