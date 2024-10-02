@@ -191,7 +191,7 @@ On mobile not all of the official plugins are supported. Some are by design not 
 
 ### The Allowlist is Dead, Long Live the Allowlist
 
-Yes, there is no `allowlist` anymore, as we hit the limits of this system pretty quick. We made it exclusive for Tauri core features and it did not even cover all of Tauri's APIs. Our new system not only covers all of Tauri's core API surface, it also supports app and plugin developers to implement their own access control and scoping with a unified approach.
+Yes, there is no `allowlist` anymore, as we hit the limits of this system pretty quickly. We made it exclusive for Tauri core features and it did not even cover all of Tauri's APIs. Our new system not only covers all of Tauri's core API surface, it also supports app and plugin developers to implement their own access control and scoping with a unified approach.
 
 The new system we implemented is using [`permissions`](https://v2.tauri.app/security/permissions/) - _"On-off toggles for Tauri commands"_, [`scopes`](https://v2.tauri.app/security/scope/) - _"Parameter validation for Tauri commands"_ and [`capabilities`](https://v2.tauri.app/security/capabilities/) - _"Attaching permissions and scopes to Windows and WebViews"_, to create a flexible but simple to use access control system.
 
