@@ -134,15 +134,16 @@ Not every mobile device has the capability to scan NFC tags, so you should check
 <Tabs>
 
 <TabItem label="JavaScript">
+
 ```javascript
-import { isAvailable } from "@tauri-apps/plugin-nfc"
+import { isAvailable } from '@tauri-apps/plugin-nfc';
 
-const canScanNfc = await isAvailable()
+const canScanNfc = await isAvailable();
+```
 
-````
 </TabItem>
-
 <TabItem label="Rust">
+
 ```rust
 tauri::Builder::default()
   .setup(|app| {
@@ -156,10 +157,9 @@ tauri::Builder::default()
     }
     Ok(())
   })
-````
+```
 
 </TabItem>
-
 </Tabs>
 
 ### Scanning NFC tags
@@ -170,26 +170,28 @@ which is a standard format to encapsulate typed data in an NFC tag.
 <Tabs>
 
 <TabItem label="JavaScript">
-```javascript
-import { scan } from "@tauri-apps/plugin-nfc"
 
-const scan = {
-type: 'ndef' // or 'tag',
-}
+```javascript
+import { scan } from '@tauri-apps/plugin-nfc';
+
+const scanType = {
+  type: 'ndef', // or 'tag',
+};
 
 const options = {
-keepSessionAlive: false,
-// configure the messages displayed in the "Scan NFC" dialog on iOS
-message: 'Scan a NFC tag',
-successMessage: 'NFC tag successfully scanned'
-}
+  keepSessionAlive: false,
+  // configure the messages displayed in the "Scan NFC" dialog on iOS
+  message: 'Scan a NFC tag',
+  successMessage: 'NFC tag successfully scanned',
+};
 
-const tag = await scan(scan, options)
+const tag = await scan(scanType, options);
+```
 
-````
 </TabItem>
 
 <TabItem label="Rust">
+
 ```rust
 tauri::Builder::default()
   .setup(|app| {
@@ -213,7 +215,7 @@ tauri::Builder::default()
     }
     Ok(())
   })
-````
+```
 
 </TabItem>
 
@@ -240,31 +242,33 @@ The mime type is case sensitive and must be provided with lower case letters.
 <Tabs>
 
 <TabItem label="JavaScript">
+
 ```javascript
-import { scan, TechKind } from "@tauri-apps/plugin-nfc"
+import { scan, TechKind } from '@tauri-apps/plugin-nfc';
 
 const techLists = [
-// capture anything using NfcF
-[TechKind.NfcF],
-// capture all MIFARE Classics with NDEF payloads
-[TechKind.NfcA, TechKind.MifareClassic, TechKind.Ndef]
-]
+  // capture anything using NfcF
+  [TechKind.NfcF],
+  // capture all MIFARE Classics with NDEF payloads
+  [TechKind.NfcA, TechKind.MifareClassic, TechKind.Ndef],
+];
 
 const tag = await scan({
-type: 'ndef' // or 'tag',
-mimeType: 'text/plain',
-uri: {
-scheme: 'https',
-host: 'my.domain.com',
-pathPrefix: '/app'
-},
-techLists,
-})
+  type: 'ndef', // or 'tag'
+  mimeType: 'text/plain',
+  uri: {
+    scheme: 'https',
+    host: 'my.domain.com',
+    pathPrefix: '/app',
+  },
+  techLists,
+});
+```
 
-````
 </TabItem>
 
 <TabItem label="Rust">
+
 ```rust
 tauri::Builder::default()
   .setup(|app| {
@@ -293,7 +297,7 @@ tauri::Builder::default()
     }
     Ok(())
   })
-````
+```
 
 </TabItem>
 
@@ -307,29 +311,27 @@ If there's no scanned tag with `keepSessionAlive: true`, the application will fi
 <Tabs>
 
 <TabItem label="JavaScript">
-```javascript
-import { write, textRecord, uriRecord } from "@tauri-apps/plugin-nfc"
 
-const payload = [
-uriRecord("https://tauri.app"),
-textRecord("some payload"),
-]
+```javascript
+import { write, textRecord, uriRecord } from '@tauri-apps/plugin-nfc';
+
+const payload = [uriRecord('https://tauri.app'), textRecord('some payload')];
 
 const options = {
-// the kind is only required if you do not have a scanned tag session alive
-// its format is the same as the argument provided to scan()
-kind: {
-type: 'ndef',
-},
-// configure the messages displayed in the "Scan NFC" dialog on iOS
-message: 'Scan a NFC tag',
-successfulReadMessage: 'NFC tag successfully scanned',
-successMessage: 'NFC tag successfully written'
-}
+  // the kind is only required if you do not have a scanned tag session alive
+  // its format is the same as the argument provided to scan()
+  kind: {
+    type: 'ndef',
+  },
+  // configure the messages displayed in the "Scan NFC" dialog on iOS
+  message: 'Scan a NFC tag',
+  successfulReadMessage: 'NFC tag successfully scanned',
+  successMessage: 'NFC tag successfully written',
+};
 
-await write(payload, options)
+await write(payload, options);
+```
 
-````
 </TabItem>
 
 <TabItem label="Rust">
@@ -361,10 +363,9 @@ tauri::Builder::default()
     }
     Ok(())
   })
-````
+```
 
 </TabItem>
-
 </Tabs>
 
 <PluginPermissions plugin={frontmatter.plugin} />
