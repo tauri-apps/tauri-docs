@@ -71,7 +71,7 @@ export const InstallTauriCli = () => {
     <Tabs groupId="package-manager">
       <TabItem value="npm" default>
         <CodeBlock className="language-shell" language="shell">
-          npm install --save-dev @tauri-apps/cli
+          npm install --save-dev @tauri-apps/cli@"&gt;1.0.0"
         </CodeBlock>
         <div style={{ margin: 8 }}>
           For npm to detect Tauri correctly you need to add it to the "scripts"
@@ -89,22 +89,22 @@ export const InstallTauriCli = () => {
       </TabItem>
       <TabItem value="Yarn">
         <CodeBlock className="language-shell" language="shell">
-          yarn add -D @tauri-apps/cli
+          yarn add -D @tauri-apps/cli@^1.0.0
         </CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className="language-shell" language="shell">
-          pnpm add -D @tauri-apps/cli
+          pnpm add -D @tauri-apps/cli@1
         </CodeBlock>
       </TabItem>
       <TabItem value="Bun">
         <CodeBlock className="language-shell" language="shell">
-          bun add -D @tauri-apps/cli
+          bun add -D @tauri-apps/cli@1.0.0
         </CodeBlock>
       </TabItem>
       <TabItem value="Cargo">
         <CodeBlock className="language-shell" language="shell">
-          cargo install tauri-cli
+          cargo install tauri-cli --version "^1.0.0"
         </CodeBlock>
       </TabItem>
     </Tabs>
@@ -116,22 +116,22 @@ export const InstallTauriApi = () => {
     <Tabs groupId="package-manager">
       <TabItem value="npm" default>
         <CodeBlock className="language-shell" language="shell">
-          npm install @tauri-apps/api
+          npm install @tauri-apps/api@"&gt;1.0.0"
         </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
         <CodeBlock className="language-shell" language="shell">
-          yarn add @tauri-apps/api
+          yarn add @tauri-apps/api@^1.0.0
         </CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className="language-shell" language="shell">
-          pnpm add @tauri-apps/api
+          pnpm add @tauri-apps/api@1
         </CodeBlock>
       </TabItem>
       <TabItem value="Bun">
         <CodeBlock className="language-shell" language="shell">
-          bun add @tauri-apps/api
+          bun add @tauri-apps/api@1.0.0
         </CodeBlock>
       </TabItem>
     </Tabs>

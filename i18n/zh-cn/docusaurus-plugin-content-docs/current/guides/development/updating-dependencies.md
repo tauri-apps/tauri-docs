@@ -15,28 +15,35 @@ import TabItem from '@theme/TabItem'
   <TabItem value="npm">
 
 ```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+npm install @tauri-apps/cli@">1.0.0" @tauri-apps/api@">1.0.0"
 ```
 
   </TabItem>
   <TabItem value="Yarn Classic">
 
 ```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+yarn upgrade @tauri-apps/cli@^1.0.0 @tauri-apps/api@^1.0.0
 ```
 
   </TabItem>
   <TabItem value="Yarn Berry">
 
 ```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+yarn up @tauri-apps/cli@^1.0.0 @tauri-apps/api@^1.0.0
 ```
 
   </TabItem>
   <TabItem value="pnpm">
 
 ```shell
-npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+pnpm update @tauri-apps/cli@1 @tauri-apps/api@1
+```
+
+  </TabItem>
+  <TabItem value="Bun">
+
+```shell
+bun update @tauri-apps/cli @tauri-apps/api
 ```
 
   </TabItem>
