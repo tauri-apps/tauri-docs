@@ -44,131 +44,129 @@ If you are not an advanced user it's **highly recommended** that you use the opt
 
 <Steps>
 
-1. ##### Initialize Sidecar Project
+1.  ##### Initialize Sidecar Project
 
-Let's create a new Node.js project to contain our sidecar implementation.
-Create a new directory (in this example we will call it `sidecar-app`)
-and run the `init` command of your preferred Node.js package manager inside the directory:
+    Let's create a new Node.js project to contain our sidecar implementation.
+    Create a new directory (in this example we will call it `sidecar-app`)
+    and run the `init` command of your preferred Node.js package manager inside the directory:
 
-<CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
+    <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
 
-We will compile our Node.js application to a self container binary using [pkg].
-Let's install it as a development dependency:
+    We will compile our Node.js application to a self container binary using [pkg].
+    Let's install it as a development dependency:
 
-<CommandTabs
-  npm="npm add pkg --save-dev"
-  yarn="yarn add pkg --dev"
-  pnpm="pnpm add pkg --save-dev"
-/>
+    <CommandTabs
+      npm="npm add pkg --save-dev"
+      yarn="yarn add pkg --dev"
+      pnpm="pnpm add pkg --save-dev"
+    />
 
-1. ##### Write Sidecar Logic
+1.  ##### Write Sidecar Logic
 
-Now we can start writing JavaScript code that will be executed by our Tauri application.
+    Now we can start writing JavaScript code that will be executed by our Tauri application.
 
-In this example we will process a command from the command line argmuents and write output to stdout,
-which means our process will be short lived and only handle a single command at a time.
-If your application must be long lived, consider using alternative inter-process communication systems.
+    In this example we will process a command from the command line argmuents and write output to stdout,
+    which means our process will be short lived and only handle a single command at a time.
+    If your application must be long lived, consider using alternative inter-process communication systems.
 
-Let's create a `index.js` file in our `sidecar-app` directory and write a basic Node.js app:
+    Let's create a `index.js` file in our `sidecar-app` directory and write a basic Node.js app:
 
-```js title=sidecar-app/index.js
-const command = process.argv[2];
+    ```js title=sidecar-app/index.js
+    const command = process.argv[2];
 
-switch (command) {
-  case 'ping':
-    const message = process.argv[3];
-    console.log(`pong, ${message}`);
-    break;
-  default:
-    console.error(`unknown command ${command}`);
-    process.exit(1);
-}
-```
+    switch (command) {
+      case 'ping':
+        const message = process.argv[3];
+        console.log(`pong, ${message}`);
+        break;
+      default:
+        console.error(`unknown command ${command}`);
+        process.exit(1);
+    }
+    ```
 
-1. ##### Package the Sidecar
+1.  ##### Package the Sidecar
 
-To package our Node.js application to a self contained binary, we can run the following `pkg` command:
+    To package our Node.js application to a self contained binary, we can run the following `pkg` command:
 
-<CommandTabs
-  npm="npm run pkg -- --output app"
-  yarn="yarn pkg --output app"
-  pnpm="pnpm pkg --output app"
-/>
+    <CommandTabs
+      npm="npm run pkg -- --output app"
+      yarn="yarn pkg --output app"
+      pnpm="pnpm pkg --output app"
+    />
 
-This will create the `sidecar-app/app` binary on Linux and macOS, and a `sidecar-app/app.exe` executable on Windows.
-To rename this file to the expected Tauri sidecar filename, we can use the following Node.js script:
+    This will create the `sidecar-app/app` binary on Linux and macOS, and a `sidecar-app/app.exe` executable on Windows.
+    To rename this file to the expected Tauri sidecar filename, we can use the following Node.js script:
 
-```js
-import { execSync } from 'child_process';
-import fs from 'fs';
+    ```js
+    import { execSync } from 'child_process';
+    import fs from 'fs';
 
-const ext = process.platform === 'win32' ? '.exe' : '';
+    const ext = process.platform === 'win32' ? '.exe' : '';
 
-const rustInfo = execSync('rustc -vV');
-const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
-if (!targetTriple) {
-  console.error('Failed to determine platform target triple');
-}
-fs.renameSync(`app${ext}`, `../src-tauri/binaries/app-${targetTriple}${ext}`);
-```
+    const rustInfo = execSync('rustc -vV');
+    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+    if (!targetTriple) {
+      console.error('Failed to determine platform target triple');
+    }
+    fs.renameSync(
+      `app${ext}`,
+      `../src-tauri/binaries/app-${targetTriple}${ext}`
+    );
+    ```
 
-1. ##### configure the Sidecar in the Tauri Application
+1.  ##### configure the Sidecar in the Tauri Application
 
-Now that we have our Node.js application ready, we can connect it to our Tauri application
-by configuring the [`bundle > externalBin`] array:
+    Now that we have our Node.js application ready, we can connect it to our Tauri application
+    by configuring the [`bundle > externalBin`] array:
 
-```json title="src-tauri/tauri.conf.json"
-{
-  "bundle": {
-    "externalBin": ["binaries/app"]
-  }
-}
-```
+    ```json title="src-tauri/tauri.conf.json"
+    {
+      "bundle": {
+        "externalBin": ["binaries/app"]
+      }
+    }
+    ```
 
-The Tauri CLI will handle the bundling of the sidecar binary as long as it exists as `src-tauri/binaries/app-<target-triple>`.
+    The Tauri CLI will handle the bundling of the sidecar binary as long as it exists as `src-tauri/binaries/app-<target-triple>`.
 
-1. ##### Execute the Sidecar
+1.  ##### Execute the Sidecar
 
-We can run the sidecar binary either from Rust code or directly from JavaScript.
+    We can run the sidecar binary either from Rust code or directly from JavaScript.
 
-  <Tabs>
-    <TabItem label="JavaScript">
-    
-    Let's execute the `ping` command in the Node.js sidecar directly:
+    <Tabs>
+      <TabItem label="JavaScript">
+        Let's execute the `ping` command in the Node.js sidecar directly:
 
-```javascript
-import { Command } from '@tauri-apps/plugin-shell';
+        ```javascript
+        import { Command } from '@tauri-apps/plugin-shell';
 
-const message = 'Tauri';
+        const message = 'Tauri';
 
-const command = Command.sidecar('binaries/app', ['ping', message]);
-const output = await command.execute();
-const response = output.stdout;
-```
+        const command = Command.sidecar('binaries/app', ['ping', message]);
+        const output = await command.execute();
+        const response = output.stdout;
+        ```
+      </TabItem>
+      <TabItem label="Rust">
+        Let's pipe a `ping` Tauri command to the Node.js sidecar:
 
-    </TabItem>
-    <TabItem label="Rust">
-
-Let's pipe a `ping` Tauri command to the Node.js sidecar:
-
-```rust
-#[tauri::command]
-async fn ping(app: tauri::AppHandle, message: String) -> String {
-  let sidecar_command = app
-    .shell()
-    .sidecar("app")
-    .unwrap()
-    .arg("ping")
-    .arg(message);
-  let output = sidecar_command.output().unwrap();
-  let response = String::from_utf8(output.stdout).unwrap();
-  response
-}
-```
-
-    </TabItem>
-
-  </Tabs>
+        ```rust
+        #[tauri::command]
+        async fn ping(app: tauri::AppHandle, message: String) -> String {
+          let sidecar_command = app
+            .shell()
+            .sidecar("app")
+            .unwrap()
+            .arg("ping")
+            .arg(message);
+          let output = sidecar_command.output().unwrap();
+          let response = String::from_utf8(output.stdout).unwrap();
+          response
+        }
+        ```
+      </TabItem>
+    </Tabs>
 
 </Steps>
 
