@@ -22,7 +22,7 @@ tauri = { version = "2.0.0-rc", features = [ "tray-icon" ] }
 
 The tray API is available in both JavaScript and Rust.
 
-### Creating a tray icon
+### Creata a Tray Icon
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -60,7 +60,7 @@ See [`TrayIconBuilder`] for more information on customization options.
 </TabItem>
 </Tabs>
 
-### Changing the tray icon
+### Change the Tray Icon
 
 {/* TODO: add a way to do this easily from JS too */}
 
@@ -72,7 +72,7 @@ let tray = TrayIconBuilder::new()
   .build(app)?;
 ```
 
-### Adding a menu
+### Add a Menu
 
 To attach a menu that is displayed when the tray is clicked, you can use the `menu` option.
 
@@ -131,7 +131,7 @@ let tray = TrayIconBuilder::new()
 </TabItem>
 </Tabs>
 
-#### Listening to menu events
+#### Listen to Menu Events
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -198,7 +198,7 @@ TrayIconBuilder::new()
 </TabItem>
 </Tabs>
 
-### Listening to tray events
+### Listen to Tray Events
 
 The tray icon emits events for the following mouse events:
 
