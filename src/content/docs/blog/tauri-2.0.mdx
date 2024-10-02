@@ -237,9 +237,175 @@ Our GitHub acion (`tauri-action`) is in progress to support automated building f
 
 ## Changelog
 
-This section contains all change going from 1.x in a concise list.
+This section contains all changes going from 1.x in a concise list.
 
-TODO: port changelog from https://hackmd.io/@amrbashir/HyzGpkSCA
+### Added
+
+- Added Mobile support.
+- Added multiwebview support behind the unstable feature flag. See WindowBuilder and WebviewBuilder for more information.
+- Added `rustls-tls` cargo feature flag
+- Added `shadow` option when creating a webview window,`WebviewWindow::set_shadow` method in Rust and equivalent API in JS.
+- Added `tauri::Webview`, `tauri::WebviewBuilder`, `tauri::WebviewWindow`, `tauri::WebviewWindowBuilder` structs in Rust and equivalent classes in Js.  The old `tauri::Window` and `tauri::WindowBuilder` behaviors have moved to `tauri::WebviewWindow` and `tauri::WebviewWindowBuilder`.
+- Added `tauri::scope::fs` module
+- Added `tauri::App/AppHandle::default_window_icon` method.
+- Added `tauri::ipc` module with IPC primitives.
+- Added `tauri::ipc::Channel` type and equivalent JS `Channel` type to send data across the IPC.
+- Added `incognito` option when creating a webview window.
+- Added `windowEffects` option when creating a webview window and `WebviewWindow::set_effects` to try and change effects at runtime.
+- Added `tauri::path::PathResolver`
+- Added `tauri::Manager::path` method to access the new `PathResolver`
+- Added `visibleOnAllWorkspaces` option when creating a webview window.
+- Added `tauri::App/AppHandle::primary_monitor` and `App/AppHandle::available_monitors` methods.
+- Added `tauri::plugin::Builder::on_navigation` and `tauri::plugin::Plugin::on_navigation`.
+- Added `tauri::WebviewWindow::navigate` method
+- Added `tauri::RunEvent::Opened` on macOS and iOS for deep link support.
+- Added file associations support in bundler.
+- Added `tauri::App/AppHandle::cleanup_before_exit` to manually call the cleanup logic. You should always exit the tauri app immediately after this function returns and not use any tauri-related APIs. 
+- On Linux, add `tauri::WebviewWindow::default_vbox` method to get a reference to the `gtk::Box` that contains the menu bar and the webview.
+- Added `linux-libxdo` cargo feature flag (disabled by default) to enable linking to `libxdo` which is used to make `Cut`, `Copy`, `Paste` and `SelectAll` native menu items work on Linux.
+- On macOS, add `tauri::WebviewWindow::ns_view` method to get a pointer to the `NSWindow` content view.
+- Added `tauri::Builder::register_asynchronous_uri_scheme_protocol` to allow resolving a custom URI scheme protocol request asynchronously to prevent blocking the main thread.
+- Included drop and hover position for drag and drop events.
+- Added `tauri::WebviewWindow::set_progress_bar` method
+- Added `tauri::WebviewWindow::set_always_on_bottom` method and `alwaysOnTop` option when creating a webview window.
+- Added `tauri::WebviewWindowBuilder::on_page_load` method.
+- Added `common-controls-v6` cargo feature flag (enabled by default).
+- Added `Window::destroy` to force close a window.
+- Added `tauri::EventId` type
+- Added `tauri::WindowBuilder::on_download` to handle download request events.
+- Added `tauri::WebviewWindowBuilder::parent` which is a convenient wrapper around parent functionality for Windows, Linux and macOS. 
+- Added `tauri::WebviewWindowBuilder::owner` on Windows only.
+- Added `tauri::WebviewWindowBuilder::transient_for` and `tauri::WebviewWindowBuilder::transient_for_raw` on Linux only.
+- Added `tauri::WebviewWindow::start_resize_dragging` and `tauri::ResizeDirection` enum.
+- Added `tauri::WebviewWindowBuilder::proxy_url` method.
+- Added `tauri::WebviewEvent` enum
+- Added `tauri::RunEvent::WebviewEvent` variant.
+- Added `tauri::Builder::on_webview_event` and `tauri::Webview::on_webview_event` methods.
+- Added `tauri::image` module which includes`tauri::image::Image` and `tauri::image::JsImage` types and `tauri::image::include_img!` macro.
+- Added `tauri::is_dev` function to determine whether the app is running in development mode or not.
+- Added `tauri::Assets::setup` method on `tauri::Assets` trait that lets you run initialization code for your custom asset provider.
+- Added `tauri::Rect` struct.
+- Added `tauri::WebviewWindow::set_zoom` method
+- Added `zoomHotkeys` option when creating a webview window.
+- Added `window.isTauri` JS global function to check whether running in tauri or not.
+- Added `specta` feature flag which adds `specta` support for `AppHandle`, `State`, `Window`, `Webview` and `WebviewWindow` types.
+- Added `tauri::App/AppHandle/WebviewWindow::cursor_position` getter to get the current cursor position.
+- Added `tauri::App/AppHandle/WebviewWindow::monitor_from_point(x,y)` getter to get the monitor from a given point..
+- Added `tauri::RunEvent::Reopen` to handle click on dock icon on macOS.
+- Added `defaultWindowIcon` to the JS `app` module to retrieve the default window icon in JS.
+- Added `tauri::WebviewWindow::set_title_bar_style` to set title bar at runtime on macOS.
+- Add APIs to enable setting window size constraints separately:
+
+  - Added `tauri::WindowBuilder::inner_size_constraints` and `tauri::WebviewWindowBuilder::inner_size_constraints`
+  - Added `tauri::WindowSizeConstraints` struct
+  - Added `tauri::Window::set_size_constraints` and `tauri::WebviewWindow::set_size_constraints`
+
+
+### Enhancements
+
+- Use custom protocols on the IPC implementation to enhance performance.
+- Enhance centering a newly created window, it will no longer jump to center after being visible.
+- The `custom-protocol` Cargo feature is no longer required on your application and is now ignored. To check if running on production, use `#[cfg(not(dev))]` instead of `#[cfg(feature = "custom-protocol")]`.
+- Improved the JS `path` APIs to return simplified paths on Windows when possible, i.e removing UNC (`\\?\`) prefix.
+- Improved the error message that is shown when deserializing the Tauri plugin config.
+- Set the gtk application id to the `identifier` defined in `tauri.conf.json` to ensure the app uniqueness. This can be disabled by setting `enableGtkAppId` option to `false`.
+- On Windows, handle resizing undecorated windows natively which improves performance and fixes a couple of annoyances with previous JS implementation:
+  - No more cursor flickering when moving the cursor across an edge.
+  - Can resize from top even when `data-tauri-drag-region` element exists there.
+  - Upon starting rezing, clicks don't go through elements behind it so no more accidental clicks.
+- Mark `AppHandle::restart` and `process::restart` as [diverging functions](https://doc.rust-lang.org/rust-by-example/fn/diverging.html)
+
+### Bug Fixes
+
+- No longer unpacking and flattening the `payload` over the IPC so that commands with arguments called `cmd`, `callback`, `error`, `options` or `payload` aren't breaking the IPC.
+- Fix calling `set_activation_policy` when the event loop is running.
+- Fix can not prevent closing a window from another webview.
+- On Windows, fix decorated window not transparent initially until resized.
+- Resolve symlinks on the filesystem scope check.
+- Fix the JS `basename(path, 'ext')` API implementation removing all occurances of `ext` where it should only remove the last one.
+- Fix window white flashing on exit on Windows
+- Apply `minWidth`, `minHieght`, `maxWidth` and `maxHeight` constraints separately, which fixes a long standing bug where these constraints were never applied unless width and height were constrained together.
+
+### Changed
+
+- The window creation and setup hook are now called when the event loop is ready.
+- Renamed the `default-tls` feature to `native-tls` and.
+- Changed the plugin setup hook to take a second argument of type `PluginApi`
+- Changed `tauri::Window` struct behavior and moved its old behavior to the new `tauri::WebviewWindow` type.
+- Moved `tauri::api::path` module to `tauri::path`
+- Moved all functions from `tauri::api::path` to be methods on `tauri::path::PathResolver`
+- Renamed `system-tray` feature flag to `tray-icon`.
+- Changed `tauri::App::handle` and `tauri::Manager::app_handle` methods to return a reference to an `AppHandle` instead of an owned value.
+- Changed `tauri::Builder::register_uri_scheme_protocol` to return a `http::Response` instead of `Result<http::Response>`. To return an error response, manually create a response with status code >= 400.
+- The custom protocol on Windows and Android now uses the `http` scheme instead of `https`.
+- Changed `tauri::Env.args` to `tauri::Env.args_os` and now uses `OsString` instead of `String`
+- Changed `TAURI_AUTOMATION` env var to `TAURI_WEBVIEW_AUTOMATION`
+- Changed `tauri::Builder::invoke_system` to take references instead of owned values.
+- Changed`tauri::Builder::invoke_system`, `tauri::Builder::on_page_load` hooks to take a `tauri::Webview` argument instead of a `tauri::Window`.
+- Moved the `tauri::command` module items to the `tauri::ipc` module so its import name does not clash with the `tauri::command` macro.
+- Changed `tauri::App::run_iteration` to take a callback and removed its return value.
+- Changed `AppHandle::exit` and `AppHandle::restart` to trigger `RunEvent::ExitRequested` and `RunEvent::Exit`
+- Renamed `tauri::WebviewWindowBuilder::owner_window` to `tauri::WebviewWindowBuilder::owner_raw` and `tauri::WebviewWindowBuilder::parent_window` to `tauri::WebviewWindowBuilder::parent_raw`.
+- Renamed the `window-data-url` feature flag to `webview-data-url`.
+- Changed `tauri::WebviewWindow::close` to trigger a close requested event instead of forcing the window to be closed. Use `tauri::WebviewWindow::destroy` to force close. 
+- Renamed `icon-ico` and `icon-png` feature flags to `image-ico` and `image-png` respectively.
+- Removed `tauri::Icon` enum, use the new `tauri::Image` type instead. All APIs that previously accepted `tauri::Icon` have changed to accept `tauri::Image` instead.
+- Changed `tauri::Context` struct and `tauri::Assets` trait to have a `R: Runtime` generic.
+- Renamed `tauri::Context::assets_mut` to `tauri::Context::set_assets`
+- Changed `tauri::Context` type to not have `<A: Assets>` generic so the assets implementation can be swapped with `Context::set_assets`.
+- Changed `tauri::Context::assets` to return `&dyn Assets` instead of `&A` generic.
+- Renamed `tauri::FileDropEvent` enum to `tauri::DragDropEvent` and renamed its variants. Also renamed the js events
+- Renamed `tauri::WindowEvent::FileDrop` enum variant to `tauri::WindowEvent::DragDrop`
+- Renamed file drop emitted events to `tauri://drag-enter`, `tauri://drag-over`, `tauri://drag-drop`, and `tauri://drag-leave`
+- Renamed `tauri::WebviewWindow::disable_file_drop_handler` to `tauri::WebviewWindow::disable_drag_drop_handler`.
+- Changed `tauri::WebviewWindow::url` getter to return a result.
+- Changed `tauri::Env.args_os`, to include the binary path, previously it was skipped.
+- Renamed `getAll` and `getCurrent` to `getAllWindows` and `getCurrentWindow` in the JS `window` module but you probably want `getAllWebviewWindows` and `getCurrentWebviewWindow` from the `webviewWindow` module.
+
+### Removed
+
+- The `reqwest-*` Cargo features were removed
+- `UpdaterEvent`
+- Removed`tauri::api` module and moved them into standalone plugins in `plugins-workspace` repo.
+- Removed `tauri::scope::IpcScope`
+- Removed `tauri::scope::ipc` module and all its types.
+- Removed `tauri::scope::FsScope`, use `tauri::scope::fs::Scope`
+- Removed `tauri::scope::GlobPattern`, use `tauri::scope::fs::Pattern`
+- Removed `tauri::scope::FsScopeEvent`, use `tauri::scope::fs::Event`
+- Removed `tauri::scope::HttpScope`
+- Removed `tauri::scope::ShellScope`
+- Removed `tauri::scope::ShellScopeAllowedCommand`
+- Removed `tauri::scope::ShellScopeAllowedArg`
+- Removed `tauri::scope::ExecuteArgs`
+- Removed `tauri::scope::ShellScopeConfig`
+- Removed `tauri::scope::ShellScopeError`
+- Removed `linux-protocol-headers` cargo feature flag, now enabled by default.
+- Removed `tauri::path::Error` and `tauri::path::Result` and added its variants to `tauri::Error`
+- Removed `tauri::path::Result` and `tauri::plugin::Result` aliases, you should use `tauri::Result` or your own `Result` type.
+- Changed `tauri::Builder::on_page_load` handler to take references. The page load hook is now triggered for load started and finished events, to determine what triggered it see `tauri::PageLoadPayload::event` field.
+- Removed `tauri::GlobalWindowEvent` struct, and unpacked its fields to be passed directly to `tauri::Builder::on_window_event`.
+- Removed `tauri::EventHandler` type.
+- Renamed `tauri::Context::default_window_icon_mut` to `tauri::Context::set_default_window_icon` and changed it to accept `Option<T>`.
+
+### Config restructure
+
+Restructured Tauri config per [RFC#5](https://github.com/tauri-apps/rfcs/blob/f3e82a6b0c5390401e855850d47dc7b7d9afd684/texts/0005-tauri-config-restructure.md):
+
+- Moved `package.productName`, `package.version` and `tauri.bundle.identifier` fields to the top-level.
+- Removed `package` object.
+- Renamed `tauri` object to `app`.
+- Moved `tauri.bundle` object to the top-level.
+- Renamed `build.distDir` field to `frontendDist`.
+- Renamed `build.devPath` field to `devUrl` and will no longer accepts paths, it will only accept URLs.
+- Moved `tauri.pattern` to `app.security.pattern`.
+- Removed `tauri.bundle.updater` object, and its fields have been moved to the updater plugin under `plugins.updater` object.
+- Moved `build.withGlobalTauri` to `app.withGlobalTauri`.
+- Moved `tauri.bundle.dmg` object to `bundle.macOS.dmg`.
+- Moved `tauri.bundle.deb` object to `bundle.linux.deb`.
+- Moved `tauri.bundle.appimage` object to `bundle.linux.appimage`.
+- Removed all license fields from each bundle configuration object and instead added `bundle.license` and `bundle.licenseFile`.
+- Renamed `AppUrl` to `FrontendDist` and refactored its variants to be more explicit.
+- Renamed `tauri.window.fileDropEnabeld` to `app.window.dragDropEnabled`
 
 ## Migration
 
