@@ -21,12 +21,7 @@ Note that each has their own advantages, drawbacks and security concerns.
 
 ## Prerequisites
 
-:::note
-Please follow the [shell plugin guide](/plugin/shell/) first to set up and initialize the plugin correctly.
-Without the plugin being initialized and configured the example won't work.
-:::
-
-You need an existing Tauri application that compiles and runs for you locally.
+An existing Tauri application set up with the shell plugin, that compiles and runs for you locally.
 
 :::tip[Create a lab app]
 
@@ -40,14 +35,19 @@ If you are not an advanced user it's **highly recommended** that you use the opt
 - Choose your UI template: `Vanilla`
 - Choose your UI flavor: `Typescript`
 - Would you like to setup the project for mobile as well? `yes`
-  :::
+:::
+
+:::note
+Please follow the [shell plugin guide](/plugin/shell/) first to set up and initialize the plugin correctly.
+Without the plugin being initialized and configured the example won't work.
+:::
 
 <Steps>
 
 1.  ##### Initialize Sidecar Project
 
     Let's create a new Node.js project to contain our sidecar implementation.
-    Create a new directory (in this example we will call it `sidecar-app`)
+    Create a new directory **in your Tauri application root folder** (in this example we will call it `sidecar-app`)
     and run the `init` command of your preferred Node.js package manager inside the directory:
 
     <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
