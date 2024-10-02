@@ -245,7 +245,7 @@ This section contains all changes going from 1.x in a concise list.
 - Added multiwebview support behind the unstable feature flag. See WindowBuilder and WebviewBuilder for more information.
 - Added `rustls-tls` cargo feature flag
 - Added `shadow` option when creating a webview window,`WebviewWindow::set_shadow` method in Rust and equivalent API in JS.
-- Added `tauri::Webview`, `tauri::WebviewBuilder`, `tauri::WebviewWindow`, `tauri::WebviewWindowBuilder` structs in Rust and equivalent classes in Js.  The old `tauri::Window` and `tauri::WindowBuilder` behaviors have moved to `tauri::WebviewWindow` and `tauri::WebviewWindowBuilder`.
+- Added `tauri::Webview`, `tauri::WebviewBuilder`, `tauri::WebviewWindow`, `tauri::WebviewWindowBuilder` structs in Rust and equivalent classes in Js. The old `tauri::Window` and `tauri::WindowBuilder` behaviors have moved to `tauri::WebviewWindow` and `tauri::WebviewWindowBuilder`.
 - Added `tauri::scope::fs` module
 - Added `tauri::App/AppHandle::default_window_icon` method.
 - Added `tauri::ipc` module with IPC primitives.
@@ -260,7 +260,7 @@ This section contains all changes going from 1.x in a concise list.
 - Added `tauri::WebviewWindow::navigate` method
 - Added `tauri::RunEvent::Opened` on macOS and iOS for deep link support.
 - Added file associations support in bundler.
-- Added `tauri::App/AppHandle::cleanup_before_exit` to manually call the cleanup logic. You should always exit the tauri app immediately after this function returns and not use any tauri-related APIs. 
+- Added `tauri::App/AppHandle::cleanup_before_exit` to manually call the cleanup logic. You should always exit the tauri app immediately after this function returns and not use any tauri-related APIs.
 - On Linux, add `tauri::WebviewWindow::default_vbox` method to get a reference to the `gtk::Box` that contains the menu bar and the webview.
 - Added `linux-libxdo` cargo feature flag (disabled by default) to enable linking to `libxdo` which is used to make `Cut`, `Copy`, `Paste` and `SelectAll` native menu items work on Linux.
 - On macOS, add `tauri::WebviewWindow::ns_view` method to get a pointer to the `NSWindow` content view.
@@ -273,7 +273,7 @@ This section contains all changes going from 1.x in a concise list.
 - Added `Window::destroy` to force close a window.
 - Added `tauri::EventId` type
 - Added `tauri::WindowBuilder::on_download` to handle download request events.
-- Added `tauri::WebviewWindowBuilder::parent` which is a convenient wrapper around parent functionality for Windows, Linux and macOS. 
+- Added `tauri::WebviewWindowBuilder::parent` which is a convenient wrapper around parent functionality for Windows, Linux and macOS.
 - Added `tauri::WebviewWindowBuilder::owner` on Windows only.
 - Added `tauri::WebviewWindowBuilder::transient_for` and `tauri::WebviewWindowBuilder::transient_for_raw` on Linux only.
 - Added `tauri::WebviewWindow::start_resize_dragging` and `tauri::ResizeDirection` enum.
@@ -298,7 +298,6 @@ This section contains all changes going from 1.x in a concise list.
   - Added `tauri::WindowBuilder::inner_size_constraints` and `tauri::WebviewWindowBuilder::inner_size_constraints`
   - Added `tauri::WindowSizeConstraints` struct
   - Added `tauri::Window::set_size_constraints` and `tauri::WebviewWindow::set_size_constraints`
-
 
 ### Enhancements
 
@@ -346,7 +345,7 @@ This section contains all changes going from 1.x in a concise list.
 - Changed `AppHandle::exit` and `AppHandle::restart` to trigger `RunEvent::ExitRequested` and `RunEvent::Exit`
 - Renamed `tauri::WebviewWindowBuilder::owner_window` to `tauri::WebviewWindowBuilder::owner_raw` and `tauri::WebviewWindowBuilder::parent_window` to `tauri::WebviewWindowBuilder::parent_raw`.
 - Renamed the `window-data-url` feature flag to `webview-data-url`.
-- Changed `tauri::WebviewWindow::close` to trigger a close requested event instead of forcing the window to be closed. Use `tauri::WebviewWindow::destroy` to force close. 
+- Changed `tauri::WebviewWindow::close` to trigger a close requested event instead of forcing the window to be closed. Use `tauri::WebviewWindow::destroy` to force close.
 - Renamed `icon-ico` and `icon-png` feature flags to `image-ico` and `image-png` respectively.
 - Removed `tauri::Icon` enum, use the new `tauri::Image` type instead. All APIs that previously accepted `tauri::Icon` have changed to accept `tauri::Image` instead.
 - Changed `tauri::Context` struct and `tauri::Assets` trait to have a `R: Runtime` generic.
