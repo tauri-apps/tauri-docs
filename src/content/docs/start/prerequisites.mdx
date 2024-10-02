@@ -277,19 +277,6 @@ It's important to restart your Terminal to ensure it recognizes the new installa
 
 While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To enable these, run `corepack enable` in your Terminal. This step is optional and only needed if you prefer using a package manager other than npm.
 
-  </TabItem>
-  <TabItem label="Nix/NixOS">
-  Add the following to your `buildInputs` to install Nodejs:
-  ```nix
-  nodejs # feel free to change the version
-  npm
-  ```
-
-    While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To install them look for that package on [nixpkgs](https://search.nixos.org/packages) and add the package above.  This step is optional and only needed if you prefer using a package manager other than npm.
-
-  </TabItem>
-</Tabs>
-
 Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/start/create-project/).
 
 ## Configure for Mobile Targets
