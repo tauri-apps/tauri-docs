@@ -28,6 +28,10 @@ Tauri requires various system dependencies for development on Linux. These may b
 {/* Note: These are the officially supported linux distributions. */}
 {/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
+:::note
+Using nix/nixos? we have moved nix/nixos to a dedicated section [here](#nixnixos)
+:::
+
 <Tabs>
   <TabItem label="Debian">
 
@@ -117,35 +121,7 @@ sudo apk add \
   librsvg
 ```
   </TabItem>
-  <TabItem label="NixOS">
 
-Using `nix-shell`:
-
-```sh
-with import <nixpkgs> { };
-mkShell {
-  buildInputs = [
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gobject-introspection
-    gobject-introspection.dev
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    webkitgtk_4_1.dev
-  ];
-
-  PKG_CONFIG_PATH = "${glib.dev}/lib/pkgconfig:${libsoup_3.dev}/lib/pkgconfig:${webkitgtk_4_1.dev}/lib/pkgconfig:${at-spi2-atk.dev}/lib/pkgconfig:${gtk3.dev}/lib/pkgconfig:${gdk-pixbuf.dev}/lib/pkgconfig:${cairo.dev}/lib/pkgconfig:${pango.dev}/lib/pkgconfig:${harfbuzz.dev}/lib/pkgconfig";
-}
-```
-
-  </TabItem>
 </Tabs>
 
 If your distribution isn't included above then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
@@ -154,11 +130,11 @@ Next: [Install Rust](#rust)
 
 ### macOS
 
-Tauri requires various system dependencies for development on MacOS. This may depend on the type of package manager you use or don't have a package manager at all.
+:::note
+Using Nix? we have a dedicated section on getting started on nix [here](#nixnixos)
+:::
 
-<Tabs>
-  <TabItem label="MacOS">
-  Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) and various macOS and iOS development dependencies.
+Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) and various macOS and iOS development dependencies.
 
 Download and install Xcode from one of the following places:
 
@@ -176,28 +152,7 @@ xcode-select --install
 ```
 
 </details>
-
-  </TabItem>
-    <TabItem label="Nix">
-
-    Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) and various macOS and iOS development dependencies.
-
-    The required dependencies can be installed by adding the following packages to your shell.
-    ```nix
-    darwin.apple_sdk.frameworks.WebKit
-    darwin.apple_sdk.frameworks.AppKit
-    darwin.apple_sdk.frameworks.CoreServices
-    darwin.apple_sdk.frameworks.Foundation
-    darwin.apple_sdk.frameworks.Security
-    ```
-
-    You have installed all of the required xcode dependencies.
-
-  </TabItem>
-
 Next: [Install Rust](#rust)
-
-</Tabs>
 
 ### Windows
 
@@ -226,6 +181,43 @@ Install WebView2 by visiting the [WebView2 Runtime download section](https://dev
 
 Next: [Install Rust](#rust)
 
+
+
+### Nix/NixOS
+
+Using `nix-shell`:
+
+```sh
+with import <nixpkgs> { };
+mkShell {
+  buildInputs = [
+    libiconv
+  ] ++ lib.optionals stdenv.isLinux [ gtk3 libsoup_3 webkitgtk_4_1] ++
+	lib.optionals stdenv.isDarwin [
+		# Required deps for mac
+		darwin.libobjc
+		darwin.apple_sdk.frameworks.AppKit
+		darwin.apple_sdk.frameworks.WebKit
+		darwin.apple_sdk.frameworks.SystemConfiguration
+		darwin.apple_sdk.frameworks.CoreSevices
+		darwin.apple_sdk.frameworks.Security
+	];
+}
+```
+
+:::caution[Experimental]
+Just to note flakes are experimental in nix and may change any time. 
+:::
+
+Using `flake.nix`: checkout [eveeifyeve/Tauri-Flake-Templates](https://github.com/Eveeifyeve/Tauri-Flake-Templates) on github to use a community maintained nix flake.
+
+Feel free to follow along if your using the flake template as this is the same thing
+
+
+
+Next: [Install Rust](#rust)
+
+
 ## Rust
 
 Tauri is built with [Rust](https://www.rust-lang.org) and requires it for development. Install Rust using one of following methods. You can view more installation methods at https://www.rust-lang.org/tools/install.
@@ -252,13 +244,14 @@ Visit https://www.rust-lang.org/tools/install to install `rustup`.
 
   </TabItem>
   <TabItem label="Nix/NixOS"> 
-  Add the following packages below to install Rust on nix/NixOS.
+  Add the following in your buildinputs from [Previous Section](#nixnixos) below to install Rust on nix/NixOS.
   ```nix
   cargo
   rustc
   rustfmt
-  rustup # if you want to use rustup
   ```
+
+
 </TabItem>
 
 </Tabs>
@@ -292,11 +285,14 @@ While npm is the default package manager for Node.js, you can also use others li
 
   </TabItem>
   <TabItem label="Nix/NixOS">
-  To install Node.js Add the following packages below to install Node.js on nix/NixOS.
+  Add the following to your `buildInputs` to install Nodejs:
   ```nix
-  nodejs-slim # feel free to change the version
+  nodejs # feel free to change the version
   npm
   ```
+
+	While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To install them look for that package on [nixpkgs](https://search.nixos.org/packages) and add the package above.  This step is optional and only needed if you prefer using a package manager other than npm. 
+
   </TabItem>
 </Tabs>
 
@@ -312,7 +308,7 @@ If you'd like to target your app for Android or iOS then there are a few additio
 ### Android
 
 :::caution[Nix/NixOS]
-Android development only supports Linux Nix/NixOS.
+Android Studio only supports Linux Nix/NixOS.
 If you are using Nix on darwin you could try the [homebrew route through nix-darwin](https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews) to install Android Studio.
 :::
 
@@ -344,10 +340,6 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ```
 
 </TabItem>
-<TabItem label="Nix/NixOS">
-{/* TODO: Add NixOS instructions */}
-
-</TabItem>
 </Tabs>
 3. Use the SDK Manager in Android Studio to install the following:
 
@@ -357,7 +349,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 - Android SDK Build-Tools
 - Android SDK Command-line Tools
 
-Selecting "Show Package Details" in the SDK Manager enables the installation of older package versions. Only install older versions if necessary, as they may introduce compatibility issues or security risks.
+/electing "Show Package Details" in the SDK Manager enables the installation of older package versions. Only install older versions if necessary, as they may introduce compatibility issues or security risks.
 
 4. Set `ANDROID_HOME` and `NDK_HOME` environment variables.
 
@@ -387,9 +379,6 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 ```
 
 </TabItem>
-<TabItem label="Nix/NixOS">
-{/* TODO: Add NixOS instructions */}
-</TabItem>
 </Tabs>
 
 5. Add the Android targets with `rustup`:
@@ -397,6 +386,15 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
+
+# Nix/Nixos
+
+Add the following to `buildInputs` to install the tools/Android Studio(Linux only): 
+```nix
+android-studio # Linux only 
+android-tools
+```
+
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
@@ -433,13 +431,12 @@ Next: [Create a project](/start/create-project/).
 If you run into any issues during installation be sure to check the [Troubleshooting Guide](/develop/debug/) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
 
 </TabItem>
-<TabItem label="Nix/NixOS">
-1. Add the iOS targets with `rustup` in Terminal:
-
-```sh
-rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+<TabItem label="Nix">
+Add the following to `buildInputs` under darwin section to install 
+```nix
+darwin.xcode
+darwin.apple_sdk.frameworks.UiKit
 ```
-TODO: Find out what you need to install for NixOS
 
 </TabItem>
 </Tabs>
