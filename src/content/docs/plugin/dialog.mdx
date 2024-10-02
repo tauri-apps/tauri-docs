@@ -91,13 +91,19 @@ in Rust:
 - [Build a Message Dialog](#build-a-message-dialog)
 - [Build a File Selector Dialog](#build-a-file-selector-dialog)
 
----
+:::note
+The file dialog APIs returns file system paths on Linux, Windows and macOS.
+
+On iOS, a `file://<path>` URIs are returned.
+
+On Android, [content URIs] are returned.
+
+The [filesystem plugin] works with any path format out of the box.
+:::
 
 ### JavaScript
 
 See all [Dialog Options](/reference/javascript/dialog/) at the JavaScript API reference.
-
-{/* ASK */}
 
 #### Create Yes/No Dialog
 
@@ -118,8 +124,6 @@ console.log(answer);
 // Prints boolean to the console
 ```
 
-{/* CONFIRM */}
-
 #### Create Ok/Cancel Dialog
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
@@ -139,8 +143,6 @@ console.log(confirmation);
 // Prints boolean to the console
 ```
 
-{/* MESSAGE */}
-
 #### Create Message Dialog
 
 Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
@@ -153,8 +155,6 @@ import { message } from '@tauri-apps/plugin-dialog';
 // Shows message
 await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
-
-{/* OPEN */}
 
 #### Open a File Selector Dialog
 
@@ -175,8 +175,6 @@ const file = await open({
 console.log(file);
 // Prints file path or URI
 ```
-
-{/* SAVE */}
 
 #### Save to File Dialog
 
@@ -211,26 +209,24 @@ Refer to the [Rust API reference](https://docs.rs/tauri-plugin-dialog/) to see a
 Shows a question dialog with `Absolutely` and `Totally` buttons.
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
 let answer = app.dialog()
         .message("Tauri is Awesome")
         .title("Tauri is Awesome")
-        .ok_button_label("Absolutely")
-        .cancel_button_label("Totally")
+        .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
         .blocking_show();
 ```
 
 If you need a non blocking operation you can use `show()` instead:
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
 app.dialog()
     .message("Tauri is Awesome")
     .title("Tauri is Awesome")
-    .ok_button_label("Absolutely")
-    .cancel_button_label("Totally")
+   .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
     .show(|result| match result {
         true => // do something,
         false =>// do something,
@@ -254,13 +250,13 @@ let ans = app.dialog()
 If you need a non blocking operation you can use `show()` instead:
 
 ```rust
-use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
 
 app.dialog()
     .message("Tauri is Awesome")
     .kind(MessageDialogKind::Info)
     .title("Information")
-    .ok_button_label("Absolutely")
+    .buttons(MessageDialogButtons::OkCustom("Absolutely"))
     .show(|result| match result {
         true => // do something,
         false => // do something,
@@ -316,3 +312,6 @@ app.dialog()
 ```
 
 <PluginPermissions plugin={frontmatter.plugin} />
+
+[content URIs]: https://developer.android.com/guide/topics/providers/content-provider-basics
+[filesystem plugin]: /plugin/file-system
