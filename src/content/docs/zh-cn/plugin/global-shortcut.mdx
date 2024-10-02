@@ -45,7 +45,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 ```toml title="src-tauri/Cargo.toml"
 # 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-global-shortcut = "2.0.0-rc"
+tauri-plugin-global-shortcut = "2.0.0"
 # 或者使用 Git
 tauri-plugin-global-shortcut = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```

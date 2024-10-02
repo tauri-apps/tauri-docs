@@ -3,38 +3,38 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs syncKey="cmd">
 <TabItem label="Bash">
 ```sh frame=none
-sh <(curl https://create.tauri.app/sh) --rc
+sh <(curl https://create.tauri.app/sh)
 ```
 </TabItem>
 <TabItem label="PowerShell">
-```ps frame=none
-$env:CTA_ARGS="--rc"; irm https://create.tauri.app/ps | iex
+```sh frame=none
+irm https://create.tauri.app/ps | iex
 ```
 </TabItem>
 <TabItem label="npm">
 ```sh frame=none
-npm create tauri-app@latest -- --rc
+npm create tauri-app@latest
 ```
 </TabItem>
 <TabItem label="Yarn">
 ```sh frame=none
-yarn create tauri-app --rc
+yarn create tauri-app
 ```
 </TabItem>
 <TabItem label="pnpm">
 ```sh frame=none
-pnpm create tauri-app --rc
+pnpm create tauri-app
 ```
 </TabItem>
 <TabItem label="bun">
 ```sh frame=none
-bun create tauri-app --rc
+bun create tauri-app
 ```
 </TabItem>
 <TabItem label="Cargo">
 ```sh frame=none
 cargo install create-tauri-app --locked
-cargo create-tauri-app --rc
+cargo create-tauri-app
 ```
 </TabItem>
 </Tabs>
