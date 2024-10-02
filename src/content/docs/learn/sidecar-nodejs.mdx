@@ -35,6 +35,7 @@ If you are not an advanced user it's **highly recommended** that you use the opt
 - Choose your UI template: `Vanilla`
 - Choose your UI flavor: `Typescript`
 - Would you like to setup the project for mobile as well? `yes`
+
 :::
 
 :::note
@@ -137,7 +138,9 @@ Without the plugin being initialized and configured the example won't work.
     We can run the sidecar binary either from Rust code or directly from JavaScript.
 
     <Tabs>
+
       <TabItem label="JavaScript">
+
         Let's execute the `ping` command in the Node.js sidecar directly:
 
         ```javascript
@@ -149,8 +152,11 @@ Without the plugin being initialized and configured the example won't work.
         const output = await command.execute();
         const response = output.stdout;
         ```
+
       </TabItem>
+
       <TabItem label="Rust">
+
         Let's pipe a `ping` Tauri command to the Node.js sidecar:
 
         ```rust
@@ -167,7 +173,9 @@ Without the plugin being initialized and configured the example won't work.
           response
         }
         ```
+
       </TabItem>
+
     </Tabs>
 
 </Steps>
