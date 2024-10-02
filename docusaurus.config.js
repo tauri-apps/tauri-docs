@@ -250,7 +250,7 @@ async function siteConfig() {
       },
       announcementBar: {
         content:
-          "<b>🚀 The <a id='announcement-link' href='https://v2.tauri.app/blog/tauri-2-0-0-release-candidate/'>RC for Tauri 2.0</a> has launched!</b>",
+          "<b>🚀 <a id='announcement-link' href='https://v2.tauri.app/'>Tauri 2.0</a> has launched!</b>",
         backgroundColor: 'var(--ifm-color-primary)',
         textColor: 'var(--ifm-button-color)',
       },
