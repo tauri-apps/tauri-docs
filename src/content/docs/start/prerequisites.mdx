@@ -181,8 +181,6 @@ Install WebView2 by visiting the [WebView2 Runtime download section](https://dev
 
 Next: [Install Rust](#rust)
 
-
-
 ### Nix/NixOS
 
 Using `nix-shell`:
@@ -206,17 +204,14 @@ mkShell {
 ```
 
 :::caution[Experimental]
-Just to note flakes are experimental in nix and may change any time. 
+Just to note flakes are experimental in nix and may change any time.
 :::
 
 Using `flake.nix`: checkout [eveeifyeve/Tauri-Flake-Templates](https://github.com/Eveeifyeve/Tauri-Flake-Templates) on github to use a community maintained nix flake.
 
 Feel free to follow along if your using the flake template as this is the same thing
 
-
-
 Next: [Install Rust](#rust)
-
 
 ## Rust
 
@@ -251,7 +246,6 @@ Visit https://www.rust-lang.org/tools/install to install `rustup`.
   rustfmt
   ```
 
-
 </TabItem>
 
 </Tabs>
@@ -277,7 +271,7 @@ node -v
 # v20.10.0
 npm -v
 # 10.2.3
-````
+```
 
 It's important to restart your Terminal to ensure it recognizes the new installation. In some cases, you might need to restart your computer.
 
@@ -291,7 +285,7 @@ While npm is the default package manager for Node.js, you can also use others li
   npm
   ```
 
-	While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To install them look for that package on [nixpkgs](https://search.nixos.org/packages) and add the package above.  This step is optional and only needed if you prefer using a package manager other than npm. 
+    While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To install them look for that package on [nixpkgs](https://search.nixos.org/packages) and add the package above.  This step is optional and only needed if you prefer using a package manager other than npm.
 
   </TabItem>
 </Tabs>
@@ -389,12 +383,12 @@ rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-andro
 
 # Nix/Nixos
 
-Add the following to `buildInputs` to install the tools/Android Studio(Linux only): 
+Add the following to `buildInputs` to install the tools/Android Studio(Linux only):
+
 ```nix
-android-studio # Linux only 
+android-studio # Linux only
 android-tools
 ```
-
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
