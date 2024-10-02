@@ -185,19 +185,37 @@ Next: [Install Rust](#rust)
 
 Using `nix-shell`:
 
-```sh
-with import <nixpkgs> { };
-mkShell {
-  buildInputs = [
-    libiconv
-  ] ++ lib.optionals stdenv.isLinux [ gtk3 libsoup_3 webkitgtk_4_1] ++
-	lib.optionals stdenv.isDarwin [
-		# Only required if your using the npm package `@tauri-apps/cli` inside of your `package.json`
-		darwin.apple_sdk.frameworks.WebKit
-		# cargo-tauri # only if you want to cargo-tauri 
-	];
+```nix
+let
+  pkgs = import <nixpkgs> {
+    config = { };
+    overlays = [ ];
+  };
+in
+
+pkgs.mkShell {
+  nativeBuildInputs =
+    with pkgs;
+    [
+      rustc
+      cargo
+      # Uncomment if `@tauri-apps/cli` doesn't work on your system
+      # cargo-tauri
+      pkg-config
+    ]
+    ++ lib.optionalAttrs stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
+
+  buildInputs =
+    with pkgs;
+    [ openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      glib-networking
+      webkitgtk_4_1
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      darwin.apple_sdk.frameworks.WebKit
+    ];
 }
-```
 
 :::caution[Experimental]
 Just to note flakes are experimental in nix and may change any time.
