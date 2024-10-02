@@ -84,7 +84,7 @@ Global and webview-specific events are also delivered to listeners registered in
     tauri::Builder::default()
       .setup(|app| {
         app.listen("download-started", |event| {
-          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.data) {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.payload()) {
             println!("downloading {}", payload.url);
           }
         });
