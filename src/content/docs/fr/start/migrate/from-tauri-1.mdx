@@ -20,7 +20,7 @@ Tauri v2 contient la commande `migrate` qui simplifie votre migration:
     yarn tauri migrate"
   pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-rc" --locked
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
 />
 
@@ -653,7 +653,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` prend maintenant une "closure" car le menu a besoin d'une instance de "Manager" pour être construit. Voir [la documentation](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu) pour plus d'information.
+`tauri::Builder::menu` prend maintenant une "closure" car le menu a besoin d'une instance de "Manager" pour être construit. Voir [la documentation](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu) pour plus d'information.
 
 #### Evenement du Menu
 
@@ -941,7 +941,7 @@ Utilisez `tauri::tray::TrayIconBuilder` à la place de `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-Voir [TrayIconBuilder](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) pour plus d'informations.
+Voir [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) pour plus d'informations.
 
 #### Migrer vers un Menu
 

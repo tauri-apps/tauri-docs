@@ -191,7 +191,7 @@ Builder::new("<plugin-name>")
 - **When**: Event loop events
 - **Why**: Handle core events such as window events, menu events and application exit requested
 
-With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-rc/tauri/enum.RunEvent.html).
+With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html).
 
 ```rust title="src/lib.rs"
 use std::{collections::HashMap, fs::write, sync::Mutex};
@@ -341,7 +341,7 @@ pub struct Entry {
 ###### Command Scope
 
 Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/scope/)).
-You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-rc/tauri/ipc/struct.CommandScope.html) struct:
+You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
 use tauri::ipc::CommandScope;
@@ -367,7 +367,7 @@ description = "This scope permits spawning the `node` binary."
 binary = "node"
 ```
 
-You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0-rc/tauri/ipc/struct.GlobalScope.html) struct:
+You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html) struct:
 
 ```rust title="src/commands.rs"
 use tauri::ipc::GlobalScope;

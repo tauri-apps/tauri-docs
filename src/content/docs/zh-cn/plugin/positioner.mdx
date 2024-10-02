@@ -50,7 +50,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
     		```toml title="src-tauri/Cargo.toml"
     		[dependencies]
-    		tauri-plugin-positioner = "2.0.0-rc"
+    		tauri-plugin-positioner = "2.0.0"
     		# 或者使用 Git：
     		tauri-plugin-positioner = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     		```
@@ -84,7 +84,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 	1. 在你的 `Cargo.toml` 文件中添加 `tray-icon` 功能。
 		```toml title="src-tauri/Cargo.toml" ins={2}
 		[dependencies]
-		tauri-plugin-positioner = { version = "2.0.0-rc", features = ["tray-icon"] }
+		tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
 		```
 
     2. 为定位器插件设置 `on_tray_event`。

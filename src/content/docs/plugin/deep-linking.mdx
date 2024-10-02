@@ -49,7 +49,7 @@ Install the deep-link plugin to get started.
       1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
 
           ```sh frame=none
-          cargo add tauri-plugin-deep-link@2.0.0-rc
+          cargo add tauri-plugin-deep-link@2.0.0
           ```
 
       2.  Modify `lib.rs` to initialize the plugin:
@@ -155,7 +155,7 @@ The deep link plugin has integration with the [single instance] plugin if you pr
 
 ```toml title="src-tauri/Cargo.toml"
 [target."cfg(any(target_os = \"macos\", windows, target_os = \"linux\"))".dependencies]
-tauri-plugin-single-instance = { version = "2.0.0-rc", features = ["deep-link"] }
+tauri-plugin-single-instance = { version = "2.0.0", features = ["deep-link"] }
 ```
 
 - Then configure the single instance plugin which should always be the first plugin you register:
@@ -410,6 +410,6 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 [verify Android applinks]: https://developer.android.com/training/app-links/verify-android-applinks#web-assoc
 [universal links]: https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc
 [single instance]: /plugin/single-instance/
-[`register_all`]: https://docs.rs/tauri-plugin-deep-link/2.0.0-rc/tauri_plugin_deep_link/struct.DeepLink.html#method.register_all
+[`register_all`]: https://docs.rs/tauri-plugin-deep-link/2.0.0/tauri_plugin_deep_link/struct.DeepLink.html#method.register_all
 [ngrok]: https://ngrok.com/
-[`Env::args_os`]: https://docs.rs/tauri/2.0.0-rc/tauri/struct.Env.html#structfield.args_os
+[`Env::args_os`]: https://docs.rs/tauri/2.0.0/tauri/struct.Env.html#structfield.args_os

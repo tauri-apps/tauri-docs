@@ -196,7 +196,7 @@ Builder::new("<plugin-name>")
 - **当**：触发事件循环事件
 - **为了**：管理核心事件，例如窗口事件、菜单事件和应用退出请求
 
-在这个生命周期钩子中，你会被任何[事件循环事件](https://docs.rs/tauri/2.0.0-rc/tauri/enum.RunEvent.html)通知。
+在这个生命周期钩子中，你会被任何[事件循环事件](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html)通知。
 
 ```rust title="src/lib.rs"
 use std::{collections::HashMap, fs::write, sync::Mutex};
