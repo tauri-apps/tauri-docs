@@ -59,7 +59,7 @@ The Tauri v2 CLI includes a `migrate` command that automates most of the process
     yarn tauri migrate"
   pnpm="pnpm update @tauri-apps/cli@next
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-rc" --locked
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
 />
 
@@ -188,7 +188,7 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 
 - The `emit` function now emits the event to all event listeners
 - Added a new `emit_to` function to trigger an event to a specific target
-- `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0-rc/tauri/event/enum.EventTarget.html) instead of a window.
+- `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html) instead of a window.
 - Renamed `listen_global` to `listen_any`. It now listens to all events regardless of their filters and targets.
 
 ### Multiwebview support
@@ -720,7 +720,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu) for more information.
+`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu) for more information.
 
 #### Menu Events
 
@@ -1008,7 +1008,7 @@ Use `tauri::tray::TrayIconBuilder` instead of `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) for more information.
+See [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) for more information.
 
 #### Migrate to Menu
 
