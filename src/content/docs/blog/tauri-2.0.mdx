@@ -195,7 +195,7 @@ Yes, there is no `allowlist` anymore, as we hit the limits of this system pretty
 
 The new system we implemented is using [`permissions`](https://v2.tauri.app/security/permissions/) - _"On-off toggles for Tauri commands"_, [`scopes`](https://v2.tauri.app/security/scope/) - _"Parameter validation for Tauri commands"_ and [`capabilities`](https://v2.tauri.app/security/capabilities/) - _"Attaching permissions and scopes to Windows and WebViews"_, to create a flexible but simple to use access control system.
 
-It allows to create named permission or scope files and to re-use and combine them with other named permissions or scopes. This makes it possible to build more fine grained descriptive sets containing several simple or complex permissions and scopes.
+It allows the creation of named permission or scoping files and to re-use and combine them with other named permissions or scopes. This makes it possible to build more fine grained descriptive sets containing several simple or complex permissions and scopes.
 
 As a plugin developer you can abstract away several base permissions into a `default` permission. This can be based on your default security assumptions and threat model. All official Tauri plugin default permissions are reasonable secure by default.
 
