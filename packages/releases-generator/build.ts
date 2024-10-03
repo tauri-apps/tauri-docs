@@ -1,5 +1,6 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
+import semver from 'semver';
 
 const note =
   '\n# NOTE: This file is auto-generated in packages/releases-generator/build.ts\n# For corrections please edit it directly';
@@ -65,6 +66,10 @@ async function generator() {
       .filter(({ version }) => !version.includes('Not Published'));
 
     mkdirSync(join(baseDir, pkg.name), { recursive: true });
+
+    releases.sort((a, b) => {
+      return semver.rcompare(a.version, b.version);
+    });
     //
     /*
      * Write files for each version
@@ -91,7 +96,7 @@ async function generator() {
         'pagefind: false',
         'sidebar:',
         `  label: ${thisVersion}`,
-        `  order: ${semverToInt(thisVersion)}`,
+        `  order: ${i}`,
       ];
 
       const frontmatter = ['---', ...pageFrontmatter, '---'].join('\n');
@@ -187,29 +192,6 @@ function entitify(str: string): string {
       }
     })
     .replace(/\$\{/g, '$\\{');
-}
-
-const PRE_RELEASE_VALUES: any = {
-  alpha: 1,
-  'beta-rc': 100,
-  beta: 1000,
-  rc: 100000,
-};
-
-function semverToInt(semver: string) {
-  const BASE = 1000000000;
-  let [version, preRelease] = semver.split('-');
-  const [major, minor, patch] = version.split('.').map(Number);
-  let preReleaseValue = 0;
-  if (preRelease) {
-    const match = preRelease.split('.');
-    if (match) {
-      const identifier = match[0];
-      const number = match[1] !== undefined ? parseInt(match[1]) : 0;
-      preReleaseValue = PRE_RELEASE_VALUES[identifier] + number;
-    }
-  }
-  return BASE - (major * 100000000 + minor * 1000000 + patch * 10000 + preReleaseValue);
 }
 
 if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
