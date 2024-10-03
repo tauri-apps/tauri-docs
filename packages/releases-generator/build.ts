@@ -100,8 +100,6 @@ async function generator() {
       const viewInGitHub = `<a href="${pkg.tag}/${pkg.name}-v${thisVersion}">View on GitHub</a>`;
       const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
       //
-      const sidebar = `\nimport ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
-			\n\n<ReleaseSidebar slug="release/${pkg.name}"  packageName="${pkg.name}" />\n`;
 
       writeFileSync(
         join(baseDir, pkg.name, `v${thisVersion}.mdx`),
