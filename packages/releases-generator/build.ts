@@ -87,7 +87,7 @@ async function generator() {
         `description: '${thisVersion}'`,
         `slug: 'release/${pkg.name}/v${thisVersion}'`,
         `tableOfContents: false`,
-        `editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+        `editUrl: 'https://github.com/tauri-apps/tauri-docs/blob/v2/packages/releases-generator/build.ts'`,
         'pagefind: false',
         'sidebar:',
         `  label: ${thisVersion}`,
