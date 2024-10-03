@@ -55,9 +55,6 @@ importers:
       sass:
         specifier: ^1.77.2
         version: 1.79.4
-      semver:
-        specifier: ^7.6.0
-        version: 7.6.3
       sharp:
         specifier: ^0.33.2
         version: 0.33.5
@@ -172,6 +169,12 @@ importers:
 
   packages/releases-generator:
     dependencies:
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
+      semver:
+        specifier: ^7.6.0
+        version: 7.6.3
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -1446,6 +1449,9 @@ packages:
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
+
+  '@types/semver@7.5.8':
+    resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -5241,6 +5247,8 @@ snapshots:
   '@types/sax@1.2.7':
     dependencies:
       '@types/node': 20.16.10
+
+  '@types/semver@7.5.8': {}
 
   '@types/trusted-types@2.0.7': {}
 

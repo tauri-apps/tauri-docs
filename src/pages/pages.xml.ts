@@ -8,7 +8,7 @@ import rss from '@astrojs/rss';
 
 // Ternary is just so typescript won't complain
 const exclude = config.isMultilingual
-  ? Object.keys(config.locales).concat('blog', 'references', 'rss', 'releases')
+  ? Object.keys(config.locales).concat('blog', 'reference', 'rss', 'release')
   : [];
 
 // https://docs.astro.build/en/reference/api-reference/#endpoint-context
