@@ -366,15 +366,6 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-# Nix/Nixos
-
-Add the following to `buildInputs` to install the tools/Android Studio(Linux only):
-
-```nix
-android-studio # Linux only
-android-tools
-```
-
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
 ### iOS
