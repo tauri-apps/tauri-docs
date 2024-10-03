@@ -1,5 +1,6 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
+import semver from 'semver';
 
 const note =
   '\n# NOTE: This file is auto-generated in packages/releases-generator/build.ts\n# For corrections please edit it directly';
@@ -65,6 +66,10 @@ async function generator() {
       .filter(({ version }) => !version.includes('Not Published'));
 
     mkdirSync(join(baseDir, pkg.name), { recursive: true });
+
+    releases.sort((a, b) => {
+      return semver.rcompare(a.version, b.version);
+    });
     //
     /*
      * Write files for each version
@@ -87,11 +92,11 @@ async function generator() {
         `description: '${thisVersion}'`,
         `slug: 'release/${pkg.name}/v${thisVersion}'`,
         `tableOfContents: false`,
-        `editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+        `editUrl: 'https://github.com/tauri-apps/tauri-docs/blob/v2/packages/releases-generator/build.ts'`,
         'pagefind: false',
         'sidebar:',
         `  label: ${thisVersion}`,
-        `  order: ${semverToInt(thisVersion)}`,
+        `  order: ${i}`,
       ];
 
       const frontmatter = ['---', ...pageFrontmatter, '---'].join('\n');
@@ -100,8 +105,6 @@ async function generator() {
       const viewInGitHub = `<a href="${pkg.tag}/${pkg.name}-v${thisVersion}">View on GitHub</a>`;
       const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
       //
-      const sidebar = `\nimport ReleaseSidebar from '@components/list/ReleaseSidebar.astro';
-			\n\n<ReleaseSidebar slug="release/${pkg.name}"  packageName="${pkg.name}" />\n`;
 
       writeFileSync(
         join(baseDir, pkg.name, `v${thisVersion}.mdx`),
@@ -189,29 +192,6 @@ function entitify(str: string): string {
       }
     })
     .replace(/\$\{/g, '$\\{');
-}
-
-const PRE_RELEASE_VALUES: any = {
-  alpha: 1,
-  'beta-rc': 100,
-  beta: 1000,
-  rc: 100000,
-};
-
-function semverToInt(semver: string) {
-  const BASE = 1000000000;
-  let [version, preRelease] = semver.split('-');
-  const [major, minor, patch] = version.split('.').map(Number);
-  let preReleaseValue = 0;
-  if (preRelease) {
-    const match = preRelease.split('.');
-    if (match) {
-      const identifier = match[0];
-      const number = match[1] !== undefined ? parseInt(match[1]) : 0;
-      preReleaseValue = PRE_RELEASE_VALUES[identifier] + number;
-    }
-  }
-  return BASE - (major * 100000000 + minor * 1000000 + patch * 10000 + preReleaseValue);
 }
 
 if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
