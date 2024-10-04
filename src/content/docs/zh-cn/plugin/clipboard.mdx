@@ -1,16 +1,23 @@
 ---
 title: 剪切板
 description: 读取和写入系统剪贴板。
+plugin: clipboard-manager
 ---
 
 import Stub from '@components/Stub.astro';
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="clipboard-manager" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 使用剪贴板插件读取和写入系统剪贴板。
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 

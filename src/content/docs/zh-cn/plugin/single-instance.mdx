@@ -1,15 +1,22 @@
 ---
 title: 单例
 description: 确保一次只运行一个 Tauri 应用程序实例。
+plugin: single-instance
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="single-instance" showJsLinks={false} />
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
 
 使用单实例插件确保 Tauri 应用程序在同一时间只运行单个实例。
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 
@@ -36,7 +43,7 @@ import CommandTabs from '@components/CommandTabs.astro';
         <TabItem label="crates.io">
       ```toml title="src-tauri/Cargo.toml" ins={2}
       [dependencies]
-      tauri-plugin-single-instance = "2.0.0-rc"
+      tauri-plugin-single-instance = "2.0.0"
       ```
         </TabItem>
         <TabItem label="Git">

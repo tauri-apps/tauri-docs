@@ -2,17 +2,24 @@
 title: Notifications
 description: Send native notifications to the user.
 i18nReady: true
+plugin: notification
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import Stub from '@components/Stub.astro';
 
-<PluginLinks plugin="notification" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Send native notifications to your user using the notification plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -102,7 +109,7 @@ import {
   sendNotification,
 } from '@tauri-apps/plugin-notification';
 // when using `"withGlobalTauri": true`, you may use
-// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI_PLUGIN_NOTIFICATION__;
+// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI__.notification;
 
 // Do you have permission to send a notification?
 let permissionGranted = await isPermissionGranted();
@@ -165,4 +172,4 @@ tauri::Builder::default()
 
 Aside from normal sanitization procedures of user input there are currently no known security considerations.
 
-<PluginPermissions plugin="notification" />
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -2,94 +2,294 @@
 title: System Tray
 tableOfContents:
   maxHeadingLevel: 4
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 import { Icon } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Tauri allows you to create and customize a system tray for your application. This can enhance the user experience by providing quick access to common actions.
+Tauri allows you to create and customize a system tray for your application.
+This can enhance the user experience by providing quick access to common actions.
 
 ## Configuration
 
 First of all, update your `Cargo.toml` to include the necessary feature for the system tray.
 
-```toml title="src-tauri/Cargo.toml" ins={2-4}
-tauri = { version = "2.0.0-rc", features = [
-    "tray-icon",
+```toml title="src-tauri/Cargo.toml"
+tauri = { version = "2.0.0", features = [ "tray-icon" ] }
 ```
 
-## Creating the system tray in Rust
+## Usage
 
-1. Create a `tray.rs` file in the `src` directory with this code:
+The tray API is available in both JavaScript and Rust.
 
-```rust title="src-tauri/src/tray.rs"
-use tauri::{
-    menu::{Menu, MenuItem},
-    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
-    Manager, Runtime,
+### Creata a Tray Icon
+
+<Tabs>
+<TabItem label="JavaScript">
+Use the [`TrayIcon.new`] static function to create a new tray icon:
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  // here you can add a tray menu, title, tooltip, event handler, etc
 };
 
-pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
-    let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
-    let menu = Menu::with_items(app, &[&quit_i])?;
-
-    let _ = TrayIconBuilder::with_id("tray")
-        .icon(app.default_window_icon().unwrap().clone())
-        .menu(&menu)
-        .menu_on_left_click(false)
-        .on_menu_event(move |app, event| match event.id.as_ref() {
-            "quit" => {
-                app.exit(0);
-            }
-            // Add more events here
-            _ => {}
-        })
-        .on_tray_icon_event(|tray, event| {
-            if let TrayIconEvent::Click {
-                button: MouseButton::Left,
-                button_state: MouseButtonState::Up,
-                ..
-            } = event
-            {
-                let app = tray.app_handle();
-                if let Some(window) = app.get_webview_window("main") {
-                    let _ = window.show();
-                    let _ = window.set_focus();
-                }
-            }
-        })
-        .build(app);
-
-    Ok(())
-}
+const tray = TrayIcon.new(options);
 ```
 
-If you prefer, you can also inline this code into `lib.rs`.
+See [`TrayIconOptions`] for more information on the customization options.
 
-2. Initialize the tray:
+</TabItem>
 
-Now you can call the function declared above in `lib.rs`:
+<TabItem label="Rust">
 
-```rust title="src-tauri/src/lib.rs" ins={1-2,8-12}
-#[cfg(desktop)]
-mod tray;
+```rust
+use tauri::tray::TrayIconBuilder;
 
-pub fn run() {
-    tauri::Builder::default()
-        // ...
-        .setup(|app| {
-            #[cfg(all(desktop))]
-            {
-                let handle = app.handle();
-                tray::create_tray(handle)?;
-            }
-            Ok(())
-        })
-        // ...
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
+tauri::Builder::default()
+.setup(|app| {
+let tray = TrayIconBuilder::new().build(app)?;
+Ok(())
+})
+
 ```
+
+See [`TrayIconBuilder`] for more information on customization options.
+
+</TabItem>
+</Tabs>
+
+### Change the Tray Icon
+
+{/* TODO: add a way to do this easily from JS too */}
+
+When creating the tray icon from Rust code, you can set the application icon as the tray icon:
+
+```rust
+let tray = TrayIconBuilder::new()
+  .icon(app.default_window_icon().unwrap().clone())
+  .build(app)?;
+```
+
+### Add a Menu
+
+To attach a menu that is displayed when the tray is clicked, you can use the `menu` option.
+
+:::note
+By default the menu is displayed on both left and right clicks.
+
+To prevent the menu from popping up on left click, call the [`menu_on_left_click(false)`][TrayIconBuilder::menu_on_left_click] Rust function
+or set the [`menuOnLeftClick`] JavaScript option to `false`.
+:::
+
+{/* TODO: link to the menu plugin documentation page */}
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'quit',
+      text: 'Quit',
+    },
+  ],
+});
+
+const options = {
+  menu,
+  menuOnLeftClick: true,
+};
+
+const tray = TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+  menu::{Menu, MenuItem},
+  tray::TrayIconBuilder,
+};
+
+let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+let menu = Menu::with_items(app, &[&quit_i])?;
+
+let tray = TrayIconBuilder::new()
+  .menu(&menu)
+  .menu_on_left_click(true)
+  .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+#### Listen to Menu Events
+
+<Tabs>
+<TabItem label="JavaScript">
+On JavaScript you can attach a menu click event listener directly to the menu item:
+
+- Using a shared menu click handler
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  function onTrayMenuClick(itemId) {
+    // itemId === 'quit'
+  }
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: onTrayMenuClick,
+      },
+    ],
+  });
+  ```
+
+- Using a dedicated menu click handler
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: () => {
+          console.log('quit pressed');
+        },
+      },
+    ],
+  });
+  ```
+
+</TabItem>
+
+<TabItem label="Rust">
+Use the [`TrayIconBuilder::on_menu_event`] method to attach a tray menu click event listener:
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+TrayIconBuilder::new()
+  .on_menu_event(|app, event| match event.id.as_ref() {
+    "quit" => {
+      println!("quit menu item was clicked");
+      app.exit();
+    }
+    _ => {
+      println!("menu item {} not handled", event.id.to_string());
+    }
+  })
+```
+
+</TabItem>
+</Tabs>
+
+### Listen to Tray Events
+
+The tray icon emits events for the following mouse events:
+
+- click: triggered when the cursor receives a single left, right or middle click, including information on whether the mouse press was released or not
+- Double click: triggered when the cursor receives a double left, right or middle click
+- Enter: triggered when the cursor enters the tray icon area
+- Move: triggered when the cursor moves around the tray icon area
+- Leave: triggered when the cursor leaves the tray icon area
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  action: (event) => {
+    switch (event.type) {
+      case 'Click':
+        console.log(
+          `mouse ${event.button} button pressed, state: ${event.buttonState}`
+        );
+        break;
+      case 'DoubleClick':
+        console.log(`mouse ${event.button} button pressed`);
+        break;
+      case 'Enter':
+        console.log(
+          `mouse hovered tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Move':
+        console.log(
+          `mouse moved on tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Leave':
+        console.log(
+          `mouse left tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+    }
+  },
+};
+
+const tray = TrayIcon.new(options);
+```
+
+See [`TrayIconEvent`][js TrayIconEvent] for more information on the event payload.
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    Manager,
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
+};
+
+TrayIconBuilder::new()
+  .on_tray_icon_event(|tray, event| match event {
+    TrayIconEvent::Click {
+      button: MouseButton::Left,
+      button_state: MouseButtonState::Up,
+      ..
+    } => {
+      println!("left click pressed and released");
+      // in this example, let's show and focus the main window when the tray is clicked
+      let app = tray.app_handle();
+      if let Some(window) = app.get_webview_window("main") {
+        let _ = window.show();
+        let _ = window.set_focus();
+      }
+    }
+    _ => {
+      println!("unhandled event {event:?}");
+    }
+  })
+```
+
+See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type.
+
+</TabItem>
+</Tabs>
+
+[`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
+[`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
+[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
+[TrayIconBuilder::menu_on_left_click]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.menu_on_left_click
+[`menuOnLeftClick`]: http://localhost:4321/reference/javascript/api/namespacetray/#properties-1
+[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
+[js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
+[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html

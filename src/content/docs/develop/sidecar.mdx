@@ -9,16 +9,17 @@ You may need to embed external binaries to add additional functionality to your 
 
 Binaries are executables written in any programming language. Common use cases are Python CLI applications or API servers bundled using `pyinstaller`.
 
-To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri > bundle` object in your `tauri.conf.json`. `externalBin` expects a list of strings targeting binaries either with absolute or relative paths.
+To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri > bundle` object in your `tauri.conf.json`.
+The `externalBin` configuration expects a list of strings targeting binaries either with absolute or relative paths.
 
-Here is a sample to illustrate the configuration. This is not a complete `tauri.conf.json` file:
+Here is a Tauri configuration snippet to illustrate a sidecar configuration:
 
 ```json title="src-tauri/tauri.conf.json"
 {
   "bundle": {
     "externalBin": [
       "/absolute/path/to/sidecar",
-      "relative/path/to/binary",
+      "../relative/path/to/binary",
       "binaries/my-sidecar"
     ]
   }
@@ -27,13 +28,19 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 
 :::note
 
-The relative paths are relative to the `tauri.conf.json` file which is in the `src-tauri` directory. So `binaries/my-sidecar` would represent `<PROJECT ROOT>/src-tauri/binaries/my-sidecar`.
+The relative paths are relative to the `tauri.conf.json` file which is in the `src-tauri` directory.
+So `binaries/my-sidecar` would represent `<PROJECT ROOT>/src-tauri/binaries/my-sidecar`.
 
 :::
 
-To make the external binary work on each supported architecture, a binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path. For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux or `src-tauri/binaries/my-sidecar-aarch64-apple-darwin` on Mac OS with Apple Silicon.
+To make the external binary work on each supported architecture, a binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path.
+For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux or `src-tauri/binaries/my-sidecar-aarch64-apple-darwin` on Mac OS with Apple Silicon.
 
-You can find your **current** platform's `-$TARGET_TRIPLE` suffix by looking at the `host:` property reported by the `rustc -Vv` command.
+You can find your **current** platform's `-$TARGET_TRIPLE` suffix by looking at the `host:` property reported by the following command:
+
+```sh
+rustc -Vv
+```
 
 If the `grep` and `cut` commands are available, as they should on most Unix systems, you can extract the target triple directly with the following command:
 
@@ -50,34 +57,31 @@ rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 Here's a Node.js script to append the target triple to a binary:
 
 ```javascript
-const execa = require('execa');
-const fs = require('fs');
+import { execSync } from 'child_process';
+import fs from 'fs';
 
-let extension = '';
-if (process.platform === 'win32') {
-  extension = '.exe';
+const ext = process.platform === 'win32' ? '.exe' : '';
+
+const rustInfo = execSync('rustc -vV');
+const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+if (!targetTriple) {
+  console.error('Failed to determine platform target triple');
 }
-
-async function main() {
-  const rustInfo = (await execa('rustc', ['-vV'])).stdout;
-  const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
-  if (!targetTriple) {
-    console.error('Failed to determine platform target triple');
-  }
-  fs.renameSync(
-    `src-tauri/binaries/sidecar${extension}`,
-    `src-tauri/binaries/sidecar-${targetTriple}${extension}`
-  );
-}
-
-main().catch((e) => {
-  throw e;
-});
+fs.renameSync(
+  `src-tauri/binaries/sidecar${extension}`,
+  `src-tauri/binaries/sidecar-${targetTriple}${extension}`
+);
 ```
 
-Note that this script will not work if you compile for a different architecture than the one its running on.
+Note that this script will not work if you compile for a different architecture than the one its running on,
+so only use it as a starting point for your own build scripts.
 
 ## Running it from Rust
+
+:::note
+Please follow the [shell plugin guide](/plugin/shell/) first to set up and initialize the plugin correctly.
+Without the plugin being initialized and configured the example won't work.
+:::
 
 On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `shell().sidecar()` function on the AppHandle:
 
@@ -85,7 +89,6 @@ On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `
 use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::CommandEvent;
 
-// `sidecar()` expects just the filename, NOT the whole path like in JavaScript
 let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
 let (mut rx, mut _child) = sidecar_command
   .spawn()
@@ -94,7 +97,8 @@ let (mut rx, mut _child) = sidecar_command
 tauri::async_runtime::spawn(async move {
   // read events such as stdout
   while let Some(event) = rx.recv().await {
-    if let CommandEvent::Stdout(line) = event {
+    if let CommandEvent::Stdout(line_bytes) = event {
+      let line = String::from_utf8_lossy(&line_bytes);
       window
         .emit("message", Some(format!("'{}'", line)))
         .expect("failed to emit event");
@@ -105,6 +109,24 @@ tauri::async_runtime::spawn(async move {
 });
 ```
 
+:::note
+The `sidecar()` function expects just the filename, NOT the whole path configured in the `externalBin` array.
+
+Given the following configuration:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "externalBin": ["binaries/app", "my-sidecar", "../scripts/sidecar"]
+  }
+}
+```
+
+The appropriate way to execute the sidecar is by calling `app.shell().sidecar(name)` where `name` is either `"app"`, `"my-sidecar"` or `"sidecar"`
+instead of `"binaries/app"` for instance.
+
+:::
+
 You can place this code inside a Tauri command to easily pass the AppHandle or you can store a reference to the AppHandle in the builder script to access it elsewhere in your application.
 
 ## Running it from JavaScript
@@ -113,14 +135,17 @@ In the JavaScript code, import the `Command` class from the `@tauri-apps/plugin-
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
-// `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
-const sidecar_command = Command.sidecar('binaries/my-sidecar');
-const output = await sidecar_command.execute();
+const command = Command.sidecar('binaries/my-sidecar');
+const output = await command.execute();
 ```
+
+:::note
+The string provided to `Command.sidecar` must match one of the strings defined in the `externalBin` configuration array.
+:::
 
 ## Passing arguments
 
-You can pass arguments to Sidecar commands just like you would for running normal `Command`s.
+You can pass arguments to Sidecar commands just like you would for running normal [Command][std::process::Command].
 
 Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `<file_path>` or `localhost:<PORT>`). You define the arguments in the exact order in which you'd call them. Static arguments are defined as-is, while dynamic arguments can be defined using a regular expression.
 
@@ -152,7 +177,6 @@ First, define the arguments that need to be passed to the sidecar command in `sr
               "validator": "\\S+"
             }
           ],
-          "cmd": "",
           "name": "binaries/my-sidecar",
           "sidecar": true
         }
@@ -175,7 +199,8 @@ In Rust:
 use tauri_plugin_shell::ShellExt;
 #[tauri::command]
 async fn call_my_sidecar(app: tauri::AppHandle) {
-  let sidecar_command = app.shell()
+  let sidecar_command = app
+    .shell()
     .sidecar("my-sidecar")
     .unwrap()
     .args(["arg1", "-a", "--arg2", "any-string-that-matches-the-validator"]);
@@ -187,7 +212,6 @@ In JavaScript:
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
-// `binaries/my-sidecar` is the EXACT value specified on `tauri.conf.json > tauri > bundle > externalBin`
 // notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
 const command = Command.sidecar('binaries/my-sidecar', [
   'arg1',
@@ -197,3 +221,5 @@ const command = Command.sidecar('binaries/my-sidecar', [
 ]);
 const output = await command.execute();
 ```
+
+[std::process::Command]: https://doc.rust-lang.org/std/process/struct.Command.html

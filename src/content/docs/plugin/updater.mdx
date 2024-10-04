@@ -1,22 +1,23 @@
 ---
 title: Updater
 description: In-app updates for Tauri applications.
+plugin: updater
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
 
-<PluginLinks plugin="updater" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Automatically update your Tauri app with an update server or a static JSON.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -193,11 +194,12 @@ On Windows, Tauri will create .zip archives from the MSI and NSIS installers ins
 
 Set up the `tauri.conf.json` in this format for the updater to start working.
 
-| Keys                     | Description                                                                                                                                                                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `createUpdaterArtifacts` | Setting this to `true` tells Tauri's app bundler to create updater artifacts. If you're migrating your app from an older Tauri version, set it to `"v1Compatible"` instead. **This setting will be removed in v3** so make sure to change it to `true` once all your users are migrated to v2. |
-| `pubkey`                 | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
-| `endpoints`              | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
+| Keys                                 | Description                                                                                                                                                                                                                                                                                    |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createUpdaterArtifacts`             | Setting this to `true` tells Tauri's app bundler to create updater artifacts. If you're migrating your app from an older Tauri version, set it to `"v1Compatible"` instead. **This setting will be removed in v3** so make sure to change it to `true` once all your users are migrated to v2. |
+| `pubkey`                             | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
+| `endpoints`                          | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
+| `dangerousInsecureTransportProtocol` | Setting this to `true` allows the updater to accept non-HTTPS endpoints. Use this configuration with caution!                                                                                                                                                                                  |
 
 Each updater URL can contain the following dynamic variables, allowing you to determine server-side if an update is available.
 
@@ -479,7 +481,7 @@ mod app_updates {
 
       let update = app
           .updater_builder()
-          .endpoints(vec![url])
+          .endpoints(vec![url])?
           .build()?
           .check()
           .await?;
@@ -613,7 +615,7 @@ let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch
 
 let update = app
   .updater_builder()
-  .endpoints(vec![update_url])
+  .endpoints(vec![update_url])?
   .build()?
   .check()
   .await?;
@@ -744,4 +746,19 @@ The values from the [configuration](#tauri-configuration) are used as fallback i
 [JavaScript API Documentation]: /reference/javascript/updater/
 [Rust API Documentation]: https://docs.rs/tauri-plugin-updater
 
-<PluginPermissions plugin="updater" />
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "updater:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

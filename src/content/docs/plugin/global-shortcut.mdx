@@ -1,30 +1,25 @@
 ---
 title: Global Shortcut
 description: Register global shortcuts.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+plugin: global-shortcut
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="global-shortcut" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Register global shortcuts.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the global-shortcut plugin to get started.
 
@@ -92,7 +87,7 @@ The global-shortcut plugin is available in both JavaScript and Rust.
 ```javascript
 import { register } from '@tauri-apps/plugin-global-shortcut';
 // when using `"withGlobalTauri": true`, you may use
-// const { register } = window.__TAURI_PLUGIN_GLOBAL_SHORTCUT__;
+// const { register } = window.__TAURI__.globalShortcut;
 
 await register('CommandOrControl+Shift+C', () => {
   console.log('Shortcut triggered');
@@ -160,4 +155,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="global-shortcut" />
+<PluginPermissions plugin={frontmatter.plugin} />
