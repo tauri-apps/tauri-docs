@@ -60,7 +60,7 @@ importers:
         version: 0.33.5
       shiki:
         specifier: ^1.1.7
-        version: 1.19.0
+        version: 1.21.0
       starlight-blog:
         specifier: ^0.13.0
         version: 0.13.0(@astrojs/starlight@0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2))
@@ -1292,17 +1292,17 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shikijs/core@1.19.0':
-    resolution: {integrity: sha512-314J5MPdS1wzfjuD856MXvbAI2wN03ofMnUGkZ5ZDBOza/d38paLwd+YVyuKrrjxJ4hfPMjc4tRmPkXd6UDMPQ==}
+  '@shikijs/core@1.21.0':
+    resolution: {integrity: sha512-zAPMJdiGuqXpZQ+pWNezQAk5xhzRXBNiECFPcJLtUdsFM3f//G95Z15EHTnHchYycU8kIIysqGgxp8OVSj1SPQ==}
 
-  '@shikijs/engine-javascript@1.19.0':
-    resolution: {integrity: sha512-D1sioU61n7fLWfDzTC9JNS19zEYZMr7qxkSVzv6ziEWDxnwzy2PvYoKPedJV4qUf+2VnrYPSaArDz2W0XgGB7A==}
+  '@shikijs/engine-javascript@1.21.0':
+    resolution: {integrity: sha512-jxQHNtVP17edFW4/0vICqAVLDAxmyV31MQJL4U/Kg+heQALeKYVOWo0sMmEZ18FqBt+9UCdyqGKYE7bLRtk9mg==}
 
-  '@shikijs/engine-oniguruma@1.19.0':
-    resolution: {integrity: sha512-/JxwIefNVLGB4EmpB8i6P4JB/oVYRuzSixbqvx7m6iPW0lQ1T97c/0wmA+JlKbngEiExckSuPwa48fajlShB7A==}
+  '@shikijs/engine-oniguruma@1.21.0':
+    resolution: {integrity: sha512-AIZ76XocENCrtYzVU7S4GY/HL+tgHGbVU+qhiDyNw1qgCA5OSi4B4+HY4BtAoJSMGuD/L5hfTzoRVbzEm2WTvg==}
 
-  '@shikijs/types@1.19.0':
-    resolution: {integrity: sha512-NZvVp3k1bP4MTRUbmnkGhYzPdoNMjNLSAwczMRUbtUl4oj2LlNRNbwERyeIyJt56Ac9fvPVZ2nn13OXk86E5UQ==}
+  '@shikijs/types@1.21.0':
+    resolution: {integrity: sha512-tzndANDhi5DUndBtpojEq/42+dpUF2wS7wdCDQaFtIXm3Rd1QkrcVgSSRLOvEwexekihOXfbYJINW37g96tJRw==}
 
   '@shikijs/vscode-textmate@9.2.2':
     resolution: {integrity: sha512-TMp15K+GGYrWlZM8+Lnj9EaHEFmOen0WJBrfa17hF7taDOYthuPPV0GWzfd/9iMij0akS/8Yw2ikquH7uVi/fg==}
@@ -3109,8 +3109,8 @@ packages:
   regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
 
-  regex@4.3.2:
-    resolution: {integrity: sha512-kK/AA3A9K6q2js89+VMymcboLOlF5lZRCYJv3gzszXFHBr6kO6qLGzbm+UIugBEV8SMMKCTR59txoY6ctRHYVw==}
+  regex@4.3.3:
+    resolution: {integrity: sha512-r/AadFO7owAq1QJVeZ/nq9jNS1vyZt+6t1p/E59B56Rn2GCya+gr1KSyOzNL/er+r+B7phv5jG2xU2Nz1YkmJg==}
 
   regexp.prototype.flags@1.5.2:
     resolution: {integrity: sha512-NcDiDkTLuPR+++OCKB0nWafEmhg/Da8aUPLPMQbK+bxKKCm1/S5he+AqYa4PlMCVBalb4/yxIRub6qkEx5yJbw==}
@@ -3281,8 +3281,8 @@ packages:
     resolution: {integrity: sha512-haPVm1EkS9pgvHrQ/F3Xy+hgcuMV0Wm9vfIBSiwZ05k+xgb0PkBQpGsAA/oWdDobNaZTH5ppvHtzCFbnSEwHVw==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
 
-  shiki@1.19.0:
-    resolution: {integrity: sha512-Ng7Gd6XgWFLsv4Z3so65hOyXjV78qz1M117MuZHwdPQD6fgb5wR2IoLMvSlM/Ml14EXH7n+/YxIpTD74i7kDdw==}
+  shiki@1.21.0:
+    resolution: {integrity: sha512-apCH5BoWTrmHDPGgg3RF8+HAAbEL/CdbYr8rMw7eIrdhCkZHdVGat5mMNlRtd1erNG01VPMIKHNQ0Pj2HMAiog==}
 
   side-channel@1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
@@ -3887,7 +3887,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-rehype: 11.1.1
       remark-smartypants: 3.0.2
-      shiki: 1.19.0
+      shiki: 1.21.0
       unified: 11.0.5
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -4815,7 +4815,7 @@ snapshots:
   '@expressive-code/plugin-shiki@0.35.6':
     dependencies:
       '@expressive-code/core': 0.35.6
-      shiki: 1.19.0
+      shiki: 1.21.0
 
   '@expressive-code/plugin-text-markers@0.35.6':
     dependencies:
@@ -5087,27 +5087,27 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.22.4':
     optional: true
 
-  '@shikijs/core@1.19.0':
+  '@shikijs/core@1.21.0':
     dependencies:
-      '@shikijs/engine-javascript': 1.19.0
-      '@shikijs/engine-oniguruma': 1.19.0
-      '@shikijs/types': 1.19.0
+      '@shikijs/engine-javascript': 1.21.0
+      '@shikijs/engine-oniguruma': 1.21.0
+      '@shikijs/types': 1.21.0
       '@shikijs/vscode-textmate': 9.2.2
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.3
 
-  '@shikijs/engine-javascript@1.19.0':
+  '@shikijs/engine-javascript@1.21.0':
     dependencies:
-      '@shikijs/types': 1.19.0
+      '@shikijs/types': 1.21.0
       '@shikijs/vscode-textmate': 9.2.2
       oniguruma-to-js: 0.4.3
 
-  '@shikijs/engine-oniguruma@1.19.0':
+  '@shikijs/engine-oniguruma@1.21.0':
     dependencies:
-      '@shikijs/types': 1.19.0
+      '@shikijs/types': 1.21.0
       '@shikijs/vscode-textmate': 9.2.2
 
-  '@shikijs/types@1.19.0':
+  '@shikijs/types@1.21.0':
     dependencies:
       '@shikijs/vscode-textmate': 9.2.2
       '@types/hast': 3.0.4
@@ -5409,7 +5409,7 @@ snapshots:
       prompts: 2.4.2
       rehype: 13.0.1
       semver: 7.6.3
-      shiki: 1.19.0
+      shiki: 1.21.0
       string-width: 7.2.0
       strip-ansi: 7.1.0
       tinyexec: 0.3.0
@@ -7217,7 +7217,7 @@ snapshots:
 
   oniguruma-to-js@0.4.3:
     dependencies:
-      regex: 4.3.2
+      regex: 4.3.3
 
   ora@8.1.0:
     dependencies:
@@ -7391,7 +7391,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.25.6
 
-  regex@4.3.2: {}
+  regex@4.3.3: {}
 
   regexp.prototype.flags@1.5.2:
     dependencies:
@@ -7685,12 +7685,12 @@ snapshots:
       '@img/sharp-win32-ia32': 0.33.5
       '@img/sharp-win32-x64': 0.33.5
 
-  shiki@1.19.0:
+  shiki@1.21.0:
     dependencies:
-      '@shikijs/core': 1.19.0
-      '@shikijs/engine-javascript': 1.19.0
-      '@shikijs/engine-oniguruma': 1.19.0
-      '@shikijs/types': 1.19.0
+      '@shikijs/core': 1.21.0
+      '@shikijs/engine-javascript': 1.21.0
+      '@shikijs/engine-oniguruma': 1.21.0
+      '@shikijs/types': 1.21.0
       '@shikijs/vscode-textmate': 9.2.2
       '@types/hast': 3.0.4
 
@@ -7986,7 +7986,7 @@ snapshots:
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      shiki: 1.19.0
+      shiki: 1.21.0
       typescript: 5.6.2
       yaml: 2.5.1
 
