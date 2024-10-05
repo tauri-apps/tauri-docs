@@ -62,7 +62,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 测试
 
-与 [WebdriverIO 测试套件](webdriverio#config)不同，Selenium不是开箱即用的测试套件，需要开发人员来构建这些内容。 我们选择 [Mocha][], 它是相当中性的，与 WebDrivers 没有关系。 因此我们的脚本需要做一些工作才能以正确的顺序为我们设置所有内容。 [Mocha][] expects a testing file at `test/test.js` by default, so let's create that file now.
+与 [WebdriverIO 测试套件](/webdriverio/#config)不同，Selenium不是开箱即用的测试套件，需要开发人员来构建这些内容。 我们选择 [Mocha][], 它是相当中性的，与 WebDrivers 没有关系。 因此我们的脚本需要做一些工作才能以正确的顺序为我们设置所有内容。 [Mocha][] expects a testing file at `test/test.js` by default, so let's create that file now.
 
 `test/test.js`:
 
@@ -152,7 +152,7 @@ describe('Hello Tauri', () => {
 If you are familiar with JS testing frameworks, `describe`, `it`, and `expect` should look familiar. We also have
 semi-complex `before()` and `after()` callbacks to set up and teardown mocha. Lines that are not the tests themselves
 have comments explaining the setup and teardown code. If you were familiar with the Spec file from the
-[WebdriverIO example](webdriverio#spec), you notice a lot more code that isn't tests, as we have to set up a few
+[WebdriverIO example](/zh-cn/develop/tests/webdriver/#spec), you notice a lot more code that isn't tests, as we have to set up a few
 more WebDriver related items.
 
 ## Running the Test Suite
