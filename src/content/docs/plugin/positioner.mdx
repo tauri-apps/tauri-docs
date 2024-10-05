@@ -88,7 +88,7 @@ Additional setup is required to get tray-relative positions to work.
 	1. Add `tray-icon` feature to your `Cargo.toml` file:
 		```toml title="src-tauri/Cargo.toml" ins={2}
 		[dependencies]
-		tauri-plugin-positioner = { version = "2.0.0-rc", features = ["tray-icon"] }
+		tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
 		```
 
     2. Setup `on_tray_event` for positioner plugin:

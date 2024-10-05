@@ -45,7 +45,7 @@ Tauri 使您的应用程序能够通过 [clap](https://github.com/clap-rs/clap)�
 ```toml title="src-tauri/Cargo.toml"
 # 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-cli = "2.0.0-rc"
+tauri-plugin-cli = "2.0.0"
 # 或者使用 Git
 tauri-plugin-cli = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```

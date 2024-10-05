@@ -15,14 +15,14 @@ This can enhance the user experience by providing quick access to common actions
 First of all, update your `Cargo.toml` to include the necessary feature for the system tray.
 
 ```toml title="src-tauri/Cargo.toml"
-tauri = { version = "2.0.0-rc", features = [ "tray-icon" ] }
+tauri = { version = "2.0.0", features = [ "tray-icon" ] }
 ```
 
 ## Usage
 
 The tray API is available in both JavaScript and Rust.
 
-### Creata a Tray Icon
+### Create a Tray Icon
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -287,9 +287,9 @@ See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type
 
 [`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
 [`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
-[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html
-[TrayIconBuilder::menu_on_left_click]: https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html#method.menu_on_left_click
+[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
+[TrayIconBuilder::menu_on_left_click]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.menu_on_left_click
 [`menuOnLeftClick`]: http://localhost:4321/reference/javascript/api/namespacetray/#properties-1
-[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
+[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
 [js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
-[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0-rc/tauri/tray/enum.TrayIconEvent.html
+[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html

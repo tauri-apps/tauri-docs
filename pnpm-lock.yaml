@@ -55,27 +55,24 @@ importers:
       sass:
         specifier: ^1.77.2
         version: 1.79.4
-      semver:
-        specifier: ^7.6.0
-        version: 7.6.3
       sharp:
         specifier: ^0.33.2
         version: 0.33.5
       shiki:
         specifier: ^1.1.7
-        version: 1.18.0
+        version: 1.19.0
       starlight-blog:
         specifier: ^0.13.0
         version: 0.13.0(@astrojs/starlight@0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2))
       starlight-links-validator:
         specifier: ^0.12.0
-        version: 0.12.1(@astrojs/starlight@0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2))
+        version: 0.12.2(@astrojs/starlight@0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2))
 
   packages/cli-generator:
     dependencies:
       '@tauri-apps/cli':
-        specifier: 2.0.0-rc.17
-        version: 2.0.0-rc.17
+        specifier: 2.0.1
+        version: 2.0.1
       '@types/node':
         specifier: ^20.11.20
         version: 20.16.10
@@ -165,13 +162,19 @@ importers:
         version: 0.26.7(typescript@5.6.2)
       typedoc-plugin-markdown:
         specifier: ^4.2.6
-        version: 4.2.8(typedoc@0.26.7(typescript@5.6.2))
+        version: 4.2.9(typedoc@0.26.7(typescript@5.6.2))
       typedoc-plugin-mdn-links:
         specifier: ^3.2.11
         version: 3.3.2(typedoc@0.26.7(typescript@5.6.2))
 
   packages/releases-generator:
     dependencies:
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
+      semver:
+        specifier: ^7.6.0
+        version: 7.6.3
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -1289,17 +1292,17 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shikijs/core@1.18.0':
-    resolution: {integrity: sha512-VK4BNVCd2leY62Nm2JjyxtRLkyrZT/tv104O81eyaCjHq4Adceq2uJVFJJAIof6lT1mBwZrEo2qT/T+grv3MQQ==}
+  '@shikijs/core@1.19.0':
+    resolution: {integrity: sha512-314J5MPdS1wzfjuD856MXvbAI2wN03ofMnUGkZ5ZDBOza/d38paLwd+YVyuKrrjxJ4hfPMjc4tRmPkXd6UDMPQ==}
 
-  '@shikijs/engine-javascript@1.18.0':
-    resolution: {integrity: sha512-qoP/aO/ATNwYAUw1YMdaip/YVEstMZEgrwhePm83Ll9OeQPuxDZd48szZR8oSQNQBT8m8UlWxZv8EA3lFuyI5A==}
+  '@shikijs/engine-javascript@1.19.0':
+    resolution: {integrity: sha512-D1sioU61n7fLWfDzTC9JNS19zEYZMr7qxkSVzv6ziEWDxnwzy2PvYoKPedJV4qUf+2VnrYPSaArDz2W0XgGB7A==}
 
-  '@shikijs/engine-oniguruma@1.18.0':
-    resolution: {integrity: sha512-B9u0ZKI/cud+TcmF8Chyh+R4V5qQVvyDOqXC2l2a4x73PBSBc6sZ0JRAX3eqyJswqir6ktwApUUGBYePdKnMJg==}
+  '@shikijs/engine-oniguruma@1.19.0':
+    resolution: {integrity: sha512-/JxwIefNVLGB4EmpB8i6P4JB/oVYRuzSixbqvx7m6iPW0lQ1T97c/0wmA+JlKbngEiExckSuPwa48fajlShB7A==}
 
-  '@shikijs/types@1.18.0':
-    resolution: {integrity: sha512-O9N36UEaGGrxv1yUrN2nye7gDLG5Uq0/c1LyfmxsvzNPqlHzWo9DI0A4+fhW2y3bGKuQu/fwS7EPdKJJCowcVA==}
+  '@shikijs/types@1.19.0':
+    resolution: {integrity: sha512-NZvVp3k1bP4MTRUbmnkGhYzPdoNMjNLSAwczMRUbtUl4oj2LlNRNbwERyeIyJt56Ac9fvPVZ2nn13OXk86E5UQ==}
 
   '@shikijs/vscode-textmate@9.2.2':
     resolution: {integrity: sha512-TMp15K+GGYrWlZM8+Lnj9EaHEFmOen0WJBrfa17hF7taDOYthuPPV0GWzfd/9iMij0akS/8Yw2ikquH7uVi/fg==}
@@ -1307,68 +1310,68 @@ packages:
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
 
-  '@tauri-apps/cli-darwin-arm64@2.0.0-rc.17':
-    resolution: {integrity: sha512-LXlLpavNfhvELPBcjCzQ9DOLx7rlAzZM4iltsaKawAewx30Q0EpIjK53Sg5AR3p5/KzNfCsTMjjpeUZg1AcFgw==}
+  '@tauri-apps/cli-darwin-arm64@2.0.1':
+    resolution: {integrity: sha512-oWjCZoFbm57V0eLEkIbc6aUmB4iW65QF7J8JVh5sNzH4xHGP9rzlQarbkg7LOn89z7mFSZpaLJAWlaaZwoV2Ug==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@tauri-apps/cli-darwin-x64@2.0.0-rc.17':
-    resolution: {integrity: sha512-86jlpD9DQEMdPCu+foqady2Kov3u151Pgs1uOdA3SQxXph4L31T7j26axIhADLYZH6T1be+lSVPm6+fp0iXGgw==}
+  '@tauri-apps/cli-darwin-x64@2.0.1':
+    resolution: {integrity: sha512-bARd5yAnDGpG/FPhSh87+tzQ6D0TPyP2mZ5bg6cioeoXDmry68nT/FBzp87ySR1/KHvuhEQYWM/4RPrDjvI1Yg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@tauri-apps/cli-linux-arm-gnueabihf@2.0.0-rc.17':
-    resolution: {integrity: sha512-ZFZeVBFdM9ogNebqzU3vo6f662YwmnE5XzeT6UEKUy+df49Fw2Npebmg0t/BPoF9e/nEgK1w1Jy68aK2JISscg==}
+  '@tauri-apps/cli-linux-arm-gnueabihf@2.0.1':
+    resolution: {integrity: sha512-OK3/RpxujoZAUbV7GHe4IPAUsIO6IuWEHT++jHXP+YW5Y7QezGGjQRc43IlWaQYej/yE8wfcrwrbqisc5wtiCw==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
 
-  '@tauri-apps/cli-linux-arm64-gnu@2.0.0-rc.17':
-    resolution: {integrity: sha512-GvO7BNJL6y8CumvaidJ+cEXn0KRaCzhmwtrMfTEl9jsqhGYvmNXuOlZR41hgoy6CQtUiu11ZGoBtU37/lxEKaQ==}
+  '@tauri-apps/cli-linux-arm64-gnu@2.0.1':
+    resolution: {integrity: sha512-MGSQJduiMEApspMK97mFt4kr6ig0OtxO5SUFpPDfYPw/XmY9utaRa9CEG6LcH8e0GN9xxYMhCv+FeU48spYPhA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@tauri-apps/cli-linux-arm64-musl@2.0.0-rc.17':
-    resolution: {integrity: sha512-DypDS3rJjcKzpgZKqHsCrzVGDbjo17XcYNhAYd2VxvXmGVAq05eZ71jLYHSSofXTxbpLZMcGKaino0jKyX1mOA==}
+  '@tauri-apps/cli-linux-arm64-musl@2.0.1':
+    resolution: {integrity: sha512-R6+vgxaPpxgGi4suMkQgGuhjMbZzMJfVyWfv2DOE/xxOzSK1BAOc54/HOjfOLxlnkA6uD6V69MwCwXgxW00A2g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@tauri-apps/cli-linux-x64-gnu@2.0.0-rc.17':
-    resolution: {integrity: sha512-nKCAJtC4b9HnVpDsCVXASPEXOEIZb/HFmdRPuKiYXmpziL5OByCJLjhVx5EFhpVtqAg1isCmOutqKc8Nmw1QQQ==}
+  '@tauri-apps/cli-linux-x64-gnu@2.0.1':
+    resolution: {integrity: sha512-xrasYQnUZVhKJhBxHAeu4KxZbofaQlsG9KfZ9p1Bx+hmjs5BuujzwMnXsVD2a4l6GPW6gwblf2a6d600rySmWQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@tauri-apps/cli-linux-x64-musl@2.0.0-rc.17':
-    resolution: {integrity: sha512-cSi3M/hcNo+NubSKJG96Af6o6cL38RCvP0ImFiyIOU/adYmW0bQGWI4u/eL14IpdNCR1pbifgEcQL6dteyod0g==}
+  '@tauri-apps/cli-linux-x64-musl@2.0.1':
+    resolution: {integrity: sha512-SPk+EzRTlbvk46p5aURc7O4GihzxbqG80m74vstm0rolnmQ0FX3qqIh3as3cQpDiZWLod4j6EEmX0mTU3QpvXA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@tauri-apps/cli-win32-arm64-msvc@2.0.0-rc.17':
-    resolution: {integrity: sha512-hMtNtm2zXvUwzzTEJIf/GQplWHNLEeAjiLGaX9sS2Me96X/OzU1PUXcWTYdjVA102cf6q//0/pgpPo/Yn480KA==}
+  '@tauri-apps/cli-win32-arm64-msvc@2.0.1':
+    resolution: {integrity: sha512-LAELK01eOMyEt+JZLmx4EUOdRuPYr1a+mHjlxAxCnCaS3dpeg/c5/NMZfbRAJbAH4id+STRHIfPXTdCT2zUNAw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@tauri-apps/cli-win32-ia32-msvc@2.0.0-rc.17':
-    resolution: {integrity: sha512-XO+zgvYvpz65aYbXMyFhej4Td5sEK7bSLPr2+8BigiI7F4tHaS7KJpYVtJtjHQtAo6KBy/bT8P9VW6xM4G+YVA==}
+  '@tauri-apps/cli-win32-ia32-msvc@2.0.1':
+    resolution: {integrity: sha512-eMUgOS4mAusk5njU2TBxBjCUO1P4cV4uzY5CHihysoXSL2TVQdWrXT42VGeoahJh+yeQWkYFka2s4Bu0iWDMXg==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@tauri-apps/cli-win32-x64-msvc@2.0.0-rc.17':
-    resolution: {integrity: sha512-sVV0o9careFJuL3fTtkp6ed8X4FGGfMyK1WbXR5ci4Z2dn94wIJuefzTnGaQnvur4PaEJQ9WmTlQ2Pe3UrokBQ==}
+  '@tauri-apps/cli-win32-x64-msvc@2.0.1':
+    resolution: {integrity: sha512-U9esAOcFIv80/slzlpwjkG31Wx1OqbfDgC5KjGT1Dd9iUOSuJZCwbiY7m3rYG2I6RWLfd9zhNu86CVohsKjBfA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@tauri-apps/cli@2.0.0-rc.17':
-    resolution: {integrity: sha512-7YQljT+izYmhLqsI5G2xg3AHBPx3gAHc+gB/s+NKqdSL4CuGImLiii8Rw/qBtuJpWFWLJiaGXnpra35zrSlknQ==}
+  '@tauri-apps/cli@2.0.1':
+    resolution: {integrity: sha512-fCheW0iWYWUtFV3ui3HlMhk3ZJpAQ5KJr7B7UmfhDzBSy1h5JBdrCtvDwy+3AcPN+Fg5Ey3JciF8zEP8eBx+vQ==}
     engines: {node: '>= 10'}
     hasBin: true
 
@@ -1446,6 +1449,9 @@ packages:
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
+
+  '@types/semver@7.5.8':
+    resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -3275,8 +3281,8 @@ packages:
     resolution: {integrity: sha512-haPVm1EkS9pgvHrQ/F3Xy+hgcuMV0Wm9vfIBSiwZ05k+xgb0PkBQpGsAA/oWdDobNaZTH5ppvHtzCFbnSEwHVw==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
 
-  shiki@1.18.0:
-    resolution: {integrity: sha512-8jo7tOXr96h9PBQmOHVrltnETn1honZZY76YA79MHheGQg55jBvbm9dtU+MI5pjC5NJCFuA6rvVTLVeSW5cE4A==}
+  shiki@1.19.0:
+    resolution: {integrity: sha512-Ng7Gd6XgWFLsv4Z3so65hOyXjV78qz1M117MuZHwdPQD6fgb5wR2IoLMvSlM/Ml14EXH7n+/YxIpTD74i7kDdw==}
 
   side-channel@1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
@@ -3340,8 +3346,8 @@ packages:
       '@astrojs/starlight': '>=0.24.0'
       astro: '>=4.8.6'
 
-  starlight-links-validator@0.12.1:
-    resolution: {integrity: sha512-LhRuGaI9Rp7c7ltwcG0BfCZuAN1d15oYbDB4jXblJ6zsiFcrSGHNlDnKXJHEJZ6XhJ+eOpd1IsHLFLh5Sq6uHg==}
+  starlight-links-validator@0.12.2:
+    resolution: {integrity: sha512-Iw1AvIULw7Tx4sGmPQciWD8jD2SIG14ynywqUyQYtxiao+phH7KWCwlm5TZ5PchrUm9nNSBYriufYwsd+VDQ3w==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
@@ -3528,8 +3534,8 @@ packages:
     resolution: {integrity: sha512-/OxDN6OtAk5KBpGb28T+HZc2M+ADtvRxXrKKbUwtsLgdoxgX13hyy7ek6bFRl5+aBs2yZzB0c4CnQfAtVypW/g==}
     engines: {node: '>= 0.4'}
 
-  typedoc-plugin-markdown@4.2.8:
-    resolution: {integrity: sha512-1EDsc66jaCjZtxdYy+Rl0KDU1WY/iyuCOOPaeFzcYFZ81FNXV8CmgUDOHri20WGmYnkEM5nQ+ooxj1vyuQo0Lg==}
+  typedoc-plugin-markdown@4.2.9:
+    resolution: {integrity: sha512-Wqmx+7ezKFgtTklEq/iUhQ5uFeBDhAT6wiS2na9cFLidIpl9jpDHJy/COYh8jUZXgIRIZVQ/bPNjyrnPFoDwzg==}
     engines: {node: '>= 18'}
     peerDependencies:
       typedoc: 0.26.x
@@ -3881,7 +3887,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-rehype: 11.1.1
       remark-smartypants: 3.0.2
-      shiki: 1.18.0
+      shiki: 1.19.0
       unified: 11.0.5
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -4809,7 +4815,7 @@ snapshots:
   '@expressive-code/plugin-shiki@0.35.6':
     dependencies:
       '@expressive-code/core': 0.35.6
-      shiki: 1.18.0
+      shiki: 1.19.0
 
   '@expressive-code/plugin-text-markers@0.35.6':
     dependencies:
@@ -5081,27 +5087,27 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.22.4':
     optional: true
 
-  '@shikijs/core@1.18.0':
+  '@shikijs/core@1.19.0':
     dependencies:
-      '@shikijs/engine-javascript': 1.18.0
-      '@shikijs/engine-oniguruma': 1.18.0
-      '@shikijs/types': 1.18.0
+      '@shikijs/engine-javascript': 1.19.0
+      '@shikijs/engine-oniguruma': 1.19.0
+      '@shikijs/types': 1.19.0
       '@shikijs/vscode-textmate': 9.2.2
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.3
 
-  '@shikijs/engine-javascript@1.18.0':
+  '@shikijs/engine-javascript@1.19.0':
     dependencies:
-      '@shikijs/types': 1.18.0
+      '@shikijs/types': 1.19.0
       '@shikijs/vscode-textmate': 9.2.2
       oniguruma-to-js: 0.4.3
 
-  '@shikijs/engine-oniguruma@1.18.0':
+  '@shikijs/engine-oniguruma@1.19.0':
     dependencies:
-      '@shikijs/types': 1.18.0
+      '@shikijs/types': 1.19.0
       '@shikijs/vscode-textmate': 9.2.2
 
-  '@shikijs/types@1.18.0':
+  '@shikijs/types@1.19.0':
     dependencies:
       '@shikijs/vscode-textmate': 9.2.2
       '@types/hast': 3.0.4
@@ -5115,48 +5121,48 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
 
-  '@tauri-apps/cli-darwin-arm64@2.0.0-rc.17':
+  '@tauri-apps/cli-darwin-arm64@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-darwin-x64@2.0.0-rc.17':
+  '@tauri-apps/cli-darwin-x64@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-linux-arm-gnueabihf@2.0.0-rc.17':
+  '@tauri-apps/cli-linux-arm-gnueabihf@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-linux-arm64-gnu@2.0.0-rc.17':
+  '@tauri-apps/cli-linux-arm64-gnu@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-linux-arm64-musl@2.0.0-rc.17':
+  '@tauri-apps/cli-linux-arm64-musl@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-linux-x64-gnu@2.0.0-rc.17':
+  '@tauri-apps/cli-linux-x64-gnu@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-linux-x64-musl@2.0.0-rc.17':
+  '@tauri-apps/cli-linux-x64-musl@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-win32-arm64-msvc@2.0.0-rc.17':
+  '@tauri-apps/cli-win32-arm64-msvc@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-win32-ia32-msvc@2.0.0-rc.17':
+  '@tauri-apps/cli-win32-ia32-msvc@2.0.1':
     optional: true
 
-  '@tauri-apps/cli-win32-x64-msvc@2.0.0-rc.17':
+  '@tauri-apps/cli-win32-x64-msvc@2.0.1':
     optional: true
 
-  '@tauri-apps/cli@2.0.0-rc.17':
+  '@tauri-apps/cli@2.0.1':
     optionalDependencies:
-      '@tauri-apps/cli-darwin-arm64': 2.0.0-rc.17
-      '@tauri-apps/cli-darwin-x64': 2.0.0-rc.17
-      '@tauri-apps/cli-linux-arm-gnueabihf': 2.0.0-rc.17
-      '@tauri-apps/cli-linux-arm64-gnu': 2.0.0-rc.17
-      '@tauri-apps/cli-linux-arm64-musl': 2.0.0-rc.17
-      '@tauri-apps/cli-linux-x64-gnu': 2.0.0-rc.17
-      '@tauri-apps/cli-linux-x64-musl': 2.0.0-rc.17
-      '@tauri-apps/cli-win32-arm64-msvc': 2.0.0-rc.17
-      '@tauri-apps/cli-win32-ia32-msvc': 2.0.0-rc.17
-      '@tauri-apps/cli-win32-x64-msvc': 2.0.0-rc.17
+      '@tauri-apps/cli-darwin-arm64': 2.0.1
+      '@tauri-apps/cli-darwin-x64': 2.0.1
+      '@tauri-apps/cli-linux-arm-gnueabihf': 2.0.1
+      '@tauri-apps/cli-linux-arm64-gnu': 2.0.1
+      '@tauri-apps/cli-linux-arm64-musl': 2.0.1
+      '@tauri-apps/cli-linux-x64-gnu': 2.0.1
+      '@tauri-apps/cli-linux-x64-musl': 2.0.1
+      '@tauri-apps/cli-win32-arm64-msvc': 2.0.1
+      '@tauri-apps/cli-win32-ia32-msvc': 2.0.1
+      '@tauri-apps/cli-win32-x64-msvc': 2.0.1
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -5241,6 +5247,8 @@ snapshots:
   '@types/sax@1.2.7':
     dependencies:
       '@types/node': 20.16.10
+
+  '@types/semver@7.5.8': {}
 
   '@types/trusted-types@2.0.7': {}
 
@@ -5401,7 +5409,7 @@ snapshots:
       prompts: 2.4.2
       rehype: 13.0.1
       semver: 7.6.3
-      shiki: 1.18.0
+      shiki: 1.19.0
       string-width: 7.2.0
       strip-ansi: 7.1.0
       tinyexec: 0.3.0
@@ -7677,12 +7685,12 @@ snapshots:
       '@img/sharp-win32-ia32': 0.33.5
       '@img/sharp-win32-x64': 0.33.5
 
-  shiki@1.18.0:
+  shiki@1.19.0:
     dependencies:
-      '@shikijs/core': 1.18.0
-      '@shikijs/engine-javascript': 1.18.0
-      '@shikijs/engine-oniguruma': 1.18.0
-      '@shikijs/types': 1.18.0
+      '@shikijs/core': 1.19.0
+      '@shikijs/engine-javascript': 1.19.0
+      '@shikijs/engine-oniguruma': 1.19.0
+      '@shikijs/types': 1.19.0
       '@shikijs/vscode-textmate': 9.2.2
       '@types/hast': 3.0.4
 
@@ -7750,7 +7758,7 @@ snapshots:
       marked-plaintify: 1.0.1(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  starlight-links-validator@0.12.1(@astrojs/starlight@0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)):
+  starlight-links-validator@0.12.2(@astrojs/starlight@0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)))(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2)):
     dependencies:
       '@astrojs/starlight': 0.28.2(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.15.9(@types/node@22.7.4)(rollup@2.79.1)(sass@1.79.4)(terser@5.31.0)(typescript@5.6.2))
       '@types/picomatch': 2.3.3
@@ -7965,7 +7973,7 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  typedoc-plugin-markdown@4.2.8(typedoc@0.26.7(typescript@5.6.2)):
+  typedoc-plugin-markdown@4.2.9(typedoc@0.26.7(typescript@5.6.2)):
     dependencies:
       typedoc: 0.26.7(typescript@5.6.2)
 
@@ -7978,7 +7986,7 @@ snapshots:
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      shiki: 1.18.0
+      shiki: 1.19.0
       typescript: 5.6.2
       yaml: 2.5.1
 

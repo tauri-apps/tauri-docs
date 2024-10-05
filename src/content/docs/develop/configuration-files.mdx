@@ -24,10 +24,10 @@ The default Tauri config format is JSON. The JSON5 or TOML format can be enabled
 
 ```toml title=Cargo.toml
 [build-dependencies]
-tauri-build = { version = "2.0.0-rc", features = [ "config-json5" ] }
+tauri-build = { version = "2.0.0", features = [ "config-json5" ] }
 
 [dependencies]
-tauri = { version = "2.0.0-rc", features = [  "config-json5" ] }
+tauri = { version = "2.0.0", features = [  "config-json5" ] }
 ```
 
 The structure and values are the same across all formats, however, the formatting should be consistent with the respective file's format:
@@ -193,22 +193,22 @@ edition = "2021"
 rust-version = "1.57"
 
 [build-dependencies]
-tauri-build = { version = "2.0.0-rc" }
+tauri-build = { version = "2.0.0" }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "2.0.0-rc", features = [ ] }
+tauri = { version = "2.0.0", features = [ ] }
 ```
 
 The most important parts to take note of are the `tauri-build` and `tauri` dependencies. Generally, they must both be on the latest minor versions as the Tauri CLI, but this is not strictly required. If you encounter issues while trying to run your app you should check that any Tauri versions (`tauri` and `tauri-cli`) are on the latest versions for their respective minor releases.
 
-Cargo version numbers use [Semantic Versioning]. Running `cargo update` in the `src-tauri` folder will pull the latest available Semver-compatible versions of all dependencies. For example, if you specify `2.0.0-rc` as the version for `tauri-build`, Cargo will detect and download version `2.0.0-rc.0` because it is the latest Semver-compatible version available. Tauri will update the major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
+Cargo version numbers use [Semantic Versioning]. Running `cargo update` in the `src-tauri` folder will pull the latest available Semver-compatible versions of all dependencies. For example, if you specify `2.0.0` as the version for `tauri-build`, Cargo will detect and download version `2.0.0.0` because it is the latest Semver-compatible version available. Tauri will update the major version number whenever a breaking change is introduced, meaning you should always be capable of safely upgrading to the latest minor and patch versions without fear of your code breaking.
 
 If you want to use a specific crate version you can use exact versions instead by prepending `=` to the version number of the dependency:
 
 ```
-tauri-build = { version = "=2.0.0-rc.0" }
+tauri-build = { version = "=2.0.0.0" }
 ```
 
 An additional thing to take note of is the `features=[]` portion of the `tauri` dependency. Running `tauri dev` and `tauri build` will automatically manage which features need to be enabled in your project based on the your Tauri configuration. For more information about `tauri` feature flags see the [documentation][tauri Cargo features].
@@ -231,8 +231,8 @@ An example of a barebones `package.json` file for a Tauri project might look a l
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.0.0-rc.0",
-    "@tauri-apps/cli": "^2.0.0-rc.0"
+    "@tauri-apps/api": "^2.0.0.0",
+    "@tauri-apps/cli": "^2.0.0.0"
   }
 }
 ```
@@ -266,5 +266,5 @@ To learn more about the `package.json` file format please refer to the [official
 [semantic versioning]: https://semver.org
 [cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
 [npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
-[tauri Cargo features]: https://docs.rs/tauri/2.0.0-rc/tauri/#cargo-features
+[tauri Cargo features]: https://docs.rs/tauri/2.0.0/tauri/#cargo-features
 [JSON Merge Patch (RFC 7396)]: https://datatracker.ietf.org/doc/html/rfc7396
