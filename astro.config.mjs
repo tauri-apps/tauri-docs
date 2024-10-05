@@ -76,7 +76,7 @@ export default defineConfig({
         starlightBlog({ authors }),
         starlightLinksValidator({
           errorOnFallbackPages: false,
-          errorOnRelativeLinks: false,
+          errorOnRelativeLinks: true,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
       ],
