@@ -53,13 +53,13 @@ fn main() {
 La CLI de Tauri v2 incluye un comando `migrate` que automatiza la mayor parte del proceso y te ayuda a finalizar la migración:
 
 <CommandTabs
-  npm="npm install @tauri-apps/cli@next
+  npm="npm install @tauri-apps/cli@latest
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli@next
+  yarn="yarn upgrade @tauri-apps/cli@latest
     yarn tauri migrate"
-  pnpm="pnpm update @tauri-apps/cli@next
+  pnpm="pnpm update @tauri-apps/cli@latest
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-rc" --locked
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
 />
 
@@ -183,7 +183,7 @@ El sistema de eventos fue rediseñado para ser más fácil de usar. En lugar de 
 
 - La función `emit` ahora emite el evento a todos los escuchadores de eventos.
 - Se agregó una nueva función `emit_to` para desencadenar un evento a un objetivo específico.
-- `emit_filter` ahora filtra en función de [`EventTarget`](https://docs.rs/tauri/2.0.0-rc/tauri/event/enum.EventTarget.html) en lugar de una ventana.
+- `emit_filter` ahora filtra en función de [`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html) en lugar de una ventana.
 - Se renombró `listen_global` a `listen_any`. Ahora escucha todos los eventos independientemente de sus filtros y objetivos.
 
 ### Soporte Multiwebview
@@ -715,7 +715,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` ahora toma un cierre porque el menú necesita una instancia de Manager para ser construido. Consulta [la documentación](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu) para obtener más información.
+`tauri::Builder::menu` ahora toma un cierre porque el menú necesita una instancia de Manager para ser construido. Consulta [la documentación](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu) para obtener más información.
 
 #### Eventos de Menú
 
@@ -1003,7 +1003,7 @@ Utiliza `tauri::tray::TrayIconBuilder` en lugar de `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("mi-bandeja").build(app)?;
 ```
 
-Consulta [TrayIconBuilder](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) para más información.
+Consulta [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) para más información.
 
 #### Migrar a Menú
 
