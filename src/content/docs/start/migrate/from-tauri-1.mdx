@@ -1162,7 +1162,7 @@ tauri::Builder::default()
 
 ### Migrate to new Window API
 
-On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
+On the Rust side, `Window` was renamed to `WebviewWindow`, its builder `WindowBuilder` is now named `WebviewWindowBuilder` and `WindowUrl` is now named `WebviewUrl`.
 
 Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
 the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.
