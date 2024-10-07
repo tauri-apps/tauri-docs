@@ -124,9 +124,9 @@ const output = await sidecar_command.execute();
 参数可以是**静态的**（例如 `-o` 或 `serve`）或者**动态的**（例如 `<file_path>` 或者 `localhost:<PORT>`）。
 你按照调用它们的确切顺序来定义这些参数。静态参数保持不变，而动态参数可以使用正则表达式来定义。
 
-首先，在 `src-tauri/capabilities/main.json` 中定义需要传递给 sidecar 命令的参数。
+首先，在 `src-tauri/capabilities/default.json` 中定义需要传递给 sidecar 命令的参数。
 
-```json title="src-tauri/capabilities/main.json" ins={14-31}
+```json title="src-tauri/capabilities/default.json" ins={14-31}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
