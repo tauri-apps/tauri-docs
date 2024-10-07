@@ -89,6 +89,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > systemTray` renamed to `app > trayIcon`.
 - `tauri > pattern` moved to `app > security > pattern`.
 - `tauri > bundle` moved top-level.
+- `tauri > bundle > identifier` moved to top-level object.
 - `tauri > bundle > dmg` moved to `bundle > macOS > dmg`
 - `tauri > bundle > deb` moved to `bundle > linux > deb`
 - `tauri > bundle > appimage` moved to `bundle > linux > appimage`
@@ -1161,7 +1162,7 @@ tauri::Builder::default()
 
 ### Migrate to new Window API
 
-On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
+On the Rust side, `Window` was renamed to `WebviewWindow`, its builder `WindowBuilder` is now named `WebviewWindowBuilder` and `WindowUrl` is now named `WebviewUrl`.
 
 Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
 the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.
