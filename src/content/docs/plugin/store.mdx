@@ -115,7 +115,7 @@ pub fn run() {
 
             // Note that values must be serde_json::Value instances,
             // otherwise, they will not be compatible with the JavaScript bindings.
-            store.insert("some-key", json!({ "value": 5 }))?;
+            store.set("some-key", json!({ "value": 5 }));
 
             // Get a value from the store.
             let value = store.get("some-key").expect("Failed to get value from store");
@@ -123,7 +123,7 @@ pub fn run() {
 
             // You can manually save the store after making changes.
             // Otherwise, it will save upon graceful exit as described above.
-            store.save()?;
+            let _ = store.save();
 
 
             Ok(())
