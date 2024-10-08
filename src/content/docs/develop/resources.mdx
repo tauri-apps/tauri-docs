@@ -42,7 +42,7 @@ Alternatively the `resources` config also accepts a map object if you want to ch
 
 :::note
 
-In Tauri's [permission system](../reference/acl/), absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
+In Tauri's [permission system](/reference/acl/capability/), absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
 
 :::
 
@@ -142,10 +142,10 @@ const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```
 
-[tauri.bundle]: ../../reference/config/#bundleconfig
+[tauri.bundle]: /reference/config/#bundleconfig
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
-[`plugin-fs`]: ../../reference/javascript/fs/
-[Scope Permissions]: ../../plugin/file-system#scope-permissions
-[scopes]: ../../plugin/file-system#scopes
+[`plugin-fs`]: /reference/javascript/fs/
+[Scope Permissions]: /plugin/file-system/#scopes
+[scopes]: /plugin/file-system/#scopes

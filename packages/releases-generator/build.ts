@@ -90,7 +90,7 @@ async function generator() {
         note,
         `title: '${pkg.name}@${thisVersion}'`,
         `description: '${thisVersion}'`,
-        `slug: 'release/${pkg.name}/v${thisVersion}'`,
+        `slug: 'release/${pkg.name}/v${thisVersion}/'`,
         `tableOfContents: false`,
         `editUrl: 'https://github.com/tauri-apps/tauri-docs/blob/v2/packages/releases-generator/build.ts'`,
         'pagefind: false',
@@ -101,7 +101,7 @@ async function generator() {
 
       const frontmatter = ['---', ...pageFrontmatter, '---'].join('\n');
       //
-      const indexLink = `[Return](/release)`;
+      const indexLink = `[Return](/release/)`;
       const viewInGitHub = `<a href="${pkg.tag}/${pkg.name}-v${thisVersion}">View on GitHub</a>`;
       const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
       //
