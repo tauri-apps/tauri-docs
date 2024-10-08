@@ -1,0 +1,127 @@
+---
+title: DMG
+sidebar:
+  order: 1
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Image } from 'astro:assets';
+import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
+import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
+
+DMG（苹果磁盘镜像）格式是一个常见的 macOS 安装程序文件，它将你的 [App Bundle][App Bundle 分发指南]包裹在一个用户友好的安装窗口中。
+
+安装程序窗口包括你的应用程序图标和应用程序文件夹图标，用户需要将应用程序图标拖动到应用程序文件夹图标来安装它。
+对于发布在 App Store 之外的 macOS 应用来说，这是最常见的安装方法。
+
+本指南仅涵盖使用 DMG 格式在 App Store 之外发布应用程序的细节。
+有关 macOS 分发选项和配置的更多信息，请参阅 [App Bundle 分发指南]。
+要在 App Store 中发布你的 macOS 应用，请参阅 [App Store 分发指南]。
+
+要为你的应用创建一个苹果磁盘镜像（DMG），你可以使用 Tauri 命令行并在 Mac 电脑上运行 `tauri build` 命令。
+
+<CommandTabs
+  npm="npm run tauri build --bundles dmg"
+  yarn="yarn tauri build --bundles dmg"
+  pnpm="pnpm tauri build --bundles dmg"
+  cargo="cargo tauri build --bundles dmg"
+/>
+
+<Image
+  class="dark:sl-hidden"
+  src={StandardDmgLight}
+  alt="Standard DMG window"
+/>
+<Image
+  class="light:sl-hidden"
+  src={StandardDmgDark}
+  alt="Standard DMG window"
+/>
+
+## 窗口背景
+
+你可以用 [`tauri.conf.json > bundle > macOS > dmg > background`] 配置选项设置 DMG 安装窗口的自定义背景图像。
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "background": "./images/"
+      }
+    }
+  }
+}
+```
+
+例如，你的 DMG 背景图像可以包括一个箭头，告诉用户它必须将应用程序图标拖动到应用程序文件夹。
+
+## 窗口大小和位置
+
+默认窗口大小为 660x400。如果你需要不同的尺寸来适应你的自定义背景图片，请设置 [`tauri.conf.json > bundle > macOS > dmg > windowSize`] 配置。
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 800,
+          "height": 600
+        }
+      }
+    }
+  }
+}
+```
+
+此外，你可以通过 [`tauri.conf.json > bundle > macOS > dmg > windowPosition`] 设置初始窗口位置。
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowPosition": {
+          "x": 400,
+          "y": 400
+        }
+      }
+    }
+  }
+}
+```
+
+## 图标位置
+
+你可以使用 [appPosition] and [applicationFolderPosition] 配置值分别更改 app 和*应用程序文件夹*的图标位置。
+
+```json title="tauri.conf.json" ins={5-12}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 220
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 220
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+由于一个已知的问题，在 CI/CD 平台上创建 DMG 时，图标大小和位置不适用。
+请参阅 [tauri-apps/tauri#1731] 了解更多信息。
+:::
+
+[App Bundle 分发指南]: /distribute/macos-application-bundle/
+[App Store 分发指南]: /distribute/app-store/
+[appPosition]: /reference/config/#appposition
+[applicationFolderPosition]: /reference/config/#applicationfolderposition
+[tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731
