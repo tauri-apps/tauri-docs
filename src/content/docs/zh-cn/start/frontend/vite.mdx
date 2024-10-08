@@ -1,0 +1,120 @@
+---
+title: Vite
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生的工具链。
+本教程使用的 Vite 5.4.8。
+
+## 检查清单
+
+- 在 `tauri.conf.json` 中使用 `dist/` 作为 `frontendDist`。
+- 在真实 iOS 设备上调试时，使用 `process.env.TAURI_DEV_HOST` 环境变量作为开发服务器的 IP 地址。
+
+## 示例配置
+
+<Steps>
+
+1.  ##### 更新 Tauri 配置
+
+    确保你的 `package.json` 文件中有以下的 `dev` 和 `build` 命令脚本：
+
+    ```json
+    {
+      "scripts": {
+        "dev": "vite dev",
+        "build": "vite build"
+      }
+    }
+    ```
+
+    配置 Tauri 命令行工具，使用钩子(hooks)来自动运行 Vite 脚本，从而使用你配置好的 Vite 开发服务器和生成文件夹：
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+1.  ##### 更新 Vite 配置：
+
+    ```js title="vite.config.js"
+    import { defineConfig } from 'vite';
+
+    export default defineConfig({
+      // 阻止 Vite 清除 Rust 抛出的错误
+      clearScreen: false,
+      server: {
+        // Tauri 工作于固定端口，如果端口不可用则报错
+        strictPort: true,
+        // 如果设置了 host，Tauri 则会使用
+        host: host || false,
+        port: 5173,
+      },
+      // 为了使用命令行接口(CLI)为当前构建目标配置的 Tauri 环境变量
+      envPrefix: ['VITE_', 'TAURI_ENV_*'],
+      build: {
+        // Tauri 在 Windows 上使用 Chromium，在 macOS 和 Linux 上使用 WebKit
+        target:
+          process.env.TAURI_ENV_PLATFORM == 'windows'
+            ? 'chrome105'
+            : 'safari13',
+        // 在 debug 构建中不使用 minify
+        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+        // 在 debug 构建中生成 sourcemap
+        sourcemap: !!process.env.TAURI_ENV_DEBUG,
+      },
+    });
+    ```
+
+</Steps>
