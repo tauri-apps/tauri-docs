@@ -163,8 +163,8 @@ test('invoke', async () => {
 });
 ```
 
-[`@tauri-apps/api/mocks`]: ../../reference/javascript/api/namespacemocks/
-[`mockipc()`]: ../../reference/javascript/api/namespacemocks/#mockipc
-[`mockwindows()`]: ../../reference/javascript/api/namespacemocks/#mockwindows
-[`clearmocks()`]: ../../reference/javascript/api/namespacemocks/#clearmocks
+[`@tauri-apps/api/mocks`]: /reference/javascript/api/namespacemocks/
+[`mockipc()`]: /reference/javascript/api/namespacemocks/#mockipc
+[`mockwindows()`]: /reference/javascript/api/namespacemocks/#mockwindows
+[`clearmocks()`]: /reference/javascript/api/namespacemocks/#clearmocks
 [vitest]: https://vitest.dev
