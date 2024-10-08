@@ -160,6 +160,19 @@ To open the mobile IDE instead of running on a connected device or simulator, us
   cargo="cargo tauri [android|ios] dev --open"
 />
 
+:::note
+If you intend on running the application on a physical iOS device you must also provide the `--host` argument
+and your development server must use the `process.env.TAURI_DEV_HOST` value as host.
+See your framework's setup guide for more information.
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev --open --host"
+  yarn="yarn tauri [android|ios] dev --open --host"
+  pnpm="pnpm tauri [android|ios] dev --open --host"
+  cargo="cargo tauri [android|ios] dev --open --host"
+/>
+:::
+
 :::caution
 To use Xcode or Android Studio the Tauri CLI process **must** be running and **cannot** be killed.
 It is recommended to use the `tauri [android|ios] dev --open` command and keep the process alive until you close the IDE.

@@ -53,13 +53,13 @@ fn main() {
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-  npm="npm install @tauri-apps/cli@next
+  npm="npm install @tauri-apps/cli@latest
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli@next
+  yarn="yarn upgrade @tauri-apps/cli@latest
     yarn tauri migrate"
-  pnpm="pnpm update @tauri-apps/cli@next
+  pnpm="pnpm update @tauri-apps/cli@latest
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-rc" --locked
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
 />
 
@@ -73,7 +73,8 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 
 ### Tauri Configuration
 
-- `package > productName` and `package > version` moved to top-level field.
+- `package > productName` and `package > version` moved to top-level object.
+- the binary name is no longer renamed to match `productName` automatically, so you must add a `mainBinaryName` string to the top-level object matching `productName`.
 - `package` removed.
 - `tauri` key renamed to `app`.
 - `tauri > allowlist` removed. Refer to [Migrate Permissions](#migrate-permissions).
@@ -83,15 +84,19 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > updater > active` removed.
 - `tauri > updater > dialog` removed.
 - `tauri > updater` moved to `plugins > updater`.
+- `bundle > createUpdaterArtifacts` added, must be set when using the app updater.
+  - set it to `v1Compatible` when upgrading from v1 apps that were already distributed. See the [updater guide](/plugin/updater) for more information.
 - `tauri > systemTray` renamed to `app > trayIcon`.
 - `tauri > pattern` moved to `app > security > pattern`.
 - `tauri > bundle` moved top-level.
+- `tauri > bundle > identifier` moved to top-level object.
 - `tauri > bundle > dmg` moved to `bundle > macOS > dmg`
 - `tauri > bundle > deb` moved to `bundle > linux > deb`
 - `tauri > bundle > appimage` moved to `bundle > linux > appimage`
 - `tauri > bundle > macOS > license` removed, use `bundle > licenseFile` instead.
 - `tauri > bundle > windows > wix > license` removed, use `bundle > licenseFile` instead.
 - `tauri > bundle > windows > nsis > license` removed, use `bundle > licenseFile` instead.
+- `tauri > bundle > windows > webviewFixedRuntimePath` removed, use `bundle > windows > webviewInstallMode` instead.
 - `build > withGlobalTauri` moved to `app > withGlobalTauri`.
 - `build > distDir` renamed to `frontendDist`.
 - `build > devPath` renamed to `devUrl`.
@@ -156,6 +161,8 @@ The `@tauri-apps/api` package no longer provides non-core modules. Only the prev
 - `@tauri-apps/api/updater` module removed. Use `@tauri-apps/plugin-updater` instead [Migration](#migrate-to-updater-plugin)
 - `@tauri-apps/api/window` module renamed to `@tauri-apps/api/webviewWindow`. [Migration](#migrate-to-new-window-api)
 
+The v1 plugins are now published as `@tauri-apps/plugin-<plugin-name>`. Previously they were available from git as `tauri-plugin-<plugin-name>-api`.
+
 ### Environment Variables Changes
 
 Most of the environment variables read and written by the Tauri CLI were renamed for consistency and prevention of mistakes:
@@ -182,7 +189,7 @@ The event system was redesigned to be easier to use. Instead of relying on the s
 
 - The `emit` function now emits the event to all event listeners
 - Added a new `emit_to` function to trigger an event to a specific target
-- `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0-rc/tauri/event/enum.EventTarget.html) instead of a window.
+- `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html) instead of a window.
 - Renamed `listen_global` to `listen_any`. It now listens to all events regardless of their filters and targets.
 
 ### Multiwebview support
@@ -714,7 +721,7 @@ tauri::Builder::default()
     })
 ```
 
-`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0-rc/tauri/struct.Builder.html#method.menu) for more information.
+`tauri::Builder::menu` now takes a closure because the menu needs a Manager instance to be built. See [the documentation](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu) for more information.
 
 #### Menu Events
 
@@ -1002,7 +1009,7 @@ Use `tauri::tray::TrayIconBuilder` instead of `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
-See [TrayIconBuilder](https://docs.rs/tauri/2.0.0-rc/tauri/tray/struct.TrayIconBuilder.html) for more information.
+See [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) for more information.
 
 #### Migrate to Menu
 
@@ -1155,7 +1162,7 @@ tauri::Builder::default()
 
 ### Migrate to new Window API
 
-On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
+On the Rust side, `Window` was renamed to `WebviewWindow`, its builder `WindowBuilder` is now named `WebviewWindowBuilder` and `WindowUrl` is now named `WebviewUrl`.
 
 Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
 the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.

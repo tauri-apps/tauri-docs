@@ -15,13 +15,13 @@ This guide walks you through upgrading your Tauri 2.0 beta application to Tauri 
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-  npm="npm install @tauri-apps/cli@next
+  npm="npm install @tauri-apps/cli@latest
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli@next
+  yarn="yarn upgrade @tauri-apps/cli@latest
     yarn tauri migrate"
-  pnpm="pnpm update @tauri-apps/cli@next
+  pnpm="pnpm update @tauri-apps/cli@latest
     pnpm tauri migrate"
-  cargo='cargo install tauri-cli --version "^2.0.0-rc" --locked
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
 />
 
@@ -120,7 +120,7 @@ export default defineConfig({
 });
 ```
 
-- 2.0.0-rc:
+- 2.0.0:
 
 ```js
 import { defineConfig } from 'vite';

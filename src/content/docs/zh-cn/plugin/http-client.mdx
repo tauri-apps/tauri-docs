@@ -1,15 +1,22 @@
 ---
 title: HTTP 客户端
 description: 访问用 Rust 编写的 HTTP 客户端。
+plugin: http
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="http" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 使用 HTTP 插件发起 HTTP 请求。
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 

@@ -1,30 +1,25 @@
 ---
 title: Websocket
 description: Open a WebSocket connection using a Rust client in JavaScript.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+plugin: websocket
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="websocket" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Open a WebSocket connection using a Rust client in JavaScript.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the websocket plugin to get started.
 
@@ -85,7 +80,7 @@ The websocket plugin is available in JavaScript.
 ```javascript
 import WebSocket from '@tauri-apps/plugin-websocket';
 // when using `"withGlobalTauri": true`, you may use
-// const WebSocket = window.__TAURI_PLUGIN_WEBSOCKET__;
+// const WebSocket = window.__TAURI__.websocket;
 
 const ws = await WebSocket.connect('ws://127.0.0.1:8080');
 
@@ -114,4 +109,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="websocket" />
+<PluginPermissions plugin={frontmatter.plugin} />

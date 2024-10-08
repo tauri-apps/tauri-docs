@@ -1,0 +1,66 @@
+---
+import { type PluginData, getSupportIcon, getSupportText } from './_helpers';
+import data from './_tableContent.json';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+
+const { plugin } = Astro.props;
+
+interface Props {
+  plugin: string;
+}
+const md = await createMarkdownProcessor();
+
+const pluginData: PluginData = data[plugin];
+
+const versionText = await md.render(
+  `_This plugin requires a Rust version of at least **${pluginData.rustVersion}**_`
+);
+---
+
+<div set:html={versionText.code} />
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Level</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      pluginData.support.map(async (t) => {
+        const { platform, notes, level } = t;
+        const parsedNotes = await md.render(notes || '');
+        const icon = getSupportIcon(level);
+        const title = getSupportText(level);
+        return (
+          <tr>
+            <td>{platform}</td>
+            <td>
+              <div title={title} class="icon" set:html={icon} />
+            </td>
+            <td>
+              <div set:html={parsedNotes.code} />
+            </td>
+          </tr>
+        );
+      })
+    }
+  </tbody>
+</table>
+
+<style>
+  .icon {
+    width: 1rem;
+  }
+  table {
+    width: 100%;
+  }
+  table td {
+    width: 1px;
+  }
+  table td:last-child {
+    width: 100%;
+  }
+</style>

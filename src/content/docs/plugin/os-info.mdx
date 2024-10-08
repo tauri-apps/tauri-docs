@@ -1,20 +1,23 @@
 ---
 title: OS Information
 description: Read information about the operating system.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+plugin: os
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="os" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Read information about the operating system using the OS Information plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -83,7 +86,7 @@ With this plugin you can query multiple information from current operational sys
 ```javascript
 import { platform } from '@tauri-apps/plugin-os';
 // when using `"withGlobalTauri": true`, you may use
-// const { platform } = window.__TAURI_PLUGIN_OS__;
+// const { platform } = window.__TAURI__.os;
 
 const currentPlatform = await platform();
 console.log(currentPlatform);
@@ -108,15 +111,13 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4-6}
+```json title="src-tauri/capabilities/main.json" ins={4}
 {
   "permissions": [
     ...,
-    "os:allow-arch",
-    "os:allow-hostname",
-    "os:allow-os-type"
+    "os:default"
   ]
 }
 ```
 
-<PluginPermissions plugin="os" />
+<PluginPermissions plugin={frontmatter.plugin} />

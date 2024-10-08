@@ -1,14 +1,17 @@
 ---
 title: Store
 description: Persistent key value storage.
+plugin: store
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="store" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 This plugin provides a persistent key-value store. This is one of many options to handle state in your application. See the [state management overview](/develop/state-management/) for more information on additional options.
 
@@ -16,11 +19,7 @@ This store will allow you to persist state to a file which can be saved and load
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -76,19 +75,22 @@ Install the store plugin to get started.
 <Tabs>
 <TabItem label="JavaScript">
 
-```javascript
-import { Store } from '@tauri-apps/plugin-store';
+```typescript
+import { createStore } from '@tauri-apps/plugin-store';
 // when using `"withGlobalTauri": true`, you may use
-// const { Store } = window.__TAURI_PLUGIN_STORE__;
+// const { createStore } = window.__TAURI__.store;
 
-// Store will be loaded automatically when used in JavaScript binding.
-const store = new Store('store.bin');
+// create a new store or load the existing one
+const store = await createStore('store.bin', {
+  // we can save automatically after each store modification
+  autoSave: true,
+});
 
 // Set a value.
 await store.set('some-key', { value: 5 });
 
 // Get a value.
-const val = await store.get('some-key');
+const val = await store.get<{ value: number }>('some-key');
 console.log(val); // { value: 5 }
 
 // You can manually save the store after making changes.
@@ -101,7 +103,7 @@ await store.save();
 
 ```rust title="src-tauri/src/lib.rs"
 use tauri::Wry;
-use tauri_plugin_store::{with_store, StoreCollection};
+use tauri_plugin_store::StoreExt;
 use serde_json::json;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -109,24 +111,20 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let stores = app.handle().try_state::<StoreCollection<Wry>>().ok_or("Store not found")?;
-            let path = PathBuf::from("store.bin");
+            let store = app.handle().store_builder("store.bin").build();
 
-            with_store(app.handle().clone(), stores, path, |store| {
-                // Note that values must be serde_json::Value instances,
-                // otherwise, they will not be compatible with the JavaScript bindings.
-                store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+            // Note that values must be serde_json::Value instances,
+            // otherwise, they will not be compatible with the JavaScript bindings.
+            store.insert("some-key", json!({ "value": 5 }))?;
 
-                // Get a value from the store.
-                let value = store.get("some-key").expect("Failed to get value from store");
-                println!("{}", value); // {"value":5}
+            // Get a value from the store.
+            let value = store.get("some-key").expect("Failed to get value from store");
+            println!("{}", value); // {"value":5}
 
-                // You can manually save the store after making changes.
-                // Otherwise, it will save upon graceful exit as described above.
-                store.save()?;
+            // You can manually save the store after making changes.
+            // Otherwise, it will save upon graceful exit as described above.
+            store.save()?;
 
-                Ok(())
-            });
 
             Ok(())
         })
@@ -140,23 +138,17 @@ pub fn run() {
 
 ## Permissions
 
-By default, all plugin commands are blocked and cannot be accessed. You must define a list of permissions in your `capabilities` configuration.
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={6-11}
+```json title="src-tauri/capabilities/main.json" ins={4}
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
   "permissions": [
-    "store:allow-get",
-    "store:allow-set",
-    "store:allow-save",
-    "store:allow-load"
+    ...,
+    "store:default",
   ]
 }
 ```
 
-<PluginPermissions plugin="store" />
+<PluginPermissions plugin={frontmatter.plugin} />

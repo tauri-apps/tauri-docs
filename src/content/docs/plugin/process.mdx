@@ -1,20 +1,23 @@
 ---
 title: Process
 description: Access the current process.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+plugin: process
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="process" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/plugin/shell/) plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -77,7 +80,7 @@ The process plugin is available in both JavaScript and Rust.
 ```javascript
 import { exit, relaunch } from '@tauri-apps/plugin-process';
 // when using `"withGlobalTauri": true`, you may use
-// const { exit, relaunch } = window.__TAURI_PLUGIN_PROCESS__;
+// const { exit, relaunch } = window.__TAURI__.process;
 
 // exits the app with the given status code
 await exit(0);
@@ -89,7 +92,7 @@ await relaunch();
 </TabItem>
 <TabItem label="Rust">
 
-Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/struct.AppHandle.html).
+Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html).
 
 ```rust
 // exits the app with the given status code
@@ -102,4 +105,19 @@ app.restart();
 </TabItem>
 </Tabs>
 
-<PluginPermissions plugin="process" />
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "process:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
