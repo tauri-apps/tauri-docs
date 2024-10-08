@@ -123,7 +123,7 @@ pub fn run() {
 
             // You can manually save the store after making changes.
             // Otherwise, it will save upon graceful exit as described above.
-            let _ = store.save();
+            store.save()?;
 
 
             Ok(())
