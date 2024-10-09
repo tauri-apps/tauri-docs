@@ -1,0 +1,249 @@
+---
+title: Sviluppo
+description: Concetti fondamentali per lo sviluppo con Tauri.
+sidebar:
+  order: 0
+  label: Panoramica
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Ora che hai [tutto configurato](/start/), sei pronto per avviare la tua applicazione con Tauri.
+
+Se stai usando un framework UI o un bundler di JavaScript, probabilmente avrai già accesso a un server
+locale che velocizza il processo di sviluppo, quindi, se non hai ancora configurato l'URL della tua app
+e lo script che lo fa partire, puoi farlo grazie ai campi [devUrl](/reference/config/#devurl) e
+[beforeDevCommand](/reference/config/#beforedevcommand) nel file di configurazione:
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "npm run dev"
+  }
+}
+```
+
+:::note
+
+Ogni framework ha diversi strumenti di sviluppo. Non è nello scopo di questa documentazione esporli tutti o mantenerli aggiornati.
+
+Consulta la documentazione del tuo framework per capire come configurare i valori corretti.
+
+:::
+
+Altrimenti, se non stai usando nessun framework UI o bundler, puoi indicare a Tauri dove si trova il tuo codice frontend
+e la CLI di Tauri avvierà un server di sviluppo per te:
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "frontendDist": "./src"
+  }
+}
+```
+
+Nota che in questo esempio la cartella `src` deve contenere un file `index.html` insieme agli altri assets caricati dal tuo frontend.
+
+:::caution[Sicurezza del Server di Sviluppo Plain/Vanilla]
+
+Il server di sviluppo incorporato di Tauri non supporta l'autenticazione o la criptazione
+reciproca. Non dovresti mai usarlo per lo sviluppo su reti non affidabili.
+Leggi le [considerazioni sulla sicurezza del server di sviluppo](/security/lifecycle/#development-server)
+per una spiegazione più dettagliata.
+
+:::
+
+### Sviluppa la tua applicazione Desktop
+
+Per sviluppare la tua applicazione per desktop, esegui il comando `tauri dev`.
+
+<CommandTabs
+  npm="npm run tauri dev"
+  yarn="yarn tauri dev"
+  pnpm="pnpm tauri dev"
+  cargo="cargo tauri dev"
+/>
+
+La prima volta che esegui questo comando, il gestore dei pacchetti di Rust potrebbe aver bisogni di **parecchi minuti**
+per scaricare e compilare tutti i pacchetti necessari.
+Visto che sono salvati nella cache, le compilazioni successive sono molto più veloci, visto che sarà necessario ricompilare solo il tuo codice.
+
+Una volta che Rust ha finito di compilare, la webview si apre, mostrando la tua applicazione web.
+Puoi fare modifiche alla tua applicazione web, e se i tuoi strumenti lo supportano, la webview dovrebbe aggiornarsi automaticamente, come un browser.
+
+#### Aprire gli Strumenti di Sviluppo
+
+Puoi aprire gli strumenti di sviluppo per debuggare la tua applicazione cliccando con il tasto destro sulla webview e cliccando "Ispeziona",
+oppure usando la scorciatoia `Ctrl + Shift + I` su Windows e Linux o `Cmd + Option + I` su macOS.
+
+### Sviluppa la tua applicazione Mobile
+
+Lo sviluppo mobile è simile a quello desktop, ma devi eseguire il comando `tauri android dev` o `tauri ios dev`:
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev"
+  yarn="yarn tauri [android|ios] dev"
+  pnpm="pnpm tauri [android|ios] dev"
+  cargo="cargo tauri [android|ios] dev"
+/>
+
+La prima volta che esegui questo comando, il gestore dei pacchetti di Rust potrebbe aver bisogni di **parecchi minuti**
+per scaricare e compilare tutti i pacchetti necessari.
+Visto che sono salvati nella cache, le compilazioni successive sono molto più veloci, visto che sarà necessario ricompilare solo il tuo codice.
+
+#### Server di Sviluppo
+
+Il server di sviluppo per le app mobile si comporta in maniera simile a quello del desktop,
+ma se stai cercando di eseguire l'app sun un dispositivo iOS fisico,
+devi configurarlo per poterlo mettere in ascolto di un indirizzo particolare fornito dalla CLI di Tauri,
+definito nella variabile d'ambiente `TAURI_DEV_HOST`.
+Questo indirizzo può essere un indirizzo di rete pubblico (che è l'opzione predefinita) o l'indirizzo TUN
+del dispositivo iOS - che è più sicuro, ma attualmente richiede Xcode per connettersi al dispositivo.
+
+Per usare l'indirizzo del dispositivo iOS devi aprire Xcode prima di eseguire il comando di sviluppo,
+e devi assicurarti che il tuo dispositivo sia connesso alla rete nel menù Window > Devices and Simulators.
+Fatto ciò devi eseguire il comando `tauri ios dev --force-ip-prompt` per selezionare l'indirizzo del dispositivo iOS (un indirizzo IPv6 che finisce con **::2**).
+
+Per far sì che il server di sviluppo ascolti sull'host corretto e sia accessibile dal dispositivo iOS,
+è necessario modificare la sua configurazione per utilizzare il valore `TAURI_DEV_HOST`, se fornito.
+Ecco un esempio di configurazione per Vite:
+
+```js
+import { defineConfig } from 'vite';
+
+const host = process.env.TAURI_DEV_HOST;
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host,
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+Controlla la guida di setup del tuo framework per ulteriori informazioni.
+
+:::note
+I progetti creati con [create-tauri-app](https://github.com/tauri-apps/create-tauri-app) configurano
+il server di sviluppo per lo sviluppo mobile automaticamente.
+:::
+
+#### Selezione del dispositivo
+
+In automatico il comando per lo sviluppo mobile prova ad eseguire l'applicazione su un dispositivo connesso,
+se non riesce allora ti chiede di selezionare il simulatore da usare.
+Per definire il dispositivo anticipatamente puoi fornire il nome del dispositivo o del simulatore come argomento:
+
+<CommandTabs
+  npm="npm run tauri ios dev 'iPhone 15'"
+  yarn="yarn tauri ios dev 'iPhone 15'"
+  pnpm="pnpm tauri ios dev 'iPhone 15'"
+  cargo="cargo tauri ios dev 'iPhone 15'"
+/>
+
+#### Usare Xcode o Android Studio
+
+Puoi decidere se usare Xcode o Android Studio per sviluppare la tua applicazione.
+Questo può aiutarti ad identificare dei problemi durante lo sviluppo usando l'IDE al posto degli strumenti nella riga di comando.
+Per aprire l'IDE al posto di far partire l'applicazione sul dispositivo connesso o sul simulatore, usa l'opzione `--open`:
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev --open"
+  yarn="yarn tauri [android|ios] dev --open"
+  pnpm="pnpm tauri [android|ios] dev --open"
+  cargo="cargo tauri [android|ios] dev --open"
+/>
+
+:::caution
+Per usare Xcode o Android Studio il processo della CLI di Tauri **deve** essere in esecuzione e **non può** essere terminato.
+È raccomandabile usare il comando `tauri [android|ios] dev --open` e mantenere il processo attivo finché non chiudi l'IDE.
+:::
+
+#### Aprire gli Strumenti di Sviluppo
+
+- iOS
+
+  Per accedere agli strumenti di sviluppo dell'applicazione iOS bisogna usare Safari.
+
+  Apri Safari sul tuo Mac, seleziona **Safari > Impostazioni** nella barra del menu, clicca **Avanzate** e seleziona **Mostra funzionalità per sviluppatori web**.
+
+  Se stai eseguendo l'applicazione su un dispositivo fisico devi abilitare **Inspector web** in **Impostazioni > Safari > Avanzate**.
+
+  Dopo aver completato tutti gli step dovresti vedere la voce **Sviluppo** nella barra del menu di Safari,
+  dove troverai tutti i dispositivi connessi e le applicazioni da esaminare.
+  Seleziona il tuo dispositivo o simulatore e clicca su **localhost** per aprire la finestra di sviluppo di Safari.
+
+- Android
+
+  Gli strumenti di sviluppo sono abilitati in automatico negli emulatori Android, ma vanno abilitati manualmente per i dispositivi fisici.
+  Collega il dispositivo Android al computer, apri le **Impostazioni** del dispositivo, seleziona **Informazioni sul telefono** e scorri fino a **Build Number** e cliccalo 7 volte.
+  Così facendo abiliterai la modalità da sviluppatore del tuo dispositivo Android e le **Opzioni sviluppatore**.
+
+  Per abilitare il debug della della tua applicazione sul tuo dispositivo devi aprire **Opzioni sviluppatore**,
+  abilitare l'opzione generale e abilitare **Debug USB**.
+
+  :::note
+  Ogni distribuzione di Android ha il suo modo di abilitare la modalità da sviluppatore, controlla la documentazione della tua distribuzione per ulteriori informazioni.
+  :::
+
+  Il Web Inspector per Android è gestito dai DevTools di Google Chrome ed è accessibile tramite l'URL `chrome://inspect` nel browser Chrome.
+  Il tuo dispositivo o l'emulatore dovrebbe essere presente nella lista dei dispositivi remoti se la tua applicazione Android è in esecuzione,
+  ed è possibile aprire gli strumenti cliccando **ispeziona** sul tuo dispositivo.
+
+#### Risoluzione dei problemi
+
+1. Errore nell'eseguire lo script di compilazione su Xcode
+
+Tauri si aggancia al progetto di Xcode creando una fase di compilazione che esegue la CLI di Tauri per compilare il
+sorgente Rust come se fosse una libraria caricata a durante l'esecuzione. La fase di compilazione viene eseguite nel
+contesto del processo di Xcode, quindi potrebbe non essere in grado di usare modifiche della shell come le aggiunte al PATH,
+quindi fai attenzione quando usi strumenti come i gestori delle versioni di Node.js che potrebbero non essere compatibili.
+
+2. Richieste di permessi di rete per la prima esecuzione dell'app iOS
+
+La prima volta che esegui `tauri ios dev` è probabile che iOS ti chieda il permesso di trovare e connettersi ad altri
+dispositivi nella tua rete locale. Dare questo permesso è necessario perché per accedere al server di sviluppo da un dispositivo iOS,
+dobbiamo renderlo visibile nella rete locale. Per eseguire l'app sul tuo dispositivo devi premere Consenti e riavviare l'applicazione.
+
+### Reagire ai cambiamenti del codice sorgente
+
+Analogamente a come la webview riflette i cambiamenti in tempo reale,
+Tauri controlla se i tuoi file Rust vengono modificati così che anche quando solo uno cambia la tua applicazione
+viene automaticamente ricompilata e riavviata.
+
+Puoi disattivare questa comportamento usando l'opzione `--no-watch` sul comando `tauri dev`.
+
+Per definire i file che devono essere ignorati, e quindi che non riavviano l'app, puoi creare un file `.taurignore` nel cartella `src-tauri`.
+Questo file funziona come un normale file ignore di Git, così che tu possa ignorare qualsiasi cartella o file:
+
+```filename=.taurignore
+build/
+src/generated/*.rs
+deny.toml
+```
+
+### Usare i DevTools del Browser
+
+Le API di Tauri funziono solo nella finestra della tua app,
+quindi da quando inizi ad usarle non sarai più in grado di aprire il tuo frontend sul browser del tuo computer.
+
+Se preferisci usare i DevTools del tuo browser, devi configurare [tauri-invoke-http](https://github.com/tauri-apps/tauri-invoke-http)
+per collegare le chiamate API di Tauri tramite un server HTTP.
+
+### Controllo del codice sorgente
+
+Nella repository del tuo progetto, **DOVRESTI** fare il commit del file `src-tauri/Cargo.lock` insieme al file `src-tauri/Cargo.toml` su git
+perché Cargo utilizza il file di lock per fornire compilazioni deterministiche.
+Inoltre, è raccomandato che tutte le applicazioni controllino il loro file `Cargo.lock`.
+**NON DOVRESTI** fare il commit della cartella `src-tauri/target` o qualsiasi suo contenuto.
