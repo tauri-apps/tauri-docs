@@ -3,12 +3,7 @@ title: Continuous Integration
 description: WebDriver Testing
 sidebar:
   order: 21
-  badge:
-    text: Broken
-    variant: caution
 ---
-
-<!-- {/*TODO: REVISE COPY TO V2 */} -->
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with
 [`tauri-driver`] on your CI. The following example uses the [WebdriverIO] example we [previously built together] and
@@ -48,9 +43,15 @@ jobs:
       - name: Tauri dependencies
         run: |
           sudo apt update && sudo apt install -y \
-            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
             libayatana-appindicator3-dev \
-            libwebkit2gtk-4.0-dev \
+            librsvg2-dev \
             webkit2gtk-driver \
             xvfb
 
@@ -81,7 +82,7 @@ jobs:
       # install the latest version of `tauri-driver`.
       # note: the tauri-driver version is independent of any other Tauri versions
       - name: Install tauri-driver
-        run: cargo install tauri-driver
+        run: cargo install tauri-driver --locked
 
       # run the WebdriverIO test suite.
       # we run it through `xvfb-run` (the dependency we installed earlier) to have a fake
@@ -91,7 +92,7 @@ jobs:
         working-directory: webdriver/webdriverio
 ```
 
-[previously built together]: /develop/tests/webdriver/example/webdriverio
+[previously built together]: /develop/tests/webdriver/example/webdriverio/
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/

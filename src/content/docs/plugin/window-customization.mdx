@@ -2,10 +2,6 @@
 title: Window Customization
 tableOfContents:
   maxHeadingLevel: 4
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
 import { Icon } from '@astrojs/starlight/components';
@@ -21,7 +17,7 @@ There are three ways to change the window configuration:
 - <Icon name="external" class="inline-icon" /> [Through the JavaScript
   API](/reference/javascript/api/namespacewindow/#window)
 - <Icon name="external" class="inline-icon" /> [Through the Window in
-  Rust](https://docs.rs/tauri/2.0.0-rc/tauri/window/struct.Window.html)
+  Rust](https://docs.rs/tauri/2.0.0/tauri/window/struct.Window.html)
 
 ## Usage
 
@@ -58,7 +54,7 @@ By default, all plugin commands are blocked and cannot be accessed. You must def
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={7-8}
+```json title="src-tauri/capabilities/main.json" ins={6}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -158,6 +154,44 @@ document
 
 Note that if you are using a Rust-based frontend, you can copy the code above into a `<script>` element in your `index.html` file.
 
+:::note
+`data-tauri-drag-region` will only work on the element to which it is directly applied. If you want the drag behavior to apply to child elements as well, you'll need to add it to each child individually.
+
+This behavior is preserved so that interactive elements like buttons and inputs can function properly.
+:::
+
+### Manual Implementation of `data-tauri-drag-region`
+
+For use cases where you customize the drag behavior, you can manually add an event listener with `window.startDragging` instead of using `data-tauri-drag-region`.
+
+#### HTML
+
+From the code in the previous section, we remove `data-tauri-drag-region` and add an `id`:
+
+```html del={1} ins={2}
+<div data-tauri-drag-region class="titlebar">
+  <div id="titlebar" class="titlebar">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+#### Javascript
+
+Add an event listener to the titlebar element:
+
+```js {2-9}
+// ...
+document.getElementById('titlebar')?.addEventListener('mousedown', (e) => {
+  if (e.buttons === 1) {
+    // Primary (left) button
+    e.detail === 2
+      ? appWindow.toggleMaximize() // Maximize on double click
+      : appWindow.startDragging(); // Else start dragging
+  }
+});
+```
+
 ### (macOS) Transparent Titlebar with Custom Window Background Color
 
 We are going to create the main window and change its background color from the Rust side.
@@ -188,7 +222,7 @@ Create the main window and change its background color:
     ```rust title="src-tauri/src/lib.rs"
     use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
 
-    fn run() {
+    pub run() {
     	tauri::Builder::default()
     		.setup(|app| {
     			let win_builder =

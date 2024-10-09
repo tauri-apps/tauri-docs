@@ -1,0 +1,50 @@
+diff --git a/schemas/sidebar.ts b/schemas/sidebar.ts
+index 2c4cc1d588f27b0106a82135ca3772cba86c5309..59a46a986a3fac739043c71f8a97801fa50e3e64 100644
+--- a/schemas/sidebar.ts
++++ b/schemas/sidebar.ts
+@@ -49,6 +49,8 @@ const AutoSidebarGroupSchema = SidebarGroupSchema.extend({
+ 		// TODO: not supported by Docusaurus but would be good to have
+ 		/** How many directories deep to include from this directory in the sidebar. Default: `Infinity`. */
+ 		// depth: z.number().optional(),
++		sort: z.enum(['date']).optional(),
++		order: z.enum(['ascending','descending']).optional()
+ 	}),
+ }).strict();
+ export type AutoSidebarGroup = z.infer<typeof AutoSidebarGroupSchema>;
+diff --git a/utils/navigation.ts b/utils/navigation.ts
+index 526d9f29ddc4a2a050be1869b708065a401758f3..9b6a2151b2500a131425a7d4d7279bdab7d54173 100644
+--- a/utils/navigation.ts
++++ b/utils/navigation.ts
+@@ -97,7 +97,7 @@ function groupFromAutogenerateConfig(
+ 	routes: Route[],
+ 	currentPathname: string
+ ): Group {
+-	const { collapsed: subgroupCollapsed, directory } = item.autogenerate;
++	const { collapsed: subgroupCollapsed, directory , sort, order } = item.autogenerate;
+ 	const localeDir = locale ? locale + '/' + directory : directory;
+ 	const dirDocs = routes.filter(
+ 		(doc) =>
+@@ -106,7 +106,8 @@ function groupFromAutogenerateConfig(
+ 			// Match against `foo/anything/else.md`.
+ 			doc.id.startsWith(localeDir + '/')
+ 	);
+-	const tree = treeify(dirDocs, localeDir);
++	const sorted = !sort ? dirDocs : dirDocs.sort(sortHandler(sort, order)).map((doc, i) => {doc.entry.data.sidebar.order = i; return doc});
++	const tree = treeify(sorted, localeDir);
+ 	const label = pickLang(item.translations, localeToLang(locale)) || item.label;
+ 	return {
+ 		type: 'group',
+@@ -117,6 +118,13 @@ function groupFromAutogenerateConfig(
+ 	};
+ }
+ 
++const sortHandler = (kind: 'date', order: 'ascending' | 'descending') => {
++	if (kind === 'date') {
++		if (order === 'ascending') return (docA: Route, docB: Route) => docA.entry.data.date! > docB.entry.data.date! ? 1 : -1
++		return (docA: Route, docB: Route) => docA.entry.data.date! < docB.entry.data.date! ? 1 : -1
++	}
++}
++
+ /** Check if a string starts with one of `http://` or `https://`. */
+ const isAbsolute = (link: string) => /^https?:\/\//.test(link);
+ 

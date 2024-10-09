@@ -1,15 +1,22 @@
 ---
 title: 操作系统信息
 description: 查看操作系统信息。
+plugin: os
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="os" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 使用操作系统信息插件读取操作系统信息。
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 

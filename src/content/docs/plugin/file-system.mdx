@@ -1,28 +1,25 @@
 ---
 title: File System
 description: Access the file system.
+plugin: fs
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="fs" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Access the file system.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
-- Android (in progress)
-- iOS (in progress)
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the fs plugin to get started.
 
@@ -55,7 +52,7 @@ Install the fs plugin to get started.
 
             ```rust title="src-tauri/src/lib.rs" ins={4}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
               tauri::Builder::default()
                 .plugin(tauri_plugin_fs::init())
                 .run(tauri::generate_context!())
@@ -77,6 +74,46 @@ Install the fs plugin to get started.
 
 </Tabs>
 
+## Configuration
+
+### Android
+
+When using the audio, cache, documents, downloads, picture, public or video directories your app must have access to the external storage.
+
+Include the following permissions to the `manifest` tag in the `gen/android/app/src/main/AndroidManifest.xml` file:
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+### iOS
+
+Apple requires app developers to specify approved reasons for API usage to enhance user privacy.
+
+You must create a `PrivacyInfo.xcprivacy` file in the `src-tauri/gen/apple` folder
+with the required [NSPrivacyAccessedAPICategoryFileTimestamp] key and the [C617.1] recommended reason.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>C617.1</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>
+```
+
 ## Usage
 
 The fs plugin is available in both JavaScript and Rust.
@@ -87,7 +124,7 @@ The fs plugin is available in both JavaScript and Rust.
 ```javascript
 import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
 // when using `"withGlobalTauri": true`, you may use
-// const { exists, BaseDirectory } = window.__TAURI_PLUGIN_FS__;
+// const { exists, BaseDirectory } = window.__TAURI__.fs;
 
 // Check if the `$APPDATA/avatar.png` file exists
 await exists('avatar.png', { baseDir: BaseDirectory.AppData });
@@ -100,7 +137,7 @@ await exists('avatar.png', { baseDir: BaseDirectory.AppData });
 use tauri_plugin_fs::FsExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
+pub fn run() {
   tauri::Builder::default()
       .plugin(tauri_plugin_fs::init())
       .setup(|app| {
@@ -531,8 +568,8 @@ To watch a directory or file for changes, use the `watch` or `watchImmediate` fu
   `watchImmediate` immediately notifies listeners of an event:
 
   ```js
-  import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
-  await watch(
+  import { watchImmediate, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watchImmediate(
     'logs',
     (event) => {
       console.log('logs directory event', event);
@@ -546,6 +583,16 @@ To watch a directory or file for changes, use the `watch` or `watchImmediate` fu
 
 By default watch operations on a directory are not recursive.
 Set the `recursive` option to `true` to recursively watch for changes on all sub-directories.
+
+:::note
+The watch functions require the `watch` feature flag:
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-fs = { version = "2.0.0", features = ["watch"] }
+```
+
+:::
 
 ## Permissions
 
@@ -569,7 +616,7 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="fs" />
+<PluginPermissions plugin={frontmatter.plugin} />
 
 ### Scopes
 
@@ -663,7 +710,9 @@ use the the object form of permissions `{ "identifier": string, "allow"?: [], "d
 In the above example you can use the [`exists`](#exists) API using any `$APPDATA` sub path (does not include sub-directories)
 and the [`rename`](#rename)
 
+[NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
 [base directory]: /reference/javascript/api/namespacepath/#basedirectory
-[path API]: reference/javascript/api/namespacepath
+[path API]: /reference/javascript/api/namespacepath/
 [@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
 [Command Scopes]: /security/scope/

@@ -38,7 +38,7 @@ Tauri 如此灵活的一点在于它能够与几乎任何前端框架配合工�
 
 {/* TODO: Can CTA offer to install the deps? */}
 
-在 `create-tauri-app` 创建完项目后，您可以进入项目文件夹，安装依赖，然后使用 [Tauri CLI](/reference/cli) 启动开发服务器：
+在 `create-tauri-app` 创建完项目后，您可以进入项目文件夹，安装依赖，然后使用 [Tauri CLI](/reference/cli/) 启动开发服务器：
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -87,10 +87,10 @@ import CommandTabs from '@components/CommandTabs.astro';
     2. 接着，使用您选择的包管理器安装 Tauri 的 CLI 工具。如果您使用 `cargo` 来安装 Tauri CLI，您需要全局安装它。
 
         <CommandTabs
-            npm="npm install -D @tauri-apps/cli@next"
-            yarn="yarn add -D @tauri-apps/cli@next"
-            pnpm="pnpm add -D @tauri-apps/cli@next"
-            cargo="cargo install tauri-cli@^2.0.0-rc"
+            npm="npm install -D @tauri-apps/cli@latest"
+            yarn="yarn add -D @tauri-apps/cli@latest"
+            pnpm="pnpm add -D @tauri-apps/cli@latest"
+            cargo='cargo install tauri-cli --version "^2.0.0" --locked'
         />
 
     3. 确定您的前端开发服务器的 URL。这个 URL 是 Tauri 用来加载您的内容的地址。例如，如果您正在使用 Vite，那么默认的 URL 是 http://localhost:5173 。

@@ -1,26 +1,23 @@
 ---
 title: Autostart
 description: Automatically launch your app at system startup.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+plugin: autostart
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="autostart" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Automatically launch your application at system startup.
 
 ## Supported Platforms
 
-- Windows
-- Mac (via AppleScript or Launch Agent)
-- Linux
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -55,7 +52,7 @@ Install the autostart plugin to get started.
 
             ```rust title="src-tauri/src/lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
                     .setup(|app| {
                         #[cfg(desktop)]
@@ -91,7 +88,7 @@ The autostart plugin is available in both JavaScript and Rust.
 ```javascript
 import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
 // when using `"withGlobalTauri": true`, you may use
-// const { enable, isEnabled, disable } = window.__TAURI_PLUGIN_AUTOSTART__;
+// const { enable, isEnabled, disable } = window.__TAURI__.autostart;
 
 // Enable autostart
 await enable();
@@ -105,25 +102,29 @@ disable();
   <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_autostart::MacosLauncher;
-use tauri_plugin_autostart::ManagerExt;
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
+pub fn run() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_autostart::init(
-            MacosLauncher::LaunchAgent,
-            Some(vec!["--flag1", "--flag2"]),
-        ))
         .setup(|app| {
-            // Get the autostart manager
-            let autostart_manager = app.autolaunch();
-            // Enable autostart
-            let _ = autostart_manager.enable();
-            // Check enable state
-            println!("registered for autostart? {}", autostart_manager.is_enabled().unwrap());
-            // Disable autostart
-            let _ = autostart_manager.disable();
+            #[cfg(desktop)]
+            {
+                use tauri_plugin_autostart::MacosLauncher;
+                use tauri_plugin_autostart::ManagerExt;
+
+                app.handle().plugin(tauri_plugin_autostart::init(
+                    MacosLauncher::LaunchAgent,
+                    Some(vec!["--flag1", "--flag2"]),
+                ));
+
+                // Get the autostart manager
+                let autostart_manager = app.autolaunch();
+                // Enable autostart
+                let _ = autostart_manager.enable();
+                // Check enable state
+                println!("registered for autostart? {}", autostart_manager.is_enabled().unwrap());
+                // Disable autostart
+                let _ = autostart_manager.disable();
+            }
             Ok(())
         })
         .run(tauri::generate_context!())
@@ -151,4 +152,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="autostart" />
+<PluginPermissions plugin={frontmatter.plugin} />

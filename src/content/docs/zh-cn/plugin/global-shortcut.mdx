@@ -1,25 +1,24 @@
 ---
 title: 全局快捷方式
 description: 注册全局快捷方式。
+plugin: global-shortcut
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="global-shortcut" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 注册全局快捷方式。
 
 ## 支持的平台
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
-
-_这个插件要求 Rust 版本至少是 **1.75**_
 
 请安装全局快捷方式插件。
 
@@ -46,7 +45,7 @@ _这个插件要求 Rust 版本至少是 **1.75**_
 ```toml title="src-tauri/Cargo.toml"
 # 如果你的目标不是移动设备，你可以在 `[dependencies]` 部分添加依赖
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-global-shortcut = "2.0.0-rc"
+tauri-plugin-global-shortcut = "2.0.0"
 # 或者使用 Git
 tauri-plugin-global-shortcut = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
 ```
@@ -126,7 +125,7 @@ fn run() {
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={7-9}
 {

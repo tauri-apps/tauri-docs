@@ -8,12 +8,12 @@ sidebar:
 
 import CommandTabs from '@components/CommandTabs.astro';
 
-Now that you have [everything set up](../start/), you are ready to run your application using Tauri.
+Now that you have [everything set up](/start/), you are ready to run your application using Tauri.
 
 If you are using an UI framework or JavaScript bundler you likely have access to a development server
 that will speed up your development process, so if you haven't configured your app's dev URL and script
-that starts it, you can do so via the [devUrl](../reference/config.md#devurl) and
-[beforeDevCommand](../reference/config.md#beforedevcommand) config values:
+that starts it, you can do so via the [devUrl](/reference/config/#devurl) and
+[beforeDevCommand](/reference/config/#beforedevcommand) config values:
 
 ```json title=tauri.conf.json
 {
@@ -49,7 +49,7 @@ Note that in this example the `src` folder must include a `index.html` file alon
 
 The built-in Tauri development server does not support mutual authentication
 or encryption. You should never use it for development on untrusted networks.
-See the [development server security considerations](/security/lifecycle#development-server)
+See the [development server security considerations](/security/lifecycle/#development-server)
 for a more detailed explanation.
 
 :::
@@ -159,6 +159,19 @@ To open the mobile IDE instead of running on a connected device or simulator, us
   pnpm="pnpm tauri [android|ios] dev --open"
   cargo="cargo tauri [android|ios] dev --open"
 />
+
+:::note
+If you intend on running the application on a physical iOS device you must also provide the `--host` argument
+and your development server must use the `process.env.TAURI_DEV_HOST` value as host.
+See your framework's setup guide for more information.
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev --open --host"
+  yarn="yarn tauri [android|ios] dev --open --host"
+  pnpm="pnpm tauri [android|ios] dev --open --host"
+  cargo="cargo tauri [android|ios] dev --open --host"
+/>
+:::
 
 :::caution
 To use Xcode or Android Studio the Tauri CLI process **must** be running and **cannot** be killed.

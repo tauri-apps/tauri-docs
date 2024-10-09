@@ -51,18 +51,28 @@ Refer to the [Plugin Configuration section](/develop/plugins/#plugin-configurati
 
 The plugin instance on mobile has a getter for the plugin configuration:
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
 import android.app.Activity
 import android.webkit.WebView
 import app.tauri.annotation.TauriPlugin
+import app.tauri.annotation.InvokeArg
+
+@InvokeArg
+class Config {
+    var timeout: Int? = 3000
+}
 
 @TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  private var timeout: Int? = 3000
+
   override fun load(webView: WebView) {
-    val timeout = this.config.getInt("timeout", 30)
+    getConfig(Config::class.java).let {
+       this.timeout = it.timeout
+    }
   }
 }
 ```
@@ -71,9 +81,18 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 <TabItem label="iOS">
 
 ```swift
+struct Config: Decodable {
+  let timeout: Int?
+}
+
 class ExamplePlugin: Plugin {
+  var timeout: Int? = 3000
+
   @objc public override func load(webview: WKWebView) {
-    let timeout = self.config["timeout"] as? Int ?? 30
+    do {
+      let config = try parseConfig(Config.self)
+      self.timeout = config.timeout
+    } catch {}
   }
 }
 ```
@@ -95,7 +114,7 @@ There are also the additional [lifecycle events for plugins](/develop/plugins/#l
 - **When**: When the plugin is loaded into the web view
 - **Why**: Execute plugin initialization code
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -151,7 +170,7 @@ There is a plugin class inside the respective mobile projects where commands can
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -163,6 +182,33 @@ import app.tauri.annotation.TauriPlugin
 class ExamplePlugin(private val activity: Activity): Plugin(activity) {
   @Command
   fun openCamera(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+If you want to use a Kotlin `suspend` function, you need to use a custom coroutine scope
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+// Change to Dispatchers.IO if it is intended for fetching data
+val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    scope.launch {
+      openCameraInner(invoke)
+    }
+  }
+
+  private suspend fun openCameraInner(invoke: Invoke) {
     val ret = JSObject()
     ret.put("path", "/path/to/photo.jpg")
     invoke.resolve(ret)
@@ -184,7 +230,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
+Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
 
 ```rust
 use std::path::PathBuf;
@@ -299,7 +345,7 @@ Required arguments are defined as `let <argumentName>: Type`
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 First define the list of permissions needed and an alias to identify each group in code. This is done inside the `TauriPlugin` annotation:
@@ -335,17 +381,14 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`. Those commands can be directly called from JavaScript or Rust:
-
-{/* TODO: PermissionState type should be exported in Tauri */}
+Tauri automatically implements two commands for the plugin: `checkPermissions` and `requestPermissions`.
+Those commands can be directly called from JavaScript or Rust:
 
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/core'
-
-type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+import { invoke, PermissionState } from '@tauri-apps/api/core'
 
 interface Permissions {
   postNotification: PermissionState
@@ -369,7 +412,7 @@ if (permission.postNotification.startsWith('prompt')) {
 
 ```rust
 use serde::{Serialize, Deserialize};
-use tauri::Runtime;
+use tauri::{plugin::PermissionState, Runtime};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -408,7 +451,7 @@ impl<R: Runtime> Notification<R> {
 
 Plugins can emit events at any point of time using the `trigger` function:
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin

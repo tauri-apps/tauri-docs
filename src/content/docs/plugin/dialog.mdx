@@ -4,16 +4,23 @@ description: Native system dialogs for opening and saving files along with messa
 i18nReady: true
 tableOfContents:
   maxHeadingLevel: 4
+plugin: dialog
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="dialog" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Native system dialogs for opening and saving files along with message dialogs.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -84,13 +91,19 @@ in Rust:
 - [Build a Message Dialog](#build-a-message-dialog)
 - [Build a File Selector Dialog](#build-a-file-selector-dialog)
 
----
+:::note
+The file dialog APIs returns file system paths on Linux, Windows and macOS.
+
+On iOS, a `file://<path>` URIs are returned.
+
+On Android, [content URIs] are returned.
+
+The [filesystem plugin] works with any path format out of the box.
+:::
 
 ### JavaScript
 
 See all [Dialog Options](/reference/javascript/dialog/) at the JavaScript API reference.
-
-{/* ASK */}
 
 #### Create Yes/No Dialog
 
@@ -99,7 +112,7 @@ Shows a question dialog with `Yes` and `No` buttons.
 ```javascript
 import { ask } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { ask } = window.__TAURI_PLUGIN_DIALOG__;
+// const { ask } = window.__TAURI__.dialog;
 
 // Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
@@ -111,8 +124,6 @@ console.log(answer);
 // Prints boolean to the console
 ```
 
-{/* CONFIRM */}
-
 #### Create Ok/Cancel Dialog
 
 Shows a question dialog with `Ok` and `Cancel` buttons.
@@ -120,7 +131,7 @@ Shows a question dialog with `Ok` and `Cancel` buttons.
 ```javascript
 import { confirm } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { confirm } = window.__TAURI_PLUGIN_DIALOG__;
+// const { confirm } = window.__TAURI__.dialog;
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
@@ -132,8 +143,6 @@ console.log(confirmation);
 // Prints boolean to the console
 ```
 
-{/* MESSAGE */}
-
 #### Create Message Dialog
 
 Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
@@ -141,13 +150,11 @@ Shows a message dialog with an `Ok` button. Keep in mind that if the user closes
 ```javascript
 import { message } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { message } = window.__TAURI_PLUGIN_DIALOG__;
+// const { message } = window.__TAURI__.dialog;
 
 // Shows message
 await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
-
-{/* OPEN */}
 
 #### Open a File Selector Dialog
 
@@ -158,7 +165,7 @@ The `multiple` option controls whether the dialog allows multiple selection or n
 ```javascript
 import { open } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { open } = window.__TAURI_PLUGIN_DIALOG__;
+// const { open } = window.__TAURI__.dialog;
 
 // Open a dialog
 const file = await open({
@@ -166,10 +173,8 @@ const file = await open({
   directory: false,
 });
 console.log(file);
-// Prints file path and name to the console
+// Prints file path or URI
 ```
-
-{/* SAVE */}
 
 #### Save to File Dialog
 
@@ -178,7 +183,7 @@ Open a file/directory save dialog.
 ```javascript
 import { save } from '@tauri-apps/plugin-dialog';
 // when using `"withGlobalTauri": true`, you may use
-// const { save } = window.__TAURI_PLUGIN_DIALOG__;
+// const { save } = window.__TAURI__.dialog;
 
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
@@ -204,26 +209,24 @@ Refer to the [Rust API reference](https://docs.rs/tauri-plugin-dialog/) to see a
 Shows a question dialog with `Absolutely` and `Totally` buttons.
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
 let answer = app.dialog()
         .message("Tauri is Awesome")
         .title("Tauri is Awesome")
-        .ok_button_label("Absolutely")
-        .cancel_button_label("Totally")
+        .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
         .blocking_show();
 ```
 
 If you need a non blocking operation you can use `show()` instead:
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
 app.dialog()
     .message("Tauri is Awesome")
     .title("Tauri is Awesome")
-    .ok_button_label("Absolutely")
-    .cancel_button_label("Totally")
+   .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
     .show(|result| match result {
         true => // do something,
         false =>// do something,
@@ -247,13 +250,13 @@ let ans = app.dialog()
 If you need a non blocking operation you can use `show()` instead:
 
 ```rust
-use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
 
 app.dialog()
     .message("Tauri is Awesome")
     .kind(MessageDialogKind::Info)
     .title("Information")
-    .ok_button_label("Absolutely")
+    .buttons(MessageDialogButtons::OkCustom("Absolutely"))
     .show(|result| match result {
         true => // do something,
         false => // do something,
@@ -308,4 +311,7 @@ app.dialog()
     });
 ```
 
-<PluginPermissions plugin="dialog" />
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[content URIs]: https://developer.android.com/guide/topics/providers/content-provider-basics
+[filesystem plugin]: /plugin/file-system/

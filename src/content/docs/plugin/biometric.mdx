@@ -1,21 +1,27 @@
 ---
 title: Biometric
 description: Prompt the user for biometric authentication on Android and iOS.
+sidebar:
+  badge:
+    text: New
+    variant: tip
+plugin: biometric
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
 
-<PluginLinks plugin="biometric" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Prompt the user for biometric authentication on Android and iOS.
 
 ## Supported Platforms
 
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -45,7 +51,7 @@ Install the biometric plugin to get started.
 
             ```rust title="src-tauri/src/lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
                     .setup(|app| {
                         #[cfg(mobile)]
@@ -69,6 +75,23 @@ Install the biometric plugin to get started.
     </TabItem>
 
 </Tabs>
+
+## Configuration
+
+On iOS the biometric plugin requires the `NSFaceIDUsageDescription` information property list value, which should describe why your app needs to use biometric authentication.
+
+In the `src-tauri/Info.ios.plist` file, add the following snippet:
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Authenticate with biometric</string>
+	</dict>
+</plist>
+```
 
 ## Usage
 
@@ -203,4 +226,4 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
 }
 ```
 
-<PluginPermissions plugin="biometric" />
+<PluginPermissions plugin={frontmatter.plugin} />

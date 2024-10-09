@@ -1,22 +1,23 @@
 ---
 title: Updater
 description: In-app updates for Tauri applications.
+plugin: updater
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import PluginPermissions from '@components/PluginPermissions.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
 
-<PluginLinks plugin="updater" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 Automatically update your Tauri app with an update server or a static JSON.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
 
@@ -49,7 +50,7 @@ Install the Tauri updater plugin to get started.
 
             ```rust title="lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
-            fn run() {
+            pub fn run() {
                 tauri::Builder::default()
                     .setup(|app| {
                         #[cfg(desktop)]
@@ -81,7 +82,7 @@ Tauri's updater needs a signature to verify that the update is from a trusted so
 
 To sign your updates you need two keys:
 
-1. The public key, which will be set in the `tauri.config.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
+1. The public key, which will be set in the `tauri.conf.json` to validate the artifacts before the installation. This public key can be uploaded and shared safely as long as your private key is secure.
 2. The private key, which is used to sign your installer files. You should NEVER share this key with anyone. Also, if you lose this key you will NOT be able to publish new updates to the users that have the app already installed. It is important to store this key in a safe place!
 
 To generate the keys the Tauri CLI provides the `signer generate` command. You can run this to create the keys in the home folder:
@@ -148,7 +149,7 @@ On Windows, Tauri will create the normal MSI and NSIS installers inside the targ
 - `myapp-setup.exe` - The standard app bundle. It will be re-used by the updater.
 - `myapp-setup.exe.sig` - The signature of the update bundle.
 - `myapp.msi` - The standard app bundle. It will be re-used by the updater.
-- `myapp.msi.sig` - Tthe signature of the update bundle.
+- `myapp.msi.sig` - The signature of the update bundle.
 
 {''}
 
@@ -191,13 +192,14 @@ On Windows, Tauri will create .zip archives from the MSI and NSIS installers ins
 
 ## Tauri Configuration
 
-Set up the `tauri.config.json` in this format for the updater to start working.
+Set up the `tauri.conf.json` in this format for the updater to start working.
 
-| Keys                     | Description                                                                                                                                                                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `createUpdaterArtifacts` | Setting this to `true` tells Tauri's app bundler to create updater artifacts. If you're migrating your app from an older Tauri version, set it to `"v1Compatible"` instead. **This setting will be removed in v3** so make sure to change it to `true` once all your users are migrated to v2. |
-| `pubkey`                 | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
-| `endpoints`              | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
+| Keys                                 | Description                                                                                                                                                                                                                                                                                    |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createUpdaterArtifacts`             | Setting this to `true` tells Tauri's app bundler to create updater artifacts. If you're migrating your app from an older Tauri version, set it to `"v1Compatible"` instead. **This setting will be removed in v3** so make sure to change it to `true` once all your users are migrated to v2. |
+| `pubkey`                             | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
+| `endpoints`                          | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
+| `dangerousInsecureTransportProtocol` | Setting this to `true` allows the updater to accept non-HTTPS endpoints. Use this configuration with caution!                                                                                                                                                                                  |
 
 Each updater URL can contain the following dynamic variables, allowing you to determine server-side if an update is available.
 
@@ -382,7 +384,7 @@ For more information see the [JavaScript API documentation].
 ```rust title="src-tauri/src/lib.rs"
 use tauri_plugin_updater::UpdaterExt;
 
-fn run() {
+pub fn run() {
   tauri::Builder::default()
     .setup(|app| {
       let handle = app.handle().clone();
@@ -420,114 +422,128 @@ To notify the frontend of the download progress consider using a command with a 
   <summary>Updater command</summary>
 
 ```rust
-use std::sync::Mutex;
-use serde::Serialize;
-use tauri::{ipc::Channel, AppHandle, State};
-use tauri_plugin_updater::{Update, UpdaterExt};
+#[cfg(desktop)]
+mod app_updates {
+    use std::sync::Mutex;
+    use serde::Serialize;
+    use tauri::{ipc::Channel, AppHandle, State};
+    use tauri_plugin_updater::{Update, UpdaterExt};
 
-#[derive(Debug, thiserror::Error)]
-enum Error {
-  #[error(transparent)]
-  Updater(#[from] tauri_plugin_updater::Error),
-  #[error("there is no pending update")]
-  NoPendingUpdate,
-}
+    #[derive(Debug, thiserror::Error)]
+    pub enum Error {
+        #[error(transparent)]
+        Updater(#[from] tauri_plugin_updater::Error),
+        #[error("there is no pending update")]
+        NoPendingUpdate,
+    }
 
-impl Serialize for Error {
-  fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-  where
-    S: serde::Serializer,
-  {
-    serializer.serialize_str(self.to_string().as_str())
-  }
-}
-
-type Result<T> = std::result::Result<T, Error>;
-
-#[derive(Clone, Serialize)]
-#[serde(tag = "event", content = "data")]
-enum DownloadEvent {
-  #[serde(rename_all = "camelCase")]
-  Started {
-    content_length: Option<u64>,
-  },
-  #[serde(rename_all = "camelCase")]
-  Progress {
-    chunk_length: usize,
-  },
-  Finished,
-}
-
-#[derive(Serialize)]
-#[serde(rename_all = "camelCase")]
-struct UpdateMetadata {
-  version: String,
-  current_version: String,
-}
-
-#[tauri::command]
-async fn fetch_update(
-  app: AppHandle,
-  pending_update: State<'_, PendingUpdate>,
-) -> Result<Option<UpdateMetadata>> {
-  let channel = "stable";
-  let url = url::Url::parse(&format!(
-    "https://cdn.myupdater.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}?channel={channel}",
-  )).expect("invalid URL");
-
-  let update = app
-    .updater_builder()
-    .endpoints(vec![url])
-    .build()?
-    .check()
-    .await?;
-
-  let update_metadata = update.as_ref().map(|update| UpdateMetadata {
-    version: update.version.clone(),
-    current_version: update.current_version.clone(),
-  });
-
-  *pending_update.0.lock().unwrap() = update;
-
-  Ok(update_metadata)
-}
-
-#[tauri::command]
-async fn install_update(pending_update: State<'_, PendingUpdate>, on_event: Channel<DownloadEvent>) -> Result<()> {
-  let Some(update) = pending_update.0.lock().unwrap().take() else {
-    return Err(Error::NoPendingUpdate);
-  };
-
-  let started = false;
-
-  update
-    .download_and_install(
-      |chunk_length, content_length| {
-        if !started {
-          let _ = on_event.send(DownloadEvent::Started { content_length });
-          started = true;
+    impl Serialize for Error {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            serializer.serialize_str(self.to_string().as_str())
         }
+    }
 
-        let _ = on_event.send(DownloadEvent::Progress { chunk_length });
-      },
-      || {
-        let _ = on_event.send(DownloadEvent::Finished);
-      },
-    )
-    .await?;
+    type Result<T> = std::result::Result<T, Error>;
 
-  Ok(())
+    #[derive(Clone, Serialize)]
+    #[serde(tag = "event", content = "data")]
+    pub enum DownloadEvent {
+        #[serde(rename_all = "camelCase")]
+        Started {
+            content_length: Option<u64>,
+        },
+        #[serde(rename_all = "camelCase")]
+        Progress {
+            chunk_length: usize,
+        },
+        Finished,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UpdateMetadata {
+        version: String,
+        current_version: String,
+    }
+
+    #[tauri::command]
+    pub async fn fetch_update(
+        app: AppHandle,
+        pending_update: State<'_, PendingUpdate>,
+    ) -> Result<Option<UpdateMetadata>> {
+        let channel = "stable";
+        let url = url::Url::parse(&format!(
+            "https://cdn.myupdater.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}?channel={channel}",
+        )).expect("invalid URL");
+
+      let update = app
+          .updater_builder()
+          .endpoints(vec![url])?
+          .build()?
+          .check()
+          .await?;
+
+      let update_metadata = update.as_ref().map(|update| UpdateMetadata {
+          version: update.version.clone(),
+          current_version: update.current_version.clone(),
+      });
+
+      *pending_update.0.lock().unwrap() = update;
+
+      Ok(update_metadata)
+    }
+
+    #[tauri::command]
+    pub async fn install_update(pending_update: State<'_, PendingUpdate>, on_event: Channel<DownloadEvent>) -> Result<()> {
+        let Some(update) = pending_update.0.lock().unwrap().take() else {
+            return Err(Error::NoPendingUpdate);
+        };
+
+        let started = false;
+
+        update
+            .download_and_install(
+                |chunk_length, content_length| {
+                    if !started {
+                        let _ = on_event.send(DownloadEvent::Started { content_length });
+                        started = true;
+                    }
+
+                    let _ = on_event.send(DownloadEvent::Progress { chunk_length });
+                },
+                || {
+                    let _ = on_event.send(DownloadEvent::Finished);
+                },
+            )
+            .await?;
+
+        Ok(())
+    }
+
+    struct PendingUpdate(Mutex<Option<Update>>);
 }
-
-struct PendingUpdate(Mutex<Option<Update>>);
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-  tauri::Builder::default()
-    .plugin(tauri_plugin_process::init())
-    .plugin(tauri_plugin_updater::Builder::new().build())
-    .invoke_handler(tauri::generate_handler![fetch_update, install_update])
-    .manage(PendingUpdate(Mutex::new(None)))
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                app.manage(app_updates::PendingUpdate(Mutex::new(None)));
+            }
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![
+            #[cfg(desktop)]
+            app_updates::fetch_update,
+            #[cfg(desktop)]
+            app_updates::install_update
+        ])
 }
 ```
 
@@ -599,7 +615,7 @@ let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch
 
 let update = app
   .updater_builder()
-  .endpoints(vec![update_url])
+  .endpoints(vec![update_url])?
   .build()?
   .check()
   .await?;
@@ -725,9 +741,24 @@ The values from the [configuration](#tauri-configuration) are used as fallback i
 :::
 
 [`createUpdaterArtifacts`]: /reference/config/#createupdaterartifacts
-[Distributing with CrabNebula Cloud]: /distribute/crabnebula-cloud
+[Distributing with CrabNebula Cloud]: /distribute/crabnebula-cloud/
 [channel]: /develop/calling-frontend/#channels
 [JavaScript API Documentation]: /reference/javascript/updater/
 [Rust API Documentation]: https://docs.rs/tauri-plugin-updater
 
-<PluginPermissions plugin="updater" />
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/main.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "updater:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

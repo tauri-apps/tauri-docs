@@ -1,23 +1,22 @@
 ---
 title: Store
 description: 持久键值存储。
+plugin: store
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="store" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 简单、持久的键值存储。
 
 ## 支持的平台
 
-- Windows
-- Linux
-- macOS
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 
@@ -41,7 +40,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
     ```toml title="src-tauri/Cargo.toml"
     [dependencies]
-    tauri-plugin-store = "2.0.0-rc"
+    tauri-plugin-store = "2.0.0"
     # 或者使用 GIT：
     tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
     ```
@@ -140,7 +139,7 @@ pub fn run() {
 
 默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/main.json" ins={6-11}
 {

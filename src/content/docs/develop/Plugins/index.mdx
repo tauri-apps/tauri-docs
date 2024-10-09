@@ -28,11 +28,9 @@ A Tauri plugin is composed of a Cargo crate and an optional NPM package that pro
 
 ## Naming Convention
 
-{/* TODO: Add link to allowlist */}
+Tauri plugins have a prefix followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugins`](/reference/config/#pluginconfig).
 
-Tauri plugins have a prefix (`tauri-plugin-` prefix for the Rust crate name and `@tauri-apps/plugin-` for the NPM package) followed by the plugin name. The plugin name is specified on the plugin configuration under [`tauri.conf.json > plugins`](/reference/config/#pluginconfig) and on the allowlist configuration.
-
-By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community, but is not a requirement. When initializing a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-{plugin-name}` and the JavaScript NPM package name will be `tauri-plugin-{plugin-name}-api` (although we recommend using an [NPM scope](https://docs.npmjs.com/about-scopes) if possible). The Tauri naming convention for NPM packages is `@scope-name/plugin-{plugin-name}`.
+By default Tauri prefixes your plugin crate with `tauri-plugin-`. This helps your plugin to be discovered by the Tauri community and to be used with the Tauri CLI. When initializing a new plugin project, you must provide its name. The generated crate name will be `tauri-plugin-{plugin-name}` and the JavaScript NPM package name will be `tauri-plugin-{plugin-name}-api` (although we recommend using an [NPM scope](https://docs.npmjs.com/about-scopes) if possible). The Tauri naming convention for NPM packages is `@scope-name/plugin-{plugin-name}`.
 
 ## Initialize Plugin Project
 
@@ -193,7 +191,7 @@ Builder::new("<plugin-name>")
 - **When**: Event loop events
 - **Why**: Handle core events such as window events, menu events and application exit requested
 
-With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0-rc/tauri/enum.RunEvent.html).
+With this lifecycle hook you can be notified of any event loop [events](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html).
 
 ```rust title="src/lib.rs"
 use std::{collections::HashMap, fs::write, sync::Mutex};
@@ -342,8 +340,8 @@ pub struct Entry {
 
 ###### Command Scope
 
-Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/scope)).
-You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-rc/tauri/ipc/struct.CommandScope.html) struct:
+Your plugin consumer can define a scope for a specific command in their capability file (see the [documentation](/reference/acl/scope/)).
+You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
 use tauri::ipc::CommandScope;
@@ -369,7 +367,7 @@ description = "This scope permits spawning the `node` binary."
 binary = "node"
 ```
 
-You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0-rc/tauri/ipc/struct.GlobalScope.html) struct:
+You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html) struct:
 
 ```rust title="src/commands.rs"
 use tauri::ipc::GlobalScope;

@@ -104,9 +104,46 @@ sudo zypper in -t pattern devel_basis
 ```
 
   </TabItem>
+  <TabItem label="Alpine">
+```sh
+sudo apk add \
+  build-base \
+  webkit2gtk \
+  curl \
+  wget \
+  file \
+  openssl \
+  libayatana-appindicator-dev \
+  librsvg
+```
+  </TabItem>
   <TabItem label="NixOS">
 
-TODO: Need to build out NixOS instructions
+Using `nix-shell`:
+
+```sh
+with import <nixpkgs> { };
+mkShell {
+  buildInputs = [
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gobject-introspection
+    gobject-introspection.dev
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    webkitgtk_4_1
+    webkitgtk_4_1.dev
+  ];
+
+  PKG_CONFIG_PATH = "${glib.dev}/lib/pkgconfig:${libsoup_3.dev}/lib/pkgconfig:${webkitgtk_4_1.dev}/lib/pkgconfig:${at-spi2-atk.dev}/lib/pkgconfig:${gtk3.dev}/lib/pkgconfig:${gdk-pixbuf.dev}/lib/pkgconfig:${cairo.dev}/lib/pkgconfig:${pango.dev}/lib/pkgconfig:${harfbuzz.dev}/lib/pkgconfig";
+}
+```
 
   </TabItem>
 </Tabs>
@@ -194,7 +231,7 @@ Visit https://www.rust-lang.org/tools/install to install `rustup`.
 
 Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
 
-Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/start/create-project).
+Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/start/create-project/).
 
 ## Node.js
 
@@ -217,7 +254,7 @@ It's important to restart your Terminal to ensure it recognizes the new installa
 
 While npm is the default package manager for Node.js, you can also use others like pnpm or yarn. To enable these, run `corepack enable` in your Terminal. This step is optional and only needed if you prefer using a package manager other than npm.
 
-Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/start/create-project).
+Next: [Configure for Mobile Targets](#configure-for-mobile-targets) or [Create a project](/start/create-project/).
 
 ## Configure for Mobile Targets
 
@@ -303,7 +340,7 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
-Next: [Setup for iOS](#ios) or [Create a project](/start/create-project).
+Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
 ### iOS
 
@@ -329,14 +366,14 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 brew install cocoapods
 ```
 
-Next: [Create a project](/start/create-project).
+Next: [Create a project](/start/create-project/).
 
 ## Troubleshooting
 
-If you run into any issues during installation be sure to check the [Troubleshooting Guide](/develop/debug) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
+If you run into any issues during installation be sure to check the [Troubleshooting Guide](/develop/debug/) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
 
 <Card title="Next Steps" icon="rocket">
 
-Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/start/create-project)!
+Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/start/create-project/)!
 
 </Card>

@@ -5,7 +5,7 @@ i18nReady: true
 
 :::tip[插件开发]
 
-确保你已经熟悉[插件开发](/zh-cn/develop/plugins)中的概念，因为本指南大量使用基于那篇文章的概念。
+确保你已经熟悉[插件开发](/zh-cn/develop/plugins/)中的概念，因为本指南大量使用基于那篇文章的概念。
 
 :::
 
@@ -86,7 +86,7 @@ class ExamplePlugin: Plugin {
 - [`load`](#load)：当插件被加载到 webview 中时触发
 - [`onNewIntent`](#onnewintent)：（仅安卓）当活动被重启时触发
 
-在插件开发指南中还有一些其他[插件生命周期事件](/zh-cn/develop/plugins#生命周期事件)的介绍。
+在插件开发指南中还有一些其他[插件生命周期事件](/zh-cn/develop/plugins/#生命周期事件)的介绍。
 
 ### `load`
 
@@ -178,7 +178,7 @@ class ExamplePlugin: Plugin {
 </TabItem>
 </Tabs>
 
-使用 [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0-rc/tauri/plugin/struct.PluginHandle.html) 以在 Rust 中创建一个移动端命令：
+使用 [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0/tauri/plugin/struct.PluginHandle.html) 以在 Rust 中创建一个移动端命令：
 
 ```rust
 use std::path::PathBuf;
@@ -250,15 +250,11 @@ class ExamplePlugin: Plugin {
 
 Tauri 自动为插件实现了两个命令：`checkPermissions` 和 `requestPermissions`。这些命令可以从 JavaScript 或 Rust 中直接调用。
 
-{/* TODO: PermissionState type should be exported in Tauri */}
-
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
-import { invoke } from '@tauri-apps/api/tauri'
-
-type PermissionState = 'granted' | 'denied' | 'prompt' | 'prompt-with-rationale'
+import { invoke, PermissionState } from '@tauri-apps/api/core'
 
 interface Permissions {
   postNotification: PermissionState
@@ -282,7 +278,7 @@ if (permission.postNotification.startsWith('prompt')) {
 
 ```rust
 use serde::{Serialize, Deserialize};
-use tauri::Runtime;
+use tauri::{plugin::PermissionState, Runtime};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]

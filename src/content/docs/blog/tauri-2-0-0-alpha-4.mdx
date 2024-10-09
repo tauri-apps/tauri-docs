@@ -3,10 +3,6 @@ title: Tauri 2.0.0-alpha.4 Released
 date: 2023-03-20
 authors: [lucasfernog]
 excerpt: Mobile APIs for Tauri plugins! The 2.0.0-alpha.4 release has been published.
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -25,7 +21,7 @@ Make sure to update both NPM and Cargo dependencies to the latest alpha release.
   pnpm="pnpm update @tauri-apps/cli@next @tauri-apps/api@next"
   cargo='cargo add tauri@2.0.0-alpha.4
 cargo add tauri-build@2.0.0-alpha.2 --build
-cargo install tauri-cli --version "^2.0.0-alpha"'
+cargo install tauri-cli --version "^2.0.0-alpha" --locked'
 />
 
 Recreate the mobile projects to use the new features:

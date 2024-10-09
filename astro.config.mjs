@@ -64,8 +64,7 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
-  // TODO: Fix trailing slashes throughout the docs
-  // trailingSlash: 'always',
+  trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
@@ -76,6 +75,7 @@ export default defineConfig({
         }),
         starlightBlog({ authors }),
         starlightLinksValidator({
+          errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
@@ -92,13 +92,14 @@ export default defineConfig({
         discord: 'https://discord.com/invite/tauri',
         twitter: 'https://twitter.com/TauriApps',
         mastodon: 'https://fosstodon.org/@TauriApps',
-        rss: `${site}/rss`,
+        rss: `${site}/rss/`,
       },
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
         PageFrame: 'src/components/overrides/PageFrame.astro',
+        TableOfContents: 'src/components/overrides/TableOfContents.astro',
       },
       head: [
         {

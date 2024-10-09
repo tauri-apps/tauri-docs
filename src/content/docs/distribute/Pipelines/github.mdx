@@ -10,8 +10,8 @@ Lastly, it will also show how to set up a more complicated build pipeline for Li
 
 To set up code signing for Windows and macOS in your workflow, follow the specific guide for each platform:
 
-- TODO: Windows Code Signing
-- TODO: macOS Code Signing
+- [Windows Code Signing](/distribute/sign/windows/)
+- [macOS Code Signing](/distribute/sign/macos/)
 
 :::
 
@@ -58,7 +58,7 @@ The steps this workflow takes are:
 2. Install Linux system dependencies required to build the app.
 3. Set up Node.js LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
 4. Set up Rust and a cache for Rust's build artifacts using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
-5. Install the frontend dependencies and, if not configured as [`beforeBuildCommand`](../../reference/config.md#beforebuildcommand), run the web app's build script.
+5. Install the frontend dependencies and, if not configured as [`beforeBuildCommand`](/reference/config/#beforebuildcommand), run the web app's build script.
 6. Lastly, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create a GitHub release.
 
 ```yaml

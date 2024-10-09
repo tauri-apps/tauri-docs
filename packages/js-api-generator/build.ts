@@ -42,10 +42,10 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 };
 
 async function generator() {
-  if (existsSync('../tauri/tooling/api/node_modules')) {
+  if (existsSync('../tauri/packages/api/node_modules')) {
     const coreJsOptions: Partial<TypeDocOptions> = {
-      entryPoints: ['../tauri/tooling/api/src/index.ts'],
-      tsconfig: '../tauri/tooling/api/tsconfig.json',
+      entryPoints: ['../tauri/packages/api/src/index.ts'],
+      tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
       publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
@@ -60,7 +60,6 @@ async function generator() {
   }
 
   const plugins = [
-    'authenticator',
     'autostart',
     'barcode-scanner',
     'biometric',
@@ -108,10 +107,10 @@ async function generator() {
     );
   }
 
-  if (existsSync('../tauri/tooling/api/node_modules')) {
+  if (existsSync('../tauri/packages/api/node_modules')) {
     const coreJsOptions: Partial<TypeDocOptions> = {
-      entryPoints: ['../tauri/tooling/api/src/index.ts'],
-      tsconfig: '../tauri/tooling/api/tsconfig.json',
+      entryPoints: ['../tauri/packages/api/src/index.ts'],
+      tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
       publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',

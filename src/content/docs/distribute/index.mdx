@@ -3,12 +3,70 @@ title: Distribute
 sidebar:
   order: 0
   label: Overview
-  badge:
-    text: WIP
-    variant: caution
 ---
 
-import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { CardGrid, LinkCard, LinkButton } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri provides the tooling you need to distribute your application either to the platform app stores or as platform-specific installers.
+
+## Building
+
+Tauri builds your application directly from its CLI via the `build`, `android build` and `ios build` commands.
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  cargo="cargo tauri build"
+/>
+
+See the [distributing](#distributing) section to learn more about the configuration options available for each bundle
+and how to distribute them to your users.
+
+:::note
+Most platforms requires code signing. See the [signing](#signing) section for more information.
+:::
+
+### Bundling
+
+By default the `build` command automatically bundles your application for the configured formats.
+
+If you need further customization on how the platform bundles are generated, you can split the build and bundle steps:
+
+<CommandTabs
+  npm="npm run tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+npm run tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+npm run tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+yarn tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+yarn tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+pnpm tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+pnpm tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+cargo tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+cargo tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+/>
+
+## Versioning
+
+Your application version can be defined in the [`tauri.conf.json > version`] configuration option,
+which is the recommended way for managing the app version. If that config value is not set,
+Tauri uses the `package > version` value from your `src-tauri/Cargo.toml` file instead.
+
+:::note
+Some platforms have some limitations and special cases for the version string.
+See the individual distribution documentation pages for more information.
+:::
 
 ## Signing
 
@@ -20,53 +78,49 @@ Signing is required on most platforms. See the documentation for each platform f
 <CardGrid>
   <LinkCard
     title="macOS"
-    href="/distribute/signing/ios"
+    href="/distribute/sign/macos/"
     description="Code signing and notarization for macOS apps"
   />
   <LinkCard
     title="Windows"
-    href="/distribute/signing/ios"
+    href="/distribute/sign/windows/"
     description="Code signing Windows installers"
   />
   <LinkCard
     title="Linux"
-    href="/distribute/signing/ios"
+    href="/distribute/sign/linux/"
     description="Code signing Linux packages"
   />
   <LinkCard
     title="Android"
-    href="/distribute/signing/android"
+    href="/distribute/sign/android/"
     description="Code signing for Android"
   />
   <LinkCard
     title="iOS"
-    href="/distribute/signing/ios"
+    href="/distribute/sign/ios/"
     description="Code signing for iOS"
   />
 </CardGrid>
 
 ## Distributing
 
+Learn how to distribute your application for each platform.
+
+### Linux
+
+For Linux you can distribute your app using the Debian package, Snap, AppImage, Flatpak, RPM or Arch User Repository (AUR) formats.
+
 <CardGrid>
   <LinkCard
-    title="App Store"
-    href="/distribute/app-store"
-    description="Distribute iOS and macOS apps to the App Store"
+    title="AppImage"
+    href="/distribute/appimage/"
+    description="Distribute as an AppImage"
   />
   <LinkCard
-    title="AUR"
-    href="/distribute/aur"
-    description="Distribute using the Arch User Repository"
-  />
-  <LinkCard
-    title="CrabNebula Cloud"
-    href="/distribute/crabnebula-cloud"
-    description="Distribute your app using CrabNebula"
-  />
-  <LinkCard
-    title="DMG"
-    href="/distribute/dmg/"
-    description="Distribute macOS apps as Apple Disk Images"
+    title="Debian"
+    href="/distribute/debian/"
+    description="Distribute as a Debian package"
   />
   <LinkCard
     title="Flathub"
@@ -74,22 +128,103 @@ Signing is required on most platforms. See the documentation for each platform f
     description="Distribute as a Flatpak"
   />
   <LinkCard
-    title="App Bundle"
-    href="/distribute/macos-application-bundle/"
-    description="Distribute macOS apps as an App Bundle"
+    title="RPM"
+    href="/distribute/rpm/"
+    description="Distribute as an RPM package"
   />
   <LinkCard
     title="Snapcraft"
     href="/distribute/snapcraft/"
     description="Distribute on Snapcraft.io"
   />
+</CardGrid>
+
+<LinkButton href="/distribute/sign/linux/">Code signing</LinkButton>
+
+### macOS
+
+For macOS you can either distribute your application directly to the App Store or ship a DMG installer as direct download.
+Both methods requires code signing, and distributing outside the App Store also requires notarization.
+
+<CardGrid>
   <LinkCard
-    title="RPM"
-    href="/distribute/rpm"
-    description="Distribute as an RPM package"
+    title="App Bundle"
+    href="/distribute/macos-application-bundle/"
+    description="Distribute macOS apps as an App Bundle"
+  />
+  <LinkCard
+    title="App Store"
+    href="/distribute/app-store/"
+    description="Distribute iOS and macOS apps to the App Store"
+  />
+  <LinkCard
+    title="DMG"
+    href="/distribute/dmg/"
+    description="Distribute macOS apps as Apple Disk Images"
   />
 </CardGrid>
 
-import Stub from '@components/Stub.astro';
+<LinkButton href="/distribute/sign/macos/">
+  Code signing and notarization
+</LinkButton>
 
-<Stub />
+### Windows
+
+Learn how to distribute to the Microsoft Store or configure a Windows installer.
+
+<CardGrid>
+  <LinkCard
+    title="Microsoft Store"
+    href="/distribute/microsoft-store/"
+    description="Distribute Windows apps to the Microsoft Store"
+  />
+  <LinkCard
+    title="Windows Installer"
+    href="/distribute/windows-installer/"
+    description="Distribute installers for Windows"
+  />
+</CardGrid>
+
+<LinkButton href="/distribute/sign/windows/">Code signing</LinkButton>
+
+### Android
+
+Distribute your Android application to Google Play.
+
+<CardGrid>
+  <LinkCard
+    title="Google Play"
+    href="/distribute/google-play/"
+    description="Distribute Android apps to Google Play"
+  />
+</CardGrid>
+
+<LinkButton href="/distribute/sign/android/">Code signing</LinkButton>
+
+### iOS
+
+Learn how to upload your application to the App Store.
+
+<CardGrid>
+  <LinkCard
+    title="App Store"
+    href="/distribute/app-store/"
+    description="Distribute iOS and macOS apps to the App Store"
+  />
+</CardGrid>
+
+<LinkButton href="/distribute/sign/ios/">Code signing</LinkButton>
+
+### Cloud Services
+
+Distribute your application to Cloud services that globally distribute your application and support auto updates out of the box.
+
+<CardGrid>
+  <LinkCard
+    title="CrabNebula Cloud"
+    href="/distribute/crabnebula-cloud/"
+    description="Distribute your app using CrabNebula"
+  />
+</CardGrid>
+
+[`tauri.conf.json > version`]: /reference/config/#version

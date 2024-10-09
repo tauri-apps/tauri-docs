@@ -10,7 +10,7 @@ To bundle the files of your choice, you can add the `resources` property to the 
 
 See more about `tauri.conf.json` configuration [here][tauri.bundle].
 
-`resources` expects a list of strings targeting files either with absolute or relative paths. It supports glob patterns in case you need to include multiple files from a directory.
+`resources` expects a list of strings targeting files or directories either with absolute or relative paths. It supports glob patterns in case you need to include multiple files from a directory.
 
 Here is a sample to illustrate the configuration. This is not a complete `tauri.conf.json` file:
 
@@ -20,7 +20,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
     "resources": [
       "/absolute/path/to/textfile.txt",
       "relative/path/to/jsonfile.json",
-      "resources/*"
+      "resources/**/*"
     ]
   }
 }
@@ -34,7 +34,7 @@ Alternatively the `resources` config also accepts a map object if you want to ch
     "resources": {
       "/absolute/path/to/textfile.txt": "resources/textfile.txt",
       "relative/path/to/jsonfile.json": "resources/jsonfile.json",
-      "resources/*": "resources/"
+      "resources/**/*": "resources/"
     }
   }
 }
@@ -42,9 +42,20 @@ Alternatively the `resources` config also accepts a map object if you want to ch
 
 :::note
 
-Absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
+In Tauri's [permission system](/reference/acl/capability/), absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
 
 :::
+
+## Source path syntax
+
+In the following explanations "target resource directory" is either the value after the colon in the object notation, or a reconstruction of the original file paths in the array notation.
+
+- `"dir/file.txt"`: copies the `file.txt` file into the target resource directory.
+- `"dir/"`: copies all files **and directories** _recursively_ into the target resource directory. Use this if you also want to preserve the file system structure of your files and directories.
+- `"dir/*"`: copies all files in the `dir` directory _non-recursively_ (sub-directories will be ignored) into the target resource directory.
+- `"dir/**`: throws an error because `**` only matches directories and therefore no files can be found.
+- `"dir/**/*"`: copies all files in the `dir` directory _recursively_ (all files in `dir/` and all files in all sub-directories) into the target resource directory.
+- `"dir/**/**`: throws an error because `**` only matches directories and therefore no files can be found.
 
 ## Accessing files in Rust
 
@@ -131,10 +142,10 @@ const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```
 
-[tauri.bundle]: ../../reference/config/#bundleconfig
+[tauri.bundle]: /reference/config/#bundleconfig
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
-[`plugin-fs`]: ../../reference/javascript/fs/
-[Scope Permissions]: ../../plugin/file-system#scope-permissions
-[scopes]: ../../plugin/file-system#scopes
+[`plugin-fs`]: /reference/javascript/fs/
+[Scope Permissions]: /plugin/file-system/#scopes
+[scopes]: /plugin/file-system/#scopes

@@ -1,31 +1,24 @@
 ---
 title: Persisted Scope
 description: Persist runtime scope changes on the filesystem.
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
+plugin: persisted-scope
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="persisted-scope" showJsLinks={false} />
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
 
 Save filesystem and asset scopes and restore them when the app is reopened.
 
 ## Supported Platforms
 
-- Windows
-- Linux
-- macOS
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## Setup
-
-_This plugin requires a Rust version of at least **1.75**_
 
 Install the persisted-scope plugin to get started.
 
@@ -58,7 +51,7 @@ Install the persisted-scope plugin to get started.
 
         ```rust title="src-tauri/src/lib.rs" ins={4}
         #[cfg_attr(mobile, tauri::mobile_entry_point)]
-        fn run() {
+        pub fn run() {
             tauri::Builder::default()
                 .plugin(tauri_plugin_persisted_scope::init())
                 .run(tauri::generate_context!())

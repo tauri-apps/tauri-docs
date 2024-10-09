@@ -23,7 +23,7 @@ Additionally, you must setup code signing for [macOS][macOS code signing] and [i
 After running `tauri ios init` to setup the Xcode project, you can use the `tauri icon` command to update the app icons.
 
 <CommandTabs
-  npm="npm run tauri icon /path/to/app-icon.png --ios-color #fff"
+  npm="npm run tauri icon /path/to/app-icon.png -- --ios-color #fff"
   yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
   pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
   cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
@@ -52,7 +52,7 @@ Note that Tauri leverages Xcode for the iOS app so you can use Xcode to archive 
 To open the iOS project in Xcode for building you must run the following command:
 
 <CommandTabs
-  npm="npm run tauri ios build --open"
+  npm="npm run tauri ios build -- --open"
   yarn="yarn tauri ios build --open"
   pnpm="pnpm tauri ios build --open"
   cargo="cargo tauri ios build --open"
@@ -90,8 +90,8 @@ To apply the following config changes only when building for App Store, you can 
 Then merge that config file with the main one when bundling your Tauri app for App Store:
 
 <CommandTabs
-  npm="npm run tauri build --no-bundle
-npm run tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
   yarn="yarn tauri build --no-bundle
 yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
   pnpm="pnpm tauri build --no-bundle
@@ -273,7 +273,7 @@ Your app will then be validated by Apple and available in TestFlight if approved
 To build your iOS app, run the `tauri ios build` command:
 
 <CommandTabs
-  npm="npm run tauri ios build --export-method app-store-connect"
+  npm="npm run tauri ios build -- --export-method app-store-connect"
   yarn="yarn tauri ios build --export-method app-store-connect"
   pnpm="pnpm tauri ios build --export-method app-store-connect"
   cargo="cargo tauri ios build --export-method app-store-connect"
@@ -298,17 +298,17 @@ Your app will then be validated by Apple and available in TestFlight if approved
 
 The iOS and macOS apps are uploaded using `altool`, which uses an App Store Connect API key to authenticate.
 
-To create a new API key, open the [App Store Connect's Users and Access page], select the Keys tab, click on the Add button and select a name and the Developer access.
+To create a new API key, open the [App Store Connect's Users and Access page], select the Integrations > Individual Keys tab, click on the Add button and select a name and the Developer access.
 The `APPLE_API_ISSUER` (Issuer ID) is presented above the keys table, and the `APPLE_API_KEY_ID` is the value on the Key ID column on that table.
 You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
 The private key file path must be saved as `AuthKey\_<APPLE_API_KEY_ID>.p8` in one of these directories:`<current-working-directory>/private_keys`, `~/private_keys`, `~/.private_keys`or`~/.appstoreconnect/private_keys`.
 
-[App Bundle distribution guide]: /distribute/macos-application-bundle
+[App Bundle distribution guide]: /distribute/macos-application-bundle/
 [Apple Developer]: https://developer.apple.com
 [Apple App Store]: https://www.apple.com/store
 [`altool`]: https://help.apple.com/itc/apploader/#/apdATD1E53-D1E1A1303-D1E53A1126
-[macOS code signing]: /distribute/signing/macos
-[iOS code signing]: /distribute/signing/ios
+[macOS code signing]: /distribute/sign/macos/
+[iOS code signing]: /distribute/sign/ios/
 [app-store-connect-apps]: https://appstoreconnect.apple.com/apps
 [`tauri.conf.json > identifier`]: /reference/config/#identifier
 [`tauri.conf.json > bundle > category`]: /reference/config/#category

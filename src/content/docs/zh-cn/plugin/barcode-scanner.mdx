@@ -5,20 +5,22 @@ sidebar:
   badge:
     text: New
     variant: tip
+plugin: barcode-scanner
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-<PluginLinks plugin="barcode-scanner" />
+<PluginLinks plugin={frontmatter.plugin} />
 
 允许您的移动应用程序使用相机扫描 QR 码、EAN-13 和其他类型的条形码。
 
 ## 支持的平台
 
-- Android
-- iOS
+<Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 
@@ -87,7 +89,7 @@ scan({ windowed: true, formats: [Format.QRCode] });
 默认情况下，所有插件命令都被阻止，无法访问。
 你必须在你的 `capabilities` 配置中定义一个权限列表。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl)。
+更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
 ```json title="src-tauri/capabilities/mobile.json"
 {
