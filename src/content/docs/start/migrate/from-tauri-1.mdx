@@ -53,11 +53,11 @@ fn main() {
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
-  npm="npm install @tauri-apps/cli@next
+  npm="npm install @tauri-apps/cli@latest
     npm run tauri migrate"
-  yarn="yarn upgrade @tauri-apps/cli@next
+  yarn="yarn upgrade @tauri-apps/cli@latest
     yarn tauri migrate"
-  pnpm="pnpm update @tauri-apps/cli@next
+  pnpm="pnpm update @tauri-apps/cli@latest
     pnpm tauri migrate"
   cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
@@ -85,10 +85,11 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `tauri > updater > dialog` removed.
 - `tauri > updater` moved to `plugins > updater`.
 - `bundle > createUpdaterArtifacts` added, must be set when using the app updater.
-  - set it to `v1Compatible` when upgrading from v1 apps that were already distributed. See the [updater guide](/plugin/updater) for more information.
+  - set it to `v1Compatible` when upgrading from v1 apps that were already distributed. See the [updater guide](/plugin/updater/) for more information.
 - `tauri > systemTray` renamed to `app > trayIcon`.
 - `tauri > pattern` moved to `app > security > pattern`.
 - `tauri > bundle` moved top-level.
+- `tauri > bundle > identifier` moved to top-level object.
 - `tauri > bundle > dmg` moved to `bundle > macOS > dmg`
 - `tauri > bundle > deb` moved to `bundle > linux > deb`
 - `tauri > bundle > appimage` moved to `bundle > linux > appimage`
@@ -1161,7 +1162,7 @@ tauri::Builder::default()
 
 ### Migrate to new Window API
 
-On the Rust side, `Window` was renamed to `WebviewWindow` and its builder `WindowBuilder` is now named `WebviewWindowBuilder`.
+On the Rust side, `Window` was renamed to `WebviewWindow`, its builder `WindowBuilder` is now named `WebviewWindowBuilder` and `WindowUrl` is now named `WebviewUrl`.
 
 Additionally, the `Manager::get_window` function was renamed to `get_webview_window` and
 the window's `parent_window` API was renamed to `parent_raw` to support a high level window parent API.

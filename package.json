@@ -8,7 +8,7 @@
     "dev:setup:submodules": "git submodule update --init",
     "dev:setup:tauri": "pnpm install -C packages/tauri/packages/api --ignore-workspace --no-frozen-lockfile",
     "dev:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
-    "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace",
+    "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace && pnpm build:compatibility-table",
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
@@ -19,14 +19,14 @@
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
     "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:compatibility-table && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro && pnpm build:i18n",
     "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^5.2.0",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/starlight": "0.28.2",
-    "@lorenzo_lewis/starlight-utils": "^0.1.0",
+    "@lorenzo_lewis/starlight-utils": "^0.2.0",
     "@types/json-schema": "^7.0.15",
     "astro": "^4.15.7",
     "astro-d2": "^0.5.0",
@@ -42,7 +42,7 @@
     "starlight-blog": "^0.13.0",
     "starlight-links-validator": "^0.12.0"
   },
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@9.12.1",
   "engines": {
     "pnpm": "^9.0.0"
   },
