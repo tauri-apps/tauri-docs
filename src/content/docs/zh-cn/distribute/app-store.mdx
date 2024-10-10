@@ -1,0 +1,306 @@
+---
+title: App Store
+sidebar:
+  order: 1
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+[Apple App Store] 是由苹果公司维护的应用市场。
+你可以通过此 App Store 分发你的 Tauri 应用，目标是 macOS 和 iOS。
+
+本指南仅涵盖直接向 App Store 分发应用的详细信息。
+有关 macOS 分发选项和配置的更多信息，请参阅通用的 [App Bundle][App Bundle 分发指南]。
+
+## 要求
+
+分发 iOS 和 macOS 应用需要注册 [Apple Developer] 计划。
+
+此外，你必须为 [macOS][macOS 代码签名] 和 [iOS][iOS 代码签名] 设置代码签名。
+
+## 更改应用图标
+
+在运行 `tauri ios init` 以设置 Xcode 项目后，你可以使用 `tauri icon` 命令更新应用图标。
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png -- --ios-color #fff"
+  yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
+  pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
+  cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
+/>
+
+`--ios-color` 参数定义了 iOS 图标的背景颜色。
+
+## 设置
+
+在注册 Apple Developer 计划后，分发你的 Tauri 应用到 App Store 的第一步是将你的应用注册到 [App Store Connect][app-store-connect-apps]。
+
+:::note
+_Bundle ID_ 字段中提供的值 **必须** 与 [`tauri.conf.json > identifier`] 中定义的标识符匹配。
+:::
+
+## 构建与上传
+
+Tauri CLI 可以为 macOS 和 iOS 打包你的应用。运行在 macOS 机器上是必需的。
+
+:::caution
+需要代码签名。请参阅 [macOS][macOS 代码签名] 和 [iOS][iOS 代码签名] 文档。
+:::
+
+注意，Tauri 使用 Xcode 来处理 iOS 应用，因此你可以使用 Xcode 进行存档和分发 iOS，而不必使用 Tauri CLI。
+要在 Xcode 中打开 iOS 项目以进行构建，你必须运行以下命令：
+
+<CommandTabs
+  npm="npm run tauri ios build -- --open"
+  yarn="yarn tauri ios build --open"
+  pnpm="pnpm tauri ios build --open"
+  cargo="cargo tauri ios build --open"
+/>
+
+### macOS
+
+要将应用上传到 App Store，首先你必须确保所有必需的配置选项已设置，以便你可以打包 App Bundle，创建签名的 `.pkg` 文件并上传。
+
+以下部分将指导你完成该过程。
+
+#### 设置
+
+为了让你的应用被 App Store 验证系统接受，必须包含一些配置。
+
+:::tip
+以下部分将指导你为 App Store 提交配置应用。
+
+要仅在为 App Store 构建时应用以下配置更改，你可以创建一个单独的 Tauri 配置文件：
+
+```json title="src-tauri/tauri.appstore.conf.json
+{
+  "bundle": {
+    "macOS": {
+      "entitlements": "./Entitlements.plist",
+      "files": {
+        "embedded.provisionprofile": "path/to/profile-name.provisionprofile"
+      }
+    }
+  }
+}
+```
+
+然后在为 App Store 打包 Tauri 应用时将该配置文件与主配置文件合并：
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+pnpm tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+cargo tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+/>
+
+这在设置你的 CI/CD 以将应用上传到 App Store 时特别有用，同时不要求本地存在配置文件 或在为 App Store 以外的分发编译应用时。
+
+:::
+
+- 分类
+
+你的应用必须定义其 [`tauri.conf.json > bundle > category`] 才能显示在 App Store 中：
+
+```json title="tauri.conf.json" ins={3}
+{
+  "bundle": {
+    "category": "Utility"
+  }
+}
+```
+
+- 配置描述文件
+
+你还必须为你的应用创建一个配置描述文件才能被苹果接受。
+
+在 [Identifiers](https://developer.apple.com/account/resources/identifiers/list) 页面， 创建一个新的应用 ID，并确保其 "Bundle ID" 值与 [`tauri.conf.json > identifier`] 中设置的标识符匹配。.
+
+导航到 [Profiles](https://developer.apple.com/account/resources/profiles/list) 页面，创建一个新的配置描述文件。 对于 App Store 的 macOS 分发，它必须是 "Mac App Store Connect" 配置文件。 选择适当的应用 ID 并链接用于代码签名的证书。
+
+创建配置描述文件后，下载并保存到已知位置，并配置 Tauri 将其包含在应用包中：
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "files": {
+        "embedded.provisionprofile": "path/to/profile-name.provisionprofile"
+      }
+    }
+  }
+}
+```
+
+- Info.plist
+
+你的应用必须遵守加密出口法规。 请参阅 [官方文档](https://developer.apple.com/documentation/security/complying-with-encryption-export-regulations?language=objc) 了解更多信息。
+
+在 src-tauri 文件夹中创建 Info.plist 文件：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/> # 如果你的应用使用加密，则为 `true`
+</dict>
+</plist>
+```
+
+- 权限
+
+你的应用必须包含 App Sandbox 功能才能在 App Store 中分发。 
+此外，还必须在代码签名权限中设置你的 App ID 和 Team ID。
+
+在 `src-tauri` 文件夹中创建 `Entitlements.plist` 文件：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+    <key>com.apple.application-identifier</key>
+    <string>$TEAM_ID.$IDENTIFIER</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>$TEAM_ID</string>
+</dict>
+</plist>
+```
+
+N请注意，你必须用 [`tauri.conf.json > identifier`] 值替换 `$IDENTIFIER`，并用你的 Apple Developer 团队 ID 替换 `$TEAM_ID`，可以在你为配置描述文件创建的 [Identifier](https://developer.apple.com/account/resources/identifiers/list) 中找到该 ID。
+
+并在 macOS 包配置中引用该文件 [`tauri.conf.json > bundle > macOS > entitlements`]：
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "macOS": {
+      "entitlements": "./Entitlements.plist"
+    }
+  }
+}
+```
+
+现在你必须在启用代码签名的情况下构建你的应用，以便凭据生效。
+
+确保你的应用在 App Sandbox 环境下运行正常。
+
+#### 构建
+
+你必须将 macOS 应用作为 `.pkg` 文件上传到 App Store。
+运行以下命令将你的应用打包为 macOS App Bundle（`.app` 扩展名）：
+
+```
+tauri build --bundles app --target universal-apple-darwin
+```
+
+:::note
+上述命令创建一个 Universal App Binary 应用，支持 Apple Silicon 和 Intel 处理器。
+
+如果你只希望支持 Apple Silicon，必须将 [`tauri.conf.json > bundle > macOS > minimumSystemVersion`] 改为 `12.0`：
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "macOS": {
+      "minimumSystemVersion": "12.0"
+    }
+  }
+}
+```
+
+并根据您正在运行的 Mac 系统更改 CLI 命令和输出路径：
+
+- 如果你的构建系统使用 Apple Silicon 芯片，请移除 `--target universal-apple-darwin` 参数，并在下面引用的路径中使用 `target/release` 代替 `target/universal-apple-darwin/release`。
+- 如果你的构建系统使用 Intel 芯片：
+  - 安装 Rust Apple Silicon 目标：
+    ```
+    rustup target add aarch64-apple-darwin
+    ```
+  - 将 `universal-apple-darwin` 参数更改为 `aarch64-apple-darwin`，并在下面引用的路径中使用 `target/aarch64-apple-darwin/release` 代替 `target/universal-apple-darwin/release`。
+
+:::
+
+有关配置选项的更多信息，请参阅 [App Bundle 分发指南]。
+
+要根据您的应用包生成签名的 `.pkg`，运行以下命令：
+
+```
+xcrun productbuild --sign "<certificate signing identity>" --component "target/universal-apple-darwin/release/bundle/macos/$APPNAME.app" /Applications "$APPNAME.pkg"
+```
+
+请注意，必须用你的应用名称替换 _$APPNAME_。
+
+:::note
+你必须用 _Mac Installer Distribution_ 签名证书签署 PKG。
+:::
+
+#### 上传
+
+现在你可以使用 [`altool`] CLI 将你的应用 PKG 上传到 App Store：
+
+```
+xcrun altool --upload-app --type macos --file "$APPNAME.pkg" --apiKey $APPLE_API_KEY_ID --apiIssuer $APPLE_API_ISSUER
+```
+
+请注意，`altool` 需要 App Store Connect API 密钥以上传你的应用。
+有关更多信息，请参见 [身份验证部分]。
+
+然后你的应用将由 Apple 验证，如果获得批准，将在 TestFlight 中提供。
+
+### iOS
+
+要构建你的 iOS 应用，运行 `tauri ios build` 命令：
+
+<CommandTabs
+  npm="npm run tauri ios build -- --export-method app-store-connect"
+  yarn="yarn tauri ios build --export-method app-store-connect"
+  pnpm="pnpm tauri ios build --export-method app-store-connect"
+  cargo="cargo tauri ios build --export-method app-store-connect"
+/>
+
+生成的 IPA 文件可以在 `src-tauri/gen/apple/build/arm64/$APPNAME.ipa` 中找到。
+
+请注意，必须用你的应用名称替换 _$APPNAME_。
+
+现在你可以使用 `altool` CLI 将你的 iOS 应用上传到 App Store：
+
+```
+xcrun altool --upload-app --type ios --file "src-tauri/gen/apple/build/arm64/$APPNAME.ipa" --apiKey $APPLE_API_KEY_ID --apiIssuer $APPLE_API_ISSUER
+```
+
+请注意，`altool` 需要 App Store Connect API 密钥以上传你的应用。
+有关更多信息，请参见 [身份验证部分]。
+
+然后你的应用将由 Apple 验证，如果获得批准，将在 TestFlight 中提供。
+
+### 身份验证
+
+iOS 和 macOS 应用通过 `altool` 上传，该工具使用 App Store Connect API 密钥进行身份验证。
+
+要创建新的 API 密钥，打开 [App Store Connect的 用户和访问 页面]，选择 Integrations > Individual Keys 选项卡，点击添加按钮并选择名称和开发者访问。
+`APPLE_API_ISSUER`（发行人 ID）在密钥表上方显示，`APPLE_API_KEY_ID` 是该表上密钥 ID 列的值。
+你还需要下载私钥，该操作只能完成一次，并且在页面重新加载后可见（按钮显示在新创建密钥的表行上）。
+私钥文件路径必须保存为 `AuthKey\_<APPLE_API_KEY_ID>.p8`，位置可在以下之一的目录中：`<current-working-directory>/private_keys`，`~/private_keys`，`~/.private_keys` 或 `~/.appstoreconnect/private_keys`。
+
+[App Bundle 分发指南]: /distribute/macos-application-bundle/
+[Apple Developer]: https://developer.apple.com
+[Apple App Store]: https://www.apple.com/store
+[`altool`]: https://help.apple.com/itc/apploader/#/apdATD1E53-D1E1A1303-D1E53A1126
+[macOS 代码签名]: /distribute/sign/macos/
+[iOS 代码签名]: /distribute/sign/ios/
+[app-store-connect-apps]: https://appstoreconnect.apple.com/apps
+[`tauri.conf.json > identifier`]: /reference/config/#identifier
+[`tauri.conf.json > bundle > category`]: /reference/config/#category
+[`tauri.conf.json > bundle > macOS > entitlements`]: /reference/config/#entitlements
+[`tauri.conf.json > bundle > macOS > minimumSystemVersion`]: /reference/config/#minimumsystemversion
+[App Store Connect的 用户和访问 页面]: https://appstoreconnect.apple.com/access/users
+[身份验证部分]: #authentication
