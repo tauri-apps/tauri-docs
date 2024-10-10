@@ -329,6 +329,12 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 [System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
+:::tip
+It is recommended to restart your PC so powershell can pick up the new environment variables
+but you can refresh the current powershell session by using this command
+```ps
+[System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+:::
 
 </TabItem>
 
