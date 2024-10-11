@@ -149,9 +149,9 @@ You can pass arguments to Sidecar commands just like you would for running norma
 
 Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `<file_path>` or `localhost:<PORT>`). You define the arguments in the exact order in which you'd call them. Static arguments are defined as-is, while dynamic arguments can be defined using a regular expression.
 
-First, define the arguments that need to be passed to the sidecar command in `src-tauri/capabilities/main.json`:
+First, define the arguments that need to be passed to the sidecar command in `src-tauri/capabilities/default.json`:
 
-```json title="src-tauri/capabilities/main.json" ins={14-31}
+```json title="src-tauri/capabilities/default.json" ins={14-31}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",

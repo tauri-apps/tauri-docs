@@ -15,7 +15,7 @@ title: 访问控制列表
 
 下面的 JSON 定义了一个功能，该功能为核心插件和 `window.setTitle` API启用默认功能。
 
-```json title="src-tauri/capabilities/main.json
+```json title="src-tauri/capabilities/default.json"
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -41,7 +41,7 @@ title: 访问控制列表
 
 例如，让我们为桌面定义一个功能。注意，它启用了只能在桌面端使用的插件权限：
 
-```json title="src-tauri/capabilities/desktop.json
+```json title="src-tauri/capabilities/desktop.json"
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "desktop-capability",
@@ -53,7 +53,7 @@ title: 访问控制列表
 
 并定义移动能力。注意，它启用了只能在移动设备上使用的插件的权限：
 
-```json title="src-tauri/capabilities/mobile.json
+```json title="src-tauri/capabilities/mobile.json"
 {
   "$schema": "../gen/schemas/mobile-schema.json",
   "identifier": "mobile-capability",
@@ -75,7 +75,7 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 在上面的示例中，我们为桌面端和移动端定义了特定的功能，并引用了相关的 JSON 模式。让我们定义一个仅适用于 Linux 的功能：
 
-```json title="src-tauri/capabilities/linux.json
+```json title="src-tauri/capabilities/linux.json"
 {
   "$schema": "../gen/schemas/linux-schema.json",
   "identifier": "linux-capability",
@@ -91,7 +91,7 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 下面的示例将该功能与 `main` 窗口和任何以 `editor-` 为前缀的标签窗口连接起来。
 
-```json title="src-tauri/capabilities/mobile.json
+```json title="src-tauri/capabilities/mobile.json"
 {
   "windows": ["main", "editor-*"],
   "permissions": [
@@ -109,7 +109,7 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 - 允许任何 `fs` 命令访问应用程序数据目录：
 
-```json title="src-tauri/capabilities/base.json
+```json title="src-tauri/capabilities/base.json"
 {
   "permissions": [
     {
@@ -126,7 +126,7 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 - 允许 `fs` `rename` 命令访问主目录：
 
-```json title="src-tauri/capabilities/base.json
+```json title="src-tauri/capabilities/base.json"
 {
   "permissions": [
     {
@@ -139,7 +139,7 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 - 配置 `http` 插件的作用域：
 
-```json title="src-tauri/capabilities/base.json
+```json title="src-tauri/capabilities/base.json"
 {
   "permissions": [
     {
@@ -158,7 +158,7 @@ Tauri 生成一个 JSON 模式，包含应用程序可用的所有权限，这�
 
 在下面的例子中，我们将该功能与任何 `tauri.app` 子域名关联。
 
-```json title="src-tauri/capabilities/remote.json
+```json title="src-tauri/capabilities/remote.json"
 {
   "remote": {
     "urls": ["https://*.tauri.app"]
