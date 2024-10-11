@@ -124,7 +124,7 @@ fn run() {
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
-```json title="src-tauri/capabilities/main.json" ins={7-11}
+```json title="src-tauri/capabilities/default.json" ins={7-11}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -455,7 +455,7 @@ fn run() {
 
 允许任何 `fs` 命令访问特定的作用域：
 
-```json title="src-tauri/capabilities/main.json" {7-10}
+```json title="src-tauri/capabilities/default.json" {7-10}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -472,7 +472,7 @@ fn run() {
 
 允许特定的 `fs` 命令访问特定的作用域：
 
-```json title="src-tauri/capabilities/main.json" {7-14}
+```json title="src-tauri/capabilities/default.json" {7-14}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",

@@ -187,10 +187,10 @@ TrayIconBuilder::new()
   .on_menu_event(|app, event| match event.id.as_ref() {
     "quit" => {
       println!("quit menu item was clicked");
-      app.exit();
+      app.exit(0);
     }
     _ => {
-      println!("menu item {} not handled", event.id.to_string());
+      println!("menu item {:?} not handled", event.id);
     }
   })
 ```

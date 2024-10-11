@@ -115,7 +115,7 @@ pub fn run() {
 
             // Note that values must be serde_json::Value instances,
             // otherwise, they will not be compatible with the JavaScript bindings.
-            store.insert("some-key", json!({ "value": 5 }))?;
+            store.set("some-key", json!({ "value": 5 }));
 
             // Get a value from the store.
             let value = store.get("some-key").expect("Failed to get value from store");
@@ -142,7 +142,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4}
+```json title="src-tauri/capabilities/default.json" ins={4}
 {
   "permissions": [
     ...,

@@ -270,7 +270,7 @@ If you'd like to target your app for Android or iOS then there are a few additio
 
 {/* TODO: Can this be done in the 4th step? */}
 
-<Tabs>
+<Tabs syncKey="prereqs">
 <TabItem label="Linux">
 
 ```sh
@@ -305,7 +305,7 @@ Selecting "Show Package Details" in the SDK Manager enables the installation of 
 
 4. Set `ANDROID_HOME` and `NDK_HOME` environment variables.
 
-<Tabs>
+<Tabs syncKey="prereqs">
 <TabItem label="Linux">
 
 ```sh
@@ -330,6 +330,14 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 [System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
 
+:::tip
+PowerShell will not pick up the new environment variables until reboot or logout,
+However you can refresh the current session:
+
+````ps
+[System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+:::
+
 </TabItem>
 
 </Tabs>
@@ -338,7 +346,7 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-```
+````
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 

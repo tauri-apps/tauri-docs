@@ -201,7 +201,7 @@ fn run() {
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
-```json title="src-tauri/capabilities/main.json" ins={9}
+```json title="src-tauri/capabilities/default.json" ins={9}
 {
   "$schema": "./schemas/mobile-schema.json",
   "identifier": "mobile-capability",
@@ -209,7 +209,7 @@ fn run() {
   "platforms": ["iOS", "android"],
   "permissions": [
     // 通常需要 event:default 来监听 deep-link 事件
-    "event:default",
+    "core:event:default",
     "deep-link:default"
   ]
 }

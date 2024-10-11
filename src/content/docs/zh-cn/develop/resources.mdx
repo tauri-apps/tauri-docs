@@ -97,7 +97,7 @@ fn hello(handle: tauri::AppHandle) -> String {
 
 请注意，你必须配置访问控制列表，以启用你需要的 [`plugin-fs`] API，同时还需要权限访问 `$RESOURCE` 文件夹：
 
-```json title=src-tauri/capabilities/main.json ins={14-15}
+```json title=src-tauri/capabilities/default.json ins={14-15}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -133,10 +133,10 @@ const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // 这里将在 devtools 的控制台中输出 'Guten Tag!'
 ```
 
-[tauri.bundle]: ../../../reference/config/#bundleconfig
+[tauri.bundle]: /reference/config/#bundleconfig
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
-[`plugin-fs`]: ../../../reference/javascript/fs/
-[Scope Permissions]: ../../../plugin/file-system#scope-permissions
-[scopes]: ../../../plugin/file-system#scopes
+[`plugin-fs`]: /reference/javascript/fs/
+[Scope Permissions]: /plugin/file-system/#scopes
+[scopes]: /plugin/file-system/#scopes

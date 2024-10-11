@@ -39,21 +39,21 @@ For a full reference of the configuration scheme please see the
 The following example JSON defines a capability that enables default functionality
 for core plugins and the `window.setTitle` API.
 
-```json title="src-tauri/capabilities/main.json
+```json title="src-tauri/capabilities/default.json"
 {
   "$schema": "./schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
   "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
-    "window:allow-set-title"
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:window:allow-set-title"
   ]
 }
 ```
@@ -107,7 +107,7 @@ but you can select a subset of the `linux`, `macOS`, `windows`, `iOS` and `andro
 For example a capability for desktop operating systems.
 Note it enables permissions on plugins that are only available on desktop:
 
-```json title="src-tauri/capabilities/desktop.json
+```json title="src-tauri/capabilities/desktop.json"
 {
   "$schema": "./schemas/desktop-schema.json",
   "identifier": "desktop-capability",
@@ -120,7 +120,7 @@ Note it enables permissions on plugins that are only available on desktop:
 And another example of a capability for mobile.
 Note it enables permissions on plugins that are only available on mobile:
 
-```json title="src-tauri/capabilities/mobile.json
+```json title="src-tauri/capabilities/mobile.json"
 {
   "$schema": "./schemas/mobile-schema.json",
   "identifier": "mobile-capability",
