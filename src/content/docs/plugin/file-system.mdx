@@ -600,7 +600,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={7-11}
+```json title="src-tauri/capabilities/default.json" ins={7-11}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -666,7 +666,7 @@ the app resources directory and the config directory. The following table lists 
 
 To apply a scope to any `fs` command, use the `fs:scope` permission:
 
-```json title="src-tauri/capabilities/main.json" {7-10}
+```json title="src-tauri/capabilities/default.json" {7-10}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -684,7 +684,7 @@ To apply a scope to any `fs` command, use the `fs:scope` permission:
 To apply a scope to a specific `fs` command,
 use the the object form of permissions `{ "identifier": string, "allow"?: [], "deny"?: [] }`:
 
-```json title="src-tauri/capabilities/main.json" {7-18}
+```json title="src-tauri/capabilities/default.json" {7-18}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
