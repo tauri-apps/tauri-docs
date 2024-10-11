@@ -41,7 +41,7 @@ To include custom files in the Debian package, you can provide a list of files o
       "deb": {
         "files": {
           "/usr/share/README.md": "../README.md", // copies the README.md file to /usr/share/README.md
-          "usr/share/assets": "../assets/" // copies the entire assets directory to /usr/share/assets
+          "/usr/share/assets": "../assets/" // copies the entire assets directory to /usr/share/assets
         }
       }
     }
@@ -75,7 +75,7 @@ Manual compilation is suitable when you don't need to compile your application f
 
 :::warning
 
-AppImages can only be built on ARM devices. To avoid Tauri from building it, you can customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
+ARM AppImages can only be built on ARM devices. To avoid Tauri from building it when cross-compiling, you can customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
 
 "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
 
@@ -234,7 +234,7 @@ For automated ARM executable builds on GitHub, we'll use the [arm-runner-action]
 
 :::warning
 
-AppImages can only be built on ARM devices. To avoid Tauri from building it, you can customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
+ARM AppImages can only be built on ARM devices. To avoid Tauri from building it when cross-compiling, you can customize tauri.conf.json in the src-tauri folder. Adjust the "targets" array to include only the desired platforms for your ARM-based device. For instance:
 
 "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
 
