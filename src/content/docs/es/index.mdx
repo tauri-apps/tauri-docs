@@ -1,12 +1,13 @@
 ---
-title: Bases endurecidas para tus aplicaciones web.
-description: The cross-platform app building toolkit
+title: Tauri 2.0
+description: El kit de herramientas para construir aplicaciones multiplataforma
 template: splash
 editUrl: false
 lastUpdated: false
 prev: false
 next: false
 hero:
+  tagline: Crea aplicaciones pequeñas, rápidas, seguras y multiplataforma
   image:
     file: ../../../assets/logo-outline.svg
   actions:
@@ -14,17 +15,14 @@ hero:
       link: /es/start/
       icon: right-arrow
       variant: primary
-    - text: Pautas de Contribución
-      link: /es/contribute/
-      icon: open-book
-      variant: minimal
     - text: Documentación de Tauri 1.0
-      link: https://tauri.app
+      link: https://v1.tauri.app
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
 
 <div class="hero-bg">
   <div class="bg-logo"></div>
@@ -32,7 +30,13 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   <div class="bg-grad-red"></div>
 </div>
 
-<CardGrid stagger>
+<div class="lp-cta-card">
+  <Card title="Crear un proyecto" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
   <Card title="Frontend Independiente" icon="rocket">
     Trae tu stack web existente a Tauri o comienza ese nuevo proyecto de en
     sueño. Tauri soporta cualquier framework frontend, por lo que no necesitas
