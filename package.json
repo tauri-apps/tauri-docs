@@ -48,7 +48,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@astrojs/starlight@0.28.2": "patches/@astrojs__starlight@0.28.2.patch"
+      "@astrojs/starlight@0.28.3": "patches/@astrojs__starlight@0.28.3.patch"
     }
   }
 }
