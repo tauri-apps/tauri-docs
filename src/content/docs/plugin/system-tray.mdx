@@ -35,7 +35,7 @@ const options = {
   // here you can add a tray menu, title, tooltip, event handler, etc
 };
 
-const tray = TrayIcon.new(options);
+const tray = await TrayIcon.new(options);
 ```
 
 See [`TrayIconOptions`] for more information on the customization options.
@@ -62,15 +62,34 @@ See [`TrayIconBuilder`] for more information on customization options.
 
 ### Change the Tray Icon
 
-{/* TODO: add a way to do this easily from JS too */}
+When creating the tray you can use the application icon as the tray icon:
 
-When creating the tray icon from Rust code, you can set the application icon as the tray icon:
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { defaultWindowIcon } from '@tauri-apps/api/app';
+
+const options = {
+  icon: await defaultWindowIcon(),
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
 
 ```rust
 let tray = TrayIconBuilder::new()
   .icon(app.default_window_icon().unwrap().clone())
   .build(app)?;
 ```
+
+</TabItem>
+</Tabs>
 
 ### Add a Menu
 
@@ -106,7 +125,7 @@ const options = {
   menuOnLeftClick: true,
 };
 
-const tray = TrayIcon.new(options);
+const tray = await TrayIcon.new(options);
 ```
 
 </TabItem>
@@ -244,7 +263,7 @@ const options = {
   },
 };
 
-const tray = TrayIcon.new(options);
+const tray = await TrayIcon.new(options);
 ```
 
 See [`TrayIconEvent`][js TrayIconEvent] for more information on the event payload.
