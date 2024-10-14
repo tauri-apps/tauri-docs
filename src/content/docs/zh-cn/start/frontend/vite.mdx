@@ -101,7 +101,7 @@ Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生�
         host: host || false,
         port: 5173,
       },
-      // 添加有关当前构建目标的额外前缀，以访问命令行接口 (CLI) 设置的 Tauri 环境变量 
+      // 添加有关当前构建目标的额外前缀，使这些 CLI 设置的 Tauri 环境变量可以在客户端代码中访问 
       envPrefix: ['VITE_', 'TAURI_ENV_*'],
       build: {
         // Tauri 在 Windows 上使用 Chromium，在 macOS 和 Linux 上使用 WebKit
