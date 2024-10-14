@@ -79,7 +79,7 @@ import { upload } from '@tauri-apps/plugin-upload';
 upload(
   'https://example.com/file-upload',
   './path/to/my/file.txt',
-  (progress, total) => console.log(`Uploaded ${progress} of ${total} bytes`), // 上传进度时调用的回调函数
+  ({progress, total}) => console.log(`Uploaded ${progress} of ${total} bytes`), // 上传进度时调用的回调函数
   { 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
 );
 ```
@@ -90,7 +90,7 @@ import { download } from '@tauri-apps/plugin-upload';
 download(
   'https://example.com/file-download-link',
   './path/to/save/my/file.txt',
-  (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`), // 下载进度时调用的回调函数
+  ({progress, total}) => console.log(`Downloaded ${progress} of ${total} bytes`), // 下载进度时调用的回调函数
   { 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
 );
 ```
