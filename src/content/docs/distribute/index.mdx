@@ -35,11 +35,11 @@ By default the `build` command automatically bundles your application for the co
 If you need further customization on how the platform bundles are generated, you can split the build and bundle steps:
 
 <CommandTabs
-  npm="npm run tauri build --no-bundle
+  npm="npm run tauri build -- --no-bundle
 # bundle for distribution outside the macOS App Store
-npm run tauri bundle --bundles app,dmg
+npm run tauri bundle -- --bundles app,dmg
 # bundle for App Store distribution
-npm run tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+npm run tauri bundle -- --bundles app --config src-tauri/tauri.appstore.conf.json"
   yarn="yarn tauri build --no-bundle
 # bundle for distribution outside the macOS App Store
 yarn tauri bundle --bundles app,dmg
