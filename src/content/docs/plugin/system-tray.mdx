@@ -304,6 +304,10 @@ See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type
 </TabItem>
 </Tabs>
 
+### Additional information
+
+On Windows, you can use `ContextMenu::hpopupmenu` method to get the [`HMENU`] for popups and tray icon menu.
+
 [`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
 [`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
 [`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
@@ -312,3 +316,4 @@ See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type
 [`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
 [js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
 [rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html
+[`HMENU`]: https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types#HMENU
