@@ -123,7 +123,7 @@ If you have multiple projects and want to share those files you can set the `XWI
 Now it should be as simple as adding the runner and target to the `tauri build` command:
 
 <CommandTabs
-  npm="npm run tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  npm="npm run tauri build -- --runner cargo-xwin --target x86_64-pc-windows-msvc"
   yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
@@ -140,7 +140,7 @@ If you need to support **32-bit** machines, you can compile your application wit
 using the `--target` flag:
 
 <CommandTabs
-  npm="npm run tauri build --target i686-pc-windows-msvc"
+  npm="npm run tauri build -- --target i686-pc-windows-msvc"
   yarn="yarn tauri build --target i686-pc-windows-msvc"
   pnpm="pnpm tauri build --target i686-pc-windows-msvc"
   cargo="cargo tauri build --target i686-pc-windows-msvc"
@@ -155,7 +155,7 @@ At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 <CommandTabs
-  npm="npm run tauri build --target aarch64-pc-windows-msvc"
+  npm="npm run tauri build -- --target aarch64-pc-windows-msvc"
   yarn="yarn tauri build --target aarch64-pc-windows-msvc"
   pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"

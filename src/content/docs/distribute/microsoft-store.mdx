@@ -62,8 +62,8 @@ To only apply this installer configuration when bundling for Microsoft Store, yo
 Then merge that config file with the main one when bundling your Tauri app for Microsoft Store:
 
 <CommandTabs
-  npm="npm run tauri build --no-bundle
-npm run tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --config src-tauri/tauri.microsoftstore.conf.json"
   yarn="yarn tauri build --no-bundle
 yarn tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
   pnpm="pnpm tauri build --no-bundle
