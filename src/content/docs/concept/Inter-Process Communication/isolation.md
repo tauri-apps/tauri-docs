@@ -93,11 +93,13 @@ Let's assume that our main frontend `distDir` is set to `../dist`. We also outpu
   "build": {
     "distDir": "../dist"
   },
-  "tauri": {
-    "pattern": {
-      "use": "isolation",
-      "options": {
-        "dir": "../dist-isolation"
+  "app": {
+    "security": {
+      "pattern": {
+        "use": "isolation",
+        "options": {
+          "dir": "../dist-isolation"
+        }
       }
     }
   }
