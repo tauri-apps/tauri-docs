@@ -146,6 +146,15 @@ mkShell {
 ```
 
   </TabItem>
+  <TabItem label="Flatpak sanbox">
+
+Install the Gnome SDK runtime (version 45 here - you could try newer versions) and execute the Flatpak app (eg, your IDE) within it:
+```
+flatpak install org.gnome.Sdk//45
+flatpak run --runtime=org.gnome.Sdk//45 <app_id>
+```
+
+  </TabItem>
 </Tabs>
 
 If your distribution isn't included above then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
