@@ -330,7 +330,11 @@ Always call `file.close()` when you are done manipulating the file.
 
 - createNew
 
-  `createNew` works similarly to `create`, but if the file does not exist, the operation fails.
+  `createNew` works similarly to `create`, but as its name suggests, it is only takes effect when **New**: 
+
+  That is, only allowed to be executed when the file to be opened does not exist. 
+
+  Otherwise, the operation failed and raise an error like: `failed to open file at path: *the file path* with error: The file exists. (os error 80)`.
 
   ```js
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
