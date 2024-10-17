@@ -146,10 +146,13 @@ fn run() {
 {
   "plugins": {
     "deep-link": {
-      "domains": [
+      "mobile": [
         { "host": "your.website.com", "pathPrefix": ["/open"] },
         { "host": "another.site.br" }
-      ]
+      ],
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
     }
   }
 }
