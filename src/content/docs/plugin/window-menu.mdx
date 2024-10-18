@@ -4,4 +4,299 @@ tableOfContents:
   maxHeadingLevel: 4
 ---
 
-todo
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Native application menus can be attached to a window.Or can be attached to the system tray too.
+
+## Creating a base-level menu
+
+To create a base-level native window menu, and attached to the window.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'open',
+      text: 'Open',
+    },
+    {
+      id: 'quit',
+      text: 'Quit',
+    },
+  ],
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{Menu, MenuItem};
+
+  tauri::Builder::default()
+        .setup(|app| {
+            let menu = MenuBuilder::new(app)
+                .text("open", "Open")
+                .text("close", "Close")
+                .build()?;
+
+            app.set_menu(menu)?;
+
+            Ok(())
+        })
+```
+
+</TabItem>
+</Tabs>
+
+## Creating a multi-level menu
+
+To create a multi-level menu, you can add some submenus to the menu item.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+// todo
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, SubmenuBuilder};
+
+  tauri::Builder::default()
+        .setup(|app| {
+            let file_menu = SubmenuBuilder::new(app, "File")
+                .text("open", "open")
+                .text("quit", "quit")
+                .build()?;
+
+            let lang_str = "en";
+            let check_sub_item_1 = CheckMenuItemBuilder::new("English")
+                .id("en")
+                .checked(lang_str == "en")
+                .build(app)?;
+
+            let check_sub_item_2 = CheckMenuItemBuilder::new("Chinese")
+                .id("en")
+                .checked(lang_str == "en")
+                .enabled(false)
+                .build(app)?;
+
+            let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
+
+            let icon_item = IconMenuItemBuilder::new("icon")
+                .icon(icon_image)
+                .build(app)?;
+
+            let other_item = SubmenuBuilder::new(app, "language")
+                .item(&check_sub_item_1)
+                .item(&check_sub_item_2)
+                .build()?;
+
+            let menu = MenuBuilder::new(app)
+                .items(&[&file_menu, &other_item,&icon_item])
+                .build()?;
+
+            app.set_menu(menu)?;
+
+            Ok(())
+        })
+```
+
+Note that you need the image-ico or image-png Cargo features to use this API. To enable it, change your Cargo.toml file:
+
+`src-tauri/Cargo.toml`
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "image-png"] }
+```
+
+</TabItem>
+</Tabs>
+
+## Creating predefined menu
+
+To create predefined (native) menu item which has a predefined behavior by the OS or by tauri.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+// todo
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+
+  tauri::Builder::default()
+        .setup(|app| {
+      let menu = MenuBuilder::new(app)
+                .copy()
+                .separator()
+                .undo()
+                .redo()
+                .cut()
+                .paste()
+                .select_all()
+                .item(&PredefinedMenuItem::copy(app, Some("custom text"))?)
+                .build()?;
+            app.set_menu(menu)?;
+
+            Ok(())
+        })
+```
+
+For more preset capabilities, please refer to the documentation [`PredefinedMenuItem`].
+
+:::tip
+The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None)?)`.
+:::
+
+</TabItem>
+</Tabs>
+
+## Listening to events on custom menu items
+
+Each custom menu item triggers an event when clicked. Use the on_menu_event API to handle them.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+// todo
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{MenuBuilder};
+
+  tauri::Builder::default()
+        .setup(|app| {
+            let menu = MenuBuilder::new(app)
+                .text("open", "Open")
+                .text("close", "Close")
+                .build()?;
+
+            app.set_menu(menu)?;
+
+            app.on_menu_event(move |app_handle: &tauri::AppHandle, event| {
+
+                println!("menu event: {:?}", event.id());
+
+                match event.id().0.as_str() {
+                    "open" => {
+                        println!("open event");
+                    }
+                    _ => {
+                        println!("unexpected menu event");
+                    }
+                }
+            });
+
+            Ok(())
+        })
+```
+
+</TabItem>
+</Tabs>
+
+## Change menu status
+
+If you want to change the status of the menu, such as text, icon, check status, you should `set_menu` again.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+// todo
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    image::Image,
+    menu::{CheckMenuItemBuilder, MenuBuilder, Submenu, SubmenuBuilder},
+    AppHandle, Wry,
+};
+
+fn create_text_menu(
+    app: &AppHandle,
+    text: &str,
+    icon: Image<'_>,
+    is_checked: bool,
+) -> Result<Submenu<Wry>, tauri::Error> {
+    let check_sub_item = CheckMenuItemBuilder::new("Check")
+        .id("check")
+        .checked(is_checked)
+        .build(app)?;
+
+    let text_item = SubmenuBuilder::new(app, "some menu")
+        .text("change", text)
+        .icon("icon", "icon", icon)
+        .item(&check_sub_item)
+        .build()?;
+    Ok(text_item)
+}
+
+  tauri::Builder::default()
+        .setup(|app| {
+            let sub_menu = create_text_menu(
+                app.handle(),
+                "click to change menu",
+                app.default_window_icon().cloned().unwrap(),
+                false,
+            )
+            .unwrap();
+            let menu = MenuBuilder::new(app).items(&[&sub_menu]).build()?;
+
+            app.set_menu(menu)?;
+
+            app.on_menu_event(move |app_handle: &tauri::AppHandle, event| {
+                match event.id().0.as_str() {
+                    "change" => {
+                        let sub_menu = create_text_menu(
+                            app_handle,
+                            "Changed menu",
+                            Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap(),
+                            true,
+                        )
+                        .unwrap();
+                        if let Ok(menu) = MenuBuilder::new(app_handle).items(&[&sub_menu]).build() {
+                            let _ = app_handle.set_menu(menu);
+                        }
+                    }
+                    _ => {
+                        println!("unexpected menu event");
+                    }
+                }
+            });
+
+            Ok(())
+        })
+```
+
+</TabItem>
+</Tabs>
+
+[`PredefinedMenuItem`]: https://docs.rs/tauri/2.0.0/tauri/menu/struct.PredefinedMenuItem.html
