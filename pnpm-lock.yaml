@@ -62,8 +62,8 @@ importers:
         specifier: ^1.1.7
         version: 1.22.0
       starlight-blog:
-        specifier: ^0.13.0
-        version: 0.13.0(@astrojs/starlight@0.28.3(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3))
+        specifier: ^0.14.0
+        version: 0.14.0(@astrojs/starlight@0.28.3(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3)))
       starlight-links-validator:
         specifier: ^0.12.0
         version: 0.12.3(@astrojs/starlight@0.28.3(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3))
@@ -3413,12 +3413,11 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-blog@0.13.0:
-    resolution: {integrity: sha512-AQi+5PdsgN/ltQh1j+F/crHLlBFwDUOKgW8H1GnzLUq2T6J7VaOVf62fmCfBDmymfBN4mOfIZuJXq5ZzY3pJmQ==}
+  starlight-blog@0.14.0:
+    resolution: {integrity: sha512-Eu7wuMTpfy/r09daaUx8IWG3z7BhfjVtl7vDfHPsXupiIKz6iB+pVoQqe3zUBUxVKkoPjOLJUx8QPDhw/3faZg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.24.0'
-      astro: '>=4.8.6'
+      '@astrojs/starlight': '>=0.28.3'
 
   starlight-links-validator@0.12.3:
     resolution: {integrity: sha512-xOyriH9BQ7kQbHlVARp3quIKqUsBjx4sgv6/F2eKP1a6pWRLvFsX+89rRaCkRKAEnmFiI8VygjH1D/RGUXoxbQ==}
@@ -7892,11 +7891,10 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.13.0(@astrojs/starlight@0.28.3(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3)):
+  starlight-blog@0.14.0(@astrojs/starlight@0.28.3(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3))):
     dependencies:
       '@astrojs/rss': 4.0.5
       '@astrojs/starlight': 0.28.3(patch_hash=76yyhncu6egc3t2dne72gvpf4e)(astro@4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3))
-      astro: 4.16.6(@types/node@22.7.6)(rollup@2.79.1)(sass@1.79.5)(terser@5.31.0)(typescript@5.6.3)
       astro-remote: 0.3.2
       github-slugger: 2.0.0
       marked: 12.0.2
