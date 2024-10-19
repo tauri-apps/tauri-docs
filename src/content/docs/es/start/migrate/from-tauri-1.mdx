@@ -488,7 +488,7 @@ use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 tauri::Builder::default()
     .plugin(
-        tauri_plugin_global_shortcut::Builder::new()::with_handler(|app, shortcut| {
+        tauri_plugin_global_shortcut::Builder::new().with_handler(|app, shortcut| {
             println!("Shortcut triggered: {:?}", shortcut);
         })
         .build(),
