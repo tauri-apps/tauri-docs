@@ -76,6 +76,7 @@ use tauri::{AppHandle, Emitter, EventTarget};
 fn open_file(app: AppHandle, path: std::path::PathBuf) {
   app.emit_filter("open-file", path, |target| match target {
     EventTarget::WebviewWindow { label } => label == "main" || label == "file-viewer",
+    _ => false,
   }).unwrap();
 }
 ```
