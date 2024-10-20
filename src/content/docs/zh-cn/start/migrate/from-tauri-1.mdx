@@ -1047,8 +1047,9 @@ tauri::Builder::default()
                 {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
-                    let _ = webview_window.show();
-                    let _ = webview_window.set_focus();
+                       window.unminimize().unwrap(); // 恢复窗口 如果它被最小化
+                       window.show().unwrap();
+                       window.set_focus().unwrap();
                     }
                 }
             })
