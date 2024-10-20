@@ -15,20 +15,27 @@ To create a base-level native window menu, and attached to the window.
 <Tabs>
 <TabItem label="JavaScript">
 
+Use the [`Menu.new`] static function to create a window menu:
+
 ```javascript
 import { Menu } from '@tauri-apps/api/menu';
 
 const menu = await Menu.new({
   items: [
     {
-      id: 'open',
-      text: 'Open',
-    },
-    {
       id: 'quit',
       text: 'Quit',
+      action: () => {
+        console.log('quit pressed');
+      },
     },
   ],
+});
+
+//  If a window was not created with an explicit menu or had one set explicitly,
+// this menu will be assigned to it.
+menu.setAsAppMenu().then(res => {
+  console.log("menu set success", res);
 });
 ```
 
@@ -64,6 +71,23 @@ To create a multi-level menu, you can add some submenus to the menu item.
 
 ```javascript
 // todo
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'quit',
+      text: 'Quit',
+      action: () => {
+        console.log('quit pressed');
+      },
+    },
+  ],
+});
+
+menu.setAsAppMenu().then(res => {
+  console.log("menu set success", res);
+});
 ```
 
 </TabItem>
@@ -300,3 +324,4 @@ fn create_text_menu(
 </Tabs>
 
 [`PredefinedMenuItem`]: https://docs.rs/tauri/2.0.0/tauri/menu/struct.PredefinedMenuItem.html
+[`Menu.new`]: https://v2.tauri.app/reference/javascript/api/namespacemenu/#new-2
