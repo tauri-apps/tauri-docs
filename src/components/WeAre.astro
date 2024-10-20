@@ -1,0 +1,103 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import placeholder from '@assets/logo-outline.svg'
+import placeholderHover from '@assets/cuddlyferris.svg'
+import { Icon } from '@astrojs/starlight/components';
+import people from '@lib/people'
+
+const name = Astro.props.name
+const person = people[name]
+const position = person.positions.find((val)=>val.seat == Astro.props.position)
+---
+
+{person && !position.until ?
+    <div class={'we-are ' + (position.until ? 'disabled' : '')}>
+        <div class="picture">
+            <img class="default-img" src={person.picture ? person.picture : placeholder.src}>
+            <img class="hover-img" src={placeholderHover.src}>
+        </div>
+        <div class="details">
+            <span class="name">{person.name}</span>
+            <span>{person.title}</span>
+            <span>Since: {position.since.toLocaleDateString()}</span>
+            {!position.until ? '' :
+                <span>Until: {position.until.toLocaleDateString()}</span>
+            }
+            <div class="socials">
+                {Object.keys(person.socials).map(social=>(
+                    <a href={person.socials[social]} target="_blank"><Icon name={social} size="1.5rem" /></a>
+                ))}
+            </div>
+        </div>
+    </div>
+: ''}
+
+<style>
+.disabled, .disabled * {
+    filter: grayscale(1);
+    user-select: none;
+    pointer-events: none;
+}
+.we-are {
+    display: flex;
+    width: 100%;
+    background-color: var(--sl-color-gray-6);
+    position: relative;
+    border-radius: 0.5rem;
+    border: 1px solid var(--sl-color-gray-5);
+}
+.we-are div.picture {
+    position: relative;
+    max-width: 3cm;
+    max-height: 3cm;
+    min-height: 3cm;
+    min-width: 3cm;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    display: inline-block;
+    border: 1px solid var(--sl-color-gray-5);
+}
+
+.we-are div.picture img.default-img, .we-are div.picture img.hover-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease;
+    border-radius: 0.5rem;
+}
+.we-are div.picture img.default-img {
+  opacity: 1;
+}
+
+.we-are div.picture img.hover-img {
+  opacity: 0;
+}
+
+.we-are div.picture:hover .default-img {
+  opacity: 0;
+}
+
+.we-are div.picture:hover .hover-img {
+  opacity: 1;
+}
+.we-are span.name {
+    line-height: 100%;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.we-are span {
+    display: block;
+}
+.we-are div.details {
+    display: inline-block;
+}
+.we-are div.details div.socials {
+    display: flex;
+}
+.we-are div.details div.socials a {
+    margin-right: 0.5rem;
+}
+.we-are div.details div.socials a:hover {
+    color: var(--sl-color-accent);
+}
+</style>

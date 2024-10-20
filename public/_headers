@@ -1,3 +1,3 @@
 /*
   X-Content-Type-Options: nosniff
-  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src self data: http: https:; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' ; script-src-elem 'self' 'unsafe-inline'; worker-src 'self' data:; frame-src 'self' https://app.netlify.com https://www.youtube-nocookie.com;  frame-ancestors 'none';
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src self data: http: https: https://avatars.githubusercontent.com; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' ; script-src-elem 'self' 'unsafe-inline'; worker-src 'self' data:; frame-src 'self' https://app.netlify.com https://www.youtube-nocookie.com;  frame-ancestors 'none'; connect-src 'self' https://avatars.githubusercontent.com;
