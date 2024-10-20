@@ -318,7 +318,10 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 ```sh
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+for dir in $ANDROID_HOME/ndk/*
+do
+	export NDK_HOME="$dir/"
+done
 ```
 
 </TabItem>
