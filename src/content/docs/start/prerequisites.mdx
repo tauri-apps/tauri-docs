@@ -28,6 +28,10 @@ Tauri requires various system dependencies for development on Linux. These may b
 {/* Note: These are the officially supported linux distributions. */}
 {/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
+:::note
+Using Nix/NixOS? we have moved Nix/NixOS to a dedicated section [here](#nixnixos)
+:::
+
 <Tabs>
   <TabItem label="Debian">
 
@@ -117,35 +121,7 @@ sudo apk add \
   librsvg
 ```
   </TabItem>
-  <TabItem label="NixOS">
 
-Using `nix-shell`:
-
-```sh
-with import <nixpkgs> { };
-mkShell {
-  buildInputs = [
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gobject-introspection
-    gobject-introspection.dev
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    webkitgtk_4_1.dev
-  ];
-
-  PKG_CONFIG_PATH = "${glib.dev}/lib/pkgconfig:${libsoup_3.dev}/lib/pkgconfig:${webkitgtk_4_1.dev}/lib/pkgconfig:${at-spi2-atk.dev}/lib/pkgconfig:${gtk3.dev}/lib/pkgconfig:${gdk-pixbuf.dev}/lib/pkgconfig:${cairo.dev}/lib/pkgconfig:${pango.dev}/lib/pkgconfig:${harfbuzz.dev}/lib/pkgconfig";
-}
-```
-
-  </TabItem>
 </Tabs>
 
 If your distribution isn't included above then you may want to check [Awesome Tauri on GitHub](https://github.com/tauri-apps/awesome-tauri#guides) to see if a guide has been created.
@@ -153,6 +129,10 @@ If your distribution isn't included above then you may want to check [Awesome Ta
 Next: [Install Rust](#rust)
 
 ### macOS
+
+:::note
+Using Nix? We now have a dedicated section on getting started with it [here](#nixnixos)
+:::
 
 Tauri uses [Xcode](https://developer.apple.com/xcode/resources/) and various macOS and iOS development dependencies.
 
@@ -172,7 +152,6 @@ xcode-select --install
 ```
 
 </details>
-
 Next: [Install Rust](#rust)
 
 ### Windows
@@ -201,6 +180,51 @@ Tauri uses Microsoft Edge WebView2 to render content on Windows.
 Install WebView2 by visiting the [WebView2 Runtime download section](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Download the "Evergreen Boostrapper" and install it.
 
 Next: [Install Rust](#rust)
+
+### Nix/NixOS
+
+Using a [`shell.nix`](https://nix.dev/tutorials/first-steps/declarative-shell):
+
+```nix
+let
+  pkgs = import <nixpkgs> {
+    config = { };
+    overlays = [ ];
+  };
+in
+
+pkgs.mkShell {
+  nativeBuildInputs =
+    with pkgs;
+    [
+      rustc
+      cargo
+      # Uncomment if `@tauri-apps/cli` doesn't work on your system
+      # cargo-tauri
+      pkg-config
+    ]
+    ++ lib.optionalAttrs stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
+
+  buildInputs =
+    with pkgs;
+    [ openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      glib-networking
+      webkitgtk_4_1
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      darwin.apple_sdk.frameworks.WebKit
+    ];
+}
+```
+
+:::caution[Experimental]
+Flakes are [experimental](https://nix.dev/manual/nix/stable/contributing/experimental-features.html) in Nix and may change at any time.
+:::
+
+If you prefer to use Flakes, [Eveeifyeve/Tauri-Flake-Templates](https://github.com/Eveeifyeve/Tauri-Flake-Templates) on GitHub is a community maintained template.
+
+For more info about Tauri on Nix/NixOS, Checkout the [NixOS Wiki Page.](https://wiki.nixos.org/wiki/Tauri)
 
 ## Rust
 
@@ -266,6 +290,7 @@ If you'd like to target your app for Android or iOS then there are a few additio
 ### Android
 
 1. Download and install [Android Studio from the Android Developers website](https://developer.android.com/studio)
+
 2. Set the `JAVA_HOME` environment variable:
 
 {/* TODO: Can this be done in the 4th step? */}
@@ -339,7 +364,6 @@ However you can refresh the current session:
 :::
 
 </TabItem>
-
 </Tabs>
 
 5. Add the Android targets with `rustup`:
@@ -356,6 +380,8 @@ Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 iOS development requires Xcode and is only available on macOS. Be sure that you've installed Xcode and not Xcode Command Line Tools in the [macOS system dependencies section](#macos).
 :::
 
+<Tabs>
+<TabItem label="macOS">
 1. Add the iOS targets with `rustup` in Terminal:
 
 ```sh
@@ -379,6 +405,17 @@ Next: [Create a project](/start/create-project/).
 ## Troubleshooting
 
 If you run into any issues during installation be sure to check the [Troubleshooting Guide](/develop/debug/) or reach out on the [Tauri Discord](https://discord.com/invite/tauri).
+
+</TabItem>
+<TabItem label="Nix">
+Add the following to your development shell's `buildInputs`
+```nix
+darwin.xcode
+darwin.apple_sdk.frameworks.UiKit
+```
+
+</TabItem>
+</Tabs>
 
 <Card title="Next Steps" icon="rocket">
 
