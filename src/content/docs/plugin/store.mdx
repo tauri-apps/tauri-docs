@@ -82,7 +82,7 @@ import { load } from '@tauri-apps/plugin-store';
 
 // Create a new store or load the existing one,
 // note that the options will be ignored if a `Store` with that path has already been created
-const store = await load('store.bin', { autoSave: false });
+const store = await load('store.json', { autoSave: false });
 
 // Set a value.
 await store.set('some-key', { value: 5 });
