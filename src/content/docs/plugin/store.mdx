@@ -76,15 +76,13 @@ Install the store plugin to get started.
 <TabItem label="JavaScript">
 
 ```typescript
-import { createStore } from '@tauri-apps/plugin-store';
+import { load } from '@tauri-apps/plugin-store';
 // when using `"withGlobalTauri": true`, you may use
-// const { createStore } = window.__TAURI__.store;
+// const { load } = window.__TAURI__.store;
 
-// create a new store or load the existing one
-const store = await createStore('store.bin', {
-  // we can save automatically after each store modification
-  autoSave: true,
-});
+// Create a new store or load the existing one,
+// note that the options will be ignored if a `Store` with that path has already been created
+const store = await load('store.json', { autoSave: false });
 
 // Set a value.
 await store.set('some-key', { value: 5 });
@@ -94,7 +92,9 @@ const val = await store.get<{ value: number }>('some-key');
 console.log(val); // { value: 5 }
 
 // You can manually save the store after making changes.
-// Otherwise, it will save upon graceful exit as described above.
+// Otherwise, it will save upon graceful exit
+// And if you set `autoSave` to a number or left empty,
+// it will save the changes to disk after a debounce delay, 100ms by default.
 await store.save();
 ```
 
@@ -111,7 +111,11 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let store = app.handle().store_builder("store.bin").build();
+            // Create a new store or load the existing one
+            // this also put the store in the app's resource table
+            // so your following calls `store` calls (from both rust and js)
+            // will reuse the same store
+            let store = app.store("store.json")?;
 
             // Note that values must be serde_json::Value instances,
             // otherwise, they will not be compatible with the JavaScript bindings.
@@ -121,16 +125,49 @@ pub fn run() {
             let value = store.get("some-key").expect("Failed to get value from store");
             println!("{}", value); // {"value":5}
 
-            // You can manually save the store after making changes.
-            // Otherwise, it will save upon graceful exit as described above.
-            store.save()?;
-
+            // Remove the store from the resource table
+            store.close_resource();
 
             Ok(())
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+```
+
+</TabItem>
+</Tabs>
+
+### LazyStore
+
+There's also a high level JavaScript API `LazyStore` which only loads the store on first access
+
+```typescript
+import { LazyStore } from '@tauri-apps/plugin-store';
+
+const store = new LazyStore('settings.json');
+```
+
+## Migrating from v1 and v2 beta/rc
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```diff
+- import { Store } from '@tauri-apps/plugin-store';
++ import { LazyStore } from '@tauri-apps/plugin-store';
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```diff
+- with_store(app.handle().clone(), stores, path, |store| {
+-     store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+-     Ok(())
+- });
++ let store = app.store(path)?;
++ store.set("some-key".to_string(), json!({ "value": 5 }));
 ```
 
 </TabItem>
