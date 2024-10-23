@@ -75,7 +75,7 @@ importers:
         version: 2.0.4
       '@types/node':
         specifier: ^20.11.20
-        version: 20.16.15
+        version: 20.17.0
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -93,7 +93,7 @@ importers:
         version: 2.2.5
       '@types/node':
         specifier: ^20.11.20
-        version: 20.16.15
+        version: 20.17.0
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -108,7 +108,7 @@ importers:
         version: 7.0.15
       '@types/node':
         specifier: ^20.11.20
-        version: 20.16.15
+        version: 20.17.0
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1508,8 +1508,8 @@ packages:
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
-  '@types/node@20.16.15':
-    resolution: {integrity: sha512-DV58qQz9dBMqVVn+qnKwGa51QzCD4YM/tQM16qLKxdf5tqz5W4QwtrMzjSTbabN1cFTSuyxVYBy+QWHjWW8X/g==}
+  '@types/node@20.17.0':
+    resolution: {integrity: sha512-a7zRo0f0eLo9K5X9Wp5cAqTUNGzuFLDG2R7C4HY2BhcMAsxgSPuRvAC1ZB6QkuUQXf0YZAgfOX2ZyrBa2n4nHQ==}
 
   '@types/node@22.7.9':
     resolution: {integrity: sha512-jrTfRC7FM6nChvU7X2KqcrgquofrWLFDeYC1hKfwNWomVvrn7JIksqf344WN2X/y8xrgqBd2dJATZV4GbatBfg==}
@@ -5366,7 +5366,7 @@ snapshots:
 
   '@types/node@17.0.45': {}
 
-  '@types/node@20.16.15':
+  '@types/node@20.17.0':
     dependencies:
       undici-types: 6.19.8
 
@@ -5379,13 +5379,13 @@ snapshots:
 
   '@types/resolve@1.17.1':
     dependencies:
-      '@types/node': 20.16.15
+      '@types/node': 20.17.0
 
   '@types/retry@0.12.2': {}
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 20.16.15
+      '@types/node': 20.17.0
 
   '@types/semver@7.5.8': {}
 
@@ -6669,7 +6669,7 @@ snapshots:
 
   jest-worker@26.6.2:
     dependencies:
-      '@types/node': 20.16.15
+      '@types/node': 20.17.0
       merge-stream: 2.0.0
       supports-color: 7.2.0
 
