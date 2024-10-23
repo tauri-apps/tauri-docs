@@ -1,0 +1,54 @@
+---
+title: ¿Qué es Tauri?
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+:::caution[Prerelease Software]
+
+Esta documentación es para la versión preliminar de Tauri 2.0 y está sujeta a cambios a medida que continúa el desarrollo. Si está buscando documentación de Tauri 1.0, visite https://tauri.app.
+
+:::
+
+Tauri es un marco para crear archivos binarios pequeños y rápidos para las principales plataformas móviles y de escritorio. Los desarrolladores pueden integrar cualquier marco de frontend que se compile en HTML, JavaScript y CSS para desarrollar su experiencia de usuario y, al mismo tiempo, aprovechar lenguajes como Rust, Swift y Kotlin para la lógica de backend cuando sea necesario.
+
+Comience a construir con [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) usando uno de los siguientes comandos. Asegúrese de seguir la [guía de requisitos previos](/start/prerequisites/) para instalar todas las dependencias requeridas por Tauri y luego vea las [guías de configuración de frontend](/start/frontend/) para conocer las configuraciones de frontend recomendadas.
+
+import Cta from '../_fragments/cta.mdx';
+
+<Cta />
+
+Después de haber creado su primera aplicación, puede explorar las diferentes funciones y recetas de Tauri en la [Lista de funciones y recetas](/plugin/).
+
+## ¿Por qué Tauri?
+
+Tauri tiene 3 ventajas principales que los desarrolladores pueden aprovechar:
+
+- Base segura para crear aplicaciones
+- Tamaño de paquete más pequeño mediante el uso de la vista web nativa del sistema
+- Flexibilidad para que los desarrolladores utilicen cualquier interfaz y enlaces para múltiples idiomas
+
+Obtenga más información sobre la filosofía Tauri en la [publicación del blog Tauri 1.0](/blog/tauri-1-0/).
+
+Al estar construido sobre Rust, Tauri puede aprovechar la memoria, los subprocesos y la seguridad de tipos que ofrece Rust. Las aplicaciones creadas en Tauri pueden obtener esos beneficios automáticamente incluso sin necesidad de ser desarrolladas por expertos en Rust.
+
+Tauri también se somete a una auditoría de seguridad para versiones mayores y menores. Esto no solo cubre el código en la organización Tauri, sino también las dependencias ascendentes de las que depende Tauri. Por supuesto, esto no mitiga todos los riesgos, pero proporciona una base sólida sobre la que los desarrolladores pueden construir.
+
+Lea la [política de seguridad de Tauri](https://github.com/tauri-apps/tauri/security/policy) y el [informe de auditoría de Tauri 1.0](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v1-report.pdf).
+
+### Tamaño de aplicación más pequeño
+
+Las aplicaciones Tauri aprovechan la vista web que ya está disponible en el sistema de cada usuario. Una aplicación Tauri solo contiene el código y los recursos específicos para esa aplicación y no necesita incluir un motor de navegador con cada aplicación. Esto significa que una aplicación Tauri mínima puede tener un tamaño inferior a 600 KB.
+
+Obtenga más información sobre cómo crear aplicaciones optimizadas en el [Concepto de tamaño de aplicación](/concept/size/).
+
+### Arquitectura flexible
+
+Dado que Tauri utiliza tecnologías web, eso significa que prácticamente cualquier marco de interfaz es compatible con Tauri. La [Guía de configuración de frontend](/start/frontend/) contiene configuraciones comunes para marcos de frontend populares y el [Concepto de renderizado](/concept/rendering/) analiza qué técnicas de renderizado funcionan mejor con Tauri (como SPA y SSG).
+
+Los enlaces (Bindings) entre JavaScript y Rust están disponibles para los desarrolladores que utilizan la función `invoke` en JavaScript y los enlaces (bindigs) Swift y Kotlin están disponibles para [Complementos (Plugins) de Tauri](/develop/plugins/).
+
+[TAO](https://github.com/tauri-apps/tao) es responsable de la creación de la ventana Tauri y [WRY](https://github.com/tauri-apps/wry) es responsable de la representación de la vista web. Estas son bibliotecas mantenidas por Tauri y se pueden consumir directamente si se requiere una integración más profunda del sistema fuera de lo que expone Tauri.
+
+Además, Tauri mantiene una serie de complementos para ampliar lo que expone el núcleo de Tauri. Puede encontrar esos complementos junto con los proporcionados por la comunidad en la [sección Complementos (Plugins)](/plugin/).
