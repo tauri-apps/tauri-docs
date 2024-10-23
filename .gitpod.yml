@@ -1,6 +1,10 @@
+image:
+  file: .devcontainer/Dockerfile
 tasks:
-  - init: pnpm install && pnpm dev:setup
-    command: pnpm run dev
+  - init: |
+      pnpm install
+      pnpm dev:setup
+    command: pnpm dev
 ports:
   - port: 3000
     onOpen: open-browser

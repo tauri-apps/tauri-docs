@@ -1,0 +1,27 @@
+{
+  "name": "Tauri Docs",
+  "runArgs": [],
+  "forwardPorts": [],
+  "mounts": [],
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {}
+  },
+  "customizations": {
+    "settings": {
+      "extensions.installRecommended": true
+    },
+    "extensions": [
+      "dbaeumer.vscode-eslint", // ESLint
+      "waderyan.gitblame", // Shows blame in source code
+      "GitHub.vscode-pull-request-github", // Pull requests
+      "codezombiech.gitignore", // .gitignore
+      "numso.prettier-standard-vscode", // Prettier
+      "Gruntfuggly.todo-tree", // To do
+      "MarkosTh09.color-picker", // Color picker
+      "redhat.vscode-yaml", // Yaml
+      "astro-build.astro-vscode" // Astro
+    ]
+  },
+  "features": {}
+}
