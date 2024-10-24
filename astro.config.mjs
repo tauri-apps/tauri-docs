@@ -274,10 +274,44 @@ export default defineConfig({
             },
             {
               label: 'Configuration',
+              collapsed: true,
               translations: {
                 'zh-CN': '配置',
               },
-              link: '/reference/config/',
+              items: [
+                {
+                  label: 'Overview',
+                  link: '/reference/config/',
+                },
+                {
+                  label: 'app',
+                  link: '/reference/config/#app',
+                },
+                {
+                  label: 'build',
+                  link: '/reference/config/#build',
+                },
+                {
+                  label: 'bundle',
+                  link: '/reference/config/#bundle',
+                },
+                {
+                  label: 'identifier',
+                  link: '/reference/config/#identifier',
+                },
+                {
+                  label: 'plugins',
+                  link: '/reference/config/#plugins',
+                },
+                {
+                  label: 'productName',
+                  link: '/reference/config/#productname',
+                },
+                {
+                  label: 'version',
+                  link: '/reference/config/#version',
+                },
+              ]
             },
             {
               label: 'Environment Variables',
