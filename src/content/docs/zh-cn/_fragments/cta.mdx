@@ -1,0 +1,35 @@
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="Bash">
+```sh
+sh <(curl https://create.tauri.app/sh) --alpha
+```
+</TabItem>
+<TabItem label="PowerShell">
+```ps
+$env:CTA_ARGS="--alpha"; irm https://create.tauri.app/ps | iex
+```
+</TabItem>
+<TabItem label="npm">
+```sh
+npm create tauri-app@latest -- --alpha
+```
+</TabItem>
+<TabItem label="Yarn">
+```sh
+yarn create tauri-app --alpha
+```
+</TabItem>
+<TabItem label="pnpm">
+```sh
+pnpm create tauri-app --alpha
+```
+</TabItem>
+<TabItem label="Cargo">
+```sh
+cargo install create-tauri-app
+cargo create-tauri-app --alpha
+```
+</TabItem>
+</Tabs>

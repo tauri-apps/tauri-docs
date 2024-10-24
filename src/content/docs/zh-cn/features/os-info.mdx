@@ -1,0 +1,105 @@
+---
+title: 操作系统信息
+description: 读取操作系统信息。
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin="os" />
+
+使用OS Information插件读取有关操作系统的信息。
+
+## 开始
+
+安装OS Information插件以开始使用。
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    1. 使用项目的包管理器添加依赖项：
+
+    <CommandTabs npm="npm run tauri add os"
+    yarn="yarn run tauri add os"
+    pnpm="pnpm tauri add os"
+    cargo="cargo tauri add os" />
+
+    2. 修改 `lib.rs` 以初始化插件:
+
+    {/* TODO: Revise once https://github.com/tauri-apps/tauri/issues/7696 is in */}
+
+    ```rust
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // 初始化插件
+            .plugin(tauri_plugin_os::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    </TabItem>
+    <TabItem label="Manual">
+
+    1. 运行 `cargo add tauri-plugin-os` 请插件添加到项目依赖 `Cargo.toml` 中.
+
+    2. 修改 `lib.rs` 以初始化插件:
+
+    ```rust
+    // lib.rs
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            // 初始化插件
+            .plugin(tauri_plugin_os::init())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    3. 如果您想在JavaScript中使用，请同时安装npm包：
+
+    <CommandTabs
+        npm="npm install @tauri-apps/plugin-os"
+        yarn="yarn add @tauri-apps/plugin-os"
+        pnpm="pnpm add @tauri-apps/plugin-os"
+    />
+
+    </TabItem>
+
+</Tabs>
+
+## 使用
+
+使用此插件，您可以从当前操作系统查询多个信息。在 [JavaScript API](/2/reference/js/os/) 或 [Rust API](https://docs.rs/tauri-plugin-os/) 中查看所有可用函数.
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+#### 示例：操作系统平台
+
+`platform` 返回一个描述所使用操作系统的字符串。该值在编译时设置。可能的值是 `linux`, `macos`, `ios`, `freebsd`, `dragonfly`, `netbsd`, `openbsd`, `solaris`, `android`, `windows`.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```js
+import { platform } from '@tauri-apps/plugin-os';
+
+const platform = await platform();
+console.log(platform);
+// 打印 "windows" 到控制台
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+let platform = tauri_plugin_os::platform();
+println!("Platform: {}", platform);
+// Prints "windows" to the terminal
+```
+
+</TabItem>
+</Tabs>
