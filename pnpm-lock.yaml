@@ -74,8 +74,8 @@ importers:
         specifier: 2.0.4
         version: 2.0.4
       '@types/node':
-        specifier: ^20.11.20
-        version: 20.17.2
+        specifier: ^22.0.0
+        version: 22.8.2
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -92,8 +92,8 @@ importers:
         specifier: ^2.2.5
         version: 2.2.5
       '@types/node':
-        specifier: ^20.11.20
-        version: 20.17.2
+        specifier: ^22.0.0
+        version: 22.8.2
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -107,8 +107,8 @@ importers:
         specifier: ^7.0.15
         version: 7.0.15
       '@types/node':
-        specifier: ^20.11.20
-        version: 20.17.2
+        specifier: ^22.0.0
+        version: 22.8.2
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1507,9 +1507,6 @@ packages:
 
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
-
-  '@types/node@20.17.2':
-    resolution: {integrity: sha512-OOHK4sjXqkL7yQ7VEEHcf6+0jSvKjWqwnaCtY7AKD/VLEvRHMsxxu7eI8ErnjxHS8VwmekD4PeVCpu4qZEZSxg==}
 
   '@types/node@22.8.2':
     resolution: {integrity: sha512-NzaRNFV+FZkvK/KLCsNdTvID0SThyrs5SHB6tsD/lajr22FGC73N2QeDPM2wHtVde8mgcXuSsHQkH5cX1pbPLw==}
@@ -5366,26 +5363,21 @@ snapshots:
 
   '@types/node@17.0.45': {}
 
-  '@types/node@20.17.2':
-    dependencies:
-      undici-types: 6.19.8
-
   '@types/node@22.8.2':
     dependencies:
       undici-types: 6.19.8
-    optional: true
 
   '@types/picomatch@2.3.3': {}
 
   '@types/resolve@1.17.1':
     dependencies:
-      '@types/node': 20.17.2
+      '@types/node': 22.8.2
 
   '@types/retry@0.12.2': {}
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 20.17.2
+      '@types/node': 22.8.2
 
   '@types/semver@7.5.8': {}
 
@@ -6669,7 +6661,7 @@ snapshots:
 
   jest-worker@26.6.2:
     dependencies:
-      '@types/node': 20.17.2
+      '@types/node': 22.8.2
       merge-stream: 2.0.0
       supports-color: 7.2.0
 
