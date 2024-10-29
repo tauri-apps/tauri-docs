@@ -97,6 +97,8 @@ The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest
 
 2.  Send a request
 
+    The `fetch` method tries to be as close and compliant to the [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as possible.
+
     ```javascript
     import { fetch } from '@tauri-apps/plugin-http';
 
@@ -110,7 +112,12 @@ The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest
 
     :::note
 
-    The current `fetch` method is an API to Rust backend. It tries to be as close and compliant to the [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as possible.
+    [Forbidden request headers] are ignored by default. To use them you must enable the `unsafe-headers` feature flag:
+
+    ```toml title="src-tauri/Cargo.toml"
+    [dependencies]
+    tauri-plugin-http = { version = "2", features = ["unsafe-headers"] }
+    ```
 
     :::
 
@@ -129,3 +136,5 @@ println!("{:?}", res.text().await); // e.g Ok("{ Content }")
 ```
 
 <PluginPermissions plugin={frontmatter.plugin} />
+
+[Forbidden request headers]: https://fetch.spec.whatwg.org/#terminology-headers
