@@ -308,7 +308,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-rc/tauri/index.html',
+              link: 'https://docs.rs/tauri/~2/',
             },
           ],
         },
