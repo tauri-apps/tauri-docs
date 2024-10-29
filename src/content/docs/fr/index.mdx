@@ -1,6 +1,6 @@
 ---
-title: Une fondation robuste pour vos applications web.
-description: Les outils de création d'applications multiplatformes
+title: Tauri 2.0
+description: La boîte à outils de création d'applications multiplatformes
 i18nReady: true
 template: splash
 editUrl: false
@@ -8,6 +8,7 @@ lastUpdated: false
 prev: false
 next: false
 hero:
+  tagline: Créez des applications légères, rapides, sécurisées et multiplatformes
   image:
     file: ../../../assets/logo-outline.svg
   actions:
@@ -15,19 +16,14 @@ hero:
       link: /fr/start/
       icon: right-arrow
       variant: primary
-    - text: Règles de contribution
-
-      link: /fr/contribute/
-
-      icon: open-book
-      variant: minimal
     - text: Documentation de Tauri 1.0
-      link: https://tauri.app
+      link: https://v1.tauri.app/fr/
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
 
 <div class="hero-bg">
   <div class="bg-logo"></div>
@@ -35,9 +31,15 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   <div class="bg-grad-red"></div>
 </div>
 
-<CardGrid stagger>
-  <Card title="Frontend Indépendant" icon="rocket">
-    Importez votre configuration web existant dans Tauri ou démarrez votre
+<div class="lp-cta-card">
+  <Card title="Créer un projet" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
+  <Card title="Indépendant du frontend" icon="rocket">
+    Importez votre configuration web existante dans Tauri ou démarrez votre
     nouveau projet de rêve. Tauri supporte n'importe quel framework frontend,
     vous n'avez donc pas besoin de changer votre configuration.
   </Card>
@@ -47,13 +49,13 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   </Card>
   <Card title="Communication Inter-Processus" icon="rocket">
     Écrivez votre frontend en Javascript, la logique de l'application en Rust,
-    puis intégrez le tout profondément dans le système avec Swift et Kotlin.
+    puis intégrez le tout en profondeur dans le système avec Swift et Kotlin.
   </Card>
-  <Card title="Sécurité Maximale" icon="rocket">
-    C'est la première préoccupation de l'équipe Tauri, qui dirige nos priorités
+  <Card title="Sécurité maximale" icon="rocket">
+    C'est la première préoccupation de l'équipe Tauri, au cœur de nos priorités
     et nos plus grandes innovations.
   </Card>
-  <Card title="Poids Minimal" icon="rocket">
+  <Card title="Poids minimal" icon="rocket">
     En utilisant le moteur de rendu web natif du système d'exploitation, le
     poids d'une application Tauri peut atteindre 600 Ko.
   </Card>
