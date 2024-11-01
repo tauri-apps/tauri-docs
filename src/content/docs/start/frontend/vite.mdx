@@ -85,6 +85,22 @@ This guide is accurate as of Vite 5.4.8.
 
     </TabItem>
 
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
     </Tabs>
 
 1.  ##### Update Vite configuration:

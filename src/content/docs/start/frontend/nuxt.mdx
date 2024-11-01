@@ -71,6 +71,21 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
         ```
 
               </TabItem>
+              <TabItem label="deno">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "deno task dev",
+            "beforeBuildCommand": "deno task generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
 
           </Tabs>
 

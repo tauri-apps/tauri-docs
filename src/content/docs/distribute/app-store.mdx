@@ -26,6 +26,7 @@ After running `tauri ios init` to setup the Xcode project, you can use the `taur
   npm="npm run tauri icon /path/to/app-icon.png -- --ios-color #fff"
   yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
   pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
+  deno="deno task tauri icon /path/to/app-icon.png --ios-color #fff"
   cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
 />
 
@@ -55,6 +56,7 @@ To open the iOS project in Xcode for building you must run the following command
   npm="npm run tauri ios build -- --open"
   yarn="yarn tauri ios build --open"
   pnpm="pnpm tauri ios build --open"
+  deno="deno task tauri ios build --open"
   cargo="cargo tauri ios build --open"
 />
 
@@ -96,6 +98,8 @@ npm run tauri bundle -- --bundles app --target universal-apple-darwin --config s
 yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
   pnpm="pnpm tauri build --no-bundle
 pnpm tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
   cargo="cargo tauri build --no-bundle
 cargo tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
 />
@@ -276,6 +280,7 @@ To build your iOS app, run the `tauri ios build` command:
   npm="npm run tauri ios build -- --export-method app-store-connect"
   yarn="yarn tauri ios build --export-method app-store-connect"
   pnpm="pnpm tauri ios build --export-method app-store-connect"
+  deno="deno task tauri ios build --export-method app-store-connect"
   cargo="cargo tauri ios build --export-method app-store-connect"
 />
 

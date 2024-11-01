@@ -73,6 +73,22 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 
     </TabItem>
 
+    <TabItem label="deno">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
     </Tabs>
 
 2.  ##### Update Next.js configuration

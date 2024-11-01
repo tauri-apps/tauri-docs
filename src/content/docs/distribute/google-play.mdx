@@ -31,6 +31,7 @@ After running `tauri android init` to setup the Android Studio project, you can 
   npm="npm run tauri icon /path/to/app-icon.png"
   yarn="yarn tauri icon /path/to/app-icon.png"
   pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
   cargo="cargo tauri icon /path/to/app-icon.png"
 />
 
@@ -46,6 +47,7 @@ You can build an Android App Bundle (AAB) to upload to Google Play by running th
   npm="npm run tauri android build -- --aab"
   yarn="yarn tauri android build --aab"
   pnpm="pnpm tauri android build --aab"
+  deno="deno task tauri android build --aab"
   cargo="cargo tauri android build --aab"
 />
 
@@ -73,6 +75,7 @@ To compile APKs for your app you can use the `--apk` argument:
   npm="npm run tauri android build -- --apk"
   yarn="yarn tauri android build --apk"
   pnpm="pnpm tauri android build --apk"
+  deno="deno task tauri android build --apk"
   cargo="cargo tauri android build --apk"
 />
 
@@ -85,6 +88,7 @@ To only compile for a subset of targets, you can use the `--target` argument:
   npm="npm run tauri android build -- --aab --target aarch64 --target armv7"
   yarn="yarn tauri android build --aab --target aarch64 --target armv7"
   pnpm="pnpm tauri android build --aab --target aarch64 --target armv7"
+  deno="deno task tauri android build --aab --target aarch64 --target armv7"
   cargo="cargo tauri android build --aab --target aarch64 --target armv7"
 />
 
@@ -100,6 +104,7 @@ This is only useful for testing or distribution outside Google Play, as it reduc
   npm="npm run tauri android build -- --apk --split-per-abi"
   yarn="yarn tauri android build --apk --split-per-abi"
   pnpm="pnpm tauri android build --apk --split-per-abi"
+  deno="deno task tauri android build --apk --split-per-abi"
   cargo="cargo tauri android build --apk --split-per-abi"
 />
 
