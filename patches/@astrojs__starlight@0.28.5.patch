@@ -12,7 +12,7 @@ index 2c4cc1d588f27b0106a82135ca3772cba86c5309..59a46a986a3fac739043c71f8a97801f
  }).strict();
  export type AutoSidebarGroup = z.infer<typeof AutoSidebarGroupSchema>;
 diff --git a/utils/navigation.ts b/utils/navigation.ts
-index 526d9f29ddc4a2a050be1869b708065a401758f3..9b6a2151b2500a131425a7d4d7279bdab7d54173 100644
+index ec2f9ee777ecf3973feef395d46c4c5580d9da56..cb0d1ef9dc41e83b8d36206fa631b6d1a53d1a33 100644
 --- a/utils/navigation.ts
 +++ b/utils/navigation.ts
 @@ -97,7 +97,7 @@ function groupFromAutogenerateConfig(
