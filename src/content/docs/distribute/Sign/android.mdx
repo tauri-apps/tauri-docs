@@ -19,8 +19,8 @@ See the [official Play App Signing documentation] for more information.
 
 Android signing requires a Java Keystore file that can be generated using the official `keytool` CLI:
 
-<Tabs>
-  <TabItem label="macOS / Linux">
+<Tabs syncKey="OS">
+  <TabItem label="macOS/Linux">
   
 ```
 keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
@@ -45,7 +45,7 @@ If you want to store it elsewhere, change the argument you pass to the `-keystor
 - The `keytool` command might not be in your PATH.
   You may find it installed in the JDK that is installed with Android Studio:
 
-<Tabs>
+<Tabs syncKey="OS">
 
 <TabItem label="Linux">
   <Code code="/opt/android-studio/jbr/bin/keytool ...args" lang="sh" />

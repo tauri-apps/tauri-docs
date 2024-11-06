@@ -42,7 +42,7 @@ Since Tauri officially only supports the MSVC Windows target, the setup is a bit
 
 #### Install NSIS
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
 Some Linux distributions have NSIS available in their repositories, for example on Ubuntu you can install NSIS by running this command:
 
@@ -79,7 +79,7 @@ Since the default Microsoft linker only works on Windows we will also need to in
 To compile the Windows Resource file which is used for setting the app icon among other things
 we will also need the `llvm-rc` binary which is part of the LLVM project.
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
   
 ```sh title="Ubuntu"

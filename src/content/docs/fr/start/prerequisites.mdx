@@ -26,7 +26,7 @@ Tauri exige un système varié de dépendances pour le développement sur Linux.
 {/* Note: These are the officially supported linux distributions. */}
 {/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
-<Tabs>
+<Tabs syncKey="distro">
   <TabItem label="Debian">
 
 ```sh
@@ -169,8 +169,8 @@ Suivant: [Installation de Rust](#rust)
 
 Tauri est développé en [Rust](https://www.rust-lang.org) et l'exige pour fonctionner. Installez Rust en utilisant une des méthodes suivantes. Vous pouvez voir plus de méthodes d'installation sur https://www.rust-lang.org/tools/install.
 
-<Tabs>
-  <TabItem label="Linux and macOS" class="content">
+<Tabs syncKey="OS">
+  <TabItem label="Linux/macOS" class="content">
 
 Installer via [`rustup`](https://github.com/rust-lang/rustup) en utilisant la commande:
 
@@ -210,7 +210,7 @@ Si vous vouler que votre application soit utilisable sur Android et iOS, il faut
 
 {/* TODO: Can this be done in the 4th step? */}
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
 
 ```sh
@@ -245,8 +245,8 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 {/* TODO: Does the version number change below? */}
 
-<Tabs>
-<TabItem label="Linux and macOS">
+<Tabs syncKey="OS">
+<TabItem label="Linux/macOS">
 
 ```sh
 export ANDROID_HOME="$HOME/Library/Android/sdk"

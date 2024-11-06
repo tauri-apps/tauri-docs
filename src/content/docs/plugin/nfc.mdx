@@ -136,7 +136,7 @@ The NFC plugin is available in both JavaScript and Rust, allowing you to scan an
 
 Not every mobile device has the capability to scan NFC tags, so you should check for availability before using the scan and write APIs.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -172,7 +172,7 @@ tauri::Builder::default()
 The plugin can scan either generic NFC tags or NFC tags with a NDEF (NFC Data Exchange Format) message,
 which is a standard format to encapsulate typed data in an NFC tag.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -244,7 +244,7 @@ Filtering is only available on Android, so you should always check the scanned N
 The mime type is case sensitive and must be provided with lower case letters.
 :::
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -313,7 +313,7 @@ tauri::Builder::default()
 The `write` API can be used to write a payload to a NFC tag.
 If there's no scanned tag with `keepSessionAlive: true`, the application will first scan an NFC tag.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 

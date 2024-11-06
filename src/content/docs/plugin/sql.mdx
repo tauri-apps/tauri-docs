@@ -77,8 +77,8 @@ After installing the plugin, you must select the supported database engine.
 The available engines are Sqlite, MySQL and PostgreSQL.
 Run the following command in the `src-tauri` folder to enable your preferred engine:
 
-<Tabs>
-  <TabItem label="Sqlite">
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
 
     ```sh frame=none
     cargo add tauri-plugin-sql --features sqlite
@@ -105,7 +105,7 @@ Run the following command in the `src-tauri` folder to enable your preferred eng
 
 All the plugin's APIs are available through the JavaScript guest bindings:
 
-<Tabs>
+<Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 
 The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
@@ -148,7 +148,7 @@ await db.execute("INSERT INTO ...");
 
 We use [sqlx](https://docs.rs/sqlx/latest/sqlx/) as the underlying library and adopt their query syntax.
 
-<Tabs>
+<Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 Use the "$#" syntax when substituting query data
 ```javascript
