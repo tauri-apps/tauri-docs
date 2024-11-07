@@ -81,7 +81,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 ```javascript
 import { platform } from '@tauri-apps/plugin-os';
 
-const currentPlatform = await platform();
+const currentPlatform = platform();
 console.log(currentPlatform);
 // Prints "windows" to the console
 ```
