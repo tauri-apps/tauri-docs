@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@astrojs/starlight@0.28.5':
-    hash: cokea22k7i4mh5z32orwkkwova
-    path: patches/@astrojs__starlight@0.28.5.patch
+  '@astrojs/starlight@0.29.0':
+    hash: ef4nmwlhau7dx53scqmmr7bcmy
+    path: patches/@astrojs__starlight@0.29.0.patch
 
 importers:
 
@@ -20,11 +20,11 @@ importers:
         specifier: ^4.0.7
         version: 4.0.9
       '@astrojs/starlight':
-        specifier: 0.28.5
-        version: 0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+        specifier: 0.29.0
+        version: 0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       '@lorenzo_lewis/starlight-utils':
         specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+        version: 0.2.0(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -63,10 +63,10 @@ importers:
         version: 1.22.2
       starlight-blog:
         specifier: ^0.14.0
-        version: 0.14.1(@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))
+        version: 0.14.1(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))
       starlight-links-validator:
         specifier: ^0.12.0
-        version: 0.12.4(@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+        version: 0.12.4(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
 
   packages/cli-generator:
     dependencies:
@@ -222,8 +222,8 @@ packages:
   '@astrojs/sitemap@3.1.6':
     resolution: {integrity: sha512-1Qp2NvAzVImqA6y+LubKi1DVhve/hXXgFvB0szxiipzh7BvtuKe4oJJ9dXSqaubaTkt4nMa6dv6RCCAYeB6xaQ==}
 
-  '@astrojs/starlight@0.28.5':
-    resolution: {integrity: sha512-0+++CW69mC2M0unHiAGfSrL+hCL9fgYMdU3t979msLIMxQtkyr9ajm8AIaAEWMfvIL0H+GKuNTritu5PgE6vPQ==}
+  '@astrojs/starlight@0.29.0':
+    resolution: {integrity: sha512-0HRr7LiI0XJUA5n0Mj5LPSLZtw80ttkL6eh824y6t/DCcvJzC6e+HRQZ0hIolU8jsEMc7Qs07mMQIvPTpX9KMg==}
     peerDependencies:
       astro: ^4.14.0
 
@@ -972,17 +972,17 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@expressive-code/core@0.35.6':
-    resolution: {integrity: sha512-xGqCkmfkgT7lr/rvmfnYdDSeTdCSp1otAHgoFS6wNEeO7wGDPpxdosVqYiIcQ8CfWUABh/pGqWG90q+MV3824A==}
+  '@expressive-code/core@0.38.3':
+    resolution: {integrity: sha512-s0/OtdRpBONwcn23O8nVwDNQqpBGKscysejkeBkwlIeHRLZWgiTVrusT5Idrdz1d8cW5wRk9iGsAIQmwDPXgJg==}
 
-  '@expressive-code/plugin-frames@0.35.6':
-    resolution: {integrity: sha512-CqjSWjDJ3wabMJZfL9ZAzH5UAGKg7KWsf1TBzr4xvUbZvWoBtLA/TboBML0U1Ls8h/4TRCIvR4VEb8dv5+QG3w==}
+  '@expressive-code/plugin-frames@0.38.3':
+    resolution: {integrity: sha512-qL2oC6FplmHNQfZ8ZkTR64/wKo9x0c8uP2WDftR/ydwN/yhe1ed7ZWYb8r3dezxsls+tDokCnN4zYR594jbpvg==}
 
-  '@expressive-code/plugin-shiki@0.35.6':
-    resolution: {integrity: sha512-xm+hzi9BsmhkDUGuyAWIydOAWer7Cs9cj8FM0t4HXaQ+qCubprT6wJZSKUxuvFJIUsIOqk1xXFaJzGJGnWtKMg==}
+  '@expressive-code/plugin-shiki@0.38.3':
+    resolution: {integrity: sha512-kqHnglZeesqG3UKrb6e9Fq5W36AZ05Y9tCREmSN2lw8LVTqENIeCIkLDdWtQ5VoHlKqwUEQFTVlRehdwoY7Gmw==}
 
-  '@expressive-code/plugin-text-markers@0.35.6':
-    resolution: {integrity: sha512-/k9eWVZSCs+uEKHR++22Uu6eIbHWEciVHbIuD8frT8DlqTtHYaaiwHPncO6KFWnGDz5i/gL7oyl6XmOi/E6GVg==}
+  '@expressive-code/plugin-text-markers@0.38.3':
+    resolution: {integrity: sha512-dPK3+BVGTbTmGQGU3Fkj3jZ3OltWUAlxetMHI6limUGCWBCucZiwoZeFM/WmqQa71GyKRzhBT+iEov6kkz2xVA==}
 
   '@feelback/js@0.3.4':
     resolution: {integrity: sha512-xr7gTqSJcVUYQlELs1TntYovCBjMcYUr/hGKTnDoF64/lig5CbX4bOmqLoF50IImCy5q3oIwg9w+TSFvtBwsIA==}
@@ -1618,10 +1618,10 @@ packages:
     peerDependencies:
       astro: '>=4.0.0'
 
-  astro-expressive-code@0.35.6:
-    resolution: {integrity: sha512-1U4KrvFuodaCV3z4I1bIR16SdhQlPkolGsYTtiANxPZUVv/KitGSCTjzksrkPonn1XuwVqvnwmUUVzTLWngnBA==}
+  astro-expressive-code@0.38.3:
+    resolution: {integrity: sha512-Tvdc7RV0G92BbtyEOsfJtXU35w41CkM94fOAzxbQP67Wj5jArfserJ321FO4XA7WG9QMV0GIBmQq77NBIRDzpQ==}
     peerDependencies:
-      astro: ^4.0.0-beta || ^3.3.0
+      astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
   astro-feelback@0.3.4:
     resolution: {integrity: sha512-ra69QTsdyjzQKdYeu+qngNcPOgspaWOFJLDFdpA/JryGo55uruw76455UVt2rf3NsZulBnYHS6+upPIO5O7t7A==}
@@ -2154,8 +2154,8 @@ packages:
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
-  expressive-code@0.35.6:
-    resolution: {integrity: sha512-+mx+TPTbMqgo0mL92Xh9QgjW0kSQIsEivMgEcOnaqKqL7qCw8Vkqc5Rg/di7ZYw4aMUSr74VTc+w8GQWu05j1g==}
+  expressive-code@0.38.3:
+    resolution: {integrity: sha512-COM04AiUotHCKJgWdn7NtW2lqu8OW8owAidMpkXt1qxrZ9Q2iC7+tok/1qIn2ocGnczvr9paIySgGnEwFeEQ8Q==}
 
   extend-shallow@2.0.1:
     resolution: {integrity: sha512-zCnTtlxNoAiDc3gqY2aYAWFx7XWWiasuF2K8Me5WbN8otHKTUKBwjPtNpRs/rbUZm7KxWAaNj7P1a/p52GbVug==}
@@ -3182,8 +3182,8 @@ packages:
   rehype-autolink-headings@7.1.0:
     resolution: {integrity: sha512-rItO/pSdvnvsP4QRB1pmPiNHUskikqtPojZKJPPPAVx9Hj8i8TwMBhofrrAYRhYOOBZH9tgmG5lPqDLuIWPWmw==}
 
-  rehype-expressive-code@0.35.6:
-    resolution: {integrity: sha512-pPdE+pRcRw01kxMOwHQjuRxgwlblZt5+wAc3w2aPGgmcnn57wYjn07iKO7zaznDxYVxMYVvYlnL+R3vWFQS4Gw==}
+  rehype-expressive-code@0.38.3:
+    resolution: {integrity: sha512-RYSSDkMBikoTbycZPkcWp6ELneANT4eTpND1DSRJ6nI2eVFUwTBDCvE2vO6jOOTaavwnPiydi4i/87NRyjpdOA==}
 
   rehype-format@5.0.1:
     resolution: {integrity: sha512-zvmVru9uB0josBVpr946OR8ui7nJEdzZobwLOOqHb/OOD88W0Vk2SqLwoVOj0fM6IPCCO6TaV9CvQvJMWwukFQ==}
@@ -4001,7 +4001,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))':
+  '@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))':
     dependencies:
       '@astrojs/mdx': 3.1.7(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       '@astrojs/sitemap': 3.1.6
@@ -4009,13 +4009,14 @@ snapshots:
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       astro: 4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)
-      astro-expressive-code: 0.35.6(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+      astro-expressive-code: 0.38.3(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.2
       hast-util-to-string: 3.0.0
       hastscript: 9.0.0
       i18next: 23.15.1
+      js-yaml: 4.1.0
       mdast-util-directive: 3.0.0
       mdast-util-to-markdown: 2.1.0
       mdast-util-to-string: 4.0.0
@@ -4854,7 +4855,7 @@ snapshots:
   '@esbuild/win32-x64@0.21.5':
     optional: true
 
-  '@expressive-code/core@0.35.6':
+  '@expressive-code/core@0.38.3':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
       hast-util-select: 6.0.2
@@ -4866,18 +4867,18 @@ snapshots:
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
 
-  '@expressive-code/plugin-frames@0.35.6':
+  '@expressive-code/plugin-frames@0.38.3':
     dependencies:
-      '@expressive-code/core': 0.35.6
+      '@expressive-code/core': 0.38.3
 
-  '@expressive-code/plugin-shiki@0.35.6':
+  '@expressive-code/plugin-shiki@0.38.3':
     dependencies:
-      '@expressive-code/core': 0.35.6
+      '@expressive-code/core': 0.38.3
       shiki: 1.22.2
 
-  '@expressive-code/plugin-text-markers@0.35.6':
+  '@expressive-code/plugin-text-markers@0.38.3':
     dependencies:
-      '@expressive-code/core': 0.35.6
+      '@expressive-code/core': 0.38.3
 
   '@feelback/js@0.3.4': {}
 
@@ -4988,9 +4989,9 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@lorenzo_lewis/starlight-utils@0.2.0(@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))':
+  '@lorenzo_lewis/starlight-utils@0.2.0(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))':
     dependencies:
-      '@astrojs/starlight': 0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+      '@astrojs/starlight': 0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       astro: 4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)
       astro-integration-kit: 0.16.1(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
 
@@ -5444,10 +5445,10 @@ snapshots:
       hast-util-to-html: 9.0.3
       unist-util-visit: 5.0.0
 
-  astro-expressive-code@0.35.6(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)):
+  astro-expressive-code@0.38.3(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)):
     dependencies:
       astro: 4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)
-      rehype-expressive-code: 0.35.6
+      rehype-expressive-code: 0.38.3
 
   astro-feelback@0.3.4:
     dependencies:
@@ -6052,12 +6053,12 @@ snapshots:
 
   eventemitter3@5.0.1: {}
 
-  expressive-code@0.35.6:
+  expressive-code@0.38.3:
     dependencies:
-      '@expressive-code/core': 0.35.6
-      '@expressive-code/plugin-frames': 0.35.6
-      '@expressive-code/plugin-shiki': 0.35.6
-      '@expressive-code/plugin-text-markers': 0.35.6
+      '@expressive-code/core': 0.38.3
+      '@expressive-code/plugin-frames': 0.38.3
+      '@expressive-code/plugin-shiki': 0.38.3
+      '@expressive-code/plugin-text-markers': 0.38.3
 
   extend-shallow@2.0.1:
     dependencies:
@@ -7515,9 +7516,9 @@ snapshots:
       unified: 11.0.5
       unist-util-visit: 5.0.0
 
-  rehype-expressive-code@0.35.6:
+  rehype-expressive-code@0.38.3:
     dependencies:
-      expressive-code: 0.35.6
+      expressive-code: 0.38.3
 
   rehype-format@5.0.1:
     dependencies:
@@ -7844,19 +7845,19 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.14.1(@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))):
+  starlight-blog@0.14.1(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))):
     dependencies:
       '@astrojs/rss': 4.0.5
-      '@astrojs/starlight': 0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+      '@astrojs/starlight': 0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       astro-remote: 0.3.2
       github-slugger: 2.0.0
       marked: 12.0.2
       marked-plaintify: 1.0.1(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  starlight-links-validator@0.12.4(@astrojs/starlight@0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)):
+  starlight-links-validator@0.12.4(@astrojs/starlight@0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)))(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)):
     dependencies:
-      '@astrojs/starlight': 0.28.5(patch_hash=cokea22k7i4mh5z32orwkkwova)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
+      '@astrojs/starlight': 0.29.0(patch_hash=ef4nmwlhau7dx53scqmmr7bcmy)(astro@4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3))
       '@types/picomatch': 2.3.3
       astro: 4.16.8(@types/node@22.9.0)(rollup@2.79.1)(sass@1.80.6)(terser@5.31.0)(typescript@5.6.3)
       github-slugger: 2.0.0
