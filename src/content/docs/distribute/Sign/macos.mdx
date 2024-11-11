@@ -74,7 +74,7 @@ To use the certificate in CI/CD platforms, you must export the certificate to a 
 and configure the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables:
 
 1. Open the `Keychain Access` app, click the _My Certificates_ tab in the _login_ keychain and find your certificate's entry.
-2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
+2. Expand the entry, right-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the certificate's `.p12` file and define a password for the exported certificate.
 4. Convert the `.p12` file to base64 running the following script on the terminal:
 
