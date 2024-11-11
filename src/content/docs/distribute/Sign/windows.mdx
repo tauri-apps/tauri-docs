@@ -285,3 +285,54 @@ When cross compiling Windows installers from Linux and macOS machines, you **mus
 [bundle > windows > signCommand]: /reference/config/#signcommand
 [SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
 [Microsoft Store]: https://apps.microsoft.com/
+
+## Azure Code Signing
+
+You can sign the Windows executables by providing an Azure Code signing certificate and credentials. If you don't have an Azure Code signing Account yet you can follow this [tutorial](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/).
+
+### Prerequisites
+
+If you want to sign with Github Actions everything should be installed.
+
+1. [Trusted Signing Account](https://learn.microsoft.com/en-us/azure/trusted-signing/quickstart?tabs=registerrp-portal,account-portal,certificateprofile-portal,deleteresources-portal) and permissions configured
+1. [.NET](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (.NET 6 or later recommended)
+1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update)
+1. [Signtool](https://learn.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) (Windows 11 SDK 10.0.22000.0 or later recommended)
+
+### Getting Started
+
+You need to install [trusted-singing-cli](https://github.com/Levminer/trusted-signing-cli) and configure your environment variables.
+
+<Steps>
+
+1. #### Install trusted-singing-cli
+
+   - `cargo install trusted-singing-cli`
+
+2. #### Configure environment variables
+
+   - trusted-singing-cli needs the following environment variables to be set, don't forget to add these as Github Actions [secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions):
+
+     - `AZURE_CLIENT_ID`: The client ID of your [App Registration](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+     - `AZURE_CLIENT_SECRET`: The client secret of [App Registration](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+     - `AZURE_TENANT_ID`: The tenant ID of your Azure directory, you can also get this from your [App Registration](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+
+3. ### Modify your `tauri.conf.json` file
+
+   - You can modify your `tauri.conf.json` or you can create a specific config file for Windows. Replace the URL and the certificate name with your own values.
+
+     - -e: The endpoint of your Azure Code Signing account
+     - -a: The name of your Azure Code Signing Account
+     - -c: The name of your Certificate profile inside your Azure Code Signing Account
+
+   ```json title=tauri.conf.json
+   {
+     "bundle": {
+       "windows": {
+         "signCommand": "trusted-signing-cli -e https://wus2.codesigning.azure.net -a MyAccount -c MyProfile %1"
+       }
+     }
+   }
+   ```
+
+  </Steps>
