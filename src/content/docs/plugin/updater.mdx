@@ -582,7 +582,7 @@ import { check } from '@tauri-apps/plugin-updater';
 
 const update = await check({
   proxy: '<proxy url>',
-  timeout: 30 /* seconds */,
+  timeout: 30000 /* milliseconds */,
   headers: {
     Authorization: 'Bearer <token>',
   },
