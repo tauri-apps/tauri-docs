@@ -57,6 +57,32 @@ Use this chart to help you figure out where the right place for your content is:
 - Make headings as succinct as possible to help the reader quickly find the content they need
 - Use [simple present tense](https://www.grammarly.com/blog/simple-present/) for verbs
 
+### New Features / Version Display
+
+When writing about a new feature, display the version it was introduced. 
+Use the `SinceVersion` component for this, located at [`src/components/SinceVersion.astro`](../src//components/SinceVersion.astro).
+Place it directly under the header, which describes the new feature. 
+When creating a new page add a Badge with the text `New` and variant `tip`.
+The lifetime of this badge should not exceed 6 Months.
+
+#### Example
+Example file `my-new-page.mdx`
+```mdx
+---
+title: My New Page
+sidebar:
+  badge:
+    text: New
+    variant: tip
+---
+import SinceVersion from '../path/to/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" library="optional core library name" href="optional link" />
+
+Documentation about 'My New Page'...
+
+```
+
 ### Guide
 
 Located in [`/src/content/docs/plugin/`](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/plugin)

@@ -35,7 +35,7 @@ This implementation simplifies the process of sharing an API that can be used bo
 
 ### Develop an Android Plugin
 
-A Tauri plugin for Android is defined as a Kotlin class that extends `app.tauri.plugin.Plugin` and is annoted with `app.tauri.annotation.TauriPlugin`. Each method annotated with `app.tauri.annotation.Command` can be called by Rust or JavaScript.
+A Tauri plugin for Android is defined as a Kotlin class that extends `app.tauri.plugin.Plugin` and is annotated with `app.tauri.annotation.TauriPlugin`. Each method annotated with `app.tauri.annotation.Command` can be called by Rust or JavaScript.
 
 Tauri uses Kotlin by default for the Android plugin implementation, but you can switch to Java if you prefer. After generating a plugin, right click the Kotlin plugin class in Android Studio and select the "Convert Kotlin file to Java file" option from the menu. Android Studio will guide you through the project migration to Java.
 

@@ -196,7 +196,7 @@ fn bio_auth(app_handle: tauri::AppHandle) {
         confirmation_required: Some(true),
     };
 
-    // if the authentication was succesfull, the function returns Result::Ok()
+    // if the authentication was successful, the function returns Result::Ok()
     // otherwise returns Result::Error()
     match app_handle.biometric().authenticate("This feature is locked".to_string(), options) {
         Ok(_) => {

@@ -1,0 +1,240 @@
+---
+title: HTTP Headers
+author: 39zde <git@39zde>
+sidebar:
+  order: 7
+  badge:
+    text: New
+    variant: tip
+---
+
+import SinceVersion from '../../../components/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" />
+
+A header defined in the configuration gets sent along the responses to the webview.
+This doesn't include IPC messages and error responses.
+To be more specific, every response sent via the `get_response` function in
+<a href="https://github.com/tauri-apps/tauri/blob/8e8312bb8201ccc609e4bbc1a990bdc314daa00f/crates/tauri/src/protocol/tauri.rs#L103" target="_blank">crates/tauri/src/protocol/tauri.rs ↗</a>
+will include those headers.
+
+### Header Names
+
+The header names are limited to:
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials" target="_blank">Access-Control-Allow-Credentials ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers" target="_blank">Access-Control-Allow-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods" target="_blank">Access-Control-Allow-Methods ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers" target="_blank">Access-Control-Expose-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age" target="_blank">Access-Control-Max-Age ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy" target="_blank">Cross-Origin-Embedder-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy" target="_blank">Cross-Origin-Opener-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy" target="_blank">Cross-Origin-Resource-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy" target="_blank">Permissions-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin" target="_blank">Timing-Allow-Origin ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options" target="_blank">X-Content-Type-Options ↗</a>
+- Tauri-Custom-Header
+
+:::note
+`Tauri-Custom-Header` is not intended for production use.
+:::
+
+:::note
+<a href="../csp/">The Content-Security-Policy (CSP)</a> is not defined here.
+:::
+
+### How to Configure Headers
+
+- with a string
+- with an Array of strings
+- with an Object/Key-Value, where the values must be strings
+- with null
+
+The header values are always converted to strings for the actual response. Depending, on how the configuration file looks, some header values need to be composed.
+Those are the rules on how a composite gets created:
+
+- `string`: stays the same for the resulting header value
+- `Array`: items are joined by `, `  for the resulting header value
+- `key-value`: items are composed from: key + space + value. Items are then joined by `; `  for the resulting header value
+- `null`: header will be ignored
+
+### Example
+
+```javascript title="src-tauri/tauri.conf.json"
+{
+ //...
+  "app":{
+    //...
+    "security": {
+      //...
+      "headers": {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Timing-Allow-Origin": [
+          "https://developer.mozilla.org",
+          "https://example.com",
+        ],
+        "X-Content-Type-Options": null, // gets ignored
+        "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+        "Tauri-Custom-Header": {
+          "key1": "'value1' 'value2'",
+          "key2": "'value3'"
+        }
+      },
+      // notice how the CSP is not defined under headers
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost",
+    }
+  }
+}
+```
+
+:::note
+`Tauri-Custom-Header` is not intended for production use.
+For Tests: Remember to set `Access-Control-Expose-Headers` accordingly.
+:::
+
+In this example `Cross-Origin-Opener-Policy` and `Cross-Origin-Embedder-Policy` are set to
+allow for the use of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank">`SharedArrayBuffer ↗`</a>.
+`Timing-Allow-Origin` grants scripts loaded from the listed websites to access detailed network timing data via the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance_API/Resource_timing" target="_blank">Resource Timing API ↗</a>.
+
+For the helloworld example, this config results in:
+
+```http
+access-control-allow-origin:  http://tauri.localhost
+access-control-expose-headers: Tauri-Custom-Header
+content-security-policy: default-src 'self'; connect-src ipc: http://ipc.localhost; script-src 'self' 'sha256-Wjjrs6qinmnr+tOry8x8PPwI77eGpUFR3EEGZktjJNs='
+content-type: text/html
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+tauri-custom-header: key1 'value1' 'value2'; key2 'value3'
+timing-allow-origin: https://developer.mozilla.org, https://example.com
+```
+
+### Frameworks
+
+Some development environments require extra settings, to emulate the production environment.
+
+#### JavaScript/TypeScript
+
+For setups running the build tool **Vite** (those include **Qwik, React, Solid, Svelte, and Vue**) add the wanted headers to `vite.config.ts`. 
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // ...
+  server: {
+      // ...
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin': 'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'"
+      },
+    },
+})
+```
+Sometimes the `vite.config.ts` is integrated into the frameworks configuration file, but the setup stays the same.
+In case of **Angular** add them to `angular.json`.
+```json title=angular.json
+{
+  //...
+  "projects":{
+    //...
+    "insert-project-name":{
+      //...
+      "architect":{
+        //...
+        "serve":{
+          //...
+          "options":{
+            //...
+            "headers":{
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Timing-Allow-Origin": "https://developer.mozilla.org, https://example.com",
+              "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+              "Tauri-Custom-Header": "key1 'value1' 'value2'; key2 'value3'"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+And in case of **Nuxt** to `nuxt.config.ts`.
+```typescript title=nuxt.config.ts
+export default defineNuxtConfig({
+  //...
+  vite: {
+    //...
+    server: {
+      //...
+      headers:{
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin': 'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'"
+      }
+    },
+  },
+});
+```
+**Next.js** doesn't rely on Vite, so the approach is different.
+Read more about it <a href="https://nextjs.org/docs/pages/api-reference/next-config-js/headers" target="_blank">here ↗</a>.
+The headers are defined in `next.config.js`.
+```javascript title=next.config.js
+module.exports = {
+  //...
+  async headers() {
+    return [
+      {
+        source: '/*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Timing-Allow-Origin',
+            value: 'https://developer.mozilla.org, https://example.com',
+          },
+          {
+            key: 'Access-Control-Expose-Headers',
+            value: 'Tauri-Custom-Header',
+          },
+          {
+            key: 'Tauri-Custom-Header',
+            value: "key1 'value1' 'value2'; key2 'value3'",
+          },
+        ],
+      },
+    ]
+  },
+}
+```
+
+
+#### Rust
+
+For **Yew** and **Leptos** add the headers to `Trunk.toml`
+
+```toml title=Trunk.toml
+#...
+[serve]
+#...
+headers = { 
+  "Cross-Origin-Opener-Policy" = "same-origin",
+  "Cross-Origin-Embedder-Policy" = "require-corp",
+  "Timing-Allow-Origin" = "https://developer.mozilla.org, https://example.com",
+  "Access-Control-Expose-Headers" = "Tauri-Custom-Header",
+  "Tauri-Custom-Header" = "key1 'value1' 'value2'; key2 'value3'"
+}
+
+```
+
