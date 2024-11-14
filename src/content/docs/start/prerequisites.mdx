@@ -25,9 +25,6 @@ Follow the link to get started for your respective operating system:
 
 Tauri requires various system dependencies for development on Linux. These may be different depending on your distribution but we've included some popular distributions below to help you get setup.
 
-{/* Note: These are the officially supported linux distributions. */}
-{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
-
 <Tabs syncKey="distro">
   <TabItem label="Debian">
 
@@ -233,10 +230,28 @@ Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
 
 Visit https://www.rust-lang.org/tools/install to install `rustup`.
 
+Alternatively, you can use `winget` to install rustup using the following command in PowerShell:
+
+```powershell
+winget install --id Rustlang.Rustup
+```
+
+:::caution[MSVC toolchain as default]
+
+For full support for Tauri and tools like [`trunk`](https://trunkrs.dev/) make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+
+If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
   </TabItem>
 </Tabs>
 
-Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
+**Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.**
 
 Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/start/create-project/).
 
