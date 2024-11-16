@@ -35,25 +35,27 @@ The structure and values are the same across all formats, however, the formattin
 ```json5 title=tauri.conf.json or tauri.conf.json5
 {
   build: {
-    devUrl: "http://localhost:3000",
+    devUrl: 'http://localhost:3000',
     // start the dev server
-    beforeDevCommand: "npm run dev"
+    beforeDevCommand: 'npm run dev',
   },
   bundle: {
     active: true,
-    icon: ["icons/app.png"]
+    icon: ['icons/app.png'],
   },
   app: {
-    windows: [{
-      title: "MyApp"
-    }]
+    windows: [
+      {
+        title: 'MyApp',
+      },
+    ],
   },
   plugins: {
     updater: {
-      pubkey: "updater pub key",
-      endpoints: ["https://my.app.updater/{{target}}/{{current_version}}"]
-    }
-  }
+      pubkey: 'updater pub key',
+      endpoints: ['https://my.app.updater/{{target}}/{{current_version}}'],
+    },
+  },
 }
 ```
 
