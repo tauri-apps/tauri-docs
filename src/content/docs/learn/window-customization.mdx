@@ -224,7 +224,7 @@ Create the main window and change its background color:
     ```rust title="src-tauri/src/lib.rs"
     use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
 
-    pub run() {
+    pub fn run() {
     	tauri::Builder::default()
     		.setup(|app| {
     			let win_builder =
