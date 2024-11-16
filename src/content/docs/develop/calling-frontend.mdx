@@ -41,7 +41,7 @@ use tauri::{AppHandle, Emitter};
 fn download(app: AppHandle, url: String) {
   app.emit("download-started", &url).unwrap();
   for progress in [1, 15, 50, 80, 100] {
-    app.emit("download-progress", 10).unwrap();
+    app.emit("download-progress", progress).unwrap();
   }
   app.emit("download-finished", &url).unwrap();
 }
