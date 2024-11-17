@@ -106,6 +106,10 @@ sudo zypper in -t pattern devel_basis
   </TabItem>
   <TabItem label="NixOS">
 
+:::note
+This will also install Rust and Node.js as well as the `cargo-tauri` CLI for you, so you can skip those steps below.
+:::
+
 Using `nix-shell`:
 
 ```nix
@@ -113,29 +117,28 @@ let
   pkgs = import <nixpkgs> { };
 in
 pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
+    pkg-config
+    gobject-introspection
+    cargo
+    cargo-tauri
+    nodejs
+  ];
+
   buildInputs = with pkgs;[
     at-spi2-atk
     atkmm
     cairo
     gdk-pixbuf
     glib
-    gobject-introspection
-    gobject-introspection.dev
     gtk3
     harfbuzz
     librsvg
     libsoup_3
     pango
     webkitgtk_4_1
-    webkitgtk_4_1.dev
-    pkg-config
+    openssl
   ];
-
-  OPENSSL_NO_VENDOR = 1;
-  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [ openssl_3 ]);
-  OPENSSL_LIB_DIR = "${pkgs.lib.getLib pkgs.openssl_3}/lib";
-  OPENSSL_DIR = "${pkgs.openssl_3.dev}";
-  PKG_CONFIG_PATH = with pkgs; "${glib.dev}/lib/pkgconfig:${libsoup_3.dev}/lib/pkgconfig:${webkitgtk_4_1.dev}/lib/pkgconfig:${at-spi2-atk.dev}/lib/pkgconfig:${gtk3.dev}/lib/pkgconfig:${gdk-pixbuf.dev}/lib/pkgconfig:${cairo.dev}/lib/pkgconfig:${pango.dev}/lib/pkgconfig:${harfbuzz.dev}/lib/pkgconfig";
 }
 ```
 
