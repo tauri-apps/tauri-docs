@@ -1,0 +1,187 @@
+:root {
+  color-scheme: dark;
+
+  --font-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji;
+  --font-body: system-ui, var(--font-fallback);
+  --theme-accent: hsl(186, 100%, 87%);
+  --theme-bg: hsl(186, 13%, 10%);
+  --theme-table-header: hsl(186, 14%, 16%);
+  --theme-table-border: 1px solid hsl(186, 13%, 16%);
+  --theme-table-hover: hsl(186, 13%, 16%);
+  --theme-text: hsl(186, 8%, 77%);
+  --theme-text-bright: hsl(0, 0%, 100%);
+  --overlay-blurple: hsla(186, 60%, 60%, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  color: var(--theme-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  margin-block: 2rem;
+  margin-inline: 1rem;
+  margin: 0;
+  background:
+    linear-gradient(215deg, var(--overlay-blurple), transparent 40%),
+    radial-gradient(var(--overlay-blurple), transparent 40%) no-repeat -60vw -40vh / 105vw 200vh,
+    radial-gradient(var(--overlay-blurple), transparent 65%) no-repeat 50% calc(100% + 20rem) /
+      60rem 30rem,
+    var(--theme-bg);
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--theme-text-bright);
+}
+
+:is(h2):not(:first-child) {
+  margin-top: 3rem;
+}
+
+:is(h3, h4):not(:first-child) {
+  margin-top: 2rem;
+}
+
+:is(h5, h6):not(:first-child) {
+  margin-top: 1rem;
+}
+
+@media (min-width: 37.75em) {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+main {
+  max-width: 80ch;
+  margin-inline: auto;
+  padding-bottom: 2rem;
+}
+
+.limit-to-viewport {
+  max-width: calc(100vw - 2rem);
+}
+
+p + p {
+  margin-top: 1.25rem;
+}
+
+a {
+  color: var(--theme-accent);
+  text-decoration: none;
+}
+
+h2 a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--theme-text-bright);
+}
+
+ul {
+  font-size: 0.875rem;
+}
+
+details {
+  margin-bottom: 1.25rem;
+}
+
+details summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+details summary:hover strong {
+  color: var(--theme-accent-secondary);
+}
+
+details h5 {
+  margin-top: 1rem !important;
+}
+
+details > :last-child {
+  margin-bottom: 1rem;
+}
+
+.create-button {
+  padding: 0.1em 0.5em;
+  background-color: hsl(213deg 89% 64% / 20%);
+  display: inline-block;
+  border-radius: 0.5em;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.status-by-file {
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  margin-inline: 1rem;
+  border: var(--theme-table-border);
+  font-size: 0.8125rem;
+  width: 90%;
+}
+.status-by-file th {
+  position: sticky;
+  top: -1px;
+  background: var(--theme-table-header);
+  border-bottom: none;
+  white-space: nowrap;
+  padding-inline: 0.3rem;
+}
+
+.status-by-file th,
+.status-by-file td {
+  padding-block: 0.2rem;
+}
+
+.status-by-file tbody tr:not(.spacer):hover td {
+  background: var(--theme-table-hover);
+}
+
+.status-by-file .spacer td {
+  height: 0.5rem;
+}
+
+.status-by-file th:first-of-type,
+.status-by-file td:first-of-type {
+  text-align: left;
+  padding-inline-start: 1rem;
+}
+
+.status-by-file th:last-of-type,
+.status-by-file td:last-of-type {
+  text-align: center;
+  padding-inline-end: 1rem;
+}
+
+.status-by-file td:not(:first-of-type) {
+  min-width: 2rem;
+  text-align: center;
+  cursor: default;
+}
+
+.status-by-file td:not(:first-of-type) a {
+  text-decoration: none;
+}
+
+.progress-summary {
+  font-size: 0.8125rem;
+}
+
+.progress-bar {
+  font-size: 0.6875rem;
+}
+
+.main-container {
+  position: relative;
+}

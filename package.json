@@ -18,8 +18,7 @@
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
-    "build:i18n": "pnpm --filter docs-i18n-tracker run build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro && pnpm build:i18n",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -27,6 +26,8 @@
     "@astrojs/rss": "^4.0.7",
     "@astrojs/starlight": "0.29.0",
     "@lorenzo_lewis/starlight-utils": "^0.2.0",
+    "@lunariajs/core": "^0.1.1",
+    "@lunariajs/starlight": "^0.1.1",
     "@types/json-schema": "^7.0.15",
     "astro": "^4.15.7",
     "astro-d2": "^0.6.0",
