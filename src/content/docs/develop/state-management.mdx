@@ -106,7 +106,7 @@ For more information on commands, see [Calling Rust from the Frontend](/develop/
 
 #### Async commands
 
-If you are using `async` commands and want to use Tokio's async [`Mutex`], you can set it up the same way and access the state like this:
+If you are using `async` commands and want to use Tokio's async [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html), you can set it up the same way and access the state like this:
 
 ```rust
 #[tauri::command]
