@@ -24,7 +24,7 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^5.2.0",
     "@astrojs/rss": "^4.0.7",
-    "@astrojs/starlight": "0.29.0",
+    "@astrojs/starlight": "0.29.2",
     "@lorenzo_lewis/starlight-utils": "^0.2.0",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
@@ -49,7 +49,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@astrojs/starlight@0.29.0": "patches/@astrojs__starlight@0.29.0.patch"
+      "@astrojs/starlight@0.29.2": "patches/@astrojs__starlight@0.29.2.patch"
     }
   }
 }
