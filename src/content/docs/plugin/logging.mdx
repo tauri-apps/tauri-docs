@@ -236,11 +236,11 @@ tauri_plugin_log::Builder::new()
 When using the LogDir target, all logs are stored in the recommended log directory.
 The following table describes the location of the logs per platform:
 
-| Platform | Value                                       | Example                                        |
-| -------- | ------------------------------------------- | ---------------------------------------------- |
-| Linux    | `{configDir}/{bundleIdentifier}`            | `/home/alice/.config/com.tauri.dev`            |
-| macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}` | `/Users/Alice/Library/Logs/com.tauri.dev`      |
-| Windows  | `{configDir}/{bundleIdentifier}`            | `C:\Users\Alice\AppData\Roaming\com.tauri.dev` |
+| Platform | Value                                             | Example                                           |
+| -------- | ------------------------------------------------- | ------------------------------------------------- |
+| Linux    | `{configDir}/{bundleIdentifier}`                  | `/home/alice/.config/com.tauri.dev`               |
+| macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}`       | `/Users/Alice/Library/Logs/com.tauri.dev`         |
+| Windows  | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs` | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
 
 - `Folder`:
 
