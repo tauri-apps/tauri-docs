@@ -21,31 +21,31 @@ importers:
         version: 4.0.10
       '@astrojs/starlight':
         specifier: 0.29.2
-        version: 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@lorenzo_lewis/starlight-utils':
         specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@lunariajs/core':
         specifier: ^0.1.1
         version: 0.1.1
       '@lunariajs/starlight':
         specifier: ^0.1.1
-        version: 0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
       astro:
-        specifier: ^4.15.7
-        version: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+        specifier: ^4.16.18
+        version: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       astro-d2:
         specifier: ^0.6.0
-        version: 0.6.0(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 0.6.0(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
       astrojs-service-worker:
         specifier: ^2.0.0
-        version: 2.0.0(@types/babel__core@7.20.5)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 2.0.0(@types/babel__core@7.20.5)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       jsdom:
         specifier: ^25.0.0
         version: 25.0.1
@@ -69,10 +69,10 @@ importers:
         version: 1.24.3
       starlight-blog:
         specifier: ^0.15.0
-        version: 0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       starlight-links-validator:
         specifier: ^0.13.0
-        version: 0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+        version: 0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
 
   packages/cli-generator:
     dependencies:
@@ -1623,8 +1623,8 @@ packages:
     resolution: {integrity: sha512-Xwm6Y+ldQEnDB2l1WwVqeUs3QvUX8LtJWnovpXlf8xhpicPu159jXOhDbHZS9wilGO/+/nR67A1qskF8pDvdGQ==}
     engines: {node: '>=18.14.1'}
 
-  astro@4.16.17:
-    resolution: {integrity: sha512-OuD+BP7U6OqQLKtZ/FJkU2S+TOlifxS/OKUbZOb5p6y+LLBa1J3zHRJrIl7DUSq6eXY+9wSWwbJpD9JS+lqhxA==}
+  astro@4.16.18:
+    resolution: {integrity: sha512-G7zfwJt9BDHEZwlaLNvjbInIw2hPryyD654314KV/XT34pJU6SfN1S+mWa8RAkALcZNJnJXCJmT3JXLQStD3Lw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -3928,12 +3928,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.9(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
+  '@astrojs/mdx@3.1.9(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
     dependencies:
       '@astrojs/markdown-remark': 5.3.0
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
       acorn: 8.14.0
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
       gray-matter: 4.0.3
@@ -3968,15 +3968,15 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
+  '@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
     dependencies:
-      '@astrojs/mdx': 3.1.9(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      '@astrojs/mdx': 3.1.9(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@astrojs/sitemap': 3.1.6
       '@pagefind/default-ui': 1.1.1
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
-      astro-expressive-code: 0.38.3(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro-expressive-code: 0.38.3(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.2
@@ -4961,11 +4961,11 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@lorenzo_lewis/starlight-utils@0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
+  '@lorenzo_lewis/starlight-utils@0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
     dependencies:
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
-      astro-integration-kit: 0.16.1(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro-integration-kit: 0.16.1(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
 
   '@lunariajs/core@0.1.1':
     dependencies:
@@ -4982,11 +4982,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
+  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))':
     dependencies:
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@lunariajs/core': 0.1.1
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -5435,25 +5435,25 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-d2@0.6.0(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
+  astro-d2@0.6.0(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
     dependencies:
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       hast-util-from-html: 2.0.3
       hast-util-to-html: 9.0.3
       unist-util-visit: 5.0.0
 
-  astro-expressive-code@0.38.3(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
+  astro-expressive-code@0.38.3(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
     dependencies:
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       rehype-expressive-code: 0.38.3
 
   astro-feelback@0.3.4:
     dependencies:
       '@feelback/js': 0.3.4
 
-  astro-integration-kit@0.16.1(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
+  astro-integration-kit@0.16.1(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
     dependencies:
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       pathe: 1.1.2
       recast: 0.23.9
 
@@ -5465,7 +5465,7 @@ snapshots:
       marked-smartypants: 1.1.8(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2):
+  astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
@@ -5544,9 +5544,9 @@ snapshots:
       - terser
       - typescript
 
-  astrojs-service-worker@2.0.0(@types/babel__core@7.20.5)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
+  astrojs-service-worker@2.0.0(@types/babel__core@7.20.5)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
     dependencies:
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       workbox-build: 6.6.0(@types/babel__core@7.20.5)
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -7882,11 +7882,11 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
+  starlight-blog@0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
     dependencies:
-      '@astrojs/mdx': 3.1.9(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      '@astrojs/mdx': 3.1.9(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@astrojs/rss': 4.0.5
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       astro-remote: 0.3.2
       github-slugger: 2.0.0
       marked: 12.0.2
@@ -7896,11 +7896,11 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
+  starlight-links-validator@0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)))(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)):
     dependencies:
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2))
       '@types/picomatch': 2.3.3
-      astro: 4.16.17(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
+      astro: 4.16.18(@types/node@22.10.2)(rollup@2.79.1)(sass@1.83.0)(terser@5.31.0)(typescript@5.7.2)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
