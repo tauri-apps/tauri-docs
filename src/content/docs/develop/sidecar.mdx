@@ -212,7 +212,7 @@ In JavaScript:
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
-// notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
+// notice that the args array matches EXACTLY what is specified in `capabilities/default.json`.
 const command = Command.sidecar('binaries/my-sidecar', [
   'arg1',
   '-a',

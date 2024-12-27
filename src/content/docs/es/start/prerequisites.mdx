@@ -1,6 +1,8 @@
 ---
 title: Prerrequisitos
 i18nReady: true
+sidebar:
+  order: 0
 ---
 
 import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
@@ -36,6 +38,7 @@ sudo apt install libwebkit2gtk-4.1-dev \
   curl \
   wget \
   file \
+  libxdo-dev \
   libssl-dev \
   libayatana-appindicator3-dev \
   librsvg2-dev
@@ -70,7 +73,7 @@ sudo dnf install webkit2gtk4.1-devel \
   file \
   libappindicator-gtk3-devel \
   librsvg2-devel
-sudo dnf group install "C Development Tools and Libraries"
+sudo dnf group install "c-development"
 ```
 
   </TabItem>
@@ -101,9 +104,56 @@ sudo zypper in -t pattern devel_basis
 ```
 
   </TabItem>
+  <TabItem label="Alpine">
+```sh
+sudo apk add \
+  build-base \
+  webkit2gtk \
+  curl \
+  wget \
+  file \
+  openssl \
+  libayatana-appindicator-dev \
+  librsvg
+```
+  </TabItem>
   <TabItem label="NixOS">
 
-TODO: Need to build out NixOS instructions
+:::note
+Esto también instalará Rust y Node.js, además de la CLI de `cargo-tauri` por ti, por lo que puedes omitir esos pasos a continuación.
+:::
+
+Using `nix-shell`:
+
+```nix
+let
+  pkgs = import <nixpkgs> { };
+in
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
+    pkg-config
+    gobject-introspection
+    cargo
+    cargo-tauri
+    nodejs
+  ];
+
+  buildInputs = with pkgs;[
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    webkitgtk_4_1
+    openssl
+  ];
+}
+```
 
   </TabItem>
 </Tabs>
@@ -146,7 +196,7 @@ Sigue los pasos a continuación para instalar las dependencias requeridas.
 1. Descarga el instalador de [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) y ábrelo para comenzar la instalación.
 2. Durante la instalación marque la opción "Desarrollo de escritorio con C ++".
 
-![Visual Studio C++ Build Tools installer screenshot](./visual-studio-build-tools-installer.png)
+![Captura de pantalla de Visual Studio C++ Build Tools installer](./visual-studio-build-tools-installer.png)
 
 Siguiente: [Instalar WebView2](#webview2).
 
@@ -186,12 +236,53 @@ Aquí está el archivo como un script plano: [rustup.sh](https://sh.rustup.rs/)
 
 Visita https://www.rust-lang.org/tools/install para instalar `rustup`.
 
+Alternativamente, puedes user `winget` para instalar rustup usando el siguiente comando en PowerShell:
+
+```powershell
+winget install --id Rustlang.Rustup
+```
+
+:::caution[MSVC toolchain como predeterminado]
+
+Para un soporte total para Tauri y herramientas como [`trunk`](https://trunkrs.dev/) asegurate de que la toolchain MSVC de Rust sea el `default host triple` en el diálogo del instalador. Dependiendo de tu sistema, debería ser `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, o `aarch64-pc-windows-msvc`.
+
+Si ya tienes Rust instalado, puedes asegurarte de que esté instalada la toolchain correcta ejecutando el siguiente comando:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
   </TabItem>
 </Tabs>
 
-Asegúrate de reiniciar tu Terminal (y en algunos casos tu sistema) para que los cambios surtan efecto.
+**Asegúrate de reiniciar tu Terminal (y en algunos casos tu sistema) para que los cambios surtan efecto.**
 
-Siguiente: [Configurar para Móvil](#configurar-para-móvil) si deseas construir para Android e iOS. De lo contrario, [Crea un Proyecto](/start/create-project/).
+Siguiente: [Configurar para Móvil](#configurar-para-móvil) si deseas construir para Android e iOS, o, si te gustaría usar un framework de JavaScript, [instala Node](#nodejs). De lo contrario, [Crea un Proyecto](/start/create-project/).
+
+## Node.js
+
+:::note[Ecosistema de JavaScript]
+Solo si tu intención es usar un framework frontend de JavaScript
+:::
+
+1. Visita la [web de Node.js](https://nodejs.org), descarga la version de Soporte a Largo Plazo (LTS) e instálala.
+
+2. Comprueba si Node se ha instalado correctamente ejecutando:
+
+```sh
+node -v
+# v20.10.0
+npm -v
+# 10.2.3
+```
+
+Es importante reiniciar tu Terminal para asegurarse de que reconoce la nueva instalación. En algunos casos, puede que necesites reiniciar tu ordenador.
+
+Aunque npm es el gestor de paquetes predeterminado para Node.js, puedes usar otros como por ejemplo pnpm o yarn. Para habilitarlos, ejecuta `corepack enable` en tu Terminal. Este paso es opcional y únicamente necesario si prefieres usar otro gestor de paquetes que no sea npm.
+
+Next: [Configurar para Móvil](#configurar-para-móvil) o [Crea un proyecto](/start/create-project/).
 
 ## Configurar para Móvil
 
@@ -207,7 +298,7 @@ Si deseas compilar tu aplicación para Android o iOS, entonces hay algunas depen
 
 {/* TODO: Can this be done in the 4th step? */}
 
-<Tabs syncKey="OS">
+<Tabs syncKey="prereqs">
 <TabItem label="Linux">
 
 ```sh
@@ -238,16 +329,16 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 - Android SDK Build-Tools
 - Android SDK Command-line Tools
 
-4. Establece las variables de entorno `ANDROID_HOME` y `NDK_HOME`. Reemplaza los números de versión para que coincidan con la versión instalada.
+4. Establece las variables de entorno `ANDROID_HOME` y `NDK_HOME`.
 
 {/* TODO: Does the version number change below? */}
 
-<Tabs>
+<Tabs syncKey="prereqs">
 <TabItem label="Linux">
 
 ```sh
 export ANDROID_HOME="$HOME/Android/Sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 ```
 
 </TabItem>
@@ -255,18 +346,27 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
 
 ```sh
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/25.0.8775105"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 ```
 
 </TabItem>
 <TabItem label="Windows">
 
-{/* TODO: Do we need a note about this version? */}
-
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\25.0.8775105", "User")
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
+
+:::tip
+PowerShell no detectará las nuevas variables de entorno hasta que reinicies o cierres sesión.
+Sin embargo, puedes actualizar la sesión actual:
+
+```ps
+[System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+```
+
+:::
 
 </TabItem>
 
@@ -299,13 +399,11 @@ Siguiente: [Configurar para iOS](#ios) o [Crear un proyecto](/start/create-proje
 El desarrollo de iOS requiere Xcode y solo está disponible en macOS. Asegúrate de haber instalado Xcode y no Xcode Command Line Tools en la [sección de dependencias del sistema de macOS](#macos).
 :::
 
-1. Agrega los destinos de compilación de iOS con `rustup` en Terminal:
+1. Agrega los destinos de compilación de iOS con `rustup` en la Terminal:
 
 ```sh
 rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 ```
-
-Asegúrate de haber instalado Xcode y no Xcode Command Line Tools en la [sección de dependencias del sistema de macOS](#macos).
 
 2. Instala [Homebrew](https://brew.sh):
 

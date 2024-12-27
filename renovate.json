@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "helpers:pinGitHubActionDigests"],
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "cloneSubmodules": true,
   "semanticCommitType": "chore",
   "labels": ["dependencies"],
