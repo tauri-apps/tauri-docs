@@ -131,6 +131,39 @@ You can place this code inside a Tauri command to easily pass the AppHandle or y
 
 ## Running it from JavaScript
 
+When running the sidecar, Tauri requires you to give the sidecar permission to run the `execute` or `spawn` method on the child process. To grant this permission, go to the file `<PROJECT ROOT>/src-tauri/capabilities/default.json` and add the section below to the permissions array. Don't forget to name your sidecar according to the relative path mentioned earlier.
+
+```json title="src-tauri/capabilities/default.json" ins={11-20}
+{
+   "permissions": [
+      "core:path:default",
+      "core:event:default",
+      "core:window:default",
+      "core:app:default",
+      "core:resources:default",
+      "core:menu:default",
+      "core:tray:default",
+      "store:default",
+      {
+        "identifier": "shell:allow-execute",
+        "allow": [
+          {
+            "name": "binaries/app",
+            "sidecar": true
+          }
+        ]
+      },
+      "shell:allow-open"
+  ]
+}
+```
+
+:::note
+
+The `shell:allow-execute` identifier is used because the sidecar's child process will be started using the `command.execute()` method. To run it with `command.spawn()`, you need to change the identifier to `shell:allow-spawn` or add another entry to the array with the same structure as the one above, but with the identifier set to `shell:allow-spawn`.
+
+:::
+
 In the JavaScript code, import the `Command` class from the `@tauri-apps/plugin-shell` module and use the `sidecar` static method.
 
 ```javascript
