@@ -116,7 +116,7 @@ export const InstallTauriApi = () => {
     <Tabs groupId="package-manager">
       <TabItem value="npm" default>
         <CodeBlock className="language-shell" language="shell">
-          npm install @tauri-apps/api@^1.0.0
+          npm install @tauri-apps/api@1
         </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
