@@ -41,7 +41,7 @@ for core plugins and the `window.setTitle` API.
 
 ```json title="src-tauri/capabilities/default.json"
 {
-  "$schema": "./schemas/desktop-schema.json",
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
@@ -109,7 +109,7 @@ Note it enables permissions on plugins that are only available on desktop:
 
 ```json title="src-tauri/capabilities/desktop.json"
 {
-  "$schema": "./schemas/desktop-schema.json",
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "desktop-capability",
   "windows": ["main"],
   "platforms": ["linux", "macOS", "windows"],
@@ -122,7 +122,7 @@ Note it enables permissions on plugins that are only available on mobile:
 
 ```json title="src-tauri/capabilities/mobile.json"
 {
-  "$schema": "./schemas/mobile-schema.json",
+  "$schema": "../gen/schemas/mobile-schema.json",
   "identifier": "mobile-capability",
   "windows": ["main"],
   "platforms": ["iOS", "android"],
@@ -145,7 +145,7 @@ all subdomains of `tauri.app`.
 
 ```json title="src-tauri/capabilities/remote-tags.json"
 {
-  "$schema": "./schemas/remote-schema.json",
+  "$schema": "../gen/schemas/remote-schema.json",
   "identifier": "remote-tag-capability",
   "windows": ["main"],
   "remote": {
@@ -195,11 +195,11 @@ to higher privileged windows.
 
 ## Schema Files
 
-Tauri generates a JSON schema with all the permissions that are available to your
-application so you have autocompletion in your IDE.
-To use the schema, set the `$schema` property to one of the schemas
-inside the `gen/schemas` directory, which are platform-specific.
-Usually you will set it to `../gen/schemas/desktop-schema.json` or
+Tauri generates JSON schemas with all the permissions available to
+your application, allowing autocompletion in your IDE.
+To use a schema, set the `$schema` property in your configuration to one of the
+platform-specific schemas located in the `gen/schemas` directory. Usually
+you will set it to `../gen/schemas/desktop-schema.json` or
 `../gen/schemas/mobile-schema.json` though you can also define a capability
 for a specific target platform.
 
