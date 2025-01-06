@@ -135,18 +135,18 @@ When running the sidecar, Tauri requires you to give the sidecar permission to r
 
 ```json title="src-tauri/capabilities/default.json" ins={4-13}
 {
-   "permissions": [
-      "core:default",
-      {
-        "identifier": "shell:allow-execute",
-        "allow": [
-          {
-            "name": "binaries/app",
-            "sidecar": true
-          }
-        ]
-      },
-      "shell:allow-open"
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/app",
+          "sidecar": true
+        }
+      ]
+    },
+    "shell:allow-open"
   ]
 }
 ```
