@@ -1,5 +1,5 @@
 ---
-title: 升级自 Tauri 1.0
+title: 从 Tauri 1.0 升级
 i18nReady: true
 sidebar:
   order: 15
@@ -8,12 +8,11 @@ sidebar:
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-本指南将会指导你将基于 Tauri 1.0 的应用程序升级到 Tauri 2.0。
+本指南将会引导你将 Tauri 1.0 应用程序升级到 Tauri 2.0 版本。
 
-## 准备移动端开发
+## 针对移动端开发
 
-Tauri 的移动端界面要求你的项目输出链接库（shared library）。
-如果你的现有应用程序以支持移动端为目标，则必须更改你的 crate 类型，以便在生成桌面端可执行文件的同时也生成链接库。
+Tauri 的移动端界面要求你的项目输出链接库（shared library）。如果你的现有应用程序以支持移动端为目标，则必须更改你的 crate 类型，以便在生成桌面端可执行文件的同时也生成链接库。
 
 1. 添加下列配置到你的 Cargo 配置文件以生成链接库。
 
@@ -24,15 +23,15 @@ name = "app_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 ```
 
-2. 重命名 `src-tauri/src/main.rs` 为 `src-tauri/src/lib.rs`。这一文件同时被桌面端和移动端共享。
+2. 将 `src-tauri/src/main.rs` 重命名为 `src-tauri/src/lib.rs`。这一文件同时被桌面端和移动端的构建结果共享。
 
-3. 将 `lib.rs`（重命名自 `main.rs`）中的 `main` 函数头修改为：
+3. 将 `lib.rs` 中的 `main` 函数头修改为：
 
 ```rust
 // src-tauri/src/lib.rs
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    // 在这里编写你的代码
+    // 你的代码
 }
 ```
 
@@ -74,28 +73,31 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 
 ### Tauri 配置
 
-- `package > productName` 和 `package > version` 被移动到顶层字段。
-- `package` 被移除。
-- `tauri` 键被重命名为 `app`。
-- `tauri > allowlist` 被移除，详情参考[迁移授权许可](#迁移授权许可)。
-- `tauri > allowlist > protocol > assetScope` 被移动到 `app > security > assetProtocol > scope`。
-- `tauri > cli` 被移动到 `plugins > cli`。
-- `tauri > windows > fileDropEnabled` 被重命名为 `app > windows > dragDropEnabled`。
-- `tauri > updater > active` 被移除。
-- `tauri > updater > dialog` 被移除。
-- `tauri > updater` 被移动到 `plugins > updater`。
-- `tauri > systemTray` 被重命名为 `app > trayIcon`。
-- `tauri > pattern` 被移动到 `app > security > pattern`。
-- `tauri > bundle` 被移动到顶层。
-- `tauri > bundle > dmg` 被移动到 `bundle > macOS > dmg`。
-- `tauri > bundle > deb` 被移动到 `bundle > linux > deb`。
-- `tauri > bundle > appimage` 被移动到 `bundle > linux > appimage`。
-- `tauri > bundle > macOS > license` 被移除，使用 `bundle > licenseFile` 作为替代。
-- `tauri > bundle > windows > wix > license` 被移除，使用 `bundle > licenseFile` 作为替代。
-- `tauri > bundle > windows > nsis > license` 被移除， 使用 `bundle > licenseFile` 作为替代。
-- `build > withGlobalTauri` 被移动到 `app > withGlobalTauri`。
-- `build > distDir` 被重命名为 `frontendDist`。
-- `build > devPath` 被重命名为 `devUrl`。
+- 移动 `package > productName` 和 `package > version` 至顶层字段。
+- 生成的二进制文件不会根据 `productName` 自动重新命名，所以你需要在配置的顶层增加 `mainBinaryName` 来匹配 `productName`。
+- 移除 `package`。
+- 重命名 `tauri` 键被为 `app`。
+- 移除 `tauri > allowlist`。详情参考[迁移授权许可](#迁移授权许可)。
+- 移动 `tauri > allowlist > protocol > assetScope` 至 `app > security > assetProtocol > scope`。
+- 移动 `tauri > cli` 至 `plugins > cli`。
+- 重命名 `tauri > windows > fileDropEnabled` 为 `app > windows > dragDropEnabled`。
+- 移除 `tauri > updater > active`。
+- 移除 `tauri > updater > dialog`。
+- 移动 `tauri > updater` 至 `plugins > updater`。
+- 增加 `bundle > createUpdaterArtifacts`。如果此应用程序使用了更新程序（app updater），则必须设定此值。
+  - 当从使用 v1 版本已分发的程序升级时，需设定此值为 `v1Compatible`。详情请参考[升级向导](/plugin/updater/)。
+- 重命名 `tauri > systemTray` 为 `app > trayIcon`。
+- 移动 `tauri > pattern` 至 `app > security > pattern`。
+- 移动 `tauri > bundle` 到顶层。
+- 移动 `tauri > bundle > dmg` 至 `bundle > macOS > dmg`。
+- 移动 `tauri > bundle > deb` 至 `bundle > linux > deb`。
+- 移动 `tauri > bundle > appimage` 至 `bundle > linux > appimage`。
+- 移除 `tauri > bundle > macOS > license`，使用 `bundle > licenseFile` 作为替代。
+- 移除 `tauri > bundle > windows > wix > license`，使用 `bundle > licenseFile` 作为替代。
+- 移除 `tauri > bundle > windows > nsis > license`， 使用 `bundle > licenseFile` 作为替代。
+- 移动 `build > withGlobalTauri` 至 `app > withGlobalTauri`。
+- 重命名 `build > distDir` 为 `frontendDist`。
+- 重命名 `build > devPath` 为 `devUrl`。
 
 [Tauri 2.0 配置 API 参考资料](/reference/config/)
 
@@ -198,7 +200,7 @@ Tauri v2 引入了多 webview 支持，目前处在 `unstable` feature 标识之
 
 将 Tauri 1.0 应用程序迁移到 Tauri 2.0 时可能遇到的常见情况。
 
-### 迁移到 `core` 模块
+### `core` 模块迁移
 
 `@tauri-apps/api/tauri` 模块被重命名为 `@tauri-apps/api/core`。
 只需要修改你的导入路径：
@@ -208,7 +210,7 @@ Tauri v2 引入了多 webview 支持，目前处在 `unstable` feature 标识之
 + import { invoke } from "@tauri-apps/api/core"
 ```
 
-### 迁移到命令行工具插件
+### 命令行工具插件迁移
 
 Rust 的 `App::get_cli_matches` 和 JavaScript 的 `@tauri-apps/api/cli` API 被移除。使用 `@tauri-apps/plugin-cli` 插件作为替代：
 
@@ -264,7 +266,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移到剪贴板插件
+### 剪贴板插件迁移
 
 Rust 的 `App::clipboard_manager` 和 `AppHandle::clipboard_manager` 以及 JavaScript 的 `@tauri-apps/api/clipboard` API 被移除。使用 `@tauri-apps/plugin-clipboard-manager` 插件作为替代：
 
@@ -317,7 +319,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### 迁移到对话窗插件
+### 对话窗插件迁移
 
 Rust 的 `tauri::api::dialog` 和 JavaScript 的 `@tauri-apps/api/dialog` API 被移除。使用 `@tauri-apps/plugin-dialog` 插件作为替代：
 
@@ -383,7 +385,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### 迁移到文件系统插件
+### 文件系统插件迁移
 
 Rust 的 `App::get_cli_matches` 和 JavaScript 的 `@tauri-apps/api/fs` API 被移除。使用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 或 JavaScript 的 `@tauri-apps/plugin-fs` 插件作为替代：
 
@@ -423,7 +425,7 @@ await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 
 一些函数和类型被重命名或移除：
 
-- `Dir` enum alias 被移除。使用 `BaseDirectory`。
+- `Dir` 枚举别名（enum alias）被移除。使用 `BaseDirectory`。
 - `FileEntry`、`FsBinaryFileOption`、`FsDirOptions`、`FsOptions`、`FsTextFileOption` 和 `BinaryFileContents` 接口和类型别名被移除，并被与每个对应的函数相匹配的接口取代。
 - `createDir` 被重命名为 `mkdir`。
 - `readBinaryFile` 被重命名为 `readFile`。
@@ -440,7 +442,7 @@ await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
 </TabItem>
 </Tabs>
 
-### 迁移到全局快捷方式插件
+### 全局快捷方式插件迁移
 
 Rust 的 `App::global_shortcut_manager` 和 `AppHandle::global_shortcut_manager` 以及 JavaScript 的 `@tauri-apps/api/global-shortcut` API 被移除。使用 `@tauri-apps/plugin-global-shortcut` 插件作为替代：
 
@@ -506,7 +508,7 @@ tauri::Builder::default()
 </TabItem>
 </Tabs>
 
-### 迁移到 HTTP 插件
+### HTTP 插件迁移
 
 Rust 的 `tauri::api::http` 和 JavaScript 的 `@tauri-apps/api/http` API 被移除。使用 `@tauri-apps/plugin-http` 插件作为替代：
 
@@ -572,7 +574,7 @@ HTTP 插件重导出了 [reqwest](https://docs.rs/reqwest/latest/reqwest/)。所
 </TabItem>
 </Tabs>
 
-### 迁移到提示信息插件
+### 提示信息插件迁移
 
 Rust 的 `tauri::api::notification` 和 JavaScript 的 `@tauri-apps/api/notification` API 被移除。使用 `@tauri-apps/plugin-notification` 插件作为替代：
 
@@ -638,7 +640,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移到 `menu` 模块
+### 菜单模块迁移
 
 Rust 的 `Menu` API 被移动到 `tauri::menu` 模块，并使用 [muda crate](https://github.com/tauri-apps/muda) 重构。
 
@@ -721,7 +723,7 @@ tauri::Builder::default()
 
 `tauri::Builder::menu` 现在接收一个闭包，因为菜单需要一个 `Manager` 实例来构造。参考[相关文档](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu)以获取更多信息。
 
-#### 菜单事件
+#### 菜单触发事件迁移
 
 Rust 的 `tauri::Builder::on_menu_event` API 被移除。使用 `tauri::App::on_menu_event` 或 `tauri::AppHandle::on_menu_event` 作为替代：
 
@@ -757,7 +759,7 @@ tauri::Builder::default()
 
 :::
 
-### 迁移到操作系统插件
+### 操作系统插件迁移
 
 Rust 的 `tauri::api::os` 和 JavaScript 的 `@tauri-apps/api/os` API 被移除。使用 `@tauri-apps/plugin-os` 插件作为替代：
 
@@ -812,7 +814,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移到进程插件
+### 进程插件迁移
 
 Rust 的 `tauri::api::process` 和 JavaScript 的 `@tauri-apps/api/process` API 被移除。使用 `@tauri-apps/plugin-process` 插件作为替代：
 
@@ -871,7 +873,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移到 Shell 插件
+### Shell 插件迁移
 
 Rust 的 `tauri::api::shell` 和 JavaScript 的 `@tauri-apps/api/shell` API 被移除。使用 `@tauri-apps/plugin-shell` 插件作为替代：
 
@@ -998,7 +1000,7 @@ fn main() {
 </TabItem>
 </Tabs>
 
-### 迁移到托盘图标模块
+### 托盘图标模块迁移
 
 Rust 的 `SystemTray` API 被重命名为 `TrayIcon` 以确保一致性。新的 API 可以在 Rust 的 `tray` 模块中找到。
 
@@ -1012,11 +1014,11 @@ let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 
 查阅 [`TrayIconBuilder`](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) 以获取更多信息。
 
-#### 迁移到托盘菜单
+#### 托盘菜单迁移
 
 使用 `tauri::menu::Menu` 以替换 `tauri::SystemTrayMenu`、`tauri::menu::Submenu` 以替换 `tauri::SystemTraySubmenu` 和 `tauri::menu::PredefinedMenuItem` 以替换 `tauri::SystemTrayMenuItem`。
 
-#### 托盘事件
+#### 托盘事件迁移
 
 `tauri::SystemTray::on_event` 被分割为 `tauri::tray::TrayIconBuilder::on_menu_event` 和 `tauri::tray::TrayIconBuilder::on_tray_icon_event`：
 
@@ -1058,7 +1060,7 @@ tauri::Builder::default()
     })
 ```
 
-### 迁移到更新插件
+### 更新插件迁移
 
 内置的自动更新的提示窗被移除。作为代替，使用 Rust 和 JS API 以检查和安装更新。
 
@@ -1162,7 +1164,7 @@ tauri::Builder::default()
     })
 ```
 
-### 迁移到新的窗口 API
+### 新的窗口 API 迁移
 
 在 Rust 侧，`Window` 被重命名为 `WebviewWindow`，它的构建器 `WindowBuilder` 被重命名为 `WebviewWindowBuilder`。
 
