@@ -203,7 +203,7 @@ Creates a file and returns a handle to it. If the file already exists, it is tru
 
 ```js
 import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
-const file = await create('foo/bar.txt', { baseDir: BaseDirectory.App });
+const file = await create('foo/bar.txt', { baseDir: BaseDirectory.AppData });
 await file.write(new TextEncoder().encode('Hello world'));
 await file.close();
 ```
@@ -254,7 +254,7 @@ Always call `file.close()` when you are done manipulating the file.
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     read: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   const buf = new Uint8Array();
   await file.read(buf);
@@ -268,7 +268,7 @@ Always call `file.close()` when you are done manipulating the file.
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     write: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('Hello world'));
   await file.close();
@@ -283,7 +283,7 @@ Always call `file.close()` when you are done manipulating the file.
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     append: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -300,7 +300,7 @@ Always call `file.close()` when you are done manipulating the file.
   const file = await open('foo/bar.txt', {
     write: true,
     truncate: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -320,7 +320,7 @@ Always call `file.close()` when you are done manipulating the file.
   const file = await open('foo/bar.txt', {
     write: true,
     create: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -339,7 +339,7 @@ Always call `file.close()` when you are done manipulating the file.
   const file = await open('foo/bar.txt', {
     write: true,
     createNew: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
