@@ -520,7 +520,7 @@ Type: `object`
 | <div className="anchor-with-padding" id="wixconfig.license">`license`<a class="hash-link" href="#wixconfig.license"></a></div> | string? | _null_ | The path to the license file to render on the installer.<br /><br />Must be an RTF file, so if a different extension is provided, we convert it to the RTF format. |
 | <div className="anchor-with-padding" id="wixconfig.enableelevatedupdatetask">`enableElevatedUpdateTask`<a class="hash-link" href="#wixconfig.enableelevatedupdatetask"></a></div> | boolean | `false` | Create an elevated update task within Windows Task Scheduler. |
 | <div className="anchor-with-padding" id="wixconfig.bannerpath">`bannerPath`<a class="hash-link" href="#wixconfig.bannerpath"></a></div> | string? | _null_ | Path to a bitmap file to use as the installation user interface banner. This bitmap will appear at the top of all but the first page of the installer.<br /><br />The required dimensions are 493px × 58px. |
-| <div className="anchor-with-padding" id="wixconfig.dialogimagepath">`dialogImagePath`<a class="hash-link" href="#wixconfig.dialogimagepath"></a></div> | string? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs. The required dimensions are 493px × 312px. |
+| <div className="anchor-with-padding" id="wixconfig.dialogimagepath">`dialogImagePath`<a class="hash-link" href="#wixconfig.dialogimagepath"></a></div> | string? | _null_ | Path to a bitmap file to use on the installation user interface dialogs. It is used on the welcome and completion dialogs.<br /><br />The required dimensions are 493px × 312px. |
 
 
 ###### WixLanguage
