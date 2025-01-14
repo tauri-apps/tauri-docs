@@ -89,6 +89,8 @@ It's a good idea to read the linked documentation fully to understand the trade-
 
 It's common to see [`Arc`] used in Rust to share ownership of a value across multiple threads (usually paired with a [`Mutex`] in the form of `Arc<Mutex<T>>`). However, you don't need to use [`Arc`] for things stored in [`State`] because Tauri will do this for you.
 
+In case `State`'s lifetime requirements prevent you from moving your state into a new thread you can instead move an `AppHandle` into the thread and then retrieve your state as shown below in the "[Access state with the Manager trait](#access-state-with-the-manager-trait)" section. `AppHandle`s are deliberately cheap to clone for use-cases like this.
+
 ## Accessing State
 
 ### Access state in commands
