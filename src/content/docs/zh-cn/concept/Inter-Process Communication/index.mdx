@@ -1,0 +1,93 @@
+---
+title: 进程间通信
+sidebar:
+  label: 概述
+  order: 1
+  i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+进程间通信（IPC）允许隔离的进程安全地进行通信，是构建更复杂应用程序的关键。
+
+在以下指南中了解特定的 IPC 模式：
+
+<CardGrid>
+  <LinkCard
+    title="Brownfield"
+    href="/concept/inter-process-communication/brownfield/"
+  />
+  <LinkCard
+    title="Isolation"
+    href="/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+Tauri 使用一种特定风格的进程间通信，称为[异步消息传递]，其中进程通过一些简单的数据表示交换*请求*和*响应*。对于任何有 Web 开发经验的人来说，消息传递应该听起来很熟悉，因为这种范式用于互联网的客户端-服务器通信。
+
+消息传递是一种比共享内存或直接函数访问更安全的技术，因为接收方可以自由地拒绝或丢弃请求。例如，如果Tauri核心进程确定某个请求是恶意的，它将简单地丢弃该请求，并且不会执行相应的函数。
+
+接下来，我们将更详细地解释 Tauri 的两个 IPC 原语——`事件`和`命令`。
+
+## 事件
+
+事件是一次性、单向的 IPC 消息，最适合用于通信生命周期事件和状态变化。与[命令](#命令)不同，事件可以由前端*和* Tauri 核心发出。
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+Frontend: {
+  shape: rectangle
+  label: "Webview\nFrontend"
+}
+Core: {
+  shape: rectangle
+  label: "Core\nBackend"
+}
+
+Frontend -> Core: "Event"{style.animated: true}
+Core -> Frontend: "Event"{style.animated: true}
+```
+
+<figcaption>在核心和 Webview 之间发送的事件。</figcaption>
+</figure>
+
+## 命令
+
+Tauri 还提供了一种类似于[外部函数接口]的抽象，建立在IPC消息之上[^1]。主要 API `invoke` 类似于浏览器的`fetch` API，允许前端调用 Rust 函数、传递参数并接收数据。
+
+由于该机制在底层使用类似 [JSON-RPC] 的协议来序列化请求和响应，因此所有参数和返回数据必须能够序列化为 JSON。
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+
+Frontend: {
+  label: "Webview\nFrontend"
+}
+
+Core: {
+  label: "Core\nBackend"
+}
+InvokeHandler: {
+  label: "Invoke\nHandler"
+}
+
+Frontend -> Core: "IPC Request"{style.animated: true}
+Core -> InvokeHandler: "Invoke command"{style.animated: true}
+InvokeHandler -> Core: "Serialize return"{style.animated: true}
+Core -> Frontend: "Response"{style.animated: true}
+```
+
+<figcaption>命令调用中涉及的 IPC 消息。</figcaption>
+</figure>
+
+[^1]: 由于命令在底层仍然使用消息传递，因此它们没有真实 FFI 接口所面临的安全隐患。
+
+[异步消息传递]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
+[json-rpc]: https://www.jsonrpc.org
+[外部函数接口]: https://en.wikipedia.org/wiki/Foreign_function_interface

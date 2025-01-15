@@ -1,5 +1,4 @@
 packages:
-  - 'packages/i18n-tracker'
   - 'packages/js-api-generator'
   - 'packages/config-generator'
   - 'packages/cli-generator'

@@ -47,12 +47,35 @@ Note that you need to change the $APPNAME and $VERSION values with the correct o
 **The signature is not verified**
 
 AppImage does not validate the signature, so you can't rely on it to check whether the file has been tampered with or not.
-To validate the signature, you must provide an external tool for your users.
-This requires you to publish your public key on an authenticated channel (e.g. your website served via TLS),
-so the end user can download and verify.
+The user must manually verify the signature using the AppImage validate tool.
+This requires you to publish your key ID on an authenticated channel (e.g. your website served via TLS),
+so the end user can view and verify.
 
 See [the official AppImage documentation] for additional information.
 
 :::
 
 [the official appimage documentation]: https://docs.appimage.org/packaging-guide/optional/signatures.html
+
+### Validate the signature
+
+The AppImage validate tool can be downloaded from [here](https://github.com/AppImageCommunity/AppImageUpdate/releases/tag/continuous).
+Select one of the `validate-$PLATFORM.AppImage` files.
+
+Run the following command to validate the signature:
+
+```shell
+chmod +x validate-$PLATFORM.AppImage
+./validate-$PLATFORM.AppImage $TAURI_OUTPUT.AppImage
+```
+
+If the signature is valid, the output will be:
+
+```
+Validation result: validation successful
+Signatures found with key fingerprints: $KEY_ID
+====================
+Validator report:
+Signature checked for key with fingerprint $KEY_ID:
+Validation successful
+```

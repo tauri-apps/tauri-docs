@@ -1,0 +1,66 @@
+{
+  "$schema": "./node_modules/@lunariajs/core/config.schema.json",
+  "repository": {
+    "name": "tauri-apps/tauri-docs",
+    "branch": "v2",
+    "rootDir": "src/content/docs",
+    "hosting": "github"
+  },
+  "files": [
+    {
+      "location": "src/content/docs/**/*.{md,mdx}",
+      "pattern": "src/content/docs/@lang/@path",
+      "ignore": [
+        "node_modules",
+        "src/content/docs/reference/{acl,javascript}/**/*.{md,mdx}",
+        "src/content/docs/reference/{config,cli}.{md,mdx}",
+        "src/content/docs/release"
+      ],
+      "type": "universal"
+    }
+  ],
+  "outDir": "./dist/contribute/translate-status",
+  "localizableProperty": "i18nReady",
+  "renderer": "./lunaria/renderer.config.ts",
+  "ignoreKeywords": ["lunaria-ignore", "typo", "en-only", "broken link", "i18nReady", "i18nIgnore"],
+  "defaultLocale": {
+    "label": "English",
+    "lang": "en"
+  },
+  "locales": [
+    {
+      "label": "Français",
+      "lang": "fr"
+    },
+    {
+      "label": "Español",
+      "lang": "es"
+    },
+    {
+      "label": "简体中文",
+      "lang": "zh-cn"
+    }
+  ],
+  "dashboard": {
+    "title": "Tauri Docs Translation Status",
+    "site": "https://tauri.app/contribute/translate-status",
+    "description": "Translation progress tracker for the Tauri Docs site. See how much has been translated in your language and get involved!",
+    "favicon": {
+      "external": [
+        {
+          "link": "https://tauri.app/favicon.svg",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    "basesToHide": ["src/content/docs/"],
+    "customCss": ["./lunaria/style.css"],
+    "ui": {
+      "statusByLocale.heading": "Translation progress by locale",
+      "statusByLocale.incompleteLocalizationLink": "incomplete translation",
+      "statusByLocale.outdatedLocalizationLink": "outdated translation",
+      "statusByLocale.completeLocalization": "This translation is complete, amazing job! 🎉",
+      "statusByFile.heading": "Translation status by file"
+    }
+  }
+}

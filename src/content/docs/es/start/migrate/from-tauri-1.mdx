@@ -2,7 +2,7 @@
 title: Actualizar desde Tauri 1.0
 i18nReady: true
 sidebar:
-  order: 12
+  order: 15
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -10,7 +10,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 Esta guía te guiará a través de la actualización de tu aplicación Tauri 1.0 a Tauri 2.0.
 
-## Preparándose para móvil
+## Preparación para móvil
 
 La interfaz móvil de Tauri requiere que tu proyecto produzca una biblioteca compartida. Si estás apuntando a móviles para tu aplicación existente, debes cambiar tu crate para producir ese tipo de artefacto junto con el ejecutable de escritorio.
 
@@ -63,8 +63,6 @@ La CLI de Tauri v2 incluye un comando `migrate` que automatiza la mayor parte de
     cargo tauri migrate'
 />
 
-{/* TODO: 2.0 */}
-
 Para saber más sobre el comando `migrate`, consulta la [Referencia de la interfaz de línea de comandos](/reference/cli/#migrate)
 
 ## Resumen de los cambios
@@ -74,6 +72,7 @@ A continuación se resumen los cambios de Tauri 1.0 a Tauri 2.0:
 ### Configuración de Tauri
 
 - Los campos `package > productName` y `package > version` se han trasladado al campo de nivel superior.
+- el nombre del binario ya no se renombra automáticamente para coincidir con `productName`, por lo que debes agregar una string `mainBinaryName` en el objeto de nivel superior que coincida con `productName`.
 - `package` eliminado.
 - La clave `tauri` ha pasado a ser `app`.
 - `tauri > allowlist` eliminado. Véase [Migrar permisos](#migrar-permisos).
@@ -83,15 +82,19 @@ A continuación se resumen los cambios de Tauri 1.0 a Tauri 2.0:
 - `tauri > updater > active` eliminado.
 - `tauri > updater > dialog` eliminado.
 - `tauri > updater` movido a `plugins > updater`.
+- Se ha agragado `bundle > createUpdaterArtifacts`, debe ser configurado al usar el actualizador de la aplicación.
+  - configúralo a `v1Compatible` cuando actualices desde aplicaciones de la V1 que ya habían sido distribuidas. Consulta la [guía del actualizador](/plugin/updater/) para más información.
 - `tauri > systemTray` renombrado a `app > trayIcon`.
 - `tauri > pattern` movido a `app > security > pattern`.
 - `tauri > bundle` movido a nivel superior.
+- `tauri > bundle > identifier` movido a objeto del nivel superior.
 - `tauri > bundle > dmg` movido a `bundle > macOS > dmg`
 - `tauri > bundle > deb` movido a `bundle > linux > deb`
 - `tauri > bundle > appimage` movido a `bundle > linux > appimage`
 - `tauri > bundle > macOS > license` eliminado, utiliza `bundle > licenseFile` en su lugar.
 - `tauri > bundle > windows > wix > license` eliminado, utiliza `bundle > licenseFile` en su lugar.
 - `tauri > bundle > windows > nsis > license` eliminado, utiliza `bundle > licenseFile` en su lugar.
+- `tauri > bundle > windows > webviewFixedRuntimePath` eliminado, utiliza `bundle > windows > webviewInstallMode` en su lugar.
 - `build > withGlobalTauri` movido a `app > withGlobalTauri`.
 - `build > distDir` renombrado a `frontendDist`.
 - `build > devPath` renombrado a `devUrl`.
@@ -132,7 +135,6 @@ A continuación se resumen los cambios de Tauri 1.0 a Tauri 2.0:
 - El método `Plugin::setup_with_config` ha sido eliminado. Utiliza el actualizado `tauri::Plugin::PluginApi` en su lugar.
 - Los métodos `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` y `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` han sido eliminados. Habilita cada plugin del núcleo individualmente mediante `scope::ipc::RemoteDomainAccessScope::add_plugin` en su lugar.
 - El módulo `scope::IpcScope` ha sido eliminado, utiliza `scope::ipc::Scope` en su lugar.
-- El módulo `scope::IpcScope` ha sido eliminado, utiliza `scope::ipc::Scope` en su lugar.
 - Los módulos `scope::FsScope`, `scope::GlobPattern` y `scope::FsScopeEvent` han sido eliminados, utiliza `scope::fs::Scope`, `scope::fs::Pattern` y `scope::fs::Event` respectivamente.
 - El módulo `updater` ha sido eliminado. Utiliza `tauri-plugin-updater` en su lugar. [Migración](#migrar-al-plugin-de-actualizaciones)
 - El campo `Env.args` ha sido eliminado, utiliza el campo `Env.args_os` en su lugar.
@@ -156,6 +158,8 @@ El paquete `@tauri-apps/api` ya no proporciona módulos no centrales. Sólo se e
 - El módulo `@tauri-apps/api/shell` ha sido eliminado. Utiliza `@tauri-apps/plugin-shell` en su lugar. [Migración](#migrar-al-plugin-shell)
 - El módulo `@tauri-apps/api/updater` ha sido eliminado. Utiliza `@tauri-apps/plugin-updater` en su lugar. [Migración](#migrar-al-plugin-de-actualizaciones)
 - El módulo `@tauri-apps/api/window` ha sido renombrado a `@tauri-apps/api/webviewWindow`. [Migración](#migrar-a-la-nueva-api-de-ventanas)
+
+Los plugins the la V1 ahora están publicados como `@tauri-apps/plugin-<plugin-name>`. Anteriormente, estaban disponibles desde git como `tauri-plugin-<plugin-name>-api`.
 
 ### Cambios en las variables de entorno
 
@@ -192,6 +196,10 @@ Tauri v2 introduce soporte multiwebview actualmente detrás de una bandera de ca
 Para admitirlo, renombramos el tipo de ventana Rust `Window` a `WebviewWindow` y la función `get_window` del Manager a `get_webview_window`.
 
 El tipo de API JS `WebviewWindow` ahora se reexporta desde `@tauri-apps/api/webviewWindow` en lugar de `@tauri-apps/api/window`.
+
+### Nueva URL de origen en Windows
+
+On Windows the frontend files in production apps are now hosted on `http://tauri.localhost` instead of `https://tauri.localhost`. Because of this IndexedDB, LocalStorage and Cookies will be reset unless `dangerousUseHttpScheme` was used in v1. To prevent this you can set `app > windows > useHttpsScheme` to `true` or use `WebviewWindowBuilder::use_https_scheme` to keep using the `https` scheme.
 
 ## Pasos Detallados de Migración
 
@@ -566,7 +574,7 @@ tauri::Builder::default()
     })
 ```
 
-El plugin HTTP reexporta [reqwest](https://docs.rs/reqwest/latest/reqwest/) para que puedas consultar su documentación para obtener más información.
+El plugin HTTP reexporta [reqwest](https://docs.rs/reqwest/latest/reqwest/) así que puedes consultar su documentación para obtener más información.
 
 </TabItem>
 </Tabs>
@@ -1007,7 +1015,7 @@ Consulta [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIco
 
 #### Migrar a Menú
 
-Utiliza `tauri::menu::Menu` en lugar de `tauri::SystemTrayMenu`, `tauri::menu::Submenu` en lugar de `tauri::SystemTraySubmenu`, y `tauri::menu::PredefinedMenuItem` en lugar de `tauri::SystemTrayMenuItem`. [Migración](#migrar-a-menú)
+Utiliza `tauri::menu::Menu` en lugar de `tauri::SystemTrayMenu`, `tauri::menu::Submenu` en lugar de `tauri::SystemTraySubmenu`, y `tauri::menu::PredefinedMenuItem` en lugar de `tauri::SystemTrayMenuItem`.
 
 #### Eventos de Bandeja
 
@@ -1016,7 +1024,7 @@ Utiliza `tauri::menu::Menu` en lugar de `tauri::SystemTrayMenu`, `tauri::menu::S
 ```rust
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
-    tray::{ClickType, TrayIconBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
 };
 
 tauri::Builder::default()
@@ -1032,7 +1040,12 @@ tauri::Builder::default()
                 _ => (),
             })
             .on_tray_icon_event(|tray, event| {
-                if event.click_type == ClickType::Left {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
                     let _ = webview_window.show();
@@ -1086,10 +1099,12 @@ import { relaunch } from '@tauri-apps/plugin-process';
 
 const update = await check();
 if (update?.available) {
-  console.log(`Update to ${update.version} available! Date: ${update.date}`);
-  console.log(`Release notes: ${update.body}`);
+  console.log(
+    `¡Actualización a ${update.version} disponible! Fecha: ${update.date}`
+  );
+  console.log(`Notas del parche: ${update.body}`);
   await update.downloadAndInstall();
-  // requires the `process` plugin
+  // requiere el plugin `process`
   await relaunch();
 }
 ```
@@ -1141,9 +1156,9 @@ use tauri::{path::BaseDirectory, Manager};
 
 tauri::Builder::default()
     .setup(|app| {
-        let home_dir_path = app.path().home_dir().expect("failed to get home dir");
+        let home_dir_path = app.path().home_dir().expect("no se pudo obtener el directorio home");
 
-        let path = app.path().resolve("path/to/something", BaseDirectory::Config)?;
+        let path = app.path().resolve("path/haz/algo", BaseDirectory::Config)?;
 
         Ok(())
   })
@@ -1151,7 +1166,7 @@ tauri::Builder::default()
 
 ### Migrar a la nueva API de Ventanas
 
-En el lado de Rust, `Window` fue renombrado a `WebviewWindow` y su constructor `WindowBuilder` ahora se llama `WebviewWindowBuilder`.
+En el lado de Rust, `Window` fue renombrado a `WebviewWindow`, su constructor `WindowBuilder` ahora se llama `WebviewWindowBuilder` y `WindowUrl` ahora se llama `WebviewUrl`.
 
 Además, la función `Manager::get_window` fue renombrada a `get_webview_window` y
 la API `parent_window` de la ventana fue renombrada a `parent_raw` para admitir una API de ventana principal de alto nivel.
@@ -1159,6 +1174,13 @@ la API `parent_window` de la ventana fue renombrada a `parent_raw` para admitir 
 En el lado de JavaScript, la clase `WebviewWindow` ahora se exporta en la ruta `@tauri-apps/api/webviewWindow`.
 
 La función `onMenuClicked` fue eliminada, ahora puedes interceptar eventos de menú al crear un menú en JavaScript en su lugar.
+
+### Migrar Archivos Adicionales Incrustados (Recursos)
+
+En el lado de JavaScript, asegúrate de [Migrar al Plugin del Sistema de Archivos](#migrar-al-plugin-del-sistema-de-archivos).
+Además, ten en cuenta que los cambios hechos en la lista blanca de la v1 en [Migrar Permisos](#migrar-permisos).
+
+En el lado de Rust, asegúrate de [Migrar de Path a Tauri Manager](#migrar-de-path-a-tauri-manager).
 
 ### Migrar de Binarios Externos Incrustados (Sidecar)
 
@@ -1179,4 +1201,4 @@ Para habilitar permisos para tu aplicación, debes crear archivos de capacidades
 
 El comando `migrate` de la CLI analiza automáticamente tu lista blanca v1 y genera el archivo de capacidad asociado.
 
-Para obtener más información sobre permisos y capacidades, consulta [la documentación](/security/).
+Para obtener más información sobre permisos y capacidades, consulta [la documentación de seguridad](/security/).

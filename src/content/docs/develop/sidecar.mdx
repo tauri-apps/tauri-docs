@@ -60,7 +60,7 @@ Here's a Node.js script to append the target triple to a binary:
 import { execSync } from 'child_process';
 import fs from 'fs';
 
-const ext = process.platform === 'win32' ? '.exe' : '';
+const extension = process.platform === 'win32' ? '.exe' : '';
 
 const rustInfo = execSync('rustc -vV');
 const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
@@ -131,6 +131,32 @@ You can place this code inside a Tauri command to easily pass the AppHandle or y
 
 ## Running it from JavaScript
 
+When running the sidecar, Tauri requires you to give the sidecar permission to run the `execute` or `spawn` method on the child process. To grant this permission, go to the file `<PROJECT ROOT>/src-tauri/capabilities/default.json` and add the section below to the permissions array. Don't forget to name your sidecar according to the relative path mentioned earlier.
+
+```json title="src-tauri/capabilities/default.json" ins={4-13}
+{
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/app",
+          "sidecar": true
+        }
+      ]
+    },
+    "shell:allow-open"
+  ]
+}
+```
+
+:::note
+
+The `shell:allow-execute` identifier is used because the sidecar's child process will be started using the `command.execute()` method. To run it with `command.spawn()`, you need to change the identifier to `shell:allow-spawn` or add another entry to the array with the same structure as the one above, but with the identifier set to `shell:allow-spawn`.
+
+:::
+
 In the JavaScript code, import the `Command` class from the `@tauri-apps/plugin-shell` module and use the `sidecar` static method.
 
 ```javascript
@@ -151,20 +177,14 @@ Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `
 
 First, define the arguments that need to be passed to the sidecar command in `src-tauri/capabilities/default.json`:
 
-```json title="src-tauri/capabilities/default.json" ins={14-31}
+```json title="src-tauri/capabilities/default.json" ins={8-25}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the main window",
   "windows": ["main"],
   "permissions": [
-    "core:path:default",
-    "core:event:default",
-    "core:window:default",
-    "core:app:default",
-    "core:resources:default",
-    "core:menu:default",
-    "core:tray:default",
+    "core:default",
     {
       "identifier": "shell:allow-execute",
       "allow": [
@@ -212,7 +232,7 @@ In JavaScript:
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
-// notice that the args array matches EXACTLY what is specified on `tauri.conf.json`.
+// notice that the args array matches EXACTLY what is specified in `capabilities/default.json`.
 const command = Command.sidecar('binaries/my-sidecar', [
   'arg1',
   '-a',

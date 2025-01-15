@@ -139,7 +139,8 @@ The resolved configuration for Linux would be the following object:
       "subcommands": {
         "update": {}
       }
-    }
+    },
+    "deep-link": {}
   }
 }
 ```
@@ -163,6 +164,8 @@ For instance to distribute a completely isolated _beta_ application you can use 
 }
 ```
 
+And to distribute this separate _beta_ app you provide this configuration file when building it:
+
 <CommandTabs
   npm="npm run tauri build -- --config src-tauri/tauri.beta.conf.json"
   yarn="yarn tauri build --config src-tauri/tauri.beta.conf.json"
@@ -170,12 +173,6 @@ For instance to distribute a completely isolated _beta_ application you can use 
   cargo="cargo tauri build --config src-tauri/tauri.beta.conf.json"
   deno="deno task tauri build --config src-tauri/tauri.beta.conf.json"
 />
-
-And to distribute this separate _beta_ app you provide this configuration file when building it:
-
-```
-
-```
 
 ## `Cargo.toml`
 

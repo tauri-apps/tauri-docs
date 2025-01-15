@@ -30,5 +30,6 @@ src/content/docs/learn/Security/using-plugin-permissions.mdx
 src/content/docs/learn/Security/writing-plugin-permissions.mdx
 src/content/docs/start/frontend/qwik.mdx
 src/content/docs/zh-cn/start/frontend/qwik.mdx
+src/content/docs/es/start/frontend/qwik.mdx
 src/content/docs/learn/splashscreen.mdx
 src/content/docs/security/http-headers.mdx

@@ -10,6 +10,7 @@ import astroD2 from 'astro-d2';
 import starlightUtils from '@lorenzo_lewis/starlight-utils';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import lunaria from '@lunariajs/starlight';
 
 const authors = {
   nothingismagick: {
@@ -79,6 +80,7 @@ export default defineConfig({
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
+        lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
