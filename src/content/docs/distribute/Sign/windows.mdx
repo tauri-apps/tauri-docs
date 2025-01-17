@@ -255,7 +255,7 @@ To configure Tauri to use your Azure Key Vault configuration for signing change 
 [relic] must authenticate with Azure in order to load the certificate.
 In the Azure portal landing page, go to the "Microsoft Entra ID" service and head to the "Manage > App registrations" page.
 Click "New registration" to create a new app. After creating the app, you are redirected to the application details page where you can see the "Application (client) ID" and "Directory (tenant) ID" values.
-Set these IDs to the `AZURE_VAULT_ID` and `AZURE_TENANT_ID` environment variables respectively.
+Set these IDs to the `AZURE_CLIENT_ID` and `AZURE_TENANT_ID` environment variables respectively.
 
 In the "Manage > Certificates & secrets" page click the "New client secret" button and set the text in the "Value" column as the `AZURE_CLIENT_SECRET` environment variable.
 
