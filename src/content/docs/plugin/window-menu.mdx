@@ -34,8 +34,8 @@ const menu = await Menu.new({
 
 //  If a window was not created with an explicit menu or had one set explicitly,
 // this menu will be assigned to it.
-menu.setAsAppMenu().then(res => {
-  console.log("menu set success", res);
+menu.setAsAppMenu().then((res) => {
+  console.log('menu set success', res);
 });
 ```
 
@@ -62,6 +62,78 @@ use tauri::menu::{Menu, MenuItem};
 </TabItem>
 </Tabs>
 
+## Listening to events on custom menu items
+
+Each custom menu item triggers an event when clicked. Use the on_menu_event API to handle them.
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'Open',
+      text: 'open',
+      action: () => {
+        console.log('open pressed');
+      },
+    },
+    {
+      id: 'Close',
+      text: 'close',
+      action: () => {
+        console.log('close pressed');
+      },
+    },
+  ],
+});
+
+await menu.setAsAppMenu();
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{MenuBuilder};
+
+  tauri::Builder::default()
+        .setup(|app| {
+            let menu = MenuBuilder::new(app)
+                .text("open", "Open")
+                .text("close", "Close")
+                .build()?;
+
+            app.set_menu(menu)?;
+
+            app.on_menu_event(move |app_handle: &tauri::AppHandle, event| {
+
+                println!("menu event: {:?}", event.id());
+
+                match event.id().0.as_str() {
+                    "open" => {
+                        println!("open event");
+                    }
+                    "close" => {
+                        println!("close event");
+                    }
+                    _ => {
+                        println!("unexpected menu event");
+                    }
+                }
+            });
+
+            Ok(())
+        })
+```
+
+</TabItem>
+</Tabs>
+
 ## Creating a multi-level menu
 
 To create a multi-level menu, you can add some submenus to the menu item.
@@ -70,24 +142,73 @@ To create a multi-level menu, you can add some submenus to the menu item.
 <TabItem label="JavaScript">
 
 ```javascript
-// todo
-import { Menu } from '@tauri-apps/api/menu';
+import { Menu, CheckMenuItem, IconMenuItem } from '@tauri-apps/api/menu';
+import { Image } from '@tauri-apps/api/image';
+
+let currentLanguage = 'cn';
+
+const check_sub_item_en = await CheckMenuItem.new({
+  id: 'en',
+  text: 'English',
+  checked: currentLanguage === 'en',
+  action: () => {
+    console.log('English pressed');
+  },
+});
+
+const check_sub_item_cn = await CheckMenuItem.new({
+  id: 'cn',
+  text: 'Chinese',
+  checked: currentLanguage === 'cn',
+  action: () => {
+    console.log('Chinese pressed');
+  },
+});
+
+// Load icon from path
+const icon = await Image.fromPath('../src/icon.png');
+console.log(icon);
+
+const icon_item = await IconMenuItem.new({
+  id: 'icon_item',
+  text: 'Icon Item',
+  icon: icon,
+  action: () => {
+    console.log('icon pressed');
+  },
+});
 
 const menu = await Menu.new({
   items: [
     {
-      id: 'quit',
-      text: 'Quit',
-      action: () => {
-        console.log('quit pressed');
-      },
+      id: 'file',
+      text: 'File',
+      items: [
+        {
+          id: 'open',
+          text: 'Open',
+          action: () => {
+            console.log('open pressed');
+          },
+        },
+        {
+          id: 'quit',
+          text: 'Quit',
+          action: () => {
+            console.log('Quit pressed');
+          },
+        },
+      ],
+    },
+    {
+      id: 'language_items',
+      text: 'language',
+      items: [check_sub_item_en, check_sub_item_cn, icon_item],
     },
   ],
 });
 
-menu.setAsAppMenu().then(res => {
-  console.log("menu set success", res);
-});
+await menu.setAsAppMenu();
 ```
 
 </TabItem>
@@ -100,8 +221,8 @@ use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, SubmenuBuilder};
   tauri::Builder::default()
         .setup(|app| {
             let file_menu = SubmenuBuilder::new(app, "File")
-                .text("open", "open")
-                .text("quit", "quit")
+                .text("open", "Open")
+                .text("quit", "Quit")
                 .build()?;
 
             let lang_str = "en";
@@ -116,6 +237,7 @@ use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, SubmenuBuilder};
                 .enabled(false)
                 .build(app)?;
 
+             // Load icon from path
             let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
 
             let icon_item = IconMenuItemBuilder::new("icon")
@@ -157,7 +279,48 @@ To create predefined (native) menu item which has a predefined behavior by the O
 <TabItem label="JavaScript">
 
 ```javascript
-// todo
+import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
+
+const copy = await PredefinedMenuItem.new({
+  text: 'copy-text',
+  item: 'Copy',
+});
+
+const separator = await PredefinedMenuItem.new({
+  text: 'separator-text',
+  item: 'Separator',
+});
+
+const undo = await PredefinedMenuItem.new({
+  text: 'undo-text',
+  item: 'Undo',
+});
+
+const redo = await PredefinedMenuItem.new({
+  text: 'redo-text',
+  item: 'Redo',
+});
+
+const cut = await PredefinedMenuItem.new({
+  text: 'cut-text',
+  item: 'Cut',
+});
+
+const paste = await PredefinedMenuItem.new({
+  text: 'paste-text',
+  item: 'Paste',
+});
+
+const select_all = await PredefinedMenuItem.new({
+  text: 'select_all-text',
+  item: 'SelectAll',
+});
+
+const menu = await Menu.new({
+  items: [copy, separator, undo, redo, cut, paste, select_all],
+});
+
+await menu.setAsAppMenu();
 ```
 
 </TabItem>
@@ -194,54 +357,6 @@ The menu builder has dedicated methods to add each predefined menu item so you c
 </TabItem>
 </Tabs>
 
-## Listening to events on custom menu items
-
-Each custom menu item triggers an event when clicked. Use the on_menu_event API to handle them.
-
-<Tabs>
-<TabItem label="JavaScript">
-
-```javascript
-// todo
-```
-
-</TabItem>
-
-<TabItem label="Rust">
-
-```rust
-use tauri::menu::{MenuBuilder};
-
-  tauri::Builder::default()
-        .setup(|app| {
-            let menu = MenuBuilder::new(app)
-                .text("open", "Open")
-                .text("close", "Close")
-                .build()?;
-
-            app.set_menu(menu)?;
-
-            app.on_menu_event(move |app_handle: &tauri::AppHandle, event| {
-
-                println!("menu event: {:?}", event.id());
-
-                match event.id().0.as_str() {
-                    "open" => {
-                        println!("open event");
-                    }
-                    _ => {
-                        println!("unexpected menu event");
-                    }
-                }
-            });
-
-            Ok(())
-        })
-```
-
-</TabItem>
-</Tabs>
-
 ## Change menu status
 
 If you want to change the status of the menu, such as text, icon, check status, you should `set_menu` again.
@@ -250,7 +365,74 @@ If you want to change the status of the menu, such as text, icon, check status, 
 <TabItem label="JavaScript">
 
 ```javascript
-// todo
+import {
+  Menu,
+  CheckMenuItem,
+  IconMenuItem,
+  MenuItem,
+} from '@tauri-apps/api/menu';
+import { Image } from '@tauri-apps/api/image';
+
+let currentLanguage = 'en';
+
+const check_sub_item_en = await CheckMenuItem.new({
+  id: 'en',
+  text: 'English',
+  checked: currentLanguage === 'en',
+  action: () => {
+    currentLanguage = 'en';
+    check_sub_item_en.setChecked(currentLanguage === 'en');
+    check_sub_item_cn.setChecked(currentLanguage === 'cn');
+    console.log('English pressed');
+  },
+});
+
+const check_sub_item_cn = await CheckMenuItem.new({
+  id: 'cn',
+  text: 'Chinese',
+  checked: currentLanguage === 'cn',
+  action: () => {
+    currentLanguage = 'cn';
+    check_sub_item_en.setChecked(currentLanguage === 'en');
+    check_sub_item_cn.setChecked(currentLanguage === 'cn');
+    console.log('Chinese pressed');
+  },
+});
+
+// Load icon from path
+const icon = await Image.fromPath('../src/icon.png');
+const icon2 = await Image.fromPath('../src/icon-2.png');
+
+const icon_item = await IconMenuItem.new({
+  id: 'icon_item',
+  text: 'Icon Item',
+  icon: icon,
+  action: () => {
+    icon_item.setIcon(icon2);
+    console.log('icon pressed');
+  },
+});
+
+const text_item = await MenuItem.new({
+  id: 'text_item',
+  text: 'Text Item',
+  action: () => {
+    text_item.setText('Text Item Changed');
+    console.log('text pressed');
+  },
+});
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'change menu',
+      text: 'change_menu',
+      items: [text_item, check_sub_item_en, check_sub_item_cn, icon_item],
+    },
+  ],
+});
+
+await menu.setAsAppMenu();
 ```
 
 </TabItem>
@@ -268,28 +450,33 @@ fn create_text_menu(
     app: &AppHandle,
     text: &str,
     icon: Image<'_>,
-    is_checked: bool,
+    checked_type: String,
 ) -> Result<Submenu<Wry>, tauri::Error> {
-    let check_sub_item = CheckMenuItemBuilder::new("Check")
-        .id("check")
-        .checked(is_checked)
+    let check_sub_item_en = CheckMenuItemBuilder::new("en")
+        .id("en")
+        .checked(checked_type=="en")
         .build(app)?;
 
-    let text_item = SubmenuBuilder::new(app, "some menu")
-        .text("change", text)
-        .icon("icon", "icon", icon)
-        .item(&check_sub_item)
-        .build()?;
-    Ok(text_item)
-}
+    let check_sub_item_zh = CheckMenuItemBuilder::new("zh")
+        .id("zh")
+        .checked(checked_type=="zh")
+        .build(app)?;
 
-  tauri::Builder::default()
+    let menu_item = SubmenuBuilder::new(app, "Change menu")
+        .text("change_text", text)
+        .icon("change_icon", "icon", icon)
+        .items(&[&check_sub_item_en, &check_sub_item_zh])
+        .build()?;
+    Ok(menu_item)
+}
+fn main() {
+    tauri::Builder::default()
         .setup(|app| {
             let sub_menu = create_text_menu(
                 app.handle(),
-                "click to change menu",
+                "click to change menu text",
                 app.default_window_icon().cloned().unwrap(),
-                false,
+                "en".to_string(),
             )
             .unwrap();
             let menu = MenuBuilder::new(app).items(&[&sub_menu]).build()?;
@@ -298,12 +485,41 @@ fn create_text_menu(
 
             app.on_menu_event(move |app_handle: &tauri::AppHandle, event| {
                 match event.id().0.as_str() {
-                    "change" => {
+                    // Persistence needs to be solved by yourself
+                    "change_text" => {
                         let sub_menu = create_text_menu(
                             app_handle,
-                            "Changed menu",
+                            "changed menu text",
                             Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap(),
-                            true,
+                            "en".to_string(),
+                        )
+                        .unwrap();
+                        if let Ok(menu) = MenuBuilder::new(app_handle).items(&[&sub_menu]).build() {
+                            let _ = app_handle.set_menu(menu);
+                        }
+                    }
+                    // Persistence needs to be solved by yourself
+                    "change_icon" => {
+                        let sub_menu = create_text_menu(
+                            app_handle,
+                            "changed menu icon",
+                            Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap(),
+                            "en".to_string(),
+                        )
+                        .unwrap();
+                        if let Ok(menu) = MenuBuilder::new(app_handle).items(&[&sub_menu]).build() {
+                            let _ = app_handle.set_menu(menu);
+                        }
+                    }
+
+                    // Persistence needs to be solved by yourself
+                    "en"|"zh" => {
+
+                        let sub_menu = create_text_menu(
+                            app_handle,
+                            "changed menu icon",
+                            Image::from_bytes(include_bytes!("../icons/icon-2.png")).unwrap(),
+                            (&event.id().0.as_str()).to_string(),
                         )
                         .unwrap();
                         if let Ok(menu) = MenuBuilder::new(app_handle).items(&[&sub_menu]).build() {
@@ -318,6 +534,9 @@ fn create_text_menu(
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
 ```
 
 </TabItem>
