@@ -50,6 +50,12 @@ fn main() {
 
 ## Automated Migration
 
+:::danger
+
+This command is not a substitude for this guide! Please read the _whole_ page regardless of whether you chose to use the command.
+
+:::
+
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
@@ -1061,7 +1067,11 @@ tauri::Builder::default()
 
 ### Migrate to Updater Plugin
 
-The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead.
+:::caution[Change of default behavior]
+
+The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead. Failing to do so will prevent your users from getting further updates!
+
+:::
 
 The Rust `tauri::updater` and JavaScript `@tauri-apps/api-updater` APIs have been removed. To set a custom updater target with the `@tauri-apps/plugin-updater`:
 
