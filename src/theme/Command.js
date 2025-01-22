@@ -28,38 +28,38 @@ export const CreateTauriApp = () => {
     <Tabs groupId="package-manager">
       <TabItem value="Bash">
         <CodeBlock className="language-shell" language="shell">
-          {`sh <(curl https://create.tauri.app/sh)`}
+          {`sh <(curl https://create.tauri.app/sh) --tauri-version 1`}
         </CodeBlock>
       </TabItem>
       <TabItem value="PowerShell">
         <CodeBlock className="language-shell" language="powershell">
-          irm https://create.tauri.app/ps | iex
+         $Env:CTA_ARGS = "--tauri-version 1"; irm https://create.tauri.app/ps | iex
         </CodeBlock>
       </TabItem>
       <TabItem value="Cargo">
         <CodeBlock className="language-shell" language="shell">
           {`cargo install create-tauri-app --locked
-cargo create-tauri-app`}
+cargo create-tauri-app --tauri-version 1`}
         </CodeBlock>
       </TabItem>
       <TabItem value="npm">
         <CodeBlock className="language-shell" language="shell">
-          npm create tauri-app@latest
+          npm create tauri-app@latest -- --tauri-version 1
         </CodeBlock>
       </TabItem>
       <TabItem value="Yarn">
         <CodeBlock className="language-shell" language="shell">
-          yarn create tauri-app
+          yarn create tauri-app --tauri-version 1
         </CodeBlock>
       </TabItem>
       <TabItem value="pnpm">
         <CodeBlock className="language-shell" language="shell">
-          pnpm create tauri-app
+          pnpm create tauri-app --tauri-version 1
         </CodeBlock>
       </TabItem>
       <TabItem value="Bun">
         <CodeBlock className="language-shell" language="shell">
-          bunx create-tauri-app
+          bunx create-tauri-app  --tauri-version 1
         </CodeBlock>
       </TabItem>
     </Tabs>
