@@ -305,9 +305,9 @@ Note that Tauri will validate the whole file before checking the version field, 
 
 ### Dynamic Update Server
 
-When using a dynamic update server, Tauri will follow the server's instructions. To disable the internal version check you can overwrite the [Tauri's version comparison](https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.should_install), this will install the version sent by the server (useful if you need to roll back your app).
+When using a dynamic update server, Tauri will follow the server's instructions. To disable the internal version check you can overwrite the [plugin's version comparison](https://docs.rs/tauri-plugin-updater/latest/tauri_plugin_updater/struct.UpdaterBuilder.html#method.version_comparator), this will install the version sent by the server (useful if you need to roll back your app).
 
-Your server can use variables defined in the `endpoint` URL above to determine if an update is required. If you need more data, you can include additional [request headers in Rust](https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.header) to your liking.
+Your server can use variables defined in the `endpoint` URL above to determine if an update is required. If you need more data, you can include additional [request headers in Rust](https://docs.rs/tauri-plugin-updater/latest/tauri_plugin_updater/struct.UpdaterBuilder.html#method.header) to your liking.
 
 Your server should respond with a status code of [`204 No Content`](https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.5) if there is no update available.
 
