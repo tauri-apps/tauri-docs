@@ -3,10 +3,6 @@ title: Tauri Board Elections & Governance Update
 date: 2023-06-15
 authors: [beanow, jbolda, lorenzolewis]
 excerpt: The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within The Commons Conservancy as well as the one year milestone of the Tauri 1.0 release. This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 The Tauri Programme is celebrating it's two year anniversary of Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/) as well as the one year milestone of the [Tauri 1.0 release](/blog/tauri-1-0/). This also means we're preparing for the next round of Tauri Board Director elections to welcome in the next chapter of Tauri.
