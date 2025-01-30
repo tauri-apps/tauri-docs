@@ -712,6 +712,24 @@ use the the object form of permissions `{ "identifier": string, "allow"?: [], "d
 In the above example you can use the [`exists`](#exists) API using any `$APPDATA` sub path (does not include sub-directories)
 and the [`rename`](#rename)
 
+:::tip
+If you are trying to access dotfiles (e.g. `.gitignore`) or dotfolders (e.g. `.ssh`) on Unix based systems,
+then you need to specify either the full path `/home/user/.ssh/example` or the glob after the dotfolder path
+component `/home/user/.ssh/*`.
+
+If that does not work in your use case then you can configure the plugin to treat any component
+as a valid path literal.
+
+```json title="src-tauri/tauri.conf.json
+ "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": false
+    }
+  }
+```
+
+:::
+
 [NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
 [C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
 [base directory]: /reference/javascript/api/namespacepath/#basedirectory
