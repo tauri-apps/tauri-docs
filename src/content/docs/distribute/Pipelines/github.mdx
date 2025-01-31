@@ -27,7 +27,7 @@ Please see the `tauri-action` [readme](https://github.com/tauri-apps/tauri-actio
 
 When your app is not on the root of the repository, use the `projectPath` input.
 
-You may freely modify the worfklow name, change its triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow since this runs the build script and releases your app.
+You may freely modify the workflow name, change its triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow since this runs the build script and releases your app.
 
 ### How to Trigger
 
@@ -58,7 +58,7 @@ The steps this workflow takes are:
 2. Install Linux system dependencies required to build the app.
 3. Set up Node.js LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
 4. Set up Rust and a cache for Rust's build artifacts using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
-5. Install the frontend dependencies and, if not configured as [`beforeBuildCommand`](../../reference/config.md#beforebuildcommand), run the web app's build script.
+5. Install the frontend dependencies and, if not configured as [`beforeBuildCommand`](/reference/config/#beforebuildcommand), run the web app's build script.
 6. Lastly, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create a GitHub release.
 
 ```yaml

@@ -56,6 +56,7 @@ function generateCommandDoc(command: string, level: number, subcommandList: Comm
   npm="npm run tauri ${command}"
   yarn="yarn tauri ${command}"
   pnpm="pnpm tauri ${command}"
+  deno="deno task tauri ${command}"
   cargo="cargo tauri ${command}"
 />
 

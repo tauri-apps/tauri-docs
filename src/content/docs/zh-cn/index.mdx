@@ -1,9 +1,15 @@
 ---
-title: 为 Web 应用提供坚实的基础
+title: Tauri 2.0
 description: 跨平台应用构建工具包
 i18nReady: true
+editUrl: false
+lastUpdated: false
 template: splash
+tableOfContents: false
+prev: false
+next: false
 hero:
+  tagline: 创建小型、快速、安全、跨平台的应用程序
   image:
     file: ../../../assets/logo-outline.svg
   actions:
@@ -11,22 +17,25 @@ hero:
       link: /zh-cn/start/
       icon: right-arrow
       variant: primary
-    - text: 贡献指南
-      link: https://github.com/tauri-apps/tauri-docs/blob/v2/.github/CONTRIBUTING.md
-      icon: open-book
-      variant: minimal
     - text: Tauri 1.0 文档
       link: https://v1.tauri.app
       icon: external
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
 
 <div class="hero-bg">
   <div class="bg-logo"></div>
   <div class="bg-grad"></div>
   <div class="bg-grad-red"></div>
+</div>
+
+<div class="lp-cta-card">
+  <Card title="Create a Project" icon="rocket">
+    <Cta />
+  </Card>
 </div>
 
 <CardGrid stagger>

@@ -41,7 +41,7 @@ use tauri::{AppHandle, Emitter};
 fn download(app: AppHandle, url: String) {
   app.emit("download-started", &url).unwrap();
   for progress in [1, 15, 50, 80, 100] {
-    app.emit("download-progress", 10).unwrap();
+    app.emit("download-progress", progress).unwrap();
   }
   app.emit("download-finished", &url).unwrap();
 }
@@ -76,6 +76,7 @@ use tauri::{AppHandle, Emitter, EventTarget};
 fn open_file(app: AppHandle, path: std::path::PathBuf) {
   app.emit_filter("open-file", path, |target| match target {
     EventTarget::WebviewWindow { label } => label == "main" || label == "file-viewer",
+    _ => false,
   }).unwrap();
 }
 ```
@@ -269,5 +270,5 @@ If the script to be evaluated is not so simple and must use input from Rust obje
 [Emitter#emit_filter]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit_filter
 [Clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
 [Serialize]: https://serde.rs/impl-serialize.html
-[Calling Rust from the Frontend]: /develop/calling-rust
-[capabilities]: /security/capabilities
+[Calling Rust from the Frontend]: /develop/calling-rust/
+[capabilities]: /security/capabilities/

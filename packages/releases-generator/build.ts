@@ -101,7 +101,7 @@ async function generator() {
 
       const frontmatter = ['---', ...pageFrontmatter, '---'].join('\n');
       //
-      const indexLink = `[Return](/release)`;
+      const indexLink = `[Return](/release/)`;
       const viewInGitHub = `<a href="${pkg.tag}/${pkg.name}-v${thisVersion}">View on GitHub</a>`;
       const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
       //

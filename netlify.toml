@@ -5,3 +5,5 @@ to = "https://v1.tauri.app/:locale/v1/:splat"
 [[redirects]]
 from = "/v1/*"
 to = "https://v1.tauri.app/v1/:splat"
+
+# More redirects in /public/_redirects and astro.config.mjs

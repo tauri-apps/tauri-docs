@@ -34,6 +34,7 @@ Install the autostart plugin to get started.
       npm="npm run tauri add autostart"
       yarn="yarn run tauri add autostart"
       pnpm="pnpm tauri add autostart"
+      deno="deno task tauri add autostart"
       bun="bun tauri add autostart"
       cargo="cargo tauri add autostart"
     />
@@ -70,6 +71,7 @@ Install the autostart plugin to get started.
                 npm="npm install @tauri-apps/plugin-autostart"
                 yarn="yarn add @tauri-apps/plugin-autostart"
                 pnpm="pnpm add @tauri-apps/plugin-autostart"
+                deno="deno add npm:@tauri-apps/plugin-autostart"
                 bun="bun add @tauri-apps/plugin-autostart"
             />
 
@@ -82,7 +84,7 @@ Install the autostart plugin to get started.
 
 The autostart plugin is available in both JavaScript and Rust.
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
 ```javascript
@@ -141,7 +143,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json"
+```json title="src-tauri/capabilities/default.json"
 {
   "permissions": [
     ...,

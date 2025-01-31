@@ -85,12 +85,30 @@ This guide is accurate as of Vite 5.4.8.
 
     </TabItem>
 
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
     </Tabs>
 
 1.  ##### Update Vite configuration:
 
     ```js title="vite.config.js"
     import { defineConfig } from 'vite';
+
+    const host = process.env.TAURI_DEV_HOST;
 
     export default defineConfig({
       // prevent vite from obscuring rust errors
@@ -102,7 +120,7 @@ This guide is accurate as of Vite 5.4.8.
         host: host || false,
         port: 5173,
       },
-      // to access the Tauri environment variables set by the CLI with information about the current target
+      // Env variables starting with the item of `envPrefix` will be exposed in tauri's source code through `import.meta.env`.
       envPrefix: ['VITE_', 'TAURI_ENV_*'],
       build: {
         // Tauri uses Chromium on Windows and WebKit on macOS and Linux

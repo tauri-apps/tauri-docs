@@ -25,6 +25,7 @@ SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的
       npm="npm install --save-dev @sveltejs/adapter-static"
       yarn="yarn add -D @sveltejs/adapter-static"
       pnpm="pnpm add -D @sveltejs/adapter-static"
+      deno="deno add -D npm:@sveltejs/adapter-static"
     />
 
 2.  ##### 更新 Tauri 配置
@@ -77,6 +78,20 @@ SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的
         }
         ```
 
+        </TabItem>
+
+        <TabItem label="deno">
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "deno task dev",
+            "beforeBuildCommand": "deno task build",
+            "devUrl": "http://localhost:5173",
+            "frontendDist": "../build"
+          }
+        }
+        ```
         </TabItem>
 
         </Tabs>

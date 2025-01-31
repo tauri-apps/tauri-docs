@@ -8,7 +8,7 @@ import { Card, Steps } from '@astrojs/starlight/components';
 
 import Cta from '@fragments/cta.mdx';
 
-One thing that makes Tauri so flexible is it's ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you create a new Tauri project using one of the officially maintained framework templates.
+One thing that makes Tauri so flexible is its ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you create a new Tauri project using one of the officially maintained framework templates.
 
 `create-tauri-app` currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore-rs.netlify.app/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri).
 
@@ -25,8 +25,7 @@ Follow along with the prompts to choose your project name, frontend language, pa
 
 :::tip[Not sure what to choose?]
 
-{/* TODO: redirect to integrate to existing front-end project specific docs */}
-We recommend starting with the vanilla template (HTML, CSS, and JavaScript without a frontend framework) to get started. You can always [integrate a frontend framework](/start/create-project/) later.
+We recommend starting with the vanilla template (HTML, CSS, and JavaScript without a frontend framework) to get started. You can always [integrate a frontend framework](/start/frontend/) later.
 
 - Choose which language to use for your frontend: `TypeScript / JavaScript`
 - Choose your package manager: `pnpm`
@@ -35,7 +34,77 @@ We recommend starting with the vanilla template (HTML, CSS, and JavaScript witho
 
 :::
 
+#### Scaffold a new project
+
+<Steps>
+
+1. Choose a name and a bundle identifier (unique-id for your app):
+   ```
+   ? Project name (tauri-app) ›
+   ? Identifier (com.tauri-app.app) ›
+   ```
+2. Select a flavor for your frontend. First the language:
+   ```
+   ? Choose which language to use for your frontend ›
+   Rust  (cargo)
+   TypeScript / JavaScript  (pnpm, yarn, npm, bun)
+   .NET  (dotnet)
+   ```
+3. Select a package manager (if there are multiple available):
+
+   Options for **TypeScript / JavaScript**:
+
+   ```
+   ? Choose your package manager ›
+   pnpm
+   yarn
+   npm
+   bun
+   ```
+
+4. Select a UI Template and flavor (if there are multiple available):
+
+   Options for **Rust**:
+
+   ```
+   ? Choose your UI template ›
+   Vanilla
+   Yew
+   Leptos
+   Sycamore
+   ```
+
+   Options for **TypeScript / JavaScript**:
+
+   ```
+   ? Choose your UI template ›
+   Vanilla
+   Vue
+   Svelte
+   React
+   Solid
+   Angular
+   Preact
+
+   ? Choose your UI flavor ›
+   TypeScript
+   JavaScript
+   ```
+
+   Options for **.NET**:
+
+   ```
+   ? Choose your UI template ›
+   Blazor  (https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor/)
+   ```
+
+</Steps>
+
+Once completed, the utility reports that the template has been created and displays how to run it using the configured package manager. If it detects missing dependencies on your system, it prints a list of packages and prompts how to install them.
+
 {/* TODO: Can CTA offer to install the deps? */}
+
+#### Start the development server
 
 After `create-tauri-app` has complete you can navigate into your project's folder, install dependencies, then use the [Tauri CLI](/reference/cli/) to start the development server:
 
@@ -51,6 +120,13 @@ import CommandTabs from '@components/CommandTabs.astro';
   pnpm="cd tauri-app
     pnpm install
     pnpm tauri dev"
+  deno="cd tauri-app
+    deno install
+    deno task tauri dev"
+  bun="cd tauri-app
+    bun install
+    bun tauri dev
+  "
   cargo="cd tauri-app
     cargo tauri dev"
 />
@@ -81,14 +157,22 @@ The following example assumes you are creating a new project. If you've already 
             pnpm="mkdir tauri-app
                 cd tauri-app
                 pnpm create vite ."
+            deno="mkdir tauri-app
+                cd tauri-app
+                deno run -A npm:create-vite ."
+            bun="mkdir tauri-app
+                cd tauri-app
+                bun create vite"
         />
 
     2. Then, install Tauri's CLI tool using your package manager of choice. If you are using `cargo` to install the Tauri CLI, you will have to install it globally.
 
         <CommandTabs
-            npm="npm install -D @tauri-apps/cli@next"
-            yarn="yarn add -D @tauri-apps/cli@next"
-            pnpm="pnpm add -D @tauri-apps/cli@next"
+            npm="npm install -D @tauri-apps/cli@latest"
+            yarn="yarn add -D @tauri-apps/cli@latest"
+            pnpm="pnpm add -D @tauri-apps/cli@latest"
+            deno="deno add -D npm:@tauri-apps/cli@latest"
+            bun="bun add -D @tauri-apps/cli@latest"
             cargo='cargo install tauri-cli --version "^2.0.0" --locked'
         />
 
@@ -100,6 +184,8 @@ The following example assumes you are creating a new project. If you've already 
             npm="npx tauri init"
             yarn="yarn tauri init"
             pnpm="pnpm tauri init"
+            deno="deno task tauri init"
+            bun="bun tauri init"
             cargo="cargo tauri init"
         />
 
@@ -122,6 +208,8 @@ The following example assumes you are creating a new project. If you've already 
             npm="npx tauri dev"
             yarn="yarn tauri dev"
             pnpm="pnpm tauri dev"
+            deno="deno task tauri dev"
+            bun="bun tauri dev"
             cargo="cargo tauri dev"
         />
 

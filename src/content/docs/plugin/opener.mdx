@@ -1,0 +1,136 @@
+---
+title: Opener
+description: Open files and URLs in external applications.
+plugin: opener
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+This plugin allows you to open files and URLs in a specified, or the default, application. It also supports "revealing" files in the system's file explorer.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the opener plugin to get started.
+
+<Tabs>
+	<TabItem label="Automatic" >
+		Use your project's package manager to add the dependency:
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add opener"
+            yarn="yarn run tauri add opener"
+            pnpm="pnpm tauri add opener"
+            deno="deno task tauri add opener"
+            bun="bun tauri add opener"
+            cargo="cargo tauri add opener"
+    	/>
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+          1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+              ```sh frame=none
+              cargo add tauri-plugin-opener
+              ```
+
+          2. Modify `lib.rs` to initialize the plugin:
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_opener::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-opener"
+                  yarn = "yarn add @tauri-apps/plugin-opener"
+                  pnpm = "pnpm add @tauri-apps/plugin-opener"
+                  deno = "deno add npm:@tauri-apps/plugin-opener"
+                  bun = "bun add @tauri-apps/plugin-opener"
+              />
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The shell plugin is available in both JavaScript and Rust.
+
+<Tabs syncKey="lang">
+	<TabItem label="JavaScript" >
+
+```javascript
+import { openPath } from '@tauri-apps/plugin-opener';
+// when using `"withGlobalTauri": true`, you may use
+// const { openPath } = window.__TAURI__.opener;
+
+// opens a file using the default program:
+await openPath('/path/to/file');
+// opens a file using `vlc` command on Windows:
+await openPath('C:/path/to/file', 'vlc');
+```
+
+    </TabItem>
+    <TabItem label = "Rust" >
+
+Note that `app` is an instance of `App` or [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html).
+
+```rust
+use tauri_plugin_opener::OpenerExt;
+
+// opens a file using the default program:
+app.opener().open_path("/path/to/file", None::<&str>);
+// opens a file using `vlc` command on Windows:
+app.opener().open_path("C:/path/to/file", Some("vlc"));
+```
+
+    </TabItem>
+
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "/path/to/file"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

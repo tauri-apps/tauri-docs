@@ -38,6 +38,7 @@ Install the deep-link plugin to get started.
       npm="npm run tauri add deep-link"
       yarn="yarn run tauri add deep-link"
       pnpm="pnpm tauri add deep-link"
+      deno="deno task tauri add deep-link"
       bun="bun tauri add deep-link"
       cargo="cargo tauri add deep-link"
     />
@@ -70,6 +71,7 @@ Install the deep-link plugin to get started.
               npm="npm install @tauri-apps/plugin-deep-link"
               yarn="yarn add @tauri-apps/plugin-deep-link"
               pnpm="pnpm add @tauri-apps/plugin-deep-link"
+              deno="deno add npm:@tauri-apps/plugin-deep-link"
               bun="bun add @tauri-apps/plugin-deep-link"
           />
 
@@ -215,7 +217,7 @@ The deep-link plugin is available in both JavaScript and Rust.
 
 ### Listening to Deep Links
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
 When a deep link triggers your app to be opened, the `onOpenUrl` callback is executed:
@@ -390,7 +392,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={9}
+```json title="src-tauri/capabilities/default.json" ins={9}
 {
   "$schema": "../gen/schemas/mobile-schema.json",
   "identifier": "mobile-capability",

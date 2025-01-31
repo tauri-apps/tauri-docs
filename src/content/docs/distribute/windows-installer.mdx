@@ -23,6 +23,7 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
   npm="npm run tauri build"
   yarn="yarn tauri build"
   pnpm="pnpm tauri build"
+  deno="deno task tauri build"
   cargo="cargo tauri build"
 />
 
@@ -41,7 +42,7 @@ Since Tauri officially only supports the MSVC Windows target, the setup is a bit
 
 #### Install NSIS
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
 Some Linux distributions have NSIS available in their repositories, for example on Ubuntu you can install NSIS by running this command:
 
@@ -78,7 +79,7 @@ Since the default Microsoft linker only works on Windows we will also need to in
 To compile the Windows Resource file which is used for setting the app icon among other things
 we will also need the `llvm-rc` binary which is part of the LLVM project.
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
   
 ```sh title="Ubuntu"
@@ -123,9 +124,10 @@ If you have multiple projects and want to share those files you can set the `XWI
 Now it should be as simple as adding the runner and target to the `tauri build` command:
 
 <CommandTabs
-  npm="npm run tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  npm="npm run tauri build -- --runner cargo-xwin --target x86_64-pc-windows-msvc"
   yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  deno="deno task tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
 />
 
@@ -140,10 +142,11 @@ If you need to support **32-bit** machines, you can compile your application wit
 using the `--target` flag:
 
 <CommandTabs
-  npm="npm run tauri build --target i686-pc-windows-msvc"
+  npm="npm run tauri build -- --target i686-pc-windows-msvc"
   yarn="yarn tauri build --target i686-pc-windows-msvc"
   pnpm="pnpm tauri build --target i686-pc-windows-msvc"
   cargo="cargo tauri build --target i686-pc-windows-msvc"
+  deno="deno task tauri build --target i686-pc-windows-msvc"
 />
 
 By default, Rust only installs toolchains for your machine's target,
@@ -155,18 +158,16 @@ At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 <CommandTabs
-  npm="npm run tauri build --target aarch64-pc-windows-msvc"
+  npm="npm run tauri build -- --target aarch64-pc-windows-msvc"
   yarn="yarn tauri build --target aarch64-pc-windows-msvc"
   pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
+  deno="deno task tauri build --target aarch64-pc-windows-msvc"
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 
 :::info
 
-Only the NSIS target supports ARM64 targets, so if you configured Tauri to compile all bundle types
-you may want to change the above command to `tauri build --target aarch64-pc-windows-msvc --bundles nsis` to only build the NSIS installer.
-
-Note that the installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
+Note that the NSIS installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
 
 :::
 
@@ -636,7 +637,7 @@ to verify the current Webview2 version and run the Webview2 bootstrapper if it d
 [the nsis github project]: https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files
 [tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler/src/bundle/windows/nsis/languages
 [tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
-[signing documentation]: /distribute/sign/windows
+[signing documentation]: /distribute/sign/windows/
 [WiX configuration]: /reference/config/#wixconfig
 [NSIS configuration]: /reference/config/#nsisconfig
 [installMode]: /reference/config/#installmode

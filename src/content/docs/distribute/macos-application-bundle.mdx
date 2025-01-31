@@ -12,9 +12,10 @@ including your app executable, resources, the Info.plist file and other files su
 To package your app as a macOS application bundle you can use the Tauri CLI and run the `tauri build` command in a Mac computer:
 
 <CommandTabs
-  npm="npm run tauri build --bundles app"
+  npm="npm run tauri build -- --bundles app"
   yarn="yarn tauri build --bundles app"
   pnpm="pnpm tauri build --bundles app"
+  deno="deno task tauri build --bundles app"
   cargo="cargo tauri build --bundles app"
 />
 
@@ -207,7 +208,7 @@ and the `docs/index.md` file is copied to `<product-name>.app/Contents/SharedSup
 [`tauri.conf.json > bundle > macOS > files`]: /reference/config/#files-2
 [`tauri.conf.json > bundle > resources`]: /reference/config/#resources
 [official Info.plist documentation]: https://developer.apple.com/documentation/bundleresources/information_property_list
-[code signing documentation]: /distribute/sign/macos
+[code signing documentation]: /distribute/sign/macos/
 [`tauri.conf.json > bundle > macOS > minimumSystemVersion`]: /reference/config/#minimumsystemversion
 [resources]: /develop/resources/
 [BCP 47]: https://www.rfc-editor.org/rfc/bcp/bcp47.txt

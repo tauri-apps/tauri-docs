@@ -73,6 +73,7 @@ async function generator() {
     'log',
     'nfc',
     'notification',
+    'opener',
     'os',
     'positioner',
     'process',

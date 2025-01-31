@@ -75,7 +75,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 Shell 插件有 JavaScript 和 Rust 两种版本。
 
-<Tabs>
+<Tabs syncKey="lang">
 	<TabItem label="JavaScript" >
 
 ```javascript
@@ -120,7 +120,7 @@ if output.status.success() {
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
-```json title="src-tauri/capabilities/main.json" ins={6-23}
+```json title="src-tauri/capabilities/default.json" ins={6-23}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",

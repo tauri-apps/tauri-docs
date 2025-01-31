@@ -59,9 +59,9 @@ Without the plugin being initialized and configured the example won't work.
     Let's install it as a development dependency:
 
     <CommandTabs
-      npm="npm add pkg --save-dev"
-      yarn="yarn add pkg --dev"
-      pnpm="pnpm add pkg --save-dev"
+      npm="npm add @yao-pkg/pkg --save-dev"
+      yarn="yarn add @yao-pkg/pkg --dev"
+      pnpm="pnpm add @yao-pkg/pkg --save-dev"
     />
 
 1.  ##### Write Sidecar Logic
@@ -137,7 +137,7 @@ Without the plugin being initialized and configured the example won't work.
 
     We can run the sidecar binary either from Rust code or directly from JavaScript.
 
-    <Tabs>
+    <Tabs syncKey="lang">
 
       <TabItem label="JavaScript">
 
@@ -180,7 +180,7 @@ Without the plugin being initialized and configured the example won't work.
 
 </Steps>
 
-[sidecar guide]: /develop/sidecar
+[sidecar guide]: /develop/sidecar/
 [process.argv]: https://nodejs.org/docs/latest/api/process.html#processargv
 [console.log]: https://nodejs.org/api/console.html#consolelogdata-args
 [pkg]: https://github.com/vercel/pkg

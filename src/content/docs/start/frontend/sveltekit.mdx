@@ -26,6 +26,7 @@ SvelteKit is a meta framework for Svelte. Learn more about SvelteKit at https://
       npm="npm install --save-dev @sveltejs/adapter-static"
       yarn="yarn add -D @sveltejs/adapter-static"
       pnpm="pnpm add -D @sveltejs/adapter-static"
+      deno="deno add -D npm:@sveltejs/adapter-static"
     />
 
 1.  ##### Update Tauri configuration
@@ -72,6 +73,22 @@ SvelteKit is a meta framework for Svelte. Learn more about SvelteKit at https://
       "build": {
         "beforeDevCommand": "pnpm dev",
         "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
         "devUrl": "http://localhost:5173",
         "frontendDist": "../build"
       }

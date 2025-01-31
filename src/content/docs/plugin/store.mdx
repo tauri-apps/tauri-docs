@@ -33,6 +33,7 @@ Install the store plugin to get started.
     <CommandTabs npm="npm run tauri add store"
     yarn="yarn run tauri add store"
     pnpm="pnpm tauri add store"
+    deno="deno task tauri add store"
     bun="bun tauri add store"
     cargo="cargo tauri add store" />
 
@@ -63,6 +64,7 @@ Install the store plugin to get started.
             npm = "npm install @tauri-apps/plugin-store"
             yarn = "yarn add @tauri-apps/plugin-store"
             pnpm = "pnpm add @tauri-apps/plugin-store"
+            deno = "deno add npm:@tauri-apps/plugin-store"
             bun = "bun add @tauri-apps/plugin-store"
             />
         </Steps>
@@ -72,19 +74,17 @@ Install the store plugin to get started.
 
 ## Usage
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```typescript
-import { createStore } from '@tauri-apps/plugin-store';
+import { load } from '@tauri-apps/plugin-store';
 // when using `"withGlobalTauri": true`, you may use
-// const { createStore } = window.__TAURI__.store;
+// const { load } = window.__TAURI__.store;
 
-// create a new store or load the existing one
-const store = await createStore('store.bin', {
-  // we can save automatically after each store modification
-  autoSave: true,
-});
+// Create a new store or load the existing one,
+// note that the options will be ignored if a `Store` with that path has already been created
+const store = await load('store.json', { autoSave: false });
 
 // Set a value.
 await store.set('some-key', { value: 5 });
@@ -94,7 +94,9 @@ const val = await store.get<{ value: number }>('some-key');
 console.log(val); // { value: 5 }
 
 // You can manually save the store after making changes.
-// Otherwise, it will save upon graceful exit as described above.
+// Otherwise, it will save upon graceful exit
+// And if you set `autoSave` to a number or left empty,
+// it will save the changes to disk after a debounce delay, 100ms by default.
 await store.save();
 ```
 
@@ -111,20 +113,22 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let store = app.handle().store_builder("store.bin").build();
+            // Create a new store or load the existing one
+            // this also put the store in the app's resource table
+            // so your following calls `store` calls (from both rust and js)
+            // will reuse the same store
+            let store = app.store("store.json")?;
 
             // Note that values must be serde_json::Value instances,
             // otherwise, they will not be compatible with the JavaScript bindings.
-            store.insert("some-key", json!({ "value": 5 }))?;
+            store.set("some-key", json!({ "value": 5 }));
 
             // Get a value from the store.
             let value = store.get("some-key").expect("Failed to get value from store");
             println!("{}", value); // {"value":5}
 
-            // You can manually save the store after making changes.
-            // Otherwise, it will save upon graceful exit as described above.
-            store.save()?;
-
+            // Remove the store from the resource table
+            store.close_resource();
 
             Ok(())
         })
@@ -136,13 +140,48 @@ pub fn run() {
 </TabItem>
 </Tabs>
 
+### LazyStore
+
+There's also a high level JavaScript API `LazyStore` which only loads the store on first access
+
+```typescript
+import { LazyStore } from '@tauri-apps/plugin-store';
+
+const store = new LazyStore('settings.json');
+```
+
+## Migrating from v1 and v2 beta/rc
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```diff
+- import { Store } from '@tauri-apps/plugin-store';
++ import { LazyStore } from '@tauri-apps/plugin-store';
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```diff
+- with_store(app.handle().clone(), stores, path, |store| {
+-     store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+-     Ok(())
+- });
++ let store = app.store(path)?;
++ store.set("some-key".to_string(), json!({ "value": 5 }));
+```
+
+</TabItem>
+</Tabs>
+
 ## Permissions
 
 By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4}
+```json title="src-tauri/capabilities/default.json" ins={4}
 {
   "permissions": [
     ...,

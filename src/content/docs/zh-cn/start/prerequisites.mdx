@@ -26,7 +26,7 @@ Tauri 在 Linux 上进行开发需要各种系统依赖项。这些可能会有�
 {/* Note: These are the officially supported linux distributions. */}
 {/* If you wish to add another please open an issue to discuss prior to opening a PR */}
 
-<Tabs>
+<Tabs synckey="distro">
   <TabItem label="Debian">
 
 ```sh
@@ -106,7 +106,41 @@ sudo zypper in -t pattern devel_basis
   </TabItem>
   <TabItem label="NixOS">
 
-TODO: Need to build out NixOS instructions
+:::note
+This will also install Rust and Node.js as well as the `cargo-tauri` CLI for you, so you can skip those steps below.
+:::
+
+Using `nix-shell`:
+
+```nix
+let
+  pkgs = import <nixpkgs> { };
+in
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
+    pkg-config
+    gobject-introspection
+    cargo
+    cargo-tauri
+    nodejs
+  ];
+
+  buildInputs = with pkgs;[
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    webkitgtk_4_1
+    openssl
+  ];
+}
+```
 
   </TabItem>
 </Tabs>
@@ -169,7 +203,7 @@ Tauri 使用 Microsoft Edge WebView2 在 Windows 上呈现内容。
 
 Tauri 使用 [Rust](https://www.rust-lang.org) 构建并需要它进行开发。使用以下方法之一安装 Rust。你可以在 https://www.rust-lang.org/tools/install 查看更多安装方法。
 
-<Tabs>
+<Tabs syncKey="OS">
   <TabItem label="Linux and macOS" class="content">
 
 使用 [`rustup`](https://github.com/rust-lang/rustup) 安装：
@@ -210,7 +244,7 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 
 {/* TODO: Can this be done in the 4th step? */}
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
 
 ```sh
@@ -243,7 +277,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 
 4. 配置 `ANDROID_HOME` 和 `NDK_HOME` 环境变量：
 
-<Tabs>
+<Tabs lang="OS">
 <TabItem label="Linux">
 
 ```sh
@@ -274,7 +308,7 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 
 5. 使用 `rustup` 添加 Android 编译目标：
 
-<Tabs>
+<Tabs syncKey="OS">
   <TabItem label="Linux and macOS" class="content">
 
 ```sh

@@ -29,6 +29,8 @@ import CommandTabs from '@components/CommandTabs.astro';
     cd <PROJECT>`}
       pnpm={`pnpm create qwik@latest
     cd <PROJECT>`}
+      deno={`deno run -A npm:create-qwik@latest
+    cd <PROJECT>`}
     />
 
 1.  ##### 安装 `static adapter`
@@ -37,6 +39,7 @@ import CommandTabs from '@components/CommandTabs.astro';
       npm="npm run qwik add static"
       yarn="yarn qwik add static"
       pnpm="pnpm qwik add static"
+      deno="deno task qwik add static"
     />
 
 1.  ##### 将 Tauri CLI 添加到您的项目中
@@ -45,6 +48,7 @@ import CommandTabs from '@components/CommandTabs.astro';
       npm="npm install -D @tauri-apps/cli"
       yarn="yarn add -D @tauri-apps/cli"
       pnpm="pnpm add -D @tauri-apps/cli"
+      deno="deno add -D npm:@tauri-apps/cli@latest"
     />
 
 1.  ##### 初始化一个新的 Tauri 项目
@@ -53,6 +57,7 @@ import CommandTabs from '@components/CommandTabs.astro';
       npm="npm run tauri init"
       yarn="yarn tauri init"
       pnpm="pnpm tauri init"
+      deno="deno task tauri init"
     />
 
 1.  ##### Tauri 配置
@@ -107,6 +112,20 @@ import CommandTabs from '@components/CommandTabs.astro';
 
     </TabItem>
 
+    <TabItem label="deno">
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist",
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build"
+      }
+    }
+    ```
+    </TabItem>
+
     </Tabs>
 
 1.  ##### 启动你的 `tauri` 应用
@@ -115,6 +134,7 @@ import CommandTabs from '@components/CommandTabs.astro';
       npm="npm run tauri dev"
       yarn="yarn tauri dev"
       pnpm="pnpm tauri dev"
+      deno="deno task tauri dev"
     />
 
 </Steps>

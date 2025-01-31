@@ -53,7 +53,7 @@ Tauri 使用 Kotlin 作为默认的安卓插件实现，但是你也可以使用
 
 移动设备上的插件实例具有用于插件配置的获取器：
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -93,7 +93,7 @@ class ExamplePlugin: Plugin {
 - **当**：插件被加载到 webview 中
 - **为了**：加载插件初始化代码
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -143,7 +143,7 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin
@@ -212,7 +212,7 @@ impl<R: Runtime> <plugin-name;pascal-case><R> {
 
 如果插件需要最终用户的权限，Tauri 简化了检查和请求权限的过程。
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 首先定义所需权限的列表和别名，以在代码中标识每个权限组。这是在 `TauriPlugin` 注解中完成的：
@@ -250,7 +250,7 @@ class ExamplePlugin: Plugin {
 
 Tauri 自动为插件实现了两个命令：`checkPermissions` 和 `requestPermissions`。这些命令可以从 JavaScript 或 Rust 中直接调用。
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```javascript
@@ -317,7 +317,7 @@ impl<R: Runtime> Notification<R> {
 
 插件可以使用 `trigger` 函数在任何时候触发事件：
 
-<Tabs>
+<Tabs syncKey="mobileOs">
 <TabItem label="Android">
 
 ```kotlin

@@ -20,7 +20,7 @@ Tauri enables your app to have a CLI through [clap](https://github.com/clap-rs/c
 <Compatibility plugin={frontmatter.plugin} />
 
 - Windows
-  - Due to an OS limitation, production apps are not be able to write text back to the calling console by default. Please check out [tauri#8305](https://github.com/tauri-apps/tauri/issues/8305#issuecomment-1826871949) for a workaround.{/* TODO: Inline the instructions into this guide */}
+  - Due to an OS limitation, production apps are not able to write text back to the calling console by default. Please check out [tauri#8305](https://github.com/tauri-apps/tauri/issues/8305#issuecomment-1826871949) for a workaround.{/* TODO: Inline the instructions into this guide */}
 
 ## Setup
 
@@ -35,6 +35,7 @@ Install the CLI plugin to get started.
             npm="npm run tauri add cli"
             yarn="yarn run tauri add cli"
             pnpm="pnpm tauri add cli"
+            deno="deno task tauri add cli"
             bun="bun tauri add cli"
             cargo="cargo tauri add cli"
     	/>
@@ -71,6 +72,7 @@ Install the CLI plugin to get started.
                 npm="npm install @tauri-apps/plugin-cli"
                 yarn="yarn add @tauri-apps/plugin-cli"
                 pnpm="pnpm add @tauri-apps/plugin-cli"
+                deno="deno add npm:@tauri-apps/plugin-cli"
                 bun="bun add @tauri-apps/plugin-cli"
             />
 
@@ -213,7 +215,7 @@ Its configuration is the same as the root application configuration, with the `d
 
 The CLI plugin is available in both JavaScript and Rust.
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
 ```javascript
@@ -270,7 +272,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={6}
+```json title="src-tauri/capabilities/default.json" ins={6}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",

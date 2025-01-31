@@ -1,5 +1,6 @@
 ---
 title: The Tauri Book
+i18nReady: true
 ---
 
 :::note[Progress Update]

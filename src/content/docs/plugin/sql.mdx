@@ -32,6 +32,7 @@ Install the SQL plugin to get started.
         yarn="yarn run tauri add sql"
         pnpm="pnpm tauri add sql"
         bun="bun tauri add sql"
+        deno="deno task tauri add sql"
         cargo="cargo tauri add sql" />
 
     </TabItem>
@@ -63,6 +64,7 @@ Install the SQL plugin to get started.
                 npm="npm install @tauri-apps/plugin-sql"
                 yarn="yarn add @tauri-apps/plugin-sql"
                 pnpm="pnpm add @tauri-apps/plugin-sql"
+                deno="deno add npm:@tauri-apps/plugin-sql"
                 bun="bun add @tauri-apps/plugin-sql"
             />
 
@@ -75,8 +77,8 @@ After installing the plugin, you must select the supported database engine.
 The available engines are Sqlite, MySQL and PostgreSQL.
 Run the following command in the `src-tauri` folder to enable your preferred engine:
 
-<Tabs>
-  <TabItem label="Sqlite">
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
 
     ```sh frame=none
     cargo add tauri-plugin-sql --features sqlite
@@ -103,7 +105,7 @@ Run the following command in the `src-tauri` folder to enable your preferred eng
 
 All the plugin's APIs are available through the JavaScript guest bindings:
 
-<Tabs>
+<Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 
 The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
@@ -111,7 +113,7 @@ The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://d
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
 // when using `"withGlobalTauri": true`, you may use
-// const V = window.__TAURI__.sql;
+// const Database = window.__TAURI__.sql;
 
 const db = await Database.load('sqlite:test.db');
 await db.execute('INSERT INTO ...');
@@ -119,25 +121,27 @@ await db.execute('INSERT INTO ...');
 
   </TabItem>
   <TabItem label="MySQL">
-```javascript
 
+```javascript
 import Database from '@tauri-apps/plugin-sql';
 // when using `"withGlobalTauri": true`, you may use
 // const Database = window.__TAURI__.sql;
 
-const db = await Database.load('mysql://user:pass@host/database');
+const db = await Database.load('mysql://user:password@host/test');
 await db.execute('INSERT INTO ...');
+```
 
-````
   </TabItem>
   <TabItem label="PostgreSQL">
+
 ```javascript
+import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
 
-import Database from "@tauri-apps/plugin-sql";
-const db = await Database.load("postgres://postgres:password@localhost/test");
-await db.execute("INSERT INTO ...");
-
-````
+const db = await Database.load('postgres://user:password@host/test');
+await db.execute('INSERT INTO ...');
+```
 
   </TabItem>
 </Tabs>
@@ -146,7 +150,7 @@ await db.execute("INSERT INTO ...");
 
 We use [sqlx](https://docs.rs/sqlx/latest/sqlx/) as the underlying library and adopt their query syntax.
 
-<Tabs>
+<Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 Use the "$#" syntax when substituting query data
 ```javascript
@@ -280,7 +284,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4-5}
+```json title="src-tauri/capabilities/default.json" ins={4-5}
 {
   "permissions": [
     ...,

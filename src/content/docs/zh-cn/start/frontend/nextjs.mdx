@@ -2,6 +2,7 @@
 title: Next.js
 i18nReady: true
 tableOfContents:
+  collapseLevel: 1
   minHeadingLevel: 2
   maxHeadingLevel: 5
 ---
@@ -20,86 +21,94 @@ Next.js 是一个基于 React 的元框架。要了解更多关于 Next.js 的�
 
 <Steps>
 
-1.  ##### 更新 Tauri 配置
+    1.  ##### 更新 Tauri 配置
 
-          <Tabs>
+        <Tabs>
 
-      <TabItem label="npm">
+            <TabItem label="npm">
+                ```json
+                // src-tauri/tauri.conf.json
+                {
+                "build": {
+                    "beforeDevCommand": "npm run dev",
+                    "beforeBuildCommand": "npm run build",
+                    "devUrl": "http://localhost:3000",
+                    "frontendDist": "../dist"
+                }
+                }
+                ```
+            </TabItem>
 
-    ```json
-    // src-tauri/tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run build",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+            <TabItem label="yarn">
+                ```json
+                // src-tauri/tauri.conf.json
+                {
+                "build": {
+                    "beforeDevCommand": "yarn dev",
+                    "beforeBuildCommand": "yarn build",
+                    "devUrl": "http://localhost:3000",
+                    "frontendDist": "../dist"
+                }
+                }
+                ```
+            </TabItem>
 
-          </TabItem>
+            <TabItem label="pnpm">
+                ```json
+                // src-tauri/tauri.conf.json
+                {
+                "build": {
+                    "beforeDevCommand": "pnpm dev",
+                    "beforeBuildCommand": "pnpm build",
+                    "devUrl": "http://localhost:3000",
+                    "frontendDist": "../dist"
+                }
+                }
+                ```
+            </TabItem>
 
-    <TabItem label="yarn">
+            <TabItem label="deno">
+                ```json
+                // src-tauri/tauri.conf.json
+                {
+                "build": {
+                    "beforeDevCommand": "deno task dev",
+                    "beforeBuildCommand": "deno task build",
+                    "devUrl": "http://localhost:3000",
+                    "frontendDist": "../out"
+                }
+                }
+                ```
+            </TabItem>
 
-    ```json
-    // src-tauri/tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "yarn dev",
-        "beforeBuildCommand": "yarn build",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+        </Tabs>
 
-          </TabItem>
+    2.  ##### 更新 Next.js 配置
 
-    <TabItem label="pnpm">
+        ```ts
+        // next.conf.mjs
+        const isProd = process.env.NODE_ENV === 'production';
 
-    ```json
-    // src-tauri/tauri.conf.json
-    {
-      "build": {
-        "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm build",
-        "devUrl": "http://localhost:3000",
-        "frontendDist": "../dist"
-      }
-    }
-    ```
+        const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
 
-          </TabItem>
+        /** @type {import('next').NextConfig} */
+        const nextConfig = {
+        // 确保 Next.js 使用 SSG 而不是 SSR
+        // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+        output: 'export',
+        // 注意：在 SSG 模式下使用 Next.js 的 Image 组件需要此功能。
+        // 请参阅 https://nextjs.org/docs/messages/export-image-api 了解不同的解决方法。
+        images: {
+            unoptimized: true,
+        },
+        // 配置 assetPrefix，否则服务器无法正确解析您的资产。
+        assetPrefix: isProd ? undefined : `http://${internalHost}:3000`,
+        };
 
-    </Tabs>
+        export default nextConfig;
+        ```
 
-2.  ##### 更新 Next.js 配置
-
-    ```ts
-    // next.conf.mjs
-    const isProd = process.env.NODE_ENV === 'production';
-
-    const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
-
-    /** @type {import('next').NextConfig} */
-    const nextConfig = {
-      // 确保 Next.js 使用 SSG 而不是 SSR
-      // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-      output: 'export',
-      // 注意：在 SSG 模式下使用 Next.js 的 Image 组件需要此功能。
-      // 请参阅 https://nextjs.org/docs/messages/export-image-api 了解不同的解决方法。
-      images: {
-        unoptimized: true,
-      },
-      // 配置 assetPrefix，否则服务器无法正确解析您的资产。
-      assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-    };
-
-    export default nextConfig;
-    ```
-
-3.  ##### 更新 package.json 配置
+    3.  ##### 更新 package.json 配置
 
         ```json
         "scripts": {

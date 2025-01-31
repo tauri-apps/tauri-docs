@@ -1,0 +1,67 @@
+---
+/**
+ * @author 39zde <git@39z.de>
+ */
+import { Icon } from '@astrojs/starlight/components';
+
+interface Props {
+  /**
+   * version string
+   * schema: x.y.z
+   * @example
+   *  ```jsx
+   *    // Valid ✅
+   *    <SinceVersion version="2.1.0" />
+   *    // Invalid ❌
+   *    <SinceVersion version="v2.1.0" />
+   *    <SinceVersion>2.1.0</SinceVersion>
+   *    <SinceVersion version="2.1" />
+   *  ```
+   */
+  version: string;
+  /**
+   * The core library the documented feature belongs to, if applicapbe.
+   * Leave blank if not applicable and define the link manually.
+   */
+  library?: 'tauri' | 'api' | 'rust-cli' | 'js-cli' | 'tauri-bundler' | 'wry' | 'tao';
+  /**
+   * overrides the link to release page
+   *
+   * if the `library` prop is defined, `href` defaults to:
+   * - `${Astro.url.origin}/release/${Astro.props.library}/v${Astro.props.version}`
+   *
+   * if the `library` prop is `undefined`, `href` defaults to:
+   * - defaults to `${Astro.url.origin}/release/tauri/v${Astro.props.version}`
+   */
+  href?: string;
+}
+---
+
+<a
+  class="not-content"
+  href={Astro.props.href
+    ? Astro.props.href
+    : Astro.props.library
+      ? `${Astro.url.origin}/release/${Astro.props.library}/v${Astro.props.version}`
+      : `${Astro.url.origin}/release/tauri/v${Astro.props.version}`}
+  target="_blank"
+>
+  <Icon name="seti:clock" />Since <code>{Astro.props.version}</code>
+</a>
+
+<style>
+  a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 0.5rem;
+    padding: 2px 12px 2px 12px;
+    font-size: small;
+    box-shadow: var(--sl-shadow-md);
+    background-color: var(--sl-color-bg-inline-code);
+    margin: 0 0 12px 0;
+    color: var(--sl-color-gray-1) !important;
+    text-decoration: none;
+  }
+</style>

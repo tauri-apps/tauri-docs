@@ -1,5 +1,7 @@
 ---
 title: Window Customization
+sidebar:
+  order: 1
 tableOfContents:
   maxHeadingLevel: 4
 ---
@@ -29,7 +31,7 @@ There are three ways to change the window configuration:
 A common use of these window features is creating a custom titlebar. This short tutorial will guide you through that process.
 
 :::note
-For macOS, using a custom titlebar will also lose some features provided by the system, such as [moving or aligning the window](https://support.apple.com/start/mac-help/work-with-app-windows-mchlp2469/mac). Another approach to customizing the titlebar but keeping native functions could be making the titlebar transparent and setting the window background color. See the usage [(macOS) Transparent Titlebar with Custom Window Background Color](#macos-transparent-titlebar-with-custom-window-background-color).
+For macOS, using a custom titlebar will also lose some features provided by the system, such as [moving or aligning the window](https://support.apple.com/guide/mac-help/work-with-app-windows-mchlp2469/mac). Another approach to customizing the titlebar but keeping native functions could be making the titlebar transparent and setting the window background color. See the usage [(macOS) Transparent Titlebar with Custom Window Background Color](#macos-transparent-titlebar-with-custom-window-background-color).
 :::
 
 #### tauri.conf.json
@@ -54,7 +56,7 @@ By default, all plugin commands are blocked and cannot be accessed. You must def
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={6}
+```json title="src-tauri/capabilities/default.json" ins={6}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -214,7 +216,7 @@ Add `cocoa` crate to dependencies so that we can use it to call the macOS native
 
     ```toml title="src-tauri/Cargo.toml"
     [target."cfg(target_os = \"macos\")".dependencies]
-    cocoa = "0.25"
+    cocoa = "0.26"
     ```
 
 Create the main window and change its background color:
@@ -222,7 +224,7 @@ Create the main window and change its background color:
     ```rust title="src-tauri/src/lib.rs"
     use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
 
-    pub run() {
+    pub fn run() {
     	tauri::Builder::default()
     		.setup(|app| {
     			let win_builder =

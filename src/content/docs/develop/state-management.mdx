@@ -89,6 +89,8 @@ It's a good idea to read the linked documentation fully to understand the trade-
 
 It's common to see [`Arc`] used in Rust to share ownership of a value across multiple threads (usually paired with a [`Mutex`] in the form of `Arc<Mutex<T>>`). However, you don't need to use [`Arc`] for things stored in [`State`] because Tauri will do this for you.
 
+In case `State`'s lifetime requirements prevent you from moving your state into a new thread you can instead move an `AppHandle` into the thread and then retrieve your state as shown below in the "[Access state with the Manager trait](#access-state-with-the-manager-trait)" section. `AppHandle`s are deliberately cheap to clone for use-cases like this.
+
 ## Accessing State
 
 ### Access state in commands
@@ -106,7 +108,7 @@ For more information on commands, see [Calling Rust from the Frontend](/develop/
 
 #### Async commands
 
-If you are using `async` commands and want to use Tokio's async [`Mutex`], you can set it up the same way and access the state like this:
+If you are using `async` commands and want to use Tokio's async [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html), you can set it up the same way and access the state like this:
 
 ```rust
 #[tauri::command]

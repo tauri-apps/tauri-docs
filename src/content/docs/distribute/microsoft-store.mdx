@@ -25,6 +25,7 @@ Use the `tauri icon` command to generate app icons from a single PNG or SVG sour
   npm="npm run tauri icon /path/to/app-icon.png"
   yarn="yarn tauri icon /path/to/app-icon.png"
   pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
   cargo="cargo tauri icon /path/to/app-icon.png"
 />
 
@@ -62,12 +63,14 @@ To only apply this installer configuration when bundling for Microsoft Store, yo
 Then merge that config file with the main one when bundling your Tauri app for Microsoft Store:
 
 <CommandTabs
-  npm="npm run tauri build --no-bundle
-npm run tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --config src-tauri/tauri.microsoftstore.conf.json"
   yarn="yarn tauri build --no-bundle
 yarn tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
   pnpm="pnpm tauri build --no-bundle
 pnpm tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
   cargo="cargo tauri build --no-bundle
 cargo tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
 />
@@ -106,11 +109,11 @@ In this case you can define the [publisher] value separately to fix this conflic
 After building the Windows installer for Microsoft Store, you can upload it to the distribution service of your choice
 and link it in your application page in the Microsoft Store website.
 
-[Windows Installer guide]: /distribute/windows-installer
+[Windows Installer guide]: /distribute/windows-installer/
 [enroll]: https://learn.microsoft.com/en-us/windows/apps/get-started/sign-up
 [Apps and Games]: https://partner.microsoft.com/en-us/dashboard/apps-and-games/overview
-[handle auto-updates]: /plugin/updater
-[code signed]: /distribute/sign/windows
+[handle auto-updates]: /plugin/updater/
+[code signed]: /distribute/sign/windows/
 [Offline Installer]: /distribute/windows-installer/#offline-installer
 [official publish documentation]: https://learn.microsoft.com/en-us/windows/apps/publish/
 [publisher]: /reference/config/#publisher

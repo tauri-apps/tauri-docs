@@ -6,11 +6,12 @@ interface Props {
   npm?: string;
   yarn?: string;
   pnpm?: string;
+  deno?: string;
   bun?: string;
   cargo?: string;
 }
 
-const { npm, yarn, pnpm, bun, cargo } = Astro.props;
+const { npm, yarn, pnpm, bun, cargo, deno } = Astro.props;
 ---
 
 <Tabs syncKey="cmd">
@@ -32,6 +33,13 @@ const { npm, yarn, pnpm, bun, cargo } = Astro.props;
     pnpm && (
       <TabItem label="pnpm">
         <Code code={pnpm} lang="sh" theme="css-variables" frame="none" />
+      </TabItem>
+    )
+  }
+  {
+    deno && (
+      <TabItem label="deno">
+        <Code code={deno} lang="sh" theme="css-variables" frame="none" />
       </TabItem>
     )
   }

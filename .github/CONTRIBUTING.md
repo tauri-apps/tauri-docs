@@ -19,6 +19,8 @@ Reach out to us on [Discord](https://discord.com/invite/tauri) on the [`#docs` c
 2. Run `pnpm i && pnpm dev:setup`
 3. Run `pnpm dev` to start the local server
 
+Note: Dynamically generated pages will result in a 404 error until you run `pnpm build` for the first time.
+
 ### Gitpod
 
 [Allow Gitpod to open new tabs](https://www.gitpod.io/docs/configure/user-settings/browser-settings) so you immediately when the environment is done loading get a new tab popping up with the documentation.
@@ -41,14 +43,6 @@ Use this chart to help you figure out where the right place for your content is:
 | theoretical knowledge     | work                    | [a reference](#reference) |
 | theoretical knowledge     | study                   | [a blog post](#blog-post) |
 
-### Writing for Prerelease
-
-While Tauri 2.0 is still in the prerelease stage people follow these guidelines for writing documentation:
-
-- Refer to Tauri 2.0 as if it's released now (so that copy doesn't need to be updated upon release)
-- Write any code so that it works **now** but...
-- Annotate 2.0 code with `{/* FIXME: 2.0 */}` (.mdx files) or `<!-- FIXME: 2.0 -->` (.md files) so that we can easily find and fix any of those upon release (feel free to add in what the code should be upon release in additional comments)
-
 ### Writing Style
 
 **Dictionary**
@@ -63,9 +57,35 @@ While Tauri 2.0 is still in the prerelease stage people follow these guidelines 
 - Make headings as succinct as possible to help the reader quickly find the content they need
 - Use [simple present tense](https://www.grammarly.com/blog/simple-present/) for verbs
 
+### New Features / Version Display
+
+When writing about a new feature, display the version it was introduced. 
+Use the `SinceVersion` component for this, located at [`src/components/SinceVersion.astro`](../src//components/SinceVersion.astro).
+Place it directly under the header, which describes the new feature. 
+When creating a new page add a Badge with the text `New` and variant `tip`.
+The lifetime of this badge should not exceed 6 Months.
+
+#### Example
+Example file `my-new-page.mdx`
+```mdx
+---
+title: My New Page
+sidebar:
+  badge:
+    text: New
+    variant: tip
+---
+import SinceVersion from '../path/to/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" library="optional core library name" href="optional link" />
+
+Documentation about 'My New Page'...
+
+```
+
 ### Guide
 
-Located in [`/src/content/docs/2/guide/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/guide)
+Located in [`/src/content/docs/plugin/`](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/plugin)
 
 Guides are learning-oriented and take the reader through a specific journey such as starting a new project, and overview of a specific feature, or how to follow a specific flow such as building and bundling their app. They follow a similar philosophy to [tutorials in Diátaxis](https://diataxis.fr/tutorials).
 
@@ -73,7 +93,7 @@ The reader should be familiar with the concepts covered by the end of the guide 
 
 ### Recipe
 
-Located in [`/src/content/docs/2/recipe/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/recipe)
+Located in [`/src/content/docs/learn/`](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/learn)
 
 Recipes are designed to guide the reader through a specific task similar and have a clear outcome and objective. This could be something like setting up authentication using Firebase, adding a Python binary using sidecar, or requesting admin access on a user's machine. They are similar to [how-to guides in Diátaxis](https://diataxis.fr/how-to-guides) (not to be confused with our own guides mentioned above).
 
@@ -81,7 +101,7 @@ The prerequisites for a recipe should be clearly stated. If there are a lot of s
 
 ### Reference
 
-Located in [`/src/content/docs/2/reference/`](https://github.com/tauri-apps/tauri-docs/tree/starlight/src/content/docs/2/reference), although they should be auto-generated when possible.
+Located in [`/src/content/docs/reference/`](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/reference), although they should be auto-generated when possible.
 
 References are where all the nuts and bolts of Tauri's API are documented. These should be generated from upstream repos when possible and written following the best practices described by [references in Diátaxix](https://diataxis.fr/reference).
 
@@ -91,7 +111,7 @@ If you'd like to view the API references locally then you must run `pnpm dev:set
 
 ### Blog Post
 
-Not yet created, will be added in the future.
+Located in [`/src/content/docs/blog/`](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/blog)
 
 Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation), but not all blog posts necessarily fit this specific format.
 

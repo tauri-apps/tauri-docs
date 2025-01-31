@@ -10,6 +10,7 @@ import astroD2 from 'astro-d2';
 import starlightUtils from '@lorenzo_lewis/starlight-utils';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import lunaria from '@lunariajs/starlight';
 
 const authors = {
   nothingismagick: {
@@ -64,8 +65,7 @@ const site = 'https://v2.tauri.app';
 // https://astro.build/config
 export default defineConfig({
   site,
-  // TODO: Fix trailing slashes throughout the docs
-  // trailingSlash: 'always',
+  trailingSlash: 'always',
   integrations: [
     starlight({
       plugins: [
@@ -80,6 +80,7 @@ export default defineConfig({
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
+        lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
@@ -309,7 +310,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-rc/tauri/index.html',
+              link: 'https://docs.rs/tauri/~2/',
             },
           ],
         },

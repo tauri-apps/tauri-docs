@@ -1,0 +1,50 @@
+---
+title: ¿Qué es Tauri?
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+Tauri es un framework que sirve para crear binarios pequeños y rápidos para las principales plataformas de escritorio y móviles. Los desarrolladores pueden usar cualquier framework de frontend que compile a HTML, JavaScript y CSS para crear su experiencia de usuario, y al mismo tiempo aprovechar lenguajes como Rust, Swift y Kotlin para la lógica del backend cuando sea necesario.
+
+Empieza a construir tu aplicación con [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) usando uno de los comandos que se encuentran abajo. Asegurate de seguir la [guía the prerrequisitos](/start/prerequisites/) para instalar todas las dependencias requeridas por Tauri y después mira las [guías de Configuración de Frontend](/start/frontend/) para ver las configuraciones recomendadas.
+
+import Cta from '../../_fragments/cta.mdx';
+
+<Cta />
+
+Después de haber creado tu primera aplicación, puedes explorar las diferentes características y fórmulas de Tauri en el [Listado de Características y Fórmulas](/plugin/).
+
+## ¿Por qué Tauri?
+
+Tauri tiene 3 ventajas principales que los desarrolladores pueden aprovechar:
+
+- Base segura para construir aplicaciones
+- Tamaño de paquete más pequeño usando la vista web nativa del sistema
+- Flexibilidad para que los desarrolladores usen cualquier frontend y soporte para múltiples lenguajes
+
+Aprende más sobre la filosofía de Tauri en la [publicación del blog de Tauri 1.0](/blog/tauri-1-0/).
+
+### Base segura
+
+Al estar contruido en Rust, Tauri es capaz the aprovechar la memoria, hilos y tipado seguro ofrecidos por Rust. Las aplicaciones construidas en Tauri pueden obtener estos beneficios automáticamente sin la necesidad de estar desarrolladas por expertos en Rust.
+
+Además, Tauri se somete a auditorías de seguridad para sus versiones principales y secundarias. Esto no solo abarca el código en la organización de Tauri, sino que también todas las dependencias de las que Tauri depende. Por supuesto, esto no elimina todo el riesgo, pero provee de una base muy sólida para que los desarrolladores construyan sobre ella.
+
+Lee la [póliza de seguidad de Tauri](https://github.com/tauri-apps/tauri/security/policy) y el [reporte de auditoría de Tauri 2.0](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf).
+
+### Tamaño de aplicaciones más pequeño
+
+Las aplicaciones hechas con Tauri se aprovechan de la vista web nativa del sistema del usuario. Una aplicación de Tauri solo contiene el código y los recursos específicos para esa aplicación, sin la necesidad de tener que empaquetar un motor de navegador en cada aplicación. Esto significa que una aplicación sencilla de Tauri puede tener un tamaño menor a 600KB.
+
+Aprende más sobre como crear aplicaciones optimizadas en el [concepto de Tamaño de Aplicación](/concept/size/).
+
+### Arquitectura flexible
+
+Dado que Tauri usa tecnologías web, prácticamente cualquier framework de frontend es compatible con Tauri. La [guía de Configuración de Frontend](/start/frontend/) incluye configuraciones comunes para frameworks de frontend populares.
+
+Las conexiones entre JavaScript y Rust están disponibles para los desarrolladores usando la función `invoke` en JavaScript, mientras que los enlaces para Swift y Kotlin están disponibles para [los Plugins de Tauri](/develop/plugins/).
+
+[TAO](https://github.com/tauri-apps/tao) se encarga de la creación de ventanas en Tauri y [WRY](https://github.com/tauri-apps/wry) de la renderización web. Ambas librerías son mantenidas por Tauri y pueden ser utilizadas directamente si se requiere un nivel más profundo de integración al que Tauri expone.
+
+Además, Tauri mantiene varios plugins para ampliar las funcionalidades que ofrece el núcleo de Tauri. Puedes encontrar estos plugins junto con los proporcionados por la comunidad en la [sección de Plugins](/plugin/).
