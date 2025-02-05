@@ -256,7 +256,9 @@ Always call `file.close()` when you are done manipulating the file.
     read: true,
     baseDir: BaseDirectory.AppData,
   });
-  const buf = new Uint8Array();
+
+  const stat = await file.stat();
+  const buf = new Uint8Array(stat.size);
   await file.read(buf);
   const textContents = new TextDecoder().decode(buf);
   await file.close();
