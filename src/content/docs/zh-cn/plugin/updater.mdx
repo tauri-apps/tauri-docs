@@ -1,0 +1,768 @@
+---
+title: 更新
+description: Tauri 应用程序的应用内更新。
+plugin: updater
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import PluginPermissions from '@components/PluginPermissions.astro';
+import CommandTabs from '@components/CommandTabs.astro';
+import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+自动使用更新服务器或静态 JSON 更新你的 Tauri 应用程序。
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+从安装 Tauri 更新插件开始。
+
+<Tabs>
+  <TabItem label="自动">
+
+    使用项目的包管理器添加依赖项。
+
+    <CommandTabs
+      npm="npm run tauri add updater"
+      yarn="yarn run tauri add updater"
+      pnpm="pnpm tauri add updater"
+      deno="deno task tauri add updater"
+      bun="bun tauri add updater"
+      cargo="cargo tauri add updater"
+    />
+
+  </TabItem>
+    <TabItem label="手动">
+      <Steps>
+
+        1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
+
+
+            ```sh frame=none
+            cargo add tauri-plugin-updater --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2.  修改 `lib.rs` 来初始化插件。
+
+            ```rust title="lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-updater"
+                yarn="yarn add @tauri-apps/plugin-updater"
+                pnpm="pnpm add @tauri-apps/plugin-updater"
+                deno="deno add npm:@tauri-apps/plugin-updater"
+                bun="bun add @tauri-apps/plugin-updater"
+            />
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 签名更新包
+
+Tauri 的更新程序需要签名来验证更新来自可信来源。这不能被禁用。
+
+要对更新进行签名，你需要两个密钥：
+
+1. 公钥将在 `tauri.conf.json` 中设置，以便在安装前验证升级包。只要您的私钥是安全的，此公钥就可以安全地上传和共享。
+2. 私钥，用于为安装程序文件签名。你不应该与任何人共享这把钥匙。此外，如果你丢失了这个密钥，你将无法向已经安装应用程序的用户发布新的更新。把这个密钥放在安全的地方很重要！
+
+为了生成密钥，Tauri CLI 提供了 `signer generate` 命令。你可以运行以下命令在主文件夹中创建密钥。
+
+<Tabs>
+  <CommandTabs
+    npm="npm run tauri signer generate -- -w ~/.tauri/myapp.key"
+    yarn="yarn tauri signer generate -w ~/.tauri/myapp.key"
+    pnpm="pnpm tauri signer generate -w ~/.tauri/myapp.key"
+    deno="deno task tauri signer generate -w ~/.tauri/myapp.key"
+    bun="bunx tauri signer generate -w ~/.tauri/myapp.key"
+    cargo="cargo tauri signer generate -w ~/.tauri/myapp.key"
+  />
+</Tabs>
+
+### 构建
+
+在构建您的更新包时，您需要在环境变量中配置上述生成的私钥。`.env` 文件*不起*作用！
+
+<Tabs>
+  <TabItem label="Mac/Linux">
+  ```sh frame=none
+  export TAURI_SIGNING_PRIVATE_KEY="Path or content of your private key"
+  # optionally also add a password
+  export TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""
+  ```
+  </TabItem>
+  <TabItem label="Windows">
+  在 `PowerShell` 中运行。
+  ```ps frame=none
+  $env:TAURI_SIGNING_PRIVATE_KEY="Path or content of your private key"
+  <# optionally also add a password #>
+  $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""
+  ```
+  </TabItem>
+</Tabs>
+
+之后，您可以像往常一样运行 Tauri build，Tauri 将生成更新包及其签名。
+生成的文件依赖于下面配置的 [`createUpdaterArtifacts`] 配置值。
+
+<Tabs>
+  <TabItem label="v2">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": true
+  }
+}
+```
+
+在 Linux 上，Tauri 将在 `target/release/bundle/appimage/` 文件夹中创建 AppImage。
+
+- `myapp.AppImage` - 标准的应用程序包。它将被更新者重新使用。
+- `myapp.AppImage.sig` - 更新包的签名。
+
+在 macOS 系统上，Tauri 会从 `target/release/bundle/macos/` 文件夹内的应用程序包创建一个 .tar.gz 归档文件。
+
+- `myapp.app` - 标准的应用程序包。
+- `myapp.app.tar.gz` - 更新包。
+- `myapp.app.tar.gz.sig` - 更新包的签名。
+
+在 Windows 系统上，Tauri 会在 `target/release/bundle/msi/` and `target/release/bundle/nsis` 文件夹内创建常规的 MSI 和 NSIS 安装程序。
+
+- `myapp-setup.exe` - 标准的应用程序包。它将被更新者重新使用。
+- `myapp-setup.exe.sig` - 更新包的签名。
+- `myapp.msi` - 标准的应用程序包。它将被更新者重新使用。
+- `myapp.msi.sig` - 更新包的签名。
+
+{''}
+
+</TabItem>
+<TabItem label="v1 compatible">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": "v1Compatible"
+  }
+}
+```
+
+在 Linux 上，Tauri 将在 `target/release/bundle/appimage/` 文件夹中创建 AppImage。
+
+- `myapp.AppImage` - 标准的应用包。
+- `myapp.AppImage.tar.gz` - 更新包。
+- `myapp.AppImage.tar.gz.sig` - 更新包的签名。
+
+在 macOS 系统上，Tauri 会从 `target/release/bundle/macos/` 文件夹内的应用程序包创建一个 .tar.gz 归档文件。
+
+- `myapp.app` - 标准的应用包。
+- `myapp.app.tar.gz` - 更新包。
+- `myapp.app.tar.gz.sig` - 更新包的签名。
+
+在 Windows 系统上，Tauri 会从 `target/release/bundle/msi/` 和 `target/release/bundle/nsis` 文件夹内的 MSI 和 NSIS 安装程序创建 .zip 归档文件。
+
+- `myapp-setup.exe` - 标准的应用包。
+- `myapp-setup.nsis.zip` - 更新包。
+- `myapp-setup.nsis.zip.sig` - 更新包的签名。
+- `myapp.msi` - 标准的应用包。
+- `myapp.msi.zip` - 更新包。
+- `myapp.msi.zip.sig` - 更新包的签名。
+
+{''}
+
+  </TabItem>
+</Tabs>
+
+## Tauri 配置
+
+以这种格式设置 `tauri.conf.json`，以使更新程序开始工作。
+
+| Keys                                 | Description                                                                                                                                                                                                 |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createUpdaterArtifacts`             | 将其设置为 `true` 告诉 Tauri 的应用打包器创建更新包。如果你要从较旧的 Tauri 版本迁移应用程序，请将其设置为 `"v1Compatible"`。**此设置将在 v3 中删除**，所以一旦所有用户迁移到 v2，请确保将其更改为 `true`。 |
+| `pubkey`                             | 这必须是上面步骤中从 Tauri CLI 生成的公钥。它**不能**是文件路径！                                                                                                                                           |
+| `endpoints`                          | 这必须是一个字符串形式的 url 数组。TLS 在生产模式下强制执行。只有返回非 2xx 状态码时，Tauri 才会继续访问下一个 url！                                                                                        |
+| `dangerousInsecureTransportProtocol` | 将其设置为 `true` 允许更新器接受非 https 端点。请谨慎使用此配置！                                                                                                                                           |
+
+每个更新的 URL 可以包含以下动态变量，允许您在服务器端确定更新是否可用。
+
+- `{{current_version}}`：请求更新的应用程序版本。
+- `{{target}}`：操作系统名称 （`linux`、`windows` 或 `darwin` 之一）。
+- `{{arch}}`：机器的架构 （`x86_64`、`i686`、`aarch64` 或 `armv7` 之一）。
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "CONTENT FROM PUBLICKEY.PEM",
+      "endpoints": [
+        "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}",
+        // or a static github json file
+        "https://github.com/user/repo/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}
+```
+
+:::tip
+不支持自定义变量，但可以定义[自定义 `{{target}}`](#自定义目标)。
+:::
+
+### `installMode` on Windows
+
+在 Windows 平台上，有一个额外的可选的 `"installMode"` 配置来更改更新包的安装方式。
+
+```json title=tauri.conf.json
+{
+  "plugins": {
+    "updater": {
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}
+```
+
+- `"passive"`：会有一个带有进度条的小窗口。该更新将在不需要任何用户交互的情况下安装。一般推荐使用默认模式。
+- `"basicUi"`：将显示一个基本的用户界面，它需要用户交互来完成安装。
+- `"quiet"`：没有进度反馈给用户。在这种模式下，安装程序不能自行请求管理员权限，所以它只适用于用户范围内的安装，或者当您的应用程序本身已经以管理员权限运行时。一般不推荐。
+
+## 服务器的支持
+
+更新插件可以以两种方式使用。要么使用动态更新服务器，要么使用静态 JSON 文件（用于 S3 或 GitHub gist 等服务）。
+
+### 静态 JSON 文件
+
+使用静态文件时，只需要返回一个包含所需信息的 JSON。
+
+| Keys        | Description                                                                                                                                               |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `version`   | 必须是一个有效的 [SemVer](https://semver.org/)，带或不带 `v`，这意味着 `1.0.0` 和 `v1.0.0` 都是有效的。                                                   |
+| `notes`     | 更新说明。                                                                                                                                                |
+| `pub_date`  | 如果存在日期，则必须按照 [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 规范格式化。                                                           |
+| `platforms` | 每个平台的字段名都是 `OS-ARCH` 格式，其中 `OS` 是 `linux`、`darwin` 或 `windows` 中的一个，而 `ARCH` 是 `x86_64`、`aarch64`、`i686` 或 `armv7` 中的一个。 |
+| `signature` | 生成的 `.sig` 文件的内容，可能会随着每次构建而改变。路径或 URL 将不起作用！                                                                               |
+
+:::info
+当使用[自定义目标](#自定义目标)时，所提供的目标字符串会与 `platforms` 键进行匹配，而非默认的 `OS-ARCH` 值。
+:::
+
+`"version"`、`"platforms.[target].url"` 和 `"platforms.[target].signature"` 是必需的；其它字段是可选的。
+
+```json
+{
+  "version": "",
+  "notes": "",
+  "pub_date": "",
+  "platforms": {
+    "linux-x86_64": {
+      "signature": "",
+      "url": ""
+    },
+    "windows-x86_64": {
+      "signature": "",
+      "url": ""
+    },
+    "darwin-x86_64": {
+      "signature": "",
+      "url": ""
+    }
+  }
+}
+```
+
+注意，Tauri 将在检查 version 字段之前验证整个文件，因此请确保所有现有平台配置都是有效和完整的。
+
+:::tip
+[Tauri Action](https://github.com/tauri-apps/tauri-action) 会生成一个静态的 JSON 文件供你在 cdn 上使用，比如 GitHub 发行版。
+:::
+
+### 动态更新服务器
+
+在使用动态更新服务器时，Tauri 会遵循服务器的指令。若要禁用内部版本检查，您可以覆盖 [Tauri 的版本比较](https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.should_install)，这样就会安装服务器发送的版本（如果您需要回滚应用程序，这很有用）。
+
+您的服务器可以使用上述 `endpoint` URL 中定义的变量来确定是否需要更新。如果您需要更多数据，可以根据自己的喜好在 Rust 中添加额外的[请求头](https://docs.rs/tauri/latest/tauri/updater/struct.UpdateBuilder.html#method.header)。
+
+如果没有可用的更新，您的服务器应响应状态码为 [`204 无内容`](https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.5)。
+
+如果需要更新，您的服务器应使用状态码 [`200 OK`](http://tools.ietf.org/html/rfc2616#section-10.2.1) 进行响应，并以这种格式提供 JSON 响应。
+
+| Keys        | Description                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------- |
+| `version`   | 必须是一个有效的 [SemVer](https://semver.org/)，带或不带 `v`，这意味着 `1.0.0` 和 `v1.0.0` 都是有效的。 |
+| `notes`     | 更新说明。                                                                                              |
+| `pub_date`  | 如果存在日期，则必须按照 [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 规范格式化。         |
+| `url`       | 这必须是的有效更新包 URL。                                                                              |
+| `signature` | 生成的 `.sig` 文件的内容，可能会随着每次构建而改变。路径或 URL 将不起作用！                             |
+
+`"url"`、`"version"` and `"signature"` 是必须的；其它字段是可选的。
+
+```json
+{
+  "version": "",
+  "pub_date": "",
+  "url": "",
+  "signature": "",
+  "notes": ""
+}
+```
+
+:::tip
+金牛座的官方合作伙伴 CrabNebula 提供了一个动态更新服务器。有关更多信息，请参阅 [Distributing with CrabNebula Cloud] 文档。
+:::
+
+## 检查更新
+
+用于检查和安装更新的默认 API 利用配置的端点，可以由 JavaScript 和 Rust 代码访问。
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update) {
+  console.log(
+    `found update ${update.version} from ${update.date} with notes ${update.body}`
+  );
+  let downloaded = 0;
+  let contentLength = 0;
+  // alternatively we could also call update.download() and update.install() separately
+  await update.downloadAndInstall((event) => {
+    switch (event.event) {
+      case 'Started':
+        contentLength = event.data.contentLength;
+        console.log(`started downloading ${event.data.contentLength} bytes`);
+        break;
+      case 'Progress':
+        downloaded += event.data.chunkLength;
+        console.log(`downloaded ${downloaded} from ${contentLength}`);
+        break;
+      case 'Finished':
+        console.log('download finished');
+        break;
+    }
+  });
+
+  console.log('update installed');
+  await relaunch();
+}
+```
+
+更多有关信息，请参阅 [JavaScript API 文档]。
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_updater::UpdaterExt;
+
+pub fn run() {
+  tauri::Builder::default()
+    .setup(|app| {
+      let handle = app.handle().clone();
+      tauri::async_runtime::spawn(async move {
+        update(handle).await.unwrap();
+      });
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+
+async fn update(app: tauri::AppHandle) -> tauri_plugin_updater::Result<()> {
+  if let Some(update) = app.updater()?.check().await? {
+    let mut downloaded = 0;
+
+    // alternatively we could also call update.download() and update.install() separately
+    update
+      .download_and_install(
+        |chunk_length, content_length| {
+          downloaded += chunk_length;
+          println!("downloaded {downloaded} from {content_length:?}");
+        },
+        || {
+          println!("download finished");
+        },
+      )
+      .await?;
+
+    println!("update installed");
+    app.restart();
+  }
+
+  Ok(())
+}
+```
+
+:::tip
+要通知前端下载进度，请考虑使用带 [channel] 的命令。
+
+<details>
+  <summary>Updater command</summary>
+
+```rust
+#[cfg(desktop)]
+mod app_updates {
+    use std::sync::Mutex;
+    use serde::Serialize;
+    use tauri::{ipc::Channel, AppHandle, State};
+    use tauri_plugin_updater::{Update, UpdaterExt};
+
+    #[derive(Debug, thiserror::Error)]
+    pub enum Error {
+        #[error(transparent)]
+        Updater(#[from] tauri_plugin_updater::Error),
+        #[error("there is no pending update")]
+        NoPendingUpdate,
+    }
+
+    impl Serialize for Error {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            serializer.serialize_str(self.to_string().as_str())
+        }
+    }
+
+    type Result<T> = std::result::Result<T, Error>;
+
+    #[derive(Clone, Serialize)]
+    #[serde(tag = "event", content = "data")]
+    pub enum DownloadEvent {
+        #[serde(rename_all = "camelCase")]
+        Started {
+            content_length: Option<u64>,
+        },
+        #[serde(rename_all = "camelCase")]
+        Progress {
+            chunk_length: usize,
+        },
+        Finished,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UpdateMetadata {
+        version: String,
+        current_version: String,
+    }
+
+    #[tauri::command]
+    pub async fn fetch_update(
+        app: AppHandle,
+        pending_update: State<'_, PendingUpdate>,
+    ) -> Result<Option<UpdateMetadata>> {
+        let channel = "stable";
+        let url = url::Url::parse(&format!(
+            "https://cdn.myupdater.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}?channel={channel}",
+        )).expect("invalid URL");
+
+      let update = app
+          .updater_builder()
+          .endpoints(vec![url])?
+          .build()?
+          .check()
+          .await?;
+
+      let update_metadata = update.as_ref().map(|update| UpdateMetadata {
+          version: update.version.clone(),
+          current_version: update.current_version.clone(),
+      });
+
+      *pending_update.0.lock().unwrap() = update;
+
+      Ok(update_metadata)
+    }
+
+    #[tauri::command]
+    pub async fn install_update(pending_update: State<'_, PendingUpdate>, on_event: Channel<DownloadEvent>) -> Result<()> {
+        let Some(update) = pending_update.0.lock().unwrap().take() else {
+            return Err(Error::NoPendingUpdate);
+        };
+
+        let started = false;
+
+        update
+            .download_and_install(
+                |chunk_length, content_length| {
+                    if !started {
+                        let _ = on_event.send(DownloadEvent::Started { content_length });
+                        started = true;
+                    }
+
+                    let _ = on_event.send(DownloadEvent::Progress { chunk_length });
+                },
+                || {
+                    let _ = on_event.send(DownloadEvent::Finished);
+                },
+            )
+            .await?;
+
+        Ok(())
+    }
+
+    struct PendingUpdate(Mutex<Option<Update>>);
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                app.manage(app_updates::PendingUpdate(Mutex::new(None)));
+            }
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![
+            #[cfg(desktop)]
+            app_updates::fetch_update,
+            #[cfg(desktop)]
+            app_updates::install_update
+        ])
+}
+```
+
+</details>
+:::
+
+更多有关信息，请参阅 [Rust API 文档]。
+
+</TabItem>
+</Tabs>
+
+请注意，安装更新后不需要立即重启应用程序，你可以选择如何处理更新，要么等待用户手动重启应用程序，要么提示他选择何时这样做。
+
+:::note
+在 Windows 上，由于 Windows 安装程序的限制，应用程序在执行安装步骤时将自动退出。
+:::
+
+当检查和下载更新时，可以定义自定义的请求超时、代理和请求头。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  proxy: '<proxy url>',
+  timeout: 30000 /* milliseconds */,
+  headers: {
+    Authorization: 'Bearer <token>',
+  },
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .timeout(std::time::Duration::from_secs(30))
+  .proxy("<proxy-url>".parse().expect("invalid URL"))
+  .header("Authorization", "Bearer <token>")
+  .build()?
+  .check()
+  .await?;
+```
+
+  </TabItem>
+</Tabs>
+
+### 运行时配置
+
+更新 api 还允许在运行时配置更新程序，以获得更大的灵活性。
+出于安全原因，一些 api 仅对 Rust 可用。
+
+#### Endpoints
+
+设置运行时检查更新的 url 可以允许更多的动态更新，例如单独的发布通道：
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let channel = if beta { "beta" } else { "stable" };
+let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}");
+
+let update = app
+  .updater_builder()
+  .endpoints(vec![update_url])?
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+注意，使用 format!() 来插入更新 URL 时，需要对变量进行双重转义，
+例如 `{{{{target}}}}`。
+:::
+
+#### 公钥
+
+在运行时设置公钥对于实现密钥轮换逻辑可能很有用。
+它可以由插件构建器或更新器构建器设置：
+
+```rust
+tauri_plugin_updater::Builder::new().pubkey("<your public key>").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .pubkey("<your public key>")
+  .build()?
+  .check()
+  .await?;
+```
+
+#### 自定义目标
+
+默认情况下，更新程序允许您使用 `{{target}}` and `{{arch}}` 变量来确定必须交付哪个更新资产。
+如果您需要有关更新的更多信息（例如，在分发通用 macOS 二进制选项或有更多构建风格时），您可以设置自定义目标。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  target: 'macos-universal',
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+自定义目标可以由插件构建者或更新器构建者来设置。
+
+```rust
+tauri_plugin_updater::Builder::new().target("macos-universal").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .target("macos-universal")
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+默认的 `$target-$arch` 键可以使用 `tauri_plugin_updater::target()` 来获取，该函数返回一个 `Option<String>`，当当前平台不支持更新器时，其值为 `None`。
+:::
+
+  </TabItem>
+</Tabs>
+
+:::note
+
+- 当使用自定义目标时，可能更容易使用它来确定更新平台，所以你可以删除 `{{arch}}` 变量。
+- 所提供的目标值是在使用[静态 JSON 文件](#静态-json-文件)时与平台键相匹配的键。
+
+:::
+
+#### 允许降级
+
+默认情况下，Tauri 会检查更新版本是否大于当前应用程序版本，以验证是否应该更新。
+为了允许降级，你必须使用更新构建器的 `version_comparator` API。
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .version_comparator(|current, update| {
+    // default comparison: `update.version > current`
+    update.version != current
+  })
+  .build()?
+  .check()
+  .await?;
+```
+
+#### 窗口退出前的钩子函数
+
+由于 Windows 安装程序的限制，Tauri 会在 Windows 上安装更新之前自动退出您的应用程序。
+要在此之前执行操作，请使用 `on_before_exit` 函数。
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .on_before_exit(|| {
+    println!("app is about to exit on Windows!");
+  })
+  .build()?
+  .check()
+  .await?;
+```
+
+:::note
+如果没有设置任何构建器的值，则使用[配置](#tauri-配置)中的值作为备用。
+:::
+
+[`createUpdaterArtifacts`]: /reference/config/#createupdaterartifacts
+[Distributing with CrabNebula Cloud]: /distribute/crabnebula-cloud/
+[channel]: /develop/calling-frontend/#channels
+[JavaScript API 文档]: /reference/javascript/updater/
+[Rust API 文档]: https://docs.rs/tauri-plugin-updater
+
+## 权限
+
+默认情况下，所有潜在危险的插件命令和范围都被阻止且无法访问。您必须在您的 `capabilities` 配置中修改权限以启用这些。
+
+有关更多信息，请参阅[功能概述](/security/capabilities/)，以及使用插件权限的[分步指南](/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "updater:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
