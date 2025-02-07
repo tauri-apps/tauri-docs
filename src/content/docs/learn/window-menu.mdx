@@ -1,16 +1,16 @@
 ---
-title: Window menu
+title: Window Menu
 tableOfContents:
   maxHeadingLevel: 4
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Native application menus can be attached to a window or can be attached to the system tray too. Available on desktop only.
+Native application menus can be attached to both to a window or system tray. Available on desktop.
 
 ## Creating a base-level menu
 
-To create a base-level native window menu, and attached to the window.
+To create a base-level native window menu, and attach to a window:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -32,7 +32,7 @@ const menu = await Menu.new({
   ],
 });
 
-//  If a window was not created with an explicit menu or had one set explicitly,
+// If a window was not created with an explicit menu or had one set explicitly,
 // this menu will be assigned to it.
 menu.setAsAppMenu().then((res) => {
   console.log('menu set success', res);
@@ -67,7 +67,7 @@ fn main() {
 
 ## Listening to events on custom menu items
 
-Each custom menu item triggers an event when clicked. Use the on_menu_event API to handle them.
+Each custom menu item triggers an event when clicked. Use the `on_menu_event` API to handle them.
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -142,7 +142,7 @@ fn main() {
 
 ## Creating a multi-level menu
 
-To create a multi-level menu, you can add some submenus to the menu item.
+To create a multi-level menu, you can add some submenus to the menu item:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -248,11 +248,9 @@ fn main() {
 }
 ```
 
-Note that you need the image-ico or image-png Cargo features to use this API. To enable it, change your Cargo.toml file:
+Note that you need to enable `image-ico` or `image-png` feature to use this API:
 
-`src-tauri/Cargo.toml`
-
-```toml
+```toml title="src-tauri/Cargo.toml"
 [dependencies]
 tauri = { version = "...", features = ["...", "image-png"] }
 ```
@@ -262,7 +260,7 @@ tauri = { version = "...", features = ["...", "image-png"] }
 
 ## Creating predefined menu
 
-To create predefined (native) menu item which has a predefined behavior by the OS or by tauri.
+To use built-in (native) menu items that has predefined behavior by the operating system or Tauri:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -351,7 +349,7 @@ The menu builder has dedicated methods to add each predefined menu item so you c
 
 ## Change menu status
 
-If you want to change the status of the menu, such as text, icon, check status, you should `set_menu` again.
+If you want to change the status of the menu, such as text, icon, or check status, you can `set_menu` again:
 
 <Tabs>
 <TabItem label="JavaScript">
