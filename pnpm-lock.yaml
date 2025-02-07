@@ -21,31 +21,31 @@ importers:
         version: 4.0.11
       '@astrojs/starlight':
         specifier: 0.29.2
-        version: 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@lorenzo_lewis/starlight-utils':
         specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@lunariajs/core':
         specifier: ^0.1.1
         version: 0.1.1
       '@lunariajs/starlight':
         specifier: ^0.1.1
-        version: 0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
       astro:
         specifier: ^4.16.18
-        version: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+        version: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       astro-d2:
         specifier: ^0.6.0
-        version: 0.6.0(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 0.6.0(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
       astrojs-service-worker:
         specifier: ^2.0.0
-        version: 2.0.0(@types/babel__core@7.20.5)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 2.0.0(@types/babel__core@7.20.5)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -60,7 +60,7 @@ importers:
         version: 7.1.0
       sass:
         specifier: ^1.77.2
-        version: 1.83.1
+        version: 1.83.4
       sharp:
         specifier: ^0.33.2
         version: 0.33.5
@@ -69,19 +69,19 @@ importers:
         version: 1.26.1
       starlight-blog:
         specifier: ^0.15.0
-        version: 0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       starlight-links-validator:
         specifier: ^0.13.0
-        version: 0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+        version: 0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
 
   packages/cli-generator:
     dependencies:
       '@tauri-apps/cli':
-        specifier: 2.2.3
-        version: 2.2.3
+        specifier: 2.2.7
+        version: 2.2.7
       '@types/node':
         specifier: ^22.0.0
-        version: 22.10.5
+        version: 22.12.0
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -99,7 +99,7 @@ importers:
         version: 2.2.5
       '@types/node':
         specifier: ^22.0.0
-        version: 22.10.5
+        version: 22.12.0
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -114,7 +114,7 @@ importers:
         version: 7.0.15
       '@types/node':
         specifier: ^22.0.0
-        version: 22.10.5
+        version: 22.12.0
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1193,86 +1193,86 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@parcel/watcher-android-arm64@2.5.0':
-    resolution: {integrity: sha512-qlX4eS28bUcQCdribHkg/herLe+0A9RyYC+mm2PXpncit8z5b3nSqGVzMNR3CmtAOgRutiZ02eIJJgP/b1iEFQ==}
+  '@parcel/watcher-android-arm64@2.5.1':
+    resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [android]
 
-  '@parcel/watcher-darwin-arm64@2.5.0':
-    resolution: {integrity: sha512-hyZ3TANnzGfLpRA2s/4U1kbw2ZI4qGxaRJbBH2DCSREFfubMswheh8TeiC1sGZ3z2jUf3s37P0BBlrD3sjVTUw==}
+  '@parcel/watcher-darwin-arm64@2.5.1':
+    resolution: {integrity: sha512-eAzPv5osDmZyBhou8PoF4i6RQXAfeKL9tjb3QzYuccXFMQU0ruIc/POh30ePnaOyD1UXdlKguHBmsTs53tVoPw==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@parcel/watcher-darwin-x64@2.5.0':
-    resolution: {integrity: sha512-9rhlwd78saKf18fT869/poydQK8YqlU26TMiNg7AIu7eBp9adqbJZqmdFOsbZ5cnLp5XvRo9wcFmNHgHdWaGYA==}
+  '@parcel/watcher-darwin-x64@2.5.1':
+    resolution: {integrity: sha512-1ZXDthrnNmwv10A0/3AJNZ9JGlzrF82i3gNQcWOzd7nJ8aj+ILyW1MTxVk35Db0u91oD5Nlk9MBiujMlwmeXZg==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@parcel/watcher-freebsd-x64@2.5.0':
-    resolution: {integrity: sha512-syvfhZzyM8kErg3VF0xpV8dixJ+RzbUaaGaeb7uDuz0D3FK97/mZ5AJQ3XNnDsXX7KkFNtyQyFrXZzQIcN49Tw==}
+  '@parcel/watcher-freebsd-x64@2.5.1':
+    resolution: {integrity: sha512-SI4eljM7Flp9yPuKi8W0ird8TI/JK6CSxju3NojVI6BjHsTyK7zxA9urjVjEKJ5MBYC+bLmMcbAWlZ+rFkLpJQ==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [freebsd]
 
-  '@parcel/watcher-linux-arm-glibc@2.5.0':
-    resolution: {integrity: sha512-0VQY1K35DQET3dVYWpOaPFecqOT9dbuCfzjxoQyif1Wc574t3kOSkKevULddcR9znz1TcklCE7Ht6NIxjvTqLA==}
+  '@parcel/watcher-linux-arm-glibc@2.5.1':
+    resolution: {integrity: sha512-RCdZlEyTs8geyBkkcnPWvtXLY44BCeZKmGYRtSgtwwnHR4dxfHRG3gR99XdMEdQ7KeiDdasJwwvNSF5jKtDwdA==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
 
-  '@parcel/watcher-linux-arm-musl@2.5.0':
-    resolution: {integrity: sha512-6uHywSIzz8+vi2lAzFeltnYbdHsDm3iIB57d4g5oaB9vKwjb6N6dRIgZMujw4nm5r6v9/BQH0noq6DzHrqr2pA==}
+  '@parcel/watcher-linux-arm-musl@2.5.1':
+    resolution: {integrity: sha512-6E+m/Mm1t1yhB8X412stiKFG3XykmgdIOqhjWj+VL8oHkKABfu/gjFj8DvLrYVHSBNC+/u5PeNrujiSQ1zwd1Q==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
 
-  '@parcel/watcher-linux-arm64-glibc@2.5.0':
-    resolution: {integrity: sha512-BfNjXwZKxBy4WibDb/LDCriWSKLz+jJRL3cM/DllnHH5QUyoiUNEp3GmL80ZqxeumoADfCCP19+qiYiC8gUBjA==}
+  '@parcel/watcher-linux-arm64-glibc@2.5.1':
+    resolution: {integrity: sha512-LrGp+f02yU3BN9A+DGuY3v3bmnFUggAITBGriZHUREfNEzZh/GO06FF5u2kx8x+GBEUYfyTGamol4j3m9ANe8w==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@parcel/watcher-linux-arm64-musl@2.5.0':
-    resolution: {integrity: sha512-S1qARKOphxfiBEkwLUbHjCY9BWPdWnW9j7f7Hb2jPplu8UZ3nes7zpPOW9bkLbHRvWM0WDTsjdOTUgW0xLBN1Q==}
+  '@parcel/watcher-linux-arm64-musl@2.5.1':
+    resolution: {integrity: sha512-cFOjABi92pMYRXS7AcQv9/M1YuKRw8SZniCDw0ssQb/noPkRzA+HBDkwmyOJYp5wXcsTrhxO0zq1U11cK9jsFg==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@parcel/watcher-linux-x64-glibc@2.5.0':
-    resolution: {integrity: sha512-d9AOkusyXARkFD66S6zlGXyzx5RvY+chTP9Jp0ypSTC9d4lzyRs9ovGf/80VCxjKddcUvnsGwCHWuF2EoPgWjw==}
+  '@parcel/watcher-linux-x64-glibc@2.5.1':
+    resolution: {integrity: sha512-GcESn8NZySmfwlTsIur+49yDqSny2IhPeZfXunQi48DMugKeZ7uy1FX83pO0X22sHntJ4Ub+9k34XQCX+oHt2A==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
 
-  '@parcel/watcher-linux-x64-musl@2.5.0':
-    resolution: {integrity: sha512-iqOC+GoTDoFyk/VYSFHwjHhYrk8bljW6zOhPuhi5t9ulqiYq1togGJB5e3PwYVFFfeVgc6pbz3JdQyDoBszVaA==}
+  '@parcel/watcher-linux-x64-musl@2.5.1':
+    resolution: {integrity: sha512-n0E2EQbatQ3bXhcH2D1XIAANAcTZkQICBPVaxMeaCVBtOpBZpWJuf7LwyWPSBDITb7In8mqQgJ7gH8CILCURXg==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
 
-  '@parcel/watcher-win32-arm64@2.5.0':
-    resolution: {integrity: sha512-twtft1d+JRNkM5YbmexfcH/N4znDtjgysFaV9zvZmmJezQsKpkfLYJ+JFV3uygugK6AtIM2oADPkB2AdhBrNig==}
+  '@parcel/watcher-win32-arm64@2.5.1':
+    resolution: {integrity: sha512-RFzklRvmc3PkjKjry3hLF9wD7ppR4AKcWNzH7kXR7GUe0Igb3Nz8fyPwtZCSquGrhU5HhUNDr/mKBqj7tqA2Vw==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@parcel/watcher-win32-ia32@2.5.0':
-    resolution: {integrity: sha512-+rgpsNRKwo8A53elqbbHXdOMtY/tAtTzManTWShB5Kk54N8Q9mzNWV7tV+IbGueCbcj826MfWGU3mprWtuf1TA==}
+  '@parcel/watcher-win32-ia32@2.5.1':
+    resolution: {integrity: sha512-c2KkcVN+NJmuA7CGlaGD1qJh1cLfDnQsHjE89E60vUEMlqduHGCdCLJCID5geFVM0dOtA3ZiIO8BoEQmzQVfpQ==}
     engines: {node: '>= 10.0.0'}
     cpu: [ia32]
     os: [win32]
 
-  '@parcel/watcher-win32-x64@2.5.0':
-    resolution: {integrity: sha512-lPrxve92zEHdgeff3aiu4gDOIt4u7sJYha6wbdEZDCDUhtjTsOMiaJzG5lMY4GkWH8p0fMmO2Ppq5G5XXG+DQw==}
+  '@parcel/watcher-win32-x64@2.5.1':
+    resolution: {integrity: sha512-9lHBdJITeNR++EvSQVUcaZoWupyHfXe1jZvGZ06O/5MflPcuPLtEphScIBL+AiCWBO46tDSHzWyD0uDmmZqsgA==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [win32]
 
-  '@parcel/watcher@2.5.0':
-    resolution: {integrity: sha512-i0GV1yJnm2n3Yq1qw6QrUrd/LI9bE8WEBOTtOkpCXHHdyN3TAGgqAK/DAT05z4fq2x04cARXt2pDmjWjL92iTQ==}
+  '@parcel/watcher@2.5.1':
+    resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
   '@rollup/plugin-babel@5.3.1':
@@ -1426,68 +1426,68 @@ packages:
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
 
-  '@tauri-apps/cli-darwin-arm64@2.2.3':
-    resolution: {integrity: sha512-dMObP+sEifhnEmQdOqbq+wct2CUjj3DDM0JKT20q3qcaGP5asK68RxPleL0HnU5REXekcYwGV7m6Y8VtLFKrmw==}
+  '@tauri-apps/cli-darwin-arm64@2.2.7':
+    resolution: {integrity: sha512-54kcpxZ3X1Rq+pPTzk3iIcjEVY4yv493uRx/80rLoAA95vAC0c//31Whz75UVddDjJfZvXlXZ3uSZ+bnCOnt0A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@tauri-apps/cli-darwin-x64@2.2.3':
-    resolution: {integrity: sha512-nNS9+jOoNxIE2qVjE0vxuLNXVTV5VKsTpt0SLDOnO4sp33PRJ8Jiwe3U8Nvv4sn36DXmp9i0lX1WXuDp48dTsA==}
+  '@tauri-apps/cli-darwin-x64@2.2.7':
+    resolution: {integrity: sha512-Vgu2XtBWemLnarB+6LqQeLanDlRj7CeFN//H8bVVdjbNzxcSxsvbLYMBP8+3boa7eBnjDrqMImRySSgL6IrwTw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@tauri-apps/cli-linux-arm-gnueabihf@2.2.3':
-    resolution: {integrity: sha512-fOzMQHT/5KGesAdDygk2y0zKz5a6jcXkEmvo7wyGp9KEpfJzozBIEzdx7Cvwt//WqXci4SfFq59kUI4ZY3qUAA==}
+  '@tauri-apps/cli-linux-arm-gnueabihf@2.2.7':
+    resolution: {integrity: sha512-+Clha2iQAiK9zoY/KKW0KLHkR0k36O78YLx5Sl98tWkwI3OBZFg5H5WT1plH/4sbZIS2aLFN6dw58/JlY9Bu/g==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
 
-  '@tauri-apps/cli-linux-arm64-gnu@2.2.3':
-    resolution: {integrity: sha512-qJpwKawgwLNoi34PVbKdCz5CMvB4ru5pvucvtiBaeki5qdBsqlXuhNeUdrhTs+bb2LVNMK4BgzcLSj1WNHeaXg==}
+  '@tauri-apps/cli-linux-arm64-gnu@2.2.7':
+    resolution: {integrity: sha512-Z/Lp4SQe6BUEOays9BQAEum2pvZF4w9igyXijP+WbkOejZx4cDvarFJ5qXrqSLmBh7vxrdZcLwoLk9U//+yQrg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@tauri-apps/cli-linux-arm64-musl@2.2.3':
-    resolution: {integrity: sha512-lkiaMNFU4aDXO1QXUZ97ERtxOc1952oEpMRXtRrpwIJutKlLg08Nm2fiaH3vKbGXFvuRBL68rO1xBOKZ8CYpJQ==}
+  '@tauri-apps/cli-linux-arm64-musl@2.2.7':
+    resolution: {integrity: sha512-+8HZ+txff/Y3YjAh80XcLXcX8kpGXVdr1P8AfjLHxHdS6QD4Md+acSxGTTNbplmHuBaSHJvuTvZf9tU1eDCTDg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@tauri-apps/cli-linux-x64-gnu@2.2.3':
-    resolution: {integrity: sha512-yTKk5i50UQCrL0OhMin+ThzXWFXbH3O93tcX5eKQh3ZUS2BXQkDdGmYmwsIgdqevMOQTj19PasxY5SgPzCi5CA==}
+  '@tauri-apps/cli-linux-x64-gnu@2.2.7':
+    resolution: {integrity: sha512-ahlSnuCnUntblp9dG7/w5ZWZOdzRFi3zl0oScgt7GF4KNAOEa7duADsxPA4/FT2hLRa0SvpqtD4IYFvCxoVv3Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@tauri-apps/cli-linux-x64-musl@2.2.3':
-    resolution: {integrity: sha512-eP4F+DihyShB7PV2rw7NYRtcJWod7qtJkVaF4BvW+kk0TXWsp1tQIjKGh5LA7wrWXGdeOZrLHRbQY9ArVXkAdA==}
+  '@tauri-apps/cli-linux-x64-musl@2.2.7':
+    resolution: {integrity: sha512-+qKAWnJRSX+pjjRbKAQgTdFY8ecdcu8UdJ69i7wn3ZcRn2nMMzOO2LOMOTQV42B7/Q64D1pIpmZj9yblTMvadA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@tauri-apps/cli-win32-arm64-msvc@2.2.3':
-    resolution: {integrity: sha512-b/OoNk3PiFPzYvS+AMBEuv7s4vCxv8tWSwm9WKkSbankyFJq41KdIujlODYOaAgeQoA2sXwbAeQ7b+wQfu8L6g==}
+  '@tauri-apps/cli-win32-arm64-msvc@2.2.7':
+    resolution: {integrity: sha512-aa86nRnrwT04u9D9fhf5JVssuAZlUCCc8AjqQjqODQjMd4BMA2+d4K9qBMpEG/1kVh95vZaNsLogjEaqSTTw4A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@tauri-apps/cli-win32-ia32-msvc@2.2.3':
-    resolution: {integrity: sha512-0s2BUQ08MB7ucySH/iLWP9JS0VIBI+uViRL9bifOpTjKSVk1EGSYQy1K+jR1bch9U1L/nJE8wXPlhgmsOpOAdA==}
+  '@tauri-apps/cli-win32-ia32-msvc@2.2.7':
+    resolution: {integrity: sha512-EiJ5/25tLSQOSGvv+t6o3ZBfOTKB5S3vb+hHQuKbfmKdRF0XQu2YPdIi1CQw1DU97ZAE0Dq4frvnyYEKWgMzVQ==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@tauri-apps/cli-win32-x64-msvc@2.2.3':
-    resolution: {integrity: sha512-QQpiuMKJS3uMfsf5wrAf36qnxGnEQ/i0YcBWMU7HJnYRLEcwpUT4PWVdzLS0ltrA7hDqsHV3leI/KGbdllpVDw==}
+  '@tauri-apps/cli-win32-x64-msvc@2.2.7':
+    resolution: {integrity: sha512-ZB8Kw90j8Ld+9tCWyD2fWCYfIrzbQohJ4DJSidNwbnehlZzP7wAz6Z3xjsvUdKtQ3ibtfoeTqVInzCCEpI+pWg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@tauri-apps/cli@2.2.3':
-    resolution: {integrity: sha512-tvI/wEL1v//Qka1CDTCXR1cvwNCguJ0PtqXhdHBcKiT7DPZuFV/ZYUTygy+HpiP0b25t4XksoJqTeETxOtlb/Q==}
+  '@tauri-apps/cli@2.2.7':
+    resolution: {integrity: sha512-ZnsS2B4BplwXP37celanNANiIy8TCYhvg5RT09n72uR/o+navFZtGpFSqljV8fy1Y4ixIPds8FrGSXJCN2BerA==}
     engines: {node: '>= 10'}
     hasBin: true
 
@@ -1542,8 +1542,8 @@ packages:
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
-  '@types/node@22.10.5':
-    resolution: {integrity: sha512-F8Q+SeGimwOo86fiovQh8qiXfFEh2/ocYv7tU5pJ3EXMSSxk1Joj5wefpFK2fHTf/N6HKGSxIDBT9f3gCxXPkQ==}
+  '@types/node@22.12.0':
+    resolution: {integrity: sha512-Fll2FZ1riMjNmlmJOdAyY5pUbkftXslB5DgEzlIuNaiWhXd00FhWxVC/r4yV/4wBb9JfImTu+jiSvXTkJ7F/gA==}
 
   '@types/picomatch@2.3.3':
     resolution: {integrity: sha512-Yll76ZHikRFCyz/pffKGjrCwe/le2CDwOP5F210KQo27kpRE46U2rDnzikNlVn6/ezH3Mhn46bJMTfeVTtcYMg==}
@@ -3158,9 +3158,9 @@ packages:
   randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
 
-  readdirp@4.0.2:
-    resolution: {integrity: sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==}
-    engines: {node: '>= 14.16.0'}
+  readdirp@4.1.1:
+    resolution: {integrity: sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==}
+    engines: {node: '>= 14.18.0'}
 
   recast@0.23.9:
     resolution: {integrity: sha512-Hx/BGIbwj+Des3+xy5uAtAbdCyqK9y9wbBcDFDYanLS9JnMqf7OeF87HQwUimE87OEc72mr6tkKUKMBBL+hF9Q==}
@@ -3328,8 +3328,8 @@ packages:
   sass-formatter@0.7.9:
     resolution: {integrity: sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw==}
 
-  sass@1.83.1:
-    resolution: {integrity: sha512-EVJbDaEs4Rr3F0glJzFSOvtg2/oy2V/YrGFPqPY24UqcLDWcI9ZY5sN+qyO3c/QCZwzgfirvhXvINiJCE/OLcA==}
+  sass@1.83.4:
+    resolution: {integrity: sha512-B1bozCeNQiOgDcLd33e2Cs2U60wZwjUUXzh900ZyQF5qUasvMdDZYbQ566LJu7cqR+sAHlAfO6RMkaID5s6qpA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -3977,12 +3977,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.9(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))':
+  '@astrojs/mdx@3.1.9(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))':
     dependencies:
       '@astrojs/markdown-remark': 5.3.0
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
       acorn: 8.14.0
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
       gray-matter: 4.0.3
@@ -4017,15 +4017,15 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))':
+  '@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))':
     dependencies:
-      '@astrojs/mdx': 3.1.9(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      '@astrojs/mdx': 3.1.9(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@astrojs/sitemap': 3.1.6
       '@pagefind/default-ui': 1.1.1
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
-      astro-expressive-code: 0.38.3(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
+      astro-expressive-code: 0.38.3(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.2
@@ -5030,11 +5030,11 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@lorenzo_lewis/starlight-utils@0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))':
+  '@lorenzo_lewis/starlight-utils@0.2.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))':
     dependencies:
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
-      astro-integration-kit: 0.16.1(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
+      astro-integration-kit: 0.16.1(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
 
   '@lunariajs/core@0.1.1':
     dependencies:
@@ -5051,11 +5051,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))':
+  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))':
     dependencies:
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@lunariajs/core': 0.1.1
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -5120,65 +5120,65 @@ snapshots:
   '@pagefind/windows-x64@1.1.1':
     optional: true
 
-  '@parcel/watcher-android-arm64@2.5.0':
+  '@parcel/watcher-android-arm64@2.5.1':
     optional: true
 
-  '@parcel/watcher-darwin-arm64@2.5.0':
+  '@parcel/watcher-darwin-arm64@2.5.1':
     optional: true
 
-  '@parcel/watcher-darwin-x64@2.5.0':
+  '@parcel/watcher-darwin-x64@2.5.1':
     optional: true
 
-  '@parcel/watcher-freebsd-x64@2.5.0':
+  '@parcel/watcher-freebsd-x64@2.5.1':
     optional: true
 
-  '@parcel/watcher-linux-arm-glibc@2.5.0':
+  '@parcel/watcher-linux-arm-glibc@2.5.1':
     optional: true
 
-  '@parcel/watcher-linux-arm-musl@2.5.0':
+  '@parcel/watcher-linux-arm-musl@2.5.1':
     optional: true
 
-  '@parcel/watcher-linux-arm64-glibc@2.5.0':
+  '@parcel/watcher-linux-arm64-glibc@2.5.1':
     optional: true
 
-  '@parcel/watcher-linux-arm64-musl@2.5.0':
+  '@parcel/watcher-linux-arm64-musl@2.5.1':
     optional: true
 
-  '@parcel/watcher-linux-x64-glibc@2.5.0':
+  '@parcel/watcher-linux-x64-glibc@2.5.1':
     optional: true
 
-  '@parcel/watcher-linux-x64-musl@2.5.0':
+  '@parcel/watcher-linux-x64-musl@2.5.1':
     optional: true
 
-  '@parcel/watcher-win32-arm64@2.5.0':
+  '@parcel/watcher-win32-arm64@2.5.1':
     optional: true
 
-  '@parcel/watcher-win32-ia32@2.5.0':
+  '@parcel/watcher-win32-ia32@2.5.1':
     optional: true
 
-  '@parcel/watcher-win32-x64@2.5.0':
+  '@parcel/watcher-win32-x64@2.5.1':
     optional: true
 
-  '@parcel/watcher@2.5.0':
+  '@parcel/watcher@2.5.1':
     dependencies:
       detect-libc: 1.0.3
       is-glob: 4.0.3
       micromatch: 4.0.8
       node-addon-api: 7.1.1
     optionalDependencies:
-      '@parcel/watcher-android-arm64': 2.5.0
-      '@parcel/watcher-darwin-arm64': 2.5.0
-      '@parcel/watcher-darwin-x64': 2.5.0
-      '@parcel/watcher-freebsd-x64': 2.5.0
-      '@parcel/watcher-linux-arm-glibc': 2.5.0
-      '@parcel/watcher-linux-arm-musl': 2.5.0
-      '@parcel/watcher-linux-arm64-glibc': 2.5.0
-      '@parcel/watcher-linux-arm64-musl': 2.5.0
-      '@parcel/watcher-linux-x64-glibc': 2.5.0
-      '@parcel/watcher-linux-x64-musl': 2.5.0
-      '@parcel/watcher-win32-arm64': 2.5.0
-      '@parcel/watcher-win32-ia32': 2.5.0
-      '@parcel/watcher-win32-x64': 2.5.0
+      '@parcel/watcher-android-arm64': 2.5.1
+      '@parcel/watcher-darwin-arm64': 2.5.1
+      '@parcel/watcher-darwin-x64': 2.5.1
+      '@parcel/watcher-freebsd-x64': 2.5.1
+      '@parcel/watcher-linux-arm-glibc': 2.5.1
+      '@parcel/watcher-linux-arm-musl': 2.5.1
+      '@parcel/watcher-linux-arm64-glibc': 2.5.1
+      '@parcel/watcher-linux-arm64-musl': 2.5.1
+      '@parcel/watcher-linux-x64-glibc': 2.5.1
+      '@parcel/watcher-linux-x64-musl': 2.5.1
+      '@parcel/watcher-win32-arm64': 2.5.1
+      '@parcel/watcher-win32-ia32': 2.5.1
+      '@parcel/watcher-win32-x64': 2.5.1
     optional: true
 
   '@rollup/plugin-babel@5.3.1(@babel/core@7.26.0)(@types/babel__core@7.20.5)(rollup@2.79.1)':
@@ -5319,48 +5319,48 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
 
-  '@tauri-apps/cli-darwin-arm64@2.2.3':
+  '@tauri-apps/cli-darwin-arm64@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-darwin-x64@2.2.3':
+  '@tauri-apps/cli-darwin-x64@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-linux-arm-gnueabihf@2.2.3':
+  '@tauri-apps/cli-linux-arm-gnueabihf@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-linux-arm64-gnu@2.2.3':
+  '@tauri-apps/cli-linux-arm64-gnu@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-linux-arm64-musl@2.2.3':
+  '@tauri-apps/cli-linux-arm64-musl@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-linux-x64-gnu@2.2.3':
+  '@tauri-apps/cli-linux-x64-gnu@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-linux-x64-musl@2.2.3':
+  '@tauri-apps/cli-linux-x64-musl@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-win32-arm64-msvc@2.2.3':
+  '@tauri-apps/cli-win32-arm64-msvc@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-win32-ia32-msvc@2.2.3':
+  '@tauri-apps/cli-win32-ia32-msvc@2.2.7':
     optional: true
 
-  '@tauri-apps/cli-win32-x64-msvc@2.2.3':
+  '@tauri-apps/cli-win32-x64-msvc@2.2.7':
     optional: true
 
-  '@tauri-apps/cli@2.2.3':
+  '@tauri-apps/cli@2.2.7':
     optionalDependencies:
-      '@tauri-apps/cli-darwin-arm64': 2.2.3
-      '@tauri-apps/cli-darwin-x64': 2.2.3
-      '@tauri-apps/cli-linux-arm-gnueabihf': 2.2.3
-      '@tauri-apps/cli-linux-arm64-gnu': 2.2.3
-      '@tauri-apps/cli-linux-arm64-musl': 2.2.3
-      '@tauri-apps/cli-linux-x64-gnu': 2.2.3
-      '@tauri-apps/cli-linux-x64-musl': 2.2.3
-      '@tauri-apps/cli-win32-arm64-msvc': 2.2.3
-      '@tauri-apps/cli-win32-ia32-msvc': 2.2.3
-      '@tauri-apps/cli-win32-x64-msvc': 2.2.3
+      '@tauri-apps/cli-darwin-arm64': 2.2.7
+      '@tauri-apps/cli-darwin-x64': 2.2.7
+      '@tauri-apps/cli-linux-arm-gnueabihf': 2.2.7
+      '@tauri-apps/cli-linux-arm64-gnu': 2.2.7
+      '@tauri-apps/cli-linux-arm64-musl': 2.2.7
+      '@tauri-apps/cli-linux-x64-gnu': 2.2.7
+      '@tauri-apps/cli-linux-x64-musl': 2.2.7
+      '@tauri-apps/cli-win32-arm64-msvc': 2.2.7
+      '@tauri-apps/cli-win32-ia32-msvc': 2.2.7
+      '@tauri-apps/cli-win32-x64-msvc': 2.2.7
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -5421,7 +5421,7 @@ snapshots:
 
   '@types/node@17.0.45': {}
 
-  '@types/node@22.10.5':
+  '@types/node@22.12.0':
     dependencies:
       undici-types: 6.20.0
 
@@ -5429,11 +5429,11 @@ snapshots:
 
   '@types/resolve@1.17.1':
     dependencies:
-      '@types/node': 22.10.5
+      '@types/node': 22.12.0
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 22.10.5
+      '@types/node': 22.12.0
 
   '@types/semver@7.5.8': {}
 
@@ -5508,25 +5508,25 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-d2@0.6.0(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)):
+  astro-d2@0.6.0(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       hast-util-from-html: 2.0.3
       hast-util-to-html: 9.0.3
       unist-util-visit: 5.0.0
 
-  astro-expressive-code@0.38.3(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)):
+  astro-expressive-code@0.38.3(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       rehype-expressive-code: 0.38.3
 
   astro-feelback@0.3.4:
     dependencies:
       '@feelback/js': 0.3.4
 
-  astro-integration-kit@0.16.1(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)):
+  astro-integration-kit@0.16.1(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       pathe: 1.1.2
       recast: 0.23.9
 
@@ -5538,7 +5538,7 @@ snapshots:
       marked-smartypants: 1.1.8(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3):
+  astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
@@ -5594,8 +5594,8 @@ snapshots:
       tsconfck: 3.1.4(typescript@5.7.3)
       unist-util-visit: 5.0.0
       vfile: 6.0.3
-      vite: 5.4.11(@types/node@22.10.5)(sass@1.83.1)(terser@5.31.0)
-      vitefu: 1.0.4(vite@5.4.11(@types/node@22.10.5)(sass@1.83.1)(terser@5.31.0))
+      vite: 5.4.11(@types/node@22.12.0)(sass@1.83.4)(terser@5.31.0)
+      vitefu: 1.0.4(vite@5.4.11(@types/node@22.12.0)(sass@1.83.4)(terser@5.31.0))
       which-pm: 3.0.0
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
@@ -5617,9 +5617,9 @@ snapshots:
       - terser
       - typescript
 
-  astrojs-service-worker@2.0.0(@types/babel__core@7.20.5)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)):
+  astrojs-service-worker@2.0.0(@types/babel__core@7.20.5)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       workbox-build: 6.6.0(@types/babel__core@7.20.5)
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -5743,7 +5743,7 @@ snapshots:
 
   chokidar@4.0.3:
     dependencies:
-      readdirp: 4.0.2
+      readdirp: 4.1.1
 
   ci-info@4.1.0: {}
 
@@ -6705,7 +6705,7 @@ snapshots:
 
   jest-worker@26.6.2:
     dependencies:
-      '@types/node': 22.10.5
+      '@types/node': 22.12.0
       merge-stream: 2.0.0
       supports-color: 7.2.0
 
@@ -7532,7 +7532,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  readdirp@4.0.2: {}
+  readdirp@4.1.1: {}
 
   recast@0.23.9:
     dependencies:
@@ -7828,13 +7828,13 @@ snapshots:
     dependencies:
       suf-log: 2.5.3
 
-  sass@1.83.1:
+  sass@1.83.4:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.0.3
       source-map-js: 1.2.1
     optionalDependencies:
-      '@parcel/watcher': 2.5.0
+      '@parcel/watcher': 2.5.1
 
   sax@1.4.1: {}
 
@@ -7961,11 +7961,11 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)):
+  starlight-blog@0.15.0(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
-      '@astrojs/mdx': 3.1.9(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      '@astrojs/mdx': 3.1.9(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@astrojs/rss': 4.0.5
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       astro-remote: 0.3.2
       github-slugger: 2.0.0
       marked: 12.0.2
@@ -7975,11 +7975,11 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)):
+  starlight-links-validator@0.13.4(@astrojs/starlight@0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
-      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3))
+      '@astrojs/starlight': 0.29.2(patch_hash=guw5jjwsmrtr4qw445tkmflpkq)(astro@4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       '@types/picomatch': 2.3.3
-      astro: 4.16.18(@types/node@22.10.5)(rollup@2.79.1)(sass@1.83.1)(terser@5.31.0)(typescript@5.7.3)
+      astro: 4.16.18(@types/node@22.12.0)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
@@ -8314,20 +8314,20 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite@5.4.11(@types/node@22.10.5)(sass@1.83.1)(terser@5.31.0):
+  vite@5.4.11(@types/node@22.12.0)(sass@1.83.4)(terser@5.31.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.49
       rollup: 4.28.0
     optionalDependencies:
-      '@types/node': 22.10.5
+      '@types/node': 22.12.0
       fsevents: 2.3.3
-      sass: 1.83.1
+      sass: 1.83.4
       terser: 5.31.0
 
-  vitefu@1.0.4(vite@5.4.11(@types/node@22.10.5)(sass@1.83.1)(terser@5.31.0)):
+  vitefu@1.0.4(vite@5.4.11(@types/node@22.12.0)(sass@1.83.4)(terser@5.31.0)):
     optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.5)(sass@1.83.1)(terser@5.31.0)
+      vite: 5.4.11(@types/node@22.12.0)(sass@1.83.4)(terser@5.31.0)
 
   w3c-xmlserializer@5.0.0:
     dependencies:
