@@ -9,7 +9,7 @@ sidebar:
 
 Tauri 是一个多语言和通用工具包，非常可组合，允许工程师创建各种应用程序。它用于使用 Rust 工具和在Webview 中呈现的 HTML 构建桌面计算机应用程序。使用 Tauri 构建的应用程序可以与任意数量的可选 JS API 和Rust API一起发布，以便 Webview 可以通过消息传递控制系统。开发人员可以轻松扩展默认 API，以实现自己的功能，并在 Webview 和基于 Rust 的后端之间建立桥接。
 
-Tauri 应用程序可以具有[托盘类型接口](/learn/system-tray/)。它们可以被[更新](/plugin/updater/)，并按预期由用户的操作系统进行管理。由于使用了操作系统的 Webview，它们非常小。它们不附带运行时，因为最终的二进制文件是从 Rust 编译而来的。这使得[反向工程 Tauri 应用程序不是一项简单的任务](/security/)。
+Tauri 应用程序可以具有[托盘类型接口](/zh-cn/learn/system-tray/)。它们可以被[更新](/zh-cn/plugin/updater/)，并按预期由用户的操作系统进行管理。由于使用了操作系统的 Webview，它们非常小。它们不附带运行时，因为最终的二进制文件是从 Rust 编译而来的。这使得[反向工程 Tauri 应用程序不是一项简单的任务](/zh-cn/security/)。
 
 ### Tauri 不是
 
@@ -57,7 +57,7 @@ Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
 
 [在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri)
 
-这是一个主要的 crate，将所有内容结合在一起。它将运行时、宏、工具和 API 整合成一个最终产品。它在编译时读取[`tauri.conf.json`](/reference/config/)文件，以引入功能并进行应用程序的实际配置（甚至是项目文件夹中的 `Cargo.toml` 文件）。它在运行时处理脚本注入（用于 polyfills / 原型修订），托管与系统交互的 API，甚至管理更新过程。
+这是一个主要的 crate，将所有内容结合在一起。它将运行时、宏、工具和 API 整合成一个最终产品。它在编译时读取[`tauri.conf.json`](/zh-cn/reference/config/)文件，以引入功能并进行应用程序的实际配置（甚至是项目文件夹中的 `Cargo.toml` 文件）。它在运行时处理脚本注入（用于 polyfills / 原型修订），托管与系统交互的 API，甚至管理更新过程。
 
 ### tauri-runtime
 
@@ -87,7 +87,7 @@ Tauri 本身与底层 Webview 库之间的粘合层。
 
 [在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen)
 
-嵌入、哈希和压缩资产，包括应用程序的图标以及系统托盘。在编译时解析[`tauri.conf.json`](/reference/config/)并生成 Config 结构。
+嵌入、哈希和压缩资产，包括应用程序的图标以及系统托盘。在编译时解析[`tauri.conf.json`](/zh-cn/reference/config/)并生成 Config 结构。
 
 ### tauri-runtime-wry
 
@@ -165,7 +165,7 @@ WRY 是一个跨平台的 WebView 渲染库，用 Rust 编写，支持所有主�
 
 ## 插件
 
-[Tauri 插件指南](/develop/plugins/)
+[Tauri 插件指南](/zh-cn/develop/plugins/)
 
 一般来说，插件由第三方编写（尽管可能有官方支持的插件）。一个插件通常完成三件事：
 
