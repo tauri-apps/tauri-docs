@@ -4,10 +4,6 @@ date: 2023-03-01
 authors: [amrbashir]
 excerpt: create-tauri-app Version 3 is released with support for alpha versions of Tauri, mobile project support and DX improvements
 image: ./create-tauri-app-version-3-released/header.jpg
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 ![hero image](./create-tauri-app-version-3-released/header.jpg)

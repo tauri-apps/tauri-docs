@@ -3,10 +3,6 @@ title: Roadmap to Tauri 2.0
 date: 2023-09-07
 authors: [lorenzolewis]
 excerpt: 'Tauri 1.0 was released in June 2022 and introduced an app toolkit for developers to build apps using HTML, CSS, and JavaScript with the security and performance of Rust.'
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 ![Hero Image](./roadmap-to-tauri-2-0/header.png)

@@ -65,7 +65,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 
 {/* TODO: 2.0 */}
 
-在[命令行界面参考](/reference/cli/#migrate)中了解有关 `migrate` 命令的更多信息。
+在[命令行界面参考](/zh-cn/reference/cli/#migrate)中了解有关 `migrate` 命令的更多信息。
 
 ## 变化摘要
 
@@ -99,7 +99,7 @@ Tauri v2 的命令行工具包括一个 `migrate` 命令，可自动执行大部
 - 重命名 `build > distDir` 为 `frontendDist`。
 - 重命名 `build > devPath` 为 `devUrl`。
 
-[Tauri 2.0 配置 API 参考资料](/reference/config/)
+[Tauri 2.0 配置 API 参考资料](/zh-cn/reference/config/)
 
 ### 全新的 Cargo 功能
 
@@ -1188,7 +1188,7 @@ tauri::Builder::default()
 
 在 JavaScript 侧，请确保[迁移 Shell 插件](#shell-插件迁移)。
 
-在 Rust 侧，`tauri::api::process` API 已经被移除，使用 `tauri_plugin_shell::ShellExt` 和 `tauri_plugin_shell::process::CommandEvent` 作为替代。[嵌入的外部二进制文档](/develop/sidecar/#running-it-from-rust)将指导你如何迁移。
+在 Rust 侧，`tauri::api::process` API 已经被移除，使用 `tauri_plugin_shell::ShellExt` 和 `tauri_plugin_shell::process::CommandEvent` 作为替代。[嵌入的外部二进制文档](/zh-cn/develop/sidecar/#从-rust-运行)将指导你如何迁移。
 
 在 v2 中移除了 "process-command-api" 特性。因此，运行外部的二进制文件不需要再在 Tauri 配置文件中配置。
 
@@ -1201,4 +1201,4 @@ tauri::Builder::default()
 
 `migrate` 命令行工具命令会自动解析你的授权许可列表 v1 并生成相关的许可配置文件。
 
-要了解有关权限和功能的更多信息，请参阅[安全文档](/security/)。
+要了解有关权限和功能的更多信息，请参阅[安全文档](/zh-cn/security/)。
