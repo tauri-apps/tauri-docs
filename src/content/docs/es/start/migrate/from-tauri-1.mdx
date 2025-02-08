@@ -83,7 +83,7 @@ A continuación se resumen los cambios de Tauri 1.0 a Tauri 2.0:
 - `tauri > updater > dialog` eliminado.
 - `tauri > updater` movido a `plugins > updater`.
 - Se ha agragado `bundle > createUpdaterArtifacts`, debe ser configurado al usar el actualizador de la aplicación.
-  - configúralo a `v1Compatible` cuando actualices desde aplicaciones de la V1 que ya habían sido distribuidas. Consulta la [guía del actualizador](/plugin/updater/) para más información.
+  - configúralo a `v1Compatible` cuando actualices desde aplicaciones de la V1 que ya habían sido distribuidas. Consulta la [guía del actualizador](/es/plugin/updater/) para más información.
 - `tauri > systemTray` renombrado a `app > trayIcon`.
 - `tauri > pattern` movido a `app > security > pattern`.
 - `tauri > bundle` movido a nivel superior.
@@ -1188,7 +1188,7 @@ En Tauri v1, los binarios externos y sus argumentos se definían en la lista bla
 
 En el lado de JavaScript, asegúrate de [Migrar al Plugin Shell](#migrar-al-plugin-shell).
 
-En el lado de Rust, la API `tauri::api::process` ha sido eliminada. Usa `tauri_plugin_shell::ShellExt` y las APIs `tauri_plugin_shell::process::CommandEvent` en su lugar. Lee la guía de [Incrustar Binarios Externos](/develop/sidecar/#running-it-from-rust) para ver cómo.
+En el lado de Rust, la API `tauri::api::process` ha sido eliminada. Usa `tauri_plugin_shell::ShellExt` y las APIs `tauri_plugin_shell::process::CommandEvent` en su lugar. Lee la guía de [Incrustar Binarios Externos](/es/develop/sidecar/#running-it-from-rust) para ver cómo.
 
 El indicador de características "process-command-api" ha sido eliminado en la v2. Por lo tanto, ejecutar los binarios externos ya no requiere que esta característica esté definida en la configuración de Tauri.
 
@@ -1201,4 +1201,4 @@ Para habilitar permisos para tu aplicación, debes crear archivos de capacidades
 
 El comando `migrate` de la CLI analiza automáticamente tu lista blanca v1 y genera el archivo de capacidad asociado.
 
-Para obtener más información sobre permisos y capacidades, consulta [la documentación de seguridad](/security/).
+Para obtener más información sobre permisos y capacidades, consulta [la documentación de seguridad](/es/security/).

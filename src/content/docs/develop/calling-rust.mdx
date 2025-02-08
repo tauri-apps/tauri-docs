@@ -642,7 +642,7 @@ Global events are delivered to **all** listeners
 To trigger an event to a listener registered by a specific webview you can use the [event.emitTo] or the [WebviewWindow#emitTo] functions:
 
 ```js
-import { emit } from '@tauri-apps/api/event';
+import { emitTo } from '@tauri-apps/api/event';
 import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 
 // emitTo(webviewLabel, eventName, payload)

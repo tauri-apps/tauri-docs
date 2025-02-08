@@ -5,6 +5,7 @@ i18n:
   - src/content/docs/fr/**/*
   - src/content/docs/it/**/*
   - src/content/docs/zh-cn/**/*
+  - src/content/docs/jp/**/*
 
 "i18n: es":
   - src/content/docs/es/**/*
@@ -17,3 +18,7 @@ i18n:
 
 "i18n: zh-cn":
   - src/content/docs/zh-cn/**/*
+
+"i18n: jp":
+  - src/content/docs/jp/**/*
+

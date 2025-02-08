@@ -3,10 +3,6 @@ title: Tauri 1.0 Release
 date: 2022-06-19
 authors: [nothingismagick]
 excerpt: After 9 months of betas and 4 months of release candidates, Tauri version 1.0 is now available!
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 ![Tauri 1.0 Launch Hero Image](./tauri_1_0_images/header.png)

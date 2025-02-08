@@ -3,10 +3,6 @@ title: Tauri Board Elections 2024
 date: 2024-06-28
 authors: [jbolda]
 excerpt: The Tauri Programme is celebrating it's third anniversary of Tauri becoming a programme within The Commons Conservancy. We are hard at work bringing v2 to a stable release, and now the next round of Tauri Board Director elections is upon us!
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 The Tauri Programme is celebrating its third anniversary of Tauri becoming a programme within [The Commons Conservancy](https://commonsconservancy.org/). We are hard at work bringing v2 to a stable release, and now the next round of Tauri Board Director elections is upon us! Want to [get involved in other ways](#interested-in-getting-involved) and help Tauri towards v2? We would love your contributions especially to help evolve the documentation!

@@ -3,10 +3,6 @@ title: 'Strengthening Tauri: Our Partnership with CrabNebula'
 date: 2023-11-13
 authors: [nothingismagick]
 excerpt: "As an open-source project, Tauri's primary mission has always been to provide a secure, efficient framework for multi-platform application development. Understanding the concerns and needs of our community, we are excited to share insights into our partnership with CrabNebula and how it bolsters the stability and future of Tauri."
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 ![Hero Image](./partnership-crabnebula/header.png)
