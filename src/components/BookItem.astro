@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+
+const { image, alt = 'Book Cover', title, author, links = [] } = Astro.props;
+
+interface Props {
+  image: ImageMetadata;
+  alt?: string;
+  title: string;
+  author: string;
+  links?: Array<{
+    preText: string;
+    url: string;
+    text: string;
+  }>;
+}
+---
+
+<div class="not-content">
+  <div class="wrapper flex">
+    <div class="image-wrapper">
+      <Image src={image} alt={alt} class="image" />
+    </div>
+    <div class="content-wrapper flex">
+      <h3 class="title">{title}</h3>
+      <p class="author">by {author}</p>
+      <div class="links-wrapper flex">
+        {
+          links.map((link) => (
+            <p>
+              {link.preText} <a href={link.url}>{link.text}</a>
+            </p>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .flex {
+    display: flex;
+  }
+  .wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .image {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-wrapper {
+    display: block;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    flex: 1;
+    gap: 0.75rem;
+  }
+
+  .links-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .author {
+    font-size: 1rem;
+    margin: 0;
+  }
+</style>

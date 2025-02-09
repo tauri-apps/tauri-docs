@@ -7,9 +7,8 @@ sidebar:
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import AwesomeTauri from '@components/AwesomeTauri.astro';
-import { Image } from 'astro:assets';
+import BookItem from '@components/BookItem.astro';
 import RoseRustBook from '@assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.png';
-
 
 The Learning category is intended to provide end-to-end learning experiences on a Tauri related topic.
 
@@ -51,21 +50,24 @@ This section contains learning resources created by the Community that are not h
 
 ### Books
 
-<div style={{ display: "flex", alignItems: "center", gap: "1.5rem", width: "100%" }}>
-  <div style={{ flex: "none", display: "flex" }}>
-    <Image src={RoseRustBook} alt="HTML, CSS, JavaScript, and Rust for Beginners Book Cover" style={{ height: "100%", objectFit: "cover" }} />
-  </div>
-  <div style={{ display: "flex", flexDirection: "column", flex: "1", gap: "0.20rem" }}>
-    <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", margin: "0" }}>
-      HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri
-    </h3>
-    <p style={{ fontSize: "1rem", margin: "0" }}>by James Alexander Rose</p>
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
-      <p style={{ margin: "0" }}>- Paperback on Amazon:{' '}<a href="https://www.amazon.com/dp/B0DR6KZVVW" style={{ color: "#3b82f6", textDecoration: "none" }}>Buy Here</a></p>
-      <p style={{ margin: "0" }}>- Free PDF version:{' '}<a href="/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf" style={{ color: "#3b82f6", textDecoration: "none" }}>Download</a>{' '}(PDF 4MB)</p>
-    </div>
-  </div>
-</div>
+<BookItem
+  image={RoseRustBook}
+  title="HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri"
+  alt="HTML, CSS, JavaScript, and Rust for Beginners Book Cover"
+  author="James Alexander Rose"
+  links={[
+    {
+      preText: 'Paperback on Amazon:',
+      text: 'Buy Here',
+      url: 'https://www.amazon.com/dp/B0DR6KZVVW',
+    },
+    {
+      preText: 'Free PDF version:',
+      text: 'Download (PDF 4MB)',
+      url: '/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf',
+    },
+  ]}
+/>
 
 ### Guides & Tutorials
 
