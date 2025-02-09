@@ -7,6 +7,8 @@ sidebar:
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import AwesomeTauri from '@components/AwesomeTauri.astro';
+import BookItem from '@components/BookItem.astro';
+import RoseRustBook from '@assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.png';
 
 The Learning category is intended to provide end-to-end learning experiences on a Tauri related topic.
 
@@ -48,9 +50,24 @@ This section contains learning resources created by the Community that are not h
 
 ### Books
 
-- **HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri** by James Alexander Rose
-  - Paperback on Amazon: https://www.amazon.com/dp/B0DR6KZVVW
-  - Free PDF version: [direct download](/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf) (PDF 4MB)
+<BookItem
+  image={RoseRustBook}
+  title="HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri"
+  alt="HTML, CSS, JavaScript, and Rust for Beginners Book Cover"
+  author="James Alexander Rose"
+  links={[
+    {
+      preText: 'Paperback on Amazon:',
+      text: 'Buy Here',
+      url: 'https://www.amazon.com/dp/B0DR6KZVVW',
+    },
+    {
+      preText: 'Free PDF version:',
+      text: 'Download (PDF 4MB)',
+      url: '/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf',
+    },
+  ]}
+/>
 
 ### Guides & Tutorials
 
