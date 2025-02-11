@@ -1,0 +1,63 @@
+---
+title: Tauri 2.0
+description: クロスプラットフォームアプリケーションのためのツールキット
+i18nReady: true
+editUrl: false
+lastUpdated: false
+template: splash
+tableOfContents: false
+prev: false
+next: false
+hero:
+  tagline: 小さく、速く、安全なクロスプラットフォームアプリケーションを構築する
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: はじめに
+      link: /ja/start/
+      icon: right-arrow
+      variant: primary
+    - text: Tauri 1.0 ドキュメント (en)
+      link: https://v1.tauri.app
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<div class="lp-cta-card">
+  <Card title="プロジェクトを作る" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
+  <Card title="フロントエンドの互換性" icon="rocket">
+    既存の技術スタックを持ち込むことも、新しいプロジェクトを始めることもできます。
+    Tauri は、あらゆるフロントエンドフレームワークをサポートしているので、既存の技術スタックを変更する必要はありません。
+  </Card>
+  <Card title="クロスプラットフォーム" icon="rocket">
+    共通のコードから Linux, macOS, Windows, Android, iOS に向けてアプリケーションをビルドできます。
+  </Card>
+  <Card title="プロセス間通信" icon="rocket">
+    JavaScript でフロントエンドを記述し、Rust でアプリケーションロジックを記述できます。
+    また、 Swift と Kotlin により OS のより深い機能と統合できます。
+  </Card>
+  <Card title="セキュリティ" icon="rocket">
+    セキュリティは、Tauri チームの最重要課題であり、イノベーションを牽引する最大の原動力です。
+  </Card>
+  <Card title="小さなバイナリ" icon="rocket">
+    OS の組み込みブラウザを利用することで、
+    Tauri によるアプリケーションは 600KB を切る小さいバイナリを実現します。
+  </Card>
+  <Card title="Rust での開発" icon="rocket">
+    パフォーマンスとセキュリティを中心に据えた Rust は、次世代のアプリケーションのための言語です。
+  </Card>
+</CardGrid>
