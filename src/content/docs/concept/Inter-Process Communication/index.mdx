@@ -22,7 +22,7 @@ Learn more about the specific IPC patterns in the following guides:
   />
 </CardGrid>
 
-Tauri uses a particular style of Inter-Process Communication called [Asynchronous Message Passing], where processes exchange _requests_ and _responses_ serialized using some simple data representation. Message Passing should sound familiar to anyone with web development experience, as this paradigm is used for client-server communication on the internet.
+Tauri uses a particular style of Inter-Process Communication called [Asynchronous Message Passing], where processes exchange _requests_ and _responses_ are serialized using some simple data representation. Message Passing should sound familiar to anyone with web development experience, as this paradigm is used for client-server communication on the internet.
 
 Message passing is a safer technique than shared memory or direct function access because the recipient is free to reject or discard requests as it sees fit. For example, if the Tauri Core process determines a request to be malicious, it simply discards the requests and never executes the corresponding function.
 
