@@ -1,5 +1,6 @@
 ---
 title: Brownfield Pattern
+i18nReady: true
 ---
 
 _**This is the default pattern.**_

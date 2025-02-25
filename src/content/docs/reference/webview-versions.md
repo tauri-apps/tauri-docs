@@ -2,6 +2,7 @@
 title: Webview Versions
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 ## WebView2 (Windows)
