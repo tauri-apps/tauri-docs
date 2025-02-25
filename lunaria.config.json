@@ -3,7 +3,6 @@
   "repository": {
     "name": "tauri-apps/tauri-docs",
     "branch": "v2",
-    "rootDir": "src/content/docs",
     "hosting": "github"
   },
   "files": [
