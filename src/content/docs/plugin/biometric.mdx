@@ -215,13 +215,13 @@ fn bio_auth(app_handle: tauri::AppHandle) {
 
 ### Biometric protected cryptography
 
-To encrypt/decrypt data using an assymetric cryptography method that is protected behid the user Biometric Authentication, utilize the `biometricCipher()` method.
+To encrypt/decrypt data using an asymmetric cryptography method that is protected behind the user Biometric Authentication, utilize the `biometricCipher()` method.
 
 <Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
-```javascript ins={18}
+```javascript
 import { biometricCipher } from '@tauri-apps/plugin-biometric';
 
 // Encrypts data
@@ -266,7 +266,7 @@ try {
 
 <TabItem label="Rust">
 
-```rust ins={21}
+```rust
 use tauri_plugin_biometric::{BiometricExt, AuthOptions};
 
 fn bio_cipher(app_handle: tauri::AppHandle, original_data: Option<String>) {
