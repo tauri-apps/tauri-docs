@@ -89,10 +89,10 @@ In the `src-tauri/Info.ios.plist` file, add the following snippet:
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>NSFaceIDUsageDescription</key>
-		<string>Authenticate with biometric</string>
-	</dict>
+    <dict>
+        <key>NSFaceIDUsageDescription</key>
+        <string>Authenticate with biometric</string>
+    </dict>
 </plist>
 ```
 
@@ -227,18 +227,20 @@ import { biometricCipher } from '@tauri-apps/plugin-biometric';
 // Encrypts data
 const encryptOptions = {
   // ... other options
-  dataToEncrypt: getOriginalData()
+  dataToEncrypt: getOriginalData(),
 };
 
 try {
-  const encrypted = await biometricCipher('Passwordless authentication', encryptOptions);
+  const encrypted = await biometricCipher(
+    'Passwordless authentication',
+    encryptOptions
+  );
   console.log(
     'Hooray! Successfully encrypted data! We can now store it to decrypt later, when needed'
   );
 } catch (err) {
   console.log('Oh no! Authentication failed because ' + err.message);
 }
-
 
 // Decrypts data back to the original
 const decryptOptions = {
@@ -247,7 +249,10 @@ const decryptOptions = {
 };
 
 try {
-  const original = await biometricCipher('Passwordless authentication', decryptOptions);
+  const original = await biometricCipher(
+    'Passwordless authentication',
+    decryptOptions
+  );
   console.log(
     'Hooray! Successfully decrypted data after the user authenticated with their biometric method.'
   );
@@ -255,7 +260,6 @@ try {
 } catch (err) {
   console.log('Oh no! Authentication failed because ' + err.message);
 }
-
 ```
 
 </TabItem>
@@ -269,7 +273,7 @@ fn bio_cipher(app_handle: tauri::AppHandle, original_data: Option<String>) {
 
     let encrypt_options = AuthOptions {
         // ... other options
-	data_to_encrypt: original_data.unwrap()
+        data_to_encrypt: original_data.unwrap()
     };
 
     // if the encryption was successful, the function returns Result::Ok(CipherResult)
@@ -285,7 +289,7 @@ fn bio_cipher(app_handle: tauri::AppHandle, original_data: Option<String>) {
 
     let decrypt_options = AuthOptions {
         // ... other options
-	data_to_decrypt: encrypted.data
+        data_to_decrypt: encrypted.data
     };
 
     // if the encryption was successful, the function returns Result::Ok(CipherResult)
