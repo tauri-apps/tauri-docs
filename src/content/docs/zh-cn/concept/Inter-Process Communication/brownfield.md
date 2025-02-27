@@ -1,6 +1,5 @@
 ---
 title: Brownfield 模式
-i18nReady: true
 ---
 
 _**这是默认模式。**_
