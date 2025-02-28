@@ -239,7 +239,7 @@ The following table describes the location of the logs per platform:
 
 | Platform | Value                                             | Example                                           |
 | -------- | ------------------------------------------------- | ------------------------------------------------- |
-| Linux    | `{configDir}/{bundleIdentifier}`                  | `/home/alice/.config/com.tauri.dev`               |
+| Linux    | `$XDG_DATA_HOME/{bundleIdentifier}/logs` or `$HOME/.local/share/{bundleIdentifier}/logs`                  | `/home/alice/.local/share/com.tauri.dev/logs`               |
 | macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}`       | `/Users/Alice/Library/Logs/com.tauri.dev`         |
 | Windows  | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs` | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
 
