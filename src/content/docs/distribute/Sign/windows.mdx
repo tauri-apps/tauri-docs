@@ -325,12 +325,13 @@ You need to install [trusted-signing-cli](https://github.com/Levminer/trusted-si
      - -e: The endpoint of your Azure Code Signing account
      - -a: The name of your Azure Code Signing Account
      - -c: The name of your Certificate profile inside your Azure Code Signing Account
+     - -d: The description of the signed content (optional). When signing a .msi installer, this description will appear as the installer's name in the UAC prompt or will be a random string of characters if unset.
 
    ```json title=tauri.conf.json
    {
      "bundle": {
        "windows": {
-         "signCommand": "trusted-signing-cli -e https://wus2.codesigning.azure.net -a MyAccount -c MyProfile %1"
+         "signCommand": "trusted-signing-cli -e https://wus2.codesigning.azure.net -a MyAccount -c MyProfile -d MyApp %1"
        }
      }
    }
