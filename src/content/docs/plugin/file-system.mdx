@@ -16,6 +16,11 @@ import PluginPermissions from '@components/PluginPermissions.astro';
 
 Access the file system.
 
+:::note[Use std::fs or tokio::fs on the Rust side]
+If you want to manipulate files/directories through Rust, use traditional Rust's libs (std::fs, tokio::fs, etc).
+
+:::
+
 ## Supported Platforms
 
 <Compatibility plugin={frontmatter.plugin} />
@@ -120,6 +125,14 @@ with the required [NSPrivacyAccessedAPICategoryFileTimestamp] key and the [C617.
 ## Usage
 
 The fs plugin is available in both JavaScript and Rust.
+:::caution[Different APIs]
+Although this plugin has a file manipulation API on the frontend, in the backend it offers only the methods to change permission of some
+resources (files, directories, etc).
+
+In the Rust side you can use the traditional file manipulation libraries,
+[std::fs](https://doc.rust-lang.org/std/fs/struct.File.html), [tokio::fs](https://docs.rs/tokio/latest/tokio/fs/index.html) or others.
+
+:::
 
 <Tabs syncKey="lang">
   <TabItem label="JavaScript" >
