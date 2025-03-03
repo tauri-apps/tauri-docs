@@ -13,7 +13,7 @@ This guide is accurate as of Vite 5.4.8.
 
 ## Checklist
 
-- Use `dist/` as `frontendDist` in `tauri.conf.json`.
+- Use `../dist` as `frontendDist` in `src-tauri/tauri.conf.json`.
 - Use `process.env.TAURI_DEV_HOST` as the development server host IP when set to run on iOS physical devices.
 
 ## Example configuration
@@ -27,8 +27,10 @@ This guide is accurate as of Vite 5.4.8.
     ```json
     {
       "scripts": {
-        "dev": "vite dev",
-        "build": "vite build"
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "tauri": "tauri"
       }
     }
     ```
@@ -115,11 +117,23 @@ This guide is accurate as of Vite 5.4.8.
       // prevent vite from obscuring rust errors
       clearScreen: false,
       server: {
+        port: 1420,
         // Tauri expects a fixed port, fail if that port is not available
         strictPort: true,
         // if the host Tauri is expecting is set, use it
         host: host || false,
-        port: 5173,
+        hmr: host
+          ? {
+              protocol: 'ws',
+              host,
+              port: 1421,
+            }
+          : undefined,
+
+        watch: {
+          // tell vite to ignore watching `src-tauri`
+          ignored: ['**/src-tauri/**'],
+        },
       },
       // Env variables starting with the item of `envPrefix` will be exposed in tauri's source code through `import.meta.env`.
       envPrefix: ['VITE_', 'TAURI_ENV_*'],
