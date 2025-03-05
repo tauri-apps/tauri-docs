@@ -451,7 +451,7 @@ export default defineConfig({
     '/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
     '/blog/2023/06/15/tauri-board-elections-and-governance-updates':
       '/blog/tauri-board-elections-and-governance-updates',
-    'about/intro': 'about/philosophy',
+    '/about/intro': '/about/philosophy',
     // v1 /guides/debugging -> /guides/debug
     ...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
     ...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
