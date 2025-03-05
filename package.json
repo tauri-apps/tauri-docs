@@ -48,6 +48,8 @@
     "pnpm": "^10.0.0"
   },
   "pnpm": {
-    "patchedDependencies": {}
+    "patchedDependencies": {
+      "@astrojs/starlight@0.32.2": "patches/@astrojs__starlight@0.32.2.patch"
+    }
   }
 }
