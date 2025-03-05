@@ -4,7 +4,7 @@ import type { APIRoute } from "astro";
 function getHeaderLevel(slug: string): number {
     return slug.split('/').length + 1;
 }
-function groupDocsByPrefix(docs: Awaited<ReturnType<typeof getCollection<"docs">>>)  {
+function groupDocsByPrefix(docs: Awaited<ReturnType<typeof getCollection<"docs">>>) {
     const prefixes = ['start', 'concept', 'security', 'develop', 'distribute', 'learn', 'plugins'];
 
     const grouped = new Map<string, typeof docs>();
@@ -36,7 +36,7 @@ Each section contains links to detailed markdown files that provide comprehensiv
 export const GET: APIRoute = async ({ params, request }) => {
     const docs = await getCollection("docs");
     const grouped = groupDocsByPrefix(docs);
-    let content = `# Tauri app Full Documentation\n\n${aboutBlurb}\n\n**Table of Contents**\n`;
+    let content = `# Tauri app Full Documentation\n\n${aboutBlurb}\n\n${organizationBlur}\n\n**Table of Contents**\n`;
     for (const [prefix, items] of grouped) {
         if (items.length > 0) {
             content += `\n## ${prefix.charAt(0).toUpperCase() + prefix.slice(1)}\n`;
