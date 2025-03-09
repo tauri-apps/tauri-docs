@@ -97,7 +97,7 @@ For the details of EN/JP doc status, see the listing below: <br /> 文書番号�
 | :------: | :---------- | :------: | :---------- |
 |  **00**  | 2024/11/01  |  **00**  | 2025/01/07  |
 
-#### frontend/sveltekit.
+#### frontend/sveltekit.mdx
 
 | EN Doc # | EN Doc Date | JP Doc # | JP Doc Date |
 | :------: | :---------- | :------: | :---------- |
@@ -175,6 +175,6 @@ For the details of EN/JP doc status, see the listing below: <br /> 文書番号�
 
 | EN Doc # | EN Doc Date | JP Doc # | JP Doc Date |
 | :------: | :---------- | :------: | :---------- |
-|  **00**  | 2024/10/15  |  **00**  | 2025/01/27  |
+|  **00**  | 2025/02/22  |  **00**  | 2025/03/09  |
 
 Cont.
