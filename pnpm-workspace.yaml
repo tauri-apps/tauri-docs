@@ -1,7 +1,11 @@
 packages:
-  - 'packages/js-api-generator'
-  - 'packages/config-generator'
-  - 'packages/cli-generator'
-  - 'packages/tauri-typedoc-theme'
-  - 'packages/releases-generator'
-  - 'packages/compatibility-table'
+  - packages/js-api-generator
+  - packages/config-generator
+  - packages/cli-generator
+  - packages/tauri-typedoc-theme
+  - packages/releases-generator
+  - packages/compatibility-table
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - sharp
