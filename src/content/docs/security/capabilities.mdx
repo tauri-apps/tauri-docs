@@ -99,6 +99,15 @@ Inline capabilities can be mixed with pre-defined capabilities.
 }
 ```
 
+{/* TODO maybe a link to an example would be better here. */}
+By default, all commands that you defined in your app
+(using the
+[`#[tauri::command]`](https://docs.rs/tauri/2.0.0/tauri/attr.command.html)
+macro)
+are allowed to be used by all the windows and webviews of the app.
+To change that, consider using
+[`AppManifest::commands`](https://docs.rs/tauri-build/2.0.0/tauri_build/struct.AppManifest.html#method.commands).
+
 ## Target Platform
 
 Capabilities can be platform-specific by defining the `platforms` array.
