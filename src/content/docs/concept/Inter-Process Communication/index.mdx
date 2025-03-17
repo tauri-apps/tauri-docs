@@ -54,6 +54,12 @@ Core -> Frontend: "Event"{style.animated: true}
 <figcaption>Events sent between the Core and the Webview.</figcaption>
 </figure>
 
+{/* This is important to mention to make it clear to the developer
+what they need to do to secure their application. */}
+Under the hood, events still utilize Commands,
+and the access to the events API is controlled by the
+[Event permissions](/reference/acl/core-permissions/#event).
+
 ## Commands
 
 Tauri also provides a [foreign function interface]-like abstraction on top of IPC messages[^1]. The primary API, `invoke`, is similar to the browser's `fetch` API and allows the Frontend to invoke Rust functions, pass arguments, and receive data.
