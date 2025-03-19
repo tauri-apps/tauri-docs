@@ -121,7 +121,7 @@ Once we have established the GitHub Secrets, we will update the last step of the
     releaseBody: 'See the assets to download this version and install.'
     releaseDraft: true
     prerelease: false
-    args: ${{ matrix.settings.args }}
+    args: ${{ matrix.args }}
 ```
 
 The workflow pulls the secrets from GitHub and defines them as environment variables before building the application using the Tauri action. The output is a GitHub release with the signed and notarized macOS application.
