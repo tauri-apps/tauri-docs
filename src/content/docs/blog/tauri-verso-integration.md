@@ -43,7 +43,7 @@ So let's talke about the integration!
 
 We have a working Tauri runtime [`tauri-runtime-verso`](https://github.com/versotile-org/tauri-runtime-verso) integrating Verso and Tauri now, just note that it's not as feature rich and powerful as the current backends used by Tauri in production yet, but it still has a lot to it, and we have built an example show casing it at https://github.com/versotile-org/tauri-runtime-verso/tree/main/examples/api
 
-<video controls src="/public/assets/blog/verso-integration/dev-show-case.mp4" title="Verso integration show case"></video>
+<video controls src="/assets/blog/verso-integration/dev-show-case.mp4" title="Verso integration show case"></video>
 
 #### Features you can see from the video:
 
