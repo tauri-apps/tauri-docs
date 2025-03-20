@@ -50,6 +50,7 @@ We have a working Tauri runtime [`tauri-runtime-verso`](https://github.com/verso
 - We have all the functions the `tauri-cli` provides
 - We're using a modern framework, in this case [`React`](https://react.dev/)
 - We have our offical log and opener plugins, they work exactly the same as if you're using Tauri with the other backends
+- Windowing functions work, including size, postion, maximize, minimize, close, ...
 - [`Vite`](https://vitejs.dev/)'s css hot reload works as well
 - The `data-tauri-drag-region` attribute works
 
