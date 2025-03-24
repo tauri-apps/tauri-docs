@@ -41,7 +41,7 @@ It's not to say Servo's API is bad though, as they need to support a lot more us
 
 ## `tauri-runtime-verso`
 
-So let's talke about the integration!
+So let's talk about the integration!
 
 We have a working Tauri runtime [`tauri-runtime-verso`](https://github.com/versotile-org/tauri-runtime-verso) integrating Verso and Tauri now, just note that it's not as feature rich and powerful as the current backends used by Tauri in production yet, but it still has a lot to it, and we have built an example show casing it at https://github.com/versotile-org/tauri-runtime-verso/tree/main/examples/api
 
@@ -51,8 +51,8 @@ We have a working Tauri runtime [`tauri-runtime-verso`](https://github.com/verso
 
 - We have all the functions the `tauri-cli` provides
 - We're using a modern framework, in this case [`React`](https://react.dev/)
-- We have our offical log and opener plugins, they work exactly the same as if you're using Tauri with the other backends
-- Windowing functions work, including size, postion, maximize, minimize, close, ...
+- We have our official log and opener plugins, they work exactly the same as if you're using Tauri with the other backends
+- Windowing functions work, including size, position, maximize, minimize, close, ...
 - [`Vite`](https://vitejs.dev/)'s css hot reload works as well
 - The `data-tauri-drag-region` attribute works
 
@@ -78,7 +78,7 @@ Currently Servo can only take an userscript directory to run on document start w
 
 ### Customization unique to the Verso runtime
 
-Tauri is largely made with the assumption of the underlying webview libraries, so there're very little ways to use many Verso specific futures right now, for example, setting the verso executable path and resources directory are being done through global variables, which is not really applicable to window specific features (for example setting rounded conors), so we would like to add support for that next
+Tauri is largely made with the assumption of the underlying webview libraries, so there're very little ways to use many Verso specific futures right now, for example, setting the verso executable path and resources directory are being done through global variables, which is not really applicable to window specific features (for example setting rounded corners), so we would like to add support for that next
 
 ## Thank you
 
