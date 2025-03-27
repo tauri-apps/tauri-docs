@@ -1,0 +1,102 @@
+---
+title: macOS 代码签名
+sidebar:
+  label: macOS
+  order: 1
+---
+
+在 macOS 上，代码签名是必需的，这样才能让你的应用程序出现在[苹果应用商店]列表中，并防止从浏览器下载应用程序时出现应用程序崩溃和无法启动的警告。
+
+## 前置条件
+
+在 iOS 上进行代码签名需要加入[苹果开发者]计划，截至撰写本文时每年费用为 99 美元。
+您还需要一台苹果设备来执行代码签名。这是由于签名过程和苹果的条款和条件所要求的。
+
+## 签名
+
+要为 macOS 设置代码签名，您必须创建 Apple 代码签名证书并将其安装到您的 Mac 计算机 keychain 中，或将其导出以便在 CI/CD 平台中使用。
+
+### 创建签名证书
+
+要创建一个新的签名证书，你必须在你的Mac计算机上生成一个证书签名请求（certificate signing Request, CSR）文件。
+参见[创建证书签名请求]了解如何创建用于代码签名的CSR文件。
+
+在你的苹果开发者账户上，导航到 [Certificates, IDs & Profiles 页面]，然后点击 `Create a certificate` 按钮打开界面来创建一个新的证书。
+选择合适的证书类型（`Apple Distribution` 用于将应用提交到 App Store， `Developer ID Application` 用于将应用发布到 App Store 之外）。
+上传你的 CSR 文件，证书就会被创建出来。
+
+:::note
+只有苹果开发者“账户持有者”才能创建\* _开发者ID应用程序_ \*证书。但它可以通过使用不同的用户电子邮件地址创建一个 CSR 来关联到不同的 Apple ID。
+:::
+
+### 下载证书
+
+在 [Certificates, IDs & Profiles 页面]，点击你想要使用的证书，然后点击 `Download` 按钮。
+它会保存一个 `.cer` 文件，打开后将证书安装到 keychain 上。
+
+### Tauri 配置
+
+当在本地机器上构建 macOS 应用程序或使用 CI/CD 平台时，您可以配置 Tauri 使用您的证书。
+
+#### 本地签名
+
+在 Mac 计算机密钥链中安装证书后，您可以配置 Tauri 将其用于代码签名。
+
+证书的 keychain 条目的名称代表了 `signing identity`，也可以通过执行以下命令找到它：
+
+```
+security find-identity -v -p codesigning
+```
+
+这个身份可以通过 [`tauri.conf.json > bundle > macOS > signingIdentity`] 配置选项或者通过 `APPLE_SIGNING_IDENTITY` 环境变量来提供。
+
+:::note
+
+签名证书只有与你的 Apple ID 相关联时才有效。
+无效证书不会列在 _Keychain Access > My certifates_ 选项卡或 _security find-identity -v -p codesigning_ 输出中。
+如果证书没有下载到正确的位置，请确保在下载 .cer 文件时，在 “Default Keychains” 下选择 “login” 选项。
+
+:::
+
+#### 在 CI/CD 平台中进行签名
+
+要在 CI/CD 平台中使用证书，必须将证书导出为 base64 字符串，并配置 `APPLE_CERTIFICATE` 和 `APPLE_CERTIFICATE_PASSWORD` 环境变量。
+
+1. 打开 `Keychain Access` 应用程序，点击 _login_ Keychain 中的 _My Certificates_ 标签，找到你的证书条目。
+2. 展开条目，双击 key 项，并选择 `Export "$KEYNAME"`。
+3. 选择保存证书的 `.p12` 文件的路径，并为导出的证书设置一个密码。
+4. 在终端运行以下脚本将 `.p12` 文件转换为 base64：
+
+```
+openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
+```
+
+5. 将 `certificate-base64.txt` 文件的内容设置为 `APPLE_CERTIFICATE` 环境变量的值。
+6. 将证书密码设置为 `APPLE_CERTIFICATE_PASSWORD` 环境变量。
+
+## 公正
+
+要公证您的应用程序，您必须为 Tauri 提供凭证，以便与 Apple 进行认证：
+
+- APPLE_API_ISSUER、APPLE_API_KEY 和 APPLE_API_KEY_PATH：使用 App Store Connect API 密钥进行身份验证
+
+  打开 [App Store Connect 用户和访问页面]，选择 Integrations 选项卡，单击 Add 按钮并选择名称和开发者权限。
+  在 keys 表中可以看到 APPLE_API_ISSUER （颁发者 ID），而 APPLE_API_KEY 是该表中 Key ID 列的值。
+  你还需要下载私钥，它只能下载一次，并且只有在页面重新加载后才可见（该按钮显示在新创建密钥的表格行上）。
+  私钥文件路径必须通过 APPLE_API_KEY_PATH 环境变量设置。
+
+- APPLE_ID、APPLE_PASSWORD 和 APPLE_TEAM_ID：使用你的 Apple ID 进行身份验证
+
+  或者，要用你的 Apple ID 进行身份验证，可以把 APPLE_ID 设置为你的苹果账户的电子邮件地址，把 APPLE_PASSWORD 设置为苹果账户特定于应用程序的密码。
+
+:::note
+当使用**开发者 ID 申请**证书时，需要公证。
+:::
+
+[Certificates]: https://developer.apple.com/account/resources/certificates/list
+[苹果开发者]: https://developer.apple.com
+[苹果应用商店]: https://www.apple.com/app-store/
+[App Store Connect 用户和访问页面]: https://appstoreconnect.apple.com/access/users
+[`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity
+[创建证书签名请求]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
+[Certificates, IDs & Profiles 页面]: https://developer.apple.com/account/resources/certificates/list

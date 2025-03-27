@@ -1,0 +1,175 @@
+---
+title: 存取控制列表
+---
+
+每個 Tauri [命令](/zh-tw/develop/calling-rust/)都向 JavaScript 層公開一個 Rust 函數，該函數可以使用作業系統 API 執行任意操作，預設情況下，該層使用 Web 標準進行沙箱化。
+如果攻擊者可以執行存取 Tauri 命令的程式碼，這將為您的應用程式帶來風險。
+
+為了緩解這種情況，Tauri 使用存取控制清單（Access Control List；ACL）來限制外掛命令的存取。
+預設情況下，所有外掛命令都被阻止，無法存取。
+若要啟用對應用程式所需命令的訪問，必須定義需要存取的權限清單。
+
+## 功能
+
+功能將權限集合與相關的視窗清單分組，以便您可以對單視窗和多視窗應用程式配置存取控制。
+
+您可以將功能定義為 `src-tauri/capabilities` 目錄中的 JSON 或 TOML 檔案。
+
+下面的 JSON 定義了一個功能，該功能為核心外掛和 `window.setTitle` API啟用預設功能。
+
+```json title="src-tauri/capabilities/default.json"
+{
+ "$schema": "../gen/schemas/desktop-schema.json",
+ "identifier": "main-capability",
+ "description": "Capability for the main window",
+ "windows": ["main"],
+ "permissions": [
+ "core:path:default",
+ "core:event:default",
+ "core:window:default",
+ "core:app:default",
+ "core:resources:default",
+ "core:menu:default",
+ "core:tray:default",
+ "core:window:allow-set-title"
+ ]
+}
+```
+
+### 目標平台
+
+透過定義 platforms 數組，功能可以是特定於平台的。
+預設情況下，功能適用於所有目標，但您可以選擇 linux、macOS、windows、iOS 和 android 目標的一部分。
+
+例如，讓我們為桌面定義一個功能。
+
+注意，它啟用了只能在桌面端使用的外掛權限：
+
+```json title="src-tauri/capabilities/desktop.json"
+{
+ "$schema": "../gen/schemas/desktop-schema.json",
+ "identifier": "desktop-capability",
+ "windows": ["main"],
+ "platforms": ["linux", "macOS", "windows"],
+ "permissions": ["global-shortcut:allow-register"]
+}
+```
+
+並定義移動能力。注意，它啟用了只能在行動裝置上使用的外掛的權限：
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+ "$schema": "../gen/schemas/mobile-schema.json",
+ "identifier": "mobile-capability",
+ "windows": ["main"],
+ "platforms": ["iOS", "android"],
+ "permissions": [
+ "nfc:allow-scan",
+ "biometric:allow-authenticate",
+ "barcode-scanner:allow-scan"
+ ]
+}
+```
+
+### JSON 模式
+
+Tauri 產生一個 JSON 模式，包含應用程式可用的所有權限，這樣你就可以在 IDE 中實作自動補全。
+若要使用模式，請將 `$schema` 屬性設為 `capabilities/schemas` 目錄中的模式之一，這些模式是特定於平台的。
+通常你會將其設定為 `../gen/schemas/desktop-schema.json` 或 `../gen/schemas/mobile-schema.json`，不過你也可以為特定的目標平台定義功能。
+
+在上面的範例中，我們為桌面端和行動端定義了特定的功能，並引用了相關的 JSON 模式。讓我們定義一個僅適用於 Linux 的功能：
+
+```json title="src-tauri/capabilities/linux.json"
+{
+ "$schema": "../gen/schemas/linux-schema.json",
+ "identifier": "linux-capability",
+ "windows": ["main"],
+ "platforms": ["iOS", "android"],
+ "permissions": ["dbus::call"]
+}
+```
+
+### 多視窗
+
+`windows` 屬性定義了應該引用權限清單的視窗清單。您可以使用萬用模式來引用動態視窗標籤。
+
+以下的範例將該功能與 `main` 視窗和任何以 `editor-` 為前綴的標籤視窗連接起來。
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+ "windows": ["main", "editor-*"],
+ "permissions": [
+ …
+ ]
+}
+```
+
+### 作用領域
+
+有效範圍進一步限制命令。它們的格式是特定於外掛程式的，但是 Tauri 提供了允許和拒絕某些命令操作的原語，通常限制命令輸入。
+例如，`fs` 外掛程式允許你使用有效範圍來允許或拒絕某些目錄和文件，`http` 外掛使用有效範圍來過濾允許存取的 url。
+
+讓我們研究一些官方外掛的例子：
+
+- 允許任何 `fs` 命令存取應用程式資料目錄：
+
+```json title="src-tauri/capabilities/base.json"
+{
+ "permissions": [
+ {
+ "identifier": "fs:scope",
+ "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+ }
+ ]
+}
+```
+
+:::note
+`fs:scope` 是 fs 外掛定義的空權限，只是為了讓您定義全域範圍。
+:::
+
+- 允許 `fs` `rename` 指令存取主目錄：
+
+```json title="src-tauri/capabilities/base.json"
+{
+ "permissions": [
+ {
+ "identifier": "fs:allow-rename",
+ "allow": [{ "path": "$HOME/**" }]
+ }
+ ]
+}
+```
+
+- 設定 `http` 外掛的有效範圍：
+
+```json title="src-tauri/capabilities/base.json"
+{
+ "permissions": [
+ {
+ "identifier": "http:default",
+ "allow": [{ "url": "https://*.tauri.app" }],
+ "deny": [{ "url": "https://private.tauri.app" }]
+ }
+ ]
+}
+```
+
+### 遠端存取
+
+預設情況下，每個功能只適用於應用程式的嵌入式內容（無論是你的 `devUrl` 還是 `frontendDist` 前端）。
+如果你想要允許遠端 URL 存取 Tauri 指令(這很危險，需要仔細設定)，你可以使用 `context` 屬性。
+
+在下面的範例中，我們將該功能與任何 `tauri.app` 子網域關聯。
+
+```json title="src-tauri/capabilities/remote.json"
+{
+ "remote": {
+ "urls": ["https://*.tauri.app"]
+ },
+ "local": false,
+ "permissions": [
+ …
+ ]
+}
+```

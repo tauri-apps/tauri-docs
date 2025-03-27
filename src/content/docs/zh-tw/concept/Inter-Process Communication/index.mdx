@@ -1,0 +1,94 @@
+---
+title: 行程間通信
+sidebar:
+  label: 概述
+  order: 1
+  i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+行程間通訊（IPC）允許隔離的行程安全地進行通信，是建構更複雜應用程式的關鍵。
+
+在以下指南中了解特定的 IPC 模式：
+
+<CardGrid>
+  <LinkCard
+    title="Brownfield"
+    href="/zh-tw/concept/inter-process-communication/brownfield/"
+  />
+  <LinkCard
+    title="Isolation"
+    href="/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+Tauri 使用特定風格的行程間通信，稱為[非同步資訊傳遞]，其中流程透過一些簡單的資料表示交換*請求*和*回應*。對於任何有 Web 開發經驗的人來說，資訊傳遞應該聽起來很熟悉，因為這種範式用於互聯網的客戶端-伺服器通訊。
+
+資訊傳遞是一種比共享記憶體或直接函數存取更安全的技術，因為接收方可以自由地拒絕或丟棄請求。例如，如果Tauri核心程序確定某個請求是惡意的，它將簡單地丟棄該請求，並且不會執行相應的函數。
+
+接下來，我們將更詳細地解釋 Tauri 的兩個 IPC 原語——`事件`和`命令`。
+
+## 事件
+
+事件是一次性、單向的 IPC 資訊，最適合用於通訊生命週期事件和狀態變化。與[命令](#命令)不同，事件可以由前端*和* Tauri 核心發出。
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+Frontend: {
+ shape: rectangle
+ label: "Webview\nFrontend"
+}
+Core: {
+ shape: rectangle
+ label: "Core\nBackend"
+}
+
+Frontend -> Core: "Event"{style.animated: true}
+Core -> Frontend: "Event"{style.animated: true}
+```
+
+<figcaption>在核心和 Webview 之間發送的事件。 </figcaption>
+</figure>
+
+## 指令
+
+Tauri 也提供了一種類似[外部函數介面]的抽象，建立在IPC資訊之上[^1]。
+主要 API `invoke` 類似於瀏覽器的`fetch` API，允許前端呼叫 Rust 函數、傳遞參數並接收資料。
+
+由於該機制在底層使用類似 [JSON-RPC] 的協定來序列化請求和回應，因此所有參數和返回資料必須能夠序列化為 JSON。
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+
+Frontend: {
+ label: "Webview\nFrontend"
+}
+
+Core: {
+ label: "Core\nBackend"
+}
+InvokeHandler: {
+ label: "Invoke\nHandler"
+}
+
+Frontend -> Core: "IPC Request"{style.animated: true}
+Core -> InvokeHandler: "Invoke command"{style.animated: true}
+InvokeHandler -> Core: "Serialize return"{style.animated: true}
+Core -> Frontend: "Response"{style.animated: true}
+```
+
+<figcaption>指令呼叫中涉及的 IPC 資訊。 </figcaption>
+</figure>
+
+[^1]: 由於命令在底層仍然使用資訊傳遞，因此它們沒有真實 FFI 介面所面臨的安全隱患。
+
+[非同步資訊傳遞]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
+[json-rpc]: https://www.jsonrpc.org
+[外部函式介面]: https://en.wikipedia.org/wiki/Foreign_function_interface

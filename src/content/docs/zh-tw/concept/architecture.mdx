@@ -1,0 +1,192 @@
+---
+title: Tauri 結構
+sidebar:
+ order: 0
+ i18nReady: true
+---
+
+## 介紹
+
+Tauri 是一個多語言和通用工具包，非常可組合，允許開發人員建立各種應用程式。它用於使用 Rust 工具和在Webview 中呈現的 HTML 建立桌面電腦應用程式。使用 Tauri 建立的應用程式可以與任意數量的可選 JS API 和Rust API一起發布，以便 Webview 可以透過資訊傳遞控制系統。
+
+開發人員可以輕鬆擴展預設 API，以實現自己的功能，並在 Webview 和基於 Rust 的後端之間建立橋接。
+
+Tauri 應用程式可以有[托盤類型介面](/zh-tw/learn/system-tray/)。它們可以被[更新](/zh-tw/plugin/updater/)，並且如預期地由使用者的作業系統進行管理。
+
+由於使用了作業系統的 Webview，它們非常小。它們不附帶運行時，因為最終的二進制檔案是從 Rust 編譯而來的。這使得[逆向工程 Tauri 應用程式不是一項簡單的任務](/zh-tw/security/)。
+
+### Tauri 不是
+
+Tauri 不是一個輕量級核心包裝器。相反，它直接使用 [WRY](#wry) 和 [TAO](#tao) 來進行系統呼叫的重負載。
+
+Tauri 不是虛擬機器或虛擬化環境。相反，它是一個應用程式工具包，允許製作 Webview OS 應用程式。
+
+## 核心生態系統
+
+<figure>
+
+```d2 sketch pad=50
+direction: up
+
+Core: {
+ shape: rectangle
+ "tauri": {
+ "tauri-runtime"
+ "tauri-macros"
+ "tauri-utils"
+ }
+
+ "tauri-build"
+ "tauri-codegen"
+ "tauri-runtime-wry"
+}
+
+Upstream: {
+ shape: rectangle
+ direction: right
+ WRY
+ TAO
+}
+
+Core."tauri"."tauri-runtime" -> Core."tauri-runtime-wry"{style.animated: true}
+
+Upstream.WRY -> Upstream.TAO{style.animated: true}
+Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
+```
+
+<figcaption>簡化的 Tauri 架構圖</figcaption>
+</figure>
+
+### tauri
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri)
+
+這是一個主要的 crate，將所有內容結合在一起。它將運行時、巨集、工具和 API 整合成一個最終產品。
+它在編譯時會讀取[`tauri.conf.json`](/zh-tw/reference/config/)文件，以引入功能並進行應用程式的實際配置（甚至是專案資料夾中的 `Cargo.toml` 文件）。它在運行時處理腳本注入（用於 polyfills / 原型修訂），託管與系統互動的 API，甚至管理更新過程。
+
+### tauri-runtime
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime)
+
+Tauri 本身與底層 Webview 庫之間的黏合層。
+
+### tauri-macros
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-macros)
+
+透過利用 [`tauri-codegen`](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen) crate 為上下文、處理程序和命令建立巨集。
+
+### tauri-utils
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-utils)
+
+在許多地方重複使用的通用程式碼，提供有用的工具，如解析設定檔、檢測平台三元組、注入 CSP 和管理資產。
+
+### tauri-build
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-build)
+
+在建置時套用宏，以設定 `cargo` 所需的一些特殊功能。
+
+### tauri-codegen
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen)
+
+嵌入、哈希和壓縮資產，包括應用程式的圖示以及系統托盤。在編譯時解析[`tauri.conf.json`](/zh-tw/reference/config/)並產生 Config 結構。
+
+### tauri-runtime-wry
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime-wry)
+
+這個 crate 為 WRY 開啟了直接的系統層級交互，例如列印、監視器偵測和其他與視窗相關的任務。
+
+## Tauri 工具
+
+### API (JavaScript / TypeScript)
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/packages/api)
+
+一個 TypeScript 函式庫，為您建立 `cjs` 和 `esm` JavaScript 端點，以便您匯入到前端框架中，以便 Webview 可以呼叫和監聽後端活動。也以純 TypeScript 的形式發布，因為對於某些框架來說，這更為最佳化。它利用 Webview 的資訊傳遞與其主機進行通訊。
+
+### Bundler (Rust / Shell)
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler)
+
+一個庫，為其檢測或被告知的平台建立 Tauri 應用程式。目前支援 macOS、Windows 和 Linux—但在不久的將來也將支援行動平台。可以在 Tauri 專案之外使用。
+
+### cli.rs (Rust)
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-cli)
+
+這個 Rust 可執行檔提供了 CLI 所需的所有活動的完整介面。它在 macOS、Windows 和 Linux 上運行。
+
+### cli.js (JavaScript)
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri/tree/dev/packages/cli)
+
+圍繞 [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-cli)的包裝，使用 [`napi-rs`](https://github.com/napi-rs/napi-rs) 為每個平台產生 npm 套件。
+
+### create-tauri-app (JavaScript)
+
+[在 GitHub 上查看](https://github.com/tauri-apps/create-tauri-app)
+
+一個工具包，使工程團隊能夠快速建立新的 `tauri-apps` 專案，使用他們選擇的前端框架（只要它已被配置）。
+
+## 上游 Crates
+
+Tauri-Apps 組織維護兩個來自 Tauri 的「上游」 crate，即 TAO 用於建立和管理應用程式窗口，WRY 用於與窗口內的 Webview 進行介面。
+
+### TAO
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tao)
+
+一個跨平台的應用程式視窗建立庫，支援所有主要平台，如 Windows、macOS、Linux、iOS 和 Android。用 Rust 編寫，它是 [winit](https://github.com/rust-windowing/winit) 的一個分支，我們根據自己的需求進行了擴展—例如選單列和系統托盤。
+
+### WRY
+
+[在 GitHub 上查看](https://github.com/tauri-apps/wry)
+
+WRY 是一個跨平台的 WebView 渲染庫，以 Rust 編寫，支援所有主要桌面平台，如 Windows、macOS 和 Linux。 Tauri 使用 WRY 作為抽象層，負責決定使用哪個 Webview（以及如何進行互動）。
+
+## 其他工具
+
+### tauri-action
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri-action)
+
+一個 GitHub 工作流程，為所有平台建立 Tauri 二進制。甚至允許建立一個（非常基本的）Tauri 應用程式，即使沒有設定 Tauri。
+
+### tauri-vscode
+
+[在 GitHub 上查看](https://github.com/tauri-apps/tauri-vscode)
+
+這個專案增強了 Visual Studio Code 介面，提供了一些非常實用的功能。
+
+### vue-cli-plugin-tauri
+
+[在 GitHub 上查看](https://github.com/tauri-apps/vue-cli-plugin-tauri)
+
+允許您在 vue-cli 專案中非常快速地安裝 Tauri。
+
+## 外掛
+
+[Tauri 外掛指南](/zh-tw/develop/plugins/)
+
+一般來說，外掛由第三方編寫（儘管可能有官方支援的外掛）。
+
+一個外掛通常完成三件事：
+  1. 使 Rust 程式碼能夠「做某事」。
+  2. 提供介面間的串接黏合，使其易於整合到應用程式中。
+  3. 提供 JavaScript API，以便與 Rust 程式碼進行介面。
+
+以下是一些 Tauri 外掛的範例：
+
+- [tauri-plugin-fs](https://github.com/tauri-apps/tauri-plugin-fs)
+- [tauri-plugin-sql](https://github.com/tauri-apps/tauri-plugin-sql)
+- [tauri-plugin-stronghold](https://github.com/tauri-apps/tauri-plugin-stronghold)
+
+## 許可證
+
+Tauri 本身根據 MIT 或 Apache-2.0 許可證授權。如果您重新打包並修改任何原始程式碼，您有責任確保遵守所有上游許可證。 Tauri 以「原樣」提供，沒有明確的適用性聲明。
+
+在這裡，您可以瀏覽我們的[軟體資料清單](https://app.fossa.com/projects/git%2Bgithub.com%2Ftauri-apps%2Ftauri)。

@@ -1,0 +1,98 @@
+---
+title: 上傳
+description: 透過 HTTP 上傳文件
+plugin: upload
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+透過 HTTP 從磁碟上傳檔案到遠端伺服器。從遠端 HTTP 伺服器下載檔案到磁碟。
+
+## 支援的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 設定
+
+<Tabs>
+ <TabItem label="自動">
+
+ 使用專案的套件管理器來新增相依性。
+
+ <CommandTabs
+ npm="npm run tauri add upload"
+ yarn="yarn run tauri add upload"
+ pnpm="pnpm tauri add upload"
+ bun="bun tauri add upload"
+ cargo="cargo tauri add upload"
+ />
+
+ </TabItem>
+ <TabItem label="手動">
+
+ <Steps>
+
+ 1. 執行 `cargo add tauri-plugin-upload` 指令，將外掛程式新增到專案的 `Cargo.toml` 相依性。
+
+ 2. 修改 `lib.rs` 來初始化外掛。
+
+ ```rust title="src-tauri/src/lib.rs" ins={5}
+ #[cfg_attr(mobile, tauri::mobile_entry_point)]
+ pb fn run() {
+ tauri::Builder::default()
+ // Initialize the plugin
+ .plugin(tauri_plugin_upload::init())
+ .run(tauri::generate_context!())
+ .expect("error while running tauri application");
+ }
+ ```
+
+ 3. 使用你喜歡的 JavaScript 套件管理器安裝 JavaScript Guest 綁定。
+
+ <CommandTabs
+ npm="npm install @tauri-apps/plugin-upload"
+ yarn="yarn add @tauri-apps/plugin-upload"
+ pnpm="pnpm add @tauri-apps/plugin-upload"
+ bun="bun add @tauri-apps/plugin-upload"
+ />
+
+ </Steps>
+ </TabItem>
+
+</Tabs>
+
+## 用法
+
+一旦完成了外掛的註冊和設定過程，就可以透過 JavaScript Guest 綁定存取它的所有 API。
+
+以下是一個使用外掛程式上傳和下載檔案的範例：
+
+```javascript
+import { upload } from '@tauri-apps/plugin-upload';
+
+upload(
+ 'https://example.com/file-upload',
+ './path/to/my/file.txt',
+ ({ progress, total }) =>
+ console.log(`Uploaded ${progress} of ${total} bytes`), // 上傳進度時呼叫的回呼函數
+ { 'Content-Type': 'text/plain' } // 與請求一起傳送的選用頭資訊
+);
+```
+
+```javascript
+import { download } from '@tauri-apps/plugin-upload';
+
+download(
+ 'https://example.com/file-download-link',
+ './path/to/save/my/file.txt',
+ ({ progress, total }) =>
+ console.log(`Downloaded ${progress} of ${total} bytes`), // 下載進度時呼叫的回呼函數
+ { 'Content-Type': 'text/plain' } // 與請求一起傳送的選用頭資訊
+);
+```

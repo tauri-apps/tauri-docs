@@ -145,6 +145,7 @@ export default defineConfig({
           label: 'Guides',
           translations: {
             'zh-CN': '指引',
+            'zh-TW': '指南',
           },
           collapsed: true,
           items: [
@@ -152,6 +153,7 @@ export default defineConfig({
               label: 'Quick Start',
               translations: {
                 'zh-CN': '快速开始',
+                'zh-TW': '快速開始',
               },
               collapsed: true,
               items: [
@@ -159,6 +161,7 @@ export default defineConfig({
                   label: 'What is Tauri?',
                   translations: {
                     'zh-CN': '什么是 Tauri？',
+                    'zh-TW': '什麼是 Tauri？',
                   },
                   link: '/start/',
                 },
@@ -166,6 +169,7 @@ export default defineConfig({
                   label: 'Prerequisites',
                   translations: {
                     'zh-CN': '前置条件',
+                    'zh-TW': '前置條件',
                   },
                   link: '/start/prerequisites/',
                 },
@@ -173,6 +177,7 @@ export default defineConfig({
                   label: 'Create a Project',
                   translations: {
                     'zh-CN': '创建项目',
+                    'zh-TW': '建立專案',
                   },
                   link: '/start/create-project/',
                 },
@@ -180,6 +185,7 @@ export default defineConfig({
                   label: 'Frontend Configuration',
                   translations: {
                     'zh-CN': '前端配置',
+                    'zh-TW': '前端組態設置',
                   },
                   collapsed: true,
                   autogenerate: { directory: 'start/frontend' },
@@ -188,6 +194,7 @@ export default defineConfig({
                   label: 'Upgrade & Migrate',
                   translations: {
                     'zh-CN': '升级和迁移',
+                    'zh-TW': '升級和遷移',
                   },
                   collapsed: true,
                   autogenerate: { directory: 'start/migrate' },
@@ -198,6 +205,7 @@ export default defineConfig({
               label: 'Core Concepts',
               translations: {
                 'zh-CN': '核心概念',
+                'zh-TW': '核心概念',
               },
               collapsed: true,
               autogenerate: { directory: 'concept' },
@@ -206,6 +214,7 @@ export default defineConfig({
               label: 'Security',
               translations: {
                 'zh-CN': '安全',
+                'zh-TW': '安全',
               },
               collapsed: true,
               autogenerate: { directory: 'security' },
@@ -214,6 +223,7 @@ export default defineConfig({
               label: 'Develop',
               translations: {
                 'zh-CN': '开发',
+                'zh-TW': '開發',
               },
               collapsed: true,
               autogenerate: { directory: 'develop' },
@@ -222,6 +232,7 @@ export default defineConfig({
               label: 'Distribute',
               translations: {
                 'zh-CN': '分发',
+                'zh-TW': '分發',
               },
               collapsed: true,
               autogenerate: { directory: 'distribute' },
@@ -230,6 +241,7 @@ export default defineConfig({
               label: 'Learn',
               translations: {
                 'zh-CN': '学习',
+                'zh-TW': '學習',
               },
               collapsed: true,
               autogenerate: { directory: 'learn' },
@@ -238,6 +250,7 @@ export default defineConfig({
               label: 'Plugins',
               translations: {
                 'zh-CN': '插件',
+                'zh-TW': '外掛',
               },
               collapsed: true,
               autogenerate: { directory: 'plugin' },
@@ -246,6 +259,7 @@ export default defineConfig({
               label: 'About',
               translations: {
                 'zh-CN': '关于',
+                'zh-TW': '關於',
               },
               collapsed: true,
               autogenerate: { directory: 'about' },
@@ -256,6 +270,7 @@ export default defineConfig({
           label: 'References',
           translations: {
             'zh-CN': '参考',
+            'zh-TW': '參考',
           },
           collapsed: true,
           items: [
@@ -263,6 +278,7 @@ export default defineConfig({
               label: 'Security',
               translations: {
                 'zh-CN': '安全',
+                'zh-TW': '安全',
               },
               collapsed: true,
               autogenerate: { directory: 'reference/acl' },
@@ -271,6 +287,7 @@ export default defineConfig({
               label: 'Command Line Interface',
               translations: {
                 'zh-CN': '命令行接口（CLI）',
+                'zh-TW': '命令列介面（CLI）',
               },
               link: '/reference/cli/',
             },
@@ -278,6 +295,7 @@ export default defineConfig({
               label: 'Configuration',
               translations: {
                 'zh-CN': '配置',
+                'zh-TW': '組態設置',
               },
               link: '/reference/config/',
             },
@@ -285,6 +303,7 @@ export default defineConfig({
               label: 'Environment Variables',
               translations: {
                 'zh-CN': '环境变量',
+                'zh-TW': '環境變數',
               },
               link: '/reference/environment-variables/',
             },
@@ -292,6 +311,7 @@ export default defineConfig({
               label: 'Webview Versions',
               translations: {
                 'zh-CN': 'Webview 版本',
+                'zh-TW': 'Webview 版本',
               },
               link: '/reference/webview-versions/',
             },
@@ -299,6 +319,7 @@ export default defineConfig({
               label: 'Releases',
               translations: {
                 'zh-CN': '发行版',
+                'zh-TW': '發行版',
               },
               collapsed: true,
               autogenerate: { directory: 'release' },
@@ -318,6 +339,7 @@ export default defineConfig({
           label: 'Blog',
           translations: {
             'zh-CN': '博客',
+            'zh-TW': '部落格',
           },
           collapsed: true,
           items: [

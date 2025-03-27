@@ -1,0 +1,40 @@
+---
+title: 核心概念
+sidebar:
+ order: 0
+ i18nReady: true
+ label: 概述
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Tauri 有多種主題被視為核心概念，任何開發者在開發應用程式時都應該了解的事情。
+如果你想充分利用這個框架，這裡有一些你應該要更加熟悉的主題。
+
+<CardGrid>
+ <LinkCard
+ title="Tauri 架構"
+ href="/zh-tw/concept/architecture/"
+ description="架構與生態系。"
+ />
+ <LinkCard
+ title="行程間通訊 (IPC)"
+ href="/zh-tw/concept/inter-process-communication/"
+ description="IPC 的內部運作原理。"
+ />
+ <LinkCard
+ title="安全性"
+ href="/security/"
+ description="Tauri 如何執行安全實務。"
+ />
+ <LinkCard
+ title="行程模型"
+ href="/zh-tw/concept/process-model/"
+ description="Tauri 管理哪些流程以及原因。"
+ />
+ <LinkCard
+ title="應用程式占用大小"
+ href="/zh-tw/concept/size/"
+ description="如何盡量縮小你的應用程式所占用的空間。"
+ />
+</CardGrid>

@@ -1,0 +1,92 @@
+---
+title: iOS 代码签名
+sidebar:
+  label: iOS
+  order: 4
+---
+
+在 iOS 上进行代码签名是必需的，以便通过官方[苹果应用商店]或可能的欧盟替代市场分发您的应用程序，并且一般来说可以安装和执行在最终用户设备上。
+
+## 前置条件
+
+在 iOS 上进行代码签名需要加入[苹果开发者]计划，截至撰写本文时每年费用为 99 美元。
+您还需要一台苹果设备来执行代码签名。这是由于签名过程和苹果的条款和条件所要求的。
+
+要分发 iOS 应用程序，您必须在 App Store Connect 中注册您的包标识符，拥有适当的 iOS 代码签名证书以及将它们链接在一起并启用您的应用程序使用的 iOS 功能的移动配置文件。这些要求可以由 Xcode 自动管理，也可以手动提供。
+
+## 自动签名
+
+让 Xcode 管理应用的签名和配置是将 iOS 应用导出以进行分发的最方便的方式。
+它会自动注册您的包标识符，处理 iOS 功能变化，并根据您选择的导出方法配置适当的证书。
+
+默认情况下启用了自动签名，并且在本地机器上使用时会使用 Xcode 中配置的账户进行身份验证。\
+要注册您的帐户，请打开 Xcode 应用程序，然后在 `Xcode > Settings` 菜单中打开设置页面，切换到账户选项卡，并点击 `+` 图标。
+
+要使用 CI/CD 平台上的自动签名功能，您必须创建一个 App Store Connect API 密钥，并定义 `APPLE_API_ISSUER`、`APPLE_API_KEY` 和 `APPLE_API_KEY_PATH` 环境变量。
+打开 [App Store Connect 用户和访问页面]，选择 Integrations 选项卡，单击 Add 按钮并选择名称和管理员访问权限。
+`APPLE_API_ISSUER`（颁发者 ID）显示在 keys 表的上方，而 `APPLE_API_KEY` 是该表的 Key ID 列的值。
+你还需要下载私钥，它只能下载一次，并且只有在页面重新加载后才可见(该按钮显示在新创建密钥的表格行上)。
+私钥文件路径必须通过 `APPLE_API_KEY_PATH` 环境变量设置。
+
+## 手动签名
+
+要手动为你的 iOS 应用签名，你可以通过环境变量提供证书和移动配置文件：
+
+- **IOS_CERTIFICATE**：从 Keychain 导出的证书的 base64 表示形式。
+- **IOS_CERTIFICATE_PASSWORD**：从 Keychain 导出时设置的证书密码。
+- **IOS_MOBILE_PROVISION**：授权描述文件的 Base64 表示。
+
+下面几节解释如何获取这些值。
+
+### 签名证书
+
+注册后，导航到[证书]页面创建一个新的 Apple 分发证书。下载新的证书并将其安装到 macOS 钥匙串中。
+
+要导出证书密钥，请打开 "Keychain Access" 应用程序，展开证书条目，
+右键点击密钥项目，并选择 "Export \<key-name\>" 选项。选择导出的 .p12 文件的路径，并记住其密码。
+
+运行以下 `base64` 命令将证书转换为 base64 格式并复制到剪贴板：
+
+```
+base64 -i <path-to-certificate.p12> | pbcopy
+```
+
+剪贴板中的值现在是签名证书的 base64 表示。
+保存并作为 `IOS_CERTIFICATE` 环境变量的值使用。
+
+需要设置 `IOS_CERTIFICATE_PASSWORD` 变量的值必须为证书密码。
+
+:::tip[选择证书类型]
+每个导出方法都必须使用适当的证书类型。
+
+- **debugging**：苹果开发或 iOS 应用开发
+- **app-store-connect**：苹果发行版或 iOS 发行版 (App Store Connect 和 Ad Hoc)
+- **ad-hoc**：苹果发行版或 iOS 发行版 (App Store Connect 和 Ad Hoc)
+
+:::
+
+### 配置文件
+
+此外，你必须为你的应用提供配置描述文件。
+在 [Identifiers](https://developer.apple.com/account/resources/identifiers/list) 页面中，
+创建一个新的应用程序 ID，并确保其 "Bundle ID" 值与 [`identifier`] 配置中设置的标识符匹配。
+
+导航到 [Profiles](https://developer.apple.com/account/resources/profiles/list) 页面以创建新的预配配置文件。
+对于 App Store 分发，必须选择 "App Store Connect" 配置文件。选择合适的 App ID 并链接你之前创建的证书。
+
+创建配置文件后，下载它并运行以下 `base64` 命令来转换该配置文件并将其复制到剪贴板：
+
+```
+base64 -i <path-to-profile.mobileprovision> | pbcopy
+```
+
+剪贴板中的值现在是配置描述文件的 base64 表示。
+保存它并将其用作 `IOS_MOBILE_PROVISION` 环境变量值。
+
+现在你可以构建你的 iOS 应用程序并在 App Store 上发布了！
+
+[证书]: https://developer.apple.com/account/resources/certificates/list
+[苹果开发者]: https://developer.apple.com
+[苹果应用商店]: https://www.apple.com/app-store/
+[App Store Connect 用户和访问页面]: https://appstoreconnect.apple.com/access/users
+[`identifier`]: /reference/config/#identifier

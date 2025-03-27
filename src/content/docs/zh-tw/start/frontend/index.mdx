@@ -1,0 +1,47 @@
+---
+title: 前端配置
+i18nReady: true
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri 與前端無關，支援大多數開箱即用的前端框架。但是，有時框架需要一些額外的配置才能與 Tauri 整合。以下是具有建議配置的框架清單。
+
+如果未列出框架，那麼它可能與Tauri一起使用時無需其他配置，或者可能尚未記錄。歡迎任何新增可能需要額外配置的框架的貢獻，以幫助 Tauri 社群中的其他人。
+
+:::tip[未列出的前端框架？ ]
+
+沒有列出框架？可能它可以與 Tauri 一起使用，而無需任何其他配置。閱讀[配置清單](#配置清單)，以了解要檢查的任何常見配置。
+
+:::
+
+## JavaScript
+
+<CardGrid>
+  <LinkCard title="Next.js" href="/zh-tw/start/frontend/nextjs/" />
+  <LinkCard title="Nuxt" href="/zh-tw/start/frontend/nuxt/" />
+  <LinkCard title="Qwik" href="/zh-tw/start/frontend/qwik/" />
+  <LinkCard title="Svelte" href="/zh-tw/start/frontend/sveltekit/" />
+  <LinkCard title="Vite" href="/zh-tw/start/frontend/vite/" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+  <LinkCard title="Leptos" href="/zh-tw/start/frontend/leptos/" />
+  <LinkCard title="Trunk" href="/zh-tw/start/frontend/trunk/" />
+</CardGrid>
+
+## 配置清單
+
+概念上 Tauri 正如靜態 Web 主機。你需要為 Tauri 提供一個資料夾，其中包含一些 HTML、CSS、Javascript 甚至可能是 WASM，供給 Tauri 的 webview 渲染器顯示。
+
+以下是將前端與 Tauri 整合所需的常見場景清單：
+
+{/* TODO: Link to core concept of SSG/SSR, etc. */}
+{/* TODO: Link to mobile development server guide */}
+{/* TODO: Concept of how to do a client-server relationship? */}
+
+- 使用靜態站點產生（SSG）。 Tauri 並沒有正式支援基於伺服器的替代方案（例如 SSR）。
+- 對於行動裝置開發，需要某種開發伺服器，可以在你的內部 IP 上託管前端。
+- 在應用程式和 API 之間使用適當的客戶端-伺服器關係（沒有使用 SSR 的混合解決方案）。

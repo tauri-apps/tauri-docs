@@ -1,0 +1,72 @@
+---
+title: 應用程式大小
+sidebar:
+ order: 0
+ i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+雖然 Tauri 預設提供非常小的二進制文件，但稍微推一下極限也無妨，因此這裡有一些技巧和建議，以達到最佳效果。
+
+## Cargo 配置
+
+您可以對專案進行的最簡單的前端無關的大小優化之一是為其新增一個 Cargo 配置檔案。
+
+根據您使用的是 stable 或 nightly 的 Rust 工具鏈，您可以使用的選項會有所不同。
+除非您是進階用戶，建議您堅持使用穩定版工具鏈。
+
+<Tabs>
+<TabItem label="Stable">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # 以較小的步驟編譯您的二進制。
+
+[profile.release]
+codegen-units = 1 # 允許 LLVM 執行更好的最佳化。
+lto = true # 啟用連結時最佳化。
+opt-level = "s" # 優先考慮小型的二進制檔案大小。如果您想要加快速度，請使用 `3`。
+panic = "abort" # 透過停用 panic 處理程序來提升效能。
+strip = true # 確認移除除錯符號。
+
+````
+</TabItem>
+
+<TabItem label="Nightly">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # 以較小的步驟編譯您的二進制檔案。
+rustflags = ["-Zthreads=8"] # 提高編譯效能。
+
+[profile.release]
+codegen-units = 1 # 允許 LLVM 執行更好的最佳化。
+lto = true # 啟用連結時最佳化。
+opt-level = "s" # 優先考慮小的二進制檔案大小。如果您想要加快速度，請使用 `3`。
+panic = "abort" # 透過停用 panic 處理程序來提升效能。
+strip = true # 確認移除除錯符號。
+trim-paths = "all" # 從您的二進制檔案中移除潛在的特權資訊。
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # 提升編譯效能。
+````
+
+</TabItem>
+</Tabs>
+
+### 參考資料
+
+:::note
+這並不是所有可用選項的完整參考，只是我們想要特別強調的幾個選項。
+:::
+
+- [incremental:](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental) 以較小的步驟編譯您的二進制。
+- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units) 以犧牲編譯時間最佳化為代價，加快編譯時間。
+- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) 啟用連結時最佳化。
+- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) 決定編譯器的重點。使用 `3` 來最佳化效能，使用 `z` 來優化大小，使用 `s` 以達到兩者之間的平衡。
+- [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic) 透過移除 panic unwind 來減少大小。
+- [strip:](https://doc.rust-lang.org/cargo/reference/profiles.html#strip) 從二進制檔案剝離符號或除錯資訊。
+- [rpath:](https://doc.rust-lang.org/cargo/reference/profiles.html#rpath) 透過將資訊硬編碼到二進制檔案中，幫助找到二進制檔案所需的動態函式庫。
+- [trim-paths:](https://rust-lang.github.io/rfcs/3127-trim-paths.html) 從二進制檔案移除潛在的特權資訊。
+- [rustflags:](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option) 在每個設定檔的基礎上設定 Rust 編譯器標誌。
+ - `-Cdebuginfo=0`: 是否應在建置中包含除錯資訊符號。
+ - `-Zthreads=8`: 增加編譯時使用的執行緒數。
