@@ -25,7 +25,7 @@
     "@astrojs/markdown-remark": "^5.2.0",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/starlight": "0.29.2",
-    "@lorenzo_lewis/starlight-utils": "^0.2.0",
+    "@lorenzo_lewis/starlight-utils": "^0.3.0",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/json-schema": "^7.0.15",
