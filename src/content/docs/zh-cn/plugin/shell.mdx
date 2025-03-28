@@ -1,6 +1,6 @@
 ---
 title: Shell
-description: 访问系统 shell，使用默认应用程序管理文件和 URL，并生成子进程。
+description: 访问系统 shell 来生成子进程。
 plugin: shell
 ---
 
@@ -9,18 +9,23 @@ import Compatibility from '@components/plugins/Compatibility.astro';
 
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
-访问系统 shell。允许您生成子进程并使用其默认应用程序管理文件和 URL。
+访问系统 shell。允许你生成子进程。
 
 ## 支持的平台
 
 <Compatibility plugin={frontmatter.plugin} />
 
+## 指定打开应用
+
+如果你正在查找 `shell.open` 接口的文档，请查看新的[指定打开应用插件](../opener/)。
+
 ## 设置
 
-请安装 shell 插件。
+请从安装 shell 插件开始。
 
 <Tabs>
 	<TabItem label="自动" >
@@ -32,31 +37,30 @@ import CommandTabs from '@components/CommandTabs.astro';
     		npm="npm run tauri add shell"
     		yarn="yarn run tauri add shell"
     		pnpm="pnpm tauri add shell"
+            deno="deno task tauri add shell"
     		bun="bun tauri add shell"
     		cargo="cargo tauri add shell"
     	/>
     </TabItem>
     <TabItem label = "手动">
     	<Steps>
-    	1. 在你的 `Cargo.toml` 文件中添加以下内容来安装 shell 插件。
+    	1. 在 `src-tauri` 目录下，运行下面的命令。将此插件添加到项目的 `Cargo.toml` 文件的 `dependencies` 字段中。
 
-    		```toml title="src-tauri/Cargo.toml"
-    		[dependencies]
-    		tauri-plugin-shell = "2.0.0"
-    		# 或者使用 Git：
-    		tauri-plugin-shell = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    		```
+    		```sh frame=none
+            cargo add tauri-plugin-shell
+            ```
 
     	2. 修改 `lib.rs` 来初始化插件。
 
-    		```rust title="src-tauri/src/lib.rs" ins={3}
-    		fn run() {
-    				tauri::Builder::default()
-    						.plugin(tauri_plugin_shell::init())
-    						.run(tauri::generate_context!())
-    						.expect("error while running tauri application");
-    		}
-    		```
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                  	tauri::Builder::default()
+                      	.plugin(tauri_plugin_shell::init())
+                      	.run(tauri::generate_context!())
+                      	.expect("error while running tauri application");
+              }
+            ```
 
     	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
@@ -64,6 +68,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     			npm = "npm install @tauri-apps/plugin-shell"
     			yarn = "yarn add @tauri-apps/plugin-shell"
     			pnpm = "pnpm add @tauri-apps/plugin-shell"
+                deno = "deno add npm:@tauri-apps/plugin-shell"
     			bun="bun add @tauri-apps/plugin-shell"
     		/>
     	</Steps>
@@ -80,6 +85,8 @@ Shell 插件有 JavaScript 和 Rust 两种版本。
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
+// 当设置 `"withGlobalTauri": true`, 你可以使用
+// const { Command } = window.__TAURI__.shell;
 
 let result = await Command.create('exec-sh', [
   '-c',
@@ -96,17 +103,17 @@ use tauri_plugin_shell::ShellExt;
 
 let shell = app_handle.shell();
 let output = tauri::async_runtime::block_on(async move {
-		shell
-				.command("echo")
-				.args(["Hello from Rust!"])
-				.output()
-				.await
-				.unwrap()
+	shell
+		.command("echo")
+		.args(["Hello from Rust!"])
+		.output()
+		.await
+		.unwrap()
 });
 if output.status.success() {
-		println!("Result: {:?}", String::from_utf8(output.stdout));
+	println!("Result: {:?}", String::from_utf8(output.stdout));
 } else {
-		println!("Exit with code: {}", output.status.code().unwrap());
+	println!("Exit with code: {}", output.status.code().unwrap());
 }
 ```
 
@@ -116,9 +123,9 @@ if output.status.success() {
 
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
 
 ```json title="src-tauri/capabilities/default.json" ins={6-23}
 {
@@ -147,13 +154,4 @@ if output.status.success() {
 }
 ```
 
-| 权限                      | 描述                                                  |
-| ------------------------- | ----------------------------------------------------- |
-| `shell:allow-execute`     | 在没有预先配置的作用域的情况下启用 execute 命令。     |
-| `shell:deny-execute`      | 拒绝没有任何预配置范围的 execute 命令。               |
-| `shell:allow-kill`        | 在没有预先配置的作用域的情况下启用 kill 命令。        |
-| `shell:deny-kill`         | 拒绝没有任何预配置范围的 kill 命令。                  |
-| `shell:allow-open`        | 在没有预先配置的作用域的情况下启用 open 命令。        |
-| `shell:deny-open`         | 拒绝没有任何预配置范围的 open 命令。                  |
-| `shell:allow-stdin-write` | 在没有预先配置的作用域的情况下启用 stdin_write 命令。 |
-| `shell:deny-stdin-write`  | 拒绝没有任何预配置范围的 stdin_write 命令。           |
+<PluginPermissions plugin={frontmatter.plugin} />

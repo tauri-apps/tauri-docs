@@ -2,6 +2,7 @@
 title: Embedding Additional Files
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 You may need to include additional files in your application bundle that aren't part of your frontend (your `frontendDist`) directly or which are too big to be inlined into the binary. We call these files `resources`.
@@ -143,7 +144,7 @@ console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools conso
 ```
 
 [tauri.bundle]: /reference/config/#bundleconfig
-[`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
+[`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
 [`plugin-fs`]: /reference/javascript/fs/
