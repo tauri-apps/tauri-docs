@@ -127,7 +127,8 @@ Note that the return type must be [`Result`] if you use asynchronous commands.
 Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of types that implement the [`Manager`] trait (such as the `AppHandle`) to get the state:
 
 ```rust
-use tauri::{Builder, GlobalWindowEvent, Manager};
+use std::sync::Mutex;
+use tauri::{Builder, Window, WindowEvent, Manager};
 
 #[derive(Default)]
 struct AppState {
@@ -135,9 +136,9 @@ struct AppState {
 }
 
 // In an event handler:
-fn on_window_event(event: GlobalWindowEvent) {
+fn on_window_event(window: &Window, _event: &WindowEvent) {
     // Get a handle to the app so we can get the global state.
-    let app_handle = event.window().app_handle();
+    let app_handle = window.app_handle();
     let state = app_handle.state::<Mutex<AppState>>();
 
     // Lock the mutex to mutably access the state.
