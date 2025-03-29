@@ -22,7 +22,7 @@ Example Numbering（番号体系例）：　2.00.01
 
 For the details of EN/JP doc status, see the listing below: <br /> 文書番号の詳細は以下のリストを参照して下さい。
 
-**NOTE** This Rv Control number is for JP translation purpose only and does not necessarily represent the actuarl revision history of each document.<br />
+**NOTE** This Rv Control number is for JP translation purpose only and does not necessarily represent the actual revision history of each document.<br />
 **《注意》**　この変更履歴番号は、日本語翻訳管理用であり、各文書の実際の変更履歴を反映しているものではありません。
 
 ## EN/JP Doc Status list（EN/JP 文書簡易比較表）
