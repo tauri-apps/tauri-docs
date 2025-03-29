@@ -31,6 +31,6 @@ _**ブラウンフィールド型では追加の設定オプションはあり�
 [brownfield wikipedia article]: https://en.wikipedia.org/wiki/Brownfield_(software_development)
 
 <div style="text-align:right">
-【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】<br>
+【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】<br />
 Doc-JP 2.00.00
 </div>
