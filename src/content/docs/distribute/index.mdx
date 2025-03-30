@@ -20,6 +20,7 @@ Tauri builds your application directly from its CLI via the `build`, `android bu
   yarn="yarn tauri build"
   pnpm="pnpm tauri build"
   deno="deno task tauri build"
+  bun="bun tauri build"
   cargo="cargo tauri build"
 />
 
@@ -57,6 +58,11 @@ pnpm tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
 deno task tauri bundle --bundles app,dmg
 # bundle for App Store distribution
 deno task tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  bun="bun tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+bun tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+bun tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
   cargo="cargo tauri build --no-bundle
 # bundle for distribution outside the macOS App Store
 cargo tauri bundle --bundles app,dmg

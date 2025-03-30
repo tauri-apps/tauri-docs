@@ -25,6 +25,7 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
   yarn="yarn tauri build"
   pnpm="pnpm tauri build"
   deno="deno task tauri build"
+  bun="bun tauri build"
   cargo="cargo tauri build"
 />
 
@@ -129,6 +130,7 @@ Now it should be as simple as adding the runner and target to the `tauri build` 
   yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   deno="deno task tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  bun="bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
 />
 
@@ -146,8 +148,9 @@ using the `--target` flag:
   npm="npm run tauri build -- --target i686-pc-windows-msvc"
   yarn="yarn tauri build --target i686-pc-windows-msvc"
   pnpm="pnpm tauri build --target i686-pc-windows-msvc"
-  cargo="cargo tauri build --target i686-pc-windows-msvc"
   deno="deno task tauri build --target i686-pc-windows-msvc"
+  bun="bun tauri build --target i686-pc-windows-msvc"
+  cargo="cargo tauri build --target i686-pc-windows-msvc"
 />
 
 By default, Rust only installs toolchains for your machine's target,
@@ -163,6 +166,7 @@ Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc`
   yarn="yarn tauri build --target aarch64-pc-windows-msvc"
   pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
   deno="deno task tauri build --target aarch64-pc-windows-msvc"
+  bun="bun tauri build --target aarch64-pc-windows-msvc"
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 

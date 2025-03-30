@@ -1,0 +1,193 @@
+---
+title: Tauri アーキテクチャ
+sidebar:
+  order: 0
+i18nReady: true
+---
+
+## はじめに
+
+Tauri は、非常に構築しやすく、且つ、エンジニアがさまざまなアプリケーションを作成できる、多言語対応の汎用ツールキットです。Rust のツール群と Webview でレンダリングされる HTML の組み合わせを用いて、デスクトップ・コンピューター用アプリケーションの構築に利用されます。Tauri で構築されたアプリには、JavaScript API ／ Rust API をいくつでも同梱できるので、Webview はメッセージ・パッシング〔送受信〕機能を介してシステムを制御できます。開発者は、デフォルトの API を独自の機能で拡張し、Webview と Rust ベースのバックエンドを簡単に繋ぐことができます。
+
+Tauri のアプリは、[トレイ型インターフェース](/ja/learn/system-tray/)（システムトレイ／タスクトレイ）が利用できます。また、アプリは [アプリの自動更新](/ja/plugin/updater/) を利用することで、期待通りに使用中のオペレーティング・システムによって管理されるようになります。OS の WebView を使用するため、アプリ・サイズは非常に小さく、最終バイナリ（アプリ実行ファイル）が Rust からコンパイルされるため、ランタイム（実行時ファイル）は提供されません。このため、[Tauri アプリの逆解析は簡単ではありません](/ja/security/)。
+
+### Tauri は 〜ではない
+
+Tauri は軽量のカーネル・ラッパーという訳ではありません。そうではなく、OS へのシステム・コールを実行する際に、WebView レンダリング・ライブラリーの [ライ WRY](#wryライ) とウィンドウ生成ライブラリーの [タオ TAO](#taoタオ) を直接使用して、重く手間のかかる処理を実行しています。
+
+Tauri は バーチャル・マシン（VM）や仮想環境という訳でもありません。そうではなく、WebView OS アプリケーションを作成できるアプリケーション・ツールキットなのです。
+
+## コア・エコシステム
+
+<figure>
+
+```d2 sketch pad=50
+direction: up
+
+Core: {
+  shape: rectangle
+  "tauri": {
+    "tauri-runtime"
+    "tauri-macros"
+    "tauri-utils"
+  }
+
+  "tauri-build"
+  "tauri-codegen"
+  "tauri-runtime-wry"
+}
+
+Upstream: {
+  shape: rectangle
+  direction: right
+  WRY
+  TAO
+}
+
+Core."tauri"."tauri-runtime" -> Core."tauri-runtime-wry"{style.animated: true}
+
+Upstream.WRY -> Upstream.TAO{style.animated: true}
+Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
+```
+
+<figcaption>Tauri アーキテクチャの構成略図</figcaption>
+</figure>
+
+### tauri（タウリ）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri)
+
+「tauri 部」がすべてをまとめる主要クレートです。ここで、ランタイム、マクロ、ユーティリティ、API を一つの最終製品にまとめます。コンパイル時に [`tauri.conf.json`](/reference/config/) ファイルを読み込み、機能の導入とアプリの実際の構成設定を（さらにはプロジェクト・フォルダー内の `Cargo.toml` ファイル設定さえも）行ないます。実行時にはスクリプトの挿入を処理し（polyfill コードやプロトタイプの改訂用）、システム操作用の API をホスト（実行可能に）し、更新プロセスをも管理します。
+
+### tauri-runtime（タウリ・ランタイム）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime)
+
+「tauri-runtime」は、Tauri 本体と下位レベルの Webview ライブラリとを接合するレイヤーです。
+
+### tauri-macros（タウリ・マクロ）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-macros)
+
+「tauri-macros」は、[`tauri-codegen`](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen) クレートを活用して、コンテキスト、ハンドラー、およびコマンドのマクロを作成します。
+
+### tauri-utils（タウリ・ユーティリティ）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-utils)
+
+「tauri-utils」は、設定ファイルの解析、動作環境（三大プラットフォーム）の検出、CSP（クラウド・サービス・プロバイダ）の挿入、アセットの管理など、多くの場所で再利用され、便利なユーティリティを提供する共通のコードです。
+
+### tauri-build（タウリ・ビルド）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-build)
+
+「tauri-build」は、ビルド時にマクロを適用して、`cargo` に必要ないくつかの特別な機能を装備します。
+
+### tauri-codegen（タウリ・コードジェン）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen)
+
+「tauri-codegen」は、アプリのアイコンやシステム・トレイなどを含むアセット（デジタル資産）を埋め込み、ハッシュ化し、圧縮します。コンパイル時に [`tauri.conf.json`](/ja/reference/config/) を解析し、Config 構造体を生成するコード生成ツールです。
+
+### tauri-runtime-wry（タウリ・ランタイム・ライ）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime-wry)
+
+「tauri-runtime-wry」。このクレートは、印刷・モニター検出・その他のウィンドウ関連のタスクなど、特に WRY 用の直接的なシステム・レベルでの「対話型操作」（インタラクション）を開始します。
+
+## Tauri Tooling（タウリ・ツール）
+
+### API (JavaScript / TypeScript)
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/packages/api)
+
+Typescript のライブラリで、`cjs`（CommonJS モジュール）および `esm`（ECMAScript モジュール）という JavaScript 標準入出力エンドポイントを作成して、フロントエンド（ユーザー・インターフェイス）のフレームワークにインポートします。これにより、Webview がバックエンド（プログラム内部処理）でのアクティビティを呼び出して（コール）・応答待機（リッスン）できるようになります。また、いくつかのフレームワークではより最適な形態である、純然たる Typescript のみの形でも出荷されます。このライブラリは Webview からそれぞれのホスト（接続先）へのメッセージ・パッシング機能（処理依頼）を使用します。
+
+### Bundler (Rust / Shell)
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler)
+
+Bundler（バンドラー）は、検出または通知されたプラットフォーム（os）用の Tauri アプリを構築するライブラリです。現在は macOS、Windows、Linux をサポートしていますが、近い将来にはモバイル・プラットフォームもサポートされる予定です。Tauri プロジェクト以外でも使用できる可能性があります。
+
+### cli.rs (Rust)
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-cli)
+
+この Rust 実行可能ファイルは、CLI（コマンドライン・インターフェイス）が必要なすべてのアクティビティに対する完全なインターフェースを提供します。このプログラムは macOS、Windows、Linux のいずれでも動作します。
+
+### cli.js (JavaScript)
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri/tree/dev/packages/cli)
+
+cli.js は、[`napi-rs`](https://github.com/napi-rs/napi-rs) を使用して [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-cli) をどのプラットフォーム（os）でも利用できるようにしたラッパーで、npm パッケージ（Node.js Package Manager）を生成します。
+
+### create-tauri-app (JavaScript)
+
+[GitHub で閲覧](https://github.com/tauri-apps/create-tauri-app)
+
+このツールキットは、選択したフロントエンド・フレームワークを用いて、技術チームが新しい `tauri-apps` のプロジェクトを迅速に構築できるようにするためのものです（設定が行なわれている場合）。
+
+## 上流のクレート
+
+Tauri-Apps の構造には、Tauri の「上流」に二つのクレート、つまりアプリケーション・ウィンドウの作成と管理を行なう「TAO（タオ）」と、ウィンドウ内の Webview と連動する「wry（ライ）」を管理しています。
+
+### TAO（タオ）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tao)
+
+「Tao（タオ）」は、Rust のクロスプラットフォームのアプリケーション・ウィンドウ作成ライブラリで、Windows、macOS、Linux、iOS、Android など、すべての主要プラットフォームをサポートしています。Rust で書かれており、メニュー・バーやシステム・トレイなど、Tauri 独自のニーズに合わせて拡張された [winit](https://github.com/rust-windowing/winit) のフォークです。
+
+### WRY（ライ）
+
+[GitHub で閲覧](https://github.com/tauri-apps/wry)
+
+「WRY（ライ）」は、Rust のクロスプラットフォーム WebView レンダリング・ライブラリで、Windows、macOS、Linux など主要なデスクトップ・プラットフォームをすべてサポートしています。
+Tauri は WRY を抽象レイヤーとして使用し、どの Webview が使用されるか（およびどのようにインタラクション／相互交信が行なわれるか）を決定する役割を担っています。
+
+## その他のツール
+
+### tauri-action（タウリ・アクション）
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri-action)
+
+tauri-action は、すべてのプラットフォーム向けの Tauri バイナリをビルドする GitHub ワークフロー（自動化プロセス）です。Tauri が設定されていない場合でも、（非常に簡単な）Tauri アプリを作成できます。
+
+### tauri-vscode
+
+[GitHub で閲覧](https://github.com/tauri-apps/tauri-vscode)
+
+このツールは、いくつかの「あると便利な機能」で Visual Studio Code のインターフェイスを強化します。
+
+### vue-cli-plugin-tauri
+
+[GitHub で閲覧](https://github.com/tauri-apps/vue-cli-plugin-tauri)
+
+このツールを使用すると、vue-cli プロジェクトに手早く Tauri をインストールできます。
+
+## プラグイン
+
+[Tauri プラグイン・ガイド](/develop/plugins/)
+
+一般的に言えば、プラグインはサードパーティによって作成されています（公式のサポートされているプラ​​グインが存在する場合もありますが）。プラグインは通常、次の三つのことを行ないます：
+
+1. Rust のコードを「何かを行なうため」に実行可能にします
+2. アプリへの統合を容易にするインターフェースのグルー機能（glue）を提供します
+3. Rust コードとのインターフェース用 JavaScript API を提供します
+
+以下は、Tauri のプラグイン例です：
+
+- [tauri-plugin-fs](https://github.com/tauri-apps/tauri-plugin-fs)
+- [tauri-plugin-sql](https://github.com/tauri-apps/tauri-plugin-sql)
+- [tauri-plugin-stronghold](https://github.com/tauri-apps/tauri-plugin-stronghold)
+
+## ライセンス
+
+Tauri 自体は MIT または Apache-2.0 のライセンスの下で配布されています。あなたが Tauri を再パッケージ化してソース・コードを変更する場合、すべての上流のライセンスに準拠していることを確認する責任は、あなたにあります。Tauri は現状のまま無保証で提供され、どのような目的に対してもその適合性について明確に表明するものではありません。
+
+こちらで、 [ソフトウェア状態 管理表](https://app.fossa.com/projects/git%2Bgithub.com%2Ftauri-apps%2Ftauri) の詳細を確認することができます。
+
+<div style="text-align:right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>
