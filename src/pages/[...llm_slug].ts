@@ -1,6 +1,5 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
-import { doc } from "prettier";
 
 export const llmsTxtSections = ['start', 'concept', 'security', 'develop', 'distribute', 'learn', 'plugins'];
 
