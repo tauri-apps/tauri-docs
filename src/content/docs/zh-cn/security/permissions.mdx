@@ -146,8 +146,7 @@ commands.allow = [
 ```toml title="my-app/src-tauri/permissions/home-read-extends.toml"
 [[set]]
 identifier = "allow-home-read-extended"
-description = """ This allows non-recursive read access to files and to create directories
-in the `$HOME` folder.
+description = """ 将允许在 `$HOME` 目录下使用非递归方式读取文件和创建文件夹
 """
 permissions = [
     "fs:read-files",
