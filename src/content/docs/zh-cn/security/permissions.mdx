@@ -121,8 +121,7 @@ path = "$HOME/*"
 ```toml title="plugins/fs/permissions/read-files.toml"
 [[permission]]
 identifier = "read-files"
-description = """This enables all file read related
-commands without any pre-configured accessible paths."""
+description = """将允许所有读取文件的命令，无需预先指定可访问路径。"""
 commands.allow = [
     "read_file",
     "read",
