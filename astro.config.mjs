@@ -58,6 +58,11 @@ const authors = {
     title: 'Tauri Security',
     picture: '/authors/chip.png',
   },
+  tony: {
+    name: 'Tony',
+    title: 'Tauri Development',
+    picture: '/authors/tony.jpeg',
+  },
 };
 
 const site = 'https://v2.tauri.app';
