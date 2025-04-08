@@ -9,6 +9,7 @@ import Compatibility from '@components/plugins/Compatibility.astro';
 
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
@@ -33,6 +34,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     			yarn="yarn run tauri add websocket"
     			pnpm="pnpm tauri add websocket"
     			bun="bun tauri add websocket"
+                deno="deno task tauri add websocket"
     			cargo="cargo tauri add websocket"
     		/>
     </TabItem>
@@ -66,6 +68,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     			npm = "npm install @tauri-apps/plugin-websocket"
     			yarn = "yarn add @tauri-apps/plugin-websocket"
     			pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                deno = "deno add npm:@tauri-apps/plugin-websocket"
     			bun="bun add @tauri-apps/plugin-websocket"
     		/>
 
@@ -94,9 +97,9 @@ await ws.disconnect();
 
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
 
 ```json title="src-tauri/capabilities/default.json" ins={6}
 {
@@ -108,10 +111,4 @@ await ws.disconnect();
 }
 ```
 
-| 权限                      | 描述                                              |
-| ------------------------- | ------------------------------------------------- |
-| `websocket:default`       | 允许连接和发送数据到 WebSocket 服务器             |
-| `websocket:allow-connect` | 在没有预先配置的作用域的情况下启用 connect 命令。 |
-| `websocket:deny-connect`  | 拒绝没有任何预配置范围的 connect 命令。           |
-| `websocket:allow-send`    | 在没有预先配置的作用域的情况下启用 send 命令。    |
-| `websocket:deny-send`     | 拒绝没有任何预配置范围的 send 命令。              |
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -12,7 +12,7 @@ Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生�
 
 ## 检查清单
 
-- 在 `tauri.conf.json` 中使用 `dist/` 作为 `frontendDist`。
+- 在 `tauri.conf.json` 中使用 `../dist/` 作为 `frontendDist`。
 - 在真实 iOS 设备上调试时，使用 `process.env.TAURI_DEV_HOST` 环境变量作为开发服务器的 IP 地址。
 
 ## 示例配置
@@ -26,8 +26,10 @@ Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生�
     ```json
     {
       "scripts": {
-        "dev": "vite dev",
-        "build": "vite build"
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "tauri": "tauri"
       }
     }
     ```
@@ -84,6 +86,22 @@ Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生�
 
     </TabItem>
 
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
     </Tabs>
 
 1.  ##### 更新 Vite 配置：
@@ -95,11 +113,22 @@ Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生�
       // 防止 Vite 清除 Rust 显示的错误
       clearScreen: false,
       server: {
+        port: 1420,
         // Tauri 工作于固定端口，如果端口不可用则报错
         strictPort: true,
         // 如果设置了 host，Tauri 则会使用
         host: host || false,
-        port: 5173,
+        hmr: host
+          ? {
+              protocol: 'ws',
+              host,
+              port: 1421,
+            }
+          : undefined,
+        watch: {
+          // tell vite to ignore watching `src-tauri`
+          ignored: ['**/src-tauri/**'],
+        },
       },
       // 添加有关当前构建目标的额外前缀，使这些 CLI 设置的 Tauri 环境变量可以在客户端代码中访问
       envPrefix: ['VITE_', 'TAURI_ENV_*'],
