@@ -1,5 +1,5 @@
 ---
-title: Window Menu
+title: 窗口菜单
 tableOfContents:
   maxHeadingLevel: 4
 i18nReady: true
@@ -7,16 +7,16 @@ i18nReady: true
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Native application menus can be attached to both to a window or system tray. Available on desktop.
+原生应用程序菜单可附加到窗口或系统托盘。仅适用于桌面平台。
 
-## Creating a base-level menu
+## 创建一个基础菜单
 
-To create a base-level native window menu, and attach to a window:
+要创建一个基础的本机窗口菜单，并将其附加到一个窗口。
 
 <Tabs>
 <TabItem label="JavaScript">
 
-Use the [`Menu.new`] static function to create a window menu:
+使用 [`Menu.new`] 静态函数创建一个窗口菜单。
 
 ```javascript
 import { Menu } from '@tauri-apps/api/menu';
@@ -33,8 +33,7 @@ const menu = await Menu.new({
   ],
 });
 
-// If a window was not created with an explicit menu or had one set explicitly,
-// this menu will be assigned to it.
+// 如果某个窗口未显式创建菜单，或者未显式设置菜单，那么此菜单将被分配给它。
 menu.setAsAppMenu().then((res) => {
   console.log('menu set success', res);
 });
@@ -46,7 +45,7 @@ menu.setAsAppMenu().then((res) => {
 
 ```rust
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{MenuBuilder};
+use tauri::menu::{Menu, MenuItem};
 
 fn main() {
   tauri::Builder::default()
@@ -66,9 +65,9 @@ fn main() {
 </TabItem>
 </Tabs>
 
-## Listening to events on custom menu items
+## 监听自定义菜单项上事件
 
-Each custom menu item triggers an event when clicked. Use the `on_menu_event` API to handle them.
+每个自定义菜单项在被点击时都会触发一个事件。使用 `on_menu_event` API 来处理这些事件。
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -141,9 +140,9 @@ fn main() {
 </TabItem>
 </Tabs>
 
-## Creating a multi-level menu
+## 创建多级菜单
 
-To create a multi-level menu, you can add some submenus to the menu item:
+要创建多级菜单，您可以向菜单项添加一些子菜单。
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -226,7 +225,7 @@ fn main() {
                 .enabled(false)
                 .build(app)?;
 
-             // Load icon from path
+             // 从路径加载图标
             let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
 
             let icon_item = IconMenuItemBuilder::new("icon")
@@ -249,7 +248,7 @@ fn main() {
 }
 ```
 
-Note that you need to enable `image-ico` or `image-png` feature to use this API:
+请注意，您需要启用 `image-ico` 或 `image-png` 功能才能使用此 API。
 
 ```toml title="src-tauri/Cargo.toml"
 [dependencies]
@@ -259,9 +258,9 @@ tauri = { version = "...", features = ["...", "image-png"] }
 </TabItem>
 </Tabs>
 
-## Creating predefined menu
+## 创建预定义菜单
 
-To use built-in (native) menu items that has predefined behavior by the operating system or Tauri:
+若要使用由操作系统或 Tauri 预先定义了行为的内置（原生）菜单项。
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -339,18 +338,18 @@ fn main() {
 }
 ```
 
-For more preset capabilities, please refer to the documentation [`PredefinedMenuItem`].
+有关更多预设功能，请参阅文档 [`PredefinedMenuItem`]。
 
 :::tip
-The menu builder has dedicated methods to add each predefined menu item so you can call `.copy()` instead of `.item(&PredefinedMenuItem::copy(app, None)?)`.
+菜单构建器为添加每个预定义的菜单项都设有专门的方法，因此您可以调用 `.copy()` 替代 `.item(&PredefinedMenuItem::copy(app, None)?)`。
 :::
 
 </TabItem>
 </Tabs>
 
-## Change menu status
+## 更改菜单状态
 
-If you want to change the status of the menu, such as text, icon, or check status, you can `set_menu` again:
+如果您想要更改菜单的状态，例如文本、图标或选中状态，可以再次使用 `set_menu`。
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -391,7 +390,7 @@ const check_sub_item_zh = await CheckMenuItem.new({
   },
 });
 
-// Load icon from path
+// 从路径加载图标
 const icon = await Image.fromPath('../src/icon.png');
 const icon2 = await Image.fromPath('../src/icon-2.png');
 
@@ -432,7 +431,7 @@ await menu.setAsAppMenu();
 <TabItem label="Rust">
 
 ```rust
-// change-menu-status
+// 更改菜单状态
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::{
