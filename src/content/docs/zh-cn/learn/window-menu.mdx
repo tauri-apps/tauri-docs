@@ -33,8 +33,7 @@ const menu = await Menu.new({
   ],
 });
 
-// If a window was not created with an explicit menu or had one set explicitly,
-// this menu will be assigned to it.
+// 如果某个窗口未显式创建菜单，或者未显式设置菜单，那么此菜单将被分配给它。
 menu.setAsAppMenu().then((res) => {
   console.log('menu set success', res);
 });
@@ -226,7 +225,7 @@ fn main() {
                 .enabled(false)
                 .build(app)?;
 
-             // Load icon from path
+             // 从路径加载图标
             let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
 
             let icon_item = IconMenuItemBuilder::new("icon")
@@ -391,7 +390,7 @@ const check_sub_item_zh = await CheckMenuItem.new({
   },
 });
 
-// Load icon from path
+// 从路径加载图标
 const icon = await Image.fromPath('../src/icon.png');
 const icon2 = await Image.fromPath('../src/icon-2.png');
 
