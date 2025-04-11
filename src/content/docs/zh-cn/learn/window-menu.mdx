@@ -45,7 +45,7 @@ menu.setAsAppMenu().then((res) => {
 
 ```rust
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{Menu, MenuItem};
+use tauri::menu::{MenuBuilder};
 
 fn main() {
   tauri::Builder::default()
