@@ -348,7 +348,7 @@ Always call `file.close()` when you are done manipulating the file.
 
 - createNew
 
-  `createNew` works similarly to `create`, but if the file does not exist, the operation fails.
+  `createNew` works similarly to `create`, but will fail if the file already exists.
 
   ```js
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
