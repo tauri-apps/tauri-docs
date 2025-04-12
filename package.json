@@ -41,7 +41,7 @@
     "sharp": "^0.33.2",
     "shiki": "^1.1.7",
     "starlight-blog": "^0.15.0",
-    "starlight-links-validator": "^0.13.0"
+    "starlight-links-validator": "^0.16.0"
   },
   "packageManager": "pnpm@10.7.1",
   "engines": {

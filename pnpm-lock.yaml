@@ -71,8 +71,8 @@ importers:
         specifier: ^0.15.0
         version: 0.15.0(@astrojs/starlight@0.29.2(patch_hash=cce5b634885e07791c60f64102f8e7a74def815cdbc19d8aa069b9f4602f2890)(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       starlight-links-validator:
-        specifier: ^0.13.0
-        version: 0.13.4(@astrojs/starlight@0.29.2(patch_hash=cce5b634885e07791c60f64102f8e7a74def815cdbc19d8aa069b9f4602f2890)(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
+        specifier: ^0.16.0
+        version: 0.16.0(@astrojs/starlight@0.29.2(patch_hash=cce5b634885e07791c60f64102f8e7a74def815cdbc19d8aa069b9f4602f2890)(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))
 
   packages/cli-generator:
     dependencies:
@@ -1551,8 +1551,8 @@ packages:
   '@types/node@22.13.14':
     resolution: {integrity: sha512-Zs/Ollc1SJ8nKUAgc7ivOEdIBM8JAKgrqqUYi2J997JuKO7/tpQC+WCetQ1sypiKCQWHdvdg9wBNpUPEWZae7w==}
 
-  '@types/picomatch@2.3.3':
-    resolution: {integrity: sha512-Yll76ZHikRFCyz/pffKGjrCwe/le2CDwOP5F210KQo27kpRE46U2rDnzikNlVn6/ezH3Mhn46bJMTfeVTtcYMg==}
+  '@types/picomatch@3.0.2':
+    resolution: {integrity: sha512-n0i8TD3UDB7paoMMxA3Y65vUncFJXjcUf7lQY7YyKGl6031FNjfsLs6pdLFCy2GNFxItPJG8GvvpbZc2skH7WA==}
 
   '@types/resolve@1.17.1':
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
@@ -2351,9 +2351,6 @@ packages:
 
   hast-util-format@1.1.0:
     resolution: {integrity: sha512-yY1UDz6bC9rDvCWHpx12aIBGRG7krurX0p0Fm6pT547LwDIZZiNr8a+IHDogorAdreULSEzP82Nlv5SZkHZcjA==}
-
-  hast-util-from-html@2.0.1:
-    resolution: {integrity: sha512-RXQBLMl9kjKVNkJTIO6bZyb2n+cUH8LFaSSzo82jiLT6Tfc+Pt7VQCS+/h3YwG4jaNE2TA2sdJisGWR+aJrp0g==}
 
   hast-util-from-html@2.0.3:
     resolution: {integrity: sha512-CUSRHXyKjzHov8yKsQjGOElXy/3EKpyX56ELnkHH34vDVw1N1XSQ1ZcAvTyAPtGqLTuKP/uxM+aLkSPqF/EtMw==}
@@ -3438,12 +3435,11 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.28.3'
 
-  starlight-links-validator@0.13.4:
-    resolution: {integrity: sha512-LdmLbJyPHVrSUhcuxiP3pJNnW8zRcOg/32C996Ic0LOCKbB8vylqHLvAMdIhT67FvEV4eAROun+2wTVU2J156A==}
-    engines: {node: '>=18.14.1'}
+  starlight-links-validator@0.16.0:
+    resolution: {integrity: sha512-wInToor19C7UxhesPuxTBIhB1LH1wzNQHD4HaumfcB+yFhg5u80yQEnkZDrABHrUEEEwFm//NoZbWhnUj1m2ug==}
+    engines: {node: '>=18.17.1'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.15.0'
-      astro: '>=4.0.0'
+      '@astrojs/starlight': '>=0.32.0'
 
   stdin-discarder@0.2.2:
     resolution: {integrity: sha512-UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==}
@@ -5435,7 +5431,7 @@ snapshots:
     dependencies:
       undici-types: 6.20.0
 
-  '@types/picomatch@2.3.3': {}
+  '@types/picomatch@3.0.2': {}
 
   '@types/resolve@1.17.1':
     dependencies:
@@ -6330,15 +6326,6 @@ snapshots:
       hast-util-whitespace: 3.0.0
       html-whitespace-sensitive-tag-names: 3.0.0
       unist-util-visit-parents: 6.0.1
-
-  hast-util-from-html@2.0.1:
-    dependencies:
-      '@types/hast': 3.0.4
-      devlop: 1.1.0
-      hast-util-from-parse5: 8.0.2
-      parse5: 7.2.1
-      vfile: 6.0.3
-      vfile-message: 4.0.2
 
   hast-util-from-html@2.0.3:
     dependencies:
@@ -7985,19 +7972,21 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.13.4(@astrojs/starlight@0.29.2(patch_hash=cce5b634885e07791c60f64102f8e7a74def815cdbc19d8aa069b9f4602f2890)(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)))(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
+  starlight-links-validator@0.16.0(@astrojs/starlight@0.29.2(patch_hash=cce5b634885e07791c60f64102f8e7a74def815cdbc19d8aa069b9f4602f2890)(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))):
     dependencies:
       '@astrojs/starlight': 0.29.2(patch_hash=cce5b634885e07791c60f64102f8e7a74def815cdbc19d8aa069b9f4602f2890)(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
-      '@types/picomatch': 2.3.3
-      astro: 4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
+      '@types/picomatch': 3.0.2
       github-slugger: 2.0.0
-      hast-util-from-html: 2.0.1
+      hast-util-from-html: 2.0.3
       hast-util-has-property: 3.0.0
       is-absolute-url: 4.0.1
       kleur: 4.1.5
+      mdast-util-mdx-jsx: 3.1.3
       mdast-util-to-string: 4.0.0
       picomatch: 4.0.2
       unist-util-visit: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
 
   stdin-discarder@0.2.2: {}
 
