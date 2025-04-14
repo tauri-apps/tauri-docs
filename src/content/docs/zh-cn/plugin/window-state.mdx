@@ -9,6 +9,7 @@ import Compatibility from '@components/plugins/Compatibility.astro';
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
@@ -33,6 +34,7 @@ import CommandTabs from '@components/CommandTabs.astro';
   npm="npm run tauri add window-state"
   yarn="yarn run tauri add window-state"
   pnpm="pnpm tauri add window-state"
+  deno="deno task tauri add window-state"
   bun="bun tauri add window-state"
   cargo="cargo tauri add window-state"
 />
@@ -66,6 +68,7 @@ fn main() {
       npm="npm install @tauri-apps/plugin-window-state"
       yarn="yarn add @tauri-apps/plugin-window-state"
       pnpm="pnpm add @tauri-apps/plugin-window-state"
+      deno="deno add npm:@tauri-apps/plugin-window-state"
       bun="bun add @tauri-apps/plugin-window-state"
   />
   </TabItem>
@@ -73,7 +76,7 @@ fn main() {
 
 ## 用法
 
-添加后，当应用程序被关闭时，将记住所有窗口的状态，并在下一次启动时恢复到之前的状态。
+添加窗口状态插件后，应用程序关闭时所有窗口的状态都会被记住，并且在下次启动时会恢复到之前的状态。
 
 你也可以在 JavaScript 和 Rust 中访问窗口状态插件。
 
@@ -120,24 +123,17 @@ window.restore_state(StateFlags::all()); // 将从磁盘恢复窗口的状态
 
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。
-你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
 
 ```json title="src-tauri/capabilities/default.json" ins={4-5}
 {
   "permissions": [
     ...,
-    "window-state:allow-restore-window-state",
-    "window-state:allow-save-window-state",
+    "window-state:default",
   ]
 }
 ```
 
-| 权限                                      | 描述                                                         |
-| ----------------------------------------- | ------------------------------------------------------------ |
-| `window-state:allow-restore-window-state` | 启用 restore_window_state 命令，不需要任何预先配置的作用域。 |
-| `window-state:deny-restore-window-state`  | 拒绝没有任何预配置范围的 restore_window_state 命令。         |
-| `window-state:allow-save-window-state`    | 启用 save_window_state 命令，不需要预先配置作用域。          |
-| `window-state:deny-save-window-state`     | 拒绝没有任何预先配置的作用域的 save_window_state 命令。      |
+<PluginPermissions plugin={frontmatter.plugin} />
