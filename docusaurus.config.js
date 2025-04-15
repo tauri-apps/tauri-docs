@@ -251,8 +251,8 @@ async function siteConfig() {
       announcementBar: {
         content:
           "This documentation covers Tauri 1 (<b>old version</b>). For the latest version, see <a id='announcement-link' href='https://tauri.app/'>https://tauri.app/</a>",
-        backgroundColor: 'var(--ifm-color-warning-contrast-background)',
-        textColor: 'var(--ifm-color-warning-contrast-foreground)',
+        backgroundColor: 'var(--ifm-color-danger-contrast-background)',
+        textColor: 'var(--ifm-color-danger-contrast-foreground)',
       },
       navbar: {
         hideOnScroll: false,
