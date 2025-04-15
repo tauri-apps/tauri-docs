@@ -299,6 +299,7 @@ async function siteConfig() {
               current: {
                 label: unreleasedTauriVersion,
                 path: unreleasedTauriVersion,
+                banner: 'unmaintained',
               },
               // If there is a "latest" version, map url to version number
               ...(lastestReleasedVersion && {
