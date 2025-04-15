@@ -225,7 +225,7 @@ const footerLinks = [
 async function siteConfig() {
   const mdxMermaid = await import('mdx-mermaid')
   return {
-    title: 'Tauri Apps',
+    title: 'Tauri v1',
     tagline:
       'Build smaller, faster, and more secure desktop applications with a web frontend',
     organizationName: 'Tauri Apps',
