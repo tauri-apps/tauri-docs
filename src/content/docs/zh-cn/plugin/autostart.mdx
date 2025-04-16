@@ -56,7 +56,7 @@ import PluginPermissions from '@components/PluginPermissions.astro';
                 tauri::Builder::default()
                     .setup(|app| {
                         #[cfg(desktop)]
-                        app.handle().plugin(tauri_plugin_autostart::init(tauri_plugin_autostart::MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"]) /* arbitrary number of args to pass to your app */));
+                        app.handle().plugin(tauri_plugin_autostart::init(tauri_plugin_autostart::MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"]) /* 传递给应用程序的任意数量的参数 */));
                         Ok(())
                     })
                     .run(tauri::generate_context!())
