@@ -42,25 +42,23 @@ import PluginPermissions from '@components/PluginPermissions.astro';
     <TabItem label = "手动">
     	<Steps>
 
-    	1. 在你的 `Cargo.toml` 文件中添加以下内容来安装 websocket 插件。
+    	1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
 
-    		```toml title="src-tauri/Cargo.toml"
-    		[dependencies]
-    		tauri-plugin-websocket = "2.0.0"
-    		# 或者使用 Git：
-    		tauri-plugin-websocket = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    		```
+    		```sh frame=none
+            cargo add tauri-plugin-websocket
+            ```
 
     	2. 修改 `lib.rs` 来初始化插件。
 
-    		```rust title="src-tauri/src/lib.rs" ins={3}
-    		fn run() {
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+    			#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    			pub fn run() {
     				tauri::Builder::default()
-    						.plugin(tauri_plugin_websocket::init())
-    						.run(tauri::generate_context!())
-    						.expect("error while running tauri application");
-    		}
-    		```
+    					.plugin(tauri_plugin_websocket::init())
+    					.run(tauri::generate_context!())
+    					.expect("error while running tauri application");
+    			}
+            ```
 
     	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
