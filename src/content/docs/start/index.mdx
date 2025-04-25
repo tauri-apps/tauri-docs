@@ -1,50 +1,109 @@
----
-title: What is Tauri?
-i18nReady: true
-sidebar:
-  order: 0
----
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(tab => tab.style.display='none');
+  document.getElementById(id).style.display='block';
+  if(id==="center") renderCentre();
+}
 
-Tauri is a framework for building tiny, fast binaries for all major desktop and mobile platforms. Developers can integrate any frontend framework that compiles to HTML, JavaScript, and CSS for building their user experience while leveraging languages such as Rust, Swift, and Kotlin for backend logic when needed.
+// Sauvegarde générique
+function saveData(key, data) {
+  const arr = JSON.parse(localStorage.getItem(key)||'[]');
+  arr.push(data);
+  localStorage.setItem(key, JSON.stringify(arr));
+}
 
-Get started building with [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) by using one of the below commands. Be sure to follow the [prerequisites guide](/start/prerequisites/) to install all of the dependencies required by Tauri and then view the [Frontend Configuration guides](/start/frontend/) for recommended frontend configurations.
+// Affichage générique
+function renderList(key, listId, formatter) {
+  const arr = JSON.parse(localStorage.getItem(key)||'[]');
+  document.getElementById(listId).innerHTML =
+    arr.map((item,idx) => `<li>${formatter(item,idx)}</li>`).join('');
+}
 
-import Cta from '../_fragments/cta.mdx';
+// FPR
+document.getElementById('fprForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  saveData('fpr',{nom:fprNom.value,prenom:fprPrenom.value,dob:fprDob.value,motif:fprMotif.value,date:new Date().toLocaleString()});
+  fprForm.reset();
+  renderList('fpr','fprList',(i,_)=>`${i.date}: ${i.nom} ${i.prenom} - ${i.dob} - ${i.motif}`);
+});
+renderList('fpr','fprList',(i,_)=>`${i.date}: ${i.nom} ${i.prenom} - ${i.dob} - ${i.motif}`);
 
-<Cta />
+// SIV
+document.getElementById('sivForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  saveData('siv',{imm:sivImm.value,prop:sivProp.value,infos:sivInfos.value,date:new Date().toLocaleString()});
+  sivForm.reset();
+  renderList('siv','sivList',(i,_)=>`${i.date}: ${i.imm} - ${i.prop} - ${i.infos}`);
+});
+renderList('siv','sivList',(i,_)=>`${i.date}: ${i.imm} - ${i.prop} - ${i.infos}`);
 
-After you've created your first app you can explore the different features and recipes of Tauri in the [List of Features & Recipes](/plugin/).
+// Auditions
+function saveAudition(){
+  const txt=audText.value;
+  saveData('aud',{content:txt,date:new Date().toLocaleString()});
+  audText.value='';
+  renderList('aud','audList',(i,_)=>`${i.date}: ${i.content}`);
+}
+renderList('aud','audList',(i,_)=>`${i.date}: ${i.content}`);
 
-## Why Tauri?
+// Urgences
+function saveUrgence(){
+  saveData('urg',{num:urgNumber.value,loc:urgLoc.value,msg:urgMsg.value,date:new Date().toLocaleString()});
+  urgNumber.value=''; urgLoc.value=''; urgMsg.value='';
+  renderList('urg','urgList',(i,_)=>`${i.date}: ${i.num} at ${i.loc} - ${i.msg}`);
+}
+renderList('urg','urgList',(i,_)=>`${i.date}: ${i.num} at ${i.loc} - ${i.msg}`);
 
-Tauri has 3 main advantages for developers to build upon:
+// Centre Alertes
+function renderCentre(){
+  renderList('urg','centerList',(i,idx)=>`
+    ${i.date}: ${i.num} at ${i.loc} - ${i.msg}
+    <select onchange="dispatch(${idx},this.value)">
+      <option value="">Affecter</option>
+      <option>Police</option><option>Pompiers</option><option>SAMU</option>
+    </select>
+    <span id="stat${idx}">${i.dispatched||''}</span>
+  `);
+}
+function dispatch(idx, unit){
+  const arr = JSON.parse(localStorage.getItem('urg')||'[]');
+  arr[idx].dispatched = unit;
+  localStorage.setItem('urg', JSON.stringify(arr));
+  document.getElementById(`stat${idx}`).innerText = unit;
+}
+renderCentre();
 
-- Secure foundation for building apps
-- Smaller bundle size by using the system's native webview
-- Flexibility for developers to use any frontend and bindings for multiple languages
+// Garde à vue
+document.getElementById('gardeForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  saveData('garde',{succ:gardeSuspect.value,motif:gardeMotif.value,start:gardeStart.value,end:gardeEnd.value,agent:gardeAgent.value,date:new Date().toLocaleString()});
+  gardeForm.reset();
+  renderList('garde','gardeList',(i,_)=>`${i.date}: ${i.succ} - ${i.motif} (${i.start}→${i.end}) par ${i.agent}`);
+});
+renderList('garde','gardeList',(i,_)=>`${i.date}: ${i.succ} - ${i.motif} (${i.start}→${i.end}) par ${i.agent}`);
 
-Learn more about the Tauri philosophy in the [Tauri 1.0 blog post](/blog/tauri-1-0/).
+// Procureur
+document.getElementById('procForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  saveData('proc',{num:procNum.value,type:procType.value,statut:procStatut.value,date:new Date().toLocaleString()});
+  procForm.reset();
+  renderList('proc','procList',(i,_)=>`${i.date}: ${i.num} - ${i.type} - ${i.statut}`);
+});
+renderList('proc','procList',(i,_)=>`${i.date}: ${i.num} - ${i.type} - ${i.statut}`);
 
-### Secure Foundation
+// Justice
+document.getElementById('justForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  saveData('just',{ref:justRef.value,desc:justDesc.value,dateF:justDate.value,date:new Date().toLocaleString()});
+  justForm.reset();
+  renderList('just','justList',(i,_)=>`${i.date}: ${i.ref} - ${i.desc} (${i.dateF})`);
+});
+renderList('just','justList',(i,_)=>`${i.date}: ${i.ref} - ${i.desc} (${i.dateF})`);
 
-By being built on Rust, Tauri is able to take advantage of the memory, thread, and type-safety offered by Rust. Apps built on Tauri can automatically get those benefits even without needing to be developed by Rust experts.
-
-Tauri also undergoes a security audit for major and minor releases. This not only covers code in the Tauri organization, but also for upstream dependencies that Tauri relies on. Of course this doesn't mitigate all risks, but it provides a solid foundation for developers to build on top of.
-
-Read the [Tauri security policy](https://github.com/tauri-apps/tauri/security/policy) and the [Tauri 2.0 audit report](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf).
-
-### Smaller App Size
-
-Tauri apps take advantage of the web view already available on every user's system. A Tauri app only contains the code and assets specific for that app and doesn't need to bundle a browser engine with every app. This means that a minimal Tauri app can be less than 600KB in size.
-
-Learn more about creating optimized apps in the [App Size concept](/concept/size/).
-
-### Flexible Architecture
-
-Since Tauri uses web technologies that means that virtually any frontend framework is compatible with Tauri. The [Frontend Configuration guide](/start/frontend/) contains common configurations for popular frontend frameworks.
-
-Bindings between JavaScript and Rust are available to developers using the `invoke` function in JavaScript and Swift and Kotlin bindings are available for [Tauri Plugins](/develop/plugins/).
-
-[TAO](https://github.com/tauri-apps/tao) is responsible for Tauri window creation and [WRY](https://github.com/tauri-apps/wry) is responsible for web view rendering. These are libraries maintained by Tauri and can be consumed directly if deeper system integration is required outside of what Tauri exposes.
-
-In addition, Tauri maintains a number of plugins to extend what core Tauri exposes. You can find those plugins alongside those provided by the community in the [Plugins section](/plugin/).
+// Téléphone
+function makeCall(){
+  const num=phoneNumber.value;
+  saveData('phone',{num,dir:'out',date:new Date().toLocaleString()});
+  renderList('phone','phoneList',(i,_)=>`${i.date}: Appel vers ${i.num}`);
+  phoneNumber.value='';
+}
+renderList('phone','phoneList',(i,_)=>`${i.date}: Appel vers ${i.num}`);
