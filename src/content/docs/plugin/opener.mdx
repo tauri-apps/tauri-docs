@@ -115,6 +115,8 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
+Here is an example on how add permission to a specific path for the openPath() function:
+
 ```json title="src-tauri/capabilities/default.json" ins={6-15}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
@@ -129,6 +131,23 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
           "path": "/path/to/file"
         }
       ]
+    }
+  ]
+}
+```
+
+Here is an example on how add permission for a custom protocol for the openUrl() function:
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [{ "url": "custom:*" }]
     }
   ]
 }
