@@ -52,6 +52,10 @@ cargo update
 
 Alternatively, you can run the `cargo upgrade` command provided by [cargo-edit] which does all of this automatically.
 
+## Sync npm Packages and Cargo Crates versions
+
+Since the JavaScript APIs rely on Rust code in the backend, adding a new feature requires upgrading both sides to ensure compatibility. Please make sure you have the same minor version of the npm package `@tauri-apps/api` and cargo crate `tauri` synced, this is also needed for the plugins, for example, you need to sync the minor version of npm package `@tauri-apps/plugin-fs` and cargo crate `tauri-plugin-fs`
+
 [`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
 [tauri]: https://crates.io/crates/tauri/versions
 [tauri-build]: https://crates.io/crates/tauri-build/versions
