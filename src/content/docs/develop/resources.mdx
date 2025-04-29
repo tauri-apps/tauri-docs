@@ -105,24 +105,18 @@ fn hello(handle: tauri::AppHandle) -> String {
 
 ## Accessing files in JavaScript
 
-This is based on the example above.
+For the JavaScript side, you can either use a command like the one above and call it through `await invoke('hello')` or access the files using the [`plugin-fs`]
 
-Note that you must configure the access control list to enable any [`plugin-fs`] APIs you will need as well as permissions to access the `$RESOURCE` folder:
+When using the [`plugin-fs`], addition from the [basic setup], you'll also need to configure the access control list to enable any [`plugin-fs`] APIs you will need as well as permissions to access the `$RESOURCE` folder:
 
-```json title=src-tauri/capabilities/default.json ins={14-15}
+```json title=src-tauri/capabilities/default.json ins={8-9}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
   "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
+    "core:default",
     "fs:allow-read-text-file",
     "fs:allow-resource-read-recursive"
   ]
@@ -147,6 +141,7 @@ console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools conso
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
-[`plugin-fs`]: /reference/javascript/fs/
+[`plugin-fs`]: /plugin/file-system/
+[basic setup]: /plugin/file-system/#setup
 [Scope Permissions]: /plugin/file-system/#scopes
 [scopes]: /plugin/file-system/#scopes
