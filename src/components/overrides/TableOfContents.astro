@@ -1,9 +1,9 @@
 ---
 import TableOfContentsList from './TableOfContents/TableOfContentsList.astro';
-import type { Props as BaseProps } from '@astrojs/starlight/props';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 
-type Props = BaseProps & {
-  toc: BaseProps['toc'] & {
+type Props = StarlightRouteData & {
+  toc: StarlightRouteData['toc'] & {
     collapseLevel?: number;
   };
 };
