@@ -50,7 +50,7 @@ There are a few limitations in the Isolation pattern that arose out of platform 
 
 ## Recommendations
 
-Because the point of the Isolation application is to protect against Development Threats, we highly recommend keeping your Isolation application as simple as possible. Not only should you strive to keep dependencies minimal, but you should also consider keeping required build steps minimal. This would allow you to not need to worry about supply chain attacks against your Isolation application on top of your frontend application.
+Because the point of the Isolation application is to protect against Development Threats, we highly recommend keeping your Isolation application as simple as possible. Not only should you strive to keep dependencies of your isolation application minimal, but you should also consider keeping its required build steps minimal. This would allow you to not need to worry about supply chain attacks against your Isolation application on top of your frontend application.
 
 ## Creating the Isolation Application
 
