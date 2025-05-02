@@ -25,7 +25,7 @@ export function TranslationNeedsReview() {
     <need-review-element></need-review-element>
     <script nonce="abc123">
       class NeedReviewElement extends HTMLElement {
-        url = 'https://api.github.com/repos/tauri-apps/tauri-docs/pulls?state=open&per_page=100';
+        url = 'https://api.github.com/repos/tauri-apps/tauri-docs/pulls?state=open&per_page=100&base=v2';
         constructor() {
           super();
 
