@@ -5,10 +5,11 @@ import {
   ensureTrailingSlash,
 } from 'node_modules/@astrojs/starlight/utils/path';
 import { CardGrid } from '@astrojs/starlight/components';
-import { routes, type Route } from 'node_modules/@astrojs/starlight/utils/routing';
+import { routes } from 'node_modules/@astrojs/starlight/utils/routing';
 
 // custom component copied from starlight/components/LinkCard
 import CustomLinkCard from '@components/plugins/CustomLinkCard.astro';
+import type { Route } from 'node_modules/@astrojs/starlight/utils/routing/types';
 
 interface Props {
   /**
