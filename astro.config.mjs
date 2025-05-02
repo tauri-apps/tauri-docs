@@ -94,13 +94,13 @@ export default defineConfig({
         light: './src/assets/logo_light.svg',
         replacesTitle: true,
       },
-      social: {
-        github: 'https://github.com/tauri-apps/tauri',
-        discord: 'https://discord.com/invite/tauri',
-        twitter: 'https://twitter.com/TauriApps',
-        mastodon: 'https://fosstodon.org/@TauriApps',
-        rss: `${site}/rss/`,
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/tauri-apps/tauri' },
+        { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
+        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
+        { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
+        { icon: 'rss', label: 'RSS', href: `${site}/rsspa` },
+      ],
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
