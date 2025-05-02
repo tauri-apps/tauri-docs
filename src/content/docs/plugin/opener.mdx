@@ -115,6 +115,10 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
+Below are two example scope configurations. Both `path` and `url` use the [glob pattern syntax](https://docs.rs/glob/latest/glob/struct.Pattern.html) to define allowed file paths and URLs.
+
+First, an example on how to add permissions to specific paths for the `openPath()` function:
+
 ```json title="src-tauri/capabilities/default.json" ins={6-15}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
@@ -127,8 +131,34 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
       "allow": [
         {
           "path": "/path/to/file"
+        },
+        {
+          "path": "$APPDATA/file"
         }
       ]
+    }
+  ]
+}
+```
+
+Lastly, an example on how to add permissions for the exact `https://tauri.app` URL and all URLs on a custom protocol (must be known to the OS) for the `openUrl()` function:
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://tauri.app"
+        },
+        {
+          "url": "custom:*"
+        }
     }
   ]
 }

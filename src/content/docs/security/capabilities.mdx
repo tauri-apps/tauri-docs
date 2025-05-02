@@ -9,8 +9,9 @@ Tauri provides application and plugin developers with a capabilities system,
 to granually enable and constrain the core exposure to the application frontend running in the
 system WebView.
 
-Capabilities are a set of [permissions](/security/permissions/) mapped
-to application windows and webviews by their respective label.
+Capabilities define which [permissions](/security/permissions/)
+are granted or denied for which windows or webviews.
+
 Capabilities can affect multiple windows and webviews and these can be
 referenced in multiple capabilities.
 
@@ -37,8 +38,8 @@ only these are used in the application build.
 For a full reference of the configuration scheme please see the
 [references](/reference/config/) section.
 
-The following example JSON defines a capability that enables default functionality
-for core plugins and the `window.setTitle` API.
+The following example JSON defines a capability that allows the main window
+use the default functionality of core plugins and the `window.setTitle` API.
 
 ```json title="src-tauri/capabilities/default.json"
 {
