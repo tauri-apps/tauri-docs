@@ -7,7 +7,7 @@ settings:
 patchedDependencies:
   '@astrojs/starlight@0.34.2':
     hash: a88571c9b222fdf3575d398f4759b3ce02729c62c1d923d1bac0a106b557a35c
-    path: patches/@astrojs__starlight@0.32.2.patch
+    path: patches/@astrojs__starlight@0.34.2.patch
 
 importers:
 
