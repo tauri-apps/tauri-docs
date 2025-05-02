@@ -50,7 +50,7 @@ function compareOrder(a: Route, b: Route): boolean {
   return a.entry.data.sidebar.order > b.entry.data.sidebar.order;
 }
 
-let { slug } = Astro.props;
+let { slug } = Astro.locals.starlightRoute;
 const {
   filterOutByTitle = [],
   filterOutByFileName = [],
@@ -154,9 +154,9 @@ if (!sortAlphabetically) {
       return (
         <CustomLinkCard
           title={item.entry.data.title}
-          href={`/${item.slug}/`}
+          href={`/${item.id}/`}
           description={item.entry.data.description}
-          footer={callback instanceof Function && callback(item.slug)}
+          footer={callback instanceof Function && callback(item.id)}
         />
       );
     })
@@ -167,9 +167,9 @@ if (!sortAlphabetically) {
         <CustomLinkCard
           class="fallback-badge"
           title={item.entry.data.title}
-          href={`/${item.slug}/`}
+          href={`/${item.id}/`}
           description={item.entry.data.description}
-          footer={callback instanceof Function && callback(item.slug)}
+          footer={callback instanceof Function && callback(item.id)}
         />
       ))
   }
