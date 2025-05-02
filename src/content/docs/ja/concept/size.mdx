@@ -1,0 +1,77 @@
+---
+title: アプリのサイズ
+sidebar:
+  order: 0
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Tauri はデフォルトで非常に小さなバイナリ・サイズになりますが、その一方で、その限界点を少し押し広げても問題はないでしょう。ここでは、最適な結果を得るためのヒントとコツをいくつか紹介します。
+
+## Cargo の設定
+
+作業中のプロジェクトに対して、フロントエンドに依存しないで行なえる最も簡単なサイズ改善の一つが、「Cargo プロファイル」を追加することです。
+
+Stable 版（安定版）の Rust ツールチェーンを使用するか、Nightly 版（ナイトリー版／最新開発版）の Rust ツールチェーンを使用するかによって、利用できるオプションが若干異なります。上級ユーザーでない限り、安定版のツールチェーンを使用することをお勧めします。
+
+<Tabs>
+<TabItem label="Stable">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # Compile your binary in smaller steps.
+
+[profile.release]
+codegen-units = 1 # Allows LLVM to perform better optimization.
+lto = true # Enables link-time-optimizations.
+opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
+panic = "abort" # Higher performance by disabling panic handlers.
+strip = true # Ensures debug symbols are removed.
+
+````
+</TabItem>
+
+<TabItem label="Nightly">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # Compile your binary in smaller steps.
+rustflags = ["-Zthreads=8"] # Better compile performance.
+
+[profile.release]
+codegen-units = 1 # Allows LLVM to perform better optimization.
+lto = true # Enables link-time-optimizations.
+opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
+panic = "abort" # Higher performance by disabling panic handlers.
+strip = true # Ensures debug symbols are removed.
+trim-paths = "all" # Removes potentially privileged information from your binaries.
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # Better compile performance.
+````
+
+</TabItem>
+</Tabs>
+
+### 参考情報
+
+:::note
+以下のリストは、利用可能なすべてのオプションを載せた全体版ではなく、特に注目していただきたいオプションを記載したものです。
+:::
+
+- [incremental:](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental)　バイナリをより細かな単位毎にコンパイルします。
+- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units)　コンパイル時間の最適化を犠牲にしてコンパイル時間を短縮します。
+- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto)　リンク時の最適化を有効にします。
+- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level)　コンパイラのフォーカス内容を決定します。「パフォーマンス」の最適化には `3` を、「サイズ」の最適化には `z` を、 その「中間」には `s` を指定します。
+- [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic)　エラー・ハンドリング時の「パニック・アンワインド」（異常・巻き戻し情報）を削除してサイズを縮小します。
+- [strip:](https://doc.rust-lang.org/cargo/reference/profiles.html#strip)　バイナリからシンボルまたはデバッグ情報を削除します。
+- [rpath:](https://doc.rust-lang.org/cargo/reference/profiles.html#rpath)　バイナリ内に必要情報を書き込む（ハード・コーディングする）ことで、バイナリに必要な動的ライブラリを見つける手助けをします。
+- [trim-paths:](https://rust-lang.github.io/rfcs/3127-trim-paths.html)　バイナリから部外秘の可能性がある情報を削除します。
+- [rustflags:](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option)　プロファイル毎に Rust コンパイラ・フラグを設定します。
+  - `-Cdebuginfo=0`：　ビルドに「debuginfo シンボル」を含めるかどうかを指定します。
+  - `-Zthreads=8`：　コンパイル時に使用されるスレッドの数を増やします。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>
