@@ -79,7 +79,6 @@ export default defineConfig({
             switcherStyle: 'horizontalList',
           },
         }),
-        starlightBlog({ authors }),
         starlightLinksValidator({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
