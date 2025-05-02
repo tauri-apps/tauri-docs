@@ -10,7 +10,7 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 本页面旨在解释 Tauri 设计和生态系统核心的高级概念和安全特性，这些特性默认情况下能让你和构建的应用程序以及它们的用户更加安全。
 
-本页面还包括最佳实践建议、如何向我们报告漏洞，以及详细概念说明的参考。
+本页面还包括最佳实践建议，如何向我们报告漏洞，以及详细概念说明的参考。
 
 :::note
 
@@ -36,7 +36,7 @@ Tauri 的安全模型严格区分以下两类代码：
 对跨越边界传递的所有数据进行严格检查与明确定义，是防止信任边界违规的关键。
 若这些边界间的数据传递缺乏访问控制，攻击者将极易通过此漏洞提升并滥用权限。
 
-[IPC层（进程间通信层）](/concept/inter-process-communication/) 作为两个信任组之间的通信桥梁，并确保信任边界不被破坏。
+[IPC 层（进程间通信层）](/zh-cn/concept/inter-process-communication/) 作为两个信任组之间的通信桥梁，并确保信任边界不被破坏。
 
 ![IPC Diagram](@assets/security/tauri-trust-boundaries.svg)
 
@@ -69,12 +69,11 @@ Tauri 允许开发者自由选择前端技术栈和框架，这意味着我们�
 Tauri 的设计思路是依赖操作系统自带的 WebView 组件，而非将其捆绑到应用程序的二进制文件中。
 
 这背后存在多重原因，但从安全角度来看，最关键的因素是：
-从发布WebView的安全补丁版本到实际部署至应用程序终端用户所需的平均耗时。
+从发布 WebView 的安全补丁版本到实际部署至应用程序终端用户所需的平均耗时。
 
 ![IPC Diagram](@assets/security/tauri-update-lag.svg)
 
-我们观察到，WebView软件包维护者与操作系统软件包维护者平均修补并发布安全更新的WebView
-版本的速度，显著快于直接将WebView捆绑到应用程序中的开发者。
+我们观察到，WebView 软件包维护者与操作系统软件包维护者平均修补并发布安全更新的 WebView 版本的速度，显著快于直接将 WebView 捆绑到应用程序中的开发者。
 
 尽管存在与此观察结果相悖的例外情况，且理论上两种路径可在相近时间范围内执行，
 但每条路径的实施均需为每个应用程序承担更大的额外基础设施开销。
@@ -86,7 +85,7 @@ Tauri 的设计思路是依赖操作系统自带的 WebView 组件，而非将�
 
 Tauri 组织不仅维护 Tauri 主仓库，还提供其他工具与资源。为确保构建合理安全的多平台应用框架，我们在安全性和跨平台支持上投入了更多努力。
 
-若需深入了解我们如何保障开发流程的安全性、您可参考或实施的安全措施、应用程序可能面临的已知威胁，以及我们未来的改进与强化计划，请查阅以下文档：
+若需深入了解我们如何保障开发流程的安全性，您可参考或实施的安全措施，应用程序可能面临的已知威胁，以及我们未来的改进与强化计划，请查阅以下文档：
 
 <CardGrid>
   <LinkCard title="生态系统安全" href="/zh-cn/security/ecosystem/" />
@@ -96,12 +95,11 @@ Tauri 组织不仅维护 Tauri 主仓库，还提供其他工具与资源。为�
 
 ## 协调披露
 
-如果您认为 Tauri 或本组织其他代码库中的任何内容存在安全疑虑或漏洞, **请勿公开讨论或披露您的发现，**
-而应直接联系我们的安全团队。
+如果您认为 Tauri 或本组织其他代码库中的任何内容存在安全疑虑或漏洞，**请勿公开讨论或披露您的发现**，而应直接联系我们的安全团队。
 
 {/* 我们建议的漏洞披露方式是通过受影响代码库的GitHub漏洞披露功能提交。虽然我们大多数代码库已启用该功能，但若您不确定，请通过Tauri主仓库提交报告。 */}
-我们建议的漏洞披露方式是通过受影响代码库的 [GitHub漏洞披露功能提交](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)
-虽然我们大多数代码库已启用该功能，但若您不确定，请通过 [Tauri仓库提交报告](https://github.com/tauri-apps/tauri/security/advisories/new)。
+我们建议的漏洞披露方式是通过受影响代码库的 [GitHub 漏洞披露功能提交](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)
+虽然我们大多数代码库已启用该功能，但若您不确定，请通过 [Tauri 仓库提交报告](https://github.com/tauri-apps/tauri/security/advisories/new)。
 
 您也可以通过以下电子邮件联系我们： [security@tauri.app](mailto:security@tauri.app).
 
