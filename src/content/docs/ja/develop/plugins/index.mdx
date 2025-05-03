@@ -8,6 +8,7 @@ sidebar:
 
 {/* TODO: Add a CLI section */}
 
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 import CommandTabs from '@components/CommandTabs.astro';
 
 {/* TODO: Link to windowing system, commands for sending messages, and event system */}
@@ -24,7 +25,11 @@ Tauriは、Webview 機能を備えたウィンドウ・システム、Rust プ�
 
 Tauri プラグインは、「Cargo クレート」と、コマンドとイベントのAPIバインディングを提供するオプションの「NPM パッケージ」とで構成されています。さらに、プラグイン・プロジェクトには、Android ライブラリ・プロジェクトと iOS 用の Swift パッケージも含めることができます。Android および iOS 向けプラグイン開発の詳細については、次章 [モバイル・プラグイン開発ガイド](/ja/develop/plugins/develop-mobile/) をご覧ください。
 
-> > > 《訳注》 **API バインディング**　原文 API bindings。「API バインディング」は、API の呼び出し時にやりとりされる様々なデータを、API の仕様に適合するように、自動的に複雑なデータ変換処理を行なう仕組み。
+<TranslationNote lang="ja">
+  **API バインディング**　原文 API bindings。「API バインディング」は、API
+  の呼び出し時にやりとりされる様々なデータを、API
+  の仕様に適合するように、自動的に複雑なデータ変換処理を行なう仕組み。
+</TranslationNote>
 
 {/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
 
@@ -242,11 +247,14 @@ Builder::new("<plugin-name>")
 
 ## Rust APIs の開放
 
-> > > 《訳注》 **開放**　原文は expose（暴露する、露呈する、曝す、公開する）。本稿では「〜から見られるようにする」という観点から主に「開放」という訳語をあてています。
+<TranslationNote lang="ja">
+**開放**　原文は expose（暴露する、露呈する、曝す、公開する）。本稿では「〜から見られるようにする」という観点から主に「開放」という訳語をあてています。
 
 プロジェクトの `desktop.rs` および `mobile.rs` で定義されたプラグイン API は、プラグインと同じ名前（「パスカル・ケース」で表記）を持つ構造体としてユーザーにエクスポートされます。プラグインがセットアップされると、この構造体のインスタンスが作成され、「状態」として管理されます。これにより、ユーザーはプラグインに定義された拡張トレイトを通じて、いつでも `Manager` インスタンス（たとえば `AppHandle`、`App`、`Window` など）を使用してこの構造体を取得できます。
 
-> > > 《訳注》 **パスカル・ケース**　pascal case。変数名などを複合語で表記する際の命名規則のひとつで、各単語の先頭の文字を 「PascalCase」のように大文字にする形式。なお、同様の表記法に「キャメル・ケース camelCase」があるが、キャメル・ケースでは、先頭の単語は大文字を用いない。詳しくは、Wikipedia の「[キャメルケース](https://ja.wikipedia.org/wiki/キャメルケース) を参照してください。
+**パスカル・ケース**　pascal case。変数名などを複合語で表記する際の命名規則のひとつで、各単語の先頭の文字を 「PascalCase」のように大文字にする形式。なお、同様の表記法に「キャメル・ケース camelCase」があるが、キャメル・ケースでは、先頭の単語は大文字を用いない。詳しくは、Wikipedia の「[キャメルケース](https://ja.wikipedia.org/wiki/キャメルケース) を参照してください。
+
+</TranslationNote>
 
 たとえば、[`global-shortcut plugin`](/ja/plugin/global-shortcut/) は、`GlobalShortcutExt` トレイトの `global_shortcut` メソッドを使用して読み取ることができる `GlobalShortcut` 構造体を定義します：
 
@@ -343,7 +351,12 @@ pub struct Entry {
 プラグインの利用者（コンシューマー）は、自分の「セキュリティ設定」ファイルで、特定のコマンドのスコープを定義できます（詳しくは [英語版ドキュメント](/reference/acl/scope/) を参照してください）。
 コマンド固有のスコープは、[`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) 構造体を使用して読み取ることができます。
 
-> > > 《訳注》 **プラグインの利用者（コンシューマー）**　plugin consumer。「コンシューマー」は消費者の意味ですが、本稿では読み易さを考え「利用者」としています。consumer という語が用いられている理由は「プラグインの使用者が必ずしも人間ではない〔サービスを消費するのが者／コマンド／システム等々である〕ため」との説明が [GitHub](https://github.com/Kong/kong/issues/4391) にあります。
+<TranslationNote lang="ja">
+  **プラグインの利用者（コンシューマー）**　plugin
+  consumer。「コンシューマー」は消費者の意味ですが、本稿では読み易さを考え「利用者」としています。consumer
+  という語が用いられている理由は「プラグインの使用者が必ずしも人間ではない〔サービスを消費するのが者／コマンド／システム等々である〕ため」との説明が
+  [GitHub](https://github.com/Kong/kong/issues/4391) にあります。
+</TranslationNote>
 
 ```rust title="src/commands.rs"
 use tauri::ipc::CommandScope;
@@ -360,7 +373,10 @@ async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: Comma
 
 アクセス権に、「許可」または「拒否」するコマンドが定義されていない場合は「スコープ権限」とみなされ、プラグインにはグローバル・スコープのみが定義されます：
 
-> > > 《訳注》 **スコープ権限**　正規訳不明。原文 it’s considered a scope permission（文意不詳）。
+<TranslationNote lang="ja">
+  **スコープ権限**　正規訳不明。原文 it’s considered a scope
+  permission（文意不詳）。
+</TranslationNote>
 
 ```toml title="permissions/spawn-node.toml"
 [[permission]]
@@ -387,7 +403,10 @@ async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'
 :::note
 柔軟性のために、グローバル・スコープとコマンド・スコープの両方をチェックすることをお勧めします。
 
-> > > 《訳注》 **柔軟性のために** for flexibility（文意不詳、直訳）。「自由度？」「融通？」「弾力的な運用？」
+<TranslationNote lang="ja">
+  **柔軟性のために** for
+  flexibility（文意不詳、直訳）。「自由度？」「融通？」「弾力的な運用？」
+</TranslationNote>
 
 :::
 
@@ -395,7 +414,10 @@ async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'
 
 スコープ・エントリ（スコープ設定）には、プラグイン利用者（コンシューマー）がスコープの形式を認識し、IDE で自動補完できるように、「JSON スキーマ」を生成するための `schemars` 依存関係が必要です。
 
-> > > 《訳注》 **JSON スキーマ**　JSON schema。JSONデータの構造（キー、値、オブジェクト、配列、データ型、制約などの要素）を定義し、データ形式に適合しているかを検証するためのツール。
+<TranslationNote lang="ja">
+  **JSON スキーマ**　JSON
+  schema。JSONデータの構造（キー、値、オブジェクト、配列、データ型、制約などの要素）を定義し、データ形式に適合しているかを検証するためのツール。
+</TranslationNote>
 
 スキーマを定義するには、最初に Cargo.toml ファイルに依存関係を追加します。
 

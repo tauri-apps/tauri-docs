@@ -3,6 +3,8 @@ title: モバイル・プラグインの開発
 i18nReady: true
 ---
 
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
 :::tip[プラグインの開発]
 
 この章の多くの概念は、前章の [プラグインの開発](/ja/develop/plugins/) で説明されている基礎の上に構築されているため、その内容を十分に理解しておいてください。
@@ -37,7 +39,10 @@ impl<R: Runtime> <plugin-name><R> {
 
 Android 用の Tauri プラグインは、`app.tauri.plugin.Plugin` を拡張し、`app.tauri.annotation.TauriPlugin` でアノテーションされた「Kotlin クラス」として定義されます。`app.tauri.annotation.Command` でアノテーションされた各メソッドは、Rust または JavaScript から呼び出すことができます。
 
-> > > 《訳注》 **アノテーション**　annotation。データに対して関連する情報を注釈として付与すること。詳しくは [Wikipedia](https://ja.wikipedia.org/wiki/アノテーション) を参照してください。
+<TranslationNote lang="ja">
+  **アノテーション**　annotation。データに対して関連する情報を注釈として付与すること。詳しくは
+  [Wikipedia](https://ja.wikipedia.org/wiki/アノテーション) を参照してください。
+</TranslationNote>
 
 Tauri は、Android プラグインの実装にデフォルトで Kotlin を使用しますが、必要に応じて Java に切り替えることもできます。プラグインを生成後、Android Studio で Kotlin プラグイン・クラスを右クリックし、メニューから「Kotlin ファイルを Java ファイルに変換」オプションを選択します。Kotlin プロジェクトの Java への移行では Android Studio のガイドに従ってください。
 
