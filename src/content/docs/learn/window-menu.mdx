@@ -149,54 +149,70 @@ To create a multi-level menu, you can add some submenus to the menu item:
 <TabItem label="JavaScript">
 
 ```javascript
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
 
-use tauri::{image::Image, menu::{CheckMenuItemBuilder, IconMenuItemBuilder, MenuBuilder, SubmenuBuilder}};
+const fileSubmenu = await Submenu.new({
+  text: 'File',
+  items: [
+    await MenuItem.new({
+      id: 'new',
+      text: 'New',
+      action: () => {
+        console.log('New clicked');
+      },
+    }),
+    await MenuItem.new({
+      id: 'open',
+      text: 'Open',
+      action: () => {
+        console.log('Open clicked');
+      },
+    }),
+    await MenuItem.new({
+      id: 'save_as',
+      text: 'Save As...',
+      action: () => {
+        console.log('Save As clicked');
+      },
+    }),
+  ],
+});
 
-fn main() {
-    tauri::Builder::default()
-        .setup(|app| {
-            let text_menu = SubmenuBuilder::new(app, "File")
-                .text("open", "Open")
-                .text("quit", "Quit")
-                .build()?;
+const editSubmenu = await Submenu.new({
+  text: 'Edit',
+  items: [
+    await MenuItem.new({
+      id: 'undo',
+      text: 'Undo',
+      action: () => {
+        console.log('Undo clicked');
+      },
+    }),
+    await MenuItem.new({
+      id: 'redo',
+      text: 'Redo',
+      action: () => {
+        console.log('Redo clicked');
+      },
+    }),
+  ],
+});
 
-            let lang_str = "en";
-            let check_sub_item_1 = CheckMenuItemBuilder::new("English")
-                .id("en")
-                .checked(lang_str == "en")
-                .build(app)?;
+const menu = await Menu.new({
+  items: [
+    fileSubmenu,
+    editSubmenu,
+    await MenuItem.new({
+      id: 'quit',
+      text: 'Quit',
+      action: () => {
+        console.log('Quit pressed');
+      },
+    }),
+  ],
+});
 
-            let check_sub_item_2 = CheckMenuItemBuilder::new("Chinese")
-                .id("en")
-                .checked(lang_str == "en")
-                .enabled(false)
-                .build(app)?;
-
-            let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
-
-            let icon_item = IconMenuItemBuilder::new("icon")
-                .icon(icon_image)
-                .build(app)?;
-
-            let check_menus = SubmenuBuilder::new(app, "language")
-                .item(&check_sub_item_1)
-                .item(&check_sub_item_2)
-                .build()?;
-
-
-            let menu = MenuBuilder::new(app)
-                .items(&[&text_menu, &check_menus, &icon_item])
-                .build()?;
-
-            app.set_menu(menu)?;
-
-            print!("Hello from setup");
-            Ok(())
-        })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
+menu.setAsAppMenu();
 ```
 
 </TabItem>
