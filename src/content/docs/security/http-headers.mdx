@@ -46,15 +46,15 @@ The header names are limited to:
 ### How to Configure Headers
 
 - with a string
-- with an Array of strings
-- with an Object/Key-Value, where the values must be strings
+- with an array of strings
+- with an object/key-value, where the values must be strings
 - with null
 
 The header values are always converted to strings for the actual response. Depending on how the configuration file looks, some header values need to be composed.
 Those are the rules on how a composite gets created:
 
 - `string`: stays the same for the resulting header value
-- `Array`: items are joined by `, `  for the resulting header value
+- `array`: items are joined by `, `  for the resulting header value
 - `key-value`: items are composed from: key + space + value. Items are then joined by `; `  for the resulting header value
 - `null`: header will be ignored
 
