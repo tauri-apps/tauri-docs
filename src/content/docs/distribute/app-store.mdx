@@ -47,6 +47,20 @@ The value provided in the _Bundle ID_ field **must** match the identifier define
 
 The Tauri CLI can package your app for macOS and iOS. Running on a macOS machine is a requirement.
 
+Tauri derives the [`CFBundleVersion`](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleversion) from the value defined in [`tauri.conf.json > version`].
+You can set a custom bundle version in the [`tauri.conf.json > bundle > ios > bundleVersion`] or [`tauri.conf.json > bundle > macOS > bundleVersion`] configuration
+if you need a different bundle version scheme e.g. sequential codes:
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "ios": {
+      "bundleVersion": "100"
+    }
+  }
+}
+```
+
 :::caution
 Code signing is required. See the documentation for [macOS][macOS code signing] and [iOS][iOS code signing].
 :::
