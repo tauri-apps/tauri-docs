@@ -240,8 +240,10 @@ export default defineConfig({
                 'develop/sidecar',
                 'develop/state-management',
                 'develop/updating-dependencies',
+                { label: 'Debug', autogenerate: { directory: 'develop/Debug' } },
+                { label: 'Plugins', autogenerate: { directory: 'develop/Plugins' } },
+                { label: 'Tests', autogenerate: { directory: 'develop/Tests' } },
               ],
-              // autogenerate: { directory: 'develop' },
             },
             {
               label: 'Distribute',
