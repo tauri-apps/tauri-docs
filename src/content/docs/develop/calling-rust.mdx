@@ -457,6 +457,29 @@ async fn my_custom_command(app_handle: tauri::AppHandle) {
 }
 ```
 
+:::tip
+
+`AppHandle` and `WebviewWindow` both take a generic parameter `R: Runtime`,
+when the `wry` feature is enabled in `tauri` (which is enabled by default),
+we default the generic to the `Wry` runtime so you can use it directly,
+but if you want to use a different runtime, for example the [mock runtime],
+you need to write your functions like this
+
+```rust title="src-tauri/src/lib.rs" ins="<R: Runtime>" ins="<R>"
+use tauri::{AppHandle, GlobalShortcutManager, Runtime, WebviewWindow};
+
+#[tauri::command]
+async fn my_custom_command<R: Runtime>(app_handle: AppHandle<R>, webview_window: WebviewWindow<R>) {
+  let app_dir = app_handle.path_resolver().app_dir();
+  app_handle
+    .global_shortcut_manager()
+    .register("CTRL + U", move || {});
+  println!("WebviewWindow: {}", webview_window.label());
+}
+```
+
+:::
+
 ### Accessing Managed State
 
 Tauri can manage state using the `manage` function on `tauri::Builder`.
@@ -700,3 +723,4 @@ To learn how to listen to events and emit events from your Rust code, see the [R
 [Rust Event System documentation]: /develop/calling-frontend/#event-system
 [channels documentation]: /develop/calling-frontend/#channels
 [Calling Rust from the Frontend]: /develop/calling-rust/
+[mock runtime]: https://docs.rs/tauri/2.0.0/tauri/test/struct.MockRuntime.html
