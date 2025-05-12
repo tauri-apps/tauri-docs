@@ -161,20 +161,17 @@ use tauri::{AppHandle, ipc::Channel};
 use serde::Serialize;
 
 #[derive(Clone, Serialize)]
-#[serde(rename_all = "camelCase", tag = "event", content = "data")]
+#[serde(rename_all = "camelCase", rename_all_fields = "camelCase", tag = "event", content = "data")]
 enum DownloadEvent<'a> {
-  #[serde(rename_all = "camelCase")]
   Started {
     url: &'a str,
     download_id: usize,
     content_length: usize,
   },
-  #[serde(rename_all = "camelCase")]
   Progress {
     download_id: usize,
     chunk_length: usize,
   },
-  #[serde(rename_all = "camelCase")]
   Finished {
     download_id: usize,
   },
