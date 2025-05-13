@@ -8,12 +8,12 @@ tableOfContents:
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-Leptos（レプトス）は、Rustを基盤としたウェブ・フレームワークです。より詳しい Leptos の説明は、[公式ウェッブ・サイト【英語版】](https://leptos.dev/) をご覧ください。以下の説明内容は、「Leptos バージョン 0.6」に準拠しています。　
+Leptos（レプトス）は、Rustを基盤としたウェブ・フレームワークです。より詳しい Leptos の説明は、[公式ウェブサイト【英語版】](https://leptos.dev/) をご覧ください。以下の説明内容は、「Leptos バージョン 0.6」に準拠しています。　
 
 ## チェック項目
 
 - 「SSG（静的サイト生成）」を使用してください。Tauri は公式にはサーバー・ベースの方式には対応していません。
-- `serve.ws_protocol = "ws"` を使用してください。モバイル開発で、「ホット・リロード・ウェッブソケット」が適切に接続されるようになります。
+- `serve.ws_protocol = "ws"` を使用してください。モバイル開発で、ホットリロード用の WebSocket が適切に接続されるようになります。
 - `withGlobalTauri` を有効化してください。Tauri API が `window.__TAURI__` 変数内で利用できるようになり、`wasm-bindgen` を使用してインポート可能になります。
 
 ## 設定例
