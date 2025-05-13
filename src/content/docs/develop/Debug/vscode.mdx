@@ -130,7 +130,10 @@ Here is an example of running a dev server (equivalent of `beforeDevCommand`) an
     {
       "label": "build:debug",
       "type": "cargo",
-      "command": "build"
+      "command": "build",
+      "options": {
+        "cwd": "${workspaceRoot}/src-tauri"
+      }
     },
     {
       "label": "ui:dev",
