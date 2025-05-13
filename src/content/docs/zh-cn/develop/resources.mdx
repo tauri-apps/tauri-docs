@@ -39,10 +39,19 @@ title: 嵌入附加文件
 ```
 
 :::note
-
 绝对路径和包含父级组件（`../`）的路径只能通过 `"$RESOURCE/**"` 的方式声明。相对路径如 `"path/to/file.txt"` 可以通过 `"$RESOURCE/path/to/file.txt"` 明确地允许。
-
 :::
+
+## 源路径语法
+
+在以下说明中，“目标资源目录”要么是对象表示法中冒号后的值，要么是数组表示法中原始文件路径的重建。
+
+- `"dir/file.txt"`: 将 `file.txt` 文件复制到目标资源目录中。
+- `"dir/"`: 将所有文件**和目录**递归地复制到目标资源目录中。如果您还希望保留文件和目录的文件系统结构，请使用此选项。
+- `"dir/*"`: 将 `dir` 目录中的所有文件（不递归，子目录将被忽略）复制到目标资源目录中。
+- `"dir/**`: 抛出错误，因为 `**` 只匹配目录，所以找不到任何文件。
+- `"dir/**/*"`: 将 `dir` 目录中的所有文件（包括其所有子目录中的文件）递归地复制到目标资源目录中。
+- `"dir/**/**`: 抛出错误，因为 `**` 只匹配目录，所以找不到任何文件。
 
 ## 在 Rust 中访问文件
 
@@ -93,7 +102,7 @@ fn hello(handle: tauri::AppHandle) -> String {
 
 这个例子基于上面的示例。
 
-请注意，你必须配置访问控制列表，以启用你需要的 [`plugin-fs`] API，同时还需要权限访问 `$RESOURCE` 文件夹：
+请注意，你必须配置访问控制列表，以启用你需要的 [`plugin-fs`] 接口，同时还需要权限访问 `$RESOURCE` 文件夹：
 
 ```json title=src-tauri/capabilities/default.json ins={14-15}
 {
@@ -116,10 +125,8 @@ fn hello(handle: tauri::AppHandle) -> String {
 ```
 
 :::note
-
 在这里，我们使用 `fs:allow-resource-read-recursive` 来允许完全递归读取访问 `$RESOURCE` 文件夹中的所有文件和子目录。
 欲了解更多信息，请阅读 [Scope Permissions] 查看其他选项，或查阅 [Scopes] 以获取更精细的控制。
-
 :::
 
 ```javascript
@@ -132,7 +139,7 @@ console.log(langDe.hello); // 这里将在 devtools 的控制台中输出 'Guten
 ```
 
 [tauri.bundle]: /reference/config/#bundleconfig
-[`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
+[`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
 [`plugin-fs`]: /reference/javascript/fs/
