@@ -22,17 +22,18 @@ will include those headers.
 ### Header Names
 
 The header names are limited to:
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials" target="_blank">Access-Control-Allow-Credentials ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers" target="_blank">Access-Control-Allow-Headers ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods" target="_blank">Access-Control-Allow-Methods ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers" target="_blank">Access-Control-Expose-Headers ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age" target="_blank">Access-Control-Max-Age ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy" target="_blank">Cross-Origin-Embedder-Policy ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy" target="_blank">Cross-Origin-Opener-Policy ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy" target="_blank">Cross-Origin-Resource-Policy ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy" target="_blank">Permissions-Policy ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin" target="_blank">Timing-Allow-Origin ↗</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options" target="_blank">X-Content-Type-Options ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Credentials" target="_blank">Access-Control-Allow-Credentials ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Headers" target="_blank">Access-Control-Allow-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods" target="_blank">Access-Control-Allow-Methods ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Expose-Headers" target="_blank">Access-Control-Expose-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Max-Age" target="_blank">Access-Control-Max-Age ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy" target="_blank">Cross-Origin-Embedder-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Opener-Policy" target="_blank">Cross-Origin-Opener-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Resource-Policy" target="_blank">Cross-Origin-Resource-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy" target="_blank">Permissions-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Service-Worker-Allowed" target="_blank">Service-Worker-Allowed ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Timing-Allow-Origin" target="_blank">Timing-Allow-Origin ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Content-Type-Options" target="_blank">X-Content-Type-Options ↗</a>
 - Tauri-Custom-Header
 
 :::note
@@ -46,15 +47,15 @@ The header names are limited to:
 ### How to Configure Headers
 
 - with a string
-- with an Array of strings
-- with an Object/Key-Value, where the values must be strings
+- with an array of strings
+- with an object/key-value, where the values must be strings
 - with null
 
 The header values are always converted to strings for the actual response. Depending on how the configuration file looks, some header values need to be composed.
 Those are the rules on how a composite gets created:
 
 - `string`: stays the same for the resulting header value
-- `Array`: items are joined by `, `  for the resulting header value
+- `array`: items are joined by `, `  for the resulting header value
 - `key-value`: items are composed from: key + space + value. Items are then joined by `; `  for the resulting header value
 - `null`: header will be ignored
 
@@ -182,7 +183,7 @@ export default defineNuxtConfig({
   },
 });
 ```
-**Next.js** doesn't rely on Vite, so the approach is different.
+**Next.js** doesn't rely on **Vite**, so the approach is different.
 Read more about it <a href="https://nextjs.org/docs/pages/api-reference/next-config-js/headers" target="_blank">here ↗</a>.
 The headers are defined in `next.config.js`.
 ```javascript title=next.config.js
