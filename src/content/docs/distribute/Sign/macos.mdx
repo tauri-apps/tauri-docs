@@ -3,13 +3,14 @@ title: macOS Code Signing
 sidebar:
   label: macOS
   order: 11
+i18nReady: true
 ---
 
 Code signing is required on macOS to allow your application to be listed in the [Apple App Store] and to prevent a warning that your application is broken and can not be started, when downloaded from the browser.
 
 ## Prerequisites
 
-Code signing on macOS requries an [Apple Developer] account which is either paid (99$ per year) or on the free plan. You also need an Apple device where you perform the code signing. This is required by the signing process and due to Apple's Terms and Conditions.
+Code signing on macOS requires an [Apple Developer] account which is either paid (99$ per year) or on the free plan. You also need an Apple device where you perform the code signing. This is required by the signing process and due to Apple's Terms and Conditions.
 
 :::note
 Note when using a free Apple Developer account, you will not be able to notarize your application and it will still show up as not verified when opening the app.
@@ -51,7 +52,7 @@ With the certificate installed in your Mac computer keychain, you can configure 
 
 The name of the certificate's keychain entry represents the `signing identity`, which can also be found by executing:
 
-```
+```sh
 security find-identity -v -p codesigning
 ```
 
@@ -74,11 +75,11 @@ To use the certificate in CI/CD platforms, you must export the certificate to a 
 and configure the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables:
 
 1. Open the `Keychain Access` app, click the _My Certificates_ tab in the _login_ keychain and find your certificate's entry.
-2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
+2. Expand the entry, right-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the certificate's `.p12` file and define a password for the exported certificate.
 4. Convert the `.p12` file to base64 running the following script on the terminal:
 
-```
+```sh
 openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
 ```
 
@@ -97,6 +98,8 @@ Required secrets:
 - `APPLE_CERTIFICATE` - The base64 encoded `.p12` file
 - `APPLE_CERTIFICATE_PASSWORD` - The password for your exported `.p12` file
 - `KEYCHAIN_PASSWORD` - The password for your keychain
+
+Check out the official GitHub guide to learn [how to set up secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 ```yaml
 name: 'build'
@@ -165,7 +168,7 @@ To notarize your application, you must provide credentials for Tauri to authenti
 
 - APPLE_ID, APPLE_PASSWORD and APPLE_TEAM_ID: authenticate using your Apple ID
 
-  Alternatively, to authenticate with your Apple ID, set the APPLE_ID to your Apple account email and the APPLE_PASSWORD to an app-specific password for the Apple account.
+  Alternatively, to authenticate with your Apple ID, set the APPLE_ID to your Apple account email and the APPLE_PASSWORD to an [app-specific password] for the Apple account.
 
 :::note
 Notarization is required when using a _Developer ID Application_ certificate.
@@ -178,3 +181,23 @@ Notarization is required when using a _Developer ID Application_ certificate.
 [`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity
 [creating a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
 [Certificates, IDs & Profiles page]: https://developer.apple.com/account/resources/certificates/list
+[app-specific password]: https://support.apple.com/en-ca/HT204397
+
+## Ad-Hoc Signing
+
+If you do not wish to provide an Apple-authenticated identity, but still wish to sign your application, you can configure an _ad-hoc_ signature.
+
+This is useful on ARM (Apple Silicon) devices, where code-signing is required for all apps from the Internet.
+
+:::caution
+Ad-hoc code signing does not prevent MacOS from requiring users to
+[whitelist the installation in their Privacy & Security settings](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac).
+:::
+
+To configure an ad-hoc signature, provide the pseudo-identity `-` to Tauri, e.g.
+
+```json
+"signingIdentity": "-"
+```
+
+For details on configuring Tauri's signing identity, see [above](#configuring-tauri).

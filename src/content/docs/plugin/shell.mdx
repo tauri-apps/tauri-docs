@@ -1,7 +1,8 @@
 ---
 title: Shell
-description: Access the system shell to manage files and URLs using their default application and to spawn child processes.
+description: Access the system shell to spawn child processes.
 plugin: shell
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -13,11 +14,15 @@ import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
-Access the system shell. Allows you to spawn child processes and manage files and URLs using their default application.
+Access the system shell. Allows you to spawn child processes.
 
 ## Supported Platforms
 
 <Compatibility plugin={frontmatter.plugin} />
+
+## Opener
+
+If you're looking for documentation for the `shell.open` API, check out the new [Opener plugin](../opener/) instead.
 
 ## Setup
 
@@ -33,6 +38,7 @@ Install the shell plugin to get started.
             npm="npm run tauri add shell"
             yarn="yarn run tauri add shell"
             pnpm="pnpm tauri add shell"
+            deno="deno task tauri add shell"
             bun="bun tauri add shell"
             cargo="cargo tauri add shell"
     	/>
@@ -63,6 +69,7 @@ Install the shell plugin to get started.
                   npm = "npm install @tauri-apps/plugin-shell"
                   yarn = "yarn add @tauri-apps/plugin-shell"
                   pnpm = "pnpm add @tauri-apps/plugin-shell"
+                  deno = "deno add npm:@tauri-apps/plugin-shell"
                   bun = "bun add @tauri-apps/plugin-shell"
               />
     	</Steps>
@@ -74,7 +81,7 @@ Install the shell plugin to get started.
 
 The shell plugin is available in both JavaScript and Rust.
 
-<Tabs>
+<Tabs syncKey="lang">
 	<TabItem label="JavaScript" >
 
 ```javascript

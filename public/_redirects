@@ -1,4 +1,5 @@
-# Refer to astro.config.mjs
+# These redirects are handled by netlify: https://docs.netlify.com/routing/redirects/
+# Refer to astro.config.mjs for i18n sensitive redirects
 
 # Decommissioned locales
 /ko/*  /:splat  302
@@ -21,13 +22,13 @@
 /guides/upgrade-migrate/*   /start/upgrade--migrate/:splat       301
 
 /references/v2/cli          /references/cli                      301
-/references/v2/acl          /references/acl/capability               301
+/references/v2/acl          /references/acl/capability           301
 /references/v2/config       /references/config                   301
 /references/v2/js           /references/javascript/api           301
 /references/v2/js/*         /references/javascript/api/:splat    301
 /references/v2/*            /references/:splat                   301
 
-/2/reference/js/core/namespacepath          /references/javascript/api/namespacepath 301
+/2/reference/js/core/namespacepath      /references/javascript/api/namespacepath 301
 /2/reference/                /references/                       301
 
 
@@ -40,3 +41,7 @@
 /guides/features            /guides/feature                     301
 /features                   /plugin                             301
 /start/upgrade--migrate     /start/migrate                      301
+
+# mid v2 docs restructuring
+/plugin/system-tray             /learn/system-tray              301
+/plugin/window-customization    /learn/window-customization     301

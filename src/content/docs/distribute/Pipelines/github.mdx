@@ -1,5 +1,6 @@
 ---
 title: GitHub
+i18nReady: true
 ---
 
 This guide will show you how to use [tauri-action](https://github.com/tauri-apps/tauri-action) in [GitHub Actions](https://docs.github.com/en/actions) to easily build and upload your app, and how to make Tauri's updater query the newly created GitHub release for updates.
@@ -27,7 +28,7 @@ Please see the `tauri-action` [readme](https://github.com/tauri-apps/tauri-actio
 
 When your app is not on the root of the repository, use the `projectPath` input.
 
-You may freely modify the worfklow name, change its triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow since this runs the build script and releases your app.
+You may freely modify the workflow name, change its triggers, and add more steps such as `npm run lint` or `npm run test`. The important part is that you keep the below line at the end of the workflow since this runs the build script and releases your app.
 
 ### How to Trigger
 
@@ -165,7 +166,7 @@ jobs:
         include:
           - arch: aarch64
             cpu: cortex-a72
-            base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bookworm.img.xz
+            base_image: https://dietpi.com/downloads/images/DietPi_RPi5-ARMv8-Bookworm.img.xz
             deb: arm64
             rpm: aarch64
             appimage: aarch64

@@ -73,6 +73,22 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
 
     </TabItem>
 
+    <TabItem label="deno">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
     </Tabs>
 
 2.  ##### Update Next.js configuration
@@ -94,7 +110,7 @@ Next.js is a meta framework for React. Learn more about Next.js at https://nextj
         unoptimized: true,
       },
       // Configure assetPrefix or else the server won't properly resolve your assets.
-      assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+      assetPrefix: isProd ? undefined : `http://${internalHost}:3000`,
     };
 
     export default nextConfig;

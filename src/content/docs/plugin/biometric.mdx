@@ -6,6 +6,7 @@ sidebar:
     text: New
     variant: tip
 plugin: biometric
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -35,6 +36,7 @@ Install the biometric plugin to get started.
     <CommandTabs npm="npm run tauri add biometric"
     yarn="yarn run tauri add biometric"
     pnpm="pnpm tauri add biometric"
+    deno="deno task tauri add biometric"
     bun="bun tauri add biometric"
     cargo="cargo tauri add biometric" />
 
@@ -69,6 +71,7 @@ Install the biometric plugin to get started.
             npm = "npm install @tauri-apps/plugin-biometric"
             yarn = "yarn add @tauri-apps/plugin-biometric"
             pnpm = "pnpm add @tauri-apps/plugin-biometric"
+            deno = "deno add npm:@tauri-apps/plugin-biometric"
             bun = "bun add @tauri-apps/plugin-biometric"
             />
         </Steps>
@@ -101,7 +104,7 @@ This plugin enables you to verify the availability of Biometric Authentication o
 
 You can check the status of Biometric Authentication, including its availability and the types of biometric authentication methods supported.
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```javascript
@@ -140,7 +143,7 @@ fn check_biometric(app_handle: tauri::AppHandle) {
 
 To prompt the user for Biometric Authentication, utilize the `authenticate()` method.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -194,7 +197,7 @@ fn bio_auth(app_handle: tauri::AppHandle) {
         confirmation_required: Some(true),
     };
 
-    // if the authentication was succesfull, the function returns Result::Ok()
+    // if the authentication was successful, the function returns Result::Ok()
     // otherwise returns Result::Error()
     match app_handle.biometric().authenticate("This feature is locked".to_string(), options) {
         Ok(_) => {

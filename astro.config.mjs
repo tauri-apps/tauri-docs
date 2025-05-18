@@ -10,6 +10,7 @@ import astroD2 from 'astro-d2';
 import starlightUtils from '@lorenzo_lewis/starlight-utils';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import lunaria from '@lunariajs/starlight';
 
 const authors = {
   nothingismagick: {
@@ -57,6 +58,11 @@ const authors = {
     title: 'Tauri Security',
     picture: '/authors/chip.png',
   },
+  tony: {
+    name: 'Tony',
+    title: 'Tauri Development',
+    picture: '/authors/tony.jpeg',
+  },
 };
 
 const site = 'https://v2.tauri.app';
@@ -79,6 +85,7 @@ export default defineConfig({
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
+        lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
@@ -143,6 +150,7 @@ export default defineConfig({
           label: 'Guides',
           translations: {
             'zh-CN': '指引',
+            es: 'Guías',
           },
           collapsed: true,
           items: [
@@ -150,6 +158,7 @@ export default defineConfig({
               label: 'Quick Start',
               translations: {
                 'zh-CN': '快速开始',
+                es: 'Guía rápida',
               },
               collapsed: true,
               items: [
@@ -157,6 +166,7 @@ export default defineConfig({
                   label: 'What is Tauri?',
                   translations: {
                     'zh-CN': '什么是 Tauri？',
+                    es: '¿Qué es Tauri?',
                   },
                   link: '/start/',
                 },
@@ -164,6 +174,7 @@ export default defineConfig({
                   label: 'Prerequisites',
                   translations: {
                     'zh-CN': '前置条件',
+                    es: 'Requisitos previos',
                   },
                   link: '/start/prerequisites/',
                 },
@@ -171,6 +182,7 @@ export default defineConfig({
                   label: 'Create a Project',
                   translations: {
                     'zh-CN': '创建项目',
+                    es: 'Crea un proyecto',
                   },
                   link: '/start/create-project/',
                 },
@@ -178,6 +190,7 @@ export default defineConfig({
                   label: 'Frontend Configuration',
                   translations: {
                     'zh-CN': '前端配置',
+                    es: 'Configuración del frontend',
                   },
                   collapsed: true,
                   autogenerate: { directory: 'start/frontend' },
@@ -186,6 +199,7 @@ export default defineConfig({
                   label: 'Upgrade & Migrate',
                   translations: {
                     'zh-CN': '升级和迁移',
+                    es: 'Actualizar y migrar',
                   },
                   collapsed: true,
                   autogenerate: { directory: 'start/migrate' },
@@ -196,6 +210,7 @@ export default defineConfig({
               label: 'Core Concepts',
               translations: {
                 'zh-CN': '核心概念',
+                es: 'Conceptos básicos',
               },
               collapsed: true,
               autogenerate: { directory: 'concept' },
@@ -204,6 +219,7 @@ export default defineConfig({
               label: 'Security',
               translations: {
                 'zh-CN': '安全',
+                es: 'Seguridad',
               },
               collapsed: true,
               autogenerate: { directory: 'security' },
@@ -212,14 +228,40 @@ export default defineConfig({
               label: 'Develop',
               translations: {
                 'zh-CN': '开发',
+                es: 'Desarrollo',
               },
               collapsed: true,
-              autogenerate: { directory: 'develop' },
+              items: [
+                'develop',
+                'develop/configuration-files',
+                'develop/calling-rust',
+                'develop/calling-frontend',
+                'develop/resources',
+                'develop/sidecar',
+                'develop/state-management',
+                'develop/updating-dependencies',
+                {
+                  label: 'Debug',
+                  collapsed: true,
+                  autogenerate: { directory: 'develop/Debug' },
+                },
+                {
+                  label: 'Plugins',
+                  collapsed: true,
+                  autogenerate: { directory: 'develop/Plugins' },
+                },
+                {
+                  label: 'Tests',
+                  collapsed: true,
+                  autogenerate: { directory: 'develop/Tests' },
+                },
+              ],
             },
             {
               label: 'Distribute',
               translations: {
                 'zh-CN': '分发',
+                es: 'Distribuir',
               },
               collapsed: true,
               autogenerate: { directory: 'distribute' },
@@ -228,6 +270,7 @@ export default defineConfig({
               label: 'Learn',
               translations: {
                 'zh-CN': '学习',
+                es: 'Aprende',
               },
               collapsed: true,
               autogenerate: { directory: 'learn' },
@@ -236,6 +279,7 @@ export default defineConfig({
               label: 'Plugins',
               translations: {
                 'zh-CN': '插件',
+                es: 'Plugins',
               },
               collapsed: true,
               autogenerate: { directory: 'plugin' },
@@ -244,6 +288,7 @@ export default defineConfig({
               label: 'About',
               translations: {
                 'zh-CN': '关于',
+                es: 'Acerca de',
               },
               collapsed: true,
               autogenerate: { directory: 'about' },
@@ -254,6 +299,7 @@ export default defineConfig({
           label: 'References',
           translations: {
             'zh-CN': '参考',
+            es: 'Referencias',
           },
           collapsed: true,
           items: [
@@ -261,6 +307,7 @@ export default defineConfig({
               label: 'Security',
               translations: {
                 'zh-CN': '安全',
+                es: 'Seguridad',
               },
               collapsed: true,
               autogenerate: { directory: 'reference/acl' },
@@ -269,6 +316,7 @@ export default defineConfig({
               label: 'Command Line Interface',
               translations: {
                 'zh-CN': '命令行接口（CLI）',
+                es: 'Interfaz de línea de comandos',
               },
               link: '/reference/cli/',
             },
@@ -276,6 +324,7 @@ export default defineConfig({
               label: 'Configuration',
               translations: {
                 'zh-CN': '配置',
+                es: 'Configuración',
               },
               link: '/reference/config/',
             },
@@ -283,6 +332,7 @@ export default defineConfig({
               label: 'Environment Variables',
               translations: {
                 'zh-CN': '环境变量',
+                es: 'Variables de entorno',
               },
               link: '/reference/environment-variables/',
             },
@@ -290,6 +340,7 @@ export default defineConfig({
               label: 'Webview Versions',
               translations: {
                 'zh-CN': 'Webview 版本',
+                es: 'Versiones de Webview',
               },
               link: '/reference/webview-versions/',
             },
@@ -297,6 +348,7 @@ export default defineConfig({
               label: 'Releases',
               translations: {
                 'zh-CN': '发行版',
+                es: 'Lanzamientos',
               },
               collapsed: true,
               autogenerate: { directory: 'release' },
@@ -308,7 +360,7 @@ export default defineConfig({
             },
             {
               label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/2.0.0-rc/tauri/index.html',
+              link: 'https://docs.rs/tauri/~2/',
             },
           ],
         },
@@ -316,6 +368,7 @@ export default defineConfig({
           label: 'Blog',
           translations: {
             'zh-CN': '博客',
+            es: 'Blog',
           },
           collapsed: true,
           items: [

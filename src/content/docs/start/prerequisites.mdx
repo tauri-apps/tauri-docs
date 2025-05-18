@@ -25,10 +25,7 @@ Follow the link to get started for your respective operating system:
 
 Tauri requires various system dependencies for development on Linux. These may be different depending on your distribution but we've included some popular distributions below to help you get setup.
 
-{/* Note: These are the officially supported linux distributions. */}
-{/* If you wish to add another please open an issue to discuss prior to opening a PR */}
-
-<Tabs>
+<Tabs syncKey="distro">
   <TabItem label="Debian">
 
 ```sh
@@ -73,7 +70,7 @@ sudo dnf install webkit2gtk4.1-devel \
   file \
   libappindicator-gtk3-devel \
   librsvg2-devel
-sudo dnf group install "C Development Tools and Libraries"
+sudo dnf group install "c-development"
 ```
 
   </TabItem>
@@ -119,29 +116,39 @@ sudo apk add \
   </TabItem>
   <TabItem label="NixOS">
 
+:::note
+This will also install Rust and Node.js as well as the `cargo-tauri` CLI for you, so you can skip those steps below.
+:::
+
 Using `nix-shell`:
 
-```sh
-with import <nixpkgs> { };
-mkShell {
-  buildInputs = [
+```nix
+let
+  pkgs = import <nixpkgs> { };
+in
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
+    pkg-config
+    gobject-introspection
+    cargo
+    cargo-tauri
+    nodejs
+  ];
+
+  buildInputs = with pkgs;[
     at-spi2-atk
     atkmm
     cairo
     gdk-pixbuf
     glib
-    gobject-introspection
-    gobject-introspection.dev
     gtk3
     harfbuzz
     librsvg
     libsoup_3
     pango
     webkitgtk_4_1
-    webkitgtk_4_1.dev
+    openssl
   ];
-
-  PKG_CONFIG_PATH = "${glib.dev}/lib/pkgconfig:${libsoup_3.dev}/lib/pkgconfig:${webkitgtk_4_1.dev}/lib/pkgconfig:${at-spi2-atk.dev}/lib/pkgconfig:${gtk3.dev}/lib/pkgconfig:${gdk-pixbuf.dev}/lib/pkgconfig:${cairo.dev}/lib/pkgconfig:${pango.dev}/lib/pkgconfig:${harfbuzz.dev}/lib/pkgconfig";
 }
 ```
 
@@ -198,7 +205,7 @@ WebView 2 is already installed on Windows 10 (from version 1803 onward) and late
 
 Tauri uses Microsoft Edge WebView2 to render content on Windows.
 
-Install WebView2 by visiting the [WebView2 Runtime download section](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Download the "Evergreen Boostrapper" and install it.
+Install WebView2 by visiting the [WebView2 Runtime download section](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Download the "Evergreen Bootstrapper" and install it.
 
 Next: [Install Rust](#rust)
 
@@ -206,7 +213,7 @@ Next: [Install Rust](#rust)
 
 Tauri is built with [Rust](https://www.rust-lang.org) and requires it for development. Install Rust using one of following methods. You can view more installation methods at https://www.rust-lang.org/tools/install.
 
-<Tabs>
+<Tabs syncKey="OS">
   <TabItem label="Linux and macOS" class="content">
 
 Install via [`rustup`](https://github.com/rust-lang/rustup) using the following command:
@@ -226,10 +233,28 @@ Here is the file as a plain script: [rustup.sh](https://sh.rustup.rs/)
 
 Visit https://www.rust-lang.org/tools/install to install `rustup`.
 
+Alternatively, you can use `winget` to install rustup using the following command in PowerShell:
+
+```powershell
+winget install --id Rustlang.Rustup
+```
+
+:::caution[MSVC toolchain as default]
+
+For full support for Tauri and tools like [`trunk`](https://trunkrs.dev/) make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+
+If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
   </TabItem>
 </Tabs>
 
-Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.
+**Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.**
 
 Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/start/create-project/).
 
@@ -239,9 +264,9 @@ Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd lik
 Only if you intend to use a JavaScript frontend framework
 :::
 
-1. Go to [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it.
+1. Go to the [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it.
 
-2. Check if Node was succesfully installed by running:
+2. Check if Node was successfully installed by running:
 
 ```sh
 node -v
@@ -382,6 +407,6 @@ If you run into any issues during installation be sure to check the [Troubleshoo
 
 <Card title="Next Steps" icon="rocket">
 
-Now that you've installed all of the prerequisistes you're ready to [create your first Tauri project](/start/create-project/)!
+Now that you've installed all of the prerequisites you're ready to [create your first Tauri project](/start/create-project/)!
 
 </Card>

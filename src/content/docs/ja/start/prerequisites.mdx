@@ -1,0 +1,421 @@
+---
+title: 必要事項
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+Tauri でプロジェクトを始めるためには、まずいくつかの依存関係をインストールする必要があります。
+
+1. [OS 別依存関係のインストール](#os-別依存関係のインストール)
+2. [Rust のインストール](#rust-のインストール)
+3. [モバイル関連の設定](#モバイル関連の設定) （モバイル・アプリを開発する場合にのみ必要）
+
+## OS 別依存関係のインストール
+
+アプリ開発に使用するオペレーティング・システム（OS）により、各々のリンクに従ってください。
+
+- [Linux](#linux) (特定のディストリビューションについては下記を参照)
+- [macOS Catalina (10.15) 以降](#macos)
+- [Windows 7 以降](#windows)
+
+### Linux
+
+Tauri は、Linux 上での開発にさまざまなシステム依存関係を必要とします。システム依存関係はディストリビューションによって異なるかもしれませんが、セットアップの役に立つように、以下にいくつかの一般的なディストリビューションを記載しました。
+
+<Tabs syncKey="distro">
+  <TabItem label="Debian">
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.1-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libxdo-dev \
+  libssl-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk-4.1 \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  libappindicator-gtk3 \
+  librsvg
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf check-update
+sudo dnf install webkit2gtk4.1-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel
+sudo dnf group install "c-development"
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+  net-libs/webkit-gtk:4.1 \
+  dev-libs/libappindicator \
+  net-misc/curl \
+  net-misc/wget \
+  sys-apps/file
+```
+
+  </TabItem>
+  <TabItem label="openSUSE">
+
+```sh
+sudo zypper up
+sudo zypper in webkit2gtk3-devel \
+  libopenssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator3-1 \
+  librsvg-devel
+sudo zypper in -t pattern devel_basis
+```
+
+  </TabItem>
+  <TabItem label="Alpine">
+
+```sh
+sudo apk add \
+  build-base \
+  webkit2gtk \
+  curl \
+  wget \
+  file \
+  openssl \
+  libayatana-appindicator-dev \
+  librsvg
+```
+
+  </TabItem>
+  <TabItem label="NixOS">
+
+:::note
+この処理では、Rust と Node.js および「`cargo-tauri`」コマンドライン・インターフェース（CLI） のインストールも同時に行なわれますので、以下の作業ステップを省略できます。
+:::
+
+Using `nix-shell`:
+
+```nix
+let
+  pkgs = import <nixpkgs> { };
+in
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
+    pkg-config
+    gobject-introspection
+    cargo
+    cargo-tauri
+    nodejs
+  ];
+
+  buildInputs = with pkgs;[
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    webkitgtk_4_1
+    openssl
+  ];
+}
+```
+
+  </TabItem>
+</Tabs>
+
+もし、使用しているディストリビューションが上記に含まれていない場合には、[GitHub の Awesome Tauri](https://github.com/tauri-apps/awesome-tauri#guides) のページを参照して、ガイドマニュアルが作成されていないかどうか確認してみてください。
+
+次のステップ： [Rust のインストール](#rust-のインストール)
+
+### macOS
+
+Tauri は [Xcode](https://developer.apple.com/xcode/resources/) とさまざまな macOS および iOS の開発関連の依存関係を利用します。
+
+次のサイトのいずれかから Xcode をダウンロードしてインストールします。
+
+- [Mac App Store](https://apps.apple.com/gb/app/xcode/id497799835?mt=12)
+- [Apple Developer website](https://developer.apple.com/xcode/resources/).
+
+インストール後には、必ず Xcode を起動してセットアップを完了させてください。
+
+<details>
+<summary>デスクトップ・アプリのみを開発する場合は、ここをクリック</summary>
+
+もしデスクトップ・アプリのみを開発する予定で、iOS 用アプリを作成しないのであれば、上記の「Xcode」の代わりに、「Xcode コマンドライン・ツール」をインストールすることもできます。
+
+```sh
+xcode-select --install
+```
+
+</details>
+
+次のステップ： [Rust のインストール](#rust-のインストール)
+
+### Windows
+
+Windows での開発には、Tauri は Microsoft の C++ Build Tools と Microsoft Edge WebView2 の両方が必要になります。
+
+次の作業ステップに従って　必要な依存関係をインストールしてください。
+
+#### Microsoft C++ Build Tools
+
+1. [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) インストーラーをダウンロードして開き、インストールを開始します。
+2. インストール時に、「Desktop development with C++」オプションにチェックを入れてください。
+
+![Visual Studio C++ Build Tools installer screenshot](@assets/start/prerequisites/visual-studio-build-tools-installer.png)
+
+次のステップ： [WebView2 のインストール](#webview2-のインストール).
+
+#### WebView2 のインストール
+
+:::tip
+Windows 10（バージョン 1803）以降の Windows では、WebView 2 が既にインストール済みです。開発に使用するシステムのバージョンがこれらであれば、このステップを飛ばして、直接 [Rust をインストール](#rust-のインストール) に進んでください。
+:::
+
+Tauri は、Windows 上にコンテンツをレンダリングするために Microsoft Edge WebView2 を使用します。
+
+Microsoft の Webview2 ダウンロード・サイト [Download the WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section) セクションから「Evergreen Boostrapper」ファイルをダウンロードし、インストールしてください。
+
+次のステップ： [Rust のインストール](#rust-のインストール)
+
+## Rust のインストール
+
+Tauri は [Rust](https://www.rust-lang.org) で作られており、開発にも Rust が必要です。Rust のインストールには、次のいずれかの方法を使用します。その他のインストール方法については、https://www.rust-lang.org/tools/install を参照してください。
+
+<Tabs syncKey="OS">
+  <TabItem label="Linux と macOS" class="content">
+
+以下のコマンドを用いて、Rust のバージョン管理ルーツ「 [`rustup`](https://github.com/rust-lang/rustup) 」経由でインストールします：
+
+```sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[安全性のためのヒント]
+この bash スクリプトは確認済で、目的どおりの動作をします。とはいえ、スクリプトを盲目的に「curl-bash」コマンドで実行するよりも、常にスクリプトの内容を使用前に確認することが賢明です。
+
+スクリプトの平文ファイルはこちらです： [rustup.sh](https://sh.rustup.rs/)
+:::
+
+  </TabItem>
+  <TabItem label="Windows">
+
+`rustup` をインストールするには、Rust のサイト https://www.rust-lang.org/ja/tools/install を参照してください。
+
+あるいは、PowerShell で以下のようにコマンドを入力することで、`winget` を使用して rustup をインストールすることもできます：
+
+```powershell
+winget install --id Rustlang.Rustup
+```
+
+:::caution[MSVC toolchain がデフォルト]
+
+Tauri と [`trunk`](https://trunkrs.dev/) のようなツールを完全に利用するためには、インストーラーのダイアログで「MSVC Rust ツールチェーン」で `default host triple` が選択されていることを確認してください。使用しているコンピュータ・システムに応じて、`x86_64-pc-windows-msvc`、`i686-pc-windows-msvc`、または `aarch64-pc-windows-msvc` のいずれかになります。
+
+すでに Rust をインストール済みの場合には、次のコマンドを実行して、正しい「ツールチェーン」がインストールされているか確認してください：
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
+  </TabItem>
+</Tabs>
+
+**変更を有効にするために、必ずターミナル (場合によってはシステム本体) を再起動してください。**
+
+次のステップ：　Android および iOS 向けの開発を行なう場合は [モバイル関連の設定](#モバイル関連の設定) を、あるいは、JavaScript を使用する場合は [Node のインストール](#nodejs) を実行してください。それ以外の場合は、次章 [プロジェクトの作成](/ja/start/create-project/) に進んでください。
+
+## Node.js
+
+:::note[JavaScript ecosystem]
+JavaScript をフロントエンドに使用する場合にのみ必要な準備処理です。
+:::
+
+1. [Node.js website](https://nodejs.org) を開いて LTS 版（長期サポート版）をダウンロードし、インストールしてください。
+
+2. 以下のコマンドを実行して、 Node が正常にインストールされたかどうかを確認します。
+
+```sh
+node -v
+# v20.10.0
+npm -v
+# 10.2.3
+```
+
+ターミナルを再起動して、新しくインストールしたプログラムが認識されているか確かめてください。場合によっては、コンピュータを再起動する必要があるかもしれません。
+
+「npm」が Node.js のデフォルト・パッケージ・マネージャーですが、「pnpm」や「yarn」といった別のパッケージ・マネージャーを使うこともできます。こうしたパッケージ・マネージャーを有効化するには、ターミナルにて `corepack enable` を実行してください。この処理ステップは、「npm」以外のパッケージ・マネージャーを使いたい場合にのみに必要な、任意項目です。
+
+次のステップ： [モバイル関連の設定](#モバイル関連の設定) または [プロジェクトの作成](/ja/start/create-project/) です。
+
+## モバイル関連の設定
+
+Android や iOS 向けのアプリ開発を行なう場合には、インストールが必要な追加の依存関係モジュールがいくつかあります：
+
+- [Android](#android)
+- [iOS](#ios)
+
+### Android
+
+1. Android Developers website から [Android Studio](https://developer.android.com/studio) をダウンロードしてインストールします。
+2. `JAVA_HOME` 環境変数を設定します：
+
+{/* TODO: Can this be done in the 4th step? */}
+
+<Tabs syncKey="prereqs">
+<TabItem label="Linux">
+
+```sh
+export JAVA_HOME=/opt/android-studio/jbr
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
+```
+
+</TabItem>
+</Tabs>
+3. 「Android Studio」の「SDK Manager」を使って、以下をインストールします：
+
+- Android SDK Platform
+- Android SDK Platform-Tools
+- NDK (Side by side)
+- Android SDK Build-Tools
+- Android SDK Command-line Tools
+
+SDK マネージャーで「パッケージの詳細を表示」を選択すると、古いバージョンのパッケージをインストールできるようになります。古いバージョンは**必要な場合にのみ**インストールしてください。互換性の問題やセキュリティ上のリスクが発生する可能性があります。
+
+4. `ANDROID_HOME` と `NDK_HOME` の環境変数を設定します。
+
+<Tabs syncKey="prereqs">
+<TabItem label="Linux">
+
+```sh
+export ANDROID_HOME="$HOME/Android/Sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
+```
+
+:::tip
+PowerShell は、再起動またはログアウトするまで、新しい環境変数の設定が有効になりませんが、
+現在のセッションを更新することはできます：
+
+````ps
+[System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+:::
+
+</TabItem>
+
+</Tabs>
+
+5. `rustup` で Android を「ターゲット」に追加します：
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+````
+
+次のステップ： [iOS 用の設定](#ios) または [プロジェクトの作成](/ja/start/create-project/)。
+
+### iOS
+
+:::caution[macOS のみ]
+iOS 開発の依存関係では Xcode が必要で、macOS 上でのみ利用可能です。上記 [macOS 関連の依存関係設定の説明](#macos) 部分にあるとおり、「Xcode コマンド・ライン・ツール」ではなく、「Xcode」そのものがインストールされていることを確認してください。
+:::
+
+1. ターミナルから `rustup` を用いて、iOS を「ターゲット」に追加します：
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+
+2. macOS 用パッケージ・マネージャー [Homebrew](https://brew.sh) をインストールします：
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+3. Homebrew を用いて、iOS 用ライブラリ管理ツール [Cocoapods](https://cocoapods.org) をインストールします：
+
+```sh
+brew install cocoapods
+```
+
+次のステップ： [プロジェクトの作成](/ja/start/create-project/).
+
+## 問題が発生したら
+
+インストール中に何か問題が発生したら、「[トラブルシューティングに関する項目](/ja/develop/debug/)」を参照するか、「[Tauri コミュニティー](https://discord.com/invite/tauri)」に問い合わせてみてください。
+
+<Card title="Next Steps" icon="rocket">
+
+すべての必要事項をインストールし終えましたので、これで [はじめての Tauri プログラム](/ja/start/create-project/) を作成する準備が整いました！
+
+</Card>
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 17, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

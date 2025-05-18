@@ -2,6 +2,7 @@
 title: Logging
 description: Configurable logging.
 plugin: log
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -34,6 +35,7 @@ Install the log plugin to get started.
       npm="npm run tauri add log"
       yarn="yarn run tauri add log"
       pnpm="pnpm tauri add log"
+      deno="deno task tauri add log"
       bun="bun tauri add log"
       cargo="cargo tauri add log"
     />
@@ -66,6 +68,7 @@ Install the log plugin to get started.
           npm = "npm install @tauri-apps/plugin-log"
           yarn = "yarn add @tauri-apps/plugin-log"
           pnpm = "pnpm add @tauri-apps/plugin-log"
+          deno = "deno add npm:@tauri-apps/plugin-log"
           bun = "bun add @tauri-apps/plugin-log"
         />
 
@@ -112,7 +115,7 @@ Install the log plugin to get started.
 
 ## Logging
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 Use one of the plugin's `warn`, `debug`, `trace`, `info` or  `error` APIs to produce a log record from JavaScript code:
 
@@ -234,11 +237,11 @@ tauri_plugin_log::Builder::new()
 When using the LogDir target, all logs are stored in the recommended log directory.
 The following table describes the location of the logs per platform:
 
-| Platform | Value                                       | Example                                        |
-| -------- | ------------------------------------------- | ---------------------------------------------- |
-| Linux    | `{configDir}/{bundleIdentifier}`            | `/home/alice/.config/com.tauri.dev`            |
-| macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}` | `/Users/Alice/Library/Logs/com.tauri.dev`      |
-| Windows  | `{configDir}/{bundleIdentifier}`            | `C:\Users\Alice\AppData\Roaming\com.tauri.dev` |
+| Platform | Value                                                                                    | Example                                           |
+| -------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Linux    | `$XDG_DATA_HOME/{bundleIdentifier}/logs` or `$HOME/.local/share/{bundleIdentifier}/logs` | `/home/alice/.local/share/com.tauri.dev/logs`     |
+| macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}`                                              | `/Users/Alice/Library/Logs/com.tauri.dev`         |
+| Windows  | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs`                                        | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
 
 - `Folder`:
 

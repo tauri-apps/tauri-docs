@@ -79,7 +79,7 @@ fn main() {
 
 之后，所有插件的 API 都可以通过 JavaScript Guest 绑定使用。
 
-<Tabs>
+<Tabs syncKey="SQLvariant">
   <TabItem label="SQLite">
 
 这个路径是相对于 `tauri::api::path::BaseDirectory::App` 的。
@@ -116,7 +116,7 @@ await db.execute("INSERT INTO ...");
 
 我们使用 [sqlx](https://docs.rs/sqlx/latest/sqlx/) 作为底层库并采用它们的查询语法。
 
-<Tabs>
+<Tabs syncKey="SQLvariant">
   <TabItem label="SQLite">
 在替换查询数据时使用 "$#" 语法
 ```javascript

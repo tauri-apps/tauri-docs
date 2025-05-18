@@ -1,0 +1,142 @@
+---
+title: Qwik
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Esta guía te llevará paso a paso para crear aplicación Tauri usando el framework web Qwik. Aprende más sobre Qwik en https://qwik.dev.
+
+## Checklist
+
+- Usa [SSG](https://qwik.dev/docs/guides/static-site-generation/). Tauri no soporta oficialmente soluciones basadas en el servidor.
+- Usa `dist/` en lugar de `frontendDist` en `tauri.conf.json`.
+
+## Ejemplo de Configuración
+
+<Steps>
+
+1.  ##### Crea una nueva aplicación Qwik
+
+    <CommandTabs
+      npm={`npm create qwik@latest
+    cd <PROJECT>`}
+      yarn={`yarn create qwik@latest
+    cd <PROJECT>`}
+      pnpm={`pnpm create qwik@latest
+    cd <PROJECT>`}
+      deno={`deno run -A npm:create-qwik@latest
+    cd <PROJECT>`}
+    />
+
+1.  ##### Instala el `static adapter`
+
+    <CommandTabs
+      npm="npm run qwik add static"
+      yarn="yarn qwik add static"
+      pnpm="pnpm qwik add static"
+      deno="deno task qwik add static"
+    />
+
+1.  ##### Añade la CLI de Tauri a tu proyecto
+
+    <CommandTabs
+      npm="npm install -D @tauri-apps/cli@latest"
+      yarn="yarn add -D @tauri-apps/cli@latest"
+      pnpm="pnpm add -D @tauri-apps/cli@latest"
+      deno="deno add -D npm:@tauri-apps/cli@latest"
+    />
+
+1.  ##### Inicializa un nuevo projecto Tauri
+
+    <CommandTabs
+      npm="npm run tauri init"
+      yarn="yarn tauri init"
+      pnpm="pnpm tauri init"
+      deno="deno task tauri init"
+    />
+
+1.  ##### Configura Tauri
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+1.  ##### Ejecuta tu aplicación `tauri`
+
+    <CommandTabs
+      npm="npm run tauri dev"
+      yarn="yarn tauri dev"
+      pnpm="pnpm tauri dev"
+      deno="deno task tauri dev"
+    />
+
+</Steps>

@@ -2,6 +2,7 @@
 title: Windows Installer
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -23,6 +24,8 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
   npm="npm run tauri build"
   yarn="yarn tauri build"
   pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
   cargo="cargo tauri build"
 />
 
@@ -41,7 +44,7 @@ Since Tauri officially only supports the MSVC Windows target, the setup is a bit
 
 #### Install NSIS
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
 Some Linux distributions have NSIS available in their repositories, for example on Ubuntu you can install NSIS by running this command:
 
@@ -78,7 +81,7 @@ Since the default Microsoft linker only works on Windows we will also need to in
 To compile the Windows Resource file which is used for setting the app icon among other things
 we will also need the `llvm-rc` binary which is part of the LLVM project.
 
-<Tabs>
+<Tabs syncKey="OS">
 <TabItem label="Linux">
   
 ```sh title="Ubuntu"
@@ -126,6 +129,8 @@ Now it should be as simple as adding the runner and target to the `tauri build` 
   npm="npm run tauri build -- --runner cargo-xwin --target x86_64-pc-windows-msvc"
   yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  deno="deno task tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  bun="bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
 />
 
@@ -143,6 +148,8 @@ using the `--target` flag:
   npm="npm run tauri build -- --target i686-pc-windows-msvc"
   yarn="yarn tauri build --target i686-pc-windows-msvc"
   pnpm="pnpm tauri build --target i686-pc-windows-msvc"
+  deno="deno task tauri build --target i686-pc-windows-msvc"
+  bun="bun tauri build --target i686-pc-windows-msvc"
   cargo="cargo tauri build --target i686-pc-windows-msvc"
 />
 
@@ -158,15 +165,14 @@ Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc`
   npm="npm run tauri build -- --target aarch64-pc-windows-msvc"
   yarn="yarn tauri build --target aarch64-pc-windows-msvc"
   pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
+  deno="deno task tauri build --target aarch64-pc-windows-msvc"
+  bun="bun tauri build --target aarch64-pc-windows-msvc"
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 
 :::info
 
-Only the NSIS target supports ARM64 targets, so if you configured Tauri to compile all bundle types
-you may want to change the above command to `tauri build --target aarch64-pc-windows-msvc --bundles nsis` to only build the NSIS installer.
-
-Note that the installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
+Note that the NSIS installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
 
 :::
 

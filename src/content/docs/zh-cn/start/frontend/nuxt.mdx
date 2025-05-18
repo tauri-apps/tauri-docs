@@ -13,7 +13,7 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
 ## 检查清单
 
 - 配置 `ssr: false` 以启用 SSG。Tauri 不支持基于服务端的解决方案。
-- 将主机设置为 `0.0.0.0`。
+- 当在 iOS 物理设备上运行时，设置 `process_env_TAURI_DEV_HOST` 作为开发服务器的主机 IP。
 - 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `dist/`。
 - 使用 `nuxi generate` 编译。
 - （可选）：在 `nuxt.config.ts` 中使用 `telemetry: false` 禁用遥测。
@@ -73,7 +73,19 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
               ```
 
             </TabItem>
-
+        <TabItem label="deno">
+          ```json
+          // tauri.conf.json
+          {
+            "build": {
+              "beforeDevCommand": "deno task dev",
+              "beforeBuildCommand": "deno task generate",
+              "devUrl": "http://localhost:3000",
+              "frontendDist": "../dist"
+            }
+          }
+          ```
+        </TabItem>
         </Tabs>
 
 2.  更新 Nuxt 配置：
@@ -84,8 +96,8 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
       devtools: { enabled: true },
       // 启用 SSG
       ssr: false,
-      // 使开发服务器能够被其他设备发现，以便进行移动端开发。
-      devServer: { host: '0.0.0.0' },
+      // 使开发服务器能够被其他设备发现，以便在 iOS 物理机运行。
+      devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
       vite: {
         // 为 Tauri 命令输出提供更好的支持
         clearScreen: false,
@@ -96,14 +108,6 @@ Nuxt 是一个基于 Vue 的元框架。要了解更多关于 Nuxt 的信息，�
         server: {
           // Tauri需要一个确定的端口
           strictPort: true,
-          hmr: {
-            // 使用 websocket 以支持移动端热重载
-            protocol: 'ws',
-            // 确保它在网络上可用
-            host: '0.0.0.0',
-            // 使用 hmr 的特定端口
-            port: 5183,
-          },
         },
       },
     });

@@ -1,0 +1,63 @@
+---
+title: Leptos
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Leptos（レプトス）は、Rustを基盤としたウェブ・フレームワークです。より詳しい Leptos の説明は、[公式ウェブサイト【英語版】](https://leptos.dev/) をご覧ください。以下の説明内容は、「Leptos バージョン 0.6」に準拠しています。　
+
+## チェック項目
+
+- 「SSG（静的サイト生成）」を使用してください。Tauri は公式にはサーバー・ベースの方式には対応していません。
+- `serve.ws_protocol = "ws"` を使用してください。モバイル開発で、ホットリロード用の WebSocket が適切に接続されるようになります。
+- `withGlobalTauri` を有効化してください。Tauri API が `window.__TAURI__` 変数内で利用できるようになり、`wasm-bindgen` を使用してインポート可能になります。
+
+## 設定例
+
+<Steps>
+
+1. ##### Tauri の設定をアップデート
+
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "devUrl": "http://localhost:1420",
+       "beforeBuildCommand": "trunk build",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
+
+1. ##### Trunk の設定をアップデート
+
+   ```toml
+   // Trunk.toml
+   [build]
+   target = "./index.html"
+
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   port = 1420
+   open = false
+   ws_protocol = "ws"
+
+   ```
+
+</Steps>
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Oct 01, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

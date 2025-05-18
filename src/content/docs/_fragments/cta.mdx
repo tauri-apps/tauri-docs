@@ -11,6 +11,11 @@ sh <(curl https://create.tauri.app/sh)
 irm https://create.tauri.app/ps | iex
 ```
 </TabItem>
+<TabItem label="Fish">
+```sh frame=none
+sh (curl -sSL https://create.tauri.app/sh | psub)
+```
+</TabItem>
 <TabItem label="npm">
 ```sh frame=none
 npx create-tauri-app@latest
@@ -24,6 +29,11 @@ yarn create tauri-app
 <TabItem label="pnpm">
 ```sh frame=none
 pnpm create tauri-app
+```
+</TabItem>
+<TabItem label="deno">
+```sh frame=none
+deno run -A npm:create-tauri-app
 ```
 </TabItem>
 <TabItem label="bun">

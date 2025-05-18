@@ -1,0 +1,62 @@
+---
+title: フロントエンドの設定
+i18nReady: true
+sidebar:
+  label: Overview
+  order: 10
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri はフロントエンドに依存せず、ほとんどのフロントエンド・フレームワークをそのまま直ぐに利用できるはずです。とはいえ、フレームワークによっては、Tauri と一体化して動作させるするために、ちょっとした追加設定を必要とするものがあります。以下のリストにあるフレームワークには、推奨される設定値があります。
+
+このリストに記載がないフレームワークには、追加設定の必要なしに Tauri で動作するものと、まだ情報がなくリスト化されていないものとがあります。追加設定を必要とするフレームワークがあれば、Tauri コミュニティまでお知らせくださるようお願いいたします。
+
+## 設定チェックリスト
+
+概念的には、Tauri は静的 Web ホストとして機能します。したがって、Tauri の Web ビューで用いられる HTML、CSS、Javascript、および場合によっては WASM のファイルを含むフォルダーを、Tauri に渡す必要があります。
+
+以下は、フロントエンドを Tauri と統合するために必要な、一般的なシナリオのチェックリストです。
+
+{/* TODO: Link to core concept of SSG/SSR, etc. */}
+{/* TODO: Link to mobile development server guide */}
+{/* TODO: Concept of how to do a client-server relationship? */}
+
+- 「静的サイト生成（SSG）」、「シングルページアプリケーション（SPA）」、または昔ながらの「マルチページアプリケーション（MPA）」を使用します。Tauri は、「サーバーサイドレンダリング（SSR）」のようなサーバー・ベースの代替方式には対応していません。
+- モバイル・アプリ開発では、自身の内部 IP 上にフロントエンドをホストできる何らかの開発サーバーが必要です。
+- アプリと API との間は適切なクライアント／サーバー関係を使用します（SSR を併用したハイブリッド・ソリューションは使用しないでください）。
+
+## JavaScript
+
+{/* TODO: Help me with the wording here lol */}
+
+ほとんどのプロジェクトでは、React、Vue、Svelte、Solid などの SPA フレームワークだけでなく、通常の JavaScript または TypeScript プロジェクトにも、[Vite](https://vitejs.dev/) をお勧めします。ここに記載されている他のガイドのほとんどには、メタ・フレームワークの使用方法が示されています。メタ・フレームワークは通常 SSR 用に設計されているため、特別な設定が必要です。
+
+<CardGrid>
+  <LinkCard title="Next.js" href="/start/frontend/nextjs/" />
+  <LinkCard title="Nuxt" href="/start/frontend/nuxt/" />
+  <LinkCard title="Qwik" href="/start/frontend/qwik/" />
+  <LinkCard title="SvelteKit" href="/start/frontend/sveltekit/" />
+  <LinkCard title="Vite（推奨）" href="/start/frontend/vite/" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+  <LinkCard title="Leptos" href="/start/frontend/leptos/" />
+  <LinkCard title="Trunk" href="/start/frontend/trunk/" />
+</CardGrid>
+
+<br />
+
+:::tip[リストにフレームワークが見つからない？]
+
+目的のフレームワークがリストに載っていない？　それは、追加設定不要で Tauri で動作するフレームワークだからかもしれません。一般的な設定については、[設定チェックリスト](/ja/start/frontend/#設定チェックリスト)の項を参照してください。
+
+:::
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Oct 01, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

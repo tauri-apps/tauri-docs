@@ -3,6 +3,7 @@ title: Continuous Integration
 description: WebDriver Testing
 sidebar:
   order: 21
+i18nReady: true
 ---
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with

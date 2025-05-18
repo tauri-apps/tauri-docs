@@ -2,6 +2,7 @@
 title: Permissions
 sidebar:
   order: 2
+i18nReady: true
 ---
 
 Permissions are descriptions of explicit privileges of commands.
@@ -24,6 +25,9 @@ my-scope = "$HOME/secret"
 It can enable commands to be accessible in the frontend of a Tauri application.
 It can map scopes to commands and defines which commands are enabled.
 Permissions can enable or deny certain commands, define scopes or combine both.
+
+To grant or deny a permission to your app's window or webview,
+you must reference the permission in a [capability](/security/capabilities/).
 
 Permissions can be grouped as a set under a new identifier.
 This is called a permission set. This allows you to combine scope related permissions

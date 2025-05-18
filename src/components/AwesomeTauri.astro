@@ -25,8 +25,9 @@ const sections = {
   'plugins-no-official': 'Plugins',
   integrations: 'Integrations',
   articles: 'Articles',
-  guides: 'Guides',
-  tutorials: 'Tutorials',
+  guides: 'Guides & Tutorials',
+  'guides-no-official-no-video': 'Guides & Tutorials',
+  'guides-no-official-only-video': 'Guides & Tutorials',
   templates: 'Templates',
   'applications-audio-video': 'Audio & Video',
   'applications-chatgpt-clients': 'ChatGPT clients',
@@ -56,6 +57,24 @@ for (const header of categories) {
         if (img && img.src && img.src.includes('official')) continue;
         img = entry.children[2];
         if (img && img.src && img.src.includes('official')) continue;
+      }
+      if (section.includes('-no-video')) {
+        let img = entry.children[1];
+        if (img && img.src && img.src.includes('YouTube')) continue;
+        img = entry.children[2];
+        if (img && img.src && img.src.includes('YouTube')) continue;
+      }
+      if (section.includes('-only-video')) {
+        let skip = true;
+        let img = entry.children[1];
+        if (img && img.src && img.src.includes('YouTube')) {
+          skip = false;
+        }
+        img = entry.children[2];
+        if (img && img.src && img.src.includes('YouTube')) {
+          skip = false;
+        }
+        if (skip) continue;
       }
       cards.push({
         href: entry.children[0].href,

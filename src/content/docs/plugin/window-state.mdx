@@ -2,6 +2,7 @@
 title: Window State
 description: Persist window sizes and positions.
 plugin: window-state
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -34,6 +35,7 @@ Use your project's package manager to add the dependency:
   npm="npm run tauri add window-state"
   yarn="yarn run tauri add window-state"
   pnpm="pnpm tauri add window-state"
+  deno="deno task tauri add window-state"
   bun="bun tauri add window-state"
   cargo="cargo tauri add window-state"
 />
@@ -70,6 +72,7 @@ Use your project's package manager to add the dependency:
             npm="npm install @tauri-apps/plugin-window-state"
             yarn="yarn add @tauri-apps/plugin-window-state"
             pnpm="pnpm add @tauri-apps/plugin-window-state"
+            deno="deno add npm:@tauri-apps/plugin-window-state"
             bun="bun add @tauri-apps/plugin-window-state"
         />
 
@@ -80,9 +83,15 @@ Use your project's package manager to add the dependency:
 
 ## Usage
 
-After adding the all windows will remember their state when the app is being closed and will restore to their previous state on the next launch.
+After adding the window-state plugin, all windows will remember their state when the app is being closed and will restore to their previous state on the next launch.
 
 You can also access the window-state plugin in both JavaScript and Rust.
+
+:::tip
+Restoring the state will happen after window creation,
+so to prevent the window from flashing, you can set `visible` to `false` when creating the window,
+the plugin will show the window when it restores the state
+:::
 
 ### JavaScript
 

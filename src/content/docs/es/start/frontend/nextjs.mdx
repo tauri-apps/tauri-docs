@@ -1,90 +1,131 @@
 ---
 title: Next.js
 i18nReady: true
+tableOfContents:
+  collapseLevel: 1
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-Next.js es un framework para React. Aprende más sobre Next.js en https://nextjs.org. Esta guía es precisa a partir de Next.js 13.4.19.
+Next.js es un meta framework para React. Aprende más sobre Next.js en https://nextjs.org. Esta guía es válida para Next.js 14.2.3.
 
 ## Checklist
 
 - Usa exports estáticos estableciendo `output: 'export'`. Tauri no soporta soluciones basadas en el servidor.
-- Usa `out/` como `distDir` en `tauri.conf.json`.
+- Usa el directorio `out` como `frontendDist` en `tauri.conf.json`.
 
 ## Ejemplo de Configuración
 
-1. Actualiza la configuración de Tauri:
+<Steps>
 
-<Tabs>
-	<TabItem label="npm">
+1.  ##### Actualiza la configuración de Tauri
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:3000",
-    "distDir": "../dist"
-  }
-}
-```
+    <Tabs>
 
-</TabItem>
-<TabItem label="yarn">
+      <TabItem label="npm">
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn generate",
-    "devPath": "http://localhost:3000",
-    "distDir": "../dist"
-  }
-}
-```
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
 
-</TabItem>
-<TabItem label="pnpm">
+    </TabItem>
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm generate",
-    "devPath": "http://localhost:3000",
-    "distDir": "../dist"
-  }
-}
-```
+    <TabItem label="yarn">
 
-</TabItem>
-</Tabs>
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
 
-2. Actualiza la configuración de Next.js:
+    </TabItem>
 
-```ts
-// next.conf.ts
-const isProd = process.env.NODE_ENV === 'production';
-module.exports = async (phase, { defaultConfig }) => {
-  // En modo de desarrollo usamos TAURI_DEV_HOST para servir los archivos si es necesario
-  const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
-  const nextConfig = {
-    // Aségurate de que Next.js use SSG en lugar de SSR
-    // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
-    output: 'export',
-    // Nota: Esta función experimental es necesaria para usar NextJS Image en modo SSG.
-    // Consulta https://nextjs.org/docs/messages/export-image-api para ver diferentes soluciones.
-    images: {
-      unoptimized: true,
-    },
-    // Configura assetPrefix o el servidor no resolverá correctamente tus archivos.
-    assetPrefix: isProd ? null : `http://${internalHost}:3000`,
-  };
-  return nextConfig;
-};
-```
+    <TabItem label="pnpm">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../out"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+2.  ##### Actualiza la configuración de Next.js
+
+    ```ts
+    // next.conf.mjs
+    const isProd = process.env.NODE_ENV === 'production';
+
+    const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
+
+    /** @type {import('next').NextConfig} */
+    const nextConfig = {
+      // Asegurate de que Next.js usa SSG en lugar de SSR
+      // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+      output: 'export',
+      // Nota: Esta función es necesaria para usar el componente Image de Next.js en modo SSG.
+      // Consulta https://nextjs.org/docs/messages/export-image-api para ver algunas soluciones alternativas.
+      images: {
+        unoptimized: true,
+      },
+      // Configura assetPrefix; de lo contrario, el servidor no resolverá correctamente tus recursos.
+      assetPrefix: isProd ? undefined : `http://${internalHost}:3000`,
+    };
+
+    export default nextConfig;
+    ```
+
+3.  ##### Actualiza la configuración de package.json
+
+        ```json
+        "scripts": {
+          "dev": "next dev",
+          "build": "next build",
+          "start": "next start",
+          "lint": "next lint",
+          "tauri": "tauri"
+        }
+        ```
+
+</Steps>

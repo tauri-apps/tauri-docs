@@ -146,10 +146,13 @@ fn run() {
 {
   "plugins": {
     "deep-link": {
-      "domains": [
+      "mobile": [
         { "host": "your.website.com", "pathPrefix": ["/open"] },
         { "host": "another.site.br" }
-      ]
+      ],
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
     }
   }
 }
@@ -159,7 +162,7 @@ fn run() {
 
 deep-link 有 JavaScript 和 Rust 两种版本。
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
 ```javascript

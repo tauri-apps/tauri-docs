@@ -2,6 +2,7 @@
 title: Autostart
 description: Automatically launch your app at system startup.
 plugin: autostart
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -34,6 +35,7 @@ Install the autostart plugin to get started.
       npm="npm run tauri add autostart"
       yarn="yarn run tauri add autostart"
       pnpm="pnpm tauri add autostart"
+      deno="deno task tauri add autostart"
       bun="bun tauri add autostart"
       cargo="cargo tauri add autostart"
     />
@@ -70,6 +72,7 @@ Install the autostart plugin to get started.
                 npm="npm install @tauri-apps/plugin-autostart"
                 yarn="yarn add @tauri-apps/plugin-autostart"
                 pnpm="pnpm add @tauri-apps/plugin-autostart"
+                deno="deno add npm:@tauri-apps/plugin-autostart"
                 bun="bun add @tauri-apps/plugin-autostart"
             />
 
@@ -82,7 +85,7 @@ Install the autostart plugin to get started.
 
 The autostart plugin is available in both JavaScript and Rust.
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
 ```javascript

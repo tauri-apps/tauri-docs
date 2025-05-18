@@ -1,0 +1,148 @@
+---
+title: Qwik
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+ここでは、「Qwik（クウィック）Webフレームワーク」を用いた Tauri アプリの作成を順に説明していきます。Qwik の詳細については、公式サイト https://qwik.dev をご覧ください。
+
+## チェック項目
+
+- [SSG](https://qwik.dev/docs/guides/static-site-generation/) を使用してください。Tauri はサーバー・ベースの方式には対応していません。
+- `tauri.conf.json` では `frontendDist` として `dist/` を指定します。
+
+## 設定例
+
+<Steps>
+
+1.  ##### 新しい Qwik アプリを開始します
+
+    <CommandTabs
+      npm={`npm create qwik@latest
+    cd <PROJECT>`}
+      yarn={`yarn create qwik@latest
+    cd <PROJECT>`}
+      pnpm={`pnpm create qwik@latest
+    cd <PROJECT>`}
+      deno={`deno run -A npm:create-qwik@latest
+    cd <PROJECT>`}
+    />
+
+1.  ##### `static adapter` をインストールします
+
+    <CommandTabs
+      npm="npm run qwik add static"
+      yarn="yarn qwik add static"
+      pnpm="pnpm qwik add static"
+      deno="deno task qwik add static"
+    />
+
+1.  ##### 「Tauri CLI」をあなたのプロジェクトに追加します
+
+    <CommandTabs
+      npm="npm install -D @tauri-apps/cli@latest"
+      yarn="yarn add -D @tauri-apps/cli@latest"
+      pnpm="pnpm add -D @tauri-apps/cli@latest"
+      deno="deno add -D npm:@tauri-apps/cli@latest"
+    />
+
+1.  ##### 新しい Tauri プロジェクトを初期化します
+
+    <CommandTabs
+      npm="npm run tauri init"
+      yarn="yarn tauri init"
+      pnpm="pnpm tauri init"
+      deno="deno task tauri init"
+    />
+
+1.  ##### Tauri の設定
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+1.  ##### `tauri` アプリを開始
+
+    <CommandTabs
+      npm="npm run tauri dev"
+      yarn="yarn tauri dev"
+      pnpm="pnpm tauri dev"
+      deno="deno task tauri dev"
+    />
+
+</Steps>
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 01, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

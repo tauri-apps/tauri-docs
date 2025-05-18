@@ -12,7 +12,7 @@ This guide walks you through upgrading your Tauri 1.0 application to Tauri 2.0.
 
 ## Preparing for Mobile
 
-The mobile interface of Tauri requires your project to output a shared library. If you are targetting mobile for your existing application, you must change your crate to produce that kind of artifact along with the desktop executable.
+The mobile interface of Tauri requires your project to output a shared library. If you are targeting mobile for your existing application, you must change your crate to produce that kind of artifact along with the desktop executable.
 
 1. Change the Cargo manifest to produce the library. Append the following block:
 
@@ -50,6 +50,12 @@ fn main() {
 
 ## Automated Migration
 
+:::danger
+
+This command is not a substitude for this guide! Please read the _whole_ page regardless of whether you chose to use the command.
+
+:::
+
 The Tauri v2 CLI includes a `migrate` command that automates most of the process and helps you finish the migration:
 
 <CommandTabs
@@ -62,8 +68,6 @@ The Tauri v2 CLI includes a `migrate` command that automates most of the process
   cargo='cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri migrate'
 />
-
-{/* TODO: 2.0 */}
 
 Learn more about the `migrate` command in the [Command Line Interface reference](/reference/cli/#migrate)
 
@@ -187,10 +191,12 @@ Most of the environment variables read and written by the Tauri CLI were renamed
 
 The event system was redesigned to be easier to use. Instead of relying on the source of the event, it now has a simpler implementation that relies on event targets.
 
-- The `emit` function now emits the event to all event listeners
-- Added a new `emit_to` function to trigger an event to a specific target
+- The `emit` function now emits the event to all event listeners.
+- Added a new `emit_to`/`emitTo` function to trigger an event to a specific target.
 - `emit_filter` now filters based on [`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html) instead of a window.
 - Renamed `listen_global` to `listen_any`. It now listens to all events regardless of their filters and targets.
+- JavaScript: `event.listen()` behaves similar to `listen_any`. It now listens to all events regardless of their filters and targets, unless a target is set in the `Options`.
+- JavaScript: `WebviewWindow.listen` etc. only listen to events emitted to the respective `EventTarget`.
 
 ### Multiwebview support
 
@@ -198,6 +204,10 @@ Tauri v2 introduces multiwebview support currently behind an `unstable` feature 
 In order to support it, we renamed the Rust `Window` type to `WebviewWindow` and the Manager `get_window` function to `get_webview_window`.
 
 The `WebviewWindow` JS API type is now re-exported from `@tauri-apps/api/webviewWindow` instead of `@tauri-apps/api/window`.
+
+### New origin URL on Windows
+
+On Windows the frontend files in production apps are now hosted on `http://tauri.localhost` instead of `https://tauri.localhost`. Because of this IndexedDB, LocalStorage and Cookies will be reset unless `dangerousUseHttpScheme` was used in v1. To prevent this you can set `app > windows > useHttpsScheme` to `true` or use `WebviewWindowBuilder::use_https_scheme` to keep using the `https` scheme.
 
 ## Detailed Migration Steps
 
@@ -227,7 +237,7 @@ tauri-plugin-cli = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -278,7 +288,7 @@ The Rust `App::clipboard_manager` and `AppHandle::clipboard_manager` and JavaScr
 tauri-plugin-clipboard-manager = "2"
 ```
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -336,7 +346,7 @@ tauri-plugin-dialog = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -402,7 +412,7 @@ tauri-plugin-fs = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -460,7 +470,7 @@ tauri-plugin-global-shortcut = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -525,7 +535,7 @@ tauri-plugin-http = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -591,7 +601,7 @@ tauri-plugin-notification = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -770,7 +780,7 @@ tauri-plugin-os = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -825,7 +835,7 @@ tauri-plugin-process = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -884,7 +894,7 @@ tauri-plugin-shell = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -1059,7 +1069,11 @@ tauri::Builder::default()
 
 ### Migrate to Updater Plugin
 
-The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead.
+:::caution[Change of default behavior]
+
+The built-in dialog with an automatic update check was removed, use the Rust and JS APIs to check for and install updates instead. Failing to do so will prevent your users from getting further updates!
+
+:::
 
 The Rust `tauri::updater` and JavaScript `@tauri-apps/api-updater` APIs have been removed. To set a custom updater target with the `@tauri-apps/plugin-updater`:
 
@@ -1072,7 +1086,7 @@ tauri-plugin-updater = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust

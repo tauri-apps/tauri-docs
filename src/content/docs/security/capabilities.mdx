@@ -2,21 +2,23 @@
 title: Capabilities
 sidebar:
   order: 4
+i18nReady: true
 ---
 
 Tauri provides application and plugin developers with a capabilities system,
 to granually enable and constrain the core exposure to the application frontend running in the
 system WebView.
 
-Capabilities are a set of [permissions](/security/permissions/) mapped
-to application windows and webviews by their respective label.
+Capabilities define which [permissions](/security/permissions/)
+are granted or denied for which windows or webviews.
+
 Capabilities can affect multiple windows and webviews and these can be
 referenced in multiple capabilities.
 
 :::tip[Security Tip]
 
 Windows and WebViews which are part of more than one capability
-effectivly merge the security boundaries and permissions of all
+effectively merge the security boundaries and permissions of all
 involved capabilities.
 
 :::
@@ -25,8 +27,8 @@ Capability files are either defined as a JSON or a TOML file
 inside the `src-tauri/capabilities` directory.
 
 It is good practice to use individual files and only reference
-them by identifier in the `tauri.conf.json` but it also possible
-to defined them directly in the `capabilities` field.
+them by identifier in the `tauri.conf.json` but it is also possible
+to define them directly in the `capabilities` field.
 
 All capabilities inside the `capabilities` directory are automatically enabled
 by default.
@@ -36,12 +38,12 @@ only these are used in the application build.
 For a full reference of the configuration scheme please see the
 [references](/reference/config/) section.
 
-The following example JSON defines a capability that enables default functionality
-for core plugins and the `window.setTitle` API.
+The following example JSON defines a capability that allows the main window
+use the default functionality of core plugins and the `window.setTitle` API.
 
 ```json title="src-tauri/capabilities/default.json"
 {
-  "$schema": "./schemas/desktop-schema.json",
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
@@ -98,6 +100,24 @@ Inline capabilities can be mixed with pre-defined capabilities.
 }
 ```
 
+By default, all commands that you registered in your app
+(using the
+[`tauri::Builder::.invoke_handler`](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.invoke_handler)
+function)
+are allowed to be used by all the windows and webviews of the app.
+To change that, consider using
+[`AppManifest::commands`](https://docs.rs/tauri-build/2.0.0/tauri_build/struct.AppManifest.html#method.commands).
+
+```rust title=src-tauri/build.rs
+fn main() {
+    tauri_build::try_build(
+        tauri_build::Attributes::new()
+            .app_manifest(tauri_build::AppManifest::new().commands(&["your_command"])),
+    )
+    .unwrap();
+}
+```
+
 ## Target Platform
 
 Capabilities can be platform-specific by defining the `platforms` array.
@@ -109,7 +129,7 @@ Note it enables permissions on plugins that are only available on desktop:
 
 ```json title="src-tauri/capabilities/desktop.json"
 {
-  "$schema": "./schemas/desktop-schema.json",
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "desktop-capability",
   "windows": ["main"],
   "platforms": ["linux", "macOS", "windows"],
@@ -122,7 +142,7 @@ Note it enables permissions on plugins that are only available on mobile:
 
 ```json title="src-tauri/capabilities/mobile.json"
 {
-  "$schema": "./schemas/mobile-schema.json",
+  "$schema": "../gen/schemas/mobile-schema.json",
   "identifier": "mobile-capability",
   "windows": ["main"],
   "platforms": ["iOS", "android"],
@@ -145,17 +165,14 @@ all subdomains of `tauri.app`.
 
 ```json title="src-tauri/capabilities/remote-tags.json"
 {
-	"$schema": "./schemas/remote-schema.json",
-	"identifier": "remote-tag-capability",
-	"windows": ["main"],
-	"remote": {
-		"urls": ["https://*.tauri.app"]
-	}
-	"platforms": ["iOS", "android"],
-	"permissions": [
-		"nfc:allow-scan",
-		"barcode-scanner:allow-scan"
-	]
+  "$schema": "../gen/schemas/remote-schema.json",
+  "identifier": "remote-tag-capability",
+  "windows": ["main"],
+  "remote": {
+    "urls": ["https://*.tauri.app"]
+  },
+  "platforms": ["iOS", "android"],
+  "permissions": ["nfc:allow-scan", "barcode-scanner:allow-scan"]
 }
 ```
 
@@ -198,11 +215,12 @@ to higher privileged windows.
 
 ## Schema Files
 
-Tauri generates a JSON schema with all the permissions that are available to your
-application so you have autocompletion in your IDE.
-To use the schema, set the `$schema` property to one of the schemas
-inside the `gen/schemas` directory, which are platform-specific.
-Usually you will set it to `../gen/schemas/desktop-schema.json` or
+Tauri generates JSON schemas with all the permissions available to
+your application, allowing autocompletion in your IDE.
+To use a schema, set the `$schema` property in your configuration file
+(either .json or .toml) to one of the platform-specific schemas
+located in the `gen/schemas` directory. Usually
+you will set it to `../gen/schemas/desktop-schema.json` or
 `../gen/schemas/mobile-schema.json` though you can also define a capability
 for a specific target platform.
 
@@ -227,3 +245,7 @@ Everything can be inlined into the `tauri.conf.json` but even a
 little more advanced configuration would bloat this file and
 the goal of this approach is that the permissions are abstracted
 away whenever possible and simple to understand.
+
+## Core Permissions
+
+A list of all core permissions can be found on the [Core Permissions](/reference/acl/core-permissions/) page.

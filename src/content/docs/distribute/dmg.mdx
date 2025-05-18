@@ -2,6 +2,7 @@
 title: DMG
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -9,7 +10,7 @@ import { Image } from 'astro:assets';
 import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
 import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
 
-The DMG (Apple Disk Image) format is a common macOS installer file that wrapps your [App Bundle][App Bundle distribution guide] in a user-friendly installation window.
+The DMG (Apple Disk Image) format is a common macOS installer file that wraps your [App Bundle][App Bundle distribution guide] in a user-friendly installation window.
 
 The installer window includes your app icon and the Applications folder icon, where the user is expected to drag the app icon to the Applications folder icon to install it.
 It is the most common installation method for macOS applications distributed outside the App Store.
@@ -24,6 +25,8 @@ To create an Apple Disk Image for your app you can use the Tauri CLI and run the
   npm="npm run tauri build -- --bundles dmg"
   yarn="yarn tauri build --bundles dmg"
   pnpm="pnpm tauri build --bundles dmg"
+  deno="deno task tauri build --bundles dmg"
+  bun="bun tauri build --bundles dmg"
   cargo="cargo tauri build --bundles dmg"
 />
 
