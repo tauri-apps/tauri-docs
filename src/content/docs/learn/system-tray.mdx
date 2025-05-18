@@ -51,10 +51,10 @@ See [`TrayIconOptions`] for more information on the customization options.
 use tauri::tray::TrayIconBuilder;
 
 tauri::Builder::default()
-.setup(|app| {
-let tray = TrayIconBuilder::new().build(app)?;
-Ok(())
-})
+    .setup(|app| {
+        let tray = TrayIconBuilder::new().build(app)?;
+        Ok(())
+    })
 
 ```
 
