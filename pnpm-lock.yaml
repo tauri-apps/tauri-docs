@@ -38,8 +38,8 @@ importers:
         specifier: ^4.16.18
         version: 4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       astro-d2:
-        specifier: ^0.6.0
-        version: 0.6.0(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
+        specifier: ^0.8.0
+        version: 0.8.0(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3))
       astro-feelback:
         specifier: ^0.3.4
         version: 0.3.4
@@ -1643,11 +1643,11 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro-d2@0.6.0:
-    resolution: {integrity: sha512-ml9eqdq7ihOLkyD0F3AJKjDfGEN8Aohk7n6epdPnhizP9qa/aZdlCxSlpIGDMGMvRbFT3F5H8hW6Ea3fxvYafA==}
+  astro-d2@0.8.0:
+    resolution: {integrity: sha512-vs1crOjTmYeQg+kHUymB8AhcmFRZyiQBuK1bsuMoTbX1upX3ljhny8DdvOWoiEVUBQAwlUojjwO5bB8tRo8hCw==}
     engines: {node: '>=18'}
     peerDependencies:
-      astro: '>=4.0.0'
+      astro: '>=5.0.0'
 
   astro-expressive-code@0.38.3:
     resolution: {integrity: sha512-Tvdc7RV0G92BbtyEOsfJtXU35w41CkM94fOAzxbQP67Wj5jArfserJ321FO4XA7WG9QMV0GIBmQq77NBIRDzpQ==}
@@ -2390,9 +2390,6 @@ packages:
 
   hast-util-to-estree@3.1.0:
     resolution: {integrity: sha512-lfX5g6hqVh9kjS/B9E2gSkvHH4SZNiQFiqWS0x9fENzEl+8W12RqdRxX6d/Cwxi30tPQs3bIO+aolQJNp1bIyw==}
-
-  hast-util-to-html@9.0.3:
-    resolution: {integrity: sha512-M17uBDzMJ9RPCqLMO92gNNUDuBSq10a25SDBI08iCCxmorf4Yy6sYHK57n9WAbRAAaU+DuR4W6GN9K4DFZesYg==}
 
   hast-util-to-html@9.0.4:
     resolution: {integrity: sha512-wxQzXtdbhiwGAUKrnQJXlOPmHnEehzphwkK7aluUPQ+lEc1xefC8pblMgpp2w5ldBTEfveRIrADcrhGIWrlTDA==}
@@ -5518,11 +5515,11 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-d2@0.6.0(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
+  astro-d2@0.8.0(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
     dependencies:
       astro: 4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)
       hast-util-from-html: 2.0.3
-      hast-util-to-html: 9.0.3
+      hast-util-to-html: 9.0.4
       unist-util-visit: 5.0.0
 
   astro-expressive-code@0.38.3(astro@4.16.18(@types/node@22.13.14)(rollup@2.79.1)(sass@1.83.4)(terser@5.31.0)(typescript@5.7.3)):
@@ -6451,20 +6448,6 @@ snapshots:
       zwitch: 2.0.4
     transitivePeerDependencies:
       - supports-color
-
-  hast-util-to-html@9.0.3:
-    dependencies:
-      '@types/hast': 3.0.4
-      '@types/unist': 3.0.3
-      ccount: 2.0.1
-      comma-separated-tokens: 2.0.3
-      hast-util-whitespace: 3.0.0
-      html-void-elements: 3.0.0
-      mdast-util-to-hast: 13.2.0
-      property-information: 6.5.0
-      space-separated-tokens: 2.0.2
-      stringify-entities: 4.0.4
-      zwitch: 2.0.4
 
   hast-util-to-html@9.0.4:
     dependencies:
