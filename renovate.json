@@ -10,7 +10,7 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i"],
+      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i", "/.*typedoc.*/i"],
       "groupName": "astro & starlight packages"
     }
   ]
