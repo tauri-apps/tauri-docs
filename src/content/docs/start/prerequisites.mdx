@@ -120,35 +120,51 @@ sudo apk add \
 This will also install Rust and Node.js as well as the `cargo-tauri` CLI for you, so you can skip those steps below.
 :::
 
-Using `nix-shell`:
+Using [devenv](https://devenv.sh/):
 
 ```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
+{ pkgs, config, ... }:
 
-  buildInputs = with pkgs;[
+{
+  env = {
+    PATH = "$HOME/.cargo/bin:$PATH";
+  };
+
+  languages = {
+    javascript.enable = true;
+  };
+
+  packages = with pkgs; [ 
+    git
+    pkg-config
     at-spi2-atk
     atkmm
     cairo
     gdk-pixbuf
     glib
     gtk3
+    webkitgtk_4_1
     harfbuzz
     librsvg
     libsoup_3
     pango
-    webkitgtk_4_1
     openssl
+    openjdk11
+    gradle
+    zlib
+    cargo
+    cargo-tauri
+    rustup
+    gobject-introspection
+    nodejs
+    bun
+    libxslt
+    libxml2
   ];
+
+  enterShell = ''
+    git --version
+  '';
 }
 ```
 
@@ -372,6 +388,64 @@ However you can refresh the current session:
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ````
+
+#### NixOS
+
+Using [devenv](https://devenv.sh/):
+```nix
+{ pkgs, config, ... }:
+
+{
+  env = {
+    NDK_HOME = "${config.env.ANDROID_NDK_ROOT}26.1.10909125"; 
+    PATH = "$HOME/.cargo/bin:$PATH";
+  };
+
+  android.enable = true;
+
+  languages = {
+    javascript.enable = true;
+  };
+
+  packages = with pkgs; [ 
+    git
+    pkg-config
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    webkitgtk_4_1
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    openssl
+    openjdk11
+    gradle
+    zlib
+    cargo
+    cargo-tauri
+    rustup
+    gobject-introspection
+    nodejs
+    bun
+    libxslt
+    libxml2
+  ];
+
+  scripts = {
+    emulator.exec = ''avdmanager create avd --force --name my-android-emulator-name --package "system-images;android-32;google_apis_playstore;x86_64"'';
+  };
+
+  enterShell = ''
+    echo NDK_HOME=$NDK_HOME
+    git --version
+    echo To create emulator lust launch "emulator"
+  '';
+}
+```
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
