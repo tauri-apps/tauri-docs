@@ -39,7 +39,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "sass": "^1.89.0",
     "sharp": "^0.33.5",
-    "shiki": "^1.29.2",
+    "shiki": "^3.0.0",
     "starlight-blog": "^0.15.0",
     "starlight-links-validator": "^0.13.0"
   },
