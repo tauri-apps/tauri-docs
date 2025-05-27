@@ -12,6 +12,12 @@
     {
       "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i", "/.*typedoc.*/i"],
       "groupName": "astro & starlight packages"
+    },
+    {
+      "groupName": "too noisy",
+      "matchPackageNames": ["@types/node"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "enabled": false
     }
   ]
 }
