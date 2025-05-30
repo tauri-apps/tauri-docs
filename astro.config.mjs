@@ -99,7 +99,7 @@ export default defineConfig({
         { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
         { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
         { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
-        { icon: 'rss', label: 'RSS', href: `${site}/rsspa` },
+        { icon: 'rss', label: 'RSS', href: `${site}/rss` },
       ],
       components: {
         Header: './src/components/overrides/Header.astro',
