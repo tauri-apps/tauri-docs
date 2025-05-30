@@ -33,7 +33,7 @@
     "astro-d2": "^0.6.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
-    "jsdom": "^26.0.0",
+    "jsdom": "^26.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.14.1",
     "rehype-autolink-headings": "^7.1.0",
@@ -43,7 +43,7 @@
     "starlight-blog": "^0.23.2",
     "starlight-links-validator": "^0.14.3"
   },
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.11.0",
   "engines": {
     "pnpm": "^10.0.0"
   },
