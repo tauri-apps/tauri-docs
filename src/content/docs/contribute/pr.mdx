@@ -1,0 +1,27 @@
+---
+title: Pull Request Guidelines
+description: Pull Request Guidelines
+sidebar:
+  order: 2
+  label: Pull Request
+---
+
+To start contributing you need to fork the relevant repository. Branches that add new features should be named `feat/...` and branches that address existing issues should be named `fix/...`.
+
+
+Follow this requirements for Pull Requests:
+
+- You have to [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
+
+- It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.
+
+- If adding new feature:
+
+  - Provide convincing reason to add this feature. Ideally you should open a suggestion issue first and have it greenlighted before working on it.
+
+- If fixing a bug:
+
+  - If you are resolving a special issue, add `(fix: #xxxx[,#xxx])` (#xxxx is the issue id) in your PR title for a better release log, e.g. `fix: update entities encoding/decoding (fix #3899)`.
+  - Provide detailed description of the bug in the PR, or link to an issue that does.
+
+- If the PR is meant to be released, follow the instructions in `.changes/readme.md` to log your changes. ie. [readme.md](https://github.com/tauri-apps/tauri/blob/dev/.changes/README.md)

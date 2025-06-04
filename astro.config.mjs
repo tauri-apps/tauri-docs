@@ -235,6 +235,11 @@ export default defineConfig({
               autogenerate: { directory: 'learn' },
             },
             {
+              label: 'Contribute',
+              collapsed: true,
+              autogenerate: { directory: 'contribute' },
+            },
+            {
               label: 'Plugins',
               translations: {
                 'zh-CN': '插件',
