@@ -8,9 +8,9 @@ i18nReady: true
 
 import CommandTabs from '@components/CommandTabs.astro';
 
-现在 [万事俱备](/start/)，你已经可以使用Tauri运行应用。
+现在 [万事俱备](/start/)，你已经可以使用 Tauri 运行应用。
 
-如果你正在使用一个UI框架或JavaScript打包工具，你可能有权访问开发服务器，
+如果你正在使用一个 UI 框架或 JavaScript 打包工具，你可能有权访问开发服务器，
 这会加速你的开发，所以如果你还没有配置应用的开发URL和启动脚本，你可以对 [devUrl](/reference/config/#devurl) 和
 [beforeDevCommand](/reference/config/#beforedevcommand) 进行设置:
 
@@ -31,8 +31,8 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 :::
 
-反之，如果没有使用框架和打包器，你可以将你的前端源码交给Tauri，
-Tauri CLI会帮你启动开发服务器:
+反之，如果没有使用框架和打包器，你可以将你的前端源码交给 Tauri，
+Tauri CLI 会帮你启动开发服务器:
 
 ```json title=tauri.conf.json
 {
@@ -65,14 +65,14 @@ Tauri CLI会帮你启动开发服务器:
   cargo="cargo tauri dev"
 />
 
-第一次执行这个命令时Rust包管理器可能会需要**一些时间**来下载并构建所有需要的包。
+第一次执行这个命令时 Rust 包管理器可能会需要**一些时间**来下载并构建所有需要的包。
 他们会被缓存，以后的构建会快得多，因为只有你的代码需要重新构建。
 
-Rust 构建完成后，网页视图会打开，显示你的网页应用。你可以对网页应用进行更改，如果你的工具支持，网页视图应该会自动更新，就像浏览器一样。
+Rust 构建完成后，webview 会打开，显示你的 web 应用。你可以对 web 应用进行更改，如果你的工具支持，webview 应该会自动更新，就像浏览器一样。
 
-#### 打开网页检查器
+#### 打开 web 检查器
 
-你可以打开网页检查器来调试你的应用，打开的方法是在网页视图上右键并点击 "Inspect" 或使用快捷键 `Ctrl + Shift + I`(Windows，Linux)，`Cmd + Option + I`(macOS)。
+你可以打开 web 检查器来调试你的应用，打开的方法是在webview上右键并点击 "Inspect" 或使用快捷键 `Ctrl + Shift + I`（Windows，Linux），`Cmd + Option + I`（macOS）。
 
 ### 开发你的移动应用
 
@@ -87,7 +87,7 @@ Rust 构建完成后，网页视图会打开，显示你的网页应用。你可
   cargo="cargo tauri [android|ios] dev"
 />
 
-第一次执行这个命令时Rust包管理器可能会需要**一些时间**来下载并构建所有需要的包。
+第一次执行这个命令时 Rust 包管理器可能会需要**一些时间**来下载并构建所有需要的包。
 他们会被缓存，以后的构建会快得多，因为只有你的代码需要重新构建。
 
 #### 开发服务器
@@ -159,7 +159,7 @@ export default defineConfig({
 />
 
 :::note
-如果你打算在实体 iOS 设备上运行该应用，则还必须提供 `--host` 参数，并且你的开发服务器必须使用 `process.env.TAURI_DEV_HOST` 值作为主机。有关更多信息，请参阅你框架的设置指南。
+如果你打算在 iOS 物理设备上运行该应用，则还必须提供 `--host` 参数，并且你的开发服务器必须使用 `process.env.TAURI_DEV_HOST` 值作为主机。有关更多信息，请参阅你框架的设置指南。
 
 <CommandTabs
   npm="npm run tauri [android|ios] dev --open --host"
@@ -176,7 +176,7 @@ export default defineConfig({
 建议使用 `tauri [android|ios] dev --open` 命令，并保持该进程处于活动状态，直到关闭 IDE。
 :::
 
-#### 打开网页检查器
+#### 打开 web 检查器
 
 - iOS
 
@@ -193,7 +193,7 @@ export default defineConfig({
   将你的 Android 设备连接到电脑，打开 Android 设备中的**设置**应用，选择**关于**，滚动到版本号，然后点击 7 次。 
   这将为你的 Android 设备启用开发者模式和**开发者选项**设置。
 
-  要在你的设备上启用应用程序调试，你必须进入**开发者选项**设置，切换开发者选项开关并启用**USB 调试**。
+  要在你的设备上启用应用程序调试，你必须进入**开发者选项**设置，切换开发者选项开关并启用 **USB 调试**。
 
   :::note
   每个 Android 发行版都有自己的方式来启用开发者模式，请查看制造商的文档以获取更多信息。
@@ -210,7 +210,7 @@ Tauri 通过创建一个构建阶段来连接到 iOS Xcode 项目，该阶段会
 构建阶段在 Xcode 进程上下文中执行，因此可能无法使用 Shell 修改（例如添加 PATH）。
 因此，在使用可能不兼容的工具（例如 Node.js 版本管理器）时请一定小心。
 
-2. 在首次执行 iOS 应用时提示网络权限n
+2. 在首次执行 iOS 应用时提示网络权限
 
 首次执行 `tauri ios dev` 时，iOS 可能会提示你获取查找并连接本地网络中设备的权限。
 此权限是必需的，因为要从 iOS 设备访问你的开发服务器，我们必须将其暴露在本地网络中。
@@ -240,4 +240,4 @@ Tauri 的 API 仅在你的应用程序窗口中有效，因此一旦你开始使
 
 ### 源代码控制
 
-在你的项目仓库中，你应该将 `src-tauri/Cargo.lock` 和 `src-tauri/Cargo.toml` 一起提交到 git，因为 Cargo 使用 lockfile 来提供确定性构建。因此, 建议所有应用程序都写入其 `Cargo.lock` 文件。你**不应该**提交 `src-tauri/target` 文件夹或其中的任何内容。
+在你的项目仓库中，你**应该**将 `src-tauri/Cargo.lock` 和 `src-tauri/Cargo.toml` 一起提交到 git，因为 Cargo 使用 lockfile 来提供确定性构建。因此, 建议所有应用程序都写入其 `Cargo.lock` 文件。你**不应该**提交 `src-tauri/target` 文件夹或其中的任何内容。
