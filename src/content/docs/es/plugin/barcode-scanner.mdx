@@ -1,5 +1,5 @@
 ---
-title: Barcode Scanner
+title: Escáner de códigos de barras
 description: Permite que tu aplicación móvil utilice la cámara para escanear códigos QR, EAN-13 y otros tipos de códigos de barras.
 sidebar:
   badge:
@@ -66,7 +66,7 @@ Instala el plugin de escáner de códigos de barras para comenzar.
                       Ok(())
                   })
                   .run(tauri::generate_context!())
-                  .expect("error while running tauri application");
+                  .expect("error al ejecutar la aplicación tauri");
           }
           ```
 
@@ -108,7 +108,7 @@ El plugin de escáner de códigos de barras está disponible en JavaScript.
 
 ```javascript
 import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
-// cuando uses `"withGlobalTauri": true`, puedes usar
+// cuando uses `"withGlobalTauri": true`, deberías usar
 // const { scan, Format } = window.__TAURI__.barcodeScanner;
 
 // `windowed: true` en realidad establece la vista web en transparente
