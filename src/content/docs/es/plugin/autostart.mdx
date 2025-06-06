@@ -1,5 +1,5 @@
 ---
-title: Autostart
+title: Inicio automático
 description: Inicia automáticamente tu aplicación al arrancar el sistema.
 plugin: autostart
 i18nReady: true
@@ -62,7 +62,7 @@ Instala el plugin de autostart para comenzar.
                         Ok(())
                     })
                     .run(tauri::generate_context!())
-                    .expect("error while running tauri application");
+                    .expect("error al ejecutar la aplicación tauri");
             }
             ```
 
@@ -131,7 +131,7 @@ pub fn run() {
             Ok(())
         })
         .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .expect("error al ejecutar la aplicación tauri");
 }
 ```
 
