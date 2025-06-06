@@ -231,7 +231,31 @@ export default defineConfig({
                 es: 'Desarrollo',
               },
               collapsed: true,
-              autogenerate: { directory: 'develop' },
+              items: [
+                'develop',
+                'develop/configuration-files',
+                'develop/calling-rust',
+                'develop/calling-frontend',
+                'develop/resources',
+                'develop/sidecar',
+                'develop/state-management',
+                'develop/updating-dependencies',
+                {
+                  label: 'Debug',
+                  collapsed: true,
+                  autogenerate: { directory: 'develop/Debug' },
+                },
+                {
+                  label: 'Plugins',
+                  collapsed: true,
+                  autogenerate: { directory: 'develop/Plugins' },
+                },
+                {
+                  label: 'Tests',
+                  collapsed: true,
+                  autogenerate: { directory: 'develop/Tests' },
+                },
+              ],
             },
             {
               label: 'Distribute',
