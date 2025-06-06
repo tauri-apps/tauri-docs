@@ -1,0 +1,87 @@
+---
+title: JetBrains IDEs でのデバッグ
+i18nReady: true
+---
+
+{/* TODO: Add support to light/dark mode images */}
+
+この章では、JetBrains RustRover を使って [Tauri アプリのコア・プロセス](/ja/concept/process-model/#コアプロセス) をデバッグする方法を説明します。この内容は 他の JetBrains IDE である IntelliJ と CLion にもほぼ当てはまります。
+
+## Cargo プロジェクトの設定
+
+プロジェクトでどのフロントエンド・スタックを用いているかによって、プロジェクト・ディレクトリが「Cargo プロジェクト」になる場合と、そうでない場合に分かれます。デフォルトでは、Tauri は「Rust プロジェクト」を `src-tauri` というサブディレクトリに配置します。Rust がフロントエンド開発にも使用されている場合にのみ、ルート・ディレクトリに「Cargo プロジェクト」が作成されます。
+
+もしプロジェクト・ディレクトリの最上位に `Cargo.toml` ファイルがないのであれば、Cargo プロジェクトを手作業で付加する必要があります。Cargo ツール・ウィンドウを開き（メインメニューで **View | Tool Windows | Cargo** を選択）、ツールバーの **+**（**Attach Cargo Project**）をクリックして、`src-tauri/Cargo.toml` ファイルを選択してください。
+
+あるいは、次のファイルをプロジェクトのルート・ディレクトリに追加することで、最上位の Cargo ワークスペースを手作業で作成することもできます：
+
+```toml title=Cargo.toml
+[workspace]
+members = ["src-tauri"]
+```
+
+次に進む前に、プロジェクトが完全に読み込まれていることを確認してください。「Cargo ツール・ウィンドウ」にワークスペースのモジュールとターゲットがすべて表示されていれば、準備完了です。
+
+## 実行構成の設定
+
+次の二つの「Run 実行／Debug デバッグ」設定をそれぞれ行なう必要があります：
+
+- ひとつは、デバッグ・モードで Tauri アプリを起動するためのもの
+- もうひとつは、選択したフロントエンド開発サーバーを実行するためのもの、です。
+
+### Tauri アプリ
+
+1. メイン・メニューで、「**Run | Edit Configurations**」（実行 | 設定編集） に移動します。
+2. 「**Run/Debug Configurations**」（実行／デバッグ設定）ダイアログで：
+
+- 新しい設定を作成するには、ツールバー（左端）の **+** をクリックし、**Cargo** を選択します。
+
+![Add Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-light.png)
+{/* ![Add Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-dark.png#gh-dark-mode-only) */}
+
+設定ファイルが作成されたら、RustRover の設定を行ない、デフォルト機能なしでアプリをビルドするように Cargo に指示する必要があります。これにより、Tauri はディスクからデータ（アセット）を読み取るのではなく、あなたの指定する開発サーバーを使用するようになります。通常、このフラグは Tauri CLI によって渡されますが、ここでは Tauri CLI を全く利用していないので、手作業でフラグを渡す必要があります。
+
+![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-light.png)
+{/* ![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-dark.png#gh-dark-mode-only) */}
+
+ここで、オプションで「実行／デバッグ設定」の名前をより覚えやすいものに変更できます。この例では「Run Tauri App」という名前を付けましたが、任意の名前を付けることができます。
+
+![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-light.png)
+{/* ![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-dark.png#gh-dark-mode-only) */}
+
+### 開発サーバー
+
+上記の設定では、Cargo を直接使用して Rust アプリケーションをビルドし、デバッガをアタッチしています。この設定では、Tauri CLI の使用が完全に回避されているので、`beforeDevCommand` や `beforeBuildCommand` などの機能は**実行されません**。開発サーバーは手作業で実行する必要があります。
+
+そのための「Run/Debug Configuration」（実行／デバッグ設定）を作成するには、実際に使用中の開発サーバーを確認する必要があります。`src-tauri/tauri.conf.json` ファイルを探し、次の行を見つけてください：
+
+```json
+    "beforeDevCommand": "pnpm dev"
+```
+
+パッケージ・マネージャーが `npm`、`pnpm`、または `yarn` の場合、**npm** の「Run/Debug Configuration」設定ウィンドウを使用できます。次に例を示します：
+
+![NPM Configuration](@assets/develop/Debug/rustrover/npm-configuration-light.png)
+{/* ![NPM Configuration](@assets/develop/Debug/rustrover/npm-configuration-dark.png#gh-dark-mode-only) */}
+
+**Command**（コマンド）、**Scripts**（スクリプト）、および**Package Manager**（パッケージ・マネージャー）の各フィールドに正しい値が入力されていることを確認してください。
+
+開発サーバーが Rust ベースの WebAssembly フロントエンド・フレームワーク用の `trunk` である場合は、汎用の **Shell Script** の「Run/Debug Configuration」（シェル・スクリプト実行／デバッグ設定）ウィンドウを使用できます。
+
+![Trunk Serve Configuration](@assets/develop/Debug/rustrover/trunk-configuration-light.png)
+{/* ![Trunk Serve Configuration](@assets/develop/Debug/rustrover/trunk-configuration-dark.png#gh-dark-mode-only) */}
+
+## デバッグ・セッションの開始
+
+デバッグ・セッションを開始するには、まず開発サーバーを起動し、「Run Configurations Switcher」（実行設定スイッチャー）の横にある**デバッグ**ボタンをクリックして、Tauriアプリのデバッグを開始する必要があります。RustRover は、あなたのプロジェクト内の Rust ファイルに設定されたブレークポイントを自動的に認識し、最初のブレークポイントに到達した時点で停止します。
+
+![Debug Session](@assets/develop/Debug/rustrover/debug-session-light.png)
+{/* ![Debug Session](@assets/develop/Debug/rustrover/debug-session-dark.png#gh-dark-mode-only) */}
+
+このブレークポイントから、変数の値を調べ、コードをさらに詳しく調べ、実行時に何が起こっているかを詳しく確認できます。
+
+[core process of your tauri app]: /ja/concept/process-model#コアプロセス
+
+<div style="text-align: right">
+  【※ この日本語版は、「Jul 23, 2024 英語版」に基づいています】
+</div>

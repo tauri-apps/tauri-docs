@@ -14,8 +14,8 @@ The scope type needs be of any [`serde`](https://docs.rs/serde/latest/serde/) se
 These types are plugin-specific in general. For scoped commands implemented in a Tauri application
 the scope type needs to be defined in the application and then enforced in the command implementation.
 
-For instance, the [`Fs`](https://github.com/tauri-apps/plugins-workspace/tree/plugins/fs) plugin allows you to use scopes to allow or deny certain directories and files
-and the [`http`](https://github.com/tauri-apps/plugins-workspace/tree/plugins/http) plugin uses scopes to filter URLs that are allowed to be reached.
+For instance, the [`Fs`](https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/fs) plugin allows you to use scopes to allow or deny certain directories and files
+and the [`http`](https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/http) plugin uses scopes to filter URLs that are allowed to be reached.
 
 The scope is passed to the command and handling or properly enforcing is implemented
 by the command itself.
@@ -29,7 +29,7 @@ The scope validation implementation should be audited to ensure correctness.
 
 ## Examples
 
-These examples are taken from the [`Fs`](https://github.com/tauri-apps/plugins-workspace/tree/plugins/fs) plugin permissions:
+These examples are taken from the [`Fs`](https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/fs) plugin permissions:
 
 The scope type in this plugin for all commands is a string,
 which contains a [`glob`](https://docs.rs/glob/latest/glob/) compatible path.

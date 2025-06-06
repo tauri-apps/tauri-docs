@@ -69,3 +69,43 @@ This is not a complete reference over all available options, merely the ones tha
 - [rustflags:](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option) Sets Rust compiler flags on a profile by profile basis.
   - `-Cdebuginfo=0`: Whether debuginfo symbols should be included in the build.
   - `-Zthreads=8`: Increases the number of threads used during compilation.
+
+## Remove Unused Commands
+
+In Pull Request [`feat: add a new option to remove unused commands`](https://github.com/tauri-apps/tauri/pull/12890), we added in a new option in the tauri config file
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "removeUnusedCommands": true
+  }
+}
+```
+
+to remove commands that're never allowed in your capability files (ACL), so you don't have to pay for what you don't use
+
+:::tip
+To maximize the benefit of this, only include commands that you use in the ACL instead of using `defaults`s
+:::
+
+:::note
+This feature requires `tauri@2.4`, `tauri-build@2.1`, `tauri-plugin@2.1` and `tauri-cli@2.4`
+:::
+
+:::note
+This won't be accounting for dynamically added ACLs at runtime so make sure to check it when using this
+:::
+
+<details>
+<summary>How does it work under the hood?</summary>
+
+`tauri-cli` will communicate with `tauri-build` and the build script of `tauri`, `tauri-plugin` through an environment variable
+and let them generate a list of allowed commands from the ACL,
+this will then be used by the `generate_handler` macro to remove unused commands based on that
+
+An internal detial is this environment variable is currently `REMOVE_UNUSED_COMMANDS`,
+and it's set to project's directory, usually the `src-tauri` directory, this is used for the build scripts to find the capability files,
+and although it's not encouraged, you can still set this environment variable yourself if you can't or don't want to use `tauri-cli` to get this to work
+(**do note that as this is an implementation detail, we don't guarantee the stability of it**)
+
+</details>
