@@ -356,8 +356,8 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk" | Select-Obje
 ```
 
 :::tip
-PowerShell will not pick up the new environment variables until reboot or logout (the PowerShell, not your system),
-however you can refresh the current session:
+Most apps don't refresh their environment variables automatically, so to let them pickup the changes,
+you can either restart your terminal and IDE or for your current PowerShell session, you can refresh it with
 
 ```ps
 [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
