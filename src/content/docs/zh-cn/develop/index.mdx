@@ -17,7 +17,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 ```json title=tauri.conf.json
 {
   "build": {
-    "devUrl": "http://localhost:3000", 
+    "devUrl": "http://localhost:3000",
     "beforeDevCommand": "npm run dev"
   }
 }
@@ -108,19 +108,19 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  clearScreen: false, 
+  clearScreen: false,
   server: {
-    host: host || false, 
-    port: 1420, 
-    strictPort: true, 
+    host: host || false,
+    port: 1420,
+    strictPort: true,
     hmr: host
       ? {
-          protocol: 'ws', 
-          host, 
-          port: 1421, 
+          protocol: 'ws',
+          host,
+          port: 1421,
         }
-      : undefined, 
-  }, 
+      : undefined,
+  },
 });
 ```
 
@@ -181,16 +181,16 @@ export default defineConfig({
 - iOS
 
   必须使用 Safari 来访问 iOS 应用程序的 Web Inspector。
-  
+
   在 Mac 机上打开 Safari，在菜单栏中选择 **Safari > 设置**，点击**高级**，然后选择**显示针对 Web 开发人员的功能** 。
 
   如果你在物理设备上运行，则必须在**设置 > Safari > 高级**中启用 **Web Inspector** 。
-  
+
   完成所有步骤后，你应该会在 Safari 中看到 **Develop** 菜单，其中会找到要检查的已连接设备和应用程序。在你的设备或模拟器上选择 **localhost** ，然后点击即可打开 Safari 开发者工具窗口。
 
 - Android
 
-  将你的 Android 设备连接到电脑，打开 Android 设备中的**设置**应用，选择**关于**，滚动到版本号，然后点击 7 次。 
+  将你的 Android 设备连接到电脑，打开 Android 设备中的**设置**应用，选择**关于**，滚动到版本号，然后点击 7 次。
   这将为你的 Android 设备启用开发者模式和**开发者选项**设置。
 
   要在你的设备上启用应用程序调试，你必须进入**开发者选项**设置，切换开发者选项开关并启用 **USB 调试**。
