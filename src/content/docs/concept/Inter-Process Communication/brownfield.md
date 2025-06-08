@@ -16,13 +16,15 @@ legacy systems.
 ## Configuration
 
 Because the Brownfield pattern is the default pattern, it doesn't require a configuration option to be set. To explicitly set
-it, you can use the `tauri > pattern` object in the `tauri.conf.json` configuration file.
+it, you can use the `app > security > pattern` object in the `tauri.conf.json` configuration file.
 
 ```json
 {
-  "tauri": {
-    "pattern": {
-      "use": "brownfield"
+  "app": {
+    "security": {
+      "pattern": {
+        "use": "brownfield"
+      }
     }
   }
 }
