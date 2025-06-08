@@ -1,17 +1,16 @@
 
 ---
-title: Isolation Pattern
+title: 隔离模式
 i18nReady: true
 ---
 
-The Isolation pattern is a way to intercept and modify Tauri API messages sent by the frontend before they get to Tauri Core, all with JavaScript. The secure JavaScript code that is injected by the Isolation pattern is referred to as the Isolation application.
+**隔离模式**（Isolation Pattern）使用 JavaScript 截获并修改前端向 Tauri Core 发送的 Tauri API 消息。由隔离模式注入的 JavaScript 安全代码被称为**隔离应用程序**（Isolation Application）。
 
-## Why
+## 为什么这么做
 
-The Isolation pattern's purpose is to provide a mechanism for developers to help protect their application from unwanted or malicious frontend calls to Tauri Core. The need for the Isolation pattern rose out of threats coming from untrusted content running on the frontend, a common case for applications with many dependencies. See [Security: Threat Models] for a list of many sources of threats that an application may see.
+隔离模式向开发者提供一种避免程序中前端不必要或恶意地调用 Tauri Core 的机制。这一需求源自运行在前端的不受信任内容的威胁，有大量依赖的应用经常遇到这种情形。请查看 [Security: Threat Models] 来了解应用程序可能遇到的威胁的来源。
 
 The largest threat model described above that the Isolation pattern was designed in mind was Development Threats. Not only do many frontend build-time tools consist of many dozen (or hundreds) of often deeply-nested dependencies, but a complex application may also have a large amount of (also often deeply-nested) dependencies that are bundled into the final output.
-
 ## When
 
 Tauri highly recommends using the isolation pattern whenever it can be used. Because the Isolation application intercepts _**all**_ messages from the frontend, it can _always_ be used.
