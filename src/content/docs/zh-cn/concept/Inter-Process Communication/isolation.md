@@ -82,7 +82,7 @@ window.__TAURI_ISOLATION_HOOK__ = (payload) => {
 };
 ```
 
-现在，我们需要做的就是设置我们的 `tauri.conf.json` [配置](#configuration)以使用隔离模式，然后仅需从 [Brownfield 模式]引导到隔离模式。
+现在，我们需要做的就是设置我们的 `tauri.conf.json` [配置](#配置)以使用隔离模式，然后仅需从 [Brownfield 模式]引导到隔离模式。
 
 ## 配置
 
