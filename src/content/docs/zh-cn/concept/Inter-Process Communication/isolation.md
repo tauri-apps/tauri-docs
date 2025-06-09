@@ -76,7 +76,7 @@ Tauri 应用程序每次启动时都会生成一个加密安全密钥。如果�
 
 ```javascript
 window.__TAURI_ISOLATION_HOOK__ = (payload) => {
-  // let's not verify or modify anything, just print the content from the hook
+  // 不需要验证或修改任何内容，仅输出钩子中的内容
   console.log('hook', payload);
   return payload;
 };
