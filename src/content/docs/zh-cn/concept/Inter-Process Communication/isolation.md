@@ -107,8 +107,8 @@ window.__TAURI_ISOLATION_HOOK__ = (payload) => {
 ```
 
 [transport_layer_security]: https://en.wikipedia.org/wiki/Transport_Layer_Security
-[security: threat models]: /security/lifecycle/
-[事件]: /reference/javascript/api/namespaceevent/
+[security: threat models]: /zh-cn/security/lifecycle/
+[事件]: /zh-cn/reference/javascript/api/namespaceevent/
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
-[brownfield 模式]: /concept/inter-process-communication/brownfield/
-[WebDriver 一体化测试]: /develop/tests/webdriver/
+[brownfield 模式]: /zh-cn/concept/inter-process-communication/brownfield/
+[WebDriver 一体化测试]: /zh-cn/develop/tests/webdriver/
