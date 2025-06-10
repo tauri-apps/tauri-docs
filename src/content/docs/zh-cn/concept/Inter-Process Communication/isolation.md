@@ -111,4 +111,4 @@ window.__TAURI_ISOLATION_HOOK__ = (payload) => {
 [事件]: /reference/javascript/api/namespaceevent/
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 [brownfield 模式]: /concept/inter-process-communication/brownfield/
-[WebDriver 一体化测试]: /zh-cn/develop/tests/webdriver/
+[WebDriver 一体化测试]: /develop/tests/webdriver/
