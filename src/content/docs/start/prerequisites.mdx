@@ -351,16 +351,18 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk" | Select-Object -Last 1
 [System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
 
 :::tip
-PowerShell will not pick up the new environment variables until reboot or logout,
-However you can refresh the current session:
+Most apps don't refresh their environment variables automatically, so to let them pickup the changes,
+you can either restart your terminal and IDE or for your current PowerShell session, you can refresh it with
 
-````ps
+```ps
 [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+```
+
 :::
 
 </TabItem>
@@ -371,7 +373,7 @@ However you can refresh the current session:
 
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-````
+```
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
