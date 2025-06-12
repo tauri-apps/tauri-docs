@@ -123,22 +123,22 @@ pub fn run() {
 }
 ```
 
-## Working with Snap and Flatpak
+## Usage in Snap and Flatpak
 
-The Single Instance plugin uses DBus to ensure it will be only one instance running. It does that by publishing a service to DBus when the first instance starts running.
-Then, the following instances will try to publish the same service and, if it is already published, they will send a request to the service to notify the first instance, and finish right away.
+On Linux the Single Instance plugin uses DBus to ensure that there will be only one instance running. It does so by publishing a service to DBus when the first instance starts running.
+Then, the following instances will try to publish the same service and, if it is already published, they will send a request to the service to notify the first instance, and exit right away.
 
-Despite this works pretty well when your app is bundled as a deb or rpm package, it won't work as intended for snap or flatpak packages because these packages run in a constrained sandboxed environment, where most of the communication to DBus services will be blocked if not explicitly declared on the packaging manifest.
+Despite this working pretty well when your app is bundled as a deb or rpm package or an AppImage, it won't work as intended for snap or flatpak packages by default because these packages run in a constrained sandboxed environment, where most of the communication to DBus services will be blocked if not explicitly declared on the packaging manifest.
 
-Here's a guide to declare the needed permissions to enable the Single Instance for snap and flatpak packages:
+Here's a guide that shows how to declare the needed permissions to enable the Single Instance for snap and flatpak packages:
 
 ### Getting your app ID
 
 The Single Instance plugin will publish a service named `org.{id}.SingleInstance`. 
 
-`{id}` will be the key **identifier** from your **tauri.conf.json** file, but with with dots (.) and dashes (-) replaced by underline (_).
+`{id}` will be the `identifier` from your `tauri.conf.json` file, but with with dots (`.`) and dashes (`-`) replaced by underline (`_`).
 
-So, if your identifier is `net.mydomain.MyApp`:
+For example, if your identifier is `net.mydomain.MyApp`:
 - `net_mydomain_MyApp` will be your app `{id}`
 - `org.net_mydomain_MyApp.SingleInstance` will be your app SingleInstance service name
 
@@ -146,7 +146,8 @@ You will need the service name to authorize your app to use the DBus service on 
 
 ### Snap 
 
-On your snapcraft.yml file, declare a plug and a slot for the single instance service, and use both on your app declaration:
+In your snapcraft.yml file, declare a plug and a slot for the single instance service, and use both on your app declaration:
+
 ```yaml title="snapcraft.yml"
 # ...
 slots:
@@ -175,11 +176,12 @@ apps:
     # ....
 ```
 
-This will allow your app to listen and to send requests to the DBus service as expected by the Single Instance plugin.
+This will allow your app to send and receive requests from/to the DBus service as expected by the Single Instance plugin.
 
 ### Flatpak
 
-On your flatpak manifest file (your.app.id.yml or your.app.id.json), declare a `--talk-name` and a `--own-name` finish args with the service name:
+In your flatpak manifest file (your.app.id.yml or your.app.id.json), declare a `--talk-name` and a `--own-name` finish args with the service name:
+
 ```yaml title="net.mydomain.MyApp.yml"
 # ...
 finish-args:
@@ -193,4 +195,4 @@ finish-args:
 # ...
 ```
 
-This will allow your app to listen and to send requests to the DBus service as expected by the Single Instance plugin.
+This will allow your app to send and receive requests from/to the DBus service as expected by the Single Instance plugin.
