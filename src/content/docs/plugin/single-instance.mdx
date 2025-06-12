@@ -134,17 +134,18 @@ Here's a guide that shows how to declare the needed permissions to enable the Si
 
 ### Getting your app ID
 
-The Single Instance plugin will publish a service named `org.{id}.SingleInstance`. 
+The Single Instance plugin will publish a service named `org.{id}.SingleInstance`.
 
 `{id}` will be the `identifier` from your `tauri.conf.json` file, but with with dots (`.`) and dashes (`-`) replaced by underline (`_`).
 
 For example, if your identifier is `net.mydomain.MyApp`:
+
 - `net_mydomain_MyApp` will be your app `{id}`
 - `org.net_mydomain_MyApp.SingleInstance` will be your app SingleInstance service name
 
-You will need the service name to authorize your app to use the DBus service on snap and flatpak manifests, as seen below. 
+You will need the service name to authorize your app to use the DBus service on snap and flatpak manifests, as seen below.
 
-### Snap 
+### Snap
 
 In your snapcraft.yml file, declare a plug and a slot for the single instance service, and use both on your app declaration:
 
@@ -172,7 +173,7 @@ apps:
     slots:
       # ...
       - single-instance
-    
+
     # ....
 ```
 
