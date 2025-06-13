@@ -74,6 +74,8 @@ finish-args:
   - --socket=fallback-x11 # Permission needed to show the window
   - --device=dri # OpenGL, not necessary for all projects
   - --share=ipc
+  - --talk-name=org.kde.StatusNotifierWatcher # Optional: 仅当你的应用使用托盘图标时需要
+  - --filesystem=xdg-run/tray-icon:create # Optional: 仅当你的应用使用托盘图标时需要 - 请参阅下面的替代方法
 
 modules:
   - name: binary
@@ -97,6 +99,19 @@ modules:
 ```
 
 Gnome 46 运行时包含了标准 Tauri 应用程序的所有依赖项，并且它们的版本都是正确的。
+
+:::note[保持不更改 Flatpak 清单并使用托盘图标]
+如果你不想让你的应用从 $XDG_RUNTIME_DIR（Linux上托盘图标的保存位置）获取托盘图像，可以修改 tauri 保存它的路径：
+
+```rust
+TrayIconBuilder::new()
+  .icon(app.default_window_icon().unwrap().clone())
+  .temp_dir_path(app.path().app_cache_dir().unwrap()) // 将保存到应用已有权限的缓存文件夹（$XDG_CACHE_HOME）
+  .build()
+  .unwrap();
+```
+
+:::
 
 **5. 安装并测试该应用程序**
 
