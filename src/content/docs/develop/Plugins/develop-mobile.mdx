@@ -216,6 +216,20 @@ class ExamplePlugin(private val activity: Activity): Plugin(activity) {
 }
 ```
 
+:::note
+On Android native commands are scheduled on the main thread. Performing long-running operations will cause the UI to freeze and potentially "Application Not Responding" (ANR) error.
+
+If you need to wait for some blocking IO, you can launch a corouting like that:
+
+```kotlin
+CoroutineScope(Dispatchers.IO).launch {
+  val result = myLongRunningOperation()
+  invoke.resolve(result)
+}
+```
+
+:::
+
 </TabItem>
 <TabItem label="iOS">
 
