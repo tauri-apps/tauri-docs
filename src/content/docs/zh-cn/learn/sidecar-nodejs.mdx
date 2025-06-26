@@ -71,7 +71,7 @@ import CTA from '@fragments/cta.mdx';
     在本例中，我们将处理来自命令行参数的指令，并将输出写入标准输出（stdout）。
     这意味着我们的进程是短生命周期的，每次只处理一条命令。
     如果你的应用需要长生命周期运行，建议考虑使用其他的进程间通信方式。
-    
+
     现在在我们的 `sidecar-app` 目录中创建一个 `index.js` 文件，并编写一个简单的 Node.js 应用：
 
     ```js title=sidecar-app/index.js
