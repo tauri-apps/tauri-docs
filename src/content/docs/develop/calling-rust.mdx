@@ -47,6 +47,7 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times
    |
    = note: `__cmd__command_name` must be defined only once in the macro namespace of this module
 ```
+
 :::
 
 You will have to provide a list of your commands to the builder function like so:
@@ -59,7 +60,7 @@ pub fn run() {
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }
-````
+```
 
 Now, you can invoke the command from your JavaScript code:
 

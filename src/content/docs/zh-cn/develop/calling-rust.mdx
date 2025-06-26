@@ -46,6 +46,7 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times
    |
    = note: `__cmd__command_name` must be defined only once in the macro namespace of this module
 ```
+
 :::
 
 您必须向构建器函数提供命令列表，如下所示：
@@ -58,7 +59,7 @@ pub fn run() {
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }
-````
+```
 
 现在，您可以从 JavaScript 代码调用该命令：
 
@@ -112,7 +113,7 @@ pub fn run() {
 
 注意命令列表中的 `commands::` 前缀，它表示命令函数的完整路径。
 
-此示例中的命令名称是 `my_custom_command` ，因此您仍然可以通过执行 
+此示例中的命令名称是 `my_custom_command` ，因此您仍然可以通过执行
 `invoke("my_custom_command")` 来调用它。在您的前端， `commands::` 前缀将被忽略。
 
 #### WASM
@@ -341,7 +342,7 @@ Tauri 优先使用异步命令来执行繁重的工作，而不会导致 UI 冻�
 :::note
 
 异步命令使用 [`async_runtime::spawn`] 在单独的异步任务上执行。
-除非使用 *#[tauri::command(async)]* 定义，否则没有 *async* 关键字的命令将在主线程上执行。
+除非使用 _#[tauri::command(async)]_ 定义，否则没有 _async_ 关键字的命令将在主线程上执行。
 
 :::
 
@@ -360,7 +361,7 @@ Tauri 优先使用异步命令来执行繁重的工作，而不会导致 UI 冻�
 
 **选项 1**：将类型转换为非借用类型，例如 `&str` 转为 `String` 。这可能不适用于所有类型，例如 `State<'_, Data>` 。
 
-*例子：*
+_例子：_
 
 ```rust
 // 在声明异步函数时使用 String 而不是 &str，因为 &str 是借用的，因此不支持
@@ -381,7 +382,7 @@ async fn my_custom_command(value: String) -> String {
 - `Result<(), ()>` 返回 `null`。
 - `Result<bool, Error>` 返回一个 bool 值或一个错误，如上面的 [错误处理](#错误处理) 部分所示。
 
-*例子：*
+_例子：_
 
 ```rust
 // 返回一个 Result<String, ()> 以绕过借用问题
@@ -516,7 +517,7 @@ fn upload(request: tauri::ipc::Request) -> Result<(), Error> {
 }
 ```
 
-在前端，您可以调用 `invoke()` 通过在 payload 参数上提供 ArrayBuffer 
+在前端，您可以调用 `invoke()` 通过在 payload 参数上提供 ArrayBuffer
 或 Uint8Array 来发送原始请求主体，并在第三个参数中包含请求标头：
 
 ```js
@@ -657,7 +658,7 @@ appWebview.emitTo('editor', 'file-changed', {
 
 :::note
 Webview 特有的事件**不会**被触发到常规的全局事件监听器中。
-要监听**所有**事件，您必须为 [event.listen] 函数提供 `{ target: { kind: 'Any' } }` 
+要监听**所有**事件，您必须为 [event.listen] 函数提供 `{ target: { kind: 'Any' } }`
 选项，该选项将监听器定义为所有已发出事件的集合：
 
 ```js
@@ -677,9 +678,8 @@ listen(
 
 ### 监听事件
 
-<FrontendListen />
-.
-要了解如何从 Rust 代码中监听事件和发出事件，请参阅 [Rust 事件系统文档] 。
+<FrontendListen />. 要了解如何从 Rust 代码中监听事件和发出事件，请参阅 [Rust
+事件系统文档] 。
 
 [从 Rust 调用前端]: /develop/calling-frontend/
 [`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0/tauri/async_runtime/fn.spawn.html
