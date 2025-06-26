@@ -75,6 +75,8 @@ finish-args:
   - --socket=fallback-x11 # Permission needed to show the window
   - --device=dri # OpenGL, not necessary for all projects
   - --share=ipc
+  - --talk-name=org.kde.StatusNotifierWatcher # Optional: needed only if your app uses the tray icon
+  - --filesystem=xdg-run/tray-icon:create # Optional: needed only if your app uses the tray icon - see an alternative way below
 
 modules:
   - name: binary
@@ -98,6 +100,19 @@ modules:
 ```
 
 The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
+
+:::note[Using tray-icon without changing the Flatpak manifest]
+If you prefer not opening access from your app to $XDG_RUNTIME_DIR (where tray-icon is saved on linux), you can change the path tauri saves the tray image:
+
+```rust
+TrayIconBuilder::new()
+  .icon(app.default_window_icon().unwrap().clone())
+  .temp_dir_path(app.path().app_cache_dir().unwrap()) // will save to the cache folder ($XDG_CACHE_HOME) where the app already has permission
+  .build()
+  .unwrap();
+```
+
+:::
 
 **5. Install, and Test the app**
 

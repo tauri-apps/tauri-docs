@@ -285,6 +285,10 @@ export default defineConfig({
               autogenerate: { directory: 'plugin' },
             },
             {
+              label: 'Contribute',
+              link: '/contribute/',
+            },
+            {
               label: 'About',
               translations: {
                 'zh-CN': '关于',

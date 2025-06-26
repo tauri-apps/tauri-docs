@@ -7,5 +7,12 @@
   "git-submodules": {
     "enabled": true,
     "schedule": ["every weekend"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i", "/.*typedoc.*/i"],
+      "groupName": "astro & starlight packages",
+      "separateMajorMinor": false
+    }
+  ]
 }
