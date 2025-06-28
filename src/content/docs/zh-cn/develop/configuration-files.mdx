@@ -61,7 +61,7 @@ tauri = { version = "2.0.0", features = [  "config-json5" ] }
 ```toml title=Tauri.toml
 [build]
 dev-url = "http://localhost:3000"
-# 启动开发服务器
+# start the dev server
 before-dev-command = "npm run dev"
 
 [bundle]
@@ -152,7 +152,7 @@ Tauri CLI 允许你在运行 `dev` 、 `android dev` 、 `ios dev` 、 `build` �
 
 此机制可用于定义应用程序的多种风格，在配置应用程序包时具有更大的灵活性。
 
-例如，要分发完全隔离的_测试版_应用程序，你可以使用此功能配置单独的应用程序名称和标识符：
+例如，要分发完全隔离的*测试版*应用程序，你可以使用此功能配置单独的应用程序名称和标识符：
 
 ```json title=src-tauri/tauri.beta.conf.json
 {
@@ -161,7 +161,7 @@ Tauri CLI 允许你在运行 `dev` 、 `android dev` 、 `ios dev` 、 `build` �
 }
 ```
 
-为了分发这个单独的_测试版_应用程序，你需要在构建它时提供此配置文件：
+为了分发这个单独的*测试版*应用程序，你需要在构建它时提供此配置文件：
 
 <CommandTabs
   npm="npm run tauri build -- --config src-tauri/tauri.beta.conf.json"
