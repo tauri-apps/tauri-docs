@@ -1,0 +1,103 @@
+---
+title: iOS でのコード署名
+sidebar:
+  label: iOS
+  order: 14
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+iOS でのコード署名は、公式 [Apple App Store] または欧州連合（EU）の代替マーケットプレイスを通じてアプリケーションを配布する場合、および一般的にはエンド・ユーザーのデバイスにインストールして実行する場合、に必要です。
+
+## 事前準備
+
+iOS でコード署名を行なうには、[Apple Developer] プログラムに登録する必要があります。このプログラムの費用は執筆時点では年間 99 米ドルです。
+コード署名を実行するための Apple デバイスも必要です。これは「署名プロセス」と「Apple の利用規約」で必須となっています。
+
+iOS アプリケーションを配布するには、App Store Connect に登録された「バンドル識別子」、適切な「iOS コード署名証明書」、およびこれらをリンクさせ、あなたのアプリが使用する iOS 機能を有効化する「モバイル・プロビジョニング・プロファイル」が必要です。
+これらの必要情報は、Apple 統合開発環境である「Xcode」によって自動的に管理することも、手作業で提示することもできます。
+
+## 自動署名
+
+iOS アプリを配布用にエクスポートするには、アプリへの「署名」と「プロビジョニング」の管理を Xcode に任せるのが最も便利な方法です。
+Xcode は、「バンドル識別子」を自動的に登録し、iOS 機能の変更を管理し、エクスポート方法に基づいて適切な「証明書」を構成します。
+
+「自動署名」はデフォルトで有効化されており、ローカル・マシンで自動署名を使用する場合には、Xcode に設定されたアカウントを使用して認証されます。
+自分のアカウントを登録するには、Xcode アプリケーションを開き、`Xcode > Setting`（設定）メニューで「Settings／設定」ページを開き、「アカウント」タブに切り替えて `+` アイコンをクリックします。
+
+「自動署名」を CI/CD プラットフォームで使用するには、「App Store Connect API キー」を作成し、環境変数の `APPLE_API_ISSUER`、`APPLE_API_KEY`、および `APPLE_API_KEY_PATH` を定義する必要があります。
+[App Store Connect のユーザーとアクセス・ページ] を開き、「統合 Integration」タブを選択して、「追加 Add」ボタンをクリックして、「名前」と「管理者アクセス Admin access」を選択します。
+`APPLE_API_ISSUER`（発行者 ID）はキー・テーブルの上側に表示され、`APPLE_API_KEY` はそのテーブルの「キー ID 列」の値です。
+「秘密鍵 private key」のダウンロードも必要ですが、これは一回だけ実行でき、ページをリロードした後にのみ表示されます（新たに作成されたキーのテーブル行に「ボタン」が表示されます）。
+「秘密鍵」ファイルのパスは、環境変数の `APPLE_API_KEY_PATH` を介して指定する必要があります。
+
+## 手動署名
+
+iOS アプリに手作業で署名するには、環境変数を使用して「証明書」と「モバイル・プロビジョニング・プロファイル」を提示します：
+
+- **IOS_CERTIFICATE**：　Keychain（キーチェーン）からエクスポートされた「証明書」の base64 エンコード表現。
+- **IOS_CERTIFICATE_PASSWORD**：　Keychain からエクスポートするときに設定された証明書のパスワード。
+- **IOS_MOBILE_PROVISION**：　プロビジョニング・プロファイルの base64 エンコード表現。
+
+次項では、これらの値を取得する方法について説明します。
+
+### 署名証明書
+
+「Apple Developer」に登録後、[証明書 Certificate] ページに移動して、新しい「Apple Distribution 証明書」を作成します。
+その新しい証明書をダウンロードし、macOS Keychain にインストールします。
+
+「証明書キー」をエクスポートするには、「キーチェーン・アクセス」アプリを開き、「証明書のデータ項目」を展開後、「キー項目」を右クリックして「Export \<key-name\>」項目を選択します。
+エクスポートされた「.p12 ファイル」（公開鍵暗号システム・ファイル）のパスを選択し、そのエクスポート・パスワードを覚えておいてください。
+
+次の `base64` コマンドを実行して証明書を base64 にエンコード変換し、それをクリップボードにコピーします：
+
+```
+base64 -i <path-to-certificate.p12> | pbcopy
+```
+
+これで、クリップボード内の値は、署名証明書の base64 エンコード表現です。
+これを保存し、環境変数 `IOS_CERTIFICATE` の値として使用します。
+
+証明書のパスワードは変数の `IOS_CERTIFICATE_PASSWORD` に設定する必要があります。
+
+:::tip[証明書タイプの選択]
+それぞれのエクスポート方法に応じて適切な「証明書タイプ」を使用する必要があります：
+
+- **debugging**「デバッグ」：　Apple ソフト開発または iOS アプリ開発用
+- **app-store-connect**「App Store 接続」：　Apple ソフトの配布または iOS アプリの配布用（App Store Connect「ストア配布」と Ad Hoc「配布先限定」）
+- **ad-hoc**「アド・ホック（暫定）」：　Apple ソフトの配布または iOS アプリの配布用（App Store Connect「ストア配布」と Ad Hoc「配布先限定」）
+
+:::
+
+### プロビジョニング・プロファイル（アプリ証明書）
+
+さらに、アプリケーションの「プロビジョニング・プロファイル」も提示する必要があります。
+Apple Developer サイトの [Identifiers]（識別子）ページで、新しい App ID を作成し、その「バンドル ID」値と [`identifier`] 設定に入力された「識別子」の内容とが一致していることを確認します。
+
+次に、[Profiles]（プロファイル）ページに移動して、新しい「プロビジョニング・プロファイル」を作成します。
+App Store 経由で配信する場合は、「App Store Connect」プロファイルを使用する必要があります。
+適切な「アプリ ID」を選択し、以前に作成した「証明書」をリンクします。
+
+プロビジョニング・プロファイルを作成したら、それをダウンロードし、以下の `base64` コマンドを実行してプロファイルを base64 形式に変換し、クリップボードにコピーします：
+
+```
+base64 -i <path-to-profile.mobileprovision> | pbcopy
+```
+
+クリップボード内の値は、「プロビジョニング・プロファイル」の base64 エンコード表現です。
+この値を保存し、環境変数の `IOS_MOBILE_PROVISION` 値として使用します。
+
+さあこれで、iOS アプリケーションがビルドされて App Store で配布できるようになります。
+
+[証明書 Certificate]: https://developer.apple.com/account/resources/certificates/list
+[Apple Developer]: https://developer.apple.com
+[Apple App Store]: https://www.apple.com/app-store/
+[App Store Connect のユーザーとアクセス・ページ]: https://appstoreconnect.apple.com/access/users
+[Identifiers]: https://developer.apple.com/account/resources/identifiers/list
+[`identifier`]: /reference/config/#identifier
+[Profiles]: https://developer.apple.com/account/resources/profiles/list
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
