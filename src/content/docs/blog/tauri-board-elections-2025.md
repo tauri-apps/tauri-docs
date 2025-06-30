@@ -1,6 +1,6 @@
 ---
 title: Tauri Board Elections 2025
-date: 2025-06-27
+date: 2025-06-30
 authors: [beanow]
 excerpt: As we continue to be amazed with all the applications you've created with Tauri v2, it's been 4 years that Tauri has become a Programme within The Commons Conservancy! This means we're preparing for a new round of Tauri Board Director elections for the next term.
 ---
