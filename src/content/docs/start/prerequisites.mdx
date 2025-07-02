@@ -209,6 +209,24 @@ Tauri uses Microsoft Edge WebView2 to render content on Windows.
 
 Install WebView2 by visiting the [WebView2 Runtime download section](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Download the "Evergreen Bootstrapper" and install it.
 
+Next: [Check VBSCRIPT](#vbscript-for-msi-installers)
+
+#### VBSCRIPT (for MSI installers)
+
+:::note[MSI package building only]
+This is only required if you plan to build MSI installer packages (`"targets": "msi"` or `"targets": "all"` in `tauri.conf.json`).
+:::
+
+Building MSI packages on Windows requires the VBSCRIPT optional feature to be enabled. This feature is enabled by default on most Windows installations, but may have been disabled on some systems.
+
+If you encounter errors like `failed to run light.exe` when building MSI packages, you may need to enable the VBSCRIPT feature:
+
+1. Open **Settings** → **Apps** → **Optional features** → **More Windows features**
+2. Locate **VBSCRIPT** in the list and ensure it's checked
+3. Click **Next** and restart your computer if prompted
+
+**Note:** VBSCRIPT is currently enabled by default on most Windows installations, but is [being deprecated](https://techcommunity.microsoft.com/blog/windows-itpro-blog/vbscript-deprecation-timelines-and-next-steps/4148301) and may be disabled in future Windows versions.
+
 Next: [Install Rust](#rust)
 
 ## Rust
