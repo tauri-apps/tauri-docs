@@ -23,16 +23,14 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.2",
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/starlight": "0.34.3",
-    "@lorenzo_lewis/starlight-utils": "^0.3.2",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/starlight": "0.34.4",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/json-schema": "^7.0.15",
-    "astro": "^5.8.1",
-    "astro-d2": "^0.6.0",
+    "astro": "^5.11.0",
+    "astro-d2": "^0.8.0",
     "astro-feelback": "^0.3.4",
-    "astrojs-service-worker": "^2.0.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.14.1",
@@ -40,16 +38,12 @@
     "sass": "^1.89.0",
     "sharp": "^0.33.5",
     "shiki": "^3.0.0",
-    "starlight-blog": "^0.23.2",
-    "starlight-links-validator": "^0.14.3"
+    "starlight-blog": "^0.24.0",
+    "starlight-sidebar-topics": "^0.6.0",
+    "starlight-links-validator": "^0.17.0"
   },
   "packageManager": "pnpm@10.11.0",
   "engines": {
     "pnpm": "^10.0.0"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@astrojs/starlight@0.34.2": "patches/@astrojs__starlight@0.34.2.patch"
-    }
   }
 }
