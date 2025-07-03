@@ -73,11 +73,6 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
-        // starlightUtils({
-        //   multiSidebar: {
-        //     switcherStyle: 'horizontalList',
-        //   },
-        // }),
         starlightBlog({ authors }),
         starlightSidebarTopics(
           [
@@ -313,7 +308,10 @@ export default defineConfig({
             },
           ],
           {
-            topics: { blog: ['/blog', '/blog/*', '/blog/**/*'] },
+            exclude: ['**/_*/**'],
+            topics: {
+              blog: ['/blog', '/blog/*', '/blog/**/*', '**/blog', '**/blog/*', '**/blog/**/*'],
+            },
           }
         ),
         starlightLinksValidator({
