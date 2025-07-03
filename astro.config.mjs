@@ -1,3 +1,4 @@
+// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
@@ -10,6 +11,7 @@ import astroD2 from 'astro-d2';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
+import { readFileSync } from 'fs';
 
 const authors = {
   nothingismagick: {
@@ -487,6 +489,10 @@ export default defineConfig({
 });
 
 // Generates a redirect for each locale.
+/**
+ * @param {string} from
+ * @param {string} to
+ */
 function i18nRedirect(from, to) {
   const routes = {};
   Object.keys(locales).map((locale) =>
@@ -502,8 +508,7 @@ function i18nRedirect(from, to) {
 
 // Read the HTTP header file in `public/_headers`
 function readHeaders() {
-  const header_file = fs
-    .readFileSync('public/_headers', { encoding: 'utf8' })
+  const header_file = readFileSync('public/_headers', { encoding: 'utf8' })
     .split('\n')
     .filter(Boolean);
   const headers = {};
