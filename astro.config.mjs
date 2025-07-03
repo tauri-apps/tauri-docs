@@ -7,6 +7,7 @@ import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import starlightBlog from 'starlight-blog';
+import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -386,6 +387,28 @@ export default defineConfig({
       skipGeneration: process.env.CONTEXT !== 'd2',
       theme: {
         default: '105',
+      },
+    }),
+    serviceWorker({
+      workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        inlineWorkboxRuntime: true,
+        skipWaiting: true,
+        globIgnores: ['**_redirects**', '**_headers**'],
+        globPatterns: ['**/*.js', '**/*.css'],
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp('.*'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'tauri-runtime',
+              expiration: {
+                maxAgeSeconds: 30 * 60, // 30 minutes
+              },
+            },
+          },
+        ],
       },
     }),
   ],
