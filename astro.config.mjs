@@ -4,10 +4,9 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
+import starlightSidebarTopics from 'starlight-sidebar-topics';
 import starlightBlog from 'starlight-blog';
-import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
-import starlightUtils from '@lorenzo_lewis/starlight-utils';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
@@ -74,12 +73,249 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
-        starlightUtils({
-          multiSidebar: {
-            switcherStyle: 'horizontalList',
-          },
-        }),
-        starlightBlog({ authors, navigation: 'none' }),
+        // starlightUtils({
+        //   multiSidebar: {
+        //     switcherStyle: 'horizontalList',
+        //   },
+        // }),
+        starlightBlog({ authors }),
+        starlightSidebarTopics(
+          [
+            {
+              label: {
+                en: 'Guides',
+                'zh-CN': '指引',
+                es: 'Guías',
+              },
+              id: 'guides',
+              link: '/start/',
+              icon: 'open-book',
+              items: [
+                {
+                  label: 'Quick Start',
+                  translations: {
+                    'zh-CN': '快速开始',
+                    es: 'Guía rápida',
+                  },
+                  collapsed: true,
+                  items: [
+                    'start',
+                    'start/prerequisites',
+                    'start/create-project',
+                    // {
+                    //   label: 'What is Tauri?',
+                    //   // translations: {
+                    //   //   'zh-CN': '什么是 Tauri？',
+                    //   //   es: '¿Qué es Tauri?',
+                    //   // },
+                    //   link: '/start/',
+                    // },
+                    // {
+                    //   label: 'Prerequisites',
+                    //   // translations: {
+                    //   //   'zh-CN': '前置条件',
+                    //   //   es: 'Requisitos previos',
+                    //   // },
+                    //   link: '/start/prerequisites/',
+                    // },
+                    // {
+                    //   label: 'Create a Project',
+                    //   // translations: {
+                    //   //   'zh-CN': '创建项目',
+                    //   //   es: 'Crea un proyecto',
+                    //   // },
+                    //   link: '/start/create-project/',
+                    // },
+                    {
+                      label: 'Frontend Configuration',
+                      translations: {
+                        'zh-CN': '前端配置',
+                        es: 'Configuración del frontend',
+                      },
+                      collapsed: true,
+                      autogenerate: { directory: 'start/frontend' },
+                    },
+                    {
+                      label: 'Upgrade & Migrate',
+                      translations: {
+                        'zh-CN': '升级和迁移',
+                        es: 'Actualizar y migrar',
+                      },
+                      collapsed: true,
+                      autogenerate: { directory: 'start/migrate' },
+                    },
+                  ],
+                },
+                {
+                  label: 'Core Concepts',
+                  translations: {
+                    'zh-CN': '核心概念',
+                    es: 'Conceptos básicos',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'concept' },
+                },
+                {
+                  label: 'Security',
+                  translations: {
+                    'zh-CN': '安全',
+                    es: 'Seguridad',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'security' },
+                },
+                {
+                  label: 'Develop',
+                  translations: {
+                    'zh-CN': '开发',
+                    es: 'Desarrollo',
+                  },
+                  collapsed: true,
+                  items: [
+                    'develop',
+                    'develop/configuration-files',
+                    'develop/calling-rust',
+                    'develop/calling-frontend',
+                    'develop/resources',
+                    'develop/sidecar',
+                    'develop/state-management',
+                    'develop/updating-dependencies',
+                    {
+                      label: 'Debug',
+                      collapsed: true,
+                      autogenerate: { directory: 'develop/Debug' },
+                    },
+                    {
+                      label: 'Plugins',
+                      collapsed: true,
+                      autogenerate: { directory: 'develop/Plugins' },
+                    },
+                    {
+                      label: 'Tests',
+                      collapsed: true,
+                      autogenerate: { directory: 'develop/Tests' },
+                    },
+                  ],
+                },
+                {
+                  label: 'Distribute',
+                  translations: {
+                    'zh-CN': '分发',
+                    es: 'Distribuir',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'distribute' },
+                },
+                {
+                  label: 'Learn',
+                  translations: {
+                    'zh-CN': '学习',
+                    es: 'Aprende',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'learn' },
+                },
+                {
+                  label: 'Plugins',
+                  translations: {
+                    'zh-CN': '插件',
+                    es: 'Plugins',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'plugin' },
+                },
+                {
+                  label: 'About',
+                  translations: {
+                    'zh-CN': '关于',
+                    es: 'Acerca de',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'about' },
+                },
+              ],
+            },
+            {
+              label: { en: 'References', 'zh-CN': '参考', es: 'Referencias' },
+              id: 'references',
+              link: '/reference/cli',
+              icon: 'document',
+              items: [
+                {
+                  label: 'Command Line Interface',
+                  translations: {
+                    'zh-CN': '命令行接口（CLI）',
+                    es: 'Interfaz de línea de comandos',
+                  },
+                  link: '/reference/cli/',
+                },
+                {
+                  label: 'Security',
+                  translations: {
+                    'zh-CN': '安全',
+                    es: 'Seguridad',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'reference/acl' },
+                },
+                {
+                  label: 'Configuration',
+                  translations: {
+                    'zh-CN': '配置',
+                    es: 'Configuración',
+                  },
+                  link: '/reference/config/',
+                },
+                {
+                  label: 'Environment Variables',
+                  translations: {
+                    'zh-CN': '环境变量',
+                    es: 'Variables de entorno',
+                  },
+                  link: '/reference/environment-variables/',
+                },
+                {
+                  label: 'Webview Versions',
+                  translations: {
+                    'zh-CN': 'Webview 版本',
+                    es: 'Versiones de Webview',
+                  },
+                  link: '/reference/webview-versions/',
+                },
+                {
+                  label: 'Releases',
+                  translations: {
+                    'zh-CN': '发行版',
+                    es: 'Lanzamientos',
+                  },
+                  collapsed: true,
+                  autogenerate: { directory: 'release' },
+                },
+                {
+                  label: 'JavaScript',
+                  collapsed: true,
+                  autogenerate: { directory: 'reference/javascript' },
+                },
+                {
+                  label: 'Rust (docs.rs)',
+                  link: 'https://docs.rs/tauri/~2/',
+                },
+              ],
+            },
+            {
+              label: 'Blog',
+              id: 'blog',
+              link: '/blog/',
+              icon: 'pen',
+              // Empty item to instruct it that is is local files, not an external link
+              //  this is actually filled in through the topics dir for `blog` below
+              items: [],
+            },
+          ],
+          {
+            topics: { blog: ['/blog', '/blog/*', '/blog/**/*'] },
+          }
+        ),
         starlightLinksValidator({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
@@ -105,8 +341,6 @@ export default defineConfig({
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
-        PageFrame: 'src/components/overrides/PageFrame.astro',
-        TableOfContents: 'src/components/overrides/TableOfContents.astro',
       },
       head: [
         {
@@ -145,245 +379,6 @@ export default defineConfig({
       expressiveCode: {
         styleOverrides: { borderRadius: '0.5rem' },
       },
-      sidebar: [
-        {
-          label: 'Guides',
-          translations: {
-            'zh-CN': '指引',
-            es: 'Guías',
-          },
-          collapsed: true,
-          items: [
-            {
-              label: 'Quick Start',
-              translations: {
-                'zh-CN': '快速开始',
-                es: 'Guía rápida',
-              },
-              collapsed: true,
-              items: [
-                {
-                  label: 'What is Tauri?',
-                  translations: {
-                    'zh-CN': '什么是 Tauri？',
-                    es: '¿Qué es Tauri?',
-                  },
-                  link: '/start/',
-                },
-                {
-                  label: 'Prerequisites',
-                  translations: {
-                    'zh-CN': '前置条件',
-                    es: 'Requisitos previos',
-                  },
-                  link: '/start/prerequisites/',
-                },
-                {
-                  label: 'Create a Project',
-                  translations: {
-                    'zh-CN': '创建项目',
-                    es: 'Crea un proyecto',
-                  },
-                  link: '/start/create-project/',
-                },
-                {
-                  label: 'Frontend Configuration',
-                  translations: {
-                    'zh-CN': '前端配置',
-                    es: 'Configuración del frontend',
-                  },
-                  collapsed: true,
-                  autogenerate: { directory: 'start/frontend' },
-                },
-                {
-                  label: 'Upgrade & Migrate',
-                  translations: {
-                    'zh-CN': '升级和迁移',
-                    es: 'Actualizar y migrar',
-                  },
-                  collapsed: true,
-                  autogenerate: { directory: 'start/migrate' },
-                },
-              ],
-            },
-            {
-              label: 'Core Concepts',
-              translations: {
-                'zh-CN': '核心概念',
-                es: 'Conceptos básicos',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'concept' },
-            },
-            {
-              label: 'Security',
-              translations: {
-                'zh-CN': '安全',
-                es: 'Seguridad',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'security' },
-            },
-            {
-              label: 'Develop',
-              translations: {
-                'zh-CN': '开发',
-                es: 'Desarrollo',
-              },
-              collapsed: true,
-              items: [
-                'develop',
-                'develop/configuration-files',
-                'develop/calling-rust',
-                'develop/calling-frontend',
-                'develop/resources',
-                'develop/sidecar',
-                'develop/state-management',
-                'develop/updating-dependencies',
-                {
-                  label: 'Debug',
-                  collapsed: true,
-                  autogenerate: { directory: 'develop/Debug' },
-                },
-                {
-                  label: 'Plugins',
-                  collapsed: true,
-                  autogenerate: { directory: 'develop/Plugins' },
-                },
-                {
-                  label: 'Tests',
-                  collapsed: true,
-                  autogenerate: { directory: 'develop/Tests' },
-                },
-              ],
-            },
-            {
-              label: 'Distribute',
-              translations: {
-                'zh-CN': '分发',
-                es: 'Distribuir',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'distribute' },
-            },
-            {
-              label: 'Learn',
-              translations: {
-                'zh-CN': '学习',
-                es: 'Aprende',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'learn' },
-            },
-            {
-              label: 'Plugins',
-              translations: {
-                'zh-CN': '插件',
-                es: 'Plugins',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'plugin' },
-            },
-            {
-              label: 'About',
-              translations: {
-                'zh-CN': '关于',
-                es: 'Acerca de',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'about' },
-            },
-          ],
-        },
-        {
-          label: 'References',
-          translations: {
-            'zh-CN': '参考',
-            es: 'Referencias',
-          },
-          collapsed: true,
-          items: [
-            {
-              label: 'Security',
-              translations: {
-                'zh-CN': '安全',
-                es: 'Seguridad',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'reference/acl' },
-            },
-            {
-              label: 'Command Line Interface',
-              translations: {
-                'zh-CN': '命令行接口（CLI）',
-                es: 'Interfaz de línea de comandos',
-              },
-              link: '/reference/cli/',
-            },
-            {
-              label: 'Configuration',
-              translations: {
-                'zh-CN': '配置',
-                es: 'Configuración',
-              },
-              link: '/reference/config/',
-            },
-            {
-              label: 'Environment Variables',
-              translations: {
-                'zh-CN': '环境变量',
-                es: 'Variables de entorno',
-              },
-              link: '/reference/environment-variables/',
-            },
-            {
-              label: 'Webview Versions',
-              translations: {
-                'zh-CN': 'Webview 版本',
-                es: 'Versiones de Webview',
-              },
-              link: '/reference/webview-versions/',
-            },
-            {
-              label: 'Releases',
-              translations: {
-                'zh-CN': '发行版',
-                es: 'Lanzamientos',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'release' },
-            },
-            {
-              label: 'JavaScript',
-              collapsed: true,
-              autogenerate: { directory: 'reference/javascript' },
-            },
-            {
-              label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/~2/',
-            },
-          ],
-        },
-        {
-          label: 'Blog',
-          translations: {
-            'zh-CN': '博客',
-            es: 'Blog',
-          },
-          collapsed: true,
-          items: [
-            {
-              label: 'All posts',
-              link: '/blog/',
-            },
-            {
-              label: 'Recent posts',
-              collapsed: false,
-              autogenerate: { directory: 'blog', sort: 'date', order: 'descending' },
-            },
-          ],
-        },
-      ],
       locales,
       lastUpdated: true,
     }),
@@ -391,28 +386,6 @@ export default defineConfig({
       skipGeneration: process.env.CONTEXT !== 'd2',
       theme: {
         default: '105',
-      },
-    }),
-    serviceWorker({
-      workbox: {
-        cleanupOutdatedCaches: true,
-        clientsClaim: true,
-        inlineWorkboxRuntime: true,
-        skipWaiting: true,
-        globIgnores: ['**_redirects**', '**_headers**'],
-        globPatterns: ['**/*.js', '**/*.css'],
-        runtimeCaching: [
-          {
-            urlPattern: new RegExp('.*'),
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'tauri-runtime',
-              expiration: {
-                maxAgeSeconds: 30 * 60, // 30 minutes
-              },
-            },
-          },
-        ],
       },
     }),
   ],
@@ -513,7 +486,6 @@ export default defineConfig({
   server: {
     headers: readHeaders(),
   },
-  //
 });
 
 // Generates a redirect for each locale.
