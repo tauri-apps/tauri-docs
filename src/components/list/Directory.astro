@@ -48,10 +48,13 @@ function alphaSort(a: Route, b: Route): number {
 }
 
 function compareOrder(a: Route, b: Route): boolean {
-  return a.entry.data.sidebar.order > b.entry.data.sidebar.order;
+  const orderA = a.entry.data.sidebar?.order ?? 0;
+  const orderB = b.entry.data.sidebar?.order ?? 0;
+  return orderA > orderB;
 }
 
-let { slug } = Astro.locals.starlightRoute;
+let { slug }: Props = Astro.props;
+
 const {
   filterOutByTitle = [],
   filterOutByFileName = [],
@@ -85,11 +88,11 @@ let fallbackList: Route[] = [];
 let mainList: Route[] = [];
 
 routes.forEach((page) => {
-  // `page.slug` is the slug of the current page being looped, `slug` is a prop
-  if (page.slug.startsWith(slug)) {
+  // `page.id` is the slug of the current page being looped, `slug` is component prop
+  if (page.id.startsWith(slug)) {
     if (page.isFallback) {
       fallbackList.push(page);
-    } else if (page.slug !== slug) {
+    } else if (page.id !== slug) {
       mainList.push(page);
     }
   }
