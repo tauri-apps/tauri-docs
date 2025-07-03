@@ -238,9 +238,17 @@ export default defineConfig({
             {
               label: { en: 'References', 'zh-CN': '参考', es: 'Referencias' },
               id: 'references',
-              link: '/references',
-              icon: 'information',
+              link: '/reference/cli',
+              icon: 'document',
               items: [
+                {
+                  label: 'Command Line Interface',
+                  translations: {
+                    'zh-CN': '命令行接口（CLI）',
+                    es: 'Interfaz de línea de comandos',
+                  },
+                  link: '/reference/cli/',
+                },
                 {
                   label: 'Security',
                   translations: {
@@ -249,14 +257,6 @@ export default defineConfig({
                   },
                   collapsed: true,
                   autogenerate: { directory: 'reference/acl' },
-                },
-                {
-                  label: 'Command Line Interface',
-                  translations: {
-                    'zh-CN': '命令行接口（CLI）',
-                    es: 'Interfaz de línea de comandos',
-                  },
-                  link: '/reference/cli/',
                 },
                 {
                   label: 'Configuration',
@@ -304,12 +304,16 @@ export default defineConfig({
             },
             {
               label: 'Blog',
+              id: 'blog',
               link: '/blog/',
-              icon: 'information',
+              icon: 'pen',
+              // Empty item to instruct it that is is local files, not an external link
+              //  this is actually filled in through the topics dir for `blog` below
+              items: [],
             },
           ],
           {
-            exclude: ['/blog', '/blog/**/*'],
+            topics: { blog: ['/blog', '/blog/*', '/blog/**/*'] },
           }
         ),
         starlightLinksValidator({
