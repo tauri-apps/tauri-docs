@@ -307,6 +307,442 @@ See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type
 </TabItem>
 </Tabs>
 
+## Menu Items
+
+### Basic Menu Items
+
+You can create various types of menu items:
+
+<Tabs syncKey="menu-items">
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'item1',
+      text: 'Simple Item',
+    },
+    {
+      id: 'item2',
+      text: 'Item with Icon',
+      icon: 'terminal',
+    },
+    {
+      id: 'item3',
+      text: 'Item with Hotkey',
+      hotkey: 'CmdOrCtrl+Shift+A',
+    },
+  ],
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{Menu, MenuItem};
+
+let item1 = MenuItem::with_id(app, "item1", "Simple Item", true, None::<&str>)?;
+let item2 = MenuItem::with_id(app, "item2", "Item with Icon", true, Some("terminal"))?;
+let item3 = MenuItem::with_id(app, "item3", "Item with Hotkey", true, None::<&str>)?;
+
+let menu = Menu::with_items(app, &[&item1, &item2, &item3])?;
+```
+
+</TabItem>
+</Tabs>
+
+### Check Menu Items
+
+Check menu items can be toggled on and off:
+
+<Tabs syncKey="check-items">
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'check1',
+      text: 'Check Item',
+      checked: true,
+    },
+    {
+      id: 'check2',
+      text: 'Another Check',
+      checked: false,
+    },
+  ],
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{Menu, CheckMenuItem};
+
+let check1 = CheckMenuItem::with_id(app, "check1", "Check Item", true, true, None::<&str>)?;
+let check2 = CheckMenuItem::with_id(app, "check2", "Another Check", true, false, None::<&str>)?;
+
+let menu = Menu::with_items(app, &[&check1, &check2])?;
+```
+
+</TabItem>
+</Tabs>
+
+### Submenus
+
+You can create nested submenus:
+
+<Tabs syncKey="submenus">
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const submenu = await Menu.new({
+  items: [
+    {
+      id: 'sub1',
+      text: 'Submenu Item 1',
+    },
+    {
+      id: 'sub2',
+      text: 'Submenu Item 2',
+    },
+  ],
+});
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'main',
+      text: 'Main Menu',
+      submenu,
+    },
+  ],
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{Menu, MenuItem, Submenu};
+
+let sub_item1 = MenuItem::with_id(app, "sub1", "Submenu Item 1", true, None::<&str>)?;
+let sub_item2 = MenuItem::with_id(app, "sub2", "Submenu Item 2", true, None::<&str>)?;
+
+let submenu = Submenu::with_items(app, "Main Menu", &[&sub_item1, &sub_item2])?;
+
+let menu = Menu::with_items(app, &[&submenu])?;
+```
+
+</TabItem>
+</Tabs>
+
+### Separators
+
+Add separators to organize your menu:
+
+<Tabs syncKey="separators">
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'item1',
+      text: 'Item 1',
+    },
+    {
+      type: 'Separator',
+    },
+    {
+      id: 'item2',
+      text: 'Item 2',
+    },
+  ],
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{Menu, MenuItem, SeparatorMenuItem};
+
+let item1 = MenuItem::with_id(app, "item1", "Item 1", true, None::<&str>)?;
+let separator = SeparatorMenuItem::new(app)?;
+let item2 = MenuItem::with_id(app, "item2", "Item 2", true, None::<&str>)?;
+
+let menu = Menu::with_items(app, &[&item1, &separator, &item2])?;
+```
+
+</TabItem>
+</Tabs>
+
+## Advanced Features
+
+### Dynamic Menu Updates
+
+You can update the tray menu dynamically:
+
+<Tabs syncKey="dynamic-menu">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { Menu } from '@tauri-apps/api/menu';
+
+const tray = await TrayIcon.new({});
+
+// Create initial menu
+const initialMenu = await Menu.new({
+  items: [
+    {
+      id: 'item1',
+      text: 'Initial Item',
+    },
+  ],
+});
+
+await tray.setMenu(initialMenu);
+
+// Update menu later
+const updatedMenu = await Menu.new({
+  items: [
+    {
+      id: 'item2',
+      text: 'Updated Item',
+    },
+  ],
+});
+
+await tray.setMenu(updatedMenu);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+use tauri::menu::{Menu, MenuItem};
+
+let tray = TrayIconBuilder::new().build(app)?;
+
+// Create initial menu
+let initial_item = MenuItem::with_id(app, "item1", "Initial Item", true, None::<&str>)?;
+let initial_menu = Menu::with_items(app, &[&initial_item])?;
+
+tray.set_menu(Some(initial_menu))?;
+
+// Update menu later
+let updated_item = MenuItem::with_id(app, "item2", "Updated Item", true, None::<&str>)?;
+let updated_menu = Menu::with_items(app, &[&updated_item])?;
+
+tray.set_menu(Some(updated_menu))?;
+```
+
+</TabItem>
+</Tabs>
+
+### Updating Menu Item Text
+
+You can also update individual menu item text dynamically:
+
+<Tabs syncKey="menu-text-updates">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { Menu } from '@tauri-apps/api/menu';
+
+const tray = await TrayIcon.new({});
+
+// Create menu with an item
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'status',
+      text: 'Status: Ready',
+    },
+  ],
+});
+
+await tray.setMenu(menu);
+
+// Update the menu item text
+const updatedMenu = await Menu.new({
+  items: [
+    {
+      id: 'status',
+      text: 'Status: Processing...',
+    },
+  ],
+});
+
+await tray.setMenu(updatedMenu);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+use tauri::menu::{Menu, MenuItem};
+use std::sync::Arc;
+
+let tray = TrayIconBuilder::new().build(app)?;
+
+// Create menu with an item
+let status_item = MenuItem::with_id(app, "status", "Status: Ready", true, None::<&str>)?;
+let menu = Menu::with_items(app, &[&status_item])?;
+
+tray.set_menu(Some(menu))?;
+
+// Update the menu item text
+let updated_status_item = MenuItem::with_id(app, "status", "Status: Processing...", true, None::<&str>)?;
+let updated_menu = Menu::with_items(app, &[&updated_status_item])?;
+
+tray.set_menu(Some(updated_menu))?;
+```
+
+</TabItem>
+</Tabs>
+
+### Real-time Text Updates
+
+For real-time updates, you can use background threads to update menu item text:
+
+<Tabs syncKey="realtime-updates">
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+use tauri::menu::{Menu, MenuItem};
+use std::sync::{Arc, Mutex};
+use std::thread;
+use std::time::Duration;
+
+let tray = TrayIconBuilder::new().build(app)?;
+
+// Create menu item with Arc for sharing
+let status_item = MenuItem::with_id(app, "status", "Status: Ready", true, None::<&str>)?;
+let status_item_arc = Arc::new(status_item);
+let menu = Menu::with_items(app, &[&status_item_arc])?;
+
+tray.set_menu(Some(menu))?;
+
+// Clone Arc for background thread
+let status_item_clone = status_item_arc.clone();
+
+// Start background thread to update text
+thread::spawn(move || {
+    let mut counter = 0;
+    loop {
+        counter += 1;
+        let new_text = format!("Status: Count {}", counter);
+
+        // Update menu item text
+        if let Err(e) = status_item_clone.set_text(&new_text) {
+            eprintln!("Failed to update menu text: {}", e);
+        }
+
+        thread::sleep(Duration::from_secs(1));
+    }
+});
+```
+
+</TabItem>
+</Tabs>
+
+### Tooltip
+
+Add a tooltip to your tray icon:
+
+<Tabs syncKey="tooltip">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const tray = await TrayIcon.new({
+  tooltip: 'My Application',
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+let tray = TrayIconBuilder::new()
+  .tooltip("My Application")
+  .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+### Menu Item States
+
+You can enable/disable menu items:
+
+<Tabs syncKey="menu-states">
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'enabled',
+      text: 'Enabled Item',
+      enabled: true,
+    },
+    {
+      id: 'disabled',
+      text: 'Disabled Item',
+      enabled: false,
+    },
+  ],
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::menu::{Menu, MenuItem};
+
+let enabled_item = MenuItem::with_id(app, "enabled", "Enabled Item", true, None::<&str>)?;
+let disabled_item = MenuItem::with_id(app, "disabled", "Disabled Item", false, None::<&str>)?;
+
+let menu = Menu::with_items(app, &[&enabled_item, &disabled_item])?;
+```
+
+</TabItem>
+</Tabs>
+
 [`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
 [`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
 [`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
