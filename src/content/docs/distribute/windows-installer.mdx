@@ -572,7 +572,7 @@ You can use installer hooks to automatically install system dependencies that yo
     DetailPrint "Visual C++ Redistributable already installed"
     Goto vcredist_done
   ${EndIf}
-  
+
   ; Install from bundled MSI if not installed
   ${If} ${FileExists} "$INSTDIR\resources\vc_redist.x64.msi"
     DetailPrint "Installing Visual C++ Redistributable..."
@@ -591,12 +591,13 @@ You can use installer hooks to automatically install system dependencies that yo
     Delete "$TEMP\vc_redist.x64.msi"
     Delete "$INSTDIR\resources\vc_redist.x64.msi"
   ${EndIf}
-  
+
   vcredist_done:
 !macroend
 ```
 
 **Key considerations:**
+
 - A good practice is to always check if the dependency is already installed using registry keys or file existence or via Windows [where] command.
 - Use `/passive`, `/quiet`, or `/silent` flags to avoid interrupting the installation flow. Check out [msiexec] options for `.msi` files, or the setup manual for app-specific flags
 - Include `/norestart` to prevent automatic system reboots during installation for setups that restarts user devices
