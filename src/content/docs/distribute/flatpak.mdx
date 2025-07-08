@@ -60,16 +60,19 @@ flatpak install flathub org.gnome.Platform//46 org.gnome.Sdk//46
 
 **3. [Build the .deb of your tauri-app](https://v2.tauri.app/reference/config/#bundleconfig)**
 
-**4. Create the manifest**
+**4. [Create an AppStream MetaInfo file](https://www.freedesktop.org/software/appstream/metainfocreator/#/guiapp)**
+
+**5. Create the flatpak manifest**
 
 ```yaml
-id: org.your.id
+# flatpak-builder.yaml
+id: <identifier>
 
 runtime: org.gnome.Platform
 runtime-version: '46'
 sdk: org.gnome.Sdk
 
-command: tauri-app
+command: <main_binary_name>
 finish-args:
   - --socket=wayland # Permission needed to show the window
   - --socket=fallback-x11 # Permission needed to show the window
@@ -77,26 +80,49 @@ finish-args:
   - --share=ipc
   - --talk-name=org.kde.StatusNotifierWatcher # Optional: needed only if your app uses the tray icon
   - --filesystem=xdg-run/tray-icon:create # Optional: needed only if your app uses the tray icon - see an alternative way below
+  # - --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 # Optional: may solve some issues with black webviews on Wayland
 
 modules:
   - name: binary
     buildsystem: simple
+
     sources:
+      # A reference to the previously generated flatpak metainfo file
+      - type: file
+        path: flatpak.metainfo.xml
+      # If you use GitHub releases, you can target an existing remote file
       - type: file
         url: https://github.com/your_username/your_repository/releases/download/v1.0.1/yourapp_1.0.1_amd64.deb
         sha256: 08305b5521e2cf0622e084f2b8f7f31f8a989fc7f407a7050fa3649facd61469 # This is required if you are using a remote source
-        only-arches: [x86_64] #This source is only used on x86_64 Computers
-        # This path points to the binary file which was created in the .deb bundle.
-        # Tauri also creates a folder which corresponds to the content of the unpacked .deb.
+        only-arches: [x86_64] # This source is only used on x86_64 Computers
+      # You can also use a local file for testing
+      # - type: file
+      #   path: yourapp_1.0.1_amd64.deb
     build-commands:
-      - ar -x *.deb
-      - tar -xf data.tar.gz
-      - 'install -Dm755 usr/bin/tauri-app /app/bin/tauri-app'
-      - install -Dm644 usr/share/applications/yourapp.desktop /app/share/applications/org.your.id.desktop
-      - install -Dm644 usr/share/icons/hicolor/128x128/apps/yourapp.png /app/share/icons/hicolor/128x128/apps/org.your.id.png
-      - install -Dm644 usr/share/icons/hicolor/32x32/apps/yourapp.png /app/share/icons/hicolor/32x32/apps/org.your.id.png
-      - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/yourapp.png /app/share/icons/hicolor/256x256@2/apps/org.your.id.png
-      - install -Dm644 org.your.id.metainfo.xml /app/share/metainfo/org.your.id.rosary.metainfo.xml
+      - set -e
+
+      # Extract the deb package
+      - mkdir deb-extract
+      - ar -x *.deb --output deb-extract
+      - tar -C deb-extract -xf deb-extract/data.tar.gz
+
+      # Copy binary
+      - 'install -Dm755 deb-extract/usr/bin/<executable_name> /app/bin/<executable_name>'
+
+      # If you bundle files with additional resources, you should copy them:
+      - mkdir -p /app/lib/<product_name>
+      - cp -r deb-extract/usr/lib/<product_name>/. /app/lib/<product_name>
+      - find /app/lib/<product_name> -type f -exec chmod 644 {} \;
+
+      # Copy desktop file + ensure the right icon is set
+      - sed -i 's/^Icon=.*/Icon=<identifier>/' deb-extract/usr/share/applications/<product_name>.desktop
+      - install -Dm644 deb-extract/usr/share/applications/<product_name>.desktop /app/share/applications/<identifier>.desktop
+
+      # Copy icons
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/128x128/apps/<main_binary_name>.png /app/share/icons/hicolor/128x128/apps/<identifier>.png
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/32x32/apps/<main_binary_name>.png /app/share/icons/hicolor/32x32/apps/<identifier>.png
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/256x256@2/apps/<main_binary_name>.png /app/share/icons/hicolor/256x256@2/apps/<identifier>.png
+      - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/<identifier>.metainfo.xml
 ```
 
 The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
@@ -119,10 +145,10 @@ TrayIconBuilder::new()
 ```shell
 
 # Install the flatpak
-flatpak -y --user install <local repo name> <your flatpak id>
+flatpak-builder --force-clean --user --disable-cache --repo flatpak-repo flatpak flatpak-builder.yaml
 
 # Run it
-flatpak run <your flatpak id>
+flatpak run <your flatpak id> # or via your desktop environment
 
 # Update it
 flatpak -y --user update <your flatpak id>
