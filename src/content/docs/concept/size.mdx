@@ -103,7 +103,7 @@ This won't be accounting for dynamically added ACLs at runtime so make sure to c
 and let them generate a list of allowed commands from the ACL,
 this will then be used by the `generate_handler` macro to remove unused commands based on that
 
-An internal detial is this environment variable is currently `REMOVE_UNUSED_COMMANDS`,
+An internal detail is this environment variable is currently `REMOVE_UNUSED_COMMANDS`,
 and it's set to project's directory, usually the `src-tauri` directory, this is used for the build scripts to find the capability files,
 and although it's not encouraged, you can still set this environment variable yourself if you can't or don't want to use `tauri-cli` to get this to work
 (**do note that as this is an implementation detail, we don't guarantee the stability of it**)
