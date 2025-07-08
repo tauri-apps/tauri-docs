@@ -55,7 +55,8 @@ sudo pacman -S --needed \
   openssl \
   appmenu-gtk-module \
   libappindicator-gtk3 \
-  librsvg
+  librsvg \
+  xdotool
 ```
 
   </TabItem>
@@ -69,7 +70,8 @@ sudo dnf install webkit2gtk4.1-devel \
   wget \
   file \
   libappindicator-gtk3-devel \
-  librsvg2-devel
+  librsvg2-devel \
+  libxdo-devel
 sudo dnf group install "c-development"
 ```
 
@@ -206,6 +208,24 @@ WebView 2 is already installed on Windows 10 (from version 1803 onward) and late
 Tauri uses Microsoft Edge WebView2 to render content on Windows.
 
 Install WebView2 by visiting the [WebView2 Runtime download section](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Download the "Evergreen Bootstrapper" and install it.
+
+Next: [Check VBSCRIPT](#vbscript-for-msi-installers)
+
+#### VBSCRIPT (for MSI installers)
+
+:::note[MSI package building only]
+This is only required if you plan to build MSI installer packages (`"targets": "msi"` or `"targets": "all"` in `tauri.conf.json`).
+:::
+
+Building MSI packages on Windows requires the VBSCRIPT optional feature to be enabled. This feature is enabled by default on most Windows installations, but may have been disabled on some systems.
+
+If you encounter errors like `failed to run light.exe` when building MSI packages, you may need to enable the VBSCRIPT feature:
+
+1. Open **Settings** → **Apps** → **Optional features** → **More Windows features**
+2. Locate **VBSCRIPT** in the list and ensure it's checked
+3. Click **Next** and restart your computer if prompted
+
+**Note:** VBSCRIPT is currently enabled by default on most Windows installations, but is [being deprecated](https://techcommunity.microsoft.com/blog/windows-itpro-blog/vbscript-deprecation-timelines-and-next-steps/4148301) and may be disabled in future Windows versions.
 
 Next: [Install Rust](#rust)
 
@@ -351,16 +371,18 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 ```ps
 [System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
-$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk" | Select-Object -Last 1
 [System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
 ```
 
 :::tip
-PowerShell will not pick up the new environment variables until reboot or logout,
-However you can refresh the current session:
+Most apps don't refresh their environment variables automatically, so to let them pickup the changes,
+you can either restart your terminal and IDE or for your current PowerShell session, you can refresh it with
 
-````ps
+```ps
 [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+```
+
 :::
 
 </TabItem>
@@ -371,7 +393,7 @@ However you can refresh the current session:
 
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-````
+```
 
 Next: [Setup for iOS](#ios) or [Create a project](/start/create-project/).
 
