@@ -220,6 +220,19 @@ let migration = Migration {
 };
 ````
 
+Or if you want to use SQL from a file, you can include it by using `include_str!`:
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: include_str!("../drizzle/0000_graceful_boomer.sql"),
+    kind: MigrationKind::Up,
+};
+```
+
 ### Adding Migrations to the Plugin Builder
 
 Migrations are registered with the [`Builder`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Builder.html) struct provided by the plugin. Use the `add_migrations` method to add your migrations to the plugin for a specific database connection.

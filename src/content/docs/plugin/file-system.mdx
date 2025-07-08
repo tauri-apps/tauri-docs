@@ -693,7 +693,7 @@ To apply a scope to any `fs` command, use the `fs:scope` permission:
   "permissions": [
     {
       "identifier": "fs:scope",
-      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]
     }
   ]
 }
@@ -711,11 +711,11 @@ use the the object form of permissions `{ "identifier": string, "allow"?: [], "d
   "permissions": [
     {
       "identifier": "fs:allow-rename",
-      "allow": [{ "path": "$HOME/**" }]
+      "allow": [{ "path": "$HOME/**/*" }]
     },
     {
       "identifier": "fs:allow-rename",
-      "deny": [{ "path": "$HOME/.config/**" }]
+      "deny": [{ "path": "$HOME/.config/**/*" }]
     },
     {
       "identifier": "fs:allow-exists",

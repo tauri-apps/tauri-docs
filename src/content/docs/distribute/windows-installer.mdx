@@ -29,6 +29,10 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
   cargo="cargo tauri build"
 />
 
+:::note[VBSCRIPT requirement for MSI packages]
+Building MSI packages (`"targets": "msi"` or `"targets": "all"` in `tauri.conf.json`) requires the VBSCRIPT optional feature to be enabled on Windows. This feature is enabled by default on most Windows installations, but if you encounter errors like `failed to run light.exe`, you may need to enable it manually through **Settings** → **Apps** → **Optional features** → **More Windows features**. See the [Prerequisites guide](/start/prerequisites/#vbscript-for-msi-installers) for detailed instructions.
+:::
+
 ### Experimental: Build Windows apps on Linux and macOS
 
 Cross compiling Windows apps on Linux and macOS hosts is possible when using [NSIS].
@@ -192,11 +196,11 @@ tauri-plugin-notification = { version = "2.0.0", features = [ "windows7-compat" 
 
 ## FIPS Compliance
 
-If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true`
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` environment variable to `true`
 before running `tauri build`. In PowerShell you can set it for the current terminal session like this:
 
 ```powershell
-$env:TAURI_FIPS_COMPLIANT="true"
+$env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 ```
 
 ## WebView2 Installation Options

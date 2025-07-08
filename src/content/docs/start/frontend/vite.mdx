@@ -117,7 +117,8 @@ This guide is accurate as of Vite 5.4.8.
       // prevent vite from obscuring rust errors
       clearScreen: false,
       server: {
-        port: 1420,
+        // make sure this port matches the devUrl port in tauri.conf.json file
+        port: 5173,
         // Tauri expects a fixed port, fail if that port is not available
         strictPort: true,
         // if the host Tauri is expecting is set, use it

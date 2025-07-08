@@ -8,13 +8,13 @@ sidebar:
 
 import CommandTabs from '@components/CommandTabs.astro';
 
-:::note[示例应用程序]
+:::note
 
-本 [Selenium][] 指南期望您已经完成了 [示例应用程序设置][] 以便一步一步跟进 。 一般性资料可能仍然会有帮助。
+Make sure to go through the [prerequisites instructions] to be able to follow this guide.
 
 :::
 
-此 WebDrive 测试示例将使用 [Selenium][] 和一个流行的 Node.js 测试套装。 您应该已经安装 node.js ， 并且一起安装了 `npm` 或 `yarn` ， [已完成的示例项目][] 使用了 `yarn`.
+此 WebDriver 测试示例将使用 [Selenium][] 和一个流行的 Node.js 测试套装。 您应该已经安装 node.js ， 并且一起安装了 `npm` 或 `yarn` ， [已完成的示例项目][] 使用了 `yarn`.
 
 ## 创建测试目录
 
@@ -22,7 +22,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 初始化 Selenium 项目
 
-我们将使用预设的 `package.j son` 来引导此测试套件，因为我们已经选择了特定的要使用的依赖项，并希望展示一个简单的工作解决方案。 此部分的底部有一个折叠起来的内容，其中有关如何从头开始设置的指南。
+我们将使用预设的 `package.json` 来引导此测试套件，因为我们已经选择了特定的要使用的依赖项，并希望展示一个简单的工作解决方案。 此部分的底部有一个折叠起来的内容，其中有关如何从头开始设置的指南。
 
 `package.json`:
 
@@ -186,7 +186,7 @@ tests!
 With [Selenium] and some hooking up to a test suite, we just enabled e2e testing without modifying our Tauri
 application at all!
 
-[示例应用程序设置]: /develop/tests/webdriver/example/
+[prerequisites instructions]: /develop/tests/webdriver/
 [Selenium]: https://selenium.dev/
 [已完成的示例项目]: https://github.com/chippers/hello_tauri
 [Mocha]: https://mochajs.org/
