@@ -9,11 +9,11 @@ tableOfContents:
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-SvelteKit is a meta framework for Svelte. Learn more about SvelteKit at https://kit.svelte.dev/. This guide is accurate as of SvelteKit 2.20.4 / Svelte 5.25.8.
+SvelteKit is a meta framework for Svelte. Learn more about SvelteKit at https://svelte.dev/. This guide is accurate as of SvelteKit 2.20.4 / Svelte 5.25.8.
 
 ## Checklist
 
-- Use [SSG](https://kit.svelte.dev/docs/adapter-static) and [SPA](https://svelte.dev/docs/kit/single-page-apps) via `static-adapter`. Tauri doesn't support server-based solutions.
+- Use [SSG](https://svelte.dev/docs/kit/adapter-static) and [SPA](https://svelte.dev/docs/kit/single-page-apps) via `static-adapter`. Tauri doesn't support server-based solutions.
 - If using SSG **with prerendering**, be aware that `load` functions will not have access to tauri APIs during the build process of your app. Using SPA mode (without prerendering) is recommended since the load functions will only run in the webview with access to tauri APIs.
 - Use `build/` as `frontendDist` in `tauri.conf.json`.
 
@@ -108,7 +108,7 @@ SvelteKit is a meta framework for Svelte. Learn more about SvelteKit at https://
 
     /** @type {import('@sveltejs/kit').Config} */
     const config = {
-      // Consult https://kit.svelte.dev/docs/integrations#preprocessors
+      // Consult https://svelte.dev/docs/kit/integrations#preprocessors
       // for more information about preprocessors
       preprocess: vitePreprocess(),
 
@@ -131,7 +131,7 @@ SvelteKit is a meta framework for Svelte. Learn more about SvelteKit at https://
     export const ssr = false;
     ```
 
-    Note that `static-adapter` doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global window object (like Tauri's API) without [Client-side checks](https://kit.svelte.dev/docs/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window).
+    Note that `static-adapter` doesn't require you to disable SSR for the whole app but it makes it possible to use APIs that depend on the global window object (like Tauri's API) without [Client-side checks](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window).
 
     Furthermore, if you prefer Static Site Generation (SSG) over Single-Page Application (SPA) mode, you can change the adapter configurations and `+layout.ts` according to the [adapter docs](https://svelte.dev/docs/kit/adapter-static).
 
