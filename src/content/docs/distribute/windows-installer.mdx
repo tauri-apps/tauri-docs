@@ -196,11 +196,11 @@ tauri-plugin-notification = { version = "2.0.0", features = [ "windows7-compat" 
 
 ## FIPS Compliance
 
-If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true`
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` environment variable to `true`
 before running `tauri build`. In PowerShell you can set it for the current terminal session like this:
 
 ```powershell
-$env:TAURI_FIPS_COMPLIANT="true"
+$env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 ```
 
 ## WebView2 Installation Options
