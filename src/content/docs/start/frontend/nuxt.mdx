@@ -99,7 +99,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
       ssr: false,
       // Enables the development server to be discoverable by other devices when running on iOS physical devices
       devServer: {
-        host: '0'
+        host: '0',
       },
       vite: {
         // Better support for Tauri CLI output
@@ -114,9 +114,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
         },
       },
       // Avoids error [unhandledRejection] EMFILE: too many open files, watch
-      ignore: [
-        '**/src-tauri/**'
-      ],
+      ignore: ['**/src-tauri/**'],
     });
     ```
 
