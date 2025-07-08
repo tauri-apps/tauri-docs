@@ -1,5 +1,5 @@
 ---
-title: System Tray
+title: 系统托盘
 sidebar:
   order: 1
 tableOfContents:
@@ -10,38 +10,37 @@ i18nReady: true
 import { Icon } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Tauri allows you to create and customize a system tray for your application.
-This can enhance the user experience by providing quick access to common actions.
+Tauri 允许您为应用程序创建和自定义系统托盘。这可以通过提供对常用操作的快速访问来提升用户体验。
 
-## Configuration
+## 配置
 
-First of all, update your `Cargo.toml` to include the necessary feature for the system tray.
+首先，更新您的 `Cargo.toml` 以包含系统托盘所需的功能。
 
 ```toml title="src-tauri/Cargo.toml"
 tauri = { version = "2.0.0", features = [ "tray-icon" ] }
 ```
 
-## Usage
+## 用法
 
-The tray API is available in both JavaScript and Rust.
+托盘 API 在 JavaScript 和 Rust 中均可使用。
 
-### Create a Tray Icon
+### 创建托盘图标
 
 <Tabs synckey="language">
 <TabItem label="JavaScript">
-Use the [`TrayIcon.new`] static function to create a new tray icon:
+使用 [`TrayIcon.new`] 静态函数创建一个新的托盘图标。
 
 ```javascript
 import { TrayIcon } from '@tauri-apps/api/tray';
 
 const options = {
-  // here you can add a tray menu, title, tooltip, event handler, etc
+  // 你可以在这里添加一个托盘菜单、标题、任务提示、事件处理程序等等
 };
 
 const tray = await TrayIcon.new(options);
 ```
 
-See [`TrayIconOptions`] for more information on the customization options.
+有关自定义选项的更多信息，请参阅 [`TrayIconOptions`] 。
 
 </TabItem>
 
@@ -58,14 +57,14 @@ tauri::Builder::default()
 
 ```
 
-See [`TrayIconBuilder`] for more information on customization options.
+有关自定义选项的更多信息，请参阅 [`TrayIconBuilder`] 。
 
 </TabItem>
 </Tabs>
 
-### Change the Tray Icon
+### 更改托盘图标
 
-When creating the tray you can use the application icon as the tray icon:
+创建托盘时，您可以使用应用程序图标作为托盘图标：
 
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
@@ -87,22 +86,22 @@ const tray = await TrayIcon.new(options);
 
 ```rust
 let tray = TrayIconBuilder::new()
-  .icon(app.default_window_icon().unwrap().clone())
-  .build(app)?;
+    .icon(app.default_window_icon().unwrap().clone())
+    .build(app)?;
 ```
 
 </TabItem>
 </Tabs>
 
-### Add a Menu
+### 添加菜单
 
-To attach a menu that is displayed when the tray is clicked, you can use the `menu` option.
+要添加一个单击托盘时显示的菜单，您可以使用 `menu` 选项。
 
 :::note
-By default the menu is displayed on both left and right clicks.
+默认情况下，单击左键或右键单击都会显示菜单。
 
-To prevent the menu from popping up on left click, call the [`menu_on_left_click(false)`][TrayIconBuilder::menu_on_left_click] Rust function
-or set the [`menuOnLeftClick`] JavaScript option to `false`.
+为了防止左键单击时弹出菜单，请在 Rust 中调用 [`menu_on_left_click(false)`][TrayIconBuilder::menu_on_left_click] 函数
+或在 JavaScript 中将 [`menuOnLeftClick`] 选项设置为 `false` 。
 :::
 
 {/* TODO: link to the menu plugin documentation page */}
@@ -137,29 +136,29 @@ const tray = await TrayIcon.new(options);
 
 ```rust
 use tauri::{
-  menu::{Menu, MenuItem},
-  tray::TrayIconBuilder,
+    menu::{Menu, MenuItem},
+    tray::TrayIconBuilder,
 };
 
 let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
 let menu = Menu::with_items(app, &[&quit_i])?;
 
 let tray = TrayIconBuilder::new()
-  .menu(&menu)
-  .menu_on_left_click(true)
-  .build(app)?;
+    .menu(&menu)
+    .menu_on_left_click(true)
+    .build(app)?;
 ```
 
 </TabItem>
 </Tabs>
 
-#### Listen to Menu Events
+#### 监听菜单事件
 
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
-On JavaScript you can attach a menu click event listener directly to the menu item:
+在 JavaScript 中，您可以将菜单单击事件监听器直接附加到菜单项：
 
-- Using a shared menu click handler
+- 使用共享菜单点击处理程序
 
   ```javascript
   import { Menu } from '@tauri-apps/api/menu';
@@ -179,7 +178,7 @@ On JavaScript you can attach a menu click event listener directly to the menu it
   });
   ```
 
-- Using a dedicated menu click handler
+- 使用专用的菜单点击处理程序
 
   ```javascript
   import { Menu } from '@tauri-apps/api/menu';
@@ -200,35 +199,35 @@ On JavaScript you can attach a menu click event listener directly to the menu it
 </TabItem>
 
 <TabItem label="Rust">
-Use the [`TrayIconBuilder::on_menu_event`] method to attach a tray menu click event listener:
+使用 [`TrayIconBuilder::on_menu_event`] 方法附加托盘菜单点击事件监听器：
 
 ```rust
 use tauri::tray::TrayIconBuilder;
 
 TrayIconBuilder::new()
-  .on_menu_event(|app, event| match event.id.as_ref() {
-    "quit" => {
-      println!("quit menu item was clicked");
-      app.exit(0);
-    }
-    _ => {
-      println!("menu item {:?} not handled", event.id);
-    }
-  })
+    .on_menu_event(|app, event| match event.id.as_ref() {
+        "quit" => {
+            println!("quit menu item was clicked");
+            app.exit(0);
+        }
+        _ => {
+            println!("menu item {:?} not handled", event.id);
+        }
+    })
 ```
 
 </TabItem>
 </Tabs>
 
-### Listen to Tray Events
+### 监听托盘事件
 
-The tray icon emits events for the following mouse events:
+托盘图标可能发出以下鼠标事件：
 
-- click: triggered when the cursor receives a single left, right or middle click, including information on whether the mouse press was released or not
-- Double click: triggered when the cursor receives a double left, right or middle click
-- Enter: triggered when the cursor enters the tray icon area
-- Move: triggered when the cursor moves around the tray icon area
-- Leave: triggered when the cursor leaves the tray icon area
+- Click: 当光标收到左键、右键或中键单击时触发，包括鼠标是否被释放的信息
+- Double click: 当光标收到双击左键、右键或中键时触发
+- Enter: 当光标进入托盘图标区域时触发
+- Move: 当光标在托盘图标区域移动时触发
+- Leave: 当光标离开托盘图标区域时触发
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -269,7 +268,7 @@ const options = {
 const tray = await TrayIcon.new(options);
 ```
 
-See [`TrayIconEvent`][js TrayIconEvent] for more information on the event payload.
+有关事件负载的更多信息，请参阅 [`TrayIconEvent`][js TrayIconEvent] 。
 
 </TabItem>
 
@@ -282,27 +281,27 @@ use tauri::{
 };
 
 TrayIconBuilder::new()
-  .on_tray_icon_event(|tray, event| match event {
-    TrayIconEvent::Click {
-      button: MouseButton::Left,
-      button_state: MouseButtonState::Up,
-      ..
-    } => {
-      println!("left click pressed and released");
-      // in this example, let's show and focus the main window when the tray is clicked
-      let app = tray.app_handle();
-      if let Some(window) = app.get_webview_window("main") {
-        let _ = window.show();
-        let _ = window.set_focus();
-      }
-    }
-    _ => {
-      println!("unhandled event {event:?}");
-    }
-  })
+    .on_tray_icon_event(|tray, event| match event {
+        TrayIconEvent::Click {
+            button: MouseButton::Left,
+            button_state: MouseButtonState::Up,
+            ..
+        } => {
+            println!("left click pressed and released");
+            // 在这个例子中，当点击托盘图标时，将展示并聚焦于主窗口
+            let app = tray.app_handle();
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.show();
+                let _ = window.set_focus();
+            }
+        }
+        _ => {
+            println!("unhandled event {event:?}");
+        }
+    })
 ```
 
-See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type.
+有关事件类型的更多信息，请参阅 [`TrayIconEvent`][rust TrayIconEvent] 。
 
 </TabItem>
 </Tabs>
