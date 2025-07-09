@@ -57,13 +57,18 @@ By default, all plugin commands are blocked and cannot be accessed. You must def
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/default.json" ins={6}
+```json title="src-tauri/capabilities/default.json" {8,9}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
+  "identifier": "default",
   "description": "Capability for the main window",
   "windows": ["main"],
-  "permissions": ["core:window:default", "core:window:allow-start-dragging"]
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "core:window:default",
+    "core:window:allow-start-dragging"
+  ]
 }
 ```
 
