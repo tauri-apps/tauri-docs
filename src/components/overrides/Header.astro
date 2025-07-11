@@ -1,13 +1,12 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from './ThemeSelect.astro';
 
-const curLocale = Astro.props.locale;
-
+const curLocale = Astro.locals.starlightRoute.locale;
+const slug = Astro.locals.starlightRoute.entry.slug;
 
 type Link = {
 	title: string;
@@ -41,10 +40,10 @@ const links: Link[] = [
 
 <div class="header sl-flex">
 	<div class="full-width sl-flex">
-		<SiteTitle {...Astro.props} />
+		<SiteTitle />
 	</div>
 	<div class="sl-flex">
-		<Search {...Astro.props} />
+		<Search />
 	</div>
 	<div class="sl-hidden md:sl-flex right-group">
 		<div class="desktop">
@@ -57,10 +56,10 @@ const links: Link[] = [
 			}
 		</div>
 		<div class="sl-flex social-icons">
-			<SocialIcons {...Astro.props} />
+			<SocialIcons />
 		</div>
-		<LanguageSelect {...Astro.props} />
-		<ThemeSelect {...Astro.props} />
+		<LanguageSelect />
+		<ThemeSelect />
 	</div>
 </div>
 
@@ -136,7 +135,7 @@ body[data-mobile-menu-expanded] header {
 </style>
 
 {
-Astro.props.entry.slug === '' || Astro.props.locale === Astro.props.entry.slug ?
+slug === '' || slug === curLocale ?
 <style>
 	.header {
 		background-color: transparent;
