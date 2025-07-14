@@ -24,7 +24,7 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.2",
     "@astrojs/rss": "^4.0.12",
-    "@astrojs/starlight": "0.34.5",
+    "@astrojs/starlight": "0.34.6",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/json-schema": "^7.0.15",
