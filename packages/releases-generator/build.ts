@@ -377,5 +377,5 @@ function entitify(str: string): string {
 if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
   generator();
 } else {
-  console.info('Skipping `/release` pages build');
+  console.info('Skipping `/release` pages build', process.env.HEAD);
 }
