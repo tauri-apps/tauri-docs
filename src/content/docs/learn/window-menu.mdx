@@ -215,11 +215,7 @@ const editSubmenu = await Submenu.new({
 });
 
 const menu = await Menu.new({
-  items: [
-    aboutSubmenu,
-    fileSubmenu,
-    editSubmenu,
-  ],
+  items: [aboutSubmenu, fileSubmenu, editSubmenu],
 });
 
 menu.setAsAppMenu();
