@@ -241,11 +241,11 @@ Remove the main window from the `tauri.conf.json` file:
     }
     ```
 
-Add `cocoa` crate to dependencies so that we can use it to call the macOS native API:
+Add `objc2-app-kit` crate to dependencies so that we can use it to call the macOS native API:
 
     ```toml title="src-tauri/Cargo.toml"
     [target."cfg(target_os = \"macos\")".dependencies]
-    cocoa = "0.26"
+    objc2-app-kit = "0.3.1"
     ```
 
 Create the main window and change its background color:
@@ -270,20 +270,19 @@ Create the main window and change its background color:
     			// set background color only when building for macOS
     			#[cfg(target_os = "macos")]
     			{
-    				use cocoa::appkit::{NSColor, NSWindow};
-    				use cocoa::base::{id, nil};
+    				use objc2_app_kit::{NSColor, NSWindow};
 
-    				let ns_window = window.ns_window().unwrap() as id;
-    				unsafe {
-    					let bg_color = NSColor::colorWithRed_green_blue_alpha_(
-    							nil,
-    							50.0 / 255.0,
-    							158.0 / 255.0,
-    							163.5 / 255.0,
-    							1.0,
-    					);
-    					ns_window.setBackgroundColor_(bg_color);
-    				}
+            unsafe {
+              let ns_window: &NSWindow = &*window.ns_window().unwrap().cast();
+
+              let bg_color = NSColor::colorWithRed_green_blue_alpha(
+                50.0 / 255.0,
+                158.0 / 255.0,
+                163.5 / 255.0,
+                1.0,
+              );
+              ns_window.setBackgroundColor(Some(&bg_color));
+            }
     			}
 
     			Ok(())
