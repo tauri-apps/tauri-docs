@@ -2,6 +2,7 @@
 title: SQL
 description: Tauri Plugin providing an interface for the frontend to communicate with SQL databases through sqlx.
 plugin: sql
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -113,7 +114,7 @@ The path is relative to [`tauri::api::path::BaseDirectory::AppConfig`](https://d
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
 // when using `"withGlobalTauri": true`, you may use
-// const V = window.__TAURI__.sql;
+// const Database = window.__TAURI__.sql;
 
 const db = await Database.load('sqlite:test.db');
 await db.execute('INSERT INTO ...');
@@ -121,25 +122,27 @@ await db.execute('INSERT INTO ...');
 
   </TabItem>
   <TabItem label="MySQL">
-```javascript
 
+```javascript
 import Database from '@tauri-apps/plugin-sql';
 // when using `"withGlobalTauri": true`, you may use
 // const Database = window.__TAURI__.sql;
 
-const db = await Database.load('mysql://user:pass@host/database');
+const db = await Database.load('mysql://user:password@host/test');
 await db.execute('INSERT INTO ...');
+```
 
-````
   </TabItem>
   <TabItem label="PostgreSQL">
+
 ```javascript
+import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
 
-import Database from "@tauri-apps/plugin-sql";
-const db = await Database.load("postgres://postgres:password@localhost/test");
-await db.execute("INSERT INTO ...");
-
-````
+const db = await Database.load('postgres://user:password@host/test');
+await db.execute('INSERT INTO ...');
+```
 
   </TabItem>
 </Tabs>
@@ -216,6 +219,19 @@ let migration = Migration {
     kind: MigrationKind::Up,
 };
 ````
+
+Or if you want to use SQL from a file, you can include it by using `include_str!`:
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: include_str!("../drizzle/0000_graceful_boomer.sql"),
+    kind: MigrationKind::Up,
+};
+```
 
 ### Adding Migrations to the Plugin Builder
 

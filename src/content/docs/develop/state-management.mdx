@@ -1,7 +1,6 @@
 ---
 title: State Management
-sidebar:
-  order: 1
+i18nReady: true
 ---
 
 In a Tauri application, you often need to keep track of the current state of your application or manage the lifecycle of things associated with it. Tauri provides an easy way to manage the state of your application using the [`Manager`] API, and read it when commands are called.
@@ -89,6 +88,8 @@ It's a good idea to read the linked documentation fully to understand the trade-
 
 It's common to see [`Arc`] used in Rust to share ownership of a value across multiple threads (usually paired with a [`Mutex`] in the form of `Arc<Mutex<T>>`). However, you don't need to use [`Arc`] for things stored in [`State`] because Tauri will do this for you.
 
+In case `State`'s lifetime requirements prevent you from moving your state into a new thread you can instead move an `AppHandle` into the thread and then retrieve your state as shown below in the "[Access state with the Manager trait](#access-state-with-the-manager-trait)" section. `AppHandle`s are deliberately cheap to clone for use-cases like this.
+
 ## Accessing State
 
 ### Access state in commands
@@ -106,7 +107,7 @@ For more information on commands, see [Calling Rust from the Frontend](/develop/
 
 #### Async commands
 
-If you are using `async` commands and want to use Tokio's async [`Mutex`], you can set it up the same way and access the state like this:
+If you are using `async` commands and want to use Tokio's async [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html), you can set it up the same way and access the state like this:
 
 ```rust
 #[tauri::command]
@@ -124,7 +125,8 @@ Note that the return type must be [`Result`] if you use asynchronous commands.
 Sometimes you may need to access the state outside of commands, such as in a different thread or in an event handler like `on_window_event`. In such cases, you can use the `state()` method of types that implement the [`Manager`] trait (such as the `AppHandle`) to get the state:
 
 ```rust
-use tauri::{Builder, GlobalWindowEvent, Manager};
+use std::sync::Mutex;
+use tauri::{Builder, Window, WindowEvent, Manager};
 
 #[derive(Default)]
 struct AppState {
@@ -132,9 +134,9 @@ struct AppState {
 }
 
 // In an event handler:
-fn on_window_event(event: GlobalWindowEvent) {
+fn on_window_event(window: &Window, _event: &WindowEvent) {
     // Get a handle to the app so we can get the global state.
-    let app_handle = event.window().app_handle();
+    let app_handle = window.app_handle();
     let state = app_handle.state::<Mutex<AppState>>();
 
     // Lock the mutex to mutably access the state.

@@ -1,3 +1,7 @@
+---
+title: 'Create Tauri app'
+---
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs syncKey="cmd">
@@ -9,6 +13,11 @@ sh <(curl https://create.tauri.app/sh)
 <TabItem label="PowerShell">
 ```sh frame=none
 irm https://create.tauri.app/ps | iex
+```
+</TabItem>
+<TabItem label="Fish">
+```sh frame=none
+sh (curl -sSL https://create.tauri.app/sh | psub)
 ```
 </TabItem>
 <TabItem label="npm">

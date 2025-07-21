@@ -1,0 +1,39 @@
+---
+import locales from 'locales.json';
+
+interface Props {
+  content: string;
+  lang: LocaleKey;
+}
+const { lang } = Astro.props;
+
+type LocaleKey = keyof typeof locales;
+
+const markers: Partial<Record<LocaleKey, string>> = {
+  ja: '《訳注》',
+  //   ...
+};
+
+const marker = markers[lang] || 'Note';
+---
+
+<div class="note" data-lang={lang}>
+  <span class="marker">{marker}</span>
+  <slot />
+</div>
+
+<style>
+  .note {
+    margin: 0.5rem 0;
+    font-size: 0.8em;
+    color: var(--sl-color-gray-2);
+    line-height: 1.4;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    border-left: 2px solid var(--sl-color-gray-5);
+  }
+
+  .marker {
+    font-weight: 500;
+    color: var(--sl-color-gray-3);
+  }
+</style>

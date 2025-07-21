@@ -2,6 +2,7 @@
 title: AppImage
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 `AppImage` is a distribution format that does not rely on the system installed packages and instead bundles all dependencies and files needed by the application. For this reason, the output file is larger but easier to distribute since it is supported on many Linux distributions and can be executed without installation. The user just needs to make the file executable (`chmod a+x MyProject.AppImage`) and can then run it (`./MyProject.AppImage`).
@@ -22,7 +23,7 @@ See the issues [tauri-apps/tauri#1355](https://github.com/tauri-apps/tauri/issue
 
 ## Multimedia support via GStreamer
 
-If your app plays audio/video you need to enable `tauri.conf.json > bundle > appimage > bundleMediaFramework`. This will increase the size of the AppImage bundle to include additional gstreamer files needed for media playback. This flag is currently only fully supported on Ubuntu build systems. Make sure that your build system has all the plugins your app may need at runtime.
+If your app plays audio/video you need to enable `tauri.conf.json > bundle > linux > appimage > bundleMediaFramework`. This will increase the size of the AppImage bundle to include additional gstreamer files needed for media playback. This flag is currently only fully supported on Ubuntu build systems. Make sure that your build system has all the plugins your app may need at runtime.
 
 :::caution
 

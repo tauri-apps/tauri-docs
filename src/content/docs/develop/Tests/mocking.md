@@ -91,7 +91,7 @@ test("invoke", async () => {
   });
 
   // we can use the spying tools provided by vitest to track the mocked function
-  const spy = vi.spyOn(window, "__TAURI_INTERNALS__.invoke");
+  const spy = vi.spyOn(window.__TAURI_INTERNALS__, "invoke");
 
   expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
   expect(spy).toHaveBeenCalled();

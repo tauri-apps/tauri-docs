@@ -9,11 +9,11 @@ tableOfContents:
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
-SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的信息，请访问 https://kit.svelte.dev/ 。本指南适用于 SvelteKit 2.5.7 / Svelte 4.2.15 版本。
+SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的信息，请访问 https://svelte.dev/ 。本指南适用于 SvelteKit 2.5.7 / Svelte 4.2.15 版本。
 
 ## 清单
 
-- Tauri 不支持基于服务器的解决方案。请通过 `static-adapter` 使用 [SSG](https://kit.svelte.dev/docs/adapter-static) 或者 [SPA](https://kit.svelte.dev/docs/single-page-apps) via `static-adapter`。
+- Tauri 不支持基于服务器的解决方案。请通过 `static-adapter` 使用 [SSG](https://svelte.dev/docs/kit/adapter-static) 或者 [SPA](https://svelte.dev/docs/kit/single-page-apps) via `static-adapter`。
 - 在 `tauri.conf.json` 中将 `frontendDist` 设置为 `build/` 。
 
 ## 示例配置
@@ -104,7 +104,7 @@ SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的
 
     /** @type {import('@sveltejs/kit').Config} */
     const config = {
-      // Consult https://kit.svelte.dev/docs/integrations#preprocessors
+      // Consult https://svelte.dev/docs/kit/integrations#preprocessors
       // for more information about preprocessors
       preprocess: vitePreprocess(),
 
@@ -126,8 +126,8 @@ SvelteKit 是一个用于 Svelte 的元框架。了解更多关于 SvelteKit 的
     export const ssr = false;
     ```
 
-    请注意，`static-adapter` 不需要您禁用整个应用程序的 SSR，但它使得使用依赖于全局 window 对象的 API（例如 Tauri 的 API）成为可能，而无需进行[客户端检查](https://kit.svelte.dev/docs/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window)。
+    请注意，`static-adapter` 不需要您禁用整个应用程序的 SSR，但它使得使用依赖于全局 window 对象的 API（例如 Tauri 的 API）成为可能，而无需进行[客户端检查](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window)。
 
-    此外，如果您更喜欢单页面应用（SPA）模式而不是 SSG，您可以根据[适配器文档](https://kit.svelte.dev/docs/single-page-apps)更改适配器配置和 `+layout.ts`。
+    此外，如果您更喜欢单页面应用（SPA）模式而不是 SSG，您可以根据[适配器文档](https://svelte.dev/docs/kit/single-page-apps)更改适配器配置和 `+layout.ts`。
 
 </Steps>

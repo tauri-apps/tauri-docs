@@ -1,0 +1,162 @@
+---
+title: VS Code でのデバッグ
+i18nReady: true
+---
+
+この章では、[Tauri アプリのコア・プロセス](/ja/concept/process-model/#コアプロセス) をデバッグするための VS Code の設定について説明します。
+
+## vscode-lldb 拡張機能を備えたすべてのプラットフォームの場合
+
+### 事前準備
+
+[`vscode-lldb`] 拡張機能をインストールしてください。
+
+[`vscode-lldb`]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
+
+### launch.json の設定
+
+`.vscode/launch.json` ファイルを作成し、以下の JSON コンテンツを貼り付けます：
+
+```json title=".vscode/launch.json"
+{
+  // VS Code の IntelliSense 入力支援機能を使用して、利用可能な属性について学習してください。
+  // マウスを既存の属性の上にかざすと、その説明が表示されます。
+  // 詳細については、https://go.microsoft.com/fwlink/?linkid=830387 をご覧ください。
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Tauri Development Debug",
+      "cargo": {
+        "args": [
+          "build",
+          "--manifest-path=./src-tauri/Cargo.toml",
+          "--no-default-features"
+        ]
+      },
+      // `beforeDevCommand` のタスクを使用する場合は、`.vscode/tasks.json` で設定する必要があります。
+      "preLaunchTask": "ui:dev"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Tauri Production Debug",
+      "cargo": {
+        "args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
+      },
+      // `beforeBuildCommand` のタスクを使用する場合は、`.vscode/tasks.json` で設定する必要があります。
+      "preLaunchTask": "ui:build"
+    }
+  ]
+}
+```
+
+これで `cargo` を直接使用して Rust アプリケーションをビルドし、開発モードと本番モードの両方でロードできるようになります。
+
+つまり、Tauri CLI を使用しないため、CLI 固有の機能は**実行されない**ことに注意してください。`beforeDevCommand` および `beforeBuildCommand` スクリプトは事前に実行するか、上記のように `preLaunchTask` フィールドで**タスクとして設定する**必要があります。以下は、開発サーバーを起動する `beforeDevCommand` タスクと、`beforeBuildCommand` タスクの二つのタスクを含む `.vscode/tasks.json` ファイルの例です：
+
+```json title=".vscode/tasks.json"
+{
+  // tasks.json 形式に関するドキュメントについては
+  // https://go.microsoft.com/fwlink/?LinkId=733558 を参照してください。
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ui:dev",
+      "type": "shell",
+      // `dev` はバックグラウンドで実行が継続します。
+      // 理想的には `problemMatcher` も設定する必要があります。
+      // https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson を参照してください。
+      "isBackground": true,
+      // この部分をあなたの `beforeDevCommand` に合わせて変更します：
+      "command": "yarn",
+      "args": ["dev"]
+    },
+    {
+      "label": "ui:build",
+      "type": "shell",
+      // この部分をあなたの `beforeBuildCommand` に合わせて変更します：
+      "command": "yarn",
+      "args": ["build"]
+    }
+  ]
+}
+```
+
+これで、`src-tauri/src/main.rs` やその他の Rust ファイルにブレークポイントを設定し、`F5` を押してデバッグを開始できます。
+
+## Windows 上の Visual Studio Windows デバッガーを使用する場合
+
+「Visual Studio Windows Debugger」は Windows 専用のデバッガーで、一般的に [`vscode-lldb`] よりも高速で、列挙型（enums）のような一部の Rust 機能のサポートも優れています。
+
+### 事前準備
+
+[C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) 拡張機能をインストールし、https://code.visualstudio.com/docs/cpp/config-msvc#_prerequisites に従って Visual Studio Windows Debuger をインストールしてください。
+
+### launch.json と tasks.json の設定
+
+```json title=".vscode/launch.json"
+{
+  // VS Code の IntelliSense 入力支援機能を使用して、利用可能な属性について学習してください。
+  // マウスを既存の属性の上にかざすと、その説明が表示されます。
+  // 詳細については、https://go.microsoft.com/fwlink/?linkid=830387 をご覧ください。
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch App Debug",
+      "type": "cppvsdbg",
+      "request": "launch",
+      // 実行ファイル（exe）名を実際に用いる exe ファイル名に変更してください。
+      //  「リリース・ビルド」（公開版）をデバッグするには、`target/debug` を `release/debug` に変更してください。）
+      "program": "${workspaceRoot}/src-tauri/target/debug/your-app-name-here.exe",
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "ui:dev"
+    }
+  ]
+}
+```
+
+Tauri CLI は使用されないため、CLI 固有の機能は**実行されない**ことに注意してください。`tasks.json` は `lldb` の場合と同じですが、起動前に常にコンパイルしたいのであれば、設定グループを追加して、自分の `preLaunchTask` を `launch.json` から `tasks.json` へターゲットに指定する必要があります。
+
+以下は、開発サーバー（`beforeDevCommand` に相当）とコンパイル（`cargo build`）をグループとして実行する事例です。これを使用するには、`launch.json` の `preLaunchTask` 設定を `dev`（またはあなたがグループに付けた名前）に変更します。
+
+```json title=".vscode/tasks.json"
+{
+  // tasks.json 形式に関するドキュメントについては
+  // https://go.microsoft.com/fwlink/?LinkId=733558 を参照してください。
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build:debug",
+      "type": "cargo",
+      "command": "build",
+      "options": {
+        "cwd": "${workspaceRoot}/src-tauri"
+      }
+    },
+    {
+      "label": "ui:dev",
+      "type": "shell",
+      // `dev` はバックグラウンドで実行が継続します。
+      // 理想的には `problemMatcher` も設定する必要があります。
+      // https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson を参照してください。
+      "isBackground": true,
+      // この部分をあなたの `beforeBuildCommand` に合わせて変更します：
+      "command": "yarn",
+      "args": ["dev"]
+    },
+    {
+      "label": "dev",
+      "dependsOn": ["build:debug", "ui:dev"],
+      "group": {
+        "kind": "build"
+      }
+    }
+  ]
+}
+```
+
+<div style="text-align: right">
+  【※ この日本語版は、「Jul 23, 2024 英語版」に基づいています】
+</div>

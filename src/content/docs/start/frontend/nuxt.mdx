@@ -8,14 +8,13 @@ tableOfContents:
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
-Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.11.
+Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.17.
 
 ## Checklist
 
 - Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
-- Use `process.env.TAURI_DEV_HOST` as the development server host IP when set to run on iOS physical devices.
-- Use `dist/` as `frontendDist` in `tauri.conf.json`.
-- Compile using `nuxi generate`.
+- Use default `../dist` as `frontendDist` in `tauri.conf.json`.
+- Compile using `nuxi build`.
 - (Optional): Disable telemetry by setting `telemetry: false` in `nuxt.config.ts`.
 
 ## Example Configuration
@@ -33,7 +32,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
         {
           "build": {
             "beforeDevCommand": "npm run dev",
-            "beforeBuildCommand": "npm run generate",
+            "beforeBuildCommand": "npm run build",
             "devUrl": "http://localhost:3000",
             "frontendDist": "../dist"
           }
@@ -48,7 +47,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
         {
           "build": {
             "beforeDevCommand": "yarn dev",
-            "beforeBuildCommand": "yarn generate",
+            "beforeBuildCommand": "yarn build",
             "devUrl": "http://localhost:3000",
             "frontendDist": "../dist"
           }
@@ -63,7 +62,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
         {
           "build": {
             "beforeDevCommand": "pnpm dev",
-            "beforeBuildCommand": "pnpm generate",
+            "beforeBuildCommand": "pnpm build",
             "devUrl": "http://localhost:3000",
             "frontendDist": "../dist"
           }
@@ -93,12 +92,15 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
 
     ```ts
     export default defineNuxtConfig({
+      compatibilityDate: '2025-05-15',
       // (optional) Enable the Nuxt devtools
       devtools: { enabled: true },
       // Enable SSG
       ssr: false,
       // Enables the development server to be discoverable by other devices when running on iOS physical devices
-      devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
+      devServer: {
+        host: '0',
+      },
       vite: {
         // Better support for Tauri CLI output
         clearScreen: false,
@@ -111,6 +113,8 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
           strictPort: true,
         },
       },
+      // Avoids error [unhandledRejection] EMFILE: too many open files, watch
+      ignore: ['**/src-tauri/**'],
     });
     ```
 

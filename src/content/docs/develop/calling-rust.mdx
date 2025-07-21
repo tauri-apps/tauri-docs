@@ -1,7 +1,6 @@
 ---
 title: Calling Rust from the Frontend
-sidebar:
-  order: 1
+i18nReady: true
 ---
 
 import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
@@ -37,7 +36,7 @@ Command names must be unique.
 Commands defined in the `lib.rs` file cannot be marked as `pub` due to a limitation in the glue code generation.
 You will see an error like this if you mark it as a public function:
 
-````
+```
 error[E0255]: the name `__cmd__command_name` is defined multiple times
   --> src/lib.rs:28:8
    |
@@ -48,6 +47,7 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times
    |
    = note: `__cmd__command_name` must be defined only once in the macro namespace of this module
 ```
+
 :::
 
 You will have to provide a list of your commands to the builder function like so:
@@ -60,7 +60,7 @@ pub fn run() {
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }
-````
+```
 
 Now, you can invoke the command from your JavaScript code:
 
@@ -237,7 +237,7 @@ invoke('login', { user: 'tauri', password: '0j4rijw8=' })
 
 As mentioned above, everything returned from commands must implement [`serde::Serialize`], including errors.
 This can be problematic if you're working with error types from Rust's std library or external crates as most error types do not implement it.
-In simple scenarios you can use `map_err` to convert these errors to `String`s:
+In simple scenarios you can use `map_err` to convert these errors to `String`:
 
 ```rust
 #[tauri::command]
@@ -642,7 +642,7 @@ Global events are delivered to **all** listeners
 To trigger an event to a listener registered by a specific webview you can use the [event.emitTo] or the [WebviewWindow#emitTo] functions:
 
 ```js
-import { emit } from '@tauri-apps/api/event';
+import { emitTo } from '@tauri-apps/api/event';
 import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 
 // emitTo(webviewLabel, eventName, payload)

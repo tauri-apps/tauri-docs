@@ -1,102 +1,117 @@
 ---
 title: Nuxt
 i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
-Aprende más sobre Nuxt en https://nuxt.com. Esta guía es precisa a partir de Nuxt 3.7.
+Nuxt es un meta framework para Vue. Aprende más sobre Nuxt en https://nuxt.com. Esta guía es válida para Nuxt 3.11.
 
 ## Checklist
 
 - Usa SSG estableciendo `ssr: false`. Tauri no soporta soluciones basadas en el servidor.
-- Configura el host a `0.0.0.0`.
+- Usa `process.env.TAURI_DEV_HOST` como dirección IP del servidor de desarrollo cuando se configure para ejecutarse en dispositivos físicos con iOS.
 - Usa `dist/` como `distDir` en `tauri.conf.json`.
 - Compila usando `nuxi generate`.
 - (Opcional): Deshabilita la telemetría estableciendo `telemetry: false` en `nuxt.config.ts`.
 
 ## Ejemplo de Configuración
 
-1. Actualiza la configuración de Tauri:
+<Steps>
 
-<Tabs>
-	<TabItem label="npm">
+1.  ##### Actualiza la configuración de Tauri:
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run generate",
-    "devPath": "http://localhost:3000",
-    "distDir": "../dist"
-  }
-}
-```
+          <Tabs>
 
-    </TabItem>
-    <TabItem label="yarn">
+    <TabItem label="npm">
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn generate",
-    "devPath": "http://localhost:3000",
-    "distDir": "../dist"
-  }
-}
-```
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-    </TabItem>
-    <TabItem label="pnpm">
+              </TabItem>
+              <TabItem label="yarn">
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm generate",
-    "devPath": "http://localhost:3000",
-    "distDir": "../dist"
-  }
-}
-```
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-    </TabItem>
+              </TabItem>
+              <TabItem label="pnpm">
 
-</Tabs>
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
 
-2. Actualiza la configuración de Nuxt:
+              </TabItem>
+              <TabItem label="deno">
 
-```ts
-export default defineNuxtConfig({
-  // (opcional) Habilita las herramientas de desarrollo de Nuxt
-  devtools: { enabled: true },
-  // Habilita SSG
-  ssr: false,
-  vite: {
-    // Mejor soporte para la salida de Tauri CLI
-    clearScreen: false,
-    // Habilita las variables de entorno
-    // Las variables de entorno adicionales se pueden encontrar en
-    // https://v2.tauri.app/reference/environment-variables/
-    envPrefix: ['VITE_', 'TAURI_'],
-    server: {
-      // Tauri requiere un puerto consistente
-      strictPort: true,
-      // Habilita el servidor de desarrollo para pueda ser accedido por otros dispositivos para el desarrollo móvil
-      host: '0.0.0.0',
-      hmr: {
-        // Usa un websocket para la recarga rápida en móviles
-        protocol: 'ws',
-        // Asegúrate de que esté disponible en la red
-        host: '0.0.0.0',
-        // Usa un puerto específico para hmr
-        port: 5183,
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "deno task dev",
+            "beforeBuildCommand": "deno task generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+
+          </Tabs>
+
+2.  ##### Actualiza la configuración de Nuxt:
+
+    ```ts
+    export default defineNuxtConfig({
+      // (opcional) Habilita las herramientas de desarrollo de Nuxt
+      devtools: { enabled: true },
+      // Habilita SSG
+      ssr: false,
+      // Permite que el servidor de desarrollo sea detectable por otros dispositivos al ejecutarse en dispositivos físicos con iOS
+      devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
+      vite: {
+        // Mejor soporte para la salida de Tauri CLI
+        clearScreen: false,
+        // Habilita las variables de entorno
+        // Las variables de entorno adicionales se pueden encontrar en
+        // https://v2.tauri.app/reference/environment-variables/
+        envPrefix: ['VITE_', 'TAURI_'],
+        server: {
+          // Tauri requiere un puerto consistente
+          strictPort: true,
+        },
       },
-    },
-  },
-});
-```
+    });
+    ```
+
+</Steps>

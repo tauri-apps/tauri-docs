@@ -2,6 +2,7 @@
 title: Windows Installer
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -24,10 +25,17 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
   yarn="yarn tauri build"
   pnpm="pnpm tauri build"
   deno="deno task tauri build"
+  bun="bun tauri build"
   cargo="cargo tauri build"
 />
 
-### Build Windows apps on Linux and macOS
+:::note[VBSCRIPT requirement for MSI packages]
+
+Building MSI packages (`"targets": "msi"` or `"targets": "all"` in `tauri.conf.json`) requires the VBSCRIPT optional feature to be enabled on Windows. This feature is enabled by default on most Windows installations, but if you encounter errors like `failed to run light.exe`, you may need to enable it manually through **Settings** → **Apps** → **Optional features** → **More Windows features**. See the [Prerequisites guide](/start/prerequisites/#vbscript-for-msi-installers) for detailed instructions.
+
+:::
+
+### Experimental: Build Windows apps on Linux and macOS
 
 Cross compiling Windows apps on Linux and macOS hosts is possible with caveats when using [NSIS].
 It is not as straight forward as compiling on Windows directly and is not tested as much.
@@ -128,6 +136,7 @@ Now it should be as simple as adding the runner and target to the `tauri build` 
   yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   deno="deno task tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  bun="bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
 />
 
@@ -145,8 +154,9 @@ using the `--target` flag:
   npm="npm run tauri build -- --target i686-pc-windows-msvc"
   yarn="yarn tauri build --target i686-pc-windows-msvc"
   pnpm="pnpm tauri build --target i686-pc-windows-msvc"
-  cargo="cargo tauri build --target i686-pc-windows-msvc"
   deno="deno task tauri build --target i686-pc-windows-msvc"
+  bun="bun tauri build --target i686-pc-windows-msvc"
+  cargo="cargo tauri build --target i686-pc-windows-msvc"
 />
 
 By default, Rust only installs toolchains for your machine's target,
@@ -162,6 +172,7 @@ Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc`
   yarn="yarn tauri build --target aarch64-pc-windows-msvc"
   pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
   deno="deno task tauri build --target aarch64-pc-windows-msvc"
+  bun="bun tauri build --target aarch64-pc-windows-msvc"
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 
@@ -187,11 +198,11 @@ tauri-plugin-notification = { version = "2.0.0", features = [ "windows7-compat" 
 
 ## FIPS Compliance
 
-If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true`
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` environment variable to `true`
 before running `tauri build`. In PowerShell you can set it for the current terminal session like this:
 
 ```powershell
-$env:TAURI_FIPS_COMPLIANT="true"
+$env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 ```
 
 ## WebView2 Installation Options
@@ -518,7 +529,7 @@ Supported hooks are:
 - `NSIS_HOOK_PREUNINSTALL`: Runs before removing any files, registry keys and shortcuts.
 - `NSIS_HOOK_POSTUNINSTALL`: Runs after files, registry keys and shortcuts have been removed.
 
-For example, create a `hooks.nsi` file in the `src-tauri/windows` folder and define the hooks you need:
+For example, create a `hooks.nsh` file in the `src-tauri/windows` folder and define the hooks you need:
 
 ```nsh
 !macro NSIS_HOOK_PREINSTALL
@@ -545,9 +556,70 @@ Then you must configure Tauri to use that hook file:
   "bundle": {
     "windows": {
       "nsis": {
-        "installerHooks": "./windows/hooks.nsi"
+        "installerHooks": "./windows/hooks.nsh"
       }
     }
+  }
+}
+```
+
+#### Installing Dependencies with Hooks
+
+You can use installer hooks to automatically install system dependencies that your application requires. This is particularly useful for runtime dependencies like Visual C++ Redistributables, DirectX, OpenSSL or other system libraries that may not be present on all Windows systems.
+
+**MSI Installer Example (Visual C++ Redistributable):**
+
+```nsh
+!macro NSIS_HOOK_POSTINSTALL
+  ; Check if Visual C++ 2019 Redistributable is installed (via Windows Registry)
+  ReadRegDWord $0 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+
+  ${If} $0 == 1
+    DetailPrint "Visual C++ Redistributable already installed"
+    Goto vcredist_done
+  ${EndIf}
+
+  ; Install from bundled MSI if not installed
+  ${If} ${FileExists} "$INSTDIR\resources\vc_redist.x64.msi"
+    DetailPrint "Installing Visual C++ Redistributable..."
+    ; Copy to TEMP folder and then execute installer
+    CopyFiles "$INSTDIR\resources\vc_redist.x64.msi" "$TEMP\vc_redist.x64.msi"
+    ExecWait 'msiexec /i "$TEMP\vc_redist.x64.msi" /passive /norestart' $0
+
+    ; Check wether installation process exited successfully (code 0) or not
+    ${If} $0 == 0
+      DetailPrint "Visual C++ Redistributable installed successfully"
+    ${Else}
+      MessageBox MB_ICONEXCLAMATION "Visual C++ installation failed. Some features may not work."
+    ${EndIf}
+
+    ; Clean up setup files from TEMP and your installed app
+    Delete "$TEMP\vc_redist.x64.msi"
+    Delete "$INSTDIR\resources\vc_redist.x64.msi"
+  ${EndIf}
+
+  vcredist_done:
+!macroend
+```
+
+**Key considerations:**
+
+- A good practice is to always check if the dependency is already installed using registry keys or file existence or via Windows [where] command.
+- Use `/passive`, `/quiet`, or `/silent` flags to avoid interrupting the installation flow. Check out [msiexec] options for `.msi` files, or the setup manual for app-specific flags
+- Include `/norestart` to prevent automatic system reboots during installation for setups that restarts user devices
+- Clean up temporary files and bundled installers to avoid bloating the application
+- Consider that dependencies might be shared with other applications when uninstalling
+- Provide meaningful error messages if installation fails
+
+Ensure to bundle the dependency installers in your `src-tauri/resources` folder and add to `tauri.conf.json` so they get bundled, and can be accessed during installation from `$INSTDIR\resources\`:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "resources": [
+      "resources/my-dependency.exe",
+      "resources/another-one.msi
+    ]
   }
 }
 ```
@@ -642,3 +714,5 @@ to verify the current Webview2 version and run the Webview2 bootstrapper if it d
 [NSIS configuration]: /reference/config/#nsisconfig
 [installMode]: /reference/config/#installmode
 [NSISInstallerMode]: /reference/config/#nsisinstallermode
+[where]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where
+[msiexec]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec

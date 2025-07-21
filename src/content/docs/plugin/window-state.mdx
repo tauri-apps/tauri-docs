@@ -2,6 +2,7 @@
 title: Window State
 description: Persist window sizes and positions.
 plugin: window-state
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -85,6 +86,12 @@ Use your project's package manager to add the dependency:
 After adding the window-state plugin, all windows will remember their state when the app is being closed and will restore to their previous state on the next launch.
 
 You can also access the window-state plugin in both JavaScript and Rust.
+
+:::tip
+Restoring the state will happen after window creation,
+so to prevent the window from flashing, you can set `visible` to `false` when creating the window,
+the plugin will show the window when it restores the state
+:::
 
 ### JavaScript
 

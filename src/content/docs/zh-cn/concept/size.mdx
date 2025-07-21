@@ -1,0 +1,106 @@
+---
+title: 应用程序大小
+sidebar:
+  order: 0
+  i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+虽然 Tauri 默认提供非常小的二进制文件，但稍微推一下极限也无妨，因此这里有一些技巧和建议，以达到最佳效果。
+
+## Cargo 配置
+
+您可以对项目进行的最简单的前端无关的大小优化之一是为其添加一个 Cargo 配置文件。
+
+根据您使用的是 stable 还是 nightly 的 Rust 工具链，您可以使用的选项会有所不同。除非您是高级用户，建议您坚持使用稳定版工具链。
+
+<Tabs>
+<TabItem label="Stable">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # 以较小的步骤编译您的二进制文件。
+
+[profile.release]
+codegen-units = 1 # 允许 LLVM 执行更好的优化。
+lto = true # 启用链接时优化。
+opt-level = "s" # 优先考虑小的二进制文件大小。如果您更喜欢速度，请使用 `3`。
+panic = "abort" # 通过禁用 panic 处理程序来提高性能。
+strip = true # 确保移除调试符号。
+
+````
+</TabItem>
+
+<TabItem label="Nightly">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # 以较小的步骤编译您的二进制文件。
+rustflags = ["-Zthreads=8"] # 提高编译性能。
+
+[profile.release]
+codegen-units = 1 # 允许 LLVM 执行更好的优化。
+lto = true # 启用链接时优化。
+opt-level = "s" # 优先考虑小的二进制文件大小。如果您更喜欢速度，请使用 `3`。
+panic = "abort" # 通过禁用 panic 处理程序来提高性能。
+strip = true # 确保移除调试符号。
+trim-paths = "all" # 从您的二进制文件中移除潜在的特权信息。
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # 提高编译性能。
+````
+
+</TabItem>
+</Tabs>
+
+### 参考资料
+
+:::note
+这并不是所有可用选项的完整参考，只是我们想特别强调的几个选项。
+:::
+
+- [incremental:](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental) 以较小的步骤编译您的二进制文件。
+- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units) 以牺牲编译时间优化为代价，加快编译时间。
+- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) 启用链接时优化。
+- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) 确定编译器的关注点。使用 `3` 来优化性能，使用 `z` 来优化大小，使用 `s` 以达到两者之间的平衡。
+- [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic) 通过移除 panic unwind 来减少大小。
+- [strip:](https://doc.rust-lang.org/cargo/reference/profiles.html#strip) 从二进制文件中剥离符号或调试信息。
+- [rpath:](https://doc.rust-lang.org/cargo/reference/profiles.html#rpath) 通过将信息硬编码到二进制文件中，帮助找到二进制文件所需的动态库。
+- [trim-paths:](https://rust-lang.github.io/rfcs/3127-trim-paths.html) 从二进制文件中移除潜在的特权信息。
+- [rustflags:](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option) 在每个配置文件的基础上设置 Rust 编译器标志。
+  - `-Cdebuginfo=0`: 是否应在构建中包含调试信息符号。
+  - `-Zthreads=8`: 增加编译期间使用的线程数。
+
+## 移除未使用的命令
+
+在拉取请求 [`feat: add a new option to remove unused commands`](https://github.com/tauri-apps/tauri/pull/12890) 中，我们在 tauri 配置文件中添加了一个新选项。
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "removeUnusedCommands": true
+  }
+}
+```
+
+移除您在权限文件（ACL）中永远不允许使用的命令，这样您就无需为未使用的功能付费。
+
+:::tip
+为了最大限度地发挥这一优势，请仅在访问控制列表（ACL）中包含您实际使用的命令，而不要使用“默认值”。
+:::
+
+:::note
+此功能需要 `tauri@2.4`、`tauri-build@2.1`、`tauri-plugin@2.1` 和 `tauri-cli@2.4`。
+:::
+
+:::note
+这不会考虑运行时动态添加的访问控制列表，所以在使用此功能时请务必检查。
+:::
+
+<details>
+<summary>它内部是如何运作的？</summary>
+
+`tauri-cli` 将通过环境变量与 `tauri-build` 以及 `tauri` 和 `tauri-plugin` 的构建脚本进行通信，并让它们从访问控制列表（ACL）生成允许的命令列表，然后 `generate_handler` 宏会根据该列表移除未使用的命令。
+
+内部细节是，当前环境变量为 `REMOVE_UNUSED_COMMANDS`，它被设置为项目的目录，通常是 `src-tauri` 目录，这用于构建脚本查找能力文件。尽管不建议这样做，但如果您无法或不想使用 `tauri-cli` 来实现此功能，您仍然可以自行设置此环境变量（**请注意，由于这是实现细节，我们不保证其稳定性**）。
+
+</details>

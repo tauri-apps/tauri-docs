@@ -34,7 +34,7 @@ export async function GET(context: APIContext) {
     items: posts.map((post) => ({
       pubDate: getTimestamp(post.id),
       ...post.data,
-      link: `/${post.slug}/`,
+      link: `/${post.id}/`,
     })),
   });
 }
