@@ -178,6 +178,7 @@ export default defineConfig({
                     'develop/sidecar',
                     'develop/state-management',
                     'develop/updating-dependencies',
+                    'develop/icons',
                     {
                       label: 'Debug',
                       collapsed: true,
