@@ -1,5 +1,5 @@
 import { Application, TSConfigReader, LogLevel, DefaultTheme, type TypeDocOptions } from 'typedoc';
-import { existsSync, mkdirSync, writeFileSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync, readdirSync, readFileSync, cpSync } from 'node:fs';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -108,7 +108,7 @@ async function generator() {
 }
 
 async function generateDocs(options: Partial<TypeDocOptions>) {
-  console.log(`Generating docs for ${options.name || 'unknown'}`);
+  // console.log(`Generating docs for ${options.name}`);
 
   const outDir = options.out as string;
   if (!existsSync(outDir)) {
@@ -149,110 +149,31 @@ async function generateIndexPage() {
       .join('');
   }
 
-  // TODO: move this to a file and improve layout
-  // TODO: copy assets to the output directory
+  // TODO: improve layout
   // TODO: improve theme switcher
   // TODO: link to docs
   // TODO: make docs link to here
-  const indexContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <title>Tauri JS API Reference</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.slate.min.css">
-    <style>
-        .grid {
-            --grid-min-value: 16rem;
-            grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-value), 1fr));
-        }
-        .tauri-logo {
-            height: 2rem;
-            vertical-align: middle;
-            margin-right: 0.5rem;
-        }
-        .logo-light { display: none; }
-        .logo-dark { display: none; }
-        @media (prefers-color-scheme: dark) {
-          .logo-dark { display: inline; }
-          .logo-light { display: none; }
-        }
-        @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-          .logo-light { display: inline; }
-          .logo-dark { display: none; }
-        }
-        [data-theme="dark"] .logo-dark { display: inline; }
-        [data-theme="dark"] .logo-light { display: none; }
-        [data-theme="light"] .logo-light { display: inline; }
-        [data-theme="light"] .logo-dark { display: none; }
-    </style>
-</head>
-<body>
-    <header class="container">
-    <nav>
-        <ul>
-            <li>
-              <img src="./assets/logo_light.svg" alt="Tauri Logo" class="tauri-logo logo-light" loading="lazy">
-              <img src="./assets/logo.svg" alt="Tauri Logo" class="tauri-logo logo-dark" loading="lazy">
-            </li>
-        </ul>
-        <ul>
-            <li>
-                <select id="theme-switcher" aria-label="Theme">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                    <option value="auto" selected>Auto</option>
-                </select>
-            </li>
-        </ul>
-        </nav>
-    </header>
-    <main class="container">
-        <hgroup>
-            <h1>Javascript Reference</h1>
-            <p>API reference for Tauri core and plugins</p>
-        </hgroup>
-        <section>
-          <div>${cardTemplate('Tauri Core API', './core/index.html')}</div>
-            <h3>Plugins</h3>
-            <div class="grid">
-                ${pluginsGridHtml}
-            </div>
-        </section>
-    </main>
-    <footer class="container">
-        <small>&copy; 2025 Tauri Apps. All rights reserved.</small>
-    </footer>
-    <script>
-        const themeSwitcher = document.getElementById('theme-switcher');
-        function setTheme(theme) {
-            if (theme === 'auto') {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.removeItem('theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-            }
-        }
-        themeSwitcher.value = localStorage.getItem('theme') || 'auto';
-        setTheme(themeSwitcher.value);
-        themeSwitcher.addEventListener('change', (e) => {
-            setTheme(e.target.value);
-        });
-    </script>
-</body>
-</html>
-  `;
+  const indexTemplatePath = join(__dirname, 'indexTemplate.html');
+  const indexContent = readFileSync(indexTemplatePath, 'utf-8')
+    .replace('{{ pluginsGridHtml }}', pluginsGridHtml || '')
+    .replace('{{ tauriCard }}', cardTemplate('Tauri Core API', './core/index.html'));
 
-  const cssDir = join(BASE_OUTPUT_DIR, 'assets');
-  if (!existsSync(cssDir)) {
-    mkdirSync(cssDir, { recursive: true });
+  const assetsDir = join(BASE_OUTPUT_DIR, 'assets');
+  if (!existsSync(assetsDir)) {
+    mkdirSync(assetsDir, { recursive: true });
+  }
+  const distAssetsDir = join(__dirname, 'assets');
+  if (existsSync(distAssetsDir)) {
+    try {
+      cpSync(distAssetsDir, assetsDir, { recursive: true, force: true });
+    } catch (err) {
+      console.error('Failed to copy assets:', err);
+    }
+  } else {
+    console.warn(`Assets directory not found at ${distAssetsDir}`);
   }
   try {
     writeFileSync(indexPath, indexContent);
-    console.log(`Generated index page at ${indexPath}`);
   } catch (error) {
     console.error('Failed to write index files:', error);
   }

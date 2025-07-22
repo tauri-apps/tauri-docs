@@ -5,16 +5,14 @@
   "type": "module",
   "main": "build.js",
   "scripts": {
-    "build": "tsm ./build.ts"
+    "build": "npx tsc && node build.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "tsm": "^2.3.0",
     "typedoc": "^0.28.7",
-    "typedoc-plugin-mdn-links": "^5.0.5",
-    "typescript": "5.4.5"
+    "typedoc-plugin-mdn-links": "^5.0.5"
   }
 }
