@@ -32,8 +32,6 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions> = {
   categorizeByGroup: true,
   cleanOutputDir: true,
   // disableSources: false,
-  sourceLinkTemplate:
-    'https://github.com/tauri-apps/{repository}/blob/{gitRevision}/{path}#L{line}',
   sort: ['source-order'],
   highlightLanguages: ['typescript', 'javascript', 'json', 'bash', 'shell', 'rust', 'toml'],
 };
