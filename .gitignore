@@ -20,3 +20,4 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 /public/api-reference
+packages/js-api-generator/build.js
