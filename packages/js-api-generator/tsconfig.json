@@ -2,6 +2,6 @@
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "strict": true,
+    "strict": true
   }
 }

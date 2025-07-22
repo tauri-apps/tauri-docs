@@ -156,7 +156,7 @@ async function generateIndexPage() {
   const indexTemplatePath = join(__dirname, 'indexTemplate.html');
   const indexContent = readFileSync(indexTemplatePath, 'utf-8')
     .replace('{{ pluginsGridHtml }}', pluginsGridHtml || '')
-          .replace('{{ tauriCard }}', cardTemplate('Tauri Core API', '/reference/javascript/core/'));
+    .replace('{{ tauriCard }}', cardTemplate('Tauri Core API', '/reference/javascript/core/'));
 
   const assetsDir = join(BASE_OUTPUT_DIR, 'assets');
   if (!existsSync(assetsDir)) {
@@ -175,22 +175,22 @@ async function generateIndexPage() {
   try {
     writeFileSync(indexPath, indexContent);
     // Starlight  topics especific sidebar structure
-          const sidebar = [
-            {
-              label: 'Index',
-              link: '/reference/javascript/index.html',
-            },
-            {
-              label: 'Tauri Core API',
-              link: '/reference/javascript/core/index.html',
-            },
-            ...(pluginsGridHtml && existsSync(join(BASE_OUTPUT_DIR, 'plugins'))
-              ? readdirSync(join(BASE_OUTPUT_DIR, 'plugins')).map((plugin) => ({
-                  label: plugin,
-                  link: `/reference/javascript/plugins/${plugin}/index.html`,
-                }))
-              : []),
-          ];
+    const sidebar = [
+      {
+        label: 'Index',
+        link: '/reference/javascript/index.html',
+      },
+      {
+        label: 'Tauri Core API',
+        link: '/reference/javascript/core/index.html',
+      },
+      ...(pluginsGridHtml && existsSync(join(BASE_OUTPUT_DIR, 'plugins'))
+        ? readdirSync(join(BASE_OUTPUT_DIR, 'plugins')).map((plugin) => ({
+            label: plugin,
+            link: `/reference/javascript/plugins/${plugin}/index.html`,
+          }))
+        : []),
+    ];
     const sidebarFilePath = join(OUTPUT_DOCS_SRC_DIR, '_generated-javascript-reference-sidebar.js');
     writeFileSync(sidebarFilePath, 'export default ' + JSON.stringify(sidebar, null, 2) + ';\n');
   } catch (error) {

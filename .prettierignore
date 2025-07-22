@@ -20,6 +20,11 @@ pnpm-lock.yaml
 .github
 !.github/**.md
 
+# Generated files
+public/generated/*
+src/content/docs/release
+src/_generated-javascript-reference-sidebar.js
+
 # TODO: Figure out why this format isn't acceptable
 # https://github.com/withastro/prettier-plugin-astro/issues/407
 src/components/overrides/Header.astro
