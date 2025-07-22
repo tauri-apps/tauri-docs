@@ -1,8 +1,9 @@
 {
   "name": "js-api-generator",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "build.js",
   "scripts": {
     "build": "tsm ./build.ts"
   },
@@ -11,10 +12,9 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
-    "typedoc": "0.26.6",
-    "typedoc-plugin-markdown": "4.2.6",
-    "typedoc-plugin-mdn-links": "3.2.11"
+    "typedoc": "^0.28.7",
+    "typedoc-plugin-mdn-links": "^5.0.5",
+    "typescript": "5.4.5"
   }
 }
