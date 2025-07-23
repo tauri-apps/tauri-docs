@@ -11,8 +11,8 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Tauri applications for Windows are either distributed as Microsoft Installers (`.msi` files) using the [WiX Toolset v3]
 or as setup executables (`-setup.exe` files) using [NSIS].
 
-Please note that `.msi` installers can **only be created on Windows** as cross-compilation doesn't work.
-Cross-compilation for NSIS installers is currently experimental.
+Please note that `.msi` installers can **only be created on Windows** as WiX can only run on Windows systems.
+Cross-compilation for NSIS installers is shown below.
 
 This guide provides information about available customization options for the installer.
 
@@ -30,18 +30,22 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
 />
 
 :::note[VBSCRIPT requirement for MSI packages]
+
 Building MSI packages (`"targets": "msi"` or `"targets": "all"` in `tauri.conf.json`) requires the VBSCRIPT optional feature to be enabled on Windows. This feature is enabled by default on most Windows installations, but if you encounter errors like `failed to run light.exe`, you may need to enable it manually through **Settings** → **Apps** → **Optional features** → **More Windows features**. See the [Prerequisites guide](/start/prerequisites/#vbscript-for-msi-installers) for detailed instructions.
+
 :::
 
-### Experimental: Build Windows apps on Linux and macOS
+### Build Windows apps on Linux and macOS
 
-Cross compiling Windows apps on Linux and macOS hosts is possible when using [NSIS].
-Note that this is currently considered highly experimental and may not work on every system or for every project.
+Cross compiling Windows apps on Linux and macOS hosts is possible with caveats when using [NSIS].
+It is not as straight forward as compiling on Windows directly and is not tested as much.
 Therefore it should only be used as a last resort if local VMs or CI solutions like GitHub Actions don't work for you.
 
 :::note
+
 Signing cross compiled Windows installers requires an external signing tool.
 See the [signing documentation] for more information.
+
 :::
 
 Since Tauri officially only supports the MSVC Windows target, the setup is a bit more involved.

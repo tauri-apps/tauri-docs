@@ -143,13 +143,29 @@ fn main() {
 
 ## Creating a multi-level menu
 
-To create a multi-level menu, you can add some submenus to the menu item:
+Multi-level menus allow you to group menu items under categories like "File," "Edit," etc. These will appear as part of the application window for Windows or Linux, or in the menu bar on MacOS.
+
+**Note:** When using submenus on MacOS, all items must be grouped under a submenu. Top-level items will be ignored. Additionally, the first submenu will be placed under the application's about menu by default, regardless of the `text` label. You should include a submenu as the first entry (say, an "About" submenu) to fill this space.
 
 <Tabs>
 <TabItem label="JavaScript">
 
 ```javascript
 import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
+
+// Will become the application submenu on MacOS
+const aboutSubmenu = await Submenu.new({
+  text: 'About',
+  items: [
+    await MenuItem.new({
+      id: 'quit',
+      text: 'Quit',
+      action: () => {
+        console.log('Quit pressed');
+      },
+    }),
+  ],
+});
 
 const fileSubmenu = await Submenu.new({
   text: 'File',
@@ -199,17 +215,7 @@ const editSubmenu = await Submenu.new({
 });
 
 const menu = await Menu.new({
-  items: [
-    fileSubmenu,
-    editSubmenu,
-    await MenuItem.new({
-      id: 'quit',
-      text: 'Quit',
-      action: () => {
-        console.log('Quit pressed');
-      },
-    }),
-  ],
+  items: [aboutSubmenu, fileSubmenu, editSubmenu],
 });
 
 menu.setAsAppMenu();

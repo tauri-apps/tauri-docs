@@ -10,9 +10,13 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i", "/.*typedoc.*/i"],
+      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i"],
       "groupName": "astro & starlight packages",
       "separateMajorMinor": false
+    },
+    {
+      "matchPackageNames": ["typedoc", "typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+      "enabled": false
     }
   ]
 }

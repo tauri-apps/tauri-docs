@@ -1,5 +1,6 @@
 ---
 title: Tauri Doc 日本語版 改訂記録メモ | Memorundom on Doc-JP Rev Control
+topic: guides # this sidebar is active when viewing this page
 ---
 
 - Rev Status Control of Japanese Translation Documents <br /> 日本語訳文書の改訂履歴メモ
