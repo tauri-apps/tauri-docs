@@ -130,9 +130,9 @@ mockIPC(async (cmd, args) => {
 
 ### Mocking Events
 
-<SinceVersion version="2.6.3"/>
+<SinceVersion version="2.7.0"/>
 
-There is partial support of the [Event System] to simulate events emitted by your Rust code:
+There is partial support of the [Event System] to simulate events emitted by your Rust code via the `shouldMockEvents` option:
 
 ```javascript
 import { mockIPC, clearMocks } from "@tauri-apps/api/mocks"
@@ -140,8 +140,7 @@ import { emit, listen } from "@tauri-apps/api/event"
 import { afterEach, expect, test, vi } from "vitest"
 
 test("mocked event", () => {
-    // a call to `mockIPC` is still required even if no `invoke` calls are mocked
-    mockIPC(() => { }); 
+    mockIPC(() => {}, { shouldMockEvents: true }); // enable event mocking
 
     const eventHandler = vi.fn();
     listen('test-event', eventHandler); 
