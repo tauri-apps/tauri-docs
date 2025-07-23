@@ -169,6 +169,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 class TauriThemeRenderContext extends MarkdownThemeContext {
   constructor(theme: MarkdownTheme, page: MarkdownPageEvent<Reflection>, options: Options) {
     super(theme, page, options);
+    const originalCommentPartial = this.partials.comment;
+
     this.partials = {
       ...this.partials,
       // Formats `@source` to be a single line
@@ -179,6 +181,26 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
         let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
         const sources = model.sources.map((source) => `${source.url}`);
         return label + sources.join(', ');
+      },
+      // Remove heading markers from JSDoc comments to prevent accidental markdown headings
+      comment: function (comment, options) {
+        if (comment?.summary) {
+          comment.summary.forEach((line) => {
+            if (line.kind === 'text' && typeof line.text === 'string') {
+              line.text = line.text.replace(/^([ 	]*)(#{1,6})(\s+)/gm, '$1$3');
+            }
+          });
+        }
+        if (comment?.blockTags) {
+          comment.blockTags.forEach((tag) => {
+            tag.content.forEach((line) => {
+              if (line.kind === 'text' && typeof line.text === 'string') {
+                line.text = line.text.replace(/^([ 	]*)(#{1,6})(\s+)/gm, '$1$3');
+              }
+            });
+          });
+        }
+        return originalCommentPartial.call(this, comment, options);
       },
     };
   }

@@ -130,13 +130,16 @@ importers:
         version: 2.3.0
       typedoc:
         specifier: 0.26.6
-        version: 0.26.6(typescript@5.8.3)
+        version: 0.26.6(typescript@5.5.4)
       typedoc-plugin-markdown:
         specifier: 4.2.6
-        version: 4.2.6(typedoc@0.26.6(typescript@5.8.3))
+        version: 4.2.6(typedoc@0.26.6(typescript@5.5.4))
       typedoc-plugin-mdn-links:
         specifier: 3.2.11
-        version: 3.2.11(typedoc@0.26.6(typescript@5.8.3))
+        version: 3.2.11(typedoc@0.26.6(typescript@5.5.4))
+      typescript:
+        specifier: '5.5'
+        version: 5.5.4
 
   packages/releases-generator:
     dependencies:
@@ -3632,6 +3635,11 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x
+
+  typescript@5.5.4:
+    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
 
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
@@ -8354,22 +8362,24 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  typedoc-plugin-markdown@4.2.6(typedoc@0.26.6(typescript@5.8.3)):
+  typedoc-plugin-markdown@4.2.6(typedoc@0.26.6(typescript@5.5.4)):
     dependencies:
-      typedoc: 0.26.6(typescript@5.8.3)
+      typedoc: 0.26.6(typescript@5.5.4)
 
-  typedoc-plugin-mdn-links@3.2.11(typedoc@0.26.6(typescript@5.8.3)):
+  typedoc-plugin-mdn-links@3.2.11(typedoc@0.26.6(typescript@5.5.4)):
     dependencies:
-      typedoc: 0.26.6(typescript@5.8.3)
+      typedoc: 0.26.6(typescript@5.5.4)
 
-  typedoc@0.26.6(typescript@5.8.3):
+  typedoc@0.26.6(typescript@5.5.4):
     dependencies:
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
       shiki: 1.29.2
-      typescript: 5.8.3
+      typescript: 5.5.4
       yaml: 2.6.0
+
+  typescript@5.5.4: {}
 
   typescript@5.8.3: {}
 
