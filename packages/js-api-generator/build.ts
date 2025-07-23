@@ -184,10 +184,19 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
       },
       // Remove heading markers from JSDoc comments to prevent accidental markdown headings
       comment: function (comment, options) {
+        const headingStringsToReplace = [
+          // known to break
+          '#### Platform-specific',
+          // just to be sure
+          '### Platform-specific',
+        ];
+
         if (comment?.summary) {
           comment.summary.forEach((line) => {
             if (line.kind === 'text' && typeof line.text === 'string') {
-              line.text = line.text.replace(/^([ 	]*)(#{1,6})(\s+)/gm, '$1$3');
+              headingStringsToReplace.forEach((headingString) => {
+                line.text = line.text.replace(headingString, headingString.replace(/^#+\s*/, ''));
+              });
             }
           });
         }
@@ -195,7 +204,9 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
           comment.blockTags.forEach((tag) => {
             tag.content.forEach((line) => {
               if (line.kind === 'text' && typeof line.text === 'string') {
-                line.text = line.text.replace(/^([ 	]*)(#{1,6})(\s+)/gm, '$1$3');
+                headingStringsToReplace.forEach((headingString) => {
+                  line.text = line.text.replace(headingString, headingString.replace(/^#+\s*/, ''));
+                });
               }
             });
           });
