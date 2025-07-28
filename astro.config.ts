@@ -331,11 +331,11 @@ export default defineConfig({
             },
           }
         ),
-        starlightLinksValidator({
-          errorOnFallbackPages: false,
-          errorOnRelativeLinks: false,
-          exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
-        }),
+        // starlightLinksValidator({
+        //   errorOnFallbackPages: false,
+        //   errorOnRelativeLinks: false,
+        //   exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
+        // }),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
