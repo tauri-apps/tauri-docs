@@ -300,11 +300,13 @@ export default defineConfig({
                   items: [
                     {
                       label: 'Tauri',
+                      collapsed: true,
                       autogenerate: { directory: 'reference/javascript/core' },
                     },
                     {
                       label: 'Plugins',
-                      autogenerate: { directory: 'reference/javascript/plugins' },
+                      collapsed: true,
+                      autogenerate: { directory: 'reference/javascript/plugins', collapsed: true },
                     },
                   ],
                 },
