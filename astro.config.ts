@@ -13,6 +13,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
+import { getTauriTypeDocPlugins } from './config/typedoc-plugins';
+
+const { plugins: typeDocPlugins } = getTauriTypeDocPlugins();
 
 const authors = {
   nothingismagick: {
@@ -76,6 +79,7 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
+        ...typeDocPlugins,
         starlightBlog({ authors }),
         starlightSidebarTopics(
           [
@@ -293,7 +297,16 @@ export default defineConfig({
                 {
                   label: 'JavaScript',
                   collapsed: true,
-                  autogenerate: { directory: 'reference/javascript' },
+                  items: [
+                    {
+                      label: 'Tauri',
+                      autogenerate: { directory: 'reference/javascript/core' },
+                    },
+                    {
+                      label: 'Plugins',
+                      autogenerate: { directory: 'reference/javascript/plugins' },
+                    },
+                  ],
                 },
                 {
                   label: 'Rust (docs.rs)',
@@ -393,6 +406,7 @@ export default defineConfig({
     }),
     serviceWorker({
       workbox: {
+        swDest: 'dist/sw.js',
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         inlineWorkboxRuntime: true,
@@ -415,9 +429,6 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    shikiConfig: {
-      langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
-    },
     rehypePlugins: [
       rehypeHeadingIds,
       [
@@ -522,8 +533,10 @@ function i18nRedirect(from, to) {
   const routes = {};
   Object.keys(locales).map((locale) =>
     locale === 'root'
-      ? (routes[from] = to)
-      : (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+      ? // @ts-ignore
+        (routes[from] = to)
+      : // @ts-ignore
+        (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
           /^\/*/g,
           ''
         )}`)
@@ -536,7 +549,8 @@ function readHeaders() {
   const header_file = readFileSync('public/_headers', { encoding: 'utf8' })
     .split('\n')
     .filter(Boolean);
-  const headers = {};
+  /** @type {import('http').OutgoingHttpHeaders} */
+  const headers = Object.create(null);
   for (const line of header_file) {
     const [key, val] = line.trim().split(/\s*:\s*(.+)/);
     if (key != undefined && val != undefined) {

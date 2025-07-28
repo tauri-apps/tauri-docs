@@ -13,12 +13,11 @@
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
-    "build:references": "pnpm --filter js-api-generator run build",
     "build:releases": "pnpm --filter releases-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
+    "build": "pnpm dev:setup && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -40,8 +39,11 @@
     "sharp": "^0.33.5",
     "shiki": "^3.0.0",
     "starlight-blog": "^0.24.0",
+    "starlight-links-validator": "^0.17.0",
     "starlight-sidebar-topics": "^0.6.0",
-    "starlight-links-validator": "^0.17.0"
+    "starlight-typedoc": "^0.21.3",
+    "typedoc": "0.28.7",
+    "typedoc-plugin-markdown": "4.7.1"
   },
   "packageManager": "pnpm@10.13.1",
   "engines": {
