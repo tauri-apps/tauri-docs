@@ -42,8 +42,7 @@
     "starlight-links-validator": "^0.17.0",
     "starlight-sidebar-topics": "^0.6.0",
     "starlight-typedoc": "^0.21.3",
-    "typedoc": "0.28.7",
-    "typedoc-plugin-markdown": "4.7.1"
+    "typedoc": "0.28.8"
   },
   "packageManager": "pnpm@10.13.1",
   "engines": {
