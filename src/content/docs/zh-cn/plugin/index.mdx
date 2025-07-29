@@ -1,0 +1,30 @@
+---
+title: 功能及秘诀列表
+i18nReady: true
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+import FeaturesList from '@components/list/Features.astro';
+import CommunityList from '@components/list/Community.astro';
+import Search from '@components/CardGridSearch.astro';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+
+Tauri 考虑到了可扩展性。在此页面上，你可以找到：
+
+- **[特性](#特性)**：Tauri 内置功能和特性
+- **[社区资源](#社区资源)**：更多由 Tauri 社区创作的插件和秘诀
+
+<Search>
+  ## 特性
+  <FeaturesList />
+  ## 社区资源
+  <LinkCard
+    title="有什么要分享？"
+    description="打开拉取请求，向我们展示您的惊人资源。"
+    href="https://github.com/tauri-apps/awesome-tauri/pulls"
+  />
+  ### 插件
+  <AwesomeTauri section="plugins-no-official" />
+  ### 集成
+  <AwesomeTauri section="integrations" />
+</Search>

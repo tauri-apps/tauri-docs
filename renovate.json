@@ -1,0 +1,22 @@
+{
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "cloneSubmodules": true,
+  "semanticCommitType": "chore",
+  "labels": ["dependencies"],
+  "postUpdateOptions": ["pnpmDedupe"],
+  "git-submodules": {
+    "enabled": true,
+    "schedule": ["every weekend"]
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i"],
+      "groupName": "astro & starlight packages",
+      "separateMajorMinor": false
+    },
+    {
+      "matchPackageNames": ["typedoc", "typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+      "enabled": false
+    }
+  ]
+}

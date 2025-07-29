@@ -1,6 +1,6 @@
 # Translations (i18n)
 
-Thanks for your interest in helping translate the Tauri docs! Visit the [translation status page](https://beta.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
+Thanks for your interest in helping translate the Tauri docs! Visit the [translation status page](https://v2.tauri.app/contribute/translate-status) to see which docs are ready for translation, need updated, or need reviewed.
 
 To ensure a translation is consistent across multiple contributions, be sure to [communicate with others contributors in the `#docs` channel on Discord](https://discord.com/invite/tauri) and consult with reliable external resources such as [Microsoft terminology search](https://msit.powerbi.com/view?r=eyJrIjoiODJmYjU4Y2YtM2M0ZC00YzYxLWE1YTktNzFjYmYxNTAxNjQ0IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9) during translation.
 
@@ -10,16 +10,16 @@ If you seek to contribute but find your language missing please let us know in h
 
 ### Maintainer Checklist for Adding New Languages
 
-- Update https://github.com/tauri-apps/tauri-docs/blob/next/locales.json
-- Update https://github.com/tauri-apps/tauri-docs/blob/next/.github/labeler.yml
+- Update https://github.com/tauri-apps/tauri-docs/blob/v2/locales.json
+- Update https://github.com/tauri-apps/tauri-docs/blob/v2/.github/labeler.yml
 
 ## Starting a Translation
 
-Before you start working on a translation, look through the [open pull requests](https://beta.tauri.app/contribute/translate-status#needs-review) to see if anyone else is already working on the page for that language.
+Before you start working on a translation, look through the [open pull requests](https://v2.tauri.app/contribute/translate-status#needs-review) to see if anyone else is already working on the page for that language.
 
 If that page isn't in the list, then now it's time for you to lead the effort! So here's how to start:
 
-1. Head to [translation status page](https://beta.tauri.app/contribute/translate-status).
+1. Head to [translation status page](https://v2.tauri.app/contribute/translate-status).
 2. Look for missing translation in corresponding languages.
 3. Make sure no one else has been working on the corresponding page.
 4. Click `Create page +` which will help you automagically fork the repository and create the corresponding page. You might want to copy the contents of English page as a starting point.

@@ -1,0 +1,68 @@
+---
+title: Tauri 2.0
+description: 「クロスプラットフォーム・アプリ」構築ツールキット
+i18nReady: true
+editUrl: false
+lastUpdated: false
+template: splash
+tableOfContents: false
+prev: false
+next: false
+hero:
+  tagline: 軽量・高速・安全なクロスプラットフォームのアプリケーションを作成
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: さあ、始めよう
+      link: /ja/start/
+      icon: right-arrow
+      variant: primary
+    - text: Tauri 1.0 ドキュメント
+      link: https://v1.tauri.app/ja/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<div class="lp-cta-card">
+  <Card title="プロジェクトを始める" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
+  <Card title="フロントエンドは Web 技術" icon="rocket">
+    現在の Web 設定をそのまま Tauri
+    で利用する。あるいは夢のプロジェクトを新しく始める。 Tauri
+    はどのようなフロントエンド技術も利用できるので、現在の設定を変更する必要はありません。
+  </Card>
+  <Card title="クロスプラットフォーム対応" icon="rocket">
+    同じひとつのコードから、Linux 用、macOS 用、Windows 用、Android 用、それに
+    iOS 用の アプリをすべて構築できます。
+  </Card>
+  <Card title="プロセス間通信" icon="rocket">
+    フロントエンド部を JavaScript で、アプリケーション・ロジックを Rust
+    で作成し、 システムの奥深くで Swift と Kotlin を用いて統合します。
+  </Card>
+  <Card title="最大限の安全性" icon="rocket">
+    最優先事項と最大の革新を推進する Tauri チームの「第一原則」です。
+  </Card>
+  <Card title="アプリ軽量化" icon="rocket">
+    OS 独自のWebレンダリング・エンジンを利用することで、Tauri
+    アプリのプログラム・サイズは わずか「600 KB」ほどにもできます。
+  </Card>
+  <Card title="Rust で動作" icon="rocket">
+    「パフォーマンス」と「セキュリティ」をその中核に持つ Rust
+    は、次世代アプリ向けのプログラミング 言語です。
+  </Card>
+</CardGrid>
+
+<div style="text-align: right;">Doc-JP 2.00.00</div>

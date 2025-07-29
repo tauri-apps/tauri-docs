@@ -1,0 +1,56 @@
+---
+title: Linux 代码签名
+sidebar:
+  label: Linux
+  order: 3
+---
+
+该指南提供了有关 Linux 软件包的代码签名的信息。
+虽然在 Linux 上部署应用程序不需要进行构件签名，但可以使用它来增加对已部署应用程序的信任。
+对二进制文件进行签名允许最终用户验证其真实性，并确保其未被其他不受信任的实体修改过。
+
+## 为 AppImages 签名
+
+可以使用 gpg 或 gpg2 对 AppImage 进行签名。
+
+### 前置条件
+
+必须准备签名密钥。可以使用以下命令生成一个新的文件。
+
+```shell
+gpg2 --full-gen-key
+```
+
+请参阅 gpg 或 gpg2 文档了解更多信息。
+您应该特别注意将私钥和公钥备份到安全的位置。
+
+### 签名
+
+可以通过设置以下环境变量在 AppImage 中嵌入签名：
+
+- **SIGN**：设置为 `1` 为 AppImage 签名。
+- **SIGN_KEY**：可选变量，用于使用特定的 GPG 密钥 ID 进行签名。
+- **APPIMAGETOOL_SIGN_PASSPHRASE**：签名密钥密码。如果未设置，gpg 将显示一个对话框，以便您可以输入它。在构建 CI/CD 平台时必须设置此参数。
+- **APPIMAGETOOL_FORCE_SIGN**：默认情况下，即使签名失败，也会生成 AppImage。要在发生错误时退出，你可以将此变量设置为 `1`。
+
+可以通过运行以下命令显示 AppImage 中嵌入的签名。
+
+```shell
+./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
+```
+
+注意，您需要根据您的配置将 $APPNAME 和 $VERSION 值更改为正确的值。
+
+:::caution
+
+**签名未被验证**
+
+AppImage 不验证签名，因此您不能依赖它来检查文件是否被篡改。
+要验证签名，您必须为用户提供外部工具。
+这需要您在经过身份验证的渠道上发布公钥（例如通过 TLS 提供的网站），以便最终用户可以下载并进行验证。
+
+有关更多信息，请参阅 [AppImage 官方文档]。
+
+:::
+
+[AppImage 官方文档]: https://docs.appimage.org/packaging-guide/optional/signatures.html

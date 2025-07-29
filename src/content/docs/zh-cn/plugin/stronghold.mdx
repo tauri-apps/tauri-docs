@@ -1,0 +1,220 @@
+---
+title: Stronghold
+description: 加密的、安全的数据库。
+plugin: stronghold
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+使用 [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs) 加密数据库和安全运行时存储秘密和密钥。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+安装 stronghold 插件开始。
+
+<Tabs>
+	<TabItem label="自动" >
+		使用项目的包管理器来添加依赖。
+
+    	{ ' ' }
+
+    	<CommandTabs
+    		npm="npm run tauri add stronghold"
+    		yarn="yarn run tauri add stronghold"
+    		pnpm="pnpm tauri add stronghold"
+    		bun="bun tauri add stronghold"
+            deno="deno task tauri add stronghold"
+    		cargo="cargo tauri add stronghold"
+    	/>
+    </TabItem>
+
+    <TabItem label = "手动">
+    	<Steps>
+
+    	1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
+
+    		```sh frame=none
+    			cargo add tauri-plugin-stronghold
+    		```
+
+    	2. 修改 `lib.rs` 来初始化插件。
+
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+    			#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    			pub fn run() {
+    				tauri::Builder::default()
+    						.plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+    						.run(tauri::generate_context!())
+    						.expect("error while running tauri application");
+    			}
+    		```
+
+    	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+    		<CommandTabs
+    			npm="npm install @tauri-apps/plugin-stronghold"
+    			yarn="yarn add @tauri-apps/plugin-stronghold"
+    			pnpm="pnpm add @tauri-apps/plugin-stronghold"
+    			deno="deno add npm:@tauri-apps/plugin-stronghold"
+    			bun="bun add @tauri-apps/plugin-stronghold"
+    		/>
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+该插件必须使用密码哈希函数进行初始化，该函数接收密码字符串，并必须返回由其派生的 32 字节哈希值。
+
+### 使用 argon2 密码散列函数初始化
+
+Stronghold 插件提供了一个默认的哈希函数，使用的是 [argon2] 算法。
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+pub fn run() {
+		tauri::Builder::default()
+				.setup(|app| {
+						let salt_path = app
+								.path()
+								.app_local_data_dir()
+								.expect("could not resolve app local data path")
+								.join("salt.txt");
+						app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+						Ok(())
+				})
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
+}
+```
+
+### 使用自定义密码散列函数初始化
+
+或者，您也可以通过使用 `tauri_plugin_stronghold::Builder::new` 构造函数来提供您自己的哈希算法。
+
+:::note
+密码哈希值必须恰好包含 32 个字节。这是 Stronghold 的要求。
+:::
+
+```rust title="src-tauri/src/lib.rs"
+pub fn run() {
+		tauri::Builder::default()
+				.plugin(
+						tauri_plugin_stronghold::Builder::new(|password| {
+								// 在这里使用 argon2、blake2b 或任何其他安全算法对密码进行散列。
+								// 下面是一个使用 `rust-argon2` 板条箱对密码进行散列的示例实现：
+								use argon2::{hash_raw, Config, Variant, Version};
+
+								let config = Config {
+										lanes: 4,
+										mem_cost: 10_000,
+										time_cost: 10,
+										variant: Variant::Argon2id,
+										version: Version::Version13,
+										..Default::default()
+								};
+								let salt = "your-salt".as_bytes();
+								let key =
+										hash_raw(password.as_ref(), salt, &config).expect("failed to hash password");
+
+								key.to_vec()
+						})
+						.build(),
+				)
+				.run(tauri::generate_context!())
+				.expect("error while running tauri application");
+}
+```
+
+### 在 JavaScript 使用
+
+Stronghold 插件可以在 JavaScript 中使用。
+
+```javascript
+import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
+// 当设置 `"withGlobalTauri": true` 时，你可以用
+// const { Client, Stronghold } = window.__TAURI__.stronghold;
+import { appDataDir } from '@tauri-apps/api/path';
+// 当设置 `"withGlobalTauri": true` 时，你可以用
+// const { appDataDir } = window.__TAURI__.path;
+
+const initStronghold = async () => {
+	const vaultPath = `${await appDataDir()}/vault.hold`;
+	const vaultPassword = 'vault password';
+	const stronghold = await Stronghold.load(vaultPath, vaultPassword);
+
+	let client: Client;
+	const clientName = 'name your client';
+	try {
+		client = await stronghold.loadClient(clientName);
+	} catch {
+		client = await stronghold.createClient(clientName);
+	}
+
+	return {
+		stronghold,
+		client,
+	};
+};
+
+// 向 store 中插入一条记录
+async function insertRecord(store: any, key: string, value: string) {
+	const data = Array.from(new TextEncoder().encode(value));
+	await store.insert(key, data);
+}
+
+// 从 store 中读取一条记录
+async function getRecord(store: any, key: string): Promise<string> {
+	const data = await store.get(key);
+	return new TextDecoder().decode(new Uint8Array(data));
+}
+
+const { stronghold, client } = await initStronghold();
+
+const store = client.getStore();
+const key = 'my_key';
+
+// 向 store 中插入一条记录
+insertRecord(store, key, 'secret value');
+
+// 从 store 中读取一条记录
+const value = await getRecord(store, key);
+console.log(value); // 'secret value'
+
+// 保存更新
+await stronghold.save();
+
+// 从 store 中删除一条记录
+await store.remove(key);
+```
+
+## 权限
+
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
+
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
+
+```json title="src-tauri/capabilities/default.json" ins={8-14}
+{
+	...,
+	"permissions": [
+		"stronghold:default",
+	]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

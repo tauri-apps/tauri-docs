@@ -1,0 +1,21 @@
+---
+title: Tests
+description: Techniques for testing inside and outside the Tauri runtime
+sidebar:
+  order: 10
+  label: Overview
+i18nReady: true
+---
+
+Tauri offers support for both unit and integration testing utilizing a mock runtime. Under the mock runtime, native
+webview libraries are not executed. [See more about the mock runtime here].
+
+Tauri also provides support for end-to-end testing support utilizing the WebDriver protocol. Both desktop and mobile
+work with it, except for macOS which does not provide a desktop WebDriver client. [See more about WebDriver support here].
+
+We offer [tauri-action] to help run GitHub actions, but any sort of CI/CD runner can be used with Tauri as long as each
+platform has the required libraries installed to compile against.
+
+[See more about the mock runtime here]: /develop/tests/mocking/
+[See more about WebDriver support here]: /develop/tests/webdriver/
+[tauri-action]: https://github.com/tauri-apps/tauri-action

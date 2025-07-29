@@ -1,0 +1,39 @@
+:root {
+  --tauri-transition-speed: 200ms;
+}
+
+:root[data-theme='dark'] {
+  --sl-hue-orange: 35;
+  --sl-color-orange-low: hsl(var(--sl-hue-orange), 100%, 15%);
+  --sl-color-orange: #ffc131;
+  --sl-color-orange-high: hsl(var(--sl-hue-orange), 100%, 90%);
+  --sl-hue-blue: 187;
+  --sl-color-blue-low: hsl(var(--sl-hue-blue), 71%, 15%);
+  --sl-color-blue: #24c8db;
+  --sl-color-blue-high: hsl(var(--sl-hue-blue), 71%, 90%);
+  --sl-hue-accent: var(--sl-hue-blue);
+  --sl-color-accent-low: var(--sl-color-blue-low);
+  --sl-color-accent: var(--sl-color-blue);
+  --sl-color-accent-high: var(--sl-color-blue-high);
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #eeeeee;
+  --sl-color-gray-2: #c2c2c2;
+  --sl-color-gray-3: #8b8b8b;
+  --sl-color-gray-4: #585858;
+  --sl-color-gray-5: #383838;
+  --sl-color-gray-6: #272727;
+  --sl-color-black: #181818;
+}
+
+:root[data-theme='light'] {
+  --sl-color-white: #070707;
+  --sl-color-gray-1: #2f2f2f;
+  --sl-color-gray-2: #353841;
+  --sl-color-gray-3: #545861;
+  --sl-color-gray-4: #888b96;
+  --sl-color-gray-5: #c0c2c7;
+  --sl-color-gray-6: #eceef2;
+  --sl-color-gray-7: #f6f6f6;
+  --sl-color-black: #ffffff;
+}

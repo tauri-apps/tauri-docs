@@ -1,0 +1,319 @@
+---
+title: Notifications
+description: Send native notifications to the user.
+i18nReady: true
+plugin: notification
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Send native notifications to your user using the notification plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the notifications plugin to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+        Use your project's package manager to add the dependency:
+
+        <CommandTabs npm="npm run tauri add notification"
+            yarn="yarn run tauri add notification"
+            pnpm="pnpm tauri add notification"
+            bun="bun tauri add notification"
+        deno="deno task tauri add notification"
+            cargo="cargo tauri add notification" />
+
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+           ```sh frame=none
+           cargo add tauri-plugin-notification
+           ```
+
+        2. Modify `lib.rs` to initialize the plugin:
+
+           ```rust title="src-tauri/src/lib.rs" ins={4}
+           #[cfg_attr(mobile, tauri::mobile_entry_point)]
+           pub fn run() {
+               tauri::Builder::default()
+                   .plugin(tauri_plugin_notification::init())
+                   .run(tauri::generate_context!())
+                   .expect("error while running tauri application");
+           }
+           ```
+
+        3. If you'd like to use notifications in JavaScript then install the npm package as well:
+
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-notification"
+                yarn="yarn add @tauri-apps/plugin-notification"
+                pnpm="pnpm add @tauri-apps/plugin-notification"
+                deno="bun add npm:@tauri-apps/plugin-notification"
+                bun="bun add @tauri-apps/plugin-notification"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+Here are a few examples of how to use the notification plugin:
+
+- [Send notification to users](#send-notification)
+- [Add an action to a notification](#actions)
+- [Add an attachment to a notification](#attachments)
+- [Send a notification in a specific channel](#channels)
+
+The notification plugin is available in both JavaScript and Rust.
+
+### Send Notification
+
+Follow these steps to send a notification:
+
+<Steps>
+1. Check if permission is granted
+
+2. Request permission if not granted
+
+3. Send the notification
+
+</Steps>
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
+// when using `"withGlobalTauri": true`, you may use
+// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI__.notification;
+
+// Do you have permission to send a notification?
+let permissionGranted = await isPermissionGranted();
+
+// If not we need to request it
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+
+// Once permission has been granted we can send the notification
+if (permissionGranted) {
+  sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
+    .setup(|app| {
+        use tauri_plugin_notification::NotificationExt;
+        app.notification()
+            .builder()
+            .title("Tauri")
+            .body("Tauri is awesome")
+            .show()
+            .unwrap();
+
+        Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+```
+
+</TabItem>
+</Tabs>
+
+### Actions
+
+:::caution[Mobile Only]
+The Actions API is only available on mobile platforms.
+:::
+
+Actions add interactive buttons and inputs to notifications. Use them to create a responsive experience for your users.
+
+#### Register Action Types
+
+Register action types to define interactive elements:
+
+```javascript
+import { registerActionTypes } from '@tauri-apps/plugin-notification';
+
+await registerActionTypes([
+  {
+    id: 'messages',
+    actions: [
+      {
+        id: 'reply',
+        title: 'Reply',
+        input: true,
+        inputButtonTitle: 'Send',
+        inputPlaceholder: 'Type your reply...',
+      },
+      {
+        id: 'mark-read',
+        title: 'Mark as Read',
+        foreground: false,
+      },
+    ],
+  },
+]);
+```
+
+#### Action Properties
+
+| Property                 | Description                             |
+| ------------------------ | --------------------------------------- |
+| `id`                     | Unique identifier for the action        |
+| `title`                  | Display text for the action button      |
+| `requiresAuthentication` | Requires device authentication          |
+| `foreground`             | Brings app to foreground when triggered |
+| `destructive`            | Shows action in red on iOS              |
+| `input`                  | Enables text input                      |
+| `inputButtonTitle`       | Text for input submit button            |
+| `inputPlaceholder`       | Placeholder text for input field        |
+
+#### Listen for Actions
+
+Listen to user interactions with notification actions:
+
+```javascript
+import { onAction } from '@tauri-apps/plugin-notification';
+
+await onAction((notification) => {
+  console.log('Action performed:', notification);
+});
+```
+
+### Attachments
+
+Attachments add media content to notifications. Support varies by platform.
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Image',
+  body: 'Check out this picture',
+  attachments: [
+    {
+      id: 'image-1',
+      url: 'asset:///notification-image.jpg',
+    },
+  ],
+});
+```
+
+#### Attachment Properties
+
+| Property | Description                                    |
+| -------- | ---------------------------------------------- |
+| `id`     | Unique identifier                              |
+| `url`    | Content URL using asset:// or file:// protocol |
+
+Note: Test attachments on your target platforms to ensure compatibility.
+
+### Channels
+
+Channels organize notifications into categories with different behaviors. While primarily used on Android, they provide a consistent API across platforms.
+
+#### Create a Channel
+
+```javascript
+import {
+  createChannel,
+  Importance,
+  Visibility,
+} from '@tauri-apps/plugin-notification';
+
+await createChannel({
+  id: 'messages',
+  name: 'Messages',
+  description: 'Notifications for new messages',
+  importance: Importance.High,
+  visibility: Visibility.Private,
+  lights: true,
+  lightColor: '#ff0000',
+  vibration: true,
+  sound: 'notification_sound',
+});
+```
+
+#### Channel Properties
+
+| Property      | Description                                    |
+| ------------- | ---------------------------------------------- |
+| `id`          | Unique identifier                              |
+| `name`        | Display name                                   |
+| `description` | Purpose description                            |
+| `importance`  | Priority level (None, Min, Low, Default, High) |
+| `visibility`  | Privacy setting (Secret, Private, Public)      |
+| `lights`      | Enable notification LED (Android)              |
+| `lightColor`  | LED color (Android)                            |
+| `vibration`   | Enable vibrations                              |
+| `sound`       | Custom sound filename                          |
+
+#### Managing Channels
+
+List existing channels:
+
+```javascript
+import { channels } from '@tauri-apps/plugin-notification';
+
+const existingChannels = await channels();
+```
+
+Remove a channel:
+
+```javascript
+import { removeChannel } from '@tauri-apps/plugin-notification';
+
+await removeChannel('messages');
+```
+
+#### Using Channels
+
+Send a notification using a channel:
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Message',
+  body: 'You have a new message',
+  channelId: 'messages',
+});
+```
+
+Note: Create channels before sending notifications that reference them. Invalid channel IDs prevent notifications from displaying.
+
+## Security Considerations
+
+Aside from normal sanitization procedures of user input there are currently no known security considerations.
+
+<PluginPermissions plugin={frontmatter.plugin} />

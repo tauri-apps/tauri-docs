@@ -1,0 +1,158 @@
+---
+title: Shell
+description: Access the system shell to spawn child processes.
+plugin: shell
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Access the system shell. Allows you to spawn child processes.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Opener
+
+If you're looking for documentation for the `shell.open` API, check out the new [Opener plugin](../opener/) instead.
+
+## Setup
+
+Install the shell plugin to get started.
+
+<Tabs>
+	<TabItem label="Automatic" >
+		Use your project's package manager to add the dependency:
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add shell"
+            yarn="yarn run tauri add shell"
+            pnpm="pnpm tauri add shell"
+            deno="deno task tauri add shell"
+            bun="bun tauri add shell"
+            cargo="cargo tauri add shell"
+    	/>
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+          1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+              ```sh frame=none
+              cargo add tauri-plugin-shell
+              ```
+
+          2. Modify `lib.rs` to initialize the plugin:
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_shell::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-shell"
+                  yarn = "yarn add @tauri-apps/plugin-shell"
+                  pnpm = "pnpm add @tauri-apps/plugin-shell"
+                  deno = "deno add npm:@tauri-apps/plugin-shell"
+                  bun = "bun add @tauri-apps/plugin-shell"
+              />
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The shell plugin is available in both JavaScript and Rust.
+
+<Tabs syncKey="lang">
+	<TabItem label="JavaScript" >
+
+```javascript
+import { Command } from '@tauri-apps/plugin-shell';
+// when using `"withGlobalTauri": true`, you may use
+// const { Command } = window.__TAURI__.shell;
+
+let result = await Command.create('exec-sh', [
+  '-c',
+  "echo 'Hello World!'",
+]).execute();
+console.log(result);
+```
+
+    </TabItem>
+    <TabItem label = "Rust" >
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+let shell = app_handle.shell();
+let output = tauri::async_runtime::block_on(async move {
+		shell
+				.command("echo")
+				.args(["Hello from Rust!"])
+				.output()
+				.await
+				.unwrap()
+});
+if output.status.success() {
+		println!("Result: {:?}", String::from_utf8(output.stdout));
+} else {
+		println!("Exit with code: {}", output.status.code().unwrap());
+}
+```
+
+    </TabItem>
+
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/default.json" ins={6-23}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "exec-sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "sidecar": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,0 +1,121 @@
+---
+title: Nuxt
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.17.
+
+## Checklist
+
+- Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
+- Use default `../dist` as `frontendDist` in `tauri.conf.json`.
+- Compile using `nuxi build`.
+- (Optional): Disable telemetry by setting `telemetry: false` in `nuxt.config.ts`.
+
+## Example Configuration
+
+<Steps>
+
+1.  ##### Update Tauri configuration
+
+          <Tabs>
+
+    <TabItem label="npm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run build",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn build",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="pnpm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm build",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="deno">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "deno task dev",
+            "beforeBuildCommand": "deno task generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+
+          </Tabs>
+
+1.  ##### Update Nuxt configuration
+
+    ```ts
+    export default defineNuxtConfig({
+      compatibilityDate: '2025-05-15',
+      // (optional) Enable the Nuxt devtools
+      devtools: { enabled: true },
+      // Enable SSG
+      ssr: false,
+      // Enables the development server to be discoverable by other devices when running on iOS physical devices
+      devServer: {
+        host: '0',
+      },
+      vite: {
+        // Better support for Tauri CLI output
+        clearScreen: false,
+        // Enable environment variables
+        // Additional environment variables can be found at
+        // https://v2.tauri.app/reference/environment-variables/
+        envPrefix: ['VITE_', 'TAURI_'],
+        server: {
+          // Tauri requires a consistent port
+          strictPort: true,
+        },
+      },
+      // Avoids error [unhandledRejection] EMFILE: too many open files, watch
+      ignore: ['**/src-tauri/**'],
+    });
+    ```
+
+</Steps>

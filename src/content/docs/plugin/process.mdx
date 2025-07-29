@@ -1,0 +1,126 @@
+---
+title: Process
+description: Access the current process.
+plugin: process
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+This plugin provides APIs to access the current process. To spawn child processes, see the [shell](/plugin/shell/) plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the plugin-process to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add process"
+    yarn="yarn run tauri add process"
+    pnpm="pnpm tauri add process"
+    deno="deno task tauri add process"
+    bun="bun tauri add process"
+    cargo="cargo tauri add process" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-process
+            ```
+
+        2.  Modify `lib.rs` to initialize the plugin:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_process::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  If you'd like to utilize the plugin in JavaScript then install the npm package as well:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-process"
+                yarn="yarn add @tauri-apps/plugin-process"
+                pnpm="pnpm add @tauri-apps/plugin-process"
+                deno="deno add npm:@tauri-apps/plugin-process"
+                bun="bun add @tauri-apps/plugin-process"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The process plugin is available in both JavaScript and Rust.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+// when using `"withGlobalTauri": true`, you may use
+// const { exit, relaunch } = window.__TAURI__.process;
+
+// exits the app with the given status code
+await exit(0);
+
+// restarts the app
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+Note that `app` is an instance of [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html).
+
+```rust
+// exits the app with the given status code
+app.exit(0);
+
+// restarts the app
+app.restart();
+```
+
+</TabItem>
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "process:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

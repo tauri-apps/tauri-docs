@@ -14,5 +14,9 @@
   "zh-cn": {
     "label": "简体中文",
     "lang": "zh-CN"
+  },
+  "ja": {
+    "label": "日本語",
+    "lang": "ja"
   }
 }

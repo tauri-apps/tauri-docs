@@ -1,0 +1,226 @@
+---
+title: プロジェクトの作成
+sidebar:
+  order: 3
+---
+
+import { Card, Steps } from '@astrojs/starlight/components';
+
+import Cta from '@fragments/cta.mdx';
+
+Tauri が非常に柔軟である理由の１つは、事実上どのようなフロントエンド技術（フレームワーク）とも連携できることです。新しい Tauri プロジェクトを作成するための一助として、公式に維持管理されている「ユーティリティ [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app)」があり、各フロントエンド技術用テンプレートがいくつか用意されています 。
+
+`create-tauri-app` には、現在、以下のテンプレートが揃っています：　「vanilla」（HTML、CSS および JavaScript／フレームワークなし）、「[Vue.js](https://vuejs.org)」、「[Svelte](https://svelte.dev)」、「[React](https://reactjs.org/)」、「[SolidJS](https://www.solidjs.com/)」、「[Angular](https://angular.io/)」、「[Preact](https://preactjs.com/)」、「[Yew](https://yew.rs/)」、「[Leptos](https://github.com/leptos-rs/leptos)」、 および「[Sycamore](https://sycamore-rs.netlify.app/)」です。 [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri) で見つかるコミュニティー作成のテンプレートやフレームワークも追加利用可能です。
+
+{/* TODO: redirect to integrate to existing front-end project specific docs */}
+あるいは、下記の「[マニュアル・セットアップ](#マニュアルセットアップ)」を実行し、Tauri を現在作業中のプロジェクトに追加することで、現行のコードを Tauri アプリに変更できます。
+
+## `create-tauri-app` を利用する
+
+`create-tauri-app` を利用してプロジェクトを開始するには、プロジェクトを始めるフォルダーで、以下のコマンドのいずれかを実行します。どのコマンドを使用するかわからない場合は、Linux および macOS では「Bash」コマンド、Windows では「PowerShell」コマンドの使用をお薦めします。
+
+<Cta />
+
+画面のプロンプト表示に従って、「プロジェクト名」、「フロントエンド言語」、「パッケージ・マネージャー」、「フロントエンド・フレームワーク」、および（該当する場合は）フロントエンド・フレームワークのオプションを選択します。
+
+:::tip[どれを選べばよいのか判りませんか？]
+
+{/* TODO: redirect to integrate to existing front-end project specific docs */}
+はじめての場合には、「vanilla」テンプレート（HTML、CSS、および JavaScript／フレームワークなし）を利用してプロジェクトを開始することをお薦めします。いつでも、後から、[フロントエンドのフレームワークを統合](/ja/start/create-project/) できます。
+
+- どの言語をフロントエンドで使用するかを選択：　`TypeScript / JavaScript`
+- パッケージ・マネージャーを選択：　`pnpm`
+- ユーザー・インターフェイス（UI）テンプレートを選択：　`Vanilla`
+- ユーザー・インターフェイス（UI）フレーバーを選択：　`TypeScript`
+
+:::
+
+#### 新しいプロジェクトを準備する
+
+<Steps>
+
+1. プロジェクトの名前とバンドル識別子（アプリの一意の ID）を選んでください：
+   ```
+   ? Project name (tauri-app) ›　《プロジェクト名（tauri-app）》
+   ? Identifier (com.tauri-app.app) ›　《識別子（com.tauri-app.app）》
+   ```
+2. フロントエンドの言語を選んでください：
+   ```
+   ? Choose which language to use for your frontend ›　
+   《？フロントエンドにはどの言語を使用しますか：　以下から選択》
+   Rust  (cargo)
+   TypeScript / JavaScript  (pnpm, yarn, npm, bun)
+   .NET  (dotnet)
+   ```
+3. パッケージ・マネージャーを選択します（選択肢が複数あれば）：
+
+   **TypeScript / JavaScript** の場合の選択肢：
+
+   ```
+   ? Choose your package manager ›　《パッケージ・マネージャーを選んでください》
+   pnpm
+   yarn
+   npm
+   bun
+   ```
+
+4. UI テンプレートとフレーバーを選んでください（選択肢が複数あれば）：
+
+   **Rust** の場合の選択肢：
+
+   ```
+   ? Choose your UI template ›　《UI テンプレートを選んでください》
+   Vanilla
+   Yew
+   Leptos
+   Sycamore
+   ```
+
+   **TypeScript / JavaScript** の場合の選択肢:
+
+   ```
+   ? Choose your UI template ›　《UI テンプレートを選んでください》
+   Vanilla
+   Vue
+   Svelte
+   React
+   Solid
+   Angular
+   Preact
+
+   ? Choose your UI flavor ›　《UI フレーバーを選んでください》
+   TypeScript
+   JavaScript
+   ```
+
+   **.NET** の場合の選択肢：
+
+   ```
+   ? Choose your UI template ›　《UI テンプレートを選んでください》
+   Blazor  (https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor/)
+   ```
+
+</Steps>
+
+設定が完了すると、テンプレートが作成され、設定後のパッケージ・マネージャーを使ったそのテンプレートの実行方法を表示します。もしパッケージ・マネージャーがシステム内の依存関係の不備を検出した場合には、パッケージ一覧が出力されて足りないパッケージのインストールが促されます。
+
+{/* TODO: Can CTA offer to install the deps? */}
+
+#### 開発サーバーの起動
+
+`create-tauri-app` で設定後、プロジェクト・フォルダーに移動して依存関係をインストールしたら、 [Tauri CLI](/ja/reference/cli/) （コマンドライン・インターフェース）を使用して開発サーバーを起動します。
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+<CommandTabs
+  npm="cd tauri-app
+    npm install
+    npm run tauri dev"
+  yarn="cd tauri-app
+    yarn install
+    yarn tauri dev"
+  pnpm="cd tauri-app
+    pnpm install
+    pnpm tauri dev"
+  deno="cd tauri-app
+    deno install
+    deno task tauri dev"
+  cargo="cd tauri-app
+    cargo tauri dev"
+/>
+
+これで新しいウィンドウが開き、あなたのアプリが実行されます。
+
+**おめでとうございます！** Tauri アプリの完成です！ 🚀
+
+## マニュアル・セットアップ
+
+すでにフロントエンドができあがっているとか、自分自身で設定を行ないたいとかいう場合には、「Tauri CLI」を用いてそのプロジェクトのバックエンドを個別に初期化できます。
+
+:::note
+以下の事例では、新しいプロジェクトを始めていることを前提としています。アプリケーションのフロントエンドをすでに初期化している場合は、最初のステップを省略できます。
+:::
+
+<Steps>
+
+    1. プロジェクト用の新しいディレクトリを作成し、フロントエンドを初期化します。通常の HTML、CSS、JavaScript や、Next.js、Nuxt、Svelte、Yew、Leptos などの自分好みのフレームワークを使用できます。必要となるのは、ブラウザにアプリを供給する方法だけです。ほんの一例として、下記はシンプルな Vite フロントエンド・ビルドツールを設定する方法です：
+
+        <CommandTabs
+            npm="mkdir tauri-app
+                cd tauri-app
+                npm create vite@latest ."
+            yarn="mkdir tauri-app
+                cd tauri-app
+                yarn create vite ."
+            pnpm="mkdir tauri-app
+                cd tauri-app
+                pnpm create vite ."
+            deno="mkdir tauri-app
+                cd tauri-app
+                deno run -A npm:create-vite ."
+        />
+
+    2. 次に、上記で導入したパッケージ・マネージャーを使用して Tauri の CLI ツールをインストールします。`cargo` を使用して Tauri CLI をインストールする場合には、「グローバル・インストール」する必要があります：
+
+        <CommandTabs
+            npm="npm install -D @tauri-apps/cli@latest"
+            yarn="yarn add -D @tauri-apps/cli@latest"
+            pnpm="pnpm add -D @tauri-apps/cli@latest"
+            deno="deno add -D npm:@tauri-apps/cli@latest"
+            cargo='cargo install tauri-cli --version "^2.0.0" --locked'
+        />
+
+    3. フロントエンド開発サーバーの URL を決定します。これは、Tauri がコンテンツを読み込むために使用する URL のことです。たとえば、Vite を使用している場合、デフォルトの URL は `http://localhost:5173` です。
+
+    4. プロジェクト・ディレクトリに戻り、Tauri を初期化します：
+
+        <CommandTabs
+            npm="npx tauri init"
+            yarn="yarn tauri init"
+            pnpm="pnpm tauri init"
+            deno="deno task tauri init"
+            cargo="cargo tauri init"
+        />
+
+        上記のコマンドを実行すると、さまざまな質問項目に対するプロンプトが表示されます：
+
+        ```sh frame=none
+        ✔ What is your app name? tauri-app　《アプリ名は何ですか？》
+        ✔ What should the window title be? tauri-app　《ウィンドウ・タイトルは何にしますか？》
+        ✔ Where are your web assets located? ..　《web 関連データはどこに置きますか？》
+        ✔ What is the url of your dev server? http://localhost:5173　《開発サーバーの URL は何ですか？》
+        ✔ What is your frontend dev command? pnpm run dev　《フロントエンドの開発コマンドは何ですか？》
+        ✔ What is your frontend build command? pnpm run build　《フロントエンドのビルド・
+        コマンドは何ですか？》
+        ```
+
+        これにより、必要な Tauri 環境設定ファイルを含む `src-tauri` ディレクトリがプロジェクトに作成されます。
+
+    5. Tauri アプリが動作していることを確認するために、開発サーバーを実行します：
+
+        <CommandTabs
+            npm="npx tauri dev"
+            yarn="yarn tauri dev"
+            pnpm="pnpm tauri dev"
+            deno="deno task tauri dev"
+            cargo="cargo tauri dev"
+        />
+
+        このコマンドは、Rust コードをコンパイルし、あなたが作成した Web コンテンツのウィンドウを表示します。
+
+</Steps>
+
+**おめでとうございます！** Tauri CLI を用いて、新しい Tauri プロジェクトができあがりました！ 🚀
+
+## 次のステップは…
+
+- [フロントエンドの設定について](/ja/start/frontend/)
+- [Tauri コマンドライン・インターフェイスについて](/ja/reference/cli/)
+- [Tauri アプリの作り方について](/ja/develop/)
+- [Tauri 拡張のための追加機能について](ja/plugin/)
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Dec 31, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

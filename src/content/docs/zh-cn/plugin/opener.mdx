@@ -1,0 +1,135 @@
+---
+title: 指定打开应用
+description: 在外部应用中打开文件和URL。
+plugin: opener
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+此插件允许你使用特定或者默认的应用程序打开文件或者 URL。它还可以在系统文件管理器中“显示”这些文件。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+首先安装“指定打开应用”插件。
+
+<Tabs>
+	<TabItem label="自动" >
+		使用项目的包管理器来添加依赖：
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add opener"
+            yarn="yarn run tauri add opener"
+            pnpm="pnpm tauri add opener"
+            deno="deno task tauri add opener"
+            bun="bun tauri add opener"
+            cargo="cargo tauri add opener"
+    	/>
+    </TabItem>
+    <TabItem label = "手动">
+    	<Steps>
+          1. 在 `src-tauri` 目录下，运行下面的命令。将此插件添加到项目的 `Cargo.toml` 文件的 `dependencies` 字段中：
+
+              ```sh frame=none
+              cargo add tauri-plugin-opener
+              ```
+
+          2. 修改 `lib.rs` 文件，初始化此插件：
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_opener::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. 使用你喜欢的 JavaScript 包管理器来添加 JavaScript 端的插件绑定：
+
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-opener"
+                  yarn = "yarn add @tauri-apps/plugin-opener"
+                  pnpm = "pnpm add @tauri-apps/plugin-opener"
+                  deno = "deno add npm:@tauri-apps/plugin-opener"
+                  bun = "bun add @tauri-apps/plugin-opener"
+              />
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+此插件有 JavaScript 和 Rust 两种调用方式。
+
+<Tabs syncKey="lang">
+	<TabItem label="JavaScript" >
+
+```javascript
+import { openPath } from '@tauri-apps/plugin-opener';
+// 当配置为 `"withGlobalTauri": true` 时，你可以使用下面方式引入此插件
+// const { openPath } = window.__TAURI__.opener;
+
+// 使用默认的应用来打开文件
+await openPath('/path/to/file');
+// 在 Windows 上使用 `vlc` 打开文件
+await openPath('C:/path/to/file', 'vlc');
+```
+
+    </TabItem>
+    <TabItem label = "Rust" >
+
+下面代码中的 `app` 变量是 `App` 或者 [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html) 的实例。
+
+```rust
+use tauri_plugin_opener::OpenerExt;
+
+// 使用默认的应用来打开文件：
+app.opener().open_path("/path/to/file", None::<&str>);
+// 在 Windows 上使用 `vlc` 打开文件：
+app.opener().open_path("C:/path/to/file", Some("vlc"));
+```
+
+    </TabItem>
+
+</Tabs>
+
+## 权限
+
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
+
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "/path/to/file"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

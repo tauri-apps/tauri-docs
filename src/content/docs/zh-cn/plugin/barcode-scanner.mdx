@@ -1,0 +1,129 @@
+---
+title: 条形码扫描器
+description: 允许您的移动应用程序使用相机扫描 QR 码、EAN-13 和其他类型的条形码。
+plugin: barcode-scanner
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+允许您的移动应用程序使用相机扫描 QR 码、EAN-13 和其他类型的条形码。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+从安装条形码扫描器插件开始。
+
+<Tabs>
+    <TabItem label="自动">
+
+使用项目的包管理器来添加依赖。
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add barcode-scanner"
+  yarn="yarn run tauri add barcode-scanner"
+  pnpm="pnpm tauri add barcode-scanner"
+  deno="deno task tauri add barcode-scanner"
+  bun="bun tauri add barcode-scanner"
+  cargo="cargo tauri add barcode-scanner"
+/>
+
+    </TabItem>
+    <TabItem label="手动">
+        <Steps>
+        1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
+
+            ```sh frame=none
+            cargo add tauri-plugin-barcode-scanner --target 'cfg(any(target_os = "android", target_os = "ios"))'
+            ```
+
+        2. 修改 `lib.rs` 来初始化插件。
+
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(mobile)]
+                        app.handle().plugin(tauri_plugin_barcode_scanner::init());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-barcode-scanner"
+                yarn="yarn add @tauri-apps/plugin-barcode-scanner"
+                pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+                deno="deno add npm:@tauri-apps/plugin-barcode-scanner"
+                bun="bun add @tauri-apps/plugin-barcode-scanner"
+            />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 配置
+
+在 iOS 系统中，条形码扫描插件需要 `NSCameraUsageDescription` 信息属性列表值，该值应说明您的应用为何需要使用相机。
+
+在 `src-tauri/Info.ios.plist` 文件中，添加以下代码片段：
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSCameraUsageDescription</key>
+		<string>Read QR codes</string>
+	</dict>
+</plist>
+```
+
+## 用法
+
+条形码扫描器插件在 JavaScript 中可用。
+
+```javascript
+import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
+// 当设置 `"withGlobalTauri": true` 时, 你可以使用
+// const { scan, Format } = window.__TAURI__.barcodeScanner;
+
+// `windowed: true` 实际上将 webview 设置为透明的
+// 而不是为相机打开一个单独的视图
+// 确保你的用户界面已经准备好使用透明元素显示下面的内容
+scan({ windowed: true, formats: [Format.QRCode] });
+```
+
+## 权限
+
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
+
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,0 +1,158 @@
+---
+title: Autostart
+description: Automatically launch your app at system startup.
+plugin: autostart
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Automatically launch your application at system startup.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the autostart plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add autostart"
+      yarn="yarn run tauri add autostart"
+      pnpm="pnpm tauri add autostart"
+      deno="deno task tauri add autostart"
+      bun="bun tauri add autostart"
+      cargo="cargo tauri add autostart"
+    />
+
+  </TabItem>
+    <TabItem label="Manual">
+      <Steps>
+
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-autostart --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2.  Modify `lib.rs` to initialize the plugin:
+
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_autostart::init(tauri_plugin_autostart::MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"]) /* arbitrary number of args to pass to your app */));
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  You can install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-autostart"
+                yarn="yarn add @tauri-apps/plugin-autostart"
+                pnpm="pnpm add @tauri-apps/plugin-autostart"
+                deno="deno add npm:@tauri-apps/plugin-autostart"
+                bun="bun add @tauri-apps/plugin-autostart"
+            />
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The autostart plugin is available in both JavaScript and Rust.
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```javascript
+import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
+// when using `"withGlobalTauri": true`, you may use
+// const { enable, isEnabled, disable } = window.__TAURI__.autostart;
+
+// Enable autostart
+await enable();
+// Check enable state
+console.log(`registered for autostart? ${await isEnabled()}`);
+// Disable autostart
+disable();
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                use tauri_plugin_autostart::MacosLauncher;
+                use tauri_plugin_autostart::ManagerExt;
+
+                app.handle().plugin(tauri_plugin_autostart::init(
+                    MacosLauncher::LaunchAgent,
+                    Some(vec!["--flag1", "--flag2"]),
+                ));
+
+                // Get the autostart manager
+                let autostart_manager = app.autolaunch();
+                // Enable autostart
+                let _ = autostart_manager.enable();
+                // Check enable state
+                println!("registered for autostart? {}", autostart_manager.is_enabled().unwrap());
+                // Disable autostart
+                let _ = autostart_manager.disable();
+            }
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/default.json"
+{
+  "permissions": [
+    ...,
+    "autostart:allow-enable",
+    "autostart:allow-disable",
+    "autostart:allow-is-enabled"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

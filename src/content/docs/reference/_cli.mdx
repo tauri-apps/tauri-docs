@@ -1,0 +1,33 @@
+---
+title: Command Line Interface
+sidebar:
+  order: 1
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+The Tauri command line interface (CLI) is the way to interact with Tauri throughout the development lifecycle.
+
+You can add the Tauri CLI to your current project using your package manager of choice:
+
+<CommandTabs
+  npm="npm install --save-dev @tauri-apps/cli@latest"
+  yarn="yarn add -D @tauri-apps/cli@latest"
+  pnpm="pnpm add -D @tauri-apps/cli@latest"
+  deno="deno add -D npm:@tauri-apps/cli@latest"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked'
+/>
+
+:::tip[Developing a Plugin]
+
+For CLI commands related to developing plugins visit the [Develop a Tauri Plugin guide](/develop/plugins/).
+
+:::
+
+## List of Commands
+
+$LIST_OF_COMMANDS

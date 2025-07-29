@@ -1,0 +1,112 @@
+---
+title: WebSocket
+description: 在 JavaScript 中使用 Rust 客户端打开 WebSocket 连接。
+plugin: websocket
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+在 JavaScript 中使用 Rust 客户端打开 WebSocket 连接。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+首先安装 WebSocket 插件。
+
+<Tabs>
+	<TabItem label="自动" >
+		使用项目的包管理器来添加依赖。
+
+    		{ ' ' }
+
+    		<CommandTabs
+    			npm="npm run tauri add websocket"
+    			yarn="yarn run tauri add websocket"
+    			pnpm="pnpm tauri add websocket"
+    			bun="bun tauri add websocket"
+                deno="deno task tauri add websocket"
+    			cargo="cargo tauri add websocket"
+    		/>
+    </TabItem>
+
+    <TabItem label = "手动">
+    	<Steps>
+
+    	1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
+
+    		```sh frame=none
+            cargo add tauri-plugin-websocket
+            ```
+
+    	2. 修改 `lib.rs` 来初始化插件。
+
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+    			#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    			pub fn run() {
+    				tauri::Builder::default()
+    					.plugin(tauri_plugin_websocket::init())
+    					.run(tauri::generate_context!())
+    					.expect("error while running tauri application");
+    			}
+            ```
+
+    	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+
+    		<CommandTabs
+    			npm = "npm install @tauri-apps/plugin-websocket"
+    			yarn = "yarn add @tauri-apps/plugin-websocket"
+    			pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                deno = "deno add npm:@tauri-apps/plugin-websocket"
+    			bun="bun add @tauri-apps/plugin-websocket"
+    		/>
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+WebSocket 插件可以在 JavaScript 中使用。
+
+```javascript
+import WebSocket from '@tauri-apps/plugin-websocket';
+
+const ws = await WebSocket.connect('ws://127.0.0.1:8080');
+
+ws.addListener((msg) => {
+  console.log('Received Message:', msg);
+});
+
+await ws.send('Hello World!');
+
+await ws.disconnect();
+```
+
+## 权限
+
+默认情况下，所有具有潜在危险的插件命令和范围都会被阻止且无法访问。您必须修改 `capabilities` 文件夹中的配置来启用它们。
+
+参见[能力概览](/zh-cn/security/capabilities/)以获取更多信息，以及插件的[分步导览](/zh-cn/learn/security/using-plugin-permissions/)来调整插件权限。
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["websocket:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

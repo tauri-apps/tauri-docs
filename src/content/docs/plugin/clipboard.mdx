@@ -1,0 +1,119 @@
+---
+title: Clipboard
+description: Read and write to the system clipboard.
+plugin: clipboard-manager
+i18nReady: true
+---
+
+import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Read and write to the system clipboard using the clipboard plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the clipboard plugin to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    <CommandTabs npm="npm run tauri add clipboard-manager"
+    yarn="yarn run tauri add clipboard-manager"
+    pnpm="pnpm tauri add clipboard-manager"
+    bun="bun tauri add clipboard-manager"
+    deno="deno task tauri add clipboard-manager"
+    cargo="cargo tauri add clipboard-manager" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-clipboard-manager
+            ```
+
+        2.  Modify `lib.rs` to initialize the plugin:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_clipboard_manager::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  If you'd like to manage the clipboard in JavaScript then install the npm package as well:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-clipboard-manager"
+                yarn="yarn add @tauri-apps/plugin-clipboard-manager"
+                pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+                deno="deno add npm:@tauri-apps/plugin-clipboard-manager"
+                bun="bun add @tauri-apps/plugin-clipboard-manager"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+The clipboard plugin is available in both JavaScript and Rust.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+// when using `"withGlobalTauri": true`, you may use
+// const { writeText, readText } = window.__TAURI__.clipboardManager;
+
+// Write content to clipboard
+await writeText('Tauri is awesome!');
+
+// Read content from clipboard
+const content = await readText();
+console.log(content);
+// Prints "Tauri is awesome!" to the console
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+
+app.clipboard().write_text("Tauri is awesome!".to_string()).unwrap();
+
+// Read content from clipboard
+let content = app.clipboard().read_text();
+println!("{:?}", content.unwrap());
+// Prints "Tauri is awesome!" to the terminal
+
+
+```
+
+</TabItem>
+</Tabs>
+
+<PluginPermissions plugin={frontmatter.plugin} />

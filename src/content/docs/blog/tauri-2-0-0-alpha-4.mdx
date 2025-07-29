@@ -3,10 +3,6 @@ title: Tauri 2.0.0-alpha.4 Released
 date: 2023-03-20
 authors: [lucasfernog]
 excerpt: Mobile APIs for Tauri plugins! The 2.0.0-alpha.4 release has been published.
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -20,12 +16,12 @@ A new alpha release for the 2.0 has been published. This release includes all ch
 Make sure to update both NPM and Cargo dependencies to the latest alpha release. You can update the NPM dependencies with:
 
 <CommandTabs
-	npm="npm install @tauri-apps/cli@next @tauri-apps/api@next"
-	yarn="yarn upgrade @tauri-apps/cli@next @tauri-apps/api@next"
-	pnpm="pnpm update @tauri-apps/cli@next @tauri-apps/api@next"
-	cargo='cargo add tauri@2.0.0-alpha.4
+  npm="npm install @tauri-apps/cli@next @tauri-apps/api@next"
+  yarn="yarn upgrade @tauri-apps/cli@next @tauri-apps/api@next"
+  pnpm="pnpm update @tauri-apps/cli@next @tauri-apps/api@next"
+  cargo='cargo add tauri@2.0.0-alpha.4
 cargo add tauri-build@2.0.0-alpha.2 --build
-cargo install tauri-cli --version "^2.0.0-alpha"'
+cargo install tauri-cli --version "^2.0.0-alpha" --locked'
 />
 
 Recreate the mobile projects to use the new features:
@@ -117,10 +113,10 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 
 **Frontend code to call the plugin command:**
 
-```js
+```javascript
 import { invoke } from '@tauri-apps/api/tauri';
 invoke('plugin:example|ping', { value: 'Tauri' }).then(({ value }) =>
-	console.log('Response', value)
+  console.log('Response', value)
 );
 ```
 

@@ -1,0 +1,161 @@
+---
+title: Global Shortcut
+description: Register global shortcuts.
+plugin: global-shortcut
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Register global shortcuts.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the global-shortcut plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic" >
+
+    Use your project's package manager to add the dependency:
+
+    { ' ' }
+
+    <CommandTabs
+      npm="npm run tauri add global-shortcut"
+      yarn="yarn run tauri add global-shortcut"
+      pnpm="pnpm tauri add global-shortcut"
+      deno="deno task tauri add global-shortcut"
+      bun="bun tauri add global-shortcut"
+      cargo="cargo tauri add global-shortcut"
+    />
+
+  </TabItem>
+  <TabItem label = "Manual">
+    <Steps>
+
+    1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+        ```sh frame=none
+        cargo add tauri-plugin-global-shortcut --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+        ```
+
+    2.  Modify `lib.rs` to initialize the plugin:
+
+        ```rust title="src-tauri/src/lib.rs" ins={4-5}
+        pub fn run() {
+            tauri::Builder::default()
+                .setup(|app| {
+                    #[cfg(desktop)]
+                    app.handle().plugin(tauri_plugin_global_shortcut::Builder::new().build());
+                    Ok(())
+                })
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3.  Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+        <CommandTabs
+          npm = "npm install @tauri-apps/plugin-global-shortcut"
+          yarn = "yarn add @tauri-apps/plugin-global-shortcut"
+          pnpm = "pnpm add @tauri-apps/plugin-global-shortcut"
+          deno = "deno add npm:@tauri-apps/plugin-global-shortcut"
+          bun = "bun add @tauri-apps/plugin-global-shortcut"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+The global-shortcut plugin is available in both JavaScript and Rust.
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript" >
+
+```javascript
+import { register } from '@tauri-apps/plugin-global-shortcut';
+// when using `"withGlobalTauri": true`, you may use
+// const { register } = window.__TAURI__.globalShortcut;
+
+await register('CommandOrControl+Shift+C', () => {
+  console.log('Shortcut triggered');
+});
+```
+
+  </TabItem>
+  <TabItem label = "Rust" >
+
+```rust title="src-tauri/src/lib.rs"
+pub fn run() {
+    tauri::Builder::default()
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut, ShortcutState};
+
+                let ctrl_n_shortcut = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyN);
+                app.handle().plugin(
+                    tauri_plugin_global_shortcut::Builder::new().with_handler(move |_app, shortcut, event| {
+                        println!("{:?}", shortcut);
+                        if shortcut == &ctrl_n_shortcut {
+                            match event.state() {
+                              ShortcutState::Pressed => {
+                                println!("Ctrl-N Pressed!");
+                              }
+                              ShortcutState::Released => {
+                                println!("Ctrl-N Released!");
+                              }
+                            }
+                        }
+                    })
+                    .build(),
+                )?;
+
+                app.global_shortcut().register(ctrl_n_shortcut)?;
+            }
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/default.json" ins={7-9}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "global-shortcut:allow-is-registered",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,0 +1,143 @@
+---
+title: HTTP Client
+description: Access the HTTP client written in Rust.
+plugin: http
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Make HTTP requests with the http plugin.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the http plugin to get started.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+        Use your project's package manager to add the dependency:
+
+        <CommandTabs npm="npm run tauri add http"
+        yarn="yarn run tauri add http"
+        pnpm="pnpm tauri add http"
+        deno="deno task tauri add http"
+        bun="bun tauri add http"
+        cargo="cargo tauri add http" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1. Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-http
+            ```
+
+        2.  Modify `lib.rs` to initialize the plugin:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_http::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  If you'd like to make http requests in JavaScript then install the npm package as well:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-http"
+                yarn="yarn add @tauri-apps/plugin-http"
+                pnpm="pnpm add @tauri-apps/plugin-http"
+                deno="deno add npm:@tauri-apps/plugin-http"
+                bun="bun add @tauri-apps/plugin-http"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Usage
+
+The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest/) re-export and JavaScript.
+
+### JavaScript
+
+<Steps>
+
+1.  Configure the allowed URLs
+
+    ```json
+    //src-tauri/capabilities/default.json
+    {
+      "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": [{ "url": "https://*.tauri.app" }],
+          "deny": [{ "url": "https://private.tauri.app" }]
+        }
+      ]
+    }
+    ```
+
+    For more information, please see the documentation for [Permissions Overview](/security/permissions/)
+
+2.  Send a request
+
+    The `fetch` method tries to be as close and compliant to the [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as possible.
+
+    ```javascript
+    import { fetch } from '@tauri-apps/plugin-http';
+
+    // Send a GET request
+    const response = await fetch('http://test.tauri.app/data.json', {
+      method: 'GET',
+    });
+    console.log(response.status); // e.g. 200
+    console.log(response.statusText); // e.g. "OK"
+    ```
+
+    :::note
+
+    [Forbidden request headers] are ignored by default. To use them you must enable the `unsafe-headers` feature flag:
+
+    ```toml title="src-tauri/Cargo.toml"
+    [dependencies]
+    tauri-plugin-http = { version = "2", features = ["unsafe-headers"] }
+    ```
+
+    :::
+
+</Steps>
+
+### Rust
+
+In Rust you can utilize the `reqwest` crate re-exported by the plugin. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
+
+```rust
+use tauri_plugin_http::reqwest;
+
+let res = reqwest::get("http://my.api.host/data.json").await;
+println!("{:?}", res.status()); // e.g. 200
+println!("{:?}", res.text().await); // e.g Ok("{ Content }")
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[Forbidden request headers]: https://fetch.spec.whatwg.org/#terminology-headers

@@ -1,0 +1,50 @@
+# Copyright 2019-2024 Tauri Programme within The Commons Conservancy
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
+
+name: 🤔 v2 Page Request
+title: '[request] '
+description: Request a new page or updated content
+labels:
+  - enhancement
+  - discuss
+
+body:
+  - type: input
+    id: question
+    attributes:
+      label: Question you want answered
+      description: The question you were trying to get answered by going to the website and couldn't find. Even if you weren't looking to get a specific question answered try to encapsulate the essence of your issue in the form of a question.
+      placeholder: "How do I register a new State?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: answer
+    attributes:
+      label: Where did you look for an answer?
+      description: Think back on how you navigate the site in order to find the answer to your question so we get a better idea of how people interact with the site.
+      placeholder: First I tried searching for the issue, then I went to the sidebar to find a relevant page...
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      description: If applicable, copy-paste the URL to the page you want updated.
+      placeholder: "https://v2.tauri.app/some/specific/page"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+
+  - type: checkboxes
+    attributes:
+      label: Are you willing to work on this yourself?
+      description: If so don't hesitate to reach out on Discord to us, we're more than happy to help you get set up with contributing!
+      options:
+        - label: I want to work on this myself
+          required: false

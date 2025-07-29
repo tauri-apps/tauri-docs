@@ -1,0 +1,39 @@
+---
+title: Features & Recipes
+i18nReady: true
+sidebar:
+  label: Overview
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+import FeaturesList from '@components/list/Features.astro';
+import CommunityList from '@components/list/Community.astro';
+import Search from '@components/CardGridSearch.astro';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+
+Tauri comes with extensibility in mind. On this page you'll find:
+
+- **[Features](#features)**: Built-in Tauri features and functionality
+- **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community
+
+<Search>
+  ## Features
+  <FeaturesList />
+  ## Community Resources
+  <LinkCard
+    title="Have something to share?"
+    description="Open a pull request to show us your amazing resource."
+    href="https://github.com/tauri-apps/awesome-tauri/pulls"
+  />
+  ### Plugins
+  <AwesomeTauri section="plugins-no-official" />
+  ### Integrations
+  <AwesomeTauri section="integrations" />
+</Search>
+
+## Support Table
+
+Hover "\*" to see notes. For more details visit the plugin page
+
+<TableCompatibility />

@@ -1,0 +1,116 @@
+---
+title: 剪切板
+description: 读取和写入系统剪贴板。
+plugin: clipboard-manager
+---
+
+import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+使用剪贴板插件读取和写入系统剪贴板。
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+从安装剪贴板插件开始。
+
+<Tabs>
+    <TabItem label="自动">
+
+    使用项目的包管理器来添加依赖：
+
+    <CommandTabs npm="npm run tauri add clipboard-manager"
+    yarn="yarn run tauri add clipboard-manager"
+    pnpm="pnpm tauri add clipboard-manager"
+    bun="bun tauri add clipboard-manager"
+    cargo="cargo tauri add clipboard-manager" />
+
+    </TabItem>
+    <TabItem label="手动">
+        <Steps>
+
+        1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
+
+            ```sh frame=none
+            cargo add tauri-plugin-clipboard-manager
+            ```
+
+        2. 修改 `lib.rs` 来初始化插件。
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_clipboard_manager::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3. 如果你想用 JavaScript 管理剪贴板，还需要安装 npm 包。
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-clipboard-manager"
+                yarn="yarn add @tauri-apps/plugin-clipboard-manager"
+                pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+                deno="deno add npm:@tauri-apps/plugin-clipboard-manager"
+                bun="bun add @tauri-apps/plugin-clipboard-manager"
+            />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 用法
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+剪贴板插件有 JavaScript 和 Rust 两种版本。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+// 当设置 `"withGlobalTauri": true` 时, 你可以使用
+// const { writeText, readText } = window.__TAURI__.clipboardManager;
+
+// 将内容写到剪贴板
+await writeText('Tauri is awesome!');
+
+// 从剪贴板读取内容
+const content = await readText();
+console.log(content);
+// 将 "Tauri is awesome!" 输出到控制台
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+
+app.clipboard().write_text("Tauri is awesome!".to_string()).unwrap();
+
+// 从剪贴板读取内容
+let content = app.clipboard().read_text();
+println!("{:?}", content.unwrap());
+// 将 "Tauri is awesome!" 输出到终端
+
+
+```
+
+</TabItem>
+</Tabs>
+
+<PluginPermissions plugin={frontmatter.plugin} />
