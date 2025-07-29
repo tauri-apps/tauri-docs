@@ -1,0 +1,79 @@
+---
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+
+let gitHubSponsors = [];
+
+export type Sponsor = {
+  id: string;
+  name: string;
+  avatarUrl: string;
+  profileUrl?: string;
+  tier?: Tier;
+};
+
+export const IMAGE_DIMENSION = 64;
+
+const IS_PRODUCTION = import.meta.env.NETLIFY != undefined;
+
+export type Tier = 'platinum' | 'gold' | 'silver' | 'bronze';
+
+if (GITHUB_TOKEN || IS_PRODUCTION) {
+  gitHubSponsors = await getGitHubSponsors();
+}
+
+const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
+
+async function getGitHubSponsors(): Promise<any[]> {
+  if (!GITHUB_TOKEN)
+    throw Error('Error generator sponsor list: GITHUB_TOKEN is invalid or not set');
+
+  // https://docs.github.com/graphql
+  const gitHubQuery = `query {
+  organization(login:"tauri-apps") {
+    sponsors(first: 100) {
+      nodes {
+        ... on Actor {
+          login,
+          avatarUrl(size: ${IMAGE_DIMENSION})
+        }
+      }
+    }
+  }
+}`;
+
+  const gitHubSponsorResponse = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    body: JSON.stringify({ query: gitHubQuery }),
+    headers: {
+      Authorization: `bearer ${GITHUB_TOKEN}`,
+    },
+  });
+
+  if (!gitHubSponsorResponse.ok)
+    throw Error(
+      `There was an issue with the GitHub sponsors query: ${gitHubSponsorResponse.status}: ${gitHubSponsorResponse.statusText}`
+    );
+
+  const gitHubSponsorData = (await gitHubSponsorResponse.json()).data;
+  return gitHubSponsorData.organization.sponsors.nodes
+    .map(
+      (node: any): Sponsor => ({
+        id: node.login,
+        name: node.login,
+        avatarUrl: node.avatarUrl,
+      })
+    )
+    .sort((a: Sponsor, b: Sponsor) => a.name.localeCompare(b.name));
+}
+---
+
+{!gitHubSponsorsLoaded && <p>_error_loading_</p>}
+{
+  gitHubSponsorsLoaded && (
+    <div class="sponsor-grid github">
+      {gitHubSponsors.map((sponsor) => (
+        <div class="sponsor" />
+      ))}
+    </div>
+  )
+}

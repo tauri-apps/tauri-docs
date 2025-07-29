@@ -1,0 +1,48 @@
+---
+import OpenCollective from './OpenCollective/Main.astro';
+import GitHub from './GitHub/Main.astro';
+import ServiceProvider from './ServiceProviders/Main.astro';
+
+// const codeContributors = [
+//   // todo: Populate this list with actual code contributors, pull top 10 for each repo?
+// ];
+---
+
+<div class="not-content">
+  <h2>Sponsors</h2>
+
+  <section class="sponsors-section">
+    <div class="funding-source">
+      <h4>GitHub</h4>
+      <GitHub />
+    </div>
+
+    <div class="funding-source">
+      <h4>Open Collective</h4>
+      <OpenCollective />
+    </div>
+  </section>
+
+  <section class="sponsors-section">
+    <h4>Partners</h4>
+    <!-- todo CrabNebula -->
+    <h4>Services</h4>
+    <ServiceProvider />
+  </section>
+</div>
+
+<style>
+  /* todo: add styles for headings h2, h3, h4 */
+  h4 {
+    /* border 50% opacity */
+    border-bottom: 1px solid var(--sl-color-gray-4);
+  }
+
+  .sponsors-section {
+    margin-bottom: 4rem;
+  }
+
+  .funding-source {
+    margin-bottom: 4rem;
+  }
+</style>

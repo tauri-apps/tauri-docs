@@ -1,0 +1,113 @@
+---
+import fs from 'fs';
+import path from 'path';
+import Contributor from './Contributor.astro';
+import {
+  fetchOpenCollectiveData,
+  GOLD_THRESHOLD,
+  PLATINUM_THRESHOLD,
+  SILVER_THRESHOLD,
+} from '@utils/fetchOpenCollectiveData';
+import type { Sponsor } from './_types';
+
+const DATA_FILE = path.resolve('./src/components/sponsors/_openCollectiveData.json');
+
+let openCollectiveSponsors = [];
+if (fs.existsSync(DATA_FILE)) {
+  openCollectiveSponsors = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+} else {
+  openCollectiveSponsors = await fetchOpenCollectiveData();
+  fs.writeFileSync(DATA_FILE, JSON.stringify(openCollectiveSponsors, null, 2));
+}
+
+const sponsorsByTier = {
+  platinum: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'platinum'),
+  gold: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'gold'),
+  silver: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'silver'),
+  bronze: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'bronze'),
+};
+
+const platinumSponsors = sponsorsByTier.platinum;
+const goldSponsors = sponsorsByTier.gold;
+const silverSponsors = sponsorsByTier.silver;
+const bronzeSponsors = sponsorsByTier.bronze;
+---
+
+{
+  platinumSponsors.length > 0 && (
+    <div class="tier-section">
+      <h4>Platinum Sponsors (${PLATINUM_THRESHOLD.toLocaleString()}+)</h4>
+      <div class="sponsor-container platinum">
+        {platinumSponsors.map((sponsor) => (
+          <Contributor {sponsor} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+{
+  goldSponsors.length > 0 && (
+    <div class="tier-section">
+      <h4>Gold Sponsors (${GOLD_THRESHOLD.toLocaleString()}+)</h4>
+      <div class="sponsor-container gold">
+        {goldSponsors.map((sponsor) => (
+          <Contributor {sponsor} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+{
+  silverSponsors.length > 0 && (
+    <div class="tier-section">
+      <h4>Silver Sponsors (${SILVER_THRESHOLD.toLocaleString()}+)</h4>
+      <div class="sponsor-container silver">
+        {silverSponsors.map((sponsor) => (
+          <Contributor {sponsor} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+{
+  bronzeSponsors.length > 0 && (
+    <div class="tier-section">
+      <h4>Bronze Sponsors</h4>
+      <div class="sponsor-list">
+        {bronzeSponsors.map((sponsor, index) => (
+          <Contributor {sponsor} needComma={index < bronzeSponsors.length - 1} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .sponsor-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .sponsor-container.silver {
+    gap: 6px;
+  }
+
+  .sponsor-container.gold {
+    gap: 9px;
+  }
+
+  .sponsor-container.platinum {
+    gap: 12px;
+  }
+
+  .tier-section {
+    margin-bottom: 2rem;
+  }
+
+  h4 {
+    color: var(--sl-color-text-muted);
+  }
+</style>
