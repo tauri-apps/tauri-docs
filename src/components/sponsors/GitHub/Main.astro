@@ -24,8 +24,9 @@ if (GITHUB_TOKEN || IS_PRODUCTION) {
 const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
 
 async function getGitHubSponsors(): Promise<any[]> {
-  if (!GITHUB_TOKEN)
-    throw Error('Error generator sponsor list: GITHUB_TOKEN is invalid or not set');
+  if (!GITHUB_TOKEN) {
+    return [];
+  }
 
   // https://docs.github.com/graphql
   const gitHubQuery = `query {
