@@ -8,32 +8,20 @@ template: splash
 tableOfContents: false
 prev: false
 next: false
-hero:
-  tagline: Create small, fast, secure, cross-platform applications
-  image:
-    file: ../../assets/logo-outline.svg
-  actions:
-    - text: Get Started
-      link: /start/
-      icon: right-arrow
-      variant: primary
-    - text: Tauri 1.0 Documentation
-      link: https://v1.tauri.app
-      icon: external
-      variant: minimal
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import Cta from '@fragments/cta.mdx';
+import Hero from '@components/Hero.astro';
 import SponsorList from '@components/sponsors/SponsorList.astro';
 
-<div class="hero-bg">
-  <div class="bg-logo"></div>
-  <div class="bg-grad"></div>
-  <div class="bg-grad-red"></div>
-</div>
+<Hero
+  tagline="Create small, fast, secure, cross-platform applications"
+  getStarted="Get started"
+  v1Docs="Tauri 1.0 Documentation"
+/>
 
-<div class="lp-cta-card">
+<div>
   <Card title="Create a Project" icon="rocket">
     <Cta />
   </Card>
