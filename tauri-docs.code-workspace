@@ -2,7 +2,7 @@
   "folders": [
     {
       "path": ".",
-      "name": "docs"
+      "name": "docs",
     },
     {
       "path": "packages",
@@ -22,8 +22,8 @@
         },
         {
           "path": "compatibility-table",
-        }
-      ]
+        },
+      ],
     },
     // todo: fix paths so that we can see docs, packages and submodules
     {
@@ -38,9 +38,9 @@
         },
         {
           "path": "plugins-workspace",
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
-  "settings": {}
+  "settings": {},
 }
