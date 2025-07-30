@@ -6,6 +6,8 @@ sidebar:
 i18nReady: true
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 Code signing is required on macOS to allow your application to be listed in the [Apple App Store] and to prevent a warning that your application is broken and can not be started, when downloaded from the browser.
 
 ## Prerequisites
@@ -158,24 +160,30 @@ jobs:
 
 ## Notarization
 
-To notarize your application, you must provide credentials for Tauri to authenticate with Apple:
+To notarize your application, you must provide credentials for Tauri to authenticate with Apple. This can be done via the App Store Connect API, or via your Apple ID.
 
-- APPLE_API_ISSUER, APPLE_API_KEY and APPLE_API_KEY_PATH: authenticate using an App Store Connect API key
+<Tabs>
+  <TabItem label="App Store Connect">
+    1. Open the [App Store Connect's Users and Access page], select the Integrations tab, click on the Add button and select a name and the Developer access.
+    2. Set the `APPLE_API_ISSUER` environment variable to the value presented above the keys table.
+    3. Set the `APPLE_API_KEY` environment variable to the value on the Key ID column on that table.
+    4. Download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
+    5. Set the `APPLE_API_KEY_PATH` environment variable to the file path of the downloaded private key.
+  </TabItem>
 
-  Open the [App Store Connect's Users and Access page], select the Integrations tab, click on the Add button and select a name and the Developer access.
-  The APPLE_API_ISSUER (Issuer ID) is presented above the keys table, and the APPLE_API_KEY is the value on the Key ID column on that table.
-  You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
-  The private key file path must be set via the APPLE_API_KEY_PATH environment variable.
-
-- APPLE_ID, APPLE_PASSWORD and APPLE_TEAM_ID: authenticate using your Apple ID
-
-  Alternatively, to authenticate with your Apple ID, set the APPLE_ID to your Apple account email and the APPLE_PASSWORD to an [app-specific password] for the Apple account.
+  <TabItem label="Apple ID">
+    1. Set the `APPLE_ID` environment variable to your Apple account email.
+    2. Set the `APPLE_PASSWORD` environment variable to an [app-specific password] for your Apple account.
+    3. Set the `APPLE_TEAM_ID` environment variable to your Apple Team ID. You can find your Team ID in [your account's membership page][membership].
+  </TabItem>
+</Tabs>
 
 :::note
 Notarization is required when using a _Developer ID Application_ certificate.
 :::
 
 [Certificates]: https://developer.apple.com/account/resources/certificates/list
+[membership]: https://developer.apple.com/account#MembershipDetailsCard
 [Apple Developer]: https://developer.apple.com
 [Apple App Store]: https://www.apple.com/app-store/
 [App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
