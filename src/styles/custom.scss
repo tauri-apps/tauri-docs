@@ -126,13 +126,11 @@
       linear-gradient(var(--sl-color-gray-4) 1px, transparent 1px),
       linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px),
       linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
-      linear-gradient(
-        -90deg,
+      linear-gradient(-90deg,
         transparent 6px,
         transparent 6px,
         transparent 156px,
-        transparent 156px
-      ),
+        transparent 156px),
       linear-gradient(var(--sl-color-gray-5) 1px, transparent 1px), transparent;
     background-size:
       32px 32px,
@@ -147,16 +145,31 @@
 }
 
 /* Tauri logo on index page */
-.hero > img {
+.hero>img {
   animation: 3s intro;
-  opacity: 0.7;
+  z-index: 10;
+  position: relative;
+  margin-bottom: -160px;
+  opacity: 0.2;
+}
+
+
+
+
+@media (min-width: 50rem) {
+  .hero>img {
+    z-index: 10;
+    margin: 0;
+    opacity: 0.7;
+
+  }
 }
 
 .sl-markdown-content .inline-icon {
   display: inline-block;
 }
 
-:root[data-theme='light'] .hero > img {
+:root[data-theme='light'] .hero>img {
   filter: invert(1);
 }
 
@@ -171,6 +184,7 @@
   }
 
   100% {
+    opacity: 0.2;
   }
 }
 
@@ -181,9 +195,16 @@
 }
 
 .lp-cta-card {
-  max-width: 750px;
-  margin: auto;
+  z-index: 100;
+  position: relative;
 }
+
+@media (min-width: 50rem) {
+  .lp-cta-card {
+    margin-top: -8em;
+  }
+}
+
 
 article.card {
   border-radius: 0.5rem;
@@ -198,7 +219,7 @@ figcaption {
   text-align: center;
 }
 
-figure > img {
+figure>img {
   margin-left: auto;
   margin-right: auto;
 }

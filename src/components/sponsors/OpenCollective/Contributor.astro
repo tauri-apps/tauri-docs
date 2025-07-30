@@ -33,27 +33,6 @@ const roundingStyle: Record<Sponsor['type'], string> = {
 }
 
 {
-  !sponsor.tier && sponsor.avatarUrl && (
-    <div class="image-container">
-      fallback
-      <a
-        href={sponsor.profileUrl || `https://github.com/${sponsor.name}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Image
-          src={sponsor.avatarUrl}
-          alt={sponsor.name}
-          width={IMAGE_DIMENSION}
-          height={IMAGE_DIMENSION}
-          class={`image ${roundingStyle[sponsor.type]}`}
-        />
-      </a>
-    </div>
-  )
-}
-
-{
   sponsor.tier === 'bronze' && (
     <>
       <a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer" class="bronze-sponsor">
@@ -64,17 +43,16 @@ const roundingStyle: Record<Sponsor['type'], string> = {
   )
 }
 
-<style define:vars={{ dimension: `${IMAGE_DIMENSION}px` }}>
+<style>
   .rounded-full {
     border-radius: 50%;
   }
   .rounded-lg {
-    border-radius: 8px;
+    border-radius: 16px;
   }
   .image {
     object-fit: cover;
-    background-color: white;
-    border: 2px solid var(--sl-color-gray-1);
+    box-shadow: 0 0 2px 1px color-mix(in srgb, var(--sl-color-bg) 50%, transparent);
   }
 
   .image-container {
@@ -84,25 +62,28 @@ const roundingStyle: Record<Sponsor['type'], string> = {
     align-items: center;
     justify-content: center;
     transition: transform 1s ease;
+    will-change: transform;
+    position: relative;
   }
 
   .image-container:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    z-index: 10;
   }
 
   .platinum {
-    width: 8rem;
-    height: 8rem;
+    width: 7rem;
+    height: 7rem;
   }
 
   .gold {
-    width: 6rem;
-    height: 6rem;
+    width: 5rem;
+    height: 5rem;
   }
 
   .silver {
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .bronze-sponsor {

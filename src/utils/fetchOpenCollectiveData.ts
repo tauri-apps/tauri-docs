@@ -19,7 +19,7 @@ export async function fetchOpenCollectiveData() {
         account {
           name
           type
-          imageUrl(height: ${IMAGE_DIMENSION})
+          imageUrl(height: ${IMAGE_DIMENSION}, format: jpg)
           slug
           isIncognito
         }

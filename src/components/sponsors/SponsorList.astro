@@ -8,10 +8,9 @@ import ServiceProvider from './ServiceProviders/Main.astro';
 // ];
 ---
 
-<div class="not-content">
-  <h2>Sponsors</h2>
-
+<div class="not-content" style="margin-top: 4rem;">
   <section class="sponsors-section">
+    <h2>Sponsors</h2>
     <div class="funding-source">
       <h4>GitHub</h4>
       <GitHub />
@@ -23,22 +22,27 @@ import ServiceProvider from './ServiceProviders/Main.astro';
     </div>
   </section>
 
-  <section class="sponsors-section">
-    <h4>Partners</h4>
+  <section class="partners-section">
+    <h2>Partners</h2>
     <!-- todo CrabNebula -->
-    <h4>Services</h4>
     <ServiceProvider />
   </section>
 </div>
 
 <style>
   /* todo: add styles for headings h2, h3, h4 */
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
   h4 {
     /* border 50% opacity */
     border-bottom: 1px solid var(--sl-color-gray-4);
   }
 
-  .sponsors-section {
+  section {
     margin-bottom: 4rem;
   }
 

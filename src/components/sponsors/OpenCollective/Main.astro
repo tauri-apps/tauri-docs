@@ -30,7 +30,12 @@ const sponsorsByTier = {
 const platinumSponsors = sponsorsByTier.platinum;
 const goldSponsors = sponsorsByTier.gold;
 const silverSponsors = sponsorsByTier.silver;
-const bronzeSponsors = sponsorsByTier.bronze;
+
+// disabled
+const bronzeSponsors = sponsorsByTier.bronze
+  .filter((sponsor: Sponsor) => sponsor.name !== 'Incognito')
+  .slice(0, 50);
+const totalBronzeSponsors = sponsorsByTier.bronze.length;
 ---
 
 {
@@ -65,14 +70,16 @@ const bronzeSponsors = sponsorsByTier.bronze;
       <h4>Silver Sponsors (${SILVER_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container silver">
         {silverSponsors.map((sponsor) => (
-          <Contributor {sponsor} />
+          <div>
+            <Contributor {sponsor} />
+          </div>
         ))}
       </div>
     </div>
   )
 }
 
-{
+<!-- {
   bronzeSponsors.length > 0 && (
     <div class="tier-section">
       <h4>Bronze Sponsors</h4>
@@ -80,23 +87,37 @@ const bronzeSponsors = sponsorsByTier.bronze;
         {bronzeSponsors.map((sponsor, index) => (
           <Contributor {sponsor} needComma={index < bronzeSponsors.length - 1} />
         ))}
+        {totalBronzeSponsors > bronzeSponsors.length && (
+          <span class="more-sponsors">
+            and {totalBronzeSponsors - bronzeSponsors.length} more...
+          </span>
+        )}
       </div>
     </div>
   )
-}
+} -->
 
 <style>
+  :root {
+    --silver-overlap: 16px;
+  }
+
   .sponsor-container {
     display: flex;
     flex-wrap: wrap;
   }
 
+  .sponsor-container.silver > div {
+    margin-inline-start: calc(var(--silver-overlap) * -1);
+
+  }
+
   .sponsor-container.silver {
-    gap: 6px;
+    margin-inline-start: var(--silver-overlap);
   }
 
   .sponsor-container.gold {
-    gap: 9px;
+    gap: 8px 4px;
   }
 
   .sponsor-container.platinum {
