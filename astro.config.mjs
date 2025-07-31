@@ -393,6 +393,7 @@ export default defineConfig({
     }),
     serviceWorker({
       workbox: {
+        swDest: 'service-worker.js',
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         inlineWorkboxRuntime: true,
@@ -400,6 +401,10 @@ export default defineConfig({
         globIgnores: ['**_redirects**', '**_headers**'],
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
+          {
+            urlPattern: new RegExp('https://images\\.opencollective\\.com/.*'),
+            handler: 'NetworkFirst',
+          },
           {
             urlPattern: new RegExp('.*'),
             handler: 'CacheFirst',
