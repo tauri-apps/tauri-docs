@@ -13,24 +13,25 @@ async function fetchData() {
 
   // Documentation at https://graphql-docs-v2.opencollective.com/welcome
   const query = `query account {
-  collective(slug: "tauri") {
-    contributors(limit: 1000) {
-      nodes {
-        account {
-          name
-          type
-          imageUrl(height: ${OC_IMAGE_DIMENSION}, format: jpg)
-          slug
-          isIncognito
-        }
-        totalAmountContributed {
-          value
-          currency
+    collective(slug: "tauri") {
+      contributors(limit: 1000) {
+        nodes {
+          account {
+            name
+            type
+            imageUrl(height: ${OC_IMAGE_DIMENSION}, format: jpg)
+            slug
+            isIncognito
           }
+          totalAmountContributed {
+            value
+            currency
+            }
+        }
       }
     }
-  }
-}`;
+  }`;
+
   const data = await q(query, 'https://api.opencollective.com/graphql/v2', 'Open Collective');
 
   //   TODO: handle currency
