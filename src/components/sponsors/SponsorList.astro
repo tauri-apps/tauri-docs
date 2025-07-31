@@ -1,24 +1,19 @@
 ---
 import OpenCollective from './OpenCollective/Main.astro';
-import GitHub from './GitHub/Main.astro';
+import GitHubSponsor from './GitHub/Main.astro';
 import ServiceProvider from './ServiceProviders/Main.astro';
-
-// const codeContributors = [
-//   // todo: Populate this list with actual code contributors, pull top 10 for each repo?
-// ];
 ---
 
 <div class="not-content" style="margin-top: 4rem;">
   <section class="sponsors-section">
     <h2>Sponsors</h2>
     <div class="funding-source">
-      <h4>GitHub</h4>
-      <GitHub />
-    </div>
-
-    <div class="funding-source">
       <h4>Open Collective</h4>
       <OpenCollective />
+    </div>
+    <div class="funding-source">
+      <h4>GitHub</h4>
+      <GitHubSponsor />
     </div>
   </section>
 
@@ -40,6 +35,9 @@ import ServiceProvider from './ServiceProviders/Main.astro';
   h4 {
     /* border 50% opacity */
     border-bottom: 1px solid var(--sl-color-gray-4);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
   }
 
   section {

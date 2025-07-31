@@ -1,0 +1,19 @@
+---
+// TODO
+import { readFileSync } from 'fs';
+import { DATA_FILE, StatsCollector } from '../../../utils/fetchGitHubContributorsData';
+
+// todo: existsSync check or do everything on the script
+
+const data = readFileSync(DATA_FILE, 'utf-8');
+if (!data) {
+  const collector = new StatsCollector({
+    org: 'tauri-apps',
+    token: import.meta.env.GITHUB_TOKEN,
+    contributionThreshold: 5,
+  });
+  await collector.run();
+}
+
+const gitHubContributors = JSON.parse(data);
+---
