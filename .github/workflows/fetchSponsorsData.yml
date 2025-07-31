@@ -1,0 +1,32 @@
+name: 'Sync Sponsors and Contributors Data'
+
+on:
+  schedule:
+    # once a week
+    - cron: '0 0 * * 0'
+
+jobs:
+  fetch-sponsors-data:
+    name: Sync Sponsors and Contributors Data
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm i
+              
+      - name: fetch-sponsors
+        run: pnpm --filter fetch-sponsors run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
