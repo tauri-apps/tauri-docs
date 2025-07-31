@@ -100,6 +100,7 @@ export default defineConfig({
                     'start',
                     'start/prerequisites',
                     'start/create-project',
+                    'start/project-structure-guide',
                     // {
                     //   label: 'What is Tauri?',
                     //   // translations: {
