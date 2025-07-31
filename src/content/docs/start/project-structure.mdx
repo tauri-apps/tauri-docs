@@ -30,9 +30,11 @@ and typically the setup looks something like this:
 In this case, the JavaScript project is at the top level, and the Rust project is inside `src-tauri/`,
 the Rust project is a normal [Cargo project](https://doc.rust-lang.org/cargo/guide/project-layout.html) with some extra files:
 
-- `tauri.conf.json` is the main configuration file for Tauri, it contains everything from the application identifier to dev server url, to learn more about it, see the [reference page](/reference/config/)
-- `capabilities/` directory is the default folder Tauri reads [capability files](/security/capabilities/) from, to learn more about it, see the [Security page](/security/)
-- `icons/` directory is default output directory of the [`tauri icon`](/reference/cli/#icon) command, it's usually referenced in `tauri.conf.json > bundle > icon` and used for the app's icons
+- `tauri.conf.json` is the main configuration file for Tauri, it contains everything from the application identifier to dev server url,
+  this file is also a marker for the [Tauri CLI](/reference/cli/) to find the Rust project,
+  to learn more about it, see [Configuration](/reference/config/)
+- `capabilities/` directory is the default folder Tauri reads [capability files](/security/capabilities/) from, to learn more about it, see [Security](/security/)
+- `icons/` directory is the default output directory of the [`tauri icon`](/reference/cli/#icon) command, it's usually referenced in `tauri.conf.json > bundle > icon` and used for the app's icons
 - `build.rs` contains `tauri_build::build()` which is used for tauri's build system
 - `src/lib.rs` contains the Rust code and the mobile entry point, the reason we don't write directly in `main.rs` is because we compile your app to
   a library in mobile builds and load them through the platform frameworks
@@ -40,6 +42,14 @@ the Rust project is a normal [Cargo project](https://doc.rust-lang.org/cargo/gui
 
 Tauri works similar to a static web host, and the way it builds is that you would compile your JavaScript project to static files first,
 and then compile the Rust project that will bundle those static files in,
-so the JavaScript project setup is basically the same as if you were to build a static website
+so the JavaScript project setup is basically the same as if you were to build a static website,
+to learn more, see [Frontend Configuration](/start/frontend/)
 
+If you want to work with Rust code only, simply remove everything else and use the `src-tauri/` folder as your top level project or as a member of your Rust workspace
 
+## Next Steps
+
+- [Add and Configure a Frontend Framework](/start/frontend/)
+- [Tauri Command Line Interface (CLI) Reference](/reference/cli/)
+- [Learn how to develop your Tauri app](/develop/)
+- [Discover additional features to extend Tauri](/plugin/)
