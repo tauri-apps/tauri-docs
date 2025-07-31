@@ -7,7 +7,7 @@ import { throttling } from '@octokit/plugin-throttling';
 import { writeFileSync } from 'node:fs';
 
 import { GITHUB_CONTRIBUTORS_FILE } from './config';
-import { checkAndWriteData } from './utils';
+import { saveToFile } from './utils';
 
 export interface Contributor {
   login: string;
@@ -263,7 +263,7 @@ export async function fetchGitHubContributorsData() {
       token: process.env.GITHUB_TOKEN,
       contributionThreshold,
     });
-    await checkAndWriteData(GITHUB_CONTRIBUTORS_FILE, statsCollector.run);
+    await saveToFile(GITHUB_CONTRIBUTORS_FILE, statsCollector.run);
   } catch (error) {
     console.error('Failed to collect contributors data:', error);
   }

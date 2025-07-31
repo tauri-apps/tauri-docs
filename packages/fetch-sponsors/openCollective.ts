@@ -6,7 +6,7 @@ import {
   OPEN_COLLECTIVE_FILE,
 } from './config';
 import { type OpenCollectiveSponsor, type Tier } from './types';
-import { checkAndWriteData, q } from './utils';
+import { saveToFile, q } from './utils';
 
 async function fetchData() {
   const filteredSlugs = ['github-sponsors'];
@@ -69,5 +69,5 @@ async function fetchData() {
 }
 
 export async function fetchOpenCollectiveData() {
-  await checkAndWriteData(OPEN_COLLECTIVE_FILE, fetchData);
+  await saveToFile(OPEN_COLLECTIVE_FILE, fetchData);
 }

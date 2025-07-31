@@ -20,17 +20,10 @@ export async function q(query: string, url: string, name: string, headers?: any)
   return data;
 }
 
-// TODO: override on prod
-export async function checkAndWriteData(filePath: string, fetcher: any) {
+export async function saveToFile(filePath: string, fetcher: any) {
   try {
-    let data = [];
-    if (fs.existsSync(filePath)) {
-      data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    } else {
-      data = await fetcher();
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    }
-    return data;
+    const data = await fetcher();
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
   } catch (error) {
     console.error(`Failed to fetch or write  ${filePath}:`, error);
   }

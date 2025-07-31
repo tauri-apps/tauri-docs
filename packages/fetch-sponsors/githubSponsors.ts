@@ -1,6 +1,6 @@
 import { GH_IMAGE_DIMENSION, GITHUB_SPONSORS_FILE } from './config';
 import type { GitHubSponsor } from './types';
-import { checkAndWriteData, q } from './utils';
+import { saveToFile, q } from './utils';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
@@ -39,5 +39,5 @@ async function fetchData() {
 }
 
 export async function fetchGitHubSponsors() {
-  await checkAndWriteData(GITHUB_SPONSORS_FILE, fetchData);
+  await saveToFile(GITHUB_SPONSORS_FILE, fetchData);
 }
