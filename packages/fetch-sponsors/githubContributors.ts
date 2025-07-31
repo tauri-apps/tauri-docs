@@ -126,11 +126,11 @@ class StatsCollector {
     // Filter contributors based on threshold
     const topContributors = Object.values(contributors)
       .filter((contributor) => contributor.total_contributions >= this.#contributionThreshold)
+      .filter((contributor) => !contributor.login.includes('[bot]'))
+      .filter((contributor) => !contributor.login.includes('tauri-bot'))
       .sort((a, b) => b.total_contributions - a.total_contributions);
 
-    console.log(
-      `${topContributors.length} contributors above threshold of ${this.#contributionThreshold} contributions`
-    );
+    console.log(`output ${topContributors.length}/${Object.values(contributors).length}`);
     return topContributors;
   }
 
@@ -264,7 +264,7 @@ export async function fetchGitHubContributorsData() {
       token,
       contributionThreshold,
     });
-    await saveToFile(GITHUB_CONTRIBUTORS_FILE, statsCollector.run);
+    await saveToFile(GITHUB_CONTRIBUTORS_FILE, () => statsCollector.run());
   } catch (error) {
     console.error('Failed to collect contributors data:', error);
   }
