@@ -1,90 +1,93 @@
 ---
 import { Image } from 'astro:assets';
-import crabNebulaImage from '../../../.github/sponsors/crabnebula.svg';
+import CrabNebulaLight from '@assets/partners/crabnebula/light.svg';
+import CrabNebulaDark from '@assets/partners/crabnebula/dark.svg';
+import NetlifyLight from '@assets/partners/netlify/light.svg';
+import NetlifyDark from '@assets/partners/netlify/dark.svg';
+import MeiliSearchLight from '@assets/partners/meilisearch/light.svg';
+import MeiliSearchDark from '@assets/partners/meilisearch/dark.svg';
+
+type SVG = ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
 
 interface Partner {
   name: string;
   image?: ImageMetadata;
   // https://docs.astro.build/en/guides/images/#svg-components
-  svg?: ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
+  svg?: { light: SVG; dark: SVG };
   url: string;
+  description?: string;
 }
 
 const officialPartners: Partner[] = [
   {
     name: 'CrabNebula',
-    svg: crabNebulaImage,
     url: 'https://crabnebula.dev/',
+    svg: { light: CrabNebulaLight, dark: CrabNebulaDark },
   },
 ];
 
 const partners: Partner[] = [
   {
-    name: 'Netlify',
-    url: 'https://www.netlify.com/',
-  },
-  {
     name: 'Meilisearch',
     url: 'https://www.meilisearch.com/',
+    svg: { light: MeiliSearchLight, dark: MeiliSearchDark },
+  },
+  {
+    name: 'Netlify',
+    url: 'https://netlify.com/',
+    svg: { light: NetlifyLight, dark: NetlifyDark },
   },
 ];
-
-function renderImage(partner: Partner) {
-  if (partner.svg) {
-    return <partner.svg class="partner-svg" />;
-  } else if (partner.image) {
-    return <Image src={partner.image} inferSize alt={partner.name} />;
-  }
-  return null;
-}
 ---
 
-{
-  (
-    <div class="partners">
-      {officialPartners.map((partner) => (
+<div class="partners-container">
+  <div class="official-partners">
+    {
+      officialPartners.map((partner) => (
         <div class="partner official not-content">
-          {renderImage(partner)}
-          <a href={partner.url} target="_blank" rel="noopener noreferrer">
-            {partner.name}
-          </a>
+          <div class="partner-logo">
+            {partner.svg && (
+              <>
+                <partner.svg.light class="external-logo light" />
+                <partner.svg.dark class="external-logo dark" />
+              </>
+            )}
+            {partner.image && <Image src={partner.image} alt={partner.name} />}
+          </div>
+          {/* <div class="partner-info">
+            <a href={partner.url} target="_blank" rel="noopener noreferrer">
+              {partner.name}
+            </a>
+            {partner.description && <p class="partner-description">{partner.description}</p>}
+          </div> */}
         </div>
-      ))}
-      {partners.map((partner) => (
-        <div class="partner not-content">
-          <a href={partner.url} target="_blank" rel="noopener noreferrer">
-            {partner.name}
-          </a>
-          {renderImage(partner)}
-        </div>
-      ))}
-    </div>
-  )
-}
+      ))
+    }
+  </div>
 
-<style>
-  .service-providers {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-  }
+  <div class="partners">
+    {
+      partners.map((partner) => (
+        <a href={partner.url} target="_blank" rel="noopener noreferrer" class="partner not-content">
+          <div class="partner-logo">
+            {partner.svg && (
+              <>
+                <partner.svg.light class="external-logo light" />
+                <partner.svg.dark class="external-logo dark" />
+              </>
+            )}
+            {partner.image && <Image src={partner.image} alt={partner.name} />}
+          </div>
+          {/* <div class="partner-info">
+            <a href={partner.url} target="_blank" rel="noopener noreferrer">
+              {partner.name}
+            </a>
+            {partner.description && <p class="partner-description">{partner.description}</p>}
+          </div> */}
+        </a>
+      ))
+    }
+  </div>
+</div>
 
-  .service-provider {
-    padding: 1rem;
-    border: 4px solid var(--sl-color-gray-5);
-    border-radius: 8px;
-    background: var(--sl-color-bg-nav);
-  }
-
-  .service-provider a {
-    font-weight: 600;
-    color: var(--sl-color-text);
-    text-decoration: none;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .service-provider a:hover {
-    color: var(--sl-color-accent);
-  }
-</style>
+<style></style>

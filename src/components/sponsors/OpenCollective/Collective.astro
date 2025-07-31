@@ -38,7 +38,7 @@ const silverSponsors = sponsorsByTier.silver;
 {
   platinumSponsors.length > 0 && (
     <div class="tier-section">
-      <h4>Platinum Sponsors (${PLATINUM_THRESHOLD.toLocaleString()}+)</h4>
+      <h4>Platinum (${PLATINUM_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container platinum">
         {platinumSponsors.map((sponsor: Sponsor) => (
           <OcAvatar {sponsor} />
@@ -51,7 +51,7 @@ const silverSponsors = sponsorsByTier.silver;
 {
   goldSponsors.length > 0 && (
     <div class="tier-section">
-      <h4>Gold Sponsors (${GOLD_THRESHOLD.toLocaleString()}+)</h4>
+      <h4>Gold (${GOLD_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container gold">
         {goldSponsors.map((sponsor: Sponsor) => (
           <OcAvatar {sponsor} />
@@ -64,7 +64,7 @@ const silverSponsors = sponsorsByTier.silver;
 {
   silverSponsors.length > 0 && (
     <div class="tier-section">
-      <h4>Silver Sponsors (${SILVER_THRESHOLD.toLocaleString()}+)</h4>
+      <h4>Silver (${SILVER_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container silver">
         {silverSponsors.map((sponsor: Sponsor) => (
           <div>

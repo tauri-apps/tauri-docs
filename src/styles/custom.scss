@@ -1,6 +1,7 @@
 @import url('./theme.scss');
 @import url('./overrides.scss');
 @import url('./lp.scss');
+@import url('./partners.scss');
 
 .content details {
   padding: 0 1rem;
@@ -54,4 +55,18 @@ figcaption {
 figure > img {
   margin-left: auto;
   margin-right: auto;
+}
+
+:root[data-theme='dark'] {
+  .external-logo.light {
+    display: none;
+  }
+
+  .external-logo.dark {
+    display: block;
+  }
+}
+
+.external-logo.dark {
+  display: none;
 }
