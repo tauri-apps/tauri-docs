@@ -19,10 +19,7 @@ async function fetchData() {
   }
 }`;
 
-  const data = await q(query, 'https://api.opencollective.com/graphql/v2', 'Open Collective', {
-    Authorization: `bearer ${GITHUB_TOKEN}`,
-
-  const data = await q(alternativeQuery, 'https://api.opencollective.com/graphql/v2', 'GitHub', {
+  const data = await q(query, 'https://api.github.com/graphql', 'GitHub', {
     Authorization: `bearer ${token}`,
   });
 
