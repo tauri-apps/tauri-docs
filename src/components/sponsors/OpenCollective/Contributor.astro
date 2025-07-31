@@ -21,6 +21,7 @@ const roundingStyle: Record<Sponsor['type'], string> = {
     <div class="image-container">
       <a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
         <Image
+          loading={'lazy'}
           src={sponsor.avatarUrl}
           alt={sponsor.name}
           width={IMAGE_DIMENSION}

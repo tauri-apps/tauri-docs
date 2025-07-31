@@ -1,6 +1,7 @@
 .lp-tauri-logo {
   max-width: 360px;
-  // margin-inline: auto;
+  width: auto;
+  margin-inline: auto;
 }
 
 :root[data-theme='light'] {
@@ -24,18 +25,49 @@
 }
 
 .lp-header {
-  display: grid;
-  grid-template-columns: 7fr 3fr;
-  gap: 3%;
-  padding-bottom: 2em;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.lp-header > img {
+  order: -1;
+}
+
+@media (min-width: 50rem) {
+  .lp-header {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 3%;
+    padding-bottom: 2em;
+    align-items: center;
+  }
+  .lp-tauri-logo {
+    max-width: 360px;
+    width: auto;
+    margin-inline-start: 0;
+  }
+
+  .lp-header > img {
+    order: 1;
+  }
+}
+
+.lp-header-content {
+  text-align: center;
+}
+
+@media (min-width: 50rem) {
+  .lp-header-content {
+    text-align: left;
+  }
 }
 
 .lp-tagline {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  position: relative;
 }
 
 // hide h1 title
@@ -48,14 +80,15 @@
   animation-fill-mode: forwards;
   transition: opacity 1s ease-in-out;
   opacity: 0.2;
-  width: 400px;
-  height: 400px;
+
   margin-block: auto;
 }
 
 @media (min-width: 50rem) {
   .lp-hero > img {
     opacity: 0.5;
+    width: 400px;
+    height: 400px;
   }
 }
 
