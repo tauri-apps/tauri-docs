@@ -1,4 +1,10 @@
-export type Sponsor = {
+export type GitHubSponsor = {
+  name: string;
+  avatarUrl: string;
+  profileUrl?: string;
+};
+
+export type OpenCollectiveSponsor = {
   id: string;
   name: string;
   avatarUrl: string;
@@ -8,4 +14,3 @@ export type Sponsor = {
 };
 
 export type Tier = 'platinum' | 'gold' | 'silver' | 'bronze';
-export const IMAGE_DIMENSION = 256;

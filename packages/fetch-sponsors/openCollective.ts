@@ -1,12 +1,6 @@
-import {
-  IMAGE_DIMENSION,
-  type Sponsor,
-  type Tier,
-} from '@components/sponsors/OpenCollective/_types';
-
-export const PLATINUM_THRESHOLD = 5_000;
-export const GOLD_THRESHOLD = 500;
-export const SILVER_THRESHOLD = 100;
+import { GOLD_THRESHOLD, PLATINUM_THRESHOLD, SILVER_THRESHOLD, OC_IMAGE_DIMENSION } from './config';
+import { type OpenCollectiveSponsor, type Tier } from './types';
+import { q } from './utils';
 
 export async function fetchOpenCollectiveData() {
   const filteredSlugs = ['github-sponsors'];
@@ -19,7 +13,7 @@ export async function fetchOpenCollectiveData() {
         account {
           name
           type
-          imageUrl(height: ${IMAGE_DIMENSION}, format: jpg)
+          imageUrl(height: ${OC_IMAGE_DIMENSION}, format: jpg)
           slug
           isIncognito
         }
@@ -31,25 +25,10 @@ export async function fetchOpenCollectiveData() {
     }
   }
 }`;
-
-  const res = await fetch('https://api.opencollective.com/graphql/v2', {
-    method: 'POST',
-    body: JSON.stringify({ query }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (!res.ok) {
-    throw Error(
-      `Open Collective query failed: ${res.status} ${res.statusText} \n ${JSON.stringify(await res.json(), null, 2)}, `
-    );
-  }
+  const data = await q(query, 'https://api.opencollective.com/graphql/v2', 'Open Collective');
 
   //   TODO: handle currency
-
-  const openCollectiveData = (await res.json()).data;
-  return openCollectiveData.collective.contributors.nodes
+  return data.collective.contributors.nodes
     .filter(
       (node: any) =>
         !node.account.isIncognito &&
@@ -58,7 +37,7 @@ export async function fetchOpenCollectiveData() {
         node.account.name != 'Guest'
     )
     .sort((a: any, b: any) => b.totalAmountContributed.value - a.totalAmountContributed.value)
-    .map((node: any): Sponsor => {
+    .map((node: any): OpenCollectiveSponsor => {
       let tier: Tier;
       let amount = node.totalAmountContributed.value;
       if (amount >= PLATINUM_THRESHOLD) {

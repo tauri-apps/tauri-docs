@@ -1,10 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import { IMAGE_DIMENSION, type Sponsor } from './_types';
+import { OC_IMAGE_DIMENSION } from 'packages/fetch-sponsors/config';
+import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
 
 interface Props {
   sponsor: Sponsor;
-
   needComma?: boolean;
 }
 
@@ -24,8 +24,8 @@ const roundingStyle: Record<Sponsor['type'], string> = {
           loading={'lazy'}
           src={sponsor.avatarUrl}
           alt={sponsor.name}
-          width={IMAGE_DIMENSION}
-          height={IMAGE_DIMENSION}
+          width={OC_IMAGE_DIMENSION}
+          height={OC_IMAGE_DIMENSION}
           class={`image ${sponsor.tier} ${roundingStyle[sponsor.type]}`}
         />
       </a>

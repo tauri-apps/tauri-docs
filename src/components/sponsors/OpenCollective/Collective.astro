@@ -1,23 +1,20 @@
 ---
-import fs from 'fs';
-import path from 'path';
-import Contributor from './Contributor.astro';
+import { existsSync, readFileSync } from 'node:fs';
 import {
-  fetchOpenCollectiveData,
-  GOLD_THRESHOLD,
+  OPEN_COLLECTIVE_FILE,
   PLATINUM_THRESHOLD,
+  GOLD_THRESHOLD,
   SILVER_THRESHOLD,
-} from '@utils/fetchOpenCollectiveData';
-import type { Sponsor } from './_types';
+} from 'packages/fetch-sponsors/config';
+import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
 
-const DATA_FILE = path.resolve('./src/components/sponsors/_openCollectiveData.json');
+import OcAvatar from './OcAvatar.astro';
 
 let openCollectiveSponsors = [];
-if (fs.existsSync(DATA_FILE)) {
-  openCollectiveSponsors = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+if (existsSync(OPEN_COLLECTIVE_FILE)) {
+  openCollectiveSponsors = JSON.parse(readFileSync(OPEN_COLLECTIVE_FILE, 'utf-8'));
 } else {
-  openCollectiveSponsors = await fetchOpenCollectiveData();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(openCollectiveSponsors, null, 2));
+  throw new Error('Open Collective data file not found.');
 }
 
 const sponsorsByTier = {
@@ -32,10 +29,10 @@ const goldSponsors = sponsorsByTier.gold;
 const silverSponsors = sponsorsByTier.silver;
 
 // disabled
-const bronzeSponsors = sponsorsByTier.bronze
-  .filter((sponsor: Sponsor) => sponsor.name !== 'Incognito')
-  .slice(0, 50);
-const totalBronzeSponsors = sponsorsByTier.bronze.length;
+// const bronzeSponsors = sponsorsByTier.bronze
+//   .filter((sponsor: Sponsor) => sponsor.name !== 'Incognito')
+//   .slice(0, 50);
+// const totalBronzeSponsors = sponsorsByTier.bronze.length;
 ---
 
 {
@@ -43,8 +40,8 @@ const totalBronzeSponsors = sponsorsByTier.bronze.length;
     <div class="tier-section">
       <h4>Platinum Sponsors (${PLATINUM_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container platinum">
-        {platinumSponsors.map((sponsor) => (
-          <Contributor {sponsor} />
+        {platinumSponsors.map((sponsor: Sponsor) => (
+          <OcAvatar {sponsor} />
         ))}
       </div>
     </div>
@@ -56,8 +53,8 @@ const totalBronzeSponsors = sponsorsByTier.bronze.length;
     <div class="tier-section">
       <h4>Gold Sponsors (${GOLD_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container gold">
-        {goldSponsors.map((sponsor) => (
-          <Contributor {sponsor} />
+        {goldSponsors.map((sponsor: Sponsor) => (
+          <OcAvatar {sponsor} />
         ))}
       </div>
     </div>
@@ -69,9 +66,9 @@ const totalBronzeSponsors = sponsorsByTier.bronze.length;
     <div class="tier-section">
       <h4>Silver Sponsors (${SILVER_THRESHOLD.toLocaleString()}+)</h4>
       <div class="sponsor-container silver">
-        {silverSponsors.map((sponsor) => (
+        {silverSponsors.map((sponsor: Sponsor) => (
           <div>
-            <Contributor {sponsor} />
+            <OcAvatar {sponsor} />
           </div>
         ))}
       </div>
@@ -85,7 +82,7 @@ const totalBronzeSponsors = sponsorsByTier.bronze.length;
       <h4>Bronze Sponsors</h4>
       <div class="sponsor-list">
         {bronzeSponsors.map((sponsor, index) => (
-          <Contributor {sponsor} needComma={index < bronzeSponsors.length - 1} />
+          <OcAvatar {sponsor} needComma={index < bronzeSponsors.length - 1} />
         ))}
         {totalBronzeSponsors > bronzeSponsors.length && (
           <span class="more-sponsors">
