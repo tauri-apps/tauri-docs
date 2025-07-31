@@ -28,3 +28,14 @@ export async function saveToFile(filePath: string, fetcher: any) {
     console.error(`Failed to fetch or write  ${filePath}:`, error);
   }
 }
+
+export async function GITHUB_TOKEN(): Promise<string> {
+  if (process.env.NODE_ENV !== 'production') {
+    await import('dotenv/config');
+  }
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error('GITHUB_TOKEN environment variable is not set');
+  }
+  return token;
+}

@@ -1,14 +1,9 @@
 import { GH_IMAGE_DIMENSION, GITHUB_SPONSORS_FILE } from './config';
 import type { GitHubSponsor } from './types';
-import { saveToFile, q } from './utils';
-
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+import { saveToFile, q, GITHUB_TOKEN } from './utils';
 
 async function fetchData() {
-  if (!GITHUB_TOKEN) {
-    console.error('GITHUB_TOKEN not set');
-    return [];
-  }
+  const token = await GITHUB_TOKEN();
 
   // https://docs.github.com/graphql
   const query = `query {
@@ -26,6 +21,9 @@ async function fetchData() {
 
   const data = await q(query, 'https://api.opencollective.com/graphql/v2', 'Open Collective', {
     Authorization: `bearer ${GITHUB_TOKEN}`,
+
+  const data = await q(alternativeQuery, 'https://api.opencollective.com/graphql/v2', 'GitHub', {
+    Authorization: `bearer ${token}`,
   });
 
   return data.organization.sponsors.nodes

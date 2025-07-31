@@ -7,7 +7,7 @@ import { throttling } from '@octokit/plugin-throttling';
 import { writeFileSync } from 'node:fs';
 
 import { GITHUB_CONTRIBUTORS_FILE } from './config';
-import { saveToFile } from './utils';
+import { GITHUB_TOKEN, saveToFile } from './utils';
 
 export interface Contributor {
   login: string;
@@ -31,7 +31,7 @@ interface AugmentedRepo extends Repo {
 
 const OctokitWithPlugins = Octokit.plugin(paginateRest, paginateGraphQL, retry, throttling);
 
-export class StatsCollector {
+class StatsCollector {
   #org: string;
   #app: InstanceType<typeof OctokitWithPlugins>;
   #contributionThreshold: number;
@@ -257,10 +257,11 @@ export class StatsCollector {
 
 export async function fetchGitHubContributorsData() {
   const contributionThreshold = 5;
+  const token = await GITHUB_TOKEN();
   try {
     const statsCollector = new StatsCollector({
       org: 'tauri-apps',
-      token: process.env.GITHUB_TOKEN,
+      token,
       contributionThreshold,
     });
     await saveToFile(GITHUB_CONTRIBUTORS_FILE, statsCollector.run);
