@@ -4,9 +4,9 @@ import GitHubSponsor from './GitHub/Sponsors.astro';
 import Partners from './Partners.astro';
 ---
 
-<div class="not-content" style="margin-top: 4rem;">
-  <section class="sponsors-section">
-    <h2>Many thanks to</h2>
+<div class="not-content" style="margin-top: 6rem;">
+  <section>
+    <h2 class="text-center">Many thanks to</h2>
     <div class="funding-source">
       <h4>Our Open Collective contributors</h4>
       <OpenCollective />
@@ -17,8 +17,8 @@ import Partners from './Partners.astro';
     </div>
   </section>
 
-  <section class="partners-section">
-    <h2>Supported by</h2>
+  <section>
+    <h2 class="text-center">Supported by</h2>
     <Partners />
   </section>
 </div>
@@ -27,7 +27,8 @@ import Partners from './Partners.astro';
   /* todo: add styles for headings h2, h3, h4 */
   h2 {
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 3rem;
+
     font-weight: bold;
   }
 
@@ -40,7 +41,7 @@ import Partners from './Partners.astro';
   }
 
   section {
-    margin-bottom: 4rem;
+    margin-bottom: 8rem;
   }
 
   .funding-source {

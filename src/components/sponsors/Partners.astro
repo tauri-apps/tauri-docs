@@ -44,7 +44,12 @@ const partners: Partner[] = [
   <div class="official-partners">
     {
       officialPartners.map((partner) => (
-        <div class="partner official not-content">
+        <a
+          href={partner.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="partner official not-content"
+        >
           <div class="partner-logo">
             {partner.svg && (
               <>
@@ -54,13 +59,7 @@ const partners: Partner[] = [
             )}
             {partner.image && <Image src={partner.image} alt={partner.name} />}
           </div>
-          {/* <div class="partner-info">
-            <a href={partner.url} target="_blank" rel="noopener noreferrer">
-              {partner.name}
-            </a>
-            {partner.description && <p class="partner-description">{partner.description}</p>}
-          </div> */}
-        </div>
+        </a>
       ))
     }
   </div>
@@ -78,16 +77,8 @@ const partners: Partner[] = [
             )}
             {partner.image && <Image src={partner.image} alt={partner.name} />}
           </div>
-          {/* <div class="partner-info">
-            <a href={partner.url} target="_blank" rel="noopener noreferrer">
-              {partner.name}
-            </a>
-            {partner.description && <p class="partner-description">{partner.description}</p>}
-          </div> */}
         </a>
       ))
     }
   </div>
 </div>
-
-<style></style>

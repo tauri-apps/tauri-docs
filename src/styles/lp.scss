@@ -70,11 +70,6 @@
   margin-bottom: 1rem;
 }
 
-// hide h1 title
-.content-panel:has(h1#_top:not([data-page-title])) {
-  display: none;
-}
-
 .lp-hero > img {
   animation: 3s intro;
   animation-fill-mode: forwards;
