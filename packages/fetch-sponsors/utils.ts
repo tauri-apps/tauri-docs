@@ -22,12 +22,16 @@ export async function q(query: string, url: string, name: string, headers?: any)
 
 // TODO: override on prod
 export async function checkAndWriteData(filePath: string, fetcher: any) {
-  let data = [];
-  if (fs.existsSync(filePath)) {
-    data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-  } else {
-    data = await fetcher();
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  try {
+    let data = [];
+    if (fs.existsSync(filePath)) {
+      data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    } else {
+      data = await fetcher();
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    }
+    return data;
+  } catch (error) {
+    console.error(`Failed to fetch or write  ${filePath}:`, error);
   }
-  return data;
 }

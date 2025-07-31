@@ -1,8 +1,14 @@
-import { GOLD_THRESHOLD, PLATINUM_THRESHOLD, SILVER_THRESHOLD, OC_IMAGE_DIMENSION } from './config';
+import {
+  GOLD_THRESHOLD,
+  PLATINUM_THRESHOLD,
+  SILVER_THRESHOLD,
+  OC_IMAGE_DIMENSION,
+  OPEN_COLLECTIVE_FILE,
+} from './config';
 import { type OpenCollectiveSponsor, type Tier } from './types';
-import { q } from './utils';
+import { checkAndWriteData, q } from './utils';
 
-export async function fetchOpenCollectiveData() {
+async function fetchData() {
   const filteredSlugs = ['github-sponsors'];
 
   // Documentation at https://graphql-docs-v2.opencollective.com/welcome
@@ -60,4 +66,8 @@ export async function fetchOpenCollectiveData() {
         type,
       };
     });
+}
+
+export async function fetchOpenCollectiveData() {
+  await checkAndWriteData(OPEN_COLLECTIVE_FILE, fetchData);
 }

@@ -1,10 +1,10 @@
-import { GH_IMAGE_DIMENSION } from './config';
+import { GH_IMAGE_DIMENSION, GITHUB_SPONSORS_FILE } from './config';
 import type { GitHubSponsor } from './types';
-import { q } from './utils';
+import { checkAndWriteData, q } from './utils';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-export async function fetchGitHubSponsors() {
+async function fetchData() {
   if (!GITHUB_TOKEN) {
     console.error('GITHUB_TOKEN not set');
     return [];
@@ -36,4 +36,8 @@ export async function fetchGitHubSponsors() {
       })
     )
     .sort((a: GitHubSponsor, b: GitHubSponsor) => a.name.localeCompare(b.name));
+}
+
+export async function fetchGitHubSponsors() {
+  await checkAndWriteData(GITHUB_SPONSORS_FILE, fetchData);
 }

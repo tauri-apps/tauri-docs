@@ -7,7 +7,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsm ./main.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "@octokit/plugin-throttling": "^11.0.1",
     "@octokit/types": "^14.1.0",
     "@types/node": "^22.15.21",
+    "tsm": "^2.3.0",
     "typescript": "^5.8.3"
   }
 }

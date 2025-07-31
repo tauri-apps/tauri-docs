@@ -4,15 +4,10 @@ import { paginateRest } from '@octokit/plugin-paginate-rest';
 import { retry } from '@octokit/plugin-retry';
 import type { Endpoints } from '@octokit/types';
 import { throttling } from '@octokit/plugin-throttling';
-import path from 'node:path';
 import { writeFileSync } from 'node:fs';
 
-// todo: write once to use on dev mode / prs
-// then re fetch on prod
-
-// todo: move to package
-
-export const DATA_FILE = path.resolve('./src/components/sponsors/_githubContributorsData.json');
+import { GITHUB_CONTRIBUTORS_FILE } from './config';
+import { checkAndWriteData } from './utils';
 
 export interface Contributor {
   login: string;
@@ -69,7 +64,7 @@ export class StatsCollector {
     this.#contributionThreshold = opts.contributionThreshold;
   }
 
-  async run() {
+  async run(): Promise<Contributor[]> {
     const repos = await this.#getReposWithExtraStats();
 
     const contributors: Record<string, Contributor> = {};
@@ -89,7 +84,7 @@ export class StatsCollector {
             contributor.total_contributions++;
           }
         } else {
-          // is issue
+          // is issue?
           contributor.total_contributions++;
         }
       }
@@ -136,8 +131,7 @@ export class StatsCollector {
     console.log(
       `${topContributors.length} contributors above threshold of ${this.#contributionThreshold} contributions`
     );
-    console.log('saving');
-    this.#writeData(topContributors);
+    return topContributors;
   }
 
   #newContributor({ avatar_url, login }: { avatar_url: string; login: string }): Contributor {
@@ -249,7 +243,7 @@ export class StatsCollector {
     const repos = await this.#getRepos();
     console.log(`found ${repos.length} repos`);
     const reposWithStats: AugmentedRepo[] = [];
-    for (const repo of repos.slice(0, 2)) {
+    for (const repo of repos) {
       reposWithStats.push({
         ...repo,
         issues: await this.#getAllIssuesAndPRs(repo.name),
@@ -259,8 +253,18 @@ export class StatsCollector {
     }
     return reposWithStats;
   }
+}
 
-  #writeData(data: Contributor[]) {
-    return writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+export async function fetchGitHubContributorsData() {
+  const contributionThreshold = 5;
+  try {
+    const statsCollector = new StatsCollector({
+      org: 'tauri-apps',
+      token: process.env.GITHUB_TOKEN,
+      contributionThreshold,
+    });
+    await checkAndWriteData(GITHUB_CONTRIBUTORS_FILE, statsCollector.run);
+  } catch (error) {
+    console.error('Failed to collect contributors data:', error);
   }
 }
