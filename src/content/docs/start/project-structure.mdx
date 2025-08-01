@@ -32,7 +32,7 @@ the Rust project is a normal [Cargo project](https://doc.rust-lang.org/cargo/gui
 
 - `tauri.conf.json` is the main configuration file for Tauri, it contains everything from the application identifier to dev server url,
   this file is also a marker for the [Tauri CLI](/reference/cli/) to find the Rust project,
-  to learn more about it, see [Configuration](/reference/config/)
+  to learn more about it, see [Tauri Config](/develop/configuration-files/#tauri-config/)
 - `capabilities/` directory is the default folder Tauri reads [capability files](/security/capabilities/) from, to learn more about it, see [Security](/security/)
 - `icons/` directory is the default output directory of the [`tauri icon`](/reference/cli/#icon) command, it's usually referenced in `tauri.conf.json > bundle > icon` and used for the app's icons
 - `build.rs` contains `tauri_build::build()` which is used for tauri's build system
