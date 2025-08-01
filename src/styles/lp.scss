@@ -107,12 +107,6 @@
   filter: invert(1);
 }
 
-@media (prefers-reduced-motion) {
-  * {
-    transition: none !important;
-  }
-}
-
 /* Index hero background */
 .hero-bg {
   position: absolute;
