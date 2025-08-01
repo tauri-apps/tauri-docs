@@ -1,11 +1,6 @@
 ---
 import { existsSync, readFileSync } from 'node:fs';
-import {
-  OPEN_COLLECTIVE_FILE,
-  PLATINUM_THRESHOLD,
-  GOLD_THRESHOLD,
-  SILVER_THRESHOLD,
-} from 'packages/fetch-sponsors/config';
+import { OPEN_COLLECTIVE_FILE } from 'packages/fetch-sponsors/config';
 import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
 
 import OcAvatar from './OcAvatar.astro';
@@ -33,48 +28,32 @@ const silverSponsors = sponsorsByTier.silver;
 //   .filter((sponsor: Sponsor) => sponsor.name !== 'Incognito')
 //   .slice(0, 50);
 // const totalBronzeSponsors = sponsorsByTier.bronze.length;
+
+const sponsorTiers = [
+  { title: 'Platinum', name: 'platinum', sponsors: platinumSponsors },
+  { title: 'Gold', name: 'gold', sponsors: goldSponsors },
+  { title: 'Silver', name: 'silver', sponsors: silverSponsors },
+];
 ---
 
-{
-  platinumSponsors.length > 0 && (
-    <div class="tier-section">
-      <h4>Platinum (${PLATINUM_THRESHOLD.toLocaleString()}+)</h4>
-      <div class="sponsor-container platinum">
-        {platinumSponsors.map((sponsor: Sponsor) => (
-          <OcAvatar {sponsor} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-{
-  goldSponsors.length > 0 && (
-    <div class="tier-section">
-      <h4>Gold (${GOLD_THRESHOLD.toLocaleString()}+)</h4>
-      <div class="sponsor-container gold">
-        {goldSponsors.map((sponsor: Sponsor) => (
-          <OcAvatar {sponsor} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-{
-  silverSponsors.length > 0 && (
-    <div class="tier-section">
-      <h4>Silver (${SILVER_THRESHOLD.toLocaleString()}+)</h4>
-      <div class="sponsor-container silver">
-        {silverSponsors.map((sponsor: Sponsor) => (
-          <div>
-            <OcAvatar {sponsor} />
+<>
+  {
+    sponsorTiers.map((tier) => (
+      <div class="tier-section ">
+        {/* <h4 class="text-center">{tier.title}</h4> */}
+        {tier.sponsors.length > 0 && (
+          <div class={`sponsor-container ${tier.name}`}>
+            {tier.sponsors.map((sponsor: Sponsor) => (
+              <div>
+                <OcAvatar {sponsor} />
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
-    </div>
-  )
-}
+    ))
+  }
+</>
 
 <!-- {
   bronzeSponsors.length > 0 && (
@@ -102,6 +81,8 @@ const silverSponsors = sponsorsByTier.silver;
   .sponsor-container {
     display: flex;
     flex-wrap: wrap;
+    margin-inline: auto;
+    justify-content: center;
   }
 
   .sponsor-container.silver > div {
@@ -109,11 +90,13 @@ const silverSponsors = sponsorsByTier.silver;
   }
 
   .sponsor-container.silver {
-    margin-inline-start: var(--silver-overlap);
+    /* margin-inline-start: var(--silver-overlap); */
+    max-width: 80ch;
   }
 
   .sponsor-container.gold {
     gap: 8px 4px;
+    max-width: 100ch;
   }
 
   .sponsor-container.platinum {
