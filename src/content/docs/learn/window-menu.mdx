@@ -238,10 +238,11 @@ use tauri::{
 fn main() {
   tauri::Builder::default()
         .setup(|app| {
+            let menu_image = Image::from_bytes(include_bytes!("../icons/menu.png")).unwrap();
             let file_menu = SubmenuBuilder::new(app, "File")
                 .text("open", "Open")
                 .text("quit", "Quit")
-                .icon(icon_image.clone()) // Optional: Add an icon to the submenu
+                .icon(menu_image.clone()) // Optional: Add an icon to the submenu
                 .build()?;
 
             let lang_str = "en";
@@ -274,8 +275,9 @@ fn main() {
 
             app.set_menu(menu)?;
 
+            let menu_image_update = Image::from_bytes(include_bytes!("../icons/menu_update.png")).unwrap();
             // You can also update the submenu icon dynamically
-            file_menu.set_icon(Some(icon_image))?;
+            file_menu.set_icon(Some(menu_image_update))?;
             // Or set a native icon
             file_menu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
 
@@ -760,7 +762,8 @@ let menu = Menu::with_items(app, &[&submenu])?;
 app.set_menu(menu)?;
 
 // You can also update the submenu icon dynamically
-submenu.set_icon(Some(icon_image))?;
+let icon_image_update = Image::from_bytes(include_bytes!("../icons/icon_update.png")).unwrap();
+submenu.set_icon(Some(icon_image_update))?;
 // Or set a native icon
 submenu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
 ```
