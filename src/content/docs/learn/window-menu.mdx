@@ -153,6 +153,7 @@ import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
 
 const fileSubmenu = await Submenu.new({
   text: 'File',
+  icon: 'folder', // Optional: Add an icon to the submenu
   items: [
     await MenuItem.new({
       id: 'new',
@@ -213,6 +214,11 @@ const menu = await Menu.new({
 });
 
 menu.setAsAppMenu();
+
+// You can also update the submenu icon dynamically
+fileSubmenu.setIcon('document');
+// Or set a native icon
+fileSubmenu.setNativeIcon('NSFolder');
 ```
 
 </TabItem>
@@ -231,6 +237,7 @@ fn main() {
             let file_menu = SubmenuBuilder::new(app, "File")
                 .text("open", "Open")
                 .text("quit", "Quit")
+                .icon(icon_image.clone()) // Optional: Add an icon to the submenu
                 .build()?;
 
             let lang_str = "en";
@@ -262,6 +269,11 @@ fn main() {
                 .build()?;
 
             app.set_menu(menu)?;
+
+            // You can also update the submenu icon dynamically
+            file_menu.set_icon(Some(icon_image))?;
+            // Or set a native icon
+            file_menu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
 
             Ok(())
         })
@@ -679,6 +691,74 @@ let separator = SeparatorMenuItem::new(app)?;
 let item2 = MenuItem::with_id(app, "item2", "Item 2", true, None::<&str>)?;
 
 let menu = Menu::with_items(app, &[&item1, &separator, &item2])?;
+```
+
+</TabItem>
+</Tabs>
+
+### Submenus with Icons
+
+Submenus can also display icons, just like regular menu items:
+
+<Tabs syncKey="submenus-with-icons">
+<TabItem label="JavaScript">
+
+```javascript
+import { Menu, Submenu } from '@tauri-apps/api/menu';
+
+const submenu = await Submenu.new({
+  text: 'File',
+  icon: 'folder', // Add an icon to the submenu
+  items: [
+    {
+      id: 'new',
+      text: 'New',
+    },
+    {
+      id: 'open',
+      text: 'Open',
+    },
+  ],
+});
+
+const menu = await Menu.new({
+  items: [submenu],
+});
+
+await menu.setAsAppMenu();
+
+// You can also update the submenu icon dynamically
+submenu.setIcon('document');
+// Or set a native icon
+submenu.setNativeIcon('NSFolder');
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    image::Image,
+    menu::{Menu, MenuItem, SubmenuBuilder},
+};
+
+// Load icon from path
+let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
+
+let submenu = SubmenuBuilder::new(app, "File")
+    .item(&MenuItem::with_id(app, "new", "New", true, None::<&str>)?)
+    .item(&MenuItem::with_id(app, "open", "Open", true, None::<&str>)?)
+    .icon(icon_image.clone()) // Add an icon to the submenu
+    .build()?;
+
+let menu = Menu::with_items(app, &[&submenu])?;
+app.set_menu(menu)?;
+
+// You can also update the submenu icon dynamically
+submenu.set_icon(Some(icon_image))?;
+// Or set a native icon
+submenu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
 ```
 
 </TabItem>
