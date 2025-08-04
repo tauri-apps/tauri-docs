@@ -6,9 +6,11 @@ const year = new Date().getFullYear();
 <Default><slot /></Default>
 
 <hr />
-
+<div class="sponsors">
+  <a href="https://opencollective.com/tauri" target="_blank">Support on Open Collective</a>
+  <a href="https://github.com/sponsors/tauri-apps" target="_blank">Sponsor on GitHub</a>
+</div>
 <p>&copy; {year} Tauri Contributors. CC-BY / MIT</p>
-
 <style>
   p {
     text-align: center;
@@ -18,5 +20,12 @@ const year = new Date().getFullYear();
   hr {
     border: 0;
     border-bottom: 1px solid var(--sl-color-hairline);
+  }
+  .sponsors {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-inline: auto;
+    margin-block: 1rem;
   }
 </style>
