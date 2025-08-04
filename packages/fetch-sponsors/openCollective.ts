@@ -69,7 +69,6 @@ async function fetchData() {
         },
         {}
       );
-      
 
       return {
         name,
