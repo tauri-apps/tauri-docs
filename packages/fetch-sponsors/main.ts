@@ -1,6 +1,6 @@
-import { fetchGitHubContributorsData } from './githubContributors';
-import { fetchGitHubSponsors } from './githubSponsors';
-import { fetchOpenCollectiveData } from './openCollective';
+import { fetchGitHubContributorsData } from './githubContributors.ts';
+import { fetchGitHubSponsors } from './githubSponsors.ts';
+import { fetchOpenCollectiveData } from './openCollective.ts';
 
 async function main() {
   await fetchOpenCollectiveData();

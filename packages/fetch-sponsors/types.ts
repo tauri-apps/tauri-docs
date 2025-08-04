@@ -10,6 +10,8 @@ export type OpenCollectiveSponsor = {
   avatarUrl: string;
   profileUrl?: string;
   tier?: Tier;
+  // 'website'
+  socialLinks?: Array<{ type: string; url: string }>;
   type: 'ORGANIZATION' | 'INDIVIDUAL';
 };
 

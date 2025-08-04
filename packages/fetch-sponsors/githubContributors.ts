@@ -4,10 +4,9 @@ import { paginateRest } from '@octokit/plugin-paginate-rest';
 import { retry } from '@octokit/plugin-retry';
 import type { Endpoints } from '@octokit/types';
 import { throttling } from '@octokit/plugin-throttling';
-import { writeFileSync } from 'node:fs';
 
-import { GITHUB_CONTRIBUTORS_FILE } from './config';
-import { GITHUB_TOKEN, saveToFile } from './utils';
+import { GITHUB_CONTRIBUTORS_FILE } from './config.ts';
+import { GITHUB_TOKEN, saveToFile } from './utils.ts';
 
 export interface Contributor {
   login: string;

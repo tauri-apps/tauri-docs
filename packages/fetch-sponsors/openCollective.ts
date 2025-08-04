@@ -4,9 +4,9 @@ import {
   SILVER_THRESHOLD,
   OC_IMAGE_DIMENSION,
   OPEN_COLLECTIVE_FILE,
-} from './config';
-import { type OpenCollectiveSponsor, type Tier } from './types';
-import { saveToFile, q } from './utils';
+} from './config.ts';
+import { type OpenCollectiveSponsor, type Tier } from './types.ts';
+import { saveToFile, q } from './utils.ts';
 
 async function fetchData() {
   const filteredSlugs = ['github-sponsors'];
@@ -21,6 +21,10 @@ async function fetchData() {
             type
             imageUrl(height: ${OC_IMAGE_DIMENSION}, format: jpg)
             slug
+            socialLinks {
+              type
+              url
+            }
             isIncognito
           }
           totalAmountContributed {
@@ -63,6 +67,7 @@ async function fetchData() {
         id: name,
         avatarUrl: imageUrl,
         profileUrl: `https://opencollective.com/${slug}`,
+        socialLinks: node.account.socialLinks,
         tier,
         type,
       };

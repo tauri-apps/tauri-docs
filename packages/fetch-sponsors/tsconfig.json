@@ -3,6 +3,8 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "strict": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "skipLibCheck": true
   }
 }

@@ -1,6 +1,6 @@
-import { GH_IMAGE_DIMENSION, GITHUB_SPONSORS_FILE } from './config';
-import type { GitHubSponsor } from './types';
-import { saveToFile, q, GITHUB_TOKEN } from './utils';
+import { GH_IMAGE_DIMENSION, GITHUB_SPONSORS_FILE } from './config.ts';
+import type { GitHubSponsor } from './types.ts';
+import { saveToFile, q, GITHUB_TOKEN } from './utils.ts';
 
 async function fetchData() {
   const token = await GITHUB_TOKEN();
