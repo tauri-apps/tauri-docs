@@ -1,11 +1,8 @@
 ---
 title: Barcode Scanner
 description: Allows your mobile application to use the camera to scan QR codes, EAN-13 and other types of barcodes.
-sidebar:
-  badge:
-    text: New
-    variant: tip
 plugin: barcode-scanner
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -38,6 +35,7 @@ Install the barcode-scanner plugin to get started.
       npm="npm run tauri add barcode-scanner"
       yarn="yarn run tauri add barcode-scanner"
       pnpm="pnpm tauri add barcode-scanner"
+      deno="deno task tauri add barcode-scanner"
       bun="bun tauri add barcode-scanner"
       cargo="cargo tauri add barcode-scanner"
     />
@@ -74,6 +72,7 @@ Install the barcode-scanner plugin to get started.
               npm="npm install @tauri-apps/plugin-barcode-scanner"
               yarn="yarn add @tauri-apps/plugin-barcode-scanner"
               pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+              deno="deno add npm:@tauri-apps/plugin-barcode-scanner"
               bun="bun add @tauri-apps/plugin-barcode-scanner"
           />
 

@@ -2,6 +2,7 @@
 title: Process
 description: Access the current process.
 plugin: process
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -31,6 +32,7 @@ Install the plugin-process to get started.
     <CommandTabs npm="npm run tauri add process"
     yarn="yarn run tauri add process"
     pnpm="pnpm tauri add process"
+    deno="deno task tauri add process"
     bun="bun tauri add process"
     cargo="cargo tauri add process" />
 
@@ -62,6 +64,7 @@ Install the plugin-process to get started.
                 npm="npm install @tauri-apps/plugin-process"
                 yarn="yarn add @tauri-apps/plugin-process"
                 pnpm="pnpm add @tauri-apps/plugin-process"
+                deno="deno add npm:@tauri-apps/plugin-process"
                 bun="bun add @tauri-apps/plugin-process"
             />
 
@@ -74,7 +77,7 @@ Install the plugin-process to get started.
 
 The process plugin is available in both JavaScript and Rust.
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```javascript
@@ -111,7 +114,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4}
+```json title="src-tauri/capabilities/default.json" ins={4}
 {
   "permissions": [
     ...,

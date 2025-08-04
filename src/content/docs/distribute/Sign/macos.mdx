@@ -3,13 +3,16 @@ title: macOS Code Signing
 sidebar:
   label: macOS
   order: 11
+i18nReady: true
 ---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Code signing is required on macOS to allow your application to be listed in the [Apple App Store] and to prevent a warning that your application is broken and can not be started, when downloaded from the browser.
 
 ## Prerequisites
 
-Code signing on macOS requries an [Apple Developer] account which is either paid (99$ per year) or on the free plan. You also need an Apple device where you perform the code signing. This is required by the signing process and due to Apple's Terms and Conditions.
+Code signing on macOS requires an [Apple Developer] account which is either paid (99$ per year) or on the free plan (only for testing and development purposes). You also need an Apple device where you perform the code signing. This is required by the signing process and due to Apple's Terms and Conditions.
 
 :::note
 Note when using a free Apple Developer account, you will not be able to notarize your application and it will still show up as not verified when opening the app.
@@ -51,7 +54,7 @@ With the certificate installed in your Mac computer keychain, you can configure 
 
 The name of the certificate's keychain entry represents the `signing identity`, which can also be found by executing:
 
-```
+```sh
 security find-identity -v -p codesigning
 ```
 
@@ -74,11 +77,11 @@ To use the certificate in CI/CD platforms, you must export the certificate to a 
 and configure the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environment variables:
 
 1. Open the `Keychain Access` app, click the _My Certificates_ tab in the _login_ keychain and find your certificate's entry.
-2. Expand the entry, double-click on the key item, and select `Export "$KEYNAME"`.
+2. Expand the entry, right-click on the key item, and select `Export "$KEYNAME"`.
 3. Select the path to save the certificate's `.p12` file and define a password for the exported certificate.
 4. Convert the `.p12` file to base64 running the following script on the terminal:
 
-```
+```sh
 openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
 ```
 
@@ -97,6 +100,8 @@ Required secrets:
 - `APPLE_CERTIFICATE` - The base64 encoded `.p12` file
 - `APPLE_CERTIFICATE_PASSWORD` - The password for your exported `.p12` file
 - `KEYCHAIN_PASSWORD` - The password for your keychain
+
+Check out the official GitHub guide to learn [how to set up secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 ```yaml
 name: 'build'
@@ -131,6 +136,7 @@ jobs:
           security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
           security default-keychain -s build.keychain
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security set-keychain-settings -t 3600 -u build.keychain
           security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
           security find-identity -v -p codesigning build.keychain
@@ -154,27 +160,53 @@ jobs:
 
 ## Notarization
 
-To notarize your application, you must provide credentials for Tauri to authenticate with Apple:
+To notarize your application, you must provide credentials for Tauri to authenticate with Apple. This can be done via the App Store Connect API, or via your Apple ID.
 
-- APPLE_API_ISSUER, APPLE_API_KEY and APPLE_API_KEY_PATH: authenticate using an App Store Connect API key
+<Tabs>
+  <TabItem label="App Store Connect">
+    1. Open the [App Store Connect's Users and Access page], select the Integrations tab, click on the Add button and select a name and the Developer access.
+    2. Set the `APPLE_API_ISSUER` environment variable to the value presented above the keys table.
+    3. Set the `APPLE_API_KEY` environment variable to the value on the Key ID column on that table.
+    4. Download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
+    5. Set the `APPLE_API_KEY_PATH` environment variable to the file path of the downloaded private key.
+  </TabItem>
 
-  Open the [App Store Connect's Users and Access page], select the Integrations tab, click on the Add button and select a name and the Developer access.
-  The APPLE_API_ISSUER (Issuer ID) is presented above the keys table, and the APPLE_API_KEY is the value on the Key ID column on that table.
-  You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
-  The private key file path must be set via the APPLE_API_KEY_PATH environment variable.
-
-- APPLE_ID, APPLE_PASSWORD and APPLE_TEAM_ID: authenticate using your Apple ID
-
-  Alternatively, to authenticate with your Apple ID, set the APPLE_ID to your Apple account email and the APPLE_PASSWORD to an app-specific password for the Apple account.
+  <TabItem label="Apple ID">
+    1. Set the `APPLE_ID` environment variable to your Apple account email.
+    2. Set the `APPLE_PASSWORD` environment variable to an [app-specific password] for your Apple account.
+    3. Set the `APPLE_TEAM_ID` environment variable to your Apple Team ID. You can find your Team ID in [your account's membership page][membership].
+  </TabItem>
+</Tabs>
 
 :::note
 Notarization is required when using a _Developer ID Application_ certificate.
 :::
 
 [Certificates]: https://developer.apple.com/account/resources/certificates/list
+[membership]: https://developer.apple.com/account#MembershipDetailsCard
 [Apple Developer]: https://developer.apple.com
 [Apple App Store]: https://www.apple.com/app-store/
 [App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
 [`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity
 [creating a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
 [Certificates, IDs & Profiles page]: https://developer.apple.com/account/resources/certificates/list
+[app-specific password]: https://support.apple.com/en-ca/HT204397
+
+## Ad-Hoc Signing
+
+If you do not wish to provide an Apple-authenticated identity, but still wish to sign your application, you can configure an _ad-hoc_ signature.
+
+This is useful on ARM (Apple Silicon) devices, where code-signing is required for all apps from the Internet.
+
+:::caution
+Ad-hoc code signing does not prevent MacOS from requiring users to
+[whitelist the installation in their Privacy & Security settings](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac).
+:::
+
+To configure an ad-hoc signature, provide the pseudo-identity `-` to Tauri, e.g.
+
+```json
+"signingIdentity": "-"
+```
+
+For details on configuring Tauri's signing identity, see [above](#configuring-tauri).

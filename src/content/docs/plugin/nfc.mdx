@@ -1,11 +1,8 @@
 ---
 title: NFC
 description: Read and write NFC tags on Android and iOS.
-sidebar:
-  badge:
-    text: New
-    variant: tip
 plugin: nfc
+i18nReady: true
 ---
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
@@ -73,6 +70,7 @@ Install the nfc plugin to get started.
               npm="npm install @tauri-apps/plugin-nfc"
               yarn="yarn add @tauri-apps/plugin-nfc"
               pnpm="pnpm add @tauri-apps/plugin-nfc"
+              deno="deno add npm:@tauri-apps/plugin-nfc"
               bun="bun add @tauri-apps/plugin-nfc"
           />
 
@@ -135,7 +133,7 @@ The NFC plugin is available in both JavaScript and Rust, allowing you to scan an
 
 Not every mobile device has the capability to scan NFC tags, so you should check for availability before using the scan and write APIs.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -171,7 +169,7 @@ tauri::Builder::default()
 The plugin can scan either generic NFC tags or NFC tags with a NDEF (NFC Data Exchange Format) message,
 which is a standard format to encapsulate typed data in an NFC tag.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -243,7 +241,7 @@ Filtering is only available on Android, so you should always check the scanned N
 The mime type is case sensitive and must be provided with lower case letters.
 :::
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -312,7 +310,7 @@ tauri::Builder::default()
 The `write` API can be used to write a payload to a NFC tag.
 If there's no scanned tag with `keepSessionAlive: true`, the application will first scan an NFC tag.
 
-<Tabs>
+<Tabs syncKey="lang">
 
 <TabItem label="JavaScript">
 
@@ -378,7 +376,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={4}
+```json title="src-tauri/capabilities/default.json" ins={4}
 {
   "permissions": [
     ...,

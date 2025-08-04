@@ -2,6 +2,7 @@
 title: File System
 description: Access the file system.
 plugin: fs
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -14,6 +15,11 @@ import PluginPermissions from '@components/PluginPermissions.astro';
 <PluginLinks plugin={frontmatter.plugin} />
 
 Access the file system.
+
+:::note[Use std::fs or tokio::fs on the Rust side]
+If you want to manipulate files/directories through Rust, use traditional Rust's libs (std::fs, tokio::fs, etc).
+
+:::
 
 ## Supported Platforms
 
@@ -34,6 +40,7 @@ Install the fs plugin to get started.
             npm="npm run tauri add fs"
             yarn="yarn run tauri add fs"
             pnpm="pnpm tauri add fs"
+            deno="deno task tauri add fs"
             bun="bun tauri add fs"
             cargo="cargo tauri add fs"
     	/>
@@ -66,6 +73,7 @@ Install the fs plugin to get started.
                 npm = "npm install @tauri-apps/plugin-fs"
                 yarn = "yarn add @tauri-apps/plugin-fs"
                 pnpm = "pnpm add @tauri-apps/plugin-fs"
+                deno = "deno add npm:@tauri-apps/plugin-fs"
                 bun = "bun add @tauri-apps/plugin-fs"
             />
 
@@ -117,8 +125,16 @@ with the required [NSPrivacyAccessedAPICategoryFileTimestamp] key and the [C617.
 ## Usage
 
 The fs plugin is available in both JavaScript and Rust.
+:::caution[Different APIs]
+Although this plugin has a file manipulation API on the frontend, in the backend it offers only the methods to change permission of some
+resources (files, directories, etc).
 
-<Tabs>
+In the Rust side you can use the traditional file manipulation libraries,
+[std::fs](https://doc.rust-lang.org/std/fs/struct.File.html), [tokio::fs](https://docs.rs/tokio/latest/tokio/fs/index.html) or others.
+
+:::
+
+<Tabs syncKey="lang">
   <TabItem label="JavaScript" >
 
 ```javascript
@@ -201,7 +217,7 @@ Creates a file and returns a handle to it. If the file already exists, it is tru
 
 ```js
 import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
-const file = await create('foo/bar.txt', { baseDir: BaseDirectory.App });
+const file = await create('foo/bar.txt', { baseDir: BaseDirectory.AppData });
 await file.write(new TextEncoder().encode('Hello world'));
 await file.close();
 ```
@@ -252,9 +268,11 @@ Always call `file.close()` when you are done manipulating the file.
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     read: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
-  const buf = new Uint8Array();
+
+  const stat = await file.stat();
+  const buf = new Uint8Array(stat.size);
   await file.read(buf);
   const textContents = new TextDecoder().decode(buf);
   await file.close();
@@ -266,7 +284,7 @@ Always call `file.close()` when you are done manipulating the file.
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     write: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('Hello world'));
   await file.close();
@@ -281,7 +299,7 @@ Always call `file.close()` when you are done manipulating the file.
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     append: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -298,7 +316,7 @@ Always call `file.close()` when you are done manipulating the file.
   const file = await open('foo/bar.txt', {
     write: true,
     truncate: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -318,7 +336,7 @@ Always call `file.close()` when you are done manipulating the file.
   const file = await open('foo/bar.txt', {
     write: true,
     create: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -330,14 +348,14 @@ Always call `file.close()` when you are done manipulating the file.
 
 - createNew
 
-  `createNew` works similarly to `create`, but if the file does not exist, the operation fails.
+  `createNew` works similarly to `create`, but will fail if the file already exists.
 
   ```js
   import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
   const file = await open('foo/bar.txt', {
     write: true,
     createNew: true,
-    baseDir: BaseDirectory.App,
+    baseDir: BaseDirectory.AppData,
   });
   await file.write(new TextEncoder().encode('world'));
   await file.close();
@@ -600,7 +618,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={7-11}
+```json title="src-tauri/capabilities/default.json" ins={7-11}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -666,7 +684,7 @@ the app resources directory and the config directory. The following table lists 
 
 To apply a scope to any `fs` command, use the `fs:scope` permission:
 
-```json title="src-tauri/capabilities/main.json" {7-10}
+```json title="src-tauri/capabilities/default.json" {7-10}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -675,7 +693,7 @@ To apply a scope to any `fs` command, use the `fs:scope` permission:
   "permissions": [
     {
       "identifier": "fs:scope",
-      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]
     }
   ]
 }
@@ -684,7 +702,7 @@ To apply a scope to any `fs` command, use the `fs:scope` permission:
 To apply a scope to a specific `fs` command,
 use the the object form of permissions `{ "identifier": string, "allow"?: [], "deny"?: [] }`:
 
-```json title="src-tauri/capabilities/main.json" {7-18}
+```json title="src-tauri/capabilities/default.json" {7-18}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
@@ -693,11 +711,11 @@ use the the object form of permissions `{ "identifier": string, "allow"?: [], "d
   "permissions": [
     {
       "identifier": "fs:allow-rename",
-      "allow": [{ "path": "$HOME/**" }]
+      "allow": [{ "path": "$HOME/**/*" }]
     },
     {
       "identifier": "fs:allow-rename",
-      "deny": [{ "path": "$HOME/.config/**" }]
+      "deny": [{ "path": "$HOME/.config/**/*" }]
     },
     {
       "identifier": "fs:allow-exists",
@@ -710,9 +728,27 @@ use the the object form of permissions `{ "identifier": string, "allow"?: [], "d
 In the above example you can use the [`exists`](#exists) API using any `$APPDATA` sub path (does not include sub-directories)
 and the [`rename`](#rename)
 
+:::tip
+If you are trying to access dotfiles (e.g. `.gitignore`) or dotfolders (e.g. `.ssh`) on Unix based systems,
+then you need to specify either the full path `/home/user/.ssh/example` or the glob after the dotfolder path
+component `/home/user/.ssh/*`.
+
+If that does not work in your use case then you can configure the plugin to treat any component
+as a valid path literal.
+
+```json title="src-tauri/tauri.conf.json
+ "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": false
+    }
+  }
+```
+
+:::
+
 [NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
 [C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
 [base directory]: /reference/javascript/api/namespacepath/#basedirectory
-[path API]: reference/javascript/api/namespacepath
+[path API]: /reference/javascript/api/namespacepath/
 [@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
 [Command Scopes]: /security/scope/

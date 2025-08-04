@@ -1,0 +1,57 @@
+---
+title: Trunk
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Trunk（トランク）は Rust 用の WASM（ウェブアセンブリ）Web アプリ・バンドラーです。より詳しい説明は、公式サイト https://trunkrs.dev をご覧ください。以下の説明内容は、「Trunk バージョン 0.17.5」に準拠しています。　
+
+## チェック項目
+
+- 「SSG（静的サイト生成）」を使用してください。Tauri は公式にはサーバー・ベースの方式には対応していません。
+- `serve.ws_protocol = "ws"` を使用してください。モバイル開発で、ホットリロード用の WebSocket が適切に接続されるようになります。
+- `withGlobalTauri` を有効化してください。Tauri API が `window.__TAURI__` 変数内で利用できるようになり、`wasm-bindgen` を使用してインポート可能になります。
+
+## 設定例
+
+<Steps>
+
+1. ##### Tauri の設定をアップデート
+
+   ```json
+   // tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "beforeBuildCommand": "trunk build",
+       "devUrl": "http://localhost:8080",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
+
+1. ##### Trunk の設定をアップデート
+
+   ```toml
+   # Trunk.toml
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   ws_protocol = "ws"
+   ```
+
+</Steps>
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Oct 01, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

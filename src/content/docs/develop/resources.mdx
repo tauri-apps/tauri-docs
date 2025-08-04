@@ -1,7 +1,6 @@
 ---
 title: Embedding Additional Files
-sidebar:
-  order: 1
+i18nReady: true
 ---
 
 You may need to include additional files in your application bundle that aren't part of your frontend (your `frontendDist`) directly or which are too big to be inlined into the binary. We call these files `resources`.
@@ -42,7 +41,7 @@ Alternatively the `resources` config also accepts a map object if you want to ch
 
 :::note
 
-In Tauri's [permission system](../reference/acl/), absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
+In Tauri's [permission system](/reference/acl/capability/), absolute paths and paths containing parent components (`../`) can only be allowed via `"$RESOURCE/**"`. Relative paths like `"path/to/file.txt"` can be allowed explicitly via `"$RESOURCE/path/to/file.txt"`.
 
 :::
 
@@ -104,24 +103,18 @@ fn hello(handle: tauri::AppHandle) -> String {
 
 ## Accessing files in JavaScript
 
-This is based on the example above.
+For the JavaScript side, you can either use a command like the one above and call it through `await invoke('hello')` or access the files using the [`plugin-fs`]
 
-Note that you must configure the access control list to enable any [`plugin-fs`] APIs you will need as well as permissions to access the `$RESOURCE` folder:
+When using the [`plugin-fs`], addition from the [basic setup], you'll also need to configure the access control list to enable any [`plugin-fs`] APIs you will need as well as permissions to access the `$RESOURCE` folder:
 
-```json title=src-tauri/capabilities/main.json ins={14-15}
+```json title=src-tauri/capabilities/default.json ins={8-9}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
   "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
+    "core:default",
     "fs:allow-read-text-file",
     "fs:allow-resource-read-recursive"
   ]
@@ -142,10 +135,11 @@ const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```
 
-[tauri.bundle]: ../../reference/config/#bundleconfig
-[`pathresolver`]: https://docs.rs/tauri/latest/tauri/struct.PathResolver.html
+[tauri.bundle]: /reference/config/#bundleconfig
+[`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
-[`plugin-fs`]: ../../reference/javascript/fs/
-[Scope Permissions]: ../../plugin/file-system#scope-permissions
-[scopes]: ../../plugin/file-system#scopes
+[`plugin-fs`]: /plugin/file-system/
+[basic setup]: /plugin/file-system/#setup
+[Scope Permissions]: /plugin/file-system/#scopes
+[scopes]: /plugin/file-system/#scopes

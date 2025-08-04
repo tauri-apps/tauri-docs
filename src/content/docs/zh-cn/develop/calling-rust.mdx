@@ -1,0 +1,699 @@
+---
+title: 从前端调用 Rust
+i18nReady: true
+---
+
+import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
+
+本文档包含有关如何从应用程序前端与 Rust 代码通信的指南。
+要了解如何从 Rust 代码与前端通信，请参阅 [从 Rust 调用前端] 。
+
+Tauri 提供了一个 [命令](#命令) 原语，用于以类型安全的方式访问 Rust 函数，以及一个更加动态的 [事件系统](#事件系统) 。
+
+## 命令
+
+Tauri 提供了一个简单但功能强大的 `command` 系统，用于从 Web 应用调用 Rust 函数。
+命令可以接受参数并返回结果。它们还可以返回错误或是 `async` 执行。
+
+### 基础示例
+
+您可以在 `src-tauri/src/lib.rs` 文件中定义命令。
+要创建命令，只需添加一个函数并用 `#[tauri::command]` 注释它：
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn my_custom_command() {
+	println!("I was invoked from JavaScript!");
+}
+```
+
+:::note
+命令名称必须是唯一的。
+:::
+
+:::note
+由于胶水代码生成的限制， `lib.rs` 文件中定义的命令无法标记为 `pub` 。
+如果将其标记为公共函数，您将看到如下错误：
+
+```
+error[E0255]: the name `__cmd__command_name` is defined multiple times
+  --> src/lib.rs:28:8
+   |
+27 | #[tauri::command]
+   | ----------------- previous definition of the macro `__cmd__command_name` here
+28 | pub fn x() {}
+   |        ^ `__cmd__command_name` reimported here
+   |
+   = note: `__cmd__command_name` must be defined only once in the macro namespace of this module
+```
+
+:::
+
+您必须向构建器函数提供命令列表，如下所示：
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+现在，您可以从 JavaScript 代码调用该命令：
+
+```javascript
+// 使用 Tauri API npm 包时:
+import { invoke } from '@tauri-apps/api/core';
+
+// 使用 Tauri 全局脚本（不使用 npm 包时）
+// 确保在 `tauri.conf.json` 中设置 `app.withGlobalTauri` 为 true
+const invoke = window.__TAURI__.core.invoke;
+
+// 调用命令
+invoke('my_custom_command');
+```
+
+#### 在独立的模块中定义命令
+
+如果您的应用程序定义了很多组件或者对它们进行了分组，
+那么您可以在单独的模块中定义命令，而不是使 `lib.rs` 文件变得臃肿。
+
+作为示例，我们在 `src-tauri/src/commands.rs` 文件中定义一个命令：
+
+```rust title="src-tauri/src/commands.rs"
+#[tauri::command]
+pub fn my_custom_command() {
+	println!("I was invoked from JavaScript!");
+}
+```
+
+:::note
+在单独的模块中定义命令时，应将其标记为 `pub` 。
+:::
+
+:::note
+命令名称不局限于模块，因此即使在模块之间它们也必须是唯一的。
+:::
+
+在 `lib.rs` 文件中，定义模块并相应地提供命令列表；
+
+```rust title="src-tauri/src/lib.rs" ins={6}
+mod commands;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![commands::my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+注意命令列表中的 `commands::` 前缀，它表示命令函数的完整路径。
+
+此示例中的命令名称是 `my_custom_command` ，因此您仍然可以通过执行
+`invoke("my_custom_command")` 来调用它。在您的前端， `commands::` 前缀将被忽略。
+
+#### WASM
+
+当前端使用不带参数的 `invoke()` 调用 `Rust` 时，您需要按如下方式调整前端代码。
+原因是 Rust 不支持可选参数。
+
+```rust ins={4-5}
+#[wasm_bindgen]
+extern "C" {
+    // 没有参数的 invoke
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"], js_name = invoke)]
+    async fn invoke_without_args(cmd: &str) -> JsValue;
+
+    // （默认）含参的 invoke
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
+    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
+
+    // 他们需要拥有不同的名字！
+}
+```
+
+### 传递参数
+
+您的命令处理程序可以接受参数：
+
+```rust
+#[tauri::command]
+fn my_custom_command(invoke_message: String) {
+	println!("I was invoked from JavaScript, with this message: {}", invoke_message);
+}
+```
+
+参数应以小驼峰命名，并作为 JSON 对象的键的传递：
+
+```javascript
+invoke('my_custom_command', { invokeMessage: 'Hello!' });
+```
+
+:::note
+您可以将 `snake_case` 用于具有 `rename_all` 属性的参数：
+
+```rust
+#[tauri::command(rename_all = "snake_case")]
+fn my_custom_command(invoke_message: String) {}
+```
+
+```javascript
+invoke('my_custom_command', { invoke_message: 'Hello!' });
+```
+
+:::
+
+参数可以是任何类型，只要它们实现 [`serde::Deserialize`] 。
+
+相应的 JavaScript 代码：
+
+```javascript
+invoke('my_custom_command', { invoke_message: 'Hello!' });
+```
+
+### 返回数据
+
+命令处理程序也可以返回数据：
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> String {
+	"Hello from Rust!".into()
+}
+```
+
+`invoke` 函数返回一个使用返回值解析的 `promise` ：
+
+```javascript
+invoke('my_custom_command').then((message) => console.log(message));
+```
+
+返回的数据可以是任何类型，只要它实现 [`serde::Serialize`] 。
+
+#### 返回数组缓冲区
+
+实现了 [`serde::Serialize`] 的返回值在将结果发送到前端时被序列化为 JSON。
+如果您尝试返回大量数据（例如文件或下载 HTTP response ），这可能会减慢应用程序的速度。
+要以优化的方式返回数组缓冲区，请使用 [`tauri::ipc::Response`] ：
+
+```rust
+use tauri::ipc::Response;
+#[tauri::command]
+fn read_file() -> Response {
+	let data = std::fs::read("/path/to/file").unwrap();
+	tauri::ipc::Response::new(data)
+}
+```
+
+### 错误处理
+
+如果您的处理程序可能失败并且需要能够返回错误，请让函数返回 `Result` ：
+
+```rust
+#[tauri::command]
+fn login(user: String, password: String) -> Result<String, String> {
+	if user == "tauri" && password == "tauri" {
+		// resolve
+		Ok("logged_in".to_string())
+	} else {
+		// reject
+		Err("invalid credentials".to_string())
+	}
+}
+```
+
+如果命令返回错误，则 promise 将抛出错误，否则，它将正常运行：
+
+```javascript
+invoke('login', { user: 'tauri', password: '0j4rijw8=' })
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error));
+```
+
+如上所述，命令返回的所有内容都必须实现 [`serde::Serialize`] ，包括错误。
+如果您使用 Rust 的 std 库或外部包中的错误类型，这可能会有问题，因为大多数错误类型都没有实现它。
+在简单的场景中，您可以使用 `map_err` 将这些错误转换为 `String` ：
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> Result<(), String> {
+	std::fs::File::open("path/to/file").map_err(|err| err.to_string())?;
+	// 成功时返回 `null`
+	Ok(())
+}
+```
+
+由于这不太符合惯用习惯，您可能需要创建自己的错误类型，该类型实现了 `serde::Serialize` 。
+在下面的示例中，我们使用 [`thiserror`] crate 来帮助创建错误类型。
+它允许您通过派生 `thiserror::Error` 特质将枚举转换为错误类型。
+您可以查阅其文档以了解更多详细信息。
+
+```rust
+// 创建在我们程序中可能发生的所有错误
+#[derive(Debug, thiserror::Error)]
+enum Error {
+	#[error(transparent)]
+	Io(#[from] std::io::Error)
+}
+
+// 我们需要手动实现 serde::Serialize
+impl serde::Serialize for Error {
+	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+	where
+		S: serde::ser::Serializer,
+	{
+		serializer.serialize_str(self.to_string().as_ref())
+	}
+}
+
+#[tauri::command]
+fn my_custom_command() -> Result<(), Error> {
+	// 这里将会返回一个错误
+	std::fs::File::open("path/that/does/not/exist")?;
+	// 成功时返回 `null`
+	Ok(())
+}
+```
+
+自定义错误类型的优点是可以明确显示所有可能的错误，以便读者能够快速识别可能发生的错误。
+这可以为其他人（以及您自己）在以后审查和重构代码时节省大量时间。
+
+它还可以让你完全控制错误类型的序列化方式。在上面的例子中，
+我们只是将错误消息作为字符串返回，但你可以为每个错误分配一个代码，
+这样就可以更轻松地将其映射到类似的 TypeScript 错误枚举，例如：
+
+```rust
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error(transparent)]
+  Io(#[from] std::io::Error),
+  #[error("failed to parse as string: {0}")]
+  Utf8(#[from] std::str::Utf8Error),
+}
+
+#[derive(serde::Serialize)]
+#[serde(tag = "kind", content = "message")]
+#[serde(rename_all = "camelCase")]
+enum ErrorKind {
+  Io(String),
+  Utf8(String),
+}
+
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    let error_message = self.to_string();
+    let error_kind = match self {
+      Self::Io(_) => ErrorKind::Io(error_message),
+      Self::Utf8(_) => ErrorKind::Utf8(error_message),
+    };
+    error_kind.serialize(serializer)
+  }
+}
+
+#[tauri::command]
+fn read() -> Result<Vec<u8>, Error> {
+  let data = std::fs::read("/path/to/file")?;
+	Ok(data)
+}
+```
+
+在您的前端您现在会得到一个 `{ kind: 'io' | 'utf8', message: string }` 错误对象：
+
+```ts
+type ErrorKind = {
+  kind: 'io' | 'utf8';
+  message: string;
+};
+
+invoke('read').catch((e: ErrorKind) => {});
+```
+
+### 异步命令
+
+Tauri 优先使用异步命令来执行繁重的工作，而不会导致 UI 冻结或减速。
+
+:::note
+
+异步命令使用 [`async_runtime::spawn`] 在单独的异步任务上执行。
+除非使用 _#[tauri::command(async)]_ 定义，否则没有 _async_ 关键字的命令将在主线程上执行。
+
+:::
+
+**如果您的命令需要异步运行，只需将其声明为 `async` 。**
+
+:::caution
+
+使用 Tauri 创建异步函数时需要小心谨慎。
+目前，您不能简单地在异步函数的签名中包含借用的参数。
+此类类型的一些常见示例是 `&str` 和 `State<'_, Data>` 。
+此限制在此处跟踪： https://github.com/tauri-apps/tauri/issues/2533 ，解决方法如下所示。
+
+:::
+
+使用借用类型时，您必须进行额外的更改。以下是您的两个主要选项：
+
+**选项 1**：将类型转换为非借用类型，例如 `&str` 转为 `String` 。这可能不适用于所有类型，例如 `State<'_, Data>` 。
+
+_例子：_
+
+```rust
+// 在声明异步函数时使用 String 而不是 &str，因为 &str 是借用的，因此不支持
+#[tauri::command]
+async fn my_custom_command(value: String) -> String {
+	// 调用另一个异步函数并等待它完成
+	some_async_function().await;
+	value
+}
+```
+
+**选项 2**：将返回类型包装在 [`Result`] 中。这个实现起来有点困难，但适用于所有类型。
+
+使用返回类型 `Result<a, b>` ，将 `a` 替换为您希望返回的类型，或者 `()` 如果您希望返回 `null` ，
+并将 `b` 替换为错误类型以在出现问题时返回，或者 `()` 如果您希望不返回可选错误。例如：
+
+- `Result<String, ()>` 返回一个 String ，且不会返回错误。
+- `Result<(), ()>` 返回 `null`。
+- `Result<bool, Error>` 返回一个 bool 值或一个错误，如上面的 [错误处理](#错误处理) 部分所示。
+
+_例子：_
+
+```rust
+// 返回一个 Result<String, ()> 以绕过借用问题
+#[tauri::command]
+async fn my_custom_command(value: &str) -> Result<String, ()> {
+	// 调用另一个异步函数并等待它完成
+	some_async_function().await;
+	// 注意：返回值必须用 Ok() 包装。
+    Ok(format!(value))
+}
+```
+
+##### 从 JavaScript 调用
+
+由于从 JavaScript 调用命令已经返回一个 promise ，因此它的工作方式与任何其他命令一样：
+
+```javascript
+invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
+  console.log('Completed!')
+);
+```
+
+### 通道
+
+Tauri 通道是推荐的流式数据传输机制，例如将 HTTP 响应流式传输到前端。
+以下示例读取一个文件，并以 4096 字节为单位的块通知前端传输进度：
+
+```rust
+use tokio::io::AsyncReadExt;
+
+#[tauri::command]
+async fn load_image(path: std::path::PathBuf, reader: tauri::ipc::Channel<&[u8]>) {
+  // 为了简单起见，本示例未包含错误处理
+  let mut file = tokio::fs::File::open(path).await.unwrap();
+
+  let mut chunk = vec![0; 4096];
+
+  loop {
+    let len = file.read(&mut chunk).await.unwrap();
+    if len == 0 {
+      // 读到文件末尾时结束循环
+      break;
+    }
+    reader.send(&chunk).unwrap();
+  }
+}
+```
+
+请参阅 [通道文档] 以了解更多信息。
+
+### 在命令中访问 WebviewWindow
+
+命令可以访问调用该消息的 `WebviewWindow` 实例：
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn my_custom_command(webview_window: tauri::WebviewWindow) {
+	println!("WebviewWindow: {}", webview_window.label());
+}
+```
+
+### 在命令中访问 AppHandle
+
+命令可以访问 `AppHandle` 实例：
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn my_custom_command(app_handle: tauri::AppHandle) {
+	let app_dir = app_handle.path_resolver().app_dir();
+	use tauri::GlobalShortcutManager;
+	app_handle.global_shortcut_manager().register("CTRL + U", move || {});
+}
+```
+
+### 访问托管的状态
+
+Tauri 可以使用 `tauri::Builder` 上的 `manage` 函数来管理状态。
+可以使用 `tauri::State` 在命令中访问状态：
+
+```rust title="src-tauri/src/lib.rs"
+struct MyState(String);
+
+#[tauri::command]
+fn my_custom_command(state: tauri::State<MyState>) {
+	assert_eq!(state.0 == "some state value", true);
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.manage(MyState("some state value".into()))
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+### 访问原始请求
+
+Tauri 命令还可以访问完整的 `tauri::ipc::Request` 对象，其中包括原始主体有效负载和请求标头。
+
+```rust
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error("unexpected request body")]
+  RequestBodyMustBeRaw,
+  #[error("missing `{0}` header")]
+  MissingHeader(&'static str),
+}
+
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    serializer.serialize_str(self.to_string().as_ref())
+  }
+}
+
+#[tauri::command]
+fn upload(request: tauri::ipc::Request) -> Result<(), Error> {
+  let tauri::ipc::InvokeBody::Raw(upload_data) = request.body() else {
+    return Err(Error::RequestBodyMustBeRaw);
+  };
+  let Some(authorization_header) = request.headers().get("Authorization") else {
+    return Err(Error::MissingHeader("Authorization"));
+  };
+
+  // upload...
+
+  Ok(())
+}
+```
+
+在前端，您可以调用 `invoke()` 通过在 payload 参数上提供 ArrayBuffer
+或 Uint8Array 来发送原始请求主体，并在第三个参数中包含请求标头：
+
+```js
+const data = new Uint8Array([1, 2, 3]);
+await __TAURI__.core.invoke('upload', data, {
+  headers: {
+    Authorization: 'apikey',
+  },
+});
+```
+
+### 创建多个命令
+
+`tauri::generate_handler!` 宏接受一个命令数组。要注册多个命令，你不能多次调用 invoke_handler。
+只有最后一个将使用 call 。您必须将每个命令传递给` tauri::generate_handler!` 。
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn cmd_a() -> String {
+	"Command a"
+}
+#[tauri::command]
+fn cmd_b() -> String {
+	"Command b"
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![cmd_a, cmd_b])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+### 完整示例
+
+上述特性中的任何或所有功能都可以组合使用：
+
+```rust title="src-tauri/src/lib.rs"
+struct Database;
+
+#[derive(serde::Serialize)]
+struct CustomResponse {
+	message: String,
+	other_val: usize,
+}
+
+async fn some_other_function() -> Option<String> {
+	Some("response".into())
+}
+
+#[tauri::command]
+async fn my_custom_command(
+	window: tauri::Window,
+	number: usize,
+	database: tauri::State<'_, Database>,
+) -> Result<CustomResponse, String> {
+	println!("Called from {}", window.label());
+	let result: Option<String> = some_other_function().await;
+	if let Some(message) = result {
+		Ok(CustomResponse {
+			message,
+			other_val: 42 + number,
+		})
+	} else {
+		Err("No result".into())
+	}
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.manage(Database {})
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+
+// 从 JavaScript 调用
+invoke('my_custom_command', {
+  number: 42,
+})
+  .then((res) =>
+    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+  )
+  .catch((e) => console.error(e));
+```
+
+## 事件系统
+
+事件系统是前端和 Rust 之间更简单的通信机制。
+与命令不同，事件不是类型安全的，始终是异步的，无法返回值，并且仅支持 JSON 格式的负载。
+
+### 全局事件
+
+要触发全局事件，您可以使用 [event.emit] 或 [WebviewWindow#emit] 函数：
+
+```js
+import { emit } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+// emit(eventName, payload)
+emit('file-selected', '/path/to/file');
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.emit('route-changed', { url: window.location.href });
+```
+
+:::note
+全局事件将传递给**所有**监听者
+:::
+
+### Webview 事件
+
+要向特定 webview 注册的监听器触发事件​​，您可以使用 [event.emitTo] 或 [WebviewWindow#emitTo] 函数：
+
+```js
+import { emitTo } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+// emitTo(webviewLabel, eventName, payload)
+emitTo('settings', 'settings-update-requested', {
+  key: 'notification',
+  value: 'all',
+});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.emitTo('editor', 'file-changed', {
+  path: '/path/to/file',
+  contents: 'file contents',
+});
+```
+
+:::note
+Webview 特有的事件**不会**被触发到常规的全局事件监听器中。
+要监听**所有**事件，您必须为 [event.listen] 函数提供 `{ target: { kind: 'Any' } }`
+选项，该选项将监听器定义为所有已发出事件的集合：
+
+```js
+import { listen } from '@tauri-apps/api/event';
+listen(
+  'state-changed',
+  (event) => {
+    console.log('got state changed event', event);
+  },
+  {
+    target: { kind: 'Any' },
+  }
+);
+```
+
+:::
+
+### 监听事件
+
+<FrontendListen />. 要了解如何从 Rust 代码中监听事件和发出事件，请参阅 [Rust
+事件系统文档] 。
+
+[从 Rust 调用前端]: /develop/calling-frontend/
+[`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0/tauri/async_runtime/fn.spawn.html
+[`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
+[`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
+[`tauri::ipc::Response`]: https://docs.rs/tauri/2.0.0/tauri/ipc/struct.Response.html
+[`tauri::ipc::Request`]: https://docs.rs/tauri/2.0.0/tauri/ipc/struct.Request.html
+[`thiserror`]: https://github.com/dtolnay/thiserror
+[`result`]: https://doc.rust-lang.org/std/result/index.html
+[event.emit]: /reference/javascript/api/namespaceevent/#emit
+[event.listen]: /reference/javascript/api/namespaceevent/#listen
+[WebviewWindow#emit]: /reference/javascript/api/namespacewebviewwindow/#emit
+[event.emitTo]: /reference/javascript/api/namespaceevent/#emitto
+[WebviewWindow#emitTo]: /reference/javascript/api/namespacewebviewwindow/#emitto
+[Rust 事件系统文档]: /develop/calling-frontend/#event-system
+[通道文档]: /develop/calling-frontend/#channels
+[Calling Rust from the Frontend]: /develop/calling-rust/

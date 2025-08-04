@@ -2,6 +2,7 @@
 title: DMG
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -9,7 +10,7 @@ import { Image } from 'astro:assets';
 import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
 import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
 
-The DMG (Apple Disk Image) format is a common macOS installer file that wrapps your [App Bundle][App Bundle distribution guide] in a user-friendly installation window.
+The DMG (Apple Disk Image) format is a common macOS installer file that wraps your [App Bundle][App Bundle distribution guide] in a user-friendly installation window.
 
 The installer window includes your app icon and the Applications folder icon, where the user is expected to drag the app icon to the Applications folder icon to install it.
 It is the most common installation method for macOS applications distributed outside the App Store.
@@ -21,9 +22,11 @@ To distribute your macOS app in the App Store, see the [App Store distribution g
 To create an Apple Disk Image for your app you can use the Tauri CLI and run the `tauri build` command in a Mac computer:
 
 <CommandTabs
-  npm="npm run tauri build --bundles dmg"
+  npm="npm run tauri build -- --bundles dmg"
   yarn="yarn tauri build --bundles dmg"
   pnpm="pnpm tauri build --bundles dmg"
+  deno="deno task tauri build --bundles dmg"
+  bun="bun tauri build --bundles dmg"
   cargo="cargo tauri build --bundles dmg"
 />
 
@@ -37,6 +40,12 @@ To create an Apple Disk Image for your app you can use the Tauri CLI and run the
   src={StandardDmgDark}
   alt="Standard DMG window"
 />
+
+:::note
+
+GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) crate to fix this issue.
+
+:::
 
 ## Window background
 
@@ -121,8 +130,8 @@ Due to a known issue, icon sizes and positions are not applied when creating DMG
 See [tauri-apps/tauri#1731] for more information.
 :::
 
-[App Bundle distribution guide]: /distribute/macos-application-bundle
-[App Store distribution guide]: /distribute/app-store
+[App Bundle distribution guide]: /distribute/macos-application-bundle/
+[App Store distribution guide]: /distribute/app-store/
 [appPosition]: /reference/config/#appposition
 [applicationFolderPosition]: /reference/config/#applicationfolderposition
 [tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731

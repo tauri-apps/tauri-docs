@@ -7,5 +7,7 @@
       "@assets/*": ["src/assets/*"],
       "@fragments/*": ["src/content/docs/_fragments/*"]
     }
-  }
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
 }

@@ -2,6 +2,7 @@
 title: App Store
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -26,6 +27,8 @@ After running `tauri ios init` to setup the Xcode project, you can use the `taur
   npm="npm run tauri icon /path/to/app-icon.png -- --ios-color #fff"
   yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
   pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
+  deno="deno task tauri icon /path/to/app-icon.png --ios-color #fff"
+  bun="bun tauri icon /path/to/app-icon.png --ios-color #fff"
   cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
 />
 
@@ -44,6 +47,20 @@ The value provided in the _Bundle ID_ field **must** match the identifier define
 
 The Tauri CLI can package your app for macOS and iOS. Running on a macOS machine is a requirement.
 
+Tauri derives the [`CFBundleVersion`](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleversion) from the value defined in [`tauri.conf.json > version`].
+You can set a custom bundle version in the [`tauri.conf.json > bundle > iOS > bundleVersion`] or [`tauri.conf.json > bundle > macOS > bundleVersion`] configuration
+if you need a different bundle version scheme e.g. sequential codes:
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "iOS": {
+      "bundleVersion": "100"
+    }
+  }
+}
+```
+
 :::caution
 Code signing is required. See the documentation for [macOS][macOS code signing] and [iOS][iOS code signing].
 :::
@@ -55,6 +72,8 @@ To open the iOS project in Xcode for building you must run the following command
   npm="npm run tauri ios build -- --open"
   yarn="yarn tauri ios build --open"
   pnpm="pnpm tauri ios build --open"
+  deno="deno task tauri ios build --open"
+  bun="bun tauri ios build --open"
   cargo="cargo tauri ios build --open"
 />
 
@@ -96,6 +115,10 @@ npm run tauri bundle -- --bundles app --target universal-apple-darwin --config s
 yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
   pnpm="pnpm tauri build --no-bundle
 pnpm tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  bun="bun tauri build --no-bundle
+bun tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
   cargo="cargo tauri build --no-bundle
 cargo tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
 />
@@ -276,6 +299,8 @@ To build your iOS app, run the `tauri ios build` command:
   npm="npm run tauri ios build -- --export-method app-store-connect"
   yarn="yarn tauri ios build --export-method app-store-connect"
   pnpm="pnpm tauri ios build --export-method app-store-connect"
+  deno="deno task tauri ios build --export-method app-store-connect"
+  bun="bun tauri ios build --export-method app-store-connect"
   cargo="cargo tauri ios build --export-method app-store-connect"
 />
 
@@ -303,12 +328,12 @@ The `APPLE_API_ISSUER` (Issuer ID) is presented above the keys table, and the `A
 You also need to download the private key, which can only be done once and is only visible after a page reload (the button is shown on the table row for the newly created key).
 The private key file path must be saved as `AuthKey\_<APPLE_API_KEY_ID>.p8` in one of these directories:`<current-working-directory>/private_keys`, `~/private_keys`, `~/.private_keys`or`~/.appstoreconnect/private_keys`.
 
-[App Bundle distribution guide]: /distribute/macos-application-bundle
+[App Bundle distribution guide]: /distribute/macos-application-bundle/
 [Apple Developer]: https://developer.apple.com
 [Apple App Store]: https://www.apple.com/store
 [`altool`]: https://help.apple.com/itc/apploader/#/apdATD1E53-D1E1A1303-D1E53A1126
-[macOS code signing]: /distribute/sign/macos
-[iOS code signing]: /distribute/sign/ios
+[macOS code signing]: /distribute/sign/macos/
+[iOS code signing]: /distribute/sign/ios/
 [app-store-connect-apps]: https://appstoreconnect.apple.com/apps
 [`tauri.conf.json > identifier`]: /reference/config/#identifier
 [`tauri.conf.json > bundle > category`]: /reference/config/#category

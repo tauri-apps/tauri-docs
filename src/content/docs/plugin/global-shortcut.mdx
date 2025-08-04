@@ -2,6 +2,7 @@
 title: Global Shortcut
 description: Register global shortcuts.
 plugin: global-shortcut
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -34,6 +35,7 @@ Install the global-shortcut plugin to get started.
       npm="npm run tauri add global-shortcut"
       yarn="yarn run tauri add global-shortcut"
       pnpm="pnpm tauri add global-shortcut"
+      deno="deno task tauri add global-shortcut"
       bun="bun tauri add global-shortcut"
       cargo="cargo tauri add global-shortcut"
     />
@@ -69,6 +71,7 @@ Install the global-shortcut plugin to get started.
           npm = "npm install @tauri-apps/plugin-global-shortcut"
           yarn = "yarn add @tauri-apps/plugin-global-shortcut"
           pnpm = "pnpm add @tauri-apps/plugin-global-shortcut"
+          deno = "deno add npm:@tauri-apps/plugin-global-shortcut"
           bun = "bun add @tauri-apps/plugin-global-shortcut"
         />
 
@@ -81,7 +84,7 @@ Install the global-shortcut plugin to get started.
 
 The global-shortcut plugin is available in both JavaScript and Rust.
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript" >
 
 ```javascript
@@ -141,7 +144,7 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
-```json title="src-tauri/capabilities/main.json" ins={7-9}
+```json title="src-tauri/capabilities/default.json" ins={7-9}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",

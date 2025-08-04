@@ -1,10 +1,6 @@
 ---
 title: 深度链接（deep-link）
 description: 将你的 Tauri 应用程序设置为 URL 的默认处理程序。
-sidebar:
-  badge:
-    text: New
-    variant: tip
 plugin: deep-link
 ---
 
@@ -146,10 +142,13 @@ fn run() {
 {
   "plugins": {
     "deep-link": {
-      "domains": [
+      "mobile": [
         { "host": "your.website.com", "pathPrefix": ["/open"] },
         { "host": "another.site.br" }
-      ]
+      ],
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
     }
   }
 }
@@ -159,7 +158,7 @@ fn run() {
 
 deep-link 有 JavaScript 和 Rust 两种版本。
 
-<Tabs>
+<Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
 ```javascript
@@ -201,7 +200,7 @@ fn run() {
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
-```json title="src-tauri/capabilities/main.json" ins={9}
+```json title="src-tauri/capabilities/default.json" ins={9}
 {
   "$schema": "./schemas/mobile-schema.json",
   "identifier": "mobile-capability",
@@ -209,7 +208,7 @@ fn run() {
   "platforms": ["iOS", "android"],
   "permissions": [
     // 通常需要 event:default 来监听 deep-link 事件
-    "event:default",
+    "core:event:default",
     "deep-link:default"
   ]
 }

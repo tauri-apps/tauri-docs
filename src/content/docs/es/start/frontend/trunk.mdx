@@ -1,44 +1,51 @@
 ---
 title: Trunk
 i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
 ---
 
-Trunk es una herramienta de empaquetado de aplicaciones web WASM para Rust. Obtén más información sobre Trunk en https://trunkrs.dev. Esta guía es precisa a partir de Trunk 0.17.5.
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Trunk es una herramienta de empaquetado de aplicaciones web WASM para Rust. Aprende más sobre Trunk en https://trunkrs.dev. Esta guía es válida para Trunk 0.17.5.
 
 ## Checklist
 
 - Usa SSG, Tauri no soporta oficialmente soluciones basadas en el servidor.
-- Usa `address = "0.0.0.0"` para que el servidor web esté disponible en la red para el desarrollo móvil.
-- Usa `ws_protocol = "ws"` para que el websocket de recarga rápida pueda conectarse correctamente para el desarrollo móvil.
+- Usa `serve.ws_protocol = "ws"` para que el websocket de recarga rápida pueda conectarse correctamente para el desarrollo móvil.
 - Habilita `withGlobalTauri` para asegurarte de que las APIs de Tauri están disponibles en la variable `window.__TAURI__` y pueden ser importadas usando `wasm-bindgen`.
 
 ## Ejemplo de Configuración
 
-1. Actualiza la configuración de Tauri:
+<Steps>
 
-```json
-// tauri.conf.json
-{
-  "build": {
-    "beforeDevCommand": "trunk serve",
-    "beforeBuildCommand": "trunk build",
-    "devPath": "http://localhost:8080",
-    "distDir": "../dist"
-  },
-  "app": {
-    "withGlobalTauri": true
-  }
-}
-```
+1. ##### Actualiza la configuración de Tauri
 
-2. Actualiza la configuración de Trunk:
+   ```json
+   // tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "beforeBuildCommand": "trunk build",
+       "devUrl": "http://localhost:8080",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
 
-```toml
-# Trunk.toml
-[watch]
-ignore = ["./src-tauri"]
+1. ##### Actualiza la configuración de Trunk
 
-[serve]
-address = "0.0.0.0"
-ws_protocol = "ws"
-```
+   ```toml
+   # Trunk.toml
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   ws_protocol = "ws"
+   ```
+
+</Steps>

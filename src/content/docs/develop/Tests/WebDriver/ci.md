@@ -3,6 +3,7 @@ title: Continuous Integration
 description: WebDriver Testing
 sidebar:
   order: 21
+i18nReady: true
 ---
 
 Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with
@@ -92,7 +93,7 @@ jobs:
         working-directory: webdriver/webdriverio
 ```
 
-[previously built together]: /develop/tests/webdriver/example/webdriverio
+[previously built together]: /develop/tests/webdriver/example/webdriverio/
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/

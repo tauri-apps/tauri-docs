@@ -21,7 +21,7 @@ DMG（苹果磁盘镜像）格式是一个常见的 macOS 安装程序文件，�
 要为你的应用创建一个苹果磁盘镜像（DMG），你可以使用 Tauri 命令行并在 Mac 电脑上运行 `tauri build` 命令。
 
 <CommandTabs
-  npm="npm run tauri build --bundles dmg"
+  npm="npm run tauri build -- --bundles dmg"
   yarn="yarn tauri build --bundles dmg"
   pnpm="pnpm tauri build --bundles dmg"
   cargo="cargo tauri build --bundles dmg"
@@ -120,8 +120,8 @@ DMG（苹果磁盘镜像）格式是一个常见的 macOS 安装程序文件，�
 请参阅 [tauri-apps/tauri#1731] 了解更多信息。
 :::
 
-[App Bundle 分发指南]: /distribute/macos-application-bundle
-[App Store 分发指南]: /distribute/app-store
+[App Bundle 分发指南]: /distribute/macos-application-bundle/
+[App Store 分发指南]: /distribute/app-store/
 [appPosition]: /reference/config/#appposition
 [applicationFolderPosition]: /reference/config/#applicationfolderposition
 [tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731

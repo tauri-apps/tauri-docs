@@ -29,6 +29,8 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
     cd <PROJECT>`}
       pnpm={`pnpm create qwik@latest
     cd <PROJECT>`}
+      deno={`deno run -A npm:create-qwik@latest
+    cd <PROJECT>`}
     />
 
 1.  ##### Install the `static adapter`
@@ -37,6 +39,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       npm="npm run qwik add static"
       yarn="yarn qwik add static"
       pnpm="pnpm qwik add static"
+      deno="deno task qwik add static"
     />
 
 1.  ##### Add the Tauri CLI to your project
@@ -45,6 +48,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       npm="npm install -D @tauri-apps/cli@latest"
       yarn="yarn add -D @tauri-apps/cli@latest"
       pnpm="pnpm add -D @tauri-apps/cli@latest"
+      deno="deno add -D npm:@tauri-apps/cli@latest"
     />
 
 1.  ##### Initiate a new Tauri project
@@ -53,6 +57,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       npm="npm run tauri init"
       yarn="yarn tauri init"
       pnpm="pnpm tauri init"
+      deno="deno task tauri init"
     />
 
 1.  ##### Tauri configuration
@@ -107,6 +112,22 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
 
     </TabItem>
 
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "devUrl": "http://localhost:5173"
+        "frontendDist": "../dist",
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build"
+      }
+    }
+    ```
+
+    </TabItem>
+
     </Tabs>
 
 1.  ##### Start your `tauri` app
@@ -115,6 +136,7 @@ This guide will walk you through creating your Tauri app using the Qwik web fram
       npm="npm run tauri dev"
       yarn="yarn tauri dev"
       pnpm="pnpm tauri dev"
+      deno="deno task tauri dev"
     />
 
 </Steps>
