@@ -1048,9 +1048,9 @@ tauri::Builder::default()
                 {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
-                       window.unminimize().unwrap(); // Restore the window if it is minimized
-                       window.show().unwrap();
-                       window.set_focus().unwrap();
+                       let _ = webview_window.unminimize();
+                       let _ = webview_window.show();
+                       let _ = webview_window.set_focus();
                     }
                 }
             })
