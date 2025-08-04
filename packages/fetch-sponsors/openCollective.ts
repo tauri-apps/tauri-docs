@@ -60,14 +60,23 @@ async function fetchData() {
       } else {
         tier = 'bronze';
       }
-      const { slug, name, type, isIncognito, imageUrl } = node.account;
+      const { slug, name, type, isIncognito, imageUrl, socialLinks } = node.account;
+
+      const socialLinksMap = socialLinks?.reduce(
+        (acc: Record<string, string>, link: { type: string; url: string }) => {
+          acc[link.type.toLowerCase()] = link.url;
+          return acc;
+        },
+        {}
+      );
+      
 
       return {
         name,
         id: name,
         avatarUrl: imageUrl,
         profileUrl: `https://opencollective.com/${slug}`,
-        socialLinks: node.account.socialLinks,
+        socialLinks: socialLinksMap,
         tier,
         type,
       };

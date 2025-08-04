@@ -14,12 +14,34 @@ const roundingStyle: Record<Sponsor['type'], string> = {
   ORGANIZATION: 'rounded-lg',
   INDIVIDUAL: 'rounded-full',
 };
+
+function getUrl(sponsor: Sponsor): string {
+  return `${sponsor.socialLinks?.website ?? sponsor.profileUrl}?ref=tauri.app&utm_source=tauri.app`;
+}
 ---
 
 {
-  (sponsor.tier === 'platinum' || sponsor.tier === 'gold' || sponsor.tier === 'silver') && (
+  sponsor.tier === 'platinum' && (
+    <div class="platinum image-container">
+      <a href={getUrl(sponsor)} target="_blank">
+        <Image
+          loading={'lazy'}
+          src={sponsor.avatarUrl}
+          alt={sponsor.name}
+          width={OC_IMAGE_DIMENSION}
+          height={OC_IMAGE_DIMENSION}
+          class={`image ${sponsor.tier} ${roundingStyle[sponsor.type]}`}
+        />
+        <p class="name platinum">{sponsor.name}</p>
+      </a>
+    </div>
+  )
+}
+
+{
+  (sponsor.tier === 'gold' || sponsor.tier === 'silver') && (
     <div class="image-container">
-      <a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
+      <a href={getUrl(sponsor)} target="_blank">
         <Image
           loading={'lazy'}
           src={sponsor.avatarUrl}
@@ -36,7 +58,7 @@ const roundingStyle: Record<Sponsor['type'], string> = {
 {
   sponsor.tier === 'bronze' && (
     <>
-      <a href={sponsor.profileUrl} target="_blank" rel="noopener noreferrer" class="bronze-sponsor">
+      <a href={getUrl(sponsor)} target="_blank" class="bronze-sponsor">
         {sponsor.name}
       </a>
       {needComma && <span class="bronze-separator">, </span>}
@@ -72,17 +94,28 @@ const roundingStyle: Record<Sponsor['type'], string> = {
     z-index: 10;
   }
 
-  .platinum {
-    width: 7rem;
-    height: 7rem;
+  .image-container.platinum {
   }
 
-  .gold {
+  .platinum.image {
+    height: 7rem;
+    width: 7rem;
+  }
+
+  .platinum.name {
+    font-weight: 600;
+    font-size: 0.65rem;
+    margin-top: 0;
+    text-align: center;
+    /* display: block; */
+  }
+
+  .gold.image {
     width: 5rem;
     height: 5rem;
   }
 
-  .silver {
+  .silver.image {
     width: 3rem;
     height: 3rem;
   }
