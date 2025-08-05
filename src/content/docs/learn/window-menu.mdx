@@ -11,7 +11,7 @@ Native application menus can be attached to both to a window or system tray. Ava
 
 ## Creating a base-level menu
 
-To create a base-level native window menu, and attach to a window:
+To create a base-level native window menu, and attach to a window. You can create various types of menu items including basic items, check items, and separators:
 
 <Tabs>
 <TabItem label="JavaScript">
@@ -30,13 +30,36 @@ const menu = await Menu.new({
         console.log('quit pressed');
       },
     },
+    {
+      id: 'check_item',
+      text: 'Check Item',
+      checked: true,
+    },
+    {
+      type: 'Separator',
+    },
+    {
+      id: 'disabled_item',
+      text: 'Disabled Item',
+      enabled: false,
+    },
+    {
+      id: 'status',
+      text: 'Status: Processing...',
+    },
   ],
 });
 
 // If a window was not created with an explicit menu or had one set explicitly,
 // this menu will be assigned to it.
-menu.setAsAppMenu().then((res) => {
+menu.setAsAppMenu().then(async (res) => {
   console.log('menu set success', res);
+
+  // Update individual menu item text
+  const statusItem = await menu.get('status');
+  if (statusItem) {
+    await statusItem.setText('Status: Ready');
+  }
 });
 ```
 
@@ -45,21 +68,32 @@ menu.setAsAppMenu().then((res) => {
 <TabItem label="Rust">
 
 ```rust
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{MenuBuilder};
+use tauri::menu::MenuBuilder;
 
 fn main() {
-  tauri::Builder::default()
+    tauri::Builder::default()
         .setup(|app| {
             let menu = MenuBuilder::new(app)
                 .text("open", "Open")
                 .text("close", "Close")
+                .check("check_item", "Check Item")
+                .separator()
+                .text("disabled_item", "Disabled Item")
+                .text("status", "Status: Processing...")
                 .build()?;
 
-            app.set_menu(menu)?;
+            app.set_menu(menu.clone())?;
+
+            // Update individual menu item text
+            menu
+                .get("status")
+                .unwrap()
+                .as_menuitem_unchecked()
+                .set_text("Status: Ready")?;
 
             Ok(())
         })
+        .run(tauri::generate_context!());
 }
 ```
 
@@ -147,6 +181,10 @@ Multi-level menus allow you to group menu items under categories like "File," "E
 
 **Note:** When using submenus on MacOS, all items must be grouped under a submenu. Top-level items will be ignored. Additionally, the first submenu will be placed under the application's about menu by default, regardless of the `text` label. You should include a submenu as the first entry (say, an "About" submenu) to fill this space.
 
+:::note
+Icon support for submenus is available since Tauri 2.8.0.
+:::
+
 <Tabs>
 <TabItem label="JavaScript">
 
@@ -169,6 +207,7 @@ const aboutSubmenu = await Submenu.new({
 
 const fileSubmenu = await Submenu.new({
   text: 'File',
+  icon: 'folder', // Optional: Add an icon to the submenu
   items: [
     await MenuItem.new({
       id: 'new',
@@ -219,6 +258,11 @@ const menu = await Menu.new({
 });
 
 menu.setAsAppMenu();
+
+// You can also update the submenu icon dynamically
+fileSubmenu.setIcon('document');
+// Or set a native icon (only one type applies per platform)
+fileSubmenu.setNativeIcon('NSFolder');
 ```
 
 </TabItem>
@@ -226,12 +270,17 @@ menu.setAsAppMenu();
 <TabItem label="Rust">
 
 ```rust
-use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, SubmenuBuilder};
+use tauri::{
+    image::Image,
+    menu::{CheckMenuItemBuilder, IconMenuItemBuilder, MenuBuilder, SubmenuBuilder},
+};
 
 fn main() {
-  tauri::Builder::default()
+    tauri::Builder::default()
         .setup(|app| {
+            let menu_image = Image::from_bytes(include_bytes!("../icons/menu.png")).unwrap();
             let file_menu = SubmenuBuilder::new(app, "File")
+                .submenu_icon(menu_image)) // Optional: Add an icon to the submenu
                 .text("open", "Open")
                 .text("quit", "Quit")
                 .build()?;
@@ -248,7 +297,7 @@ fn main() {
                 .enabled(false)
                 .build(app)?;
 
-             // Load icon from path
+            // Load icon from path
             let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
 
             let icon_item = IconMenuItemBuilder::new("icon")
@@ -261,13 +310,21 @@ fn main() {
                 .build()?;
 
             let menu = MenuBuilder::new(app)
-                .items(&[&file_menu, &other_item,&icon_item])
+                .items(&[&file_menu, &other_item, &icon_item])
                 .build()?;
 
             app.set_menu(menu)?;
 
+            let menu_image_update =
+                Image::from_bytes(include_bytes!("../icons/menu_update.png")).unwrap();
+            // You can also update the submenu icon dynamically
+            file_menu.set_icon(Some(menu_image_update))?;
+            // Or set a native icon (only one type applies per platform)
+            file_menu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
+
             Ok(())
         })
+        .run(tauri::generate_context!());
 }
 ```
 
