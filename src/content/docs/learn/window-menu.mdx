@@ -7,7 +7,7 @@ i18nReady: true
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Native application menus can be attached to windows. This documentation covers menu creation, management, and event handling for window menus. Available on desktop platforms.
+Native application menus can be attached to both to a window or system tray. Available on desktop.
 
 ## Creating a base-level menu
 
@@ -227,7 +227,7 @@ menu.setAsAppMenu();
 
 // You can also update the submenu icon dynamically
 fileSubmenu.setIcon('document');
-// Or set a native icon
+// Or set a native icon (only one type applies per platform)
 fileSubmenu.setNativeIcon('NSFolder');
 ```
 
@@ -284,7 +284,7 @@ fn main() {
             let menu_image_update = Image::from_bytes(include_bytes!("../icons/menu_update.png")).unwrap();
             // You can also update the submenu icon dynamically
             file_menu.set_icon(Some(menu_image_update))?;
-            // Or set a native icon
+            // Or set a native icon (only one type applies per platform)
             file_menu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
 
             Ok(())
@@ -704,78 +704,7 @@ let menu = Menu::with_items(app, &[&item1, &separator, &item2])?;
 </TabItem>
 </Tabs>
 
-### Submenus with Icons
 
-:::note
-Icon support for submenus is available since Tauri 2.8.0.
-:::
-
-Submenus can also display icons, just like regular menu items:
-
-<Tabs syncKey="submenus-with-icons">
-<TabItem label="JavaScript">
-
-```javascript
-import { Menu, Submenu } from '@tauri-apps/api/menu';
-
-const submenu = await Submenu.new({
-  text: 'File',
-  icon: 'folder', // Add an icon to the submenu
-  items: [
-    {
-      id: 'new',
-      text: 'New',
-    },
-    {
-      id: 'open',
-      text: 'Open',
-    },
-  ],
-});
-
-const menu = await Menu.new({
-  items: [submenu],
-});
-
-await menu.setAsAppMenu();
-
-// You can also update the submenu icon dynamically
-submenu.setIcon('document');
-// Or set a native icon
-submenu.setNativeIcon('NSFolder');
-```
-
-</TabItem>
-
-<TabItem label="Rust">
-
-```rust
-use tauri::{
-    image::Image,
-    menu::{Menu, MenuItem, SubmenuBuilder},
-};
-
-// Load icon from path
-let icon_image = Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap();
-
-let submenu = SubmenuBuilder::new(app, "File")
-    .item(&MenuItem::with_id(app, "new", "New", true, None::<&str>)?)
-    .item(&MenuItem::with_id(app, "open", "Open", true, None::<&str>)?)
-    .icon(icon_image.clone()) // Add an icon to the submenu
-    .build()?;
-
-let menu = Menu::with_items(app, &[&submenu])?;
-app.set_menu(menu)?;
-
-// You can also update the submenu icon dynamically
-let icon_image_update = Image::from_bytes(include_bytes!("../icons/icon_update.png")).unwrap();
-submenu.set_icon(Some(icon_image_update))?;
-// Or set a native icon
-submenu.set_native_icon(Some(tauri::menu::NativeIcon::Folder))?;
-```
-
-</TabItem>
-</Tabs>
 
 ### Menu Item States
 
@@ -901,16 +830,10 @@ const menu = await Menu.new({
 await menu.setAsAppMenu();
 
 // Update the menu item text
-const updatedMenu = await Menu.new({
-  items: [
-    {
-      id: 'status',
-      text: 'Status: Processing...',
-    },
-  ],
-});
-
-await updatedMenu.setAsAppMenu();
+const statusItem = menu.get('status');
+if (statusItem) {
+  statusItem.setText('Status: Processing...');
+}
 ```
 
 </TabItem>
