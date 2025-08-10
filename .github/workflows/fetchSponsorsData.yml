@@ -1,0 +1,50 @@
+name: 'Sync Sponsors and Contributors Data'
+
+on:
+  schedule:
+    # once a week
+    - cron: '0 0 * * 0'
+
+jobs:
+  fetch-sponsors-data:
+    name: Sync Sponsors and Contributors Data
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm i
+              
+      - name: fetch-sponsors
+        run: pnpm --filter fetch-sponsors run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+   # tauri-docs PR
+      - name: Git config
+        run: |
+          git config --global user.name "tauri-bot"
+          git config --global user.email "tauri-bot@tauri.app"
+
+      - name: Create pull request for updated docs
+        # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
+        uses: tauri-apps/create-pull-request@v3.4.1
+        if: github.event_name != 'pull_request' && github.event_name != 'push'
+        with:
+          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
+          commit-message: 'chore(docs): Update Sponsors & Contributors Data'
+          branch: ci/v2/update-data-docs
+          path: tauri-docs
+          title: Update Sponsors & Contributors Data
+          labels: 'bot'
+            
