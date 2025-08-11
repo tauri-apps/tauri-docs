@@ -1,4 +1,4 @@
-name: 'Sync Sponsors and Contributors Data'
+name: 'Sync Sponsors Data'
 
 on:
   schedule:
@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  fetch-sponsors-data:
-    name: Sync Sponsors and Contributors Data
+  sync-sponsors-data:
+    name: Sync Sponsors Data
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,8 +26,8 @@ jobs:
 
       - run: pnpm i
               
-      - name: fetch-sponsors
-        run: pnpm --filter fetch-sponsors run build
+      - name: sync-sponsors
+        run: pnpm sync:sponsors
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -43,9 +43,8 @@ jobs:
         if: github.event_name != 'pull_request' && github.event_name != 'push'
         with:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
-          commit-message: 'chore(docs): Update Sponsors & Contributors Data'
-          branch: ci/v2/update-data-docs
+          commit-message: 'chore(docs): Update Sponsors Data'
+          branch: ci/v2/update-sponsors
           path: tauri-docs
-          title: Update Sponsors & Contributors Data
+          title: Update Sponsors Data
           labels: 'bot'
-            
