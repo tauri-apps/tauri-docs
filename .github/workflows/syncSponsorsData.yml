@@ -28,6 +28,8 @@ jobs:
         run: pnpm sync:sponsors
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: pnpm format
           
    # tauri-docs PR
       - name: Git config
