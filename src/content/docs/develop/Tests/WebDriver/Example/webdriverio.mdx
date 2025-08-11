@@ -5,8 +5,6 @@ sidebar:
 i18nReady: true
 ---
 
-{/* TODO: REVISE COPY TO V2 */}
-
 import CommandTabs from '@components/CommandTabs.astro';
 
 :::note
@@ -16,14 +14,14 @@ Make sure to go through the [prerequisites instructions] to be able to follow th
 :::
 
 This WebDriver testing example will use [WebdriverIO], and its testing suite. It is expected to have Node.js already
-installed, along with `npm` or `yarn` although the [finished example project] uses `yarn`.
+installed, along with `npm` or `yarn` although the [finished example project] uses `pnpm`.
 
 ## Create a Directory for the Tests
 
 Let's create a space to write these tests in our project. We will be using a nested directory for
 this example project as we will later also go over other frameworks, but typically you only need to use one. Create
-the directory we will use with `mkdir -p webdriver/webdriverio`. The rest of this guide assumes you are inside the
-`webdriver/webdriverio` directory.
+the directory we will use with `mkdir e2e-tests`. The rest of this guide assumes you are inside the
+`e2e-tests` directory.
 
 ## Initializing a WebdriverIO Project
 
@@ -38,16 +36,17 @@ guide on setting it up from scratch.
   "name": "webdriverio",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "wdio run wdio.conf.js"
   },
   "dependencies": {
-    "@wdio/cli": "^7.9.1"
+    "@wdio/cli": "^9.19.0"
   },
   "devDependencies": {
-    "@wdio/local-runner": "^7.9.1",
-    "@wdio/mocha-framework": "^7.9.1",
-    "@wdio/spec-reporter": "^7.9.0"
+    "@wdio/local-runner": "^9.19.0,
+    "@wdio/mocha-framework": "^9.19.0",
+    "@wdio/spec-reporter": "^9.19.0"
   }
 }
 ```
@@ -80,21 +79,27 @@ config file which controls most aspects of our testing suite.
 `wdio.conf.js`:
 
 ```javascript
-const os = require('os');
-const path = require('path');
-const { spawn, spawnSync } = require('child_process');
+import os from 'os';
+import path from 'path';
+import { spawn, spawnSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // keep track of the `tauri-driver` child process
 let tauriDriver;
+let exit = false;
 
-exports.config = {
+export const config = {
+  host: '127.0.0.1',
+  port: 4444,
   specs: ['./develop/tests/specs/**/*.js'],
   maxInstances: 1,
   capabilities: [
     {
       maxInstances: 1,
       'tauri:options': {
-        application: '../../target/release/hello-tauri-webdriver',
+        application: '../src-tauri/target/debug/tauri-app',
       },
     },
   ],
@@ -106,24 +111,71 @@ exports.config = {
   },
 
   // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
-  onPrepare: () => spawnSync('cargo', ['build', '--release']),
+  onPrepare: () => {
+    spawnSync('yarn', ['tauri', 'build', '--debug', '--no-bundle'], {
+      cwd: path.resolve(__dirname, '..'),
+      stdio: 'inherit',
+      shell: true,
+    });
+  },
 
   // ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
-  beforeSession: () =>
-    (tauriDriver = spawn(
+  beforeSession: () => {
+    tauriDriver = spawn(
       path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
       [],
       { stdio: [null, process.stdout, process.stderr] }
-    )),
+    );
+
+    tauriDriver.on('error', (error) => {
+      console.error('tauri-driver error:', error);
+      process.exit(1);
+    });
+    tauriDriver.on('exit', (code) => {
+      if (!exit) {
+        console.error('tauri-driver exited with code:', code);
+        process.exit(1);
+      }
+    });
+  },
 
   // clean up the `tauri-driver` process we spawned at the start of the session
-  afterSession: () => tauriDriver.kill(),
+  // note that afterSession might not run if the session fails to start, so we also run the cleanup on shutdown
+  afterSession: () => {
+    closeTauriDriver();
+  },
 };
+
+function closeTauriDriver() {
+  exit = true;
+  tauriDriver?.kill();
+}
+
+function onShutdown(fn) {
+  const cleanup = () => {
+    try {
+      fn();
+    } finally {
+      process.exit();
+    }
+  };
+
+  process.on('exit', cleanup);
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+  process.on('SIGHUP', cleanup);
+  process.on('SIGBREAK', cleanup);
+}
+
+// ensure tauri-driver is closed when our test process exits
+onShutdown(() => {
+  closeTauriDriver();
+});
 ```
 
-If you are interested in the properties on the `exports.config` object, I [suggest reading the documentation][webdriver documentation].
+If you are interested in the properties on the `config` object, we [suggest reading the documentation][webdriver documentation].
 For non-WDIO specific items, there are comments explaining why we are running commands in `onPrepare`, `beforeSession`,
-and `afterSession`. We also have our specs set to `"./develop/tests/specs/**/*.js"`, so let's create a spec now.
+and `afterSession`. We also have our specs set to `"./test/specs/**/*.js"`, so let's create a spec now.
 
 ## Spec
 
@@ -217,7 +269,7 @@ of configuration and a single command to run it! Even better, we didn't have to 
 
 [prerequisites instructions]: /develop/tests/webdriver/
 [webdriverio]: https://webdriver.io/
-[finished example project]: https://github.com/chippers/hello_tauri
+[finished example project]: https://github.com/tauri-apps/webdriver-example
 [mocha]: https://mochajs.org/
 [webdriver documentation]: https://webdriver.io/docs/configurationfile
 [webdriverio api docs]: https://webdriver.io/docs/api

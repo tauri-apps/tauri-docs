@@ -14,11 +14,11 @@ Make sure to go through the [prerequisites instructions] to be able to follow th
 
 :::
 
-此 WebDriver 测试示例将使用 [Selenium][] 和一个流行的 Node.js 测试套装。 您应该已经安装 node.js ， 并且一起安装了 `npm` 或 `yarn` ， [已完成的示例项目][] 使用了 `yarn`.
+此 WebDriver 测试示例将使用 [Selenium][] 和一个流行的 Node.js 测试套装。 您应该已经安装 node.js ， 并且一起安装了 `npm` 或 `yarn` ， [已完成的示例项目][] 使用了 `pnpm`.
 
 ## 创建测试目录
 
-让我们创建一个空目录用做测试项目。 在此示例项目中我们将使用嵌套目录，因为稍后还将使用其他框架，但通常您只需要使用一个框架。创建接下来我们需要使用的目录。 创建我们将要使用的目录 `mkdir -p webdriver/selenium` 。 指南接下来的部分我们假定您也在目录 `webdriver/selenium` 中完成。
+让我们创建一个空目录用做测试项目。 在此示例项目中我们将使用嵌套目录，因为稍后还将使用其他框架，但通常您只需要使用一个框架。创建接下来我们需要使用的目录。 创建我们将要使用的目录 `mkdir -p e2e-tests` 。 指南接下来的部分我们假定您也在目录 `e2e-tests` 中完成。
 
 ## 初始化 Selenium 项目
 
@@ -31,13 +31,14 @@ Make sure to go through the [prerequisites instructions] to be able to follow th
   "name": "selenium",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
-    "chai": "^4.3.4",
-    "mocha": "^9.0.3",
-    "selenium-webdriver": "^4.0.0-beta.4"
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
+    "selenium-webdriver": "^4.34.0"
   }
 }
 ```
@@ -67,21 +68,24 @@ Make sure to go through the [prerequisites instructions] to be able to follow th
 `test/test.js`:
 
 ```javascript
-const os = require('os');
-const path = require('path');
-const { expect } = require('chai');
-const { spawn, spawnSync } = require('child_process');
-const { Builder, By, Capabilities } = require('selenium-webdriver');
+import os from 'os';
+import path from 'path';
+import { expect } from 'chai';
+import { spawn, spawnSync } from 'child_process';
+import { Builder, By, Capabilities } from 'selenium-webdriver';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // create the path to the expected application binary
 const application = path.resolve(
   __dirname,
   '..',
   '..',
-  '..',
+  'src-tauri',
   'target',
-  'release',
-  'hello-tauri-webdriver'
+  'debug',
+  'tauri-app'
 );
 
 // keep track of the webdriver instance we create
@@ -89,13 +93,18 @@ let driver;
 
 // keep track of the tauri-driver process we start
 let tauriDriver;
+let exit = false;
 
 before(async function () {
   // set timeout to 2 minutes to allow the program to build if it needs to
   this.timeout(120000);
 
-  // ensure the program has been built
-  spawnSync('cargo', ['build', '--release']);
+  // ensure the app has been built
+  spawnSync('yarn', ['tauri', 'build', '--debug', '--no-bundle'], {
+    cwd: path.resolve(__dirname, '../..'),
+    stdio: 'inherit',
+    shell: true,
+  });
 
   // start tauri-driver
   tauriDriver = spawn(
@@ -103,6 +112,16 @@ before(async function () {
     [],
     { stdio: [null, process.stdout, process.stderr] }
   );
+  tauriDriver.on('error', (error) => {
+    console.error('tauri-driver error:', error);
+    process.exit(1);
+  });
+  tauriDriver.on('exit', (code) => {
+    if (!exit) {
+      console.error('tauri-driver exited with code:', code);
+      process.exit(1);
+    }
+  });
 
   const capabilities = new Capabilities();
   capabilities.set('tauri:options', { application });
@@ -117,10 +136,7 @@ before(async function () {
 
 after(async function () {
   // stop the webdriver session
-  await driver.quit();
-
-  // kill the tauri-driver process
-  tauriDriver.kill();
+  await closeTauriDriver();
 });
 
 describe('Hello Tauri', () => {
@@ -146,6 +162,34 @@ describe('Hello Tauri', () => {
     const luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
     expect(luma).to.be.lessThan(100);
   });
+});
+
+async function closeTauriDriver() {
+  exit = true;
+  // kill the tauri-driver process
+  tauriDriver.kill();
+  // stop the webdriver session
+  await driver.quit();
+}
+
+function onShutdown(fn) {
+  const cleanup = () => {
+    try {
+      fn();
+    } finally {
+      process.exit();
+    }
+  };
+
+  process.on('exit', cleanup);
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+  process.on('SIGHUP', cleanup);
+  process.on('SIGBREAK', cleanup);
+}
+
+onShutdown(() => {
+  closeTauriDriver();
 });
 ```
 
@@ -188,7 +232,7 @@ application at all!
 
 [prerequisites instructions]: /develop/tests/webdriver/
 [Selenium]: https://selenium.dev/
-[已完成的示例项目]: https://github.com/chippers/hello_tauri
+[已完成的示例项目]: https://github.com/tauri-apps/webdriver-example
 [Mocha]: https://mochajs.org/
 [Chai]: https://www.chaijs.com/
 [`selenium-webdriver`]: https://www.npmjs.com/package/selenium-webdriver
