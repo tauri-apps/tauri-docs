@@ -53,7 +53,7 @@ jobs:
         run: |
           sudo apt-get update &&
           sudo apt-get install -y
-          webkit2gtk-4.1
+          libwebkit2gtk-4.1-dev
           libayatana-appindicator3-dev
           webkit2gtk-driver
           xvfb
