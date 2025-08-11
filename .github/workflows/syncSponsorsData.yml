@@ -10,8 +10,6 @@ jobs:
   sync-sponsors-data:
     name: Sync Sponsors Data
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     
     steps:
       - name: Checkout repository
@@ -45,6 +43,5 @@ jobs:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore(docs): Update Sponsors Data'
           branch: ci/v2/update-sponsors
-          path: tauri-docs
           title: Update Sponsors Data
           labels: 'bot'
