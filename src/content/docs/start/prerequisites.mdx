@@ -141,7 +141,9 @@ let
     pkgs.pango
     pkgs.webkitgtk_4_1
     pkgs.openssl
-    pkgs.libayatana-appindicator
+  ];
+
+  linkedLibraries = [
     pkgs.libappindicator
   ];
 in
@@ -154,10 +156,10 @@ pkgs.mkShell {
     nodejs
   ];
 
-  buildInputs = libraries;
-
+  buildInputs = libraries ++ linkedLibraries;
+  
   env = {
-    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libraries;
+    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath linkedLibraries;
   };
 }
 ```
