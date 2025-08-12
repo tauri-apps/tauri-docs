@@ -127,6 +127,24 @@ Using `nix-shell`:
 ```nix
 let
   pkgs = import <nixpkgs> { };
+
+  libraries = [
+    pkgs.at-spi2-atk
+    pkgs.atkmm
+    pkgs.cairo
+    pkgs.gdk-pixbuf
+    pkgs.glib
+    pkgs.gtk3
+    pkgs.harfbuzz
+    pkgs.librsvg
+    pkgs.libsoup_3
+    pkgs.pango
+    pkgs.webkitgtk_4_1
+    pkgs.openssl
+    pkgs.libiconv
+    pkgs.libayatana-appindicator
+    pkgs.libappindicator
+  ];
 in
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
@@ -137,20 +155,11 @@ pkgs.mkShell {
     nodejs
   ];
 
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
+  buildInputs = libraries;
+
+  env = {
+    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libraries;
+  };
 }
 ```
 
