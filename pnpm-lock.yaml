@@ -85,7 +85,7 @@ importers:
         version: 2.3.0
       typescript:
         specifier: ^5.3.3
-        version: 5.5.4
+        version: 5.8.3
 
   packages/compatibility-table:
     dependencies:
@@ -100,7 +100,7 @@ importers:
         version: 2.3.0
       typescript:
         specifier: ^5.3.3
-        version: 5.5.4
+        version: 5.8.3
 
   packages/config-generator:
     dependencies:
@@ -118,7 +118,7 @@ importers:
         version: 2.3.0
       typescript:
         specifier: ^5.3.3
-        version: 5.5.4
+        version: 5.8.3
 
   packages/fetch-sponsors:
     dependencies:
