@@ -89,7 +89,9 @@ To access the NFC APIs on iOS you must adjust the target iOS version, configure 
 
 #### Target IOS version
 
-The NFC plugin requires iOS 14+. In the `src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj` file, set all `IPHONEOS_DEPLOYMENT_TARGET` properties to `14.0`:
+The NFC plugin requires iOS 14+. This is the default for Tauri applications created with Tauri CLI v2.8 and above, but you can edit your Xcode project to configure it.
+
+In the `src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj` file, set all `IPHONEOS_DEPLOYMENT_TARGET` properties to `14.0`:
 
 ```title="src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj"
 /* Begin XCBuildConfiguration section */
