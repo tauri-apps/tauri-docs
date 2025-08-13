@@ -1,9 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import NetlifyLight from '@assets/partners/netlify/light.svg';
-import NetlifyDark from '@assets/partners/netlify/dark.svg';
-import MeiliSearchLight from '@assets/partners/meilisearch/light.svg';
-import MeiliSearchDark from '@assets/partners/meilisearch/dark.svg';
+import CrabNebulaLight from '@assets/partners/crabnebula/light.svg';
+import CrabNebulaDark from '@assets/partners/crabnebula/dark.svg';
 
 type SVG = ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
 
@@ -16,25 +14,25 @@ interface Partner {
   description?: string;
 }
 
-const partners: Partner[] = [
+const officialPartners: Partner[] = [
   {
-    name: 'Meilisearch',
-    url: 'https://www.meilisearch.com/',
-    svg: { light: MeiliSearchLight, dark: MeiliSearchDark },
-  },
-  {
-    name: 'Netlify',
-    url: 'https://netlify.com/',
-    svg: { light: NetlifyLight, dark: NetlifyDark },
+    name: 'CrabNebula',
+    url: 'https://crabnebula.dev/',
+    svg: { light: CrabNebulaLight, dark: CrabNebulaDark },
   },
 ];
 ---
 
 <div class="partners-container">
-  <div class="partners">
+  <div class="official-partners">
     {
-      partners.map((partner) => (
-        <a href={partner.url} target="_blank" rel="noopener noreferrer" class="partner not-content">
+      officialPartners.map((partner) => (
+        <a
+          href={partner.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="partner official not-content"
+        >
           <div class="partner-logo">
             {partner.svg && (
               <>
