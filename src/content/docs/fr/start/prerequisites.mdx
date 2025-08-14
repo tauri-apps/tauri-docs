@@ -121,41 +121,7 @@ sudo apk add \
   </TabItem>
   <TabItem label="NixOS">
 
-:::note
-Cela installera également Rust et Node.js ainsi que le CLI `cargo-tauri` pour vous, vous pouvez donc sauter ces étapes ci-dessous.
-:::
-
-Using `nix-shell`:
-
-```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
-
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
-}
-```
+Instructions for Nix/NixOS can be found in the [NixOS Wiki](https://wiki.nixos.org/wiki/Tauri).
 
   </TabItem>
 </Tabs>
