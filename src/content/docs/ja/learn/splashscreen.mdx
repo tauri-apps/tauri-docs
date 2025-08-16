@@ -44,14 +44,20 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    プロジェクトの開発を始める前に、セットアップが意図したとおりに動作していることを確認するために、初期テンプレートをビルドして実行することが重要です。
 
-   {' '}
+<ShowSolution>
 
-   <ShowSolution>
-     ```sh frame=none # 正しいディレクトリにいることを確認してください cd
-     splashscreen-lab # 依存関係をインストール pnpm install #
-     アプリのビルドと実行 pnpm tauri dev ```
-     <Image src={step_1} alt="Successful run of the created template app." />
-   </ShowSolution>
+```sh frame=none
+# 正しいディレクトリにいることを確認してください
+cd splashscreen-lab
+# 依存関係をインストール
+pnpm install
+# アプリのビルドと実行
+pnpm tauri dev
+```
+
+<Image src={step_1} alt="Successful run of the created template app." />
+
+</ShowSolution>
 
 1. ##### `tauri.conf.json` に新しいウィンドウを登録
 
@@ -59,24 +65,22 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
    起動時に動的にウィンドウを作成することもできますが、簡素化のために、そうはせずに直接登録することにします。
    `main` というラベルのウィンドウが「非表示」ウィンドウとして、`splashscreen` というラベルのウィンドウが「直接表示」されるウィンドウとして作成されていることを確認してください。その他のオプション項目はどれも、デフォルト設定のままでも、好みに応じて調整しても構いません。
 
-    <ShowSolution>
-
-```json
-// src-tauri/tauri.conf.json
-{
-  "windows": [
-    {
-      "label": "main",
-      "visible": false
-    },
-    {
-      "label": "splashscreen",
-      "url": "/splashscreen"
-    }
-  ]
-}
-```
-
+<ShowSolution>
+ ```json
+ // src-tauri/tauri.conf.json
+ {
+     "windows": [
+         {
+             "label": "main",
+             "visible": false
+         },
+         {
+             "label": "splashscreen",
+             "url": "/splashscreen"
+         }
+     ]
+ }
+ ```
  </ShowSolution>
 
 1. ##### スプラッシュスクリーンをホストする新しいページの作成
@@ -87,8 +91,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    ここで重要なのは、「URL `/splashscreen`」にアクセスでき、スプラッシュスクリーンに表示したいコンテンツが表示されることです。この手順を完了したら、アプリをもう一度実行して確かめてみてください。
 
-    <ShowSolution>
-
+<ShowSolution>
 ```html
 // /splashscreen.html
 <!doctype html>
@@ -111,7 +114,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 ```
 
  <Image src={step_3} alt="The splashscreen we just created."/>
- </ShowSolution>
+</ShowSolution>
 
 1. ##### 起動タスクの開始
 
@@ -123,7 +126,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    非同期関数では `std::thread::sleep` を使用しないでください。非同期関数は、並列ではなく同時実行環境で協調的に実行されます。つまり、Tokio タスクの代わりにこの `std::thread::sleep` 関数でスレッドをスリープ状態にすると、そのスレッドで実行するようにスケジュールされているすべてのタスクの実行がロックされ、アプリがフリーズします。
 
-   <ShowSolution>
+<ShowSolution>
 
 ```sh frame=none
 # `Cargo.toml`ファイルがある場所でこのコマンドを実行
