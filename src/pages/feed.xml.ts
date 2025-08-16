@@ -34,7 +34,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       pubDate: post.id.startsWith('blog') ? post.data.date : getTimestamp(post.id),
       description: post.id.startsWith('blog') ? post.data.excerpt : post.data.description,
-      link: `/${post.slug}/`,
+      link: `/${post.id}/`,
     })),
   });
 }

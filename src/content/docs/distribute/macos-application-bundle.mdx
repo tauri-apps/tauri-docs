@@ -21,6 +21,12 @@ To package your app as a macOS application bundle you can use the Tauri CLI and 
   cargo="cargo tauri build --bundles app"
 />
 
+:::note
+
+GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) crate to fix this issue.
+
+:::
+
 ## File structure
 
 The macOS app bundle is a directory with the following structure:

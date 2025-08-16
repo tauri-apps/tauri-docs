@@ -5,6 +5,7 @@ packages:
   - packages/tauri-typedoc-theme
   - packages/releases-generator
   - packages/compatibility-table
+  - packages/fetch-sponsors
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild

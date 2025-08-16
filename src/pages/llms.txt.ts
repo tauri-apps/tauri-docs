@@ -18,9 +18,9 @@ export const GET: APIRoute = async ({ params, request }) => {
     if (items.length > 0) {
       content += `\n${n++}. ${prefix.charAt(0).toUpperCase() + prefix.slice(1)}\n`;
       items.forEach((doc) => {
-        const level = getHeaderLevel(doc.slug);
+        const level = getHeaderLevel(doc.id);
         const indent = ' '.repeat(level - 2);
-        content += `${indent}- [${doc.data.title}](#${doc.slug})\n`;
+        content += `${indent}- [${doc.data.title}](#${doc.id})\n`;
       });
     }
   }
