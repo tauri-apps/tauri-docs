@@ -1,0 +1,75 @@
+---
+title: AppImage で配布
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+「`AppImage`」は、システムにインストールされているパッケージに依存せず、代わりにアプリケーションに必要な依存関係とファイルをすべてバンドルした配布形式です。このため、出力ファイルは大きくなりますが、多くの Linux ディストリビューションでサポートされており、インストールなしで実行できるため、配布が容易です。ユーザーは、ファイルを実行可能ファイル（`chmod a+x MyProject.AppImage`）にするだけで、実行できます（`./MyProject.AppImage`）。
+
+AppImage は便利で、各ディストリビューションのパッケージ・マネージャー用のパッケージを作成できない場合でも、配布プロセスを簡素化します。とは言っても、ファイル・サイズが元々の 2～6 MB 程度から 70 MB 以上となってしまうため、その使用は慎重に行なう必要があります。
+
+## GStreamer によるマルチメディアサポート
+
+あなたのアプリがオーディオ／ビデオの再生を行なう場合は、`tauri.conf.json > bundle > linux > appimage > bundleMediaFramework`（「メディア・フレームワークをバンドル」フラグ）を有効にする必要があります。これにより、メディアの再生に必要な gstreamer ファイルが追加されるため、AppImage バンドルのサイズが増加します。このフラグは現在、Ubuntu のビルド・システムでのみ完全な対応が行なわれています。アプリの実行時に必要となるかもしれないプラグインがすべて、自分のビルド・システムにインストールされていることを確認してください。
+
+:::caution
+
+[GStreamer] の `ugly` パッケージ内のプラグインには、あなたの「アプリの一部として配布することが困難」になるかもしれないライセンスになっているものがあります。
+
+<TranslationNote lang="ja">
+
+**GStramer** のライセンス問題：　GStreamer 本体は LGPL でライセンスされていますが、プラグインのライブラリ群の中には別のライセンスで配布されている場合があるようですので、使用されているプラグインにライセンスにご注意ください。ライセンス関連の詳細は [GStreamer website]（英語サイト）を参照してください。
+
+</TranslationNote>
+
+:::
+
+{/* TODO: Add some reference links for gst setup/plugins */}
+
+## カスタム・ファイル
+
+Tauriの「`resources` 機能」（「[追加ファイルの埋め込み](/ja/develop/resources/)」の章を参照）を用いずにカスタム・ファイルを AppImage に含めるためには、対象のファイルやフォルダのリストを `tauri.conf.json > bundle > linux > appimage > files` に指定します。この設定オブジェクトは、AppImage 内のパスを、あなたのファイルシステム上のファイルへのパスに、`tauri.conf.json` ファイルからの相対パスで展開（マッピング）します。以下が設定事例です：
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "appimage": {
+        "files": {
+          "/usr/share/README.md": "../README.md", // 「../README.md」ファイルを「<appimage>/usr/share/README.md」にコピー
+          "/usr/assets": "../assets/" // 「../assets」ディレクトリのすべてを「<appimage>/usr/assets」にコピー
+        }
+      }
+    }
+  }
+}
+```
+
+:::note
+
+現時点では、宛先のパスは `/usr/` で始まる必要があることに注意してください。
+
+:::
+
+## ARM ベースのデバイス用 AppImages
+
+Tauri が使用している AppImage ツールの「`linuxdeploy`」は、現在 ARM AppImage との[クロスコンパイルをサポートしていません]。つまり、ARM AppImage は ARM デバイス上またはエミュレータ上でのみビルドが可能となります。
+
+アプリをビルドするためにエミュレーション環境の「QEMU」を利用するワークフローの事例については、[GitHub Action 設定ガイド](/ja/distribute/pipelines/github/#arm-runner-compilation) の章をご覧ください。ただし、この処理は非常に遅いため、Build Minutes（ビルド時間）が無料のパブリック・リポジトリでのみ推奨されます。プライベート・リポジトリでは、GitHub の「ARM ランナー」（上記リンク）の方がコスト効率が良く、セットアップもはるかに簡単です。
+
+<TranslationNote lang="ja">
+
+**QEMU**　読み「キューエミュ」。オープンソースの CPU／システム・エミュレータ。詳しくは [Wikipedia](https://ja.wikipedia.org/wiki/QEMU) を参照してください。
+
+</TranslationNote>
+
+[クロスコンパイルをサポートしていません]: https://github.com/linuxdeploy/linuxdeploy/issues/258
+[GStreamer]: https://ja.wikipedia.org/wiki/GStreamer
+[GStreamer website]: https://gstreamer.freedesktop.org/documentation/frequently-asked-questions/licensing.html?gi-language=c
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
