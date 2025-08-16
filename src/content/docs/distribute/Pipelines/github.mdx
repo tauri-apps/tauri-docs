@@ -141,6 +141,10 @@ Carefully read through the [Usage limits, billing, and administration](https://d
 
 ## Arm Runner Compilation
 
+:::note[August 2025 Update]
+Github has [released](https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/#get-started) publicly available `ubuntu-22.04-arm` and `ubuntu-24.04-arm`. You can use these to build your app with no changes, a typical build should take ~10 minutes.
+:::
+
 This workflow uses [`pguyot/arm-runner-action`](https://github.com/pguyot/arm-runner-action) to compile directly on an emulated Arm runner. This bridges the gap for missing cross-architecture build support in the AppImage tooling.
 
 :::danger
