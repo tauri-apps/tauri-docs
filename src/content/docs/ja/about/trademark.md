@@ -9,7 +9,7 @@ i18nReady: true
 
 この方針文書「商標ガイドライン」は、「The Tauri Programme within the Commons Conservancy」 が所有する「TAURI 商標」、「サービス・マーク」、および「ロゴ」の使用方法を理解していただくために作成されています。
 
-> > > 《訳注》 **The Tauri Programme within the Commons Conservancy**　Tauri 開発チームの公式名称。「コモンズ・コンサーヴァンシー内の Tauri プログラム」（共有財産保護管理団体サイト内に登録されている Tauri プログラム、の意）。法令関連内容を示す本稿では、原文表記とします。「コモンズ・コンサーヴァンシー」については、[Tauri の管理体制（ガバナンス）](/ja/about/governance.md) を参照してください。
+>  《訳注》 **The Tauri Programme within the Commons Conservancy**　Tauri 開発チームの公式名称。「コモンズ・コンサーヴァンシー内の Tauri プログラム」（共有財産保護管理団体サイト内に登録されている Tauri プログラム、の意）。法令関連内容を示す本稿では、原文表記とします。「コモンズ・コンサーヴァンシー」については、[Tauri の管理体制（ガバナンス）](/ja/about/governance/) を参照してください。
 
 Tauri のソフトウェアは自由／無償のオープンソース・ソフトウェア・ライセンスに基づいて提供されていますが、その著作権ライセンスには Tauri の商標を使用するライセンスは含まれていません。この方針文書は、「背景法」および「コミュニティの期待」に基づいて Tauri の商標を使用する方法を説明することを目的としています。
 
@@ -18,7 +18,7 @@ Tauri のソフトウェアは自由／無償のオープンソース・ソフ�
 - Tauri の「文字商標」と「サービス／マーク」：　TAURI、TAO、WRY
 - Tauri の「ロゴ」：　The TAURI、TAO、WRY の各ロゴ（ならびに、すべての視覚的な派生物）
 
-> > > 《訳注》 **文字商標**　原文は「word trademarks」。企業名や製品名の文字だけを使って作成された商標。「ワード・マーク word mark」。
+>  《訳注》 **文字商標**　原文は「word trademarks」。企業名や製品名の文字だけを使って作成された商標。「ワード・マーク word mark」。
 
 この方針文書は、登録されているか否かに関係なく、すべての「商標」と「サービス・マーク」に適用されます。
 
@@ -51,7 +51,7 @@ TAURI は、コンピュータ機器用のアプリケーションを作成す�
 
 Tauri ソフトウェア（TAURI CORE）の改変版を配布する場合は、Tauri のロゴと名前をすべて削除する必要があります。しかし、オリジナルのライセンスを SPDX 形式で残さなければなりません。あなたが提供しようとしているソフトウェアの出所を誠実に記述するために、Tauri の「ワード・マーク」は使用できますが、Tauri の「ロゴ」は使用できません。たとえば、配布するコードが Tauri ソフトウェアの改変版である場合、「このソフトウェアは、TAURI ソフトウェアのソースコードから派生したものです」と記載できます。
 
-> > > 《訳注》 **SPDX 形式**　[Software Package Data Exchange](https://ja.wikipedia.org/wiki/Software_Package_Data_Exchange)「ソフトウェア・パッケージ・データ交換」の略。
+>  《訳注》 **SPDX 形式**　[Software Package Data Exchange](https://ja.wikipedia.org/wiki/Software_Package_Data_Exchange)「ソフトウェア・パッケージ・データ交換」の略。
 
 ### Tauri との互換性に関する告知について
 
@@ -129,10 +129,10 @@ Tauri ではロゴの「高コントラスト」版も用意されていおり�
 
 上記のガイドラインは、http://www.modeltrademarkguidelines.org で入手可能な「モデル商標ガイドライン」に基づいており、「クリエイティブ・コモンズ・アトリビューション 3.0 非移植ライセンス 1.0版 2022/08/20付」 (https://creativecommons.org/licenses/by/3.0/deed.en_EU) に基づいて使用されています。
 
-> > > 《訳注》　原文表記は以下のとおり：
-> > >
-> > > - **モデル商標ガイドライン**　[the Model Trademark Guidelines](http://www.modeltrademarkguidelines.org)
-> > > - **クリエイティブ・コモンズ・アトリビューション 3.0 非移植ライセンス** [a Creative Commons Attribution 3.0 Unported license](https://creativecommons.org/licenses/by/3.0/deed.en_EU)
+>  《訳注》　原文表記は以下のとおり：
+> 
+>  - **モデル商標ガイドライン**　[the Model Trademark Guidelines](http://www.modeltrademarkguidelines.org)
+>  - **クリエイティブ・コモンズ・アトリビューション 3.0 非移植ライセンス** [a Creative Commons Attribution 3.0 Unported license](https://creativecommons.org/licenses/by/3.0/deed.en_EU)
 
 <div style="text-align: right;">
   【※ この日本語版は、「Nov 12, 2024 英語版」に基づいています】
