@@ -35,42 +35,42 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    この段階を踏んだ説明手順では `pnpm` を使用して進めていきますが、別のパッケージ・マネージャーも選択可能です。選択したパッケージ・マネージャーに応じてコマンドを置き換えてください。
 
-<ShowSolution>
+    <ShowSolution>
 
-```
-pnpm create tauri-app
-```
+    ```
+    pnpm create tauri-app
+    ```
 
-```
-✔ Project name · plugin-permission-demo
-✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, bun)
-✔ Choose your package manager · pnpm
-✔ Choose your UI template · Vanilla
-✔ Choose your UI flavor · TypeScript
+    ```
+    ✔ Project name · plugin-permission-demo
+    ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, bun)
+    ✔ Choose your package manager · pnpm
+    ✔ Choose your UI template · Vanilla
+    ✔ Choose your UI flavor · TypeScript
 
-Template created! To get started run:
-cd plugin-permission-demo
-pnpm install
-pnpm tauri dev
-```
+    Template created! To get started run:
+    cd plugin-permission-demo
+    pnpm install
+    pnpm tauri dev
+    ```
 
-  <TranslationNote lang="ja">
-  
-  ※ 処理内容の参考訳：
-     ✔ プロジェクト名　・・・
-     ✔ フロントエンドに用いる言語を選択　・・・
-     ✔ パッケージ・マネージャーを選択　・・・
-     ✔ UI テンプレートを選択　・・・
-     ✔ UI フレーバーを選択　・・・
+    <TranslationNote lang="ja">
+    
+    ※ 処理内容の参考訳：
+      ✔ プロジェクト名　・・・
+      ✔ フロントエンドに用いる言語を選択　・・・
+      ✔ パッケージ・マネージャーを選択　・・・
+      ✔ UI テンプレートを選択　・・・
+      ✔ UI フレーバーを選択　・・・
 
-     テンプレートが作成されました！　始めるには以下を実行：
-     cd （作成するプロジェクトのディレクトリ名）
-     pnpm install
-     pnpm tauri dev
+      テンプレートが作成されました！　始めるには以下を実行：
+      cd （作成するプロジェクトのディレクトリ名）
+      pnpm install
+      pnpm tauri dev
 
-  </TranslationNote>
+    </TranslationNote>
 
-</ShowSolution>
+    </ShowSolution>
 
 2.  ### 「ファイルシステム」プラグインをアプリケーションに追加
 
@@ -81,7 +81,7 @@ pnpm tauri dev
 
     また、プラグインが Tauri コミュニティの取り組みとして行なわれているものであれば、[crates.io](https://crates.io/search?q=tauri-plugin-) 上で十中八九見つかるはずです。「`tauri-plugin-<プラグイン名>`」のように検索してみてください：
 
-<ShowSolution>
+    <ShowSolution>
 
     <TranslationNote lang="ja">
 
@@ -113,7 +113,7 @@ pnpm tauri dev
     }
     ```
 
-</ShowSolution>
+    </ShowSolution>
 
 3.  ### 「ファイルシステム」プラグインのデフォルト・アクセス権の確認
 
@@ -124,133 +124,133 @@ pnpm tauri dev
     コミュニティ製プラグインに関するデフォルトのアクセス権設定を調べるには、そのプラグインのソース・コードを精査する必要があります。
     その内容は `your-plugin/permissions/default.toml` に定義されているはずです。
 
-<ShowSolution>
+    <ShowSolution>
 
-```
-"$schema" = "schemas/schema.json"
+    ```
+    "$schema" = "schemas/schema.json"
 
-   [default]
-   description = """
+      [default]
+      description = """
 
-   # Tauri `fs` default permissions
+      # Tauri `fs` default permissions
 
-   This configuration file defines the default permissions granted to the filesystem.
+      This configuration file defines the default permissions granted to the filesystem.
 
-   ### Granted Permissions
+      ### Granted Permissions
 
-   This default permission set enables all read-related commands and allows access to the `$APP` folder and sub directories created in it.
-   The location of the `$APP` folder depends on the operating system, where the application is run.
+      This default permission set enables all read-related commands and allows access to the `$APP` folder and sub directories created in it.
+      The location of the `$APP` folder depends on the operating system, where the application is run.
 
-   In general the `$APP` folder needs to be manually created
-   by the application at runtime, before accessing files or folders
-   in it is possible.
+      In general the `$APP` folder needs to be manually created
+      by the application at runtime, before accessing files or folders
+      in it is possible.
 
-   ### Denied Permissions
+      ### Denied Permissions
 
-   This default permission set prevents access to critical components
-   of the Tauri application by default.
-   On Windows the webview data folder access is denied.
+      This default permission set prevents access to critical components
+      of the Tauri application by default.
+      On Windows the webview data folder access is denied.
 
-   """
-   permissions = ["read-all", "scope-app-recursive", "deny-default"]
+      """
+      permissions = ["read-all", "scope-app-recursive", "deny-default"]
 
-```
+    ```
 
-   <TranslationNote lang="ja">
-    
-    〔参考訳〕
+      <TranslationNote lang="ja">
+        
+        〔参考訳〕
 
-    # Tauri 'fs' デフォルト・アクセス権
+        # Tauri 'fs' デフォルト・アクセス権
 
-    この設定ファイルは、「ファイルシステム fs」プラグインに付与されるデフォルトのアクセス権を定義します。
+        この設定ファイルは、「ファイルシステム fs」プラグインに付与されるデフォルトのアクセス権を定義します。
 
-    ### 許可されたアクセス権
+        ### 許可されたアクセス権
 
-    このデフォルトのアクセス「許可」権セットは、すべての読み取り関連コマンドを有効にし、「`$APP`」フォルダとその中に作成されているサブディレクトリへのアクセスを許可します。
-    「`$APP`」フォルダの場所は、アプリケーションが実行されるオペレーティング・システムによって異なります。
+        このデフォルトのアクセス「許可」権セットは、すべての読み取り関連コマンドを有効にし、「`$APP`」フォルダとその中に作成されているサブディレクトリへのアクセスを許可します。
+        「`$APP`」フォルダの場所は、アプリケーションが実行されるオペレーティング・システムによって異なります。
 
-    通常、「`$APP`」フォルダ内のファイルやフォルダがアクセス可能になるには、アプリケーションによって実行時に手作業で「`$APP`」フォルダを生成する必要があります。
+        通常、「`$APP`」フォルダ内のファイルやフォルダがアクセス可能になるには、アプリケーションによって実行時に手作業で「`$APP`」フォルダを生成する必要があります。
 
-    ### 拒否されたアクセス権
+        ### 拒否されたアクセス権
 
-    このデフォルトのアクセス「拒否」権セットは、デフォルトで Tauri アプリケーションの重要なコンポーネントへのアクセスを防止します。
-    Windows では、Webview データ・フォルダーへのアクセスが拒否されます。
+        このデフォルトのアクセス「拒否」権セットは、デフォルトで Tauri アプリケーションの重要なコンポーネントへのアクセスを防止します。
+        Windows では、Webview データ・フォルダーへのアクセスが拒否されます。
 
-   </TranslationNote>
+      </TranslationNote>
 
-</ShowSolution>
+    </ShowSolution>
 
 4. ### 適切なアクセス権の見つけ方
 
-手順 4 では、システムへの最小限のアクセスで、コマンドをフロントエンドに公開するために必要なアクセス権を見つける方法について説明します。
+    手順 4 では、システムへの最小限のアクセスで、コマンドをフロントエンドに公開するために必要なアクセス権を見つける方法について説明します。
 
-「`fs`」プラグインには自動生成されたアクセス権があり、個々のコマンドの無効化／有効化や、グローバル・スコープの許可／禁止を行ないます。
-アクセス権の詳細は、[公式ドキュメント](/ja/plugin/file-system/#permission-table) またはプラグインのソースコード（`fs/permissions/autogenerated`）を参照してください。
+    「`fs`」プラグインには自動生成されたアクセス権があり、個々のコマンドの無効化／有効化や、グローバル・スコープの許可／禁止を行ないます。
+    アクセス権の詳細は、[公式ドキュメント](/ja/plugin/file-system/#permission-table) またはプラグインのソースコード（`fs/permissions/autogenerated`）を参照してください。
 
-たとえば、ユーザーの `$HOME` フォルダにあるテキスト・ファイル「`test.txt`」への書き込みを有効にしたいとします。
+    たとえば、ユーザーの `$HOME` フォルダにあるテキスト・ファイル「`test.txt`」への書き込みを有効にしたいとします。
 
-そのためは、「自動生成されたアクセス権」の中で、`allow-write-text-file` のようなテキスト・ファイルへの書き込みを許可する権限を検索し、次に `$HOME/test.txt` ファイルへのアクセスを許可するスコープを検索します。
+    そのためは、「自動生成されたアクセス権」の中で、`allow-write-text-file` のようなテキスト・ファイルへの書き込みを許可する権限を検索し、次に `$HOME/test.txt` ファイルへのアクセスを許可するスコープを検索します。
 
-これらのアクセス権を `src-tauri/tauri.conf.json` の「セキュリティ・レベル `capabilities`」セクション、または「`src-tauri/capabilities/` フォルダー内のファイル」に追加する必要があります。
-デフォルトでは、`src-tauri/capabilities/default.json` の中には既に修正可能な「セキュリティ機能」があります。
+    これらのアクセス権を `src-tauri/tauri.conf.json` の「セキュリティ・レベル `capabilities`」セクション、または「`src-tauri/capabilities/` フォルダー内のファイル」に追加する必要があります。
+    デフォルトでは、`src-tauri/capabilities/default.json` の中には既に修正可能な「セキュリティ機能」があります。
 
-<ShowSolution>
+    <ShowSolution>
 
-```json title="src-tauri/capabilities/default.json" del={18} ins={19}
-{
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "image:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
-    "shell:allow-open",
-    "fs:default",
-    "fs:allow-write-text-file"
-  ]
-}
-```
-
-</ShowSolution>
-
-「`fs`」プラグインには `$HOME` フォルダー全体にアクセスするための自動生成されたスコープしか設定されていないため、自分に必要な独自のスコープを設定する必要があります。
-この独自のスコープは `write-text-file` コマンドのみを有効にして、`test.txt` ファイルだけが公開可能になるようにすべきです。
-
-<ShowSolution>
-```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
-   {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": [
-    "main"
-  ],
-  "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "image:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
-    "shell:allow-open",
-    "fs:allow-write-text-file",
+    ```json title="src-tauri/capabilities/default.json" del={18} ins={19}
     {
-      "identifier": "fs:allow-write-text-file",
-      "allow": [{ "path": "$HOME/test.txt" }]
-    },
-  ]
-}
-```
-</ShowSolution>
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "default",
+      "description": "Capability for the main window",
+      "windows": ["main"],
+      "permissions": [
+        "path:default",
+        "event:default",
+        "window:default",
+        "app:default",
+        "image:default",
+        "resources:default",
+        "menu:default",
+        "tray:default",
+        "shell:allow-open",
+        "fs:default",
+        "fs:allow-write-text-file"
+      ]
+    }
+    ```
+
+    </ShowSolution>
+
+    「`fs`」プラグインには `$HOME` フォルダー全体にアクセスするための自動生成されたスコープしか設定されていないため、自分に必要な独自のスコープを設定する必要があります。
+    この独自のスコープは `write-text-file` コマンドのみを有効にして、`test.txt` ファイルだけが公開可能になるようにすべきです。
+
+    <ShowSolution>
+    ```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
+      {
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "default",
+      "description": "Capability for the main window",
+      "windows": [
+        "main"
+      ],
+      "permissions": [
+        "path:default",
+        "event:default",
+        "window:default",
+        "app:default",
+        "image:default",
+        "resources:default",
+        "menu:default",
+        "tray:default",
+        "shell:allow-open",
+        "fs:allow-write-text-file",
+        {
+          "identifier": "fs:allow-write-text-file",
+          "allow": [{ "path": "$HOME/test.txt" }]
+        },
+      ]
+    }
+    ```
+    </ShowSolution>
 
 5.  ### アクセス権の実地テスト
 

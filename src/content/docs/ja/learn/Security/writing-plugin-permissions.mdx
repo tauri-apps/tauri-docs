@@ -27,18 +27,18 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    最新バージョンのインストールが行なわれていれば、Tauri CLI を使用してプラグインの作成を開始できます。
 
-{/* prettier-ignore */}
-<ShowSolution>
-```sh
-mkdir -p tauri-learning
-cd tauri-learning
-cargo tauri plugin new test
-cd tauri-plugin-test
-pnpm install
-pnpm build
-cargo build
-```
-</ShowSolution>
+  {/* prettier-ignore */}
+  <ShowSolution>
+  ```sh
+  mkdir -p tauri-learning
+  cd tauri-learning
+  cargo tauri plugin new test
+  cd tauri-plugin-test
+  pnpm install
+  pnpm build
+  cargo build
+  ```
+  </ShowSolution>
     
 2. ### 新しいコマンドの作成
 
@@ -159,7 +159,7 @@ cargo build
 
    このプラグイン例ではデフォルトで `write_custom_file` コマンドを公開する必要があるため、このコマンドを `default.toml` のアクセス権限（permissions）に追加する必要があります。
 
-<ShowSolution>
+  <ShowSolution>
 
     先ほど公開した新しいコマンドを許可するために、このコマンドをデフォルトのアクセス権限のセットに追加します。
 
@@ -170,7 +170,7 @@ cargo build
     permissions = ["allow-ping", "allow-write-custom-file"]
     ```
 
-</ShowSolution>
+    </ShowSolution>
 
 5. ### サンプル・アプリケーションからテスト・コマンドを呼び出す
 
@@ -178,7 +178,7 @@ cargo build
 
    新しいコマンドを追加したので、その新しいコマンドを呼び出すようにフロントエンドを少し変更する必要があります。
 
-<ShowSolution>
+  <ShowSolution>
 
     ```svelte title="src/App.svelte" del={11-13,42-45} ins={14-16,45-49}
     <script>
@@ -245,18 +245,18 @@ cargo build
     </style>
     ```
 
-これを実行して「書き込み」ボタンを押すと、次のような画面が表示されるはずです：
+    これを実行して「書き込み」ボタンを押すと、次のような画面が表示されるはずです：
 
-```
+    ```
 
-success　（成功）
+    success　（成功）
 
-```
+    ```
 
-仮フォルダーには、新しく実装されたプラグイン・コマンドからのメッセージが含まれている `test.txt` ファイルができているはずです。
-🥳
+    仮フォルダーには、新しく実装されたプラグイン・コマンドからのメッセージが含まれている `test.txt` ファイルができているはずです。
+    🥳
 
-</ShowSolution>
+    </ShowSolution>
 
  </Steps>
 

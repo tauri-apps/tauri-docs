@@ -27,39 +27,39 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 <Steps>
 1. ### Tauri アプリで複数のウィンドウを作成する
 
-この演習では、`first`（第一）と `second`（第二）というラベルの付いた二つのウィンドウを持つアプリを作成します。
-Tauri アプリケーションでウィンドウを作成する方法はいくつかあります。
+    この演習では、`first`（第一）と `second`（第二）というラベルの付いた二つのウィンドウを持つアプリを作成します。
+    Tauri アプリケーションでウィンドウを作成する方法はいくつかあります。
 
-#### Tauri 設定ファイルを使用してウィンドウを作成
+    #### Tauri 設定ファイルを使用してウィンドウを作成
 
-Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では次のようになります：
+    Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では次のようになります：
 
-    <ShowSolution>
-    ```javascript
-      "productName": "multiwindow",
-      ...
-      "app": {
-        "windows": [
-          {
-            "label": "first",
-            "title": "First",
-            "width": 800,
-            "height": 600
+        <ShowSolution>
+        ```javascript
+          "productName": "multiwindow",
+          ...
+          "app": {
+            "windows": [
+              {
+                "label": "first",
+                "title": "First",
+                "width": 800,
+                "height": 600
+              },
+              {
+                "label": "second",
+                "title": "Second",
+                "width": 800,
+                "height": 600
+              }
+            ],
           },
-          {
-            "label": "second",
-            "title": "Second",
-            "width": 800,
-            "height": 600
-          }
-        ],
-      },
-      ...
-    }
-    ```
-    </ShowSolution>
+          ...
+        }
+        ```
+        </ShowSolution>
 
-#### プログラムでウィンドウを作成
+    #### プログラムでウィンドウを作成
 
     Rust コード内で Tauri アプリを作成します：
 
@@ -84,7 +84,7 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
     ```
     </ShowSolution>
 
-{/* prettier-ignore */}
+
 2. ### 異なるウィンドウに異なるセキュリティ・レベルを適用
 
     Tauri アプリのウィンドウでは、Tauri バックエンドのさまざまな機能やプラグインを使用できます。
@@ -96,7 +96,6 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
     有効化するアクションのカテゴリごとに「セキュリティ・レベル」ファイルを分割することをお勧めします。
 
     <ShowSolution>
-
     `src-tauri/capabilities` 内の JSON ファイルは、「セキュリティ・レベル」システムに対応済みです。
     そこで、ファイルシステムとダイアログ・ウィンドウに関連するセキュリティ・レベルを `filesystem.json` と `dialog.json` に分割します。
 
@@ -112,14 +111,13 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
     package.json
     README.md
     ```
-
     </ShowSolution>
 
     #### 「第一 `first`」ウィンドウにファイルシステムのセキュリティ・レベルを付与
 
     「`first`」ウィンドウに、`$HOME` ディレクトリの内容への読み取りアクセス権を付与するようにセキュリティ・レベルを設定します。
 
-          <ShowSolution>
+    <ShowSolution>
 
     一つまたは複数のウィンドウ・ラベルを持つ「セキュリティ機能 capability」ファイル内の「`windows` フィールド」を使用します。
 
@@ -145,13 +143,13 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
 
     </TranslationNote>
 
-          </ShowSolution>
+    </ShowSolution>
 
     #### 「第一 `first`」と「第二 `second`」ウィンドウにダイアログ機能を付与
 
     「`first`」と「`second`」ウィンドウに「Yes/No」ダイアログを作成する機能を追加します。
 
-          <ShowSolution>
+    <ShowSolution>
 
     一つまたは複数のウィンドウ・ラベルを持つ「セキュリティ機能」ファイル内の `windows` フィールドを使用します。
 
@@ -165,31 +163,31 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
     }
     ```
 
-          </ShowSolution>
+    </ShowSolution>
 
 3. ### セキュリティ機能をプラットフォーム依存にする
 
-   次に、特定のプラットフォームでのみアクティブになるようにセキュリティ機能をカスタマイズします。
-   以下の事例では、ファイルシステムのセキュリティ機能を `linux` と `windows` でのみ有効にします。
+    次に、特定のプラットフォームでのみアクティブになるようにセキュリティ機能をカスタマイズします。
+    以下の事例では、ファイルシステムのセキュリティ機能を `linux` と `windows` でのみ有効にします。
 
-<ShowSolution>
+    <ShowSolution>
 
-プラットフォーム別に設定するには、セキュリティ機能ファイルの「`platforms` フィールド」で対象プラットフォームを指定します。
+    プラットフォーム別に設定するには、セキュリティ機能ファイルの「`platforms` フィールド」で対象プラットフォームを指定します。
 
-```json title="filesystem.json"
-{
-  "identifier": "fs-read-home",
-  "description": "Allow access file access to home directory",
-  "local": true,
-  "windows": ["first"],
-  "permissions": ["fs:allow-home-read"],
-  "platforms": ["linux", "windows"]
-}
-```
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": ["fs:allow-home-read"],
+      "platforms": ["linux", "windows"]
+    }
+    ```
 
-現在指定可能なプラットフォームは、`linux`、`windows`、`macos`、`android`、および `ios` です。
+    現在指定可能なプラットフォームは、`linux`、`windows`、`macos`、`android`、および `ios` です。
 
-</ShowSolution>
+    </ShowSolution>
 
 </Steps>
 
