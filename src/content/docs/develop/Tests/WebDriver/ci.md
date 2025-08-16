@@ -6,19 +6,20 @@ sidebar:
 i18nReady: true
 ---
 
-Utilizing Linux and some programs to create a fake display, it is possible to run [WebDriver] tests with
-[`tauri-driver`] on your CI. The following example uses the [WebdriverIO] example we [previously built together] and
+It is possible to run [WebDriver] tests with [`tauri-driver`] on your CI. The following example uses the [WebdriverIO] example we [previously built together] and
 GitHub Actions.
 
-This means the following assumptions:
+The WebDriver tests are executed on Linux by creating a fake display.
+Some CI systems such as GitHub Actions also support running WebDriver tests on Windows.
 
-1. The Tauri application is in the repository root and the binary builds when running `cargo build --release`.
-2. The [WebDriverIO] test runner is in the `webdriver/webdriverio` directory and runs when `yarn test` is used in that
-   directory.
+## GitHub Actions
 
-The following is a commented GitHub Actions workflow file at `.github/workflows/webdriver.yml`
+The following GitHub Actions assumes:
 
-```yaml
+1. The Tauri application is in the `src-tauri` folder.
+2. The [WebDriverIO] test runner is in the `e2e-tests` directory and runs when `yarn test` is used in that directory.
+
+```yaml title=".github/workflows/webdriver.yml"
 # run this action when the repository is pushed to
 on: [push]
 
@@ -31,8 +32,14 @@ jobs:
     # the display name of the test job
     name: WebDriverIO Test Runner
 
-    # we want to run on the latest linux environment
-    runs-on: ubuntu-22.04
+    # run on the matrix platform
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      # do not fail other matrix runs if one fails
+      fail-fast: false
+      # set all platforms our test should run on
+      matrix:
+        platform: [ubuntu-latest, windows-latest]
 
     # the steps our job runs **in order**
     steps:
@@ -42,55 +49,72 @@ jobs:
       # install system dependencies that Tauri needs to compile on Linux.
       # note the extra dependencies for `tauri-driver` to run which are: `webkit2gtk-driver` and `xvfb`
       - name: Tauri dependencies
+        if: matrix.platform == 'ubuntu-latest'
         run: |
-          sudo apt update && sudo apt install -y \
-            libwebkit2gtk-4.1-dev \
-            build-essential \
-            curl \
-            wget \
-            file \
-            libxdo-dev \
-            libssl-dev \
-            libayatana-appindicator3-dev \
-            librsvg2-dev \
-            webkit2gtk-driver \
-            xvfb
+          sudo apt-get update &&
+          sudo apt-get install -y
+          libwebkit2gtk-4.1-dev
+          libayatana-appindicator3-dev
+          webkit2gtk-driver
+          xvfb
 
+      # install a matching Microsoft Edge Driver version using msedgedriver-tool
+      - name: install msdgedriver (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: |
+          cargo install --git https://github.com/chippers/msedgedriver-tool
+          & "$HOME/.cargo/bin/msedgedriver-tool.exe"
+          $PWD.Path >> $env:GITHUB_PATH
+
+      # install latest stable Rust release
       - name: Setup rust-toolchain stable
-        id: rust-toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      # we run our rust tests before the webdriver tests to avoid testing a broken application
+      # setup caching for the Rust target folder
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      # we run our Rust tests before the webdriver tests to avoid testing a broken application
       - name: Cargo test
         run: cargo test
 
-      # build a release build of our application to be used during our WebdriverIO tests
-      - name: Cargo build
-        run: cargo build --release
-
       # install the latest stable node version at the time of writing
-      - name: Node 20
+      - name: Node 24
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: 'yarn'
 
-      # install our Node.js dependencies with Yarn
+      # install the application Node.js dependencies with Yarn
       - name: Yarn install
         run: yarn install --frozen-lockfile
-        working-directory: webdriver/webdriverio
+
+      # install the e2e-tests Node.js dependencies with Yarn
+      - name: Yarn install
+        run: yarn install --frozen-lockfile
+        working-directory: e2e-tests
 
       # install the latest version of `tauri-driver`.
       # note: the tauri-driver version is independent of any other Tauri versions
       - name: Install tauri-driver
         run: cargo install tauri-driver --locked
 
-      # run the WebdriverIO test suite.
+      # run the WebdriverIO test suite on Linux.
       # we run it through `xvfb-run` (the dependency we installed earlier) to have a fake
       # display server which allows our application to run headless without any changes to the code
-      - name: WebdriverIO
+      - name: WebdriverIO (Linux)
+        if: matrix.platform == 'ubuntu-latest'
         run: xvfb-run yarn test
-        working-directory: webdriver/webdriverio
+        working-directory: e2e-tests
+
+      # run the WebdriverIO test suite on Windows.
+      # in this case we can run the tests directly.
+      - name: WebdriverIO (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: yarn test
+        working-directory: e2e-tests
 ```
 
 [previously built together]: /develop/tests/webdriver/example/webdriverio/

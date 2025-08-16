@@ -19,12 +19,12 @@ export function groupDocsByPrefix(
   prefixes.forEach((prefix) => {
     grouped.set(
       prefix,
-      docs.filter((doc) => doc.slug.startsWith(prefix))
+      docs.filter((doc) => doc.id.startsWith(prefix))
     );
   });
   // sort each group by slug
   for (const [prefix, items] of grouped) {
-    items.sort((a, b) => a.slug.localeCompare(b.slug));
+    items.sort((a, b) => a.id.localeCompare(b.id));
   }
 
   return grouped;
@@ -38,7 +38,7 @@ export const GET: APIRoute = async ({ params, request }) => {
   const { llm_slug } = params;
   const slug = llm_slug?.replace(/\/llms\.txt$/, '');
   const docs = await getCollection('docs');
-  const doc = docs.find((doc) => doc.slug === slug);
+  const doc = docs.find((doc) => doc.id === slug);
   if (!doc) {
     return new Response('Not Found', { status: 404 });
   }
@@ -54,7 +54,7 @@ export async function getStaticPaths() {
   const docs = await getCollection('docs');
   const docsBySection = groupDocsByPrefix(llmsTxtSections, docs);
   const paths = Array.from(docsBySection.values())
-    .map((docs) => docs.map((doc) => doc.slug))
+    .map((docs) => docs.map((doc) => doc.id))
     .flat()
     .map((slug) => ({ params: { llm_slug: toLlmsTxtPath(slug) } }));
 

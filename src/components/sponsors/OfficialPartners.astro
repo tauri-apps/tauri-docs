@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import CrabNebulaLight from '@assets/partners/crabnebula/light.svg';
+import CrabNebulaDark from '@assets/partners/crabnebula/dark.svg';
+
+type SVG = ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
+
+interface Partner {
+  name: string;
+  image?: ImageMetadata;
+  // https://docs.astro.build/en/guides/images/#svg-components
+  svg?: { light: SVG; dark: SVG };
+  url: string;
+  description?: string;
+}
+
+const officialPartners: Partner[] = [
+  {
+    name: 'CrabNebula',
+    url: 'https://crabnebula.dev/',
+    svg: { light: CrabNebulaLight, dark: CrabNebulaDark },
+  },
+];
+---
+
+<div class="partners-container">
+  <div class="official-partners">
+    {
+      officialPartners.map((partner) => (
+        <a
+          href={partner.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="partner official not-content"
+        >
+          <div class="partner-logo">
+            {partner.svg && (
+              <>
+                <partner.svg.light class="external-logo light" />
+                <partner.svg.dark class="external-logo dark" />
+              </>
+            )}
+            {partner.image && <Image src={partner.image} alt={partner.name} />}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>

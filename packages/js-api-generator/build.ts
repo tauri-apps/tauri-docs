@@ -169,6 +169,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 class TauriThemeRenderContext extends MarkdownThemeContext {
   constructor(theme: MarkdownTheme, page: MarkdownPageEvent<Reflection>, options: Options) {
     super(theme, page, options);
+    const originalCommentPartial = this.partials.comment;
+
     this.partials = {
       ...this.partials,
       // Formats `@source` to be a single line
@@ -179,6 +181,37 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
         let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
         const sources = model.sources.map((source) => `${source.url}`);
         return label + sources.join(', ');
+      },
+      // Remove heading markers from JSDoc comments to prevent accidental markdown headings
+      comment: function (comment, options) {
+        const headingStringsToReplace = [
+          // known to break
+          '#### Platform-specific',
+          // just to be sure
+          '### Platform-specific',
+        ];
+
+        if (comment?.summary) {
+          comment.summary.forEach((line) => {
+            if (line.kind === 'text' && typeof line.text === 'string') {
+              headingStringsToReplace.forEach((headingString) => {
+                line.text = line.text.replace(headingString, headingString.replace(/^#+\s*/, ''));
+              });
+            }
+          });
+        }
+        if (comment?.blockTags) {
+          comment.blockTags.forEach((tag) => {
+            tag.content.forEach((line) => {
+              if (line.kind === 'text' && typeof line.text === 'string') {
+                headingStringsToReplace.forEach((headingString) => {
+                  line.text = line.text.replace(headingString, headingString.replace(/^#+\s*/, ''));
+                });
+              }
+            });
+          });
+        }
+        return originalCommentPartial.call(this, comment, options);
       },
     };
   }

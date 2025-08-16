@@ -11,7 +11,7 @@ function groupDocsByPrefix(docs: Awaited<ReturnType<typeof getCollection<'docs'>
   prefixes.forEach((prefix) => {
     grouped.set(
       prefix,
-      docs.filter((doc) => doc.slug.startsWith(prefix))
+      docs.filter((doc) => doc.id.startsWith(prefix))
     );
   });
 
@@ -42,9 +42,9 @@ export const GET: APIRoute = async ({ params, request }) => {
     if (items.length > 0) {
       content += `\n## ${prefix.charAt(0).toUpperCase() + prefix.slice(1)}\n`;
       items.forEach((doc) => {
-        const level = getHeaderLevel(doc.slug);
+        const level = getHeaderLevel(doc.id);
         const indent = ' '.repeat(level - 2);
-        content += `${indent}- [${doc.data.title}](https://tauri.app/${doc.slug}/)\n`;
+        content += `${indent}- [${doc.data.title}](https://tauri.app/${doc.id}/)\n`;
       });
     }
   }

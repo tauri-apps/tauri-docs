@@ -1,0 +1,317 @@
+---
+title: 系统托盘
+sidebar:
+  order: 1
+tableOfContents:
+  maxHeadingLevel: 4
+i18nReady: true
+---
+
+import { Icon } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Tauri 允许您为应用程序创建和自定义系统托盘。这可以通过提供对常用操作的快速访问来提升用户体验。
+
+## 配置
+
+首先，更新您的 `Cargo.toml` 以包含系统托盘所需的功能。
+
+```toml title="src-tauri/Cargo.toml"
+tauri = { version = "2.0.0", features = [ "tray-icon" ] }
+```
+
+## 用法
+
+托盘 API 在 JavaScript 和 Rust 中均可使用。
+
+### 创建托盘图标
+
+<Tabs synckey="language">
+<TabItem label="JavaScript">
+使用 [`TrayIcon.new`] 静态函数创建一个新的托盘图标。
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  // 你可以在这里添加一个托盘菜单、标题、任务提示、事件处理程序等等
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+有关自定义选项的更多信息，请参阅 [`TrayIconOptions`] 。
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let tray = TrayIconBuilder::new().build(app)?;
+        Ok(())
+    })
+
+```
+
+有关自定义选项的更多信息，请参阅 [`TrayIconBuilder`] 。
+
+</TabItem>
+</Tabs>
+
+### 更改托盘图标
+
+创建托盘时，您可以使用应用程序图标作为托盘图标：
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { defaultWindowIcon } from '@tauri-apps/api/app';
+
+const options = {
+  icon: await defaultWindowIcon(),
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+let tray = TrayIconBuilder::new()
+    .icon(app.default_window_icon().unwrap().clone())
+    .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+### 添加菜单
+
+要添加一个单击托盘时显示的菜单，您可以使用 `menu` 选项。
+
+:::note
+默认情况下，单击左键或右键单击都会显示菜单。
+
+为了防止左键单击时弹出菜单，请在 Rust 中调用 [`menu_on_left_click(false)`][TrayIconBuilder::menu_on_left_click] 函数
+或在 JavaScript 中将 [`menuOnLeftClick`] 选项设置为 `false` 。
+:::
+
+{/* TODO: link to the menu plugin documentation page */}
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'quit',
+      text: 'Quit',
+    },
+  ],
+});
+
+const options = {
+  menu,
+  menuOnLeftClick: true,
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    menu::{Menu, MenuItem},
+    tray::TrayIconBuilder,
+};
+
+let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+let menu = Menu::with_items(app, &[&quit_i])?;
+
+let tray = TrayIconBuilder::new()
+    .menu(&menu)
+    .menu_on_left_click(true)
+    .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+#### 监听菜单事件
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+在 JavaScript 中，您可以将菜单单击事件监听器直接附加到菜单项：
+
+- 使用共享菜单点击处理程序
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  function onTrayMenuClick(itemId) {
+    // itemId === 'quit'
+  }
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: onTrayMenuClick,
+      },
+    ],
+  });
+  ```
+
+- 使用专用的菜单点击处理程序
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: () => {
+          console.log('quit pressed');
+        },
+      },
+    ],
+  });
+  ```
+
+</TabItem>
+
+<TabItem label="Rust">
+使用 [`TrayIconBuilder::on_menu_event`] 方法附加托盘菜单点击事件监听器：
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+TrayIconBuilder::new()
+    .on_menu_event(|app, event| match event.id.as_ref() {
+        "quit" => {
+            println!("quit menu item was clicked");
+            app.exit(0);
+        }
+        _ => {
+            println!("menu item {:?} not handled", event.id);
+        }
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### 监听托盘事件
+
+托盘图标可能发出以下鼠标事件：
+
+- Click: 当光标收到左键、右键或中键单击时触发，包括鼠标是否被释放的信息
+- Double click: 当光标收到双击左键、右键或中键时触发
+- Enter: 当光标进入托盘图标区域时触发
+- Move: 当光标在托盘图标区域移动时触发
+- Leave: 当光标离开托盘图标区域时触发
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  action: (event) => {
+    switch (event.type) {
+      case 'Click':
+        console.log(
+          `mouse ${event.button} button pressed, state: ${event.buttonState}`
+        );
+        break;
+      case 'DoubleClick':
+        console.log(`mouse ${event.button} button pressed`);
+        break;
+      case 'Enter':
+        console.log(
+          `mouse hovered tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Move':
+        console.log(
+          `mouse moved on tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Leave':
+        console.log(
+          `mouse left tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+    }
+  },
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+有关事件负载的更多信息，请参阅 [`TrayIconEvent`][js TrayIconEvent] 。
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    Manager,
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
+};
+
+TrayIconBuilder::new()
+    .on_tray_icon_event(|tray, event| match event {
+        TrayIconEvent::Click {
+            button: MouseButton::Left,
+            button_state: MouseButtonState::Up,
+            ..
+        } => {
+            println!("left click pressed and released");
+            // 在这个例子中，当点击托盘图标时，将展示并聚焦于主窗口
+            let app = tray.app_handle();
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.unminimize();
+                let _ = window.show();
+                let _ = window.set_focus();
+            }
+        }
+        _ => {
+            println!("unhandled event {event:?}");
+        }
+    })
+```
+
+有关事件类型的更多信息，请参阅 [`TrayIconEvent`][rust TrayIconEvent] 。
+
+</TabItem>
+</Tabs>
+
+[`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
+[`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
+[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
+[TrayIconBuilder::menu_on_left_click]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.menu_on_left_click
+[`menuOnLeftClick`]: /reference/javascript/api/namespacetray/#properties-1
+[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
+[js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
+[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html

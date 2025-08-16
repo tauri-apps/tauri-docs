@@ -190,9 +190,9 @@ Tauri CLI によって読み書きされる環境変数のほとんどは、整�
 - `emit_filter` は、ウィンドウではなく、[`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html) に基づいてフィルタリングするようになりました。
 - `listen_global` を `listen_any` に改称。フィルターやターゲットに関係なく、すべてのイベントの応答を待機するようになりました。
 
-### マルチウェッブビューのサポート
+### マルチウェブビューのサポート
 
-Tauri バージョン 2 では、現在、`unstable` 機能フラグの下に置かれている「マルチウェッブビュー multiwebview」へのサポートが導入されました。
+Tauri バージョン 2 では、現在、`unstable` 機能フラグの下に置かれている「マルチウェブビュー multiwebview」へのサポートが導入されました。
 この機能を導入するため、Rust の `Window` 型を `WebviewWindow` へ、Manager の `get_window` 機能を `get_webview_window` へ、それぞれ改称しました。
 
 `WebviewWindow` JS API タイプは、`@tauri-apps/api/window` ではなく、`@tauri-apps/api/webviewWindow` から再エクスポートされるようになりました。
@@ -1048,8 +1048,9 @@ tauri::Builder::default()
                 {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
-                    let _ = webview_window.show();
-                    let _ = webview_window.set_focus();
+                       let _ = webview_window.unminimize();
+                       let _ = webview_window.show();
+                       let _ = webview_window.set_focus();
                     }
                 }
             })
