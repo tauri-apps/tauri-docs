@@ -84,7 +84,8 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
     ```
     </ShowSolution>
 
-2.  ### 異なるウィンドウに異なるセキュリティ・レベルを適用
+{/* prettier-ignore */}
+2. ### 異なるウィンドウに異なるセキュリティ・レベルを適用
 
     Tauri アプリのウィンドウでは、Tauri バックエンドのさまざまな機能やプラグインを使用できます。
     セキュリティをより強固にするために、各ウィンドウに必要なセキュリティ機能のみを付与することをお勧めします。
@@ -94,7 +95,7 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
 
     有効化するアクションのカテゴリごとに「セキュリティ・レベル」ファイルを分割することをお勧めします。
 
-          <ShowSolution>
+    <ShowSolution>
 
     `src-tauri/capabilities` 内の JSON ファイルは、「セキュリティ・レベル」システムに対応済みです。
     そこで、ファイルシステムとダイアログ・ウィンドウに関連するセキュリティ・レベルを `filesystem.json` と `dialog.json` に分割します。
@@ -112,7 +113,7 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
     README.md
     ```
 
-          </ShowSolution>
+    </ShowSolution>
 
     #### 「第一 `first`」ウィンドウにファイルシステムのセキュリティ・レベルを付与
 
@@ -166,29 +167,29 @@ Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では�
 
           </ShowSolution>
 
-3.  ### セキュリティ機能をプラットフォーム依存にする
+3. ### セキュリティ機能をプラットフォーム依存にする
 
-    次に、特定のプラットフォームでのみアクティブになるようにセキュリティ機能をカスタマイズします。
-    以下の事例では、ファイルシステムのセキュリティ機能を `linux` と `windows` でのみ有効にします。
+   次に、特定のプラットフォームでのみアクティブになるようにセキュリティ機能をカスタマイズします。
+   以下の事例では、ファイルシステムのセキュリティ機能を `linux` と `windows` でのみ有効にします。
 
-          <ShowSolution>
+<ShowSolution>
 
-    プラットフォーム別に設定するには、セキュリティ機能ファイルの「`platforms` フィールド」で対象プラットフォームを指定します。
+プラットフォーム別に設定するには、セキュリティ機能ファイルの「`platforms` フィールド」で対象プラットフォームを指定します。
 
-    ```json title="filesystem.json"
-    {
-      "identifier": "fs-read-home",
-      "description": "Allow access file access to home directory",
-      "local": true,
-      "windows": ["first"],
-      "permissions": ["fs:allow-home-read"],
-      "platforms": ["linux", "windows"]
-    }
-    ```
+```json title="filesystem.json"
+{
+  "identifier": "fs-read-home",
+  "description": "Allow access file access to home directory",
+  "local": true,
+  "windows": ["first"],
+  "permissions": ["fs:allow-home-read"],
+  "platforms": ["linux", "windows"]
+}
+```
 
-    現在指定可能なプラットフォームは、`linux`、`windows`、`macos`、`android`、および `ios` です。
+現在指定可能なプラットフォームは、`linux`、`windows`、`macos`、`android`、および `ios` です。
 
-          </ShowSolution>
+</ShowSolution>
 
 </Steps>
 

@@ -35,7 +35,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    この段階を踏んだ説明手順では `pnpm` を使用して進めていきますが、別のパッケージ・マネージャーも選択可能です。選択したパッケージ・マネージャーに応じてコマンドを置き換えてください。
 
-   <ShowSolution>
+<ShowSolution>
 
 ```
 pnpm create tauri-app
@@ -70,7 +70,7 @@ pnpm tauri dev
 
   </TranslationNote>
 
-   </ShowSolution>
+</ShowSolution>
 
 2.  ### 「ファイルシステム」プラグインをアプリケーションに追加
 
@@ -81,7 +81,7 @@ pnpm tauri dev
 
     また、プラグインが Tauri コミュニティの取り組みとして行なわれているものであれば、[crates.io](https://crates.io/search?q=tauri-plugin-) 上で十中八九見つかるはずです。「`tauri-plugin-<プラグイン名>`」のように検索してみてください：
 
-          <ShowSolution>
+<ShowSolution>
 
     <TranslationNote lang="ja">
 
@@ -113,7 +113,7 @@ pnpm tauri dev
     }
     ```
 
-          </ShowSolution>
+</ShowSolution>
 
 3.  ### 「ファイルシステム」プラグインのデフォルト・アクセス権の確認
 
@@ -124,7 +124,7 @@ pnpm tauri dev
     コミュニティ製プラグインに関するデフォルトのアクセス権設定を調べるには、そのプラグインのソース・コードを精査する必要があります。
     その内容は `your-plugin/permissions/default.toml` に定義されているはずです。
 
-    <ShowSolution>
+<ShowSolution>
 
 ```
 "$schema" = "schemas/schema.json"
@@ -178,9 +178,7 @@ pnpm tauri dev
 
    </TranslationNote>
 
-   </ShowSolution>
-
-````
+</ShowSolution>
 
 4. ### 適切なアクセス権の見つけ方
 
@@ -218,14 +216,14 @@ pnpm tauri dev
     "fs:allow-write-text-file"
   ]
 }
-````
+```
 
-   </ShowSolution>
+</ShowSolution>
 
 「`fs`」プラグインには `$HOME` フォルダー全体にアクセスするための自動生成されたスコープしか設定されていないため、自分に必要な独自のスコープを設定する必要があります。
 この独自のスコープは `write-text-file` コマンドのみを有効にして、`test.txt` ファイルだけが公開可能になるようにすべきです。
 
-   <ShowSolution>
+<ShowSolution>
 ```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
    {
   "$schema": "../gen/schemas/desktop-schema.json",
