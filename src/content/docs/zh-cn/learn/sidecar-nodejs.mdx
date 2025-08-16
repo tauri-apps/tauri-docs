@@ -1,0 +1,187 @@
+---
+title: Node.js 作为侧车进程
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CTA from '@fragments/cta.mdx';
+
+在本指南中，我们将把一个 Node.js 应用程序打包成一个自包含的二进制文件，
+用于作为 Tauri 应用程序中的侧车进程（sidecar） ，而无需最终用户安装 Node.js。
+本示例教程仅适用于桌面操作系统。
+
+我们建议你先阅读通用的 [侧车指南]，以更深入地了解 Tauri 侧车进程的工作原理。
+
+在本示例中，我们将创建一个 Node.js 应用程序，它从命令行读取输入 [process.argv]，并通过 [console.log] 将输出写入标准输出。<br/>
+你可以使用其他替代的进程间通信方式，例如本地服务器、标准输入/输出或本地套接字。
+请注意，每种方式都有其自身的优缺点和安全问题。
+
+## 先决条件
+
+一个已经配置好 shell 插件的 Tauri 应用，并且能够在你本地正常编译和运行。
+
+:::tip[创建一个实验应用]
+
+如果你不是高级用户，我们**强烈建议**你使用此处提供的选项和框架来操作。这只是一个实验环境，完成后你可以随时删除该项目。
+
+<CTA />
+
+- Project name: `node-sidecar-lab`
+- Choose which language to use for your frontend: `Typescript / Javascript`
+- Choose your package manager: `pnpm`
+- Choose your UI template: `Vanilla`
+- Choose your UI flavor: `Typescript`
+- Would you like to setup the project for mobile as well? `yes`
+
+:::
+
+:::note
+请先阅读并按照 [shell 插件指南](/plugin/shell/) 正确地初始化和配置该插件。
+如果没有正确初始化和配置插件，本示例将无法正常工作。
+:::
+
+## 指引
+
+<Steps>
+
+1.  ##### 初始化侧车项目
+
+    让我们创建一个新的 Node.js 项目，用于编写我们的侧车实现。
+    在你的 Tauri 应用程序的根目录下新建一个文件夹（在本例中我们将其命名为 `sidecar-app`），
+    然后在该目录中运行你所使用的 Node.js 包管理器的 init 命令：
+
+    <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
+
+    我们将使用 [pkg] 将我们的 Node.js 应用程序编译为一个自包含的二进制文件。
+    现在我们先将它作为开发依赖安装：
+
+    <CommandTabs
+      npm="npm add @yao-pkg/pkg --save-dev"
+      yarn="yarn add @yao-pkg/pkg --dev"
+      pnpm="pnpm add @yao-pkg/pkg --save-dev"
+    />
+
+1.  ##### 编写侧车逻辑
+
+    现在我们可以开始编写将由我们的 Tauri 应用程序执行的 JavaScript 代码。
+
+    在本例中，我们将处理来自命令行参数的指令，并将输出写入标准输出（stdout）。
+    这意味着我们的进程是短生命周期的，每次只处理一条命令。
+    如果你的应用需要长生命周期运行，建议考虑使用其他的进程间通信方式。
+
+    现在在我们的 `sidecar-app` 目录中创建一个 `index.js` 文件，并编写一个简单的 Node.js 应用：
+
+    ```js title=sidecar-app/index.js
+    const command = process.argv[2];
+
+    switch (command) {
+      case 'ping':
+        const message = process.argv[3];
+        console.log(`pong, ${message}`);
+        break;
+      default:
+        console.error(`unknown command ${command}`);
+        process.exit(1);
+    }
+    ```
+
+1.  ##### 打包侧车应用
+
+    要将我们的 Node.js 应用程序打包为一个自包含的二进制文件，我们可以运行以下 `pkg` 命令：
+
+    <CommandTabs
+      npm="npm run pkg -- --output app"
+      yarn="yarn pkg --output app"
+      pnpm="pnpm pkg --output app"
+    />
+
+    这将在 Linux 和 macOS 上生成 `sidecar-app/app` 可执行文件，在 Windows 上生成 `sidecar-app/app.exe` 可执行文件。
+    为了将该文件重命名为 Tauri 所期望的侧车文件名，我们可以使用以下 Node.js 脚本：
+
+    ```js
+    import { execSync } from 'child_process';
+    import fs from 'fs';
+
+    const ext = process.platform === 'win32' ? '.exe' : '';
+
+    const rustInfo = execSync('rustc -vV');
+    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+    if (!targetTriple) {
+      console.error('无法确定平台目标三元组');
+    }
+    fs.renameSync(
+      `app${ext}`,
+      `../src-tauri/binaries/app-${targetTriple}${ext}`
+    );
+    ```
+
+1.  ##### 在 Tauri 应用中配置侧车应用
+
+    现在我们已经准备好了 Node.js 应用程序，接下来可以通过配置 [`bundle > externalBin`] 数组，将其连接到我们的 Tauri 应用程序：
+
+    ```json title="src-tauri/tauri.conf.json"
+    {
+      "bundle": {
+        "externalBin": ["binaries/app"]
+      }
+    }
+    ```
+
+    只要对应平台的二进制文件存在于 `src-tauri/binaries/app-<target-triple>` 路径下，Tauri CLI 就会自动将该侧车应用二进制文件打包进你的应用程序中。
+
+1.  ##### 运行侧车应用
+
+    我们可以从 Rust 代码中运行这个侧车二进制文件，也可以直接从 JavaScript 中调用。
+
+    <Tabs syncKey="lang">
+
+      <TabItem label="JavaScript">
+
+        下面我们直接在 Node.js 侧车进程中执行 `ping` 命令：
+
+
+        ```javascript
+        import { Command } from '@tauri-apps/plugin-shell';
+
+        const message = 'Tauri';
+
+        const command = Command.sidecar('binaries/app', ['ping', message]);
+        const output = await command.execute();
+        const response = output.stdout;
+        ```
+
+      </TabItem>
+
+      <TabItem label="Rust">
+
+        让我们将一个 `ping` 的 Tauri 命令传递给 Node.js 侧车来执行：
+
+        ```rust
+        #[tauri::command]
+        async fn ping(app: tauri::AppHandle, message: String) -> String {
+          let sidecar_command = app
+            .shell()
+            .sidecar("app")
+            .unwrap()
+            .arg("ping")
+            .arg(message);
+          let output = sidecar_command.output().unwrap();
+          let response = String::from_utf8(output.stdout).unwrap();
+          response
+        }
+        ```
+
+      </TabItem>
+
+    </Tabs>
+
+</Steps>
+
+[侧车指南]: /develop/sidecar/
+[process.argv]: https://nodejs.org/docs/latest/api/process.html#processargv
+[console.log]: https://nodejs.org/api/console.html#consolelogdata-args
+[pkg]: https://github.com/vercel/pkg
+[`bundle > externalBin`]: /reference/config/#externalbin

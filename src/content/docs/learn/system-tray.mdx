@@ -51,10 +51,10 @@ See [`TrayIconOptions`] for more information on the customization options.
 use tauri::tray::TrayIconBuilder;
 
 tauri::Builder::default()
-.setup(|app| {
-let tray = TrayIconBuilder::new().build(app)?;
-Ok(())
-})
+    .setup(|app| {
+        let tray = TrayIconBuilder::new().build(app)?;
+        Ok(())
+    })
 
 ```
 
@@ -292,6 +292,7 @@ TrayIconBuilder::new()
       // in this example, let's show and focus the main window when the tray is clicked
       let app = tray.app_handle();
       if let Some(window) = app.get_webview_window("main") {
+        let _ = window.unminimize();
         let _ = window.show();
         let _ = window.set_focus();
       }
@@ -306,6 +307,8 @@ See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type
 
 </TabItem>
 </Tabs>
+
+For detailed information about creating menus, including menu items, submenus, and dynamic updates, see the [Window Menu](/learn/window-menu/) documentation.
 
 [`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
 [`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions

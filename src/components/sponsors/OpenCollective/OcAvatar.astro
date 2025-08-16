@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import { OC_IMAGE_DIMENSION } from 'packages/fetch-sponsors/config';
+import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
+
+interface Props {
+  sponsor: Sponsor;
+  needComma?: boolean;
+}
+
+const { sponsor, needComma } = Astro.props;
+
+const roundingStyle: Record<Sponsor['type'], string> = {
+  ORGANIZATION: 'rounded-lg',
+  INDIVIDUAL: 'rounded-full',
+};
+
+function getUrl(sponsor: Sponsor): string {
+  return `${sponsor.socialLinks?.website ?? sponsor.profileUrl}?ref=tauri.app&utm_source=tauri.app`;
+}
+---
+
+{
+  sponsor.tier === 'platinum' && (
+    <div class="platinum image-container">
+      <a href={getUrl(sponsor)} target="_blank">
+        <Image
+          loading={'lazy'}
+          src={sponsor.avatarUrl}
+          alt={sponsor.name}
+          width={OC_IMAGE_DIMENSION}
+          height={OC_IMAGE_DIMENSION}
+          class={`image ${sponsor.tier} ${roundingStyle[sponsor.type]}`}
+        />
+        <p class="name platinum">{sponsor.name}</p>
+      </a>
+    </div>
+  )
+}
+
+{
+  (sponsor.tier === 'gold' || sponsor.tier === 'silver') && (
+    <div class="image-container">
+      <a href={getUrl(sponsor)} target="_blank">
+        <Image
+          loading={'lazy'}
+          src={sponsor.avatarUrl}
+          alt={sponsor.name}
+          width={OC_IMAGE_DIMENSION}
+          height={OC_IMAGE_DIMENSION}
+          class={`image ${sponsor.tier} ${roundingStyle[sponsor.type]}`}
+        />
+      </a>
+    </div>
+  )
+}
+
+{
+  sponsor.tier === 'bronze' && (
+    <>
+      <a href={getUrl(sponsor)} target="_blank" class="bronze-sponsor">
+        {sponsor.name}
+      </a>
+      {needComma && <span class="bronze-separator">, </span>}
+    </>
+  )
+}
+
+<style>
+  .rounded-full {
+    border-radius: 50%;
+  }
+  .rounded-lg {
+    border-radius: 16px;
+  }
+  .image {
+    object-fit: cover;
+    box-shadow: 0 0 2px 1px color-mix(in srgb, var(--sl-color-bg) 50%, transparent);
+  }
+
+  .image-container {
+    aspect-ratio: 1;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 150ms ease;
+    will-change: transform;
+    position: relative;
+  }
+
+  .image-container:hover {
+    transform: scale(1.05);
+    z-index: 10;
+  }
+
+  .image-container.platinum {
+  }
+
+  .platinum.image {
+    height: 7rem;
+    width: 7rem;
+  }
+
+  .platinum.name {
+    font-weight: 600;
+    font-size: 0.65rem;
+    margin-top: 0;
+    text-align: center;
+    /* display: block; */
+  }
+
+  .gold.image {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .silver.image {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .bronze-sponsor {
+    filter: brightness(0.8);
+    text-decoration: none;
+  }
+
+  .bronze-sponsor:hover {
+    filter: brightness(1.2);
+    text-decoration: underline;
+  }
+
+  .bronze-separator {
+    color: var(--sl-color-text-muted);
+    padding-inline-end: 2px;
+  }
+</style>

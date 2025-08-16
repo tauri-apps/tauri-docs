@@ -50,13 +50,13 @@ There are a few limitations in the Isolation pattern that arose out of platform 
 
 ## Recommendations
 
-Because the point of the Isolation application is to protect against Development Threats, we highly recommend keeping your Isolation application as simple as possible. Not only should you strive to keep dependencies minimal, but you should also consider keeping required build steps minimal. This would allow you to not need to worry about supply chain attacks against your Isolation application on top of your frontend application.
+Because the point of the Isolation application is to protect against Development Threats, we highly recommend keeping your Isolation application as simple as possible. Not only should you strive to keep dependencies of your isolation application minimal, but you should also consider keeping its required build steps minimal. This would allow you to not need to worry about supply chain attacks against your Isolation application on top of your frontend application.
 
 ## Creating the Isolation Application
 
 In this example, we will make a small hello-world style Isolation application and hook it up to an imaginary existing Tauri application. It will do no verification of the messages passing through it, only print the contents to the WebView console.
 
-For the purposes of this example, let's imagine we are in the same directory as `tauri.conf.json`. The existing Tauri application has it's `distDir` set to `../dist`.
+For the purposes of this example, let's imagine we are in the same directory as `tauri.conf.json`. The existing Tauri application has its `frontendDist` set to `../dist`.
 
 `../dist-isolation/index.html`:
 
@@ -87,12 +87,12 @@ Now, all we need to do is set up our `tauri.conf.json` [configuration](#configur
 
 ## Configuration
 
-Let's assume that our main frontend `distDir` is set to `../dist`. We also output our Isolation application to `../dist-isolation`.
+Let's assume that our main frontend `frontendDist` is set to `../dist`. We also output our Isolation application to `../dist-isolation`.
 
 ```json
 {
   "build": {
-    "distDir": "../dist"
+    "frontendDist": "../dist"
   },
   "app": {
     "security": {
