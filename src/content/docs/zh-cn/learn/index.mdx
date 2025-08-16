@@ -1,0 +1,79 @@
+---
+title: 学习
+sidebar:
+  order: 0
+  label: 概述
+i18nReady: true
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import BookItem from '@components/BookItem.astro';
+import RoseRustBook from '@assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.png';
+
+学习栏目旨在为提供与 Tauri 主题相关的端到端的学习体验。
+
+这些教程将引导你完成特定主题，并帮助你将指南和参考文档中的知识应用于实际场景。
+
+对于安全相关主题，你可以学习权限系统。你将获得关于如何使用它、扩展它以及编写自定义权限的实际见解。
+
+<CardGrid>
+  <LinkCard
+    title="使用插件权限"
+    href="/learn/security/using-plugin-permissions/"
+  />
+  <LinkCard
+    title="适用于不同 Windows 和平台的功能"
+    href="/learn/security/capabilities-for-windows-and-platforms/"
+  />
+  <LinkCard
+    title="编写插件权限"
+    href="/learn/security/writing-plugin-permissions/"
+  />
+</CardGrid>
+
+要学习如何编写自己的启动画面或使用 Node.js sidecar ，请查看：
+
+<CardGrid>
+  <LinkCard title="启动画面" href="/learn/splashscreen/" />
+  <LinkCard title="Node.js 作为侧车进程" href="/learn/sidecar-nodejs/" />
+</CardGrid>
+
+## 更多学习资源
+
+本节包含由社区创建的、未托管在本网站上的学习资源。
+
+<LinkCard
+  title="有什么东西可以分享吗？"
+  description="创建一个拉取请求来展示你精彩的资源。"
+  href="https://github.com/tauri-apps/awesome-tauri/pulls"
+/>
+
+### 书籍
+
+<BookItem
+  image={RoseRustBook}
+  title="HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri"
+  alt="HTML, CSS, JavaScript, and Rust for Beginners Book Cover"
+  author="James Alexander Rose"
+  links={[
+    {
+      preText: '亚马逊上购买平装本：',
+      text: '此处购买',
+      url: 'https://www.amazon.com/dp/B0DR6KZVVW',
+    },
+    {
+      preText: '免费 PDF 版：',
+      text: '下载（PDF 4MB）',
+      url: '/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf',
+    },
+  ]}
+/>
+
+### 指南 & 教程
+
+<AwesomeTauri section="guides-no-official-no-video" />
+
+#### 视频指南
+
+<AwesomeTauri section="guides-no-official-only-video" />

@@ -84,6 +84,24 @@ apps:
     #  - network
     # Add whatever plugs you need here, see https://snapcraft.io/docs/snapcraft-interfaces for more info.
     # The gnome extension already includes [ desktop, desktop-legacy, gsettings, opengl, wayland, x11, mount-observe, calendar-service ]
+    #  - single-instance-plug # add this if you're using the single-instance plugin
+    #slots:
+    # Add the slots you need to expose to other snaps
+    #  - single-instance-plug # add this if you're using the single-instance plugin
+
+# Add these lines only if you're using the single-instance plugin
+# Check https://v2.tauri.app/plugin/single-instance/ for details
+#slots:
+#  single-instance:
+#    interface: dbus
+#    bus: session
+#    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID with "_" instead of "." and "-"
+#
+#plugs:
+#  single-instance-plug:
+#    interface: dbus
+#    bus: session
+#    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID with "_" instead of "." and "-"
 
 package-repositories:
   - type: apt

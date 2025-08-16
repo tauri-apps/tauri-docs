@@ -5,6 +5,8 @@ sidebar:
 i18nReady: true
 ---
 
+import SinceVersion from '../../../../components/SinceVersion.astro';
+
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
 
@@ -28,6 +30,8 @@ Tauri provides the mockIPC function to intercept IPC requests. You can find more
 The following examples use [Vitest], but you can use any other frontend testing library such as jest.
 
 :::
+
+### Mocking Commands for `invoke`
 
 ```javascript
 import { beforeAll, expect, test } from "vitest";
@@ -124,6 +128,33 @@ mockIPC(async (cmd, args) => {
 });
 ```
 
+### Mocking Events
+
+<SinceVersion version="2.7.0" />
+
+There is partial support of the [Event System] to simulate events emitted by your Rust code via the `shouldMockEvents` option:
+
+```javascript
+import { mockIPC, clearMocks } from '@tauri-apps/api/mocks';
+import { emit, listen } from '@tauri-apps/api/event';
+import { afterEach, expect, test, vi } from 'vitest';
+
+test('mocked event', () => {
+  mockIPC(() => {}, { shouldMockEvents: true }); // enable event mocking
+
+  const eventHandler = vi.fn();
+  listen('test-event', eventHandler);
+
+  emit('test-event', { foo: 'bar' });
+  expect(eventHandler).toHaveBeenCalledWith({
+    event: 'test-event',
+    payload: { foo: 'bar' },
+  });
+});
+```
+
+`emitTo` and `emit_filter` are **not** supported yet.
+
 ## Windows
 
 Sometimes you have window-specific code (a splash screen window, for example), so you need to simulate different windows.
@@ -168,3 +199,4 @@ test('invoke', async () => {
 [`mockwindows()`]: /reference/javascript/api/namespacemocks/#mockwindows
 [`clearmocks()`]: /reference/javascript/api/namespacemocks/#clearmocks
 [vitest]: https://vitest.dev
+[Event System]: /develop/calling-frontend/#event-system
