@@ -1,0 +1,46 @@
+---
+title: コンテンツ・セキュリティー・ポリシー（CSP）
+sidebar:
+  order: 6
+i18nReady: true
+---
+
+Tauri は HTML ページの [コンテンツ・セキュリティ・ポリシー]（CSP）を制限します。{/* 原文 restricts「制限する」ですが、この訳で正しいか不明です。 */}
+これを使用すると、クロス・サイト・スクリプティング（XSS）のような一般的な Web ベースの脆弱性による影響を軽減または防止できます。
+
+ローカル・スクリプトはハッシュ化され、スタイルと外部スクリプトは「ワンタイム暗号化乱数データ（nonce）」を使用して参照されますので、許可されていないコンテンツが読み込まれるのを防止できます。
+
+:::caution[（警告）]
+CDN（コンテンツ配信ネットワーク）経由で提供されるスクリプトなどのリモート・コンテンツは「攻撃ベクトル」（進入経路）を取り込む可能性があるため、読み込みを避けてください。
+概して、信頼できないファイルはどれも、新しい巧妙な攻撃ベクトルの侵入を許す可能性があります。
+:::
+
+CSP（コンテンツ・セキュリティ・ポリシー）による保護は、Tauri 設定ファイルに登録されている場合にのみ有効になります。
+このため、できる限り対象を絞り、Webview が信頼できるホスト（できれば自分で所有するホスト）からのアセットのみを読み込むようにする必要があります。
+コンパイル時に、Tauri は、バンドルされたコードとアセットに対して、関連する CSP 属性へ nonce 値とハッシュ値を自動的に追加するため、自分で考慮する必要があるのはアプリケーションに固有のものだけになります。
+
+{/* 「自動的に追加する」：　この部分、原文は「append A to B」で「A を B に追加する」の意味であるが、実際には「append A to B to C」と書かれており、意味が取りづらい。本稿の訳では語順通りに解釈し、to C を「〜に対して」としてあります。 */}
+
+次の CSP 設定例は、Tauri の [`api`](https://github.com/tauri-apps/tauri/blob/dev/examples/api/src-tauri/tauri.conf.json#L22) 事例から抜粋したものです。
+アプリケーション開発者は、この内容を各自のアプリケーションのニーズに合わせて調整する必要があります。
+
+```json title="tauri/examples/api/src-tauri/tauri.conf.json"
+  "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "font-src": ["https://fonts.gstatic.com"],
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self' https://fonts.googleapis.com"
+      },
+```
+
+この CSP（コンテンツ・セキュリティ・ポリシー）による保護方式の詳細については、[`script-src`]、[`style-src`]、および [CSP Sources] を参照してください。
+
+[コンテンツ・セキュリティ・ポリシー]: https://developer.mozilla.org/ja/docs/Web/HTTP/CSP
+[`script-src`]: https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
+[`style-src`]: https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+[csp sources]: https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
