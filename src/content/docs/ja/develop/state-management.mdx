@@ -1,0 +1,206 @@
+---
+title: 状態管理
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+Tauri アプリケーションでは、しばしば、アプリケーションの現在の状態を追跡したり、アプリケーションに関連付けられたさまざまな物事のライフサイクルを管理したりする必要があります。Tauri では、[`Manager`] API を使用してアプリケーションの状態を管理し、コマンドが呼び出されたときの状態を読み取るための簡単な方法を用意しています。
+
+以下に簡単な例を示します：
+
+```rust
+use tauri::{Builder, Manager};
+
+struct AppData {
+  welcome_message: &'static str,
+}
+
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(AppData {
+        welcome_message: "Welcome to Tauri!",
+      });
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+```
+
+[`Manager`] トレイトを実装するどの型でも（たとえば [`App`] インスタンス）、その状態に後からアクセスできるようになります：
+
+```rust
+let data = app.state::<AppData>();
+```
+
+各コマンドの状態へのアクセスを含めて、より詳しい情報については、[状態へのアクセス](#状態へのアクセス)セクションを参照してください。
+
+## 可変性
+
+Rust では、複数のスレッド間で共有されている値や、所有権が [`Arc`]（または Tauri の [`State`]）などの共有ポインターを通して制御されている値を直接変更することはできません。それを行なうと、（たとえば、二つの書き込みが同時に発生するなどの）データ競合が発生する可能性があるからです。
+
+これを回避するために、[**内部可変性**](https://doc.rust-jp.rs/book-ja/ch15-05-interior-mutability.html) と呼ばれる概念を使用します。たとえば、標準ライブラリの [`Mutex`]（ミューテックス）は「状態をラップする」ために使うことができます。これにより、ある値を変更する必要があるときにそれをロックし、変更が終わったらそのロックを解除します。
+
+> > > 《訳注》 **Mutex**　「Mutex」は"mutual exclusion"(相互排他)の省略形で、どんな時も1つのスレッドにしかなんらかのデータへのアクセスを許可しない仕組みです。「`Mutex` ミューテックス」の詳しい説明は [Rust Book 16.3](https://doc.rust-jp.rs/book-ja/ch16-03-shared-state.html) を参照してください。
+
+```rust
+use std::sync::Mutex;
+
+use tauri::{Builder, Manager};
+
+#[derive(Default)]
+struct AppState {
+  counter: u32,
+}
+
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AppState::default()));
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+```
+
+「ミューテックス」をロックすることで状態を変更できるようになります：
+
+```rust
+let state = app.state::<Mutex<AppState>>();
+
+// ミューテックスをロックして可変アクセスを取得します：
+let mut state = state.lock().unwrap();
+
+// 状態を変更します：
+state.counter += 1;
+```
+
+スコープの終了時、または `MutexGuard` が削除されると、「ミューテックス」は自動的にロック解除され、アプリケーションの他の部分が内部のデータにアクセス可能となり、そのデータの変更ができるようになります。
+
+### 非同期ミューテックスを使用する機会
+
+> > > 《訳注》 **Tokio**　「Tokio」は　Rust 用非同期ランタイム・ライブラリ。
+
+[Tokio の `Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use) ドキュメントから引用すると、以下のように、Tokio が提供するような非同期ミューテックスの代わりに、標準ライブラリの [`Mutex`] を使用しても大丈夫なことが多いようです：
+
+> 一般に信じられているのとは反対に、非同期コードで標準ライブラリの通常の Mutex を使用しても問題はなく、しばしばそれが好まれています。　...　非同期ミューテックスの主要な使用事例は、データベース接続などの IO リソースへの共有可変アクセスを提供することです。
+
+この二つの `Mutex` 間のトレードオフ（一得一失）を理解するには、それぞれの上記リンク先ドキュメントを十分に読み込むことをお勧めします。非同期ミューテックスが必要に*なるであろう*理由の一つは、「待機ポイント」を跨いで `MutexGuard` を保持する必要がある場合です。
+
+### `Arc` は必要？
+
+> > > 《訳注》 **Arc**　「[構造体 Arc](https://doc.rust-jp.rs/rust-by-example-ja/std/arc.html)」（Struct `Arc`）。Atomically Reference Counted（自動参照カウント）の略。
+
+Rust では、複数のスレッド間で値の所有権を共有するために [`Arc`] が使用されるのが一般的です（通常は `Arc<Mutex<T>>` の形で、 [`Mutex`] とペアで用いられます）。ただし、[`State`] に保存されているものについては [`Arc`] を使用する必要はありません。なぜならば Tauri があなたに代ってこれを実行するからです。
+
+`State` のライフタイム要件により「状態」を新しいスレッドに移動できない場合は、代わりに `AppHandle` をその新しいスレッドに移動して、以下の「[Manager トレイトを使用して状態にアクセスする](#manager-トレイトを使用して状態にアクセスする)」の項で示すように「状態」を取得できます。`AppHandle` は、このようなユースケース（使用事例）では意図的にクローン化が安価になっています。
+
+> > > 《訳注》 **意図的にクローン化が安価**　原文 deliberately cheap to clone。（文意不詳：　`AppHandle` で同様の処理を簡便に行なえるようにしているということ？）
+
+## 状態へのアクセス
+
+### コマンド内の状態へのアクセス
+
+```rust
+#[tauri::command]
+fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
+  let mut state = state.lock().unwrap();
+  state.counter += 1;
+  state.counter
+}
+```
+
+コマンドの詳細については、「[フロントエンドから Rust を呼び出す](/ja/develop/calling-rust/)」の章を参照してください。
+
+#### 非同期コマンド
+
+`async` コマンドを使用していて、Tokio の非同期 [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html) を利用したい場合は、以下のように、同様の方法で設定すれば「状態」にアクセスできます。
+
+```rust
+#[tauri::command]
+async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
+  let mut state = state.lock().await;
+  state.counter += 1;
+  Ok(state.counter)
+}
+```
+
+非同期コマンドを使用する場合、戻り値の型は [`Result`] である必要があることに注意してください。
+
+### [`Manager`] トレイトを使用して状態にアクセスする
+
+場合によっては、別のスレッド内や `on_window_event` のようなイベント・ハンドラー内といった、コマンドの外側にある「状態」にアクセスする必要が生じることがあります。そのような場合には、[`Manager`] トレイトを実装する型（`AppHandle` など）の `state()` メソッドを使用して、状態を取得できます：
+
+```rust
+use std::sync::Mutex;
+use tauri::{Builder, Window, WindowEvent, Manager};
+
+#[derive(Default)]
+struct AppState {
+  counter: u32,
+}
+
+// イベント・ハンドラ内：
+fn on_window_event(window: &Window, _event: &WindowEvent) {
+    // グローバル状態を取得できるように、アプリへのハンドルを取得します。
+    let app_handle = window.app_handle();
+    let state = app_handle.state::<Mutex<AppState>>();
+
+    // ミューテックスをロックして「状態」に可変的にアクセスします。
+    let mut state = state.lock().unwrap();
+    state.counter += 1;
+}
+
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AppState::default()));
+      Ok(())
+    })
+    .on_window_event(on_window_event)
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+```
+
+この方法は、コマンド・インジェクション（外部からのコマンド実行）に依存できない場合に有用です。たとえば、`AppHandle` を使用した方が簡単なスレッドに「状態」を移動する必要がある場合や、コマンド・コンテキスト内に存在していない場合などです。
+
+> > > 《訳注》 **コマンド・インジェクションに依存できない**　原文は cannot rely on command injection。（文意不詳）
+> > > 《訳注》 **コマンド・コンテキスト**　原文 a command context。コマンドの実行に必要な情報や環境。
+
+## 型の不一致
+
+:::caution
+構造体 [`State`] のパラメータに間違った型を使用すると、「コンパイル時エラー」ではなく「実行時パニック」が発生します。
+
+たとえば、`State<'_, Mutex<AppState>>` の代わりに `State<'_, AppState>` を使用すると、その型で管理される「状態」が存在しないことになります。
+:::
+
+必要であれば、この間違いを防ぐために、「状態」を「[型エイリアス](https://doc.rust-jp.rs/book-ja/ch19-04-advanced-types.html)」でラップすることもできます：
+
+```rust
+use std::sync::Mutex;
+
+#[derive(Default)]
+struct AppStateInner {
+  counter: u32,
+}
+
+type AppState = Mutex<AppStateInner>;
+```
+
+ただし、型エイリアスはそのまま使用し、[`Mutex`] で再度ラップしないようにしてください。そうしないと、同じ問題を引き起こすことになります。
+
+[`Manager`]: https://docs.rs/tauri/latest/tauri/trait.Manager.html
+[`State`]: https://docs.rs/tauri/latest/tauri/struct.State.html
+[`Mutex`]: https://doc.rust-lang.org/stable/std/sync/struct.Mutex.html
+[`Arc`]: https://doc.rust-lang.org/stable/std/sync/struct.Arc.html
+[`App`]: https://docs.rs/tauri/latest/tauri/struct.App.html
+[`Result`]: https://doc.rust-lang.org/stable/std/result/index.html
+
+<div style="text-align: right">
+  【※ この日本語版は、「Mar 28, 2025 英語版」に基づいています】
+</div>
