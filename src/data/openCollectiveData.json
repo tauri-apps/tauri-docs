@@ -530,6 +530,17 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "MasterDarius",
+    "id": "MasterDarius",
+    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/masterdarius",
+    "socialLinks": {
+      "website": "https://www.nikolaosmargaris.gr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "",
     "id": "",
     "avatarUrl": "https://images.opencollective.com/user-146594/7ba130d/avatar/256.jpg",
@@ -544,17 +555,6 @@
     "avatarUrl": "https://images.opencollective.com/braden-neufeld/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/braden-neufeld",
     "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "MasterDarius",
-    "id": "MasterDarius",
-    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/masterdarius",
-    "socialLinks": {
-      "website": "https://www.nikolaosmargaris.gr"
-    },
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -1040,6 +1040,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Taylor Gregoire-Wright",
     "id": "Taylor Gregoire-Wright",
     "avatarUrl": "https://images.opencollective.com/tgregoirewright/1281ac6/avatar/256.jpg",
@@ -1239,10 +1248,10 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
+    "name": "Tyler Sengia",
+    "id": "Tyler Sengia",
+    "avatarUrl": "https://images.opencollective.com/guest-db3a0b10/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/guest-db3a0b10",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
