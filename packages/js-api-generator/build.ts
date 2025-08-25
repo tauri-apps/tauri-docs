@@ -15,7 +15,7 @@ import {
   type MarkdownApplication,
   type PluginOptions,
 } from 'typedoc-plugin-markdown';
-import { existsSync } from 'node:fs';
+import { existsSync, readFile, writeFile } from 'node:fs';
 
 const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
   // TypeDoc options
@@ -88,6 +88,20 @@ async function generator() {
   ];
 
   if (existsSync('../plugins-workspace/node_modules')) {
+    // TODO: Actually fix this
+    readFile('../plugins-workspace/plugins/fs/guest-js/index.ts', 'utf8', function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        writeFile(
+          '../plugins-workspace/plugins/fs/guest-js/index.ts',
+          data.replace(/Uint8Array<ArrayBuffer>/g, 'Uint8Array'),
+          'utf8',
+          console.error
+        );
+      }
+    });
+
     plugins.forEach(async (plugin) => {
       const pluginJsOptions: Partial<TypeDocOptions> = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
