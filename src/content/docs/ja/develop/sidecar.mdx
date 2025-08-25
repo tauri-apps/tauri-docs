@@ -135,7 +135,7 @@ tauri::async_runtime::spawn(async move {
 
 「サイドカー」を実行する場合、Tauri では、子プロセスで `execute` または `spawn` メソッドを実行する権限を「サイドカー」に付与する必要があります。この権限を付与するには、ファイル `<PROJECT ROOT>/src-tauri/capabilities/default.json` に移動し、以下のセクションを権限配列に追加します。前述の「Note」欄で説明した「相対パスの記述方法」に従って「サイドカー」を記述することを忘れないでください。
 
-```json title="src-tauri/capabilities/default.json" ins={4-13}
+```json title="src-tauri/capabilities/default.json" ins={4-12}
 {
   "permissions": [
     "core:default",
@@ -147,8 +147,7 @@ tauri::async_runtime::spawn(async move {
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```
@@ -179,7 +178,7 @@ const output = await command.execute();
 
 まず、`src-tauri/capabilities/default.json` に、サイドカー・コマンドに渡す必要がある引数を定義します：
 
-```json title="src-tauri/capabilities/default.json" ins={8-25}
+```json title="src-tauri/capabilities/default.json" ins={8-24}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
@@ -203,8 +202,7 @@ const output = await command.execute();
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```
