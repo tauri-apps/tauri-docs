@@ -1,6 +1,8 @@
 ---
 import { LinkButton } from '@astrojs/starlight/components';
-import { Image } from 'astro:assets';
+import LogoLight from '@assets/logo_light.svg';
+import LogoDark from '@assets/logo.svg';
+import LogoOutline from '@assets/logo-outline.svg';
 
 const { tagline, getStarted, v1Docs } = Astro.props;
 ---
@@ -14,8 +16,8 @@ const { tagline, getStarted, v1Docs } = Astro.props;
 <div class="lp-content">
   <div class="lp-header lp-hero">
     <div class="lp-header-content">
-      <Image class="lp-tauri-logo light" src={import('@assets/logo_light.svg')} alt="Tauri Logo" />
-      <Image class="lp-tauri-logo dark" src={import('@assets/logo.svg')} alt="Tauri Logo" />
+      <LogoLight class="lp-tauri-logo light" />
+      <LogoDark class="lp-tauri-logo dark" />
       <p class="lp-tagline">
         {tagline}
       </p>
@@ -26,6 +28,6 @@ const { tagline, getStarted, v1Docs } = Astro.props;
         </LinkButton>
       </div>
     </div>
-    <Image src={import('@assets/logo-outline.svg')} alt="Tauri outline logo" />
+    <LogoOutline />
   </div>
 </div>
