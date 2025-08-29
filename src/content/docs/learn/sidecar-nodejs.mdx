@@ -141,28 +141,28 @@ Without the plugin being initialized and configured the example won't work.
 
 1.  ##### Setup plugin-shell permission
 
-After installing [shell plugin](/plugin/shell/) make sure you configure capabilities
+    After installing [shell plugin](/plugin/shell/) make sure you configure capabilities
 
-Note that we use `"args": true` but you can optionally provide an array `["hello"]`, [read more](/develop/sidecar/#passing-arguments).
+    Note that we use `"args": true` but you can optionally provide an array `["hello"]`, [read more](/develop/sidecar/#passing-arguments).
 
-```json title='src-tauri/capabilities/default.json'
-{
-  "permissions": [
-    "core:default",
-    "opener:default",
+    ```json title='src-tauri/capabilities/default.json'
     {
-      "identifier": "shell:allow-execute",
-      "allow": [
+      "permissions": [
+        "core:default",
+        "opener:default",
         {
-          "args": true,
-          "name": "binaries/app",
-          "sidecar": true
+          "identifier": "shell:allow-execute",
+          "allow": [
+            {
+              "args": true,
+              "name": "binaries/app",
+              "sidecar": true
+            }
+          ]
         }
       ]
     }
-  ]
-}
-```
+    ```
 
 1.  ##### Configure the Sidecar in the Tauri Application
 
