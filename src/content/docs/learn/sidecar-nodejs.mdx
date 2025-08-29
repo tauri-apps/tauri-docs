@@ -210,16 +210,15 @@ Note that we use `"args": true` but you can optionally provide an array `["hello
         use tauri_plugin_shell::ShellExt;
 
         #[tauri::command]
-        async fn hello(app: tauri::AppHandle, message: String) -> String {
-          let sidecar_command = app
-            .shell()
-            .sidecar("app")
-            .unwrap()
-            .arg("hello")
-            .arg(message);
-          let output = sidecar_command.output().unwrap();
-          let response = String::from_utf8(output.stdout).unwrap();
-          response
+        async fn hello(app: tauri::AppHandle, cmd: String, message: String) -> String {
+            let sidecar_command = app
+                .shell()
+                .sidecar("app")
+                .unwrap()
+                .arg(cmd)
+                .arg(message);
+            let output = sidecar_command.output().await.unwrap();
+            String::from_utf8(output.stdout).unwrap()
         }
         ```
 
@@ -230,7 +229,7 @@ Note that we use `"args": true` but you can optionally provide an array `["hello
         import { invoke } from "@tauri-apps/api/core";
 
         const message = "Tauri"
-        console.log(await invoke("hello", { message }))
+        console.log(await invoke("hello", { cmd: 'hello', message }))
 
         ```
 
