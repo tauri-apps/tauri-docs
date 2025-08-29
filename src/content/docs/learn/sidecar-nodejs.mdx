@@ -100,13 +100,17 @@ Without the plugin being initialized and configured the example won't work.
 
 1.  ##### Package the Sidecar
 
-    To package our Node.js application to a self contained binary, we can run the following `pkg` command:
+    To package our Node.js application to a self contained binary, create a script into package.json:
 
-    <CommandTabs
-      npm="npm run pkg -- --output app"
-      yarn="yarn pkg --output app"
-      pnpm="pnpm pkg --output app"
-    />
+    ```json title="sidecar-app/package.json"
+    {
+      "scripts": {
+        "build": "pkg index.ts --output app"
+      }
+    }
+    ```
+
+    <CommandTabs npm="npm run build" yarn="yarn build" pnpm="pnpm build" />
 
     This will create the `sidecar-app/app` binary on Linux and macOS, and a `sidecar-app/app.exe` executable on Windows.
 
