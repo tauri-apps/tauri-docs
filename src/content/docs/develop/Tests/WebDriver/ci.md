@@ -52,10 +52,10 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update &&
-          sudo apt-get install -y
-          libwebkit2gtk-4.1-dev
-          libayatana-appindicator3-dev
-          webkit2gtk-driver
+          sudo apt-get install -y \
+          libwebkit2gtk-4.1-dev \
+          libayatana-appindicator3-dev \
+          webkit2gtk-driver \
           xvfb
 
       # install a matching Microsoft Edge Driver version using msedgedriver-tool
