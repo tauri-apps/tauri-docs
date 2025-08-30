@@ -676,6 +676,7 @@ tauri::Builder::default()
             .check("toggle", "Toggle")
             .icon("show-app", "Show App", app.default_window_icon().cloned().unwrap())
             .build()?;
+        app.set_menu(menu);
         Ok(())
     })
 ```
