@@ -1,6 +1,8 @@
 {
   "files.encoding": "utf8",
-  "prettier.documentSelectors": ["**/*.astro"],
+  "prettier.documentSelectors": [
+    "**/*.astro"
+  ],
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
