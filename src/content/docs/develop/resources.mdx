@@ -15,6 +15,9 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 {
   "bundle": {
     "resources": [
+      // Will be placed at `$RESOURCE/path/to/some-file.txt`
+      "./path/to/some-file.txt",
+
       // The root in an abosolute path will be replaced with `_root_`,
       // so `textfile.txt` will be placed at `$RESOURCE/_root_/absolute/path/to/textfile.txt`
       "/absolute/path/to/textfile.txt",
@@ -41,7 +44,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
 }
 ```
 
-To fine control where the files will be copied to, use a map instead:
+To fine control where the files will get copied to, use a map instead:
 
 ```json title=tauri.conf.json5
 {
@@ -53,16 +56,18 @@ To fine control where the files will be copied to, use a map instead:
       // `jsonfile.json` will be placed at `$RESOURCE/resources/jsonfile.json`
       "relative/path/to/jsonfile.json": "resources/jsonfile.json",
 
-      // We remove the pattern from the left side if it matches the right side,
-      // for example:
-      //   - `resources/file.text` -> `$RESOURCE/resources/file.text`
-      //   - `resources/file.text` -> `$RESOURCE/resources/file.text`
-      "resources/**/*": "resources/",
+      // Copy the entire directory to `$RESOURCE`, preserving the original structures,
+      // the target is "" which means it will be placed directly in the resource directory `$RESOURCE`, for example:
+      //   - `resources/file.txt`                -> `$RESOURCE/file.txt`
+      //   - `resources/some-folder/config.json` -> `$RESOURCE/some-folder/config.json`
+      "resources/": "",
 
-      // In this case, the pattern doesn't match, so we preserve the original structures:
-      //   - `resources/file.text`        -> `$RESOURCE/other-resources/resources/file.text`
-      //   - `resources/folder/file.text` -> `$RESOURCE/other-resources/resources/folder/file.text`
-      "resources/**/*": "other-resources/",
+      // When using glob patterns, the behavior is different from the list one,
+      // all the matching files will be placed to the target directory without preserving the original file structures
+      // for example:
+      //   - `docs/index.md`         -> `$RESOURCE/website-docs/index.md`
+      //   - `docs/plugins/setup.md` -> `$RESOURCE/website-docs/setup.md`
+      "docs/**/*md": "website-docs/"
     }
   }
 }
@@ -97,9 +102,7 @@ In this example we want to bundle additional i18n json files like this:
 ```json title=tauri.conf.json
 {
   "bundle": {
-    "resources": [
-      "lang/*",
-    ]
+    "resources": ["lang/*"]
   }
 }
 ```
