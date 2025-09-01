@@ -3,27 +3,29 @@ title: Embedding Additional Files
 i18nReady: true
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 You may need to include additional files in your application bundle that aren't part of your frontend (your `frontendDist`) directly or which are too big to be inlined into the binary. We call these files `resources`.
+
+## Configuration
 
 To bundle the files of your choice, add the `resources` property to the `bundle` object in your `tauri.conf.json` file.
 
 `resources` expects a list of strings targeting files or directories either with absolute or relative paths. It supports glob patterns in case you need to include multiple files from a directory.
 
-Here is a sample to illustrate the configuration. This is not a complete `tauri.conf.json5` file:
-
 ```json title=tauri.conf.json5
 {
   "bundle": {
     "resources": [
-      // Will be placed at `$RESOURCE/path/to/some-file.txt`
+      // Will be placed to `$RESOURCE/path/to/some-file.txt`
       "./path/to/some-file.txt",
 
-      // The root in an abosolute path will be replaced with `_root_`,
-      // so `textfile.txt` will be placed at `$RESOURCE/_root_/absolute/path/to/textfile.txt`
+      // The root in an abosolute path will be replaced by `_root_`,
+      // so `textfile.txt` will be placed to `$RESOURCE/_root_/absolute/path/to/textfile.txt`
       "/absolute/path/to/textfile.txt",
 
-      // `..` in a relative path will be replaced with `_up_`,
-      // so `jsonfile.json` will be placed at `$RESOURCE/_up_/relative/path/to/textfile.txt`,
+      // `..` in a relative path will be replaced by `_up_`,
+      // so `jsonfile.json` will be placed to `$RESOURCE/_up_/relative/path/to/textfile.txt`,
       "../relative/path/to/jsonfile.json",
 
       // If the path is a directory, the entire directory will be copied to the `$RESOURCE` directory,
@@ -34,7 +36,7 @@ Here is a sample to illustrate the configuration. This is not a complete `tauri.
       "some-folder/",
 
       // You can also include multiple files at once through glob patterns.
-      // All the `.md` files inside `resources` will be placed at `$RESOURCE/resources/`,
+      // All the `.md` files inside `resources` will be placed to `$RESOURCE/resources/`,
       // preserving their original directory structures, for example:
       //   - `resources/index.md`      -> `$RESOURCE/resources/index.md`
       //   - `resources/docs/setup.md` -> `$RESOURCE/resources/docs/setup.md`
@@ -50,10 +52,10 @@ To fine control where the files will get copied to, use a map instead:
 {
   "bundle": {
     "resources": {
-      // `textfile.txt` will be placed at `$RESOURCE/resources/textfile.txt`
+      // `textfile.txt` will be placed to `$RESOURCE/resources/textfile.txt`
       "/absolute/path/to/textfile.txt": "resources/textfile.txt",
 
-      // `jsonfile.json` will be placed at `$RESOURCE/resources/jsonfile.json`
+      // `jsonfile.json` will be placed to `$RESOURCE/resources/jsonfile.json`
       "relative/path/to/jsonfile.json": "resources/jsonfile.json",
 
       // Copy the entire directory to `$RESOURCE`, preserving the original structures,
@@ -73,7 +75,10 @@ To fine control where the files will get copied to, use a map instead:
 }
 ```
 
-## Source path syntax
+To learn about where does `$RESOURCE` resolve to on each platforms, see the documentation for [`resource_dir`]
+
+<details>
+<summary>Source path syntax</summary>
 
 In the following explanations "target resource directory" is either the value after the colon in the object notation, or a reconstruction of the original file paths in the array notation.
 
@@ -84,7 +89,77 @@ In the following explanations "target resource directory" is either the value af
 - `"dir/**/*"`: copies all files in the `dir` directory _recursively_ (all files in `dir/` and all files in all sub-directories) into the target resource directory.
 - `"dir/**/**`: throws an error because `**` only matches directories and therefore no files can be found.
 
-## Accessing files in Rust
+</details>
+
+## Resolve resource file paths
+
+To resolve the path for a resource file, instead of manually calculating the path, use the following APIs
+
+<Tabs syncKey="lang">
+<TabItem label="Rust">
+
+On the Rust side, you need an instance of the [`PathResolver`] which you can get from [`App`] and [`AppHandle`],
+then call [`PathResolver::resolve`]:
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+    Ok(())
+  })
+```
+
+To use it in a command:
+
+```rust
+#[tauri::command]
+fn hello(handle: tauri::AppHandle) {
+  let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+}
+```
+
+</TabItem>
+<TabItem label="JavaScript">
+
+To resolve the path in JavaScript, use [`resolveResource`]:
+
+```javascript
+import { resolveResource } from '@tauri-apps/api/path';
+const resourcePath = await resolveResource('lang/de.json');
+```
+
+</TabItem>
+</Tabs>
+
+### Path syntax
+
+The path in the API calls can be either a normal relative path like `folder/json_file.json` that resolves to `$RESOURCE/folder/json_file.json`,
+or a paths like `../relative/folder/toml_file.toml` that resolves to `$RESOURCE/_up_/relative/folder/toml_file.toml`,
+these APIs use the same rules as you write `tauri.conf.json > bundle > resources`, for example:
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": ["folder/json_file.json", "../relative/folder/toml_file.toml"]
+  }
+}
+```
+
+```rust
+let json_path = app.path().resolve("folder/json_file.json", BaseDirectory::Resource)?;
+let toml_path = app.path().resolve("../relative/folder/toml_file.toml", BaseDirectory::Resource)?;
+```
+
+### Android
+
+Currently the resources are stored in the APK as assets so the return value of those APIs are not normal file system paths,
+we use a special URI prefix `asset://localhost/` here that can be used with the [`plugin-fs`],
+with that, you can read the files through [`FsExt::fs`]
+like this: `app.fs().read_to_string(app.path().resource_dir().unwrap().join("resource"));`
+
+You can copy the contents out manually if you need them to be on a real file system
+
+## Reading resource files
 
 In this example we want to bundle additional i18n json files like this:
 
@@ -113,6 +188,8 @@ In this example we want to bundle additional i18n json files like this:
   "bye": "Auf Wiedersehen!"
 }
 ```
+
+### Rust
 
 On the Rust side, you need an instance of the [`PathResolver`] which you can get from [`App`] and [`AppHandle`]:
 
@@ -145,7 +222,7 @@ fn hello(handle: tauri::AppHandle) -> String {
 }
 ```
 
-## Accessing files in JavaScript
+### JavaScript
 
 For the JavaScript side, you can either use a command like the one above and call it through `await invoke('hello')` or access the files using the [`plugin-fs`]
 
@@ -179,10 +256,14 @@ const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```
 
+[`resource_dir`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html#method.resource_dir
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
+[`PathResolver::resolve`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html#method.resolve
+[`resolveResource`]: https://tauri.app/reference/javascript/api/namespacepath/#resolveresource
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
 [`plugin-fs`]: /plugin/file-system/
+[`FsExt::fs`]: https://docs.rs/tauri-plugin-fs/latest/tauri_plugin_fs/trait.FsExt.html#tymethod.fs
 [basic setup]: /plugin/file-system/#setup
 [Scope Permissions]: /plugin/file-system/#scopes
 [scopes]: /plugin/file-system/#scopes
