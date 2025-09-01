@@ -75,7 +75,7 @@ To fine control where the files will get copied to, use a map instead:
 }
 ```
 
-To learn about where does `$RESOURCE` resolve to on each platforms, see the documentation for [`resource_dir`]
+To learn about where does `$RESOURCE` resolve to on each platforms, see the documentation of [`resource_dir`]
 
 <details>
 <summary>Source path syntax</summary>
@@ -154,10 +154,14 @@ let toml_path = app.path().resolve("../relative/folder/toml_file.toml", BaseDire
 
 Currently the resources are stored in the APK as assets so the return value of those APIs are not normal file system paths,
 we use a special URI prefix `asset://localhost/` here that can be used with the [`plugin-fs`],
-with that, you can read the files through [`FsExt::fs`]
-like this: `app.fs().read_to_string(app.path().resource_dir().unwrap().join("resource"));`
+with that, you can read the files through [`FsExt::fs`] like this:
 
-You can copy the contents out manually if you need them to be on a real file system
+```rust
+let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource).unwrap();
+let json = app.fs().read_to_string(&resource_path);
+```
+
+If you must need the resource files to be on a real file system, copy the contents out manually through the [`plugin-fs`]
 
 ## Reading resource files
 
@@ -200,8 +204,11 @@ tauri::Builder::default()
     // `tauri.conf.json > bundle > resources`
     let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource)?;
 
-    let file = std::fs::File::open(&resource_path).unwrap();
-    let lang_de: serde_json::Value = serde_json::from_reader(file).unwrap();
+    let json = std::fs::read_to_string(&resource_path).unwrap();
+    // Or when dealing with Android, use the file system plugin instead
+    // let json = app.fs().read_to_string(&resource_path);
+
+    let lang_de: serde_json::Value = serde_json::from_str(json).unwrap();
 
     // This will print 'Guten Tag!' to the terminal
     println!("{}", lang_de.get("hello").unwrap());
@@ -215,8 +222,11 @@ tauri::Builder::default()
 fn hello(handle: tauri::AppHandle) -> String {
     let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
 
-    let file = std::fs::File::open(&resource_path).unwrap();
-    let lang_de: serde_json::Value = serde_json::from_reader(file).unwrap();
+    let json = std::fs::read_to_string(&resource_path).unwrap();
+    // Or when dealing with Android, use the file system plugin instead
+    // let json = handle.fs().read_to_string(&resource_path);
+
+    let lang_de: serde_json::Value = serde_json::from_str(json).unwrap();
 
     lang_de.get("hello").unwrap()
 }
