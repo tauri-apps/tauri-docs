@@ -266,6 +266,69 @@ const langDe = JSON.parse(await readTextFile(resourcePath));
 console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
 ```
 
+## Permissions
+
+Since we replace `../` to `_up_` in relative paths and the root to `_root_` in abosolute paths when using a list,
+those files will be in sub folders inside the resource directory,
+to allow those paths in Tauri's [permission system](/security/capabilities/),
+use `$RESOURCE/**/*` to allow recursive access to those files
+
+### Examples
+
+With a file bundled like this:
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": ["../relative/path/to/jsonfile.json"]
+  }
+}
+```
+
+To use it with the [`plugin-fs`]:
+
+```json title=src-tauri/capabilities/default.json ins={8-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "fs:allow-stat",
+    "fs:allow-read-text-file",
+    "fs:allow-resource-read-recursive",
+    {
+      "identifier": "fs:scope",
+      "allow": ["$RESOURCE/**/*"],
+      "deny": ["$RESOURCE/secret.txt"]
+    }
+  ]
+}
+```
+
+To use it with the [`plugin-opener`]:
+
+```json title=src-tauri/capabilities/default.json ins={8-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "$RESOURCE/documents/**/*"
+        }
+      ]
+    }
+  ]
+}
+```
+
 [`resource_dir`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html#method.resource_dir
 [`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
 [`PathResolver::resolve`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html#method.resolve
@@ -277,3 +340,4 @@ console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools conso
 [basic setup]: /plugin/file-system/#setup
 [Scope Permissions]: /plugin/file-system/#scopes
 [scopes]: /plugin/file-system/#scopes
+[`plugin-opener`]: /plugin/opener/
