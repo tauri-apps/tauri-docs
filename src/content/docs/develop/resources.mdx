@@ -284,7 +284,7 @@ fn hello(handle: tauri::AppHandle) -> String {
 
 For the JavaScript side, you can either use a command like the one above and call it through `await invoke('hello')` or access the files using the [`fs` plugin].
 
-When using the [`plugin-fs`], addition from the [basic setup], you'll also need to configure the access control list to enable any [`plugin-fs`] APIs you will need as well as permissions to access the `$RESOURCE` folder:
+When using the [`fs` plugin], in addition to the [basic setup], you'll also need to configure the access control list to enable any plugin APIs you need as well as the permissions to access the `$RESOURCE` folder:
 
 ```json title=src-tauri/capabilities/default.json ins={8-9}
 {
