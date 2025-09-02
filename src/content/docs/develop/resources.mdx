@@ -11,7 +11,27 @@ You may need to include additional files in your application bundle that aren't 
 
 To bundle the files of your choice, add the `resources` property to the `bundle` object in your `tauri.conf.json` file.
 
-`resources` expects a list of strings targeting files or directories either with absolute or relative paths. It supports glob patterns in case you need to include multiple files from a directory.
+To include a list of files:
+
+<Tabs syncKey="explanation">
+<TabItem label="Syntax">
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": [
+      "./path/to/some-file.txt",
+      "/absolute/path/to/textfile.txt",
+      "../relative/path/to/jsonfile.json",
+      "some-folder/",
+      "resources/**/*.md"
+    ]
+  }
+}
+```
+
+</TabItem>
+<TabItem label="Explanation">
 
 ```json title=tauri.conf.json5
 {
@@ -46,7 +66,32 @@ To bundle the files of your choice, add the `resources` property to the `bundle`
 }
 ```
 
+</TabItem>
+</Tabs>
+
+The bundled files will be in `$RESOURCES/` with the original directory structure preserved,
+for example: `./path/to/some-file.txt` -> `$RESOURCE/path/to/some-file.txt`
+
 To fine control where the files will get copied to, use a map instead:
+
+<Tabs syncKey="explanation">
+<TabItem label="Syntax">
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": {
+      "/absolute/path/to/textfile.txt": "resources/textfile.txt",
+      "relative/path/to/jsonfile.json": "resources/jsonfile.json",
+      "resources/": "",
+      "docs/**/*md": "website-docs/"
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem label="Explanation">
 
 ```json title=tauri.conf.json5
 {
@@ -74,6 +119,9 @@ To fine control where the files will get copied to, use a map instead:
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 To learn about where does `$RESOURCE` resolve to on each platforms, see the documentation of [`resource_dir`]
 
