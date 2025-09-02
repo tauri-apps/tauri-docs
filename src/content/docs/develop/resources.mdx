@@ -123,7 +123,7 @@ To fine control where the files will get copied to, use a map instead:
 </TabItem>
 </Tabs>
 
-To learn about where does `$RESOURCE` resolve to on each platforms, see the documentation of [`resource_dir`]
+To learn about where `$RESOURCE` resolves to on each platforms, see the documentation of [`resource_dir`]
 
 <details>
 <summary>Source path syntax</summary>
@@ -201,7 +201,7 @@ let toml_path = app.path().resolve("../relative/folder/toml_file.toml", BaseDire
 ### Android
 
 Currently the resources are stored in the APK as assets so the return value of those APIs are not normal file system paths,
-we use a special URI prefix `asset://localhost/` here that can be used with the [`plugin-fs`],
+we use a special URI prefix `asset://localhost/` here that can be used with the [`fs` plugin],
 with that, you can read the files through [`FsExt::fs`] like this:
 
 ```rust
@@ -209,7 +209,7 @@ let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource).
 let json = app.fs().read_to_string(&resource_path);
 ```
 
-If you want or must need the resource files to be on a real file system, copy the contents out manually through the [`plugin-fs`]
+If you want or must have the resource files to be on a real file system, copy the contents out manually through the [`fs` plugin]
 
 ## Reading resource files
 
@@ -282,7 +282,7 @@ fn hello(handle: tauri::AppHandle) -> String {
 
 ### JavaScript
 
-For the JavaScript side, you can either use a command like the one above and call it through `await invoke('hello')` or access the files using the [`plugin-fs`]
+For the JavaScript side, you can either use a command like the one above and call it through `await invoke('hello')` or access the files using the [`fs` plugin].
 
 When using the [`plugin-fs`], addition from the [basic setup], you'll also need to configure the access control list to enable any [`plugin-fs`] APIs you will need as well as permissions to access the `$RESOURCE` folder:
 
@@ -333,7 +333,7 @@ With a file bundled like this:
 }
 ```
 
-To use it with the [`plugin-fs`]:
+To use it with the [`fs` plugin]:
 
 ```json title=src-tauri/capabilities/default.json ins={8-15}
 {
@@ -355,7 +355,7 @@ To use it with the [`plugin-fs`]:
 }
 ```
 
-To use it with the [`plugin-opener`]:
+To use it with the [`opener` plugin]:
 
 ```json title=src-tauri/capabilities/default.json ins={8-15}
 {
@@ -383,9 +383,9 @@ To use it with the [`plugin-opener`]:
 [`resolveResource`]: https://tauri.app/reference/javascript/api/namespacepath/#resolveresource
 [`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
 [`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
-[`plugin-fs`]: /plugin/file-system/
+[`fs` plugin]: /plugin/file-system/
 [`FsExt::fs`]: https://docs.rs/tauri-plugin-fs/latest/tauri_plugin_fs/trait.FsExt.html#tymethod.fs
 [basic setup]: /plugin/file-system/#setup
 [Scope Permissions]: /plugin/file-system/#scopes
 [scopes]: /plugin/file-system/#scopes
-[`plugin-opener`]: /plugin/opener/
+[`opener` plugin]: /plugin/opener/
