@@ -415,10 +415,14 @@ export default defineConfig({
       },
     }),
   ],
+  image: {
+    domains: ['tauri.app', 'images.opencollective.com', 'avatars.githubusercontent.com'],
+  },
   markdown: {
     shikiConfig: {
       langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
     },
+
     rehypePlugins: [
       rehypeHeadingIds,
       [

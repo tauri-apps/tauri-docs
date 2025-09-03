@@ -451,7 +451,7 @@ Commands can access an `AppHandle` instance:
 ```rust title="src-tauri/src/lib.rs"
 #[tauri::command]
 async fn my_custom_command(app_handle: tauri::AppHandle) {
-	let app_dir = app_handle.path_resolver().app_dir();
+	let app_dir = app_handle.path().app_dir();
 	use tauri::GlobalShortcutManager;
 	app_handle.global_shortcut_manager().register("CTRL + U", move || {});
 }
@@ -470,7 +470,7 @@ use tauri::{AppHandle, GlobalShortcutManager, Runtime, WebviewWindow};
 
 #[tauri::command]
 async fn my_custom_command<R: Runtime>(app_handle: AppHandle<R>, webview_window: WebviewWindow<R>) {
-  let app_dir = app_handle.path_resolver().app_dir();
+  let app_dir = app_handle.path().app_dir();
   app_handle
     .global_shortcut_manager()
     .register("CTRL + U", move || {});

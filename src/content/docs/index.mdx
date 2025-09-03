@@ -8,31 +8,21 @@ template: splash
 tableOfContents: false
 prev: false
 next: false
-hero:
-  tagline: Create small, fast, secure, cross-platform applications
-  image:
-    file: ../../assets/logo-outline.svg
-  actions:
-    - text: Get Started
-      link: /start/
-      icon: right-arrow
-      variant: primary
-    - text: Tauri 1.0 Documentation
-      link: https://v1.tauri.app
-      icon: external
-      variant: minimal
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import Cta from '@fragments/cta.mdx';
+import Hero from '@components/Hero.astro';
+import SponsorList from '@components/sponsors/SponsorList.astro';
+import 'src/styles/home.css';
 
-<div class="hero-bg">
-  <div class="bg-logo"></div>
-  <div class="bg-grad"></div>
-  <div class="bg-grad-red"></div>
-</div>
+<Hero
+  tagline="Create small, fast, secure, cross-platform applications"
+  getStarted="Get started"
+  v1Docs="Tauri 1.0 Documentation"
+/>
 
-<div class="lp-cta-card">
+<div>
   <Card title="Create a Project" icon="rocket">
     <Cta />
   </Card>
@@ -46,11 +36,8 @@ import Cta from '@fragments/cta.mdx';
   </Card>
   <Card title="Cross Platform" icon="rocket">
     Build your app for Linux, macOS, Windows, Android and iOS - all from a
-    single codebase.
-  </Card>
-  <Card title="Inter-Process Communication" icon="rocket">
-    Write your frontend in JavaScript, application logic in Rust, and integrate
-    deep into the system with Swift and Kotlin.
+    single codebase. Write your frontend in JavaScript, application logic in
+    Rust, and integrate deep into the system with Swift and Kotlin.
   </Card>
   <Card title="Maximum Security" icon="rocket">
     Front-of-mind for the Tauri Team that drives our highest priorities and
@@ -60,8 +47,6 @@ import Cta from '@fragments/cta.mdx';
     By using the OS's native web renderer, the size of a Tauri app can be little
     as 600KB.
   </Card>
-  <Card title="Powered by Rust" icon="rocket">
-    With performance and security at the center, Rust is the language for the
-    next generation of apps.
-  </Card>
 </CardGrid>
+
+<SponsorList />

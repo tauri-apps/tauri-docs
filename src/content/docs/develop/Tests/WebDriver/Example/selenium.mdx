@@ -5,8 +5,6 @@ sidebar:
 i18nReady: true
 ---
 
-{/* TODO: REVISE COPY TO V2 */}
-
 import CommandTabs from '@components/CommandTabs.astro';
 
 :::note
@@ -16,14 +14,14 @@ Make sure to go through the [prerequisites instructions] to be able to follow th
 :::
 
 This WebDriver testing example will use [Selenium] and a popular Node.js testing suite. You are expected to already have
-Node.js installed, along with `npm` or `yarn` although the [finished example project] uses `yarn`.
+Node.js installed, along with `npm` or `yarn` although the [finished example project] uses `pnpm`.
 
 ## Create a Directory for the Tests
 
 Let's create a space to write these tests in our project. We will be using a nested directory for
 this example project as we will later also go over other frameworks, but typically you will only need to use one. Create
-the directory we will use with `mkdir -p webdriver/selenium`. The rest of this guide will assume you are inside the
-`webdriver/selenium` directory.
+the directory we will use with `mkdir -p e2e-tests`. The rest of this guide will assume you are inside the
+`e2e-tests` directory.
 
 ## Initializing a Selenium Project
 
@@ -38,13 +36,14 @@ guide on how to set it up from scratch.
   "name": "selenium",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
-    "chai": "^4.3.4",
-    "mocha": "^9.0.3",
-    "selenium-webdriver": "^4.0.0-beta.4"
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
+    "selenium-webdriver": "^4.34.0"
   }
 }
 ```
@@ -80,21 +79,24 @@ testing file at `test/test.js` by default, so let's create that file now.
 `test/test.js`:
 
 ```javascript
-const os = require('os');
-const path = require('path');
-const { expect } = require('chai');
-const { spawn, spawnSync } = require('child_process');
-const { Builder, By, Capabilities } = require('selenium-webdriver');
+import os from 'os';
+import path from 'path';
+import { expect } from 'chai';
+import { spawn, spawnSync } from 'child_process';
+import { Builder, By, Capabilities } from 'selenium-webdriver';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // create the path to the expected application binary
 const application = path.resolve(
   __dirname,
   '..',
   '..',
-  '..',
+  'src-tauri',
   'target',
-  'release',
-  'hello-tauri-webdriver'
+  'debug',
+  'tauri-app'
 );
 
 // keep track of the webdriver instance we create
@@ -102,13 +104,18 @@ let driver;
 
 // keep track of the tauri-driver process we start
 let tauriDriver;
+let exit = false;
 
 before(async function () {
   // set timeout to 2 minutes to allow the program to build if it needs to
   this.timeout(120000);
 
-  // ensure the program has been built
-  spawnSync('cargo', ['build', '--release']);
+  // ensure the app has been built
+  spawnSync('yarn', ['tauri', 'build', '--debug', '--no-bundle'], {
+    cwd: path.resolve(__dirname, '../..'),
+    stdio: 'inherit',
+    shell: true,
+  });
 
   // start tauri-driver
   tauriDriver = spawn(
@@ -116,6 +123,16 @@ before(async function () {
     [],
     { stdio: [null, process.stdout, process.stderr] }
   );
+  tauriDriver.on('error', (error) => {
+    console.error('tauri-driver error:', error);
+    process.exit(1);
+  });
+  tauriDriver.on('exit', (code) => {
+    if (!exit) {
+      console.error('tauri-driver exited with code:', code);
+      process.exit(1);
+    }
+  });
 
   const capabilities = new Capabilities();
   capabilities.set('tauri:options', { application });
@@ -130,10 +147,7 @@ before(async function () {
 
 after(async function () {
   // stop the webdriver session
-  await driver.quit();
-
-  // kill the tauri-driver process
-  tauriDriver.kill();
+  await closeTauriDriver();
 });
 
 describe('Hello Tauri', () => {
@@ -159,6 +173,34 @@ describe('Hello Tauri', () => {
     const luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
     expect(luma).to.be.lessThan(100);
   });
+});
+
+async function closeTauriDriver() {
+  exit = true;
+  // kill the tauri-driver process
+  tauriDriver.kill();
+  // stop the webdriver session
+  await driver.quit();
+}
+
+function onShutdown(fn) {
+  const cleanup = () => {
+    try {
+      fn();
+    } finally {
+      process.exit();
+    }
+  };
+
+  process.on('exit', cleanup);
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+  process.on('SIGHUP', cleanup);
+  process.on('SIGBREAK', cleanup);
+}
+
+onShutdown(() => {
+  closeTauriDriver();
 });
 ```
 
@@ -201,7 +243,7 @@ application at all!
 
 [prerequisites instructions]: /develop/tests/webdriver/
 [selenium]: https://selenium.dev/
-[finished example project]: https://github.com/chippers/hello_tauri
+[finished example project]: https://github.com/tauri-apps/webdriver-example
 [mocha]: https://mochajs.org/
 [chai]: https://www.chaijs.com/
 [`selenium-webdriver`]: https://www.npmjs.com/package/selenium-webdriver
