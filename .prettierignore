@@ -39,5 +39,9 @@ src/content/docs/zh-cn/start/frontend/qwik.mdx
 src/content/docs/learn/splashscreen.mdx
 src/content/docs/zh-cn/learn/splashscreen.mdx
 
+src/content/docs/ja/learn/Security/capabilities-for-windows-and-platforms.mdx
+src/content/docs/ja/learn/Security/using-plugin-permissions.mdx
+src/content/docs/ja/learn/Security/writing-plugin-permissions.mdx
+
 
 src/content/docs/security/http-headers.mdx

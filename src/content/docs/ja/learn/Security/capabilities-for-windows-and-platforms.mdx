@@ -1,0 +1,203 @@
+---
+title: さまざまなウィンドウやプラットフォームでのセキュリティ・レベル
+sidebar:
+  order: 11
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro';
+import Cta from '@fragments/cta.mdx';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+この章は、Tauri アプリのセキュリティ・レベルをカスタマイズする方法について説明いたします。
+
+## この章の内容
+
+- Tauri アプリで複数のウィンドウを作成する
+- ウィンドウごとに異なるセキュリティ・レベルを使用する
+- プラットフォームをに依存するセキュリティ・レベルを使用する
+
+## 事前準備
+
+この章の演習内容は、「[プラグイン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」を読了後に行なうことを前提としています。
+
+## 手順
+
+<Steps>
+1. ### Tauri アプリで複数のウィンドウを作成する
+
+    この演習では、`first`（第一）と `second`（第二）というラベルの付いた二つのウィンドウを持つアプリを作成します。
+    Tauri アプリケーションでウィンドウを作成する方法はいくつかあります。
+
+    #### Tauri 設定ファイルを使用してウィンドウを作成
+
+    Tauri 設定ファイル（通常は `tauri.conf.json` という名前）では次のようになります：
+
+        <ShowSolution>
+        ```javascript
+          "productName": "multiwindow",
+          ...
+          "app": {
+            "windows": [
+              {
+                "label": "first",
+                "title": "First",
+                "width": 800,
+                "height": 600
+              },
+              {
+                "label": "second",
+                "title": "Second",
+                "width": 800,
+                "height": 600
+              }
+            ],
+          },
+          ...
+        }
+        ```
+        </ShowSolution>
+
+    #### プログラムでウィンドウを作成
+
+    Rust コード内で Tauri アプリを作成します：
+
+    <ShowSolution>
+    ```rust
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![greet])
+        .setup(|app| {
+            let webview_url = tauri::WebviewUrl::App("index.html".into());
+            // First window（第一ウィンドウ）
+            tauri::WebviewWindowBuilder::new(app, "first", webview_url.clone())
+                .title("First")
+                .build()?;
+            // Second window（第二ウィンドウ）
+            tauri::WebviewWindowBuilder::new(app, "second", webview_url)
+                .title("Second")
+                .build()?;
+            Ok(())
+        })
+        .run(context)
+        .expect("error while running tauri application");
+    ```
+    </ShowSolution>
+
+
+2. ### 異なるウィンドウに異なるセキュリティ・レベルを適用
+
+    Tauri アプリのウィンドウでは、Tauri バックエンドのさまざまな機能やプラグインを使用できます。
+    セキュリティをより強固にするために、各ウィンドウに必要なセキュリティ機能のみを付与することをお勧めします。
+    この演習では、「第一の `first`」ウィンドウでファイルシステムとダイアログ機能を使用し、「第二の `second`」ウィンドウではダイアログ機能のみを必要としている状況を想定して進めます。
+
+    #### カテゴリごとの個別「セキュリティ・レベル」ファイル
+
+    有効化するアクションのカテゴリごとに「セキュリティ・レベル」ファイルを分割することをお勧めします。
+
+    <ShowSolution>
+    `src-tauri/capabilities` 内の JSON ファイルは、「セキュリティ・レベル」システムに対応済みです。
+    そこで、ファイルシステムとダイアログ・ウィンドウに関連するセキュリティ・レベルを `filesystem.json` と `dialog.json` に分割します。
+
+    _Tauri プロジェクトのファイルツリー：_
+
+    ```
+    /src
+    /src-tauri
+      /capabilities
+        filesystem.json
+        dialog.json
+      tauri.conf.json
+    package.json
+    README.md
+    ```
+    </ShowSolution>
+
+    #### 「第一 `first`」ウィンドウにファイルシステムのセキュリティ・レベルを付与
+
+    「`first`」ウィンドウに、`$HOME` ディレクトリの内容への読み取りアクセス権を付与するようにセキュリティ・レベルを設定します。
+
+    <ShowSolution>
+
+    一つまたは複数のウィンドウ・ラベルを持つ「セキュリティ機能 capability」ファイル内の「`windows` フィールド」を使用します。
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": ["fs:allow-home-read"]
+    }
+    ```
+
+    <TranslationNote lang="ja">
+
+    「filesystem.json」ファイルの内容抄訳：
+
+    - identifier：　識別子名
+    - description：　セキュリティ内容説明（home ディレクトリへのファイル・アクセスを許可）
+    - local：　true
+    - windows：　ウィンドウ名
+    - permissions：　アクセス権設定
+
+    </TranslationNote>
+
+    </ShowSolution>
+
+    #### 「第一 `first`」と「第二 `second`」ウィンドウにダイアログ機能を付与
+
+    「`first`」と「`second`」ウィンドウに「Yes/No」ダイアログを作成する機能を追加します。
+
+    <ShowSolution>
+
+    一つまたは複数のウィンドウ・ラベルを持つ「セキュリティ機能」ファイル内の `windows` フィールドを使用します。
+
+    ```json title="dialog.json"
+    {
+      "identifier": "dialog",
+      "description": "Allow to open a dialog",
+      "local": true,
+      "windows": ["first", "second"],
+      "permissions": ["dialog:allow-ask"]
+    }
+    ```
+
+    </ShowSolution>
+
+3. ### セキュリティ機能をプラットフォーム依存にする
+
+    次に、特定のプラットフォームでのみアクティブになるようにセキュリティ機能をカスタマイズします。
+    以下の事例では、ファイルシステムのセキュリティ機能を `linux` と `windows` でのみ有効にします。
+
+    <ShowSolution>
+
+    プラットフォーム別に設定するには、セキュリティ機能ファイルの「`platforms` フィールド」で対象プラットフォームを指定します。
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": ["fs:allow-home-read"],
+      "platforms": ["linux", "windows"]
+    }
+    ```
+
+    現在指定可能なプラットフォームは、`linux`、`windows`、`macos`、`android`、および `ios` です。
+
+    </ShowSolution>
+
+</Steps>
+
+## 本章のまとめ と 参考資料
+
+Tauri アプリで複数のウィンドウを作成し、それぞれに別々のセキュリティ機能を与える方法を学びました。さらに、こうしたセキュリティ機能は特定のプラットフォーム向けにカスタマイズすることも可能です。
+
+ウィンドウ機能を使用したサンプル・アプリケーションは、[Tauri Github リポジトリ](https://github.com/tauri-apps/tauri) の [`api` サンプル](https://github.com/tauri-apps/tauri/tree/dev/examples/api) 内にあります。
+「セキュリティ機能ファイル capability file」で使用できるフィールドは、TAURI Doc の「メニュー Menu」内にある「Reference」の [Capability](/reference/acl/capability/) 部分にリストされています。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
