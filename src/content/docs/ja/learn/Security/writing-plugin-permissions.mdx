@@ -27,18 +27,18 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    最新バージョンのインストールが行なわれていれば、Tauri CLI を使用してプラグインの作成を開始できます。
 
-  {/* prettier-ignore */}
-  <ShowSolution>
-  ```sh
-  mkdir -p tauri-learning
-  cd tauri-learning
-  cargo tauri plugin new test
-  cd tauri-plugin-test
-  pnpm install
-  pnpm build
-  cargo build
-  ```
-  </ShowSolution>
+    {/* prettier-ignore */}
+    <ShowSolution>
+    ```sh
+    mkdir -p tauri-learning
+    cd tauri-learning
+    cargo tauri plugin new test
+    cd tauri-plugin-test
+    pnpm install
+    pnpm build
+    cargo build
+    ```
+    </ShowSolution>
     
 2. ### 新しいコマンドの作成
 
@@ -170,7 +170,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
     permissions = ["allow-ping", "allow-write-custom-file"]
     ```
 
-    </ShowSolution>
+  </ShowSolution>
 
 5. ### サンプル・アプリケーションからテスト・コマンドを呼び出す
 
