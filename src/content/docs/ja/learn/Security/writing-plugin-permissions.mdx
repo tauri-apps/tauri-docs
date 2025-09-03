@@ -157,9 +157,9 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 4. ### デフォルトのプラグイン・アクセス権を定義
 
-   このプラグイン例ではデフォルトで `write_custom_file` コマンドを公開する必要があるため、このコマンドを `default.toml` のアクセス権限（permissions）に追加する必要があります。
+    このプラグイン例ではデフォルトで `write_custom_file` コマンドを公開する必要があるため、このコマンドを `default.toml` のアクセス権限（permissions）に追加する必要があります。
 
-  <ShowSolution>
+    <ShowSolution>
 
     先ほど公開した新しいコマンドを許可するために、このコマンドをデフォルトのアクセス権限のセットに追加します。
 
@@ -170,15 +170,15 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
     permissions = ["allow-ping", "allow-write-custom-file"]
     ```
 
-  </ShowSolution>
+    </ShowSolution>
 
 5. ### サンプル・アプリケーションからテスト・コマンドを呼び出す
 
-   作成されたプラグイン・ディレクトリ構造には `examples/tauri-app` フォルダーがあり、そこにはプラグインをテストするためにすぐに使用できる Tauri アプリケーションが含まれています。
+    作成されたプラグイン・ディレクトリ構造には `examples/tauri-app` フォルダーがあり、そこにはプラグインをテストするためにすぐに使用できる Tauri アプリケーションが含まれています。
 
-   新しいコマンドを追加したので、その新しいコマンドを呼び出すようにフロントエンドを少し変更する必要があります。
+    新しいコマンドを追加したので、その新しいコマンドを呼び出すようにフロントエンドを少し変更する必要があります。
 
-  <ShowSolution>
+    <ShowSolution>
 
     ```svelte title="src/App.svelte" del={11-13,42-45} ins={14-16,45-49}
     <script>
