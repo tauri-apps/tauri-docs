@@ -84,8 +84,8 @@ Install the deep-link plugin to get started.
 There are two ways to open your app from links on Android:
 
 1. **App Links (http/https + host, verified)**
-  For [app links](https://developer.android.com/training/app-links#android-app-links), you need a server with a
-  `.well-known/assetlinks.json` endpoint that must return a text response in the given format:
+   For [app links](https://developer.android.com/training/app-links#android-app-links), you need a server with a
+   `.well-known/assetlinks.json` endpoint that must return a text response in the given format:
 
 ```json title=".well-known/assetlinks.json"
 [
@@ -114,8 +114,8 @@ see [verify Android applinks] for more information.
 There are two ways to open your app from links on iOS:
 
 1. **Universal Links (https + host, verified)**
-For [universal links], you need a server with a `.well-known/apple-app-site-association` endpoint that must return a JSON response
-in the given format:
+   For [universal links], you need a server with a `.well-known/apple-app-site-association` endpoint that must return a JSON response
+   in the given format:
 
 ```json title=".well-known/apple-app-site-association"
 {
@@ -200,7 +200,6 @@ and schemes registered at runtime must be manually checked using [`Env::args_os`
 ## Configuration
 
 Under `tauri.conf.json > plugins > deep-link`, configure mobile domains/schemes and desktop schemes you want to associate with your application.
-
 
 ### Examples
 
