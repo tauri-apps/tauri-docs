@@ -81,8 +81,11 @@ Install the deep-link plugin to get started.
 
 ### Android
 
-For [app links](https://developer.android.com/training/app-links#android-app-links), you need a server with a
-`.well-known/assetlinks.json` endpoint that must return a text response in the given format:
+There are two ways to open your app from links on Android:
+
+1. **App Links (http/https + host, verified)**
+   For [app links](https://developer.android.com/training/app-links#android-app-links), you need a server with a
+   `.well-known/assetlinks.json` endpoint that must return a text response in the given format:
 
 ```json title=".well-known/assetlinks.json"
 [
@@ -103,10 +106,16 @@ Where `$APP_BUNDLE_ID` is the value defined on [`tauri.conf.json > identifier`] 
 `$CERT_FINGERPRINT` is a list of SHA256 fingerprints of your app's signing certificates,
 see [verify Android applinks] for more information.
 
+2. **Custom URI schemes (no host required, no verification)**
+   For URIs like `myapp://...`, you can declare a custom scheme without hosting any files. Use the `scheme` field in the mobile configuration and omit the `host`.
+
 ### iOS
 
-For [universal links], you need a server with a `.well-known/apple-app-site-association` endpoint that must return a JSON response
-in the given format:
+There are two ways to open your app from links on iOS:
+
+1. **Universal Links (https + host, verified)**
+   For [universal links], you need a server with a `.well-known/apple-app-site-association` endpoint that must return a JSON response
+   in the given format:
 
 ```json title=".well-known/apple-app-site-association"
 {
@@ -144,6 +153,9 @@ curl -v https://app-site-association.cdn-apple.com/a/v1/<host>
 ```
 
 See [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) for more information.
+
+2. **Custom URI schemes (no host, no verification)**
+   For URIs like `myapp://...`, you can declare a custom scheme under mobile configuration with `"appLink": false` (or omit it). The plugin generates the appropriate `CFBundleURLTypes` entries in your app's Info.plist. No `.well-known` files or HTTPS host are needed.
 
 ### Desktop
 
@@ -187,16 +199,56 @@ and schemes registered at runtime must be manually checked using [`Env::args_os`
 
 ## Configuration
 
-Under `tauri.conf.json > plugins > deep-link`, configure the domains (mobile) and schemes (desktop) you want to associate with your application:
+Under `tauri.conf.json > plugins > deep-link`, configure mobile domains/schemes and desktop schemes you want to associate with your application.
+
+### Examples
+
+**Custom scheme on mobile (no server required):**
 
 ```json title="tauri.conf.json"
 {
   "plugins": {
     "deep-link": {
       "mobile": [
-        { "host": "your.website.com", "pathPrefix": ["/open"] },
-        { "host": "another.site.br" }
-      ],
+        {
+          "scheme": ["ovi"],
+          "appLink": false
+        }
+      ]
+    }
+  }
+}
+```
+
+This registers the `ovi://*` scheme on Android and iOS.
+
+**App Link / Universal Link (verified https + host):**
+
+```json
+{
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        {
+          "scheme": ["https"],
+          "host": "your.website.com",
+          "pathPrefix": ["/open"],
+          "appLink": true
+        }
+      ]
+    }
+  }
+}
+```
+
+This registers `https://your.website.com/open/*` as an app/universal link.
+
+**Desktop custom schemes:**
+
+```json
+{
+  "plugins": {
+    "deep-link": {
       "desktop": {
         "schemes": ["something", "my-tauri-app"]
       }
@@ -204,9 +256,6 @@ Under `tauri.conf.json > plugins > deep-link`, configure the domains (mobile) an
   }
 }
 ```
-
-With the above configuration, the `something://*` and `my-tauri-app://*` URLs are associated with your desktop application,
-and on mobile the `https://another.site.br/*` and `https://your.website.com/open/*` URLs will open your mobile app.
 
 ## Usage
 
