@@ -183,7 +183,7 @@ test('invoke', async () => {
 [`clearmocks()`]: /reference/javascript/api/namespacemocks/#clearmocks
 [Vitest]: https://vitest.dev
 [jest]: https://jestjs.io/ja/
-[サイドカー]: /ja/develop/sidecar.mdx
+[サイドカー]: /ja/develop/sidecar/
 
 <div style="text-align: right">
   【※ この日本語版は、「Jan 22, 2025 英語版」に基づいています】
