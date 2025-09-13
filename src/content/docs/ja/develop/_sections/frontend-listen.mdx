@@ -1,0 +1,147 @@
+---
+title: Rust からフロントエンドを呼び出す
+sidebar:
+  order: 1
+---
+
+`@tauri-apps/api` NPM パッケージは、グローバル・イベントと Webview 固有のイベントの両方を検知（リッスン）するための API を提供しています。
+
+- グローバル・イベントの検知
+
+  ```ts
+  import { listen } from '@tauri-apps/api/event';
+
+  type DownloadStarted = {
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
+
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
+  ```
+
+- Webview 固有イベントの検知
+
+  ```ts
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
+  ```
+
+The `listen` 関数は、アプリケーションの全「[ライフタイム](https://doc.rust-lang.org/rust-by-example/ja/scope/lifetime.html)」期間中、イベント・リスナーの登録は維持されたままです。
+イベントの検知（リッスン）を停止するには、`listen` 関数によって返される `unlisten` 関数を使用できます：
+
+```js
+import { listen } from '@tauri-apps/api/event';
+
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
+```
+
+:::note
+コンポーネントがアンマウントされるときなど、実行コンテキストがスコープ（有効範囲）外になる場合は、常に `unlisten` 関数を使用してください。
+
+ページが再読み込みされるか、別の URL に移動すると、リスナーは自動的に登録解除されます。
+ただし、この仕組みは「シングル・ページ・アプリケーション（SPA）」ルーターには適用されません。
+
+> > > 《訳注》 **シングル・ページ・アプリケーション**　一つのページでコンテンツの切り替えを行なうアプリケーションや Web ページの構造。詳しくは [Wikipedia](https://ja.wikipedia.org/wiki/シングルページアプリケーション) を参照してください。
+> > > :::
+
+さらに、Tauri ではイベントを一度だけ検知（リッスン）するためのユーティリティ関数を提供しています：
+
+```js
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+once('ready', (event) => {});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
+```
+
+:::note
+フロントエンドで発行されたイベントは、上記の API によって登録されたリスナーもトリガーします。
+詳細については、次章 [フロントエンドから Rust を呼び出す] の説明を参照してください。
+:::
+
+#### Rust のイベントを検知
+
+グローバル・イベントも Webview 固有のイベントも、Rust に登録されたリスナーに配信されます。
+
+- グローバル・イベントの検知
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::Listener;
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        app.listen("download-started", |event| {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.payload()) {
+            println!("downloading {}", payload.url);
+          }
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+- Webview 固有イベントの検知
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::{Listener, Manager};
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        let webview = app.get_webview_window("main").unwrap();
+        webview.listen("logged-in", |event| {
+          let session_token = event.data;
+          // save token..
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+The `listen` 関数は、アプリケーションの全「ライフタイム」期間中、イベント・リスナーの登録は維持されたままです。
+イベントの検知（リッスン）を停止するには、`listen` 関数によって返される `unlisten` 関数を使用できます：
+
+```rust
+// unlisten outside of the event handler scope:
+let event_id = app.listen("download-started", |event| {});
+app.unlisten(event_id);
+
+// unlisten when some event criteria is matched
+let handle = app.handle().clone();
+app.listen("status-changed", |event| {
+  if event.data == "ready" {
+    handle.unlisten(event.id);
+  }
+});
+```
+
+さらに、Tauri はイベントを一度だけ検知（リッスン）するためのユーティリティ関数を提供しています：
+
+```rust
+app.once("ready", |event| {
+  println!("app is ready");
+});
+```
+
+この場合、イベント・リスナーは最初のトリガー後にすぐに登録が解除されます。
+
+[フロントエンドから Rust を呼び出す]: /ja/develop/calling-rust/

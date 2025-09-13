@@ -15,7 +15,7 @@ import {
   type MarkdownApplication,
   type PluginOptions,
 } from 'typedoc-plugin-markdown';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
 const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
   // TypeDoc options
@@ -88,6 +88,16 @@ async function generator() {
   ];
 
   if (existsSync('../plugins-workspace/node_modules')) {
+    // TODO: Actually fix this
+    const data = readFileSync('../plugins-workspace/plugins/fs/guest-js/index.ts', {
+      encoding: 'utf8',
+    });
+    writeFileSync(
+      '../plugins-workspace/plugins/fs/guest-js/index.ts',
+      data.replace(/Uint8Array<ArrayBuffer>/g, 'Uint8Array'),
+      { encoding: 'utf8' }
+    );
+
     plugins.forEach(async (plugin) => {
       const pluginJsOptions: Partial<TypeDocOptions> = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
@@ -169,6 +179,8 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 class TauriThemeRenderContext extends MarkdownThemeContext {
   constructor(theme: MarkdownTheme, page: MarkdownPageEvent<Reflection>, options: Options) {
     super(theme, page, options);
+    const originalCommentPartial = this.partials.comment;
+
     this.partials = {
       ...this.partials,
       // Formats `@source` to be a single line
@@ -179,6 +191,37 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
         let label = model.sources.length > 1 ? '**Sources**: ' : '**Source**: ';
         const sources = model.sources.map((source) => `${source.url}`);
         return label + sources.join(', ');
+      },
+      // Remove heading markers from JSDoc comments to prevent accidental markdown headings
+      comment: function (comment, options) {
+        const headingStringsToReplace = [
+          // known to break
+          '#### Platform-specific',
+          // just to be sure
+          '### Platform-specific',
+        ];
+
+        if (comment?.summary) {
+          comment.summary.forEach((line) => {
+            if (line.kind === 'text' && typeof line.text === 'string') {
+              headingStringsToReplace.forEach((headingString) => {
+                line.text = line.text.replace(headingString, headingString.replace(/^#+\s*/, ''));
+              });
+            }
+          });
+        }
+        if (comment?.blockTags) {
+          comment.blockTags.forEach((tag) => {
+            tag.content.forEach((line) => {
+              if (line.kind === 'text' && typeof line.text === 'string') {
+                headingStringsToReplace.forEach((headingString) => {
+                  line.text = line.text.replace(headingString, headingString.replace(/^#+\s*/, ''));
+                });
+              }
+            });
+          });
+        }
+        return originalCommentPartial.call(this, comment, options);
       },
     };
   }

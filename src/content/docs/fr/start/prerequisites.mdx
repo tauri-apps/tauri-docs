@@ -56,7 +56,8 @@ sudo pacman -S --needed \
   openssl \
   appmenu-gtk-module \
   libappindicator-gtk3 \
-  librsvg
+  librsvg \
+  xdotool
 ```
 
   </TabItem>
@@ -70,7 +71,8 @@ sudo dnf install webkit2gtk4.1-devel \
   wget \
   file \
   libappindicator-gtk3-devel \
-  librsvg2-devel
+  librsvg2-devel \
+  libxdo-devel
 sudo dnf group install "c-development"
 ```
 
@@ -120,40 +122,8 @@ sudo apk add \
   <TabItem label="NixOS">
 
 :::note
-Cela installera également Rust et Node.js ainsi que le CLI `cargo-tauri` pour vous, vous pouvez donc sauter ces étapes ci-dessous.
+Les instructions pour Nix/NixOS peuvent être trouvées dans le [NixOS Wiki](https://wiki.nixos.org/wiki/Tauri).
 :::
-
-Using `nix-shell`:
-
-```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
-
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
-}
-```
 
   </TabItem>
 </Tabs>
