@@ -77,7 +77,7 @@ Install the plugin-process to get started.
 
 The process plugin is available in both JavaScript and Rust.
 
-**Note**: the JavaScript `relaunch()` doesn't currently work on macOS apps, please use the Rust `restart()` command instead.
+**Note**: the JavaScript `relaunch()` doesn't currently work on macOS apps, please use the Rust `restart()` command instead. Additionally, make sure you add an explicit `window.show()` on app startup, if you want `restart()` to show the app again after restarting.
 
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
