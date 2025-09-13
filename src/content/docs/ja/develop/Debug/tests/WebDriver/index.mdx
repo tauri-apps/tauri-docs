@@ -1,0 +1,100 @@
+---
+title: WebDriver
+description: WebDriver のテスト
+sidebar:
+  order: 10
+  label: 概要
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+[WebDriver] は、主として自動テストを目的とした、Web ドキュメントとのやりとりを行なうための標準化されたインターフェースです。
+Tauri は、クロス・プラットフォーム・ラッパー [`tauri-driver`] の下で、ネイティブ・プラットフォームの [WebDriver] サーバーを利用することで [WebDriver] インターフェースをサポートしています。
+デスクトップでは、Windows と Linux のみがサポートされます。macOS では WKWebView ドライバー・ツールが利用できないためです。
+iOS と Android では、ソフトウェアの自動テスト・エコシステム [Appium 2] を通じて動作しますが、現在のところ、そのプロセスは簡素効率化されていません。
+
+## システムの依存関係
+
+次のコマンドを実行して、最新の [`tauri-driver`] をインストールするか、既存のインストールを更新します：
+
+```shell
+cargo install tauri-driver --locked
+```
+
+Tauri は、現在、各プラットフォームのネイティブ [WebDriver] サーバーを利用しているため、サポートされているプラ​​ットフォームで [`tauri-driver`] を実行するには以下のようにいくつかの前提条件があります。
+
+### Linux の場合
+
+Linux プラットフォームでは `WebKitWebDriver` を使用します。このバイナリが既にシステム内にあるかどうかを確認してください（コマンド `which WebKitWebDriver` で確認できます）、というのも、ディストリビューションによっては、このバイナリが通常の WebKit パッケージにバンドルされているためです。
+他のプラットフォームでは、たとえば Debian ベースのディストリビューションの `webkit2gtk-driver` のように、別のパッケージが用意されている場合があります。
+
+### Windows の場合
+
+アプリケーションをビルドおよびテストしている Windows Edge のバージョンと一致する [マイクロソフト・エッジ・ウェブドライバ] のバージョンを必ず取得してください。
+そのバージョンは、最新版 Windows のインストールではほぼ常に最新の安定版バージョンになるはずです。
+この二つのバージョンが一致しない場合は、接続時に「WebDriver テスト・スイート」がハングする可能性があります。
+
+<TranslationNote lang="ja">
+
+**テスト・スイート** testing suite：　ソフトウェアの検証時に用いる一連の「テスト・ケース」を効率的に実行するために一纏まりにしたもの。
+
+</TranslationNote>
+
+ダウンロードには `msedgedriver.exe` というバイナリが含まれています。[`tauri-driver`] は `$PATH` でそのバイナリを検索するので、パス上でアクセス可能になっていることを確認するか、[`tauri-driver`] で `--native-driver` オプションを使用してください。
+Windows [CI](#継続的インテグレーションci) マシン上で Edge と Edge Driver とのバージョンが確実に同期するようにするために、CI セットアップ・プロセスの一環として自動的にダウンロードしたいと思うかもしれません。
+この処理の実行方法に関する手引きは後日追加されるものと思われます。
+
+## モデル・アプリケーション事例
+
+<TranslationNote lang="ja">
+
+**モデル・アプリケーション**　原文 Example Applications：　ソフトウェアの検証対象となる「アプリケーションの事例」の意味であるが、本稿では検証時の「モデル」とする事例の意味で「モデル・あっプリケーション」訳しています。
+
+</TranslationNote>
+
+以下は、WebDriver を用いてテストされるアプリケーションの最小構成事例を作成するステップ・バイ・ステップの作成ガイドです。
+
+この作成ガイドの結果と、完成した最小限のコードベースを手早く確認したい場合は、https://github.com/chippers/hello_tauri を参照してください。
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard
+    title="モデル・アプリケーションの基本設定"
+    href="/ja/develop/debug/tests/webdriver/example/"
+  />
+  <LinkCard
+    title="Selenium を利用する"
+    href="/ja/develop/debug/tests/webdriver/example/selenium/"
+  />
+  <LinkCard
+    title="WebdriverIO を利用する"
+    href="/ja/develop/debug/tests/webdriver/example/webdriverio/"
+  />
+</CardGrid>
+
+## 継続的インテグレーション（CI）
+
+上記の事例には、GitHub Actions を利用してテストするための CI スクリプトも付属していますが、この概念をもう少し詳しく説明している以下の「WebDriver CI ガイド」（次章）も興味深いかもしれません。
+
+<LinkCard
+  title="継続的インテグレーション（CI）"
+  href="/ja/develop/debug/tests/webdriver/ci/"
+/>
+
+<TranslationNote lang="ja">
+
+**CI/CD**　ソフトウェア開発でのワークフロー自動化手法。詳しくは「[GitLab](https://about.gitlab.com/ja-jp/topics/ci-cd/)」を参照してください。
+
+</TranslationNote>
+
+[webdriver]: https://www.w3.org/TR/webdriver/
+[`tauri-driver`]: https://crates.io/crates/tauri-driver
+[tauri-driver]: https://crates.io/crates/tauri-driver
+[マイクロソフト・エッジ・ウェブドライバ]: https://developer.microsoft.com/ja-jp/microsoft-edge/tools/webdriver/
+[Appium 2]: https://appium.io/docs/ja/latest/
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

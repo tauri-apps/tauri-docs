@@ -1,0 +1,216 @@
+---
+title: Selenium を利用する
+sidebar:
+  order: 31
+i18nReady: true
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+:::note[モデル・アプリケーション]
+
+この「[Selenium]（セレニウム）」設定ガイドでは、手順を追って読み進めるために、前章の「[モデル・アプリケーションの基本設定]」に目を通していることを前提としています。それとは別に、一般的な情報としても役に立つでしょう。
+
+:::
+
+この章の WebDriver テストの事例では、[Selenium] と人気のある Node.js のテスト・スイートを使用しますので、
+`npm` または `yarn` とともに Node.js をインストールしていることが前提となります（[完成版モデル・アプリケーション] では `yarn` が使用されていますが）。
+
+## テスト用ディレクトリの作成
+
+プロジェクト内にテストを記述するための場所を作成しましょう。
+このプロジェクト事例では「ネスト化された」ディレクトリを使用しますが、これは後ほど他のフレームワークについても詳しく調べるためで、通常は「一つのフレームワーク」だけが必要です。
+`mkdir -p webdriver/selenium` で、使用するディレクトリを作成します。以下、この設定ガイドでは、`webdriver/selenium` ディレクトリ内にいると仮定します。
+
+## Selenium プロジェクトの初期化
+
+既存の `package.json` を使用して、このテスト・スイートをブートストラップ（起動）します。というのも、使用する具体的な依存関係はすでに選定済であり、シンプルで実用的なソリューションを紹介したいためです。
+この項の最後の「**> ここをクリック・・・**」の部分に、白紙の状態から設定する手順についての設定ガイドが折り畳まれています。
+
+`package.json`:
+
+```json
+{
+  "name": "selenium",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "selenium-webdriver": "^4.0.0-beta.4"
+  }
+}
+```
+
+テスト・フレームワークとして [Mocha]（モカ）を実行するスクリプトがあり、これは `test` コマンドとして利用可能です。
+また、テストの実行に使用するさまざまな依存関係もあります。
+すなわち、テスト・フレームワークとしての [Mocha]、アサーション・ライブラリとしての [Chai]（チャイ）、それに [`selenium-webdriver`] で、これは Node.js の [Selenium] パッケージです。
+
+<TranslationNote lang="ja">
+
+**アサーション・ライブラリ**　assertion library：　テスト時に検証結果が想定された内容かどうかを判定するためのツール。
+
+</TranslationNote>
+
+<details>
+  <summary>ここをクリック（プロジェクトを白紙の状態から設定する場合）</summary>
+
+依存関係を白紙の状態からインストールする場合は、次のコマンドを実行します。
+
+<CommandTabs
+  npm="npm install mocha chai selenium-webdriver"
+  yarn="yarn add mocha chai selenium-webdriver"
+/>
+
+また、`package.json` の `"scripts"` キーに `"test": "mocha"` 項目を追加することをお勧めします。これにより、Mocha の実行が以下のコマンドから簡単に呼び出せるようになります。
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+</details>
+
+## テスト
+
+[WebdriverIO のテスト・スイート](/ja/develop/debug/tests/webdriver/example/webdriverio/#設定) とは異なり、Selenium にはテスト・スイートが付属しておらず、テスト・スイートの構築は開発者に任されています。
+ここでは [Mocha] を選択しました。Mocha は WebDrivers とは関係のない、比較的中立的なライブラリなので、スクリプトのすべてを正しい順序で設定するには少しばかり作業が必要になります。
+[Mocha] はデフォルトで `test/test.js` にテスト・ファイルを用意する必要があります。では、早速作成してみましょう。
+
+`test/test.js`:
+
+```javascript
+const os = require('os');
+const path = require('path');
+const { expect } = require('chai');
+const { spawn, spawnSync } = require('child_process');
+const { Builder, By, Capabilities } = require('selenium-webdriver');
+
+// 求められるアプリケーション・バイナリへのパスを作成
+const application = path.resolve(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'target',
+  'release',
+  'hello-tauri-webdriver'
+);
+
+// 作成した WebDriver インスタンスを追跡
+let driver;
+
+// 開始する tauri-driver プロセスを追跡
+let tauriDriver;
+
+before(async function () {
+  // 必要に応じてプログラムをビルドできるように、タイムアウトを2分に設定
+  this.timeout(120000);
+
+  // プログラムがビルドされたことを確認
+  spawnSync('cargo', ['build', '--release']);
+
+  // tauri-driver を起動
+  tauriDriver = spawn(
+    path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+    [],
+    { stdio: [null, process.stdout, process.stderr] }
+  );
+
+  const capabilities = new Capabilities();
+  capabilities.set('tauri:options', { application });
+  capabilities.setBrowserName('wry');
+
+  // Webdriver クライアントを起動
+  driver = await new Builder()
+    .withCapabilities(capabilities)
+    .usingServer('http://127.0.0.1:4444/')
+    .build();
+});
+
+after(async function () {
+  // Webdriver セッションを停止
+  await driver.quit();
+
+  // tauri-driver プロセスを強制終了
+  tauriDriver.kill();
+});
+
+describe('Hello Tauri', () => {
+  it('should be cordial', async () => {
+    const text = await driver.findElement(By.css('body > h1')).getText();
+    expect(text).to.match(/^[hH]ello/);
+  });
+
+  it('should be excited', async () => {
+    const text = await driver.findElement(By.css('body > h1')).getText();
+    expect(text).to.match(/!$/);
+  });
+
+  it('should be easy on the eyes', async () => {
+    // Selenium は色の CSS 値を rgb(r, g, b) として返します
+    const text = await driver
+      .findElement(By.css('body'))
+      .getCssValue('background-color');
+
+    const rgb = text.match(/^rgb\((?<r>\d+), (?<g>\d+), (?<b>\d+)\)$/).groups;
+    expect(rgb).to.have.all.keys('r', 'g', 'b');
+
+    const luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
+    expect(luma).to.be.lessThan(100);
+  });
+});
+```
+
+もし「JS テスト・フレームワーク」に慣れ親しんでいる方であれば、`describe`、`it`、`expect` などは見覚えがあるはずです。また、mocha の設定（セットアップ）と解除（ティアダウン）を行なうための、やや複雑な`before()`と`after()`コールバックも用意されています。
+テスト本体ではない行には、セットアップ・コードとティアダウン・コードを説明するコメントの記載があります。
+[WebdriverIO のテスト仕様](/ja/develop/debug/tests/webdriver/example/webdriverio/#テスト仕様)の「Spec ファイル」に慣れている場合は、WebDriver 関連の項目をさらにいくつか設定する必要があるため、テスト以外のコードがより多くなっていることに気付くでしょう。
+
+## テスト・スイートの実行
+
+依存関係とテスト・スクリプトの設定がすべて完了しましたので、実行してみましょう。
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+次のような出力が表示されるはずです：
+
+```text
+➜  selenium git:(main) ✗ yarn test
+yarn run v1.22.11
+$ Mocha
+
+
+  Hello Tauri
+    ✔ should be cordial (120ms)
+    ✔ should be excited
+    ✔ should be easy on the eyes
+
+
+  3 passing (588ms)
+
+Done in 0.93s.
+```
+
+上記の `test/test.js` の `describe` で生成した `Hello Tauri` テスト・スイートでは、`it` に記載した三つのテスト項目がすべて合格していることがわかります。
+
+[Selenium] とともに、テスト・スイートに「フックアップ」する（別処理を挟み込む）処理により、Tauri アプリケーションをまったく修正せずに「e2e テスト」を実行することができました！
+
+<TranslationNote lang="ja">
+
+**e2e テスト**　end-to-end test の略記。システム全体を「先端から終端まで」（つまり最初から最後まで）動作検証するテスト手法。自動システム全検証。システム毎にテスト・コードを準備すると工数・費用が増大するため、テスト自動化ツールが利用されています。
+
+</TranslationNote>
+
+[モデル・アプリケーションの基本設定]: /ja/develop/debug/tests/webdriver/example/
+[selenium]: https://selenium.dev/ja/
+[完成版モデル・プロジェクト]: https://github.com/chippers/hello_tauri
+[mocha]: https://mochajs.org/
+[chai]: https://www.chaijs.com/
+[`selenium-webdriver`]: https://www.npmjs.com/package/selenium-webdriver
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

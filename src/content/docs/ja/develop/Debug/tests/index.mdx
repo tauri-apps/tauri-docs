@@ -1,0 +1,34 @@
+---
+title: テスト
+description: Tauri ランタイム内外でのテスト手法
+sidebar:
+  order: 10
+  label: 概要
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Tauri は、モック・ランタイム（模擬実行）を利用した単体テストと統合テストの両方をサポートしています。モック・ランタイムでは、ネイティブ WebView ライブラリは実行されません。
+詳細については、次章「[Mock Tauri APIs]（モック・ランタイム）」をご覧ください。
+
+Tauri は、また、WebDriver プロトコルを利用した「エンド・ツー・エンド」（自動システム全検証）のテスト・サポートも提供しています。デスクトップとモバイルの両方で動作しますが、デスクトップ WebDriver クライアントが提供されていない macOS では動作しません。
+詳細については、[WebDriver] の章をご覧ください。
+
+Tauri では、ビルド自動化ツール「GitHub Action」の実行を支援するために [tauri-action] が提供されていますが、各プラットフォームがコンパイルに必要なライブラリをインストールしていれば、どの種類の「CI/CD ランナー」でも Tauri で使用できます。
+
+<TranslationNote lang="ja">
+
+**CI/CD**　"Continuous Integration and Continuous
+Deployment"（継続的統合／継続的展開）の略。ランナーは、CI/CD
+と連携して、変更されたプロジェクトを自動的にパイプライン処理するビルドやテストを実行する機能。
+
+</TranslationNote>
+
+[Mock Tauri APIs]: /ja/develop/tests/mocking/
+[WebDriver]: /ja/develop/debug/tests/webdriver/
+[tauri-action]: https://github.com/tauri-apps/tauri-action
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
