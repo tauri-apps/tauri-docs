@@ -76,7 +76,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 ## テスト
 
-[WebdriverIO のテスト・スイート](/ja/develop/debug/tests/webdriver/example/webdriverio/#設定) とは異なり、Selenium にはテスト・スイートが付属しておらず、テスト・スイートの構築は開発者に任されています。
+[WebdriverIO のテスト・スイート](/ja/develop/tests/webdriver/example/webdriverio/#設定) とは異なり、Selenium にはテスト・スイートが付属しておらず、テスト・スイートの構築は開発者に任されています。
 ここでは [Mocha] を選択しました。Mocha は WebDrivers とは関係のない、比較的中立的なライブラリなので、スクリプトのすべてを正しい順序で設定するには少しばかり作業が必要になります。
 [Mocha] はデフォルトで `test/test.js` にテスト・ファイルを用意する必要があります。では、早速作成してみましょう。
 
@@ -167,7 +167,7 @@ describe('Hello Tauri', () => {
 
 もし「JS テスト・フレームワーク」に慣れ親しんでいる方であれば、`describe`、`it`、`expect` などは見覚えがあるはずです。また、mocha の設定（セットアップ）と解除（ティアダウン）を行なうための、やや複雑な`before()`と`after()`コールバックも用意されています。
 テスト本体ではない行には、セットアップ・コードとティアダウン・コードを説明するコメントの記載があります。
-[WebdriverIO のテスト仕様](/ja/develop/debug/tests/webdriver/example/webdriverio/#テスト仕様)の「Spec ファイル」に慣れている場合は、WebDriver 関連の項目をさらにいくつか設定する必要があるため、テスト以外のコードがより多くなっていることに気付くでしょう。
+[WebdriverIO のテスト仕様](/ja/develop/tests/webdriver/example/webdriverio/#テスト仕様)の「Spec ファイル」に慣れている場合は、WebDriver 関連の項目をさらにいくつか設定する必要があるため、テスト以外のコードがより多くなっていることに気付くでしょう。
 
 ## テスト・スイートの実行
 
@@ -204,7 +204,7 @@ Done in 0.93s.
 
 </TranslationNote>
 
-[モデル・アプリケーションの基本設定]: /ja/develop/debug/tests/webdriver/example/
+[モデル・アプリケーションの基本設定]: /ja/develop/tests/webdriver/example/
 [selenium]: https://selenium.dev/ja/
 [完成版モデル・プロジェクト]: https://github.com/chippers/hello_tauri
 [mocha]: https://mochajs.org/

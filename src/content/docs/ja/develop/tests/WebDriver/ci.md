@@ -92,7 +92,7 @@ jobs:
         working-directory: webdriver/webdriverio
 ```
 
-[予め作成したテスト事例]: /ja/develop/debug/tests/webdriver/example/webdriverio/
+[予め作成したテスト事例]: /ja/develop/tests/webdriver/example/webdriverio/
 [webdriver]: https://www.w3.org/TR/webdriver/
 [`tauri-driver`]: https://crates.io/crates/tauri-driver
 [webdriverio]: https://webdriver.io/
