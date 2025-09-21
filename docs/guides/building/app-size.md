@@ -165,7 +165,7 @@ Cargo exposes several options that determine how the compiler generates your bin
 [profile.release]
 panic = "abort" # Strip expensive panic clean-up logic
 codegen-units = 1 # Compile crates one after another so the compiler can optimize better
-lto = true # Enables link to optimizations
+lto = true # Enables link time optimizations
 opt-level = "s" # Optimize for binary size
 strip = true # Remove debug symbols
 ```
