@@ -46,7 +46,7 @@
     "starlight-links-validator": "^0.17.0"
   },
   "minimumReleaseAge": 4320,
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.17.1",
   "engines": {
     "pnpm": "^10.16.0"
   }
