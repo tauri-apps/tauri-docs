@@ -60,17 +60,17 @@ To illustrate this, we compiled some numbers on the ecological impact of your ap
 
 <figure>
 
-| App Size | Unit Time (100Mb/s) | Downloads  | Transit | Total Time (100Mb/s) | Electricity Use (kWh) | CO2 Produced (Ton) | Trees Needed 🌳 |
-| -------- | ------------------- | ---------- | ------- | -------------------- | --------------------- | ------------------ | --------------- |
-| 3 MB     | 240 milliseconds    | 1,000      | 3 GB    | 24 minutes           | 0.3                   | 0.18               | 1               |
-| 3 MB     | 240 milliseconds    | 100,000    | 300 GB  | 1.7 days             | 30                    | 18                 | 108             |
-| 3 MB     | 240 milliseconds    | 10,000,000 | 30 TB   | 167 days             | 3,000                 | 1,800              | 10,800          |
-| 200 MB   | 16 seconds          | 1,000      | 200 GB  | 4.45 hours           | 20                    | 12                 | 72              |
-| 200 MB   | 16 seconds          | 100,000    | 20 TB   | 18.5 days            | 2,000                 | 1,200              | 7,200           |
-| 200 MB   | 16 seconds          | 10,000,000 | 2 PB    | 5 years              | 200,000               | 120,000            | 720,000         |
-| 600 MB   | 48 seconds          | 1,000      | 0.6 TB  | 13 hours             | 60                    | 36                 | 216             |
-| 600 MB   | 48 seconds          | 100,000    | 60 TB   | 54.2 days            | 6,000                 | 3,600              | 21,600          |
-| 600 MB   | 48 seconds          | 10,000,000 | 6 PB    | 14.8 years           | 600,000               | 360,000            | 2,160,000       |
+| App Size | Unit Time (100Mb/s) | Downloads  | Transit | Total Time (100Mb/s) | Electricity Use (kWh) | CO2 Produced (kg) | Trees Needed 🌳 |
+| -------- | ------------------- | ---------- | ------- | -------------------- | --------------------- | ----------------- | --------------- |
+| 3 MB     | 240 milliseconds    | 1,000      | 3 GB    | 24 minutes           | 0.3                   | 0.18              | 1               |
+| 3 MB     | 240 milliseconds    | 100,000    | 300 GB  | 1.7 days             | 30                    | 18                | 1               |
+| 3 MB     | 240 milliseconds    | 10,000,000 | 30 TB   | 167 days             | 3,000                 | 1,800             | 11              |
+| 200 MB   | 16 seconds          | 1,000      | 200 GB  | 4.45 hours           | 20                    | 12                | 1               |
+| 200 MB   | 16 seconds          | 100,000    | 20 TB   | 18.5 days            | 2,000                 | 1,200             | 7               |
+| 200 MB   | 16 seconds          | 10,000,000 | 2 PB    | 5 years              | 200,000               | 120,000           | 720             |
+| 600 MB   | 48 seconds          | 1,000      | 0.6 TB  | 13 hours             | 60                    | 36                | 1               |
+| 600 MB   | 48 seconds          | 100,000    | 60 TB   | 54.2 days            | 6,000                 | 3,600             | 22              |
+| 600 MB   | 48 seconds          | 10,000,000 | 6 PB    | 14.8 years           | 600,000               | 360,000           | 2,160           |
 
 <figcaption>
 
