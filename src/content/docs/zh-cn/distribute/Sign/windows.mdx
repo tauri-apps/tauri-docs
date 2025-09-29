@@ -44,9 +44,7 @@ import { Steps } from '@astrojs/starlight/components';
 <Steps>
 
 1. #### 将 `.cer` 转换为 `.pfx`
-
    - 你将需要以下内容：
-
      - 证书文件 (我是 `cert.cer`)
      - 私钥文件 (我是 `private-key.key`)
 
@@ -57,7 +55,6 @@ import { Steps } from '@astrojs/starlight/components';
    - 你应该被提示输入导出密码**别忘了!**
 
 2. #### 将你的 `.pfx` 文件导入密钥库。
-
    - 我们现在需要导入我们的 `.pfx` 文件。
 
    - 使用 `$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'` 将您的导出密码分配到一个变量
@@ -65,7 +62,6 @@ import { Steps } from '@astrojs/starlight/components';
    - 现在使用 `Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $WINDOWS_PFX_PASSWORD -Force -AsPlainText)` 导入证书。
 
 3. #### 准备变量
-
    - 开始 ➡️ 打开 `certmgr.msc` 以打开个人证书管理，然后打开"个人/证书"。
 
    - 找到刚导入的证书，双击它，然后点击 Details 选项卡。
@@ -126,7 +122,6 @@ info: "Done Adding Additional Store\r\nSuccessfully signed: APPLICATION FILE PAT
 #### 工作流的修改
 
 1. 我们需要在工作流中添加一个步骤来将证书导入 Windows 环境。该工作流完成以下工作。
-
    1. 将 GitHub 密钥分配给环境变量
    2. 创建一个新的 `certificate` 目录
    3. 将 `WINDOWS_CERTIFICATE` 导入到 tempCert.txt 文件中

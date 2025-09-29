@@ -34,7 +34,7 @@
     "astro-d2": "^0.8.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
-    "jsdom": "^26.1.0",
+    "jsdom": "^27.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.14.1",
     "rehype-autolink-headings": "^7.1.0",
@@ -45,8 +45,9 @@
     "starlight-sidebar-topics": "^0.6.0",
     "starlight-links-validator": "^0.17.0"
   },
-  "packageManager": "pnpm@10.15.1",
+  "minimumReleaseAge": 4320,
+  "packageManager": "pnpm@10.17.1",
   "engines": {
-    "pnpm": "^10.0.0"
+    "pnpm": "^10.16.0"
   }
 }
