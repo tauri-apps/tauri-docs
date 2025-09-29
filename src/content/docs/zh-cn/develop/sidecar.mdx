@@ -124,7 +124,7 @@ const output = await sidecar_command.execute();
 
 首先，在 `src-tauri/capabilities/default.json` 中定义需要传递给 sidecar 命令的参数。
 
-```json title="src-tauri/capabilities/default.json" ins={14-31}
+```json title="src-tauri/capabilities/default.json" ins={14-30}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
@@ -155,8 +155,7 @@ const output = await sidecar_command.execute();
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```

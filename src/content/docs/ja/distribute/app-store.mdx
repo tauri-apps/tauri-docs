@@ -1,0 +1,389 @@
+---
+title: App Store で配布
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+[Apple App Store] は Apple 社が運営するアプリのマーケットプレースです。
+この App Store を通じて、macOS および iOS を対象とした Tauri アプリを配布できます。
+
+この章では、「アプリを直接 App Store に配布する」方法のみを扱います。
+macOS の配布オプションや設定についての詳しい内容は、総合的な「[App Bundle][App Bundle による配布]」の章を参照してください。
+
+## 必要条件
+
+iOS と macOS のアプリを配布するには、[Apple Developer] プログラムに登録する必要があります。
+
+さらに、[macOS][macOS コード署名] と [iOS][iOS コード署名] のコード署名を設定する必要があります。
+
+## アプリ・アイコンの変更
+
+`tauri ios init` を実行して Xcode プロジェクトを作成した後、`tauri icon` コマンドを使用してアプリ・アイコンを更新できます。
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png -- --ios-color #fff"
+  yarn="yarn tauri icon /path/to/app-icon.png --ios-color #fff"
+  pnpm="pnpm tauri icon /path/to/app-icon.png --ios-color #fff"
+  deno="deno task tauri icon /path/to/app-icon.png --ios-color #fff"
+  bun="bun tauri icon /path/to/app-icon.png --ios-color #fff"
+  cargo="cargo tauri icon /path/to/app-icon.png --ios-color #fff"
+/>
+
+引数の `--ios-color` は、iOS アイコンの背景色を定義します。
+
+## 設定
+
+Apple Developer プログラムに登録した後、Tauri アプリを App Store で配布するための最初のステップは、アプリを [App Store Connect][app-store-connect-apps] に登録することです。
+
+:::note
+「_Bundle ID_」フィールドで指定される値は、[`tauri.conf.json > identifier`] で定義された識別子と一致**しなければなりません**。
+:::
+
+## ビルドとアップロード
+
+Tauri CLI は、アプリを macOS および iOS 向けにパッケージ化できます。ただし、macOS マシンで実行する必要があります。
+
+Tauri は、[`tauri.conf.json > version`] で定義された値から [`CFBundleVersion`](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleversion) （バンドル・バージョン）を取得します。
+異なるバンドル・バージョンの体系、たとえば「連続符号」など、が必要な場合には、
+[`tauri.conf.json > bundle > iOS > bundleVersion`] または [`tauri.conf.json > bundle > macOS > bundleVersion`] の設定で独自のバンドル・バージョンの指定が可能です：
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "iOS": {
+      "bundleVersion": "100"
+    }
+  }
+}
+```
+
+:::caution
+「コード署名」が必要です。[macOS][macOS コード署名] および [iOS][iOS コード署名] の「コード署名」関連ドキュメントをご覧ください。
+:::
+
+Tauri は、iOS アプリに Xcode を利用しているため、iOS 用のアーカイブおよび配布に、Tauri CLI ではなく Xcode を使用できることに注意してください。
+iOS プロジェクトを Xcode で開いてビルドするには、次のコマンドを実行します：
+
+<CommandTabs
+  npm="npm run tauri ios build -- --open"
+  yarn="yarn tauri ios build --open"
+  pnpm="pnpm tauri ios build --open"
+  deno="deno task tauri ios build --open"
+  bun="bun tauri ios build --open"
+  cargo="cargo tauri ios build --open"
+/>
+
+### macOS では
+
+アプリを App Store にアップロードするには、まず、すべての必要な設定オプションが入力されていることを確認する必要があります。その後、App Bundle をパッケージ化し、署名された `.pkg` ファイルを作成して、アップロードが可能になります。
+
+以下の各項目で、このプロセスを順に説明します。
+
+#### 設定
+
+アプリが App Store 検証システムで受け入れられるには、アプリにいくつかの設定項目が含まれていなければなりません。
+
+:::tip
+ここでは、App Store への提出用にアプリを設定する手順について説明します。
+
+以下の設定変更を「App Store 用にビルドする」場合にのみ適用するには、別の Tauri 設定ファイルを作成します。
+
+```json title="src-tauri/tauri.appstore.conf.json
+{
+  "bundle": {
+    "macOS": {
+      "entitlements": "./Entitlements.plist",
+      "files": {
+        "embedded.provisionprofile": "path/to/profile-name.provisionprofile"
+      }
+    }
+  }
+}
+```
+
+次に、Tauri アプリを App Store 向けにバンドルするときに、その設定ファイルをメインの設定ファイルとマージします：
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+yarn tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+pnpm tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  bun="bun tauri build --no-bundle
+bun tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+cargo tauri bundle --bundles app --target universal-apple-darwin --config src-tauri/tauri.appstore.conf.json"
+/>
+
+このやりかたは、次のような場合に、特に便利です。
+
+- アプリを App Store にアップロードするために CI/CD を設定するが、ローカルで「[プロビジョニング・プロファイル]」を必要しない場合
+- App Store 以外で配布するためにアプリをコンパイルする場合
+
+<TranslationNote lang="ja">
+
+**プロビジョニング・プロファイル**　provision profile。iOS/macOS アプリの開発元が本物であることを示す証明書。「[開発用](https://developer.apple.com/jp/help/glossary/development-provisioning-profile/)」と「[配布用](https://developer.apple.com/jp/help/glossary/distribution-provisioning-profile/)」の二種類があります。
+
+</TranslationNote>
+
+:::
+
+- Category（カテゴリー項目）
+
+アプリを App Store に表示させるには、[`tauri.conf.json > bundle > category`]（「カテゴリー項目」）を明示する必要があります：
+
+```json title="tauri.conf.json" ins={3}
+{
+  "bundle": {
+    "category": "Utility"
+  }
+}
+```
+
+- Provisioning profile（プロビジョニング・プロファイル）
+
+また、アプリを Apple に受理してもらうためには、「プロビジョニング・プロファイル」も作成しなければなりません。
+
+Apple Developer サイトの「[Identifiers](https://developer.apple.com/account/resources/identifiers/list)（ID）」ページで新しい「[App ID]」を作成し、「[Bundle ID]」値が [`tauri.conf.json > identifier`] で設定された ID（識別子）と一致していることを確認します。
+
+次に [Profiles](https://developer.apple.com/account/resources/profiles/list) ページに移動して、新しい「プロビジョニング・プロファイル」を作成します。
+App Store で macOS アプリを配信する場合は、「Mac App Store Connect」プロファイルである必要があります。
+適切な「アプリ ID」を選択し、「コード署名」に使用している「証明書」とリンクさせます。
+
+「プロビジョニング・プロファイル」を作成したら、ダウンロードしてよくわかる場所に保存し、「[App Bundle]（アプリ・バンドル）に含まれるように Tauri を設定します：
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "files": {
+        "embedded.provisionprofile": "path/to/profile-name.provisionprofile"（プロビジョン・プロファイルのパスを記載）
+      }
+    }
+  }
+}
+```
+
+- Info.plist（情報特性リスト）
+
+<TranslationNote lang="ja">
+
+**情報特性リスト**　Information Property List。詳細は [Info.plist]（英語版）を参照してください。
+
+</TranslationNote>
+
+アプリは「暗号化輸出規制」（仮訳）に準拠していなければなりません。
+詳細については、[Apple 社の公式ドキュメント](https://developer.apple.com/documentation/security/complying-with-encryption-export-regulations?language=objc)（英語版）を参照してください。
+
+src-tauri フォルダーに Info.plist ファイルを作成します：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/> # or `true` if your app uses encryption
+</dict>
+</plist>
+```
+
+- Entitlements（エンタイトルメント／資格）
+
+<TranslationNote lang="ja">
+
+**エンタイトルメント**　entitlement：　「権利・資格」を与えること、または与えられた「権利・資格」。ここでは情報やデータ、資源などを利用する資格・権利の付与や制限を行なうこと。Apple 社の用語解説は[こちら](https://developer.apple.com/jp/help/glossary/?q=エンタイトルメント)。
+
+</TranslationNote>
+
+アプリを App Store で配布するには、アクセス制御機能の [App Sandbox] を含んでいなければなりません。
+さらに、「コード署名」資格設定で「App ID」と「[team ID]」も設定する必要があります。
+
+`src-tauri` フォルダに `Entitlements.plist` ファイルを作成します：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+    <key>com.apple.application-identifier</key>
+    <string>$TEAM_ID.$IDENTIFIER</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>$TEAM_ID</string>
+</dict>
+</plist>
+```
+
+`$IDENTIFIER` は [`tauri.conf.json > identifier`] の値に、`$TEAM_ID` は Apple Developer「team ID」の値に置き換える必要があることに注意してください。「team ID」は、プロビジョニング・プロファイル用に作成した [Identifier](https://developer.apple.com/account/resources/identifiers/list) の `App ID Prefix` セクションにあります。
+
+そして、macOS バンドル設定 [`tauri.conf.json > bundle > macOS > entitlements`] でこの `Entitlements.plist` ファイルを参照します。
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "macOS": {
+      "entitlements": "./Entitlements.plist"
+    }
+  }
+}
+```
+
+エンタイトルメント（資格）を適用するためには、コード署名を有効にしてアプリケーションをビルドする必要があります。
+
+「App Sandbox」環境下でアプリを実行した際に、アプリが動作することを確認してください。
+
+<TranslationNote lang="ja">
+
+**App Sandbox**　macOSに実装されているセキュリティ機能。詳細は [アップル社のサイト](https://developer.apple.com/jp/help/glossary/app-sandbox/) を参照してください。
+
+</TranslationNote>
+
+#### ビルド
+
+macOS アプリケーションは `.pkg` ファイルとして App Store にアップロードする必要があります。
+次のコマンドを実行して、アプリを macOS App Bundle（拡張子は `.app`）としてパッケージ化します：
+
+```
+tauri build --bundles app --target universal-apple-darwin
+```
+
+:::note
+上記のコマンドは、ユニバーサル・アプリ・バイナリ・アプリケーションを生成し、「Apple シリコン」と「Intel プロセッサ」の両方をサポートします。
+
+もし「Apple シリコン」のみをサポートしたい場合は、[`tauri.conf.json > bundle > macOS > minimumSystemVersion`] を `12.0` に変更する必要があります：
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "macOS": {
+      "minimumSystemVersion": "12.0"
+    }
+  }
+}
+```
+
+そして、使用している Mac システムに従って、CLI コマンドと出力パスを変更します：
+
+- ビルドに用いるシステムが「Apple シリコン」を使用している場合は、引数「`--target universal-apple-darwin`」を削除し、以下の `.pkg` 生成コマンドで参照されているパスで「`target/universal-apple-darwin/release`」の代わりに「`target/release`」を使用します。
+- ビルドに用いるシステムが「Intel チップ」を使用している場合：
+  - Rust Apple シリコン・ターゲットをインストールします：
+    ```
+    rustup target add aarch64-apple-darwin
+    ```
+  - 引数「`universal-apple-darwin`」を「`aarch64-apple-darwin`」に変更し、以下の `.pkg` 生成コマンドで参照されているパスで「`target/universal-apple-darwin/release`」ではなく「`target/aarch64-apple-darwin/release`」を使用します。
+
+:::
+
+設定オプションの詳細については、[App Bundle による配布] の章を参照してください。
+
+App Bundle から署名付きの `.pkg` を生成するには、次のコマンドを実行します：
+
+```
+xcrun productbuild --sign "<certificate signing identity>" --component "target/universal-apple-darwin/release/bundle/macos/$APPNAME.app" /Applications "$APPNAME.pkg"
+```
+
+【注意】 _$APPNAME_ の部分は、自分のアプリ名に置き換える必要があります。
+
+:::note
+_Mac Installer Distribution_ 署名証明書を使用して「Mac インストーラ・パッケージ」に署名する必要があります。
+:::
+
+#### アップロード
+
+これで、コマンドライン・ユーティリティ（CLI）の [`altool`] を使用してアプリ・パッケージ を App Store にアップロードできるようになりました：
+
+```
+xcrun altool --upload-app --type macos --file "$APPNAME.pkg" --apiKey $APPLE_API_KEY_ID --apiIssuer $APPLE_API_ISSUER
+```
+
+【注意】 `altool` ではアプリをアップロードするために [App Store Connect] API キーが必要であることに注意してください。
+詳細については、下記 [認証] の項を参照してください。
+
+その後、アプリは Apple によって検証され、承認されると [TestFlight] を利用できるようになります。
+
+<TranslationNote lang="ja">
+
+**altool**　※ 「この公証ツールの「認証」機能は 2023-11-01 を以って廃止され、`notarytool` へ移行される」旨の [Apple Technote] 2023-05-30 リリースが行なわれています。App store へのアプリ・アップロードは引き続き行なえるようですが、必要に応じて、最新状況の確認をお願いします。　"TN3147: Apple has deprecated `altool` for the purposes of notarization"
+
+</TranslationNote>
+
+### iOS では
+
+iOS アプリをビルドするには、`tauri ios build` コマンドを実行します。
+
+<CommandTabs
+  npm="npm run tauri ios build -- --export-method app-store-connect"
+  yarn="yarn tauri ios build --export-method app-store-connect"
+  pnpm="pnpm tauri ios build --export-method app-store-connect"
+  deno="deno task tauri ios build --export-method app-store-connect"
+  bun="bun tauri ios build --export-method app-store-connect"
+  cargo="cargo tauri ios build --export-method app-store-connect"
+/>
+
+生成された [IPA ファイル]は `src-tauri/gen/apple/build/arm64/$APPNAME.ipa` にあります。
+
+<TranslationNote lang="ja">
+
+**IPA ファイル**　IPA file：　iOSアプリケーションのアーカイブファイルのことで、iOS Package Archive（拡張子 .ipa）の略です。
+
+</TranslationNote>
+
+_$APPNAME_ の部分を自分のアプリ名に置き換える必要があることに注意してください。
+
+これで、`altool` CLI を使用して iOS アプリを App Store にアップロードできるようになりました：
+
+```
+xcrun altool --upload-app --type ios --file "src-tauri/gen/apple/build/arm64/$APPNAME.ipa" --apiKey $APPLE_API_KEY_ID --apiIssuer $APPLE_API_ISSUER
+```
+
+`altool` ではアプリをアップロードするために [App Store Connect] API キーが必要であることに注意してください。
+詳細については、下記 [認証] の項を参照してください。
+
+その後、アプリは Apple によって検証され、承認されると [TestFlight] を利用できるようになります。
+
+### 認証
+
+iOS および macOS アプリは、認証に App Store Connect API キーを利用する `altool` を使用してアップロードされます。
+
+新しい API キーを作成するには、[App Store Connect Users and Access page] を開き、「Integrations（統合） > Individual Keys tab（個別のキー・タブ）」を選択し、「Add（追加）」ボタンをクリックして、「名前」と「the Developer access（開発者アクセス）」を選択します。
+「`APPLE_API_ISSUER`」（発行者 ID）はキー・テーブルの上側に表示され、「`APPLE_API_KEY_ID`」はそのテーブルの「キー ID」列の値になります。
+「秘密鍵 private key」のダウンロードも必要ですが、これは一回だけ実行され、ページをリロードした後にのみ表示されます（ボタンが、新しく生成されたキーに対応するテーブル行に表示されます）。
+この秘密鍵ファイルのパスは、「`AuthKey\_<APPLE_API_KEY_ID>.p8`」として、次のディレクトリのいずれかに保存する必要があります：　`<current-working-directory>/private_keys`、`~/private_keys`、`~/.private_keys`、あるいは `~/.appstoreconnect/private_keys` です。
+
+[App Bundle による配布]: /ja/distribute/macos-application-bundle/
+[Apple Developer]: https://developer.apple.com/jp/
+[Apple App Store]: https://www.apple.com/jp/app-store/
+[`altool`]: https://help.apple.com/itc/apploader/#/apdATD1E53-D1E1A1303-D1E53A1126
+[macOS コード署名]: /ja/distribute/sign/macos/
+[iOS コード署名]: /ja/distribute/sign/ios/
+[app-store-connect-apps]: https://appstoreconnect.apple.com/apps
+[`tauri.conf.json > identifier`]: /reference/config/#identifier
+[`tauri.conf.json > bundle > category`]: /reference/config/#category
+[`tauri.conf.json > bundle > macOS > entitlements`]: /reference/config/#entitlements
+[`tauri.conf.json > bundle > macOS > minimumSystemVersion`]: /reference/config/#minimumsystemversion
+[App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
+[認証]: #認証
+[App Bundle]: https://developer.apple.com/jp/help/glossary/?q=app%20bundle
+[App ID]: https://developer.apple.com/jp/help/glossary/?q=アプリID
+[App Sandbox]: https://developer.apple.com/jp/help/glossary/?q=App%20Sandbox
+[App Store Connect]: https://developer.apple.com/jp/help/glossary/?q=App%20Store%20Connect
+[Apple Technote]: https://developer.apple.com/documentation/technotes/tn3147-migrating-to-the-latest-notarization-tool?changes=_3_3
+[Bundle ID]: https://developer.apple.com/jp/help/glossary/?q=バンドルID
+[Info.plist]: https://developer.apple.com/documentation/bundleresources/information-property-list
+[IPA ファイル]: https://ja.wikipedia.org/wiki/IPA_(ファイルフォーマット)
+[team ID]: https://developer.apple.com/jp/help/glossary/?q=team
+[TestFlight]: https://developer.apple.com/jp/help/glossary/?q=TestFlight
+[プロビジョニング・プロファイル]: https://developer.apple.com/jp/help/glossary/?q=プロファイル
+
+<div style="text-align: right">
+  【※ この日本語版は、「May 21, 2025 英語版」に基づいています】
+</div>

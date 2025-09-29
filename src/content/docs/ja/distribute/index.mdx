@@ -1,0 +1,254 @@
+---
+title: アプリの配布
+sidebar:
+  order: 0
+  label: 概要
+i18nReady: true
+---
+
+import { CardGrid, LinkCard, LinkButton } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Tauri は、自分のアプリケーションを、各プラットフォームのアプリ・ストアに向けて、あるいはプラットフォーム固有のインストーラーとして、あなたが配布を行なうために必要なツールを提供しています。
+
+## ビルド
+
+Tauri は、CLI（コマンド・ライン・インターフェース）から `build`、`android build`、`ios build` コマンドを使用して、直接アプリケーションをビルドできます。
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+各バンドルで使用できる設定オプションと、ユーザーに配布する方法の詳細については、「[配布](#配布)」の項を参照してください。
+
+:::note
+ほとんどのプラットフォームでは「コード署名」が必要です。詳しくは「[署名](#署名)」の項をご覧ください。
+:::
+
+### バンドル
+
+デフォルトでは、`build` コマンドは設定された形式に合わせてアプリケーションを自動的にバンドルします。
+
+プラットフォーム用バンドルの作成方法をさらにカスタマイズする必要がある場合は、「ビルド」と「バンドル」の手順を分割できます。
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+# macOS App Store 以外での配布用バンドルを作成
+npm run tauri bundle -- --bundles app,dmg
+# App Store 配信用バンドルを作成
+npm run tauri bundle -- --bundles app --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+# macOS App Store 以外での配布用バンドルを作成
+yarn tauri bundle --bundles app,dmg
+# App Store 配信用バンドルを作成
+yarn tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+# macOS App Store 以外での配布用バンドルを作成
+pnpm tauri bundle --bundles app,dmg
+# App Store 配信用バンドルを作成
+pnpm tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  deno="deno task tauri build --no-bundle
+# macOS App Store 以外での配布用バンドルを作成
+deno task tauri bundle --bundles app,dmg
+# App Store 配信用バンドルを作成
+deno task tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  bun="bun tauri build --no-bundle
+# macOS App Store 以外での配布用バンドルを作成
+bun tauri bundle --bundles app,dmg
+# App Store 配信用バンドルを作成
+bun tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+# macOS App Store 以外での配布用バンドルを作成
+cargo tauri bundle --bundles app,dmg
+# App Store 配信用バンドルを作成
+cargo tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+/>
+
+## バージョン管理
+
+アプリケーションのバージョンは [`tauri.conf.json > version`] の設定オプションで定義できます。これは、アプリのバージョンを管理するために推奨される方法です。
+この値が設定されていない場合、Tauri は代わりに `src-tauri/Cargo.toml` ファイルの `package > version` の値を使用します。
+
+:::note
+一部のプラットフォームでは、「バージョン」の文字列に関していくつかの制限や特例があります。
+詳細については、それぞれのディストリビューションのドキュメントを参照してください。
+:::
+
+## 署名
+
+「コード署名」は、アプリケーションの実行可能ファイルとバンドルにデジタル署名を適用し、アプリケーション提供者の「身元証明書」を検証することで、アプリケーションのセキュリティを強化するものです。
+
+ほとんどのプラットフォームでは署名が必要です。詳細については、各プラットフォームのドキュメントをご覧ください。
+
+<CardGrid>
+  <LinkCard
+    title="macOS"
+    href="/ja/distribute/sign/macos/"
+    description="macOS アプリのコード署名と認証"
+  />
+  <LinkCard
+    title="Windows"
+    href="/ja/distribute/sign/windows/"
+    description="Windows インストーラーのコード署名"
+  />
+  <LinkCard
+    title="Linux"
+    href="/ja/distribute/sign/linux/"
+    description="Linux パッケージのコード署名"
+  />
+  <LinkCard
+    title="Android"
+    href="/ja/distribute/sign/android/"
+    description="Android のコード署名"
+  />
+  <LinkCard
+    title="iOS"
+    href="/ja/distribute/sign/ios/"
+    description="iOS のコード署名"
+  />
+</CardGrid>
+
+## 配布
+
+各プラットフォーム向けにアプリケーションを配布する方法を学びます。
+
+### Linux の場合
+
+Linux の場合、Debian パッケージ、Snap、AppImage、Flatpak、RPM、または Arch User Repository (AUR) 形式を使用してアプリを配布できます。
+
+<CardGrid>
+  <LinkCard
+    title="AppImage"
+    href="/ja/distribute/appimage/"
+    description="AppImage として配布する"
+  />
+  <LinkCard
+    title="AUR"
+    href="/ja/distribute/aur/"
+    description="Arch User Repository で公開する"
+  />
+  <LinkCard
+    title="Debian"
+    href="/ja/distribute/debian/"
+    description="Debian パッケージとして配布する"
+  />
+  {/* <LinkCard
+    title="Flathub"
+    href="/ja/distribute/flatpak/"
+    description="Flatpak として配布する"
+  /> */}
+  <LinkCard
+    title="RPM"
+    href="/ja/distribute/rpm/"
+    description="RPM パッケージとして配布する"
+  />
+  <LinkCard
+    title="Snapcraft"
+    href="/ja/distribute/snapcraft/"
+    description="Snap パッケージで配布する"
+  />
+</CardGrid>
+
+<LinkButton href="/ja/distribute/sign/linux/">コード署名</LinkButton>
+
+### macOS の場合
+
+macOS の場合、アプリケーションを App Store で直接配布する方法と、直接ダウンロード用として DMG インストーラーを配布する方法があります。
+どちらの方法でも「コード署名」は必要であり、App Store 外で配布する場合は「認証」も必要です。
+
+<TranslationNote lang="ja">
+
+**認証**　原文は notarization：　「公証＝私文書の真実性を証明」することが原意ですが、本稿では「認証 ≒ authorization」と訳しています。
+
+</TranslationNote>
+
+<CardGrid>
+  <LinkCard
+    title="App Bundle"
+    href="/ja/distribute/macos-application-bundle/"
+    description="macOS アプリを App Bundle として配布する"
+  />
+  <LinkCard
+    title="App Store"
+    href="/ja/distribute/app-store/"
+    description="iOS および macOS アプリを App Store に配信する"
+  />
+  <LinkCard
+    title="DMG"
+    href="/ja/distribute/dmg/"
+    description="macOS アプリを Apple ディスクイメージとして配布する"
+  />
+</CardGrid>
+
+<LinkButton href="/ja/distribute/sign/macos/">コード署名と認証</LinkButton>
+
+### Windows の場合
+
+Microsoft Store で配布する方法、または Windows インストーラーを設定する方法について説明します。
+
+<CardGrid>
+  <LinkCard
+    title="Microsoft Store"
+    href="/ja/distribute/microsoft-store/"
+    description="Windows アプリを Microsoft Store に配信する"
+  />
+  <LinkCard
+    title="Windows Installer"
+    href="/ja/distribute/windows-installer/"
+    description="Windows 用インストーラーを配布する"
+  />
+</CardGrid>
+
+<LinkButton href="/ja/distribute/sign/windows/">コード署名</LinkButton>
+
+### Android の場合
+
+Android アプリケーションを Google Play で配布します。
+
+<CardGrid>
+  <LinkCard
+    title="Google Play"
+    href="/ja/distribute/google-play/"
+    description="Android アプリを Google Play に配信する"
+  />
+</CardGrid>
+
+<LinkButton href="/ja/distribute/sign/android/">コード署名</LinkButton>
+
+### iOS の場合
+
+アプリケーションを App Store にアップロードする方法を学びます。
+
+<CardGrid>
+  <LinkCard
+    title="App Store"
+    href="/ja/distribute/app-store/"
+    description="iOS と macOS のアプリを App Store に配信する"
+  />
+</CardGrid>
+
+<LinkButton href="/ja/distribute/sign/ios/">コード署名</LinkButton>
+
+### クラウド・サービスを利用する
+
+アプリケーションを世界中に配布し、設定不要の自動更新をサポートするクラウド・サービスでアプリケーションを配布します。
+
+<CardGrid>
+  <LinkCard
+    title="CrabNebula Cloud"
+    href="/ja/distribute/crabnebula-cloud/"
+    description="CrabNebula を使ってアプリを配布する"
+  />
+</CardGrid>
+
+[`tauri.conf.json > version`]: /reference/config/#version
+
+<div style="text-align: right">
+  【※ この日本語版は、「Mar 29, 2025 英語版」に基づいています】
+</div>

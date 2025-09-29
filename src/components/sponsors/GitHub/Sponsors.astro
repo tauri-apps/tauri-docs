@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import { existsSync, readFileSync } from 'node:fs';
+import { GITHUB_SPONSORS_FILE } from 'packages/fetch-sponsors/config';
+import type { GitHubSponsor } from 'packages/fetch-sponsors/types';
+
+let gitHubSponsors = [];
+if (existsSync(GITHUB_SPONSORS_FILE)) {
+  gitHubSponsors = JSON.parse(readFileSync(GITHUB_SPONSORS_FILE, 'utf-8'));
+} else {
+  throw new Error('GitHub sponsors data file not found.');
+}
+const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
+---
+
+{
+  gitHubSponsorsLoaded && (
+    <div class="container">
+      {gitHubSponsors.map((sponsor: GitHubSponsor) => (
+        <div>
+          {sponsor.avatarUrl && (
+            <a
+              href={`https://github.com/${sponsor.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image class="avatar" inferSize src={sponsor.avatarUrl} alt={sponsor.name} />
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  /* todo: extract shared css */
+  :root {
+    --overlap: 16px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: auto;
+    justify-content: center;
+    max-width: 70ch;
+  }
+
+  .container a {
+    display: block;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-inline-start: calc(var(--overlap) * -1);
+    aspect-ratio: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 150ms ease;
+    will-change: transform;
+    position: relative;
+  }
+
+  .avatar:hover {
+    transform: scale(1.1);
+    z-index: 10;
+  }
+</style>

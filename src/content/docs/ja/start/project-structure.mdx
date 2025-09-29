@@ -1,0 +1,62 @@
+---
+title: プロジェクト構造
+i18nReady: true
+---
+
+Tauri プロジェクトは通常、「Rust プロジェクト」と「JavaScript プロジェクト」（オプション）の二つの部分で構成されており、
+通常のセットアップ構成は以下のようになります：
+
+```
+.
+├── package.json
+├── index.html
+├── src/
+│   ├── main.js
+├── src-tauri/
+│   ├── Cargo.toml
+│   ├── Cargo.lock
+│   ├── build.rs
+│   ├── tauri.conf.json
+│   ├── src/
+│   │   ├── main.rs
+│   │   └── lib.rs
+│   ├── icons/
+│   │   ├── icon.png
+│   │   ├── icon.icns
+│   │   └── icon.ico
+│   └── capabilities/
+│       └── default.json
+```
+
+上記の場合、「JavaScript プロジェクト」がトップレベルにあり、「Rust プロジェクト」は `src-tauri/` 内に置かれています。
+「Rust プロジェクト」は、いくつかのファイルが追加されている通常の [Cargo プロジェクト](https://doc.rust-lang.org/cargo/guide/project-layout.html) です：
+
+- `tauri.conf.json` は Tauri のメイン設定ファイルで、アプリケーション識別子から開発サーバーの URL までのすべてが含まれています。
+  このファイルは、[Tauri CLI](/reference/cli/) が Rust プロジェクトを見つけるためのマーカーでもあります。
+  詳細については、[Tauri Config](/ja/develop/configuration-files/#tauri-の設定) を参照してください。
+- `capabilities/` ディレクトリは、Tauri が [セキュリティ・レベル・ファイル](/ja/security/capabilities/) を読み取るデフォルトのフォルダです（つまり、JavaScript コードでこのファイルを使用するには、このフォルダに対するコマンドのアクセスを許可する必要があります）。
+  詳細については、[セキュリティ](/ja/security/) を参照してください。
+- `icons/` ディレクトリは [`tauri icon`](/reference/cli/#icon) コマンドのデフォルトの出力ディレクトリであり、通常は `tauri.conf.json > bundle > icon` で参照され、アプリのアイコンに使用されます。
+- `build.rs` には、tauri のビルドシステムに使用される `tauri_build::build()` が含まれています。
+- `src/lib.rs` には「Rust コード」と「モバイル・エントリ・ポイント」（`#[cfg_attr(mobile, tauri::mobile_entry_point)]` でマークされた関数）が含まれています。
+  `main.rs` 内に直接記述しない理由は、あなたのアプリを各モバイル・ビルドのライブラリを用いてコンパイルし、各プラットフォーム・フレームワークを通じてロードするためです。
+- `src/main.rs` はデスクトップの「メイン・エントリ・ポイント」であり、モバイルと同じエントリ・ポイントを使用するために `main` 内で `tauri_app_lib::run()` を実行します。
+  そのため、処理を簡単にするために、このファイルは変更せず、代わりに `lib.rs` を変更してください。
+
+Tauri は「静的 Web ホスト」に似た動作をします。そのビルド方法は、まず「JavaScript プロジェクト」を静的ファイル（複数）にコンパイルし、
+次に そうした静的ファイルをバンドルする「Rust プロジェクト」をコンパイルします。
+このため、「JavaScript プロジェクト」の構成は、あたかも静的なウェッブサイトを構築したかのように、基本的に同じになります。
+詳細については、[フロントエンドの設定](/ja/start/frontend/) を参照してください。
+
+Rust コードのみで自分のプロジェクトを構成したい場合には、単に `src-tauri/` フォルダ以外のすべてを削除し、`src-tauri/` フォルダを、トップレベル・プロジェクトとして、あるいは Rust ワークスペースのメンバーとして、使用するだけです。
+
+## 次のステップは...
+
+- [フロントエンドの設定](/ja/start/frontend/)
+- [Tauri コマンドライン・インターフェイス](/reference/cli/)（英語版）
+- [Tauri アプリの開発方法](/ja/develop/)
+- [Tauri 拡張のための追加機能](ja/plugin/)
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Aug 1, 2025 英語版」に基づいています】
+</div>

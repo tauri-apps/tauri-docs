@@ -1,0 +1,201 @@
+---
+title: モデル・アプリケーションの基本設定
+sidebar:
+  order: 30
+i18nReady: true
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+
+import { Image } from 'astro:assets';
+import HelloTauriWebdriver from '@assets/develop/Tests/hello-tauri-webdriver.png';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+この章の「モデル・アプリケーション」事例では、既存のプロジェクトに WebDriver テストを追加することだけに焦点を当てています。
+続く二章でテストするプロジェクトを用意するために、そのテストで使用するための極最小限の Tauri アプリケーションを構成します。
+ここでは、Tauri CLI や、フロントエンドの依存関係、ビルド手順は使用せず、また、後からアプリケーションをバンドルすることもありません。
+ここでの作業は、既存のアプリケーションに WebDriver テストを追加する方法を示し、最小の構成設定を紹介するためのものです。
+
+この「モデル・アプリケーション」作成ガイドで紹介されている内容に基づいた完成版のプロジェクト事例だけを見たい場合には、https://github.com/chippers/hello_tauri を参照してください。
+
+## Cargo プロジェクトの初期化
+
+この「モデル・アプリケーション」を格納するための新しいバイナリ Cargo プロジェクトを作成します。
+これは、コマンドラインから `cargo new hello-tauri-webdriver --bin` を使用すれば簡単に行なえ、これにより最小限のバイナリ Cargo プロジェクトが準備されます。
+このディレクトリは、この先、この作成ガイドの作業ディレクトリとして機能するため、実行するコマンドがこの新しい `hello-tauri-webdriver/` ディレクトリ内にあることを確認してください。
+
+## 最小構成のフロントエンドの作成
+
+「モデル・アプリケーション」のフロントエンドとなる最小限の HTML ファイルを作成します。
+後ほど、WebDriver テスト中にこのフロントエンドのいくつかの項目を用いることになります。
+
+最初に、「モデル・アプリケーション」の Tauri 部分を構築する際に必要になる Tauri `distDir` を作成しましょう。
+コマンド `mkdir dist` で `dist/` という新しいディレクトリを作成し、そこに次の `index.html` ファイルを配置します。
+
+`dist/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello Tauri!</title>
+    <style>
+      body {
+        /* 見やすい配色 colorscheme の追加 */
+        background-color: #222831;
+        color: #ececec;
+
+        /* 本体をウィンドウのサイズに合わせまず */
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+
+        /* body タグの子要素を垂直方向と水平方向に中央揃えする */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, Tauri!</h1>
+  </body>
+</html>
+```
+
+## タウリを Cargo プロジェクトに追加
+
+次に、上記の Cargo プロジェクトを Tauri プロジェクトに変換するために必要な項目を追加します。まず、Cargo マニフェスト・ファイル（`Cargo.toml`）に依存関係を追加し、Cargo がビルド時に依存関係を読み込むようにします。
+
+<TranslationNote lang="ja">
+
+**Cargo.toml**　以下の Cargo.toml ファイルは一部内容が古い可能性があります。たとえば　2025.02.20 現在の Rust エディションは "2024"、最新バージョンは "1.85" です。バージョン "1.56" は 2021.10.21 リリース、tauri 1.0 のリリースが 2022.06.19 なので、その頃に作成された事例と思われます。適宜読み替えてください。
+
+</TranslationNote>
+
+`Cargo.toml`:
+
+```toml
+[package]
+name = "hello-tauri-webdriver"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.56"
+
+# ビルド時に Tauri 用にいくつかの設定が必要
+[build-dependencies]
+tauri-build = "1"
+
+# 実際の Tauri 依存関係と、ページを表示（serve）するための `custom-protocol`
+[dependencies]
+tauri = { version = "1", features = ["custom-protocol"] }
+
+# --release で、小さく（opt-level = "s"）かつ高速（lto = true）なバイナリをビルドします
+# この設定は完全にオプションですが、一般的なリリース設定にできるだけ近い状態でアプリケーションをテストすることが可能であることを示しています
+# 注意: これによりコンパイル速度が低下します
+[profile.release]
+incremental = false
+codegen-units = 1
+panic = "abort"
+opt-level = "s"
+lto = true
+```
+
+お気づきかもしれませんが、`[build-dependency]`（ビルド依存関係）が追加されています。この `[build-dependency]` を利用するには、これをビルド・スクリプトから使用する必要があります。
+そこで `build.rs` で作成します。
+
+`build.rs`:
+
+```rust
+fn main() {
+    // 再コンパイルでは `dist/` ディレクトリのみを監視し、別のプロジェクトのサブディレクトリのファイルを変更したときに不要な変更が加えられるのを防ぎます
+    println!("cargo:rerun-if-changed=dist");
+
+    // Tauri build-time helpers を実行します
+    tauri_build::build()
+}
+```
+
+これで、Cargo プロジェクトは Tauri の依存関係とその設定を読み込み、ビルドできるようになりました。実際のプロジェクト・コードに Tauri を設定して、この最小限の Tauri モデル・アプリケーションを完成させましょう。この Tauri 機能を追加するために、`src/main.rs` ファイルを編集します。
+
+`src/main.rs`:
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .run(tauri::generate_context!())
+        .expect("unable to run Tauri application");
+}
+```
+
+どう？　とても簡単でしょう？
+
+## Tauri の設定
+
+このモデル・アプリケーションを正常にビルドするには、二つのものが必要です。一つ目は、「アイコン・ファイル」です。この作業にはどのような PNG データでも構いません。それを `icon.png` にコピーします。
+通常は、このデータは、プロジェクトの作成に Tauri CLI を使用すると、その準備処理の一部として提供されます。
+デフォルトの Tauri アイコンを取得するには、コマンド `curl -L "https://github.com/chippers/hello_tauri/raw/main/icon.png" --output icon.png` を使用して、「Hello Tauri サンプル・リポジトリ」で使用されているアイコンをダウンロードします。
+
+二つ目は、Tauri 用の重要な設定値を設定するための「`tauri.conf.json`」ファイルです。
+このファイルも、通常はスキャフォルディング・コマンドの `tauri init` で生成されますが、ここでも独自の最小限の構成を作成します。
+
+<TranslationNote lang="ja">
+
+**スキャフォルディング・コマンド**　scaffolding command：　"scaffold" は「工事現場の足場」「足場を組む」という意味ですが、本稿では主に「準備」という訳語を当てています。「スキャフォルディング・コマンド」とはアプリケーション作成開始時に必要なファイル類を自動作成／準備してくれる（作業用の足場を組んでくれる）コマンドのこと。
+
+</TranslationNote>
+
+`tauri.conf.json`:
+
+```json
+{
+  "build": {
+    "distDir": "dist"
+  },
+  "tauri": {
+    "bundle": {
+      "identifier": "studio.tauri.hello_tauri_webdriver",
+      "icon": ["icon.png"]
+    },
+    "allowlist": {
+      "all": false
+    },
+    "windows": [
+      {
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ]
+  }
+}
+```
+
+いくつかの項目の内容を見ていきましょう。
+先ほど作成した `dist/` ディレクトリが `distDir` プロパティに指定されているのがわかります。
+ビルドされたアプリケーションが一意の ID を持つようにバンドル識別子（ID）を設定し、アイコンには `icon.png` のみを指定しています。Tauri の API　や機能は使用しないため、`allowlist` で `"all": false` を設定して無効化しています。
+ウィンドウ値には、適切なデフォルト値を使用して作成される単一のウィンドウを設定するだけです。
+
+これで、実行時に簡単な挨拶を表示する基礎的な「Hello World」アプリケーションが完成しました。
+
+## モデル・アプリケーションの実行
+
+正しく設定が行なわれているかを確認するために、このアプリケーションをビルドしてみましょう。WebDriver テストもリリース版用設定プロファイルで実行するので、このアプリケーションを `--release` 版として実行します。
+`cargo run --release` を実行すると、コンパイル後に次のアプリケーションがポップアップ表示されるはずです。
+
+<div style={{ textAlign: 'center' }}>
+  <Image src={HelloTauriWebdriver} alt="Hello Tauri Webdriver" />
+</div>
+
+_注記：　アプリケーションを修正して Devtools を使用したい場合は、`--release` 指定なしで実行すれば、右クリック・メニューで「Inspect Element／要素の検査」が表示され、利用できるはずです。_
+
+これで、このモデル・アプリケーションを利用して、「WebDriver フレームワーク」を使用したテストを開始する準備が整いました。
+次章から、[Selenium を利用する](/ja/develop/tests/webdriver/example/selenium/) と [WebdriverIO を利用する](/ja/develop/tests/webdriver/example/webdriverio/) の両方について、この順序で説明します。
+
+[完成版モデル・アプリケーション]: https://github.com/chippers/hello_tauri
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

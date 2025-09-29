@@ -148,9 +148,7 @@ parts:
 - The `package-repositories` section allows you to add a package repository to help you satisfy your dependencies.
 - `build-packages`/`build-snaps` defines the build dependencies for your snap.
 - `stage-packages`/`stage-snaps` defines the runtime dependencies for your snap.
-- The `override-pull` section runs a series of commands before the sources are pulled.
-- `craftctl default` performs the default pull commands.
-- The `organize` section moves your files to the proper directories so that the binary and desktop file can be exposed to the `apps` sections.
+- The `override-build` section runs a series of commands after the sources were pulled.
 
 ## Building
 

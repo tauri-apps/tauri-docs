@@ -51,7 +51,7 @@ For a full list of possible trigger configurations, check out the official [GitH
 
 Below is an example workflow that has been set up to run every time you push to the `release` branch.
 
-This workflow will build and release your app for Linux x64, Windows x64, macOS x64 and macOS Arm64 (M1 and above).
+This workflow will build and release your app for Windows x64, Linux x64, Linux Arm64, macOS x64 and macOS Arm64 (M1 and above).
 
 The steps this workflow takes are:
 
@@ -84,6 +84,8 @@ jobs:
           - platform: 'macos-latest' # for Intel based macs.
             args: '--target x86_64-apple-darwin'
           - platform: 'ubuntu-22.04'
+            args: ''
+          - platform: 'ubuntu-22.04-arm' # Only available in public repos.
             args: ''
           - platform: 'windows-latest'
             args: ''
@@ -140,6 +142,10 @@ Carefully read through the [Usage limits, billing, and administration](https://d
 :::
 
 ## Arm Runner Compilation
+
+:::note[August 2025 Update]
+Github has [released](https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/#get-started) publicly available `ubuntu-22.04-arm` and `ubuntu-24.04-arm` runners. You can use these to build your app for Arm64 in public repos with the workflow example above.
+:::
 
 This workflow uses [`pguyot/arm-runner-action`](https://github.com/pguyot/arm-runner-action) to compile directly on an emulated Arm runner. This bridges the gap for missing cross-architecture build support in the AppImage tooling.
 

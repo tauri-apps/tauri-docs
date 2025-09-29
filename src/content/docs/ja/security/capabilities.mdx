@@ -1,0 +1,207 @@
+---
+title: セキュリティ・レベル Capabilities
+sidebar:
+  order: 4
+i18nReady: true
+---
+
+Tauri は、アプリケーションおよびプラグインの開発者に「セキュリティ・レベル」システムを提供し、システム WebView で実行されているアプリケーション・フロントエンドへのコア部の開示に関して細かい有効化／無効化の制限を設けています。
+
+> > > 《訳注》 **セキュリティ・レベル**　原文は 「capabilities system」（能力システム）。情報開示レベルの決定能力を示すものであるため、本稿では「セキュリティ・レベル」と訳しています。
+
+「セキュリティ・レベル」（Capabilities）とは、付与されたラベルに従ってアプリケーション・ウィンドウと Webview に割り当てられる [アクセス権（Permissions）](/ja/security/permissions/) のセットのことです。「セキュリティ・レベル」は複数のウィンドウや Webview の処理に関与し、また、複合的セキュリティ設定の中で参照される可能性があります。
+
+:::tip[Security Tip（ヒント）]
+
+複数のセキュリティ・レベルの対象であるウィンドウと WebView は、関連するすべてのセキュリティ・レベルの「アクセス権」と「セキュリティ境界」とを効果的に統合します。
+
+:::
+
+セキュリティ・レベルを記述するファイル（Capability files）は、JSON または TOML ファイルとして `src-tauri/capabilities` ディレクトリ内で定義されています。
+
+それぞれのファイルを用いて `tauri.conf.json` 内で「識別子」でのみ参照するのがよくあるやりかたですが、この二つを `capabilities` フィールドで直接定義することもできます。
+
+`capabilities` ディレクトリ内のすべてのセキュリティ・レベル機能は、デフォルトで自動的に有効になります。一旦 `tauri.conf.json` でセキュリティ・レベル機能が明示的に有効化されると、アプリケーションのビルドではその機能のみが使用されます。
+
+体系的な設定項目の詳細については、[参考情報](/ja/reference/config/) の項を参照してください。
+
+次の JSON の例では、コア・プラグインと `window.setTitle` API に対するデフォルト機能を有効化するセキュリティ・レベル設定を定義しています。
+
+```json title="src-tauri/capabilities/default.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:window:allow-set-title"
+  ]
+}
+```
+
+このスニペット（抜粋内容）は、[Tauri Configuration]（/ja/develop/configuration-files/＃tauri-の設定）ファイルの一部です。
+
+これがおそらく最も一般的な設定方法で、個々のセキュリティ・レベルを行内に埋め込み（インライン化）、アクセス権のみを「識別子」によって参照します。
+
+これには、適切に定義された機能ファイルが `capabilities` ディレクトリ内に必要です。
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": ["my-capability", "main-capability"]
+    }
+  }
+}
+```
+
+インライン化された「セキュリティ・レベル」設定は、事前に定義された「セキュリティ・レベル」設定とも併記できます。
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": [
+        {
+          "identifier": "my-capability",
+          "description": "My application capability used for all windows",
+          "windows": ["*"],
+          "permissions": ["fs:default", "allow-home-read-extended"]
+        },
+        "my-second-capability"
+      ]
+    }
+  }
+}
+```
+
+## 対象となるプラットフォーム
+
+「セキュリティ・レベル」は、「`platforms` 配列」を定義することで、各プラットフォーム毎に設定が可能です。
+デフォルトでは、「セキュリティ・レベル〕設定はすべてのターゲットに適用されますが、`linux`・`macOS`・`windows`・`iOS`・`android` の各ターゲット OS をサブセットで選択できます。
+
+次の例は、デスクトップ・オペレーティング・システム用の「セキュリティ・レベル」設定です。
+この設定では、デスクトップでのみ使用可能なプラグインのアクセス権を有効化していることに注目してください：
+
+```json title="src-tauri/capabilities/desktop.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
+}
+```
+
+モバイル機器用の「セキュリティ・レベル」設定の事例はこちら。
+この設定では、モバイル OS でのみ使用可能なプラグインのアクセス権を有効化することに注意してください：
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
+}
+```
+
+## リモート API アクセス
+
+デフォルトでは、API は Tauri アプリにバンドルされているコードにのみアクセス可能です。
+リモート・ソースが特定の Tauri コマンドにアクセスできるようにするためには、セキュリティ・レベル設定ファイルで定義する必要があります。
+
+以下の事例では、NFC タグをスキャンし、`tauri.app` のすべてのサブドメインからバーコード・スキャナーを使用できるようにしています。
+
+```json title="src-tauri/capabilities/remote-tags.json"
+{
+  "$schema": "../gen/schemas/remote-schema.json",
+  "identifier": "remote-tag-capability",
+  "windows": ["main"],
+  "remote": {
+    "urls": ["https://*.tauri.app"]
+  },
+  "platforms": ["iOS", "android"],
+  "permissions": ["nfc:allow-scan", "barcode-scanner:allow-scan"]
+}
+```
+
+:::caution[（警告）]
+
+Linux および Android では、Tauri は埋め込み `<iframe>` タグからの要求とウィンドウ自体からの要求とを区別できません。
+
+この「リモート API アクセス」機能の変更については十分に注意し、この機能に関する「参考情報 References」のセクションで、対象オペレーティング・システム特定のセキュリティ上の影響について詳しく理解した上で行なってください。
+
+:::
+
+## セキュリティ境界 Security Boundaries
+
+_どのようなことから保護されるのでしょうか？_
+
+「アクセス権」と「セキュリティ・レベル」に応じて、次のことが可能になります：
+
+- フロントエンドでの「セキュリティ侵害」の影響を最小限に抑えます
+- ローカル・システムのインターフェースとデータの（偶発的な）「漏洩」を防止または軽減します
+- フロントエンドからバックエンド／システムへの「権限昇格」を防止または軽減します
+
+_どのようなことからは保護**されない**のでしょうか？_
+
+- 悪意のある、または安全でない「Rust コード」
+- 緩すぎる「スコープ（適用範囲）」と「設定内容」
+- コマンド実装における不正確な「スコープ・チェック」
+- Rust コードからの「意図的な逸脱」
+- 基本的に、アプリの Rust Core に記述されたもの「すべて」
+- システム WebView 内の「ゼロデイ攻撃」またはパッチ未適用の「ワンデイ攻撃」
+- 「サプライチェーン攻撃」または「不正侵入された開発者システム」
+
+:::tip[Security Tip（ヒント）]
+
+セキュリティ境界は「ウィンドウ・ラベル」（**「タイトル」ではありません**）に依存します。
+ウィンドウ生成機能は、より高い権限を持つウィンドウに対してのみ適用可能にすることを推奨します。
+
+:::
+
+## スキーマ・ファイル
+
+Tauri は、アプリケーションで利用可能なすべてのアクセス権を持つ「JSON スキーマ」を生成しますので、使用している IDE（統合開発環境）で自動補完が行なえるようになります。
+スキーマを使用するには、「設定」内の `$schema` プロパティを `gen/schemas` ディレクトリにあるプラットフォーム固有のスキーマの一つにセットします。
+通常は `../gen/schemas/desktop-schema.json` または `../gen/schemas/mobile-schema.json` にセットしますが、特定のターゲット・プラットフォーム用のセキュリティ・レベルを定義することもできます。
+
+## 設定ファイル
+
+Tauri アプリケーションのディレクトリ構造例（簡略版）：
+
+```sh
+tauri-app
+├── index.html
+├── package.json
+├── src
+├── src-tauri
+│   ├── Cargo.toml
+│   ├── capabilities
+│      └── <identifier>.json/toml
+│   ├── src
+│   ├── tauri.conf.json
+```
+
+すべての項目を `tauri.conf.json` にインライン化できますが、少し高度な設定をするとこのファイルが肥大化してしまいます。
+この方式の目標は、アクセス権を可能な限り単純化し、理解しやすくすることです。
+
+## コア・アクセス権
+
+すべてのコア・アクセス限のリストは、「参考情報 References」の [コア・アクセス権](/ja/reference/acl/core-permissions/) ページにあります。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
