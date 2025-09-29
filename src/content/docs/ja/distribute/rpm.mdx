@@ -1,0 +1,367 @@
+---
+title: RPM
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**RPM**　Red Hat Package Manager：　米 Red Hat（レッドハット）社が開発した、ソフトウェアのパッケージ管理システムの名称。
+
+</TranslationNote>
+
+# RPM のパッケージ化
+
+:::note
+この章のいくつかの項目はオプションです。そのような項目にはスクリプトの設定やその他の特定の手順が含まれます。自分の個々のニーズや必要性に応じて、指示内容を自由に調整してください。
+:::
+
+この章では、パッケージ情報の取得、スクリプトの設定、依存関係の設定、パッケージの署名など​​、RPM パッケージの配布と管理の方法について説明します。
+
+## RPM パッケージの構成
+
+Tauri では、スクリプトの追加、依存関係の設定、ライセンスの追加、カスタム・ファイルの追加などにより、RPM パッケージを構成できます。
+設定可能なオプションの詳細については、[RpmConfig](https://v2.tauri.app/reference/config/#rpmconfig) を参照してください。
+
+### パッケージの「インストール／削除」の前後にスクリプトを追加
+
+「RPM パッケージ・マネージャー」を使用すると、パッケージのインストールまたは削除の前後にスクリプトを実行できます。例えば、これらのスクリプトを使用して、パッケージのインストール後にサービスを開始できます。
+
+以下にスクリプトを追加する方法の事例を示します：
+
+1. プロジェクトの `src-tauri` ディレクトリに `scripts` という名前のフォルダーを作成します。
+
+```bash
+mkdir src-tauri/scripts
+```
+
+2. フォルダー内にスクリプト・ファイルを作成します。
+
+```bash
+touch src-tauri/scripts/postinstall.sh \
+touch src-tauri/scripts/preinstall.sh \
+touch src-tauri/scripts/preremove.sh \
+touch src-tauri/scripts/postremove.sh
+```
+
+ここで `/src-tauri/scripts` の中を見ると次のようになります：
+
+```bash
+ls src-tauri/scripts/
+postinstall.sh  postremove.sh  preinstall.sh  preremove.sh
+```
+
+3. 各スクリプトにコンテンツを追加します
+
+```bash title="preinstall.sh"
+echo "-------------"
+echo "This is pre"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="postinstall.sh"
+echo "-------------"
+echo "This is post"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="preremove.sh"
+echo "-------------"
+echo "This is preun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="postremove.sh"
+echo "-------------"
+echo "This is postun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+4. `tauri.conf.json` ファイルに各スクリプトを追加します
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1",
+        // ここにスクリプトを追加します
+        "preInstallScript": "/path/to/your/project/src-tauri/scripts/preinstall.sh",
+        "postInstallScript": "/path/to/your/project/src-tauri/scripts/postinstall.sh",
+        "preRemoveScript": "/path/to/your/project/src-tauri/scripts/preremove.sh",
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postremove.sh"
+      }
+    }
+  }
+}
+```
+
+### Conflict、Provides、Depends、Files、Obsoletes、DesktopTemplate、Epoch の設定
+
+- **conflict**（競合）：　他のパッケージと競合する場合、そのパッケージのインストールを防止します。たとえば、あなたのアプリが依存している RPM パッケージを更新したときに、その新しいバージョンにアプリとの互換性がない場合などです。
+
+- **provides**（提示）：　あなたのアプリケーションが提示する RPM 依存関係を一覧表示します。
+
+- **depends**（依存）：　アプリケーションの実行に必要な RPM 依存関係を一覧表示します。
+
+- **files**（ファイル）：　パッケージに含めるファイルを指定します。
+
+- **obsoletes**（廃止）：　アプリケーションが廃止する RPM 依存関係を一覧表示します
+
+:::note
+このパッケージがインストールされている場合、「廃止」としてリストされているパッケージが存在する場合には自動的に削除されます。
+:::
+
+- **desktopTemplate**（デスクトップ・テンプレート）：　パッケージにカスタム・デスクトップ・ファイルを追加します。
+
+- **epoch**（期別）：　バージョン番号に基づいて重み付けされた依存関係を定義します。
+
+:::caution
+「epoch」はパッケージ・マネージャーがパッケージのバージョンを比較する方法を変更するため、必要でない限り「epoch」を使用することはお勧めしません。
+「epoch」についての詳細については、[RPM パッケージング ガイド](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers)（英語版）を参照してください。
+:::
+
+上記のオプションを使用するには、`tauri.conf.json` に以下を追加します：
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "conflicts": ["oldLib.rpm"],
+        "depends": ["newLib.rpm"],
+        "obsoletes": ["veryoldLib.rpm"],
+        "provides": ["coolLib.rpm"],
+        "desktopTemplate": "/path/to/your/project/src-tauri/desktop-template.desktop"
+      }
+    }
+  }
+}
+```
+
+### パッケージにライセンスを追加
+
+パッケージにライセンスを追加するには、以下の内容を `src-tauri/cargo.toml` または `src-tauri/tauri.conf.json` ファイルに追加します:
+
+```toml title="src-tauri/cargo.toml"
+[package]
+name = "tauri-app"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+license = "MIT" # add the license here
+# ...  rest of the file
+```
+
+`src-tauri/tauri.conf.json` の場合は、
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "licenseFile": "../LICENSE", // ここにライセンス・ファイルへのパスを入力
+    "license": "MIT" // ここにライセンスを追加
+  }
+}
+```
+
+## RPM パッケージのビルド
+
+RPM パッケージをビルドするには、次のコマンドを使用します：
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+このコマンドは、`src-tauri/target/release/bundle/rpm` ディレクトリに RPM パッケージをビルドします。
+
+## RPM パッケージへの署名
+
+Tauri では、ビルド・プロセス中に、自分のシステムにあるキーを使用してパッケージに署名できます。
+これを行なうには、「GPG キー」を生成する必要があります。
+
+<TranslationNote lang="ja">
+
+**GPG キー**　GNU Privacy Guard の略。自由ソフトウェア版暗号化ソフトウェアで生成される公開鍵。〔参考： [Wikipedia](https://ja.wikipedia.org/wiki/GNU_Privacy_Guard)、[GnuPG](https://www.gnupg.org/index.html)〕
+
+</TranslationNote>
+
+#### GPG キーの生成
+
+GPG キーを生成するには、次のコマンドを使用します：
+
+```bash
+gpg --gen-key
+```
+
+指示に従ってキーを生成します。
+
+キーが生成されたら、そのキーを環境変数に追加する必要があります。
+これには、以下のコードを .bashrc または .zshrc ファイルに追加するか、「ターミナル」でエクスポートします：
+
+```bash
+export TAURI_SIGNING_RPM_KEY=$(cat /home/johndoe/my_super_private.key)
+```
+
+<TranslationNote lang="ja">
+
+**johndoe**　上記パスの「/johndoe/」の部分には、自分の名前（システム上のユーザー名）が入ります。johndoe（John Doe）は、英語での「[名無しの権兵衛](https://ja.wikipedia.org/wiki/名無しの権兵衛)」と同様の言い方。以下、同様。
+
+</TranslationNote>
+
+キーのパスフレーズがある場合は、それも環境変数に追加できます：
+
+```bash
+export TAURI_SIGNING_RPM_KEY_PASSPHRASE=password
+```
+
+さあこれで、次のコマンドを使ってパッケージをビルドできます：
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+### 署名の検証
+
+:::note
+この操作は、署名をローカルでテストする場合にのみ行なってください。
+:::
+
+署名を検証する前に、公開キーを作成して RPM データベースにインポートする必要があります：
+
+```bash
+gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
+```
+
+```bash
+sudo rpm --import RPM-GPG-KEY-Tauri-App
+```
+
+公開キーがインポートされたら、そのキーを利用するために `~/.rpmmacros` ファイルを編集します。
+
+```bash title="~/.rpmmacros"
+%_signature gpg
+%_gpg_path /home/johndoe/.gnupg
+%_gpg_name Tauri-App
+%_gpgbin /usr/bin/gpg2
+%__gpg_sign_cmd %{__gpg} \
+    gpg --force-v3-sigs --digest-algo=sha1 --batch --no-verbose --no-armor \
+    --passphrase-fd 3 --no-secmem-warning -u "%{_gpg_name}" \
+    -sbo %{__signature_filename} %{__plaintext_filename}
+```
+
+ようやくこれで、次のコマンドを使用してパッケージを検証できます：
+
+```bash
+rpm  -v --checksig tauri-app-0.0.0-1.x86_64.rpm
+```
+
+## RPM パッケージのデバッグ
+
+この項では、パッケージの内容を確認し、パッケージに関する情報を取得することで、RPM パッケージをデバッグする方法について説明します。
+
+### パッケージに関する情報の取得
+
+バージョン、リリース、アーキテクチャなどのパッケージに関する情報を取得するには、次のコマンドを使用します：
+
+```bash
+rpm -qip package_name.rpm
+```
+
+### パッケージに関する特定の情報を照会
+
+たとえば、パッケージの名前やバージョン、リリース、アーキテクチャ、パッケージ・サイズなどを取得しようとする場合には、次のコマンドを使用します：
+
+```bash
+rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' package_name.rpm
+```
+
+:::note
+_`--queryformat`_ は、パッケージに関する特定の情報を取得するために使用できるフォーマット文字列です。
+取得できる情報は、rpm -qip コマンドから取得されます。
+:::
+
+### パッケージ内容の確認
+
+パッケージの内容を確認するには、次のコマンドを使用します：
+
+```bash
+rpm -qlp package_name.rpm
+```
+
+このコマンドは、パッケージに含まれるすべてのファイルを一覧表示します。
+
+### スクリプトのデバッグ
+
+「インストール／削除」の前／後のスクリプトをデバッグするには、次のコマンドを使用します：
+
+```bash
+rpm -qp --scripts package_name.rpm
+```
+
+このコマンドはスクリプトの内容を出力します。
+
+### 依存関係の確認
+
+パッケージの依存関係を確認するには、次のコマンドを使用します：
+
+```bash
+rpm -qp --requires package_name.rpm
+```
+
+### 特定のパッケージに依存するパッケージを表示
+
+特定のパッケージに依存するパッケージを一覧表示するには、次のコマンドを使用します：
+
+```bash
+rpm -q --whatrequires package_name.rpm
+```
+
+### インストール問題のデバッグ
+
+RPM パッケージのインストール中に問題が発生した場合は、`-vv` オプション（very verbose「非常に詳細な」）を使用して詳細な出力を利用できます：
+
+```bash
+rpm -ivvh package_name.rpm
+```
+
+あるいは、すでにインストール済のパッケージでは：
+
+```bash
+rpm -Uvvh package_name.rpm
+```
+
+を使用します。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Mar 29, 2025 英語版」に基づいています】
+</div>
