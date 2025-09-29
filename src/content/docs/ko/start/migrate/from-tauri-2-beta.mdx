@@ -1,0 +1,152 @@
+---
+title: Tauri 2.0 베타 버전에서 업그레이드
+i18nReady: false
+sidebar:
+  order: 16
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+여기서는 Tauri 2.0 베타 버전 애플리케이션을 Tauri 2.0 릴리스 후보 버전으로 업그레이드하는 절차를 설명합니다.
+
+## 자동 마이그레이션
+
+Tauri v2 CLI에는 마이그레이션 작업의 대부분을 자동화하는 `migrate` 명령이 포함되어 있어 마이그레이션 완료에 도움이 됩니다.
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@latest
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@latest
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri migrate'
+/>
+
+`migrate` 명령에 대한 자세한 내용은 [명령줄 인터페이스 참조](/ko/reference/cli/#migrate)를 참조하십시오.
+
+## 이전 버전과 호환되지 않는 변경 사항(Breaking Changes)
+
+베타 버전에서 릴리스 후보 버전으로 마이그레이션할 때 몇 가지 호환되지 않는 변경 사항을 적용했습니다. 이러한 변경 사항은 자동 마이그레이션(위 참조)하거나 수동으로 실행할 수 있습니다.
+
+### Tauri 코어 플러그인
+
+Tauri 내장 플러그인이 기능 내에서 처리되는 방식을 변경했습니다 [PR #10390](https://github.com/tauri-apps/tauri/pull/10390).
+
+베타 최신 버전에서 마이그레이션하려면 기능 내의 모든 코어 허가 식별자 앞에 `core:`를 추가하거나 `core:default` 허가로 전환하여 이전 코어 플러그인 식별자를 제거해야 합니다.
+
+```json
+...
+"permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "image:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+]
+...
+```
+
+```json
+...
+"permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:image:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+]
+...
+```
+
+또한 새로운 특별한 `core:default` 허가 세트도 추가했습니다. 여기에는 모든 코어 플러그인에 대한 기본 허가가 모두 포함되어 있습니다. 이를 통해 기능 설정에서 허가의 상용구를 간소화할 수 있습니다.
+
+```json
+...
+"permissions": [
+    "core:default"
+]
+...
+```
+
+### 내장 개발 서버
+
+내장 개발 서버의 네트워크 공개에 변경 사항을 도입했습니다([PR #10437](https://github.com/tauri-apps/tauri/pull/10437) 및 [PR #10456](https://github.com/tauri-apps/tauri/pull/10456)).
+
+내장 모바일 개발 서버는 네트워크 전체에 공개하지 않고 트래픽을 로컬 컴퓨터에서 장치로 직접 터널링합니다.
+
+현재 이 개선 사항은 iOS 장치에서 (직접 또는 Xcode에서) 실행하는 경우 자동으로 적용되지 않습니다.
+따라서 기본적으로 개발 서버에 공용 네트워크 주소가 사용되지만,
+이를 피하려면 Xcode를 열어 macOS 컴퓨터와 연결된 iOS 장치 간의 연결을 자동으로 시작하도록 하는 방법이 있습니다.
+그런 다음 `tauri ios dev --force-ip-prompt`를 실행하여 iOS 장치의 TUN 주소(**::2**로 끝나는)를 선택합니다.
+
+물리적 iOS 장치에서 실행하는 경우 개발 서버 설정을 이 변경 사항에 맞게 조정해야 합니다.
+이전에는 `TAURI_ENV_PLATFORM` 환경 변수가 `android` 또는 `ios` 중 하나와 일치하는지 확인하는 것을 권장했지만,
+이제는 iOS 장치를 사용하지 않는 경우 로컬 호스트에 연결할 수 있게 되었으므로 대신 `TAURI_DEV_HOST` 환경 변수를 확인하십시오.
+다음은 Vite(비트)에서의 마이그레이션 설정 예입니다.
+
+- 2.0.0-베타 버전:
+
+```js
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { internalIpV4Sync } from 'internal-ip';
+
+const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: mobile ? '0.0.0.0' : false,
+    port: 1420,
+    strictPort: true,
+    hmr: mobile
+      ? {
+          protocol: 'ws',
+          host: internalIpV4Sync(),
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+- 2.0.0:
+
+```js
+import { defineConfig } from 'vite';
+import Unocss from 'unocss/vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+const host = process.env.TAURI_DEV_HOST;
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host: host,
+          port: 1430,
+        }
+      : undefined,
+  },
+});
+```
+
+:::note
+NPM 패키지 `internal-ip`는 더 이상 필요하지 않습니다. 대신 TAURI_DEV_HOST 값을 직접 사용할 수 있습니다.
+:::

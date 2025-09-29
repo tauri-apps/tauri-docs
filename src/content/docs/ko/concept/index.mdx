@@ -1,0 +1,39 @@
+---
+title: 기본 설계 사상
+sidebar:
+  order: 0
+  label: 개요
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Tauri에는 핵심적인 설계 사상이 몇 가지 있습니다. 이러한 항목은 애플리케이션을 개발할 때 개발자가 알아야 할 사항입니다. 다음은 Tauri 프레임워크를 최대한 활용하기 위해 더 자세히 이해해야 할 개념입니다.
+
+<CardGrid>
+  <LinkCard
+    title="Tauri 아키텍처"
+    href="/ko/concept/architecture/"
+    description="기본 설계와 생태계"
+  />
+  <LinkCard
+    title="프로세스 간 통신(IPC)"
+    href="/ko/concept/inter-process-communication/"
+    description="프로세스 간 통신의 내부 구조"
+  />
+  <LinkCard
+    title="안전성"
+    href="/ko/security/"
+    description="Tauri의 안전성 강화 시책"
+  />
+  <LinkCard
+    title="프로세스 모델"
+    href="/ko/concept/process-model/"
+    description="Tauri가 관리하는 프로세스와 그 이유"
+  />
+  <LinkCard
+    title="앱 크기"
+    href="/ko/concept/size/"
+    description="앱 크기를 최소화하는 방법"
+  />
+</CardGrid>

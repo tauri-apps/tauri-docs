@@ -1,0 +1,94 @@
+---
+title: 프로세스 간 통신
+sidebar:
+  label: Overview
+  order: 1
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+"프로세스 간 통신(Inter-Process Communication)"(IPC)은 단일 프로세스가 안전하게 통신할 수 있도록 하여 더 복잡한 애플리케이션을 구축하는 데 핵심적인 역할을 합니다.
+
+구체적인 "프로세스 간 통신(IPC)" 유형(패턴)에 대해서는 다음 설명을 참조하십시오.
+
+<CardGrid>
+  <LinkCard
+    title="Brownfield<br>브라운필드형"
+    href="/ko/concept/inter-process-communication/brownfield/"
+  />
+  <LinkCard
+    title="Isolation<br>아이솔레이션형"
+    href="/ko/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+Tauri는 [Asynchronous Message Passing](https://ko.wikipedia.org/wiki/메시지_전달)이라는 특별한 스타일의 프로세스 간 통신을 사용합니다. 이 방법에서는 프로세스들이 간단한 데이터 표현을 사용하여 직렬화된 "_요청_"과 "_응답_"을 주고받습니다. 메시지 전달은 인터넷상의 클라이언트-서버 통신에 사용되는 메커니즘이므로 웹 개발 경험이 있는 사람이라면 누구나 익숙할 것입니다.
+
+또한 메시지 전달은 수신자가 필요에 따라 "요청"을 거부하거나 폐기할 수 있으므로 "공유 메모리 방식"이나 "직접 함수 접근 방식"보다 안전한 방법입니다. 예를 들어, Tauri 코어 프로세스가 "요청"을 악의적인 것으로 판단하면 해당 요청은 폐기되고 해당 함수 처리는 실행되지 않습니다.
+
+아래에서는 Tauri의 두 가지 "IPC 프리미티브(동기 기본 명령)", 즉 "이벤트 `Events`"와 "명령 `Commands`"에 대해 자세히 설명합니다.
+
+## 이벤트
+
+"이벤트"는 자동 추적형 단방향 "IPC 메시지"로, 라이프사이클 중 각 이벤트와 상태 변화를 전달하는 데 최적입니다.
+"[명령](#명령)"과 달리 "이벤트"는 프론트엔드와 Tauri Core(코어부) 양쪽에서 발행할 수 있습니다.
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+Frontend: {
+  shape: rectangle
+  label: "Webview\nFrontend"
+}
+Core: {
+  shape: rectangle
+  label: "Core\nBackend"
+}
+
+Frontend -> Core: "이벤트"{style.animated: true}
+Core -> Frontend: "이벤트"{style.animated: true}
+```
+
+<figcaption>코어부와 Webview 간에 주고받는 이벤트</figcaption>
+</figure>
+
+## 명령
+
+Tauri는 또한 "IPC 메시지" 외에도 [foreign function interface](https://ko.wikipedia.org/wiki/외부_함수_인터페이스)와 같은 추상화도 제공합니다[^1]. 기본 주요 API인 `invoke`는 브라우저의 `fetch` API와 유사하며, 프론트엔드가 Rust 함수를 호출하고 인수를 전달하며 데이터를 수신할 수 있도록 합니다.
+
+이 메커니즘은 내부적으로 [JSON-RPC]와 같은 프로토콜을 사용하여 요청과 응답을 직렬화하므로 모든 인수와 반환 값 데이터는 JSON 표준에 따라 직렬화 가능해야 합니다.
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+
+Frontend: {
+  label: "Webview\nFrontend"
+}
+
+Core: {
+  label: "Core\nBackend"
+}
+InvokeHandler: {
+  label: "Invoke\nHandler"
+}
+
+Frontend -> Core: "IPC 요청"{style.animated: true}
+Core -> InvokeHandler: "명령 호출"{style.animated: true}
+InvokeHandler -> Core: "반환 값 직렬화"{style.animated: true}
+Core -> Frontend: "응답"{style.animated: true}
+```
+
+<figcaption>명령 호출에 관련된 IPC 메시지</figcaption>
+</figure>
+
+[^1]: 명령은 내부적으로 메시지 전달을 사용하므로 실제 "외부 함수 인터페이스(FFI)"와 같은 보안상의 함정은 없습니다.
+
+[Asynchronous Message Passing]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
+[json-rpc]: https://www.jsonrpc.org
+[foreign function interface]: https://en.wikipedia.org/wiki/Foreign_function_interface

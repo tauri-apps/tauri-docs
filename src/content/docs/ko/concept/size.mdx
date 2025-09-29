@@ -1,0 +1,71 @@
+---
+title: 앱 크기
+sidebar:
+  order: 0
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Tauri는 기본적으로 매우 작은 바이너리 크기를 가지지만, 그 한계를 조금 더 넓혀도 문제는 없습니다. 여기서는 최적의 결과를 얻기 위한 몇 가지 팁과 요령을 소개합니다.
+
+## Cargo 설정
+
+작업 중인 프로젝트에 대해 프론트엔드에 의존하지 않고 수행할 수 있는 가장 간단한 크기 개선 중 하나는 "Cargo 프로필"을 추가하는 것입니다.
+
+Stable 버전(안정판)의 Rust 툴체인을 사용하는지, Nightly 버전(나이틀리판/최신 개발판)의 Rust 툴체인을 사용하는지에 따라 사용할 수 있는 옵션이 약간 다릅니다. 고급 사용자가 아닌 경우 안정판 툴체인을 사용하는 것이 좋습니다.
+
+<Tabs>
+<TabItem label="Stable">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # 바이너리를 더 작은 단계로 컴파일합니다.
+
+[profile.release]
+codegen-units = 1 # LLVM이 더 나은 최적화를 수행할 수 있도록 합니다.
+lto = true # 링크 타임 최적화를 활성화합니다.
+opt-level = "s" # 작은 바이너리 크기를 우선시합니다. 속도를 선호하는 경우 `3`을 사용하십시오.
+panic = "abort" # 패닉 핸들러를 비활성화하여 성능을 향상시킵니다.
+strip = true # 디버그 심볼이 제거되도록 합니다.
+
+````
+</TabItem>
+
+<TabItem label="Nightly">
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # 바이너리를 더 작은 단계로 컴파일합니다.
+rustflags = ["-Zthreads=8"] # 더 나은 컴파일 성능.
+
+[profile.release]
+codegen-units = 1 # LLVM이 더 나은 최적화를 수행할 수 있도록 합니다.
+lto = true # 링크 타임 최적화를 활성화합니다.
+opt-level = "s" # 작은 바이너리 크기를 우선시합니다. 속도를 선호하는 경우 `3`을 사용하십시오.
+panic = "abort" # 패닉 핸들러를 비활성화하여 성능을 향상시킵니다.
+strip = true # 디버그 심볼이 제거되도록 합니다.
+trim-paths = "all" # 바이너리에서 잠재적으로 권한 있는 정보를 제거합니다.
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # 더 나은 컴파일 성능.
+````
+
+</TabItem>
+</Tabs>
+
+### 참고 정보
+
+:::note
+아래 목록은 사용 가능한 모든 옵션을 나열한 전체 버전이 아니라, 특히 주목해야 할 옵션을 기재한 것입니다.
+:::
+
+- [incremental:](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental) 바이너리를 더 세분화된 단위로 컴파일합니다.
+- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units) 컴파일 시간 최적화를 희생하여 컴파일 시간을 단축합니다.
+- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) 링크 시 최적화를 활성화합니다.
+- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) 컴파일러의 초점 내용을 결정합니다. "성능" 최적화에는 `3`을, "크기" 최적화에는 `z`를, 그 "중간"에는 `s`를 지정합니다.
+- [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic) 오류 처리 시 "패닉 언와인드"(이상, 되감기 정보)를 삭제하여 크기를 줄입니다.
+- [strip:](https://doc.rust-lang.org/cargo/reference/profiles.html#strip) 바이너리에서 심볼 또는 디버그 정보를 제거합니다.
+- [rpath:](https://doc.rust-lang.org/cargo/reference/profiles.html#rpath) 바이너리 내에 필요 정보를 기록(하드 코딩)하여 바이너리에 필요한 동적 라이브러리를 찾는 데 도움을 줍니다.
+- [trim-paths:](https://rust-lang.github.io/rfcs/3127-trim-paths.html) 바이너리에서 기밀일 수 있는 정보를 제거합니다.
+- [rustflags:](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option) 프로필별로 Rust 컴파일러 플래그를 설정합니다.
+  - `-Cdebuginfo=0`: 빌드에 "debuginfo 심볼"을 포함할지 여부를 지정합니다.
+  - `-Zthreads=8`: 컴파일 시 사용되는 스레드 수를 늘립니다.

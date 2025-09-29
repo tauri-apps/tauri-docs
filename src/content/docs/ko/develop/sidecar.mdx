@@ -1,0 +1,249 @@
+---
+title: 외부 바이너리 포함
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+애플리케이션에 기능을 추가하거나 사용자가 추가 종속성(Node.js나 Python 등)을 설치하지 못하게 하려면 외부 바이너리를 포함해야 할 수 있습니다. 이러한 바이너리를 "**사이드카** `sidecar`"라고 합니다.
+
+바이너리는 모든 프로그래밍 언어로 작성된 실행 파일입니다. 일반적인 사용 예로는 `pyinstaller`를 사용하여 번들된 Python CLI 애플리케이션이나 API 서버 등이 있습니다.
+
+원하는 바이너리를 번들링하려면 `tauri.conf.json`의 `tauri > bundle` 객체에 `externalBin` 속성을 추가합니다.
+`externalBin` 설정에는 절대 경로 또는 상대 경로를 사용하여 대상 바이너리를 지정하는 "문자열 목록"이 필요합니다.
+
+다음은 "사이드카" 설정을 설명하기 위한 "Tauri 설정"의 발췌(스니펫)입니다:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "externalBin": [
+      "/absolute/path/to/sidecar",
+      "../relative/path/to/binary",
+      "binaries/my-sidecar"
+    ]
+  }
+}
+```
+
+:::note
+
+상대 경로는 `src-tauri` 디렉토리에 있는 `tauri.conf.json` 파일을 기준으로 표기합니다.
+따라서 `binaries/my-sidecar`는 `<PROJECT ROOT>/src-tauri/binaries/my-sidecar`를 나타냅니다.
+
+:::
+
+지원되는 모든 아키텍처에서 외부 바이너리가 작동하도록 하려면 지정된 경로에 "동일한 이름"과 "접미사 `-$TARGET_TRIPLE`"(대상 트리플)을 가진 바이너리가 있어야 합니다.
+예를 들어, `"externalBin": ["binaries/my-sidecar"]`의 경우, Linux에서는 실행 파일 "`src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu`"가, Apple Silicon을 탑재한 Mac OS에서는 실행 파일 "`src-tauri/binaries/my-sidecar-aarch64-apple-darwin`"이 필요합니다.
+
+> > > 《번역 주》 **대상 트리플** 원문은 target triple. Rust에서 크로스 컴파일을 수행할 때 아키텍처를 지정하는 방식으로, 컴파일 대상(target)을 세 가지(triple) 항목 "CPU 제품군 이름", "제조사 이름", "OS 이름"으로 지정합니다. 위의 설명 예에서는 `aarch64-apple-darwin`과 같이 하이픈으로 연결된 표기법이 사용됩니다.
+
+다음 명령으로 표시되는 "`host:`" 속성을 보면 **현재** 플랫폼의 "접미사 `-$TARGET_TRIPLE`"을 알 수 있습니다:
+
+```sh
+rustc -Vv
+```
+
+대부분의 Unix 시스템에 탑재된 `grep` 명령과 `cut` 명령을 사용할 수 있는 경우, 다음 명령으로 대상 트리플을 직접 추출할 수 있습니다:
+
+```shell
+rustc -Vv | grep host | cut -f2 -d' '
+```
+
+Windows에서는 shell 대신 PowerShell을 사용합니다:
+
+```powershell
+rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
+```
+
+다음 예는 대상 트리플을 바이너리에 추가하는 Node.js 스크립트입니다.
+
+```javascript
+import { execSync } from 'child_process';
+import fs from 'fs';
+
+const extension = process.platform === 'win32' ? '.exe' : '';
+
+const rustInfo = execSync('rustc -vV');
+const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+if (!targetTriple) {
+  console.error('Failed to determine platform target triple');
+}
+fs.renameSync(
+  `src-tauri/binaries/sidecar${extension}`,
+  `src-tauri/binaries/sidecar-${targetTriple}${extension}`
+);
+```
+
+이 스크립트는 실행되는 아키텍처와 다른 아키텍처용으로 컴파일한 경우 작동하지 않으므로, 자신만의 빌드 스크립트를 만들기 위한 출발점으로 사용하십시오.
+
+## Rust에서 실행하기
+
+:::note
+플러그인을 올바르게 설정하고 초기화하려면 먼저 [셸 플러그인 가이드](/ko/plugin/shell/)를 따르십시오.
+플러그인을 초기화하고 구성하지 않으면 다음 예는 작동하지 않습니다.
+:::
+
+Rust 측에서는 `tauri_plugin_shell::ShellExt` 트레이트를 가져오고 AppHandle에서 `shell().sidecar()` 함수를 호출합니다:
+
+> > > 《번역 주》 **트레이트** 원문은 trait(성격의 "특징", "특성", 유전적인 "형질"을 나타내는 단어). 『[Rust 한국어판](https://doc.rust-kr.org/ch10-02-traits.html)』에서는 다른 유형에 대해 공통된 동작을 정의하는 것과 같은 설명이 있습니다. "유형의 형질" = "유형질?"
+
+```rust
+use tauri_plugin_shell::ShellExt;
+use tauri_plugin_shell::process::CommandEvent;
+
+let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
+let (mut rx, mut _child) = sidecar_command
+  .spawn()
+  .expect("Failed to spawn sidecar");
+
+tauri::async_runtime::spawn(async move {
+  // stdout(표준 출력) 등의 이벤트를 읽습니다
+  while let Some(event) = rx.recv().await {
+    if let CommandEvent::Stdout(line_bytes) = event {
+      let line = String::from_utf8_lossy(&line_bytes);
+      window
+        .emit("message", Some(format!("'{}'", line)))
+        .expect("failed to emit event");
+      // stdin(표준 입력)에 씁니다
+      child.write("message from Rust\n".as_bytes()).unwrap();
+    }
+  }
+});
+```
+
+:::note
+`sidecar()` 함수에는 "파일 이름"만 필요하며, 배열 `externalBin`에 설정된 "경로" 자체는 필요하지 **않습니다**.
+
+예를 들어, 다음과 같은 설정이 되어 있다고 가정합니다:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "externalBin": ["binaries/app", "my-sidecar", "../scripts/sidecar"]
+  }
+}
+```
+
+적절하게 "사이드카"를 실행하려면 `app.shell().sidecar(name)`을 호출합니다. 이때 `name`은 예를 들어 `"binaries/app"`와 같은 경로가 아니라 `"app"`, `"my-sidecar"` 또는 `"sidecar"` 중 하나가 됩니다.
+
+:::
+
+이 코드를 Tauri 명령 내에 배치하면 AppHandle을 쉽게 전달할 수 있으며, 빌더 스크립트 내에 AppHandle에 대한 참조를 저장하면 애플리케이션 내 어디에서나 AppHandle에 액세스할 수 있습니다.
+
+## JavaScript에서 실행하기
+
+"사이드카"를 실행하는 경우, Tauri에서는 자식 프로세스에서 `execute` 또는 `spawn` 메서드를 실행할 권한을 "사이드카"에 부여해야 합니다. 이 권한을 부여하려면 파일 `<PROJECT ROOT>/src-tauri/capabilities/default.json`으로 이동하여 다음 섹션을 권한 배열에 추가합니다. 앞서 "참고"란에서 설명한 "상대 경로 기술 방법"에 따라 "사이드카"를 기술하는 것을 잊지 마십시오.
+
+```json title="src-tauri/capabilities/default.json" ins={4-12}
+{
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/app",
+          "sidecar": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::note
+
+사이드카 자식 프로세스는 `command.execute()` 메서드를 사용하여 시작되므로 `shell:allow-execute` 식별자가 사용됩니다. 이를 `command.spawn()`으로 실행하려면 식별자를 `shell:allow-spawn`으로 변경하거나 위와 동일한 구조이지만 식별자를 `shell:allow-spawn`으로 변경한 다른 항목을 배열에 추가해야 합니다.
+
+:::
+
+JavaScript 코드 내에서는 `@tauri-apps/plugin-shell` 모듈에서 `Command` 클래스를 가져오고 `sidecar` 정적 메서드를 사용합니다.
+
+```javascript
+import { Command } from '@tauri-apps/plugin-shell';
+const command = Command.sidecar('binaries/my-sidecar');
+const output = await command.execute();
+```
+
+:::note
+`Command.sidecar`로 보내는 문자열은 `externalBin` 설정 배열에 정의된 문자열 중 하나와 일치해야 합니다.
+:::
+
+## 인수 전달
+
+일반적인 [명령][std::process::Command]을 실행하는 경우와 마찬가지로 Sidecar의 명령에 인수를 전달할 수 있습니다.
+
+인수는 **정적 static**(예: `-o` 또는 `serve`) 또는 **동적 dynamic**(예: `<file_path>` 또는 `localhost:<PORT>`) 중 하나가 될 수 있습니다. 인수는 호출하는 순서대로 정의합니다. "정적 인수"는 그대로 정의되지만, "동적 인수"는 정규식을 사용하여 정의합니다.
+
+먼저, `src-tauri/capabilities/default.json`에 사이드카 명령에 전달해야 하는 인수를 정의합니다:
+
+```json title="src-tauri/capabilities/default.json" ins={8-24}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "args": [
+            "arg1",
+            "-a",
+            "--arg2",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "name": "binaries/my-sidecar",
+          "sidecar": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::note
+만약 Tauri v1 버전에서 마이그레이션하는 경우, Tauri v2 CLI의 `migrate` 명령으로 이 처리를 실행할 수 있습니다. 자세한 내용은 "Tauri 1.0에서 업그레이드"의 [자동 마이그레이션](/ko/start/migrate/from-tauri-1/#자동-마이그레이션) 항목을 읽어보십시오.
+:::
+
+이제 사이드카 명령을 호출하려면 **모든** 인수를 배열로 전달하기만 하면 됩니다.
+
+Rust에서는:
+
+```rust
+use tauri_plugin_shell::ShellExt;
+#[tauri::command]
+async fn call_my_sidecar(app: tauri::AppHandle) {
+  let sidecar_command = app
+    .shell()
+    .sidecar("my-sidecar")
+    .unwrap()
+    .args(["arg1", "-a", "--arg2", "any-string-that-matches-the-validator"]);
+  let (mut _rx, mut _child) = sidecar_command.spawn().unwrap();
+}
+```
+
+JavaScript에서는:
+
+```javascript
+import { Command } from '@tauri-apps/plugin-shell';
+// 인수 배열은 `capabilities/default.json`에 지정된 것과 완전히 일치해야 합니다.
+const command = Command.sidecar('binaries/my-sidecar', [
+  'arg1',
+  '-a',
+  '--arg2',
+  'any-string-that-matches-the-validator',
+]);
+const output = await command.execute();
+```
+
+[std::process::Command]: https://doc.rust-lang.org/std/process/struct.Command.html
+
+<div style="text-align: right">
+  【※ 이 한국어판은, 「Jan 06, 2025 영문판」에 근거하고 있습니다】
+</div>
