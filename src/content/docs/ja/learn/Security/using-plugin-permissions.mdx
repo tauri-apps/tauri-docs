@@ -1,0 +1,325 @@
+---
+title: プラグイン・アクセス権の使用
+sidebar:
+  order: 10
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro';
+import Cta from '@fragments/cta.mdx';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+本訳稿では、Permissions / Capabilities に主に以下の訳語を当てています。
+
+- Permissions　「アクセス権」（アクセスの許可権）
+- Capabilities　「セキュリティ・レベル」（セキュリティの度合いを示す権限レベル）
+
+</TranslationNote>
+
+この章の目的は、プラグイン・アクセス権がどのように有効化または無効化されるのか、どこに記述されているのか、さらにはプラグインのデフォルト・アクセス権の使用方法について、より深く理解することです。
+
+この章を読み終わる頃には、どのようなプラグインでも、そのアクセス権を見つけて使用し、既存のアクセス権をカスタマイズする方法を理解できるようになります。
+以下で、プラグインとプラグイン固有のアクセス権を使用する Tauri アプリケーションの事例を見ることもできます。
+
+<Steps>
+
+1. ### Tauri アプリケーションの作成
+
+   Tauri アプリケーションを作成します。
+   この事例では、[`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) を実行します。
+
+   <Cta />
+
+   この段階を踏んだ説明手順では `pnpm` を使用して進めていきますが、別のパッケージ・マネージャーも選択可能です。選択したパッケージ・マネージャーに応じてコマンドを置き換えてください。
+
+   <ShowSolution>
+
+    ```
+    pnpm create tauri-app
+    ```
+
+    ```
+    ✔ Project name · plugin-permission-demo
+    ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, bun)
+    ✔ Choose your package manager · pnpm
+    ✔ Choose your UI template · Vanilla
+    ✔ Choose your UI flavor · TypeScript
+
+    Template created! To get started run:
+    cd plugin-permission-demo
+    pnpm install
+    pnpm tauri dev
+    ```
+
+    <TranslationNote lang="ja">
+    
+    ※ 処理内容の参考訳：
+      ✔ プロジェクト名　・・・
+      ✔ フロントエンドに用いる言語を選択　・・・
+      ✔ パッケージ・マネージャーを選択　・・・
+      ✔ UI テンプレートを選択　・・・
+      ✔ UI フレーバーを選択　・・・
+
+      テンプレートが作成されました！　始めるには以下を実行：
+      cd （作成するプロジェクトのディレクトリ名）
+      pnpm install
+      pnpm tauri dev
+
+    </TranslationNote>
+
+    </ShowSolution>
+
+2.  ### 「ファイルシステム」プラグインをアプリケーションに追加
+
+    既存のプラグインを検索するには、複数のリソースを使用できます。
+
+    いちばん簡単な方法は、プラグインがすでに『Tauri Guides』ドキュメントの「[Plugins](/ja/plugin/)」の中にあるか、つまり、Tauri が管理するプラグイン・セットの中に存在しているかどうかを確認することです。
+    たとえば、「ファイルシステム（fs）」プラグインは **Tauri Plugins** メニューのワークスペース（共有エリア）に掲載されており、そのリンク先の[設定手順](/ja/plugin/file-system/#setup) に従って自分のプロジェクトに追加可能です。
+
+    また、プラグインが Tauri コミュニティの取り組みとして行なわれているものであれば、[crates.io](https://crates.io/search?q=tauri-plugin-) 上で十中八九見つかるはずです。「`tauri-plugin-<プラグイン名>`」のように検索してみてください：
+
+    <ShowSolution>
+
+    <TranslationNote lang="ja">
+
+    以下、「ファイルシステム fs」プラグインを例に、① メニュー「Plaugins」部にリストされていた場合と、② 「crates.io」サイトから入手する場合、の処理手順が示されます。
+
+    </TranslationNote>
+
+    お探しのプラグインが「ワークスペース（共有エリア）」にある既存のフラグインであれば、自動化された方法を使用可能です：
+
+    ```
+    pnpm tauri add fs
+    ```
+
+    そのプラグインを「[crates.io](https://crates.io/crates/tauri-plugin-fs)」サイトで見つけた場合は、依存関係を手作業で追加し、プラグインを初期化するために Tauri ビルダーを修正する必要があります：
+
+    ```sh
+    cargo add tauri-plugin-fs
+    ```
+
+    プラグイン初期化のために `lib.rs` を修正：
+
+    ```rust title="src-tauri/src/lib.rs" ins={4}
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    fn run() {
+      tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+    }
+    ```
+
+    </ShowSolution>
+
+3.  ### 「ファイルシステム」プラグインのデフォルト・アクセス権の確認
+
+    各プラグインには「デフォルト」のアクセス権のセットがあり、これには、適切で最小限の機能と、プラグインをすぐにそのまま使用するためのアクセス権とスコープ（適用範囲）がすべて含まれています。
+
+    公式にメンテナンスされているプラグインの場合は、ドキュメントに提供された説明が記載されています（例： [fs default](/plugin/file-system/#default-permission)）。
+
+    コミュニティ製プラグインに関するデフォルトのアクセス権設定を調べるには、そのプラグインのソース・コードを精査する必要があります。
+    その内容は `your-plugin/permissions/default.toml` に定義されているはずです。
+
+    <ShowSolution>
+
+    ```
+    "$schema" = "schemas/schema.json"
+
+      [default]
+      description = """
+
+      # Tauri `fs` default permissions
+
+      This configuration file defines the default permissions granted to the filesystem.
+
+      ### Granted Permissions
+
+      This default permission set enables all read-related commands and allows access to the `$APP` folder and sub directories created in it.
+      The location of the `$APP` folder depends on the operating system, where the application is run.
+
+      In general the `$APP` folder needs to be manually created
+      by the application at runtime, before accessing files or folders
+      in it is possible.
+
+      ### Denied Permissions
+
+      This default permission set prevents access to critical components
+      of the Tauri application by default.
+      On Windows the webview data folder access is denied.
+
+      """
+      permissions = ["read-all", "scope-app-recursive", "deny-default"]
+
+    ```
+
+      <TranslationNote lang="ja">
+        
+        〔参考訳〕
+
+        # Tauri 'fs' デフォルト・アクセス権
+
+        この設定ファイルは、「ファイルシステム fs」プラグインに付与されるデフォルトのアクセス権を定義します。
+
+        ### 許可されたアクセス権
+
+        このデフォルトのアクセス「許可」権セットは、すべての読み取り関連コマンドを有効にし、「`$APP`」フォルダとその中に作成されているサブディレクトリへのアクセスを許可します。
+        「`$APP`」フォルダの場所は、アプリケーションが実行されるオペレーティング・システムによって異なります。
+
+        通常、「`$APP`」フォルダ内のファイルやフォルダがアクセス可能になるには、アプリケーションによって実行時に手作業で「`$APP`」フォルダを生成する必要があります。
+
+        ### 拒否されたアクセス権
+
+        このデフォルトのアクセス「拒否」権セットは、デフォルトで Tauri アプリケーションの重要なコンポーネントへのアクセスを防止します。
+        Windows では、Webview データ・フォルダーへのアクセスが拒否されます。
+
+      </TranslationNote>
+
+    </ShowSolution>
+
+4. ### 適切なアクセス権の見つけ方
+
+    手順 4 では、システムへの最小限のアクセスで、コマンドをフロントエンドに公開するために必要なアクセス権を見つける方法について説明します。
+
+    「`fs`」プラグインには自動生成されたアクセス権があり、個々のコマンドの無効化／有効化や、グローバル・スコープの許可／禁止を行ないます。
+    アクセス権の詳細は、[公式ドキュメント](/plugin/file-system/#permission-table) またはプラグインのソースコード（`fs/permissions/autogenerated`）を参照してください。
+
+    たとえば、ユーザーの `$HOME` フォルダにあるテキスト・ファイル「`test.txt`」への書き込みを有効にしたいとします。
+
+    そのためは、「自動生成されたアクセス権」の中で、`allow-write-text-file` のようなテキスト・ファイルへの書き込みを許可する権限を検索し、次に `$HOME/test.txt` ファイルへのアクセスを許可するスコープを検索します。
+
+    これらのアクセス権を `src-tauri/tauri.conf.json` の「セキュリティ・レベル `capabilities`」セクション、または「`src-tauri/capabilities/` フォルダー内のファイル」に追加する必要があります。
+    デフォルトでは、`src-tauri/capabilities/default.json` の中には既に修正可能な「セキュリティ機能」があります。
+
+    <ShowSolution>
+
+    ```json title="src-tauri/capabilities/default.json" del={18} ins={19}
+    {
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "default",
+      "description": "Capability for the main window",
+      "windows": ["main"],
+      "permissions": [
+        "path:default",
+        "event:default",
+        "window:default",
+        "app:default",
+        "image:default",
+        "resources:default",
+        "menu:default",
+        "tray:default",
+        "shell:allow-open",
+        "fs:default",
+        "fs:allow-write-text-file"
+      ]
+    }
+    ```
+
+    </ShowSolution>
+
+    「`fs`」プラグインには `$HOME` フォルダー全体にアクセスするための自動生成されたスコープしか設定されていないため、自分に必要な独自のスコープを設定する必要があります。
+    この独自のスコープは `write-text-file` コマンドのみを有効にして、`test.txt` ファイルだけが公開可能になるようにすべきです。
+
+    <ShowSolution>
+    ```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
+      {
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "default",
+      "description": "Capability for the main window",
+      "windows": [
+        "main"
+      ],
+      "permissions": [
+        "path:default",
+        "event:default",
+        "window:default",
+        "app:default",
+        "image:default",
+        "resources:default",
+        "menu:default",
+        "tray:default",
+        "shell:allow-open",
+        "fs:allow-write-text-file",
+        {
+          "identifier": "fs:allow-write-text-file",
+          "allow": [{ "path": "$HOME/test.txt" }]
+        },
+      ]
+    }
+    ```
+    </ShowSolution>
+
+5.  ### アクセス権の実地テスト
+
+    必要なアクセス権限を追加したら、アプリケーションがファイルにアクセスしてその内容を書き込むことができることを確認します。
+
+          <ShowSolution>
+
+    アプリケーションで以下のスニペットを使用すれば、ファイルに書き込むことができます：
+
+    ```ts title="src/main.ts"
+    import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+
+    let greetInputEl: HTMLInputElement | null;
+
+    async function write(message: string) {
+      await writeTextFile('test.txt', message, { baseDir: BaseDirectory.Home });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      greetInputEl = document.querySelector('#greet-input');
+      document.querySelector('#greet-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!greetInputEl) return;
+
+        write(
+          greetInputEl.value == '' ? 'No input provided' : greetInputEl.value
+        );
+      });
+    });
+    ```
+
+    `src/main.ts` をこのスニペットで置き換えると、基本的（プレーン）な Vanilla+Typescript アプリを使用する場合に、デフォルトの `index.html` を変更する必要がなくなります。
+    実行中のアプリの入力フィールドに入力すると、送信時にファイルに書き込まれます。
+
+    では、実際にテストしてみましょう：
+
+    ```
+    pnpm run tauri dev
+    ```
+
+    入力して「送信 Submit」をクリックしたあとで、ターミナル・エミュレーターを使用するか、ホーム・フォルダー内のファイルを自分で開くと結果が確認できます。
+
+    ```
+    cat $HOME/test.txt
+    ```
+
+    入力した内容が表示されているばずで、これで Tauri アプリケーションでプラグインからのアクセス権を使用する方法についての学習は完了です。
+    🥳
+
+    以下のエラーが発生した場合には：
+
+    ```sh
+    [Error] Unhandled Promise Rejection: fs.write_text_file not allowed. Permissions associated with this command: fs:allow-app-write, fs:allow-app-write-recursive, fs:allow-appcache-write, fs:allow-appcache-write-recursive, fs:allow-appconf...
+    (anonymous function) (main.ts:5)
+    ```
+
+    <TranslationNote lang="ja">
+
+    ［エラー内容抄訳］　未処理の Promise 戻り値「拒否」： fs.write_text_file は許可されていません。このコマンドに関連付けられたアクセス権は： fs:allow-app-write、fs:allow-app-write-recursive、・・・です。
+    （匿名関数）（main,ts:5）
+
+    </TranslationNote>
+
+    この場合、[上記の手順 4](#適切なアクセス権の見つけ方) を正しく実行していない可能性が非常に高くなります。
+
+          </ShowSolution>
+
+ </Steps>
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

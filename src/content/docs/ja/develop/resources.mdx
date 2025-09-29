@@ -1,0 +1,165 @@
+---
+title: 追加ファイルの埋め込み
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+フロントエンド（`frontendDist`）に直接含まれていないファイルや、バイナリにインライン化（埋め込み）するには大きすぎるファイルなどを、追加でアプリケーション・バンドルに含める必要がある場合があります。このようなファイルは「`resources`」（リソース）と呼ばれています。
+
+選択したファイルをバンドルするには、`tauri.conf.json` ファイル内の `bundle` オブジェクトに `resources` プロパティを追加します。
+
+`tauri.conf.json` 設定の詳細については、[こちら（英語版）][tauri.bundle] を参照してください。
+
+`resources` プロパティでは、ファイルまたはディレクトリを絶対パスまたは相対パスで指定した対象となるファイルやディレクトリ文字列のリストが必要です。ディレクトリ内のファイルをいくつか一括で指定する必要がある場合は、「グロブ・パターン」が利用できます。
+
+> > > 《訳注》 **グロブ・パターン**　原文は glob patterns。「ワイルドカード文字」を使用してファイル名／フォルダ名のパターンを指定する方法。詳しくは「[Wikipedia](https://ja.wikipedia.org/wiki/グロブ)」を参照してください。
+
+以下の例は、設定内容を説明するためのものです。すべての内容が備わった完全な `tauri.conf.json` ファイルではありませんので注意してください：
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": [
+      "/absolute/path/to/textfile.txt",
+      "relative/path/to/jsonfile.json",
+      "resources/**/*"
+    ]
+  }
+}
+```
+
+あるいは、ファイルのコピー先を変更したいのであれば、`resources` 設定で「マップ・オブジェクト」を指定することもできます。以下の例は、異なるソースからのファイルを、同じ `resources` フォルダーに取り込む方法を示したものです：
+
+> > > 《訳注》 **マップ・オブジェクト**　原文「a map object」。キーと値を一対一でマッピングするためのデータ構造。
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": {
+      "/absolute/path/to/textfile.txt": "resources/textfile.txt",
+      "relative/path/to/jsonfile.json": "resources/jsonfile.json",
+      "resources/**/*": "resources/"
+    }
+  }
+}
+```
+
+:::note
+
+Tauri の [アクセス権の仕組み](/reference/acl/capability/) では、絶対パスと親コンポーネント (`../`) を含むパスは `"$RESOURCE/**"` 経由でのみ許されています。`"path/to/file.txt"` のような相対パスは、`"$RESOURCE/path/to/file.txt"` のように明示的に指定すれば使用可能です。
+
+:::
+
+## ソース・パス構文
+
+以下の説明では、「ターゲット・リソース・ディレクトリ」（対象ディレクトリ）とは、オブジェクト表記法では「コロンの後の値」、または配列表記では「元のファイル・パスを再構築したもの」のどちらかです。
+
+> > > 《訳注》 **オブジェクト表記法**　原文は the object notation。軽量なテキストベースのデータ交換用フォーマット。詳しくは Wikipedia の「[JavaScript Object Notation (JSON)](https://ja.wikipedia.org/wiki/JavaScript_Object_Notation)」などを参照してください。
+> > > **配列表記**　原文 the array notation。巨大数の表記法のこと？
+
+- `"dir/file.txt"`：　この表記では、`file.txt` ファイルを「ターゲット・リソース・ディレクトリ」にコピーします。
+- `"dir/"`：　この表記では、すべてのファイル**とディレクトリ**を*再帰的に（そのまま丸ごと）*「ターゲット・リソース・ディレクトリ」にコピーします。現在のファイルとディレクトリの「ファイル・システムの階層構造」もそのまま保持する場合にもこれを利用できます。
+- `"dir/*"`：　この表記では `dir` ディレクトリ内の「すべてのファイル」を*非再帰的に*（すなわち、そのままの形ではなく、サブディレクトリが無視されて）「ターゲット・リソース・ディレクトリ」にコピーします。
+- `"dir/**`：　この表記では `**` が「ディレクトリのみに一致」を意味するため、ファイルが見つからないことになり「エラー」がスローされます。
+- `"dir/**/*"`：　この表記では `dir` ディレクトリ内の「すべてのファイル」（`dir/` 内のすべてのファイルとすべてのサブディレクトリ内のすべてのファイル）を「ターゲット・リソース・ディレクトリ」に*再帰的に*（そのままの形で）コピーします。
+- `"dir/**/**`：　この表記では `**` は「ディレクトリのみに一致」を意味するため、ファイルが見つからないことになり「エラー」がスローされます。
+
+## Rustのファイルへのアクセス
+
+次の例は、以下のような「i18n」（国際化対応）の json ファイルを追加バンドルする場合です：
+
+> > > 《訳注》 **i18n**　i18n = internationalization（国際化）。以下の例では「ドイツ語対応（言語コード de）」の de.json を追加し、「こんにちは（hello）」と「さようなら（bye）」に対応するドイツ語を追記しています。
+
+```json title=de.json
+{
+  "hello": "Guten Tag!",
+  "bye": "Auf Wiedersehen!"
+}
+```
+
+この場合、こうしたファイルは `tauri.conf.json` の隣の `lang`（言語）ディレクトリに保存されます。
+このため、上述のように `resources` に `"lang/*"` を追加します。
+
+Rust 側では、[`App`] と [`AppHandle`] から取得できる [`PathResolver`] のインスタンスが必要です：
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    // 指定するパスは、`tauri.conf.json > bundle > resources` で定義されているのと
+    // 同じ構文に従う必要があります。
+    let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+
+    let file = std::fs::File::open(&resource_path).unwrap();
+    let lang_de: serde_json::Value = serde_json::from_reader(file).unwrap();
+
+    // 次の一文で「'Guten Tag!'」がターミナルにプリントされます
+    println!("{}", lang_de.get("hello").unwrap());
+
+    Ok(())
+  })
+```
+
+```rust
+#[tauri::command]
+fn hello(handle: tauri::AppHandle) -> String {
+    let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+
+    let file = std::fs::File::open(&resource_path).unwrap();
+    let lang_de: serde_json::Value = serde_json::from_reader(file).unwrap();
+
+    lang_de.get("hello").unwrap()
+}
+```
+
+## JavaScript のファイルにアクセス
+
+以下は上記の例を基にしています。
+
+`$RESOURCE` フォルダへのアクセス権と、必要な [`plugin-fs`] API を有効にするためには、アクセス制御リストの設定が必要であることに注意してください：
+
+```json title=src-tauri/capabilities/default.json ins={14-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+    "fs:allow-read-text-file",
+    "fs:allow-resource-read-recursive"
+  ]
+}
+```
+
+:::note
+この例の、`fs:allow-resource-read-recursive` は、`$RESOURCE` フォルダー、ファイル、およびサブディレクトリ全体への完全な再帰読み取りアクセスを許可するために使用しています。
+この他のオプションについては [アクセス権の設定] を、よりきめ細かな制御については [スコープ（適用範囲）] をお読みください。
+:::
+
+```javascript
+import { resolveResource } from '@tauri-apps/api/path';
+import { readTextFile } from '@tauri-apps/plugin-fs';
+
+const resourcePath = await resolveResource('lang/de.json');
+const langDe = JSON.parse(await readTextFile(resourcePath));
+console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
+```
+
+[tauri.bundle]: /reference/config/#bundleconfig
+[`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
+[`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
+[`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
+[`plugin-fs`]: /reference/javascript/fs/
+[アクセス権の設定]: /ja/plugin/file-system/#scopes
+[スコープ（適用範囲）]: /ja/reference/acl/scope/
+
+<div style="text-align: right">
+  【※ この日本語版は、「Mar 13, 2025 英語版」に基づいています】
+</div>

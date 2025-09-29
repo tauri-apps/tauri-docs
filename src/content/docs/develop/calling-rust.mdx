@@ -36,7 +36,7 @@ Command names must be unique.
 Commands defined in the `lib.rs` file cannot be marked as `pub` due to a limitation in the glue code generation.
 You will see an error like this if you mark it as a public function:
 
-````
+```
 error[E0255]: the name `__cmd__command_name` is defined multiple times
   --> src/lib.rs:28:8
    |
@@ -47,6 +47,7 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times
    |
    = note: `__cmd__command_name` must be defined only once in the macro namespace of this module
 ```
+
 :::
 
 You will have to provide a list of your commands to the builder function like so:
@@ -59,7 +60,7 @@ pub fn run() {
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }
-````
+```
 
 Now, you can invoke the command from your JavaScript code:
 
@@ -236,7 +237,7 @@ invoke('login', { user: 'tauri', password: '0j4rijw8=' })
 
 As mentioned above, everything returned from commands must implement [`serde::Serialize`], including errors.
 This can be problematic if you're working with error types from Rust's std library or external crates as most error types do not implement it.
-In simple scenarios you can use `map_err` to convert these errors to `String`s:
+In simple scenarios you can use `map_err` to convert these errors to `String`:
 
 ```rust
 #[tauri::command]
@@ -450,11 +451,34 @@ Commands can access an `AppHandle` instance:
 ```rust title="src-tauri/src/lib.rs"
 #[tauri::command]
 async fn my_custom_command(app_handle: tauri::AppHandle) {
-	let app_dir = app_handle.path_resolver().app_dir();
+	let app_dir = app_handle.path().app_dir();
 	use tauri::GlobalShortcutManager;
 	app_handle.global_shortcut_manager().register("CTRL + U", move || {});
 }
 ```
+
+:::tip
+
+`AppHandle` and `WebviewWindow` both take a generic parameter `R: Runtime`,
+when the `wry` feature is enabled in `tauri` (which is enabled by default),
+we default the generic to the `Wry` runtime so you can use it directly,
+but if you want to use a different runtime, for example the [mock runtime],
+you need to write your functions like this
+
+```rust title="src-tauri/src/lib.rs" ins="<R: Runtime>" ins="<R>"
+use tauri::{AppHandle, GlobalShortcutManager, Runtime, WebviewWindow};
+
+#[tauri::command]
+async fn my_custom_command<R: Runtime>(app_handle: AppHandle<R>, webview_window: WebviewWindow<R>) {
+  let app_dir = app_handle.path().app_dir();
+  app_handle
+    .global_shortcut_manager()
+    .register("CTRL + U", move || {});
+  println!("WebviewWindow: {}", webview_window.label());
+}
+```
+
+:::
 
 ### Accessing Managed State
 
@@ -699,3 +723,4 @@ To learn how to listen to events and emit events from your Rust code, see the [R
 [Rust Event System documentation]: /develop/calling-frontend/#event-system
 [channels documentation]: /develop/calling-frontend/#channels
 [Calling Rust from the Frontend]: /develop/calling-rust/
+[mock runtime]: https://docs.rs/tauri/2.0.0/tauri/test/struct.MockRuntime.html

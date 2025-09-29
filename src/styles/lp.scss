@@ -1,0 +1,215 @@
+.lp-tauri-logo {
+  max-width: 100%;
+  width: auto;
+  margin-inline: auto;
+}
+
+:root[data-theme='light'] {
+  .lp-tauri-logo.light {
+    display: block;
+  }
+
+  .lp-tauri-logo.dark {
+    display: none;
+  }
+}
+
+.lp-tauri-logo.light {
+  display: none;
+}
+
+.lp-content {
+  margin-block: 2rem;
+  margin-inline: auto;
+  min-height: 360px;
+}
+
+.lp-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-header > svg {
+  order: -1;
+}
+
+@media (min-width: 50rem) {
+  .lp-header {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 3%;
+    padding-bottom: 2em;
+    align-items: center;
+  }
+  .lp-tauri-logo {
+    max-width: 360px;
+    width: auto;
+    margin-inline-start: 0;
+  }
+
+  .lp-header > svg {
+    order: 1;
+  }
+}
+
+.lp-header-content {
+  text-align: center;
+}
+
+@media (min-width: 50rem) {
+  .lp-header-content {
+    text-align: left;
+  }
+}
+
+.lp-tagline {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.lp-hero > svg {
+  animation: 3s intro;
+  animation-fill-mode: forwards;
+  transition: opacity 1s ease-in-out;
+  opacity: 0.2;
+
+  margin-block: auto;
+}
+
+@media (min-width: 50rem) {
+  .lp-hero > svg {
+    opacity: 0.5;
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@keyframes intro {
+  0% {
+    scale: 1.8;
+    opacity: 0;
+  }
+
+  80% {
+    scale: 1.2;
+    opacity: 0.5;
+  }
+
+  100% {
+    scale: 1.1;
+  }
+}
+
+:root[data-theme='light'] .lp-hero > svg {
+  filter: invert(1);
+}
+
+/* Index hero background */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -1;
+  opacity: 0.7;
+  overflow: hidden;
+  background:
+    linear-gradient(-90deg, var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(-90deg, var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px),
+    linear-gradient(-90deg, var(--sl-color-gray-6) 1px, transparent 1px),
+    linear-gradient(-90deg, transparent 6px, transparent 6px, transparent 156px, transparent 156px),
+    linear-gradient(var(--sl-color-gray-6) 1px, transparent 1px), transparent;
+  background-size:
+    32px 32px,
+    32px 32px,
+    256px 256px,
+    256px 256px,
+    256px 256px,
+    256px 256px,
+    256px 256px,
+    256px 256px;
+}
+
+/* Transition hero background grid smoothly to page background color. */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 70% 0 0;
+  background: linear-gradient(transparent, var(--sl-color-bg));
+}
+
+.bg-grad {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 150vh;
+  height: 150vh;
+  opacity: 0.3;
+  background: radial-gradient(circle, var(--sl-color-accent) 0%, transparent 70%);
+  animation: 6s intro;
+}
+
+.bg-grad-red {
+  position: absolute;
+  top: 0%;
+  left: -50%;
+  width: 150vh;
+  height: 150vh;
+  opacity: 0.3;
+  background: radial-gradient(circle, var(--sl-color-orange) 0%, transparent 70%);
+  animation: 14s intro;
+}
+
+:root[data-theme='light'] {
+  .bg-grad {
+    opacity: 0.9;
+  }
+
+  .bg-grad-red {
+    opacity: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    opacity: 0.4;
+    overflow: hidden;
+    background:
+      linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(transparent 6px, transparent 6px, transparent 156px, transparent 156px),
+      linear-gradient(-90deg, var(--sl-color-gray-4) 1px, transparent 1px),
+      linear-gradient(
+        -90deg,
+        transparent 6px,
+        transparent 6px,
+        transparent 156px,
+        transparent 156px
+      ),
+      linear-gradient(var(--sl-color-gray-5) 1px, transparent 1px), transparent;
+    background-size:
+      32px 32px,
+      32px 32px,
+      256px 256px,
+      256px 256px,
+      256px 256px,
+      256px 256px,
+      256px 256px,
+      256px 256px;
+  }
+}

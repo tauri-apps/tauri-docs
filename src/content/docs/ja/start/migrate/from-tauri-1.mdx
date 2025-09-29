@@ -1048,8 +1048,9 @@ tauri::Builder::default()
                 {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
-                    let _ = webview_window.show();
-                    let _ = webview_window.set_focus();
+                       let _ = webview_window.unminimize();
+                       let _ = webview_window.show();
+                       let _ = webview_window.set_focus();
                     }
                 }
             })
@@ -1185,7 +1186,7 @@ Tauri バージョン 1（v1）では、外部バイナリとその引数は許�
 
 JavaScript 関連では、[Shell プラグインの移行](#shell-プラグインの移行) の内容を必ず実行して下さい。
 
-Rust 関連では、`tauri::api::process` API が削除されています。代わりに `tauri_plugin_shell::ShellExt` および `tauri_plugin_shell::process::CommandEvent` API を使用してください。使用法については、[外部バイナリの埋め込み](/ja/develop/sidecar/#running-it-from-rust) ガイドを参照して下さい。
+Rust 関連では、`tauri::api::process` API が削除されています。代わりに `tauri_plugin_shell::ShellExt` および `tauri_plugin_shell::process::CommandEvent` API を使用してください。使用法については、[外部バイナリの埋め込み](/ja/develop/sidecar/#rust-から実行する) ガイドを参照して下さい。
 
 「process-command-api」機能フラグは バージョン 2（v2）で削除されました。そのため、外部バイナリの実行に、この機能を Tauri 構成で定義する必要がなくなりました。
 
