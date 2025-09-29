@@ -152,7 +152,7 @@ replacing `<host>` with your actual host:
 curl -v https://app-site-association.cdn-apple.com/a/v1/<host>
 ```
 
-See [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) for more information.
+See [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details-swift.dictionary) for more information.
 
 2. **Custom URI schemes (no host, no verification)**
    For URIs like `myapp://...`, you can declare a custom scheme under mobile configuration with `"appLink": false` (or omit it). The plugin generates the appropriate `CFBundleURLTypes` entries in your app's Info.plist. No `.well-known` files or HTTPS host are needed.
