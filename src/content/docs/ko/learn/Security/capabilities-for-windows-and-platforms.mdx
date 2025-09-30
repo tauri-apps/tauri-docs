@@ -84,110 +84,109 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
     ```
     </ShowSolution>
 
-
 2. ### 다른 창에 다른 보안 수준 적용
 
-    Tauri 앱의 창에서는 Tauri 백엔드의 다양한 기능이나 플러그인을 사용할 수 있습니다.
-    보안을 더 강화하기 위해 각 창에 필요한 보안 기능만 부여하는 것이 좋습니다.
-    이 연습에서는 "첫 번째 `first`" 창에서 파일 시스템과 대화 상자 기능을 사용하고, "두 번째 `second`" 창에서는 대화 상자 기능만 필요로 하는 상황을 가정하고 진행합니다.
+   Tauri 앱의 창에서는 Tauri 백엔드의 다양한 기능이나 플러그인을 사용할 수 있습니다.
+   보안을 더 강화하기 위해 각 창에 필요한 보안 기능만 부여하는 것이 좋습니다.
+   이 연습에서는 "첫 번째 `first`" 창에서 파일 시스템과 대화 상자 기능을 사용하고, "두 번째 `second`" 창에서는 대화 상자 기능만 필요로 하는 상황을 가정하고 진행합니다.
 
-    #### 카테고리별 개별 "보안 수준" 파일
+   #### 카테고리별 개별 "보안 수준" 파일
 
-    활성화할 작업의 카테고리별로 "보안 수준" 파일을 분할하는 것이 좋습니다.
+   활성화할 작업의 카테고리별로 "보안 수준" 파일을 분할하는 것이 좋습니다.
 
-    <ShowSolution>
-    `src-tauri/capabilities` 내의 JSON 파일은 "보안 수준" 시스템에 이미 대응되어 있습니다.
-    따라서 파일 시스템과 대화 상자 창과 관련된 보안 수준을 `filesystem.json`과 `dialog.json`으로 분할합니다.
+   <ShowSolution>
+`src-tauri/capabilities` 내의 JSON 파일은 "보안 수준" 시스템에 이미 대응되어 있습니다.
+따라서 파일 시스템과 대화 상자 창과 관련된 보안 수준을 `filesystem.json`과 `dialog.json`으로 분할합니다.
 
-    _Tauri 프로젝트의 파일 트리:_
+   _Tauri 프로젝트의 파일 트리:_
 
-    ```
-    /src
-    /src-tauri
-      /capabilities
-        filesystem.json
-        dialog.json
-      tauri.conf.json
-    package.json
-    README.md
-    ```
-    </ShowSolution>
+   ```
+   /src
+   /src-tauri
+     /capabilities
+       filesystem.json
+       dialog.json
+     tauri.conf.json
+   package.json
+   README.md
+   ```
 
-    #### "첫 번째 `first`" 창에 파일 시스템 보안 수준 부여
+   </ShowSolution>
 
-    "`first`" 창에 `$HOME` 디렉토리 내용에 대한 읽기 접근 권한을 부여하도록 보안 수준을 설정합니다.
+   #### "첫 번째 `first`" 창에 파일 시스템 보안 수준 부여
 
-    <ShowSolution>
+   "`first`" 창에 `$HOME` 디렉토리 내용에 대한 읽기 접근 권한을 부여하도록 보안 수준을 설정합니다.
 
-    하나 또는 여러 개의 창 레이블을 가진 "보안 기능 capability" 파일 내의 "`windows` 필드"를 사용합니다.
+   <ShowSolution>
 
-    ```json title="filesystem.json"
-    {
-      "identifier": "fs-read-home",
-      "description": "Allow access file access to home directory",
-      "local": true,
-      "windows": ["first"],
-      "permissions": ["fs:allow-home-read"]
-    }
-    ```
+   하나 또는 여러 개의 창 레이블을 가진 "보안 기능 capability" 파일 내의 "`windows` 필드"를 사용합니다.
 
-    <TranslationNote lang="ko">
+   ```json title="filesystem.json"
+   {
+     "identifier": "fs-read-home",
+     "description": "Allow access file access to home directory",
+     "local": true,
+     "windows": ["first"],
+     "permissions": ["fs:allow-home-read"]
+   }
+   ```
 
-    "filesystem.json" 파일 내용 초역:
+   <TranslationNote lang="ko">
 
-    - identifier: 식별자 이름
-    - description: 보안 내용 설명(home 디렉토리에 대한 파일 접근 허용)
-    - local: true
-    - windows: 창 이름
-    - permissions: 접근 권한 설정
+   "filesystem.json" 파일 내용 초역:
+   - identifier: 식별자 이름
+   - description: 보안 내용 설명(home 디렉토리에 대한 파일 접근 허용)
+   - local: true
+   - windows: 창 이름
+   - permissions: 접근 권한 설정
 
-    </TranslationNote>
+   </TranslationNote>
 
-    </ShowSolution>
+   </ShowSolution>
 
-    #### "첫 번째 `first`"와 "두 번째 `second`" 창에 대화 상자 기능 부여
+   #### "첫 번째 `first`"와 "두 번째 `second`" 창에 대화 상자 기능 부여
 
-    "`first`"와 "`second`" 창에 "예/아니오" 대화 상자를 만드는 기능을 추가합니다.
+   "`first`"와 "`second`" 창에 "예/아니오" 대화 상자를 만드는 기능을 추가합니다.
 
-    <ShowSolution>
+   <ShowSolution>
 
-    하나 또는 여러 개의 창 레이블을 가진 "보안 기능" 파일 내의 `windows` 필드를 사용합니다.
+   하나 또는 여러 개의 창 레이블을 가진 "보안 기능" 파일 내의 `windows` 필드를 사용합니다.
 
-    ```json title="dialog.json"
-    {
-      "identifier": "dialog",
-      "description": "Allow to open a dialog",
-      "local": true,
-      "windows": ["first", "second"],
-      "permissions": ["dialog:allow-ask"]
-    }
-    ```
+   ```json title="dialog.json"
+   {
+     "identifier": "dialog",
+     "description": "Allow to open a dialog",
+     "local": true,
+     "windows": ["first", "second"],
+     "permissions": ["dialog:allow-ask"]
+   }
+   ```
 
-    </ShowSolution>
+   </ShowSolution>
 
 3. ### 보안 기능을 플랫폼에 따라 다르게 만들기
 
-    다음으로, 특정 플랫폼에서만 활성화되도록 보안 기능을 사용자 정의합니다.
-    아래 예에서는 파일 시스템 보안 기능을 `linux`와 `windows`에서만 활성화합니다.
+   다음으로, 특정 플랫폼에서만 활성화되도록 보안 기능을 사용자 정의합니다.
+   아래 예에서는 파일 시스템 보안 기능을 `linux`와 `windows`에서만 활성화합니다.
 
-    <ShowSolution>
+   <ShowSolution>
 
-    플랫폼별로 설정하려면 보안 기능 파일의 "`platforms` 필드"에서 대상 플랫폼을 지정합니다.
+   플랫폼별로 설정하려면 보안 기능 파일의 "`platforms` 필드"에서 대상 플랫폼을 지정합니다.
 
-    ```json title="filesystem.json"
-    {
-      "identifier": "fs-read-home",
-      "description": "Allow access file access to home directory",
-      "local": true,
-      "windows": ["first"],
-      "permissions": ["fs:allow-home-read"],
-      "platforms": ["linux", "windows"]
-    }
-    ```
+   ```json title="filesystem.json"
+   {
+     "identifier": "fs-read-home",
+     "description": "Allow access file access to home directory",
+     "local": true,
+     "windows": ["first"],
+     "permissions": ["fs:allow-home-read"],
+     "platforms": ["linux", "windows"]
+   }
+   ```
 
-    현재 지정 가능한 플랫폼은 `linux`, `windows`, `macos`, `android`, `ios`입니다.
+   현재 지정 가능한 플랫폼은 `linux`, `windows`, `macos`, `android`, `ios`입니다.
 
-    </ShowSolution>
+   </ShowSolution>
 
 </Steps>
 
