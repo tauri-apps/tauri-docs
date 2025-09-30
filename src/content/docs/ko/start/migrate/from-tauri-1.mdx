@@ -121,9 +121,9 @@ Tauri 1.0에서 Tauri 2.0으로의 변경 사항 요약은 다음과 같습니�
 - `api` 모듈이 삭제되었습니다. 각 API 모듈은 "Tauri 플러그인"에 있는 마이그레이션 대상을 참조하십시오.
 - `api::dialog` 모듈이 삭제되었습니다. 대신 `tauri-plugin-dialog`를 사용하십시오. [마이그레이션 대상](#dialog-플러그인-마이그레이션)
 - `api::file` 모듈이 삭제되었습니다. 대신 Rust의 [`std::fs`](https://doc.rust-lang.org/std/fs/)를 사용하십시오.
-- `api::http` 모듈이 삭제되었습니다. 대신 `tauri-plugin-http`를 사용하십시오. [마이그레이션 대상](#http-플러그인-마이그레이션)
+- `api::http` 모듈이 삭제되었습니다. 대신 `tauri-plugin-http`를 사용하십시오. [마이그레이션 대상](#HTTP-플러그인-마이그레이션)
 - `api::ip` 모듈이 다시 작성되어 `tauri::ipc`로 이동했습니다. 새로운 API, 특히 `tauri::ipc::Channel`을 확인하십시오.
-- `api::path` 모듈 기능과 `tauri::PathResolved`는 `tauri::Manager::path`로 이동했습니다. [마이그레이션 대상](#path-to-tauri-manager-마이그레이션)
+- `api::path` 모듈 기능과 `tauri::PathResolved`는 `tauri::Manager::path`로 이동했습니다. [마이그레이션 대상](#Path-to-Tauri-Manager-마이그레이션)
 - `api::process::Command`, `tauri::api::shell` 및 `tauri::Manager::shell_scope`의 각 API는 삭제되었습니다. 대신 `tauri-plugin-shell`을 사용하십시오. [마이그레이션 대상](#Shell-플러그인-마이그레이션)
 - `api::process::current_binary` 및 `tauri::api::process::restart`는 `tauri::process`로 이동했습니다.
 - `api::version` 모듈이 삭제되었습니다. 대신 [semver crate](https://docs.rs/semver/latest/semver/)를 사용하십시오.

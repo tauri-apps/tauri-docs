@@ -9,7 +9,7 @@ import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
 
 Tauri에서 프로젝트를 시작하려면 먼저 몇 가지 종속성을 설치해야 합니다.
 
-1. [OS별 종속성 설치](#os-별-종속성-설치)
+1. [OS별 종속성 설치](#OS별-종속성-설치)
 2. [Rust 설치](#rust-설치)
 3. [모바일 관련 설정](#모바일-관련-설정) (모바일 앱을 개발하는 경우에만 필요)
 
@@ -224,6 +224,7 @@ rustup default stable-msvc
 
 :::
 
+  </TabItem>
 </Tabs>
 
 **변경 사항을 적용하려면 반드시 터미널(경우에 따라 시스템 본체)을 다시 시작하십시오.**
@@ -331,8 +332,10 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 PowerShell은 다시 시작하거나 로그아웃할 때까지 새 환경 변수 설정이 적용되지 않지만,
 현재 세션을 업데이트할 수 있습니다:
 
-````ps
+```ps
 [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+```
+
 :::
 
 </TabItem>
@@ -343,7 +346,7 @@ PowerShell은 다시 시작하거나 로그아웃할 때까지 새 환경 변수
 
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-````
+```
 
 다음 단계: [iOS용 설정](#ios) 또는 [프로젝트 만들기](/ko/start/create-project/).
 
