@@ -40,8 +40,9 @@ impl<R: Runtime> <plugin-name><R> {
 Android용 Tauri 플러그인은 `app.tauri.plugin.Plugin`을 확장하고 `app.tauri.annotation.TauriPlugin`으로 어노테이션된 "Kotlin 클래스"로 정의됩니다. `app.tauri.annotation.Command`로 어노테이션된 각 메서드는 Rust 또는 JavaScript에서 호출할 수 있습니다.
 
 <TranslationNote lang="ko">
-  **어노테이션** annotation. 데이터에 관련 정보를 주석으로 부여하는 것. 자세한 내용은
-  [Wikipedia](https://ko.wikipedia.org/wiki/자바_애너테이션)를 참조하십시오.
+  **어노테이션** annotation. 데이터에 관련 정보를 주석으로 부여하는 것. 자세한
+  내용은 [Wikipedia](https://ko.wikipedia.org/wiki/자바_애너테이션)를
+  참조하십시오.
 </TranslationNote>
 
 Tauri는 Android 플러그인 구현에 기본적으로 Kotlin을 사용하지만, 필요에 따라 Java로 전환할 수도 있습니다. 플러그인을 생성한 후, Android Studio에서 Kotlin 플러그인 클래스를 마우스 오른쪽 버튼으로 클릭하고 메뉴에서 "Kotlin 파일을 Java 파일로 변환" 옵션을 선택합니다. Kotlin 프로젝트의 Java로의 마이그레이션에서는 Android Studio의 가이드를 따르십시오.
