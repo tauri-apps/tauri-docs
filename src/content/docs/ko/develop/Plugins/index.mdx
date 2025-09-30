@@ -1,0 +1,499 @@
+---
+title: 플러그인 개발
+i18nReady: true
+sidebar:
+  label: 개요
+  order: 10
+---
+
+{/* TODO: Add a CLI section */}
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[플러그인 개발]
+
+이 장은 "Tauri 플러그인 개발"에 관한 것입니다. 현재 사용 가능한 플러그인 목록과 그 사용법에 대해서는 목차 **Plugins**의 "개요"에 있는 [기능과 레시피 목록](/ko/plugin/)을 참조하십시오.
+
+:::
+
+플러그인은 Tauri 라이프사이클에 후크하거나, Webview API에 의존하는 Rust 코드를 개방하거나, Rust, Kotlin, Swift 코드로 명령을 처리하는 등 다양한 작업을 수행할 수 있습니다.
+
+Tauri는 Webview 기능을 갖춘 창 시스템, Rust 프로세스와 Webview 간의 메시지 전송 방법, 이벤트 시스템, 그리고 개발 경험을 향상시키는 다양한 도구를 제공합니다. 설계상 Tauri 코어에는 모든 사람에게 필요하지 않은 기능은 포함되어 있지 않습니다. 대신 "플러그인"이라는 Tauri 애플리케이션에 외부 기능을 추가하기 위한 메커니즘을 제공합니다.
+
+Tauri 플러그인은 "Cargo 크레이트"와 명령 및 이벤트의 API 바인딩을 제공하는 선택적 "NPM 패키지"로 구성됩니다. 또한 플러그인 프로젝트에는 Android 라이브러리 프로젝트와 iOS용 Swift 패키지도 포함될 수 있습니다. Android 및 iOS용 플러그인 개발에 대한 자세한 내용은 다음 장 [모바일 플러그인 개발 가이드](/ko/develop/plugins/develop-mobile/)를 참조하십시오.
+
+<TranslationNote lang="ko">
+  **API 바인딩** 원문 API bindings. "API 바인딩"은 API 호출 시 주고받는 다양한
+  데이터를 API 사양에 맞게 자동으로 복잡한 데이터 변환 처리를 수행하는
+  메커니즘입니다.
+</TranslationNote>
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## 명명 규칙
+
+Tauri 플러그인에는 "접두사"와 그 뒤에 "플러그인 이름"이 붙습니다. "플러그인 이름"은 [`tauri.conf.json > plugins`](/reference/config/#pluginconfig)의 플러그인 설정에서 지정됩니다.
+
+기본적으로 Tauri는 사용자가 만드는 플러그인 크레이트에 `tauri-plugin-`이라는 "접두사"를 붙입니다. 이를 통해 플러그인이 Tauri 커뮤니티 내에서 쉽게 발견되고 Tauri CLI에서도 사용할 수 있게 됩니다. 새 플러그인 프로젝트를 초기화할 때는 "플러그인 이름"을 지정해야 합니다. 생성되는 크레이트 이름은 `tauri-plugin-{플러그인 이름}`, JavaScript NPM 패키지 이름은 `tauri-plugin-{플러그인 이름}-api`가 됩니다(단, 가능하면 [NPM 스코프](https://docs.npmjs.com/about-scopes)를 사용하는 것이 좋습니다). Tauri의 NPM 패키지 명명 규칙은 `@scope-name/plugin-{플러그인 이름}`입니다.
+
+## 플러그인 프로젝트 초기화
+
+새 플러그인 프로젝트를 부트스트랩(시작)하려면 `plugin new`를 실행합니다. NPM 패키지가 필요 없는 경우 `--no-api` CLI 플래그를 사용하십시오. Android 또는 iOS를 지원하도록 플러그인을 초기화하려면 `--android` 또는 `--ios` 플래그를 사용하십시오.
+
+설치 후 다음 명령을 실행하여 플러그인 프로젝트를 만들 수 있습니다.
+
+<CommandTabs npm="npx @tauri-apps/cli plugin new [name]" />
+
+그러면 디렉토리 `tauri-plugin-[name(플러그인 이름)]`에서 플러그인이 초기화되고, 지정한 CLI 플래그에 따라 완성된 프로젝트는 예를 들어 다음과 같이 됩니다.
+
+```
+. tauri-plugin-[name(플러그인 이름)]/
+├── src/                - Rust 코드
+│ ├── commands.rs       - webview가 사용할 수 있는 명령 정의
+| ├── desktop.rs        - 데스크톱 구현
+| ├── error.rs          - 결과 반환 값에 사용하는 기본 오류 유형
+│ ├── lib.rs            - 적절한 구현, 설정 상태 ... 재전송
+│ ├── mobile.rs         - 모바일 구현
+│ └── models.rs         - 공유되는 구조체
+├── permissions/        - (생성된) 명령용 접근 권한 파일 저장
+├── android             - Android 라이브러리
+├── ios                 - Swift 패키지
+├── guest-js            - JavaScript API 바인딩 소스 코드
+├── dist-js             - guest-js에서 변환된 자산
+├── Cargo.toml          - Cargo 크레이트 메타데이터
+└── package.json        - NPM 패키지 메타데이터
+```
+
+기존 플러그인에 Android 또는 iOS 기능을 추가하려면 `plugin android add`와 `plugin ios add`를 사용하여 모바일 라이브러리 프로젝트를 부트스트랩(시작)하고 필요한 변경 사항을 통합할 수 있습니다.
+
+## 모바일 플러그인 개발
+
+플러그인은 Kotlin(또는 Java)과 Swift로 작성된 네이티브 모바일 코드를 실행할 수 있습니다. 기본 플러그인 템플릿에는 Kotlin을 사용한 "Android 라이브러리 프로젝트"와 "Swift 패키지"가 포함되어 있습니다. Rust 코드에서 어떻게 실행시키는지(트리거하는지)를 보여주는 모바일 명령 샘플도 포함합니다.
+
+모바일용 플러그인 개발에 대한 자세한 내용은 다음 장의 [모바일 플러그인 개발](/ko/develop/plugins/develop-mobile/)을 참조하십시오.
+
+## 플러그인 설정
+
+플러그인이 사용되는 Tauri 애플리케이션에서는 플러그인 설정을 `tauri.conf.json`에서 수행합니다. 항목 `plugin-name`은 실제 "플러그인 이름"입니다.
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+플러그인 설정은 `Builder`에 설정되고 실행 시에 구문 분석됩니다. 다음은 플러그인 설정을 지정하는 데 사용되는 `Config` 구조체의 예입니다.
+
+```rust title="src/lib.rs"
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+// 플러그인 설정 정의
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
+  // 대신 `Builder::<R, Option<Config>>`를 사용하여
+  // 플러그인 설정을 선택 사항으로 만듭니다.
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config().timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## 라이프사이클 이벤트
+
+플러그인은 여러 라이프사이클 이벤트에 후크할 수 있습니다.
+
+- [setup](#setup): 플러그인이 초기화될 때
+- [on_navigation](#on_navigation): Webview가 탐색을 시작할 때
+- [on_webview_ready](#on_webview_ready): 새 창이 생성될 때
+- [on_event](#on_event): 이벤트 루프 "이벤트" 알림 시
+- [on_drop](#on_drop): 플러그인이 삭제될 때
+
+위 이외에 모바일 플러그인 관련 [라이프사이클 이벤트](/ko/develop/plugins/develop-mobile/#라이프사이클-이벤트)도 있습니다.
+
+### "setup"
+
+- **언제**: 플러그인이 초기화될 때
+- **목적**: 모바일 플러그인 등록, 상태 관리, 백그라운드 작업 실행
+
+```rust title="src/lib.rs"
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### "on_navigation"
+
+- **언제**: Webview가 탐색을 시작할 때
+- **목적**: 탐색 유효성 검사, URL 변경 추적
+
+`false`가 반환되면 탐색이 취소됩니다.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // 금지된 경우 탐색을 취소합니다.
+    url.scheme() != "forbidden"
+  })
+```
+
+### "on_webview_ready"
+
+- **언제**: 새 창이 생성될 때
+- **목적**: 모든 창에 대해 초기화 스크립트 실행
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
+  })
+```
+
+### "on_event"
+
+- **언제**: 이벤트 루프 "이벤트" 알림 시
+- **목적**: 창 이벤트, 메뉴 이벤트, 애플리케이션 종료 요청 등 코어 이벤트 처리
+
+이 라이프사이클 후크를 사용하면 모든 이벤트 루프의 "[이벤트](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html)" 알림을 받을 수 있습니다.
+
+```rust title="src/lib.rs"
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // 사용자가 창을 닫도록 요청했고 창이 남아 있지 않습니다.
+
+        // 앱 종료 방지:
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // 앱이 종료됩니다. 여기서 정리합니다.
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### "on_drop"
+
+- **언제**: 플러그인이 삭제될 때
+- **목적**: 플러그인이 삭제될 때 코드 실행
+
+자세한 내용은 [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html)을 참조하십시오.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // 플러그인이 삭제되었습니다...
+  })
+```
+
+## Rust API 개방
+
+<TranslationNote lang="ko">
+
+**개방** 원문은
+expose(노출하다, 드러내다, 드러내다, 공개하다). 본고에서는 "~에서 볼 수 있도록 하다"라는 관점에서 주로 "개방"이라는 번역어를 사용합니다.
+
+</TranslationNote>
+
+프로젝트의 `desktop.rs` 및 `mobile.rs`에 정의된 플러그인 API는 플러그인과 동일한 이름("파스칼 케이스"로 표기)을 가진 구조체로 사용자에게 내보내집니다. 플러그인이 설정되면 이 구조체의 인스턴스가 생성되어 "상태"로 관리됩니다. 이를 통해 사용자는 플러그인에 정의된 확장 트레이트를 통해 언제든지 `Manager` 인스턴스(예: `AppHandle`, `App`, `Window` 등)를 사용하여 이 구조체를 가져올 수 있습니다.
+
+<TranslationNote lang="ko">
+
+**파스칼 케이스** pascal case. 변수명 등을 복합어로 표기할 때의 명명 규칙 중 하나로, 각 단어의 첫 글자를 "PascalCase"처럼 대문자로 하는 형식. 또한 유사한 표기법으로 "카멜 케이스 camelCase"가 있지만, 카멜 케이스에서는 첫 단어는 대문자를 사용하지 않습니다. 자세한 내용은 Wikipedia의 "[카멜 케이스](https://ko.wikipedia.org/wiki/카멜_표기법)"를 참조하십시오.
+
+</TranslationNote>
+
+예를 들어, [`global-shortcut plugin`](/ko/plugin/global-shortcut/)은 `GlobalShortcutExt` 트레이트의 `global_shortcut` 메서드를 사용하여 읽을 수 있는 `GlobalShortcut` 구조체를 정의합니다.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## 명령 추가
+
+명령은 `commands.rs` 파일에 정의되어 있습니다. 이는 일반적인 Tauri 애플리케이션의 명령입니다. 애플리케이션 명령과 마찬가지로 AppHandle 및 Window의 각 인스턴스에 직접 액세스하고 "상태"를 확인하며 입력을 가져올 수 있습니다. Tauri 명령에 대한 자세한 내용은 앞서 "프론트엔드에서 Rust 호출" 장의 [명령 가이드](/ko/develop/calling-rust/)를 참조하십시오.
+
+다음 명령은 [의존성 주입](https://ko.wikipedia.org/wiki/의존성_주입)을 통해 `AppHandle`과 `Window` 인스턴스에 액세스하는 방법을 보여주며, 두 개의 입력 매개변수(`on_progress`와 `url`)를 받습니다.
+
+```rust title="src/commands.rs"
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // 여기에 명령 로직을 구현합니다.
+  on_progress.send(100).unwrap();
+}
+```
+
+명령을 Webview에 개방하려면 `lib.rs`의 `invoke_handler()` 호출에 후크해야 합니다.
+
+```rust title="src/lib.rs"
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+플러그인 사용자가 JavaScript에서 명령을 쉽게 호출할 수 있도록 `webview-src/index.ts`에 바인딩 함수를 정의하십시오.
+
+```js name="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/core'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+테스트하기 전에 반드시 TypeScript 코드를 빌드하십시오.
+
+### 명령 접근 권한
+
+기본적으로 프론트엔드에서 명령에 액세스할 수 없습니다. 명령 중 하나를 실행하려고 하면 "거부" 오류가 발생합니다. 실제로 명령을 사용할 수 있도록 하려면 각 명령을 허용하는 접근 권한도 정의해야 합니다.
+
+#### 접근 권한 파일
+
+접근 권한은 `permissions` 디렉토리 내의 JSON 또는 TOML 파일로 정의됩니다. 각 파일에서는 접근 권한 목록, 접근 권한 세트 목록 및 플러그인의 기본 접근 권한을 정의할 수 있습니다.
+
+##### 접근 권한
+
+접근 권한은 플러그인 명령의 권한을 정의합니다. 명령 목록을 "허용" 또는 "거부"할 수 있으며, 명령별 범위와 전역 범위를 연관시킬 수 있습니다.
+
+```toml title="permissions/start-server.toml"
+"$schema" = "schemas/schema.json"
+
+[[permission]]
+identifier = "allow-start-server"
+description = "Enables the start_server command."
+commands.allow = ["start_server"]
+
+[[permission]]
+identifier = "deny-start-server"
+description = "Denies the start_server command."
+commands.deny = ["start_server"]
+```
+
+##### 범위(적용 범위)
+
+범위를 사용하면 플러그인은 개별 명령에 대해 더 세분화된 제한을 정의할 수 있습니다.
+각 접근 권한에는 명령별로 또는 플러그인 전체에 대해 "허용" 또는 "거부"되는 내용을 정의하는 범위 객체 목록을 정의합니다.
+
+`shell` 플러그인에서 생성이 "허용"되는 바이너리 목록용 범위 데이터를 보유하는 구조체 샘플을 정의해 보겠습니다.
+
+```rust title="src/scope.rs"
+#[derive(Debug, schemars::JsonSchema)]
+pub struct Entry {
+    pub binary: String,
+}
+```
+
+###### 명령 범위
+
+플러그인 사용자(소비자)는 자신의 "보안 설정" 파일에서 특정 명령의 범위를 정의할 수 있습니다(자세한 내용은 [영어 문서](/reference/acl/scope/) 참조).
+명령별 범위는 [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) 구조체를 사용하여 읽을 수 있습니다.
+
+<TranslationNote lang="ko">
+  **플러그인 사용자(소비자)** plugin consumer. "소비자"는 소비자의 의미이지만,
+  본고에서는 읽기 쉽게 "사용자"로 했습니다. consumer 라는 단어가 사용된 이유는
+  "플러그인 사용자가 반드시 인간이 아니기 때문(서비스를 소비하는 것이
+  사람/명령/시스템 등이기 때문)"이라는 설명이
+  [GitHub](https://github.com/Kong/kong/issues/4391)에 있습니다.
+</TranslationNote>
+
+```rust title="src/commands.rs"
+use tauri::ipc::CommandScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+  let allowed = command_scope.allows();
+  let denied = command_scope.denies();
+  todo!()
+}
+```
+
+###### 전역 범위
+
+접근 권한에 "허용" 또는 "거부"할 명령이 정의되어 있지 않은 경우 "범위 권한"으로 간주되며, 플러그인에는 전역 범위만 정의됩니다.
+
+<TranslationNote lang="ko">
+  **범위 권한** 정규 번역 불명. 원문 it’s considered a scope permission(문맥
+  불명).
+</TranslationNote>
+
+```toml title="permissions/spawn-node.toml"
+[[permission]]
+identifier = "allow-spawn-node"
+description = "This scope permits spawning the `node` binary."
+
+[[permission.scope.allow]]
+binary = "node"
+```
+
+전역 범위는 [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html) 구조체를 사용하여 읽을 수 있습니다.
+
+```rust title="src/commands.rs"
+use tauri::ipc::GlobalScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+  let allowed = scope.allows();
+  let denied = scope.denies();
+  todo!()
+}
+```
+
+:::note
+유연성을 위해 전역 범위와 명령 범위를 모두 확인하는 것이 좋습니다.
+
+<TranslationNote lang="ko">
+  **유연성을 위해** for flexibility(문맥 불명, 직역). "자유도?", "융통성?",
+  "탄력적인 운영?"
+</TranslationNote>
+
+:::
+
+###### 스키마(데이터 구조 정의)
+
+범위 항목(범위 설정)에는 플러그인 사용자(소비자)가 범위 형식을 인식하고 IDE에서 자동 완성할 수 있도록 "JSON 스키마"를 생성하기 위한 `schemars` 종속성이 필요합니다.
+
+<TranslationNote lang="ko">
+  **JSON 스키마** JSON schema. JSON 데이터의 구조(키, 값, 객체, 배열, 데이터
+  유형, 제약 조건 등)를 정의하고 데이터 형식이 적합한지 검증하기 위한 도구.
+</TranslationNote>
+
+스키마를 정의하려면 먼저 Cargo.toml 파일에 종속성을 추가합니다.
+
+```toml
+# scope.rs 모듈은 앱 코드와 빌드 스크립트 간에 공유되므로 종속성과 빌드 종속성 모두에 schemars를 추가해야 합니다.
+[dependencies]
+schemars = "0.8"
+
+[build-dependencies]
+schemars = "0.8"
+```
+
+빌드 스크립트에 다음 코드를 추가합니다.
+
+```rust title="build.rs"
+#[path = "src/scope.rs"]
+mod scope;
+
+const COMMANDS: &[&str] = &[];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS)
+        .global_scope_schema(schemars::schema_for!(scope::Entry))
+        .build();
+}
+```
+
+##### 접근 권한 세트
+
+"접근 권한 세트"는 사용자가 더 높은 추상화 수준에서 플러그인을 관리할 수 있는 개별 접근 권한 그룹입니다.
+예를 들어, 하나의 API가 여러 명령을 사용하거나 명령 컬렉션에 논리적 관계가 있는 경우 해당 명령을 포함하는 세트를 정의해야 합니다.
+
+```toml title="permissions/websocket.toml"
+"$schema" = "schemas/schema.json"
+[[set]]
+identifier = "allow-websocket"
+description = "Allows connecting and sending messages through a WebSocket"
+permissions = ["allow-connect", "allow-send"]
+```
+
+##### 기본 접근 권한
+
+"기본 접근 권한"은 식별자 "`default`"를 가진 특별한 접근 권한 세트입니다. 필요한 명령은 기본적으로 활성화하는 것이 좋습니다.
+예를 들어, `http` 플러그인은 `request` 명령이 허용되지 않으면 쓸모가 없습니다.
+
+```toml title="permissions/default.toml"
+"$schema" = "schemas/schema.json"
+[default]
+description = "Allows making HTTP requests"
+permissions = ["allow-request"]
+```
+
+#### 자동 생성된 접근 권한
+
+각 명령의 접근 권한을 정의하는 가장 간단한 방법은 `build.rs` 파일에 정의된 플러그인 빌드 스크립트의 "자동 생성" 옵션을 사용하는 것입니다.
+상수 "COMMANDS" 내에서 명령 목록을 "[snake_case](https://ko.wikipedia.org/wiki/스네이크_케이스)"(스네이크 케이스)로 정의합니다(명령 함수 이름과 일치해야 함). 그러면 Tauri는 자동으로 `allow-$commandname`과 `deny-$commandname` 접근 권한을 생성합니다.
+
+다음 예에서는 `allow-upload` 및 `deny-upload` 접근 권한을 생성합니다.
+
+```rust title="src/commands.rs"
+const COMMANDS: &[&str] = &["upload"];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS).build();
+}
+```
+
+자세한 내용은 목차 **Security**의 "[접근 권한 Permissions](/ko/security/permissions/)" 장을 참조하십시오.
+
+## "상태" 관리
+
+플러그인은 Tauri 애플리케이션과 마찬가지로 "상태 state"를 관리할 수 있습니다. 자세한 내용은 목차 **Develop**의 "[상태 관리](/ko/develop/state-management/)" 장을 참조하십시오.

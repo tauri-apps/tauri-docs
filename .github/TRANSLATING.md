@@ -86,3 +86,22 @@ Here are some guidelines to help with the translation.
 Remember, the main goal of the translation is to make the content as accessible and clear to the new audience as it was to the original audience. Always prioritize clarity and accuracy.
 
 Thank you for your interest in contributing; we're excited to have you! Reach out on the [`#docs` channel on Discord](https://discord.com/invite/tauri) if you have any questions along the way.
+
+## Language-specific Guidelines
+
+This section was written by the translators themselves, feel free to add your own tips here.
+
+### Basic Procedure of JP Translation（邦訳基本手順）
+
+1. Use On-line Translation for the inital translation. <br />オンライン翻訳にて初期翻訳。
+1. Checks on the auto-translation result. Inappropriate translations shall be corrected (such as "Tauri" - which is often translated as the name of the zodiac sign "the Bull"). <br />自動翻訳の内容確認。f不適切な訳語は修正（例えば「牡牛座」と訳された "Tauri" など）。
+1. Products names, trade names and proper names such as Tauri, Windows, macOS etc. are shown as they are. <br />商品名、会社名、固有名詞などは、
+   そのまま英語表記とする（必要に応じて括弧書きで「読み」を表示）。
+1. The technical terms shall be checked on the on-line terminology sites (Microsoft Terminology Search, etc.) <br />技術専門用語類は、オンライン用語検索サイト（マイクロソフト社等）に記載されている一般的なものを採用するが、カタカナ語に関しては適宜和語に置き換える倍もある。
+
+### Basic Procedure of KO Translation(번역 기본 절차)
+
+1. Use On-line Translation for the inital translation. <br />온라인 번역으로 초기 번역.
+1. Checks on the auto-translation result. Inappropriate translations shall be corrected (such as "Tauri" - which is often translated as the name of the zodiac sign "the Bull"). <br />자동 번역 내용 확인. 부적절한 번역어는 수정(예: "황소자리"로 번역된 "Tauri" 등).
+1. Products names, trade names and proper names such as Tauri, Windows, macOS etc. are shown as they are. <br />상품명, 회사명, 고유명사 등은 그대로 영어 표기로 함(필요에 따라 괄호 안에 "읽기" 표시).
+1. The technical terms shall be checked on the on-line terminology sites (Microsoft Terminology Search, etc.) <br />기술 전문 용어류는 온라인 용어 검색 사이트(마이크로소프트사 등)에 기재된 일반적인 것을 채택하지만, 가타카나어에 관해서는 적절히 한국어로 대체하는 경우도 있음.

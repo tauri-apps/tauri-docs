@@ -1,0 +1,56 @@
+---
+title: 프론트엔드 설정
+i18nReady: true
+sidebar:
+  label: Overview
+  order: 10
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Tauri는 프론트엔드에 의존하지 않으며, 대부분의 프론트엔드 프레임워크를 즉시 사용할 수 있습니다. 그러나 프레임워크에 따라 Tauri와 통합하여 작동시키기 위해 약간의 추가 설정이 필요한 경우가 있습니다. 아래 목록에 있는 프레임워크에는 권장되는 설정 값이 있습니다.
+
+이 목록에 기재되지 않은 프레임워크에는 추가 설정 없이 Tauri에서 작동하는 것과 아직 정보가 없어 목록에 포함되지 않은 것이 있습니다. 추가 설정이 필요한 프레임워크가 있다면 Tauri 커뮤니티에 알려주시기 바랍니다.
+
+## 설정 체크리스트
+
+개념적으로 Tauri는 정적 웹 호스트로 기능합니다. 따라서 Tauri의 웹 뷰에서 사용되는 HTML, CSS, Javascript 및 경우에 따라 WASM 파일을 포함하는 폴더를 Tauri에 전달해야 합니다.
+
+다음은 프론트엔드를 Tauri와 통합하는 데 필요한 일반적인 시나리오의 체크리스트입니다.
+
+{/* TODO: Link to core concept of SSG/SSR, etc. */}
+{/* TODO: Link to mobile development server guide */}
+{/* TODO: Concept of how to do a client-server relationship? */}
+
+- "정적 사이트 생성(SSG)", "싱글 페이지 애플리케이션(SPA)" 또는 구식 "멀티 페이지 애플리케이션(MPA)"을 사용합니다. Tauri는 "서버 사이드 렌더링(SSR)"과 같은 서버 기반 대체 방식에는 대응하지 않습니다.
+- 모바일 앱 개발에서는 자신의 내부 IP에 프론트엔드를 호스팅할 수 있는 개발 서버가 필요합니다.
+- 앱과 API 사이에는 적절한 클라이언트/서버 관계를 사용합니다(SSR을 병용한 하이브리드 솔루션은 사용하지 마십시오).
+
+## JavaScript
+
+{/* TODO: Help me with the wording here lol */}
+
+대부분의 프로젝트에서는 React, Vue, Svelte, Solid와 같은 SPA 프레임워크뿐만 아니라 일반적인 JavaScript 또는 TypeScript 프로젝트에도 [Vite](https://vitejs.dev/)를 권장합니다. 여기에 기재된 다른 가이드의 대부분에는 메타 프레임워크 사용 방법이 나와 있습니다. 메타 프레임워크는 일반적으로 SSR용으로 설계되었기 때문에 특별한 설정이 필요합니다.
+
+<CardGrid>
+  <LinkCard title="Next.js" href="/start/frontend/nextjs/" />
+  <LinkCard title="Nuxt" href="/start/frontend/nuxt/" />
+  <LinkCard title="Qwik" href="/start/frontend/qwik/" />
+  <LinkCard title="SvelteKit" href="/start/frontend/sveltekit/" />
+  <LinkCard title="Vite(권장)" href="/start/frontend/vite/" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+  <LinkCard title="Leptos" href="/start/frontend/leptos/" />
+  <LinkCard title="Trunk" href="/start/frontend/trunk/" />
+</CardGrid>
+
+<br />
+
+:::tip[목록에 프레임워크가 없나요?]
+
+원하는 프레임워크가 목록에 없나요? 추가 설정 없이 Tauri에서 작동하는 프레임워크일 수 있습니다. 일반적인 설정에 대해서는 [설정 체크리스트](/ko/start/frontend/#설정-체크리스트) 항목을 참조하십시오.
+
+:::
