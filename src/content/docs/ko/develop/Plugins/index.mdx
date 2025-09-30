@@ -26,9 +26,9 @@ Tauri는 Webview 기능을 갖춘 창 시스템, Rust 프로세스와 Webview �
 Tauri 플러그인은 "Cargo 크레이트"와 명령 및 이벤트의 API 바인딩을 제공하는 선택적 "NPM 패키지"로 구성됩니다. 또한 플러그인 프로젝트에는 Android 라이브러리 프로젝트와 iOS용 Swift 패키지도 포함될 수 있습니다. Android 및 iOS용 플러그인 개발에 대한 자세한 내용은 다음 장 [모바일 플러그인 개발 가이드](/ko/develop/plugins/develop-mobile/)를 참조하십시오.
 
 <TranslationNote lang="ko">
-  **API 바인딩** 원문 API bindings. "API 바인딩"은 API 호출 시 주고받는 다양한
-  데이터를 API 사양에 맞게 자동으로 복잡한 데이터 변환 처리를 수행하는
-  메커니즘입니다.
+  **API 바인딩** 원문 API bindings. "API 바인딩"은 API
+  호출 시 주고받는 다양한 데이터를 API
+  사양에 맞게 자동으로 복잡한 데이터 변환 처리를 수행하는 메커니즘입니다.
 </TranslationNote>
 
 {/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
@@ -358,10 +358,9 @@ pub struct Entry {
 명령별 범위는 [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) 구조체를 사용하여 읽을 수 있습니다.
 
 <TranslationNote lang="ko">
-  **플러그인 사용자(소비자)** plugin consumer. "소비자"는 소비자의 의미이지만,
-  본고에서는 읽기 쉽게 "사용자"로 했습니다. consumer 라는 단어가 사용된 이유는
-  "플러그인 사용자가 반드시 인간이 아니기 때문(서비스를 소비하는 것이
-  사람/명령/시스템 등이기 때문)"이라는 설명이
+  **플러그인 사용자(소비자)** plugin
+  consumer. "소비자"는 소비자의 의미이지만, 본고에서는 읽기 쉽게 "사용자"로 했습니다. consumer
+  라는 단어가 사용된 이유는 "플러그인 사용자가 반드시 인간이 아니기 때문(서비스를 소비하는 것이 사람/명령/시스템 등이기 때문)"이라는 설명이
   [GitHub](https://github.com/Kong/kong/issues/4391)에 있습니다.
 </TranslationNote>
 
@@ -381,8 +380,8 @@ async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: Comma
 접근 권한에 "허용" 또는 "거부"할 명령이 정의되어 있지 않은 경우 "범위 권한"으로 간주되며, 플러그인에는 전역 범위만 정의됩니다.
 
 <TranslationNote lang="ko">
-  **범위 권한** 정규 번역 불명. 원문 it’s considered a scope permission(문맥
-  불명).
+  **범위 권한** 정규 번역 불명. 원문 it’s considered a scope
+  permission(문맥 불명).
 </TranslationNote>
 
 ```toml title="permissions/spawn-node.toml"
@@ -411,8 +410,8 @@ async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'
 유연성을 위해 전역 범위와 명령 범위를 모두 확인하는 것이 좋습니다.
 
 <TranslationNote lang="ko">
-  **유연성을 위해** for flexibility(문맥 불명, 직역). "자유도?", "융통성?",
-  "탄력적인 운영?"
+  **유연성을 위해** for
+  flexibility(문맥 불명, 직역). "자유도?", "융통성?", "탄력적인 운영?"
 </TranslationNote>
 
 :::
@@ -422,8 +421,8 @@ async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'
 범위 항목(범위 설정)에는 플러그인 사용자(소비자)가 범위 형식을 인식하고 IDE에서 자동 완성할 수 있도록 "JSON 스키마"를 생성하기 위한 `schemars` 종속성이 필요합니다.
 
 <TranslationNote lang="ko">
-  **JSON 스키마** JSON schema. JSON 데이터의 구조(키, 값, 객체, 배열, 데이터
-  유형, 제약 조건 등)를 정의하고 데이터 형식이 적합한지 검증하기 위한 도구.
+  **JSON 스키마** JSON
+  schema. JSON 데이터의 구조(키, 값, 객체, 배열, 데이터 유형, 제약 조건 등)를 정의하고 데이터 형식이 적합한지 검증하기 위한 도구.
 </TranslationNote>
 
 스키마를 정의하려면 먼저 Cargo.toml 파일에 종속성을 추가합니다.

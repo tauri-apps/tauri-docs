@@ -26,16 +26,16 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 <Steps>
 
-1.  ### Tauri 애플리케이션 만들기
+1. ### Tauri 애플리케이션 만들기
 
-    Tauri 애플리케이션을 만듭니다.
-    이 예에서는 [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app)을 실행합니다.
+   Tauri 애플리케이션을 만듭니다.
+   이 예에서는 [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app)을 실행합니다.
 
-    <Cta />
+   <Cta />
 
-    이 단계별 설명 절차에서는 `pnpm`을 사용하여 진행하지만, 다른 패키지 관리자도 선택할 수 있습니다. 선택한 패키지 관리자에 따라 명령을 바꿔주세요.
+   이 단계별 설명 절차에서는 `pnpm`을 사용하여 진행하지만, 다른 패키지 관리자도 선택할 수 있습니다. 선택한 패키지 관리자에 따라 명령을 바꿔주세요.
 
-    <ShowSolution>
+   <ShowSolution>
 
     ```
     pnpm create tauri-app
@@ -54,23 +54,23 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
     pnpm tauri dev
     ```
 
-     <TranslationNote lang="ko">
- 
- ※ 처리 내용 참고 번역:
-   ✔ 프로젝트 이름 ...
-   ✔ 프론트엔드에 사용할 언어 선택 ...
-   ✔ 패키지 관리자 선택 ...
-   ✔ UI 템플릿 선택 ...
-   ✔ UI 맛 선택 ...
+    <TranslationNote lang="ko">
+    
+    ※ 처리 내용 참고 번역:
+      ✔ 프로젝트 이름 ...
+      ✔ 프론트엔드에 사용할 언어 선택 ...
+      ✔ 패키지 관리자 선택 ...
+      ✔ UI 템플릿 선택 ...
+      ✔ UI 맛 선택 ...
 
-    템플릿이 생성되었습니다! 시작하려면 다음을 실행하십시오:
-    cd (생성할 프로젝트 디렉토리 이름)
-    pnpm install
-    pnpm tauri dev
+      템플릿이 생성되었습니다! 시작하려면 다음을 실행하십시오:
+      cd (생성할 프로젝트 디렉토리 이름)
+      pnpm install
+      pnpm tauri dev
 
-     </TranslationNote>
+    </TranslationNote>
 
-     </ShowSolution>
+    </ShowSolution>
 
 2.  ### "파일 시스템" 플러그인을 애플리케이션에 추가
 
@@ -157,8 +157,8 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
     ```
 
       <TranslationNote lang="ko">
-    
-    [참고 번역]
+        
+        [참고 번역]
 
         # Tauri 'fs' 기본 접근 권한
 
@@ -180,7 +180,7 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
     </ShowSolution>
 
-4.  ### 적절한 접근 권한 찾기
+4. ### 적절한 접근 권한 찾기
 
     4단계에서는 시스템에 대한 최소한의 접근으로 명령을 프론트엔드에 공개하는 데 필요한 접근 권한을 찾는 방법을 설명합니다.
 
@@ -224,33 +224,33 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
     이 고유한 범위는 `write-text-file` 명령만 활성화하고 `test.txt` 파일만 공개되도록 해야 합니다.
 
     <ShowSolution>
-```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
-  {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": [
-    "main"
-  ],
-  "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "image:default",
-    "resources:default",
-    "menu:default",
-    "tray:default",
-    "shell:allow-open",
-    "fs:allow-write-text-file",
-    {
-      "identifier": "fs:allow-write-text-file",
-      "allow": [{ "path": "$HOME/test.txt" }]
-    },
-  ]
-}
-```
-</ShowSolution>
+    ```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
+      {
+      "$schema": "../gen/schemas/desktop-schema.json",
+      "identifier": "default",
+      "description": "Capability for the main window",
+      "windows": [
+        "main"
+      ],
+      "permissions": [
+        "path:default",
+        "event:default",
+        "window:default",
+        "app:default",
+        "image:default",
+        "resources:default",
+        "menu:default",
+        "tray:default",
+        "shell:allow-open",
+        "fs:allow-write-text-file",
+        {
+          "identifier": "fs:allow-write-text-file",
+          "allow": [{ "path": "$HOME/test.txt" }]
+        },
+      ]
+    }
+    ```
+    </ShowSolution>
 
 5.  ### 접근 권한 실습 테스트
 

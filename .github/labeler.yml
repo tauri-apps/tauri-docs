@@ -6,7 +6,6 @@ i18n:
   - src/content/docs/it/**/*
   - src/content/docs/zh-cn/**/*
   - src/content/docs/ja/**/*
-  - src/content/docs/ko/**/*
 
 "i18n: es":
   - src/content/docs/es/**/*
@@ -22,7 +21,4 @@ i18n:
 
 "i18n: ja":
   - src/content/docs/ja/**/*
-
-"i18n: ko":
-  - src/content/docs/ko/**/*
 
