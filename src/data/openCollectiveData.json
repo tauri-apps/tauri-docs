@@ -519,6 +519,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "MasterDarius",
+    "id": "MasterDarius",
+    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/masterdarius",
+    "socialLinks": {
+      "website": "https://www.nikolaosmargaris.gr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Pintura",
     "id": "Pintura",
     "avatarUrl": "https://images.opencollective.com/pintura/ebc6bcb/logo/256.jpg",
@@ -540,17 +551,6 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "MasterDarius",
-    "id": "MasterDarius",
-    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/masterdarius",
-    "socialLinks": {
-      "website": "https://www.nikolaosmargaris.gr"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "",
@@ -968,6 +968,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "bigbeno37",
     "id": "bigbeno37",
     "avatarUrl": "https://images.opencollective.com/bigbeno37/avatar/256.jpg",
@@ -1035,15 +1044,6 @@
     "id": "Deondre",
     "avatarUrl": "https://images.opencollective.com/deondre/56b2ec3/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/deondre",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
