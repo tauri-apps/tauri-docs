@@ -13,6 +13,18 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "VPS Server",
+    "id": "VPS Server",
+    "avatarUrl": "https://images.opencollective.com/vpsservercom/7d60c44/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/vpsservercom",
+    "socialLinks": {
+      "website": "https://www.vpsserver.com",
+      "twitter": "https://twitter.com/vpsservercom"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Keygen",
     "id": "Keygen",
     "avatarUrl": "https://images.opencollective.com/keygen/a65e160/avatar/256.jpg",
@@ -24,18 +36,6 @@
     },
     "tier": "gold",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "VPS Server",
-    "id": "VPS Server",
-    "avatarUrl": "https://images.opencollective.com/vpsservercom/7d60c44/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/vpsservercom",
-    "socialLinks": {
-      "website": "https://www.vpsserver.com",
-      "twitter": "https://twitter.com/vpsservercom"
-    },
-    "tier": "gold",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Lightfinder",
@@ -340,6 +340,18 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Jun Hashimoto",
     "id": "Jun Hashimoto",
     "avatarUrl": "https://images.opencollective.com/jun-hashimoto/avatar/256.jpg",
@@ -541,18 +553,6 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "",
     "id": "",
     "avatarUrl": "https://images.opencollective.com/user-146594/7ba130d/avatar/256.jpg",
@@ -571,6 +571,19 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Archon Systems Inc.",
+    "id": "Archon Systems Inc.",
+    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/85fa9b1/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/archon-systems-inc",
+    "socialLinks": {
+      "website": "https://www.archonsystems.com/",
+      "twitter": "https://twitter.com/archonsystems",
+      "github": "https://github.com/archonSystemsInc"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Seth Lowie",
     "id": "Seth Lowie",
     "avatarUrl": "https://images.opencollective.com/seth-lowie/avatar/256.jpg",
@@ -587,19 +600,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Archon Systems Inc.",
-    "id": "Archon Systems Inc.",
-    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/85fa9b1/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/archon-systems-inc",
-    "socialLinks": {
-      "website": "https://www.archonsystems.com/",
-      "twitter": "https://twitter.com/archonsystems",
-      "github": "https://github.com/archonSystemsInc"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "David Lemarier",
@@ -941,6 +941,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Paco",
+    "id": "Paco",
+    "avatarUrl": "https://images.opencollective.com/guest-70c62a81/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/guest-70c62a81",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Andre Luiz da Cruz Moreira",
     "id": "Andre Luiz da Cruz Moreira",
     "avatarUrl": "https://images.opencollective.com/user-958206f1/avatar/256.jpg",
@@ -954,15 +963,6 @@
     "id": "John Scott",
     "avatarUrl": "https://images.opencollective.com/john-scott/8942930/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/john-scott",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Paco",
-    "id": "Paco",
-    "avatarUrl": "https://images.opencollective.com/guest-70c62a81/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/guest-70c62a81",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -1063,6 +1063,17 @@
     "avatarUrl": "https://images.opencollective.com/jimmy-gee/3ae6251/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/jimmy-gee",
     "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
@@ -1235,17 +1246,6 @@
     "avatarUrl": "https://images.opencollective.com/logan-keenan/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/logan-keenan",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
@@ -1486,6 +1486,19 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   },
   {
     "name": "Andreas Gerlach",
@@ -2348,19 +2361,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Till",
