@@ -145,7 +145,7 @@ importers:
         version: 22.15.21
       dotenv:
         specifier: ^17.2.1
-        version: 17.2.2
+        version: 17.2.3
       tsm:
         specifier: ^2.3.0
         version: 2.3.0
@@ -2236,8 +2236,8 @@ packages:
   dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
-  dotenv@17.2.2:
-    resolution: {integrity: sha512-Sf2LSQP+bOlhKWWyhFsn0UsfdK/kCWRv1iuA2gXAwt3dyNabr6QSj00I2V10pidqz69soatm9ZwZvpQMTIOd5Q==}
+  dotenv@17.2.3:
+    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
     engines: {node: '>=12'}
 
   dset@3.1.4:
@@ -6506,7 +6506,7 @@ snapshots:
 
   dlv@1.1.3: {}
 
-  dotenv@17.2.2: {}
+  dotenv@17.2.3: {}
 
   dset@3.1.4: {}
 
