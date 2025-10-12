@@ -977,6 +977,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Incognito",
+    "id": "Incognito",
+    "avatarUrl": "https://images.opencollective.com/user-e3d3cc19/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-e3d3cc19",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "bigbeno37",
     "id": "bigbeno37",
     "avatarUrl": "https://images.opencollective.com/bigbeno37/avatar/256.jpg",
@@ -1702,6 +1711,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Rodrigo Trevizan",
+    "id": "Rodrigo Trevizan",
+    "avatarUrl": "https://images.opencollective.com/rodrigo-trevizan/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/rodrigo-trevizan",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Oscar Lito M Pablo",
     "id": "Oscar Lito M Pablo",
     "avatarUrl": "https://images.opencollective.com/fliponeup/ca37c6c/avatar/256.jpg",
@@ -2341,24 +2359,6 @@
       "twitter": "https://twitter.com/crutchcorn",
       "github": "https://github.com/crutchcorn"
     },
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Incognito",
-    "id": "Incognito",
-    "avatarUrl": "https://images.opencollective.com/user-e3d3cc19/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-e3d3cc19",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Rodrigo Trevizan",
-    "id": "Rodrigo Trevizan",
-    "avatarUrl": "https://images.opencollective.com/guest-55918177/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/guest-55918177",
-    "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
