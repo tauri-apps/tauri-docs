@@ -52,13 +52,13 @@ Tauriは、堅牢なコマンドライン引数パーサー（構文解析ツー
     <TabItem label="手動">
     	<Steps>
 
-        1. `src-tauri` フォルダで次のコマンドを実行して、`Cargo.toml` 内のプロジェクトの依存関係にプラグインを追加します：
+      1. `src-tauri` フォルダで次のコマンドを実行して、`Cargo.toml` 内のプロジェクトの依存関係にプラグインを追加します：
 
             ```sh frame=none
             cargo add tauri-plugin-cli --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
             ```
 
-        2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+      2.  追加したプラグインを初期化するために `lib.rs` を修正します：
 
             ```rust title="src-tauri/src/lib.rs" ins={5-6}
             #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -74,7 +74,7 @@ Tauriは、堅牢なコマンドライン引数パーサー（構文解析ツー
             }
             ```
 
-    	  3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+    	3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
 
             <CommandTabs
                 npm="npm install @tauri-apps/plugin-cli"
