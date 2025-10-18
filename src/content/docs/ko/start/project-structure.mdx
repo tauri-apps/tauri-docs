@@ -1,0 +1,58 @@
+---
+title: 프로젝트 구조
+i18nReady: true
+---
+
+Tauri 프로젝트는 일반적으로 "Rust 프로젝트"와 "JavaScript 프로젝트"(선택 사항) 두 부분으로 구성되며,
+일반적인 설정 구성은 다음과 같습니다:
+
+```
+.
+├── package.json
+├── index.html
+├── src/
+│   ├── main.js
+├── src-tauri/
+│   ├── Cargo.toml
+│   ├── Cargo.lock
+│   ├── build.rs
+│   ├── tauri.conf.json
+│   ├── src/
+│   │   ├── main.rs
+│   │   └── lib.rs
+│   ├── icons/
+│   │   ├── icon.png
+│   │   ├── icon.icns
+│   │   └── icon.ico
+│   └── capabilities/
+│       └── default.json
+```
+
+위의 경우, "JavaScript 프로젝트"가 최상위에 있고, "Rust 프로젝트"는 `src-tauri/` 내에 있습니다.
+"Rust 프로젝트"는 몇 가지 파일이 추가된 일반적인 [Cargo 프로젝트](https://doc.rust-lang.org/cargo/guide/project-layout.html)입니다:
+
+- `tauri.conf.json`은 Tauri의 기본 설정 파일로, 애플리케이션 식별자부터 개발 서버 URL까지 모든 것을 포함합니다.
+  이 파일은 [Tauri CLI](/reference/cli/)가 Rust 프로젝트를 찾는 마커이기도 합니다.
+  자세한 내용은 [Tauri Config](/ko/develop/configuration-files/#tauri-설정)를 참조하십시오.
+- `capabilities/` 디렉토리는 Tauri가 [보안 수준 파일](/ko/security/capabilities/)을 읽는 기본 폴더입니다(즉, JavaScript 코드에서 이 파일을 사용하려면 이 폴더에 대한 명령 접근을 허용해야 합니다).
+  자세한 내용은 [보안](/ko/security/)을 참조하십시오.
+- `icons/` 디렉토리는 [`tauri icon`](/reference/cli/#icon) 명령의 기본 출력 디렉토리이며, 일반적으로 `tauri.conf.json > bundle > icon`에서 참조되어 앱 아이콘으로 사용됩니다.
+- `build.rs`에는 tauri의 빌드 시스템에 사용되는 `tauri_build::build()`가 포함되어 있습니다.
+- `src/lib.rs`에는 "Rust 코드"와 "모바일 진입점"(`#[cfg_attr(mobile, tauri::mobile_entry_point)]`으로 표시된 함수)이 포함되어 있습니다.
+  `main.rs` 내에 직접 작성하지 않는 이유는 앱을 각 모바일 빌드의 라이브러리를 사용하여 컴파일하고 각 플랫폼 프레임워크를 통해 로드하기 때문입니다.
+- `src/main.rs`는 데스크톱의 "메인 진입점"이며, 모바일과 동일한 진입점을 사용하기 위해 `main` 내에서 `tauri_app_lib::run()`을 실행합니다.
+  따라서 처리를 간단하게 하기 위해 이 파일은 변경하지 말고 대신 `lib.rs`를 변경하십시오.
+
+Tauri는 "정적 웹 호스트"와 유사하게 작동합니다. 빌드 방법은 먼저 "JavaScript 프로젝트"를 정적 파일(들)로 컴파일한 다음,
+해당 정적 파일을 번들링하는 "Rust 프로젝트"를 컴파일합니다.
+이 때문에 "JavaScript 프로젝트"의 구성은 마치 정적 웹사이트를 구축한 것처럼 기본적으로 동일합니다.
+자세한 내용은 [프론트엔드 설정](/ko/start/frontend/)을 참조하십시오.
+
+Rust 코드로만 프로젝트를 구성하려면 `src-tauri/` 폴더 이외의 모든 것을 삭제하고 `src-tauri/` 폴더를 최상위 프로젝트로 또는 Rust 작업 공간의 멤버로 사용하기만 하면 됩니다.
+
+## 다음 단계는...
+
+- [프론트엔드 설정](/ko/start/frontend/)
+- [Tauri 명령줄 인터페이스](/reference/cli/)(영어)
+- [Tauri 앱 개발 방법](/ko/develop/)
+- [Tauri 확장을 위한 추가 기능](ko/plugin/)

@@ -15,6 +15,16 @@ This example tutorial is applicable for desktop operating systems only.
 
 We recommend reading the general [sidecar guide] first for a deeper understanding of how Tauri sidecars work.
 
+## Goals
+
+- Package a Node.js application as a binary.
+- Integrate this binary as a Tauri sidecar.
+
+## Implementation Details
+
+- For this we use the [pkg] tool, but any other tool that can compile JavaScript or Typescript into a binary application will work.
+- You can also embed the Node runtime itself into your Tauri application and ship bundled JavaScript as a resource, but this will ship the JavaScript content as readable-ish files and the runtime is usually larger than a `pkg` packaged application.
+
 In this example we will create a Node.js application that reads input from the command line [process.argv]
 and writes output to stdout using [console.log]. <br/>
 You can leverage alternative inter-process communication systems such as a localhost server, stdin/stdout or local sockets.
@@ -35,7 +45,6 @@ If you are not an advanced user it's **highly recommended** that you use the opt
 - Choose your package manager: `pnpm`
 - Choose your UI template: `Vanilla`
 - Choose your UI flavor: `Typescript`
-- Would you like to setup the project for mobile as well? `yes`
 
 :::
 
@@ -56,8 +65,8 @@ Without the plugin being initialized and configured the example won't work.
 
     <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
 
-    We will compile our Node.js application to a self container binary using [pkg].
-    Let's install it as a development dependency:
+    We will compile our Node.js application to a self container binary using [pkg] among other options.
+    Let's install it as a development dependency into the new `sidecar-app`:
 
     <CommandTabs
       npm="npm add @yao-pkg/pkg --save-dev"
@@ -79,9 +88,9 @@ Without the plugin being initialized and configured the example won't work.
     const command = process.argv[2];
 
     switch (command) {
-      case 'ping':
+      case 'hello':
         const message = process.argv[3];
-        console.log(`pong, ${message}`);
+        console.log(`Hello ${message}!`);
         break;
       default:
         console.error(`unknown command ${command}`);
@@ -91,18 +100,24 @@ Without the plugin being initialized and configured the example won't work.
 
 1.  ##### Package the Sidecar
 
-    To package our Node.js application to a self contained binary, we can run the following `pkg` command:
+    To package our Node.js application into a self contained binary, create a script in `package.json`:
 
-    <CommandTabs
-      npm="npm run pkg -- --output app"
-      yarn="yarn pkg --output app"
-      pnpm="pnpm pkg --output app"
-    />
+    ```json title="sidecar-app/package.json"
+    {
+      "scripts": {
+        "build": "pkg index.ts --output app"
+      }
+    }
+    ```
+
+    <CommandTabs npm="npm run build" yarn="yarn build" pnpm="pnpm build" />
 
     This will create the `sidecar-app/app` binary on Linux and macOS, and a `sidecar-app/app.exe` executable on Windows.
-    To rename this file to the expected Tauri sidecar filename, we can use the following Node.js script:
 
-    ```js
+    For sidecar applications, we need to ensure that the binary is named in the correct pattern, for more information read [Embedding External Binaries](https://tauri.app/develop/sidecar/)
+    To rename this file to the expected Tauri sidecar filename and also move to our Tauri project, we can use the following Node.js script as a starting example:
+
+    ```js title="sidecar-app/rename.js"
     import { execSync } from 'child_process';
     import fs from 'fs';
 
@@ -113,10 +128,40 @@ Without the plugin being initialized and configured the example won't work.
     if (!targetTriple) {
       console.error('Failed to determine platform target triple');
     }
+    // TODO: create `src-tauri/binaries` dir
     fs.renameSync(
       `app${ext}`,
       `../src-tauri/binaries/app-${targetTriple}${ext}`
     );
+    ```
+
+    And run `node rename.js` from the `sidecar-app` directory.
+
+    At this step the `/src-tauri/binaries` directory should contain the renamed sidecar binary.
+
+1.  ##### Setup plugin-shell permission
+
+    After installing the [shell plugin](/plugin/shell/) make sure you configure the required capabilities.
+
+    Note that we use `"args": true` but you can optionally provide an array `["hello"]`, [read more](/develop/sidecar/#passing-arguments).
+
+    ```json title='src-tauri/capabilities/default.json'
+    {
+      "permissions": [
+        "core:default",
+        "opener:default",
+        {
+          "identifier": "shell:allow-execute",
+          "allow": [
+            {
+              "args": true,
+              "name": "binaries/app",
+              "sidecar": true
+            }
+          ]
+        }
+      ]
+    }
     ```
 
 1.  ##### Configure the Sidecar in the Tauri Application
@@ -142,42 +187,72 @@ Without the plugin being initialized and configured the example won't work.
 
       <TabItem label="JavaScript">
 
-        Let's execute the `ping` command in the Node.js sidecar directly:
+        Let's execute the `hello` command in the Node.js sidecar directly:
 
-        ```javascript
+        ```js
         import { Command } from '@tauri-apps/plugin-shell';
 
         const message = 'Tauri';
 
-        const command = Command.sidecar('binaries/app', ['ping', message]);
+        const command = Command.sidecar('binaries/app', ['hello', message]);
         const output = await command.execute();
-        const response = output.stdout;
+        // once everything is configured it should log "Hello Tauri" in the browser console.
+        console.log(output.stdout)
         ```
 
       </TabItem>
 
       <TabItem label="Rust">
 
-        Let's pipe a `ping` Tauri command to the Node.js sidecar:
+        Let's pipe a `hello` Tauri command to the Node.js sidecar:
 
         ```rust
+        use tauri_plugin_shell::ShellExt;
+
         #[tauri::command]
-        async fn ping(app: tauri::AppHandle, message: String) -> String {
-          let sidecar_command = app
-            .shell()
-            .sidecar("app")
-            .unwrap()
-            .arg("ping")
-            .arg(message);
-          let output = sidecar_command.output().unwrap();
-          let response = String::from_utf8(output.stdout).unwrap();
-          response
+        async fn hello(app: tauri::AppHandle, cmd: String, message: String) -> String {
+            let sidecar_command = app
+                .shell()
+                .sidecar("app")
+                .unwrap()
+                .arg(cmd)
+                .arg(message);
+            let output = sidecar_command.output().await.unwrap();
+            String::from_utf8(output.stdout).unwrap()
         }
+        ```
+
+        Register it in `invoke_handler` and call it in the frontend with:
+
+        ```js
+
+        import { invoke } from "@tauri-apps/api/core";
+
+        const message = "Tauri"
+        console.log(await invoke("hello", { cmd: 'hello', message }))
+
         ```
 
       </TabItem>
 
     </Tabs>
+
+1.  ##### Running
+
+    Lets test it
+
+    <CommandTabs
+      npm="npm run tauri dev"
+      yarn="yarn tauri dev"
+      pnpm="pnpm tauri dev"
+      deno="deno task tauri dev"
+      bun="bun tauri dev"
+      cargo="cargo tauri dev"
+    />
+
+    Open the DevTools with F12 (or `Cmd+Option+I` on macOS) and you should see the output of the sidecar command.
+
+    If you find any issues, please open an issue on [GitHub](https://github.com/tauri-apps/tauri-docs).
 
 </Steps>
 

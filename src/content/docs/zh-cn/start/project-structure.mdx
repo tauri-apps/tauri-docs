@@ -1,0 +1,58 @@
+---
+title: 项目结构
+i18nReady: true
+---
+
+一个 Tauri 项目通常由两部分组成：一个 Rust 项目和一个 JavaScript 项目（可选）。
+典型的项目结构如下所示：
+
+```
+.
+├── package.json
+├── index.html
+├── src/
+│   ├── main.js
+├── src-tauri/
+│   ├── Cargo.toml
+│   ├── Cargo.lock
+│   ├── build.rs
+│   ├── tauri.conf.json
+│   ├── src/
+│   │   ├── main.rs
+│   │   └── lib.rs
+│   ├── icons/
+│   │   ├── icon.png
+│   │   ├── icon.icns
+│   │   └── icon.ico
+│   └── capabilities/
+│       └── default.json
+```
+
+在这种情况下，JavaScript 项目位于顶层目录，而 Rust 项目则位于 `src-tauri/` 文件夹内。
+这个 Rust 项目是一个标准的 [Cargo 项目](https://doc.rust-lang.org/cargo/guide/project-layout.html)但包含了一些额外的文件：
+
+- `tauri.conf.json` 是 Tauri 的主要配置文件，其中包含了从应用标识符到开发服务器 URL 的所有配置。
+  该文件也是 [Tauri CLI](/zh-cn/reference/cli/) 查找 Rust 项目的标记文件。
+  如需了解更多信息，请参阅 [Tauri 配置](/zh-cn/develop/configuration-files/#tauri-配置)。
+- `capabilities/` 目录是 Tauri 默认读取[能力（Capability）文件](/zh-cn/security/capabilities/)的文件夹（简而言之，你需要在此处允许命令，才能在 JavaScript 代码中使用它们）。
+  如需了解更多信息，请参阅[安全](/zh-cn/security/)。
+- `icons/` 目录是 [`tauri icon`](/zh-cn/reference/cli/#icon) 命令的默认输出目录，通常在 `tauri.conf.json > bundle > icon` 中引用，用于设置应用的图标。
+- `build.rs` 包含 `tauri_build::build()`，用于 Tauri 的构建系统。
+- `src/lib.rs` 包含 Rust 代码和移动端入口点（标记为 `#[cfg_attr(mobile, tauri::mobile_entry_point)]` 的函数）。
+  我们不直接在 `main.rs` 中编写代码的原因是，在移动端构建中，你的应用会被编译为库，并通过平台框架加载。
+- `src/main.rs` 是桌面端的主入口点，我们在 `main` 函数中调用 `app_lib::run()`，以使用与移动端相同的入口点。
+  因此，为了简化操作，请勿修改此文件，而是修改 `lib.rs`。请注意，`app_lib` 对应 Cargo.toml 中的 `[lib.name]`。
+
+Tauri 的工作方式类似于静态网站托管服务。其构建过程是：首先将 JavaScript 项目编译为静态文件，
+然后编译 Rust 项目并将这些静态文件打包进去。
+因此，JavaScript 项目的设置与构建静态网站时基本相同。
+如需了解更多信息，请参阅[前端配置](/zh-cn/start/frontend/)。
+
+如果你只想使用 Rust 代码，只需移除其他所有内容，并将 `src-tauri/` 文件夹作为你的顶级项目，或作为 Rust 工作区的成员即可。
+
+## 下一步
+
+- [添加并配置前端框架](/zh-cn/start/frontend/)
+- [Tauri 命令行界面（CLI）参考](/zh-cn/reference/cli/)
+- [学习如何开发 Tauri 应用](/zh-cn/develop/)
+- [探索扩展 Tauri 的附加功能](/zh-cn/plugin/)

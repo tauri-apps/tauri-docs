@@ -1,0 +1,701 @@
+---
+title: 프론트엔드에서 Rust 호출하기
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
+
+이 문서는 애플리케이션의 프론트엔드에서 Rust 코드와 통신하는 방법에 대한 지침을 담고 있습니다.
+Rust 코드에서 프론트엔드와 통신하는 방법에 대해서는 이전 절의 [Rust에서 프론트엔드 호출하기]를 참조하십시오.
+
+Tauri는 더 동적인 [이벤트 시스템](#이벤트-시스템)과 함께 형식 안전성을 갖춘 Rust 함수에 액세스하기 위한 [명령](#명령) 프리미티브를 제공합니다.
+
+## 명령
+
+Tauri는 웹 앱에서 Rust 함수를 호출하기 위한 간단하면서도 강력한 "명령 `command`" 시스템을 제공합니다.
+"명령"은 인수를 받아들이고 값을 반환할 수 있습니다. 또한 오류를 반환하거나 `async`(비동기)로 만들 수도 있습니다.
+
+### 기본 예제
+
+명령은 `src-tauri/src/lib.rs` 파일에서 정의할 수 있습니다.
+명령을 만들려면 함수를 추가하고 `#[tauri::command]`로 주석을 달기만 하면 됩니다:
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn my_custom_command() {
+	println!("I was invoked from JavaScript!");
+}
+```
+
+:::note
+명령 이름은 고유해야 합니다.
+:::
+
+:::note
+`lib.rs` 파일에 정의된 명령은 "[글루 코드](https://ko.wikipedia.org/wiki/글루_코드) 생성"에 대한 제약 때문에 `pub`(공개)으로 지정할 수 없습니다.
+"공개 함수"로 지정하면 다음과 같은 오류가 표시됩니다:
+
+````
+error[E0255]: the name `__cmd__command_name` is defined multiple times 《`__cmd__command_name`이라는 이름이 여러 번 정의되었습니다》
+  --> src/lib.rs:28:8
+   |
+27 | #[tauri::command]
+   | ----------------- previous definition of the macro `__cmd__command_name` here 《매크로 `__cmd__command_name`의 이전 정의는 여기》
+28 | pub fn x() {}
+   |        ^ `__cmd__command_name` reimported here 《`__cmd__command_name`은 여기에 다시 가져옵니다》
+   |
+   = note: `__cmd__command_name` must be defined only once in the macro namespace of this module 《참고: `__cmd__command_name`은 이 모듈의 매크로 네임스페이스에 한 번만 정의해야 합니다》
+```
+:::
+
+명령 목록은 다음과 같이 "빌더" 함수에 제공해야 합니다.
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+````
+
+이제 JavaScript 코드에서 명령을 호출할 수 있습니다.
+
+```javascript
+// Tauri API의 npm 패키지를 사용하는 경우:
+import { invoke } from '@tauri-apps/api/core';
+
+// Tauri global script를 사용하는 경우(npm 패키지를 사용하지 않을 때)
+// `tauri.conf.json`의 `app.withGlobalTauri`를 반드시 true로 설정하십시오.
+const invoke = window.__TAURI__.core.invoke;
+
+// 명령을 호출합니다
+invoke('my_custom_command');
+```
+
+#### 다른 모듈에 명령 정의하기
+
+애플리케이션에서 많은 구성 요소를 정의하거나 구성 요소를 그룹화할 수 있는 경우, `lib.rs` 파일에 명령 정의를 채워 넣는 대신 다른 모듈에 명령을 정의할 수 있습니다.
+
+예를 들어, `src-tauri/src/commands.rs` 파일에 명령을 정의해 보겠습니다.
+
+```rust title="src-tauri/src/commands.rs"
+#[tauri::command]
+pub fn my_custom_command() {
+	println!("I was invoked from JavaScript!");
+}
+```
+
+:::note
+다른 모듈에 명령을 정의하는 경우 해당 명령을 `pub`으로 지정해야 합니다.
+:::
+
+:::note
+명령 이름은 해당 명령이 정의된 모듈에 국한되지 않으므로 모듈 간에도 고유해야 합니다.
+:::
+
+`lib.rs` 파일에서는 모듈을 정의하고 그에 따른 명령 목록을 제공합니다:
+
+```rust title="src-tauri/src/lib.rs" ins={6}
+mod commands;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![commands::my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+명령 목록의 "접두사 `commands::`"에 유의하십시오. 이는 이 명령 함수에 대한 전체 경로를 의미합니다.
+
+이 예의 명령 이름은 `my_custom_command`이므로 프론트엔드 내에서 `invoke("my_custom_command")`를 실행하여 호출할 수 있으며, 접두사 `commands::`는 무시됩니다.
+
+#### WASM(웹 어셈블리)
+
+Rust 프론트엔드를 사용하여 인수 없이 `invoke()`를 호출하는 경우, 프론트엔드 코드를 다음과 같이 변경해야 합니다.
+그 이유는 Rust가 선택적 인수를 지원하지 않기 때문입니다.
+
+```rust ins={4-5}
+#[wasm_bindgen]
+extern "C" {
+    // 인수 없이 호출
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"], js_name = invoke)]
+    async fn invoke_without_args(cmd: &str) -> JsValue;
+
+    // 인수가 있는 호출(기본값)
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
+    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
+
+    // 이 둘은 다른 이름이어야 합니다!
+}
+```
+
+### 인수 전달
+
+명령 핸들러는 인수를 받을 수 있습니다:
+
+```rust
+#[tauri::command]
+fn my_custom_command(invoke_message: String) {
+	println!("I was invoked from JavaScript, with this message: {}", invoke_message);
+}
+```
+
+인수는 camelCase 키를 가진 JSON 객체로 전달해야 합니다.
+
+> > > 《번역 주》 영어 복합어 표기법에 대하여:
+> > > ・**camelCase** "[카멜 케이스](https://ko.wikipedia.org/wiki/카멜_표기법)" 연결된 단어의 첫 글자를 대문자로 쓰는 표기법
+> > > ・**snake_case** "[스네이크 케이스](https://ko.wikipedia.org/wiki/스네이크_케이스)" 연결할 단어 사이에 밑줄(\_)을 넣고 모두 소문자로 쓰는 표기법
+
+```javascript
+invoke('my_custom_command', { invokeMessage: 'Hello!' });
+```
+
+:::note
+`rename_all` 속성을 가진 인수에는 `snake_case`를 사용할 수 있습니다:
+
+```rust
+#[tauri::command(rename_all = "snake_case")]
+fn my_custom_command(invoke_message: String) {}
+```
+
+```javascript
+invoke('my_custom_command', { invoke_message: 'Hello!' });
+```
+
+:::
+
+인수는 [`serde::Deserialize`]를 구현하는 한 어떤 형식이든 가능합니다.
+
+해당 JavaScript:
+
+```javascript
+invoke('my_custom_command', { invoke_message: 'Hello!' });
+```
+
+### 데이터 반환
+
+명령 핸들러도 데이터를 반환합니다:
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> String {
+	"Hello from Rust!".into()
+}
+```
+
+`invoke` 함수("호출" 함수)는 반환 값에 따라 처리 내용이 결정되는 "프로미스"를 반환합니다:
+
+```javascript
+invoke('my_custom_command').then((message) => console.log(message));
+```
+
+반환되는 데이터는 [`serde::Serialize`]를 구현하는 한 어떤 형식이든 상관없습니다.
+
+#### 배열 버퍼 반환
+
+[`serde::Serialize`]를 구현하는 반환 값은 응답이 프론트엔드로 전송될 때 JSON 형식으로 직렬화됩니다.
+이 방법에서는 파일이나 다운로드 HTTP 응답과 같은 큰 데이터를 반환하려고 하면 애플리케이션 속도가 저하될 수 있습니다.
+배열 버퍼를 최적화된 방법으로 반환하려면 [`tauri::ipc::Response`]를 사용합니다.
+
+> > > 《번역 주》 **직렬화** serialize: 여러 병렬 데이터를 "직렬화"(한 줄로 나열하는 작업)하여 파일 저장이나 네트워크 송수신이 가능하도록 변환하는 처리.
+
+```rust
+use tauri::ipc::Response;
+#[tauri::command]
+fn read_file() -> Response {
+	let data = std::fs::read("/path/to/file").unwrap();
+	tauri::ipc::Response::new(data)
+}
+```
+
+### 오류 처리
+
+핸들러가 처리에 실패하여 오류를 반환해야 하는 경우, 명령 함수에 `Result`를 반환하게 합니다.
+
+```rust
+#[tauri::command]
+fn login(user: String, password: String) -> Result<String, String> {
+	if user == "tauri" && password == "tauri" {
+		// 처리 성공
+		Ok("logged_in".to_string())
+	} else {
+		// 처리 실패
+		Err("invalid credentials".to_string())
+	}
+}
+```
+
+명령이 오류를 반환하는 경우, "프로미스"는 "처리 실패", 그렇지 않은 경우에는 "처리 성공"이 됩니다:
+
+```javascript
+invoke('login', { user: 'tauri', password: '0j4rijw8=' })
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error));
+```
+
+위에서 언급했듯이, 오류를 포함하여 명령에서 반환되는 모든 것은 [`serde::Serialize`]를 구현해야 합니다.
+그러나 Rust 표준 라이브러리 또는 외부 크레이트의 오류 유형을 사용하는 경우, 대부분의 오류 유형은 [`serde::Serialize`]를 구현하지 않으므로 문제가 발생할 수 있습니다.
+이 문제를 해결하는 간단한 시나리오는 `map_err`를 사용하여 이러한 오류를 `String`으로 변환하는 것입니다.
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> Result<(), String> {
+	std::fs::File::open("path/to/file").map_err(|err| err.to_string())?;
+	// 성공하면 `null`을 반환합니다
+	Ok(())
+}
+```
+
+이 해결책은 그다지 일반적이지 않으므로 `serde::Serialize`를 구현하는 고유한 오류 유형을 만드는 것이 좋습니다.
+다음 예에서는 [`thiserror`] 크레이트를 사용하여 오류 유형을 만듭니다.
+이를 통해 `thiserror::Error` 트레이트를 파생시켜 열거형(enum)을 오류 유형으로 변환할 수 있습니다.
+자세한 내용은 [관련 문서(영어)](https://serde.rs/)를 참조하십시오.
+
+```rust
+// 프로그램에서 발생할 수 있는 모든 오류를 나타내는 오류 유형을 만듭니다
+#[derive(Debug, thiserror::Error)]
+enum Error {
+	#[error(transparent)]
+	Io(#[from] std::io::Error)
+}
+
+// "serde::Serialize"를 수동으로 구현해야 합니다
+impl serde::Serialize for Error {
+	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+	where
+		S: serde::ser::Serializer,
+	{
+		serializer.serialize_str(self.to_string().as_ref())
+	}
+}
+
+#[tauri::command]
+fn my_custom_command() -> Result<(), Error> {
+	// 이제 오류가 반환됩니다
+	std::fs::File::open("path/that/does/not/exist")?;
+	// 성공하면 `null`을 반환합니다
+	Ok(())
+}
+```
+
+사용자 지정 오류 유형은 발생할 수 있는 모든 오류를 명시적으로 나타내는 이점이 있어 어떤 오류가 발생할 수 있는지 즉시 식별할 수 있습니다.
+이를 통해 나중에 코드를 검토하거나 리팩토링할 때 다른 사람(및 자신)의 시간을 크게 절약할 수 있습니다.<br/>
+또한 오류 유형이 직렬화되는 방식을 완전히 관리할 수도 있습니다.
+위의 예에서는 오류 메시지를 문자열로만 반환했지만, 각 오류에 코드를 할당하여 매우 유사한 모양의 "TypeScript 오류 열거형"에 쉽게 매핑할 수 있습니다. 예를 들어:
+
+```rust
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error(transparent)]
+  Io(#[from] std::io::Error),
+  #[error("failed to parse as string: {0}")]
+  Utf8(#[from] std::str::Utf8Error),
+}
+
+#[derive(serde::Serialize)]
+#[serde(tag = "kind", content = "message")]
+#[serde(rename_all = "camelCase")]
+enum ErrorKind {
+  Io(String),
+  Utf8(String),
+}
+
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    let error_message = self.to_string();
+    let error_kind = match self {
+      Self::Io(_) => ErrorKind::Io(error_message),
+      Self::Utf8(_) => ErrorKind::Utf8(error_message),
+    };
+    error_kind.serialize(serializer)
+  }
+}
+
+#[tauri::command]
+fn read() -> Result<Vec<u8>, Error> {
+  let data = std::fs::read("/path/to/file")?;
+	Ok(data)
+}
+```
+
+프론트엔드에서는 이제 `{ kind: 'io' | 'utf8', message: string }` 오류 객체가 표시됩니다:
+
+```ts
+type ErrorKind = {
+  kind: 'io' | 'utf8';
+  message: string;
+};
+
+invoke('read').catch((e: ErrorKind) => {});
+```
+
+### 비동기 명령
+
+Tauri에서는 UI가 멈추거나 속도가 느려지는 것을 방지하기 위해 부하가 큰 작업을 실행할 때 "비동기 명령"을 사용하는 것이 좋습니다.
+
+:::note
+
+비동기 명령에서는 [`async_runtime::spawn`]을 사용하여 다른 비동기 작업에서 실행됩니다.
+키워드 "_async_"가 없는 명령은 *#[tauri::command(async)]*로 정의되지 않는 한 메인 스레드에서 실행됩니다.
+
+:::
+
+**명령을 비동기적으로 실행해야 하는 경우, 해당 명령을 `async`로 선언하기만 하면 됩니다.**
+
+:::caution
+
+Tauri를 사용하여 비동기 함수를 만들 때는 주의가 필요합니다.
+현재 "빌린 인수"(상속된 인수)를 비동기 함수의 [시그니처](https://ko.wikipedia.org/wiki/타입_시그니처)에 그대로 포함할 수 없습니다.
+이러한 유형의 일반적인 예로는 `&str` 및 `State<'_, Data>` 등이 있습니다.
+이 제약은 https://github.com/tauri-apps/tauri/issues/2533 (영어)에서 논의되고 있으며, 해결 방법은 아래에 나와 있습니다.
+
+:::
+
+"빌린 형식"을 사용하는 경우 추가 변경을 해야 합니다. 주요 옵션은 다음 두 가지입니다:
+
+**옵션 1**: `&str`과 같은 형식을 `String`과 같은 빌리지 않은 유사한 형식으로 변환합니다.
+이 방법은 `State<'_, Data>`와 같은 모든 형식에서 작동하지 않을 수 있습니다.
+
+_예:_
+
+```rust
+// "&str" 대신 "String"을 사용하여 비동기 함수를 선언합니다("&str"은 빌려왔기 때문에 지원되지 않습니다)
+#[tauri::command]
+async fn my_custom_command(value: String) -> String {
+	// 다른 비동기 함수를 호출하고 그 처리가 완료될 때까지 기다립니다
+	some_async_function().await;
+	value
+}
+```
+
+**옵션 2**: 반환 값 형식을 [`Result`]로 래핑합니다. 이 방법은 구현이 조금 더 어렵지만 모든 형식에서 작동합니다.
+
+반환 값 형식 `Result<a, b>`를 사용하고, `a`를 "반환하려는 형식"으로 바꿉니다. `null`을 반환하려면 `()`로 바꿉니다. 또한 `b`를 문제가 발생했을 때 반환할 "오류 형식"으로 바꿉니다. 선택적 오류를 반환하지 않으려면 `()`로 바꿉니다. 예를 들어:
+
+- `Result<String, ()>` "String 형식"을 반환하고 오류는 반환하지 않습니다.
+- `Result<(), ()>` "`null`"을 반환합니다.
+- `Result<bool, Error>` 위의 [오류 처리](#오류-처리) 항목에서처럼 "부울 값" 또는 "오류"를 반환합니다.
+
+_예:_
+
+```rust
+// 형식 빌림 문제를 피하기 위해 "Result<String, ()>"를 반환합니다
+#[tauri::command]
+async fn my_custom_command(value: &str) -> Result<String, ()> {
+	// 다른 비동기 함수를 호출하고 그 처리가 완료될 때까지 기다립니다
+	some_async_function().await;
+	// 반환 값은 "`Ok()`"로 래핑해야 한다는 점에 유의하십시오
+	Ok(format!(value))
+}
+```
+
+##### JavaScript에서 호출하기
+
+JavaScript에서의 명령 호출은 "프로미스"를 반환하므로 다른 명령과 동일하게 작동합니다:
+
+```javascript
+invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
+  console.log('Completed!')
+);
+```
+
+### 채널
+
+"Tauri 채널"은 프론트엔드로의 스트리밍 HTTP 응답과 같은 스트리밍 데이터에 대한 권장 메커니즘입니다.
+다음 예에서는 파일을 읽고 프론트엔드에 4096바이트 청크(데이터 분할 단위)로 진행 상황을 알립니다:
+
+```rust
+use tokio::io::AsyncReadExt;
+
+#[tauri::command]
+async fn load_image(path: std::path::PathBuf, reader: tauri::ipc::Channel<&[u8]>) {
+  // 설명 간결화를 위해 이 예에서는 오류 처리가 포함되어 있지 않습니다
+  let mut file = tokio::fs::File::open(path).await.unwrap();
+
+  let mut chunk = vec![0; 4096];
+
+  loop {
+    let len = file.read(&mut chunk).await.unwrap();
+    if len == 0 {
+      // "길이=0"은 "파일의 끝"을 의미합니다
+      break;
+    }
+    reader.send(&chunk).unwrap();
+  }
+}
+```
+
+자세한 내용은 "Rust에서 프론트엔드 호출하기"의 [채널] 설명을 참조하십시오.
+
+### 명령에서 WebviewWindow에 액세스하기
+
+명령은 메시지를 호출한 `WebviewWindow`의 인스턴스에 액세스할 수 있습니다:
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn my_custom_command(webview_window: tauri::WebviewWindow) {
+	println!("WebviewWindow: {}", webview_window.label());
+}
+```
+
+### 명령에서 AppHandle에 액세스하기
+
+명령은 `AppHandle`의 인스턴스에 액세스할 수 있습니다:
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn my_custom_command(app_handle: tauri::AppHandle) {
+	let app_dir = app_handle.path_resolver().app_dir();
+	use tauri::GlobalShortcutManager;
+	app_handle.global_shortcut_manager().register("CTRL + U", move || {});
+}
+```
+
+### Managed State(관리 상태)에 액세스하기
+
+Tauri는 `tauri::Builder`의 `manage` 함수를 사용하여 "상태 state"를 관리할 수 있습니다.
+
+"상태 state"에는 `tauri::State`를 사용한 명령으로 액세스할 수 있습니다:
+
+```rust title="src-tauri/src/lib.rs"
+struct MyState(String);
+
+#[tauri::command]
+fn my_custom_command(state: tauri::State<MyState>) {
+	assert_eq!(state.0 == "some state value", true);
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.manage(MyState("some state value".into()))
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+### Raw Request에 액세스하기
+
+Tauri 명령에서는 바디 페이로드(헤더 부분을 제외한 본문 부분)의 원시 데이터와 요청 헤더를 포함하는 [`tauri::ipc::Request`] 객체 전체에도 액세스할 수 있습니다.
+
+```rust
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error("unexpected request body")]
+  RequestBodyMustBeRaw,
+  #[error("missing `{0}` header")]
+  MissingHeader(&'static str),
+}
+
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    serializer.serialize_str(self.to_string().as_ref())
+  }
+}
+
+#[tauri::command]
+fn upload(request: tauri::ipc::Request) -> Result<(), Error> {
+  let tauri::ipc::InvokeBody::Raw(upload_data) = request.body() else {
+    return Err(Error::RequestBodyMustBeRaw);
+  };
+  let Some(authorization_header) = request.headers().get("Authorization") else {
+    return Err(Error::MissingHeader("Authorization"));
+  };
+
+  // 업로드 중 ...
+
+  Ok(())
+}
+```
+
+프론트엔드에서는 페이로드 인수에 ArrayBuffer 또는 Uint8Array를 지정하여 Raw Request 본문을 보내는 "invoke()"를 호출할 수 있습니다. 세 번째 인수에 요청 헤더를 포함할 수도 있습니다:
+
+```js
+const data = new Uint8Array([1, 2, 3]);
+await __TAURI__.core.invoke('upload', data, {
+  headers: {
+    Authorization: 'apikey',
+  },
+});
+```
+
+### 여러 명령 만들기
+
+"`tauri::generate_handler!` 매크로"는 명령 배열을 받습니다. 여러 명령을 등록하는 경우 invoke_handler를 여러 번 호출할 수 없습니다. 마지막 호출만 사용됩니다. 각 명령을 하나씩 `tauri::generate_handler!` 호출에 전달해야 합니다.
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn cmd_a() -> String {
+	"Command a"
+}
+#[tauri::command]
+fn cmd_b() -> String {
+	"Command b"
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![cmd_a, cmd_b])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+### 결합된 프로그램 예
+
+위의 기능 중 일부 또는 전부를 결합할 수 있습니다:
+
+```rust title="src-tauri/src/lib.rs"
+struct Database;
+
+#[derive(serde::Serialize)]
+struct CustomResponse {
+	message: String,
+	other_val: usize,
+}
+
+async fn some_other_function() -> Option<String> {
+	Some("response".into())
+}
+
+#[tauri::command]
+async fn my_custom_command(
+	window: tauri::Window,
+	number: usize,
+	database: tauri::State<'_, Database>,
+) -> Result<CustomResponse, String> {
+	println!("Called from {}", window.label());
+	let result: Option<String> = some_other_function().await;
+	if let Some(message) = result {
+		Ok(CustomResponse {
+			message,
+			other_val: 42 + number,
+		})
+	} else {
+		Err("No result".into())
+	}
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.manage(Database {})
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+
+// Invocation from JavaScript
+invoke('my_custom_command', {
+  number: 42,
+})
+  .then((res) =>
+    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+  )
+  .catch((e) => console.error(e));
+```
+
+## 이벤트 시스템
+
+"이벤트 시스템"은 프론트엔드와 Rust 간의 더 간결한 통신 메커니즘입니다.
+명령과 달리 이벤트는 형식 안전하지 않으며, 항상 비동기적이며, 값을 반환할 수 없고, JSON 페이로드만 지원합니다.
+
+### 전역 이벤트
+
+전역 이벤트를 트리거하려면 [event.emit] 또는 [WebviewWindow#emit] 함수를 사용할 수 있습니다:
+
+```js
+import { emit } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+// emit(eventName, payload)
+emit('file-selected', '/path/to/file');
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.emit('route-changed', { url: window.location.href });
+```
+
+:::note
+전역 이벤트는 **모든** 리스너에게 전달됩니다.
+:::
+
+### Webview 이벤트
+
+개별 Webview에 의해 등록된 리스너에 대해 이벤트를 트리거하려면 [event.emitTo] 또는 [WebviewWindow#emitTo] 함수를 사용할 수 있습니다:
+
+```js
+import { emitTo } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+// emitTo(webviewLabel, eventName, payload)
+emitTo('settings', 'settings-update-requested', {
+  key: 'notification',
+  value: 'all',
+});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.emitTo('editor', 'file-changed', {
+  path: '/path/to/file',
+  contents: 'file contents',
+});
+```
+
+:::note
+Webview 특정 이벤트는 일반적인 전역 이벤트 리스너에 대해서는 **트리거되지 않습니다**.
+**모든** 이벤트를 감지(수신)하려면 [event.listen] 함수에 `{ target: { kind: 'Any' } }` 옵션을 지정해야 합니다. 이는 리스너가 발행된 이벤트를 모두 포착하는 "캐치올"로 기능하도록 정의하는 것입니다.
+
+```js
+import { listen } from '@tauri-apps/api/event';
+listen(
+  'state-changed',
+  (event) => {
+    console.log('got state changed event', event);
+  },
+  {
+    target: { kind: 'Any' },
+  }
+);
+```
+
+:::
+
+### 이벤트 감지
+
+<FrontendListen />
+
+Rust 코드에서 이벤트를 감지(수신)하거나 이벤트를 발행하는 방법에 대해서는 이전 장 "Rust에서 프론트엔드 호출하기"의 [이벤트 시스템 설명]을 참조하십시오.
+
+[Rust에서 프론트엔드 호출하기]: /ko/develop/calling-frontend/
+[`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0/tauri/async_runtime/fn.spawn.html
+[`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
+[`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
+[`tauri::ipc::Response`]: https://docs.rs/tauri/2.0.0/tauri/ipc/struct.Response.html
+[`tauri::ipc::Request`]: https://docs.rs/tauri/2.0.0/tauri/ipc/struct.Request.html
+[`thiserror`]: https://github.com/dtolnay/thiserror
+[`result`]: https://doc.rust-lang.org/std/result/index.html
+[event.emit]: /reference/javascript/api/namespaceevent/#emit
+[event.listen]: /reference/javascript/api/namespaceevent/#listen
+[WebviewWindow#emit]: /reference/javascript/api/namespacewebviewwindow/#emit
+[event.emitTo]: /reference/javascript/api/namespaceevent/#emitto
+[WebviewWindow#emitTo]: /reference/javascript/api/namespacewebviewwindow/#emitto
+[이벤트 시스템 설명]: /ko/develop/calling-frontend/#이벤트-시스템
+[채널]: /ko/develop/calling-frontend/#채널-channels
+[프론트엔드에서 Rust 호출하기]: /ko/develop/calling-rust/

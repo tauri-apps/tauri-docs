@@ -1,0 +1,116 @@
+---
+title: 보안
+sidebar:
+  order: 1
+  label: Overview
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+이 섹션에서는 Tauri의 설계와 생태계의 핵심을 이루는 고수준의 개념과 보안 기능을 설명하는 것을 목적으로 합니다. 이 개념과 보안 기능은 개발자인 여러분 자신, 만드는 애플리케이션, 그리고 그 사용자의 보안을 기본적으로 강화합니다.
+
+또한, "모범 사례"(최고의 실천 모델)에 대한 조언, 취약점을 Tauri 팀에 보고하는 방법, 그리고 상세한 개념 설명에 대한 참고 정보도 언급되어 있습니다.
+
+:::note
+
+Tauri 애플리케이션의 보안은 Tauri 자체의 전반적인 보안, Rust 및 npm의 모든 종속성, 여러분 자신의 코드, 그리고 최종 애플리케이션을 실행하는 장치, 이 모든 것의 보안의 총합이라는 것을 기억하는 것이 중요합니다.
+Tauri 팀은 팀으로서의 역할에 최선을 다하고, 보안 커뮤니티도 그 역할을 다하므로, 여러분 자신도 몇 가지 중요한 "모범 사례"의 방식을 따라해 보십시오.
+
+:::
+
+## 신뢰 경계 Trust Boundaries
+
+> "신뢰 경계/트러스트 바운더리"는 컴퓨터 과학 및 보안 분야에서 사용되는 용어로, 프로그램 데이터 또는 실행 프로그램의 "신뢰" 수준이 바뀌는 경계선, 또는 다른 보안 수준<sup>※</sup>을 가진 두 개의 동작 주체("보안 주체")가 데이터나 명령을 주고받을 때의 신뢰 수준 한계선을 말합니다.
+> [^wikipedia-trust-boundary](영어)
+
+[^wikipedia-trust-boundary]: [https://en.wikipedia.org/wiki/Trust_boundary](https://en.wikipedia.org/wiki/Trust_boundary).
+
+> > > 《번역 주》 **보안 수준** 원문 different **capabilities**(다른 **기능**)의 번역. 구체적인 의미 내용이 불분명하여 Wikipedia 중국어판의 표기 "**신뢰 수준**이 다른 두 시스템이..."(Google 번역에 따름)에 근거하여 "보안 수준"으로 번역했습니다. [보안 수준](/ko/security/capabilities/)을 참조하십시오.
+
+Tauri의 보안 모델은 애플리케이션의 코어용으로 작성된 "Rust 코드" 부분과, 시스템 WebView가 이해할 수 있는 모든 프레임워크 또는 언어로 작성된 "프론트엔드 코드" 부분으로 나뉩니다.
+
+경계 간에 주고받는 모든 데이터를 검사하고 엄격하게 정의하는 것은 "신뢰 경계 침해"(violation)를 방지하기 위해 매우 중요합니다. 만약 데이터가 "접근 제어 없이" 경계선을 넘나들면, 공격자에게는 권한을 상승시켜 악용하기가 쉬워집니다.
+
+[IPC 레이어](/ko/concept/inter-process-communication/) (프로세스 간 통신)는 이 두 신뢰 그룹 간의 통신 다리 역할을 하여 경계가 깨지지 않도록 합니다.
+
+![IPC Diagram](@assets/security/tauri-trust-boundaries.svg)
+
+> > > 《번역 주》 그림 속 용어
+> > > **System WebView** 시스템 웹뷰
+> > > ・ Application Frontend 애플리케이션 프론트엔드
+> > > ・ Remote Sources & Assets 원격 소스 및 자산
+> > > **IPC** 프로세스 간 통신
+> > > **Application Core** 애플리케이션 코어
+> > > ・ Tarui Core 타우리 코어부
+> > > ・ Backend 백엔드
+> > > ・ Plugins 플러그인
+> > > ・ Local System 로컬 시스템
+
+플러그인 또는 애플리케이션 코어에 의해 실행되는 코드는 사용 가능한 모든 시스템 리소스에 완전히 액세스할 수 있으며 제약이 없습니다.
+
+WebView에서 실행되는 코드는 공개된 시스템 리소스에만 명확하게 정의된 IPC 레이어를 통해 액세스할 수 있습니다.
+코어 애플리케이션 명령에 대한 액세스는 애플리케이션 설정에 정의된 보안 수준에 따라 설정 및 제한됩니다.
+개별 명령 구현은 이 또한 "보안 수준 설정"에서도 정의된 임의 설정의 세분화된 액세스 수준을 적용합니다.
+
+각 구성 요소와 경계 적용에 대한 자세한 내용은 다음을 참조하십시오:
+
+<CardGrid>
+  <LinkCard title="접근 권한" href="/ko/security/permissions/" />
+  <LinkCard title="범위" href="/ko/security/scope/" />
+  <LinkCard title="보안 수준" href="/ko/security/capabilities/" />
+  <LinkCard title="런타임 통제" href="/ko/security/runtime-authority/" />
+</CardGrid>
+
+Tauri에서는 개발자가 고유한 프론트엔드 스택과 프레임워크를 선택할 수 있습니다.
+이는 Tauri가 선택된 개별 프론트엔드 스택에 대한 보안 강화 가이드를 제공할 수 없다는 것을 의미하는 것이 아니라, Tauri가 공격 대상 영역을 제어하고 봉쇄하기 위한 포괄적인 기능을 제공한다는 것을 의미합니다.
+
+<CardGrid>
+  <LinkCard title="콘텐츠 보안 정책(CSP)" href="/ko/security/csp/" />
+  <LinkCard
+    title="격리형"
+    href="/ko/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+## WebViews 번들링 "없음"
+
+Tauri의 접근 방식은 운영 체제에 포함된 WebView에 의존하고 WebView를 애플리케이션 바이너리에 번들링하지 않는 것입니다.
+
+여기에는 여러 가지 이유가 있지만, 보안 관점에서 가장 중요한 이유는 WebView의 보안 패치가 공개된 후 애플리케이션의 최종 사용자에게 배포되기까지 걸리는 평균 시간입니다.
+
+![IPC Diagram](@assets/security/tauri-update-lag.svg)
+
+> > > 《번역 주》 그림: WebView 번들 유무에 따른 보안 업데이트 시간 차이
+
+관찰한 바에 따르면, WebView 패킷 유지 관리자와 운영 체제 패킷 유지 관리자는 WebView를 애플리케이션에 직접 번들링하는 애플리케이션 개발자보다 보안 패치를 적용하고 Webview 릴리스를 배포하는 속도가 평균적으로 훨씬 빠릅니다.
+
+이 관찰에는 예외가 있으며, 이론적으로는 두 방법 모두 비슷한 시간 내에 실행할 수 있지만, 그러려면 각 애플리케이션에 대해 부수적인 비용이 더 큰 인프라가 필요합니다.
+
+Tauri 애플리케이션 개발자의 경험상, 번들링에는 나쁜 면이 있습니다. 그것이 본질적으로 안전하지 않다고 생각하는 것은 아니지만, 현재의 설계 사양은 현실의 알려진 취약점을 대폭 줄이기 위한 트레이드오프(타협점)입니다.
+
+## 생태계
+
+Tauri의 조직은 단순히 Tauri 리포지토리만 제공하고 유지 관리하는 것이 아니라, 합리적이고 안전한 멀티플랫폼 애플리케이션 프레임워크를 확실히 제공하기 위해 더 나아가 노력하고 있습니다.
+
+개발 프로세스의 보안 확보 방법, 적용 및 구현할 수 있는 내용, 애플리케이션이 직면할 수 있는 알려진 위협, 향후 개선 및 강화 계획 등에 대해 자세히 알고 싶다면 다음 문서를 참조하십시오:
+
+<CardGrid>
+  <LinkCard title="생태계 보안" href="/ko/security/ecosystem/" />
+  <LinkCard
+    title="애플리케이션 라이프사이클에서의 위협"
+    href="/ko/security/lifecycle/"
+  />
+  <LinkCard title="앞으로의 과제" href="/ko/security/future/" />
+</CardGrid>
+
+## 협력적 정보 공개
+
+Tauri 또는 기타 리포지토리에 보안상의 우려나 문제가 있다고 생각되는 경우, **발견한 사항에 대해 공개적으로 언급하지 마십시오**. 대신 직접 Tauri의 보안팀에 연락하십시오.
+
+권장되는 보고 방법은 영향을 받는 리포지토리의 [Github Vulnerability Disclosure](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability) (Github 취약점 보고)를 통하는 것입니다.
+Tauli의 대부분의 리포지토리에서는 이 연락 기능이 활성화되어 있지만, 잘 모르는 경우에는 [Tauri 리포지토리](https://github.com/tauri-apps/tauri/security/advisories/new)에서 보내주십시오.
+
+또는 [security@tauri.app](mailto:security@tauri.app)으로 이메일을 보내실 수도 있습니다.
+
+현재 보안 포상금 예산은 없지만, 경우에 따라 제한된 리소스 내에서 협력적인 정보 공개에 보상을 주는 것도 검토합니다.
