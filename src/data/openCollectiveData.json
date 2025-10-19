@@ -902,6 +902,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Allan Gaunt",
     "id": "Allan Gaunt",
     "avatarUrl": "https://images.opencollective.com/allan-gaunt/be138af/avatar/256.jpg",
@@ -963,15 +972,6 @@
     "id": "John Scott",
     "avatarUrl": "https://images.opencollective.com/john-scott/8942930/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/john-scott",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
