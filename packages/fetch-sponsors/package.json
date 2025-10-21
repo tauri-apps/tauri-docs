@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.3",
   "dependencies": {
     "@octokit/core": "^7.0.3",
     "@octokit/plugin-paginate-graphql": "^6.0.0",
