@@ -112,7 +112,8 @@ export const config = {
 
   // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
   onPrepare: () => {
-    spawnSync('yarn', ['tauri', 'build', '--debug', '--no-bundle'], {
+    // Remove the extra `--` if you're not using npm!
+    spawnSync('npm', ['run', 'tauri', 'build', '--', '--debug', '--no-bundle'], {
       cwd: path.resolve(__dirname, '..'),
       stdio: 'inherit',
       shell: true,
