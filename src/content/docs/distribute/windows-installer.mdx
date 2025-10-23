@@ -102,10 +102,10 @@ Default Tauri apps should not require this.
 </TabItem>
 <TabItem label="macOS">
 ```sh title=macOS
-brew install llvm
+brew install llvm lld
 ```
 
-On macOS you also have to add `/opt/homebrew/opt/llvm/bin` to your `$PATH` as suggested in the install output.
+On macOS you also have to add `/opt/homebrew/opt/llvm/bin` to your `$PATH` as suggested in the install output (LLD is now provided in a separate formula in Homebrew).
 
 </TabItem>
 </Tabs>
