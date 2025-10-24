@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { OC_IMAGE_DIMENSION } from 'packages/fetch-sponsors/config';
 import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
+import fallbackImage from 'src/assets/fallback.jpg';
 
 interface Props {
   sponsor: Sponsor;
@@ -17,6 +18,11 @@ const roundingStyle: Record<Sponsor['type'], string> = {
 
 function getUrl(sponsor: Sponsor): string {
   return `${sponsor.socialLinks?.website ?? sponsor.profileUrl}?ref=tauri.app&utm_source=tauri.app`;
+}
+
+const res = await fetch(sponsor.avatarUrl, { method: 'HEAD' });
+if (res && !res.ok) {
+  sponsor.avatarUrl = fallbackImage.src;
 }
 ---
 
