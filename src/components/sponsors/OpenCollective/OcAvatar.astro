@@ -19,6 +19,11 @@ const roundingStyle: Record<Sponsor['type'], string> = {
 function getUrl(sponsor: Sponsor): string {
   return `${sponsor.socialLinks?.website ?? sponsor.profileUrl}?ref=tauri.app&utm_source=tauri.app`;
 }
+
+const res = await fetch(sponsor.avatarUrl, { method: 'HEAD' });
+if (res && !res.ok) {
+  sponsor.avatarUrl = fallbackImage.src;
+}
 ---
 
 {
@@ -32,7 +37,6 @@ function getUrl(sponsor: Sponsor): string {
           width={OC_IMAGE_DIMENSION}
           height={OC_IMAGE_DIMENSION}
           class={`image ${sponsor.tier} ${roundingStyle[sponsor.type]}`}
-          onError={`this.src='${fallbackImage.src}';`}
         />
         <p class="name platinum">{sponsor.name}</p>
       </a>
@@ -51,7 +55,6 @@ function getUrl(sponsor: Sponsor): string {
           width={OC_IMAGE_DIMENSION}
           height={OC_IMAGE_DIMENSION}
           class={`image ${sponsor.tier} ${roundingStyle[sponsor.type]}`}
-          onError={`this.src='${fallbackImage.src}';`}
         />
       </a>
     </div>
