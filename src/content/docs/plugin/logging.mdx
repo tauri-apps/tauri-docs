@@ -342,6 +342,32 @@ tauri_plugin_log::Builder::new()
   .build()
 ```
 
+### Applying a different format to targets
+
+You can specify your own log format for specific targets by using the `format` method
+on `tauri_plugin_log::Target`. You may also wish to call `clear_format` on the builder
+to remove the default formatter, which is applied to all targets:
+
+```rust
+tauri_plugin_log::Builder::new()
+    .clear_format()
+    .targets([
+        tauri_plugin_log::Target::new(
+            tauri_plugin_log::TargetKind::Stdout
+        )
+        .format(move |out, message, record| {
+            // custom formatter for stdout
+        }),
+        tauri_plugin_log::Target::new(
+            tauri_plugin_log::TargetKind::LogDir { file_name: None }
+        )
+        .format(move |out, message, record| {
+            // custom formatter for log files
+        }),
+    ])
+    .build(),
+```
+
 #### Log dates
 
 By default the log plugin uses the UTC timezone to format dates
