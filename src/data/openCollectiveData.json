@@ -145,6 +145,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Pete Thomas",
+    "id": "Pete Thomas",
+    "avatarUrl": "https://images.opencollective.com/user-44f56a2f/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-44f56a2f",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "FUTO",
     "id": "FUTO",
     "avatarUrl": "https://images.opencollective.com/futo/avatar/256.jpg",
@@ -153,15 +162,6 @@
       "website": "https://www.futo.org/",
       "twitter": "https://x.com/FUTO_Tech"
     },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Pete Thomas",
-    "id": "Pete Thomas",
-    "avatarUrl": "https://images.opencollective.com/user-44f56a2f/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-44f56a2f",
-    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -487,6 +487,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "MasterDarius",
+    "id": "MasterDarius",
+    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/masterdarius",
+    "socialLinks": {
+      "website": "https://www.nikolaosmargaris.gr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "EthicalAds",
     "id": "EthicalAds",
     "avatarUrl": "https://images.opencollective.com/ethicalads/ad1ea41/logo/256.jpg",
@@ -527,17 +538,6 @@
     "avatarUrl": "https://images.opencollective.com/guest-1092fa70/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/guest-1092fa70",
     "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "MasterDarius",
-    "id": "MasterDarius",
-    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/masterdarius",
-    "socialLinks": {
-      "website": "https://www.nikolaosmargaris.gr"
-    },
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -602,10 +602,10 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "David Lemarier",
-    "id": "David Lemarier",
-    "avatarUrl": "https://images.opencollective.com/david-lemarier/0211cdd/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/david-lemarier",
+    "name": "Pochoclin",
+    "id": "Pochoclin",
+    "avatarUrl": "https://images.opencollective.com/pochoclin/fb0a3f2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/pochoclin",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
