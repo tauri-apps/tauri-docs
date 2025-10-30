@@ -69,3 +69,11 @@ Install the persisted-scope plugin to get started.
 ## Usage
 
 After setup the plugin will automatically save and restore filesystem and asset scopes.
+
+## Troubleshooting
+
+If the plug-in does not seem to save the scope, make sure that this plug-in is initialized AFTER the fs plug-in. If it is not the case, you should see a warning message upon launching your app in dev mode, similar to this:
+
+```
+Please make sure to register the `fs` plugin before the `persisted-scope` plugin!
+```
