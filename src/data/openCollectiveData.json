@@ -2,7 +2,7 @@
   {
     "name": "1Password",
     "id": "1Password",
-    "avatarUrl": "https://images.opencollective.com/1password1/854a318/logo/256.jpg",
+    "avatarUrl": "https://images.opencollective.com/1password1/a8df05b/logo/256.jpg",
     "profileUrl": "https://opencollective.com/1password1",
     "socialLinks": {
       "website": "https://1password.com",
@@ -25,6 +25,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Lightfinder",
+    "id": "Lightfinder",
+    "avatarUrl": "https://images.opencollective.com/lightfinder/b41bd05/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/lightfinder",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Keygen",
     "id": "Keygen",
     "avatarUrl": "https://images.opencollective.com/keygen/a65e160/avatar/256.jpg",
@@ -36,15 +45,6 @@
     },
     "tier": "gold",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Lightfinder",
-    "id": "Lightfinder",
-    "avatarUrl": "https://images.opencollective.com/lightfinder/b41bd05/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/lightfinder",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Sourcegraph",
@@ -234,7 +234,7 @@
     "avatarUrl": "https://images.opencollective.com/aaron-campbell/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/aaron-campbell",
     "socialLinks": {},
-    "tier": "silver",
+    "tier": "gold",
     "type": "INDIVIDUAL"
   },
   {
@@ -390,26 +390,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Adam Leonard",
-    "id": "Adam Leonard",
-    "avatarUrl": "https://images.opencollective.com/guest-041a692a/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/guest-041a692a",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "JL",
-    "id": "JL",
-    "avatarUrl": "https://images.opencollective.com/jl2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jl2",
-    "socialLinks": {
-      "website": "https://commandline.be"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Clemens Koza",
     "id": "Clemens Koza",
     "avatarUrl": "https://images.opencollective.com/clemens-koza/avatar/256.jpg",
@@ -426,6 +406,26 @@
     "avatarUrl": "https://images.opencollective.com/martin-kramer/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/martin-kramer",
     "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Adam Leonard",
+    "id": "Adam Leonard",
+    "avatarUrl": "https://images.opencollective.com/guest-041a692a/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/guest-041a692a",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "JL",
+    "id": "JL",
+    "avatarUrl": "https://images.opencollective.com/jl2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jl2",
+    "socialLinks": {
+      "website": "https://commandline.be"
+    },
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -573,7 +573,7 @@
   {
     "name": "Archon Systems Inc.",
     "id": "Archon Systems Inc.",
-    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/85fa9b1/logo/256.jpg",
+    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
     "profileUrl": "https://opencollective.com/archon-systems-inc",
     "socialLinks": {
       "website": "https://www.archonsystems.com/",
@@ -867,7 +867,7 @@
       "website": "https://github.com/alexeden",
       "github": "https://github.com/alexeden"
     },
-    "tier": "bronze",
+    "tier": "silver",
     "type": "INDIVIDUAL"
   },
   {
@@ -897,6 +897,15 @@
     "id": "Gregory Schier",
     "avatarUrl": "https://images.opencollective.com/gregory-schier/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/gregory-schier",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Paco",
+    "id": "Paco",
+    "avatarUrl": "https://images.opencollective.com/guest-70c62a81/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/guest-70c62a81",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -945,15 +954,6 @@
     "id": "Johnny IV Young",
     "avatarUrl": "https://images.opencollective.com/johnny-iv-young/0483aac/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/johnny-iv-young",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Paco",
-    "id": "Paco",
-    "avatarUrl": "https://images.opencollective.com/guest-70c62a81/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/guest-70c62a81",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -1230,7 +1230,7 @@
   {
     "name": "Artisanal Code",
     "id": "Artisanal Code",
-    "avatarUrl": "https://images.opencollective.com/artisanal-code/1b03fce/logo/256.jpg",
+    "avatarUrl": "https://images.opencollective.com/artisanal-code/934d0f0/logo/256.jpg",
     "profileUrl": "https://opencollective.com/artisanal-code",
     "socialLinks": {
       "website": "https://artisanalcode.com"
@@ -1602,7 +1602,7 @@
   {
     "name": "INTECH - Groupe ESIEA",
     "id": "INTECH - Groupe ESIEA",
-    "avatarUrl": "https://images.opencollective.com/intech-groupe-esiea/3fd8c27/logo/256.jpg",
+    "avatarUrl": "https://images.opencollective.com/intech-groupe-esiea/38fc48a/logo/256.jpg",
     "profileUrl": "https://opencollective.com/intech-groupe-esiea",
     "socialLinks": {
       "website": "https://www.intechinfo.fr",
