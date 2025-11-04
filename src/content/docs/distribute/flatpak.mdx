@@ -148,7 +148,7 @@ modules:
       - ar -x src-tauri/target/release/bundle/deb/*.deb
       - tar -xf src-tauri/target/release/bundle/deb/your-app/data.tar.gz
       - install -Dm755 src-tauri/target/release/bundle/deb/your-app/data/usr/bin/your-command /app/bin/your-command
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/applications/Rosary-Music.desktop /app/share/applications/org.your.id.desktop
+      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/applications/your-app.desktop /app/share/applications/org.your.id.desktop
       - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/128x128/apps/your-app.png /app/share/icons/hicolor/128x128/apps/your-app.png
       - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/32x32/apps/your-app.png /app/share/icons/hicolor/32x32/apps/your-app.png
       - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/256x256@2/apps/your-app.png /app/share/icons/hicolor/512x512/apps/your-app.png
