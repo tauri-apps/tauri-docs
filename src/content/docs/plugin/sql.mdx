@@ -154,48 +154,51 @@ We use [sqlx](https://docs.rs/sqlx/latest/sqlx/) as the underlying library and a
 <Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 Use the "$#" syntax when substituting query data
+
 ```javascript
 const result = await db.execute(
-  "INSERT into todos (id, title, status) VALUES ($1, $2, $3)",
-  [todos.id, todos.title, todos.status],
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
 );
 
 const result = await db.execute(
-"UPDATE todos SET title = $1, status = $2 WHERE id = $3",
-[todos.title, todos.status, todos.id],
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
 );
+```
 
-````
   </TabItem>
   <TabItem label="MySQL">
 Use "?" when substituting query data
+
 ```javascript
 const result = await db.execute(
-  "INSERT into todos (id, title, status) VALUES (?, ?, ?)",
-  [todos.id, todos.title, todos.status],
+  'INSERT into todos (id, title, status) VALUES (?, ?, ?)',
+  [todos.id, todos.title, todos.status]
 );
 
 const result = await db.execute(
-  "UPDATE todos SET title = ?, status = ? WHERE id = ?",
-  [todos.title, todos.status, todos.id],
+  'UPDATE todos SET title = ?, status = ? WHERE id = ?',
+  [todos.title, todos.status, todos.id]
 );
-````
+```
 
   </TabItem>
   <TabItem label="PostgreSQL">
 Use the "$#" syntax when substituting query data
+
 ```javascript
 const result = await db.execute(
-  "INSERT into todos (id, title, status) VALUES ($1, $2, $3)",
-  [todos.id, todos.title, todos.status],
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
 );
 
 const result = await db.execute(
-"UPDATE todos SET title = $1, status = $2 WHERE id = $3",
-[todos.title, todos.status, todos.id],
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
 );
+```
 
-````
   </TabItem>
 </Tabs>
 
@@ -218,7 +221,7 @@ let migration = Migration {
     sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
     kind: MigrationKind::Up,
 };
-````
+```
 
 Or if you want to use SQL from a file, you can include it by using `include_str!`:
 
