@@ -286,6 +286,10 @@ const db = await Database.load('sqlite:mydatabase.db');
 
 Ensure that the migrations are defined in the correct order and are safe to run multiple times.
 
+:::note
+All migrations are executed within a transaction, ensuring atomicity. If any migration fails, the entire transaction is rolled back, leaving the database in a consistent state.
+:::
+
 ### Migration Management
 
 - **Version Control**: Each migration must have a unique version number. This is crucial for ensuring the migrations are applied in the correct order.
