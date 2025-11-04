@@ -67,7 +67,7 @@ Install the persisted-scope plugin to get started.
 </Tabs>
 
 :::caution
-The `persisted-scope` plugin *must* be registered and initialized after the `fs` plugin, as illustrated by the example below:
+The `persisted-scope` plugin _must_ be registered and initialized after the `fs` plugin, as illustrated by the example below:
 
 ```rs
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -85,6 +85,7 @@ pub fn run() {
 ```
 Please make sure to register the `fs` plugin before the `persisted-scope` plugin!
 ```
+
 :::
 
 ## Usage
