@@ -277,8 +277,6 @@ To apply the migrations when the plugin is initialized, add the connection strin
 }
 ```
 
-> **Note:** All migrations are executed within a transaction, ensuring atomicity. If any migration fails, the entire transaction is rolled back, leaving the database in a consistent state.
-
 Alternatively, the client side `load()` also runs the migrations for a given connection string:
 
 ```ts
@@ -287,6 +285,10 @@ const db = await Database.load('sqlite:mydatabase.db');
 ```
 
 Ensure that the migrations are defined in the correct order and are safe to run multiple times.
+
+:::note
+All migrations are executed within a transaction, ensuring atomicity. If any migration fails, the entire transaction is rolled back, leaving the database in a consistent state.
+:::
 
 ### Migration Management
 
