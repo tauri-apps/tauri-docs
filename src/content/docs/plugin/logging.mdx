@@ -350,7 +350,7 @@ to remove the default formatter, which is applied to all targets:
 
 ```rust
 tauri_plugin_log::Builder::new()
-    .reset_format()
+    .clear_format()
     .targets([
         tauri_plugin_log::Target::new(
             tauri_plugin_log::TargetKind::Stdout
