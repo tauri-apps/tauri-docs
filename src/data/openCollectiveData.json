@@ -904,8 +904,8 @@
   {
     "name": "Paco",
     "id": "Paco",
-    "avatarUrl": "https://images.opencollective.com/guest-70c62a81/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/guest-70c62a81",
+    "avatarUrl": "https://images.opencollective.com/paco5/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/paco5",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -1058,6 +1058,30 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Taylor Gregoire-Wright",
     "id": "Taylor Gregoire-Wright",
     "avatarUrl": "https://images.opencollective.com/tgregoirewright/1281ac6/avatar/256.jpg",
@@ -1072,17 +1096,6 @@
     "avatarUrl": "https://images.opencollective.com/jimmy-gee/3ae6251/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/jimmy-gee",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
@@ -1495,19 +1508,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Andreas Gerlach",
@@ -3232,6 +3232,17 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   },
   {
     "name": "Indokasino",
