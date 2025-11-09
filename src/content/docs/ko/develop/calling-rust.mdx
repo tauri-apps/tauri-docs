@@ -37,7 +37,7 @@ fn my_custom_command() {
 `lib.rs` 파일에 정의된 명령은 "[글루 코드](https://ko.wikipedia.org/wiki/글루_코드) 생성"에 대한 제약 때문에 `pub`(공개)으로 지정할 수 없습니다.
 "공개 함수"로 지정하면 다음과 같은 오류가 표시됩니다:
 
-````
+```
 error[E0255]: the name `__cmd__command_name` is defined multiple times 《`__cmd__command_name`이라는 이름이 여러 번 정의되었습니다》
   --> src/lib.rs:28:8
    |
@@ -48,6 +48,7 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times 《`__cmd
    |
    = note: `__cmd__command_name` must be defined only once in the macro namespace of this module 《참고: `__cmd__command_name`은 이 모듈의 매크로 네임스페이스에 한 번만 정의해야 합니다》
 ```
+
 :::
 
 명령 목록은 다음과 같이 "빌더" 함수에 제공해야 합니다.
@@ -60,7 +61,7 @@ pub fn run() {
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }
-````
+```
 
 이제 JavaScript 코드에서 명령을 호출할 수 있습니다.
 

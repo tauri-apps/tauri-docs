@@ -37,7 +37,7 @@ fn my_custom_command() {
 `lib.rs` ファイルに定義されたコマンドは、「[グルーコード](https://ja.wikipedia.org/wiki/グルーコード)生成」に対する制約のため、`pub`（パブリック／公開）として指定できません。
 「パブリック関数」として指定すると、次のようなエラーが表示されます：
 
-````
+```
 error[E0255]: the name `__cmd__command_name` is defined multiple times　《`__cmd__command_name`という名称は複数定義されています》
   --> src/lib.rs:28:8
    |
@@ -48,6 +48,7 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times　《`__c
    |
    = note: `__cmd__command_name` must be defined only once in the macro namespace of this module　《注記： `__cmd__command_name` はこのモジュールのマクロ名前空間に一度だけ定義できます》
 ```
+
 :::
 
 コマンドのリストは、次のように、「ビルダー」関数に提供する必要があります。
@@ -60,7 +61,7 @@ pub fn run() {
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }
-````
+```
 
 これで、JavaScript コードからコマンドを呼び出すことができます。
 
