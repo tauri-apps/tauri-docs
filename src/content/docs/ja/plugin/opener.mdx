@@ -1,0 +1,185 @@
+---
+title: Opener（ファイル・オープン）
+description: ファイルと URL を外部アプリケーションで開きます。
+plugin: opener
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+このプラグインを使用すると、ファイルや URL を、指定したアプリケーションまたはデフォルトのアプリケーションで開くことができます。また、システムのファイル・エクスプローラーでファイルを「表示」することもできます。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「opener」プラグインをインストールしてください。
+
+<Tabs>
+	<TabItem label="自動で設定" >
+		自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add opener"
+            yarn="yarn run tauri add opener"
+            pnpm="pnpm tauri add opener"
+            deno="deno task tauri add opener"
+            bun="bun tauri add opener"
+            cargo="cargo tauri add opener"
+    	/>
+    </TabItem>
+    <TabItem label = "手動で設定">
+    	<Steps>
+          1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+              ```sh frame=none
+              cargo add tauri-plugin-opener
+              ```
+
+          2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_opener::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-opener"
+                  yarn = "yarn add @tauri-apps/plugin-opener"
+                  pnpm = "pnpm add @tauri-apps/plugin-opener"
+                  deno = "deno add npm:@tauri-apps/plugin-opener"
+                  bun = "bun add @tauri-apps/plugin-opener"
+              />
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用法
+
+「opener」プラグインは、JavaScript と Rust の両方で利用できます。
+
+<Tabs syncKey="lang">
+	<TabItem label="JavaScript" >
+
+```javascript
+import { openPath } from '@tauri-apps/plugin-opener';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { openPath } = window.__TAURI__.opener;　を使用できます
+
+// デフォルトのプログラムを使用してファイルを開きます：
+await openPath('/path/to/file');
+// Windows で `vlc` コマンドを使用してファイルを開きます：
+await openPath('C:/path/to/file', 'vlc');
+```
+
+    </TabItem>
+    <TabItem label = "Rust" >
+
+`app` は `App` または [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html) のインスタンスであることに注意してください。
+
+```rust
+use tauri_plugin_opener::OpenerExt;
+
+// デフォルトのプログラムを使用してファイルを開きます：
+app.opener().open_path("/path/to/file", None::<&str>);
+// Windows で `vlc` コマンドを使用してファイルを開きます：
+app.opener().open_path("C:/path/to/file", Some("vlc"));
+```
+
+    </TabItem>
+
+</Tabs>
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+以下にスコープ設定例を二つ示します。`path` と `url` はどちらも [glob pattern syntax](https://docs.rs/glob/latest/glob/struct.Pattern.html)（グロブ・パターン構文）を使用して、許可されるファイルパスと URL を定義します。
+
+<TranslationNote lang="ja">
+
+**グロブ・パターン**　glob pattern：　ワイルドカードでファイル名のセットを検索・照合するために指定する文字パターンのこと《[wikipedia](https://ja.wikipedia.org/wiki/グロブ)》
+
+</TranslationNote>
+
+最初の例は、`openPath()` 関数の特定のパスにアクセス権限を追加する方法を示します：
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "/path/to/file"
+        },
+        {
+          "path": "$APPDATA/file"
+        }
+      ]
+    }
+  ]
+}
+```
+
+二例目は、`openUrl()` 関数に対して、`https://tauri.app` URL そのものと、カスタム指定されているすべての URL（OS に認識されている必要があります）にアクセス権限を追加する方法を示します：
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://tauri.app"
+        },
+        {
+          "url": "custom:*"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Aug 9, 2025 英語版」に基づいています】
+</div>

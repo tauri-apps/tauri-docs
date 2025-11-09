@@ -1,0 +1,88 @@
+---
+title: Persisted Scope（永続スコープ）
+description: ファイル・システム上の実行時のスコープ変更を持続させます。
+plugin: persisted-scope
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+ファイル・システムとアセットのスコープ（有効範囲）を保存し、アプリが再開されたときにその状態を復元します。
+
+<TranslationNote lang="ja">
+
+**デジタル・アセット**　digital asset：　「デジタル資産」。デジタル形式でのみ存在し、明確な使用権または使用許可が付与されているもの。《[wikipedia](https://ja.wikipedia.org/wiki/デジタル・アセット)》
+
+</TranslationNote>
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「persistd-scope」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定" >
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    { ' ' }
+
+    <CommandTabs
+      npm="npm run tauri add persisted-scope"
+      yarn="yarn run tauri add persisted-scope"
+      pnpm="pnpm tauri add persisted-scope"
+      deno="deno task tauri add persisted-scope"
+      bun="bun tauri add persisted-scope"
+      cargo="cargo tauri add persisted-scope"
+    />
+
+  </TabItem>
+  <TabItem label = "手動で設定">
+    <Steps>
+
+    1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+        ```sh frame=none
+        cargo add tauri-plugin-persisted-scope
+        ```
+
+    2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_persisted_scope::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 使用法
+
+セットアップ後、このプラグインは自動的にファイル・システムとアセット・スコープを保存および復元します。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
