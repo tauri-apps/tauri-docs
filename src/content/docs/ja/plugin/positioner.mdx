@@ -1,0 +1,168 @@
+---
+title: Positioner（ウィンドウ配置）
+description: ウィンドウを通常の場所に移動します。
+plugin: positioner
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+ウィンドウをよく知られた場所に配置します。
+
+このプラグインは、[electron-positioner](https://github.com/jenslind/electron-positioner) を Tauri に移植したものです。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「positioner」プラグインをインストールしてください。
+
+:::note
+Rust コードからウィンドウの移動を行なうだけの場合は、`src-tauri/Cargo.toml` 内の依存関係のみが必要です。したがって、以下の「自動」セットアップを選択した場合は `lib.rs` から「プラグインの登録」を削除できます。
+:::
+
+<Tabs>
+    <TabItem label="自動で設定" >
+
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        { ' ' }
+
+        <CommandTabs
+            npm="npm run tauri add positioner"
+            yarn="yarn run tauri add positioner"
+            pnpm="pnpm tauri add positioner"
+            bun="bun tauri add positioner"
+            deno="deno task tauri add positioner"
+            cargo="cargo tauri add positioner"
+        />
+
+    </TabItem>
+    <TabItem label = "手動で設定">
+        <Steps>
+            1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+                ```sh frame=none
+                cargo add tauri-plugin-positioner --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+                ```
+
+            2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+                ```rust title="src-tauri/src/lib.rs" ins={4}
+                #[cfg_attr(mobile, tauri::mobile_entry_point)]
+                pub fn run() {
+                    tauri::Builder::default()
+                        .setup(|app| {
+                            #[cfg(desktop)]
+                            app.handle().plugin(tauri_plugin_positioner::init());
+                            Ok(())
+                        })
+                        .run(tauri::generate_context!())
+                        .expect("error while running tauri application");
+                }
+                ```
+
+            3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+                <CommandTabs
+                    npm = "npm install @tauri-apps/plugin-positioner"
+                    yarn = "yarn add @tauri-apps/plugin-positioner"
+                    pnpm = "pnpm add @tauri-apps/plugin-positioner"
+                    deno = "deno add npm:@tauri-apps/plugin-positioner"
+                    bun = "bun add @tauri-apps/plugin-positioner"
+                />
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+「トレイの相対配置」を機能させるには追加の設定が必要です。
+
+<Steps>
+    1. `Cargo.toml` ファイルに `tray-icon` 機能を追加します：
+        ```toml title="src-tauri/Cargo.toml" ins={2}
+        [dependencies]
+        tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
+        ```
+
+    2. 「positioner」プラグインに `on_tray_event` を設定します：
+        ```rust title="src-tauri/src/lib.rs" ins={4-12}
+        pub fn run() {
+            tauri::Builder::default()
+                // これは「トレイ相対配置」を機能させるために必要です
+                .setup(|app| {
+                    #[cfg(desktop)]
+                    {
+                        app.handle().plugin(tauri_plugin_positioner::init());
+                            tauri::tray::TrayIconBuilder::new()
+                                .on_tray_icon_event(|tray_handle, event| {
+                                    tauri_plugin_positioner::on_tray_event(tray_handle.app_handle(), &event);
+                                })
+                                .build(app)?;
+                    }
+                Ok(())
+            })
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+        }
+        ```
+
+</Steps>
+
+## 使用法
+
+このプラグインの API は、「JavaScript Guest」バインディングを通じて利用できます：
+
+```javascript
+import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { moveWindow, Position } = window.__TAURI__.positioner; を使用できます
+
+moveWindow(Position.TopRight);
+```
+
+Rust を通して Window 特性拡張（trait extention）を直接インポートして使用することができます：
+
+```rust
+use tauri_plugin_positioner::{WindowExt, Position};
+
+let mut win = app.get_webview_window("main").unwrap();
+let _ = win.as_ref().window().move_window(Position::TopRight);
+```
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "positioner:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

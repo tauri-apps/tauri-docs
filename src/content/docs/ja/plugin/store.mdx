@@ -1,0 +1,211 @@
+---
+title: Store（キー値保存）
+description: 永続的なキー値の保存。
+plugin: store
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+このプラグインは、「永続的なキー値の保存」を提供します。これは、アプリケーションの状態を管理するための数あるオプションの一つです。これ以外のオプションの詳細については、[状態管理の概要](/ja/develop/state-management/) の章をご覧ください。
+
+この「保存 Store」プラグインを使用すると、アプリの状態をファイルに保存・永続化でき、そのファイルはアプリの再起動時などを含め、必要に応じて保存・読み込みできます。このプロセスは非同期であるため、コード内で処理する必要があることに注意してください。WebView でも Rust でも使用できます。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「Store」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    <CommandTabs npm="npm run tauri add store"
+    yarn="yarn run tauri add store"
+    pnpm="pnpm tauri add store"
+    deno="deno task tauri add store"
+    bun="bun tauri add store"
+    cargo="cargo tauri add store" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+        1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-store
+            ```
+
+        2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_store::Builder::new().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+            <CommandTabs
+            npm = "npm install @tauri-apps/plugin-store"
+            yarn = "yarn add @tauri-apps/plugin-store"
+            pnpm = "pnpm add @tauri-apps/plugin-store"
+            deno = "deno add npm:@tauri-apps/plugin-store"
+            bun = "bun add @tauri-apps/plugin-store"
+            />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用方法
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```typescript
+import { load } from '@tauri-apps/plugin-store';
+// `"withGlobalTauri": true`, を使用する場合は、
+// const { load } = window.__TAURI__.store; を使用できます
+
+// 新しい「Store」を作成するか、既存の「Store」をロードします。
+// 同じパスを持つ `Store` がすでに作成されている場合には、オプション設定が無視されることに注意してください。
+const store = await load('store.json', { autoSave: false });
+
+// キー値を設定
+await store.set('some-key', { value: 5 });
+
+// キー値を取得
+const val = await store.get<{ value: number }>('some-key');
+console.log(val); // { value: 5 }
+
+// 変更を行なった後、「Store」を手動で保存できます。
+// 手動保存しない場合には、正常終了時に保存されます。
+// もし `autoSave`を「数値」に設定するか「空のまま」にしておくと、
+// `autoSave` はデバウンス遅延（デフォルトでは 100 ミリ秒）後に変更内容をディスクに保存します。《下記訳注参照》
+await store.save();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Wry;
+use tauri_plugin_store::StoreExt;
+use serde_json::json;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::default().build())
+        .setup(|app| {
+            // 新しい「Store」を作成するか、既存の「Store」をロードします。
+            // これにより、「Store」がアプリのリソース・テーブルに追加されます
+            // そのため、その後の（rust と js の両方からの）`store` 呼び出しは、
+            // 同じ「Store」を再利用します。
+            let store = app.store("store.json")?;
+
+            // 値は「serde_json::Value」のインスタンスでなければならないことに注意してください。
+            // そうしないと、JavaScript バインディングとの互換性がなくなります。
+            store.set("some-key", json!({ "value": 5 }));
+
+            // 「store」から値を取得
+            let value = store.get("some-key").expect("Failed to get value from store");
+            println!("{}", value); // {"value":5}
+
+            // リソース・テーブルから「store」を削除
+            store.close_resource();
+
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+</TabItem>
+</Tabs>
+
+<TranslationNote lang="ja">
+
+**デバウンス遅延**　debounce delay：　特定のイベントが短時間に連続して発生（バウンス）した際に（たとえばキーボード入力時のチャタリング）、意図しない余計な入力信号を無視する（デバウンス）ために。タイマーによる処理遅延時間を設定してそのような入力イベントを無視し、最後の入力だけが一度だけ実行されるようにする手法。
+
+</TranslationNote>
+
+### LazyStore API
+
+高レベル JavaScript API `LazyStore` もあり、これは最初のアクセス時にのみ「store」をロードします。
+
+```typescript
+import { LazyStore } from '@tauri-apps/plugin-store';
+
+const store = new LazyStore('settings.json');
+```
+
+## v1 版／v2 ベータ版（製品候補） からの移行
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```diff
+- import { Store } from '@tauri-apps/plugin-store';
++ import { LazyStore } from '@tauri-apps/plugin-store';
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```diff
+- with_store(app.handle().clone(), stores, path, |store| {
+-     store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+-     Ok(())
+- });
++ let store = app.store(path)?;
++ store.set("some-key".to_string(), json!({ "value": 5 }));
+```
+
+</TabItem>
+</Tabs>
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "store:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 10, 2025 英語版」に基づいています】
+</div>

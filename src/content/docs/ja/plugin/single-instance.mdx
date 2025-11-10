@@ -1,0 +1,228 @@
+---
+title: Single Instance（インスタンスの単一実行）
+description: 実行されているあなたの Tauri アプリ・インスタンスが一度に一つだけであることを保証します。
+plugin: single-instance
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+「Single Instance」プラグインを使用して、あなたの Tauri アプリのインスタンスが一度に一つだけ実行されていることを保証します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「Single Instance」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add single-instance"
+      yarn="yarn run tauri add single-instance"
+      pnpm="pnpm tauri add single-instance"
+      deno="deno task tauri add single-instance"
+      bun="bun tauri add single-instance"
+      cargo="cargo tauri add single-instance"
+    />
+
+  </TabItem>
+    <TabItem label="手動で設定">
+      <Steps>
+
+        1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-single-instance --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}));
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+:::note
+
+「Single Instance」プラグインを正常に動作させるためには、このプラグインを登録の先頭に置く必要があります。これにより、他のプラグインが干渉する前に「Single Instance」プラグインが実行されるようになります。
+
+:::
+
+## 使用法
+
+このプラグインがもうすでにインストールおよび初期化されていれば、すぐに正しく動作するはずです。ただし、`init()` メソッドを使用して機能を拡張することもできます。
+
+プラグインの `init()` メソッドは、新しいアプリのインスタンスが開始されたときに呼び出される「クロージャ」を受け取りますが、このクロージャはプラグインによって閉じられます。
+このクロージャには三つの引数があります：
+
+  <Steps>
+
+1. **`app`:** アプリケーションの [AppHandle](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html)。
+2. **`args`:** この新しいインスタンスを開始するためにユーザーによって渡された引数のリスト。
+3. **`cwd`:** 「CWD」（現在の作業ディレクトリ Current Working Directory）は、新しいアプリケーション・インスタンスが起動されたディレクトリを示します。
+
+  </Steps>
+
+<TranslationNote lang="ja">
+
+**クロージャ**　closure：　訳「関数閉包」。クロージャとは関数をまとめて／囲んで（バンドル）、その周囲の状態（レキシカル環境）への参照と組み合わせたもので、クロージャは関数にその外側のスコープへアクセスする機能を提供します（プログラム内で環境を共有するための仕組み）。JavaScript では、関数が作成されるたびに、つまり関数の作成時点で、クロージャが作成されます。《[mdn](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Closures); [wikipedia](https://ja.wikipedia.org/wiki/クロージャ)》
+
+**レキシカル環境**　lexical environment：　訳「語彙環境」。「レキシカル環境」は仕様上の隠れた内部の関連オブジェクトです（言語仕様の動作説明を行なうための理論上の存在）。このオブジェクトをコード上で取得したり直接操作することはできません。各処理が発生するたびにレキシカル環境は作成され、必要に応じて参照されます。《[Javascript.info ](https://ja.javascript.info/closure#ref-806)、[静的スコープ wikipedia](https://ja.wikipedia.org/wiki/静的スコープ)》
+
+</TranslationNote>
+
+そこで、「クロージャ」は以下のようになります：
+
+```rust
+.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+  // ここに、あなたのコードを記載します...
+}))
+```
+
+### 新しいインスタンスにフォーカス
+
+デフォルトでは、アプリケーションが既に実行されている状態で新しいインスタンスを開始しても、何も実行されません。ユーザーが新しいインスタンスを開こうとしたときに、実行中のインスタンスのウィンドウにフォーカスを当てるには、コールバック・クロージャを以下のように変更してください。
+
+```rust title="src-tauri/src/lib.rs" {1} {5-12}
+use tauri::{AppHandle, Manager};
+
+pub fn run() {
+    let mut builder = tauri::Builder::default();
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = app.get_webview_window("main")
+                       .expect("no main window")
+                       .set_focus();
+        }));
+    }
+
+    builder
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+## SnapとFlatpakでの使用
+
+Linuxでは、「Single Instance」プラグインは DBus を使用して、実行されるインスタンスが一つだけであることを保証します。この処理は、最初のインスタンスの実行開始時に DBus にサービスを発行することで実現しています。
+その後、後続のインスタンスが同じサービスを発行しようとしたときに、すでに別のサービスが発行されていた場合には、後続のインスタンスは最初のインスタンスに通知を行なうためにすでにあるサービスに要求を送信して、すぐに終了します。
+
+これは、アプリが deb か rpm のパッケージ、あるいは AppImage としてバンドルされている場合には非常にうまく機能しますが、snap や flatpak のパッケージでは、デフォルトのままでは意図したとおりに機能しません。これは、これらのパッケージが制約のあるサンドボックス環境で実行されており、パッケージのマニフェストで明示的に宣言されていない限り、DBus サービスへの通信のほとんどがブロックされるためです。
+
+<TranslationNote lang="ja">
+
+**DBus**　Desktop Bus：　「ディー・バス」。メッセージバスと呼ばれる、アプリケーション間でやりとりを行なうための、プロセス間通信 (IPC) 実装の一つ。プロセスの生成期間を調節し、それらのサービスが必要なときに簡単に呼び出すことができるようにします。《[wikipedia](https://ja.wikipedia.org/wiki/D-Bus)》
+
+</TranslationNote>
+
+以下は、snap および flatpak パッケージで「Single Instance」プラグインを有効化するために必要なアクセス権限を宣言する手順です：
+
+### アプリ ID の取得
+
+「Single Instance」プラグインは、`org.{id}.SingleInstance` という名前のサービスを発行します。
+
+`{id}` は `tauri.conf.json` ファイルの `identifier` になりますが、ドット (`.`) とダッシュ (`-`) は下線 (`_`) に置き換えられます。
+
+たとえば、あなたの `identifier` が `net.mydomain.MyApp` である場合:
+
+- `net_mydomain_MyApp` があなたのアプリの `{id}` であり、
+- `org.net_mydomain_MyApp.SingleInstance` があなたのアプリの「SingleInstance」サービスの名前になります。
+
+以下に示すように、アプリに snap や flatpak のマニフェストで DBus サービスを使用することを許可するためには、「サービス名」が必要になります。
+
+### Snap パッケージ
+
+あなたの「snapcraft.yml」ファイルで、「Single Instance」サービス用の「プラグ」と「スロット」を宣言し、アプリの宣言でその両方を使用します：
+
+```yaml title="snapcraft.yml"
+# ...
+slots:
+  single-instance:
+    interface: dbus
+    bus: session
+    name: org.net_mydomain_MyApp.SingleInstance # net_mydomain_MyApp の部分は「あなたのアプリ ID」に変更してください。
+
+plugs:
+  single-instance-plug:
+    interface: dbus
+    bus: session
+    name: org.net_mydomain_MyApp.SingleInstance # net_mydomain_MyApp の部分は「あなたのアプリ ID」に変更してください。
+
+# .....
+apps:
+  my-app:
+    # ...
+    plugs:
+      # ....
+      - single-instance-plug
+    slots:
+      # ...
+      - single-instance
+
+    # ....
+```
+
+これにより、あなたのアプリは、期待通りに「Single Instance」プラグインが DBus サービスとの間でリクエストを送受信できるようになります。
+
+### Flatpak パッケージ
+
+あなたの flatpak マニフェスト・ファイル（your.app.id.yml または your.app.id.json）で、「サービス名」を含む `--talk-name` と `--own-name` の終了引数（finish args）を宣言します：
+
+```yaml title="net.mydomain.MyApp.yml"
+# ...
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --share=ipc
+  # ....
+  - --talk-name=org.net_mydomain_MyApp.SingleInstance # net_mydomain_MyApp の部分は「あなたのアプリ ID」に変更してください。
+  - --own-name=org.net_mydomain_MyApp.SingleInstance # net_mydomain_MyApp の部分は「あなたのアプリ ID」に変更してください。
+# ...
+```
+
+これにより、あなたのアプリで、期待どおりに、「Single Instance」プラグインが DBus サービスとの間でリクエストを送受信できるようになります。
+
+## アクセス権限 Permissions
+
+このプラグインには現在 JavaScript API がないため、これを使用するための [capabilities](/ja/security/capabilities/) の設定を行なう必要はありません。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 3, 2025 英語版」に基づいています】
+</div>

@@ -1,0 +1,169 @@
+---
+title: Shell（シェル・アクセス）
+description: システム・シェルにアクセスして子プロセスを生成します。
+plugin: shell
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+システム・シェルにアクセスします。子プロセスの生成が可能になります。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Opener プラグイン
+
+`shell.open` API のドキュメントをお探しであれば、新しい「[Opener プラグイン](/ja/plugin/opener/)」の章を参照してください。
+
+## セットアップ
+
+はじめに、「shell」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定" >
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        { ' ' }
+
+        <CommandTabs
+            npm="npm run tauri add shell"
+            yarn="yarn run tauri add shell"
+            pnpm="pnpm tauri add shell"
+            deno="deno task tauri add shell"
+            bun="bun tauri add shell"
+            cargo="cargo tauri add shell"
+        />
+    </TabItem>
+    <TabItem label = "Manual">
+        <Steps>
+          1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+              ```sh frame=none
+              cargo add tauri-plugin-shell
+              ```
+
+          2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_shell::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-shell"
+                  yarn = "yarn add @tauri-apps/plugin-shell"
+                  pnpm = "pnpm add @tauri-apps/plugin-shell"
+                  deno = "deno add npm:@tauri-apps/plugin-shell"
+                  bun = "bun add @tauri-apps/plugin-shell"
+              />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用法
+
+「shell」プラグインは JavaScript と Rust の両方で利用できます。
+
+<Tabs syncKey="lang">
+	<TabItem label="JavaScript" >
+
+```javascript
+import { Command } from '@tauri-apps/plugin-shell';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { Command } = window.__TAURI__.shell; を使用できます
+
+let result = await Command.create('exec-sh', [
+  '-c',
+  "echo 'Hello World!'",
+]).execute();
+console.log(result);
+```
+
+    </TabItem>
+    <TabItem label = "Rust" >
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+let shell = app_handle.shell();
+let output = tauri::async_runtime::block_on(async move {
+        shell
+            .command("echo")
+            .args(["Hello from Rust!"])
+            .output()
+            .await
+            .unwrap()
+});
+if output.status.success() {
+		println!("Result: {:?}", String::from_utf8(output.stdout));
+} else {
+		println!("Exit with code: {}", output.status.code().unwrap());
+}
+```
+
+    </TabItem>
+
+</Tabs>
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={6-23}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "exec-sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "sidecar": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

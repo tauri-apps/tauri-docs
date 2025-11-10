@@ -1,0 +1,137 @@
+---
+title: Process（現行プロセス）
+description: 現在のプロセスにアクセスします。
+plugin: process
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+このプラグインは、現在のプロセスにアクセスするための API を提供します。子プロセスを生成するには、[shell](/ja/plugin/shell/)プラグインを参照してください。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「process」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    <CommandTabs npm="npm run tauri add process"
+    yarn="yarn run tauri add process"
+    pnpm="pnpm tauri add process"
+    deno="deno task tauri add process"
+    bun="bun tauri add process"
+    cargo="cargo tauri add process" />
+
+    </TabItem>
+    <TabItem label="手動で設定">
+        <Steps>
+
+        1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-process
+            ```
+
+        2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_process::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3. JavaScript でこのプラグインを使用する場合は、npm パッケージもインストールしてください：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-process"
+                yarn="yarn add @tauri-apps/plugin-process"
+                pnpm="pnpm add @tauri-apps/plugin-process"
+                deno="deno add npm:@tauri-apps/plugin-process"
+                bun="bun add @tauri-apps/plugin-process"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用法
+
+「process」プラグインは、JavaScript と Rust の両方で利用できます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { exit, relaunch } = window.__TAURI__.process; を使用できます
+
+// 指定されたステータス・コードでアプリを終了
+await exit(0);
+
+// アプリを再起動
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+`app` は [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html) のインスタンスであることに注意してください。
+
+```rust
+// 指定されたステータス・コードでアプリを終了
+app.exit(0);
+
+// アプリを再起動
+app.restart();
+```
+
+</TabItem>
+</Tabs>
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "process:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
