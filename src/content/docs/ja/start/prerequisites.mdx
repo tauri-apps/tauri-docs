@@ -332,8 +332,10 @@ $VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk"
 PowerShell は、再起動またはログアウトするまで、新しい環境変数の設定が有効になりませんが、
 現在のセッションを更新することはできます：
 
-````ps
+```ps
 [System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+```
+
 :::
 
 </TabItem>
@@ -344,7 +346,7 @@ PowerShell は、再起動またはログアウトするまで、新しい環境
 
 ```sh
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-````
+```
 
 次のステップ： [iOS 用の設定](#ios) または [プロジェクトの作成](/ja/start/create-project/)。
 

@@ -1,0 +1,397 @@
+---
+title: Logging（ログ記録）
+description: 設定可能なログ記録。
+plugin: log
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Tauri アプリ用の設定可能なログ記録。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「log」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定" >
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    { ' ' }
+
+    <CommandTabs
+      npm="npm run tauri add log"
+      yarn="yarn run tauri add log"
+      pnpm="pnpm tauri add log"
+      deno="deno task tauri add log"
+      bun="bun tauri add log"
+      cargo="cargo tauri add log"
+    />
+
+  </TabItem>
+  <TabItem label = "手動で設定">
+    <Steps>
+
+    1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+        ```sh frame=none
+        cargo add tauri-plugin-log
+        ```
+
+    2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_log::Builder::new().build())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+        <CommandTabs
+          npm = "npm install @tauri-apps/plugin-log"
+          yarn = "yarn add @tauri-apps/plugin-log"
+          pnpm = "pnpm add @tauri-apps/plugin-log"
+          deno = "deno add npm:@tauri-apps/plugin-log"
+          bun = "bun add @tauri-apps/plugin-log"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 使用法
+
+  <Steps>
+
+1. まず、プラグインを Tauri に登録する必要があります。
+
+   ```rust title="src-tauri/src/lib.rs" {1} {6-14}
+   use tauri_plugin_log::{Target, TargetKind};
+
+   #[cfg_attr(mobile, tauri::mobile_entry_point)]
+   pub fn run() {
+       tauri::Builder::default()
+           .plugin(tauri_plugin_log::Builder::new().build())
+           .run(tauri::generate_context!())
+           .expect("error while running tauri application");
+   }
+   ```
+
+2. すると、プラグインのすべての API は JavaScript ゲスト・バインディングを通じて利用できるようになります：
+
+   ```javascript
+   import {
+     warn,
+     debug,
+     trace,
+     info,
+     error,
+     attachConsole,
+     attachLogger,
+   } from '@tauri-apps/plugin-log';
+   // `"withGlobalTauri": true` を使用する場合は、
+   // const { warn, debug, trace, info, error, attachConsole, attachLogger } = window.__TAURI__.log; を使用できます
+   ```
+
+  </Steps>
+
+## ログの記録
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+プラグインの `warn`、`debug`、`trace`、`info`、`error` API のいずれかを使用して、JavaScript コードから「ログ記録」を生成します。
+
+```js
+import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
+
+trace('Trace');
+info('Info');
+error('Error');
+```
+
+すべての `console` メッセージを「log」プラグインに自動転送するには、次のように書き換えます：
+
+```ts
+import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
+
+function forwardConsole(
+  fnName: 'log' | 'debug' | 'info' | 'warn' | 'error',
+  logger: (message: string) => Promise<void>
+) {
+  const original = console[fnName];
+  console[fnName] = (message) => {
+    original(message);
+    logger(message);
+  };
+}
+
+forwardConsole('log', trace);
+forwardConsole('debug', debug);
+forwardConsole('info', info);
+forwardConsole('warn', warn);
+forwardConsole('error', error);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+Rust 側で自分のログを作成するには、[`log` crate] を使用します：
+
+```rust
+log::error!("something bad happened!");
+log::info!("Tauri is awesome!");
+```
+
+[`log` crate] を `Cargo.toml` ファイルに追加する必要があることに注意してください。
+
+```toml
+[dependencies]
+log = "0.4"
+```
+
+</TabItem>
+</Tabs>
+
+## ログの対象（ターゲット）
+
+「log」プラグイン・ビルダーには、すべてのアプリケーション・ログの共通の送り先を設定できる `targets` 関数があります。
+
+:::note
+デフォルトでは、このプラグインは「stdout」（標準出力）と「アプリケーション・ログ・ディレクトリ」内のファイルにログを記録します。
+自分のログ・ターゲットだけを使用するには、`clear_targets` を呼び出してください。
+
+```rust
+tauri_plugin_log::Builder::new()
+.clear_targets()
+.build()
+```
+
+:::
+
+### ログのターミナル出力
+
+すべてのログをターミナルに転送するには、`Stdout` または `Stderr` をターゲットとして有効化します。
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Stdout,
+  ))
+  .build()
+```
+
+このターゲットはデフォルトで有効化されています。
+
+### Webview コンソールへのログ出力
+
+Webview コンソールにすべての Rust ログを表示するには、`Webview` ターゲットを有効にし、フロントエンドで `attachConsole` を実行します：
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Webview,
+  ))
+  .build()
+```
+
+```js
+import { attachConsole } from '@tauri-apps/plugin-log';
+const detach = await attachConsole();
+// コンソールへのログ出力が不要になった場合には、detach() を呼び出してください。
+```
+
+### 永続ログ
+
+すべてのログをファイルに書き込むには、`LogDir` または `Folder` ターゲットのいずれかを使用します。
+
+<TranslationNote lang="ja">
+
+**永続ログ**　persisting log：　（通常 persistent log）　システムやアプリケーションが終了・再起動してもログ・データの履歴を保持する仕組み。
+
+</TranslationNote>
+
+- `LogDir`:
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::LogDir {
+      file_name: Some("logs".to_string()),
+    },
+  ))
+  .build()
+```
+
+`LogDir` ターゲットを使用すると、すべてのログは推奨されるログ・ディレクトリに保存されます。
+次の表は、プラットフォームごとのログの場所を示しています：
+
+| Platform | Value                                                                                    | 設定例                                            |
+| -------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Linux    | `$XDG_DATA_HOME/{bundleIdentifier}/logs` or `$HOME/.local/share/{bundleIdentifier}/logs` | `/home/alice/.local/share/com.tauri.dev/logs`     |
+| macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}`                                              | `/Users/Alice/Library/Logs/com.tauri.dev`         |
+| Windows  | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs`                                        | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
+
+- `Folder`:
+
+`Folder` ターゲットを使用すると、ファイル・システム内のカスタムな場所にログを書き込むことができます。
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Folder {
+      path: std::path::PathBuf::from("/path/to/logs"),
+      file_name: None,
+    },
+  ))
+  .build()
+```
+
+デフォルトの `file_name` は「アプリケーション名」です。
+
+#### ログ・ファイルの動作設定
+
+デフォルトでは、ログ・ファイルは最大サイズに到達すると破棄されます。
+最大ファイル・サイズは、ビルダーの `max_file_size` 関数を使用して設定できます：
+
+```rust
+tauri_plugin_log::Builder::new()
+  .max_file_size(50_000 /* bytes */)
+  .build()
+```
+
+Tauri は、ログ・ファイルがサイズ上限に達したときに、以前のファイルを破棄するのではなく、自動的にログ・ファイルを入れ替えます。
+この動作は `rotation_strategy`（入れ替え方式）を使用して設定できます：
+
+```rust
+tauri_plugin_log::Builder::new()
+  .rotation_strategy(tauri_plugin_log::RotationStrategy::KeepAll)
+  .build()
+```
+
+### ログ・フィルター
+
+デフォルトでは**すべての**ログが処理されます。ログの量を減らし、関連する情報のみをフィルタリングする方法がいくつかあります。
+
+### 最大ログ・レベル
+
+最大ログ・レベルを設定するには、`level` 関数を使用します：
+
+```rust
+tauri_plugin_log::Builder::new()
+  .level(log::LevelFilter::Info)
+  .build()
+```
+
+上記の設定例では、「デバッグ・ログ」と「トレース・ログ」は _info（情報）_ よりもレベルが低いため破棄されます。
+
+個々のモジュールごとにそれぞれ最大レベルを定義することもできます：
+
+```rust
+tauri_plugin_log::Builder::new()
+  .level(log::LevelFilter::Info)
+  // コマンド・モジュールのみ詳細ログ
+  .level_for("my_crate_name::commands", log::LevelFilter::Trace)
+  .build()
+```
+
+これらの API は [`log` crate] を使用するため、`Cargo.toml` ファイルに追加する必要があることに注意してください：
+
+```toml
+[dependencies]
+log = "0.4"
+```
+
+### ターゲット・フィルター
+
+メタデータをチェックして不要なログを破棄するように `filter` 関数を定義できます：
+
+```rust
+tauri_plugin_log::Builder::new()
+  // ターゲット "hyper" のログを除外します
+  .filter(|metadata| metadata.target() != "hyper")
+  .build()
+```
+
+### 書式設定（フォーマット）
+
+「log」プラグインは、各ログ・レコードを `DATE[TARGET][LEVEL] MESSAGE` のようなフォーマットに書式設定します。
+カスタム・フォーマットの機能は `format` で提供されます。
+
+```rust
+tauri_plugin_log::Builder::new()
+  .format(|out, message, record| {
+    out.finish(format_args!(
+      "[{} {}] {}",
+      record.level(),
+      record.target(),
+      message
+    ))
+  })
+  .build()
+```
+
+#### ログの日付
+
+デフォルトでは、「log」プラグインは UTC タイムゾーンを使用して日付を指定します。
+ただし、`timezone_strategy` を使用してローカル・タイムゾーンを使用するように設定できます。
+
+<TranslationNote lang="ja">
+
+**UTC**：　協定世界時（coordinated universal time）。所謂「国際標準時」。日本標準時は、「UTC+9 時間」となります。《[wikipedia](https://ja.wikipedia.org/wiki/協定世界時)》
+
+</TranslationNote>
+
+```rust
+tauri_plugin_log::Builder::new()
+  .timezone_strategy(tauri_plugin_log::TimezoneStrategy::UseLocal)
+  .build()
+```
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["log:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[`log` crate]: https://crates.io/crates/log
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jul 3, 2025 英語版」に基づいています】
+</div>
