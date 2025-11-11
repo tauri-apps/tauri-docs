@@ -105,14 +105,14 @@ Without the plugin being initialized and configured the example won't work.
     ```json title="sidecar-app/package.json"
     {
       "scripts": {
-        "build": "pkg index.ts --output app"
+        "build": "pkg index.ts --output my-sidecar"
       }
     }
     ```
 
     <CommandTabs npm="npm run build" yarn="yarn build" pnpm="pnpm build" />
 
-    This will create the `sidecar-app/app` binary on Linux and macOS, and a `sidecar-app/app.exe` executable on Windows.
+    This will create the `sidecar-app/my-sidecar` binary on Linux and macOS, and a `sidecar-app/my-sidecar.exe` executable on Windows.
 
     For sidecar applications, we need to ensure that the binary is named in the correct pattern, for more information read [Embedding External Binaries](https://tauri.app/develop/sidecar/)
     To rename this file to the expected Tauri sidecar filename and also move to our Tauri project, we can use the following Node.js script as a starting example:
@@ -130,8 +130,8 @@ Without the plugin being initialized and configured the example won't work.
     }
     // TODO: create `src-tauri/binaries` dir
     fs.renameSync(
-      `app${ext}`,
-      `../src-tauri/binaries/app-${targetTriple}${ext}`
+      `my-sidecar${ext}`,
+      `../src-tauri/binaries/my-sidecar-${targetTriple}${ext}`
     );
     ```
 
@@ -155,7 +155,7 @@ Without the plugin being initialized and configured the example won't work.
           "allow": [
             {
               "args": true,
-              "name": "binaries/app",
+              "name": "binaries/my-sidecar",
               "sidecar": true
             }
           ]
@@ -172,12 +172,12 @@ Without the plugin being initialized and configured the example won't work.
     ```json title="src-tauri/tauri.conf.json"
     {
       "bundle": {
-        "externalBin": ["binaries/app"]
+        "externalBin": ["binaries/my-sidecar"]
       }
     }
     ```
 
-    The Tauri CLI will handle the bundling of the sidecar binary as long as it exists as `src-tauri/binaries/app-<target-triple>`.
+    The Tauri CLI will handle the bundling of the sidecar binary as long as it exists as `src-tauri/binaries/my-sidecar-<target-triple>`.
 
 1.  ##### Execute the Sidecar
 
@@ -194,7 +194,7 @@ Without the plugin being initialized and configured the example won't work.
 
         const message = 'Tauri';
 
-        const command = Command.sidecar('binaries/app', ['hello', message]);
+        const command = Command.sidecar('binaries/my-sidecar', ['hello', message]);
         const output = await command.execute();
         // once everything is configured it should log "Hello Tauri" in the browser console.
         console.log(output.stdout)
@@ -213,7 +213,7 @@ Without the plugin being initialized and configured the example won't work.
         async fn hello(app: tauri::AppHandle, cmd: String, message: String) -> String {
             let sidecar_command = app
                 .shell()
-                .sidecar("app")
+                .sidecar("my-sidecar")
                 .unwrap()
                 .arg(cmd)
                 .arg(message);
