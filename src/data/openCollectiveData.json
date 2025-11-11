@@ -871,6 +871,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Nonogram Online",
+    "id": "Nonogram Online",
+    "avatarUrl": "https://images.opencollective.com/nonogram-online/0dbfd94/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/nonogram-online",
+    "socialLinks": {
+      "website": "https://www.nonogramonline.org"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Jonathan Dahan",
     "id": "Jonathan Dahan",
     "avatarUrl": "https://images.opencollective.com/jedahan/avatar/256.jpg",
