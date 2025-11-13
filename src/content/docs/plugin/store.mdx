@@ -116,8 +116,9 @@ pub fn run() {
         .setup(|app| {
             // Create a new store or load the existing one
             // this also put the store in the app's resource table
-            // so your following calls `store` calls (from both rust and js)
-            // will reuse the same store
+            // so your following `store` calls (from both Rust and JS)
+            // will reuse the same store.
+
             let store = app.store("store.json")?;
 
             // Note that values must be serde_json::Value instances,

@@ -1,0 +1,144 @@
+---
+title: OS Information（OS 情報）
+description: オペレーティング・システムに関する情報を読み取ります。
+plugin: os
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+「OS Information（OS 情報）」プラグインを使用して、オペレーティング・システムに関する情報を読み取ります。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「OS Information」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    <CommandTabs npm="npm run tauri add os"
+          yarn="yarn run tauri add os"
+          pnpm="pnpm tauri add os"
+          deno="deno task tauri add os"
+          bun="bun tauri add os"
+          cargo="cargo tauri add os" />
+
+  </TabItem>
+  <TabItem label="手動で設定">
+    <Steps>
+
+    1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+        ```sh frame=none
+        cargo add tauri-plugin-os
+        ```
+
+    2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_os::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3. JavaScript で使用する場合は、npm パッケージもインストールしてください：
+
+        <CommandTabs
+            npm="npm install @tauri-apps/plugin-os"
+            yarn="yarn add @tauri-apps/plugin-os"
+            pnpm="pnpm add @tauri-apps/plugin-os"
+            deno="deno add npm:@tauri-apps/plugin-os"
+            bun="bun add @tauri-apps/plugin-os"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 使用法
+
+このプラグインを使用すると、現在のオペレーティング・システム<sup>\*</sup>から複数の情報を照会できます。利用可能なすべての関数については、[JavaScript API](/reference/javascript/os/) または [Rust API](https://docs.rs/tauri-plugin-os/) の各リファレンスをご覧ください。
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+<TranslationNote lang="ja">
+
+<sup>\*</sup> **オペレーション・システム**：　原文は operational system
+で、直訳では「運用システム」の意味になりますが、ここでは「オペレーション・システム」の意味に解釈しています。
+
+</TranslationNote>
+
+#### 例： OS プラットフォーム
+
+`platform` は、使用中のオペレーティング・システムを表す文字列を返します。この値がコンパイル時に設定されます。取り得る値は `linux`、`macos`、`ios`、`freebsd`、`dragonfly`、`netbsd`、`openbsd`、`solaris`、`android`、`windows` です。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { platform } from '@tauri-apps/plugin-os';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { platform } = window.__TAURI__.os;　を使用できます
+
+const currentPlatform = platform();
+console.log(currentPlatform);
+// コンソールに「windows」と表示します
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+let platform = tauri_plugin_os::platform();
+println!("Platform: {}", platform);
+// ターミナルに「windows」と表示します
+```
+
+</TabItem>
+</Tabs>
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "os:default"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

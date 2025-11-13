@@ -2,8 +2,8 @@ name: 'Sync Sponsors Data'
 
 on:
   schedule:
-    # once a week
-    - cron: '0 0 * * 0'
+    # daily
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: pnpm format
+      - run: pnpm prettier src/data -w
           
    # tauri-docs PR
       - name: Git config
@@ -38,6 +38,7 @@ jobs:
           git config --global user.email "tauri-bot@tauri.app"
 
       - name: Create pull request for updated docs
+        id: cpr
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: tauri-apps/create-pull-request@v3.4.1
         if: github.event_name != 'pull_request' && github.event_name != 'push'
@@ -47,3 +48,8 @@ jobs:
           branch: ci/v2/update-sponsors
           title: Update Sponsors Data
           labels: 'bot'
+
+      - name: Automerge
+        run: gh pr merge --merge --auto ${{ steps.cpr.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

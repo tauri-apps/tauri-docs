@@ -1,0 +1,239 @@
+---
+title: Biometric（生体認証）
+description: Android および iOS で、ユーザーに生体認証を要求します。
+plugin: biometric
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Android および iOS で、ユーザーに「生体認証 biometric authentication」を要求します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「Biometric（生体認証）」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    <CommandTabs npm="npm run tauri add biometric"
+    yarn="yarn run tauri add biometric"
+    pnpm="pnpm tauri add biometric"
+    deno="deno task tauri add biometric"
+    bun="bun tauri add biometric"
+    cargo="cargo tauri add biometric" />
+
+    </TabItem>
+    <TabItem label="手動で設定">
+        <Steps>
+        1.  `src-tauri` フォルダで次のコマンドを実行して、`Cargo.toml` 内のプロジェクトの依存関係にこのプラグインを追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-biometric --target 'cfg(any(target_os = "android", target_os = "ios"))'
+            ```
+
+        2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(mobile)]
+                        app.handle().plugin(tauri_plugin_biometric::Builder::new().build());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guide」バインディングをインストールします：
+
+            <CommandTabs
+            npm = "npm install @tauri-apps/plugin-biometric"
+            yarn = "yarn add @tauri-apps/plugin-biometric"
+            pnpm = "pnpm add @tauri-apps/plugin-biometric"
+            deno = "deno add npm:@tauri-apps/plugin-biometric"
+            bun = "bun add @tauri-apps/plugin-biometric"
+            />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 設定
+
+iOS では、「Biometric（生体認証）」プラグインに、あなたのアプリが「生体認証」を使用する理由を説明する `NSFaceIDUsageDescription` 情報プロパティ・リストの値が必要です。
+
+`src-tauri/Info.ios.plist` ファイルには、以下のスニペット（内容）を追加してください：
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Authenticate with biometric</string>
+	</dict>
+</plist>
+```
+
+## 使用法
+
+このプラグインを使用すると、デバイス上で生体認証が利用可能かどうかを確認し、ユーザーに生体認証を要求し、その結果を検証して認証が成功したかどうかを判断できるようになります。
+
+### プラグインの状態確認
+
+生体認証が利用可能か、どのタイプの生体認証方法がサポートされているのか、などをはじめとして、「生体認証」の状態（ステータス）を確認できます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { checkStatus } from '@tauri-apps/plugin-biometric';
+
+const status = await checkStatus();
+if (status.isAvailable) {
+  console.log('Yes! Biometric Authentication is available');
+} else {
+  console.log(
+    'No! Biometric Authentication is not available due to ' + status.error
+  );
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_biometric::BiometricExt;
+
+fn check_biometric(app_handle: tauri::AppHandle) {
+    let status = app_handle.biometric().status().unwrap();
+    if status.is_available {
+        println!("Yes! Biometric Authentication is available");
+    } else {
+        println!("No! Biometric Authentication is not available due to: {}", status.error.unwrap());
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 認証
+
+ユーザーに「生体認証」を要求するには、`authenticate()` メソッドを使用します。
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript ins={18}
+import { authenticate } from '@tauri-apps/plugin-biometric';
+
+const options = {
+  // ユーザーが「電話のパスワード」を使用して認証できるようにするには、true に設定します
+  allowDeviceCredential: false,
+  cancelTitle: "Feature won't work if Canceled",
+
+  // iOS のみの機能
+  fallbackTitle: 'Sorry, authentication failed',
+
+  // Android のみの機能
+  title: 'Tauri feature',
+  subtitle: 'Authenticate to access the locked Tauri function',
+  confirmationRequired: true,
+};
+
+try {
+  await authenticate('This feature is locked', options);
+  console.log(
+    'Hooray! Successfully Authenticated! We can now perform the locked Tauri function!'
+  );
+} catch (err) {
+  console.log('Oh no! Authentication failed because ' + err.message);
+}
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust ins={21}
+use tauri_plugin_biometric::{BiometricExt, AuthOptions};
+
+fn bio_auth(app_handle: tauri::AppHandle) {
+
+    let options = AuthOptions {
+        // ユーザーが「電話のパスワード」を使用して認証できるようにするには、true に設定します
+        allow_device_credential:false,
+        cancel_title: Some("Feature won't work if Canceled".to_string()),
+
+        // iOS のみの機能
+        fallback_title: Some("Sorry, authentication failed".to_string()),
+
+        // Android のみの機能
+        title: Some("Tauri feature".to_string()),
+        subtitle: Some("Authenticate to access the locked Tauri function".to_string()),
+        confirmation_required: Some(true),
+    };
+
+    // 認証が成功した場合には、関数が Result::Ok() を、
+    // それ以外の場合には Result::Error() を返します。
+    match app_handle.biometric().authenticate("This feature is locked".to_string(), options) {
+        Ok(_) => {
+            println!("Hooray! Successfully Authenticated! We can now perform the locked Tauri function!");
+        }
+        Err(e) => {
+            println!("Oh no! Authentication failed because : {e}");
+        }
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## アクセス権の設定
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["biometric:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jul 1, 2025 英語版」に基づいています】
+</div>

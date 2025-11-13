@@ -81,7 +81,7 @@ The opener plugin is available in both JavaScript and Rust.
 	<TabItem label="JavaScript" >
 
 ```javascript
-import { openPath } from '@tauri-apps/plugin-opener';
+import { openPath, openUrl } from '@tauri-apps/plugin-opener';
 // when using `"withGlobalTauri": true`, you may use
 // const { openPath } = window.__TAURI__.opener;
 
@@ -89,6 +89,8 @@ import { openPath } from '@tauri-apps/plugin-opener';
 await openPath('/path/to/file');
 // opens a file using `vlc` command on Windows:
 await openPath('C:/path/to/file', 'vlc');
+// opens a URL using the default program:
+await openURL('https://tauri.app');
 ```
 
     </TabItem>
@@ -103,6 +105,8 @@ use tauri_plugin_opener::OpenerExt;
 app.opener().open_path("/path/to/file", None::<&str>);
 // opens a file using `vlc` command on Windows:
 app.opener().open_path("C:/path/to/file", Some("vlc"));
+// opens a URL using the default program:
+app.opener().open_url("https://tauri.app", None::<&str>);
 ```
 
     </TabItem>
