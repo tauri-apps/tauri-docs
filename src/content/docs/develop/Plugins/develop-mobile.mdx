@@ -368,7 +368,7 @@ In your plugin's `Cargo.toml`, add the jni crate as a dependency:
 jni = "0.21"
 ```
 
-Load the application library statically and define native functions in your Kotlin code:
+Load the application library statically and define native functions in your Kotlin code. In this example, the Kotlin class is `com.example.HelloWorld`, we need to reference the full package name from the Rust side.
 
 ```kotlin
 private const val TAG = "MyPlugin"
@@ -388,7 +388,7 @@ init {
 external fun helloWorld(name: String): String?
 ```
 
-Then in your plugin's Rust code, define the function JNI will look for:
+Then in your plugin's Rust code, define the function JNI will look for. The function format is `Java_package_class_method`, so for our class above this becomes `Java_com_example_HelloWorld_helloWorld` to call our `helloWorld` method:
 
 ```rust
 #[cfg(target_os = "android")]
@@ -413,7 +413,7 @@ pub extern "system" fn Java_com_example_HelloWorld_helloWorld(
 
 ### iOS
 
-iOS only uses standard C FFI, so doesn't need any new dependencies. Add the hook in your Swift code, as well as any necessary cleanup:
+iOS only uses standard C FFI, so doesn't need any new dependencies. Add the hook in your Swift code, as well as any necessary cleanup. These functions can be named anything valid, but must be annotated with `@_silgen_name(FFI_FUNC)`, where FFI_FUNC is a function name to be called from Rust:
 
 ```swift
 @_silgen_name("hello_world_ffi")
@@ -437,7 +437,7 @@ static func helloWorld(name: String) -> String? {
 
 ```
 
-Then, implement the Rust side:
+Then, implement the Rust side. The `extern` functions here must match the `@_silgen_name` annotations on the Swift side:
 
 ```rust
 #[no_mangle]
