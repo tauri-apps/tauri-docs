@@ -388,7 +388,7 @@ init {
 external fun helloWorld(name: String): String?
 ```
 
-Then in your plugin's Rust code, define the function JNI will look for. The function format is `Java_package_class_method`, so for our class above this becomes `Java_com_example_HelloWorld_helloWorld` to call our `helloWorld` method:
+Then in your plugin's Rust code, define the function JNI will look for. The function format is `Java_package_class_method`, so for our class above this becomes `Java_com_example_HelloWorld_helloWorld` to get called by our `helloWorld` method:
 
 ```rust
 #[cfg(target_os = "android")]
