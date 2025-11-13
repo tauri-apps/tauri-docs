@@ -471,7 +471,7 @@ pub unsafe extern "C" fn free_hello_result_ffi(result: *mut c_char) {
 
 ## Android 16KB Memory Pages
 
-Google is moving to make 16KB memory pages a requirement in all new Android app submissions. In order to build Tauri apps that meet this requirement, add the following to `.cargo/config.toml`:
+Google is moving to make 16KB memory pages a requirement in all new Android app submissions. Building with an NDK version 28 or higher should automatically generate bundles that meet this requirement, but in the event an older NDK version must be used or generated files aren't 16KB aligned, the following can be added to `.cargo/config.toml` to flag this to `rustc`:
 
 ```toml
 [target.aarch64-linux-android]
