@@ -94,10 +94,10 @@ This section was written by the translators themselves, feel free to add your ow
 ### Basic Procedure of JP Translation（邦訳基本手順）
 
 1. Use On-line Translation for the inital translation. <br />オンライン翻訳にて初期翻訳。
-1. Checks on the auto-translation result. Inappropriate translations shall be corrected (such as "Tauri" - which is often translated as the name of the zodiac sign "the Bull"). <br />自動翻訳の内容確認。f不適切な訳語は修正（例えば「牡牛座」と訳された "Tauri" など）。
+1. Checks on the auto-translation result. Inappropriate translations shall be corrected (such as "Tauri" - which is often translated as the name of the zodiac sign "the Bull"). <br />自動翻訳の内容確認。不適切な訳語は修正（例えば「牡牛座」と訳された "Tauri" など）。
 1. Products names, trade names and proper names such as Tauri, Windows, macOS etc. are shown as they are. <br />商品名、会社名、固有名詞などは、
    そのまま英語表記とする（必要に応じて括弧書きで「読み」を表示）。
-1. The technical terms shall be checked on the on-line terminology sites (Microsoft Terminology Search, etc.) <br />技術専門用語類は、オンライン用語検索サイト（マイクロソフト社等）に記載されている一般的なものを採用するが、カタカナ語に関しては適宜和語に置き換える倍もある。
+1. The technical terms shall be checked on the on-line terminology sites (Microsoft Terminology Search, etc.) <br />技術専門用語類は、オンライン用語検索サイト（マイクロソフト社等）に記載されている一般的なものを採用するが、カタカナ語に関しては適宜和語に置き換える場合もある。
 
 ### Basic Procedure of KO Translation(번역 기본 절차)
 
