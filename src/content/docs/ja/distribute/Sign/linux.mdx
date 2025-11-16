@@ -1,0 +1,89 @@
+---
+title: Linux でのコード署名
+sidebar:
+  label: Linux
+  order: 13
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+この章では、Linux パッケージのコード署名に関する情報を提供します。
+Linux であなたのアプリケーションがデプロイ（公開）される際にアーティファクト（成果物）への署名は必要とはされていませんが、公開されたアプリケーションに対する信頼性を高めるために署名が利用できます。
+バイナリ・ファイルに署名を行なうと、エンド・ユーザーはそのバイナリが本物であり、信頼できない第三者によって改変されていないことを検証できます。
+
+## AppImages への署名
+
+[AppImage] フォーマットによる配布では、公開鍵暗号方式の「gpg」または「gpg2」を用いた署名が可能です。
+
+### 事前準備（必要なもの）
+
+「署名用の鍵」を用意する必要があります。新しい鍵は以下を使用して生成できます：
+
+```shell
+gpg2 --full-gen-key
+```
+
+詳細については、gpg または gpg2 の「[公式文書]」を参照してください。
+「秘密鍵 private key」と「公開鍵 public key」を安全な場所にバックアップ保存するように特段の注意を払ってください。
+
+### 署名
+
+以下の「環境変数」を設定し、AppImage に署名を埋め込みます：
+
+- **SIGN**：　AppImage に署名するには `1` に設定します。
+- **SIGN_KEY**：　署名に特定の「GPG キー ID」を使用するためのオプション変数です。
+- **APPIMAGETOOL_SIGN_PASSPHRASE**：　署名鍵の「パスワード」。未設定の場合、gpg がダイアログを表示しますので、パスワードを入力できます。CI/CD プラットフォームでビルドする場合、この設定は必須です。
+- **APPIMAGETOOL_FORCE_SIGN**：　デフォルトでは、たとえ署名が失敗しても AppImage が生成されます。エラー発生時に処理を終了させるには、この変数に `1` を設定してください。
+
+次のコマンドを実行すると、AppImage に埋め込まれた署名を表示できます：
+
+```shell
+./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
+```
+
+$APPNAME（アプリ名）と $VERSION（アプリ・バージョン）の値は、あなた自身のアプリ情報に基づいて、正しい値に変更する必要があることに注意してください。
+
+:::caution
+
+**The signature is not verified（署名が検証されていません）**
+
+AppImage は署名の検証を行なわないため、ファイルが改竄されているかどうかの確認を AppImage に頼ることはできません。
+ユーザー側で、AppImage 検証ツールを使用してその署名を手作業で検証する必要があります。
+これを行なうために、あなたの「キー ID」を安全確実な認証チャネル（TLS 経由で提供される Web サイトなど）経由で公開し、エンドユーザーが閲覧・検証できるようにする必要があります。
+
+詳細については、[公式 AppImage ドキュメント] を参照してください。
+
+:::
+
+[公式 AppImage ドキュメント]: https://docs.appimage.org/packaging-guide/optional/signatures.html
+
+### 署名の検証
+
+AppImage の「検証ツール」は、[ここから](https://github.com/AppImageCommunity/AppImageUpdate/releases/tag/continuous) ダウンロードできます。
+`validate-$PLATFORM.AppImage` ファイルの適切なものを選択してください。〔《訳注》 蛇足ながら `$PLATFORM` の部分は、使用している PC のアーキテクチャー名です。以下、同様。〕
+
+**署名の検証**には、次のコマンドを実行します：
+
+```shell
+chmod +x validate-$PLATFORM.AppImage
+./validate-$PLATFORM.AppImage $TAURI_OUTPUT.AppImage
+```
+
+署名が有効な場合、出力は次のようになります：
+
+```
+Validation result: validation successful
+Signatures found with key fingerprints: $KEY_ID
+====================
+Validator report:
+Signature checked for key with fingerprint $KEY_ID:
+Validation successful
+```
+
+[AppImage]: /ja/distribute/appimage/
+[公式文書]: https://docs.releng.linuxfoundation.org/en/latest/gpg.html#
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
