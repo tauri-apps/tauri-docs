@@ -57,9 +57,7 @@ Windows でコード署名の準備をするには、いくつか作業が必要
 <Steps>
 
 1. #### `.cer` ファイルを `.pfx` ファイルに変換
-
    - この作業には以下のものが必要です：
-
      - 「証明書ファイル」（たとえばファイル名「`cert.cer`」のような）
      - 「秘密鍵ファイル」（たとえばファイル名「`private-key.key`」のような）
 
@@ -70,7 +68,6 @@ Windows でコード署名の準備をするには、いくつか作業が必要
    - エクスポート用パスワード入力を求めるメッセージが表示されるはずです。ここで入力したパスワードを**忘れないでください！**
 
 2. #### `.pfx` ファイルをキーストアにインポート
-
    - つぎに、「`.pfx` ファイル」をインポートします。
 
    - 「`$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'`」を使い上記の「エクスポート用パスワード」をこの変数に割り当てます〔《訳注》`MYPASSWORD` 部分に「エクスポート用パスワード」を入力〕。
@@ -78,7 +75,6 @@ Windows でコード署名の準備をするには、いくつか作業が必要
    - そして、次のコマンド「`Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $WINDOWS_PFX_PASSWORD -Force -AsPlainText)`」を使用して証明書をインポートします。
 
 3. #### 変数の準備
-
    - スタート・メニュー ➡️「`certmgr.msc`」と入力すると、「個人証明書マネージャー」が起動し、そこから「Personal／Certificates（個人／証明書）」を開きます。
 
    - 先ほどインポートした証明書を見つけてダブルクリックし、「Details（詳細）」タブをクリックします。
@@ -145,7 +141,6 @@ GitHub Action を適切に設定するために、「GitHub シークレット�
 #### ワークフローの変更
 
 1. ワークフローに、「証明書」を Windows 環境にインポートするためのステップを追加する必要があります。このワークフローでは、以下の処理が実行されます。
-
    1. 「GitHub シークレット」を環境変数に割り当て
    2. 新しい `certificate` ディレクトリの作成
    3. `WINDOWS_CERTIFICATE` を「tempCert.txt」にインポート
@@ -328,21 +323,16 @@ Github Actions で署名を行なう場合は、以下のすべてをインス�
 <Steps>
 
 1. #### trusted-signing-cli のインストール
-
    - `cargo install trusted-signing-cli`
 
 2. #### 環境変数の設定
-
    - trusted-signing-cli では、以下の環境変数を設定する必要があり、どの項目も「Github Actions [シークレット](https://docs.github.com/ja/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)」として追加することを忘れないでください：
-
      - `AZURE_CLIENT_ID`：　[アプリの登録](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials) での「アプリケーション ID（クライアント ID）」です。
      - `AZURE_CLIENT_SECRET`：　[アプリの登録](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)」での「クライアント・シークレット」値のことです。
      - `AZURE_TENANT_ID`：　「Azure ディレクトリ」の「テナント ID」のことです。これは、「[アプリの登録](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)」からも入手できます。
 
 3. ### `tauri.conf.json` ファイルの修正
-
    - すでに作成済みの `tauri.conf.json` ファイルを修正するか、Windows 用の専用設定ファイルを作成します。「URL」と「証明書名」は自分のアプリ用の値に置き換えます。
-
      - -e：　Azure コード署名アカウントのエンドポイント
      - -a：　Azure コード署名アカウントの名前
      - -c：　Azure コード署名アカウント内の証明書プロファイルの名前
@@ -366,8 +356,6 @@ Github Actions で署名を行なう場合は、以下のすべてをインス�
    ```
 
   </Steps>
-
-<!-- Additional links for JA version -->
 
 [Azure Key Vault]: https://learn.microsoft.com/ja-jp/azure/key-vault/general/overview
 [Microsoft Entra 管理センター]: https://learn.microsoft.com/ja-jp/entra/identity-platform/howto-create-service-principal-portal
