@@ -26,22 +26,20 @@ pnpm-lock.yaml
 src/components/overrides/Header.astro
 
 # TODO: Prettier breaks these pages
-src/content/docs/learn/Security/capabilities-for-windows-and-platforms.mdx
-src/content/docs/learn/Security/using-plugin-permissions.mdx
-src/content/docs/learn/Security/writing-plugin-permissions.mdx
-src/content/docs/zh-cn/learn/Security
-
 src/content/docs/start/frontend/qwik.mdx
-src/content/docs/ja/start/frontend/qwik.mdx
-src/content/docs/es/start/frontend/qwik.mdx
-src/content/docs/zh-cn/start/frontend/qwik.mdx
-
-src/content/docs/learn/splashscreen.mdx
-src/content/docs/zh-cn/learn/splashscreen.mdx
-
-src/content/docs/ja/learn/Security/capabilities-for-windows-and-platforms.mdx
-src/content/docs/ja/learn/Security/using-plugin-permissions.mdx
-src/content/docs/ja/learn/Security/writing-plugin-permissions.mdx
-
+src/content/docs/*/start/frontend/qwik.mdx
 
 src/content/docs/security/http-headers.mdx
+src/content/docs/*/security/http-headers.mdx
+
+src/content/docs/learn/splashscreen.mdx
+src/content/docs/*/learn/splashscreen.mdx
+
+src/content/docs/learn/Security/capabilities-for-windows-and-platforms.mdx
+src/content/docs/*/learn/Security/capabilities-for-windows-and-platforms.mdx
+
+src/content/docs/learn/Security/using-plugin-permissions.mdx
+src/content/docs/*/learn/Security/using-plugin-permissions.mdx
+
+src/content/docs/learn/Security/writing-plugin-permissions.mdx
+src/content/docs/*/learn/Security/writing-plugin-permissions.mdx

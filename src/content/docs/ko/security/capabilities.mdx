@@ -1,0 +1,203 @@
+---
+title: 보안 수준 Capabilities
+sidebar:
+  order: 4
+i18nReady: true
+---
+
+Tauri는 애플리케이션 및 플러그인 개발자에게 "보안 수준" 시스템을 제공하여 시스템 WebView에서 실행되는 애플리케이션 프론트엔드에 대한 코어 부분의 공개에 대해 세분화된 활성화/비활성화 제한을 설정합니다.
+
+> > > 《번역 주》 **보안 수준** 원문은 "capabilities system"(능력 시스템). 정보 공개 수준 결정 능력을 나타내므로 본고에서는 "보안 수준"으로 번역했습니다.
+
+"보안 수준"(Capabilities)은 부여된 레이블에 따라 애플리케이션 창과 Webview에 할당되는 [접근 권한(Permissions)](/ko/security/permissions/)의 집합입니다. "보안 수준"은 여러 창과 Webview의 처리에 관여하며, 복합적인 보안 설정 내에서 참조될 수 있습니다.
+
+:::tip[Security Tip(팁)]
+
+여러 보안 수준의 대상인 창과 WebView는 관련된 모든 보안 수준의 "접근 권한"과 "보안 경계"를 효과적으로 통합합니다.
+
+:::
+
+보안 수준을 기술하는 파일(Capability files)은 JSON 또는 TOML 파일로 `src-tauri/capabilities` 디렉토리 내에서 정의됩니다.
+
+각 파일을 사용하여 `tauri.conf.json` 내에서 "식별자"로만 참조하는 것이 일반적인 방법이지만, 이 두 가지를 `capabilities` 필드에서 직접 정의할 수도 있습니다.
+
+`capabilities` 디렉토리 내의 모든 보안 수준 기능은 기본적으로 자동으로 활성화됩니다. 일단 `tauri.conf.json`에서 보안 수준 기능이 명시적으로 활성화되면, 애플리케이션 빌드에서는 해당 기능만 사용됩니다.
+
+체계적인 설정 항목에 대한 자세한 내용은 [참고 정보](/ko/reference/config/) 항목을 참조하십시오.
+
+다음 JSON 예제는 코어 플러그인과 `window.setTitle` API에 대한 기본 기능을 활성화하는 보안 수준 설정을 정의합니다.
+
+```json title="src-tauri/capabilities/default.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:window:allow-set-title"
+  ]
+}
+```
+
+이 스니펫(발췌 내용)은 [Tauri Configuration](/ko/develop/configuration-files/#tauri-설정) 파일의 일부입니다.
+
+이것이 아마도 가장 일반적인 설정 방법으로, 개별 보안 수준을 행 내에 포함(인라인화)하고 접근 권한만 "식별자"로 참조합니다.
+
+이를 위해서는 적절하게 정의된 기능 파일이 `capabilities` 디렉토리 내에 필요합니다.
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": ["my-capability", "main-capability"]
+    }
+  }
+}
+```
+
+인라인화된 "보안 수준" 설정은 사전에 정의된 "보안 수준" 설정과 함께 사용할 수도 있습니다.
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": [
+        {
+          "identifier": "my-capability",
+          "description": "My application capability used for all windows",
+          "windows": ["*"],
+          "permissions": ["fs:default", "allow-home-read-extended"]
+        },
+        "my-second-capability"
+      ]
+    }
+  }
+}
+```
+
+## 대상 플랫폼
+
+"보안 수준"은 "`platforms` 배열"을 정의하여 각 플랫폼별로 설정할 수 있습니다.
+기본적으로 "보안 수준" 설정은 모든 대상에 적용되지만, `linux`, `macOS`, `windows`, `iOS`, `android`의 각 대상 OS를 하위 집합으로 선택할 수 있습니다.
+
+다음 예는 데스크톱 운영 체제용 "보안 수준" 설정입니다.
+이 설정에서는 데스크톱에서만 사용할 수 있는 플러그인의 접근 권한을 활성화하는 것에 주목하십시오:
+
+```json title="src-tauri/capabilities/desktop.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
+}
+```
+
+모바일 기기용 "보안 수준" 설정 사례는 다음과 같습니다.
+이 설정에서는 모바일 OS에서만 사용할 수 있는 플러그인의 접근 권한을 활성화하는 것에 주목하십시오:
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
+}
+```
+
+## 원격 API 액세스
+
+기본적으로 API는 Tauri 앱에 번들된 코드에만 액세스할 수 있습니다.
+원격 소스가 특정 Tauri 명령에 액세스할 수 있도록 하려면 보안 수준 설정 파일에서 정의해야 합니다.
+
+다음 예에서는 NFC 태그를 스캔하고 `tauri.app`의 모든 하위 도메인에서 바코드 스캐너를 사용할 수 있도록 합니다.
+
+```json title="src-tauri/capabilities/remote-tags.json"
+{
+  "$schema": "../gen/schemas/remote-schema.json",
+  "identifier": "remote-tag-capability",
+  "windows": ["main"],
+  "remote": {
+    "urls": ["https://*.tauri.app"]
+  },
+  "platforms": ["iOS", "android"],
+  "permissions": ["nfc:allow-scan", "barcode-scanner:allow-scan"]
+}
+```
+
+:::caution[(경고)]
+
+Linux 및 Android에서는 Tauri가 내장된 `<iframe>` 태그로부터의 요청과 창 자체로부터의 요청을 구별할 수 없습니다.
+
+이 "원격 API 액세스" 기능의 변경에 대해서는 충분히 주의하고, 이 기능에 관한 "참고 정보 References" 섹션에서 대상 운영 체제별 보안상의 영향에 대해 자세히 이해한 후 수행하십시오.
+
+:::
+
+## 보안 경계 Security Boundaries
+
+_어떤 것으로부터 보호받을 수 있을까요?_
+
+"접근 권한"과 "보안 수준"에 따라 다음이 가능해집니다:
+
+- 프론트엔드에서의 "보안 침해" 영향을 최소화합니다
+- 로컬 시스템 인터페이스와 데이터의 (우발적인) "유출"을 방지하거나 완화합니다
+- 프론트엔드에서 백엔드/시스템으로의 "권한 상승"을 방지하거나 완화합니다
+
+_어떤 것으로부터는 보호받지 **못할까요**?_
+
+- 악의적이거나 안전하지 않은 "Rust 코드"
+- 너무 느슨한 "범위(적용 범위)"와 "설정 내용"
+- 명령 구현에서의 부정확한 "범위 검사"
+- Rust 코드로부터의 "의도적인 이탈"
+- 기본적으로 앱의 Rust Core에 작성된 "모든 것"
+- 시스템 WebView 내의 "제로데이 공격" 또는 패치 미적용 "원데이 공격"
+- "공급망 공격" 또는 "부정 침입된 개발자 시스템"
+
+:::tip[Security Tip(팁)]
+
+보안 경계는 "창 레이블"(**"제목"이 아님**)에 의존합니다.
+창 생성 기능은 더 높은 권한을 가진 창에 대해서만 적용 가능하도록 권장합니다.
+
+:::
+
+## 스키마 파일
+
+Tauri는 애플리케이션에서 사용 가능한 모든 접근 권한을 가진 "JSON 스키마"를 생성하므로, 사용하는 IDE(통합 개발 환경)에서 자동 완성을 수행할 수 있습니다.
+스키마를 사용하려면 "설정" 내의 `$schema` 속성을 `gen/schemas` 디렉토리에 있는 플랫폼별 스키마 중 하나로 설정합니다.
+일반적으로 `../gen/schemas/desktop-schema.json` 또는 `../gen/schemas/mobile-schema.json`으로 설정하지만, 특정 대상 플랫폼용 보안 수준을 정의할 수도 있습니다.
+
+## 설정 파일
+
+Tauri 애플리케이션의 디렉토리 구조 예(간략판):
+
+```sh
+tauri-app
+├── index.html
+├── package.json
+├── src
+├── src-tauri
+│   ├── Cargo.toml
+│   ├── capabilities
+│      └── <identifier>.json/toml
+│   ├── src
+│   ├── tauri.conf.json
+```
+
+모든 항목을 `tauri.conf.json`에 인라인화할 수 있지만, 약간 고급 설정을 하면 이 파일이 비대해집니다.
+이 방식의 목표는 접근 권한을 가능한 한 단순화하고 이해하기 쉽게 만드는 것입니다.
+
+## 코어 접근 권한
+
+모든 코어 접근 권한 목록은 "참고 정보 References"의 [코어 접근 권한](/ko/reference/acl/core-permissions/) 페이지에 있습니다.

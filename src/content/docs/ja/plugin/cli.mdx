@@ -1,0 +1,298 @@
+---
+title: CLI（コマンドライン・インターフェイス）
+description: コマンドライン・インターフェイスから引数を解析します。
+plugin: cli
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Tauriは、堅牢なコマンドライン引数パーサー（構文解析ツール）である [clap](https://github.com/clap-rs/clap)（英語版）を用いて、あなたのアプリに CLI 機能を追加できます。`tauri.conf.json` ファイルに簡単な CLI 定義を記述するだけで、インターフェースを定義し、JavaScript や Rust 上の引数照合マップを読み取ることが可能になります。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+- Windows
+  - OSの制限により、本番環境アプリでは、デフォルトでは呼び出しコンソールにテキストを書き戻すことができません。この回避策については、[tauri#8305](https://github.com/tauri-apps/tauri/issues/8305#issuecomment-1826871949) をご確認ください。{/* TODO: Inline the instructions into this guide */}
+
+## セットアップ
+
+はじめに、「CLI（コマンドライン・インターフェイス）」プラグインをインストールしてください。
+
+<Tabs>
+	<TabItem label="自動で設定">
+
+      自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    	<CommandTabs
+            npm="npm run tauri add cli"
+            yarn="yarn run tauri add cli"
+            pnpm="pnpm tauri add cli"
+            deno="deno task tauri add cli"
+            bun="bun tauri add cli"
+            cargo="cargo tauri add cli"
+    	/>
+
+  	</TabItem>
+    <TabItem label="手動で設定">
+    	<Steps>
+
+      1. `src-tauri` フォルダで次のコマンドを実行して、`Cargo.toml` 内のプロジェクトの依存関係にプラグインを追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-cli --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+      2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_cli::init());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+    	3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-cli"
+                yarn="yarn add @tauri-apps/plugin-cli"
+                pnpm="pnpm add @tauri-apps/plugin-cli"
+                deno="deno add npm:@tauri-apps/plugin-cli"
+                bun="bun add @tauri-apps/plugin-cli"
+            />
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 基本設定
+
+`tauri.conf.json` の中には、インターフェースを設定するための以下の項目があります：
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "plugins": {
+    "cli": {
+      "description": "Tauri CLI Plugin Example" /* プラグインの説明 */,
+      "args": [
+        /* 引数 */
+        {
+          "short": "v",
+          "name": "verbose" /* 出力レベル（この場合は「詳細表示」） */,
+          "description": "Verbosity level"
+        }
+      ],
+      "subcommands": {
+        "run": {
+          "description": "Run the application" /* コマンドの内容（この場合は「アプリの実行」） */,
+          "args": [
+            {
+              "name": "debug",
+              "description": "Run application in debug mode" /* 「デバッグ・モードでのアプリ実行」 */
+            },
+            {
+              "name": "release",
+              "description": "Run application in release mode" /* 「リリース・モードでのアプリ実行」 */
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+:::note
+
+ここに記載されている JSON の設定内容はすべて単なる「サンプル」であり、わかりやすくするために他の多くのフィールド項目は省略されています。
+
+:::
+
+## 引数の追加
+
+`args` 配列は、コマンドまたはサブコマンドによって受け入れられる引数のリストを表します。
+
+{/* TODO: List available configuration */}
+
+### 位置引数 Positional Argument
+
+「位置引数」は、引数リスト内の位置によって識別が行なわれます。以下の設定では：
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "source",
+      "index": 1,
+      "takesValue": true
+    },
+    {
+      "name": "destination",
+      "index": 2,
+      "takesValue": true
+    }
+  ]
+}
+```
+
+ユーザーはアプリを `./app tauri.txt dest.txt` として実行でき、引数照合マップには `source` を `"tauri.txt"` として、`destination` を `"dest.txt"` として定義します。
+
+### 名前付き引数 Named Arguments
+
+「名前付き引数」は［キーと値］のペアで、キーが値を表します。以下の設定では：
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "type",
+      "short": "t",
+      "takesValue": true,
+      "multiple": true,
+      "possibleValues": ["foo", "bar"]
+    }
+  ]
+}
+```
+
+ユーザーはアプリを `./app --type foo bar`、`./app -t foo -t bar`、または `./app --type=foo,bar` として実行でき、引数照合マップには `type` を `["foo", "bar"]` として定義します。
+
+### フラグ引数 Flag Arguments
+
+「フラグ引数」は、独立動作型（スタンドアロン）のキーで、その値の真偽によってアプリケーションに情報を提供します。以下の設定では：
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "verbose",
+      "short": "v"
+    }
+  ]
+}
+```
+
+ユーザーはアプリを `./app -v -v -v`、`./app --verbose --verbose --verbose`、または `./app -vvv` として実行でき、引数照合マップには `verbose` を `true`、`occurrences = 3` として定義します。
+
+## サブコマンド
+
+一部の CLI アプリケーションには、サブコマンドとしての追加インターフェースがあります。例えば、`git` CLI には `git branch`、`git commit`、`git push`があり、また、`subcommands` 配列を使用すれば、ネストされたインターフェースを追加定義できます：
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "cli": {
+    ...
+    "subcommands": {
+      "branch": {
+        "args": []
+      },
+      "push": {
+        "args": []
+      }
+    }
+  }
+}
+```
+
+その構成はルート・アプリケーションの構成と同じで、`description`、`longDescription`、`args` などがあります。
+
+## 使用法
+
+「CLI（コマンドライン・インターフェイス）」プラグインは、JavaScript と Rust の両方で利用できます。
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```javascript
+import { getMatches } from '@tauri-apps/plugin-cli';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { getMatches } = window.__TAURI__.cli; を使用できます；
+
+const matches = await getMatches();
+if (matches.subcommand?.name === 'run') {
+  // `./your-app run $ARGS` が実行されました
+  const args = matches.subcommand.matches.args;
+  if (args.debug?.value === true) {
+    // `./your-app run --debug` が実行されました
+  }
+  if (args.release?.value === true) {
+    // `./your-app run --release` が実行されました
+  }
+}
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs" {1, 6-18}
+use tauri_plugin_cli::CliExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+   tauri::Builder::default()
+       .plugin(tauri_plugin_cli::init())
+       .setup(|app| {
+           match app.cli().matches() {
+               // ここでの `matches` は { args, subcommand } を持つ構造体です。
+               // 構造体のメンバー `args` は `HashMap<String, ArgData>` であり、`ArgData` は { value, occurrences } を持つ構造体です。
+               // もう一方の構造体メンバー `subcommand` は `Option<Box<SubcommandMatches>>` であり、`SubcommandMatches` は { name, matches } を持つ構造体です。
+               Ok(matches) => {
+                   println!("{:?}", matches)
+               }
+               Err(_) => {}
+           }
+           Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## アクセス権の設定
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["cli:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

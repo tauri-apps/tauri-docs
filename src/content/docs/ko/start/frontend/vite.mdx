@@ -1,0 +1,137 @@
+---
+title: Vite
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Vite(비트)는 최신 웹 프로젝트에서 더 빠르고 간결한 개발 경험을 제공하는 것을 목표로 하는 빌드 도구입니다. 아래 설명은 "Vite 버전 5.4.8"을 기준으로 합니다.
+
+## 체크 항목
+
+- `tauri.conf.json`에서는 `frontendDist`로 `dist/`를 지정합니다.
+- iOS 물리적 장치에서 실행되도록 설정된 경우, 개발 서버의 호스트 IP에 `process.env.TAURI_DEV_HOST`를 사용하십시오.
+
+## 설정 예
+
+<Steps>
+
+1.  ##### Tauri 설정 업데이트
+
+    `package.json` 안에 다음 `dev` 및 `build` 스크립트 설정이 있다고 가정합니다:
+
+    ```json
+    {
+      "scripts": {
+        "dev": "vite dev",
+        "build": "vite build"
+      }
+    }
+    ```
+
+    Vite 개발 서버와 dist 폴더를 후크 기능(함수)과 함께 사용하여 Vite 스크립트를 자동으로 실행하도록 Tauri CLI를 설정할 수 있습니다.
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+2.  ##### Vite 설정 업데이트
+
+    ```js title="vite.config.js"
+    import { defineConfig } from 'vite';
+
+    const host = process.env.TAURI_DEV_HOST;
+
+    export default defineConfig({
+      // Vite가 Rust 오류를 불분명하게 만드는 것을 방지합니다
+      clearScreen: false,
+      server: {
+        // Tauri는 고정 포트에서 작동하므로 해당 포트를 찾을 수 없으면 작동하지 않습니다
+        strictPort: true,
+        // Tauri가 요청하는 호스트가 설정된 경우 이를 사용합니다
+        host: host || false,
+        port: 5173,
+      },
+      // `envPrefix` 항목으로 시작하는 환경 변수는 `import.meta.env`를 통해 Tauri의 소스 코드에서 참조할 수 있습니다
+      envPrefix: ['VITE_', 'TAURI_ENV_*'],
+      build: {
+        // Tauri는 Windows에서는 Chromium을, macOS와 Linux에서는 WebKit을 사용합니다
+        target:
+          process.env.TAURI_ENV_PLATFORM == 'windows'
+            ? 'chrome105'
+            : 'safari13',
+        // 디버그 빌드에서는 "파일 경량화(미니파이)"를 시키지 않습니다
+        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+        // 디버그 빌드에서 "SourceMap"을 만듭니다
+        sourcemap: !!process.env.TAURI_ENV_DEBUG,
+      },
+    });
+    ```
+
+</Steps>

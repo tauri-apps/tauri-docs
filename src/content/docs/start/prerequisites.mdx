@@ -125,7 +125,7 @@ sudo zypper in -t pattern devel_basis
 ```sh
 sudo apk add \
   build-base \
-  webkit2gtk \
+  webkit2gtk-4.1-dev \
   curl \
   wget \
   file \
@@ -133,6 +133,9 @@ sudo apk add \
   libayatana-appindicator-dev \
   librsvg
 ```
+
+> Note: Alpine Linux containers don’t include any fonts by default. To ensure text renders correctly in your Tauri app, install at least one font package (for example, `font-dejavu `).
+
   </TabItem>
   <TabItem label="NixOS">
 

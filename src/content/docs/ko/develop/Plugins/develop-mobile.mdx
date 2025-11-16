@@ -1,0 +1,523 @@
+---
+title: 모바일 플러그인 개발
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+:::tip[플러그인 개발]
+
+이 장의 많은 개념은 이전 장의 [플러그인 개발](/ko/develop/plugins/)에서 설명된 기초 위에 구축되었으므로 그 내용을 충분히 이해해 주십시오.
+
+:::
+
+플러그인은 Kotlin(또는 Java)과 Swift로 작성된 네이티브 모바일 코드를 실행할 수 있습니다. 기본 플러그인 템플릿에는 Kotlin을 사용한 "Android 라이브러리 프로젝트"와 Rust 코드에서 어떻게 실행시키는지(트리거하는지)를 설명하는 모바일 커맨드 샘플을 포함한 "Swift 패키지"가 포함되어 있습니다.
+
+## 플러그인 프로젝트 초기화
+
+새로운 플러그인 프로젝트를 초기화하려면 이전 장 [플러그인 개발](/ko/develop/plugins/#플러그인-프로젝트-초기화)의 절차를 따르십시오.
+
+기존 플러그인에 Android 또는 iOS 기능을 추가하고 싶다면, `plugin android init`과 `plugin ios init`을 사용하여 모바일 라이브러리 프로젝트를 부트스트랩(시작)하고 필요한 변경 사항을 통합할 수 있습니다.
+
+기본 플러그인 템플릿은 플러그인 구현을 `desktop.rs`와 `mobile.rs`라는 두 개의 별도 모듈로 분할합니다.
+
+"데스크톱 구현"에서는 Rust 코드를 사용하여 기능을 구현하지만, "모바일 구현"에서는 네이티브 모바일 코드로 메시지를 보내 함수를 실행하고 결과를 얻습니다. 두 구현에서 공통 로직이 필요한 경우, `lib.rs`에서 정의합니다:
+
+```rust title="src/lib.rs"
+use tauri::Runtime;
+
+impl<R: Runtime> <plugin-name><R> {
+  pub fn do_something(&self) {
+    // 여기에 데스크톱과 모바일 간에 공유되는 구현(이 예에서는 do_something 함수의 내용)을 정의합니다
+  }
+}
+```
+
+이 구현은 커맨드와 Rust 코드 양쪽에서 사용 가능한 API를 공유하는 프로세스를 간소화합니다.
+
+### Android 플러그인 개발
+
+Android용 Tauri 플러그인은 `app.tauri.plugin.Plugin`을 확장하고 `app.tauri.annotation.TauriPlugin`으로 어노테이션된 "Kotlin 클래스"로 정의됩니다. `app.tauri.annotation.Command`로 어노테이션된 각 메서드는 Rust 또는 JavaScript에서 호출할 수 있습니다.
+
+<TranslationNote lang="ko">
+  **어노테이션** annotation. 데이터에 관련 정보를 주석으로 부여하는 것. 자세한
+  내용은 [Wikipedia](https://ko.wikipedia.org/wiki/자바_애너테이션)를
+  참조하십시오.
+</TranslationNote>
+
+Tauri는 Android 플러그인 구현에 기본적으로 Kotlin을 사용하지만, 필요에 따라 Java로 전환할 수도 있습니다. 플러그인을 생성한 후, Android Studio에서 Kotlin 플러그인 클래스를 마우스 오른쪽 버튼으로 클릭하고 메뉴에서 "Kotlin 파일을 Java 파일로 변환" 옵션을 선택합니다. Kotlin 프로젝트의 Java로의 마이그레이션에서는 Android Studio의 가이드를 따르십시오.
+
+### iOS 플러그인 개발
+
+iOS용 Tauri 플러그인은 `Tauri` 패키지의 `Plugin` 클래스를 확장하는 Swift 클래스로 정의됩니다. `@objc` 속성과 `(_invoke: Invoke)` 매개변수를 가진 각 함수(예: `@objc private func download(_invoke: Invoke) { }`)는 Rust 또는 JavaScript에서 호출할 수 있습니다.
+
+플러그인은 [Swift 패키지](https://www.swift.org/package-manager/)로 정의되어 있으므로 Swift의 패키지 관리자를 사용하여 종속성을 관리할 수 있습니다.
+
+## 플러그인 설정
+
+플러그인 설정 방법에 대한 자세한 내용은 이전 장 "플러그인 개발"의 [플러그인 설정](/ko/develop/plugins/#플러그인-설정)을 참조하십시오.
+
+모바일 플러그인 인스턴스에는 플러그인 설정용 "게터" 커맨드가 있습니다:
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+import app.tauri.annotation.InvokeArg
+
+@InvokeArg
+class Config {
+    var timeout: Int? = 3000
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  private var timeout: Int? = 3000
+
+  override fun load(webView: WebView) {
+    getConfig(Config::class.java).let {
+       this.timeout = it.timeout
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+struct Config: Decodable {
+  let timeout: Int?
+}
+
+class ExamplePlugin: Plugin {
+  var timeout: Int? = 3000
+
+  @objc public override func load(webview: WKWebView) {
+    do {
+      let config = try parseConfig(Config.self)
+      self.timeout = config.timeout
+    } catch {}
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 라이프사이클 이벤트
+
+플러그인은 여러 라이프사이클 이벤트에 후크할 수 있습니다:
+
+- [load](#load): 플러그인이 Webview에 로드되었을 때
+- [onNewIntent](#onnewintent): Android 전용. 액티비티가 재개되었을 때
+
+이전 장의 "플러그인 개발"에는 위 이외의 [플러그인 라이프사이클 이벤트](/ko/develop/plugins/#라이프사이클-이벤트)가 기재되어 있습니다.
+
+### "load"
+
+- **언제**: 플러그인이 Webview에 로드되었을 때
+- **목적**: 플러그인 초기화 코드 실행
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    // 여기서 플러그인 설정 실행
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### "onNewIntent"
+
+**참고**: 이 플러그인은 Android에서만 사용할 수 있습니다.
+
+- **언제**: 액티비티가 재개되었을 때. 자세한 내용은 [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>)를 참조하십시오.
+- **목적**: "알림"이 클릭되었을 때나 "[딥 링크](https://ko.wikipedia.org/wiki/딥_링크)"에 액세스했을 때 등 애플리케이션 재시작 처리
+
+```kotlin
+import android.app.Activity
+import android.content.Intent
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun onNewIntent(intent: Intent) {
+    // 새로운 "인텐트" 이벤트 처리
+  }
+}
+```
+
+## 모바일 커맨드 추가
+
+각 모바일 프로젝트에는 Rust 코드에서 호출 가능한 커맨드를 정의할 수 있는 플러그인 클래스가 있습니다:
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+Kotlin의 `suspend` 함수를 사용하려면 커스텀 "[코루틴](https://ko.wikipedia.org/wiki/코루틴)" 스코프를 사용해야 합니다.
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+// 데이터 취득을 목적으로 하는 경우 Dispatchers.IO로 변경합니다
+val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    scope.launch {
+      openCameraInner(invoke)
+    }
+  }
+
+  private suspend fun openCameraInner(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+</TabItem>
+</Tabs>
+
+Rust에서 모바일 커맨드를 호출하려면 [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0/tauri/plugin/struct.PluginHandle.html)을 사용합니다.
+
+```rust
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> <plugin-name;pascal-case><R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
+```
+
+## 커맨드 인수
+
+인수는 직렬화되어 커맨드에 전달되며, 모바일 플러그인에서 `Invoke::parseArgs` 함수를 사용하여 구문 분석할 수 있으며, 인수 객체를 설명하는 클래스를 받습니다.
+
+### Android
+
+Android에서는 인수가 `@app.tauri.annotation.InvokeArg`로 어노테이션된 클래스로 정의됩니다. 내부 객체에도 어노테이션을 부여해야 합니다:
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.Command
+import app.tauri.annotation.InvokeArg
+import app.tauri.annotation.TauriPlugin
+
+@InvokeArg
+internal class OpenAppArgs {
+  lateinit var name: String
+  var timeout: Int? = null
+}
+
+@InvokeArg
+internal class OpenArgs {
+  lateinit var requiredArg: String
+  var allowEdit: Boolean = false
+  var quality: Int = 100
+  var app: OpenAppArgs? = null
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val args = invoke.parseArgs(OpenArgs::class.java)
+  }
+}
+```
+
+:::note
+선택적 인수는 `var <argumentName>: Type? = null`로 정의됩니다.
+
+기본값을 가진 인수는 `var <argumentName>: Type = <default-value>`로 정의됩니다.
+
+필수 인수는 `lateinit var <argumentName>: Type`으로 정의됩니다.
+:::
+
+### iOS
+
+iOS에서는 인수가 `Decodable`을 상속하는 클래스로 정의됩니다. 내부 객체도 Decodable 프로토콜을 상속해야 합니다:
+
+```swift
+class OpenAppArgs: Decodable {
+  let name: String
+  var timeout: Int?
+}
+
+class OpenArgs: Decodable {
+  let requiredArg: String
+  var allowEdit: Bool?
+  var quality: UInt8?
+  var app: OpenAppArgs?
+}
+
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    let args = try invoke.parseArgs(OpenArgs.self)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+:::note
+선택적 인수는 `var <argumentName>: Type?`로 정의됩니다.
+
+기본값을 가진 인수는 **지원되지 않습니다**.
+대신, "null 허용 형식"을 사용하여 커맨드 함수에 기본값을 설정합니다.
+
+필수 인수는 `let <argumentName>: Type`으로 정의됩니다.
+:::
+
+## 접근 권한
+
+플러그인이 최종 사용자로부터 접근 권한을 필요로 하는 경우, Tauri는 접근 권한 확인 및 요청 프로세스를 간소화합니다.
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+먼저, 필요한 접근 권한 목록과 코드 내에서 각 그룹을 식별하기 위한 별칭을 정의합니다. 이 처리는 `TauriPlugin` 어노테이션 내에서 수행됩니다:
+
+```kotlin
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
+class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+먼저, `checkPermissions` 함수와 `requestPermissions` 함수를 재정의합니다:
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // 여기서 접근 권한을 요청합니다
+    // 이어서 요청을 해결합니다
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Tauri는 플러그인에 대한 두 가지 커맨드 `checkPermissions`와 `requestPermissions`를 자동으로 구현합니다.
+이 두 커맨드는 JavaScript 또는 Rust에서 직접 호출할 수 있습니다.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { invoke, PermissionState } from '@tauri-apps/api/core'
+
+interface Permissions {
+  postNotification: PermissionState
+}
+
+// 접근 권한 상태 확인
+const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+
+if (permission.postNotification === 'prompt-with-rationale') {
+  // 사용자에게 접근 권한이 필요한 이유에 대한 정보를 표시합니다
+}
+
+// 접근 권한 요청
+if (permission.postNotification.startsWith('prompt')) {
+  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use serde::{Serialize, Deserialize};
+use tauri::{plugin::PermissionState, Runtime};
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PermissionResponse {
+  pub post_notification: PermissionState,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestPermission {
+  post_notification: bool,
+}
+
+impl<R: Runtime> Notification<R> {
+  pub fn request_post_notification_permission(&self) -> crate::Result<PermissionState> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("requestPermissions", RequestPermission { post_notification: true })
+      .map(|r| r.post_notification)
+      .map_err(Into::into)
+  }
+
+  pub fn check_permissions(&self) -> crate::Result<PermissionResponse> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("checkPermissions", ())
+      .map_err(Into::into)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 플러그인 이벤트
+
+{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+
+플러그인은 `trigger` 함수를 사용하여 언제든지 이벤트를 발행할 수 있습니다:
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+    override fun load(webView: WebView) {
+      trigger("load", JSObject())
+    }
+
+    override fun onNewIntent(intent: Intent) {
+      // 새로운 "인텐트" 이벤트 처리
+      if (intent.action == Intent.ACTION_VIEW) {
+        val data = intent.data.toString()
+        val event = JSObject()
+        event.put("data", data)
+        trigger("newIntent", event)
+      }
+    }
+
+    @Command
+    fun openCamera(invoke: Invoke) {
+      val payload = JSObject()
+      payload.put("open", true)
+      trigger("camera", payload)
+    }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+[`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener)라는 헬퍼 함수를 사용하여 NPM 패키지에서 헬퍼 함수를 호출할 수 있습니다:
+
+```javascript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
+
+export async function onRequest(
+	handler: (url: string) => void
+): Promise<PluginListener> {
+	return await addPluginListener(
+		'<plugin-name>',
+		'event-name',
+		handler
+	);
+}
+```

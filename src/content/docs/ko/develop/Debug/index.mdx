@@ -1,0 +1,162 @@
+---
+title: 디버깅
+sidebar:
+  label: 개요
+  order: 10
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri에는 많은 동작 부분이 있으므로 디버깅이 필요한 문제에 직면할 수 있습니다. 오류 세부 정보가 출력되는 곳은 여러 곳이 있으며, Tauri에는 디버깅 프로세스를 더 쉽게 만들어주는 몇 가지 도구도 있습니다.
+
+## 개발 전용 코드
+
+디버깅용 툴킷 중에서 가장 유용한 도구 중 하나는 코드에 디버그 문을 추가하는 기능입니다. 그러나 이러한 기능이 프로덕션 환경에까지 들어가는 것은 일반적으로 바람직하지 않습니다. 여기서 "개발 모드에서 실행 중인지 여부"를 확인하는 기능이 유용합니다.
+
+### Rust에서
+
+```rs frame=none
+fn main() {
+  // 현재 인스턴스가 `tauri dev`로 시작되었는지 여부.
+  #[cfg(dev)]
+  {
+    // `tauri dev` 전용 코드 기재
+  }
+  if cfg!(dev) {
+    // `tauri dev` 전용 코드 기재
+  } else {
+    // `tauri build` 전용 코드 기재
+  }
+  let is_dev: bool = tauri::is_dev();
+
+  // 디버그 어설션이 활성화되어 있는지 여부. 이는 `tauri dev`와 `tauri build --debug`에서 "true"가 됩니다.
+  #[cfg(debug_assertions)]
+  {
+    // 디버그 전용 코드 기재
+  }
+  if cfg!(debug_assertions) {
+    // 디버그 전용 코드 기재
+  } else {
+    // 프로덕션 전용 코드 기재
+  }
+}
+```
+
+> > > 《번역 주》 **디버그 어설션** debug assertions. 프로그램 중에 충족되어야 할 조건(어설션)을 기술하여 실행 시에 체크하는 구조.
+
+{/* TODO: js version */}
+
+## Rust 콘솔
+
+오류를 확인하는 첫 번째 장소는 "Rust 콘솔"입니다. 이것은 (`tauri dev` 등을 실행하는) 터미널 내에 있습니다. 다음 코드를 사용하면 Rust 파일 내에서 콘솔에 정보를 출력할 수 있습니다.
+
+```rust frame=none
+println!("Message from Rust: {}", msg);
+```
+
+때로는 작성한 Rust 코드에 오류가 발생할 수 있지만, Rust 컴파일러가 많은 정보를 제공해 줍니다. 예를 들어, `tauri dev`가 충돌했을 때 다음과 같이 다시 실행할 수 있습니다. Linux 및 macOS에서는:
+
+```shell frame=none
+RUST_BACKTRACE=1 tauri dev
+```
+
+Windows(PowerShell)에서는 다음과 같습니다:
+
+```powershell frame=none
+$env:RUST_BACKTRACE=1
+tauri dev
+```
+
+이 명령은 상세한 스택 트레이스를 제공합니다.
+종합적으로 보면, Rust 컴파일러는 문제에 대한 상세한 정보를 제공하여 문제 해결에 도움을 줍니다. 예를 들어:
+
+```bash frame=none
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
+```
+
+> > > 《번역 주》 **스택 트레이스** stack trace. 프로그램 오류 발생 시, 해당 오류에 이르기까지의 함수 호출 이력이나 메서드 등을 기록한 것. 자세한 내용은 [Wikipedia](https://ko.wikipedia.org/wiki/스택_추적)를 참조하십시오.
+
+## WebView 콘솔
+
+WebView를 마우스 오른쪽 버튼으로 클릭하고 `Inspect Element`(요소 검사)를 선택합니다. 그러면 익숙한 Chrome이나 Firefox 개발자 도구와 유사한 "웹 인스펙터"가 열립니다.
+Linux와 Windows에서는 단축키 `Ctrl + Shift + i`를, macOS에서는 `Command + Option + i`를 사용하여 이 "인스펙터"를 열 수도 있습니다.
+
+"인스펙터"는 플랫폼에 따라 다르며, Linux에서는 "webkit2gtk WebInspector", macOS에서는 "Safari 인스펙터", Windows에서는 "Microsoft Edge DevTools"를 렌더링합니다.
+
+### 프로그램에서 Devtools 열기
+
+인스펙터 창의 가시성을 조정하려면 [`WebviewWindow::open_devtools`] 및 [`WebviewWindow::close_devtools`] 함수를 사용합니다.
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(debug_assertions)] // 이 코드는 디버그 빌드에만 기재하십시오.
+    {
+      let window = app.get_webview_window("main").unwrap();
+      window.open_devtools();
+      window.close_devtools();
+    }
+    Ok(())
+  });
+```
+
+### 프로덕션 환경에서 인스펙터 사용
+
+인스펙터는 기본적으로 개발 및 디버그 빌드에서만 활성화되어 있으므로 프로덕션 환경에서 사용하려면 Cargo 기능을 사용하여 활성화해야 합니다.
+
+#### 디버그 빌드 만들기
+
+디버그 빌드를 만들려면 `tauri build --debug` 명령을 실행합니다.
+
+<CommandTabs
+  npm="npm run tauri build -- --debug"
+  yarn="yarn tauri build --debug"
+  pnpm="pnpm tauri build --debug"
+  deno="deno task tauri build --debug"
+  bun="bun tauri build --debug"
+  cargo="cargo tauri build --debug"
+/>
+
+일반적인 빌드나 개발 프로세스와 마찬가지로, 이 명령을 처음 실행할 때는 빌드에 다소 시간이 걸리지만, 그 이후의 실행에서는 훨씬 빨라집니다. 최종적으로 번들된 앱에서는 개발 콘솔이 활성화되어 있으며, `src-tauri/target/debug/bundle`에 배치됩니다.
+
+또한 터미널에서 빌드된 앱을 실행하여 Rust 컴파일러의 메모(오류의 경우)나 `println` 메시지를 표시할 수도 있습니다. `src-tauri/target/(release|debug)/[앱 이름]` 파일을 참조하여 콘솔에서 직접 실행하거나, 파일 시스템 내의 실행 파일 자체를 더블 클릭합니다(원주: 이 방법에서는 오류가 발생하면 콘솔이 닫힙니다).
+
+##### Devtools 기능 활성화
+
+:::danger
+
+devtools API는 macOS에서 "프라이빗"입니다. macOS에서 프라이빗 API를 사용하면 해당 애플리케이션은 App Store에 수리되지 않습니다.
+
+> > > 《번역 주》 **프라이빗** private. 변수나 상수, 함수, 메서드 등이 그것이 정의된 범위 안에서만 호출·참조할 수 있는 것(외부에서는 호출할 수 없는 것). 닫힌 공간 안("집 안"과 같은)에서만 유효한 상태.
+
+:::
+
+**프로덕션 빌드**(제품판 빌드)에서 devtools를 활성화하려면, `src-tauri/Cargo.toml` 파일의 Cargo 기능 "`devtools`"를 활성화해야 합니다.
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "devtools"] }
+```
+
+## Core 프로세스 디버깅
+
+Core 프로세스는 Rust로 작동하므로 GDB 또는 LLDB를 사용하여 디버깅할 수 있습니다. "LLDB VS Code 확장 기능"을 사용하여 Tauri 애플리케이션의 Core 프로세스를 디버깅하는 방법에 대해서는 [VS Code에서의 디버깅] 가이드를 참조하십시오.
+
+> > > 《번역 주》 **GDB** The GNU Project Debugger의 약자. [GNU 디버거](https://ko.wikipedia.org/wiki/GNU_디버거) > > > **LLDB** The LLDB Debugger. 차세대 고성능 디버거.
+
+[VS Code에서의 디버깅]: /ko/develop/debug/vscode/
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.close_devtools
+
+<div style="text-align: right">
+  【※ 이 한국어판은 "Mar 29, 2025 영문판"을 기준으로 합니다】
+</div>

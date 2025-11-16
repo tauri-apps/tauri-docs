@@ -1,0 +1,27 @@
+---
+title: Tauri RSS 피드
+i18nReady: true
+topic: guides # 이 페이지를 볼 때 이 사이드바가 활성화됩니다
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<LinkCard
+  title="모든 업데이트 정보"
+  description="사이트 전체 업데이트 알림을 받습니다."
+  href="/feed.xml"
+/>
+
+<LinkCard
+  title="블로그 업데이트 정보"
+  description="최신 블로그 게시물과 기사를 확인합니다."
+  href="/blog/rss.xml"
+/>
+
+<LinkCard
+  title="페이지 업데이트 정보"
+  description="메인 사이트 업데이트 정보를 받습니다."
+  href="/pages.xml"
+/>
+
+<div style="text-align: right;">Doc-KO 2.00.00</div>
