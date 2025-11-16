@@ -355,6 +355,129 @@ Use a nullable type and set the default value on the command function instead.
 Required arguments are defined as `let <argumentName>: Type`
 :::
 
+## Calling Rust From Mobile Plugins
+
+It is often preferable to write plugin code in Rust, for performance and reusability. While Tauri doesn't directly provide a mechanism to call Rust from your plugin code, using JNI on Android and FFI on iOS allows plugins to call shared code, even when the application WebView is suspended.
+
+### Android
+
+In your plugin's `Cargo.toml`, add the jni crate as a dependency:
+
+```toml
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.21"
+```
+
+Load the application library statically and define native functions in your Kotlin code. In this example, the Kotlin class is `com.example.HelloWorld`, we need to reference the full package name from the Rust side.
+
+```kotlin
+private const val TAG = "MyPlugin"
+
+init {
+  try {
+    // Load the native library (libapp_lib.so)
+    // This is the shared library built by Cargo with crate-type = ["cdylib"]
+    System.loadLibrary("app_lib")
+    Log.d(TAG, "Successfully loaded libapp_lib.so")
+  } catch (e: UnsatisfiedLinkError) {
+    Log.e(TAG, "Failed to load libapp_lib.so", e)
+    throw e
+  }
+}
+
+external fun helloWorld(name: String): String?
+```
+
+Then in your plugin's Rust code, define the function JNI will look for. The function format is `Java_package_class_method`, so for our class above this becomes `Java_com_example_HelloWorld_helloWorld` to get called by our `helloWorld` method:
+
+```rust
+#[cfg(target_os = "android")]
+#[no_mangle]
+pub extern "system" fn Java_com_example_HelloWorld_helloWorld(
+    mut env: JNIEnv,
+    _class: JClass,
+    name: JString,
+) -> jstring {
+    log::debug!("Calling JNI Hello World!");
+    let result = format!("Hello, {}!", name);
+
+    match env.new_string(result) {
+        Ok(jstr) => jstr.into_raw(),
+        Err(e) => {
+            log::error!("Failed to create JString: {}", e);
+            std::ptr::null_mut()
+        }
+    }
+}
+```
+
+### iOS
+
+iOS only uses standard C FFI, so doesn't need any new dependencies. Add the hook in your Swift code, as well as any necessary cleanup. These functions can be named anything valid, but must be annotated with `@_silgen_name(FFI_FUNC)`, where FFI_FUNC is a function name to be called from Rust:
+
+```swift
+@_silgen_name("hello_world_ffi")
+private static func helloWorldFFI(_ name: UnsafePointer<CChar>) -> UnsafeMutablePointer<CChar>?
+
+@_silgen_name("free_hello_result_ffi")
+private static func freeHelloResult(_ result: UnsafeMutablePointer<CChar>)
+
+static func helloWorld(name: String) -> String? {
+  // Call Rust FFI
+  let resultPtr = name.withCString({ helloWorldFFI($0) })
+
+  // Convert C string to Swift String
+  let result = String(cString: resultPtr)
+
+  // Free the C string
+  freeHelloResult(resultPtr)
+
+  return result
+}
+
+```
+
+Then, implement the Rust side. The `extern` functions here must match the `@_silgen_name` annotations on the Swift side:
+
+```rust
+#[no_mangle]
+pub unsafe extern "C" fn hello_world_ffi(c_name: *const c_char) -> *mut c_char {
+    let name = match CStr::from_ptr(c_name).to_str() {
+        Ok(s) => s,
+        Err(e) => {
+            log::error!("[iOS FFI] Failed to convert C string: {}", e);
+            return std::ptr::null_mut();
+        }
+    };
+
+    let result = format!("Hello, {}!", name);
+
+    match CString::new(result) {
+        Ok(c_str) => c_str.into_raw(),
+        Err(e) => {
+            log::error!("[iOS FFI] Failed to create C string: {}", e);
+            std::ptr::null_mut()
+        }
+    }
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn free_hello_result_ffi(result: *mut c_char) {
+    if !result.is_null() {
+        drop(CString::from_raw(result));
+    }
+}
+```
+
+## Android 16KB Memory Pages
+
+Google is moving to make 16KB memory pages a requirement in all new Android app submissions. Building with an NDK version 28 or higher should automatically generate bundles that meet this requirement, but in the event an older NDK version must be used or generated files aren't 16KB aligned, the following can be added to `.cargo/config.toml` to flag this to `rustc`:
+
+```toml
+[target.aarch64-linux-android]
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
+```
+
 ## Permissions
 
 If a plugin requires permissions from the end user, Tauri simplifies the process of checking and requesting permissions.

@@ -1,0 +1,211 @@
+---
+title: macOS でのコード署名
+sidebar:
+  label: macOS
+  order: 11
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+自分のアプリケーションを [Apple App Store] に掲載し、ブラウザからダウンロードされたときに、「このアプリケーションは破損しているため起動できません」という警告メッセージが表示されないようにするためには、macOS での「コード署名」が必要です。
+
+## 事前準備
+
+macOS で「コード署名」を行なうには、「[Apple Developer] アカウント」（開発者アカウント）が必要です。アカウントは「有料プラン」（年間99ドル）または「無料プラン」（テストおよび開発目的のみ）のどちらかになります。また、コード署名を行なう Apple デバイスも必要です。これは署名手続きと Apple 社の利用規約で規定されています。
+
+:::note
+無料の「Apple Developer アカウント」を使用する場合、あなたのアプリケーションはソフトウェア公証（ノータリゼーション）を受けることができず、アプリを開いたときに未認証として表示されることに御留意ください。
+:::
+
+## 署名
+
+macOS のコード署名を設定するには、「Apple コード署名証明書」を作成し、それを Mac コンピュータのキーチェーンにインストールするか、CI/CD プラットフォームで使用するためにエクスポートする必要があります。
+
+### 署名証明書の作成
+
+新しい「署名証明書」を作成するには、Mac コンピューターから「証明書署名リクエスト（CSR）ファイル」を生成する必要があります。
+「コード署名」用の CSR を作成する方法については、[証明書署名リクエストを作成する] を参照してください。
+
+<TranslationNote lang="ja">
+
+**CSR**　原文 Certificate Signing Request の略。「証明書署名リクエスト（要求）」
+
+</TranslationNote>
+
+あなたの「Apple Developer アカウント」で、[Certificates, IDs & Profiles のページ] に移動し、「`Create a certificate`（証明書の作成）」ボタンをクリックして、新しい証明書を作成するためのインターフェイスを開きます。
+そこで適切な「証明書タイプ」を選択してください（App Store にアプリを送信する場合は「`Apple Distribution`（Apple 配信）」を、App Store 外でアプリを配布する場合は「`Developer ID Application`（開発者 ID アプリケーション」を選択します）。
+次に「CSR（証明書署名リクエスト）ファイル」をアップロードすると、証明書が作成されます。
+
+:::note
+
+「Apple Developerアカウント」の所有者（`Account Holder`）のみが「_Developer ID Application_ 証明書」を作成できます。ただし、異なるユーザー・メールアドレスで CSR を作成することで、別の Apple ID に関連付けることができます。
+
+:::
+
+### 証明書のダウンロード
+
+[Certificates, IDs & Profiles のページ] 上で、使用する「証明書」をクリックし、「`Download`（ダウンロード）」ボタンをクリックします。
+すると「`.cer` ファイル」が保存され、このファイルを開くとキーチェーンに証明書がインストールされます。
+
+### Tauri の設定
+
+ローカル・マシン上で macOS アプリをビルドするときや、CI/CD プラットフォームを使用するときに、この証明書を使用するように Tauri を設定できます。
+
+#### ローカル署名
+
+あなたの Mac コンピュータのキーチェーンに証明書をインストールすることで、コード署名にその証明書を使用するように Tauri を設定できます。
+
+証明書のキーチェーン・エントリ名は `signing identity`（署名本人確認）を表しており、次のコマンドを実行して確認することもできます：
+
+```sh
+security find-identity -v -p codesigning
+```
+
+この「本人確認 identity」は、[`tauri.conf.json > bundle > macOS > signingIdentity`] の設定オプション、または環境変数の `APPLE_SIGNING_IDENTITY` を介して得られます。
+
+:::note
+
+「署名証明書（signing certificate）」は、あなたの Apple ID に関連付けられている場合にのみ有効です。
+有効でない証明書は、「_Keychain Access > My Certificates_」タブや「_security find-identity -v -p codesigning_」の出力には表示されません。
+証明書が正しい場所にダウンロードされない場合は、「.cer ファイル」をダウンロードする際に、「デフォルト・キーチェーン」の下にある _キーチェーン・アクセス_ で「ログイン」オプションが選択されていることを確認してください。
+
+:::
+
+#### CI/CD プラットフォームでの署名
+
+CI/CD プラットフォームで証明書を使用するためには、以下の手順で証明書を「[base64] 文字列」にエクスポートし、環境変数の `APPLE_CERTIFICATE` および `APPLE_CERTIFICATE_PASSWORD` を設定する必要があります：
+
+1. 「`Keychain Access`（キーチェーン・アクセス）」アプリを開き、_login_ キーチェーン内の「_My Certificates_」タブをクリックして、自分の証明書のエントリを見つけます。
+2. エントリを展開し、キー項目を右クリックして、「`Export "$KEYNAME"`（"$KEYNAME" をエクスポート）」を選択します。
+3. 証明書の「`.p12` ファイル」を保存するためのパスを選択し、エクスポートされた証明書用のパスワードを設定します。
+4. ターミナルで次のスクリプトを実行して、「`.p12` ファイル」を base64 に変換します：
+
+```sh
+openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
+```
+
+5. 「`certificate-base64.txt` ファイル」の内容を環境変数の「`APPLE_CERTIFICATE`」に設定します。
+6. 証明書のパスワードを環境変数の「`APPLE_CERTIFICATE_PASSWORD`」に設定します。
+
+<br />
+
+<details>
+<summary>GitHub Actions の設定例</summary>
+
+必要な「シークレット」:
+
+- `APPLE_ID` - あなたの Apple ID メール・アドレス
+- `APPLE_ID_PASSWORD` - あなたの Apple ID パスワード
+- `APPLE_CERTIFICATE` - base64 でエンコードされた「`.p12` ファイル」
+- `APPLE_CERTIFICATE_PASSWORD` - エクスポートした「`.p12` ファイル」のパスワード
+- `KEYCHAIN_PASSWORD` - あなたのキーチェーンのパスワード
+
+「シークレットを設定する方法」については、[GitHub の公式ガイド](https://docs.github.com/jp/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) をご覧ください。
+
+```yaml
+name: 'build'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-macos:
+    needs: prepare
+    strategy:
+      matrix:
+        include:
+          - args: '--target aarch64-apple-darwin'
+            arch: 'silicon'
+          - args: '--target x86_64-apple-darwin'
+            arch: 'intel'
+    runs-on: macos-latest
+    env:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+    steps:
+      - name: Import Apple Developer Certificate
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security set-keychain-settings -t 3600 -u build.keychain
+          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          security find-identity -v -p codesigning build.keychain
+      - name: Verify Certificate
+        run: |
+          CERT_INFO=$(security find-identity -v -p codesigning build.keychain | grep "Apple Development")
+          CERT_ID=$(echo "$CERT_INFO" | awk -F'"' '{print $2}')
+          echo "CERT_ID=$CERT_ID" >> $GITHUB_ENV
+          echo "Certificate imported."
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ env.CERT_ID }}
+        with:
+          args: ${{ matrix.args }}
+```
+
+</details>
+
+## 公証（公正証書 Notarization）
+
+アプリケーションを公証するには、Tauri が Apple で認証を行なうために資格情報を提供する必要があります：
+
+- APPLE_API_ISSUER、APPLE_API_KEY と APPLE_API_KEY_PATH：　「App Store Connect API キー」を使用して認証
+
+  [App Store Connect/Users and Access のページ] を開き、「Integrations（統合）」タブを選択、「Add（追加）」ボタンをクリックして、「名前」と「Developer access（開発者アクセス）」を選択します。
+  「APPLE_API_ISSUER（発行者 ID）」はキー・テーブルの上側に表示され、「APPLE_API_KEY」はそのテーブルの「キー ID 列」の値です。
+  「private key（秘密鍵）」のダウンロードも必要ですが、これは一回だけ実行され、ページをリロードした後にのみ表示されます（ボタンが、新しく生成されたキーに対応するテーブル行にボタンが表示されます）。
+  この Private Key（秘密鍵）ファイルのパスは、環境変数の 「APPLE_API_KEY_PATH」を通して設定する必要があります。
+
+- APPLE_ID、APPLE_PASSWORD と APPLE_TEAM_ID：　自分の Apple ID で認証
+
+  あるいは、自分の Apple ID で認証するには、「APPLE_ID」を「Apple アカウントのメール・アドレス」に設定し、「APPLE_PASSWORD」を Apple アカウントの「[アプリ用パスワード]」に設定します。
+
+:::note
+「_Developer ID Application_」証明書を使用する場合は、「公証」が必要です。
+:::
+
+[Certificates]: https://developer.apple.com/account/resources/certificates/list
+[Apple Developer]: https://developer.apple.com/jp/
+[Apple App Store]: https://www.apple.com/jp/app-store/
+[App Store Connect/Users and Access のページ]: https://appstoreconnect.apple.com/access/users
+[`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity
+[証明書署名リクエストを作成する]: https://developer.apple.com/jp/help/account/certificates/create-a-certificate-signing-request/
+[Certificates, IDs & Profiles のページ]: https://developer.apple.com/account/resources/certificates/list
+[アプリ用パスワード]: https://support.apple.com/ja-jp/102654
+
+## 一時的な署名（アドホックな署名）
+
+Apple 認証済みの「本人確認 identity」の提示は望まないが、アプリケーションへの署名は行ないたい場合は、*アドホック（一時的な）*署名を設定できます。
+
+このやりかたは、インターネット経由のすべてのアプリに対して、コード署名を要求する ARM アーキテクチャ（Apple Silicon）デバイスで役立ちます。
+
+:::caution
+アドホック・コード署名があっても、macOS がユーザーにそのようなアプリのインストールを [ホワイトリストに登録する](https://support.apple.com/ja-jp/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac) ように「プライバシーとセキュリティ設定」で要求することがあります。
+:::
+
+アドホック署名を設定するには、Tauri に“疑似”本人確認（pseudo-identity）「`-`」を指定します。すなわち：
+
+```json
+"signingIdentity": "-"
+```
+
+Tauri の「署名の本人確認」設定の詳細については、前述の [Tauri の設定](#tauri-の設定) の項を参照してください。
+
+[Base64] https://ja.wikipedia.org/wiki/Base64
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jun 6, 2025 英語版」に基づいています】
+</div>
