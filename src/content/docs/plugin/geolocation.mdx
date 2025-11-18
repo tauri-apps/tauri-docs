@@ -85,9 +85,18 @@ Install the geolocation plugin to get started.
 
 ### iOS
 
-Apple requires privacy descriptions to be specified in Info.plist for location information:
+Apple requires privacy descriptions to be specified in Info.plist for location information, where you should describe why your app needs to access it. Illustrated below is an example description:
 
-- NSLocationWhenInUseDescription
+```xml {6-7}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>NSLocationWhenInUseDescription</key>
+        <string>Required to do XY</string>
+    </dict>
+</plist>
+```
 
 ### Android
 
