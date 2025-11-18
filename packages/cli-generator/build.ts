@@ -78,6 +78,8 @@ let doc = '';
 for (const command of subcommands) {
   if (command.name === 'migrate' && process.platform !== 'darwin') {
     doc += readFileSync('../../src/content/docs/reference/_cli_ios.mdx').toString();
+    doc += '\n\n'; // just in case we format _cli_ios.mdx
+
     commandList.push(
       { name: 'ios', description: 'iOS commands' },
       {
@@ -98,9 +100,7 @@ for (const command of subcommands) {
       }
     );
   }
-  if (command.name === 'ios') {
-    continue;
-  }
+
   commandList.push(command);
   const commandDoc = generateCommandDoc(command.name, 3, commandList);
   doc += commandDoc;
