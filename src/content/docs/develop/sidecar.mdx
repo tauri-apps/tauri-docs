@@ -86,9 +86,10 @@ On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `
 ```rust
 use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::CommandEvent;
+use tauri::Emitter;
 
 let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
-let (mut rx, mut _child) = sidecar_command
+let (mut rx, mut child) = sidecar_command
   .spawn()
   .expect("Failed to spawn sidecar");
 
@@ -97,7 +98,7 @@ tauri::async_runtime::spawn(async move {
   while let Some(event) = rx.recv().await {
     if let CommandEvent::Stdout(line_bytes) = event {
       let line = String::from_utf8_lossy(&line_bytes);
-      window
+      app
         .emit("message", Some(format!("'{}'", line)))
         .expect("failed to emit event");
       // write to stdin
