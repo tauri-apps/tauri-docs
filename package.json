@@ -30,7 +30,7 @@
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/json-schema": "^7.0.15",
-    "astro": "^5.15.6",
+    "astro": "^5.15.9",
     "astro-d2": "^0.8.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
