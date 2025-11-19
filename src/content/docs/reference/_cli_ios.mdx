@@ -1,0 +1,317 @@
+### `ios`
+  
+<CommandTabs
+  npm="npm run tauri ios"
+  yarn="yarn tauri ios"
+  pnpm="pnpm tauri ios"
+  deno="deno task tauri ios"
+  bun="bun tauri ios"
+  cargo="cargo tauri ios"
+/>
+
+```
+iOS commands
+
+Usage: tauri ios [OPTIONS] <COMMAND>
+
+Commands:
+  init   Initialize iOS target in the project
+  dev    Run your app in development mode on iOS
+  build  Build your app in release mode for iOS and generate IPAs
+  run    Run your app in production mode on iOS
+  help   Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...  Enables verbose logging
+  -h, --help        Print help
+  -V, --version     Print version
+
+```
+
+#### `ios init`
+  
+<CommandTabs
+  npm="npm run tauri ios init"
+  yarn="yarn tauri ios init"
+  pnpm="pnpm tauri ios init"
+  deno="deno task tauri ios init"
+  bun="bun tauri ios init"
+  cargo="cargo tauri ios init"
+/>
+
+```
+Initialize iOS target in the project
+
+Usage: tauri ios init [OPTIONS]
+
+Options:
+      --ci
+          Skip prompting for values
+          
+          [env: CI=]
+
+  -v, --verbose...
+          Enables verbose logging
+
+  -r, --reinstall-deps
+          Reinstall dependencies
+
+      --skip-targets-install
+          Skips installing rust toolchains via rustup
+
+  -c, --config <CONFIG>
+          JSON strings or paths to JSON, JSON5 or TOML files to merge with the default configuration file
+          
+          Configurations are merged in the order they are provided, which means a particular value overwrites previous values when a config key-value pair conflicts.
+          
+          Note that a platform-specific file is looked up and merged with the default file by default (tauri.macos.conf.json, tauri.linux.conf.json, tauri.windows.conf.json, tauri.android.conf.json and tauri.ios.conf.json) but you can use this for more specific use cases such as different build flavors.
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+
+
+
+#### `ios dev`
+  
+<CommandTabs
+  npm="npm run tauri ios dev"
+  yarn="yarn tauri ios dev"
+  pnpm="pnpm tauri ios dev"
+  deno="deno task tauri ios dev"
+  bun="bun tauri ios dev"
+  cargo="cargo tauri ios dev"
+/>
+
+```
+Run your app in development mode on iOS with hot-reloading for the Rust code.
+It makes use of the `build.devUrl` property from your `tauri.conf.json` file.
+It also runs your `build.beforeDevCommand` which usually starts your frontend devServer.
+
+When connected to a physical iOS device, the public network address must be used instead of `localhost`
+for the devUrl property. Tauri makes that change automatically, but your dev server might need
+a different configuration to listen on the public address. You can check the `TAURI_DEV_HOST`
+environment variable to determine whether the public network should be used or not.
+
+Usage: tauri ios dev [OPTIONS] [DEVICE] [-- <ARGS>...]
+
+Arguments:
+  [DEVICE]
+          Runs on the given device name
+
+  [ARGS]...
+          Command line arguments passed to the runner. Use `--` to explicitly mark the start of the arguments. e.g. `tauri ios dev -- [runnerArgs]`
+
+Options:
+  -f, --features [<FEATURES>...]
+          List of cargo features to activate
+
+  -v, --verbose...
+          Enables verbose logging
+
+  -e, --exit-on-panic
+          Exit on panic
+
+  -c, --config <CONFIG>
+          JSON strings or paths to JSON, JSON5 or TOML files to merge with the default configuration file
+          
+          Configurations are merged in the order they are provided, which means a particular value overwrites previous values when a config key-value pair conflicts.
+          
+          Note that a platform-specific file is looked up and merged with the default file by default (tauri.macos.conf.json, tauri.linux.conf.json, tauri.windows.conf.json, tauri.android.conf.json and tauri.ios.conf.json) but you can use this for more specific use cases such as different build flavors.
+
+      --release
+          Run the code in release mode
+
+      --no-dev-server-wait
+          Skip waiting for the frontend dev server to start before building the tauri application
+          
+          [env: TAURI_CLI_NO_DEV_SERVER_WAIT=]
+
+      --no-watch
+          Disable the file watcher
+
+      --additional-watch-folders <ADDITIONAL_WATCH_FOLDERS>
+          Additional paths to watch for changes
+
+  -o, --open
+          Open Xcode instead of trying to run on a connected device
+
+      --force-ip-prompt
+          Force prompting for an IP to use to connect to the dev server on mobile
+
+      --host [<HOST>]
+          Use the public network address for the development server. If an actual address it provided, it is used instead of prompting to pick one.
+          
+          This option is particularly useful along the `--open` flag when you intend on running on a physical device.
+          
+          This replaces the devUrl configuration value to match the public network address host, it is your responsibility to set up your development server to listen on this address by using 0.0.0.0 as host for instance.
+          
+          When this is set or when running on an iOS device the CLI sets the `TAURI_DEV_HOST` environment variable so you can check this on your framework's configuration to expose the development server on the public network address.
+          
+          [default: <none>]
+
+      --no-dev-server
+          Disable the built-in dev server for static files
+
+      --port <PORT>
+          Specify port for the built-in dev server for static files. Defaults to 1430
+          
+          [env: TAURI_CLI_PORT=]
+
+      --root-certificate-path <ROOT_CERTIFICATE_PATH>
+          Path to the certificate file used by your dev server. Required for mobile dev when using HTTPS
+          
+          [env: TAURI_DEV_ROOT_CERTIFICATE_PATH=]
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+
+
+
+#### `ios build`
+  
+<CommandTabs
+  npm="npm run tauri ios build"
+  yarn="yarn tauri ios build"
+  pnpm="pnpm tauri ios build"
+  deno="deno task tauri ios build"
+  bun="bun tauri ios build"
+  cargo="cargo tauri ios build"
+/>
+
+```
+Build your app in release mode for iOS and generate IPAs. It makes use of the `build.frontendDist` property from your `tauri.conf.json` file. It also runs your `build.beforeBuildCommand` which usually builds your frontend into `build.frontendDist`.
+
+Usage: tauri ios build [OPTIONS] [-- <ARGS>...]
+
+Arguments:
+  [ARGS]...
+          Command line arguments passed to the runner. Use `--` to explicitly mark the start of the arguments. e.g. `tauri ios build -- [runnerArgs]`
+
+Options:
+  -d, --debug
+          Builds with the debug flag
+
+  -v, --verbose...
+          Enables verbose logging
+
+  -t, --target [<TARGETS>...]
+          Which targets to build
+          
+          [default: aarch64]
+          [possible values: aarch64, aarch64-sim, x86_64]
+
+  -f, --features [<FEATURES>...]
+          List of cargo features to activate
+
+  -c, --config <CONFIG>
+          JSON strings or paths to JSON, JSON5 or TOML files to merge with the default configuration file
+          
+          Configurations are merged in the order they are provided, which means a particular value overwrites previous values when a config key-value pair conflicts.
+          
+          Note that a platform-specific file is looked up and merged with the default file by default (tauri.macos.conf.json, tauri.linux.conf.json, tauri.windows.conf.json, tauri.android.conf.json and tauri.ios.conf.json) but you can use this for more specific use cases such as different build flavors.
+
+      --build-number <BUILD_NUMBER>
+          Build number to append to the app version
+
+  -o, --open
+          Open Xcode
+
+      --ci
+          Skip prompting for values
+          
+          [env: CI=]
+
+      --export-method <EXPORT_METHOD>
+          Describes how Xcode should export the archive.
+          
+          Use this to create a package ready for the App Store (app-store-connect option) or TestFlight (release-testing option).
+          
+          [possible values: app-store-connect, release-testing, debugging]
+
+      --ignore-version-mismatches
+          Do not error out if a version mismatch is detected on a Tauri package.
+          
+          Only use this when you are sure the mismatch is incorrectly detected as version mismatched Tauri packages can lead to unknown behavior.
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+
+
+
+#### `ios run`
+  
+<CommandTabs
+  npm="npm run tauri ios run"
+  yarn="yarn tauri ios run"
+  pnpm="pnpm tauri ios run"
+  deno="deno task tauri ios run"
+  bun="bun tauri ios run"
+  cargo="cargo tauri ios run"
+/>
+
+```
+Run your app in production mode on iOS. It makes use of the `build.frontendDist` property from your `tauri.conf.json` file. It also runs your `build.beforeBuildCommand` which usually builds your frontend into `build.frontendDist`.
+
+Usage: tauri ios run [OPTIONS] [DEVICE] [-- <ARGS>...]
+
+Arguments:
+  [DEVICE]
+          Runs on the given device name
+
+  [ARGS]...
+          Command line arguments passed to the runner. Use `--` to explicitly mark the start of the arguments. e.g. `tauri android build -- [runnerArgs]`
+
+Options:
+  -r, --release
+          Run the app in release mode
+
+  -v, --verbose...
+          Enables verbose logging
+
+  -f, --features [<FEATURES>...]
+          List of cargo features to activate
+
+  -c, --config <CONFIG>
+          JSON strings or paths to JSON, JSON5 or TOML files to merge with the default configuration file
+          
+          Configurations are merged in the order they are provided, which means a particular value overwrites previous values when a config key-value pair conflicts.
+          
+          Note that a platform-specific file is looked up and merged with the default file by default (tauri.macos.conf.json, tauri.linux.conf.json, tauri.windows.conf.json, tauri.android.conf.json and tauri.ios.conf.json) but you can use this for more specific use cases such as different build flavors.
+
+      --no-watch
+          Disable the file watcher
+
+      --additional-watch-folders <ADDITIONAL_WATCH_FOLDERS>
+          Additional paths to watch for changes
+
+  -o, --open
+          Open Xcode
+
+      --ignore-version-mismatches
+          Do not error out if a version mismatch is detected on a Tauri package.
+          
+          Only use this when you are sure the mismatch is incorrectly detected as version mismatched Tauri packages can lead to unknown behavior.
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+
