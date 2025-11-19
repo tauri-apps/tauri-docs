@@ -882,6 +882,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Jonathan Dahan",
     "id": "Jonathan Dahan",
     "avatarUrl": "https://images.opencollective.com/jedahan/avatar/256.jpg",
@@ -917,15 +926,6 @@
     "id": "Paco",
     "avatarUrl": "https://images.opencollective.com/paco5/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/paco5",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
