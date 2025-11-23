@@ -475,6 +475,17 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "MasterDarius",
+    "id": "MasterDarius",
+    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/masterdarius",
+    "socialLinks": {
+      "website": "https://www.nikolaosmargaris.gr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alex Michael Berry",
     "id": "Alex Michael Berry",
     "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
@@ -482,17 +493,6 @@
     "socialLinks": {
       "website": "https://ligature.dev",
       "github": "https://github.com/almibe"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "MasterDarius",
-    "id": "MasterDarius",
-    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/masterdarius",
-    "socialLinks": {
-      "website": "https://www.nikolaosmargaris.gr"
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
