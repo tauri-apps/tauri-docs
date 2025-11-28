@@ -269,7 +269,7 @@ When using static, you just need to return a JSON containing the required inform
 | `platforms` | Each platform key is in the `OS-ARCH` format, where `OS` is one of `linux`, `darwin` or `windows`, and `ARCH` is one of `x86_64`, `aarch64`, `i686` or `armv7`. |
 | `signature` | The content of the generated `.sig` file, which may change with each build. A path or URL does not work!                                                        |
 
-:::info
+:::note
 When using [custom targets](#custom-target) the provided target string is matched against the `platforms` key
 instead of the default `OS-ARCH` value.
 :::

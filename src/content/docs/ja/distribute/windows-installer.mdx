@@ -106,7 +106,7 @@ brew install nsis
 
 <Tabs syncKey="OS">
 <TabItem label="Linux">
-  
+
 ```sh title="Ubuntu"
 sudo apt install lld llvm
 ```
@@ -197,7 +197,7 @@ Tauri CLI は、デフォルトでは、使用している PC のアーキテク
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 
-:::info
+:::note
 
 なお、NSIS インストーラ自体は、ARM マシン上でもエミュレーションを介した x86 で実行されます。アプリ自体は「ネイティブ ARM64 バイナリ」になります。
 
@@ -251,7 +251,7 @@ $env:TAURI_FIPS_COMPLIANT="true"
 | [`fixedVersion`](#バージョンの修正)                             | No                       |                    ~180MB | WebView2 の修正バージョンを埋め込みます。                                                                             |
 | [`skip`](#インストールの省略)                                   | No                       |                       0MB | ⚠️ 非推奨 <br /> Windows インストラーでは WebView2 をインストールしません。                                           |
 
-:::info
+:::note
 
 Windows 10（2018 年 4 月リリース以降）および Windows 11 では、WebView2 ランタイムはオペレーティング・システムの一部として配布されています。
 
