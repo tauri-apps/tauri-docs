@@ -1,0 +1,240 @@
+---
+title: Stronghold（堅牢化）
+description: 暗号化され、安全なデータベース。
+plugin: stronghold
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+「[IOTA Stronghold](https://github.com/iotaledger/stronghold.rs)」秘密管理エンジンを使用して、秘密情報と秘密鍵を保存します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「stronghold」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定" >
+
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        { ' ' }
+
+        <CommandTabs
+            npm="npm run tauri add stronghold"
+            yarn="yarn run tauri add stronghold"
+            pnpm="pnpm tauri add stronghold"
+            bun="bun tauri add stronghold"
+            deno="deno task tauri add stronghold"
+            cargo="cargo tauri add stronghold"
+        />
+    </TabItem>
+
+    <TabItem label = "手動で設定">
+        <Steps>
+
+            1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+                ```sh frame=none
+                    cargo add tauri-plugin-stronghold
+                ```
+
+            2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+                ```rust title="src-tauri/src/lib.rs" ins={4}
+                    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+                    pub fn run() {
+                        tauri::Builder::default()
+                            .plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+                            .run(tauri::generate_context!())
+                            .expect("error while running tauri application");
+                    }
+                ```
+
+            3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+                <CommandTabs
+                    npm = "npm install @tauri-apps/plugin-stronghold"
+                    yarn = "yarn add @tauri-apps/plugin-stronghold"
+                    pnpm = "pnpm add @tauri-apps/plugin-stronghold"
+                    deno = "deno add npm:@tauri-apps/plugin-stronghold"
+                    bun = "bun add @tauri-apps/plugin-stronghold"
+                />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用方法
+
+このプラグインは、「パスワード・ハッシュ」関数を使用して初期化する必要があります。この関数は、パスワード文字列を受け取り、その文字列に基づく 32 バイトのハッシュを返します。
+
+<TranslationNote lang="ja">
+
+**ハッシュ**　hash：　データから算出した「ちいさな値」。《参考： [Wikipedia](https://ja.wikipedia.org/wiki/ハッシュ)》
+
+</TranslationNote>
+
+### 「argon2」パスワード・ハッシュ関数での初期化
+
+「Stronghold」プラグインでは、[argon2] アルゴリズムを使用するデフォルトのハッシュ関数が使われています。
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+pub fn run() {
+    tauri::Builder::default()
+        .setup(|app| {
+            let salt_path = app
+                .path()
+                .app_local_data_dir()
+                .expect("could not resolve app local data path")
+                .join("salt.txt");
+            app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+### カスタムのパスワード・ハッシュ関数での初期化
+
+あるいは、`tauri_plugin_stronghold::Builder::new` コンストラクターを使用すれば、別のハッシュ・アルゴリズムを利用することもできます。
+
+:::note
+パスワード・ハッシュは「32 バイト」のものでなければなりません。これは「Stronghold」プラグインの動作要件です。
+:::
+
+```rust title="src-tauri/src/lib.rs"
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(
+            tauri_plugin_stronghold::Builder::new(|password| {
+                // ここで argon2、blake2b、またはその他の安全なアルゴリズムを用いてパスワードのハッシュ値を生成します。
+                // 以下は、「`rust-argon2`」クレートを使用してパスワードのハッシュ値を生成するための実装例です。
+                use argon2::{hash_raw, Config, Variant, Version};
+
+                let config = Config {
+                    lanes: 4,
+                    mem_cost: 10_000,
+                    time_cost: 10,
+                    variant: Variant::Argon2id,
+                    version: Version::Version13,
+                    ..Default::default()
+                };
+                let salt = "your-salt".as_bytes();
+                let key = hash_raw(password.as_ref(), salt, &config).expect("failed to hash password");
+
+                key.to_vec()
+            })
+            .build(),
+        )
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+### JavaScriptからの使用方法
+
+「Stronghold」プラグインは JavaScript で利用できます。
+
+```javascript
+import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { Client, Stronghold } = window.__TAURI__.stronghold; を使用できます
+import { appDataDir } from '@tauri-apps/api/path';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { appDataDir } = window.__TAURI__.path; を使用できます
+
+const initStronghold = async () => {
+    const vaultPath = `${await appDataDir()}/vault.hold`;
+    const vaultPassword = 'vault password';
+    const stronghold = await Stronghold.load(vaultPath, vaultPassword);
+
+    let client: Client;
+    const clientName = 'name your client';
+    try {
+        client = await stronghold.loadClient(clientName);
+    } catch {
+        client = await stronghold.createClient(clientName);
+    }
+
+    return {
+        stronghold,
+        client,
+    };
+};
+
+// 「store」にレコードを挿入
+async function insertRecord(store: any, key: string, value: string) {
+    const data = Array.from(new TextEncoder().encode(value));
+    await store.insert(key, data);
+}
+
+// 「ストア」からレコードを読み取り
+async function getRecord(store: any, key: string): Promise<string> {
+    const data = await store.get(key);
+    return new TextDecoder().decode(new Uint8Array(data));
+}
+
+const { stronghold, client } = await initStronghold();
+
+const store = client.getStore();
+const key = 'my_key';
+
+// 「store」にレコードを挿入
+insertRecord(store, key, 'secret value');
+
+// 「ストア」からレコードを読み取り
+const value = await getRecord(store, key);
+console.log(value); // 'secret value'
+
+// 更新内容を保存
+await stronghold.save();
+
+// 「ストア」からレコードを削除
+await store.remove(key);
+```
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+    ...,
+    "permissions": [
+        "stronghold:default",
+    ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[argon2]: https://docs.rs/rust-argon2/latest/argon2/
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

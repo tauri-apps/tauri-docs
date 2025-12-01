@@ -1,0 +1,136 @@
+---
+title: Haptics（ハプティクス／触覚）
+description: Android と iOS での触覚フィードバックと振動
+plugin: haptics
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Android と iOS での触覚フィードバックと振動
+
+Android には振動サポートの標準／必須要件がないため、最近リリースされた機種も含めて、より手頃な価格帯の携帯電話ではフィードバック API が正しく動作しない可能性があります。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「haptics」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add haptics"
+      yarn="yarn run tauri add haptics"
+      pnpm="pnpm tauri add haptics"
+      deno="deno task tauri add haptics"
+      bun="bun tauri add haptics"
+      cargo="cargo tauri add haptics"
+    />
+
+  </TabItem>
+  <TabItem label="手動で設定">
+    <Steps>
+
+      1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+          ```sh frame=none
+          cargo add tauri-plugin-haptics --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          `
+
+      2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_haptics::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-haptics"
+              yarn="yarn add @tauri-apps/plugin-haptics"
+              pnpm="pnpm add @tauri-apps/plugin-haptics"
+              deno="deno add npm:@tauri-apps/plugin-haptics"
+              bun="bun add @tauri-apps/plugin-haptics"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+「haptics」プラグインは JavaScript で利用できます。
+
+```javascript
+import {
+  vibrate,
+  impactFeedback,
+  notificationFeedback,
+  selectionFeedback,
+} from '@tauri-apps/plugin-haptics';
+
+await vibrate(1);
+await impactFeedback('medium');
+await notificationFeedback('warning');
+await selectionFeedback();
+```
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/mobile.json" ins={7-10}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "haptics:allow-impact-feedback",
+    "haptics:allow-notification-feedback",
+    "haptics:allow-selection-feedback",
+    "haptics:allow-vibrate"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 19, 2025 英語版」に基づいています】
+</div>

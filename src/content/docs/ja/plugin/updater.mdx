@@ -1,0 +1,781 @@
+---
+title: Updater（アップデート）
+description: Tauri アプリケーションのアプリ内アップデート。
+plugin: updater
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import PluginPermissions from '@components/PluginPermissions.astro';
+import CommandTabs from '@components/CommandTabs.astro';
+import { TabItem, Steps, Tabs } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+更新サーバーまたは静的 JSON を使用して Tauri アプリを自動的に更新します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「Tauri updater」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    <CommandTabs
+      npm="npm run tauri add updater"
+      yarn="yarn run tauri add updater"
+      pnpm="pnpm tauri add updater"
+      deno="deno task tauri add updater"
+      bun="bun tauri add updater"
+      cargo="cargo tauri add updater"
+    />
+
+  </TabItem>
+    <TabItem label="手動で設定">
+      <Steps>
+
+        1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-updater --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-updater"
+                yarn="yarn add @tauri-apps/plugin-updater"
+                pnpm="pnpm add @tauri-apps/plugin-updater"
+                deno="deno add npm:@tauri-apps/plugin-updater"
+                bun="bun add @tauri-apps/plugin-updater"
+            />
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 更新プログラムの署名
+
+Tauri の「updater」プラグインでは、更新プログラム（アップデート）が信頼できるソースからのものであることを確認するために「署名」を必要としています。これは無効にできません。
+
+更新プログラムの署名には、二つの「鍵（キー）」が必要です：
+
+1. 公開鍵：　アーティファクト（成果物）を検証するためにインストール前に `tauri.conf.json` に設定される鍵です。「秘密鍵」が安全に保護されているかぎり、この「公開鍵」を安全にアップロードして共有することができます。
+2. 秘密鍵：　あなたのインストーラー・ファイルの署名に使用される鍵です。この鍵は**絶対に他人と共有しない**でください。なお、この鍵を紛失した場合、既にそのアプリをインストールしているユーザーに対して新しいアップデートを公開できなくなります。この鍵は安全な場所に保管しておいてください。
+
+この二つの鍵を生成するために、Tauri CLI は「`signer generate`」コマンドを提供しています。これを実行すると、ホーム・フォルダにその鍵が作成されます：
+
+<Tabs>
+  <CommandTabs
+    npm="npm run tauri signer generate -- -w ~/.tauri/myapp.key"
+    yarn="yarn tauri signer generate -w ~/.tauri/myapp.key"
+    pnpm="pnpm tauri signer generate -w ~/.tauri/myapp.key"
+    deno="deno task tauri signer generate -w ~/.tauri/myapp.key"
+    bun="bunx tauri signer generate -w ~/.tauri/myapp.key"
+    cargo="cargo tauri signer generate -w ~/.tauri/myapp.key"
+  />
+</Tabs>
+
+### ビルド
+
+更新プログラムのアーティファクトをビルドする際には、上記で生成した「秘密鍵」を環境変数に含める必要があります。`.env` ファイルでは機能**しません**。
+
+<Tabs>
+  <TabItem label="Mac/Linux">
+  ```sh frame=none
+  export TAURI_SIGNING_PRIVATE_KEY="Path or content of your private key"
+  # optionally also add a password
+  export TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""
+  ```
+  </TabItem>
+  <TabItem label="Windows">
+  Run this in `PowerShell`:
+  ```ps frame=none
+  $env:TAURI_SIGNING_PRIVATE_KEY="Path or content of your private key"
+  <# optionally also add a password #>
+  $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""
+  ```
+  </TabItem>
+</Tabs>
+
+その後、通常どおり Tauri ビルドを実行すると、Tauri によってアップデート・バンドルとその署名が生成されます。
+生成されるファイルは、以下で設定される [`createUpdaterArtifacts`] の設定値によって異なります。
+
+<Tabs>
+  <TabItem label="v2">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": true
+  }
+}
+```
+
+Linux では、Tauri は `target/release/bundle/appimage/` フォルダ内に、通常の AppImage を作成します：
+
+- `myapp.AppImage` - 標準のアプリ・バンドル。アップデーターによって再利用されます。
+- `myapp.AppImage.sig` - アップデーター・バンドルの署名。
+
+macOS では、Tauri は `target/release/bundle/macos/` フォルダ内のアプリケーション・バンドルから .tar.gz アーカイブを作成します：
+
+- `myapp.app` - 標準のアプリ・バンドル。
+- `myapp.app.tar.gz` - アップデーター・バンドル。
+- `myapp.app.tar.gz.sig` - 更新バンドルの署名。
+
+Windows では、Tauri は `target/release/bundle/msi/` および `target/release/bundle/nsis` フォルダ内に通常の MSI および NSIS インストーラを作成します：
+
+- `myapp-setup.exe` - 標準のアプリ・バンドル。アップデーターによって再利用されます。
+- `myapp-setup.exe.sig` - 更新バンドルの署名。
+- `myapp.msi` - 標準のアプリ・バンドル。アップデーターによって再利用されます。
+- `myapp.msi.sig` - 更新バンドルの署名。
+
+{''}
+
+</TabItem>
+<TabItem label="v1 compatible">
+
+```json
+{
+  "bundle": {
+    "createUpdaterArtifacts": "v1Compatible"
+  }
+}
+```
+
+Linux では、Tauri は `target/release/bundle/appimage/` フォルダ内の AppImage から .tar.gz アーカイブを作成します：
+
+- `myapp.AppImage` - 標準のアプリ・バンドル。
+- `myapp.AppImage.tar.gz` - アップデーター・バンドル。
+- `myapp.AppImage.tar.gz.sig` - 更新バンドルの署名。
+
+macOS では、Tauri は `target/release/bundle/macos/` フォルダ内のアプリケーション・バンドルから .tar.gz アーカイブを作成します：
+
+- `myapp.app` - 標準のアプリ・バンドル。
+- `myapp.app.tar.gz` - アップデーター・バンドル。
+- `myapp.app.tar.gz.sig` - 更新バンドルの署名。
+
+Windows では、Tauri は MSI および NSIS インストーラーから `target/release/bundle/msi/` および `target/release/bundle/nsis` フォルダー内に .zip アーカイブを作成します：
+
+- `myapp-setup.exe` - 標準のアプリ・バンドル。
+- `myapp-setup.nsis.zip` - アップデーター・バンドル。
+- `myapp-setup.nsis.zip.sig` - 更新バンドルの署名。
+- `myapp.msi` - 標準のアプリ・バンドル。
+- `myapp.msi.zip` - アップデーター・バンドル。
+- `myapp.msi.zip.sig` - 更新バンドルの署名。
+
+{''}
+
+  </TabItem>
+</Tabs>
+
+## Tauri の設定
+
+「Updater」プラグインが動作を開始するためには、以下の形式で `tauri.conf.json` を設定します。
+
+| 項目 Keys                            | 内容説明 Description                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createUpdaterArtifacts`             | この項目を「`true`」に設定すると、Tauri のアプリ・バンドラにアップデーター・アーティファクト（更新成果物）を作成するように指示します。自分のアプリを「古い Tauri バージョン」から移行する場合には、ここを `true` ではなく「`"v1Compatible"`」に設定してください。**この設定項目は v3 で削除される予定です** ので、あなたのアプリのユーザーが全員 v2 に移行したときには、必ず `true` に変更してください。 |
+| `pubkey`                             | これは、上記の手順で「Tauri CLI から生成された公開鍵」でなければなりません。「ファイル・パス」では**ありません**。                                                                                                                                                                                                                                                                                       |
+| `endpoints`                          | この値は、「エンドポイント URL の文字列の配列」でなければなりません。本番環境では「TLS」が強制されます。Tauri は、ステータス・コード「non-2XX」（2xx以外）が返された場合にのみ、次の URL に進みます！　　《訳注：　TLS = Transport Layer Security　トランスポート層セキュリティ》                                                                                                                        |
+| `dangerousInsecureTransportProtocol` | この項目を「`true`」に設定すると、「Updater」プラグインが HTTPS 以外のエンドポイントを受け入れられるようになります。この設定は注意して使用してください！　                                                                                                                                                                                                                                               |
+
+各アップデータ URL には次の動的変数を含めることができ、これにより、更新が利用可能かどうかをサーバー側で判断できます。
+
+- `{{current_version}}`：　「現行のバージョン」＝ アップデートを要求しているアプリのバージョン。
+- `{{target}}`：　「ターゲット」＝ オペレーティング・システム名（`linux`、`windows`、`darwin` のいずれか）。
+- `{{arch}}`：　「CPU アーキテクチャ」＝ 使用しているシステムのアーキテクチャ（`x86_64`、`i686`、`aarch64`、`armv7` のいずれか）
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "CONTENT FROM PUBLICKEY.PEM",
+      "endpoints": [
+        "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}",
+        // または静的な github json ファイル
+        "https://github.com/user/repo/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}
+```
+
+:::tip
+カスタム変数はサポートされていませんが、「custom `{{target}}`」を定義することはできます。《下記「[カスタム・ターゲット](#カスタムターゲット)」の項 を参照》
+:::
+
+### Windows の `installMode`
+
+Windows では、更新プログラムのインストール方法を変更するための「オプションの `"installMode"` 追加設定」があります。
+
+```json title=tauri.conf.json
+{
+  "plugins": {
+    "updater": {
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}
+```
+
+- `"passive"`：　「おまかせモード」《原意は"受動"》。進行状況バーのついた小さなウィンドウを表示します。更新プログラム（アップデート）はユーザーの操作を必要とせずにインストールされます。一般的に推奨されるデフォルトのモードです。
+- `"basicUi"`：　「基本 UI モード」。インストールを完了するにはユーザーの操作を必要とする基本的なユーザー・インターフェイスが表示されます。
+- `"quiet"`：　「目隠しモード」《原意は"静謐"》。ユーザーへの進捗状況のフィードバックはありません。このモードでは、インストーラー自体が管理者権限を要求できないため、ユーザー全部を対象とした一括インストール、またはアプリ自体が既に管理者権限で実行されている場合にのみ機能します。一般的には推奨されません。
+
+## サーバー・サポート
+
+「updater」プラグインは二つの方法で使用できます。「動的更新サーバー」を使用する、または、「静的 JSON ファイル」を使用する（S3 や GitHub Gist などのサービスで使用する場合）、のいずれかです。
+
+### 静的 JSON ファイル
+
+「静的」モードを使用する場合は、必要な情報を含んでいる JSON ファイルを返すだけです。
+
+| 項目 Keys   | 内容説明 Description                                                                                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `version`   | 「バージョン」。有効な [SemVer](https://semver.org/)（セマンティック・バージョン形式）である必要があります。先頭に `v` があってもなくてもかまいません。つまり、`1.0.0` と `v1.0.0` の両方が有効です。   |
+| `notes`     | 「注記」。更新プログラムに関する覚書。                                                                                                                                                                  |
+| `pub_date`  | 「発行日付」。この日付データが存在する場合、[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 形式に従って記載する必要があります。                                                              |
+| `platforms` | 「プラットフォーム」。各プラットフォームのキー項目は `OS-ARCH` 形式で、「`OS` 部分」は `linux`、`darwin`、`windows` のいずれか、「`ARCH` 部分」は `x86_64`、`aarch64`、`i686`、`armv7` のいずれかです。 |
+| `signature` | 「署名」。生成された `.sig` ファイルの内容は、ビルドごとに変更される可能性があります。パスまたは URL では機能しません。                                                                                 |
+
+:::note
+[カスタム・ターゲット](#カスタムターゲット) を使用する場合、指定するターゲット文字列は、デフォルトの「`OS-ARCH`値」ではなく、「`platforms`のキー値」と照合されます。
+:::
+
+必須のキー項目は `"version"`、`"platforms.[target].url"`、`"platforms.[target].signature"` で、その他はオプション（任意指定）です。
+
+```json
+{
+  "version": "",
+  "notes": "",
+  "pub_date": "",
+  "platforms": {
+    "linux-x86_64": {
+      "signature": "",
+      "url": ""
+    },
+    "windows-x86_64": {
+      "signature": "",
+      "url": ""
+    },
+    "darwin-x86_64": {
+      "signature": "",
+      "url": ""
+    }
+  }
+}
+```
+
+Tauri は、バージョン項目欄をチェックする前にファイル全体を検証するため、既存のすべてのプラットフォーム設定が有効かつ完全であることを確認してください。
+
+:::tip
+「[Tauri Action](https://github.com/tauri-apps/tauri-action)」は、GitHub Releases などのように CDN（コンテンツ配信ネットワーク）で使用する「静的 JSON ファイル」を生成します。
+:::
+
+### 動的更新サーバー
+
+動的更新サーバーを使用する場合、Tauri はサーバーの指示に従います。「内部バージョン・チェック」を無効にするには、[このプラグインのバージョン比較](https://docs.rs/tauri-plugin-updater/latest/tauri_plugin_updater/struct.UpdaterBuilder.html#method.version_comparator)を上書きします。これにより、サーバーから送信されたバージョンがインストールされます（アプリをロールバックする必要がある場合に便利です）。
+
+サーバーは、上記の「`endpoint` URL」で定義された変数を使用して、更新が必要かどうかを判断できます。さらにデータが必要な場合は、必要に応じて [Rust のリクエスト・ヘッダー](https://docs.rs/tauri-plugin-updater/latest/tauri_plugin_updater/struct.UpdaterBuilder.html#method.header) を追加可能です。
+
+利用可能な更新がない場合には、サーバーはステータス・コード「[`204 No Content`](https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.5)」（204 該当なし）で応答するはずです。
+
+更新が必要な場合、サーバーはステータス・コード「[`200 OK`](http://tools.ietf.org/html/rfc2616#section-10.2.1)」と以下の形式の「JSON 応答」を返信する必要があります。
+
+| 項目 Keys   | 内容説明　Description                                                                                                                                                             |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `version`   | 「バージョン」　この項目は有効な [SemVer](https://semver.org/) 形式でなければなりません （先頭に `v` があってもなくても構いませ) 。つまり、`1.0.0` と `v1.0.0` の両方が有効です。 |
+| `notes`     | 「注記」　アップデート（更新内容）に関する説明。                                                                                                                                  |
+| `pub_date`  | 「発行日」　この日付が設定されている場合には、その日付は [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) の書式に従ってフォーマットする必要があります。                 |
+| `url`       | 「URL」　この項目は更新バンドルへの有効な URL である必要があります。                                                                                                              |
+| `signature` | 「署名」　生成された `.sig` ファイルの内容。この項目はビルドごとに変わる可能性があります。パスまたは URL では機能しません。                                                       |
+
+入力必須項目は `"url"`、`"version"`、`"signature"` です。その他は任意記入です。
+
+```json
+{
+  "version": "",
+  "pub_date": "",
+  "url": "",
+  "signature": "",
+  "notes": ""
+}
+```
+
+:::tip
+Tauri の公式パートナーである CrabNebula 社は、動的更新サーバーを提供しています。詳細については、[CrabNebula クラウドで配布する]　のドキュメントをご覧ください。
+:::
+
+## 更新の確認
+
+更新の有無を確認してインストールするためのデフォルト API は、設定されたエンドポイントを利用し、JavaScript コードと Rust コードの両方からアクセスできます。
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update) {
+  console.log(
+    `found update ${update.version} from ${update.date} with notes ${update.body}`
+  );
+  let downloaded = 0;
+  let contentLength = 0;
+  // あるいは、update.download()と update.install() を別々に呼び出すこともできます。
+  await update.downloadAndInstall((event) => {
+    switch (event.event) {
+      case 'Started':
+        contentLength = event.data.contentLength;
+        console.log(`started downloading ${event.data.contentLength} bytes`);
+        break;
+      case 'Progress':
+        downloaded += event.data.chunkLength;
+        console.log(`downloaded ${downloaded} from ${contentLength}`);
+        break;
+      case 'Finished':
+        console.log('download finished');
+        break;
+    }
+  });
+
+  console.log('update installed');
+  await relaunch();
+}
+```
+
+詳細については、[JavaScript API ドキュメント]（英語版）を参照してください。
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_updater::UpdaterExt;
+
+pub fn run() {
+  tauri::Builder::default()
+    .setup(|app| {
+      let handle = app.handle().clone();
+      tauri::async_runtime::spawn(async move {
+        update(handle).await.unwrap();
+      });
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+
+async fn update(app: tauri::AppHandle) -> tauri_plugin_updater::Result<()> {
+  if let Some(update) = app.updater()?.check().await? {
+    let mut downloaded = 0;
+
+    // あるいは、update.download()と update.install() を別々に呼び出すこともできます。
+    update
+      .download_and_install(
+        |chunk_length, content_length| {
+          downloaded += chunk_length;
+          println!("downloaded {downloaded} from {content_length:?}");
+        },
+        || {
+          println!("download finished");
+        },
+      )
+      .await?;
+
+    println!("update installed");
+    app.restart();
+  }
+
+  Ok(())
+}
+```
+
+:::tip
+ダウンロードの進行状況をフロントエンドに通知するには、[チャネル channel] を利用したコマンドの使用を検討してください。
+
+<details>
+  <summary>Updater command</summary>
+
+```rust
+#[cfg(desktop)]
+mod app_updates {
+    use std::sync::Mutex;
+    use serde::Serialize;
+    use tauri::{ipc::Channel, AppHandle, State};
+    use tauri_plugin_updater::{Update, UpdaterExt};
+
+    #[derive(Debug, thiserror::Error)]
+    pub enum Error {
+        #[error(transparent)]
+        Updater(#[from] tauri_plugin_updater::Error),
+        #[error("there is no pending update")]
+        NoPendingUpdate,
+    }
+
+    impl Serialize for Error {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            serializer.serialize_str(self.to_string().as_str())
+        }
+    }
+
+    type Result<T> = std::result::Result<T, Error>;
+
+    #[derive(Clone, Serialize)]
+    #[serde(tag = "event", content = "data")]
+    pub enum DownloadEvent {
+        #[serde(rename_all = "camelCase")]
+        Started {
+            content_length: Option<u64>,
+        },
+        #[serde(rename_all = "camelCase")]
+        Progress {
+            chunk_length: usize,
+        },
+        Finished,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct UpdateMetadata {
+        version: String,
+        current_version: String,
+    }
+
+    #[tauri::command]
+    pub async fn fetch_update(
+        app: AppHandle,
+        pending_update: State<'_, PendingUpdate>,
+    ) -> Result<Option<UpdateMetadata>> {
+        let channel = "stable";
+        let url = url::Url::parse(&format!(
+            "https://cdn.myupdater.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}?channel={channel}",
+        )).expect("invalid URL");
+
+      let update = app
+          .updater_builder()
+          .endpoints(vec![url])?
+          .build()?
+          .check()
+          .await?;
+
+      let update_metadata = update.as_ref().map(|update| UpdateMetadata {
+          version: update.version.clone(),
+          current_version: update.current_version.clone(),
+      });
+
+      *pending_update.0.lock().unwrap() = update;
+
+      Ok(update_metadata)
+    }
+
+    #[tauri::command]
+    pub async fn install_update(pending_update: State<'_, PendingUpdate>, on_event: Channel<DownloadEvent>) -> Result<()> {
+        let Some(update) = pending_update.0.lock().unwrap().take() else {
+            return Err(Error::NoPendingUpdate);
+        };
+
+        let started = false;
+
+        update
+            .download_and_install(
+                |chunk_length, content_length| {
+                    if !started {
+                        let _ = on_event.send(DownloadEvent::Started { content_length });
+                        started = true;
+                    }
+
+                    let _ = on_event.send(DownloadEvent::Progress { chunk_length });
+                },
+                || {
+                    let _ = on_event.send(DownloadEvent::Finished);
+                },
+            )
+            .await?;
+
+        Ok(())
+    }
+
+    struct PendingUpdate(Mutex<Option<Update>>);
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                app.handle().plugin(tauri_plugin_updater::Builder::new().build());
+                app.manage(app_updates::PendingUpdate(Mutex::new(None)));
+            }
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![
+            #[cfg(desktop)]
+            app_updates::fetch_update,
+            #[cfg(desktop)]
+            app_updates::install_update
+        ])
+}
+```
+
+</details>
+:::
+
+詳細については、[Rust API ドキュメント]（英語版）を参照してください。
+
+</TabItem>
+</Tabs>
+
+アップデートをインストールした直後にアプリを再起動させる必要はありません。
+ユーザー自身が手動でアプリを再起動するのを待ったり、再起動のタイミングを選択させるような表示を行なったりすることで、アップデートの処理方法を選択できます。
+
+:::note
+Windows では、Windows インストーラーの制限により、インストール手順が実行されるとアプリケーションが自動的に終了します。
+:::
+
+更新有無を確認してダウンロードするときに、「カスタム・リクエスト・タイムアウト」（ユーザー指定の制限時間）、「プロキシ」、および「リクエスト・ヘッダー」を定義できます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  proxy: '<proxy url>',
+  timeout: 30000 /* ミリ秒 */,
+  headers: {
+    Authorization: 'Bearer <token>',
+  },
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .timeout(std::time::Duration::from_secs(30))
+  .proxy("<proxy-url>".parse().expect("invalid URL"))
+  .header("Authorization", "Bearer <token>")
+  .build()?
+  .check()
+  .await?;
+```
+
+  </TabItem>
+</Tabs>
+
+### 実行時の動作条件設定
+
+「updater」API は、「updater」の設定を実行時に行なうことが可能であるという柔軟性も備えています。
+セキュリティ上の理由から、一部の API は Rust でのみ使用できます。
+
+#### エンドポイント
+
+実行時に更新有無の確認を行なう「URL」を設定すると、個別のリリース・チャネルなどといった、より動的な更新が可能になります：
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let channel = if beta { "beta" } else { "stable" };
+let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}");
+
+let update = app
+  .updater_builder()
+  .endpoints(vec![update_url])?
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+更新 URL を補間するために format!() を使用する場合には、変数に「二重エスケープ」、すなわち `{{{{target}}}}`　が必要であることに注意してください。
+:::
+
+#### 公開鍵
+
+実行時に「公開鍵」を設定すると、「キー・ローテーション・ロジック」を実装するのに役立ちます。
+これは、プラグイン・ビルダーまたは「updater」ビルダーのいずれかによって設定できます：
+
+```rust
+tauri_plugin_updater::Builder::new().pubkey("<your public key>").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .pubkey("<your public key>")
+  .build()?
+  .check()
+  .await?;
+```
+
+#### カスタム・ターゲット
+
+デフォルトでは、updater は `{{target}}` および `{{arch}}` 変数を使用して、どのアップデート・アセット（更新ファイル）を配信する必要があるのかを決定します。
+自分のアップデートに関する追加の情報が必要な場合（たとえば、「ユニバーサル macOS バイナリ」オプションを配布する場合とか、「ビルド・フレーバー」を増やす場合など）には、
+カスタム・ターゲットを設定できます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({
+  target: 'macos-universal',
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Rust">
+
+カスタム・ターゲットは、プラグイン・ビルダーまたは「updater」ビルダーのいずれかによって設定できます：
+
+```rust
+tauri_plugin_updater::Builder::new().target("macos-universal").build()
+```
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+let update = app
+  .updater_builder()
+  .target("macos-universal")
+  .build()?
+  .check()
+  .await?;
+```
+
+:::tip
+デフォルトの `$target-$arch` キー情報は `tauri_plugin_updater::target()` を使用して取得できますが、
+「updater」プラグインが利用中のプラットフォームでサポートされていない場合には、その内容が `None`（値なし）である　`Option<String>` を返します。
+:::
+
+  </TabItem>
+</Tabs>
+
+:::note
+
+- 「カスタム・ターゲット」を使用している場合は、それを排他的に使用する方が更新プラットフォームの決定が簡単になり、`{{arch}}` 変数を削除できるかもしれません。
+- ターゲットとして提供される値は、[静的 JSON ファイル](#静的-json-ファイル) を使用するときにプラットフォーム・キーと照合されるキーです。
+
+:::
+
+#### ダウングレードの許可
+
+デフォルトでは、Tauri は更新バージョンが現在のアプリ・バージョンより大きいかどうかを確認し、更新する必要があるかどうかを確認します。
+ダウングレードに対応するには、「updater」ビルダーの `version_comparator` API（バージョン比較 API）を使用する必要があります：
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .version_comparator(|current, update| {
+    // デフォルトの比較条件：　`update.version > current`
+    update.version != current
+  })
+  .build()?
+  .check()
+  .await?;
+```
+
+#### Windows での「終了処理前」フック
+
+Windows インストーラーの制限により、Tauri は Windows に更新プログラムをインストールする前にアプリケーションを自動的に終了します。
+終了処理が起動する前に別のアクションを実行するには、`on_before_exit` 関数を使用します：
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+let update = app
+  .updater_builder()
+  .on_before_exit(|| {
+    println!("app is about to exit on Windows!");
+  })  // メッセージ「Windows アプリを終了します！」
+  .build()?
+  .check()
+  .await?;
+```
+
+:::note
+「ビルダー値」が何も設定されていない場合は、[Tauri の設定](#tauri-の設定) での値がフォールバック（代替措置）として使用されます。
+:::
+
+[`createUpdaterArtifacts`]: /reference/config/#createupdaterartifacts
+[CrabNebula クラウドで配布する]: /ja/distribute/crabnebula-cloud/
+[チャネル channel]: /ja/develop/calling-frontend/#チャネル-channels
+[JavaScript API ドキュメント]: /reference/javascript/updater/
+[Rust API ドキュメント]: https://docs.rs/tauri-plugin-updater
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "updater:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 28, 2025 英語版」に基づいています】
+</div>
