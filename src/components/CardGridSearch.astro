@@ -98,24 +98,24 @@ const { placeholder = 'Search features and community resources...', filters = []
         );
 
         const headings = wrappers.map((wrapper) => {
-          return wrapper.firstElementChild;
+          return wrapper.firstElementChild as HTMLElement;
         });
 
         if (!headings || headings.length === 0) {
           throw new Error('CardGridSearch: No headings found in the component children');
         }
+
         // Create "nothing found" for each heading
-        headings.forEach((heading, i) => {
+        const warnings: HTMLElement[] = [];
+        headings.forEach((heading) => {
           const wrn = document.createElement('p');
-          wrn.classList.add('hidden', 'warning');
-          wrn.id = `warn-${i}`;
+          wrn.classList.add('not-content', 'hidden', 'warning');
           wrn.innerHTML = `
-						<span>No results found in ${heading?.textContent}</span>
+						<span>No results found in ${heading.textContent}</span>
 						`;
-          heading?.insertAdjacentElement('afterend', wrn);
+          heading.insertAdjacentElement('afterend', wrn);
+          warnings.push(wrn);
         });
-        // Select all "nothing found" created before
-        const warnings = document.querySelectorAll('[id^="warn-"]');
 
         // Prevent page reload
         form.addEventListener('submit', (e) => {
@@ -179,7 +179,7 @@ const { placeholder = 'Search features and community resources...', filters = []
           inputs.forEach((elements, i) => {
             const cards = Array.from(elements.children);
             let visibleCount = 0;
-            const headingText = headings[i]?.textContent;
+            const headingText = headings[i].textContent;
 
             cards.forEach((el) => {
               const htmlElement = el as HTMLElement;
