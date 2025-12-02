@@ -76,165 +76,177 @@ const { placeholder = 'Search features and community resources...', filters = []
 
 <script>
   class CardSearch extends HTMLElement {
-    constructor() {
-      super();
-      window.addEventListener('DOMContentLoaded', () => {
-        const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
-        const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
-        const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
-        const summaryEl = this.querySelector<HTMLElement>('#search-summary')!;
-        const filterSelects = Array.from(
-          this.querySelectorAll<HTMLSelectElement>('.ui_filter-select')
-        );
-        const inputs = Array.from(this.children).filter((el) => el.classList.contains('card-grid'));
-        const wrappers = Array.from(this.children).filter(
-          (el) =>
-            el.classList.contains('sl-heading-wrapper') ||
-            el.classList.contains('level-h5') ||
-            el.classList.contains('level-h4') ||
-            el.classList.contains('level-h3') ||
-            el.classList.contains('level-h2') ||
-            el.classList.contains('level-h1')
-        );
+    form: HTMLFormElement;
+    searchBar: HTMLInputElement;
+    clear: HTMLButtonElement;
+    summaryEl: HTMLElement;
+    filterSelects: HTMLSelectElement[];
+    inputs: Element[];
+    headings: Element[];
+    warnings: HTMLElement[] = [];
 
-        const headings = wrappers.map((wrapper) => {
-          return wrapper.firstElementChild as HTMLElement;
-        });
+    searchFilter() {
+      const { searchBar, filterSelects, inputs, headings, summaryEl, warnings } = this;
 
-        if (!headings || headings.length === 0) {
-          throw new Error('CardGridSearch: No headings found in the component children');
-        }
+      const query = searchBar.value.toUpperCase();
+      const isSearching = query.length > 0 || filterSelects.some((s) => s.value !== '');
 
-        // Create "nothing found" for each heading
-        const warnings: HTMLElement[] = [];
-        headings.forEach((heading) => {
-          const wrn = document.createElement('p');
-          wrn.classList.add('not-content', 'hidden', 'warning');
-          wrn.innerHTML = `
-						<span>No results found in ${heading.textContent}</span>
-						`;
-          heading.insertAdjacentElement('afterend', wrn);
-          warnings.push(wrn);
-        });
+      const activeFilters = filterSelects
+        .map((select) => {
+          const value = select.value;
+          const pattern = select.dataset.cssPattern || '';
+          return value ? { value, pattern } : null;
+        })
+        .filter(Boolean);
 
-        // Prevent page reload
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-        });
+      const resultCounts: { heading: string; count: number }[] = [];
 
-        // Prevent reload on 'Enter', and enable clean input on 'Escape'
-        form.addEventListener('keydown', (e) => {
-          clear.classList.remove('pagefind-ui__suppressed');
-          if (e.key === 'Escape') {
-            reset();
-          } else if (e.key === 'Enter') e.preventDefault();
-        });
-        searchBar.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') e.preventDefault();
-        });
+      inputs.forEach((elements, i) => {
+        const cards = Array.from(elements.children);
+        let visibleCount = 0;
+        const headingText = headings[i].textContent;
 
-        // Search
-        searchBar.addEventListener('keyup', () => {
-          searchFilter();
-        });
+        cards.forEach((el) => {
+          const htmlElement = el as HTMLElement;
+          const span = el.querySelector('span');
+          const txtValue = span?.textContent || span?.innerText;
+          if (!txtValue) return;
 
-        // Filter selects
-        filterSelects.forEach((select) => {
-          select.addEventListener('change', () => {
-            searchFilter();
-          });
-        });
+          const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
 
-        // Clear search button 'X'
-        clear.addEventListener('click', () => {
-          clear.classList.add('pagefind-ui__suppressed');
-          reset();
-        });
-
-        function reset() {
-          searchBar.value = '';
-          filterSelects.forEach((select) => {
-            select.value = '';
-          });
-          searchFilter();
-        }
-
-        /**
-         * Function to search and filter based on input
-         */
-        function searchFilter() {
-          const query = searchBar.value.toUpperCase();
-          const isSearching = query.length > 0 || filterSelects.some((s) => s.value !== '');
-
-          const activeFilters = filterSelects
-            .map((select) => {
-              const value = select.value;
-              const pattern = select.dataset.cssPattern || '';
-              return value ? { value, pattern } : null;
-            })
-            .filter(Boolean);
-
-          const resultCounts: { heading: string; count: number }[] = [];
-
-          inputs.forEach((elements, i) => {
-            const cards = Array.from(elements.children);
-            let visibleCount = 0;
-            const headingText = headings[i].textContent;
-
-            cards.forEach((el) => {
-              const htmlElement = el as HTMLElement;
-              const span = el.querySelector('span');
-              const txtValue = span?.textContent || span?.innerText;
-              if (!txtValue) return;
-
-              const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
-
-              let filterMatches = true;
-              for (const filter of activeFilters) {
-                if (!filter) {
-                  continue;
-                }
-                const className = filter.pattern.replace('${value}', filter.value);
-                const hasClass = htmlElement.querySelector(`.${className}`) !== null;
-                if (!hasClass) {
-                  filterMatches = false;
-                  break;
-                }
-              }
-
-              if (textMatches && filterMatches) {
-                visibleCount++;
-                htmlElement.style.display = '';
-              } else {
-                htmlElement.style.display = 'none';
-              }
-            });
-
-            resultCounts.push({ heading: headingText, count: visibleCount });
-
-            if (visibleCount === 0) {
-              warnings[i]?.classList.remove('hidden');
-            } else {
-              warnings[i]?.classList.add('hidden');
+          let filterMatches = true;
+          for (const filter of activeFilters) {
+            if (!filter) {
+              continue;
             }
-          });
-
-          if (isSearching) {
-            const summaryParts = resultCounts.map((r, i) => {
-              const separator =
-                i === resultCounts.length - 1 ? '' : i === resultCounts.length - 2 ? ' and ' : ', ';
-              return `${r.count} on "${r.heading}"${separator}`;
-            });
-            summaryEl.textContent = `Found ${summaryParts.join('')}`;
-            summaryEl.classList.remove('hidden');
-          } else {
-            summaryEl.textContent = '';
-            summaryEl.classList.add('hidden');
+            const className = filter.pattern.replace('${value}', filter.value);
+            const hasClass = htmlElement.querySelector(`.${className}`) !== null;
+            if (!hasClass) {
+              filterMatches = false;
+              break;
+            }
           }
+
+          if (textMatches && filterMatches) {
+            visibleCount++;
+            htmlElement.style.display = '';
+          } else {
+            htmlElement.style.display = 'none';
+          }
+        });
+
+        resultCounts.push({ heading: headingText, count: visibleCount });
+
+        if (visibleCount === 0) {
+          warnings[i]?.classList.remove('hidden');
+        } else {
+          warnings[i]?.classList.add('hidden');
         }
       });
+
+      if (isSearching) {
+        const summaryParts = resultCounts.map((r, i) => {
+          const separator =
+            i === resultCounts.length - 1 ? '' : i === resultCounts.length - 2 ? ' and ' : ', ';
+          return `${r.count} on "${r.heading}"${separator}`;
+        });
+        summaryEl.textContent = `Found ${summaryParts.join('')}`;
+        summaryEl.classList.remove('hidden');
+      } else {
+        summaryEl.textContent = '';
+        summaryEl.classList.add('hidden');
+      }
+    }
+
+    reset() {
+      this.searchBar.value = '';
+      this.filterSelects.forEach((select) => {
+        select.value = '';
+      });
+      this.searchFilter();
+    }
+
+    connectedCallback() {
+      const { form, searchBar, clear, filterSelects, headings } = this;
+
+      headings.forEach((heading) => {
+        const wrn = document.createElement('p');
+        wrn.classList.add('not-content', 'hidden', 'warning');
+        wrn.innerHTML = `
+						<span>No results found in ${heading.textContent}</span>
+						`;
+        heading.insertAdjacentElement('afterend', wrn);
+        this.warnings.push(wrn);
+      });
+
+      // Prevent page reload
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+      });
+
+      // Prevent reload on 'Enter', and enable clean input on 'Escape'
+      form.addEventListener('keydown', (e) => {
+        clear.classList.remove('pagefind-ui__suppressed');
+        if (e.key === 'Escape') {
+          this.reset();
+        } else if (e.key === 'Enter') e.preventDefault();
+      });
+
+      searchBar.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') e.preventDefault();
+      });
+
+      // Search
+      searchBar.addEventListener('keyup', () => {
+        this.searchFilter();
+      });
+
+      // Filter selects
+      filterSelects.forEach((select) => {
+        select.addEventListener('change', () => {
+          this.searchFilter();
+        });
+      });
+
+      // Clear search button 'X'
+      clear.addEventListener('click', () => {
+        clear.classList.add('pagefind-ui__suppressed');
+        this.reset();
+      });
+    }
+
+    constructor() {
+      super();
+      const el = this;
+      this.form = el.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
+      this.searchBar = el.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
+      this.clear = el.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
+      this.summaryEl = el.querySelector<HTMLElement>('#search-summary')!;
+      this.filterSelects = Array.from(el.querySelectorAll<HTMLSelectElement>('.ui_filter-select'));
+
+      this.inputs = Array.from(el.children).filter((el) => el.classList.contains('card-grid'));
+
+      const wrappers = Array.from(el.children).filter(
+        (el) =>
+          el.classList.contains('sl-heading-wrapper') ||
+          el.classList.contains('level-h5') ||
+          el.classList.contains('level-h4') ||
+          el.classList.contains('level-h3') ||
+          el.classList.contains('level-h2') ||
+          el.classList.contains('level-h1')
+      );
+
+      const headings = wrappers.map((wrapper) => {
+        return wrapper.firstElementChild as HTMLElement;
+      });
+
+      if (!headings || headings.length === 0) {
+        throw new Error('CardGridSearch: No headings found in the component children');
+      }
+      this.headings = headings;
     }
   }
+
   customElements.define('card-search', CardSearch);
 </script>
 
