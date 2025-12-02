@@ -83,7 +83,7 @@ const { placeholder = 'Search features and community resources...', filters = []
     filterSelects: HTMLSelectElement[];
     inputs: Element[];
     headings: Element[];
-    warnings: HTMLElement[] = [];
+    warnings: { [key: string]: HTMLElement } = {};
 
     searchFilter() {
       const { searchBar, filterSelects, inputs, headings, summaryEl, warnings } = this;
@@ -102,11 +102,11 @@ const { placeholder = 'Search features and community resources...', filters = []
       const resultCounts: { heading: string; count: number }[] = [];
 
       inputs.forEach((elements, i) => {
-        const cards = Array.from(elements.children);
+        const currentCards = Array.from(elements.children);
         let visibleCount = 0;
         const headingText = headings[i].textContent;
 
-        cards.forEach((el) => {
+        currentCards.forEach((el) => {
           const htmlElement = el as HTMLElement;
           const span = el.querySelector('span');
           const txtValue = span?.textContent || span?.innerText;
@@ -138,9 +138,9 @@ const { placeholder = 'Search features and community resources...', filters = []
         resultCounts.push({ heading: headingText, count: visibleCount });
 
         if (visibleCount === 0) {
-          warnings[i]?.classList.remove('hidden');
+          warnings[headingText]?.classList.remove('hidden');
         } else {
-          warnings[i]?.classList.add('hidden');
+          warnings[headingText]?.classList.add('hidden');
         }
       });
 
@@ -166,52 +166,78 @@ const { placeholder = 'Search features and community resources...', filters = []
       this.searchFilter();
     }
 
+    handleSubmit(e: Event) {
+      e.preventDefault();
+    }
+
+    handleFormKeyDown(e: KeyboardEvent) {
+      this.clear?.classList.remove('pagefind-ui__suppressed');
+      if (e.key === 'Escape') {
+        this.reset();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    }
+
+    handleSearchKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    }
+
+    handleSearchKeyUp() {
+      this.searchFilter();
+    }
+
+    handleSelectChange() {
+      this.searchFilter();
+    }
+
+    handleClearClick() {
+      this.clear.classList.add('pagefind-ui__suppressed');
+      this.reset();
+    }
+
     connectedCallback() {
       const { form, searchBar, clear, filterSelects, headings } = this;
 
       headings.forEach((heading) => {
         const wrn = document.createElement('p');
+        const headingText = heading.textContent;
+        if (!headingText) {
+          throw new Error('Heading text is missing or not found');
+        }
+        heading.after(wrn);
         wrn.classList.add('not-content', 'hidden', 'warning');
         wrn.innerHTML = `
-						<span>No results found in ${heading.textContent}</span>
+						<span>No results found in ${headingText}</span>
 						`;
-        heading.insertAdjacentElement('afterend', wrn);
-        this.warnings.push(wrn);
+        this.warnings[headingText] = wrn;
       });
 
-      // Prevent page reload
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-      });
-
-      // Prevent reload on 'Enter', and enable clean input on 'Escape'
-      form.addEventListener('keydown', (e) => {
-        clear.classList.remove('pagefind-ui__suppressed');
-        if (e.key === 'Escape') {
-          this.reset();
-        } else if (e.key === 'Enter') e.preventDefault();
-      });
-
-      searchBar.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') e.preventDefault();
-      });
-
-      // Search
-      searchBar.addEventListener('keyup', () => {
-        this.searchFilter();
-      });
+      form.addEventListener('submit', this.handleSubmit);
+      form.addEventListener('keydown', this.handleFormKeyDown);
+      searchBar.addEventListener('keydown', this.handleSearchKeyDown);
+      searchBar.addEventListener('keyup', this.handleSearchKeyUp);
 
       // Filter selects
       filterSelects.forEach((select) => {
-        select.addEventListener('change', () => {
-          this.searchFilter();
-        });
+        select.addEventListener('change', this.handleSearchKeyUp);
       });
 
       // Clear search button 'X'
-      clear.addEventListener('click', () => {
-        clear.classList.add('pagefind-ui__suppressed');
-        this.reset();
+      clear.addEventListener('click', this.handleClearClick);
+    }
+
+    disconnectedCallback() {
+      this.form.removeEventListener('submit', this.handleSubmit);
+      this.form.removeEventListener('keydown', this.handleFormKeyDown);
+      this.searchBar.removeEventListener('keydown', this.handleSearchKeyDown);
+      this.searchBar.removeEventListener('keyup', this.handleSearchKeyUp);
+      this.clear.removeEventListener('click', this.handleClearClick);
+
+      this.filterSelects.forEach((select) => {
+        select.removeEventListener('change', this.handleSelectChange);
       });
     }
 
@@ -244,6 +270,13 @@ const { placeholder = 'Search features and community resources...', filters = []
         throw new Error('CardGridSearch: No headings found in the component children');
       }
       this.headings = headings;
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleFormKeyDown = this.handleFormKeyDown.bind(this);
+      this.handleSearchKeyUp = this.handleSearchKeyUp.bind(this);
+      this.handleSearchKeyDown = this.handleSearchKeyDown.bind(this);
+      this.handleSelectChange = this.handleSelectChange.bind(this);
+      this.handleClearClick = this.handleClearClick.bind(this);
     }
   }
 
