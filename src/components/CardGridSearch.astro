@@ -207,12 +207,12 @@ const { placeholder = 'Search features and community resources...', filters = []
         if (!headingText) {
           throw new Error('Heading text is missing or not found');
         }
-        heading.after(wrn);
         wrn.classList.add('not-content', 'hidden', 'warning');
         wrn.innerHTML = `
-						<span>No results found in ${headingText}</span>
-						`;
+        <span>No results found in ${headingText}</span>
+        `;
         this.warnings[headingText] = wrn;
+        heading.after(wrn);
       });
 
       form.addEventListener('submit', this.handleSubmit);
@@ -431,11 +431,13 @@ const { placeholder = 'Search features and community resources...', filters = []
     outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
   }
+</style>
 
+<style is:global>
   .warning {
     font-style: italic;
     color: var(--sl-color-text);
-    font-size: larger;
+    font-size: smaller;
   }
 
   .warning.hidden {
