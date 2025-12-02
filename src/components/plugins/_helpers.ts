@@ -1,4 +1,4 @@
-import type { Platform } from "src/types";
+import type { Platform } from 'src/types';
 
 export interface PluginSupport {
   platform: Platform;
