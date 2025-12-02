@@ -84,6 +84,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "PhearZero",
+    "id": "PhearZero",
+    "avatarUrl": "https://images.opencollective.com/phearzero/787453c/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/phearzero",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Mintter App",
     "id": "Mintter App",
     "avatarUrl": "https://images.opencollective.com/user-23e77eea/30e54b6/avatar/256.jpg",
@@ -95,10 +104,10 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "PhearZero",
-    "id": "PhearZero",
-    "avatarUrl": "https://images.opencollective.com/phearzero/787453c/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/phearzero",
+    "name": "Matt Campbell",
+    "id": "Matt Campbell",
+    "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/matt-campbell1",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
@@ -112,15 +121,6 @@
       "twitter": "https://twitter.com/thadguidry",
       "github": "https://github.com/thadguidry"
     },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Matt Campbell",
-    "id": "Matt Campbell",
-    "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/matt-campbell1",
-    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -259,6 +259,18 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "James Bartlett",
     "id": "James Bartlett",
     "avatarUrl": "https://images.opencollective.com/james-bartlett1/avatar/256.jpg",
@@ -335,18 +347,6 @@
       "website": "https://rabbit-company.com/",
       "twitter": "https://twitter.com/RabbitCompany66",
       "github": "https://github.com/Rabbit-Company"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
     },
     "tier": "silver",
     "type": "ORGANIZATION"
@@ -784,6 +784,18 @@
     "type": "FUND"
   },
   {
+    "name": "Alexander Eden",
+    "id": "Alexander Eden",
+    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-eden",
+    "socialLinks": {
+      "website": "https://github.com/alexeden",
+      "github": "https://github.com/alexeden"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "James Carlson",
     "id": "James Carlson",
     "avatarUrl": "https://images.opencollective.com/james-carlson/baddfff/avatar/256.jpg",
@@ -855,18 +867,6 @@
     "avatarUrl": "https://images.opencollective.com/ivan13/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/ivan13",
     "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Alexander Eden",
-    "id": "Alexander Eden",
-    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-eden",
-    "socialLinks": {
-      "website": "https://github.com/alexeden",
-      "github": "https://github.com/alexeden"
-    },
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
