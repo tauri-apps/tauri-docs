@@ -145,15 +145,33 @@ const { placeholder = 'Search features and community resources...', filters = []
       });
 
       if (isSearching) {
-        const summaryParts = resultCounts.map((r, i) => {
-          const separator =
-            i === resultCounts.length - 1 ? '' : i === resultCounts.length - 2 ? ' and ' : ', ';
-          return `${r.count} on "${r.heading}"${separator}`;
+        summaryEl.innerHTML = '';
+
+        const title = document.createElement('div');
+        title.className = 'search-summary__title';
+        title.textContent = 'Found:';
+        summaryEl.appendChild(title);
+
+        const list = document.createElement('ul');
+        list.className = 'search-summary__list';
+
+        resultCounts.forEach((r) => {
+          const li = document.createElement('li');
+          li.className = 'search-summary__item';
+
+          const countEl = document.createElement('strong');
+          countEl.className = 'search-summary__count';
+          countEl.textContent = String(r.count);
+
+          li.appendChild(countEl);
+          li.appendChild(document.createTextNode(`x "${r.heading}"`));
+          list.appendChild(li);
         });
-        summaryEl.textContent = `Found ${summaryParts.join('')}`;
+
+        summaryEl.appendChild(list);
         summaryEl.classList.remove('hidden');
       } else {
-        summaryEl.textContent = '';
+        summaryEl.innerHTML = '';
         summaryEl.classList.add('hidden');
       }
     }
@@ -383,6 +401,32 @@ const { placeholder = 'Search features and community resources...', filters = []
 
   .search-summary.hidden {
     display: none;
+  }
+
+  .search-summary__title {
+    font-weight: 600;
+    margin-bottom: calc(6px * var(--pagefind-ui-scale));
+    color: var(--sl-color-gray-1);
+  }
+
+  .search-summary__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(4px * var(--pagefind-ui-scale));
+  }
+
+  .search-summary__item {
+    white-space: normal;
+    color: var(--sl-color-gray-2);
+  }
+
+  .search-summary__count {
+    font-weight: 700;
+    margin-right: 6px;
+    color: var(--sl-color-accent);
   }
 
   .ui_filters {
