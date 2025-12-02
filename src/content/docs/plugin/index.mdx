@@ -18,25 +18,20 @@ import { platformFilters } from 'src/api/search.ts';
 Tauri comes with extensibility in mind. On this page you'll find:
 
 - **[Official Features](#official-features)**: Built-in Tauri features and functionality
-- **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community
+- **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community. You can also contribute your own on [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri)
 - **[Support Table](#support-table)**: A compatibility table showing which platforms are supported by each official plugin
 
-<Search filters={platformFilters}>
-  ## Official Features
-  <FeaturesList />
+<br/>
 
-## Community Resources
-
-<LinkCard
-  title="Have something to share?"
-  description="Open a pull request to show us your amazing resource."
-  href="https://github.com/tauri-apps/awesome-tauri/pulls"
-/>
-  ### Plugins
-  <AwesomeTauri section="plugins-no-official" />
-  ### Integrations
-  <AwesomeTauri section="integrations" />
-</Search>
+**Use the search and filter functionality to find features or community resources:**
+  <Search filters={platformFilters}>
+    #### Official Features
+    <FeaturesList />
+    #### Community Plugins
+    <AwesomeTauri section="plugins-no-official" />
+    #### Community Integrations
+    <AwesomeTauri section="integrations" />
+  </Search>
 
 ## Support Table
 
