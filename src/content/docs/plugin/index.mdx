@@ -11,21 +11,28 @@ import CommunityList from '@components/list/Community.astro';
 import Search from '@components/CardGridSearch.astro';
 import AwesomeTauri from '@components/AwesomeTauri.astro';
 import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+import { platformOptions } from 'src/types';
+import { platformFilters } from 'src/api/search.ts';
 
 Tauri comes with extensibility in mind. On this page you'll find:
 
-- **[Features](#features)**: Built-in Tauri features and functionality
+- **[Official Features](#official-features)**: Built-in Tauri features and functionality
 - **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community
 
-<Search>
-  ## Features
+<Search filters={platformFilters}>
+  ## Official Features
   <FeaturesList />
-  ## Community Resources
-  <LinkCard
-    title="Have something to share?"
-    description="Open a pull request to show us your amazing resource."
-    href="https://github.com/tauri-apps/awesome-tauri/pulls"
-  />
+
+</Search>
+
+## Community Resources
+
+<LinkCard
+  title="Have something to share?"
+  description="Open a pull request to show us your amazing resource."
+  href="https://github.com/tauri-apps/awesome-tauri/pulls"
+/>
+<Search>
   ### Plugins
   <AwesomeTauri section="plugins-no-official" />
   ### Integrations

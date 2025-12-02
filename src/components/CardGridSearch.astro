@@ -5,15 +5,23 @@
  * https://github.com/withastro/starlight/blob/a0f6fa80d9be1fbe85530323a0b2523acb83a15a/packages/starlight/components/Search.astro
  */
 
+export interface FilterConfig {
+  id: string;
+  label: string;
+  options: { value: string; label: string }[];
+  cssClassPattern: string;
+}
+
 interface Props {
   placeholder?: string;
+  filters?: FilterConfig[];
 }
-const { placeholder = 'Search features and community resources...' } = Astro.props;
+const { placeholder = 'Search features and community resources...', filters = [] } = Astro.props;
 
 // TODO: Expose placeholder and title to i18n
 ---
 
-<card-search>
+<card-search data-filters={JSON.stringify(filters)}>
   <div id="search-input" class="pagefind-ui pagefind-ui--reset">
     <form
       class="pagefind-ui__form"
@@ -35,6 +43,32 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 
       <button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
     </form>
+
+    {
+      filters.length > 0 && (
+        <div class="ui_filters" role="group" aria-label="Filter options">
+          {filters.map((filter) => (
+            <div class="ui_filter">
+              <label for={`filter-${filter.id}`} class="ui_filter-label">
+                {filter.label}
+              </label>
+              <select
+                id={`filter-${filter.id}`}
+                class="ui_filter-select"
+                data-filter-id={filter.id}
+                data-css-pattern={filter.cssClassPattern}
+                aria-label={filter.label}
+              >
+                <option value="">All</option>
+                {filter.options.map((option) => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
+      )
+    }
   </div>
   <slot />
 </card-search>
@@ -47,6 +81,9 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
         const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
         const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
         const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
+        const filterSelects = Array.from(
+          this.querySelectorAll<HTMLSelectElement>('.ui_filter-select')
+        );
         const inputs = Array.from(this.children).filter((el) => el.classList.contains('card-grid'));
         const headings = Array.from(this.children).filter(
           (el) => el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement
@@ -94,6 +131,14 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
         searchBar.addEventListener('keyup', () => {
           searchFilter();
         });
+
+        // Filter selects
+        filterSelects.forEach((select) => {
+          select.addEventListener('change', () => {
+            searchFilter();
+          });
+        });
+
         // Clear search button 'X'
         clear.addEventListener('click', () => {
           clear.classList.add('pagefind-ui__suppressed');
@@ -102,6 +147,9 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 
         function reset() {
           searchBar.value = '';
+          filterSelects.forEach((select) => {
+            select.value = '';
+          });
           searchFilter();
         }
 
@@ -110,6 +158,14 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
          */
         function searchFilter() {
           const query = searchBar.value.toUpperCase();
+
+          const activeFilters = filterSelects
+            .map((select) => {
+              const value = select.value;
+              const pattern = select.dataset.cssPattern || '';
+              return value ? { value, pattern } : null;
+            })
+            .filter(Boolean);
 
           inputs.forEach((elements, i) => {
             const cards = Array.from(elements.children);
@@ -121,8 +177,22 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
               const txtValue = span?.textContent || span?.innerText;
               if (!txtValue) return;
 
-              // Filter list
-              if (txtValue.toUpperCase().indexOf(query) > -1) {
+              const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
+
+              let filterMatches = true;
+              for (const filter of activeFilters) {
+                if (!filter) {
+                  continue;
+                }
+                const className = filter.pattern.replace('${value}', filter.value);
+                const hasClass = htmlElement.querySelector(`.${className}`) !== null;
+                if (!hasClass) {
+                  filterMatches = false;
+                  break;
+                }
+              }
+
+              if (textMatches && filterMatches) {
                 total++;
                 htmlElement.style.display = '';
               } else {
@@ -234,5 +304,52 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
   .pagefind-ui__suppressed {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .ui_filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(16px * var(--pagefind-ui-scale));
+    margin-top: calc(16px * var(--pagefind-ui-scale));
+    align-items: center;
+  }
+
+  .ui_filter {
+    display: flex;
+    flex-direction: column;
+    gap: calc(4px * var(--pagefind-ui-scale));
+  }
+
+  .ui_filter-label {
+    font-size: calc(14px * var(--pagefind-ui-scale));
+    font-weight: 600;
+    color: var(--sl-color-gray-2);
+  }
+
+  .ui_filter-select {
+    box-sizing: border-box;
+    height: calc(40px * var(--pagefind-ui-scale));
+    padding: 0 calc(12px * var(--pagefind-ui-scale));
+    background-color: var(--sl-color-black);
+    border: var(--pagefind-ui-border-width) solid var(--sl-color-gray-5);
+    border-radius: var(--pagefind-ui-border-radius);
+    font-size: calc(16px * var(--pagefind-ui-scale));
+    color: var(--sl-color-white);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right calc(12px * var(--pagefind-ui-scale)) center;
+    padding-right: calc(36px * var(--pagefind-ui-scale));
+  }
+
+  .ui_filter-select:hover {
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .ui_filter-select:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
   }
 </style>
