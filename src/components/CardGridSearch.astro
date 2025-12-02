@@ -230,7 +230,11 @@ const { placeholder = 'Search features and community resources...', filters = []
         <span>No results found in ${headingText}</span>
         `;
         this.warnings[headingText] = wrn;
-        heading.after(wrn);
+        const parent = heading.parentElement;
+        if (!parent) {
+          throw new Error('Heading parent element is missing or not found');
+        }
+        parent.appendChild(wrn);
       });
 
       form.addEventListener('submit', this.handleSubmit);
