@@ -132,9 +132,9 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 
               // Show warning if none found
               if (total === 0) {
-                warnings[i].classList.remove('hidden');
+                warnings[i]?.classList.remove('hidden');
               } else {
-                warnings[i].classList.add('hidden');
+                warnings[i]?.classList.add('hidden');
               }
             });
           });
