@@ -553,6 +553,17 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Nonogram Online",
+    "id": "Nonogram Online",
+    "avatarUrl": "https://images.opencollective.com/nonogram-online/0dbfd94/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/nonogram-online",
+    "socialLinks": {
+      "website": "https://www.nonogramonline.org"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "",
     "id": "",
     "avatarUrl": "https://images.opencollective.com/user-146594/7ba130d/avatar/256.jpg",
@@ -871,17 +882,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Nonogram Online",
-    "id": "Nonogram Online",
-    "avatarUrl": "https://images.opencollective.com/nonogram-online/0dbfd94/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/nonogram-online",
-    "socialLinks": {
-      "website": "https://www.nonogramonline.org"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "Jan",
     "id": "Jan",
     "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
@@ -929,6 +929,19 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   },
   {
     "name": "Allan Gaunt",
@@ -1018,6 +1031,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Ruslanas Abdrachimovas",
     "id": "Ruslanas Abdrachimovas",
     "avatarUrl": "https://images.opencollective.com/ruslanas-abdrachimovas/c4e635d/avatar/256.jpg",
@@ -1067,30 +1091,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Taylor Gregoire-Wright",
