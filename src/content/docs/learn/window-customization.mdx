@@ -306,4 +306,42 @@ Create the main window and change its background color:
     		.run(tauri::generate_context!())
     		.expect("error while running tauri application");
     }
+
+
+    ## Detecting When Window Drag or Resize Has Stopped (Userland Example)
+
+Tauri does not currently expose native “drag finished” or “resize finished” events
+from the operating system. However, you can implement this behavior in userland
+by listening to the continuously emitted `tauri://move` and `tauri://resize`
+events and detecting when movement or resizing stops.
+
+```ts
+import { appWindow } from "@tauri-apps/api/window";
+
+// Detect when window dragging stops
+let dragTimer: number | null = null;
+appWindow.listen("tauri://move", () => {
+  clearTimeout(dragTimer);
+  dragTimer = setTimeout(() => {
+    window.dispatchEvent(new CustomEvent("drag-stopped"));
+  }, 120);
+});
+
+// Detect when window resizing stops
+let resizeTimer: number | null = null;
+appWindow.listen("tauri://resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    window.dispatchEvent(new CustomEvent("resize-stopped"));
+  }, 120);
+});
+
+// Usage example
+window.addEventListener("drag-stopped", () => {
+  console.log("Window drag stopped");
+});
+
+window.addEventListener("resize-stopped", () => {
+  console.log("Window resize stopped");
+});
     ```
