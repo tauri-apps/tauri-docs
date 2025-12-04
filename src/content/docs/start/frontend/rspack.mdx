@@ -1,0 +1,155 @@
+---
+title: Rspack / Rsbuild
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+i18nReady: true
+---
+
+<!-- TODO: browserlist -->
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+[Rspack](https://rspack.rs/guide/start/introduction) is a drop-in replacement for webpack with much higher performance and more powerful features. [Rsbuild](https://rsbuild.rs/guide/start/) is a build tool powered by Rspack offering a more streamlined developer experience.
+
+This guide is accurate as of Rspack@1.6.6 / Rsbuild@1.6.12 and assumes you're using Rsbuild.
+
+## Checklist
+
+- Use `http://localhost:3000` as `devUrl` in `src-tauri/tauri.conf.json`.
+- Use `../dist` as `frontendDist` in `src-tauri/tauri.conf.json`.
+- Use `process.env.TAURI_DEV_HOST` as the development server host IP when set to run on iOS physical devices.
+
+## Example configuration
+
+<Steps>
+
+1.  ##### Update Tauri configuration
+
+    Assuming you have the following `dev` and `build` scripts in your `package.json`:
+
+    ```json
+    {
+      "scripts": {
+        "build": "rsbuild build",
+        "dev": "rsbuild dev",
+        "preview": "rsbuild preview",
+        "tauri": "tauri"
+      }
+    }
+    ```
+
+    You can configure the Tauri CLI to use your Rsbuild development server and dist folder
+    along with the hooks to automatically run the Rsbuild scripts:
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:3000",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+1.  ##### Update Rsbuild configuration:
+
+    ```js title="rsbuild.config.ts"
+    import { defineConfig } from '@rsbuild/core';
+
+    const host = process.env.TAURI_DEV_HOST;
+
+    // Docs: https://rsbuild.rs/config/
+    export default defineConfig({
+      server: {
+        // Tauri expects a fixed port, fail if that port is not available
+        strictPort: true,
+        // if the host Tauri is expecting is set, use it
+        host: host || undefined,
+      },
+      dev: {
+        client: host
+          ? {
+              protocol: 'ws',
+              host,
+              port: 1421,
+            }
+          : undefined,
+      },
+      output: {
+        // don't minify for debug builds
+        minify: !process.env.TAURI_ENV_DEBUG,
+        // produce sourcemaps for debug builds
+        sourceMap: !!process.env.TAURI_ENV_DEBUG,
+      },
+      tools: {
+        rspack: {
+          watchOptions: {
+            // .git and node_modules are ignored by rsbuild by default
+            // src-tauri usually does not contain frontend files so it's ignored here as well
+            ignored: ['**/.git', '**/node_modules', '**/src-tauri/**'],
+          },
+        },
+      },
+    });
+    ```
+
+</Steps>
