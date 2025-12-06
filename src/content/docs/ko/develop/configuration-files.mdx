@@ -1,0 +1,286 @@
+---
+title: 설정 파일
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri는 애플리케이션을 구축하기 위한 툴킷이므로 프로젝트 설정을 구성하기 위한 파일이 많을 수 있습니다. 흔히 볼 수 있는 일반적인 파일은 `tauri.conf.json`, `package.json`, `Cargo.toml` 등일 것입니다. 이 장에서는 어떤 파일을 수정해야 하는지 올바르게 판단할 수 있도록 각각에 대해 간단히 설명합니다.
+
+> > > 《번역 주》 **설정**과 **구성** 둘 다 configuration의 번역어. 본고에서는 엄격한 구별 없이 사용하고 있으므로, 번역문에 위화감이 있는 경우 적절히 읽어주십시오.
+
+## Tauri 설정
+
+"Tauri 설정"은 웹 앱 소스 정의, 애플리케이션 메타데이터 설명, 번들 설정, 플러그인 구성 설정 및 창, 트레이 아이콘, 메뉴 등의 설정으로 런타임 동작 변경에 사용됩니다.
+
+이 파일은 "Tauri 런타임"과 "Tauri CLI"에서 사용됩니다. "빌드 설정"을 정의하거나([`tauri build`][before-build-command]나 [`tauri dev`][before-dev-command]가 시작되기 전에 실행되는 명령 등), 앱의 [이름](/reference/config/#productname)이나 [버전](/reference/config/#version)을 설정하거나, [Tauri 런타임 제어][appconfig], [플러그인 설정] 등을 할 수 있습니다.
+
+:::tip
+모든 옵션에 대해서는 [Reference의 Configuration](참고 정보/설정) 항목을 참조하십시오.
+:::
+
+### 지원되는 형식
+
+기본 Tauri 설정 형식은 "JSON"입니다. "JSON5" 또는 "TOML" 형식도 `Cargo.toml`의 `tauri` 및 `tauri-build` 종속성에 `config-json5` 또는 `config-toml` 기능 플래그를 각각 추가하여 활성화할 수 있습니다.
+
+```toml title=Cargo.toml
+[build-dependencies]
+tauri-build = { version = "2.0.0", features = [ "config-json5" ] }
+
+[dependencies]
+tauri = { version = "2.0.0", features = [  "config-json5" ] }
+```
+
+체계와 값은 모든 형식에서 동일하지만, 서식 설정은 각 파일의 형식과 일치해야 합니다:
+
+```json5 title=tauri.conf.json or tauri.conf.json5
+{
+  build: {
+    devUrl: 'http://localhost:3000',
+    // start the dev server
+    beforeDevCommand: 'npm run dev',
+  },
+  bundle: {
+    active: true,
+    icon: ['icons/app.png'],
+  },
+  app: {
+    windows: [
+      {
+        title: 'MyApp',
+      },
+    ],
+  },
+  plugins: {
+    updater: {
+      pubkey: 'updater pub key',
+      endpoints: ['https://my.app.updater/{{target}}/{{current_version}}'],
+    },
+  },
+}
+```
+
+```toml title=Tauri.toml
+[build]
+dev-url = "http://localhost:3000"
+# start the dev server
+before-dev-command = "npm run dev"
+
+[bundle]
+active = true
+icon = ["icons/app.png"]
+
+[[app.windows]]
+title = "MyApp"
+
+[plugins.updater]
+pubkey = "updater pub key"
+endpoints = ["https://my.app.updater/{{target}}/{{current_version}}"]
+```
+
+JSON5와 TOML은 주석을 지원하며, TOML에서는 더 관용적인 "케밥 케이스"를 설정 이름에 사용할 수 있다는 점에 유의하십시오.
+
+> > > 《번역 주》 **케밥 케이스** 원문 kebab-case. 복합어를 만들 때 소문자 단어 사이에 하이픈(-)을 넣어 만드는 명명 규칙. 글자를 꼬치에 꽂은 모양으로 보이기 때문에 "케밥 케이스"라고 불립니다.
+
+### 플랫폼별 설정
+
+기본 설정 파일 외에 Tauri는 다음 위치에서 플랫폼별 설정을 읽을 수 있습니다:
+
+- Linux용: `tauri.linux.conf.json` 또는 `Tauri.linux.toml`
+- Windows용: `tauri.windows.conf.json` 또는 `Tauri.windows.toml`
+- macOS용: `tauri.macos.conf.json` 또는 `Tauri.macos.toml`
+- Android용: `tauri.android.conf.json` 또는 `Tauri.android.toml`
+- iOS용: `tauri.ios.conf.json` 또는 `Tauri.ios.toml`
+
+플랫폼별 설정 파일은 [JSON Merge Patch (RFC 7396)] 사양에 따라 기본 설정 객체와 통합(병합)됩니다.
+
+예를 들어, 다음과 같은 기본 `tauri.conf.json`이 있다고 가정합니다:
+
+```json title=tauri.conf.json
+{
+  "productName": "MyApp",
+  "bundle": {
+    "resources": ["./resources"]
+  },
+  "plugins": {
+    "deep-link": {}
+  }
+}
+```
+
+또한 지정된 플랫폼별 `tauri.linux.conf.json`:
+
+```json title=tauri.linux.conf.json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+Linux용 최종 구성은 다음 객체와 같습니다:
+
+> > > 《번역 주》 **최종 구성** 원문은 resolved configuration. 직역 "해결된 설정/구성". "최종적으로 결정된" 의미로 해석하여 번역했습니다. 다음 항목 "설정 확장"에서의 표현도 마찬가지입니다.
+
+```json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+또한 CLI(명령줄 인터페이스)를 통해 병합할 설정을 수행할 수도 있습니다. 자세한 내용은 다음 항목을 참조하십시오.
+
+### 설정 확장
+
+Tauri CLI를 사용하면 `dev`, `android dev`, `ios dev`, `build`, `android build`, `ios build` 또는 `bundle` 명령 중 하나를 실행할 때 Tauri 설정을 확장할 수 있습니다.
+확장 설정은 JSON 문자열을 그대로 또는 JSON 파일 경로로 `--config` 인수로 제공할 수 있습니다.
+Tauri는 [JSON Merge Patch (RFC 7396)] 사양을 사용하여 제공된 설정 값을 원래의 최종 구성 객체와 병합합니다.
+
+이 메커니즘을 사용하면 애플리케이션의 여러 버전을 정의하거나 애플리케이션 번들을 구성할 때 유연성을 높일 수 있습니다.
+
+예를 들어, 정식 버전과 완전히 분리된 _베타 버전_ 애플리케이션을 배포하려면 이 기능을 사용하여 다른 애플리케이션 이름과 식별자를 설정할 수 있습니다:
+
+```json title=src-tauri/tauri.beta.conf.json
+{
+  "productName": "My App Beta",
+  "identifier": "com.myorg.myappbeta"
+}
+```
+
+이 분리된 _베타 버전_ 앱을 배포하려면 빌드 시 다음 설정 파일을 만듭니다:
+
+<CommandTabs
+  npm="npm run tauri build -- --config src-tauri/tauri.beta.conf.json"
+  yarn="yarn tauri build --config src-tauri/tauri.beta.conf.json"
+  pnpm="pnpm tauri build --config src-tauri/tauri.beta.conf.json"
+  deno="deno task tauri build --config src-tauri/tauri.beta.conf.json"
+  bun="bun tauri build --config src-tauri/tauri.beta.conf.json"
+  cargo="cargo tauri build --config src-tauri/tauri.beta.conf.json"
+/>
+
+## `Cargo.toml`
+
+Cargo의 매니페스트 파일은 앱이 의존하는 Rust 크레이트, 앱에 대한 메타데이터 및 기타 Rust 관련 기능을 선언하는 데 사용됩니다. Rust를 사용하여 앱의 백엔드 개발을 할 생각이 없다면 이 파일을 많이 변경하지 않을 수 있지만, 이러한 파일이 있고 그것이 무엇을 하는지 아는 것이 중요합니다.
+
+다음은 Tauri 프로젝트의 최소한의 `Cargo.toml` 파일 예입니다:
+
+```toml title=Cargo.toml
+[package]
+name = "app"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
+default-run = "app"
+edition = "2021"
+rust-version = "1.57"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0" }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "2.0.0", features = [ ] }
+```
+
+주의해야 할 가장 중요한 부분은 `tauri-build`와 `tauri`의 종속성입니다. 일반적으로 이 둘은 모두 Tauri CLI와 마찬가지로 최신 "최신 버그 수정판(마이너 버전)"이어야 하지만, 이는 엄격하게 필수는 아닙니다. 앱 실행 중에 문제가 발생하면 모든 Tauri 버전(`tauri` 및 `tauri-cli`)이 각각의 "최신 버그 수정판"(마이너 릴리스의 최신 버전)인지 확인해야 합니다.
+
+Cargo의 버전 번호는 [시맨틱 버전 관리](Semver) 방식([참고](https://ko.wikipedia.org/wiki/유의적_버전))을 사용합니다. `src-tauri` 폴더 내에서 `cargo update`를 실행하면 모든 종속성에 대해 Semver 호환 최신 버전이 가져옵니다. 예를 들어, `tauri-build`의 버전으로 `2.0.0`을 지정하면 Cargo는 최신 Semver 호환 버전인 `2.0.0.0`을 감지하고 다운로드합니다. Tauri는 중대한 변경이 도입될 때 "메이저 버전 번호"를 업데이트합니다. 즉, 최신 마이너 버전과 패치 버전 업데이트에서는 자신의 코드가 [최신 기능으로] 손상될 걱정 없이 항상 안전하게 업그레이드할 수 있습니다.
+
+특정 크레이트 버전을 사용하려면 종속성 버전 번호 앞에 `=`를 추가하여 지정한 버전을 사용할 수 있습니다:
+
+```
+tauri-build = { version = "=2.0.0" }
+```
+
+또한 `tauri` 종속성의 `features=[]` 부분에 주의해야 합니다. `tauri dev`와 `tauri build`를 실행하면 "Tauri 설정"에 따라 프로젝트에서 어떤 기능을 활성화해야 하는지 자동으로 판단합니다. `tauri` 기능 플래그에 대한 자세한 내용은 [이 문서(영어)][tauri Cargo features]를 참조하십시오.
+
+애플리케이션을 빌드하면 `Cargo.lock` 파일이 생성됩니다. 이 파일은 주로 개발 중 머신 간에 동일한 종속성이 사용되도록 하는 데 사용됩니다(Node.js의 `yarn.lock`, `pnpm-lock.yaml` 또는 `package-lock.json`과 유사합니다). 일관된 빌드를 얻기 위해 이 파일을 소스 리포지토리에 커밋하는 것이 좋습니다.
+
+Cargo 매니페스트 파일에 대한 자세한 내용은 [공식 문서(영어)][cargo-manifest]를 참조하십시오.
+
+## `package.json`
+
+이것은 Node.js에서 사용되는 패키지 파일입니다. Tauri 앱의 프론트엔드가 Node.js 기반 기술(`npm`, `yarn`, `pnpm` 등)을 사용하여 개발된 경우 이 파일은 프론트엔드 종속성과 스크립트를 구성하는 데 사용됩니다.
+
+Tauri 프로젝트의 최소한의 `package.json` 파일은 다음 예와 같습니다:
+
+```json title=package.json
+{
+  "scripts": {
+    "dev": "command to start your app development mode",
+    "build": "command to build your app frontend",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0.0",
+    "@tauri-apps/cli": "^2.0.0.0"
+  }
+}
+```
+
+Tauri 애플리케이션에서 사용되는 프론트엔드의 시작 및 빌드에 사용되는 명령을 저장하는 데는 `"scripts"` 섹션을 사용하는 것이 일반적입니다.
+위의 `package.json` 파일에서는 "`dev` 명령"과 "`build` 명령"을 지정하고 있습니다. "`dev` 명령"은 프론트엔드 프레임워크를 시작하기 위해 `yarn dev` 또는 `npm run dev`를 사용하여 실행되며, "`build` 명령"은 프로덕션 환경에서 Tauri에 의해 추가되는 프론트엔드 웹 자산을 빌드하기 위해 `yarn build` 또는 `npm run build`를 사용하여 실행됩니다.
+이러한 스크립트를 사용하는 가장 편리한 방법은 "[Tauri 설정](#tauri-설정)"의 [beforeDevCommand][before-dev-command] 및 [beforeBuildCommand][before-build-command] 후크를 통해 Tauri CLI에서 해당 스크립트를 후크하는 것입니다:
+
+> > > 《번역 주》 **후크** 원문 hooks. 프로그램의 특정 지점(후크)에 사용자가 고유한 처리를 추가(후크)할 수 있도록 하는 메커니즘([Wikipedia](https://ko.wikipedia.org/wiki/후킹))
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build"
+  }
+}
+```
+
+:::note
+"스크립트" 섹션 내의 `"tauri"` 지정은 `npm`을 사용하는 경우에만 필요합니다.
+:::
+
+종속성 객체는 `yarn`, `pnpm install` 또는 `npm install` 중 하나를 실행할 때(이 경우 Tauri CLI 및 API에서) Node.js가 어떤 종속성을 다운로드할지 지정합니다.
+
+`package.json` 파일 외에 `yarn.lock`, `pnpm-lock.yaml` 또는 `package-lock.json` 파일이 표시될 수 있습니다. 이러한 파일은 나중에 종속성을 다운로드할 때 개발 중에 사용한 것과 정확히 동일한 버전을 확실히 얻는 데 도움이 됩니다(Rust의 `Cargo.lock`과 유사합니다).
+
+"`package.json` 파일 형식"에 대한 자세한 내용은 [공식 문서][npm-package](영어)를 참조하십시오.
+
+[reference의 configuration]: /reference/config/
+[before-dev-command]: /reference/config/#beforedevcommand-1
+[before-build-command]: /reference/config/#beforebuildcommand
+[appconfig]: /reference/config/#appconfig
+[configure plugins]: /reference/config/#plugins
+[시맨틱 버전 관리]: https://semver.org
+[cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
+[tauri Cargo features]: https://docs.rs/tauri/2.0.0/tauri/#cargo-features
+[JSON Merge Patch (RFC 7396)]: https://datatracker.ietf.org/doc/html/rfc7396
+
+<div style="text-align: right">
+  【※ 이 한국어판은, 「Mar 29, 2025 영문판」에 근거하고 있습니다】
+</div>

@@ -1,0 +1,135 @@
+---
+title: DMG
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Image } from 'astro:assets';
+import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
+import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+DMG（Apple ディスク・イメージ・ファイル）形式は、一般的な macOS インストーラー・ファイルで、[App Bundle][macOS Application Bundle の章] をユーザーフレンドリーな「インストール・ウィンドウ」にラップ（包含）します。
+
+「インストーラー・ウィンドウ」には、「アプリのアイコン」と「アプリケーション・フォルダーのアイコン」が含まれており、ユーザーはその「アプリ・アイコン」を「アプリケーション・フォルダー・アイコン」上にドラッグすることでインストールが行なわれることになっています。
+このやりかたは、App Store 以外で配布される macOS アプリケーションの最も一般的なインストール方法です。
+
+この章では、App Store とは別の方法で、DMG 形式を使用してアプリを配布するための詳細のみを説明します。
+macOS の配布オプションと設定の詳細については、[macOS Application Bundle の章] を参照してください。
+macOS アプリを App Store で配布するには、[App Store の章] を参照してください。
+
+アプリの「Apple ディスク・イメージ」を作成するには、Tauri CLI を使用して、Mac コンピューターで `tauri build` コマンドを実行します：
+
+<CommandTabs
+  npm="npm run tauri build -- --bundles dmg"
+  yarn="yarn tauri build --bundles dmg"
+  pnpm="pnpm tauri build --bundles dmg"
+  deno="deno task tauri build --bundles dmg"
+  bun="bun tauri build --bundles dmg"
+  cargo="cargo tauri build --bundles dmg"
+/>
+
+<Image
+  class="dark:sl-hidden"
+  src={StandardDmgLight}
+  alt="Standard DMG window"
+/>
+<Image
+  class="light:sl-hidden"
+  src={StandardDmgDark}
+  alt="Standard DMG window"
+/>
+
+## ウィンドウの背景
+
+[`tauri.conf.json > bundle > macOS > dmg > background`] の設定オプションを使用して、DMG のインストール・ウィンドウにカスタム背景画像を設定できます。
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "background": "./images/"
+      }
+    }
+  }
+}
+```
+
+たとえば、DMG の背景画像に「矢印」を表示して、ユーザーにアプリのアイコンをアプリケーション・フォルダの方向にドラッグする必要があることを示すことができます。
+
+## ウィンドウのサイズと位置
+
+デフォルトのウィンドウサイズは「660x400」です。カスタム背景画像に合わせて異なるサイズにしたい場合は、[`tauri.conf.json > bundle > macOS > dmg > windowSize`] で設定を行なってください：
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 800,
+          "height": 600
+        }
+      }
+    }
+  }
+}
+```
+
+さらに、[`tauri.conf.json > bundle > macOS > dmg > windowPosition`] の設定で初期ウィンドウの位置を指定することもできます：
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowPosition": {
+          "x": 400,
+          "y": 400
+        }
+      }
+    }
+  }
+}
+```
+
+## アイコンの位置
+
+アプリと*アプリケーション・フォルダ*のアイコンの位置は、それぞれ [appPosition] と [applicationFolderPosition] の設定値で変更できます：
+
+```json title="tauri.conf.json" ins={5-12}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 220
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 220
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+既知の問題により、CI/CD プラットフォームで DMG を作成した場合には、アイコンのサイズと位置は適用されません。
+詳細については、[tauri-apps/tauri#1731]を参照してください。
+:::
+
+[macOS Application Bundle の章]: /ja/distribute/macos-application-bundle/
+[App Store の章]: /ja/distribute/app-store/
+[appPosition]: /reference/config/#appposition
+[applicationFolderPosition]: /reference/config/#applicationfolderposition
+[tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731
+
+<div style="text-align: right">
+  【※ この日本語版は、「Mar 29, 2025 英語版」に基づいています】
+</div>

@@ -41,6 +41,12 @@ To create an Apple Disk Image for your app you can use the Tauri CLI and run the
   alt="Standard DMG window"
 />
 
+:::note
+
+GUI apps on macOS and Linux do not inherit the `$PATH` from your shell dotfiles (`.bashrc`, `.bash_profile`, `.zshrc`, etc). Check out Tauri's [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) crate to fix this issue.
+
+:::
+
 ## Window background
 
 You can set a custom background image to the DMG installation window with the [`tauri.conf.json > bundle > macOS > dmg > background`] configuration option:

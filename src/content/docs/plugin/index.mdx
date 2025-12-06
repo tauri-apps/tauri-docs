@@ -3,6 +3,7 @@ title: Features & Recipes
 i18nReady: true
 sidebar:
   label: Overview
+tableOfContents: false
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
@@ -11,24 +12,25 @@ import CommunityList from '@components/list/Community.astro';
 import Search from '@components/CardGridSearch.astro';
 import AwesomeTauri from '@components/AwesomeTauri.astro';
 import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+import { platformOptions } from 'src/types';
+import { platformFilters } from 'src/api/search.ts';
 
 Tauri comes with extensibility in mind. On this page you'll find:
 
-- **[Features](#features)**: Built-in Tauri features and functionality
-- **[Community Resources](#community-resources)**: More plugins and recipes built by the Tauri community
+- **[Official Features](#official-features)**: Built-in Tauri features and functionality
+- **[Community Resources](#community-plugins)**: More plugins and recipes built by the Tauri community. You can also contribute your own on [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri)
+- **[Support Table](#support-table)**: A compatibility table showing which platforms are supported by each official plugin
 
-<Search>
-  ## Features
+<br />
+
+**Use the search and filter functionality to find features or community resources:**
+
+<Search filters={platformFilters}>
+  #### Official Features
   <FeaturesList />
-  ## Community Resources
-  <LinkCard
-    title="Have something to share?"
-    description="Open a pull request to show us your amazing resource."
-    href="https://github.com/tauri-apps/awesome-tauri/pulls"
-  />
-  ### Plugins
+  #### Community Plugins
   <AwesomeTauri section="plugins-no-official" />
-  ### Integrations
+  #### Community Integrations
   <AwesomeTauri section="integrations" />
 </Search>
 

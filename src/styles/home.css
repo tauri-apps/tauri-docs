@@ -1,0 +1,4 @@
+/* hide h1 title */
+.content-panel:has(h1#_top:not([data-page-title])) {
+  display: none;
+}

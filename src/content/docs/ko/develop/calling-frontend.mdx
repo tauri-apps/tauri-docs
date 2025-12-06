@@ -1,0 +1,270 @@
+---
+title: Rust에서 프론트엔드 호출하기
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
+
+이 문서는 Rust 코드에서 애플리케이션의 프론트엔드와 통신하는 방법에 대한 지침을 담고 있습니다.
+프론트엔드에서 Rust 코드와 통신하는 방법에 대해서는 다음 절의 "[프론트엔드에서 Rust 호출하기]"를 참조하십시오.
+
+Tauri 애플리케이션의 Rust 측에서는 "Tauri 이벤트 시스템"을 이용하거나, "채널"을 사용하거나, 또는 JavaScript 코드를 직접 검증함으로써 프론트엔드를 호출할 수 있습니다.
+
+## 이벤트 시스템
+
+Tauri에는 Rust와 프론트엔드 간의 양방향 통신이 가능한 간단한 "이벤트 시스템"이 포함되어 있습니다.
+
+이 이벤트 시스템은 소량의 데이터를 스트리밍해야 하는 경우나, 다중 소비자/다중 생산자 패턴(예: 푸시 알림 시스템 등)을 구현해야 하는 상황을 고려하여 설계되었습니다.
+
+저지연(레이턴시) 또는 고처리량 상황을 위한 설계는 아닙니다. 스트리밍 데이터에 최적화된 구현에 대해서는 [채널](#채널-channels) 항목을 참조하십시오.
+
+"Tauri 명령"과 "Tauri 이벤트"의 큰 차이점은 이벤트에는 강력한 형식 지원이 없고, 이벤트 페이로드(데이터 본체)가 항상 JSON 문자열이기 때문에 큰 메시지에는 적합하지 않으며, 이벤트 데이터와 채널을 세밀하게 제어하기 위한 [보안 수준] 시스템이 지원되지 않는다는 것입니다.
+
+구조체 [AppHandle] 및 [WebviewWindow]의 형식(타입)은 이벤트 시스템 트레이트의 [Listener] 및 [Emitter]를 구현합니다.
+
+이벤트는 "전역"(모든 "리스너"에게 전달됨) 또는 "Webview 특정"(지정된 레이블과 일치하는 Webview에만 전달됨) 중 하나가 될 수 있습니다.
+
+### 전역 이벤트
+
+전역 이벤트를 트리거(시작)하려면 [Emitter#emit] 함수를 사용합니다:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter};
+
+#[tauri::command]
+fn download(app: AppHandle, url: String) {
+  app.emit("download-started", &url).unwrap();
+  for progress in [1, 15, 50, 80, 100] {
+    app.emit("download-progress", progress).unwrap();
+  }
+  app.emit("download-finished", &url).unwrap();
+}
+```
+
+:::note
+전역 이벤트는 **모든** 리스너에게 전달됩니다.
+:::
+
+### Webview 이벤트
+
+특정 Webview에 의해 지정된 리스너에 대해 이벤트를 트리거하려면 [Emitter#emit_to] 함수를 사용합니다:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter};
+
+#[tauri::command]
+fn login(app: AppHandle, user: String, password: String) {
+  let authenticated = user == "tauri-apps" && password == "tauri";
+  let result = if authenticated { "loggedIn" } else { "invalidCredentials" };
+  app.emit_to("login", "login-result", result).unwrap();
+}
+```
+
+[Emitter#emit_filter]를 호출하여 Webview 목록에 이벤트를 트리거할 수도 있습니다.
+다음 예에서는 "open-file" 이벤트를 메인 및 파일 뷰어 Webview에 발행합니다:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter, EventTarget};
+
+#[tauri::command]
+fn open_file(app: AppHandle, path: std::path::PathBuf) {
+  app.emit_filter("open-file", path, |target| match target {
+    EventTarget::WebviewWindow { label } => label == "main" || label == "file-viewer",
+    _ => false,
+  }).unwrap();
+}
+```
+
+:::note
+Webview 특정 이벤트는 일반적인 전역 이벤트 리스너에 대해서는 트리거**되지 않습니다**.
+**어떤** 이벤트든 감지(수신)하려면 `listen` 함수 대신 `listen_any` 함수를 사용해야 합니다. 이 함수는 발행된 이벤트를 "캐치올"(모두 포착)하는 리스너를 정의합니다.
+:::
+
+### 이벤트 페이로드
+
+이벤트 페이로드는 임의의 [직렬화 가능 serializable][Serialize] 형식이 될 수 있으며, 이 형식은 [Clone] 트레이트도 구현할 수 있습니다.
+이벤트마다 많은 정보를 발행하는 객체를 사용하여 "다운로드 이벤트 예"를 확장해 보겠습니다.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter};
+use serde::Serialize;
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadStarted<'a> {
+  url: &'a str,
+  download_id: usize,
+  content_length: usize,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadProgress {
+  download_id: usize,
+  chunk_length: usize,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadFinished {
+  download_id: usize,
+}
+
+#[tauri::command]
+fn download(app: AppHandle, url: String) {
+  let content_length = 1000;
+  let download_id = 1;
+
+  app.emit("download-started", DownloadStarted {
+    url: &url,
+    download_id,
+    content_length
+  }).unwrap();
+
+  for chunk_length in [15, 150, 35, 500, 300] {
+    app.emit("download-progress", DownloadProgress {
+      download_id,
+      chunk_length,
+    }).unwrap();
+  }
+
+  app.emit("download-finished", DownloadFinished { download_id }).unwrap();
+}
+```
+
+### 이벤트 감지(리스닝)
+
+Tauri는 Webview와 Rust 양쪽 인터페이스에서 이벤트를 감지(수신)하기 위한 API를 제공합니다.
+
+#### 프론트엔드 이벤트 감지
+
+<FrontendListen />
+
+## 채널 Channels
+
+> > > 《번역 주》 **채널** "유로, 전송로".
+
+이벤트 시스템은 애플리케이션에서 "전역"으로 사용할 수 있는 간단한 양방향 통신을 수행하도록 설계되었습니다.
+내부적으로는 직접 JavaScript 코드를 검증하므로 대량의 데이터를 전송하는 데는 적합하지 않을 수 있습니다.
+
+채널은 빠르고 순서가 지정된 데이터를 전달하도록 설계되었습니다. 따라서 다운로드 진행 상황, 자식 프로세스 출력, WebSocket 메시지와 같은 스트리밍 작업에 내부적으로 사용됩니다.
+
+위의 "다운로드 명령 예"를 "이벤트 시스템" 대신 "채널"을 사용하도록 다시 작성해 보겠습니다.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, ipc::Channel};
+use serde::Serialize;
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase", tag = "event", content = "data")]
+enum DownloadEvent<'a> {
+  #[serde(rename_all = "camelCase")]
+  Started {
+    url: &'a str,
+    download_id: usize,
+    content_length: usize,
+  },
+  #[serde(rename_all = "camelCase")]
+  Progress {
+    download_id: usize,
+    chunk_length: usize,
+  },
+  #[serde(rename_all = "camelCase")]
+  Finished {
+    download_id: usize,
+  },
+}
+
+#[tauri::command]
+fn download(app: AppHandle, url: String, on_event: Channel<DownloadEvent>) {
+  let content_length = 1000;
+  let download_id = 1;
+
+  on_event.send(DownloadEvent::Started {
+    url: &url,
+    download_id,
+    content_length,
+  }).unwrap();
+
+  for chunk_length in [15, 150, 35, 500, 300] {
+    on_event.send(DownloadEvent::Progress {
+      download_id,
+      chunk_length,
+    }).unwrap();
+  }
+
+  on_event.send(DownloadEvent::Finished { download_id }).unwrap();
+}
+```
+
+다운로드 명령을 호출할 때는 채널을 만들고 그것을 인수로 지정해야 합니다.
+
+```ts
+import { invoke, Channel } from '@tauri-apps/api/core';
+
+type DownloadEvent =
+  | {
+      event: 'started';
+      data: {
+        url: string;
+        downloadId: number;
+        contentLength: number;
+      };
+    }
+  | {
+      event: 'progress';
+      data: {
+        downloadId: number;
+        chunkLength: number;
+      };
+    }
+  | {
+      event: 'finished';
+      data: {
+        downloadId: number;
+      };
+    };
+
+const onEvent = new Channel<DownloadEvent>();
+onEvent.onmessage = (message) => {
+  console.log(`got download event ${message.event}`);
+};
+
+await invoke('download', {
+  url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-schema-generator/schemas/config.schema.json',
+  onEvent,
+});
+```
+
+## JavaScript 검증
+
+Webview [컨텍스트](https://ko.wikipedia.org/wiki/컨텍스트)에서 JavaScript 코드를 직접 실행하려면 [`WebviewWindow#eval`] 함수를 사용할 수 있습니다.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+tauri::Builder::default()
+  .setup(|app| {
+    let webview = app.get_webview_window("main").unwrap();
+    webview.eval("console.log('hello from Rust')")?;
+    Ok(())
+  })
+```
+
+검증되는 스크립트가 그렇게 단순하지 않고 Rust 객체로부터의 입력을 사용해야 하는 경우, [serialize-to-javascript] 크레이트의 사용을 권장합니다.
+
+[`WebviewWindow#eval`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.eval
+[serialize-to-javascript]: https://docs.rs/serialize-to-javascript/latest/serialize_to_javascript/
+[AppHandle]: https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html
+[WebviewWindow]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html
+[Listener]: https://docs.rs/tauri/2.0.0/tauri/trait.Listener.html
+[Emitter]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html
+[Emitter#emit]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit
+[Emitter#emit_to]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit_to
+[Emitter#emit_filter]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit_filter
+[Clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
+[Serialize]: https://serde.rs/impl-serialize.html
+[프론트엔드에서 Rust 호출하기]: /ko/develop/calling-rust/
+[보안 수준]: /ko/security/capabilities/

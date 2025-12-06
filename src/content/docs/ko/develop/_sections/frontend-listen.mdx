@@ -1,0 +1,147 @@
+---
+title: Rust에서 프론트엔드 호출하기
+sidebar:
+  order: 1
+---
+
+`@tauri-apps/api` NPM 패키지는 전역 이벤트와 Webview 특정 이벤트를 모두 감지(수신)하기 위한 API를 제공합니다.
+
+- 전역 이벤트 감지
+
+  ```ts
+  import { listen } from '@tauri-apps/api/event';
+
+  type DownloadStarted = {
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
+
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
+  ```
+
+- Webview 특정 이벤트 감지
+
+  ```ts
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
+  ```
+
+The `listen` 함수는 애플리케이션의 전체 "[라이프타임](https://doc.rust-lang.org/rust-by-example/ja/scope/lifetime.html)" 기간 동안 이벤트 리스너 등록이 유지됩니다.
+이벤트 감지(수신)를 중지하려면 `listen` 함수가 반환하는 `unlisten` 함수를 사용할 수 있습니다:
+
+```js
+import { listen } from '@tauri-apps/api/event';
+
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
+```
+
+:::note
+컴포넌트가 언마운트될 때 등 실행 컨텍스트가 범위(유효 범위)를 벗어나는 경우 항상 `unlisten` 함수를 사용하십시오.
+
+페이지가 다시 로드되거나 다른 URL로 이동하면 리스너는 자동으로 등록 해제됩니다.
+단, 이 메커니즘은 "싱글 페이지 애플리케이션(SPA)" 라우터에는 적용되지 않습니다.
+
+> > > 《번역 주》 **싱글 페이지 애플리케이션** 하나의 페이지에서 콘텐츠를 전환하는 애플리케이션이나 웹 페이지의 구조. 자세한 내용은 [Wikipedia](https://ko.wikipedia.org/wiki/단일_페이지_애플리케이션)를 참조하십시오.
+> > > :::
+
+또한 Tauri는 이벤트를 한 번만 감지(수신)하기 위한 유틸리티 함수를 제공합니다:
+
+```js
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+once('ready', (event) => {});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
+```
+
+:::note
+프론트엔드에서 발행된 이벤트는 위의 API에 의해 등록된 리스너도 트리거합니다.
+자세한 내용은 다음 장 [프론트엔드에서 Rust 호출하기] 설명을 참조하십시오.
+:::
+
+#### Rust 이벤트 감지
+
+전역 이벤트와 Webview 특정 이벤트 모두 Rust에 등록된 리스너에게 전달됩니다.
+
+- 전역 이벤트 감지
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::Listener;
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        app.listen("download-started", |event| {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.payload()) {
+            println!("downloading {}", payload.url);
+          }
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+- Webview 특정 이벤트 감지
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::{Listener, Manager};
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        let webview = app.get_webview_window("main").unwrap();
+        webview.listen("logged-in", |event| {
+          let session_token = event.data;
+          // save token..
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+The `listen` 함수는 애플리케이션의 전체 "라이프타임" 기간 동안 이벤트 리스너 등록이 유지됩니다.
+이벤트 감지(수신)를 중지하려면 `listen` 함수가 반환하는 `unlisten` 함수를 사용할 수 있습니다:
+
+```rust
+// unlisten outside of the event handler scope:
+let event_id = app.listen("download-started", |event| {});
+app.unlisten(event_id);
+
+// unlisten when some event criteria is matched
+let handle = app.handle().clone();
+app.listen("status-changed", |event| {
+  if event.data == "ready" {
+    handle.unlisten(event.id);
+  }
+});
+```
+
+또한 Tauri는 이벤트를 한 번만 감지(수신)하기 위한 유틸리티 함수를 제공합니다:
+
+```rust
+app.once("ready", |event| {
+  println!("app is ready");
+});
+```
+
+이 경우 이벤트 리스너는 첫 번째 트리거 후 즉시 등록 해제됩니다.
+
+[프론트엔드에서 Rust 호출하기]: /ko/develop/calling-rust/

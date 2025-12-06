@@ -1,0 +1,129 @@
+---
+title: Microsoft Store
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+「Microsoft Store（マイクロソフト・ストア）」は、Microsoft 社が運営する Windows アプリ・ストアです。
+
+この章では、Windows アプリを Microsoft Store に直接配布するための方法についてのみを詳しく説明します。
+「Windows インストーラーによる配布オプションとその設定」の詳細については、[Windows インストーラー・ガイド] を参照してください。
+
+## 必要事項
+
+Microsoft Store でアプリを公開するためには、「Microsoft 開発者アカウント」を取得し、個人用または会社用の開発者として [登録] する必要があります。
+
+<TranslationNote lang="ja">
+
+**マイクロソフト・アカウント**　原文 Microsoft account：　ここで取得するアカウントは、アプリの公開や開発者ツール／サービスへのアクセスを行なうための**アプリ開発用アカウント**で、Windows や Outlook/OneBox などの個人用のサービスを利用するための*認証用アカウント*ではありません。本稿では「開発者アカウント」と明示的に訳してあります。
+
+</TranslationNote>
+
+## アプリ・アイコンの変更
+
+Tauri CLI は、Microsoft Store アイコンなどを含めて、あなたのアプリに必要なすべてのアイコンを生成できます。
+ひとつの PNG または SVG の画像ソースから各種のアプリ・アイコンを生成するには、`tauri icon` コマンドを使用します：
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png"
+  yarn="yarn tauri icon /path/to/app-icon.png"
+  pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
+  bun="bun tauri icon /path/to/app-icon.png"
+  cargo="cargo tauri icon /path/to/app-icon.png"
+/>
+
+## 設定
+
+Microsoft アカウントで開発者としての登録が完了したら、「[Apps and Games] （アプリとゲーム）」ページでアプリを登録する必要があります。
+「`New Product`（新しい製品）」をクリックし、「`EXE or MSI app`（EXE または MSI アプリ）」を選択して自分のアプリに一意の名前を予約します。
+
+## ビルドとアップロード
+
+現在のところ、Tauri は [EXE および MSI][Windows インストーラー・ガイド] インストーラーしか生成できないため、圧縮されていないアプリケーションにのみリンクする Microsoft Store アプリケーションを作成する必要があります。
+Microsoft インストーラー内でリンクされているこのインストーラーは、「オフライン」で、「[自動更新に対応]」し、「[コード署名済]」でなければなりません。
+
+アプリ公開の詳細については、Microsoft Store の [公式ドキュメント]を参照してください。
+
+### オフライン・インストーラー
+
+Microsoft Store を通じて配布される Windows インストーラーでは、[オフライン・インストーラー] の Webview2 インストール・オプションを使用する必要があります。
+Microsoft Store 向けのバンドル作成時に、このインストーラー設定のみを適用するためには、別の Tauri 設定ファイルを定義します：
+
+```json title="src-tauri/tauri.microsoftstore.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
+    }
+  }
+}
+```
+
+次に、Microsoft Store 用の Tauri アプリをバンドルするときに、この設定ファイルをメインの設定ファイルとマージします：
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --config src-tauri/tauri.microsoftstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+yarn tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+pnpm tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  bun="bun tauri build --no-bundle
+bun tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+cargo tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+/>
+
+これは、アプリ・ストア以外で配布する Windows インストーラー用の別の設定を用意しながら、アプリを Microsoft ストアにアップロードするために CI/CD（継続的開発テスト自動化）を設定する場合に特に便利です。
+
+### 発行書
+
+あなたのアプリケーションの [発行者] 名は、アプリケーションの製品名と同一にはできません。
+
+もし「発行者」値の設定が行なわれていない場合、Tauri は「バンドル ID」の二項目の部分からその値を取得します。
+次の設定は、「発行者名」が「製品名」と一致してしまうため、無効です：
+
+```json title=tauri.conf.json "example" "Example"
+{
+  "productName": "Example",
+  "identifier": "com.example.app"
+}
+```
+
+この場合、[発行者] 値を個別に定義すればこの齟齬を修正できます：
+
+```json title=tauri.conf.json ins={4-6}
+{
+  "productName": "Example",
+  "identifier": "com.example.app",
+  "bundle": {
+    "publisher": "Example Inc."
+  }
+}
+```
+
+### アップロード
+
+Microsoft Store 用の Windows インストーラーをビルドしたら、お好みの配布サービスにアップロードし、Microsoft Store ウェブサイトの自分のアプリケーション・ページにリンクを貼ります。
+
+[Windows インストーラー・ガイド]: /ja/distribute/windows-installer/
+[登録]: https://learn.microsoft.com/ja-jp/windows/apps/get-started/sign-up
+[Apps and Games]: https://partner.microsoft.com/ja-jp/dashboard/apps-and-games/overview
+[自動更新に対応]: /ja/plugin/updater/
+[コード署名済]: /ja/distribute/sign/windows/
+[オフライン・インストーラー]: /ja/distribute/windows-installer/#オフラインインストーラー
+[公式ドキュメント]: https://learn.microsoft.com/ja-jp/windows/apps/publish/
+[発行者]: /reference/config/#publisher
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Mar 29, 2025 英語版」に基づいています】
+</div>

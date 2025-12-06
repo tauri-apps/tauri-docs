@@ -1,0 +1,251 @@
+---
+title: 開発
+description: Tauri を利用したプログラム開発の中心概念
+sidebar:
+  order: 0
+  label: 概要
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+[Tauri とは？](/ja/start/) の章ですべての設定を終えたのであれば、Tauri を使用してあなたのアプリケーションを実行する準備が整っています。
+
+「UI フレームワーク」または「JavaScript バンドラー」を使用している場合は、開発プロセスを迅速化する開発サーバーに接続できる可能性があります。そのため、アプリの「開発 URL」とそれを起動する「スクリプト」を設定していない場合は、「Reference（参考情報）」の章にある [devUrl](/ja/reference/config/#devurl) および [beforeDevCommand](/ja/reference/config/#beforedevcommand) の設定値を使用して設定を行なえます：
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "npm run dev"
+  }
+}
+```
+
+:::note
+
+どのフレームワークにも独自の開発ツールがあります。そのようなツールのすべてを網羅したり、その情報を最新の状態に保つことは、このガイドの目的ではありません。
+
+自分の選択したフレームワークの関連文書を参照して、その内容を学習し正しい設定値を確定してください。
+
+:::
+
+「UI フレームワーク」も「モジュール・バンドラー」も使用していない場合は、Tauri で「フロントエンド・ソース・コード」を読み込むと、Tauri CLI によって開発サーバーが起動されます：
+
+{/* 「Tauri でフロントエンドを読み込む」の部分、原文は "point Tauri to your frontend source code" であるが、point（Tauri を〜に向ける）の具体的意味が不明。訳文要検討 */}
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "frontendDist": "./src"
+  }
+}
+```
+
+上記の例では、`src` フォルダーには、フロントエンドによって読み込まれた他のアセットとともに `index.html` ファイルが含まれていなければならない点に注意してください。
+
+:::caution[基本開発サーバーのセキュリティ]
+
+組み込み Tauri 開発サーバーは「相互認証」や「暗号化」をサポートしていません。したがって、信頼できないネットワークでの開発には使用しないでください。
+詳細については、[開発サーバーのセキュリティに関する考慮事項](/ja/security/lifecycle/#開発サーバー) を参照してください。
+
+> > > 《訳注》 **基本開発サーバー**　原文は「plain/vanilla Dev Server」。オプションやカスタマイズを一切含まない完全にデフォルト状態のサーバー。
+
+:::
+
+### デスクトップ・アプリケーションの開発
+
+デスクトップ用のアプリケーションを開発するには、`tauri dev` コマンドを実行します。
+
+<CommandTabs
+  npm="npm run tauri dev"
+  yarn="yarn tauri dev"
+  pnpm="pnpm tauri dev"
+  deno="deno task tauri dev"
+  bun="bun tauri dev"
+  cargo="cargo tauri dev"
+/>
+
+初めてこのコマンドを実行する場合、Rust パッケージ・マネージャーが必要なすべてのパッケージをダウンロードしてビルドするのに **数分** かかる場合があります。
+これらのデータはキャッシュされており、あなたのコードは再ビルドを必要としているだけなので、その後のビルドは遥かに高速になります。
+
+Rust のビルドが完了すると、Webview が開き、あなたの Web アプリが表示されます。
+その Web アプリには変更を加えることができ、ツールがサポートしている場合は、まるでブラウザのように Webview も自動的に更新されます。
+
+#### 「ウェブ・インスペクター」を開く
+
+Webview を右クリックして「検査（Inspect）」をクリックするか、Windows および Linux ではショートカットの `Ctrl + Shift + I` 、macOS ではショートカットの `Cmd + Option + I` を使用することで、「ウェッブ・インスペクター」を開いてアプリケーションをデバッグすることができます。
+
+### モバイル・アプリケーションの開発
+
+モバイル向けの開発はデスクトップ版の開発と似ていますが、プラットフォームに応じて `tauri android dev` または `tauri ios dev` を実行する必要があります：
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev"
+  yarn="yarn tauri [android|ios] dev"
+  pnpm="pnpm tauri [android|ios] dev"
+  deno="deno task tauri [android|ios] dev"
+  bun="bun tauri [android|ios] dev"
+  cargo="cargo tauri [android|ios] dev"
+/>
+
+初めてこのコマンドを実行する場合、Rust パッケージ・マネージャーが必要なすべてのパッケージをダウンロードしてビルドするのに **数分** かかる場合があります。
+これらのデータはキャッシュされており、あなたのコードは再ビルドを必要としているだけなので、その後のビルドは遥かに高速になります。
+
+#### 開発サーバー
+
+モバイル用の開発サーバーもデスクトップ用と同様に動作しますが、iOS の物理デバイス上で実行する場合は、`TAURI_DEV_HOST` 環境変数で定義され、Tauri CLI によって提供される特定のアドレスに応答（リッスン）するように設定する必要があります。
+このアドレスは、「パブリック・ネットワーク・アドレス」（デフォルト動作）または iOS 物理デバイスの「TUN アドレス」のいずれかです。後者はより安全ですが、現時点ではデバイスに接続するには Xcode が必要です。
+
+iOS デバイスのアドレスを使用するには、dev コマンドを実行する前に Xcode を開き、「ウィンドウ（Window）」 > 「デバイスとシミュレータ（Devices and Simulation）」メニューでデバイスがネットワーク経由で接続されていることを確認しなければなりません。
+その後、`tauri ios dev --force-ip-prompt` を実行して、iOS デバイスのアドレス（**::2** で終わる IPv6 アドレス）を選択する必要があります。
+
+開発サーバーが iOS デバイスからアクセス可能な正しいホストで応答（リッスン）するようにするには、`TAURI_DEV_HOST` 値が提供されている場合はそれを使用するように設定を微調整する必要があります。以下は Vite の設定例です：
+
+```js
+import { defineConfig } from 'vite';
+
+const host = process.env.TAURI_DEV_HOST;
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host,
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+詳細については、各フレームワークの「セットアップ・ガイド」を確認してください。
+
+:::note
+[create-tauri-app](https://github.com/tauri-apps/create-tauri-app) を用いて作成したプロジェクトは、そのまま追加設定なしですぐに使用できる、モバイル開発用の開発サーバーが設定されます。
+:::
+
+#### デバイスの選択
+
+デフォルトでは、「モバイル dev コマンド」が接続されたデバイスでアプリケーションを実行しようとし、使用するシミュレータを選択するようプロンプトを表示します。実行ターゲットを事前に定義するには、「デバイス名」または「シミュレータ名」を引数に指定します：
+
+<CommandTabs
+  npm="npm run tauri ios dev 'iPhone 15'"
+  yarn="yarn tauri ios dev 'iPhone 15'"
+  pnpm="pnpm tauri ios dev 'iPhone 15'"
+  deno="deno task tauri ios dev 'iPhone 15'"
+  bun="bun tauri ios dev 'iPhone 15'"
+  cargo="cargo tauri ios dev 'iPhone 15'"
+/>
+
+#### Xcode または Android Studio を使用する
+
+あるいは、Xcode または Android Studio を使用してアプリケーションを開発することもできます。
+これにより、コマンドライン・ツールの代わりに IDE を使用して、開発上の問題のトラブルシューティングを行なえるようになります。
+接続されたデバイスまたはシミュレーターで実行する代わりに、モバイル IDE を開くには、`--open` フラグを使用してください：
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev --open"
+  yarn="yarn tauri [android|ios] dev --open"
+  pnpm="pnpm tauri [android|ios] dev --open"
+  deno="deno task tauri [android|ios] dev --open"
+  bun="bun tauri [android|ios] dev --open"
+  cargo="cargo tauri [android|ios] dev --open"
+/>
+
+:::note
+アプリケーションを iOS 物理デバイスで実行する場合は、引数 `--host` も指定する必要があり、開発サーバー側ではホストとして `process.env.TAURI_DEV_HOST` 値を使用しなければなりません。
+詳細については、各フレームワークの「セットアップ・ガイド」を確認してください。
+
+<CommandTabs
+  npm="npm run tauri [android|ios] dev --open --host"
+  yarn="yarn tauri [android|ios] dev --open --host"
+  pnpm="pnpm tauri [android|ios] dev --open --host"
+  deno="deno task tauri [android|ios] dev --open --host"
+  bun="bun tauri [android|ios] dev --open --host"
+  cargo="cargo tauri [android|ios] dev --open --host"
+/>
+:::
+
+:::caution[（警告）]
+Xcode または Android Studio を使用するには、Tauri CLI プロセスが実行されている**必要があり**、強制終了させることは**できません**。
+`tauri [android|ios] dev --open` コマンドを使用して、IDE を閉じるまでそのプロセスを実行したままにしておいてください。
+:::
+
+#### 「ウェブ・インスペクター」を開く
+
+- iOS
+
+  iOS アプリケーションの「ウェブ・インスペクター」にアクセスするには、Safari を使用する必要があります。
+
+  Mac マシンで Safari を開き、メニュー・バーで **Safari > Setting（設定）** を選択し、**Advanced（詳細）** をクリックして、**Show features for web developers（Web 開発者向けの機能を表示）** を選択します。
+
+  物理デバイスで実行している場合は、**Settings（設定） > Safari > Advanced（詳細）** で **Web Inspector（ウェブ・インスペクター）** を有効にする必要があります。
+
+  すべての手順を実行すると、Safari に **Develop（開発）** メニューが表示され、そこに、検証すべき接続デバイスとアプリケーションが見つかります。
+  デバイスまたはシミュレータを選択して **localhost（ローカルホスト）** をクリックし、「Safari 開発ツール」ウィンドウを開きます。
+
+- Android
+
+  「インスペクター」は Android エミュレーターではデフォルトで有効になっていますが、物理デバイスでは有効にする必要があります。
+  Android デバイスをコンピューターに接続し、Android デバイスで **Settings（設定）** アプリを開き、**About（バージョン情報）** を選択、「ビルド番号」までスクロールし、それを七回タップします。
+  これにより、Android デバイスの「開発者モード」と **Developer Options（開発者オプション）** 設定が有効になります。
+
+  あなたのデバイスでアプリケーションのデバッグを有効にするには、**Developer Options（開発者向けオプション）** 設定に入り、開発者向けオプション・スイッチをオンにして、**USB Debugging（USB デバッグ）** を有効にする必要があります。
+
+  :::note
+  各 Android ディストリビューションには「開発者モード」を有効にする独自の方法があります。詳細については、それぞれの製造元のドキュメントを確認してください。
+  :::
+
+  Android 用の「Web Inspector」は Google Chrome の DevTools を利用しており、Chrome ブラウザで `chrome://inspect` と検索するとアクセスできます。
+  Android アプリケーションが実行中の場合、デバイスまたはエミュレータが「リモート・デバイス・リスト」に表示されるはずで、デバイス上で **inspect（検査）** をクリックすれば「開発者ツール」を開くことができます。
+
+#### トラブル・シューティング
+
+1. Xcode でのビルド・スクリプト実行エラー
+
+Tauri は、Tauri CLI を実行するビルド・フェーズを生成することで iOS Xcode プロジェクトに接続（フック）しますが、これは実行時に読み込まれるライブラリとして Rust ソースをコンパイルするためのものです。
+ビルド・フェーズは「Xcode プロセス・コンテキスト」上で実行されるため、PATH の追加などといったシェルの修正を行なえない可能性があります。このため、「Node.js バージョン・マネージャー」などのツールを使用する場合は互換性の問題があるかもしれませんので注意してください。
+
+2. iOS アプリの初回実行時にネットワーク許可を求めるプロンプト
+
+初めて `tauri ios dev` を実行すると、ローカル・ネットワーク上のデバイスを検索して接続する許可を求める iOS のメッセージが表示される場合があります。
+iOS デバイスから開発サーバーにアクセスするには、開発サーバーをローカル・ネットワークに公開する必要があるため、この許可が必要となっています。
+デバイスでアプリを実行するには、「Allow（許可）」をクリックしてアプリケーションを再起動する必要があります。
+
+### ソースコードの変更への対応
+
+Webviewがリアルタイムで変更内容を反映するのと同様に、Tauri も Rust ファイルの変化を監視しており、あなたがファイルの変更を行なうと、あなたのアプリケーションは自動的に再ビルドされ再起動されます。
+
+この動作は、`tauri dev` コマンドに `--no-watch` フラグを使用すれば無効化できます。
+
+変更が監視されるファイルを制限するには、「src-tauri」フォルダーに `.taurignore` ファイルを作成します。このファイルは通常の「.gitignore ファイル」と同じように機能するため、任意のフォルダーまたはファイルを無視できます：
+
+```filename=.taurignore
+build/
+src/generated/*.rs
+deny.toml
+```
+
+### 「ブラウザ開発ツール」の使用
+
+Tauri の API はアプリ・ウィンドウでのみ機能するため、一旦 Tauri API の使用を開始するとシステムのブラウザーでフロントエンドを開くことができなくなります。
+
+ブラウザの開発者ツールを使用したい場合は、Tauri API の呼び出しを HTTP サーバーを介してブリッジするように、[tauri-invoke-http](https://github.com/tauri-apps/tauri-invoke-http) を設定してください。
+
+### ソース管理
+
+「決定論的なビルド」を提供するために Cargo がロックファイルを使用するので、あなたのプロジェクト・リポジトリで、`src-tauri/Cargo.lock` と `src-tauri/Cargo.toml` を git に**コミットする必要があります**。
+そのため、すべてのアプリケーションで `Cargo.lock` をチェックイン（登録）することをお勧めします。`src-tauri/target` フォルダまたはその中のファイルは**コミットしない**でください。
+
+> > > 《訳注》 **決定論的なビルド**　原文は「deterministic builds」。determinstic とは「アルゴリズムに決定性があり、次のステップが常に（確定的に）一つに決まること」、すなわち、「同じソースコードを用いてコンパイルした場合、確実に同じバイナリデータを再現するビルド手法」のことをいいます（詳しくは、Wikipedia [再現性のあるビルド](https://ja.wikipedia.org/wiki/再現性のあるビルド) を参照してください）。
+
+<div style="text-align: right">
+  【※ この日本語版は、「Mar 29, 2025 英語版」に基づいています】
+</div>

@@ -102,7 +102,7 @@ Inline capabilities can be mixed with pre-defined capabilities.
 
 By default, all commands that you registered in your app
 (using the
-[`tauri::Builder::.invoke_handler`](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.invoke_handler)
+[`tauri::Builder::invoke_handler`](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.invoke_handler)
 function)
 are allowed to be used by all the windows and webviews of the app.
 To change that, consider using
@@ -216,7 +216,7 @@ to higher privileged windows.
 ## Schema Files
 
 Tauri generates JSON schemas with all the permissions available to
-your application, allowing autocompletion in your IDE.
+your application through `tauri-build`, allowing autocompletion in your IDE.
 To use a schema, set the `$schema` property in your configuration file
 (either .json or .toml) to one of the platform-specific schemas
 located in the `gen/schemas` directory. Usually
@@ -232,12 +232,12 @@ Simplified example of an example Tauri application directory structure:
 tauri-app
 ├── index.html
 ├── package.json
-├── src
-├── src-tauri
+├── src/
+├── src-tauri/
 │   ├── Cargo.toml
-│   ├── capabilities
-│      └── <identifier>.json/toml
-│   ├── src
+│   ├── capabilities/
+│   │  └── <identifier>.json/toml
+│   ├── src/
 │   ├── tauri.conf.json
 ```
 

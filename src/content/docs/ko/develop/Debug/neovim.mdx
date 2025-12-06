@@ -1,0 +1,135 @@
+---
+title: Neovim 에디터에서의 디버깅
+i18nReady: true
+---
+
+Neovim 에디터에서 Rust 코드를 디버깅하는 데 사용할 수 있는 플러그인은 여러 가지가 있습니다. 이 장에서는 `nvim-dap`과 몇 가지 추가 플러그인을 설정하여 Tauri 애플리케이션을 디버깅하는 방법을 설명합니다.
+
+> > > 《번역 주》 **dap** [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/)의 약자. 개발 도구(IDE나 에디터 등)와 디버거 간에 사용되는 추상 프로토콜.
+
+### 사전 준비
+
+`nvim-dap`의 확장 기능에는 `codelldb` 바이너리가 필요합니다. [Github 사이트](https://github.com/vadimcn/codelldb/releases)에서 자신의 시스템에 맞는 버전을 다운로드하여 압축을 해제하십시오. 다음 항목 "`nvim-dap` 설정"에 필요합니다.
+
+> > > 《번역 주》 **codelldb** LLDB 디버거를 VSCode에서 사용하기 위한 확장 기능.
+
+### nvim-dap 설정
+
+[`nvim-dap`](https://github.com/mfussenegger/nvim-dap) 및 [`nvim-dap-ui`](https://github.com/rcarriga/nvim-dap-ui) 두 플러그인을 모두 설치합니다. github 페이지에 기재된 지침을 따르거나, 즐겨 사용하는 플러그인 관리자를 사용하여 실시하십시오.
+또한, `nvim-dap-ui`에는 `nvim-nio` 플러그인이 필요하다는 점에 유의하십시오.
+
+다음으로, "Neovim 설정"에서 플러그인을 설정합니다:
+
+```lua title="init.lua"
+local dap = require("dap")
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- 이 경로는 자신의 시스템에 맞게 변경하십시오!
+    command = '/opt/codelldb/adapter/codelldb',
+    args = {"--port", "${port}"},
+  }
+}
+
+dap.configurations.rust= {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false
+  },
+}
+```
+
+이 "설정"에서는 디버거를 시작할 때마다 "디버깅할 Tauri App 바이너리를 지정"하도록 요청합니다.
+
+옵션으로, "`nvim-dap-ui` 플러그인"을 설정하여 디버그 세션이 시작되고 중지될 때마다 "디버거 뷰를 자동으로 전환"하도록 지정할 수도 있습니다:
+
+```lua title="init.lua"
+local dapui = require("dapui")
+dapui.setup()
+
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
+
+```
+
+마지막으로, 에디터에서 중단점을 표시하는 기본 방법을 변경할 수 있습니다:
+
+```lua title="init.lua"
+vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+```
+
+### 개발 서버 시작
+
+앱 시작에 Tauri CLI를 사용하지 않으므로 개발 서버는 자동으로 시작되지 않습니다. Neovim에서 개발 서버의 상태를 제어하려면 [overseer 플러그인](https://github.com/stevearc/overseer.nvim/tree/master)을 사용할 수 있습니다.
+
+백그라운드에서 실행 중인 작업을 제어하는 가장 좋은 방법은 [VS Code 스타일의 작업 설정](https://github.com/stevearc/overseer.nvim/blob/master/doc/guides.md#vs-code-tasks)을 사용하는 것입니다. 이를 수행하려면 프로젝트 디렉토리에 `.vscode/tasks.json` 파일을 만드십시오.
+
+다음은 `trunk`를 사용한 프로젝트의 "작업 설정" 예입니다.
+
+```json title=".vscode/tasks.json"
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "process",
+      "label": "dev server",
+      "command": "trunk",
+      "args": ["serve"],
+      "isBackground": true,
+      "presentation": {
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^error:.*",
+          "file": 1,
+          "line": 2
+        },
+        "background": {
+          "activeOnStart": false,
+          "beginsPattern": ".*Rebuilding.*",
+          "endsPattern": ".*server listening at:.*"
+        }
+      }
+    }
+  ]
+}
+```
+
+### 키에 명령 할당 예
+
+다음은 디버그 세션을 시작하고 제어하기 위한 키 바인딩(키에 기능이나 기호, 명령 할당)의 예입니다.
+
+```lua title="init.lua"
+vim.keymap.set('n', '<F5>', function() dap.continue() end)
+vim.keymap.set('n', '<F6>', function() dap.disconnect({ terminateDebuggee = true }) end)
+vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>o', function() overseer.toggle() end)
+vim.keymap.set('n', '<Leader>R', function() overseer.run_template() end)
+```
+
+<div style="text-align: right">
+  【※ 이 한국어판은, 「Dec 22, 2024 영문판」에 근거하고 있습니다】
+</div>

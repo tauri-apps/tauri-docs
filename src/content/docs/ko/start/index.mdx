@@ -1,0 +1,50 @@
+---
+title: Tauri란?
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+Tauri는 주요 데스크톱 및 모바일 플랫폼 모두에서 가볍고 빠른 바이너리 파일을 빌드할 수 있는 프레임워크(구조)입니다. 프론트엔드에는 HTML, JavaScript, CSS로 컴파일되는 프레임워크를 이용하여 사용자 경험(UX)을 구축하고, 백엔드 처리 로직에는 필요에 따라 Rust, Swift, Kotlin 등의 언어를 활용할 수 있습니다.
+
+아래 셸 명령(Bash, PowerShell, …) 중 하나를 사용하여 "Tauri 앱 만들기" [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app)을 시작할 준비를 하십시오. 먼저 "필수 사항 가이드" [prerequisites guide](/ko/start/prerequisites/)에 따라 Tauri에 필요한 모든 "종속성"을 설치하고, 다음으로 권장되는 프론트엔드 구성에 대한 "프론트엔드 구성 가이드" [Frontend Configuration guides](/ko/start/frontend/)를 참조하십시오.
+
+import Cta from '@fragments/cta.mdx';
+
+<Cta />
+
+첫 번째 앱을 만든 후, "기능 및 사용 예시 목록" [List of Features & Recipes](/ko/plugin/) 장에서 Tauri의 다른 기능과 사용법을 알아볼 수 있습니다.
+
+## Tauri의 이점
+
+Tauri에는 프로그램 개발자가 의지할 수 있는 세 가지 큰 이점이 있습니다:
+
+- 앱 구축을 위한 안전한 프로그램 기반
+- 시스템 본체의 웹 뷰를 사용하여 번들 크기 경량화
+- 모든 프론트엔드 기술 사용 및 여러 컴퓨터 언어 통합 가능 유연성
+
+Tauri의 근본 사상에 대해서는 "Tauri 1.0 블로그 [Tauri 1.0 blog post](/ko/blog/tauri-1-0/)"를 참조하십시오.
+
+### 안전한 프로그램 기반
+
+Tauri는 "Rust"를 사용하여 구축되었으므로, Rust가 제공하는 "메모리", "스레드", "데이터 타입"의 안전성이라는 혜택을 받습니다. Tauri로 만든 앱은 Rust 전문가가 아니더라도 이러한 이점을 자동으로 누릴 수 있습니다.
+
+또한, Tauri는 메이저 릴리스와 마이너 릴리스 모두에서 안전성 감사를 실시합니다. 이 감사에는 Tauri 조직 내의 코드뿐만 아니라 Tauri가 의존하는 상위 종속성도 포함됩니다. 물론, 이것으로 모든 위험이 완화되는 것은 아니지만, 그럼에도 불구하고 프로그램 개발의 기반이 되는 견고한 기반이 됩니다.
+
+자세한 내용은 "Tauri 안전성 방침 [Tauri security policy](https://github.com/tauri-apps/tauri/security/policy)" 및 "Tauri 2.0 감사 보고서 [Tauri 2.0 audit report](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf)"를 참조하십시오.
+
+### 파일 크기 경량화
+
+Tauri 앱은 이미 사용자 시스템에 탑재된 웹 뷰를 이용합니다. 따라서 모든 Tauri 앱은 해당 앱에 필요한 코드와 데이터 자산만 포함하며, 앱 내에 브라우저 엔진을 동봉할 필요가 없습니다. 이는 즉, 최소 Tauri 앱은 600KB 이하의 크기가 될 수 있음을 의미합니다.
+
+최적화된 앱 제작 방법에 대해서는 "앱 크기 개념 [App Size concept](/ko/concept/size/)"을 참조하십시오.
+
+### 유연한 기본 사양
+
+Tauri는 웹 기술을 이용하므로, 사실상 모든 프론트엔드 기술이 Tauri와 호환됩니다. "프론트엔드 구성 가이드 [Frontend Configuration guide](/ko/start/frontend/)"에서는 자주 사용되는 프론트엔드 기술의 일반적인 구성 예를 기재하고 있습니다.
+
+JavaScript 부분과 Rust 부분 간의 결합에는 JavaScript의 "`invoke`(호출)" 함수가, Swift나 Kotlin과의 결합에는 "[Tauri Plugins](/ko/develop/plugins/)(Tauri 플러그인)"이 이용됩니다.
+
+[TAO](https://github.com/tauri-apps/tao)는 Tauri의 창 생성을, [WRY](https://github.com/tauri-apps/wry)는 웹 표시 렌더링을 수행하는 플러그인입니다. 이러한 플러그인은 Tauri가 관리하는 라이브러리로, Tauri가 대응할 수 있는 것 이상의 고급 시스템 통합이 필요한 경우 직접 사용할 수 있습니다.
+
+또한, Tauri에는 Tauri 본체가 대응할 수 있는 기능을 확장하는 많은 플러그인도 있습니다. 이러한 플러그인은 커뮤니티에서 제공하는 플러그인과 함께 "플러그인 [Plugins section](/ko/plugin/)" 섹션에서 찾을 수 있습니다.

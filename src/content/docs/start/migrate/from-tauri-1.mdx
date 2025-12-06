@@ -676,6 +676,7 @@ tauri::Builder::default()
             .check("toggle", "Toggle")
             .icon("show-app", "Show App", app.default_window_icon().cloned().unwrap())
             .build()?;
+        app.set_menu(menu);
         Ok(())
     })
 ```
@@ -1056,8 +1057,9 @@ tauri::Builder::default()
                 {
                     let app = tray.app_handle();
                     if let Some(webview_window) = app.get_webview_window("main") {
-                    let _ = webview_window.show();
-                    let _ = webview_window.set_focus();
+                       let _ = webview_window.unminimize();
+                       let _ = webview_window.show();
+                       let _ = webview_window.set_focus();
                     }
                 }
             })
