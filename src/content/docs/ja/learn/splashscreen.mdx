@@ -44,20 +44,20 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
    プロジェクトの開発を始める前に、セットアップが意図したとおりに動作していることを確認するために、初期テンプレートをビルドして実行することが重要です。
 
-<ShowSolution>
+    <ShowSolution>
 
-```sh frame=none
-# 正しいディレクトリにいることを確認してください
-cd splashscreen-lab
-# 依存関係をインストール
-pnpm install
-# アプリのビルドと実行
-pnpm tauri dev
-```
+    ```sh frame=none
+    # 正しいディレクトリにいることを確認してください
+    cd splashscreen-lab
+    # 依存関係をインストール
+    pnpm install
+    # アプリのビルドと実行
+    pnpm tauri dev
+    ```
 
-<Image src={step_1} alt="Successful run of the created template app." />
+    <Image src={step_1} alt="Successful run of the created template app." />
 
-</ShowSolution>
+    </ShowSolution>
 
 1. ##### `tauri.conf.json` に新しいウィンドウを登録
 
@@ -65,23 +65,23 @@ pnpm tauri dev
    起動時に動的にウィンドウを作成することもできますが、簡素化のために、そうはせずに直接登録することにします。
    `main` というラベルのウィンドウが「非表示」ウィンドウとして、`splashscreen` というラベルのウィンドウが「直接表示」されるウィンドウとして作成されていることを確認してください。その他のオプション項目はどれも、デフォルト設定のままでも、好みに応じて調整しても構いません。
 
-<ShowSolution>
- ```json
- // src-tauri/tauri.conf.json
- {
-     "windows": [
-         {
-             "label": "main",
-             "visible": false
-         },
-         {
-             "label": "splashscreen",
-             "url": "/splashscreen"
-         }
-     ]
- }
- ```
- </ShowSolution>
+    <ShowSolution>
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+        "windows": [
+            {
+                "label": "main",
+                "visible": false
+            },
+            {
+                "label": "splashscreen",
+                "url": "/splashscreen"
+            }
+        ]
+    }
+    ```
+    </ShowSolution>
 
 1. ##### スプラッシュスクリーンをホストする新しいページの作成
 
@@ -91,30 +91,30 @@ pnpm tauri dev
 
    ここで重要なのは、「URL `/splashscreen`」にアクセスでき、スプラッシュスクリーンに表示したいコンテンツが表示されることです。この手順を完了したら、アプリをもう一度実行して確かめてみてください。
 
-<ShowSolution>
-```html
-// /splashscreen.html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/src/styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Tauri used Splash!</h1>
-      <div class="row">
-        <h5>It was super effective!</h5>
-      </div>
-    </div>
-  </body>
-</html>
-```
+    <ShowSolution>
+    ```html
+    // /splashscreen.html
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/src/styles.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tauri App</title>
+    </head>
+    <body>
+        <div class="container">
+        <h1>Tauri used Splash!</h1>
+        <div class="row">
+            <h5>It was super effective!</h5>
+        </div>
+        </div>
+    </body>
+    </html>
+    ```
 
- <Image src={step_3} alt="The splashscreen we just created."/>
-</ShowSolution>
+    <Image src={step_3} alt="The splashscreen we just created."/>
+    </ShowSolution>
 
 1. ##### 起動タスクの開始
 
@@ -126,130 +126,130 @@ pnpm tauri dev
 
    非同期関数では `std::thread::sleep` を使用しないでください。非同期関数は、並列ではなく同時実行環境で協調的に実行されます。つまり、Tokio タスクの代わりにこの `std::thread::sleep` 関数でスレッドをスリープ状態にすると、そのスレッドで実行するようにスケジュールされているすべてのタスクの実行がロックされ、アプリがフリーズします。
 
-<ShowSolution>
+    <ShowSolution>
 
-```sh frame=none
-# `Cargo.toml`ファイルがある場所でこのコマンドを実行
-cd src-tauri
-# Tokio crate の追加
-cargo add tokio
-# 必要に応じてトップ・フォルダに戻り開発作業を継続
-# `tauri dev` がどこで実行するかを自動判断
-cd ..
-```
+    ```sh frame=none
+    # `Cargo.toml`ファイルがある場所でこのコマンドを実行
+    cd src-tauri
+    # Tokio crate の追加
+    cargo add tokio
+    # 必要に応じてトップ・フォルダに戻り開発作業を継続
+    # `tauri dev` がどこで実行するかを自動判断
+    cd ..
+    ```
 
-```javascript
-// src/main.ts
-// 以下の内容は既存のコードの下にコピーして貼り付けることができますが、ファイル全体を置き換えないでください。
+    ```javascript
+    // src/main.ts
+    // 以下の内容は既存のコードの下にコピーして貼り付けることができますが、ファイル全体を置き換えないでください。
 
-// TypeScript でスリープ機能を実装するためのユーティリティ関数
-function sleep(seconds: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
-}
-
-// Setup 関数
-async function setup() {
-    // 非常に重い起動処理タスクを擬似実行
-    console.log('Performing really heavy frontend setup task...')
-    await sleep(3);
-    console.log('Frontend setup task complete!')
-    // フロントエンド・タスクを完了済みとして設定
-    invoke('set_complete', {task: 'frontend'})
-}
-
-// 実質的に JavaScript のメイン関数
-window.addEventListener("DOMContentLoaded", () => {
-    setup()
-});
-```
-
-```rust
-// /src-tauri/src/lib.rs
-// 利用する機能をインポート
-use std::sync::Mutex;
-use tauri::async_runtime::spawn;
-use tauri::{AppHandle, Manager, State};
-use tokio::time::{sleep, Duration};
-
-// 起動関連タスクの完了を追跡するために使用する構造体を作成
-struct SetupState {
-    frontend_task: bool,
-    backend_task: bool,
-}
-
-// バージョン 2 モバイル対応アプリでのメイン・エントリーポイント
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    // Tauri の起動前ではなく、起動フック部分にコードを記載してください！
-    tauri::Builder::default()
-        // Tauri で管理される `State` を登録する
-        // これには書き込みアクセスが必要なので、`Mutex`でラップします。
-        .manage(Mutex::new(SetupState {
-            frontend_task: false,
-            backend_task: false,
-        }))
-        // 確認に使用するコマンドの追加
-        .invoke_handler(tauri::generate_handler![greet, set_complete])
-        // 起動関連タスクの実行に起動フックを使用
-        // メインループの前に実行されるため、ウィンドウはまだ作成されません
-        .setup(|app| {
-            // 起動を非ブロッキング処理として生成し、実行中にウィンドウを生成・実行可能にします。
-            spawn(setup(app.handle().clone()));
-            // フックは「Ok」という結果を要求します
-            Ok(())
-        })
-        // アプリを実行
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-
-#[tauri::command]
-fn greet(name: String) -> String {
-    format!("Hello {name} from Rust!")
-}
-
-// 起動タスクの状態を設定するためのカスタム・タスク
-#[tauri::command]
-async fn set_complete(
-    app: AppHandle,
-    state: State<'_, Mutex<SetupState>>,
-    task: String,
-) -> Result<(), ()> {
-    // 書き込みアクセスなしで状態をロック
-    let mut state_lock = state.lock().unwrap();
-    match task.as_str() {
-        "frontend" => state_lock.frontend_task = true,
-        "backend" => state_lock.backend_task = true,
-        _ => panic!("invalid task completed!"),
+    // TypeScript でスリープ機能を実装するためのユーティリティ関数
+    function sleep(seconds: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, seconds * 1000));
     }
-    // フロントエンド・バックエンド両方のタスクが完了したかどうかを確認
-    if state_lock.backend_task && state_lock.frontend_task {
-        // 起動が完了したら、スプラッシュスクリーンを閉じてメインウィンドウを提示
-        let splash_window = app.get_webview_window("splashscreen").unwrap();
-        let main_window = app.get_webview_window("main").unwrap();
-        splash_window.close().unwrap();
-        main_window.show().unwrap();
-    }
-    Ok(())
-}
 
-// 重い起動タスクを実行する非同期関数
-async fn setup(app: AppHandle) -> Result<(), ()> {
-    // 重い処理を 3 秒間擬似実行
-    println!("Performing really heavy backend setup task...");
-    sleep(Duration::from_secs(3)).await;
-    println!("Backend setup task completed!");
-    // バックエンドタスクを完了済みとして設定
-    // 入力引数を自分で処理する限り、コマンドは通常の関数として実行できます。
-    set_complete(
-        app.clone(),
-        app.state::<Mutex<SetupState>>(),
-        "backend".to_string(),
-    )
-    .await?;
-    Ok(())
-}
-```
+    // Setup 関数
+    async function setup() {
+        // 非常に重い起動処理タスクを擬似実行
+        console.log('Performing really heavy frontend setup task...')
+        await sleep(3);
+        console.log('Frontend setup task complete!')
+        // フロントエンド・タスクを完了済みとして設定
+        invoke('set_complete', {task: 'frontend'})
+    }
+
+    // 実質的に JavaScript のメイン関数
+    window.addEventListener("DOMContentLoaded", () => {
+        setup()
+    });
+    ```
+
+    ```rust
+    // /src-tauri/src/lib.rs
+    // 利用する機能をインポート
+    use std::sync::Mutex;
+    use tauri::async_runtime::spawn;
+    use tauri::{AppHandle, Manager, State};
+    use tokio::time::{sleep, Duration};
+
+    // 起動関連タスクの完了を追跡するために使用する構造体を作成
+    struct SetupState {
+        frontend_task: bool,
+        backend_task: bool,
+    }
+
+    // バージョン 2 モバイル対応アプリでのメイン・エントリーポイント
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        // Tauri の起動前ではなく、起動フック部分にコードを記載してください！
+        tauri::Builder::default()
+            // Tauri で管理される `State` を登録する
+            // これには書き込みアクセスが必要なので、`Mutex`でラップします。
+            .manage(Mutex::new(SetupState {
+                frontend_task: false,
+                backend_task: false,
+            }))
+            // 確認に使用するコマンドの追加
+            .invoke_handler(tauri::generate_handler![greet, set_complete])
+            // 起動関連タスクの実行に起動フックを使用
+            // メインループの前に実行されるため、ウィンドウはまだ作成されません
+            .setup(|app| {
+                // 起動を非ブロッキング処理として生成し、実行中にウィンドウを生成・実行可能にします。
+                spawn(setup(app.handle().clone()));
+                // フックは「Ok」という結果を要求します
+                Ok(())
+            })
+            // アプリを実行
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+
+    #[tauri::command]
+    fn greet(name: String) -> String {
+        format!("Hello {name} from Rust!")
+    }
+
+    // 起動タスクの状態を設定するためのカスタム・タスク
+    #[tauri::command]
+    async fn set_complete(
+        app: AppHandle,
+        state: State<'_, Mutex<SetupState>>,
+        task: String,
+    ) -> Result<(), ()> {
+        // 書き込みアクセスなしで状態をロック
+        let mut state_lock = state.lock().unwrap();
+        match task.as_str() {
+            "frontend" => state_lock.frontend_task = true,
+            "backend" => state_lock.backend_task = true,
+            _ => panic!("invalid task completed!"),
+        }
+        // フロントエンド・バックエンド両方のタスクが完了したかどうかを確認
+        if state_lock.backend_task && state_lock.frontend_task {
+            // 起動が完了したら、スプラッシュスクリーンを閉じてメインウィンドウを提示
+            let splash_window = app.get_webview_window("splashscreen").unwrap();
+            let main_window = app.get_webview_window("main").unwrap();
+            splash_window.close().unwrap();
+            main_window.show().unwrap();
+        }
+        Ok(())
+    }
+
+    // 重い起動タスクを実行する非同期関数
+    async fn setup(app: AppHandle) -> Result<(), ()> {
+        // 重い処理を 3 秒間擬似実行
+        println!("Performing really heavy backend setup task...");
+        sleep(Duration::from_secs(3)).await;
+        println!("Backend setup task completed!");
+        // バックエンドタスクを完了済みとして設定
+        // 入力引数を自分で処理する限り、コマンドは通常の関数として実行できます。
+        set_complete(
+            app.clone(),
+            app.state::<Mutex<SetupState>>(),
+            "backend".to_string(),
+        )
+        .await?;
+        Ok(())
+    }
+    ```
 
    </ShowSolution>
 
