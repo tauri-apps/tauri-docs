@@ -5,15 +5,23 @@
  * https://github.com/withastro/starlight/blob/a0f6fa80d9be1fbe85530323a0b2523acb83a15a/packages/starlight/components/Search.astro
  */
 
+export interface FilterConfig {
+  id: string;
+  label: string;
+  options: { value: string; label: string }[];
+  cssClassPattern: string;
+}
+
 interface Props {
   placeholder?: string;
+  filters?: FilterConfig[];
 }
-const { placeholder = 'Search features and community resources...' } = Astro.props;
+const { placeholder = 'Search features and community resources...', filters = [] } = Astro.props;
 
 // TODO: Expose placeholder and title to i18n
 ---
 
-<card-search>
+<card-search data-filters={JSON.stringify(filters)}>
   <div id="search-input" class="pagefind-ui pagefind-ui--reset">
     <form
       class="pagefind-ui__form"
@@ -35,113 +43,265 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
 
       <button class="pagefind-ui__search-clear pagefind-ui__suppressed">clear</button>
     </form>
+    <div id="search-summary" class="search-summary hidden" aria-live="polite"></div>
+
+    {
+      filters.length > 0 && (
+        <div class="ui_filters" role="group" aria-label="Filter options">
+          {filters.map((filter) => (
+            <div class="ui_filter">
+              <label for={`filter-${filter.id}`} class="ui_filter-label">
+                {filter.label}
+              </label>
+              <select
+                id={`filter-${filter.id}`}
+                class="ui_filter-select"
+                data-filter-id={filter.id}
+                data-css-pattern={filter.cssClassPattern}
+                aria-label={filter.label}
+              >
+                <option value="">All</option>
+                {filter.options.map((option) => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
+      )
+    }
   </div>
   <slot />
 </card-search>
 
 <script>
   class CardSearch extends HTMLElement {
-    constructor() {
-      super();
-      window.addEventListener('DOMContentLoaded', () => {
-        const form = this.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
-        const searchBar = this.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
-        const clear = this.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
-        const inputs = Array.from(this.children).filter((el) => el.classList.contains('card-grid'));
-        const headings = Array.from(this.children).filter(
-          (el) => el instanceof HTMLHeadingElement || el instanceof HTMLParagraphElement
-        );
-        // Create "nothing found" for each heading
-        headings.forEach((heading, i) => {
-          const wrn = document.createElement('p');
-          wrn.classList.add('hidden', 'warning');
-          wrn.id = `warn-${i}`;
-          wrn.innerHTML = `
-						<style>
-							.warning {
-								font-style: italic;
-								color: var(--sl-color-text);
-								font-size: larger;
-							}
-							.hidden {
-								display: none;
-							}
-						</style>
-						<span>No results found in ${heading.textContent}</span>
-						`;
-          heading.insertAdjacentElement('afterend', wrn);
+    form: HTMLFormElement;
+    searchBar: HTMLInputElement;
+    clear: HTMLButtonElement;
+    summaryEl: HTMLElement;
+    filterSelects: HTMLSelectElement[];
+    inputs: Element[];
+    headings: Element[];
+    warnings: { [key: string]: HTMLElement } = {};
+
+    searchFilter() {
+      const { searchBar, filterSelects, inputs, headings, summaryEl, warnings } = this;
+
+      const query = searchBar.value.toUpperCase();
+      const isSearching = query.length > 0 || filterSelects.some((s) => s.value !== '');
+
+      const activeFilters = filterSelects
+        .map((select) => {
+          const value = select.value;
+          const pattern = select.dataset.cssPattern || '';
+          return value ? { value, pattern } : null;
+        })
+        .filter(Boolean);
+
+      const resultCounts: { heading: string; count: number }[] = [];
+
+      inputs.forEach((elements, i) => {
+        const currentCards = Array.from(elements.children);
+        let visibleCount = 0;
+        const headingText = headings[i].textContent;
+
+        currentCards.forEach((el) => {
+          const htmlElement = el as HTMLElement;
+          const span = el.querySelector('span');
+          const txtValue = span?.textContent || span?.innerText;
+          if (!txtValue) return;
+
+          const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
+
+          let filterMatches = true;
+          for (const filter of activeFilters) {
+            if (!filter) {
+              continue;
+            }
+            const className = filter.pattern.replace('${value}', filter.value);
+            const hasClass = htmlElement.querySelector(`.${className}`) !== null;
+            if (!hasClass) {
+              filterMatches = false;
+              break;
+            }
+          }
+
+          if (textMatches && filterMatches) {
+            visibleCount++;
+            htmlElement.style.display = '';
+          } else {
+            htmlElement.style.display = 'none';
+          }
         });
-        // Select all "nothing found" created before
-        const warnings = document.querySelectorAll('[id^="warn-"]');
 
-        // Prevent page reload
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-        });
+        resultCounts.push({ heading: headingText, count: visibleCount });
 
-        // Prevent reload on 'Enter', and enable clean input on 'Escape'
-        form.addEventListener('keydown', (e) => {
-          clear.classList.remove('pagefind-ui__suppressed');
-          if (e.key === 'Escape') {
-            reset();
-          } else if (e.key === 'Enter') e.preventDefault();
-        });
-        searchBar.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') e.preventDefault();
-        });
-
-        // Search
-        searchBar.addEventListener('keyup', () => {
-          searchFilter();
-        });
-        // Clear search button 'X'
-        clear.addEventListener('click', () => {
-          clear.classList.add('pagefind-ui__suppressed');
-          reset();
-        });
-
-        function reset() {
-          searchBar.value = '';
-          searchFilter();
-        }
-
-        /**
-         * Function to search and filter based on input
-         */
-        function searchFilter() {
-          const query = searchBar.value.toUpperCase();
-
-          inputs.forEach((elements, i) => {
-            const cards = Array.from(elements.children);
-            let total = cards.length;
-
-            cards.forEach((el) => {
-              const htmlElement = el as HTMLElement;
-              const span = el.querySelector('span');
-              const txtValue = span?.textContent || span?.innerText;
-              if (!txtValue) return;
-
-              // Filter list
-              if (txtValue.toUpperCase().indexOf(query) > -1) {
-                total++;
-                htmlElement.style.display = '';
-              } else {
-                total--;
-                htmlElement.style.display = 'none';
-              }
-
-              // Show warning if none found
-              if (total === 0) {
-                warnings[i].classList.remove('hidden');
-              } else {
-                warnings[i].classList.add('hidden');
-              }
-            });
-          });
+        if (visibleCount === 0) {
+          warnings[headingText]?.classList.remove('hidden');
+        } else {
+          warnings[headingText]?.classList.add('hidden');
         }
       });
+
+      if (isSearching) {
+        summaryEl.innerHTML = '';
+
+        const title = document.createElement('div');
+        title.className = 'search-summary__title';
+        title.textContent = 'Found:';
+        summaryEl.appendChild(title);
+
+        const list = document.createElement('ul');
+        list.className = 'search-summary__list';
+
+        resultCounts.forEach((r) => {
+          const li = document.createElement('li');
+          li.className = 'search-summary__item';
+
+          const countEl = document.createElement('strong');
+          countEl.className = 'search-summary__count';
+          countEl.textContent = String(r.count);
+
+          li.appendChild(countEl);
+          li.appendChild(document.createTextNode(`x "${r.heading}"`));
+          list.appendChild(li);
+        });
+
+        summaryEl.appendChild(list);
+        summaryEl.classList.remove('hidden');
+      } else {
+        summaryEl.innerHTML = '';
+        summaryEl.classList.add('hidden');
+      }
+    }
+
+    reset() {
+      this.searchBar.value = '';
+      this.filterSelects.forEach((select) => {
+        select.value = '';
+      });
+      this.searchFilter();
+    }
+
+    handleSubmit(e: Event) {
+      e.preventDefault();
+    }
+
+    handleFormKeyDown(e: KeyboardEvent) {
+      this.clear?.classList.remove('pagefind-ui__suppressed');
+      if (e.key === 'Escape') {
+        this.reset();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    }
+
+    handleSearchKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    }
+
+    handleSearchKeyUp() {
+      this.searchFilter();
+    }
+
+    handleSelectChange() {
+      this.searchFilter();
+    }
+
+    handleClearClick() {
+      this.clear.classList.add('pagefind-ui__suppressed');
+      this.reset();
+    }
+
+    connectedCallback() {
+      const { form, searchBar, clear, filterSelects, headings } = this;
+
+      headings.forEach((heading) => {
+        const wrn = document.createElement('p');
+        const headingText = heading.textContent;
+        if (!headingText) {
+          throw new Error('Heading text is missing or not found');
+        }
+        wrn.classList.add('not-content', 'hidden', 'warning');
+        wrn.innerHTML = `
+        <span>No results found in ${headingText}</span>
+        `;
+        this.warnings[headingText] = wrn;
+        const parent = heading.parentElement;
+        if (!parent) {
+          throw new Error('Heading parent element is missing or not found');
+        }
+        parent.appendChild(wrn);
+      });
+
+      form.addEventListener('submit', this.handleSubmit);
+      form.addEventListener('keydown', this.handleFormKeyDown);
+      searchBar.addEventListener('keydown', this.handleSearchKeyDown);
+      searchBar.addEventListener('keyup', this.handleSearchKeyUp);
+
+      // Filter selects
+      filterSelects.forEach((select) => {
+        select.addEventListener('change', this.handleSearchKeyUp);
+      });
+
+      // Clear search button 'X'
+      clear.addEventListener('click', this.handleClearClick);
+    }
+
+    disconnectedCallback() {
+      this.form.removeEventListener('submit', this.handleSubmit);
+      this.form.removeEventListener('keydown', this.handleFormKeyDown);
+      this.searchBar.removeEventListener('keydown', this.handleSearchKeyDown);
+      this.searchBar.removeEventListener('keyup', this.handleSearchKeyUp);
+      this.clear.removeEventListener('click', this.handleClearClick);
+
+      this.filterSelects.forEach((select) => {
+        select.removeEventListener('change', this.handleSelectChange);
+      });
+    }
+
+    constructor() {
+      super();
+      const el = this;
+      this.form = el.querySelector<HTMLFormElement>('form.pagefind-ui__form')!;
+      this.searchBar = el.querySelector<HTMLInputElement>('input.pagefind-ui__search-input')!;
+      this.clear = el.querySelector<HTMLButtonElement>('button.pagefind-ui__search-clear')!;
+      this.summaryEl = el.querySelector<HTMLElement>('#search-summary')!;
+      this.filterSelects = Array.from(el.querySelectorAll<HTMLSelectElement>('.ui_filter-select'));
+
+      this.inputs = Array.from(el.children).filter((el) => el.classList.contains('card-grid'));
+
+      const wrappers = Array.from(el.children).filter(
+        (el) =>
+          el.classList.contains('sl-heading-wrapper') ||
+          el.classList.contains('level-h5') ||
+          el.classList.contains('level-h4') ||
+          el.classList.contains('level-h3') ||
+          el.classList.contains('level-h2') ||
+          el.classList.contains('level-h1')
+      );
+
+      const headings = wrappers.map((wrapper) => {
+        return wrapper.firstElementChild as HTMLElement;
+      });
+
+      if (!headings || headings.length === 0) {
+        throw new Error('CardGridSearch: No headings found in the component children');
+      }
+      this.headings = headings;
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleFormKeyDown = this.handleFormKeyDown.bind(this);
+      this.handleSearchKeyUp = this.handleSearchKeyUp.bind(this);
+      this.handleSearchKeyDown = this.handleSearchKeyDown.bind(this);
+      this.handleSelectChange = this.handleSelectChange.bind(this);
+      this.handleClearClick = this.handleClearClick.bind(this);
     }
   }
+
   customElements.define('card-search', CardSearch);
 </script>
 
@@ -158,7 +318,7 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
     width: 100%;
     color: var(--sl-color-gray-2);
     font-family: var(--__sl-font);
-    margin-block: 2rem 1rem;
+    /* margin-block: 2rem 1rem; */
   }
   .pagefind-ui__form {
     position: relative;
@@ -234,5 +394,101 @@ const { placeholder = 'Search features and community resources...' } = Astro.pro
   .pagefind-ui__suppressed {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .search-summary {
+    margin-top: calc(12px * var(--pagefind-ui-scale));
+    font-size: calc(16px * var(--pagefind-ui-scale));
+    color: var(--sl-color-gray-2);
+    font-style: italic;
+  }
+
+  .search-summary.hidden {
+    display: none;
+  }
+
+  .search-summary__title {
+    font-weight: 600;
+    margin-bottom: calc(6px * var(--pagefind-ui-scale));
+    color: var(--sl-color-gray-1);
+  }
+
+  .search-summary__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(4px * var(--pagefind-ui-scale));
+  }
+
+  .search-summary__item {
+    white-space: normal;
+    color: var(--sl-color-gray-2);
+  }
+
+  .search-summary__count {
+    font-weight: 700;
+    margin-right: 6px;
+    color: var(--sl-color-accent);
+  }
+
+  .ui_filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(16px * var(--pagefind-ui-scale));
+    margin-top: calc(16px * var(--pagefind-ui-scale));
+    align-items: center;
+  }
+
+  .ui_filter {
+    display: flex;
+    flex-direction: column;
+    gap: calc(4px * var(--pagefind-ui-scale));
+  }
+
+  .ui_filter-label {
+    font-size: calc(14px * var(--pagefind-ui-scale));
+    font-weight: 600;
+    color: var(--sl-color-gray-2);
+  }
+
+  .ui_filter-select {
+    box-sizing: border-box;
+    height: calc(40px * var(--pagefind-ui-scale));
+    padding: 0 calc(12px * var(--pagefind-ui-scale));
+    background-color: var(--sl-color-black);
+    border: var(--pagefind-ui-border-width) solid var(--sl-color-gray-5);
+    border-radius: var(--pagefind-ui-border-radius);
+    font-size: calc(16px * var(--pagefind-ui-scale));
+    color: var(--sl-color-white);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right calc(12px * var(--pagefind-ui-scale)) center;
+    padding-right: calc(36px * var(--pagefind-ui-scale));
+  }
+
+  .ui_filter-select:hover {
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .ui_filter-select:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+</style>
+
+<style is:global>
+  .warning {
+    font-style: italic;
+    color: var(--sl-color-text);
+    font-size: smaller;
+  }
+
+  .warning.hidden {
+    display: none;
   }
 </style>

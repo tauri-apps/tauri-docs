@@ -1,0 +1,328 @@
+---
+title: システム・トレイ
+sidebar:
+  order: 1
+tableOfContents:
+  maxHeadingLevel: 4
+i18nReady: true
+---
+
+import { Icon } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Tauri では、あなたのアプリケーション用に「システム・トレイ」を作成およびカスタマイズできます。
+これにより、一般的なアクションにすばやくアクセスできるようになり、ユーザー・エクスペリエンスが向上します。
+
+## 設定
+
+まず初めに、`Cargo.toml` をアップデートし、「システム・トレイ」に必要な機能が含まれるようにします。
+
+```toml title="src-tauri/Cargo.toml"
+tauri = { version = "2.0.0", features = [ "tray-icon" ] }
+```
+
+## 使用方法
+
+「トレイ API」は JavaScript と Rust の両方で利用できます。
+
+<TranslationNote lang="ja">
+
+**トレイ API**　tray API：　以下、本稿での各関数へのリンクは、「英語版」のみです。
+
+</TranslationNote>
+
+### トレイ・アイコンの生成
+
+<Tabs synckey="language">
+<TabItem label="JavaScript">
+新しい「トレイ・アイコン」を作成するには、静的関数 [`TrayIcon.new`] を使用します。
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  // この部分には、トレイ・メニュー（tray menu）、タイトル（title）、ツールチップ（tooltip）、イベント・ハンドラー（event handler）などを追加できます。
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+カスタマイズ・オプションの詳細については、リンク先 [`TrayIconOptions`] を参照してください。
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+tauri::Builder::default()
+  .setup(|app| {
+    let tray = TrayIconBuilder::new().build(app)?;
+    Ok(())
+  })
+
+```
+
+カスタマイズ・オプションの詳細については、リンク先 [`TrayIconBuilder`] を参照してください。
+
+</TabItem>
+</Tabs>
+
+### トレイ・アイコンの変更
+
+トレイの生成時には、アプリケーション・アイコンをトレイ・アイコンとして利用できます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { defaultWindowIcon } from '@tauri-apps/api/app';
+
+const options = {
+  icon: await defaultWindowIcon(),
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+let tray = TrayIconBuilder::new()
+  .icon(app.default_window_icon().unwrap().clone())
+  .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+### メニューの追加
+
+トレイをクリックしたときに表示される「メニュー」を追加するには、`menu` オプションを使用します。
+
+:::note
+デフォルトでは、このメニューは左クリックでも右クリックでも表示されます。
+
+左クリックでメニューが表示されないようにするには、Rust 関数の [`menu_on_left_click(false)`][TrayIconBuilder::menu_on_left_click] を呼び出すか、
+JavaScript オプションの [`menuOnLeftClick`] を `false` に設定してください。
+:::
+
+{/* TODO: link to the menu plugin documentation page */}
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'quit',
+      text: 'Quit',
+    },
+  ],
+});
+
+const options = {
+  menu,
+  menuOnLeftClick: true,
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+  menu::{Menu, MenuItem},
+  tray::TrayIconBuilder,
+};
+
+let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+let menu = Menu::with_items(app, &[&quit_i])?;
+
+let tray = TrayIconBuilder::new()
+  .menu(&menu)
+  .menu_on_left_click(true)
+  .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+#### メニュー・イベントへの応答
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+JavaScript では、「メニュー・クリック・イベント・リスナー」をメニュー項目に直接記述できます：
+
+- メニュー・クリック・ハンドラーを共有利用する場合
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  function onTrayMenuClick(itemId) {
+    // itemId === 'quit'
+  }
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: onTrayMenuClick,
+      },
+    ],
+  });
+  ```
+
+- 専用のメニュー・クリック・ハンドラーを使用する場合
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: () => {
+          console.log('quit pressed');
+        },
+      },
+    ],
+  });
+  ```
+
+</TabItem>
+
+<TabItem label="Rust">
+[`TrayIconBuilder::on_menu_event`] メソッドを使用して、トレイ・メニュー・クリック・イベント・リスナーを記述します。
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+TrayIconBuilder::new()
+  .on_menu_event(|app, event| match event.id.as_ref() {
+    "quit" => {
+      println!("quit menu item was clicked");
+      app.exit(0);
+    }
+    _ => {
+      println!("menu item {:?} not handled", event.id);
+    }
+  })
+```
+
+</TabItem>
+</Tabs>
+
+### トレイ・イベントへの応答
+
+「トレイ・アイコン」は、次のような「マウス・イベント」に対してイベントを発行します。
+
+- クリック（Click）：　カーソルが左、右、または中央のシングル・クリックを受け取ったときに、マウスのクリックが解除されたかどうかの情報も含めて、トリガーされます。
+- ダブルクリック（DoubleClick）：　カーソルが左、右、または中央のダブルクリックを受け取ったときにトリガーされます。
+- 進入（Enter）：　カーソルがトレイ・アイコン領域に入ったときにトリガーされます
+- 移動（Move）：　カーソルがトレイ・アイコン領域内を移動したときにトリガーされます
+- 離脱（Leave）：　カーソルがトレイ・アイコン領域から離れた時にトリガーされます
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  action: (event) => {
+    switch (event.type) {
+      case 'Click':
+        console.log(
+          `mouse ${event.button} button pressed, state: ${event.buttonState}`
+        );
+        break;
+      case 'DoubleClick':
+        console.log(`mouse ${event.button} button pressed`);
+        break;
+      case 'Enter':
+        console.log(
+          `mouse hovered tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Move':
+        console.log(
+          `mouse moved on tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Leave':
+        console.log(
+          `mouse left tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+    }
+  },
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+「イベント・ペイロード」の詳細については、[`TrayIconEvent`][js TrayIconEvent] を参照してください。
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    Manager,
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
+};
+
+TrayIconBuilder::new()
+  .on_tray_icon_event(|tray, event| match event {
+    TrayIconEvent::Click {
+      button: MouseButton::Left,
+      button_state: MouseButtonState::Up,
+      ..
+    } => {
+      println!("left click pressed and released");
+      // この例では、トレイがクリックされたときに「let」文がメインウィンドウを表示しアクティブ化します。
+      let app = tray.app_handle();
+      if let Some(window) = app.get_webview_window("main") {
+        let _ = window.show();
+        let _ = window.set_focus();
+      }
+    }
+    _ => {
+      println!("unhandled event {event:?}");
+    }
+  })
+```
+
+「イベント型」の詳細については、[`TrayIconEvent`][rust TrayIconEvent] を参照してください。
+
+</TabItem>
+</Tabs>
+
+[`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
+[`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
+[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
+[TrayIconBuilder::menu_on_left_click]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.menu_on_left_click
+[`menuOnLeftClick`]: /reference/javascript/api/namespacetray/#properties-1
+[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
+[js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
+[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html
+
+<div style="text-align: right">
+  【※ この日本語版は、「Jul 08, 2025 英語版」に基づいています】
+</div>

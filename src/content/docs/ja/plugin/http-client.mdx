@@ -1,0 +1,153 @@
+---
+title: HTTP Client（HTTP クライアント）
+description: Rust で記述された HTTP クライアントにアクセスします。
+plugin: http
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+「http プラグイン」を使用して HTTP リクエストを作成します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「HTTP」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        <CommandTabs npm="npm run tauri add http"
+        yarn="yarn run tauri add http"
+        pnpm="pnpm tauri add http"
+        deno="deno task tauri add http"
+        bun="bun tauri add http"
+        cargo="cargo tauri add http" />
+
+    </TabItem>
+    <TabItem label="手動で設定">
+        <Steps>
+
+        1.  `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-http
+            ```
+
+        2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_http::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+        3. JavaScript で http リクエストを行なう場合は、npm パッケージもインストールします：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-http"
+                yarn="yarn add @tauri-apps/plugin-http"
+                pnpm="pnpm add @tauri-apps/plugin-http"
+                deno="deno add npm:@tauri-apps/plugin-http"
+                bun="bun add @tauri-apps/plugin-http"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用法
+
+「HTTP」プラグインは、JavaScrip と [reqwest](https://docs.rs/reqwest/) の再エクスポート（re-export）としての Rust の両方で利用可能です。
+
+### JavaScript
+
+<Steps>
+
+1.  許可されたURLを設定します
+
+    ```json
+    //src-tauri/capabilities/default.json
+    {
+      "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": [{ "url": "https://*.tauri.app" }],
+          "deny": [{ "url": "https://private.tauri.app" }]
+        }
+      ]
+    }
+    ```
+
+    詳細については、[アクセス権の概要](/ja/security/permissions/)のドキュメントをご覧ください。
+
+2.  リクエストの送信
+
+    「`fetch`」メソッドは、[`fetch` Web API](https://developer.mozilla.org/ja-JP/docs/Web/API/Fetch_API) の記載内容にできる得るかぎり一致し、準拠するようにします。
+
+    ```javascript
+    import { fetch } from '@tauri-apps/plugin-http';
+
+    // 「GET」リクエストの送信
+    const response = await fetch('http://test.tauri.app/data.json', {
+      method: 'GET',
+    });
+    console.log(response.status); // たとえば 200
+    console.log(response.statusText); // たとえば "OK"
+    ```
+
+    :::note
+
+    「[禁止されたリクエスト・ヘッダー]」（英語版サイト）はデフォルトでは無視されます。使用するには、`unsafe-headers` 機能フラグを有効にしておく必要があります：
+
+    ```toml title="src-tauri/Cargo.toml"
+    [dependencies]
+    tauri-plugin-http = { version = "2", features = ["unsafe-headers"] }
+    ```
+
+    :::
+
+</Steps>
+
+### Rust
+
+Rust では、プラグインによって再エクスポートされた「`reqwest` クレート」を利用できます。詳細については、[reqwest のドキュメント](https://docs.rs/reqwest/)（英語サイト）を参照してください。
+
+```rust
+use tauri_plugin_http::reqwest;
+
+let res = reqwest::get("http://my.api.host/data.json").await;
+println!("{:?}", res.status()); // e.g. 200
+println!("{:?}", res.text().await); // e.g Ok("{ Content }")
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[禁止されたリクエスト・ヘッダー]: https://fetch.spec.whatwg.org/#terminology-headers
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

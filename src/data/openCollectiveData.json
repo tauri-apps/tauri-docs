@@ -84,6 +84,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "PhearZero",
+    "id": "PhearZero",
+    "avatarUrl": "https://images.opencollective.com/phearzero/787453c/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/phearzero",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Mintter App",
     "id": "Mintter App",
     "avatarUrl": "https://images.opencollective.com/user-23e77eea/30e54b6/avatar/256.jpg",
@@ -95,10 +104,10 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "PhearZero",
-    "id": "PhearZero",
-    "avatarUrl": "https://images.opencollective.com/phearzero/787453c/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/phearzero",
+    "name": "Matt Campbell",
+    "id": "Matt Campbell",
+    "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/matt-campbell1",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
@@ -116,15 +125,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Matt Campbell",
-    "id": "Matt Campbell",
-    "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/matt-campbell1",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Improving",
     "id": "Improving",
     "avatarUrl": "https://images.opencollective.com/improving/57da827/logo/256.jpg",
@@ -136,19 +136,19 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "Pierre de la Martinière",
-    "id": "Pierre de la Martinière",
-    "avatarUrl": "https://images.opencollective.com/pierre-de-la-martiniere/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/pierre-de-la-martiniere",
+    "name": "Pete Thomas",
+    "id": "Pete Thomas",
+    "avatarUrl": "https://images.opencollective.com/user-44f56a2f/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-44f56a2f",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Pete Thomas",
-    "id": "Pete Thomas",
-    "avatarUrl": "https://images.opencollective.com/user-44f56a2f/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-44f56a2f",
+    "name": "Pierre de la Martinière",
+    "id": "Pierre de la Martinière",
+    "avatarUrl": "https://images.opencollective.com/pierre-de-la-martiniere/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/pierre-de-la-martiniere",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
@@ -259,6 +259,18 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "James Bartlett",
     "id": "James Bartlett",
     "avatarUrl": "https://images.opencollective.com/james-bartlett1/avatar/256.jpg",
@@ -335,18 +347,6 @@
       "website": "https://rabbit-company.com/",
       "twitter": "https://twitter.com/RabbitCompany66",
       "github": "https://github.com/Rabbit-Company"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
     },
     "tier": "silver",
     "type": "ORGANIZATION"
@@ -475,6 +475,17 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "MasterDarius",
+    "id": "MasterDarius",
+    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/masterdarius",
+    "socialLinks": {
+      "website": "https://www.nikolaosmargaris.gr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alex Michael Berry",
     "id": "Alex Michael Berry",
     "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
@@ -482,17 +493,6 @@
     "socialLinks": {
       "website": "https://ligature.dev",
       "github": "https://github.com/almibe"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "MasterDarius",
-    "id": "MasterDarius",
-    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/masterdarius",
-    "socialLinks": {
-      "website": "https://www.nikolaosmargaris.gr"
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
@@ -548,6 +548,17 @@
     "profileUrl": "https://opencollective.com/pintura",
     "socialLinks": {
       "website": "https://pqina.nl/pintura/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
+    "name": "Nonogram Online",
+    "id": "Nonogram Online",
+    "avatarUrl": "https://images.opencollective.com/nonogram-online/0dbfd94/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/nonogram-online",
+    "socialLinks": {
+      "website": "https://www.nonogramonline.org"
     },
     "tier": "silver",
     "type": "ORGANIZATION"
@@ -784,6 +795,18 @@
     "type": "FUND"
   },
   {
+    "name": "Alexander Eden",
+    "id": "Alexander Eden",
+    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-eden",
+    "socialLinks": {
+      "website": "https://github.com/alexeden",
+      "github": "https://github.com/alexeden"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "James Carlson",
     "id": "James Carlson",
     "avatarUrl": "https://images.opencollective.com/james-carlson/baddfff/avatar/256.jpg",
@@ -859,15 +882,12 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Alexander Eden",
-    "id": "Alexander Eden",
-    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-eden",
-    "socialLinks": {
-      "website": "https://github.com/alexeden",
-      "github": "https://github.com/alexeden"
-    },
-    "tier": "silver",
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "bronze",
     "type": "INDIVIDUAL"
   },
   {
@@ -911,13 +931,17 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
     "tier": "bronze",
-    "type": "INDIVIDUAL"
+    "type": "ORGANIZATION"
   },
   {
     "name": "Allan Gaunt",
@@ -1007,6 +1031,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Ruslanas Abdrachimovas",
     "id": "Ruslanas Abdrachimovas",
     "avatarUrl": "https://images.opencollective.com/ruslanas-abdrachimovas/c4e635d/avatar/256.jpg",
@@ -1056,30 +1091,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Taylor Gregoire-Wright",
@@ -3099,6 +3110,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Alec Brunelle",
     "id": "Alec Brunelle",
     "avatarUrl": "https://images.opencollective.com/alec-brunelle/74e2fb5/avatar/256.jpg",
@@ -3232,17 +3254,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Indokasino",

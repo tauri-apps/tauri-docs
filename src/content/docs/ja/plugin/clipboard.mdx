@@ -1,0 +1,129 @@
+---
+title: Clipboard（クリップボード）
+description: システム・クリップボードの読み取りと書き込みを行ないます。
+plugin: clipboard-manager
+i18nReady: true
+---
+
+import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+「clipboard（クリップボード）」プラグインを使用してシステム・クリップボードの読み取りと書き込みを行ないます。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「clipboard（クリップボード）」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    <CommandTabs npm="npm run tauri add clipboard-manager"
+    yarn="yarn run tauri add clipboard-manager"
+    pnpm="pnpm tauri add clipboard-manager"
+    bun="bun tauri add clipboard-manager"
+    deno="deno task tauri add clipboard-manager"
+    cargo="cargo tauri add clipboard-manager" />
+
+    </TabItem>
+    <TabItem label="手動で設定">
+        <Steps>
+
+        1.  `src-tauri` フォルダで次のコマンドを実行して、`Cargo.toml` 内のプロジェクトの依存関係にこのプラグインを追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-clipboard-manager
+            ```
+
+        2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_clipboard_manager::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  JavaScript でクリップボードを管理する場合には、npm パッケージもインストールします：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-clipboard-manager"
+                yarn="yarn add @tauri-apps/plugin-clipboard-manager"
+                pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+                deno="deno add npm:@tauri-apps/plugin-clipboard-manager"
+                bun="bun add @tauri-apps/plugin-clipboard-manager"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用法
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+「clipboard」プラグインは、JavaScript と Rust の両方で利用できます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { writeText, readText } = window.__TAURI__.clipboardManager; を使用できます；
+
+// コンテンツをクリップボードに書き込みます
+await writeText('Tauri is awesome!');
+
+// クリップボードからコンテンツを読み取ります
+const content = await readText();
+console.log(content);
+// コンソールにコンテンツの内容「Tauri is awesome!」を表示します
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+
+app.clipboard().write_text("Tauri is awesome!".to_string()).unwrap();
+
+// クリップボードからコンテンツを読み取ります
+let content = app.clipboard().read_text();
+println!("{:?}", content.unwrap());
+// ターミナルにコンテンツの内容「Tauri is awesome!」を表示します
+
+```
+
+</TabItem>
+</Tabs>
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

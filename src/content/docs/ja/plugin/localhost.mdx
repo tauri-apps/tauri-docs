@@ -1,0 +1,103 @@
+---
+title: Localhost（ローカルホスト）
+description: 本番環境のアプリで localhost サーバーを使用します。
+plugin: localhost
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+アプリのアセットを公開する際に、デフォルトのカスタム・プロトコルではなく、localhost サーバーを通じて行ないます。
+
+:::caution
+このプラグインはかなりのセキュリティ・リスクを伴いますので、内容を十分に理解している場合にのみ使用してください。確信が持てない場合には、デフォルトのカスタム・プロトコル実装をご利用ください。
+:::
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「localhost ローカルホスト」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        <CommandTabs npm="npm run tauri add localhost"
+        yarn="yarn run tauri add localhost"
+        pnpm="pnpm tauri add localhost"
+        deno="deno task tauri add localhost"
+        bun="bun tauri add localhost"
+        cargo="cargo tauri add localhost" />
+
+    </TabItem>
+    <TabItem label="手動で設定">
+
+        <Steps>
+
+        1.  `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-localhost
+            ```
+
+        2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_localhost::Builder::new().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        </Steps>
+
+</TabItem>
+</Tabs>
+
+## 使用法
+
+「localhost」プラグインは Rust で利用できます。
+
+```rust title="src-tauri/src/lib.rs" {4} {7-14}
+use tauri::{webview::WebviewWindowBuilder, WebviewUrl};
+
+pub fn run() {
+  let port: u16 = 9527;
+
+  tauri::Builder::default()
+      .plugin(tauri_plugin_localhost::Builder::new(port).build())
+      .setup(move |app| {
+          let url = format!("http://localhost:{}", port).parse().unwrap();
+          WebviewWindowBuilder::new(app, "main".to_string(), WebviewUrl::External(url))
+              .title("Localhost Example")
+              .build()?;
+          Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+}
+```
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

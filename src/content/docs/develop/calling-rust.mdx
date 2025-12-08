@@ -162,6 +162,8 @@ You can use `snake_case` for the arguments with the `rename_all` attribute:
 fn my_custom_command(invoke_message: String) {}
 ```
 
+The corresponding JavaScript:
+
 ```javascript
 invoke('my_custom_command', { invoke_message: 'Hello!' });
 ```
@@ -169,12 +171,6 @@ invoke('my_custom_command', { invoke_message: 'Hello!' });
 :::
 
 Arguments can be of any type, as long as they implement [`serde::Deserialize`].
-
-The corresponding JavaScript:
-
-```javascript
-invoke('my_custom_command', { invoke_message: 'Hello!' });
-```
 
 ### Returning Data
 

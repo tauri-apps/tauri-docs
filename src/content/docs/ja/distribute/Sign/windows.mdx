@@ -1,0 +1,366 @@
+---
+title: Windows でのコード署名
+sidebar:
+  label: Windows
+  order: 12
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+アプリケーションを [Microsoft Store] に掲載し、ブラウザーからダウンロードしたときに「このアプリケーションは信頼されていないため起動できません」という [SmartScreen] 警告が表示されないようにするためには、Windows でのコード署名が必要です。
+
+エンド・ユーザーが [SmartScreen] 警告を気にしないとか、ブラウザー経由でダウンロードしていない場合では、アプリケーションを Windows 上で実行するために Windows のコード署名は必要はありません。
+この章では、「OV 証明書」（「組織検証 Organization Validation」証明書）と「[Azure Key Vault](#azure-key-vault)」による署名について説明します。
+もしあなたがここに記載されていない他の署名方式、たとえば「EV 証明書」（「拡張検証 Extended Validation」証明書）などを使用する場合は、証明書発行者の公式文書を確認し、下記の [カスタム署名コマンド](#独自の署名コマンド) の項を参照してください。
+
+<TranslationNote lang="ja">
+
+**デジタル証明書**　インターネットでデータを暗号化して通信を行なうためのプロトコル（SSL/TSL）において用いられる「SSL サーバー証明書」。以下の三種類があります。
+
+- ドメイン検証 Domain Validation（DV）
+- 組織検証 Organization Validation（OV）
+- 拡張検証 Extended Valication（EV）
+
+</TranslationNote>
+
+## OV 証明書
+
+:::danger
+
+この章は、2023 年 6 月 1 日以前に取得された「OV コード署名証明書」にのみ適用されます。それ以降に取得した「EV 証明書」および「OV 証明書」によるコード署名については、証明書発行元の公式文書を参照してください。
+
+:::
+
+:::note
+
+「EV 証明書」を使用してアプリに署名すると、Microsoft SmartScreen で直ちに評価され、ユーザーへの警告は表示されなくなります。
+
+もし「OV 証明書」を選択した場合（これは通常安価で個人でも利用できるものですが）でも、Microsoft SmartScreen はユーザーがアプリをダウンロードするときに警告を表示します。その証明書が十分な評価を確立するまでには、しばらく時間がかかる場合があります。Microsoft に [アプリを提出] し、人力に拠るレビューを依頼してもよいかもしれません。保証はありませんが、アプリに悪意のあるコードが含まれていない場合、Microsoft は追加の評価を付与し、アップロードされたファイルに対する警告が削除される可能性はあります。
+
+「OV 証明書」と「EV 証明書」の詳細については、[各 SSL 証明書の比較](https://www.digicert.com/ja/difference-between-dv-ov-and-ev-ssl-certificates) を参照してください。
+
+:::
+
+### 事前準備（必要なもの）
+
+- Windows - 他のプラットフォームを使用することもできますが、このチュートリアルでは Powershell のネイティブ機能を使用します。
+- 動作する Tauri アプリケーション
+- コード署名証明書 - [Microsoft 社の文書] に記載されているサービスからコード署名証明書は入手できます。「EV 証明書」以外のものについては、リストに記載されているところ以外にも認証局が存在する可能性がありますので、ご自身で比較検討の上、ご自身の責任において選択してください。
+  - 必ず「**コード署名証明書**」のほうを取得してください。「SSL 証明書」では **機能しません！**
+
+### 作業手順
+
+Windows でコード署名の準備をするには、いくつか作業が必要です。これには、証明書を特定の形式に変換し、その証明書をインストールし、証明書から必要な情報をデコードすることが含まれます。
+
+<Steps>
+
+1. #### `.cer` ファイルを `.pfx` ファイルに変換
+   - この作業には以下のものが必要です：
+     - 「証明書ファイル」（たとえばファイル名「`cert.cer`」のような）
+     - 「秘密鍵ファイル」（たとえばファイル名「`private-key.key`」のような）
+
+   - コマンド・プロンプトを開き、コマンド「`cd Documents/Certs`」を使用して現在のディレクトリに移動します。
+
+   - 次のコマンド「`openssl pkcs12 -export -in cert.cer -inkey private-key.key -out certificate.pfx`」を使用して `.cer` ファイルを `.pfx` ファイルに変換します。〔《訳注》コマンド内のファイル名「`cert.cer`」「`private-key.key`」部分は自分の証明書／秘密鍵のファイル名に変更する必要があります。〕
+
+   - エクスポート用パスワード入力を求めるメッセージが表示されるはずです。ここで入力したパスワードを**忘れないでください！**
+
+2. #### `.pfx` ファイルをキーストアにインポート
+   - つぎに、「`.pfx` ファイル」をインポートします。
+
+   - 「`$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'`」を使い上記の「エクスポート用パスワード」をこの変数に割り当てます〔《訳注》`MYPASSWORD` 部分に「エクスポート用パスワード」を入力〕。
+
+   - そして、次のコマンド「`Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $WINDOWS_PFX_PASSWORD -Force -AsPlainText)`」を使用して証明書をインポートします。
+
+3. #### 変数の準備
+   - スタート・メニュー ➡️「`certmgr.msc`」と入力すると、「個人証明書マネージャー」が起動し、そこから「Personal／Certificates（個人／証明書）」を開きます。
+
+   - 先ほどインポートした証明書を見つけてダブルクリックし、「Details（詳細）」タブをクリックします。
+
+   - 署名ハッシュ・アルゴリズム（ハッシュ関数）は、Tauri 製？の「`digestAlgorithm`」になります。（ヒント: このアルゴリズムはおそらく `sha256` 関数です）
+
+   - 「Thumbprint」までスクロールダウンしてください。「A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0」のような値があるはずです。これが「certificateThumbprint（証明書の指紋）」です。
+
+   - 「タイムスタンプ URL」も必要です。これは証明書の署名時刻を確認するためのタイムサーバーです。筆者の場合は「http://timestamp.comodoca.com」を使用していますが、証明書の取得元にもタイムスタンプ URL があるはずです。
+
+</Steps>
+
+### `tauri.conf.json` ファイルの準備
+
+1. これで、`certificateThumbprint`、`digestAlgorithm`、`timestampUrl` が準備できたので、`tauri.conf.json` ファイルを開きます。
+
+2. `tauri.conf.json` ファイルでは、`tauri` -> `bundle` -> `windows` と辿って `windows` の項を探してください。取得した情報を格納する変数が三つあります。以下のように記述してください。
+
+```json tauri.conf.json
+"windows": {
+        "certificateThumbprint": "A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0",
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "http://timestamp.comodoca.com"
+}
+```
+
+3. 保存して、`tauri build` を実行します。
+
+4. コンソール出力には以下の内容が表示されます。
+
+```
+info: signing app
+info: running signtool "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.19041.0\\x64\\signtool.exe"
+info: "Done Adding Additional Store\r\nSuccessfully signed: アプリケーションのファイル・パスがここに表示されます
+```
+
+これは、`.exe` ファイルが正常に署名されたことを示しています。
+
+以上で、Tauri アプリケーションが Windows 署名用に正常にセットアップできました。
+
+### GitHub Actions を使用してアプリケーションに署名
+
+GitHub Actions を使用してアプリケーションに署名するワークフローを作成することもできます。
+
+#### GitHub のシークレット機能
+
+GitHub Action を適切に設定するために、「GitHub シークレット」をいくつか追加する必要があります。このシークレットには任意の名前を付けることができます。
+
+<TranslationNote lang="ja">
+
+**シークレット**　secrets： organization、リポジトリ、またはリポジトリ環境の GitHub Actions ワークフローで使うために作成する変数。〔[GitHub Docs](https://docs.github.com/ja/actions/security-for-github-actions/security-guides/about-secrets)〕
+
+</TranslationNote>
+
+- GitHub シークレットを追加する方法については、GitHub Docs の[シークレットの作成] ガイドをご覧ください。
+
+使用する「シークレット」は次のとおりです：
+
+|     GitHub シークレット      |                                                            変数の値                                                             |
+| :--------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+|     WINDOWS_CERTIFICATE      | 「.pfx 証明書」の Base64 エンコード版は、次のコマンドを使用して生成できます： `certutil -encode certificate.pfx base64cert.txt` |
+| WINDOWS_CERTIFICATE_PASSWORD |                               「certificate.pfx」の作成時に使用する証明書エクスポート・パスワード                               |
+
+#### ワークフローの変更
+
+1. ワークフローに、「証明書」を Windows 環境にインポートするためのステップを追加する必要があります。このワークフローでは、以下の処理が実行されます。
+   1. 「GitHub シークレット」を環境変数に割り当て
+   2. 新しい `certificate` ディレクトリの作成
+   3. `WINDOWS_CERTIFICATE` を「tempCert.txt」にインポート
+   4. `certutil` コマンドを使用して「tempCert.txt」を base64 から `.pfx` ファイルにデコード
+   5. 「tempCert.txt」を削除
+   6. `.pfx` ファイルを Windows レジストリ内の「証明書ストア」（証明書格納エリア）へインポートし `WINDOWS_CERTIFICATE_PASSWORD` を安全な文字列へ変換後、その文字列をインポート・コマンドで利用
+
+2. [`tauri-action` publish テンプレート]を使用します。
+
+```yml
+name: 'publish'
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+      - name: install app dependencies and build it
+        run: yarn && yarn build
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # このアクションは自動的に \_\_VERSION\_\_ をアプリのバージョンで置き換えます
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+```
+
+1. `-name: install app dependencies and build it` 項目の直前に次のステップを追記します。
+
+```yml
+- name: import windows certificate
+  if: matrix.platform == 'windows-latest'
+  env:
+    WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+    WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+  run: |
+    New-Item -ItemType directory -Path certificate
+    Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+    certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+    Remove-Item -path certificate -include tempCert.txt
+    Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+```
+
+4. 保存して自分のリポジトリにプッシュします。
+
+5. これで、あなたのワークフローで Windows 証明書を GitHub ランナーにインポートできるようになり、自動コード署名が可能になります。
+
+## Azure Key Vault
+
+[Azure Key Vault] 証明書と資格情報を提示することで、Windows 実行可能ファイルに署名できます。
+
+:::note
+ここの説明では、「シークレット」ベースの認証をサポートしている [relic] ツールを使用しますが、必要に応じて代替ツールを設定することもできます。
+「relic」をダウンロードするには、[relic のリリース・ページ] を確認するか、`go install github.com/sassoftware/relic/v8@latest` を実行してください。
+:::
+
+1. Key Vault（キー・コンテナー／鍵保管庫）
+
+[Azure Portal] で [Key vaults service] に移動し、「Create（作成）」ボタンをクリックして新しい「Key Vault（キー・コンテナー）」を作成します。
+「キー・コンテナー名」（Key Vault name）を覚えておいてください。「証明書 URL」の設定で登録が必要になります。
+
+<TranslationNote lang="ja">
+
+**Key Vault**　キー・コンテナー。原意は「鍵の保管庫（キー・ヴォルト）」ですが、Microsoft 社の[日本語サイト](https://learn.microsoft.com/ja-jp/azure/key-vault/general/quick-create-portal) では「キー・コンテナー」と記載されていますので、その表記に倣います。
+
+</TranslationNote>
+
+2. Certificate（証明書）
+
+「キー・コンテナー」を作成したら、そのキー・コンテナーを選択し、「オブジェクト Object > 証明書 Certificates」ページに移動して新しい証明書を作成し、「生成 Generate ／インポート Import」ボタンをクリックします。
+「証明書名」（Certificate name）は覚えておいてください。「証明書 URL」の設定で登録が必要になります。
+
+3. Tauri の設定
+
+[relic] は設定ファイルで、どの「署名キー」を使用すべきかを判定しています。Azure Key Vault では、「証明書の URL」も必要になります。
+`src-tauri` フォルダに「`relic.conf` ファイル」を作成し、自分の証明書を使用するように relic を設定します：
+
+```yml title=src-tauri/relic.conf
+tokens:
+  azure:
+    type: azure
+
+keys:
+  azure:
+    token: azure
+    id: https://\<KEY_VAULT_NAME\>.vault.azure.net/certificates/\<CERTIFICATE_NAME\>
+```
+
+《注意》 \<KEY_VAULT_NAME\>（キー・コンテナー名）の部分と \<CERTIFICATE_NAME\>（証明書名）の部分は前述の手順でメモした「適切な名前」に置き換える必要があることに注意してください。
+
+署名時に Azure Key Vault の設定を使用するように Tauri を設定するには、[bundle > windows > signCommand] の設定値を変更します：
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "windows": {
+      "signCommand": "relic sign --file %1 --key azure --config relic.conf"
+    }
+  }
+}
+```
+
+4. 資格情報 Credentials
+
+[relic] では「証明書」を読み込むために Azure で認証を行なう必要があります。
+「Azure portal」のランディング・ページで、「[Microsoft Entra 管理センター]」（旧称 Azure Active Directory）に移動し、サイド・メニューから「管理 Manage > アプリの登録 App registrations」ページに進みます。
+「新規登録 New registration」をクリックして新しいアプリを作成します。アプリが作成されると「アプリケーションの詳細」ページにリダイレクトされ、そこで「アプリケーション（クライアント）ID」と「ディレクトリ（テナント）ID」を確認できます。
+この二つの ID をそれぞれ環境変数の `AZURE_CLIENT_ID` と `AZURE_TENANT_ID` に設定します。
+
+サイド・メニューの「管理 Manage > 証明書とシークレット Certificates & secrets」で「新しいクライアント・シークレット New client secret」ボタンをクリックし、「値 Value」列の文字列を環境変数 `AZURE_CLIENT_SECRET` の値として設定します。
+
+すべての資格情報を設定したら、「キー・コンテナー」のページに戻り、「アクセス制御（IAM）」ページに移動します。
+新しく作成したアプリケーションに、「Key Vault 証明書ユーザー」および「Key Vault 暗号化ユーザー」という[ロールを割り当てる]必要があります。
+
+こうしたすべての変数を設定した後、`tauri build` を実行すると、署名された Windows インストーラーが生成されます。
+
+## 独自の署名コマンド
+
+上述の [Azure Key Vault](#azure-key-vault) の項では、強力な Tauri Windows 署名設定を利用して、Tauri CLI が Windows インストーラー実行可能ファイルに署名する特別なシェル・コマンドを使用するようにしました。
+「[bundle > windows > signCommand] 設定のオプションを用いると、Windows 実行可能ファイルに署名できる「コード署名ツール」ならどれでも利用できるようになります。
+
+:::tip
+Linux および macOS マシンから Windows インストーラーをクロスコンパイルする場合は、デフォルトの実装のコマンドが Windows マシンのみで機能するため、「独自の署名コマンド」を **使用する必要があります**。
+:::
+
+[Azure Portal]: https://portal.azure.com
+[Key vaults service]: https://portal.azure.com/#browse/Microsoft.KeyVault%2Fvaults
+[Microsoft 社の文書]: https://learn.microsoft.com/ja-jp/windows-hardware/drivers/dashboard/code-signing-cert-manage
+[アプリを提出]: https://www.microsoft.com/en-us/wdsi/filesubmission/
+[シークレットの作成]: https://docs.github.com/ja/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+[`tauri-action` publish テンプレート]: https://github.com/tauri-apps/tauri-action
+[relic]: https://github.com/sassoftware/relic
+[relic のリリース・ページ]: https://github.com/sassoftware/relic/releases/
+[bundle > windows > signCommand]: /reference/config/#signcommand
+[SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
+[Microsoft Store]: https://apps.microsoft.com/
+
+## Azure コード署名
+
+「Azure コード署名証明書」と「資格情報」を提供することで、Windows 実行ファイルに署名できます。Azureコード署名アカウントをまだお持ちでない場合は、こちらの [チュートリアル（英語版）](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/) をご覧ください。
+
+### 事前準備
+
+Github Actions で署名を行なう場合は、以下のすべてをインストールする必要があります。
+
+1. [信頼済み署名アカウント](https://learn.microsoft.com/ja-jp/azure/trusted-signing/quickstart?tabs=registerrp-portal,account-portal,certificateprofile-portal,deleteresources-portal) および アクセス権限が設定されていること
+1. [.NET](https://dotnet.microsoft.com/ja-jp/download/dotnet/8.0) （.NET 6 またはそれ以降を推奨）
+1. [Azure CLI](https://learn.microsoft.com/ja-jp/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update)
+1. [Signtool（署名ツール）](https://learn.microsoft.com/ja-jp/dotnet/framework/tools/signtool-exe) （Windows 11 SDK 10.0.22000.0 またはそれ以降を推奨）
+
+### 作業手順
+
+[trusted-signing-cli](https://github.com/Levminer/trusted-signing-cli)（信頼済み署名 CLI）をインストールし、環境変数を設定する必要があります。
+
+<Steps>
+
+1. #### trusted-signing-cli のインストール
+   - `cargo install trusted-signing-cli`
+
+2. #### 環境変数の設定
+   - trusted-signing-cli では、以下の環境変数を設定する必要があり、どの項目も「Github Actions [シークレット](https://docs.github.com/ja/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)」として追加することを忘れないでください：
+     - `AZURE_CLIENT_ID`：　[アプリの登録](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials) での「アプリケーション ID（クライアント ID）」です。
+     - `AZURE_CLIENT_SECRET`：　[アプリの登録](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)」での「クライアント・シークレット」値のことです。
+     - `AZURE_TENANT_ID`：　「Azure ディレクトリ」の「テナント ID」のことです。これは、「[アプリの登録](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)」からも入手できます。
+
+3. ### `tauri.conf.json` ファイルの修正
+   - すでに作成済みの `tauri.conf.json` ファイルを修正するか、Windows 用の専用設定ファイルを作成します。「URL」と「証明書名」は自分のアプリ用の値に置き換えます。
+     - -e：　Azure コード署名アカウントのエンドポイント
+     - -a：　Azure コード署名アカウントの名前
+     - -c：　Azure コード署名アカウント内の証明書プロファイルの名前
+     - -d：　署名されたコンテンツの説明（オプション）。「.msi インストーラー」に署名する場合は、この記載内容が「UAC プロンプト」にインストーラー名として表示されます。設定されていない場合は、ランダムな文字列が表示されます。
+
+   {' '}
+
+   <TranslationNote lang="ja">
+     **UAC プロンプト**　Windows の「ユーザー・アカウント制御（User Account
+     Control）機能」が管理者権限を必要とする操作を実行する際に表示する確認画面。〔[参考](https://learn.microsoft.com/ja-jp/windows-server/security/user-account-control/how-user-account-control-works)〕
+   </TranslationNote>
+
+   ```json title=tauri.conf.json
+   {
+     "bundle": {
+       "windows": {
+         "signCommand": "trusted-signing-cli -e https://wus2.codesigning.azure.net -a MyAccount -c MyProfile -d MyApp %1"
+       }
+     }
+   }
+   ```
+
+  </Steps>
+
+[Azure Key Vault]: https://learn.microsoft.com/ja-jp/azure/key-vault/general/overview
+[Microsoft Entra 管理センター]: https://learn.microsoft.com/ja-jp/entra/identity-platform/howto-create-service-principal-portal
+[ロールを割り当てる]: https://learn.microsoft.com/ja-jp/azure/key-vault/general/rbac-guide?tabs=azure-cli#azure-built-in-roles-for-key-vault-data-plane-operations
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Mar 3, 2025 英語版」に基づいています】
+</div>

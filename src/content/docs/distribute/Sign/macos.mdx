@@ -96,7 +96,7 @@ openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
 Required secrets:
 
 - `APPLE_ID` - Your Apple ID email
-- `APPLE_ID_PASSWORD` - Your Apple ID password
+- `APPLE_PASSWORD` - Your Apple ID password
 - `APPLE_CERTIFICATE` - The base64 encoded `.p12` file
 - `APPLE_CERTIFICATE_PASSWORD` - The password for your exported `.p12` file
 - `KEYCHAIN_PASSWORD` - The password for your keychain
@@ -124,7 +124,7 @@ jobs:
     runs-on: macos-latest
     env:
       APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
     steps:
       - name: Import Apple Developer Certificate
         env:
