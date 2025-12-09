@@ -7,9 +7,6 @@ const OUTPUT_FILE = path.resolve(__dirname, '../../src/data/communityResources.j
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || null;
 const query = 'tauri-plugin-';
-const npmBaseUrl = 'https://registry.npmjs.org';
-const cratesBaseUrl = 'https://crates.io/';
-const githubBaseUrl = 'https://api.github.com/repos';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -17,7 +14,6 @@ function cleanRepoUrl(url: string) {
   if (!url) {
     return null;
   }
-  // hmm
   return url.replace(/^git\+/, '').replace(/\.git$/, '');
 }
 
@@ -28,7 +24,7 @@ async function fetchJson(url: string, headers?: Headers) {
   if (!headers.has('User-Agent')) {
     headers.set(
       'User-Agent',
-      'tauri-docs-plugins-discover (https://github.com/tauri-apps/tauri-docs - @vasfvitor)'
+      'tauri-docs-plugins-discover (https://github.com/tauri-apps/tauri-docs)'
     );
   }
 
@@ -39,6 +35,7 @@ async function fetchJson(url: string, headers?: Headers) {
   return res.json();
 }
 
+// https://crates.io/data-access
 async function fetchCrates() {
   const results = [];
   let page = 1;
@@ -58,7 +55,7 @@ async function fetchCrates() {
         name: c.name,
         description: c.description || '',
         version: c.max_version || c.newest_version || '',
-        downloads: c.downloads || 0,
+        created_at: c.created_at || '',
         repository: cleanRepoUrl(c.repository || c.homepage || ''),
         license: c.license || '',
         homepage: c.homepage || '',
@@ -78,14 +75,13 @@ interface ResultsItem {
   description: string;
   version: string;
   version_npm?: string;
-  date?: string;
+  created_at?: string;
   repository: string | null;
   npm?: string;
   crates_io?: string;
-  downloads?: number;
-  github_stars?: number | null;
 }
 
+// https://docs.npmjs.com/policies/open-source-terms
 async function fetchNpm() {
   const results: ResultsItem[] = [];
   const size = 250;
@@ -107,7 +103,7 @@ async function fetchNpm() {
       name,
       description: p.description || '',
       version: p.version || '',
-      date: p.date || '',
+      created_at: p.date || '',
       repository: cleanRepoUrl(repo || p.links?.homepage || ''),
       npm: `https://www.npmjs.com/package/${encodeURIComponent(name)}`,
     });
@@ -178,28 +174,11 @@ async function run() {
     }
   }
 
-  // TODO: fetch GitHub stars
-  let count = 0;
-  for (const [name, item] of map) {
-    const ownerRepo = extractGithubRepo(item.repository);
-    if (ownerRepo) {
-      // eslint-disable-next-line no-await-in-loop
-      item.github_stars = await fetchGithubStars(ownerRepo);
-      count++;
-      // Rate limit for GitHub API (especially without token): ~60 req/hour unauthenticated
-      // Add small delay to avoid hitting rate limits
-      if (!GITHUB_TOKEN && count % 10 === 0) {
-        // eslint-disable-next-line no-await-in-loop
-        await sleep(1000);
-      }
-    } else {
-      item.github_stars = null;
-    }
-  }
-
-  const items = Array.from(map.values()).sort(
-    (a, b) => (b.github_stars || 0) - (a.github_stars || 0)
-  );
+  const items = Array.from(map.values()).sort((a, b) => {
+    const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+    const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+    return dateB - dateA;
+  });
 
   const outputData = {
     generated: new Date().toISOString(),
