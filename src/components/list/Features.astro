@@ -33,4 +33,4 @@ function fetchData(pluginSlug: string) {
 }
 ---
 
-<Directory slug="plugin" callback={fetchData} />
+<Directory slug="plugin" callback={fetchData} filterOutByFileName={['index-external-resources']} />
