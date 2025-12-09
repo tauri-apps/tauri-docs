@@ -14,6 +14,7 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
+    "build:community-resources": "pnpm --filter community-resources run build",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
     "build:releases": "pnpm --filter releases-generator run build",

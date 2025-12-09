@@ -1,0 +1,372 @@
+---
+import communityResourcesData from '../data/communityResources.json';
+
+const { resources, count, generated } = communityResourcesData;
+---
+
+<community-resources>
+  <div class="search-container">
+    <input
+      type="text"
+      id="resource-search"
+      placeholder="Search plugins by name or description..."
+      class="search-input"
+      autocomplete="off"
+    />
+    <div class="filters">
+      <label>
+        <span>Source:</span>
+        <select id="filter-source" class="filter-select">
+          <option value="">All</option>
+          <option value="both">Both (npm & crates)</option>
+          <option value="npm">npm only</option>
+          <option value="crates">crates only</option>
+        </select>
+      </label>
+      <label>
+        <span>Sort by:</span>
+        <select id="sort-by" class="filter-select">
+          <option value="stars">GitHub Stars</option>
+          <option value="name">Name</option>
+          <option value="downloads">Crate Downloads</option>
+        </select>
+      </label>
+    </div>
+    <div class="summary" id="resource-summary">
+      Showing <strong id="visible-count">{count}</strong> of <strong>{count}</strong> community plugins
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="resources-table">
+      <thead>
+        <tr>
+          <th>Name & Links</th>
+          <th>Description</th>
+          <th class="text-right">Crate Version</th>
+          <th class="text-right">Crate Downloads</th>
+          <th class="text-right">NPM Version</th>
+          <th class="text-right">GitHub Stars</th>
+        </tr>
+      </thead>
+      <tbody id="resources-tbody">
+        {
+          resources.map((item) => (
+            <tr
+              class="resource-row"
+              data-name={item.name}
+              data-description={item.description}
+              data-has-npm={item.npm ? 'true' : 'false'}
+              data-has-crates={item.crates_io ? 'true' : 'false'}
+              data-stars={item.github_stars || 0}
+              data-downloads={item.downloads || 0}
+            >
+              <td class="name-cell">
+                <div class="name-with-links">
+                  <code>{item.name}</code>
+                  <div class="links">
+                    {item.repository && (
+                      <a
+                        href={item.repository}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Repository"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                        >
+                          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                      </a>
+                    )}
+                    {item.crates_io && (
+                      <a
+                        href={item.crates_io}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="crates.io"
+                      >
+                        <span class="link-text">crates</span>
+                      </a>
+                    )}
+                    {item.npm && (
+                      <a href={item.npm} target="_blank" rel="noopener noreferrer" title="npm">
+                        <span class="link-text">npm</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </td>
+              <td class="description-cell">{item.description}</td>
+              <td class="text-right">{item.version || '-'}</td>
+              <td class="text-right">{item.downloads ? item.downloads.toLocaleString() : '-'}</td>
+              <td class="text-right">{item.version_npm || '-'}</td>
+              <td class="text-right">{item.github_stars ?? '-'}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="no-results hidden" id="no-results">No plugins match your search criteria.</div>
+</community-resources>
+
+<style>
+  .search-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    margin-bottom: 1rem;
+  }
+
+  .search-input:focus {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: 0;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .filters label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .filter-select {
+    padding: 0.5rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.375rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    cursor: pointer;
+  }
+
+  .summary {
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-2);
+    margin-bottom: 1rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+  }
+
+  .resources-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .resources-table th,
+  .resources-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+  }
+
+  .resources-table thead {
+    background: var(--sl-color-gray-6);
+    position: sticky;
+    top: 0;
+  }
+
+  .resources-table th {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .resources-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .resources-table tbody tr:hover {
+    background: var(--sl-color-gray-7);
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .name-cell {
+    white-space: nowrap;
+  }
+
+  .name-with-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .name-cell code {
+    font-size: 0.85rem;
+    color: var(--sl-color-text-accent);
+    background: transparent;
+    padding: 0;
+  }
+
+  .description-cell {
+    max-width: 400px;
+    line-height: 1.4;
+  }
+
+  .links {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .links a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s;
+  }
+
+  .links a:hover {
+    opacity: 0.7;
+  }
+
+  .link-text {
+    font-size: 0.85rem;
+  }
+
+  .no-results {
+    padding: 3rem;
+    text-align: center;
+    color: var(--sl-color-gray-3);
+    font-size: 1.1rem;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  @media (max-width: 768px) {
+    .resources-table {
+      font-size: 0.8rem;
+    }
+
+    .resources-table th,
+    .resources-table td {
+      padding: 0.5rem;
+    }
+
+    .description-cell {
+      max-width: 200px;
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+<script>
+  class CommunityResources extends HTMLElement {
+    searchInput: HTMLInputElement;
+    sourceFilter: HTMLSelectElement;
+    sortSelect: HTMLSelectElement;
+    tbody: HTMLElement;
+    summaryEl: HTMLElement;
+    visibleCountEl: HTMLElement;
+    noResultsEl: HTMLElement;
+    rows: HTMLTableRowElement[];
+    totalCount: number;
+
+    constructor() {
+      super();
+
+      this.searchInput = this.querySelector('#resource-search') as HTMLInputElement;
+      this.sourceFilter = this.querySelector('#filter-source') as HTMLSelectElement;
+      this.sortSelect = this.querySelector('#sort-by') as HTMLSelectElement;
+      this.tbody = this.querySelector('#resources-tbody') as HTMLElement;
+      this.summaryEl = this.querySelector('#resource-summary') as HTMLElement;
+      this.visibleCountEl = this.querySelector('#visible-count') as HTMLElement;
+      this.noResultsEl = this.querySelector('#no-results') as HTMLElement;
+      this.rows = Array.from(this.tbody.querySelectorAll('.resource-row'));
+      this.totalCount = this.rows.length;
+
+      this.searchInput.addEventListener('input', () => this.filterAndSort());
+      this.sourceFilter.addEventListener('change', () => this.filterAndSort());
+      this.sortSelect.addEventListener('change', () => this.filterAndSort());
+    }
+
+    filterAndSort() {
+      const query = this.searchInput.value.toLowerCase();
+      const sourceFilter = this.sourceFilter.value;
+
+      let visibleRows = this.rows.filter((row) => {
+        const name = row.dataset.name?.toLowerCase() || '';
+        const description = row.dataset.description?.toLowerCase() || '';
+        const hasNpm = row.dataset.hasNpm === 'true';
+        const hasCrates = row.dataset.hasCrates === 'true';
+
+        const matchesQuery = !query || name.includes(query) || description.includes(query);
+
+        let matchesSource = true;
+        if (sourceFilter === 'both') {
+          matchesSource = hasNpm && hasCrates;
+        } else if (sourceFilter === 'npm') {
+          matchesSource = hasNpm;
+        } else if (sourceFilter === 'crates') {
+          matchesSource = hasCrates;
+        }
+
+        return matchesQuery && matchesSource;
+      });
+
+      const sortBy = this.sortSelect.value;
+      visibleRows.sort((a, b) => {
+        if (sortBy === 'stars') {
+          return (parseInt(b.dataset.stars || '0') || 0) - (parseInt(a.dataset.stars || '0') || 0);
+        } else if (sortBy === 'name') {
+          return (a.dataset.name || '').localeCompare(b.dataset.name || '');
+        } else if (sortBy === 'downloads') {
+          return (
+            (parseInt(b.dataset.downloads || '0') || 0) -
+            (parseInt(a.dataset.downloads || '0') || 0)
+          );
+        }
+        return 0;
+      });
+
+      this.rows.forEach((row) => row.classList.add('hidden'));
+      visibleRows.forEach((row) => {
+        row.classList.remove('hidden');
+
+        this.tbody.appendChild(row);
+      });
+
+      const visibleCount = visibleRows.length;
+      this.visibleCountEl.textContent = visibleCount.toString();
+
+      if (visibleCount === 0) {
+        this.noResultsEl.classList.remove('hidden');
+        this.querySelector('.table-wrapper')?.classList.add('hidden');
+      } else {
+        this.noResultsEl.classList.add('hidden');
+        this.querySelector('.table-wrapper')?.classList.remove('hidden');
+      }
+    }
+  }
+
+  customElements.define('community-resources', CommunityResources);
+</script>

@@ -6,6 +6,7 @@ packages:
   - packages/releases-generator
   - packages/compatibility-table
   - packages/fetch-sponsors
+  - packages/community-resources
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild

@@ -87,6 +87,18 @@ importers:
         specifier: ^5.3.3
         version: 5.9.3
 
+  packages/community-resources:
+    dependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.21
+      tsm:
+        specifier: ^2.3.0
+        version: 2.3.0
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
   packages/compatibility-table:
     dependencies:
       '@iarna/toml':
