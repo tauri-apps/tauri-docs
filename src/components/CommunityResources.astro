@@ -1,7 +1,10 @@
 ---
 import communityResourcesData from '../data/communityResources.json';
+import { Icon } from '@astrojs/starlight/components';
 
 const { resources, count, generated } = communityResourcesData;
+
+const filteredResources = resources.filter((item) => !item.repository?.includes('tauri-apps'));
 ---
 
 <community-resources>
@@ -26,14 +29,15 @@ const { resources, count, generated } = communityResourcesData;
       <label>
         <span>Sort by:</span>
         <select id="sort-by" class="filter-select">
-          <option value="stars">GitHub Stars</option>
+          <option value="date">Date Created</option>
           <option value="name">Name</option>
-          <option value="downloads">Crate Downloads</option>
         </select>
       </label>
     </div>
     <div class="summary" id="resource-summary">
-      Showing <strong id="visible-count">{count}</strong> of <strong>{count}</strong> community plugins
+      Showing <strong id="visible-count">{filteredResources.length}</strong> of <strong
+        >{filteredResources.length}</strong
+      > community plugins
     </div>
   </div>
 
@@ -43,23 +47,19 @@ const { resources, count, generated } = communityResourcesData;
         <tr>
           <th>Name & Links</th>
           <th>Description</th>
-          <th class="text-right">Crate Version</th>
-          <th class="text-right">Crate Downloads</th>
-          <th class="text-right">NPM Version</th>
-          <th class="text-right">GitHub Stars</th>
+          <th>Created</th>
         </tr>
       </thead>
       <tbody id="resources-tbody">
         {
-          resources.map((item) => (
+          filteredResources.map((item) => (
             <tr
               class="resource-row"
               data-name={item.name}
               data-description={item.description}
               data-has-npm={item.npm ? 'true' : 'false'}
               data-has-crates={item.crates_io ? 'true' : 'false'}
-              data-stars={item.github_stars || 0}
-              data-downloads={item.downloads || 0}
+              data-created={item.created_at || ''}
             >
               <td class="name-cell">
                 <div class="name-with-links">
@@ -72,15 +72,7 @@ const { resources, count, generated } = communityResourcesData;
                         rel="noopener noreferrer"
                         title="Repository"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="currentColor"
-                        >
-                          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                        </svg>
+                        <Icon name="github" size="24" label="github repository" />
                       </a>
                     )}
                     {item.crates_io && (
@@ -90,22 +82,27 @@ const { resources, count, generated } = communityResourcesData;
                         rel="noopener noreferrer"
                         title="crates.io"
                       >
-                        <span class="link-text">crates</span>
+                        <Icon name="seti:rust" size="24" label="crate" />
                       </a>
                     )}
                     {item.npm && (
                       <a href={item.npm} target="_blank" rel="noopener noreferrer" title="npm">
-                        <span class="link-text">npm</span>
+                        <Icon name="seti:npm" size="24" label="npm package" />
                       </a>
                     )}
                   </div>
                 </div>
               </td>
               <td class="description-cell">{item.description}</td>
-              <td class="text-right">{item.version || '-'}</td>
-              <td class="text-right">{item.downloads ? item.downloads.toLocaleString() : '-'}</td>
-              <td class="text-right">{item.version_npm || '-'}</td>
-              <td class="text-right">{item.github_stars ?? '-'}</td>
+              <td>
+                {item.created_at
+                  ? new Date(item.created_at).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })
+                  : '-'}
+              </td>
             </tr>
           ))
         }
@@ -335,15 +332,12 @@ const { resources, count, generated } = communityResourcesData;
 
       const sortBy = this.sortSelect.value;
       visibleRows.sort((a, b) => {
-        if (sortBy === 'stars') {
-          return (parseInt(b.dataset.stars || '0') || 0) - (parseInt(a.dataset.stars || '0') || 0);
+        if (sortBy === 'date') {
+          const dateA = a.dataset.created ? new Date(a.dataset.created).getTime() : 0;
+          const dateB = b.dataset.created ? new Date(b.dataset.created).getTime() : 0;
+          return dateB - dateA;
         } else if (sortBy === 'name') {
           return (a.dataset.name || '').localeCompare(b.dataset.name || '');
-        } else if (sortBy === 'downloads') {
-          return (
-            (parseInt(b.dataset.downloads || '0') || 0) -
-            (parseInt(a.dataset.downloads || '0') || 0)
-          );
         }
         return 0;
       });
