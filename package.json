@@ -15,6 +15,7 @@
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
     "check": "astro check",
+    "build:community-resources": "pnpm --filter community-resources run build",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
     "build:config": "pnpm --filter config-generator run build",

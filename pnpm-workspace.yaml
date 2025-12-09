@@ -5,6 +5,7 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
+  - packages/community-resources
 # Single source for versions that must stay aligned between the docs site
 # (repo root) and packages/releases-site — the releases site imports docs-site
 # components, which only works when pnpm dedupes both to one instance.
