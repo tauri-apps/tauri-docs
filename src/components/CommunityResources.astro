@@ -7,6 +7,10 @@ const { resources, count, generated } = communityResourcesData;
 const filteredResources = resources.filter((item) => !item.repository?.includes('tauri-apps'));
 ---
 
+<p>
+  <a href="javascript:history.back()"><Icon name="left-arrow" class="inline" />Return</a>
+</p>
+
 <community-resources>
   <div class="search-container">
     <input
@@ -26,7 +30,7 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
           <option value="crates">crates only</option>
         </select>
       </label>
-      <label>
+      <label style="margin-top:0!important">
         <span>Sort by:</span>
         <select id="sort-by" class="filter-select">
           <option value="date">Date Created</option>
@@ -113,6 +117,11 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
 </community-resources>
 
 <style>
+  .inline {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   community-resources {
     display: block;
     width: 100%;
@@ -239,7 +248,6 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
 
   .name-cell code {
     font-size: 0.85rem;
-    color: var(--sl-color-text-accent);
     background: transparent;
     padding: 0;
     white-space: nowrap;
