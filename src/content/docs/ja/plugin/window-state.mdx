@@ -1,0 +1,167 @@
+---
+title: Window State（ウィンドウ状態）
+description: ウィンドウのサイズと位置を保持します。
+plugin: window-state
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+ウィンドウの位置とサイズを保存し、アプリを再度開いたときに復元します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「window-state」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定">
+
+自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+{' '}
+
+<CommandTabs
+  npm="npm run tauri add window-state"
+  yarn="yarn run tauri add window-state"
+  pnpm="pnpm tauri add window-state"
+  deno="deno task tauri add window-state"
+  bun="bun tauri add window-state"
+  cargo="cargo tauri add window-state"
+/>
+
+  </TabItem>
+  <TabItem label="手動で設定">
+    <Steps>
+
+    1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+        ```sh frame=none
+        cargo add tauri-plugin-window-state --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+        ```
+
+    2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .setup(|app| {
+                    #[cfg(desktop)]
+                    app.handle().plugin(tauri_plugin_window_state::Builder::default().build());
+                    Ok(())
+                })
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+        <CommandTabs
+            npm="npm install @tauri-apps/plugin-window-state"
+            yarn="yarn add @tauri-apps/plugin-window-state"
+            pnpm="pnpm add @tauri-apps/plugin-window-state"
+            deno="deno add npm:@tauri-apps/plugin-window-state"
+            bun="bun add @tauri-apps/plugin-window-state"
+        />
+
+      </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 使用方法
+
+「window-state」プラグインを追加すると、アプリが閉じられるときにすべてのウィンドウはその状態を記憶し、次回の起動時にその状態が復元されます。
+
+「window-state」プラグインは、JavaScript と Rust の双方からもアクセスできます。
+
+:::tip
+ウィンドウ状態の復元はウィンドウの作成後に行なわれます。
+ウィンドウが点滅するのを防ぐためには、ウィンドウ作成時に `visible` を `false` に設定すると、
+プラグインがウィンドウズの状態を復元したときにウィンドウを表示するようになります。
+:::
+
+### JavaScript
+
+ウィンドウの状態を手動で保存するには、`saveWindowState` を使用します。
+
+```javascript
+import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+// `"withGlobalTauri": true` を使用する場合は
+// const { saveWindowState, StateFlags } = window.__TAURI__.windowState; を使用できます
+
+saveWindowState(StateFlags.ALL);
+```
+
+同様に、ディスクからウィンドウの状態を手動で復元することもできます：
+
+```javascript
+import {
+  restoreStateCurrent,
+  StateFlags,
+} from '@tauri-apps/plugin-window-state';
+// `"withGlobalTauri": true` 使用する場合は
+// const { restoreStateCurrent, StateFlags } = window.__TAURI__.windowState; を使用できます
+
+restoreStateCurrent(StateFlags.ALL);
+```
+
+### Rust
+
+`AppHandleExt` トレイトによって利用可能になる `save_window_state()` メソッドを使用できます：
+
+```rust
+use tauri_plugin_window_state::{AppHandleExt, StateFlags};
+
+// `tauri::AppHandle` に以下のメソッドが追加されました
+app.save_window_state(StateFlags::all()); //このメソッドは、開いているすべてのウィンドウの状態をディスクに保存します
+```
+
+同様に、`WindowExt` トレイトによって利用可能になる `restore_state()` メソッドを使用して、ディスクからウィンドウの状態を手動で復元することもできます：
+
+```rust
+use tauri_plugin_window_state::{WindowExt, StateFlags};
+
+// すべての `Window` タイプに次の追加メソッドが追加されました
+window.restore_state(StateFlags::all()); // このメソッドは、ウィンドウの状態をディスクから復元します
+```
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "window-state:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Apr 11, 2025 英語版」に基づいています】
+</div>

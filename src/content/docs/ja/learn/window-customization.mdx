@@ -1,0 +1,300 @@
+---
+title: ウィンドウのカスタマイズ
+sidebar:
+  order: 1
+tableOfContents:
+  maxHeadingLevel: 4
+i18nReady: true
+---
+
+import { Icon } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Tauri は、あなたのアプリのウィンドウ外観や操作性をカスタマイズするための豊富なオプションを提供しています。カスタム・タイトルバーの作成や、透明なウィンドウ、サイズ制限の適用などが可能になります。
+
+## 設定
+
+ウィンドウ設定を変更するには、次の三通りの方法があります：
+
+- <Icon name="external" class="inline-icon" /> [tauri.conf.json
+  を用いて](/reference/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [JavaScript API
+  を用いて](/reference/javascript/api/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [Rust の Window
+  構造体を用いて](https://docs.rs/tauri/2.0.0/tauri/window/struct.Window.html)
+
+## 使用法
+
+- [カスタム・タイトルバーの作成](#カスタムタイトルバーの作成)
+- [(macOS) カスタム・ウィンドウ背景色付きの透明なタイトルバー](#macos-カスタムウィンドウ背景色付きの透明なタイトルバー)
+
+### カスタム・タイトルバーの作成
+
+このようなウィンドウ機能の一般的な用途は、カスタム・タイトルバーの作成です。この短いチュートリアルでは、その工程を順を追って説明します。
+
+:::note
+macOS では、カスタム・タイトルバーを使用すると、[ウィンドウの移動や配置](https://support.apple.com/ja-jp/guide/mac-help/mchlp2469/mac) といった、システム自身によって提供されているいくつかの機能が失われます。
+そのようなネイティブ機能を維持しながらタイトルバーをカスタマイズする別の方法として、タイトルバーを透明にしてウィンドウの背景色を設定する方法があります。そのやりかたについては、こちらの[(macOS) カスタムウィンドウ背景色を使用した透明なタイトルバー](#macos-カスタムウィンドウ背景色付きの透明なタイトルバー)をご覧ください。
+:::
+
+#### tauri.conf.json
+
+`tauri.conf.json` で `decorations` 項目を「`false`」に設定します。
+
+```json title="tauri.conf.json" {4}
+"tauri": {
+	"windows": [
+		{
+			"decorations": false
+		}
+	]
+}
+```
+
+#### アクセス権
+
+「セキュリティ機能 capability ファイル」でウィンドウに「アクセス権」を追加します。
+
+デフォルトでは、すべてのプラグイン・コマンドのアクセス権はブロックされており、アクセスできません。「セキュリティ機能`capabilities`」設定でアクセス権リストを定義する必要があります。
+
+詳細については「[セキュリティ・レベルの概要](/ja/security/capabilities/)」の章を参照してください。また、プラグイン権限を使用するには「[プラグイン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章を参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["core:window:default", "core:window:allow-start-dragging"]
+}
+```
+
+| Permission                                   | Description                                                                      |
+| -------------------------------------------- | -------------------------------------------------------------------------------- |
+| `core:window:default`                        | plugin 用デフォルト・アクセス権。ただし、 `window:allow-start-dragging` を除く。 |
+| `core:window:allow-close`                    | スコープ（適用範囲）の事前設定なしで close コマンドを有効にします。              |
+| `core:window:allow-minimize`                 | スコープの事前設定なしで minimize コマンドを有効にします。                       |
+| `core:window:allow-start-dragging`           | スコープの事前設定なしで start_dragging コマンドを有効にします。                 |
+| `core:window:allow-toggle-maximize`          | スコープの事前設定なしで toggle_maximize コマンドを有効にします。                |
+| `core:window:allow-internal-toggle-maximize` | スコープの事前設定なしで internal_toggle_maximize コマンドを有効にします。       |
+
+#### CSS
+
+この CSS サンプルを追加して、タイトルバーを画面の上部に表示し、ボタンのスタイルを設定します：
+
+```css
+.titlebar {
+  height: 30px;
+  background: #329ea3;
+  user-select: none;
+  display: grid;
+  grid-template-columns: auto max-content;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.titlebar > .controls {
+  display: flex;
+}
+.titlebar button {
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  background-color: transparent;
+}
+.titlebar button:hover {
+  background: #5bbec3;
+}
+```
+
+#### HTML
+
+以下を `<body>` タグの最初に置いてください：
+
+```html
+<div class="titlebar">
+  <div data-tauri-drag-region></div>
+  <div class="controls">
+    <button id="titlebar-minimize" title="minimize">
+      <!-- https://api.iconify.design/mdi:window-minimize.svg -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M19 13H5v-2h14z" /><path>
+      </svg>
+    </button>
+    <button id="titlebar-maximize" title="maximize">
+      <!-- https://api.iconify.design/mdi:window-maximize.svg -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
+      </svg>
+    </button>
+    <button id="titlebar-close" title="close">
+      <!-- https://api.iconify.design/mdi:close.svg -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M13.46 12L19 17.54V19h-1.46L12 13.46L6.46 19H5v-1.46L10.54 12L5 6.46V5h1.46L12 10.54L17.54 5H19v1.46z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+```
+
+タイトルバーに隠れないように、残りのコンテンツを下に移動する必要があるかもしれないことに注意してください。
+
+:::tip
+
+Windows で、カスタム仕様のインタラクション（応答操作）を必要としないタイトル・バーだけで十分な場合には、以下を使用すると
+
+```css
+*[data-tauri-drag-region] {
+  app-region: drag;
+}
+```
+
+タイトル・バーをタッチやペン入力で操作できるようになります。
+
+:::
+
+#### JavaScript
+
+ボタンを機能させるには、以下のコード・スニペットを使用します：
+
+```javascript
+import { getCurrentWindow } from '@tauri-apps/api/window';
+
+// `"withGlobalTauri": true` を使用する場合は、
+// const { getCurrentWindow } = window.__TAURI__.window; を使用できます。
+
+const appWindow = getCurrentWindow();
+
+document
+  .getElementById('titlebar-minimize')
+  ?.addEventListener('click', () => appWindow.minimize());
+document
+  .getElementById('titlebar-maximize')
+  ?.addEventListener('click', () => appWindow.toggleMaximize());
+document
+  .getElementById('titlebar-close')
+  ?.addEventListener('click', () => appWindow.close());
+```
+
+なお、Rust ベースのフロントエンドを使用しているのであれば、上記 HTML 項のコードを `index.html` ファイルの `<script>` 要素にコピーしてください。
+
+:::note
+`data-tauri-drag-region` 属性は、それが直接適用された「要素」に対してのみ機能します。同じドラッグ動作を子要素にも適用したい場合は、各子要素にも個別に追加する必要があります。
+
+この動作は保持されますので、ボタンや入力などのインタラクティブな要素は適切に機能します。
+:::
+
+### `data-tauri-drag-region` の手作業による実装
+
+ドラッグ動作をカスタマイズするようなユース・ケース（使用事例）では、`data-tauri-drag-region` を使用する代わりに、`window.startDragging` を使用してイベント・リスナーを手作業で追加できます。
+
+#### HTML
+
+前項のコードから、`data-tauri-drag-region` を削除し、`id` を追加します：
+
+```html del={1} ins={2}
+<div data-tauri-drag-region class="titlebar">
+  <div id="titlebar" class="titlebar">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+#### Javascript
+
+タイトルバー要素にイベント・リスナーを追加します：
+
+```js {2-9}
+// ...
+document.getElementById('titlebar')?.addEventListener('mousedown', (e) => {
+  if (e.buttons === 1) {
+    // 主ボタン（左）
+    e.detail === 2
+      ? appWindow.toggleMaximize() // ダブルクリックで最大化
+      : appWindow.startDragging(); // それ以外ではドラッグ開始
+  }
+});
+```
+
+### (macOS) カスタム・ウィンドウ背景色付きの透明なタイトルバー
+
+メイン・ウィンドウを作成し、その背景色を Rust 側から変更します。
+
+`tauri.conf.json` ファイルからメイン・ウィンドウを削除します：
+
+    ```json title="tauri.conf.json" del={3-7}
+    "tauri": {
+    	"windows": [
+    		{
+    			"title": "Transparent Titlebar Window",
+    			"width": 800,
+    			"height": 600
+    		}
+    	],
+    }
+    ```
+
+依存関係に `cocoa` クレートを追加し、macOS のネイティブ API を呼び出しに使用できるようにします：
+
+    ```toml title="src-tauri/Cargo.toml"
+    [target."cfg(target_os = \"macos\")".dependencies]
+    cocoa = "0.26"
+    ```
+
+メイン・ウィンドウを作成し、その背景色を変更します：
+
+    ```rust title="src-tauri/src/lib.rs"
+    use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
+
+    pub fn run() {
+    	tauri::Builder::default()
+    		.setup(|app| {
+    			let win_builder =
+    				WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
+    					.title("Transparent Titlebar Window")
+    					.inner_size(800.0, 600.0);
+
+    			// macOS 用にビルドする場合にのみ適用される、透明なタイトル・バーを設定します
+    			#[cfg(target_os = "macos")]
+    			let win_builder = win_builder.title_bar_style(TitleBarStyle::Transparent);
+
+    			let window = win_builder.build().unwrap();
+
+    			// macOS 用にビルドする場合にのみ適用される、背景色を設定します
+    			#[cfg(target_os = "macos")]
+    			{
+    				use cocoa::appkit::{NSColor, NSWindow};
+    				use cocoa::base::{id, nil};
+
+    				let ns_window = window.ns_window().unwrap() as id;
+    				unsafe {
+    					let bg_color = NSColor::colorWithRed_green_blue_alpha_(
+    							nil,
+    							50.0 / 255.0,
+    							158.0 / 255.0,
+    							163.5 / 255.0,
+    							1.0,
+    					);
+    					ns_window.setBackgroundColor_(bg_color);
+    				}
+    			}
+
+    			Ok(())
+    		})
+    		.run(tauri::generate_context!())
+    		.expect("error while running tauri application");
+    }
+    ```
+
+<div style="text-align: right">
+  【※ この日本語版は、「Jul 04, 2025 英語版」に基づいています】
+</div>

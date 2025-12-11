@@ -1,0 +1,84 @@
+---
+title: 学習要領
+sidebar:
+  order: 0
+  label: 概要
+i18nReady: true
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import BookItem from '@components/BookItem.astro';
+import RoseRustBook from '@assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.png';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+この「学習」編では、Tauri 関連のトピックに関する学習体験を端から端まで提供することを目的としています。
+
+各チュートリアルは、特定のトピックについて説明し、ガイドや参考文書（リファレンス）から得た知識を応用できるようになるでしょう。
+
+セキュリティ関連のトピックでは、アクセス権システムについて学ぶことができます。そこではシステムの使い方、拡張のし方、そしてあなた自身のアクセス権を記述するやり方について、実践的な知識が得られます。
+
+<CardGrid>
+  <LinkCard
+    title="Plugin アクセス権の使用法"
+    href="/ja/learn/security/using-plugin-permissions/"
+  />
+  <LinkCard
+    title="異なるウィンドウ／プラットフォームのためのセキュリティ機能"
+    href="/ja/learn/security/capabilities-for-windows-and-platforms/"
+  />
+  <LinkCard
+    title="Plugin アクセス権の作成"
+    href="/ja/learn/security/writing-plugin-permissions/"
+  />
+</CardGrid>
+
+独自の「スプラッシュスクリーン」（起動時表示画面）を作成する方法や、「Node.js サイドカー」を使用する方法については、以下を参照してください：
+
+<CardGrid>
+  <LinkCard title="スプラッシュスクリーン" href="/ja/learn/splashscreen/" />
+  <LinkCard title="Node.js サイドカー" href="/ja/learn/sidecar-nodejs/" />
+</CardGrid>
+
+## その他の資料
+
+この項には、この Web サイトに掲載されていない、コミュニティによって作成された学習資料を掲載しています。
+
+<LinkCard
+  title="共有可能な資料はありますか？"
+  description="プル・リクエストでその素晴らしい資料を公開してみませんか"
+  href="https://github.com/tauri-apps/awesome-tauri/pulls"
+/>
+
+### 書籍
+
+<BookItem
+  image={RoseRustBook}
+  title="HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri"
+  alt="HTML, CSS, JavaScript, and Rust for Beginners Book Cover"
+  author="James Alexander Rose"
+  links={[
+    {
+      preText: 'ペーパーバック英語版（Amazon）:',
+      text: '購入はこちらから',
+      url: 'https://www.amazon.com/dp/B0DR6KZVVW',
+    },
+    {
+      preText: '無償 PDF 版:',
+      text: 'ダウンロード (PDF 4MB)',
+      url: '/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf',
+    },
+  ]}
+/>
+
+### ガイドとチュートリアル
+
+<AwesomeTauri section="guides-no-official-no-video" />
+
+#### ビデオ・ガイド
+
+<AwesomeTauri section="guides-no-official-only-video" />
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>
