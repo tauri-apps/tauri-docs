@@ -40,8 +40,16 @@ export default [
     "link": "/reference/javascript/plugins/fs/index.html"
   },
   {
+    "label": "geolocation",
+    "link": "/reference/javascript/plugins/geolocation/index.html"
+  },
+  {
     "label": "global-shortcut",
     "link": "/reference/javascript/plugins/global-shortcut/index.html"
+  },
+  {
+    "label": "haptics",
+    "link": "/reference/javascript/plugins/haptics/index.html"
   },
   {
     "label": "http",
