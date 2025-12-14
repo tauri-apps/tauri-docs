@@ -1,0 +1,316 @@
+---
+title: HTTP 헤더
+author: 39zde <git@39zde>
+sidebar:
+  order: 7
+  badge:
+    text: New
+    variant: tip
+i18nReady: true
+---
+
+import SinceVersion from '@components/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" />
+
+"설정" 내에 정의된 헤더는 Webview에 대한 응답과 함께 전송됩니다.
+여기에는 "IPC(프로세스 간 통신)" 메시지와 "오류 응답"은 포함되지 않습니다.
+더 구체적으로 말하면,
+
+<a
+  href="https://github.com/tauri-apps/tauri/blob/8e8312bb8201ccc609e4bbc1a990bdc314daa00f/crates/tauri/src/protocol/tauri.rs#L103"
+  target="\_blank"
+>
+  {' '}
+  crates/tauri/src/protocol/tauri.rs ↗
+</a>
+의 `get_response`
+함수를 통해 전송되는 모든 응답에 이 헤더가 포함됩니다.
+
+### 헤더 이름
+
+"헤더 이름"은 다음과 같이 제한됩니다:
+
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials"
+    target="_blank"
+  >
+    Access-Control-Allow-Credentials ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Allow-Headers"
+    target="_blank"
+  >
+    Access-Control-Allow-Headers ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Allow-Methods"
+    target="_blank"
+  >
+    Access-Control-Allow-Methods ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Expose-Headers"
+    target="_blank"
+  >
+    Access-Control-Expose-Headers ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Max-Age"
+    target="_blank"
+  >
+    Access-Control-Max-Age ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+    target="_blank"
+  >
+    Cross-Origin-Embedder-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+    target="_blank"
+  >
+    Cross-Origin-Opener-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+    target="_blank"
+  >
+    Cross-Origin-Resource-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Permissions-Policy"
+    target="_blank"
+  >
+    Permissions-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Timing-Allow-Origin"
+    target="_blank"
+  >
+    Timing-Allow-Origin ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/X-Content-Type-Options"
+    target="_blank"
+  >
+    X-Content-Type-Options ↗
+  </a>
+- Tauri-Custom-Header
+
+:::note[(참고)]
+
+`Tauri-Custom-Header`는 프로덕션 환경에서 사용하기 위한 것이 아닙니다.
+
+:::
+
+:::note[(참고)]
+
+<a href="../ko/csp/">콘텐츠 보안 정책(CSP)</a>
+은 여기에서 정의되지 않습니다.
+
+:::
+
+### 헤더 설정 방법
+
+- 문자열로
+- 문자열 배열로
+- 객체/키-값으로 (값은 문자열이어야 합니다)
+- null 값으로
+
+실제 응답에서는 헤더 값이 항상 문자열로 변환됩니다. 설정 파일의 내용에 따라 헤더 값 중 일부를 만들어야 할 수도 있습니다.
+이 복합 값이 어떻게 만들어지는지에 대한 규칙은 다음과 같습니다:
+
+- `string`: "문자열"의 경우, 생성된 헤더 값도 동일한 내용입니다.
+- `Array`: "배열"의 경우, 생성된 헤더 값에서는 각 항목(요소)이 `, `로 연결됩니다.
+- `key-value`: "키-값"에서는 각 항목이 "키 + 공백 + 값"으로 만들어진 후, 생성된 헤더 값에서는 각 항목이 `; `로 연결됩니다.
+- `null`: "null 값"의 경우, 헤더는 무시됩니다.
+
+### 설정 예
+
+```javascript title="src-tauri/tauri.conf.json"
+{
+ //...
+  "app":{
+    //...
+    "security": {
+      //...
+      "headers": {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Timing-Allow-Origin": [
+          "https://developer.mozilla.org",
+          "https://example.com",
+        ],
+        "X-Content-Type-Options": null, // gets ignored
+        "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+        "Tauri-Custom-Header": {
+          "key1": "'value1' 'value2'",
+          "key2": "'value3'"
+        }
+      },
+      // CSP가 헤더 항목 내에 정의되지 않았음에 유의하십시오.
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost",
+    }
+  }
+}
+```
+
+:::note[(참고)]
+`Tauri-Custom-Header`는 프로덕션 환경에서 사용하기 위한 것이 아닙니다.
+테스트에서는 `Access-Control-Expose-Headers`를 적절하게 설정하는 것을 잊지 마십시오.
+:::
+
+이 예에서는 `Cross-Origin-Opener-Policy`와 `Cross-Origin-Embedder-Policy`가 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank">`SharedArrayBuffer ↗`</a>의 사용을 허용하도록 설정되어 있습니다.
+`Timing-Allow-Origin`은 목록에 기재된 웹 사이트에서 로드된 스크립트가 <a href="https://developer.mozilla.org/ko/docs/Web/API/Performance_API/Resource_timing" target="_blank">Resource Timing API(리소스 타이밍) ↗</a>를 통해 상세한 네트워크 타이밍 데이터에 액세스하는 것을 허용합니다.
+
+"helloworld" 예제에서는 설정이 다음과 같이 됩니다:
+
+```http
+access-control-allow-origin:  http://tauri.localhost
+access-control-expose-headers: Tauri-Custom-Header
+content-security-policy: default-src 'self'; connect-src ipc: http://ipc.localhost; script-src 'self' 'sha256-Wjjrs6qinmnr+tOry8x8PPwI77eGpUFR3EEGZktjJNs='
+content-type: text/html
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+tauri-custom-header: key1 'value1' 'value2'; key2 'value3'
+timing-allow-origin: https://developer.mozilla.org, https://example.com
+```
+
+### 프레임워크
+
+일부 개발 환경에서는 운영 환경을 에뮬레이트하기 위한 추가 설정이 필요합니다.
+
+#### JavaScript/TypeScript
+
+빌드 도구 "**Vite**"(**Qwik, React, Solid, Svelte, Vue** 포함)를 실행하는 설정 도구에는 필요한 헤더를 `vite.config.ts`에 추가합니다.
+
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // ...
+  server: {
+    // ...
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Timing-Allow-Origin':
+        'https://developer.mozilla.org, https://example.com',
+      'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+      'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'",
+    },
+  },
+});
+```
+
+경우에 따라 `vite.config.ts`가 프레임워크 설정 파일에 통합되어 있을 수 있지만, 설정 내용은 동일합니다.
+프론트엔드 프레임워크가 **Angular**인 경우, 필요한 헤더를 `angular.json`에 추가합니다.
+
+```json title=angular.json
+{
+  //...
+  "projects": {
+    //...
+    "insert-project-name": {
+      //...
+      "architect": {
+        //...
+        "serve": {
+          //...
+          "options": {
+            //...
+            "headers": {
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Timing-Allow-Origin": "https://developer.mozilla.org, https://example.com",
+              "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+              "Tauri-Custom-Header": "key1 'value1' 'value2'; key2 'value3'"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+마찬가지로, **Nuxt**의 경우 `nuxt.config.ts`에 추가합니다.
+
+```typescript title=nuxt.config.ts
+export default defineNuxtConfig({
+  //...
+  vite: {
+    //...
+    server: {
+      //...
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin':
+          'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'",
+      },
+    },
+  },
+});
+```
+
+**Next.js**는 Vite를 사용하지 않으므로 접근 방식이 다릅니다.
+자세한 내용은 <a href="https://nextjs.org/docs/pages/api-reference/next-config-js/headers" target="_blank">여기 ↗</a> (영어)를 참조하십시오.
+헤더는 `next.config.js`에서 정의합니다.
+
+```javascript title=next.config.js
+module.exports = {
+  //...
+  async headers() {
+    return [
+      {
+        source: '/*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Timing-Allow-Origin',
+            value: 'https://developer.mozilla.org, https://example.com',
+          },
+          {
+            key: 'Access-Control-Expose-Headers',
+            value: 'Tauri-Custom-Header',
+          },
+          {
+            key: 'Tauri-Custom-Header',
+            value: "key1 'value1' 'value2'; key2 'value3'",
+          },
+        ],
+      },
+    ];
+  },
+};
+```
+
+#### Rust
+
+**Yew**와 **Leptos**에서는 헤더를 `Trunk.toml`에 추가하십시오:
+
+```toml title=Trunk.toml
+#...
+[serve]
+#...
+headers = {
+  "Cross-Origin-Opener-Policy" = "same-origin",
+  "Cross-Origin-Embedder-Policy" = "require-corp",
+  "Timing-Allow-Origin" = "https://developer.mozilla.org, https://example.com",
+  "Access-Control-Expose-Headers" = "Tauri-Custom-Header",
+  "Tauri-Custom-Header" = "key1 'value1' 'value2'; key2 'value3'"
+}
+
+```

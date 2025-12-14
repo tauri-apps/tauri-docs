@@ -1,0 +1,149 @@
+---
+title: Barcode Scanner（バーコード・スキャナー）
+description: モバイル・アプリでカメラを使用し、QR コード、EAN-13、その他のバーコードをスキャン可能にします。
+plugin: barcode-scanner
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+モバイル・アプリでカメラを使用し、QR コード、EAN-13、その他のバーコードをスキャン可能にします。
+
+<TranslationNote lang="ja">
+
+**EAN-13**　European Article Number：　商品識別コード／バーコード規格のひとつで、13 桁の「欧州商品番号」の意味。日本で最も普及している商品識別コードである「JAN コード」と同等のもの。《[Wikipedia](https://ja.wikipedia.org/wiki/EANコード)》
+
+</TranslationNote>
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「Barcode Scanner（バーコード・スキャナー）」プラグインをインストールしてください。
+
+<Tabs>
+  <TabItem label="自動で設定">
+
+    自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add barcode-scanner"
+      yarn="yarn run tauri add barcode-scanner"
+      pnpm="pnpm tauri add barcode-scanner"
+      deno="deno task tauri add barcode-scanner"
+      bun="bun tauri add barcode-scanner"
+      cargo="cargo tauri add barcode-scanner"
+    />
+
+  </TabItem>
+  <TabItem label="手動で設定">
+    <Steps>
+
+      1.  `src-tauri` フォルダで次のコマンドを実行して、`Cargo.toml` 内のプロジェクトの依存関係にこのプラグインを追加します：
+
+          ```sh frame=none
+          cargo add tauri-plugin-barcode-scanner --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_barcode_scanner::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-barcode-scanner"
+              yarn="yarn add @tauri-apps/plugin-barcode-scanner"
+              pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+              deno="deno add npm:@tauri-apps/plugin-barcode-scanner"
+              bun="bun add @tauri-apps/plugin-barcode-scanner"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 設定
+
+iOS では、「Barcode Scanner」プラグインに、あなたのアプリがカメラを使用する理由を説明する `NSCameraUsageDescription` 情報プロパティ・リストの値が必要です。
+
+`src-tauri/Info.ios.plist` ファイルには、以下のスニペット（内容）を追加してください。
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSCameraUsageDescription</key>
+		<string>Read QR codes</string>
+	</dict>
+</plist>
+```
+
+## 使用法
+
+「Barcode Scanner」プラグインは JavaScript で利用できます。
+
+```javascript
+import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { scan, Format } = window.__TAURI__.barcodeScanner; を使用できます；
+
+// `windowed: true` は、カメラ用に別のビューを開くのではなく、
+// 実際には Webview を透明に設定します
+// 要素の透明化により下にあるものが表示されるように、ユーザーインターフェースを設定しておいてください
+scan({ windowed: true, formats: [Format.QRCode] });
+```
+
+## アクセス権の設定
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jul 1, 2025 英語版」に基づいています】
+</div>

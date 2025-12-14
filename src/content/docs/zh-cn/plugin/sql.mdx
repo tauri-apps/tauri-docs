@@ -92,22 +92,21 @@ await db.execute('INSERT INTO ...');
 
   </TabItem>
   <TabItem label="MySQL">
-```javascript
 
+```javascript
 import Database from '@tauri-apps/plugin-sql';
 const db = await Database.load('mysql://user:pass@host/database');
 await db.execute('INSERT INTO ...');
+```
 
-````
   </TabItem>
   <TabItem label="PostgreSQL">
+
 ```javascript
-
-import Database from "@tauri-apps/plugin-sql";
-const db = await Database.load("postgres://postgres:password@localhost/test");
-await db.execute("INSERT INTO ...");
-
-````
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('postgres://postgres:password@localhost/test');
+await db.execute('INSERT INTO ...');
+```
 
   </TabItem>
 </Tabs>
@@ -119,48 +118,51 @@ await db.execute("INSERT INTO ...");
 <Tabs syncKey="SQLvariant">
   <TabItem label="SQLite">
 在替换查询数据时使用 "$#" 语法
+
 ```javascript
 const result = await db.execute(
-  "INSERT into todos (id, title, status) VALUES ($1, $2, $3)",
-  [todos.id, todos.title, todos.status],
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
 );
 
 const result = await db.execute(
-"UPDATE todos SET title = $1, status = $2 WHERE id = $3",
-[todos.title, todos.status, todos.id],
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
 );
+```
 
-````
   </TabItem>
   <TabItem label="MySQL">
 在替换查询数据时使用 "?" 语法
+
 ```javascript
 const result = await db.execute(
-  "INSERT into todos (id, title, status) VALUES (?, ?, ?)",
-  [todos.id, todos.title, todos.status],
+  'INSERT into todos (id, title, status) VALUES (?, ?, ?)',
+  [todos.id, todos.title, todos.status]
 );
 
 const result = await db.execute(
-  "UPDATE todos SET title = ?, status = ? WHERE id = ?",
-  [todos.title, todos.status, todos.id],
+  'UPDATE todos SET title = ?, status = ? WHERE id = ?',
+  [todos.title, todos.status, todos.id]
 );
-````
+```
 
   </TabItem>
   <TabItem label="PostgreSQL">
 在替换查询数据时使用 "$#" 语法
+
 ```javascript
 const result = await db.execute(
-  "INSERT into todos (id, title, status) VALUES ($1, $2, $3)",
-  [todos.id, todos.title, todos.status],
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
 );
 
 const result = await db.execute(
-"UPDATE todos SET title = $1, status = $2 WHERE id = $3",
-[todos.title, todos.status, todos.id],
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
 );
+```
 
-````
   </TabItem>
 </Tabs>
 
@@ -184,7 +186,7 @@ let migration = Migration {
     sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
     kind: MigrationKind::Up,
 };
-````
+```
 
 ### 向插件构建器添加迁移
 

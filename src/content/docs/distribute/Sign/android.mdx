@@ -6,8 +6,9 @@ sidebar:
 i18nReady: true
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Code } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import { Code, Tabs, TabItem } from '@astrojs/starlight/components';
+import BuildGradleFiletree from '@assets/distribute/sign/build-gradle-kts-filetree.png';
 
 To publish on the Play Store, you need to sign your app with a digital certificate.
 
@@ -110,6 +111,22 @@ In this example the keystore was exported to base64 with `base64 -i /path/to/key
 ### Configure Gradle to use the signing key
 
 Configure gradle to use your upload key when building your app in release mode by editing the `[project]/src-tauri/gen/android/app/build.gradle.kts` file.
+
+:::tip
+
+There are multiple different `build.gradle.kts` files in a typical Android project. If there is no `buildTypes` block you're looking at the wrong file. The one you need is in the `app/` directory relative to the keystore file from the prior step.
+
+<details>
+  <summary>
+    Click here for a screenshot showing its location in a typical file tree.
+  </summary>
+  <Image
+    src={BuildGradleFiletree}
+    alt="build.gradle.kts location in file tree"
+  />
+</details>
+
+:::
 
 1.  Add the needed import at the beginning of the file:
 

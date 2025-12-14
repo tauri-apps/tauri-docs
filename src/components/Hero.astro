@@ -1,0 +1,33 @@
+---
+import { LinkButton } from '@astrojs/starlight/components';
+import LogoLight from '@assets/logo_light.svg';
+import LogoDark from '@assets/logo.svg';
+import LogoOutline from '@assets/logo-outline.svg';
+
+const { tagline, getStarted, v1Docs } = Astro.props;
+---
+
+<div class="hero-bg">
+  <div class="bg-logo"></div>
+  <div class="bg-grad"></div>
+  <div class="bg-grad-red"></div>
+</div>
+
+<div class="lp-content">
+  <div class="lp-header lp-hero">
+    <div class="lp-header-content">
+      <LogoLight class="lp-tauri-logo light" />
+      <LogoDark class="lp-tauri-logo dark" />
+      <p class="lp-tagline">
+        {tagline}
+      </p>
+      <div class="actions">
+        <LinkButton icon="right-arrow" href="/start/">{getStarted}</LinkButton>
+        <LinkButton href="https://v1.tauri.app" variant="minimal" icon="external">
+          {v1Docs}
+        </LinkButton>
+      </div>
+    </div>
+    <LogoOutline />
+  </div>
+</div>

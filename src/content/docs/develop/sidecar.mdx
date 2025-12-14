@@ -86,9 +86,10 @@ On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `
 ```rust
 use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::CommandEvent;
+use tauri::Emitter;
 
 let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
-let (mut rx, mut _child) = sidecar_command
+let (mut rx, mut child) = sidecar_command
   .spawn()
   .expect("Failed to spawn sidecar");
 
@@ -97,7 +98,7 @@ tauri::async_runtime::spawn(async move {
   while let Some(event) = rx.recv().await {
     if let CommandEvent::Stdout(line_bytes) = event {
       let line = String::from_utf8_lossy(&line_bytes);
-      window
+      app
         .emit("message", Some(format!("'{}'", line)))
         .expect("failed to emit event");
       // write to stdin
@@ -131,7 +132,7 @@ You can place this code inside a Tauri command to easily pass the AppHandle or y
 
 When running the sidecar, Tauri requires you to give the sidecar permission to run the `execute` or `spawn` method on the child process. To grant this permission, go to the file `<PROJECT ROOT>/src-tauri/capabilities/default.json` and add the section below to the permissions array. Don't forget to name your sidecar according to the relative path mentioned earlier.
 
-```json title="src-tauri/capabilities/default.json" ins={4-13}
+```json title="src-tauri/capabilities/default.json" ins={4-12}
 {
   "permissions": [
     "core:default",
@@ -143,8 +144,7 @@ When running the sidecar, Tauri requires you to give the sidecar permission to r
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```
@@ -175,7 +175,7 @@ Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `
 
 First, define the arguments that need to be passed to the sidecar command in `src-tauri/capabilities/default.json`:
 
-```json title="src-tauri/capabilities/default.json" ins={8-25}
+```json title="src-tauri/capabilities/default.json" ins={8-24}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
@@ -199,8 +199,7 @@ First, define the arguments that need to be passed to the sidecar command in `sr
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```

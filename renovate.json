@@ -10,6 +10,11 @@
   },
   "packageRules": [
     {
+      "matchPackageNames": ["*"],
+      "semanticCommitType": "chore",
+      "minimumReleaseAge": "3 days"
+    },
+    {
       "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i"],
       "groupName": "astro & starlight packages",
       "separateMajorMinor": false

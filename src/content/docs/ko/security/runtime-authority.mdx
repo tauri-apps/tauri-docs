@@ -1,0 +1,32 @@
+---
+title: 런타임 통제 Runtime Authority
+i18nReady: true
+---
+
+"런타임 통제" 권한은 Tauri Core의 일부입니다.
+어떤 창이 어떤 명령에 액세스할 수 있는지 제어하기 위해, 실행 시 모든 "접근 권한", "보안 수준 설정", "범위"(적용 범위) 정보를 확보하고, 명령에 범위 정보를 전달합니다.
+
+> > > 《번역 주》 **런타임 통제** 원문은 Runtime Authority. 실행 시(런타임) 처리に対する "지배권(Authority)/권한"으로 해석되지만, "권한"으로 번역하면 permissions/capabilities와 같은 유사한 용어와 번역상 구별이 어려워지므로, 본고에서는 "통제(권)"로 표기합니다.
+> > > 마찬가지로, permissions(허가하는 권한)는 "접근 권한", capabilities(실행하는 능력/기능)는 "보안 수준(설정)"으로 문맥에 따라 번역합니다.
+
+Webview에서 Tauri 명령이 호출될 때마다, "런타임 통제" 권한은 (1) "호출 요청"을 받고, (2) 요청된 명령을 호출자(오리진)가 실제로 사용할 수 있는지 확인하고, (3)> 오리진이 보안 수준 설정의 대상 내에 있는지, 범위가 해당 명령에 대해 정의되어 적용 가능한지 확인하고, (4) 그런 다음 "호출 요청"에 필요한 정보가 삽입되면, (5) 마침내 "호출 요청"은 적절한 Tauri 명령에 전달됩니다.
+
+오리진에 명령 호출이 허용되지 않은 경우, "런타임 통제" 권한에 의해 "호출 요청"이 거부되고, Tauri 명령은 결코 호출되지 않습니다.
+
+![IPC Diagram](@assets/concept/runtime-authority.svg)
+
+> > > 《번역 주》 도표 내 용어
+> > > Main Window 주 창
+> > > ・ invoke (message) 호출(메시지)
+> > > Command 명령
+> > > ・ invoke (message+scopes) 호출(메시지+범위)
+> > > **Runtime Authority** 런타임 통제
+> > > ・ IPC Handler 프로세스 간 통신 핸들러
+> > > ・ calling window and capability 호출 창과 보안 수준 확인
+> > > **capability1** 보안 수준 설정 1
+> > > ・ Commands 명령류
+> > > ・ Scopes 범위 설정(fs::writeFile의 적용 범위)
+> > > ・ Scopes 범위 설정(shell::execute의 적용 범위)
+> > > ・ Windows 각종 창
+> > > ・ Main Windows 주 창
+> > > ・ Splashscreen 스플래시 스크린(시작 시 표시 화면)

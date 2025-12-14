@@ -1,5 +1,7 @@
+import type { Platform } from 'src/types';
+
 export interface PluginSupport {
-  platform: string;
+  platform: Platform;
   level: string;
   // possible markdown
   notes?: string;
@@ -9,8 +11,6 @@ export interface PluginData {
   rustVersion: string;
   support: PluginSupport[];
 }
-
-type Platform = 'windows' | 'linux' | 'ios' | 'macos' | 'android';
 
 // ids from /public/assets/platforms.svg sprite
 type IconId =
@@ -67,9 +67,11 @@ export function getSupportIcon(supportLevel: string) {
 }
 
 // depends on /assets/platforms.svg
-function renderPlatformIcon(iconId: IconId) {
+function renderPlatformIcon(iconId: IconId, platform?: Platform) {
+  // searchClass is coupled with CardGridSearch feature
+  const searchClass = platform ? `${platform}-search` : '';
   return `
-  <div style="padding-inline-end: 4px">
+  <div class="${searchClass}" style="padding-inline-end: 4px">
     <svg width="24" height="24">
       <use xlink:href="/assets/platforms.svg#${iconId}"></use>
     </svg>
@@ -92,5 +94,5 @@ export function getPlatformSupportIcon(supportLevel: string, platform: Platform)
     return '';
   }
 
-  return renderPlatformIcon(iconId);
+  return renderPlatformIcon(iconId, platform);
 }

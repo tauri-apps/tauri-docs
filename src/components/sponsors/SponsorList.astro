@@ -1,0 +1,64 @@
+---
+import OpenCollective from './OpenCollective/Collective.astro';
+import GitHubSponsor from './GitHub/Sponsors.astro';
+import Partners from './Partners.astro';
+import OfficialPartners from './OfficialPartners.astro';
+---
+
+<div class="not-content" style="margin-top: 6rem;">
+  <section>
+    <div>
+      <h3 class="text-center">Supported by</h3>
+      <OfficialPartners />
+    </div>
+    <div class="funding-source">
+      <h4>Open Collective Sponsors</h4>
+      <OpenCollective />
+    </div>
+    <div class="funding-source">
+      <h4>GitHub Sponsors</h4>
+      <GitHubSponsor />
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-center">Website powered by</h3>
+    <Partners />
+  </section>
+</div>
+
+<style>
+  /* todo: add styles for headings h2, h3, h4 */
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 2.75rem;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  h4 {
+    /* border 50% opacity */
+    border-bottom: 1px solid var(--sl-color-gray-6);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    display: inline;
+  }
+
+  section {
+    margin-bottom: 8rem;
+  }
+
+  .funding-source {
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>

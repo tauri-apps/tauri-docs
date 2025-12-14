@@ -15,6 +15,7 @@
     "typedoc": "^0.28.7",
     "typedoc-plugin-mdn-links": "^5.0.5",
     "typescript": "^5.3.3",
-    "@types/node": "^20.11.0"
+    "@types/node": "^20.11.0",
+    "tsm": "^2.3.0"
   }
 }

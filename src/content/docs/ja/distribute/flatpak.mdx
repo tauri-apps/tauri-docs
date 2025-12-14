@@ -1,0 +1,177 @@
+---
+title: Flathub
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Flatpak の仕組みの詳細については、[初めての Flatpak ビルド](https://docs.flatpak.org/en/latest/first-build.html)（英語版）を参照してください。
+
+<TranslationNote lang="ja">
+
+**Flatpak**　フラットパック。Linux で用いられているアプリ配布用のパッケージ形式で、さまざまなディストリビューション上で利用できます。
+
+</TranslationNote>
+
+この章では、Flatpak を配布する方法として、最も広く利用されているプラ​​ットフォームの「[Flathub](https://flathub.org/)（フラットハブ）」を経由して行なうことを前提としています。他のプラットフォームをご利用になる場合は、それぞれのドキュメントをご参照ください。
+
+## 事前準備
+
+アプリを Flathub にアップロードする前に、「Flatpak Runtime」（実行環境）内でアプリをテストするために、まずローカルで Flatpak をビルドします。このやりかたは、開発ビルドを素早く共有したい場合にも役立ちます。
+
+**1. `flatpak` と `flatpak-builder` のインストール**
+
+Flatpak をローカルでビルドするには、「`flatpak`」と「`flatpak-builder`」の両ツールが必要です。例えば Ubuntu（Debian 系 Linux）では、以下のコマンドを実行します：
+
+<Tabs syncKey="distro">
+  <TabItem label="Debian">
+
+```sh
+sudo apt install flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -S --needed flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf install flatpak flatpak-builder
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+sys-apps/flatpak \
+dev-util/flatpak-builder
+```
+
+  </TabItem>
+</Tabs>
+
+**2. Flatpak Runtime のインストール**
+
+```shell
+flatpak install flathub org.gnome.Platform//46 org.gnome.Sdk//46
+```
+
+**3. [Tauri アプリの .deb をビルドする](https://v2.tauri.app/reference/config/#bundleconfig)**
+
+**4. マニフェストの作成**
+
+<TranslationNote lang="ja">
+
+**マニフェスト**　manifest：　元の意味は「宣言書」「声明文」。"App manifest" は「アプリケーションが動作するために必要な情報を記述した XML ファイル」、"Cargo manifest" は、*物流*業界であれば「本船に船積みされている貨物（cargo）の明細書」、Rust プログラムであれば「プロジェクトのメタデータを記述した Cargo.toml ファイル」を指します。
+
+</TranslationNote>
+
+```yaml
+id: org.your.id
+
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+
+command: tauri-app
+finish-args:
+  - --socket=wayland # ウィンドウに表示に必要なアクセス権
+  - --socket=fallback-x11 # ウィンドウ表示に必要なアクセス権
+  - --device=dri # OpenGL（すべてのプロジェクトで必要なわけではありません）
+  - --share=ipc
+
+modules:
+  - name: binary
+    buildsystem: simple
+    sources:
+      - type: file
+        url: https://github.com/your_username/your_repository/releases/download/v1.0.1/yourapp_1.0.1_amd64.deb
+        sha256: 08305b5521e2cf0622e084f2b8f7f31f8a989fc7f407a7050fa3649facd61469 # リモート・ソースを使用している場合は必須です
+        only-arches: [x86_64] # このソースは x86_64 コンピュータでのみ使用されます
+        # このパスは、.deb バンドル内に作成されたバイナリ・ファイルを指しています
+        # Tauri は、解凍された .deb の内容に対応するフォルダーも作成します
+    build-commands:
+      - ar -x *.deb
+      - tar -xf data.tar.gz
+      - 'install -Dm755 usr/bin/tauri-app /app/bin/tauri-app'
+      - install -Dm644 usr/share/applications/yourapp.desktop /app/share/applications/org.your.id.desktop
+      - install -Dm644 usr/share/icons/hicolor/128x128/apps/yourapp.png /app/share/icons/hicolor/128x128/apps/org.your.id.png
+      - install -Dm644 usr/share/icons/hicolor/32x32/apps/yourapp.png /app/share/icons/hicolor/32x32/apps/org.your.id.png
+      - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/yourapp.png /app/share/icons/hicolor/256x256@2/apps/org.your.id.png
+      - install -Dm644 org.your.id.metainfo.xml /app/share/metainfo/org.your.id.rosary.metainfo.xml
+```
+
+Gnome 46 runtime には、通常の Tauri アプリのすべての依存関係とその正しいバージョンが含まれています。
+
+<TranslationNote lang="ja">
+
+**Gnome 46 runtime**　GNOME（ノーム）デスクトップ環境バージョン46の実行環境（ランタイム）。
+
+</TranslationNote>
+
+**5. アプリのインストールとテスト**
+
+```shell
+
+# flatpak のインストール
+flatpak -y --user install <local repo name> <your flatpak id>
+
+# flatpak の実行
+flatpak run <your flatpak id>
+
+# flatpak のアップデート
+flatpak -y --user update <your flatpak id>
+```
+
+## 追加ライブラリを追加
+
+デフォルトの tauri アプリよりも多くのライブラリがあなたの最終的なバイナリに必要な場合は、不足しているライブラリを「flatpak マニフェスト」に追加する必要があります。
+これには二つの方法があります。迅速なローカルでの開発では、ローカル・システムからビルド済みのライブラリ・ファイル（`.so`）をただ単に取り込むだけでうまくいくかもしれません。
+しかし、flatpak の最終ビルドにはこの方法は推奨されません。なぜなら、ローカル・ライブラリ・ファイルは flatpak ランタイム環境用にはビルドされていないからです。
+そのままでは非常に見つけにくいさまざまなバグが発生する可能性があります。
+したがって、ビルド・ステップとしては、あなたのプログラムが依存するライブラリを flatpak 内のソースからビルドすることをお勧めします。
+
+## flathub への開示
+
+**_1. [Flathub Repository](https://github.com/flathub/flathub/fork) をフォークします_**
+
+**_2. フォークをクローンします_**
+
+```shell
+git clone --branch=new-pr git@github.com:your_github_username/flathub.git
+```
+
+**_3. リポジトリに移動します_**
+
+```shell
+cd flathub
+```
+
+**_4. 新しいブランチを作成します_**
+
+```shell
+git checkout -b your_app_name
+```
+
+**_5. 自分のアプリの apps manifest を作成したブランチに追加し、行なった変更を「コミット」した後に「プッシュ」します。_**
+
+**_6. github の `new-pr` ブランチに対して「プルリクエスト」を発行（open）します_**
+
+**_7. これで、あなたのアプリはレビュー・プロセスに入ります。不具合箇所などがある場合には修正を求められることもあります。_**
+
+「プルリクエスト」が承認されると、アプリのリポジトリへの招待が届き、編集が行なえます。これ以降は、アプリを継続的に更新できます。
+
+詳細については、[flatpak のドキュメント](https://docs.flatpak.org/en/latest/dependencies.html#bundling) をご覧ください。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 28, 2025 英語版」に基づいています】
+</div>

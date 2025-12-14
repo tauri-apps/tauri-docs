@@ -88,6 +88,24 @@ sudo emerge --ask \
 ```
 
   </TabItem>
+  <TabItem label="OSTree">
+
+```sh
+sudo rpm-ostree install webkit2gtk4.1-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel \
+  libxdo-devel \
+  gcc \
+  gcc-c++ \
+  make
+sudo systemctl reboot
+```
+
+  </TabItem>
   <TabItem label="openSUSE">
 
 ```sh
@@ -107,7 +125,7 @@ sudo zypper in -t pattern devel_basis
 ```sh
 sudo apk add \
   build-base \
-  webkit2gtk \
+  webkit2gtk-4.1-dev \
   curl \
   wget \
   file \
@@ -115,44 +133,15 @@ sudo apk add \
   libayatana-appindicator-dev \
   librsvg
 ```
+
+> Note: Alpine Linux containers don’t include any fonts by default. To ensure text renders correctly in your Tauri app, install at least one font package (for example, `font-dejavu `).
+
   </TabItem>
   <TabItem label="NixOS">
 
 :::note
-This will also install Rust and Node.js as well as the `cargo-tauri` CLI for you, so you can skip those steps below.
+Instructions for Nix/NixOS can be found in the [NixOS Wiki](https://wiki.nixos.org/wiki/Tauri).
 :::
-
-Using `nix-shell`:
-
-```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
-
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
-}
-```
 
   </TabItem>
 </Tabs>
@@ -285,7 +274,6 @@ Only if you intend to use a JavaScript frontend framework
 :::
 
 1. Go to the [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it.
-
 2. Check if Node was successfully installed by running:
 
 ```sh

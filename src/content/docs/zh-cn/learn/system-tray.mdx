@@ -17,6 +17,7 @@ Tauri 允许您为应用程序创建和自定义系统托盘。这可以通过�
 首先，更新您的 `Cargo.toml` 以包含系统托盘所需的功能。
 
 ```toml title="src-tauri/Cargo.toml"
+[dependencies]
 tauri = { version = "2.0.0", features = [ "tray-icon" ] }
 ```
 
@@ -291,6 +292,7 @@ TrayIconBuilder::new()
             // 在这个例子中，当点击托盘图标时，将展示并聚焦于主窗口
             let app = tray.app_handle();
             if let Some(window) = app.get_webview_window("main") {
+                let _ = window.unminimize();
                 let _ = window.show();
                 let _ = window.set_focus();
             }

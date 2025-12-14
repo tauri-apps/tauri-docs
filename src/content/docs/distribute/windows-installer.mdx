@@ -91,7 +91,7 @@ we will also need the `llvm-rc` binary which is part of the LLVM project.
 
 <Tabs syncKey="OS">
 <TabItem label="Linux">
-  
+
 ```sh title="Ubuntu"
 sudo apt install lld llvm
 ```
@@ -166,7 +166,7 @@ so you need to install the 32-bit Windows toolchain first: `rustup target add i6
 
 If you need to build for **ARM64** you first need to install additional build tools.
 To do this, open `Visual Studio Installer`, click on "Modify", and in the "Individual Components" tab install the "C++ ARM64 build tools".
-At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.  
+At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 <CommandTabs
@@ -178,7 +178,7 @@ Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc`
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 
-:::info
+:::note
 
 Note that the NSIS installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
 
@@ -221,7 +221,7 @@ See the following table for a comparison between these methods:
 | [`fixedVersion`](#fixed-version)                   | No                            | ~180MB                    | Embeds a fixed WebView2 version.                                                                                        |
 | [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
 
-:::info
+:::note
 
 On Windows 10 (April 2018 release or later) and Windows 11, the WebView2 runtime is distributed as part of the operating system.
 

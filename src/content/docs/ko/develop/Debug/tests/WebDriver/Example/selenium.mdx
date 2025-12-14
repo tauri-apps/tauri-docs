@@ -1,0 +1,212 @@
+---
+title: Selenium 이용하기
+sidebar:
+  order: 31
+i18nReady: true
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+:::note[모델 애플리케이션]
+
+이 "[Selenium](셀레니움)" 설정 가이드에서는 절차를 따라 읽기 위해 이전 장의 "[모델 애플리케이션의 기본 설정]"을 읽었다고 가정합니다. 그 외에도 일반적인 정보로도 유용할 것입니다.
+
+:::
+
+이 장의 WebDriver 테스트 사례에서는 [Selenium]과 인기 있는 Node.js 테스트 스위트를 사용하므로,
+`npm` 또는 `yarn`과 함께 Node.js를 설치한 것을 전제로 합니다([완성된 모델 애플리케이션]에서는 `yarn`이 사용됩니다).
+
+## 테스트용 디렉토리 생성
+
+프로젝트 내에 테스트를 작성할 장소를 만듭시다.
+이 프로젝트 사례에서는 "중첩된" 디렉토리를 사용하지만, 이는 나중에 다른 프레임워크에 대해서도 자세히 알아보기 위함이며, 일반적으로는 "하나의 프레임워크"만 필요합니다.
+`mkdir -p webdriver/selenium`으로 사용할 디렉토리를 만듭니다. 이하 이 설정 가이드에서는 `webdriver/selenium` 디렉토리 내에 있다고 가정합니다.
+
+## Selenium 프로젝트 초기화
+
+기존 `package.json`을 사용하여 이 테스트 스위트를 부트스트랩(시작)합니다. 사용하는 구체적인 종속성은 이미 선정되었으며, 간단하고 실용적인 솔루션을 소개하기 위함입니다.
+이 항목의 마지막 "**> 여기를 클릭...**" 부분에 빈 상태에서 설정하는 절차에 대한 설정 가이드가 접혀 있습니다.
+
+`package.json`:
+
+```json
+{
+  "name": "selenium",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "selenium-webdriver": "^4.0.0-beta.4"
+  }
+}
+```
+
+테스트 프레임워크로 [Mocha](모카)를 실행하는 스크립트가 있으며, 이는 `test` 명령으로 사용할 수 있습니다.
+또한 테스트 실행에 사용되는 다양한 종속성도 있습니다.
+즉, 테스트 프레임워크로서의 [Mocha], 어설션 라이브러리로서의 [Chai](차이), 그리고 [`selenium-webdriver`]로, 이는 Node.js의 [Selenium] 패키지입니다.
+
+<TranslationNote lang="ko">
+
+**어설션 라이브러리** assertion library: 테스트 시 검증 결과가 예상된 내용인지 여부를 판정하기 위한 도구.
+
+</TranslationNote>
+
+<details>
+  <summary>여기를 클릭(프로젝트를 빈 상태에서 설정하는 경우)</summary>
+
+종속성을 빈 상태에서 설치하는 경우 다음 명령을 실행합니다.
+
+<CommandTabs
+  npm="npm install mocha chai selenium-webdriver"
+  yarn="yarn add mocha chai selenium-webdriver"
+/>
+
+또한 `package.json`의 `"scripts"` 키에 `"test": "mocha"` 항목을 추가하는 것이 좋습니다. 이렇게 하면 Mocha 실행을 다음 명령에서 쉽게 호출할 수 있습니다.
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+</details>
+
+## 테스트
+
+[WebdriverIO의 테스트 스위트](/ko/develop/debug/tests/webdriver/example/webdriverio/#설정)와 달리 Selenium에는 테스트 스위트가 포함되어 있지 않으며, 테스트 스위트 구축은 개발자에게 맡겨져 있습니다.
+여기서는 [Mocha]를 선택했습니다. Mocha는 WebDrivers와 관련이 없는 비교적 중립적인 라이브러리이므로 스크립트의 모든 것을 올바른 순서로 설정하려면 약간의 작업이 필요합니다.
+[Mocha]는 기본적으로 `test/test.js`에 테스트 파일을 준비해야 합니다. 그럼 바로 만들어 봅시다.
+
+`test/test.js`:
+
+```javascript
+const os = require('os');
+const path = require('path');
+const { expect } = require('chai');
+const { spawn, spawnSync } = require('child_process');
+const { Builder, By, Capabilities } = require('selenium-webdriver');
+
+// 필요한 애플리케이션 바이너리 경로 생성
+const application = path.resolve(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'target',
+  'release',
+  'hello-tauri-webdriver'
+);
+
+// 생성된 WebDriver 인스턴스 추적
+let driver;
+
+// 시작할 tauri-driver 프로세스 추적
+let tauriDriver;
+
+before(async function () {
+  // 필요에 따라 프로그램을 빌드할 수 있도록 타임아웃을 2분으로 설정
+  this.timeout(120000);
+
+  // 프로그램이 빌드되었는지 확인
+  spawnSync('cargo', ['build', '--release']);
+
+  // tauri-driver 시작
+  tauriDriver = spawn(
+    path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+    [],
+    { stdio: [null, process.stdout, process.stderr] }
+  );
+
+  const capabilities = new Capabilities();
+  capabilities.set('tauri:options', { application });
+  capabilities.setBrowserName('wry');
+
+  // Webdriver 클라이언트 시작
+  driver = await new Builder()
+    .withCapabilities(capabilities)
+    .usingServer('http://127.0.0.1:4444/')
+    .build();
+});
+
+after(async function () {
+  // Webdriver 세션 중지
+  await driver.quit();
+
+  // tauri-driver 프로세스 강제 종료
+  tauriDriver.kill();
+});
+
+describe('Hello Tauri', () => {
+  it('should be cordial', async () => {
+    const text = await driver.findElement(By.css('body > h1')).getText();
+    expect(text).to.match(/^[hH]ello/);
+  });
+
+  it('should be excited', async () => {
+    const text = await driver.findElement(By.css('body > h1')).getText();
+    expect(text).to.match(/!$/);
+  });
+
+  it('should be easy on the eyes', async () => {
+    // Selenium은 색상 CSS 값을 rgb(r, g, b)로 반환합니다
+    const text = await driver
+      .findElement(By.css('body'))
+      .getCssValue('background-color');
+
+    const rgb = text.match(/^rgb\((?<r>\d+), (?<g>\d+), (?<b>\d+)\)$/).groups;
+    expect(rgb).to.have.all.keys('r', 'g', 'b');
+
+    const luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
+    expect(luma).to.be.lessThan(100);
+  });
+});
+```
+
+"JS 테스트 프레임워크"에 익숙하다면 `describe`, `it`, `expect` 등은 익숙할 것입니다. 또한 mocha의 설정(셋업)과 해제(티어다운)를 수행하기 위한 다소 복잡한 `before()`와 `after()` 콜백도 준비되어 있습니다.
+테스트 본문이 아닌 줄에는 셋업 코드와 티어다운 코드를 설명하는 주석이 기재되어 있습니다.
+[WebdriverIO의 테스트 사양](/ko/develop/debug/tests/webdriver/example/webdriverio/#테스트-사양)의 "Spec 파일"에 익숙하다면, WebDriver 관련 항목을 몇 가지 더 설정해야 하므로 테스트 이외의 코드가 더 많아진 것을 알 수 있을 것입니다.
+
+## 테스트 스위트 실행
+
+종속성과 테스트 스크립트 설정이 모두 완료되었으므로 실행해 봅시다.
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+다음과 같은 출력이 표시될 것입니다:
+
+```text
+➜  selenium git:(main) ✗ yarn test
+yarn run v1.22.11
+$ Mocha
+
+
+  Hello Tauri
+    ✔ should be cordial (120ms)
+    ✔ should be excited
+    ✔ should be easy on the eyes
+
+
+  3 passing (588ms)
+
+Done in 0.93s.
+```
+
+위의 `test/test.js`의 `describe`에서 생성한 `Hello Tauri` 테스트 스위트에서는 `it`에 기재된 세 가지 테스트 항목이 모두 통과한 것을 볼 수 있습니다.
+
+[Selenium]과 함께 테스트 스위트에 "훅업"하는(별도 처리 삽입) 처리를 통해 Tauri 애플리케이션을 전혀 수정하지 않고 "e2e 테스트"를 실행할 수 있었습니다!
+
+<TranslationNote lang="ko">
+
+**e2e 테스트** end-to-end test의 약자. 시스템 전체를 "끝에서 끝까지"(즉, 처음부터 끝까지) 동작 검증하는 테스트 기법. 자동 시스템 전체 검증. 시스템마다 테스트 코드를 준비하면 공수·비용이 증가하므로 테스트 자동화 도구가 사용됩니다.
+
+</TranslationNote>
+
+[모델 애플리케이션의 기본 설정]: /ko/develop/debug/tests/webdriver/example/
+[selenium]: https://selenium.dev/ko/
+[완성된 모델 프로젝트]: https://github.com/chippers/hello_tauri
+[mocha]: https://mochajs.org/
+[chai]: https://www.chaijs.com/
+[`selenium-webdriver`]: https://www.npmjs.com/package/selenium-webdriver

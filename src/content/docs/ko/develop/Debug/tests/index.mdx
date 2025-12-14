@@ -1,0 +1,34 @@
+---
+title: 테스트
+description: Tauri 런타임 안팎에서의 테스트 기법
+sidebar:
+  order: 10
+  label: 개요
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Tauri는 모의 런타임(모의 실행)을 이용한 단위 테스트와 통합 테스트를 모두 지원합니다. 모의 런타임에서는 네이티브 WebView 라이브러리가 실행되지 않습니다.
+자세한 내용은 다음 장 "[Mock Tauri APIs](모의 런타임)"를 참조하십시오.
+
+Tauri는 또한 WebDriver 프로토콜을 이용한 "엔드 투 엔드"(자동 시스템 전체 검증) 테스트 지원도 제공합니다. 데스크톱과 모바일 모두에서 작동하지만, 데스크톱 WebDriver 클라이언트가 제공되지 않는 macOS에서는 작동하지 않습니다.
+자세한 내용은 [WebDriver] 장을 참조하십시오.
+
+Tauri에서는 빌드 자동화 도구 "GitHub Action"의 실행을 돕기 위해 [tauri-action]이 제공되지만, 각 플랫폼이 컴파일에 필요한 라이브러리를 설치했다면 어떤 종류의 "CI/CD 러너"에서도 Tauri를 사용할 수 있습니다.
+
+<TranslationNote lang="ko">
+
+**CI/CD** "Continuous Integration and Continuous
+Deployment"(지속적 통합/지속적 배포)의 약자. 러너는 CI/CD와
+연동하여 변경된 프로젝트를 자동으로 파이프라인 처리하는 빌드나 테스트를 실행하는 기능.
+
+</TranslationNote>
+
+[Mock Tauri APIs]: /ko/develop/tests/mocking/
+[WebDriver]: /ko/develop/debug/tests/webdriver/
+[tauri-action]: https://github.com/tauri-apps/tauri-action
+
+<div style="text-align: right">
+  【※ 이 한국어판은, 「Feb 22, 2025 영문판」에 근거하고 있습니다】
+</div>

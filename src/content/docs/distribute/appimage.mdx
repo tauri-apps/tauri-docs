@@ -60,6 +60,10 @@ Note that the destination paths must currently begin with `/usr/`.
 
 ## AppImages for ARM-based devices
 
+:::note[August 2025 Update]
+Github has [released](https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/#get-started) publicly available `ubuntu-22.04-arm` and `ubuntu-24.04-arm` runners. You can use these to build your app with no changes, a typical build should take ~10 minutes.
+:::
+
 `linuxdeploy`, the AppImage tooling Tauri uses, currently [does not support cross-compiling] ARM AppImages. This means ARM AppImages can only be built on ARM devices or emulators.
 
 Check out our [GitHub Action guide](/distribute/pipelines/github/#arm-runner-compilation) for an example workflow that leverages QEMU to build the app. Note that this is extremely slow and only recommended in public repositories where Build Minutes are free. In private repositories GitHub's ARM runners should be more cost-efficient and much easier to set up.

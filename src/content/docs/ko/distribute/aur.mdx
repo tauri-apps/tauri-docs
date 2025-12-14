@@ -1,0 +1,168 @@
+---
+title: AUR
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+# Arch User Repository (AUR)에 게시하기
+
+<TranslationNote lang="ko">
+
+**AUR** = Arch User Repository: ArchLinux 커뮤니티가 운영하는 Arch 사용자를 위한 리포지토리의 명칭. ArchLinux Korea 사이트는 [여기](<https://wiki.archlinux.org/title/Arch_User_Repository_(한국어)>).
+
+</TranslationNote>
+
+## 설정
+
+먼저 `https://aur.archlinux.org`에 접속하여 계정을 만드십시오. 반드시 적절한 "SSH 키"를 추가하십시오. 그런 다음 다음 명령을 사용하여 빈 Git 리포지토리를 복제하십시오.
+
+```sh
+git clone https://aur.archlinux.org/your-repo-name
+```
+
+위의 절차가 완료되면 `PKGBUILD`라는 이름의 파일을 만듭니다. 파일 생성이 완료되면 다음 단계로 진행합니다.
+
+### PKGBUILD 파일 작성법
+
+```ini title="PKGBUILD"
+pkgname=<pkgname>
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="앱 설명(description)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/<user>/<project>"
+license=('MIT')
+depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk-4.1')
+options=('!strip' '!emptydirs')
+install=${pkgname}.install
+source_x86_64=("${url}/releases/download/v${pkgver}/appname_${pkgver}_amd64.deb")
+source_aarch64=("${url}/releases/download/v${pkgver}/appname_${pkgver}_arm64.deb")
+```
+
+- 파일의 시작 부분에서 "패키지 이름"을 정의하고 변수 `pkgname`에 할당합니다.
+- "`pkgver`" 변수를 설정합니다. 일반적으로 코드의 유지 관리성을 높이기 위해 이 변수를 소스 내의 변수에서 사용하는 것이 가장 좋습니다.
+- "`pkgdesc`" 변수는 AUR 리포지토리 페이지의 변수로, 방문자에게 앱에서 무엇을 할 수 있는지 알려줍니다.
+- "`arch`" 변수는 어떤 CPU 아키텍처에 패키지를 설치할 수 있는지 제시합니다.
+- "`url`" 변수는 필수는 아니지만 패키지를 더 전문적으로 보이게 하는 데 도움이 됩니다.
+- "`install`" 변수는 패키지가 설치, 제거 또는 업그레이드될 때 실행되는 ".install 스크립트"의 이름을 지정합니다.
+- "`depends`" 변수에는 앱 실행에 필요한 라이브러리 등의 목록이 저장됩니다. Tauri 앱을 실행하려면 위에 표시된 모든 종속성을 포함해야 합니다.
+- "`source`" 변수는 필수이며 업스트림 패키지의 위치를 정의합니다. 변수 이름 끝에 아키텍처를 추가하여 아키텍처별 `source`로 만들 수 있습니다.
+
+### `.SRCINFO` 생성
+
+리포지토리를 AUR에 푸시하려면 `.SRCINFO` 파일을 생성해야 합니다. 다음 명령으로 실행할 수 있습니다.
+
+```sh
+makepkg --printsrcinfo > .SRCINFO
+```
+
+### 테스트
+
+앱 테스트는 매우 간단합니다. `PKGBUILD` 파일과 동일한 디렉토리 내에서 `makepkg`를 실행하고 작동하는지 확인하기만 하면 됩니다.
+
+### 게시
+
+마지막으로 테스트 단계가 끝나면 다음 명령을 사용하여 애플리케이션을 AUR(Arch User Repository)에 게시할 수 있습니다.
+
+```sh
+git add .
+
+git commit -m "Initial Commit"
+
+git push
+```
+
+모든 것이 잘되면 리포지토리가 AUR 웹 사이트에 표시될 것입니다.
+
+## 실시 예
+
+### Debian 패키지에서 추출
+
+```ini title="PKGBUILD"
+# Maintainer:
+# Contributor:
+pkgname=<pkgname>
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Description of your app"
+arch=('x86_64' 'aarch64')
+url="https://github.com/<user>/<project>"
+license=('MIT')
+depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk-4.1')
+options=('!strip' '!debug')
+install=${pkgname}.install
+source_x86_64=("${url}/releases/download/v${pkgver}/appname_${pkgver}_amd64.deb")
+source_aarch64=("${url}/releases/download/v${pkgver}/appname_${pkgver}_arm64.deb")
+sha256sums_x86_64=('ca85f11732765bed78f93f55397b4b4cbb76685088553dad612c5062e3ec651f')
+sha256sums_aarch64=('ed2dc3169d34d91188fb55d39867713856dd02a2360ffe0661cb2e19bd701c3c')
+package() {
+	# 패키지 데이터 추출
+	tar -xvf data.tar.gz -C "${pkgdir}"
+
+}
+```
+
+```ini title="my-tauri-app.install"
+post_install() {
+	gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+	update-desktop-database -q
+}
+
+post_upgrade() {
+	post_install
+}
+
+post_remove() {
+	gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+	update-desktop-database -q
+}
+
+```
+
+### 소스에서 빌드
+
+```ini title="PKGBUILD"
+# Maintainer:
+pkgname=<pkgname>-git
+pkgver=<pkgver>
+pkgrel=1
+pkgdesc="Description of your app"
+arch=('x86_64' 'aarch64')
+url="https://github.com/<user>/<project>"
+license=('MIT')
+depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk-4.1')
+makedepends=('git' 'openssl' 'appmenu-gtk-module' 'libappindicator-gtk3' 'librsvg' 'cargo' 'pnpm' 'nodejs')
+provides=('<pkgname>')
+conflicts=('<binname>' '<pkgname>')
+source=("git+${url}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd <project>
+	( set -o pipefail
+	  git describe --long --abbrev=7 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+	  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+	)
+}
+
+prepare() {
+	cd <project>
+	pnpm install
+}
+
+build() {
+	cd <project>
+	pnpm tauri build -b deb
+}
+
+package() {
+	cp -a <project>/src-tauri/target/release/bundle/deb/<project>_${pkgver}_*/data/* "${pkgdir}"
+}
+```
+
+<div style="text-align: right">
+  【※ 이 한국어판은, 「Mar 29, 2025 영문판」에 근거하고 있습니다】
+</div>

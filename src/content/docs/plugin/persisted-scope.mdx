@@ -66,6 +66,28 @@ Install the persisted-scope plugin to get started.
   </TabItem>
 </Tabs>
 
+:::caution
+The `persisted-scope` plugin _must_ be registered and initialized after the `fs` plugin, as illustrated by the example below:
+
+```rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init()) // fs MUST BE before persisted scope!
+        .plugin(tauri_plugin_persisted_scope::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+**Not doing so will result in the persisted scope not working!** You should also see a warning message upon launching your app in dev mode, similar to this:
+
+```
+Please make sure to register the `fs` plugin before the `persisted-scope` plugin!
+```
+
+:::
+
 ## Usage
 
 After setup the plugin will automatically save and restore filesystem and asset scopes.

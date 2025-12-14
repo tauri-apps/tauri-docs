@@ -1,7 +1,7 @@
-import { Application, TSConfigReader, LogLevel, DefaultTheme, type TypeDocOptions } from 'typedoc';
 import { existsSync, mkdirSync, writeFileSync, readdirSync, readFileSync, cpSync } from 'node:fs';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Application, LogLevel, TSConfigReader, type TypeDocOptions } from 'typedoc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -65,7 +65,9 @@ async function generator() {
     'deep-link',
     'dialog',
     'fs',
+    'geolocation',
     'global-shortcut',
+    'haptics',
     'http',
     'log',
     'nfc',
@@ -85,6 +87,16 @@ async function generator() {
   ];
 
   if (existsSync('../plugins-workspace/node_modules')) {
+    // TODO: Actually fix this
+    const data = readFileSync('../plugins-workspace/plugins/fs/guest-js/index.ts', {
+      encoding: 'utf8',
+    });
+    writeFileSync(
+      '../plugins-workspace/plugins/fs/guest-js/index.ts',
+      data.replace(/Uint8Array<ArrayBuffer>/g, 'Uint8Array'),
+      { encoding: 'utf8' }
+    );
+
     const pluginsPromises = plugins.map(async (plugin) => {
       const pluginJsOptions: Partial<TypeDocOptions> = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],

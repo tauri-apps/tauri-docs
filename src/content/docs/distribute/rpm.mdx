@@ -366,12 +366,10 @@ Manual compilation is suitable when you don't need to compile your application f
 <Steps>
 
 1. #### Install Rust targets for your desired architecture
-
    - For ARMv7 (32-bit): `rustup target add armv7-unknown-linux-gnueabihf`
    - For ARMv8 (ARM64, 64-bit): `rustup target add aarch64-unknown-linux-gnu`
 
 2. #### Install the corresponding linker for your chosen architecture
-
    - For ARMv7: `sudo apt install gcc-arm-linux-gnueabihf`
    - For ARMv8 (ARM64): `sudo apt install gcc-aarch64-linux-gnu`
 
@@ -386,7 +384,6 @@ Manual compilation is suitable when you don't need to compile your application f
    ```
 
 4. #### Enable the respective architecture in the package manager
-
    - For ARMv7: `sudo dpkg --add-architecture armhf`
    - For ARMv8 (ARM64): `sudo dpkg --add-architecture arm64`
 
@@ -471,14 +468,12 @@ Manual compilation is suitable when you don't need to compile your application f
 6. #### Update the package information: `sudo apt-get update && sudo apt-get upgrade -y`
 
 7. #### Install the required webkitgtk library for your chosen architecture
-
    - For ARMv7: `sudo apt install libwebkit2gtk-4.1-dev:armhf`
    - For ARMv8 (ARM64): `sudo apt install libwebkit2gtk-4.1-dev:arm64`
 
 8. #### Install OpenSSL or use a vendored version
 
    This is not always required so you may want to proceed first and check if you see errors like `Failed to find OpenSSL development headers`.
-
    - Either install the development headers system-wide:
      - For ARMv7: `sudo apt install libssl-dev:armhf`
      - For ARMv8 (ARM64): `sudo apt install libssl-dev:arm64`
@@ -489,12 +484,10 @@ Manual compilation is suitable when you don't need to compile your application f
    ```
 
 9. #### Set the `PKG_CONFIG_SYSROOT_DIR` to the appropriate directory based on your chosen architecture
-
    - For ARMv7: `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`
    - For ARMv8 (ARM64): `export PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/`
 
 10. #### Build the app for your desired ARM version
-
     - For ARMv7: cargo tauri build --target armv7-unknown-linux-gnueabihf
     - For ARMv8 (ARM64): cargo tauri build --target aarch64-unknown-linux-gnu
 
