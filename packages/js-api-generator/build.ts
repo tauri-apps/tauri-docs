@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync, readdirSync, readFileSync, cpSync } from 'node:fs';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Application, LogLevel, TSConfigReader, type TypeDocOptions } from 'typedoc';
+import { Application, DefaultTheme, LogLevel, TSConfigReader, type TypeDocOptions } from 'typedoc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
