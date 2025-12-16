@@ -8,12 +8,12 @@ tableOfContents:
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
-Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 3.17.
+Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. This guide is accurate as of Nuxt 4.2.
 
 ## Checklist
 
 - Use SSG by setting `ssr: false`. Tauri doesn't support server based solutions.
-- Use default `../dist` as `frontendDist` in `tauri.conf.json`.
+- Use default `../.output/public` as `frontendDist` in `tauri.conf.json`.
 - Compile using `nuxi build`.
 - (Optional): Disable telemetry by setting `telemetry: false` in `nuxt.config.ts`.
 
@@ -34,7 +34,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
             "beforeDevCommand": "npm run dev",
             "beforeBuildCommand": "npm run build",
             "devUrl": "http://localhost:3000",
-            "frontendDist": "../dist"
+            "frontendDist": "../.output/public"
           }
         }
         ```
@@ -49,7 +49,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
             "beforeDevCommand": "yarn dev",
             "beforeBuildCommand": "yarn build",
             "devUrl": "http://localhost:3000",
-            "frontendDist": "../dist"
+            "frontendDist": "../.output/public"
           }
         }
         ```
@@ -64,7 +64,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
             "beforeDevCommand": "pnpm dev",
             "beforeBuildCommand": "pnpm build",
             "devUrl": "http://localhost:3000",
-            "frontendDist": "../dist"
+            "frontendDist": "../.output/public"
           }
         }
         ```
@@ -79,7 +79,7 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
             "beforeDevCommand": "deno task dev",
             "beforeBuildCommand": "deno task generate",
             "devUrl": "http://localhost:3000",
-            "frontendDist": "../dist"
+            "frontendDist": "../.output/public"
           }
         }
         ```
@@ -115,6 +115,15 @@ Nuxt is a meta framework for Vue. Learn more about Nuxt at https://nuxt.com. Thi
       },
       // Avoids error [unhandledRejection] EMFILE: too many open files, watch
       ignore: ['**/src-tauri/**'],
+
+      nitro: {
+        // Generate a static site for Tauri
+        static: true,
+        output: {
+          // Set a hard path for statics
+          publicDir: './.output/public'
+        }
+      }
     });
     ```
 
