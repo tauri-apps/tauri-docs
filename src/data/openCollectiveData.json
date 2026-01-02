@@ -381,15 +381,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Harsha Teja Kanna",
-    "id": "Harsha Teja Kanna",
-    "avatarUrl": "https://images.opencollective.com/harsha-teja-kanna/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/harsha-teja-kanna",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Clemens Koza",
     "id": "Clemens Koza",
     "avatarUrl": "https://images.opencollective.com/clemens-koza/avatar/256.jpg",
@@ -405,6 +396,15 @@
     "id": "Martin Kramer",
     "avatarUrl": "https://images.opencollective.com/martin-kramer/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/martin-kramer",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Harsha Teja Kanna",
+    "id": "Harsha Teja Kanna",
+    "avatarUrl": "https://images.opencollective.com/harsha-teja-kanna/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/harsha-teja-kanna",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
@@ -782,6 +782,18 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Alexander Eden",
+    "id": "Alexander Eden",
+    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-eden",
+    "socialLinks": {
+      "website": "https://github.com/alexeden",
+      "github": "https://github.com/alexeden"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Sentry",
     "id": "Sentry",
     "avatarUrl": "https://images.opencollective.com/sentry/9620d33/logo/256.jpg",
@@ -793,18 +805,6 @@
     },
     "tier": "silver",
     "type": "FUND"
-  },
-  {
-    "name": "Alexander Eden",
-    "id": "Alexander Eden",
-    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-eden",
-    "socialLinks": {
-      "website": "https://github.com/alexeden",
-      "github": "https://github.com/alexeden"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "James Carlson",
