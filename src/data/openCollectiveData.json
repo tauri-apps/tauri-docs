@@ -238,6 +238,18 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Jamie Pine",
     "id": "Jamie Pine",
     "avatarUrl": "https://images.opencollective.com/jamie-pine/4a93aa1/avatar/256.jpg",
@@ -257,18 +269,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "James Bartlett",
@@ -891,6 +891,19 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Jonathan Dahan",
     "id": "Jonathan Dahan",
     "avatarUrl": "https://images.opencollective.com/jedahan/avatar/256.jpg",
@@ -929,19 +942,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Allan Gaunt",
@@ -1001,6 +1001,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Incognito",
     "id": "Incognito",
     "avatarUrl": "https://images.opencollective.com/user-e3d3cc19/avatar/256.jpg",
@@ -1026,17 +1037,6 @@
     "socialLinks": {
       "website": "https://zhanglun.xyz",
       "github": "https://github.com/zhanglun/zhanglun.github.io"
-    },
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
     },
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -3121,6 +3121,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "SkyeActsOut",
+    "id": "SkyeActsOut",
+    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/skyeactsout",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alec Brunelle",
     "id": "Alec Brunelle",
     "avatarUrl": "https://images.opencollective.com/alec-brunelle/74e2fb5/avatar/256.jpg",
@@ -3251,15 +3260,6 @@
     "id": "Robert Lukoszko",
     "avatarUrl": "https://images.opencollective.com/guest-1d8879dc/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/guest-1d8879dc",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "SkyeActsOut",
-    "id": "SkyeActsOut",
-    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/skyeactsout",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
