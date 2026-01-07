@@ -52,6 +52,7 @@ rustc -Vv | grep host | cut -f2 -d' '
 # Windows PowerShell
 rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 ```
+
 :::
 
 Here's a Node.js script to append the target triple to a binary:
