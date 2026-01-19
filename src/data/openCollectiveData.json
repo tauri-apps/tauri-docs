@@ -794,6 +794,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Sentry",
     "id": "Sentry",
     "avatarUrl": "https://images.opencollective.com/sentry/9620d33/logo/256.jpg",
@@ -877,15 +886,6 @@
     "id": "Ivan",
     "avatarUrl": "https://images.opencollective.com/ivan13/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/ivan13",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
