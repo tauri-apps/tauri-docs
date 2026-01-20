@@ -235,18 +235,21 @@ we must expose it in the local network. To run your app in your device you must 
 ### Reacting to Source Code Changes
 
 Similarly to how your webview reflects changes in real time,
-Tauri watches your Rust files for changes so when you modify any of them your application is automatically rebuilt and restarted.
+`tauri dev` watches your `src-tauri` folder and its dependent crates in the worksapce for changes
+so when you modify any of them your application is automatically rebuilt and restarted.
 
 You can disable this behavior by using the `--no-watch` flag on the `tauri dev` command.
 
-To restrict the files that are watched for changes you can create a `.taurignore` file in the src-tauri folder.
-This file works just like a regular Git ignore file, so you can ignore any folder or file:
+To ignore watching certain files, you can create `.taurignore` files which work like regular `.gitignore` files:
 
 ```filename=.taurignore
 build/
 src/generated/*.rs
 deny.toml
 ```
+
+`.taurignore` files are usually put in the `src-tauri` directory or [cargo worksapce](https://doc.rust-lang.org/cargo/reference/workspaces.html) root folder,
+currently, `tauri dev` looks for `.taurignore` from anywhere inside the common ancestor of watched folders and cargo worksapce root folder
 
 ### Using the Browser DevTools
 
