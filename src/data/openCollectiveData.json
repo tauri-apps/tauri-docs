@@ -466,15 +466,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Bitcoin Contributions",
-    "id": "Bitcoin Contributions",
-    "avatarUrl": "https://images.opencollective.com/bitcoin-contributions/0745f16/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/bitcoin-contributions",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "MasterDarius",
     "id": "MasterDarius",
     "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
@@ -484,6 +475,15 @@
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Bitcoin Contributions",
+    "id": "Bitcoin Contributions",
+    "avatarUrl": "https://images.opencollective.com/bitcoin-contributions/0745f16/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/bitcoin-contributions",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "ORGANIZATION"
   },
   {
     "name": "Alex Michael Berry",
