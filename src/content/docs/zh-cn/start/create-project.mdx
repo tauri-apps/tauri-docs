@@ -52,8 +52,9 @@ import CommandTabs from '@components/CommandTabs.astro';
   pnpm="cd tauri-app
     pnpm install
     pnpm tauri dev"
-  cargo="cd tauri-app
-    cargo tauri dev"
+  cargo='cd tauri-app
+        cargo install tauri-cli --version "^2.0.0" --locked
+        cargo tauri dev'
 />
 
 您将会看到一个新的窗口被打开，该窗口正在运行您的应用。
