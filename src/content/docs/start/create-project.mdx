@@ -128,8 +128,9 @@ import CommandTabs from '@components/CommandTabs.astro';
     bun install
     bun tauri dev
   "
-  cargo="cd tauri-app
-    cargo tauri dev"
+  cargo='cd tauri-app
+    cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri dev'
 />
 
 You'll now see a new window open with your app running.
