@@ -68,7 +68,7 @@ security find-identity -v -p codesigning
 4. 在终端运行以下脚本将 `.p12` 文件转换为 base64：
 
 ```
-openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
+openssl base64 -A -in /path/to/certificate.p12 -out certificate-base64.txt
 ```
 
 5. 将 `certificate-base64.txt` 文件的内容设置为 `APPLE_CERTIFICATE` 环境变量的值。
