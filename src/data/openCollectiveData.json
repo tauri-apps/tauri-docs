@@ -2374,6 +2374,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Incognito",
+    "id": "Incognito",
+    "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-16370161",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Till",
     "id": "Till",
     "avatarUrl": "https://images.opencollective.com/guest-d673bec5/avatar/256.jpg",
