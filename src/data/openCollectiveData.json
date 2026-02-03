@@ -211,6 +211,18 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Eric Busch",
     "id": "Eric Busch",
     "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
@@ -236,18 +248,6 @@
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "gold",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Jamie Pine",
@@ -764,6 +764,19 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "ken",
     "id": "ken",
     "avatarUrl": "https://images.opencollective.com/ken2/66bca0d/avatar/256.jpg",
@@ -889,19 +902,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Jonathan Dahan",
@@ -2930,6 +2930,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "SkyeActsOut",
+    "id": "SkyeActsOut",
+    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/skyeactsout",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Clémence",
     "id": "Clémence",
     "avatarUrl": "https://images.opencollective.com/clemlesne/7c58537/avatar/256.jpg",
@@ -3125,15 +3134,6 @@
     "id": "@MattCre8s",
     "avatarUrl": "https://images.opencollective.com/guest-4e711ae7/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/guest-4e711ae7",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "SkyeActsOut",
-    "id": "SkyeActsOut",
-    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/skyeactsout",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
