@@ -2374,6 +2374,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Incognito",
     "id": "Incognito",
     "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
@@ -2917,17 +2928,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "SkyeActsOut",
