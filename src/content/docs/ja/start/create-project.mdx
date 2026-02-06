@@ -125,8 +125,9 @@ import CommandTabs from '@components/CommandTabs.astro';
   deno="cd tauri-app
     deno install
     deno task tauri dev"
-  cargo="cd tauri-app
-    cargo tauri dev"
+  cargo='cd tauri-app
+    cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri dev'
 />
 
 これで新しいウィンドウが開き、あなたのアプリが実行されます。
