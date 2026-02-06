@@ -280,6 +280,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Brian DeRocher",
+    "id": "Brian DeRocher",
+    "avatarUrl": "https://images.opencollective.com/brian-derocher/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/brian-derocher",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Gyuri Lajos",
     "id": "Gyuri Lajos",
     "avatarUrl": "https://images.opencollective.com/gyuri-lajos/81517f9/avatar/256.jpg",
@@ -289,15 +298,6 @@
       "twitter": "https://twitter.com/TrailMarks",
       "github": "https://github.com/gyuri-lajos"
     },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Brian DeRocher",
-    "id": "Brian DeRocher",
-    "avatarUrl": "https://images.opencollective.com/brian-derocher/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/brian-derocher",
-    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -2374,6 +2374,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Incognito",
     "id": "Incognito",
     "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
@@ -2917,17 +2928,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "SkyeActsOut",
