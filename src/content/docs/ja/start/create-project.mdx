@@ -4,20 +4,26 @@ sidebar:
   order: 3
 ---
 
-import { Card, Steps } from '@astrojs/starlight/components';
-
+import { Steps } from '@astrojs/starlight/components';
 import Cta from '@fragments/cta.mdx';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 Tauri が非常に柔軟である理由の１つは、事実上どのようなフロントエンド技術（フレームワーク）とも連携できることです。新しい Tauri プロジェクトを作成するための一助として、公式に維持管理されている「ユーティリティ [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app)」があり、各フロントエンド技術用テンプレートがいくつか用意されています 。
 
-`create-tauri-app` には、現在、以下のテンプレートが揃っています：　「vanilla」（HTML、CSS および JavaScript／フレームワークなし）、「[Vue.js](https://vuejs.org)」、「[Svelte](https://svelte.dev)」、「[React](https://reactjs.org/)」、「[SolidJS](https://www.solidjs.com/)」、「[Angular](https://angular.io/)」、「[Preact](https://preactjs.com/)」、「[Yew](https://yew.rs/)」、「[Leptos](https://github.com/leptos-rs/leptos)」、 および「[Sycamore](https://sycamore-rs.netlify.app/)」です。 [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri) で見つかるコミュニティー作成のテンプレートやフレームワークも追加利用可能です。
+`create-tauri-app` には、現在、以下のテンプレートが揃っています：　「<sup>\* </sup>バニラ・モード」（HTML、CSS および JavaScript；　フレームワークなし）、「[Vue.js](https://vuejs.org)」、「[Svelte](https://svelte.dev)」、「[React](https://reactjs.org/)」、「[SolidJS](https://www.solidjs.com/)」、「[Angular](https://angular.io/)」、「[Preact](https://preactjs.com/)」、「[Yew](https://yew.rs/)」、「[Leptos](https://github.com/leptos-rs/leptos)」、 および「[Sycamore](https://sycamore-rs.netlify.app/)」です。 [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri) で見つかるコミュニティー作成のテンプレートやフレームワークも追加利用可能です。
+
+<TranslationNote lang="ja">
+
+    <sup>\*</sup>**バニラ・モード**（英 vanilla）：　プログラムやソフトウェアに改変・改修・カスタマイズなどが一切行なわれていない、提供されたまま（原型を留めたまま）の状態を指します。バニラ・モードでは、「Vue.js」以降に列挙されているフロントエンド・フレームワークが付加されません。《参考： [Wikipedia](https://ja.wikipedia.org/wiki/バニラ_(ソフトウェア))》
+
+</TranslationNote>
 
 {/* TODO: redirect to integrate to existing front-end project specific docs */}
-あるいは、下記の「[マニュアル・セットアップ](#マニュアルセットアップ)」を実行し、Tauri を現在作業中のプロジェクトに追加することで、現行のコードを Tauri アプリに変更できます。
+あるいは、下記の「[マニュアル・セットアップ](#マニュアルセットアップ)」に従い、Tauri を現在作業中のプロジェクトに追加することで、あなたのコードを Tauri アプリに変換できます。
 
 ## `create-tauri-app` を利用する
 
-`create-tauri-app` を利用してプロジェクトを開始するには、プロジェクトを始めるフォルダーで、以下のコマンドのいずれかを実行します。どのコマンドを使用するかわからない場合は、Linux および macOS では「Bash」コマンド、Windows では「PowerShell」コマンドの使用をお薦めします。
+`create-tauri-app` を利用してプロジェクトを開始するには、プロジェクトを開始するフォルダーで、以下のコマンドのいずれかを実行します。どのコマンドを使用するかわからない場合は、Linux および macOS では「Bash」コマンド、Windows では「PowerShell」コマンドの使用をお薦めします。
 
 <Cta />
 
@@ -25,8 +31,7 @@ Tauri が非常に柔軟である理由の１つは、事実上どのような�
 
 :::tip[どれを選べばよいのか判りませんか？]
 
-{/* TODO: redirect to integrate to existing front-end project specific docs */}
-はじめての場合には、「vanilla」テンプレート（HTML、CSS、および JavaScript／フレームワークなし）を利用してプロジェクトを開始することをお薦めします。いつでも、後から、[フロントエンドのフレームワークを統合](/ja/start/create-project/) できます。
+はじめての場合には、「vanilla／バニラ・モード」テンプレート（HTML、CSS、および JavaScript；　フレームワークなし）を利用してプロジェクトを開始することをお薦めします。いつでも、後から、[フロントエンドのフレームワークを統合](/ja/start/create-project/) できます。
 
 - どの言語をフロントエンドで使用するかを選択：　`TypeScript / JavaScript`
 - パッケージ・マネージャーを選択：　`pnpm`
@@ -52,7 +57,7 @@ Tauri が非常に柔軟である理由の１つは、事実上どのような�
    TypeScript / JavaScript  (pnpm, yarn, npm, bun)
    .NET  (dotnet)
    ```
-3. パッケージ・マネージャーを選択します（選択肢が複数あれば）：
+3. パッケージ・マネージャーを選択します（選択肢が複数ある場合）：
 
    **TypeScript / JavaScript** の場合の選択肢：
 
@@ -64,7 +69,7 @@ Tauri が非常に柔軟である理由の１つは、事実上どのような�
    bun
    ```
 
-4. UI テンプレートとフレーバーを選んでください（選択肢が複数あれば）：
+4. UI テンプレートとフレーバーを選んでください（選択肢が複数ある場合）：
 
    **Rust** の場合の選択肢：
 
@@ -102,13 +107,13 @@ Tauri が非常に柔軟である理由の１つは、事実上どのような�
 
 </Steps>
 
-設定が完了すると、テンプレートが作成され、設定後のパッケージ・マネージャーを使ったそのテンプレートの実行方法を表示します。もしパッケージ・マネージャーがシステム内の依存関係の不備を検出した場合には、パッケージ一覧が出力されて足りないパッケージのインストールが促されます。
+設定が完了すると、テンプレートが作成され、選択したパッケージ・マネージャーを使ってどのようにそのテンプレートを利用するのかを提示します。もしパッケージ・マネージャーがシステム内の依存関係の不備を検出した場合には、パッケージ一覧が出力されて足りないパッケージのインストールが促されます。
 
 {/* TODO: Can CTA offer to install the deps? */}
 
 #### 開発サーバーの起動
 
-`create-tauri-app` で設定後、プロジェクト・フォルダーに移動して依存関係をインストールしたら、 [Tauri CLI](/ja/reference/cli/) （コマンドライン・インターフェース）を使用して開発サーバーを起動します。
+`create-tauri-app` の設定後、プロジェクト・フォルダーに移動して依存関係をインストールしたら、 [Tauri CLI](/ja/reference/cli/)（コマンドライン・インターフェース）を使用して開発サーバーを起動します。
 
 import CommandTabs from '@components/CommandTabs.astro';
 
@@ -125,6 +130,10 @@ import CommandTabs from '@components/CommandTabs.astro';
   deno="cd tauri-app
     deno install
     deno task tauri dev"
+  bun="cd tauri-app
+    bun install
+    bun tauri dev
+  "
   cargo='cd tauri-app
     cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri dev'
@@ -134,12 +143,12 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 **おめでとうございます！** Tauri アプリの完成です！ 🚀
 
-## マニュアル・セットアップ
+## マニュアル・セットアップ（Tauri CLI）
 
-すでにフロントエンドができあがっているとか、自分自身で設定を行ないたいとかいう場合には、「Tauri CLI」を用いてそのプロジェクトのバックエンドを個別に初期化できます。
+すでにフロントエンドが作成済みであるとか、自分自身で設定を行ないたいとかいう場合には、「Tauri CLI」を用いてそのプロジェクトのバックエンドを個別に初期化できます。
 
 :::note
-以下の事例では、新しいプロジェクトを始めていることを前提としています。アプリケーションのフロントエンドをすでに初期化している場合は、最初のステップを省略できます。
+以下の事例では、新しいプロジェクトを始めていることを前提としています。アプリケーションのフロントエンドをすでに初期化している場合は、ステップ 1 を省略してください。
 :::
 
 <Steps>
@@ -159,15 +168,25 @@ import CommandTabs from '@components/CommandTabs.astro';
             deno="mkdir tauri-app
                 cd tauri-app
                 deno run -A npm:create-vite ."
+            bun="mkdir tauri-app
+                cd tauri-app
+                bun create vite"
         />
 
     2. 次に、上記で導入したパッケージ・マネージャーを使用して Tauri の CLI ツールをインストールします。`cargo` を使用して Tauri CLI をインストールする場合には、「グローバル・インストール」する必要があります：
+
+<TranslationNote lang="ja">
+
+**グローバル・インストール** install globally：　通常パッケージはプロジェクト毎にインストールされますが（ローカル・インストール）、グローバル・インストールでは、どのプロジェクトからでも使われるコマンドなどを、インストールしたパッケージが PC のどこからでも実行できるように PATH 指定するものです。
+
+</TranslationNote>
 
         <CommandTabs
             npm="npm install -D @tauri-apps/cli@latest"
             yarn="yarn add -D @tauri-apps/cli@latest"
             pnpm="pnpm add -D @tauri-apps/cli@latest"
             deno="deno add -D npm:@tauri-apps/cli@latest"
+            bun="bun add -D @tauri-apps/cli@latest"
             cargo='cargo install tauri-cli --version "^2.0.0" --locked'
         />
 
@@ -180,6 +199,7 @@ import CommandTabs from '@components/CommandTabs.astro';
             yarn="yarn tauri init"
             pnpm="pnpm tauri init"
             deno="deno task tauri init"
+            bun="bun tauri init"
             cargo="cargo tauri init"
         />
 
@@ -204,6 +224,7 @@ import CommandTabs from '@components/CommandTabs.astro';
             yarn="yarn tauri dev"
             pnpm="pnpm tauri dev"
             deno="deno task tauri dev"
+            bun="bun tauri dev"
             cargo="cargo tauri dev"
         />
 
@@ -215,13 +236,12 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 次のステップは…
 
+- [プロジェクト構成](/ja/start/project-structure/)
 - [フロントエンドの設定について](/ja/start/frontend/)
 - [Tauri コマンドライン・インターフェイスについて](/ja/reference/cli/)
-- [Tauri アプリの作り方について](/ja/develop/)
+- [Tauri アプリの開発について](/ja/develop/)
 - [Tauri 拡張のための追加機能について](ja/plugin/)
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Dec 31, 2024 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「Jan 30, 2026 英語版」に基づいています】
 </div>
