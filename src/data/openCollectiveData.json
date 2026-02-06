@@ -280,6 +280,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Brian DeRocher",
+    "id": "Brian DeRocher",
+    "avatarUrl": "https://images.opencollective.com/brian-derocher/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/brian-derocher",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Gyuri Lajos",
     "id": "Gyuri Lajos",
     "avatarUrl": "https://images.opencollective.com/gyuri-lajos/81517f9/avatar/256.jpg",
@@ -289,15 +298,6 @@
       "twitter": "https://twitter.com/TrailMarks",
       "github": "https://github.com/gyuri-lajos"
     },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Brian DeRocher",
-    "id": "Brian DeRocher",
-    "avatarUrl": "https://images.opencollective.com/brian-derocher/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/brian-derocher",
-    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
