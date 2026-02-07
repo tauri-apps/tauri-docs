@@ -1,0 +1,228 @@
+---
+title: 生物识别
+description: 在 Android 和 iOS 设备上向用户弹出生物识别认证。
+plugin: biometric
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+在 Android 和 iOS 设备上向用户弹出生物识别认证。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+安装生物识别插件开始使用。
+
+<Tabs>
+    <TabItem label="自动">
+
+    使用你项目的包管理器添加依赖：
+
+    <CommandTabs npm="npm run tauri add biometric"
+    yarn="yarn run tauri add biometric"
+    pnpm="pnpm tauri add biometric"
+    deno="deno task tauri add biometric"
+    bun="bun tauri add biometric"
+    cargo="cargo tauri add biometric" />
+
+    </TabItem>
+    <TabItem label="手动">
+        <Steps>
+        1.  在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 项目的依赖项中：
+
+            ```sh frame=none
+            cargo add tauri-plugin-biometric --target 'cfg(any(target_os = "android", target_os = "ios"))'
+            ```
+
+        2.  修改 `lib.rs` 以初始化插件：
+
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(mobile)]
+                        app.handle().plugin(tauri_plugin_biometric::Builder::new().build());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定：
+
+            <CommandTabs
+            npm = "npm install @tauri-apps/plugin-biometric"
+            yarn = "yarn add @tauri-apps/plugin-biometric"
+            pnpm = "pnpm add @tauri-apps/plugin-biometric"
+            deno = "deno add npm:@tauri-apps/plugin-biometric"
+            bun = "bun add @tauri-apps/plugin-biometric"
+            />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 配置
+
+在 iOS 系统上，生物识别插件需要 `NSFaceIDUsageDescription` 信息属性列表值，你应该在其中描述应用为何需要使用生物识别认证。
+
+在 `src-tauri/Info.ios.plist` 文件中，添加以下代码片段：
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Authenticate with biometric</string>
+	</dict>
+</plist>
+```
+
+## 使用
+
+该插件使你能够验证设备上生物识别认证的可用性，向用户发起生物识别认证请求，并检查结果以确定认证是否成功。
+
+### 检查状态
+
+你可以检查生物识别认证的状态，包括其可用性以及设备支持的生物识别认证方式类型。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { checkStatus } from '@tauri-apps/plugin-biometric';
+
+const status = await checkStatus();
+if (status.isAvailable) {
+  console.log('Yes! Biometric Authentication is available');
+} else {
+  console.log(
+    'No! Biometric Authentication is not available due to ' + status.error
+  );
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_biometric::BiometricExt;
+
+fn check_biometric(app_handle: tauri::AppHandle) {
+    let status = app_handle.biometric().status().unwrap();
+    if status.is_available {
+        println!("Yes! Biometric Authentication is available");
+    } else {
+        println!("No! Biometric Authentication is not available due to: {}", status.error.unwrap());
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 认证
+
+要提示用户进行生物识别认证，请使用 `authenticate()` 方法。
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript ins={18}
+import { authenticate } from '@tauri-apps/plugin-biometric';
+
+const options = {
+  // Set true if you want the user to be able to authenticate using phone password
+  allowDeviceCredential: false,
+  cancelTitle: "Feature won't work if Canceled",
+
+  // iOS only feature
+  fallbackTitle: 'Sorry, authentication failed',
+
+  // Android only features
+  title: 'Tauri feature',
+  subtitle: 'Authenticate to access the locked Tauri function',
+  confirmationRequired: true,
+};
+
+try {
+  await authenticate('This feature is locked', options);
+  console.log(
+    'Hooray! Successfully Authenticated! We can now perform the locked Tauri function!'
+  );
+} catch (err) {
+  console.log('Oh no! Authentication failed because ' + err.message);
+}
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust ins={21}
+use tauri_plugin_biometric::{BiometricExt, AuthOptions};
+
+fn bio_auth(app_handle: tauri::AppHandle) {
+
+    let options = AuthOptions {
+        // Set True if you want the user to be able to authenticate using phone password
+        allow_device_credential:false,
+        cancel_title: Some("Feature won't work if Canceled".to_string()),
+
+        // iOS only feature
+        fallback_title: Some("Sorry, authentication failed".to_string()),
+
+        // Android only features
+        title: Some("Tauri feature".to_string()),
+        subtitle: Some("Authenticate to access the locked Tauri function".to_string()),
+        confirmation_required: Some(true),
+    };
+
+    // if the authentication was successful, the function returns Result::Ok()
+    // otherwise returns Result::Error()
+    match app_handle.biometric().authenticate("This feature is locked".to_string(), options) {
+        Ok(_) => {
+            println!("Hooray! Successfully Authenticated! We can now perform the locked Tauri function!");
+        }
+        Err(e) => {
+            println!("Oh no! Authentication failed because : {e}");
+        }
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 权限
+
+默认情况下，所有潜在的危险插件命令和作用域均被阻止，无法访问。你必须修改 `capabilities` 配置中的权限才能启用这些功能。
+
+有关更多信息，请参阅 [功能概述](/zh-cn/security/capabilities/)， 关于如何使用插件权限，请参阅 [分步指南](/zh-cn/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["biometric:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
