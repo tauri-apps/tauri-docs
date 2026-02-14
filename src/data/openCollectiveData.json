@@ -250,6 +250,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Jamie Pine",
     "id": "Jamie Pine",
     "avatarUrl": "https://images.opencollective.com/jamie-pine/4a93aa1/avatar/256.jpg",
