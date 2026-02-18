@@ -3345,5 +3345,16 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "FameViso | Instagram Growth Agency",
+    "id": "FameViso | Instagram Growth Agency",
+    "avatarUrl": "https://images.opencollective.com/fameviso-home/ca47bb2/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/fameviso-home",
+    "socialLinks": {
+      "website": "https://fameviso.com/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   }
 ]
