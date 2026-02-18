@@ -40,7 +40,7 @@ To include a list of files:
       // Will be placed to `$RESOURCE/path/to/some-file.txt`
       "./path/to/some-file.txt",
 
-      // The root in an abosolute path will be replaced by `_root_`,
+      // The root in an absolute path will be replaced by `_root_`,
       // so `textfile.txt` will be placed to `$RESOURCE/_root_/absolute/path/to/textfile.txt`
       "/absolute/path/to/textfile.txt",
 
@@ -316,7 +316,7 @@ console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools conso
 
 ## Permissions
 
-Since we replace `../` to `_up_` in relative paths and the root to `_root_` in abosolute paths when using a list,
+Since we replace `../` to `_up_` in relative paths and the root to `_root_` in absolute paths when using a list,
 those files will be in sub folders inside the resource directory,
 to allow those paths in Tauri's [permission system](/security/capabilities/),
 use `$RESOURCE/**/*` to allow recursive access to those files
