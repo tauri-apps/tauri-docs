@@ -773,6 +773,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Proxyman",
     "id": "Proxyman",
     "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
@@ -812,15 +821,6 @@
       "website": "https://github.com/alexeden",
       "github": "https://github.com/alexeden"
     },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
