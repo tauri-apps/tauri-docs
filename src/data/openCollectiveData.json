@@ -466,15 +466,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Danny Williams",
-    "id": "Danny Williams",
-    "avatarUrl": "https://images.opencollective.com/danny-williams/619b5d3/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/danny-williams",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "MasterDarius",
     "id": "MasterDarius",
     "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
@@ -482,6 +473,15 @@
     "socialLinks": {
       "website": "https://www.nikolaosmargaris.gr"
     },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Danny Williams",
+    "id": "Danny Williams",
+    "avatarUrl": "https://images.opencollective.com/danny-williams/619b5d3/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/danny-williams",
+    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -992,6 +992,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Andre Luiz da Cruz Moreira",
     "id": "Andre Luiz da Cruz Moreira",
     "avatarUrl": "https://images.opencollective.com/user-958206f1/avatar/256.jpg",
@@ -1006,17 +1017,6 @@
     "avatarUrl": "https://images.opencollective.com/john-scott/8942930/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/john-scott",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
