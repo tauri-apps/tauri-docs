@@ -1,0 +1,125 @@
+---
+title: 触觉反馈
+description: Android 和 iOS 上的触觉反馈和振动。
+plugin: haptics
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Android 和 iOS 上的触觉反馈和振动。
+
+Android 系统对于振动支持没有统一的标准或要求，因此反馈类 API 在一些价格更实惠的手机（包括近期发布的新机型）上可能无法正常工作。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+安装触觉反馈插件开始使用。
+
+<Tabs>
+  <TabItem label="自动">
+
+    使用你项目的包管理器添加依赖：
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add haptics"
+      yarn="yarn run tauri add haptics"
+      pnpm="pnpm tauri add haptics"
+      deno="deno task tauri add haptics"
+      bun="bun tauri add haptics"
+      cargo="cargo tauri add haptics"
+    />
+
+  </TabItem>
+  <TabItem label="手动">
+    <Steps>
+
+      1.  在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 项目的依赖项中：
+
+          ```sh frame=none
+          cargo add tauri-plugin-haptics --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  修改 `lib.rs` 以初始化插件：
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_haptics::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定：
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-haptics"
+              yarn="yarn add @tauri-apps/plugin-haptics"
+              pnpm="pnpm add @tauri-apps/plugin-haptics"
+              deno="deno add npm:@tauri-apps/plugin-haptics"
+              bun="bun add @tauri-apps/plugin-haptics"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 使用
+
+触觉反馈插件可在 JavaScript 中使用。
+
+```javascript
+import {
+  vibrate,
+  impactFeedback,
+  notificationFeedback,
+  selectionFeedback,
+} from '@tauri-apps/plugin-haptics';
+
+await vibrate(1);
+await impactFeedback('medium');
+await notificationFeedback('warning');
+await selectionFeedback();
+```
+
+## 权限
+
+默认情况下，所有潜在的危险插件命令和作用域均被阻止，无法访问。你必须修改 `capabilities` 配置中的权限才能启用这些功能。
+
+有关更多信息，请参阅 [功能概述](/zh-cn/security/capabilities/)， 关于如何使用插件权限，请参阅 [分步指南](/zh-cn/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/mobile.json" ins={7-10}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "haptics:allow-impact-feedback",
+    "haptics:allow-notification-feedback",
+    "haptics:allow-selection-feedback",
+    "haptics:allow-vibrate"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
