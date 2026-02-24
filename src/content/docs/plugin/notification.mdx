@@ -200,15 +200,24 @@ await registerActionTypes([
 
 #### Listen for Actions
 
-Listen to user interactions with notification actions:
+Listen to user interactions with notification actions.
+
+The `onAction` payload provides the user's selected `actionId` and any text they entered into an `inputValue`. It also includes the original `notification` that triggered the action.
 
 ```javascript
 import { onAction } from '@tauri-apps/plugin-notification';
 
 await onAction((notification) => {
-  console.log('Action performed:', notification);
+  console.log('Action performed:', notification.actionId);
+  if (notification.inputValue) {
+    console.log('User entered:', notification.inputValue);
+  }
 });
 ```
+
+:::tip
+Tauri guarantees high reliability for notification actions. If the user interacts with an action before your application has loaded and registered `onAction` (such as during a cold start from a background state), the native platform queues the event. The queued actions are immediately replayed as soon as you call `onAction`.
+:::
 
 ### Attachments
 
