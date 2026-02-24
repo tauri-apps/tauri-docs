@@ -147,14 +147,14 @@ fn check_biometric(app_handle: tauri::AppHandle) {
 import { authenticate } from '@tauri-apps/plugin-biometric';
 
 const options = {
-  // Set true if you want the user to be able to authenticate using phone password
+  // 如果你希望用户能够使用手机密码进行身份验证，请设为 true
   allowDeviceCredential: false,
   cancelTitle: "Feature won't work if Canceled",
 
-  // iOS only feature
+  // 仅 iOS 平台的功能
   fallbackTitle: 'Sorry, authentication failed',
 
-  // Android only features
+  // 仅 Android 平台的功能
   title: 'Tauri feature',
   subtitle: 'Authenticate to access the locked Tauri function',
   confirmationRequired: true,
@@ -180,21 +180,21 @@ use tauri_plugin_biometric::{BiometricExt, AuthOptions};
 fn bio_auth(app_handle: tauri::AppHandle) {
 
     let options = AuthOptions {
-        // Set True if you want the user to be able to authenticate using phone password
+        // 如果你希望用户能够使用手机密码进行身份验证，请设为 true
         allow_device_credential:false,
         cancel_title: Some("Feature won't work if Canceled".to_string()),
 
-        // iOS only feature
+        // 仅 iOS 平台的功能
         fallback_title: Some("Sorry, authentication failed".to_string()),
 
-        // Android only features
+        // 仅 Android 平台的功能
         title: Some("Tauri feature".to_string()),
         subtitle: Some("Authenticate to access the locked Tauri function".to_string()),
         confirmation_required: Some(true),
     };
 
-    // if the authentication was successful, the function returns Result::Ok()
-    // otherwise returns Result::Error()
+    // 如果认证成功，函数返回 Result::Ok()
+    // 否则返回 Result::Error()
     match app_handle.biometric().authenticate("This feature is locked".to_string(), options) {
         Ok(_) => {
             println!("Hooray! Successfully Authenticated! We can now perform the locked Tauri function!");
