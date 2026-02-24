@@ -207,7 +207,7 @@ const scanType = {
 
 const options = {
   keepSessionAlive: false,
-  // configure the messages displayed in the "Scan NFC" dialog on iOS
+  // 配置 iOS 上 "扫描 NFC" 对话框中显示的信息
   message: 'Scan a NFC tag',
   successMessage: 'NFC tag successfully scanned',
 };
@@ -272,9 +272,9 @@ MIME 类型区分大小写，必须使用小写字母提供。
 import { scan, TechKind } from '@tauri-apps/plugin-nfc';
 
 const techLists = [
-  // capture anything using NfcF
+  // 使用 NfcF 捕获任意内容
   [TechKind.NfcF],
-  // capture all MIFARE Classics with NDEF payloads
+  // 捕获所有带有 NDEF 负载的 MIFARE Classic 卡片
   [TechKind.NfcA, TechKind.MifareClassic, TechKind.Ndef],
 ];
 
@@ -342,12 +342,11 @@ import { write, textRecord, uriRecord } from '@tauri-apps/plugin-nfc';
 const payload = [uriRecord('https://tauri.app'), textRecord('some payload')];
 
 const options = {
-  // the kind is only required if you do not have a scanned tag session alive
-  // its format is the same as the argument provided to scan()
+  // 仅在没有活跃的已扫描标签会话时才需要指定类型，其格式与提供给 scan() 方法的参数相同
   kind: {
     type: 'ndef',
   },
-  // configure the messages displayed in the "Scan NFC" dialog on iOS
+  // 配置 iOS 上“扫描 NFC”对话框中显示的信息
   message: 'Scan a NFC tag',
   successfulReadMessage: 'NFC tag successfully scanned',
   successMessage: 'NFC tag successfully written',
@@ -360,9 +359,9 @@ await write(payload, options);
 
 <TabItem label="Rust">
 :::caution
-The Rust API currently only provides a low level interface for writing NFC payloads.
+目前，Rust API 仅提供了用于写入 NFC 负载的低级接口。
 
-The API will be enhanced soon.
+该 API 将在近期得到增强。
 :::
 
 ```rust
