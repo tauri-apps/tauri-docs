@@ -161,6 +161,9 @@ Actions add interactive buttons and inputs to notifications. Use them to create 
 
 Register action types to define interactive elements:
 
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
 ```javascript
 import { registerActionTypes } from '@tauri-apps/plugin-notification';
 
@@ -184,6 +187,36 @@ await registerActionTypes([
   },
 ]);
 ```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_notification::{Action, ActionType, NotificationExt};
+
+#[cfg(mobile)]
+{
+    let action_type = ActionType::builder("messages")
+        .actions(vec![
+            Action::builder("reply", "Reply")
+                .input(true)
+                .input_button_title("Send")
+                .input_placeholder("Type your reply...")
+                .build(),
+            Action::builder("mark-read", "Mark as Read")
+                .foreground(false)
+                .build(),
+        ])
+        .build();
+
+    app.notification()
+        .register_action_types(vec![action_type])
+        .unwrap();
+}
+```
+
+</TabItem>
+</Tabs>
 
 #### Action Properties
 
