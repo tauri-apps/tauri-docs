@@ -1530,6 +1530,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Incognito",
+    "id": "Incognito",
+    "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-16370161",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Andreas Gerlach",
     "id": "Andreas Gerlach",
     "avatarUrl": "https://images.opencollective.com/appelgriebsch/05528b0/avatar/256.jpg",
@@ -2392,15 +2401,6 @@
     },
     "tier": "bronze",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Incognito",
-    "id": "Incognito",
-    "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-16370161",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "Till",
