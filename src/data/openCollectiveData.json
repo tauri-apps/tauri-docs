@@ -166,6 +166,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "CoParse",
     "id": "CoParse",
     "avatarUrl": "https://images.opencollective.com/coparse_inc/0cf24ef/logo/256.jpg",
@@ -174,6 +183,18 @@
       "website": "https://coparse.com",
       "twitter": "https://twitter.com/coparse_inc",
       "github": "https://github.com/coparse-inc"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
     },
     "tier": "gold",
     "type": "ORGANIZATION"
@@ -211,18 +232,6 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "gold",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "Eric Busch",
     "id": "Eric Busch",
     "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
@@ -245,15 +254,6 @@
     "id": "Aaron Campbell",
     "avatarUrl": "https://images.opencollective.com/aaron-campbell/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/aaron-campbell",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
@@ -719,6 +719,19 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Fritz-Rainer Doebbelin",
     "id": "Fritz-Rainer Doebbelin",
     "avatarUrl": "https://images.opencollective.com/fritz-rainer-doebbelin/1663869/avatar/256.jpg",
@@ -792,19 +805,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
-    "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "ken",
@@ -2403,6 +2403,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "SkyeActsOut",
+    "id": "SkyeActsOut",
+    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/skyeactsout",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Till",
     "id": "Till",
     "avatarUrl": "https://images.opencollective.com/guest-d673bec5/avatar/256.jpg",
@@ -2934,15 +2943,6 @@
     "id": "Daniel",
     "avatarUrl": "https://images.opencollective.com/daniel94/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/daniel94",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "SkyeActsOut",
-    "id": "SkyeActsOut",
-    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/skyeactsout",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
