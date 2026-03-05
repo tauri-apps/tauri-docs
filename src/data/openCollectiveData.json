@@ -1749,6 +1749,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Oscar Lito M Pablo",
     "id": "Oscar Lito M Pablo",
     "avatarUrl": "https://images.opencollective.com/fliponeup/ca37c6c/avatar/256.jpg",
@@ -2390,17 +2401,6 @@
     },
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "SkyeActsOut",
