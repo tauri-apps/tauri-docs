@@ -226,7 +226,8 @@
       "website": "https://httptoolkit.com/",
       "github": "https://github.com/httptoolkit",
       "mastodon": "https://mastodon.social/@httptoolkit",
-      "twitter": "https://twitter.com/httptoolkit"
+      "twitter": "https://twitter.com/httptoolkit",
+      "bluesky": "https://bsky.app/profile/httptoolkit.com"
     },
     "tier": "gold",
     "type": "ORGANIZATION"
