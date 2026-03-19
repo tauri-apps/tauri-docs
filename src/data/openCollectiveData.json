@@ -763,6 +763,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "kuma",
     "id": "kuma",
     "avatarUrl": "https://images.opencollective.com/kuma/340aed4/avatar/256.jpg",
@@ -795,15 +804,6 @@
       "website": "https://github.com/alexeden",
       "github": "https://github.com/alexeden"
     },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
