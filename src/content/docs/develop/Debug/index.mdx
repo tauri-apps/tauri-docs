@@ -43,6 +43,11 @@ fn main() {
 }
 ```
 
+:::note
+`cfg(debug_assertions)` works for Rust code, but not for Cargo dependency target tables (for example `[target.'cfg(...)'.dependencies]` in `Cargo.toml`).
+If you need debug-only dependencies or behavior at build time, prefer Cargo features and enable them explicitly for dev/build commands.
+:::
+
 {/* TODO: js version */}
 
 ## Rust Console
