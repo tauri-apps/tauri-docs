@@ -499,6 +499,10 @@ pub fn run() {
 }
 ```
 
+:::tip
+If you call `.manage()` on `app` inside a `setup` closure (where `app` is `&mut tauri::App`), import `tauri::Manager` so the trait method is in scope.
+:::
+
 ### Accessing Raw Request
 
 Tauri commands can also access the full [`tauri::ipc::Request`] object which includes the raw body payload and the request headers.
