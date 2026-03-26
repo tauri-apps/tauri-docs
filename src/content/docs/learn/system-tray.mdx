@@ -102,7 +102,9 @@ To attach a menu that is displayed when the tray is clicked, you can use the `me
 By default the menu is displayed on both left and right clicks.
 
 To prevent the menu from popping up on left click, call the [`show_menu_on_left_click(false)`][TrayIconBuilder::show_menu_on_left_click] Rust function
-or set the [`menuOnLeftClick`] JavaScript option to `false`.
+or set the `showMenuOnLeftClick` JavaScript option to `false`.
+
+`menu_on_left_click` still works as a deprecated alias in Rust, and `menuOnLeftClick` still works as a deprecated alias in JavaScript, but `show_menu_on_left_click` / `showMenuOnLeftClick` are the current APIs.
 :::
 
 {/* TODO: link to the menu plugin documentation page */}
@@ -125,7 +127,7 @@ const menu = await Menu.new({
 
 const options = {
   menu,
-  menuOnLeftClick: true,
+  showMenuOnLeftClick: true,
 };
 
 const tray = await TrayIcon.new(options);
@@ -316,9 +318,8 @@ For detailed information about creating menus, including menu items, submenus, a
 
 [`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
 [`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
-[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
-[TrayIconBuilder::show_menu_on_left_click]: https://docs.rs/tauri/latest/tauri/tray/struct.TrayIconBuilder.html#method.show_menu_on_left_click
-[`menuOnLeftClick`]: /reference/javascript/api/namespacetray/#properties-1
-[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
+[`TrayIconBuilder`]: https://docs.rs/tauri/2/tauri/tray/struct.TrayIconBuilder.html
+[TrayIconBuilder::show_menu_on_left_click]: https://docs.rs/tauri/2/tauri/tray/struct.TrayIconBuilder.html#method.show_menu_on_left_click
+[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
 [js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
-[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html
+[rust TrayIconEvent]: https://docs.rs/tauri/2/tauri/tray/enum.TrayIconEvent.html

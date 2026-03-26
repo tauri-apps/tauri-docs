@@ -1020,6 +1020,8 @@ Use `tauri::tray::TrayIconBuilder` instead of `tauri::SystemTray`:
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
 ```
 
+`TrayIconBuilder::with_id` takes a single `id` argument in Tauri v2.
+
 See [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) for more information.
 
 #### Migrate to Menu
