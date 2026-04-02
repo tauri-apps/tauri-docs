@@ -209,6 +209,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Eric Busch",
+    "id": "Eric Busch",
+    "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-39d3e8eb",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Raffi Minassian",
     "id": "Raffi Minassian",
     "avatarUrl": "https://images.opencollective.com/raffi-minassian1/avatar/256.jpg",
@@ -231,15 +240,6 @@
     },
     "tier": "gold",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Eric Busch",
-    "id": "Eric Busch",
-    "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-39d3e8eb",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "Hidekazu Kobayashi",
@@ -508,6 +508,19 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Archon Systems Inc.",
+    "id": "Archon Systems Inc.",
+    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/archon-systems-inc",
+    "socialLinks": {
+      "website": "https://www.archonsystems.com/",
+      "twitter": "https://twitter.com/archonsystems",
+      "github": "https://github.com/archonSystemsInc"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "EthicalAds",
     "id": "EthicalAds",
     "avatarUrl": "https://images.opencollective.com/ethicalads/ad1ea41/logo/256.jpg",
@@ -550,19 +563,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Archon Systems Inc.",
-    "id": "Archon Systems Inc.",
-    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/archon-systems-inc",
-    "socialLinks": {
-      "website": "https://www.archonsystems.com/",
-      "twitter": "https://twitter.com/archonsystems",
-      "github": "https://github.com/archonSystemsInc"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Pintura",
@@ -784,18 +784,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "praxr",
-    "id": "praxr",
-    "avatarUrl": "https://images.opencollective.com/praxr1/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/praxr1",
-    "socialLinks": {
-      "website": "http://praxr.com",
-      "twitter": "https://twitter.com/praxr"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "Alexander Eden",
     "id": "Alexander Eden",
     "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
@@ -806,6 +794,18 @@
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "praxr",
+    "id": "praxr",
+    "avatarUrl": "https://images.opencollective.com/praxr1/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/praxr1",
+    "socialLinks": {
+      "website": "http://praxr.com",
+      "twitter": "https://twitter.com/praxr"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
   },
   {
     "name": "ken",
