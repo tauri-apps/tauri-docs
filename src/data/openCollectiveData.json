@@ -104,6 +104,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Matt Campbell",
     "id": "Matt Campbell",
     "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
@@ -162,15 +171,6 @@
       "website": "https://www.futo.org/",
       "twitter": "https://x.com/FUTO_Tech"
     },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
-    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -954,6 +954,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Allan Gaunt",
     "id": "Allan Gaunt",
     "avatarUrl": "https://images.opencollective.com/allan-gaunt/be138af/avatar/256.jpg",
@@ -989,17 +1000,6 @@
     "avatarUrl": "https://images.opencollective.com/johnny-iv-young/0483aac/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/johnny-iv-young",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
@@ -1698,6 +1698,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Gabriel Enicks",
     "id": "Gabriel Enicks",
     "avatarUrl": "https://images.opencollective.com/gabriel-enicks/avatar/256.jpg",
@@ -1750,15 +1761,13 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
+    "name": "SkyeActsOut",
+    "id": "SkyeActsOut",
+    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/skyeactsout",
+    "socialLinks": {},
     "tier": "bronze",
-    "type": "ORGANIZATION"
+    "type": "INDIVIDUAL"
   },
   {
     "name": "Oscar Lito M Pablo",
@@ -2404,10 +2413,10 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "SkyeActsOut",
-    "id": "SkyeActsOut",
-    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/skyeactsout",
+    "name": "Scanavium21",
+    "id": "Scanavium21",
+    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/scanavium21",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -3144,15 +3153,6 @@
     "id": "@MattCre8s",
     "avatarUrl": "https://images.opencollective.com/guest-4e711ae7/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/guest-4e711ae7",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Scanavium21",
-    "id": "Scanavium21",
-    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/scanavium21",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
