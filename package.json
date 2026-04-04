@@ -42,8 +42,9 @@
     "sharp": "^0.34.5",
     "shiki": "^4.0.2",
     "starlight-blog": "^0.26.1",
+    "starlight-links-validator": "^0.21.0",
     "starlight-sidebar-topics": "^0.7.1",
-    "starlight-links-validator": "^0.21.0"
+    "vite": "7"
   },
   "minimumReleaseAge": 4320,
   "packageManager": "pnpm@10.29.3",

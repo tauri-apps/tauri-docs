@@ -1,20 +1,16 @@
 ---
 const { section } = Astro.props;
+import { searchForWorkspaceRoot } from 'vite';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
-import { JSDOM } from 'jsdom';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { readFile } from 'fs/promises';
+import { JSDOM } from 'jsdom';
+import { join } from 'node:path';
+import process from 'node:process';
+import { readFile } from 'node:fs/promises';
 
 const md = await createMarkdownProcessor();
-const res = readFile(
-  join(
-    dirname(dirname(dirname(fileURLToPath(import.meta.url)))),
-    'packages/awesome-tauri/README.md'
-  ),
-  'utf-8'
-);
+const workspaceRoot = searchForWorkspaceRoot(process.cwd());
+const res = readFile(join(workspaceRoot, 'packages/awesome-tauri/README.md'), 'utf-8');
 const content = await md.render(await res);
 const dom = new JSDOM('<!DOCTYPE html>' + content.code);
 const document = dom.window.document;
