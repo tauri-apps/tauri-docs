@@ -24,14 +24,14 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^6.3.2",
+    "@astrojs/markdown-remark": "^7.0.0",
     "@astrojs/rss": "^4.0.12",
-    "@astrojs/starlight": "0.36.0",
+    "@astrojs/starlight": "0.38.2",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/json-schema": "^7.0.15",
     "astro": "^5.15.9",
-    "astro-d2": "^0.8.0",
+    "astro-d2": "^0.10.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.0",
     "jsdom": "^28.0.0",
@@ -41,9 +41,9 @@
     "sass": "^1.89.0",
     "sharp": "^0.34.0",
     "shiki": "^3.0.0",
-    "starlight-blog": "^0.24.0",
-    "starlight-sidebar-topics": "^0.6.0",
-    "starlight-links-validator": "^0.18.0"
+    "starlight-blog": "^0.26.0",
+    "starlight-sidebar-topics": "^0.7.0",
+    "starlight-links-validator": "^0.21.0"
   },
   "minimumReleaseAge": 4320,
   "packageManager": "pnpm@10.29.3",
