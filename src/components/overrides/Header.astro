@@ -6,7 +6,6 @@ import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from './ThemeSelect.astro';
 
 const curLocale = Astro.locals.starlightRoute.locale;
-const slug = Astro.locals.starlightRoute.entry.slug;
 
 type Link = {
 	title: string;
@@ -129,34 +128,10 @@ const links: Link[] = [
 	.header {
 		border: none !important;
 	}
-body[data-mobile-menu-expanded] header {
-	background-color: var(--sl-color-bg);
-}
-</style>
-
-{
-slug === '' || slug === curLocale ?
-<style>
-	.header {
-		background-color: transparent;
-    	-webkit-backdrop-filter: blur(16px);
-		backdrop-filter: blur(16px);
-		padding-inline-end: calc(var(--sl-nav-gap) + var(--sl-nav-pad-x));
-	}
-
-	@media (min-width: 50rem) {
-		header {
-			background-color: transparent !important;
-		}
-	}
-	@media (min-width: 50rem) {
-		.header {
-			padding-inline-end: var(--sl-nav-pad-y);
-		}
+	body[data-mobile-menu-expanded] header {
+		background-color: var(--sl-color-bg);
 	}
 </style>
-: ''
-}
 
 <style>
 	.desktop {
