@@ -76,7 +76,11 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
-        starlightBlog({ authors }),
+        starlightBlog({
+          authors,
+          // We're doing it in `src/components/overrides/Header.astro`
+          navigation: 'none',
+        }),
         starlightSidebarTopics(
           [
             {
