@@ -29,6 +29,7 @@
     "@astrojs/starlight": "0.38.2",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
+    "@types/jsdom": "^28.0.1",
     "@types/json-schema": "^7.0.15",
     "astro": "^6.1.3",
     "astro-d2": "^0.10.0",
@@ -44,7 +45,7 @@
     "starlight-blog": "^0.26.1",
     "starlight-links-validator": "^0.21.0",
     "starlight-sidebar-topics": "^0.7.1",
-    "vite": "7"
+    "vite": "^7.3.1"
   },
   "minimumReleaseAge": 4320,
   "packageManager": "pnpm@10.29.3",
