@@ -1,7 +1,7 @@
 ---
-import process from 'node:process';
 import fs from 'node:fs/promises';
-import { searchForWorkspaceRoot } from 'vite';
+import { fileURLToPath } from 'node:url';
+import ProjectContext from 'virtual:starlight/project-context';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import path from 'path';
 
@@ -12,7 +12,7 @@ interface Props {
 const { plugin } = Astro.props;
 
 async function importMDX(plugin: string): Promise<string> {
-  const workspaceRoot = searchForWorkspaceRoot(process.cwd());
+  const workspaceRoot = fileURLToPath(ProjectContext.root);
 
   const mdPath = path.join(
     workspaceRoot,
