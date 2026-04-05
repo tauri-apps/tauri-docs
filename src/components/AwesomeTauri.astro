@@ -46,8 +46,9 @@ const sections = {
 
 for (const header of categories) {
   if (header.textContent === sections[section]) {
-    let list = header.nextSibling.nextSibling as HTMLElement;
-    for (const entry: HTMLLinkElement of list.children) {
+    const list = header.nextSibling.nextSibling as HTMLElement;
+    for (let entry of list.children) {
+      entry = entry as HTMLLinkElement;
       if (section.includes('-no-official')) {
         let img = entry.children[1];
         if (img && img.src && img.src.includes('official')) continue;

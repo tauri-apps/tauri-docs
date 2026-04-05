@@ -6,6 +6,7 @@
       "@assets/*": ["./src/assets/*"],
       "@fragments/*": ["./src/content/docs/_fragments/*"],
       "@utils/*": ["./src/utils/*"]
-    }
+    },
+    "noUncheckedIndexedAccess": true
   },
 }
