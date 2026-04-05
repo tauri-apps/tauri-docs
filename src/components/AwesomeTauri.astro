@@ -1,20 +1,16 @@
 ---
 const { section } = Astro.props;
+import { join } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import ProjectContext from 'virtual:starlight/project-context';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
-import { JSDOM } from 'jsdom';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { readFile } from 'fs/promises';
+import { JSDOM } from 'jsdom';
 
 const md = await createMarkdownProcessor();
-const res = readFile(
-  join(
-    dirname(dirname(dirname(fileURLToPath(import.meta.url)))),
-    'packages/awesome-tauri/README.md'
-  ),
-  'utf-8'
-);
+const workspaceRoot = fileURLToPath(ProjectContext.root);
+const res = readFile(join(workspaceRoot, 'packages/awesome-tauri/README.md'), 'utf-8');
 const content = await md.render(await res);
 const dom = new JSDOM('<!DOCTYPE html>' + content.code);
 const document = dom.window.document;
@@ -50,8 +46,9 @@ const sections = {
 
 for (const header of categories) {
   if (header.textContent === sections[section]) {
-    let list = header.nextSibling.nextSibling as HTMLElement;
-    for (const entry: HTMLLinkElement of list.children) {
+    const list = header.nextSibling.nextSibling as HTMLElement;
+    for (let entry of list.children) {
+      entry = entry as HTMLLinkElement;
       if (section.includes('-no-official')) {
         let img = entry.children[1];
         if (img && img.src && img.src.includes('official')) continue;
