@@ -27,6 +27,11 @@
 }
 
 :root[data-theme='light'] {
+  // --tauri-blue: oklch(76.61% 0.12577 206.774);
+  --sl-color-accent-low: oklch(30% 0.13 207);
+  --sl-color-accent: oklch(50% 0.13 207);
+  --sl-color-accent-high: oklch(70% 0.13 207);
+
   --sl-color-white: #070707;
   --sl-color-gray-1: #2f2f2f;
   --sl-color-gray-2: #353841;
