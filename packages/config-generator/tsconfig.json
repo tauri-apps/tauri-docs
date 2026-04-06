@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "strict": true,
+    "noEmit": true,
     "skipLibCheck": true
   }
 }
