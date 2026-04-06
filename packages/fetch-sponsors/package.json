@@ -19,7 +19,7 @@
     "@octokit/plugin-retry": "^8.0.1",
     "@octokit/plugin-throttling": "^11.0.1",
     "@octokit/types": "^14.1.0",
-    "@types/node": "^22.15.21",
+    "@types/node": "^24.0.0",
     "dotenv": "^17.2.1",
     "typescript": "^5.8.3"
   }
