@@ -95,7 +95,7 @@ use tauri::{
 
 // Define the plugin config
 #[derive(Deserialize)]
-struct Config {
+pub struct Config {
   timeout: usize,
 }
 
