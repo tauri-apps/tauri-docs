@@ -13,6 +13,8 @@ On **Android**, multi-window is implemented using [Activity Embedding](https://d
 
 On **iOS**, multi-window uses the [UIScene](https://developer.apple.com/documentation/uikit/uiscene) API, which allows iPad users to open multiple instances of your app in separate windows.
 
+On **phones**, the system usually does not lay out two windows side by side. On **Android**, creating another window still launches a separate activity, but on handset-sized displays it is typically **pushed onto the activity back stack**—so **Back** returns to the previous activity instead of closing a split. On **iOS** (especially iPhone), opening or creating another window often **replaces the current UI** with the new scene’s content rather than keeping both visible at once; true concurrent windows remain an **iPad** (and Stage Manager) experience.
+
 :::note
 Multi-window requires Android 12L (API 32)+ and iOS 13+. You can use the [`app.supportsMultipleWindows`] API to check availability at runtime.
 :::
