@@ -280,7 +280,7 @@ function openDetail(id) {
 ```rust
 use tauri::Manager;
 
-let main_window = app.get_window("main").unwrap();
+let main_window = app.get_webview_window("main").unwrap();
 // use the main_window instance so the relationships are determined automatically
 let builder = tauri::WebviewWindowBuilder::new(main_window, "detail", tauri::WebviewUrl::App("detail/1".into()));
 
