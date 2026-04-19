@@ -720,6 +720,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Proxyman",
     "id": "Proxyman",
     "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
@@ -758,15 +767,6 @@
     "id": "Ethan Li",
     "avatarUrl": "https://images.opencollective.com/user-72b0b300/f06448a/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/user-72b0b300",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
