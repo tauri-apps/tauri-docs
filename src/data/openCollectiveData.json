@@ -13,6 +13,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Lightfinder",
+    "id": "Lightfinder",
+    "avatarUrl": "https://images.opencollective.com/lightfinder/b41bd05/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/lightfinder",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "VPS Server",
     "id": "VPS Server",
     "avatarUrl": "https://images.opencollective.com/vpsservercom/7d60c44/logo/256.jpg",
@@ -21,15 +30,6 @@
       "website": "https://www.vpsserver.com",
       "twitter": "https://twitter.com/vpsservercom"
     },
-    "tier": "gold",
-    "type": "ORGANIZATION"
-  },
-  {
-    "name": "Lightfinder",
-    "id": "Lightfinder",
-    "avatarUrl": "https://images.opencollective.com/lightfinder/b41bd05/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/lightfinder",
-    "socialLinks": {},
     "tier": "gold",
     "type": "ORGANIZATION"
   },
@@ -100,6 +100,15 @@
     "socialLinks": {
       "website": "https://mintter.com"
     },
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -179,10 +188,31 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Rick Richardson",
     "id": "Rick Richardson",
     "avatarUrl": "https://images.opencollective.com/rick-richardson/0bcfb2c/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/rick-richardson",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Eric Busch",
+    "id": "Eric Busch",
+    "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-39d3e8eb",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
@@ -205,19 +235,11 @@
       "website": "https://httptoolkit.com/",
       "github": "https://github.com/httptoolkit",
       "mastodon": "https://mastodon.social/@httptoolkit",
-      "twitter": "https://twitter.com/httptoolkit"
+      "twitter": "https://twitter.com/httptoolkit",
+      "bluesky": "https://bsky.app/profile/httptoolkit.com"
     },
     "tier": "gold",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Eric Busch",
-    "id": "Eric Busch",
-    "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-39d3e8eb",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "Hidekazu Kobayashi",
@@ -259,22 +281,19 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "James Bartlett",
     "id": "James Bartlett",
     "avatarUrl": "https://images.opencollective.com/james-bartlett1/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/james-bartlett1",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Brian DeRocher",
+    "id": "Brian DeRocher",
+    "avatarUrl": "https://images.opencollective.com/brian-derocher/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/brian-derocher",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
@@ -289,15 +308,6 @@
       "twitter": "https://twitter.com/TrailMarks",
       "github": "https://github.com/gyuri-lajos"
     },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Brian DeRocher",
-    "id": "Brian DeRocher",
-    "avatarUrl": "https://images.opencollective.com/brian-derocher/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/brian-derocher",
-    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -361,6 +371,26 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Clemens Koza",
+    "id": "Clemens Koza",
+    "avatarUrl": "https://images.opencollective.com/clemens-koza/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/clemens-koza",
+    "socialLinks": {
+      "github": "https://github.com/SillyFreak"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Martin Kramer",
+    "id": "Martin Kramer",
+    "avatarUrl": "https://images.opencollective.com/martin-kramer/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/martin-kramer",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Robin van Boven",
     "id": "Robin van Boven",
     "avatarUrl": "https://images.opencollective.com/robin-van-boven/0de574b/avatar/256.jpg",
@@ -385,26 +415,6 @@
     "id": "Harsha Teja Kanna",
     "avatarUrl": "https://images.opencollective.com/harsha-teja-kanna/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/harsha-teja-kanna",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Clemens Koza",
-    "id": "Clemens Koza",
-    "avatarUrl": "https://images.opencollective.com/clemens-koza/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/clemens-koza",
-    "socialLinks": {
-      "github": "https://github.com/SillyFreak"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Martin Kramer",
-    "id": "Martin Kramer",
-    "avatarUrl": "https://images.opencollective.com/martin-kramer/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/martin-kramer",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
@@ -457,6 +467,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "MasterDarius",
+    "id": "MasterDarius",
+    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/masterdarius",
+    "socialLinks": {
+      "website": "https://www.nikolaosmargaris.gr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Danny Williams",
     "id": "Danny Williams",
     "avatarUrl": "https://images.opencollective.com/danny-williams/619b5d3/avatar/256.jpg",
@@ -475,17 +496,6 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "MasterDarius",
-    "id": "MasterDarius",
-    "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/masterdarius",
-    "socialLinks": {
-      "website": "https://www.nikolaosmargaris.gr"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Alex Michael Berry",
     "id": "Alex Michael Berry",
     "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
@@ -496,6 +506,19 @@
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Archon Systems Inc.",
+    "id": "Archon Systems Inc.",
+    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/archon-systems-inc",
+    "socialLinks": {
+      "website": "https://www.archonsystems.com/",
+      "twitter": "https://twitter.com/archonsystems",
+      "github": "https://github.com/archonSystemsInc"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
   },
   {
     "name": "EthicalAds",
@@ -580,19 +603,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Archon Systems Inc.",
-    "id": "Archon Systems Inc.",
-    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/archon-systems-inc",
-    "socialLinks": {
-      "website": "https://www.archonsystems.com/",
-      "twitter": "https://twitter.com/archonsystems",
-      "github": "https://github.com/archonSystemsInc"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Seth Lowie",
@@ -710,6 +720,28 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Proxyman",
+    "id": "Proxyman",
+    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/proxyman_io",
+    "socialLinks": {
+      "website": "https://proxyman.com/",
+      "twitter": "https://x.com/proxyman_app",
+      "github": "https://github.com/ProxymanApp/Proxyman"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Fritz-Rainer Doebbelin",
     "id": "Fritz-Rainer Doebbelin",
     "avatarUrl": "https://images.opencollective.com/fritz-rainer-doebbelin/1663869/avatar/256.jpg",
@@ -747,6 +779,18 @@
     "socialLinks": {
       "twitter": "https://twitter.com/km_tr_",
       "github": "https://github.com/km-tr"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Alexander Eden",
+    "id": "Alexander Eden",
+    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-eden",
+    "socialLinks": {
+      "website": "https://github.com/alexeden",
+      "github": "https://github.com/alexeden"
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
@@ -793,18 +837,6 @@
     },
     "tier": "silver",
     "type": "FUND"
-  },
-  {
-    "name": "Alexander Eden",
-    "id": "Alexander Eden",
-    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-eden",
-    "socialLinks": {
-      "website": "https://github.com/alexeden",
-      "github": "https://github.com/alexeden"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "James Carlson",
@@ -882,15 +914,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Jonathan Dahan",
     "id": "Jonathan Dahan",
     "avatarUrl": "https://images.opencollective.com/jedahan/avatar/256.jpg",
@@ -931,17 +954,15 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Proxyman",
-    "id": "Proxyman",
-    "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/proxyman_io",
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
     "socialLinks": {
-      "website": "https://proxyman.com/",
-      "twitter": "https://x.com/proxyman_app",
-      "github": "https://github.com/ProxymanApp/Proxyman"
+      "website": "https://linktr.ee/ildella"
     },
     "tier": "bronze",
-    "type": "ORGANIZATION"
+    "type": "INDIVIDUAL"
   },
   {
     "name": "Allan Gaunt",
@@ -1026,17 +1047,6 @@
     "socialLinks": {
       "website": "https://zhanglun.xyz",
       "github": "https://github.com/zhanglun/zhanglun.github.io"
-    },
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
     },
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -1521,6 +1531,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Incognito",
+    "id": "Incognito",
+    "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-16370161",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Andreas Gerlach",
     "id": "Andreas Gerlach",
     "avatarUrl": "https://images.opencollective.com/appelgriebsch/05528b0/avatar/256.jpg",
@@ -1679,6 +1698,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Gabriel Enicks",
     "id": "Gabriel Enicks",
     "avatarUrl": "https://images.opencollective.com/gabriel-enicks/avatar/256.jpg",
@@ -1726,6 +1756,15 @@
     "id": "Rodrigo Trevizan",
     "avatarUrl": "https://images.opencollective.com/rodrigo-trevizan/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/rodrigo-trevizan",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "SkyeActsOut",
+    "id": "SkyeActsOut",
+    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/skyeactsout",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -2370,6 +2409,15 @@
       "twitter": "https://twitter.com/crutchcorn",
       "github": "https://github.com/crutchcorn"
     },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Scanavium21",
+    "id": "Scanavium21",
+    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/scanavium21",
+    "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
@@ -3110,17 +3158,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "Alec Brunelle",
     "id": "Alec Brunelle",
     "avatarUrl": "https://images.opencollective.com/alec-brunelle/74e2fb5/avatar/256.jpg",
@@ -3256,15 +3293,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "SkyeActsOut",
-    "id": "SkyeActsOut",
-    "avatarUrl": "https://images.opencollective.com/skyeactsout/816eb9b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/skyeactsout",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Indokasino",
     "id": "Indokasino",
     "avatarUrl": "https://images.opencollective.com/indokasino-asia/logo/256.jpg",
@@ -3327,5 +3355,16 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "FameViso | Instagram Growth Agency",
+    "id": "FameViso | Instagram Growth Agency",
+    "avatarUrl": "https://images.opencollective.com/fameviso-home/edc95ea/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/fameviso-home",
+    "socialLinks": {
+      "website": "https://fameviso.com/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   }
 ]

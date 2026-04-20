@@ -10,27 +10,27 @@ jobs:
   sync-sponsors-data:
     name: Sync Sponsors Data
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
-      - uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v5
+
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: 24
+          cache: pnpm
 
       - run: pnpm i
-              
+
       - name: sync-sponsors
         run: pnpm sync:sponsors
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: pnpm prettier src/data -w
-          
+
    # tauri-docs PR
       - name: Git config
         run: |
