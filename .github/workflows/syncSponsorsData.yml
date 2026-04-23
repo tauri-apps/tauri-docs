@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - uses: pnpm/action-setup@v5
 
@@ -39,8 +39,7 @@ jobs:
 
       - name: Create pull request for updated docs
         id: cpr
-        # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
-        uses: tauri-apps/create-pull-request@v3.4.1
+        uses: peter-evans/create-pull-request@67ccf781d68cd99b580ae25a5c18a1cc84ffff1f # 7.0.6
         if: github.event_name != 'pull_request' && github.event_name != 'push'
         with:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
@@ -48,6 +47,7 @@ jobs:
           branch: ci/v2/update-sponsors
           title: Update Sponsors Data
           labels: 'bot'
+          sign-commits: true
 
       - name: Automerge
         run: gh pr merge --squash --auto ${{ steps.cpr.outputs.pull-request-number }}
