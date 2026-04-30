@@ -43,7 +43,7 @@
     "sharp": "^0.34.5",
     "shiki": "^4.0.2",
     "starlight-blog": "^0.26.1",
-    "starlight-links-validator": "^0.23.0",
+    "starlight-links-validator": "^0.24.0",
     "starlight-sidebar-topics": "^0.7.1",
     "vite": "^7.3.1"
   },
