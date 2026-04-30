@@ -66,8 +66,8 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1(@astrojs/starlight@0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)))(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3))
       starlight-links-validator:
-        specifier: ^0.23.0
-        version: 0.23.0(@astrojs/starlight@0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)))(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3))
+        specifier: ^0.24.0
+        version: 0.24.0(@astrojs/starlight@0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)))(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3))
       starlight-sidebar-topics:
         specifier: ^0.7.1
         version: 0.7.1(@astrojs/starlight@0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)))
@@ -3592,8 +3592,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.38.0'
 
-  starlight-links-validator@0.23.0:
-    resolution: {integrity: sha512-dpKJdNv170+jyw8HDgPKGIW/MnXUxa3v8RqJrER47jx4fbxvLsITIw0/Y76xzTTrDv8LhQ7t/ExFutUDQqm3FQ==}
+  starlight-links-validator@0.24.0:
+    resolution: {integrity: sha512-bsZf77oRJmY92KWOcu3vYK8Y12KJNvO3jQca1BgOBs+XskNfjPXrkgVtT7ls/FnLoomfsIV0wLdJfJs7kzGojA==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       '@astrojs/starlight': '>=0.38.0'
@@ -8368,7 +8368,7 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.23.0(@astrojs/starlight@0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)))(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)):
+  starlight-links-validator@0.24.0(@astrojs/starlight@0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)))(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3)):
     dependencies:
       '@astrojs/starlight': 0.38.4(astro@6.1.9(@types/node@25.6.0)(jiti@1.21.6)(lightningcss@1.32.0)(rollup@2.80.0)(sass@1.99.0)(terser@5.31.0)(typescript@5.9.3)(yaml@2.8.3))
       '@types/picomatch': 4.0.3
