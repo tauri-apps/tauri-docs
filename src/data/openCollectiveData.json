@@ -200,19 +200,19 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "Rick Richardson",
-    "id": "Rick Richardson",
-    "avatarUrl": "https://images.opencollective.com/rick-richardson/0bcfb2c/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/rick-richardson",
+    "name": "Eric Busch",
+    "id": "Eric Busch",
+    "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/user-39d3e8eb",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Eric Busch",
-    "id": "Eric Busch",
-    "avatarUrl": "https://images.opencollective.com/user-39d3e8eb/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/user-39d3e8eb",
+    "name": "Rick Richardson",
+    "id": "Rick Richardson",
+    "avatarUrl": "https://images.opencollective.com/rick-richardson/0bcfb2c/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/rick-richardson",
     "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
@@ -496,18 +496,6 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "Alex Michael Berry",
-    "id": "Alex Michael Berry",
-    "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-michael-berry",
-    "socialLinks": {
-      "website": "https://ligature.dev",
-      "github": "https://github.com/almibe"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Archon Systems Inc.",
     "id": "Archon Systems Inc.",
     "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
@@ -519,6 +507,18 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
+  },
+  {
+    "name": "Alex Michael Berry",
+    "id": "Alex Michael Berry",
+    "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-michael-berry",
+    "socialLinks": {
+      "website": "https://ligature.dev",
+      "github": "https://github.com/almibe"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
   },
   {
     "name": "EthicalAds",
@@ -772,18 +772,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "kuma",
-    "id": "kuma",
-    "avatarUrl": "https://images.opencollective.com/kuma/340aed4/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/kuma",
-    "socialLinks": {
-      "twitter": "https://twitter.com/km_tr_",
-      "github": "https://github.com/km-tr"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Alexander Eden",
     "id": "Alexander Eden",
     "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
@@ -791,6 +779,18 @@
     "socialLinks": {
       "website": "https://github.com/alexeden",
       "github": "https://github.com/alexeden"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "kuma",
+    "id": "kuma",
+    "avatarUrl": "https://images.opencollective.com/kuma/340aed4/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/kuma",
+    "socialLinks": {
+      "twitter": "https://twitter.com/km_tr_",
+      "github": "https://github.com/km-tr"
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
