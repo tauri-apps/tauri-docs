@@ -84,6 +84,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "PhearZero",
     "id": "PhearZero",
     "avatarUrl": "https://images.opencollective.com/phearzero/787453c/avatar/256.jpg",
@@ -100,15 +109,6 @@
     "socialLinks": {
       "website": "https://mintter.com"
     },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
-    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -1709,6 +1709,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Scanavium21",
+    "id": "Scanavium21",
+    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/scanavium21",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Gabriel Enicks",
     "id": "Gabriel Enicks",
     "avatarUrl": "https://images.opencollective.com/gabriel-enicks/avatar/256.jpg",
@@ -2409,15 +2418,6 @@
       "twitter": "https://twitter.com/crutchcorn",
       "github": "https://github.com/crutchcorn"
     },
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Scanavium21",
-    "id": "Scanavium21",
-    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/scanavium21",
-    "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
