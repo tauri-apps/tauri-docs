@@ -103,7 +103,7 @@ You will need to install a couple of system dependencies, such as a C compiler a
 
 ```sh
 sudo apt update
-sudo apt install libwebkit2gtk-4.0-dev \
+sudo apt install libwebkit2gtk-4.1-dev \
     build-essential \
     curl \
     wget \
