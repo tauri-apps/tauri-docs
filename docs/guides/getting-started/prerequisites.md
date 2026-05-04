@@ -120,7 +120,7 @@ sudo apt install libwebkit2gtk-4.1-dev \
 ```sh
 sudo pacman -Syu
 sudo pacman -S --needed \
-    webkit2gtk \
+    webkit2gtk-4.1 \
     base-devel \
     curl \
     wget \
@@ -138,7 +138,7 @@ sudo pacman -S --needed \
 
 ```sh title=Fedora
 sudo dnf check-update
-sudo dnf install webkit2gtk4.0-devel \
+sudo dnf install webkit2gtk4.1-devel \
     openssl-devel \
     curl \
     wget \
@@ -152,7 +152,7 @@ Note that for Fedora 36 and below, and all Enterprise Linux Distributions, you n
 For Enterprise Linux, you also need `"Development Tools"` instead of `"C Development Tools and Libraries"`. For example:
 ```sh title="Enterprise Linux"
 sudo dnf check-update
-sudo dnf install webkit2gtk3-devel \
+sudo dnf install webkit2gtk4.1-devel \
     openssl-devel \
     curl \
     wget \
@@ -167,7 +167,7 @@ sudo dnf group install "Development Tools"
 
 ```sh
 sudo emerge --ask \
-    net-libs/webkit-gtk:4 \
+    net-libs/webkit-gtk:4.1 \
     dev-libs/libappindicator \
     net-misc/curl \
     net-misc/wget \
