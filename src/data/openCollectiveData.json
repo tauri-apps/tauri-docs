@@ -927,6 +927,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Thomas Kumlehn",
     "id": "Thomas Kumlehn",
     "avatarUrl": "https://images.opencollective.com/user-cbb10957/avatar/256.jpg",
@@ -950,17 +961,6 @@
     "avatarUrl": "https://images.opencollective.com/paco5/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/paco5",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
@@ -1576,6 +1576,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Zach Sherman",
     "id": "Zach Sherman",
     "avatarUrl": "https://images.opencollective.com/zach-sherman/avatar/256.jpg",
@@ -1696,17 +1707,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Scanavium21",
