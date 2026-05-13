@@ -1,0 +1,146 @@
+---
+title: Asset protocol scope
+description: Configure app.security.assetProtocol so the WebView can load local files safely, including FsScope, requireLiteralLeadingDot, and dynamic paths.
+sidebar:
+  order: 5
+i18nReady: true
+---
+
+Tauri can serve files from disk into the WebView through the **asset** custom protocol (for example when you use [`convertFileSrc`](https://v2.tauri.app/reference/javascript/api/namespacecore/#convertfilesrc) in the frontend). Whether a path is allowed is controlled by **`app.security.assetProtocol`** in `tauri.conf.json`.
+
+You must set **`enable`** to `true` and define a **`scope`** that lists which filesystem paths may be exposed. Paths resolved at runtime must match that scope, or the WebView will refuse the load (often with an error such as “asset protocol not configured to allow the path”).
+
+Content Security Policy for `asset:` sources is documented on the [Content Security Policy (CSP)](/security/csp/) page. This page focuses on **scope** and how it interacts with globs and hidden path segments.
+
+## How `scope` is defined
+
+`assetProtocol.scope` uses the same **`FsScope`** type as filesystem-related configuration elsewhere: either a **JSON array** of allowed glob patterns, or a **JSON object** with `allow`, optional `deny`, and optional `requireLiteralLeadingDot`. For how “scopes” fit into Tauri’s security model more broadly, see [Command scopes](/security/scope/).
+
+Patterns may start with a **base directory variable** (for example `$HOME`, `$CACHE`, `$APPCACHE`, `$APPDATA`, `$RESOURCE`). See the [path / base directory APIs](/reference/javascript/api/namespacepath/#basedirectory) for the full set of variables your app can rely on.
+
+Paths resolved when loading assets are usually **absolute** (on Linux, often under `/home/...`). A pattern like `["*/**"]` typically **does not** match those paths, because it does not line up with a leading `/` or a base-directory variable. Prefer patterns such as `$HOME/**/*`, `/home/username/**/*`, or another form that mirrors the resolved path.
+
+### Array form (allowed paths only)
+
+Use a list when you only need a fixed allow list and default glob behavior is enough:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$APPCACHE/**/*", "$RESOURCE/**/*"]
+      }
+    }
+  }
+}
+```
+
+With the array form you **cannot** set `requireLiteralLeadingDot`; for that, use the object form below.
+
+### Object form (`allow`, `deny`, `requireLiteralLeadingDot`)
+
+Use an object when you need **deny** rules or to change **leading-dot** matching:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "allow": ["$APPCACHE/**/*"],
+          "deny": ["$APPCACHE/**/secrets/**"]
+        }
+      }
+    }
+  }
+}
+```
+
+`deny` takes precedence over `allow` when both match.
+
+## Unix: path segments starting with `.`
+
+On Unix, `requireLiteralLeadingDot` defaults to **`true`**. Then wildcard tokens such as `*`, `?`, `**`, and `[...]` **do not match a path component that starts with** `.` (dotfiles and dot-directories such as `.cache` or `.ssh`).
+
+So a pattern like `$HOME/**` can allow `/home/user/Documents/file.png` but **not** `/home/user/.cache/myapp/preview.png`, because `.cache` is a dot-prefixed component. A pattern that names the segment literally (for example `$HOME/.cache/myapp/**`) **does** match.
+
+To allow dot-prefixed components under a broad glob, you can set **`requireLiteralLeadingDot`** to **`false`** on the **object** `scope` (this widens what the WebView can load; review carefully):
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "requireLiteralLeadingDot": false,
+          "allow": ["$HOME/**/*"]
+        }
+      }
+    }
+  }
+}
+```
+
+:::tip[Still blocked on Linux-style paths?]
+
+Community members often hit this when a path goes through a **dot-directory** (for example `~/.cache/...`) while the allow pattern only uses `**` under `$HOME`. See the discussion in [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788) for concrete examples and fixes.
+
+:::
+
+## Prefer `**/*` over bare `**` for “all files under here”
+
+For globs that should match **files** under a tree, prefer **`**/*`** (and variants like `$DIR/**/*`) rather than bare `**`, consistent with other Tauri path examples. Bare `**` is easy to misuse when you intend “everything under this directory recursively.”
+
+## Highly permissive configuration (use with extreme care)
+
+If you intentionally need the broadest possible access **and** dot-prefixed segments, a maintainer-suggested shape looks like this. **This is not a default recommendation**; it increases exposure of hidden and sensitive files.
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "requireLiteralLeadingDot": false,
+          "allow": ["**/*"]
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+
+Prefer **narrow** directories (`$APPCACHE`, `$RESOURCE`, a single app subfolder under `$HOME`, etc.) instead of broad `$HOME/**/*` or `**/*` unless you have a strong reason and understand the security tradeoffs.
+
+:::
+
+## Static config vs dynamically chosen paths
+
+Entries in **`tauri.conf.json`** describe **static** allow/deny patterns. They do not replace runtime workflows where the user picks arbitrary folders or files (for example with the **dialog** plugin): those paths may need to be **persisted** across restarts using the [**persisted-scope**](/plugin/persisted-scope/) plugin.
+
+To persist **asset** / protocol-related scope with that plugin, enable its **`protocol-asset`** Cargo feature in `src-tauri/Cargo.toml`, for example:
+
+```toml
+tauri-plugin-persisted-scope = { version = "2", features = ["protocol-asset"] }
+```
+
+Register **`tauri_plugin_fs`** before **`tauri_plugin_persisted_scope`** as described in the plugin guide.
+
+## Troubleshooting
+
+| Symptom | Things to check |
+| --- | --- |
+| “asset protocol not configured to allow the path” | Path must match an **`allow`** pattern; **`deny`** overrides **`allow`**. Use **absolute** patterns or **`$VAR`/`$HOME`** style variables that match how the path is resolved on disk. |
+| Works for normal folders but not under **`.cache`** / **`.config`** | On Unix, default **`requireLiteralLeadingDot`** behavior: use a literal `.segment` in the pattern, or set **`requireLiteralLeadingDot`: `false`** in the object `scope` (see [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788)). |
+| User picked a folder at runtime; still blocked after restart | You may need [**persisted-scope**](/plugin/persisted-scope/) with the **`protocol-asset`** feature, not only `tauri.conf.json` entries. |
+| Broad `**` seems wrong | Try **`**/*`** for file-oriented globs; see [Embedding Additional Files](/develop/resources/) for similar `**` vs `**/*` guidance in bundle resources. |
+| Scope like `["*/**"]` never matches on Linux | Resolved paths are **absolute**; use **`$...` variables**, a leading **`/`**, or another pattern that matches the real path (see above). |
+
+The authoritative Rust types for `assetProtocol` and `FsScope` live in Tauri’s [`config.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-utils/src/config.rs) (`AssetProtocolConfig`, `FsScope`). The generated [configuration reference](/reference/config/) may render nested `FsScope` fields in a compact or hard-to-read way; if something looks unclear there, cross-check this page and the [file system plugin](/plugin/file-system/) `requireLiteralLeadingDot` section (plugin config uses the same option name for its own scopes). If the reference still does not document those fields clearly, consider opening an issue on the **tauri-docs** repository so the config generator can be improved.
