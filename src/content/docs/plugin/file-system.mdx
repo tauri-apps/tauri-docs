@@ -736,13 +736,15 @@ component `/home/user/.ssh/*`.
 If that does not work in your use case then you can configure the plugin to treat any component
 as a valid path literal.
 
-```json title="src-tauri/tauri.conf.json
+```json title="src-tauri/tauri.conf.json"
  "plugins": {
     "fs": {
       "requireLiteralLeadingDot": false
     }
   }
 ```
+
+The same option exists for **`app.security.assetProtocol.scope`** when you use the [object form](/security/asset-protocol/) (not the array-only form). For real-world cases involving dot-directories, see [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788).
 
 :::
 
