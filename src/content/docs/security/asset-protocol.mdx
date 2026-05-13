@@ -93,7 +93,7 @@ Community members often hit this when a path goes through a **dot-directory** (f
 
 ## Prefer `**/*` over bare `**` for “all files under here”
 
-For globs that should match **files** under a tree, prefer **`**/_`** (and variants like `$DIR/\*\*/_`) rather than bare `**`, consistent with other Tauri path examples. Bare `**` is easy to misuse when you intend “everything under this directory recursively.”
+For globs that should match **files** under a tree, prefer `**/*` (and variants like `$DIR/**/*`) rather than bare `**`, consistent with other Tauri path examples. Bare `**` is easy to misuse when you intend “everything under this directory recursively.”
 
 ## Highly permissive configuration (use with extreme care)
 
@@ -140,7 +140,7 @@ Register **`tauri_plugin_fs`** before **`tauri_plugin_persisted_scope`** as desc
 | “asset protocol not configured to allow the path”                   | Path must match an **`allow`** pattern; **`deny`** overrides **`allow`**. Use **absolute** patterns or **`$VAR`/`$HOME`** style variables that match how the path is resolved on disk.                                                         |
 | Works for normal folders but not under **`.cache`** / **`.config`** | On Unix, default **`requireLiteralLeadingDot`** behavior: use a literal `.segment` in the pattern, or set **`requireLiteralLeadingDot`: `false`** in the object `scope` (see [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788)). |
 | User picked a folder at runtime; still blocked after restart        | You may need [**persisted-scope**](/plugin/persisted-scope/) with the **`protocol-asset`** feature, not only `tauri.conf.json` entries.                                                                                                        |
-| Broad `**` seems wrong                                              | Try **`**/_`** for file-oriented globs; see [Embedding Additional Files](/develop/resources/) for similar `**`vs`**/_` guidance in bundle resources.                                                                                           |
+| Broad `**` seems wrong                                              | Try `**/*` for file-oriented globs; see [Embedding Additional Files](/develop/resources/) for similar `**` vs `**/*` guidance in bundle resources.                                                                                           |
 | Scope like `["*/**"]` never matches on Linux                        | Resolved paths are **absolute**; use **`$...` variables**, a leading **`/`**, or another pattern that matches the real path (see above).                                                                                                       |
 
 The authoritative Rust types for `assetProtocol` and `FsScope` live in Tauri’s [`config.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-utils/src/config.rs) (`AssetProtocolConfig`, `FsScope`). The generated [configuration reference](/reference/config/) may render nested `FsScope` fields in a compact or hard-to-read way; if something looks unclear there, cross-check this page and the [file system plugin](/plugin/file-system/) `requireLiteralLeadingDot` section (plugin config uses the same option name for its own scopes). If the reference still does not document those fields clearly, consider opening an issue on the **tauri-docs** repository so the config generator can be improved.
