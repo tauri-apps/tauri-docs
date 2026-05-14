@@ -650,3 +650,20 @@ export async function onRequest(
 	);
 }
 ```
+
+:::note[Capability Required]
+
+Listening to plugin events from JavaScript is gated by the same [capability](/security/capabilities/) and [permission](/security/permissions/) system that gates plugin commands. Add the plugin's permission (commonly `<plugin-name>:default`, or a specific `allow-listen-*` permission if the plugin defines one) to the `permissions` array of a capability under `src-tauri/capabilities/`:
+
+```json
+// src-tauri/capabilities/default.json
+{
+  "identifier": "default",
+  "windows": ["main"],
+  "permissions": ["<plugin-name>:default"]
+}
+```
+
+Refer to the plugin's own documentation for the exact permission identifiers it exposes.
+
+:::
