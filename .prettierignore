@@ -32,6 +32,10 @@ src/content/docs/*/start/frontend/qwik.mdx
 src/content/docs/security/http-headers.mdx
 src/content/docs/*/security/http-headers.mdx
 
+# TODO: Prettier normalizes `**/*` glob patterns in inline code to `**/_`
+src/content/docs/security/asset-protocol.mdx
+src/content/docs/*/security/asset-protocol.mdx
+
 src/content/docs/learn/splashscreen.mdx
 src/content/docs/*/learn/splashscreen.mdx
 
