@@ -44,16 +44,16 @@ The `{plugin-name}` portion of a plugin crate, and any permission identifier ref
 
 Examples:
 
-| Identifier | Valid? |
-| ---------- | :----: |
-| `sqlite` | ✓ |
-| `sqlite-store` | ✓ |
-| `sqlite-store:allow-read` | ✓ |
-| `sqlite_store` | ✗ (underscore) |
-| `SqliteStore` | ✗ (uppercase) |
-| `-sqlite` | ✗ (leading hyphen) |
-| `sqlite-` | ✗ (trailing hyphen) |
-| `sqlite::store` | ✗ (multiple separators) |
+| Identifier                |         Valid?          |
+| ------------------------- | :---------------------: |
+| `sqlite`                  |            ✓            |
+| `sqlite-store`            |            ✓            |
+| `sqlite-store:allow-read` |            ✓            |
+| `sqlite_store`            |     ✗ (underscore)      |
+| `SqliteStore`             |      ✗ (uppercase)      |
+| `-sqlite`                 |   ✗ (leading hyphen)    |
+| `sqlite-`                 |   ✗ (trailing hyphen)   |
+| `sqlite::store`           | ✗ (multiple separators) |
 
 If a plugin or permission identifier violates these rules, the build fails with the error `identifiers can only include lowercase ASCII, hyphens which are not leading or trailing, and a single colon if using a prefix`. The offending value is usually the plugin name in your plugin's `Cargo.toml` or a permission identifier in a `permissions/*.toml` file.
 
