@@ -211,7 +211,7 @@ export default defineConfig({
                       collapsed: true,
                       items: [
                         {
-                          autogenerate: { directory: 'develop/Tests' },
+                          autogenerate: { directory: 'develop/Tests', collapsed: true },
                         },
                       ],
                     },
