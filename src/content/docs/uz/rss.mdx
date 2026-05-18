@@ -1,0 +1,27 @@
+---
+title: Tauri RSS tasmalar (Feeds)
+i18nReady: true
+topic: guides # bu sahifa ko'rilayotganda yon menyu faol bo'ladi
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<LinkCard
+  title="Barcha yangilanishlar"
+  description="Butun sayt bo'ylab sodir bo'ladigan barcha yangilanishlar haqida bildirishnomalar oling."
+  href="/feed.xml"
+/>
+
+<LinkCard
+  title="Blog yangilanishlari"
+  description="Eng so'nggi blog postlari va maqolalarni kuzatib boring."
+  href="/blog/rss.xml"
+/>
+
+<LinkCard
+  title="Sahifalar yangilanishi"
+  description="Asosiy sayt sahifalaridagi yangilanishlar haqida ma'lumot oling."
+  href="/pages.xml"
+/>
+
+<div style="text-align: right;">Doc-UZ 2.00.00</div>

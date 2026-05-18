@@ -1,0 +1,59 @@
+---
+title: Tauri 2.0
+description: Krossplatformali ilovalar yaratish uchun vositalar to'plami
+i18nReady: true
+editUrl: false
+lastUpdated: false
+template: splash
+tableOfContents: false
+prev: false
+next: false
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
+import Hero from '@components/Hero.astro';
+import SponsorList from '@components/sponsors/SponsorList.astro';
+import 'src/styles/home.css';
+
+<Hero
+  tagline="Yengil, tezkor va xavfsiz krossplatformali ilovalar yarating"
+  getStarted="Boshlash"
+  v1Docs="Tauri 1.0 hujjatlari"
+/>
+
+<div class="lp-cta-card">
+  <Card title="Loyihani boshlash" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
+  <a href="https://v2.tauri.app/start/frontend/" className="card-link card-frontend">
+    <Card title="Frontenddan mustaqil" icon="rocket">
+      Mavjud veb-stekingizni Tauriga olib o'ting yoki yangi orzungizdagi loyihani boshlang.
+      Tauri har qanday frontend freymvorkni qo'llab-quvvatlaydi, shuning uchun texnologiyalar stekingizni o'zgartirishingiz shart emas.
+    </Card>
+  </a>
+
+  <a href="https://v2.tauri.app/distribute/" className="card-link card-platform">
+    <Card title="Krossplatformali" icon="rocket">
+      Yagona kod bazasidan foydalanib Linux, macOS, Windows, Android va iOS uchun ilovalar yarating.
+      Frontendni JavaScriptda, ilova mantiqini Rustda yozing hamda Swift va Kotlin orqali tizimning chuqur qatlamlari bilan integratsiya qiling.
+    </Card>
+  </a>
+
+  <a href="https://v2.tauri.app/security/" className="card-link card-security">
+    <Card title="Maksimal xavfsizlik" icon="rocket">
+      Xavfsizlik Tauri jamoasi uchun doimo diqqat markazida bo'lib, u bizning asosiy ustuvor vazifalarimiz va eng katta innovatsiyalarimizni belgilab beradi.
+    </Card>
+  </a>
+
+  <a href="https://v2.tauri.app/concept/size/" className="card-link card-size">
+    <Card title="Minimal hajm" icon="rocket">
+      Operatsion tizimning standart veb-rendereridan (native web renderer) foydalanish hisobiga, Tauri ilovasining hajmi 600KB gacha kichik bo'lishi mumkin.
+    </Card>
+  </a>
+</CardGrid>
+
+<SponsorList />

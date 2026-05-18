@@ -5,6 +5,9 @@ import LogoDark from '@assets/logo.svg';
 import LogoOutline from '@assets/logo-outline.svg';
 
 const { tagline, getStarted, v1Docs } = Astro.props;
+const [, locale] = Astro.url.pathname.split('/');
+
+const baseLink = locale && locale !== 'start' ? `/${locale}/start/` : '/start/';
 ---
 
 <div class="hero-bg">
@@ -22,7 +25,8 @@ const { tagline, getStarted, v1Docs } = Astro.props;
         {tagline}
       </p>
       <div class="actions">
-        <LinkButton icon="right-arrow" href="/start/">{getStarted}</LinkButton>
+        <LinkButton icon="right-arrow" href={baseLink}>{getStarted}</LinkButton>
+
         <LinkButton href="https://v1.tauri.app" variant="minimal" icon="external">
           {v1Docs}
         </LinkButton>
