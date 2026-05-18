@@ -331,7 +331,7 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     {
-                      autogenerate: { directory: 'release' },
+                      autogenerate: { directory: 'release', collapsed: true },
                     },
                   ],
                 },
@@ -340,7 +340,7 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     {
-                      autogenerate: { directory: 'reference/javascript' },
+                      autogenerate: { directory: 'reference/javascript', collapsed: true },
                     },
                   ],
                 },
