@@ -160,7 +160,7 @@ export default defineConfig({
                     es: 'Conceptos básicos',
                   },
                   collapsed: true,
-                  items: [{ autogenerate: { directory: 'concept' } }],
+                  items: [{ autogenerate: { directory: 'concept', collapsed: true } }],
                 },
                 {
                   label: 'Security',
@@ -169,7 +169,7 @@ export default defineConfig({
                     es: 'Seguridad',
                   },
                   collapsed: true,
-                  items: [{ autogenerate: { directory: 'security' } }],
+                  items: [{ autogenerate: { directory: 'security', collapsed: true } }],
                 },
                 {
                   label: 'Develop',
@@ -226,7 +226,7 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     {
-                      autogenerate: { directory: 'distribute' },
+                      autogenerate: { directory: 'distribute', collapsed: true },
                     },
                   ],
                 },
@@ -239,7 +239,7 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     {
-                      autogenerate: { directory: 'learn' },
+                      autogenerate: { directory: 'learn', collapsed: true },
                     },
                   ],
                 },
