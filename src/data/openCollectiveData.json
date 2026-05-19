@@ -671,6 +671,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alexander Herrmann",
     "id": "Alexander Herrmann",
     "avatarUrl": "https://images.opencollective.com/darignac/avatar/256.jpg",
@@ -716,15 +725,6 @@
     "socialLinks": {
       "github": "https://github.com/eokju-na"
     },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
