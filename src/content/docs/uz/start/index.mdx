@@ -1,0 +1,51 @@
+---
+title: Tauri nima?
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+Tauri — barcha asosiy ish stoli (desktop) va mobil platformalar uchun kichik hamda tezkor binar fayllar (binaries) yaratishga moʻljallangan freymvorkdir. Dasturchilar oʻz foydalanuvchi interfeyslarini (UX) qurish uchun HTML, JavaScript va CSS-ga kompilyatsiya boʻladigan istalgan frontend freymvorkni integratsiya qilishlari, shu bilan birga, zarurat tugʻilganda backend logikasi uchun Rust, Swift va Kotlin kabi tillar imkoniyatlaridan foydalanishlari mumkin.
+
+Quyidagi buyruqlardan birini ishlatib, [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) yordamida loyiha yaratishni boshlang. Tauri uchun zarur boʻlgan barcha bogʻliqliklarni (dependencies) oʻrnatish uchun [tizim talablari qoʻllanmasiga](/uz/start/prerequisites/) amal qilganingizga ishonch hosil qiling. Batafsilroq bosqichma-bosqich qoʻllanma uchun [Loyiha yaratish](/start/create-project/#using-create-tauri-app) boʻlimiga qarang.
+
+import Cta from '../../_fragments/cta.mdx';
+
+<Cta />
+
+Ilk ilovangizni yaratgandan soʻng, har bir fayl nima vazifa bajarishini tushunish uchun [Loyiha tuzilishi](/uz/start/project-structure/) boʻlimi bilan tanishib chiqing.
+
+Yoki tayyor misollar yordamida loyiha sozlamalari va imkoniyatlarini oʻrganing ([tauri](https://github.com/tauri-apps/tauri/tree/dev/examples) | [plugins-workspace](https://github.com/tauri-apps/plugins-workspace/tree/v2/examples/api))
+## Nima uchun Tauri?
+
+Tauri dasturchilarga loyihalarini qurish uchun 3 ta asosiy afzallikni taqdim etadi:
+
+- Ilovalar yaratish uchun xavfsiz poydevor (foundation)
+- Tizimning ichki veb-koʻrinishidan (native webview) foydalanish orqali kichikroq paket (bundle) hajmi
+- Dasturchilar uchun istalgan frontend-dan foydalanish va bir nechta tillar uchun bogʻlamalar (bindings) moslanuvchanligi
+
+Tauri haqida batafsil maʼlumotni [Tauri 1.0 blog postidan](/uz/blog/tauri-1-0/) bilib oling.
+
+### Xavfsiz poydevor
+
+Rust tiliga asoslangani tufayli Tauri uning xotira (memory), oqimlar (thread) va turlar (type) xavfsizligi kabi afzalliklaridan toʻliq foydalana oladi. Tauri-da yaratilgan ilovalar, hatto ularni ishlab chiquvchilar Rust boʻyicha ekspert boʻlmasalar ham, ushbu afzalliklarga avtomatik ravishda ega boʻlishadi.
+
+Tauri shuningdek, yirik (major) va kichik (minor) relizlar uchun xavfsizlik auditidan oʻtkaziladi. Bu nafaqat Tauri tashkiloti (organization) ichidagi kodlarni, balki Tauri tayanadigan yuqori oqim bogʻliqliklarini (upstream dependencies) ham qamrab oladi. Albatta, bu barcha xavflarni butunlay yoʻq qilmaydi, lekin dasturchilar oʻz loyihalarini qurishlari uchun mustahkam poydevor yaratadi.
+
+[Tauri xavfsizlik siyosati](https://github.com/tauri-apps/tauri/security/policy) va [Tauri 2.0 audit hisoboti](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf) bilan tanishing.
+
+### Kichikroq ilova hajmi
+
+Tauri ilovalari har bir foydalanuvchining tizimida allaqachon mavjud boʻlgan veb-koʻrinishdan (web view) unumli foydalanadi. Tauri ilovasi faqatgina shu ilovaning oʻziga tegishli kod va aktivlarni (assets) oʻz ichiga oladi va har bir ilova ichiga brauzer dvigatelini (browser engine) qoʻshib paketlashga (bundle) ehtiyoj qolmaydi. Bu esa minimal Tauri ilovasining hajmi 600KB dan ham kam boʻlishi mumkinligini anglatadi.
+
+Optimallashtirilgan ilovalar yaratish haqida batafsil maʼlumotni [Ilova hajmi konsepsiyasi](/uz/concept/size/) boʻlimidan bilib oling.
+
+### Moslanuvchan arxitektura
+
+Tauri veb-texnologiyalardan foydalangani sababli, deyarli har qanday frontend freymvork Tauri bilan toʻliq mos keladi. [Frontend sozlamalari qoʻllanmasi](/uz/start/frontend/) ommabop frontend freymvorklari uchun eng koʻp tarqalgan konfiguratsiyalarni oʻz ichiga oladi.
+
+JavaScript va Rust oʻrtasidagi bogʻlamalar (bindings) dasturchilar uchun JavaScript-dagi `invoke` funksiyasi orqali taqdim etiladi. Swift va Kotlin bogʻlamalaridan esa [Tauri plaginlari](/uz/develop/plugins/) uchun foydalanish mumkin.
+
+Tauri-da oynalar yaratish uchun [TAO](https://github.com/tauri-apps/tao) kutubxonasi, veb-koʻrinishni vizuallashtirish (rendering) uchun esa [WRY](https://github.com/tauri-apps/wry) kutubxonasi javobgardir. Ushbu kutubxonalar Tauri jamoasi tomonidan yuritiladi (maintain qilinadi) va agar Tauri taqdim etadigan imkoniyatlardan tashqari, tizim bilan chuqurroq integratsiya qilish kerak boʻlsa, ulardan toʻgʻridan-toʻgʻri foydalanish ham mumkin.
+
+Bundan tashqari, Tauri oʻzining asosiy (core) imkoniyatlarini kengaytirish uchun bir qator rasmiy plaginlarni ham qoʻllab-quvvatlaydi. Ushbu plaginlarni va hamjamiyat (community) tomonidan yaratilgan boshqa yechimlarni [Plaginlar boʻlimidan](/uz/plugin/) topishingiz mumkin.

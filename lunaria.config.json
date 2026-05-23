@@ -46,6 +46,10 @@
     {
       "label": "한국어",
       "lang": "ko"
+    },
+    {
+      "label": "O'zbekcha",
+      "lang": "uz"
     }
   ],
   "dashboard": {
