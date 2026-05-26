@@ -242,11 +242,16 @@
     "type": "ORGANIZATION"
   },
   {
-    "name": "Hidekazu Kobayashi",
-    "id": "Hidekazu Kobayashi",
-    "avatarUrl": "https://images.opencollective.com/hidekazu-kobayashi/8cd4b42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/hidekazu-kobayashi",
-    "socialLinks": {},
+    "name": "KOBA789",
+    "id": "KOBA789",
+    "avatarUrl": "https://images.opencollective.com/koba789/8cd4b42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/koba789",
+    "socialLinks": {
+      "website": "https://koba789.com/",
+      "github": "https://github.com/KOBA789",
+      "twitter": "https://x.com/KOBA789",
+      "youtube": "https://youtube.com/@KOBA789"
+    },
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
