@@ -60,17 +60,17 @@ If you call `unlisten` synchronously before the Promise resolves, the handler
 will be removed immediately and you won't receive any events:
 
 ```js
-// ❌ Wrong — unlisten is called before the listener is registered
-const unlisten = listen('download-started', (event) => {
-  console.log('never fires');
+// Wrong: unlisten is called before the listener is registered
+const unlisten = listen('sync-complete', (event) => {
+  console.log('sync finished');
 });
-unlisten(); // unlisten is undefined here; the listener may not be set up yet
+unlisten(); // unlisten is a Promise here, not a function -- the listener is not cleaned up
 
-// ✅ Correct — await the Promise to get the unlisten handle
-const unlisten = await listen('download-started', (event) => {
-  console.log('download started');
+// Correct: await the Promise to get the unlisten handle
+const unlisten = await listen('sync-complete', (event) => {
+  console.log('sync finished');
 });
-// Now unlisten is a function you can call later
+// Now you can store and call it later, e.g. in a cleanup function
 unlisten();
 ```
 
@@ -83,7 +83,7 @@ rendered yet, or defer the listener registration to an effect/hook that runs
 after mount.
 
 ```js
-// ❌ Wrong — DOM ref may not be available yet
+// Wrong: DOM ref may not be available yet
 function MyComponent() {
   const ref = useRef(null);
   listen('scroll-to', (event) => {
@@ -92,7 +92,7 @@ function MyComponent() {
   return <div ref={ref} />;
 }
 
-// ✅ Correct — use useEffect which runs after the component mounts
+// Correct: use useEffect which runs after the component mounts
 function MyComponent() {
   const ref = useRef(null);
   useEffect(() => {
@@ -123,52 +123,49 @@ component is unmounted to avoid memory leaks and duplicate handlers.
 ##### React
 
 ```tsx
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { listen } from '@tauri-apps/api/event';
 
 function DownloadTracker() {
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
-    let unlisten: (() => void) | undefined;
-
-    const setup = async () => {
-      unlisten = await listen<string>('download-progress', (event) => {
-        console.log(`progress: ${event.payload}`);
-      });
-    };
-
-    setup();
+    const unlisten = listen<number>('download-progress', (event) => {
+      setProgress(event.payload);
+    });
 
     return () => {
-      unlisten?.();
+      unlisten.then((fn) => fn());
     };
   }, []);
 
-  return <div>Tracking downloads...</div>;
+  return <div>Download progress: {progress}%</div>;
 }
 ```
 
 ##### Vue
 
 ```vue
-<script setup>
-import { onUnmounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
 import { listen } from '@tauri-apps/api/event';
 
-let unlisten;
+const progress = ref(0);
+let unlistenPromise;
 
-listen<string>('download-progress', (event) => {
-  console.log(`progress: ${event.payload}`);
-}).then((fn) => {
-  unlisten = fn;
+onMounted(() => {
+  unlistenPromise = listen<number>('download-progress', (event) => {
+    progress.value = event.payload;
+  });
 });
 
 onUnmounted(() => {
-  unlisten?.();
+  unlistenPromise?.then((fn) => fn());
 });
 </script>
 
 <template>
-  <div>Tracking downloads...</div>
+  <div>Download progress: {{ progress }}%</div>
 </template>
 ```
 
@@ -178,11 +175,13 @@ onUnmounted(() => {
 <script lang="ts">
   import { listen } from '@tauri-apps/api/event';
 
+  let progress = $state(0);
+
   $effect(() => {
-    const unlistenPromise = listen<string>(
+    const unlistenPromise = listen<number>(
       'download-progress',
       (event) => {
-        console.log(`progress: ${event.payload}`);
+        progress = event.payload;
       }
     );
 
@@ -192,7 +191,7 @@ onUnmounted(() => {
   });
 </script>
 
-<div>Tracking downloads...</div>
+<div>Download progress: {progress}%</div>
 ```
 
 Additionally Tauri provides a utility function for listening to an event exactly once:
