@@ -120,7 +120,10 @@ instead of the event system.
 When using a frontend framework, you should clean up event listeners when a
 component is unmounted to avoid memory leaks and duplicate handlers.
 
-##### React
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="React">
 
 ```tsx
 import { useEffect, useState } from 'react';
@@ -143,7 +146,8 @@ function DownloadTracker() {
 }
 ```
 
-##### Vue
+</TabItem>
+<TabItem label="Vue">
 
 ```vue
 <script setup lang="ts">
@@ -169,30 +173,34 @@ onUnmounted(() => {
 </template>
 ```
 
-##### Svelte
+</TabItem>
+<TabItem label="Svelte">
 
 ```svelte
 <script lang="ts">
-  import { listen } from '@tauri-apps/api/event';
+import { listen } from '@tauri-apps/api/event';
 
-  let progress = $state(0);
+let progress = $state(0);
 
-  $effect(() => {
-    const unlistenPromise = listen<number>(
-      'download-progress',
-      (event) => {
-        progress = event.payload;
-      }
-    );
+$effect(() => {
+  const unlistenPromise = listen<number>(
+    'download-progress',
+    (event) => {
+      progress = event.payload;
+    }
+  );
 
-    return () => {
-      unlistenPromise.then((unlisten) => unlisten());
-    };
-  });
+  return () => {
+    unlistenPromise.then((unlisten) => unlisten());
+  };
+});
 </script>
 
 <div>Download progress: {progress}%</div>
 ```
+
+</TabItem>
+</Tabs>
 
 Additionally Tauri provides a utility function for listening to an event exactly once:
 
