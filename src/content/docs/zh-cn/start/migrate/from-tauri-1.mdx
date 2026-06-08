@@ -387,7 +387,7 @@ tauri::Builder::default()
 
 ### 文件系统插件迁移
 
-Rust 的 `App::get_cli_matches` 和 JavaScript 的 `@tauri-apps/api/fs` API 被移除。使用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 或 JavaScript 的 `@tauri-apps/plugin-fs` 插件作为替代：
+Rust 的 `tauri::api::fs` 和 JavaScript 的 `@tauri-apps/api/fs` API 被移除。使用 Rust 的 [`std::fs`](https://doc.rust-lang.org/std/fs/) 或 JavaScript 的 `@tauri-apps/plugin-fs` 插件作为替代：
 
 1. 添加 Cargo 依赖项：
 

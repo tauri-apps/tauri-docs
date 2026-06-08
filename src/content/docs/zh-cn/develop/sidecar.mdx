@@ -7,7 +7,7 @@ i18nReady: true
 
 二进制文件是用任何编程语言编写的可执行文件。常见的用例是使用 `pyinstaller` 捆绑的 Python CLI 应用程序或 API 服务器。
 
-要捆绑您选择的二进制文件，您可以在 `tauri.conf.json` 中的 `tauri > bundle` 对象中添加 `externalBin` 属性。
+要捆绑您选择的二进制文件，您可以在 `tauri.conf.json` 中的 `bundle` 对象中添加 `externalBin` 属性。
 `externalBin` 期望一个字符串列表，用于定位具有绝对或相对路径的二进制文件。
 
 下面是一个示例来说明配置。这不是一个完整的 `tauri.conf.json` 文件。
@@ -110,7 +110,7 @@ tauri::async_runtime::spawn(async move {
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
-// `binaries/my-sidecar` 是在 `tauri.conf.json > tauri > bundle > externalBin` 指定的确切值。
+// `binaries/my-sidecar` 是在 `tauri.conf.json > bundle > externalBin` 指定的确切值。
 const sidecar_command = Command.sidecar('binaries/my-sidecar');
 const output = await sidecar_command.execute();
 ```
@@ -184,7 +184,7 @@ async fn call_my_sidecar(app: tauri::AppHandle) {
 
 ```javascript
 import { Command } from '@tauri-apps/plugin-shell';
-// `binaries/my-sidecar` 是在 `tauri.conf.json > tauri > bundle > externalBin` 指定的确切值。
+// `binaries/my-sidecar` 是在 `tauri.conf.json > bundle > externalBin` 指定的确切值。
 // 请注意 args 数组需要与 `tauri.conf.json` 中指定的需完全匹配
 const command = Command.sidecar('binaries/my-sidecar', [
   'arg1',

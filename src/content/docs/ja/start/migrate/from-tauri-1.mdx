@@ -392,7 +392,7 @@ tauri::Builder::default()
 
 ### File System プラグインの移行
 
-Rust の `App::get_cli_matches` および `@tauri-apps/api/fs` API は削除されました。代わりに、Rust には [`std::fs`](https://doc.rust-lang.org/std/fs/) を、JavaScript には `@tauri-apps/plugin-fs` プラグインを使用してください：
+Rust の `tauri::api::fs` および `@tauri-apps/api/fs` API は削除されました。代わりに、Rust には [`std::fs`](https://doc.rust-lang.org/std/fs/) を、JavaScript には `@tauri-apps/plugin-fs` プラグインを使用してください：
 
 1. Cargo へ依存関係を追加します：
 

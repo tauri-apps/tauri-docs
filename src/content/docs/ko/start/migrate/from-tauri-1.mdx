@@ -392,7 +392,7 @@ tauri::Builder::default()
 
 ### File System 플러그인 마이그레이션
 
-Rust의 `App::get_cli_matches` 및 `@tauri-apps/api/fs` API가 삭제되었습니다. 대신 Rust에는 [`std::fs`](https://doc.rust-lang.org/std/fs/)를, JavaScript에는 `@tauri-apps/plugin-fs` 플러그인을 사용하십시오:
+Rust의 `tauri::api::fs` 및 `@tauri-apps/api/fs` API가 삭제되었습니다. 대신 Rust에는 [`std::fs`](https://doc.rust-lang.org/std/fs/)를, JavaScript에는 `@tauri-apps/plugin-fs` 플러그인을 사용하십시오:
 
 1. Cargo에 종속성을 추가합니다:
 

@@ -340,7 +340,7 @@ tauri::Builder::default()
 
 ### Migrer vers un "File System Plugin"
 
-Les APIs Rust `App::get_cli_matches` et JavaScript `@tauri-apps/api/fs` ont été retirées. Utilisez le plugin [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust et `@tauri-apps/plugin-fs` for JavaScript à la place:
+Les APIs Rust `tauri::api::fs` et JavaScript `@tauri-apps/api/fs` ont été retirées. Utilisez le plugin [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust et `@tauri-apps/plugin-fs` for JavaScript à la place:
 
 1. Ajoutez vos dépendances Cargo:
 

@@ -9,7 +9,7 @@ i18nReady: true
 
 바이너리는 모든 프로그래밍 언어로 작성된 실행 파일입니다. 일반적인 사용 예로는 `pyinstaller`를 사용하여 번들된 Python CLI 애플리케이션이나 API 서버 등이 있습니다.
 
-원하는 바이너리를 번들링하려면 `tauri.conf.json`의 `tauri > bundle` 객체에 `externalBin` 속성을 추가합니다.
+원하는 바이너리를 번들링하려면 `tauri.conf.json`의 `bundle` 객체에 `externalBin` 속성을 추가합니다.
 `externalBin` 설정에는 절대 경로 또는 상대 경로를 사용하여 대상 바이너리를 지정하는 "문자열 목록"이 필요합니다.
 
 다음은 "사이드카" 설정을 설명하기 위한 "Tauri 설정"의 발췌(스니펫)입니다:

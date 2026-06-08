@@ -201,7 +201,7 @@ tauri = { version = "2.0.0", features = [ ] }
 
 最需要重视的部分是 `tauri-build` 和 `tauri` 依赖项。通常，它们都必须与 Tauri CLI 一样处于最新的次要版本，但这并非严格要求。如果你在尝试运行应用时遇到问题，请检查所有 Tauri 版本（ `tauri` 和 `tauri-cli` ）是否处于其各自次要版本的最新版本。
 
-Cargo 版本号使用[语义化版本控制 (Semantic Versioning)] 。在 `src-tauri` 文件夹中运行 `cargo update` 将获取所有依赖项的最新可用语义兼容版本。例如，如果你指定 `2.0.0` 作为 `tauri-build` 的版本，Cargo 将检测并下载 `2.0.0.0` 版本，因为它是最新的可用语义兼容版本。每当引入重大变更时，Tauri 都会更新主版本号，这意味着你始终能够安全地升级到最新的次版本和补丁版本，而不必担心代码被破坏。
+Cargo 版本号使用[语义化版本控制 (Semantic Versioning)] 。在 `src-tauri` 文件夹中运行 `cargo update` 将获取所有依赖项的最新可用语义兼容版本。例如，如果你指定 `2.0.0` 作为 `tauri-build` 的版本，Cargo 将检测并下载 `2.0.0` 版本，因为它是最新的可用语义兼容版本。每当引入重大变更时，Tauri 都会更新主版本号，这意味着你始终能够安全地升级到最新的次版本和补丁版本，而不必担心代码被破坏。
 
 如果你想使用特定的 crate 版本，你可以通过在依赖项的版本号前面添加 `=` 来使用精确的版本：
 
@@ -229,8 +229,8 @@ Tauri 项目的 `package.json` 文件基本示例可能看起来像这样：
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.0.0.0",
-    "@tauri-apps/cli": "^2.0.0.0"
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/cli": "^2.0.0"
   }
 }
 ```
