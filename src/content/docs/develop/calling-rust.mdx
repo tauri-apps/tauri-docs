@@ -593,7 +593,7 @@ async fn some_other_function() -> Option<String> {
 
 #[tauri::command]
 async fn my_custom_command(
-	window: tauri::Window,
+	window: tauri::WebviewWindow,
 	number: usize,
 	database: tauri::State<'_, Database>,
 ) -> Result<CustomResponse, String> {
