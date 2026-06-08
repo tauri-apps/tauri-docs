@@ -137,12 +137,12 @@ const tray = await TrayIcon.new(options);
 
 ```rust
 use tauri::{
-    menu::{Menu, MenuItem},
+    menu::{MenuBuilder, MenuItemBuilder},
     tray::TrayIconBuilder,
 };
 
-let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
-let menu = Menu::with_items(app, &[&quit_i])?;
+let quit_i = MenuItemBuilder::with_id("quit", "Quit").build(app)?;
+let menu = MenuBuilder::new(app).item(&quit_i).build()?;
 
 let tray = TrayIconBuilder::new()
     .menu(&menu)
@@ -206,13 +206,13 @@ let tray = TrayIconBuilder::new()
 use tauri::tray::TrayIconBuilder;
 
 TrayIconBuilder::new()
-    .on_menu_event(|app, event| match event.id.as_ref() {
+    .on_menu_event(|app, event| match event.id().as_ref() {
         "quit" => {
             println!("quit menu item was clicked");
             app.exit(0);
         }
         _ => {
-            println!("menu item {:?} not handled", event.id);
+            println!("menu item {:?} not handled", event.id());
         }
     })
 ```
