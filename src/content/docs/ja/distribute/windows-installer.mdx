@@ -368,6 +368,20 @@ Expand .\Microsoft.WebView2.FixedVersionRuntime.128.0.2739.42.x64.cab -F:* ./src
 }
 ```
 
+## ミニマム Webview2 バージョン
+
+あなたのアプリが、新しい Webview2 バージョンでのみ利用可能な機能（カスタム URI スキームなど）を必要としている場合は、Windows インストーラーに「現在の Webview2 バージョンを確認し、ターゲット・バージョンと一致しない場合は Webview2 ブートストラップ・ローダーを実行する」ように指示できます。
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "minimumWebview2Version": "110.0.1531.0"
+    }
+  }
+}
+```
+
 ## WiXインストーラーのカスタマイズ
 
 カスタマイズ・オプションの全リストを知りたい場合は、[WiX configuration] を参照してください。
@@ -644,22 +658,6 @@ NSIS でサポートされている言語のリストは、[NSIS GitHub プロ�
     "windows": {
       "nsis": {
         "displayLanguageSelector": true
-      }
-    }
-  }
-}
-```
-
-### ミニマム Webview2 バージョン
-
-あなたのアプリが、新しい Webview2 バージョンでのみ利用可能な機能（カスタム URI スキームなど）を必要としている場合は、Windows インストーラーに「現在の Webview2 バージョンを確認し、ターゲット・バージョンと一致しない場合は Webview2 ブートストラップ・ローダーを実行する」ように指示できます。
-
-```json title="tauri.conf.json"
-{
-  "bundle": {
-    "windows": {
-      "nsis": {
-        "minimumWebview2Version": "110.0.1531.0"
       }
     }
   }
