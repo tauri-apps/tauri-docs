@@ -6,11 +6,11 @@ On Linux, Tauri renders through WebKitGTK. On some setups, most often NVIDIA GPU
 
 ## Common symptoms
 
-* The window opens but stays blank or white.
-* The window flickers, especially while resizing.
-* The app dies on resize with no useful error output.
-* Console shows `AcceleratedSurfaceDMABuf was unable to construct a complete framebuffer`.
-* Console shows `Gdk-Message: Error 71 (Protocol error) dispatching to Wayland display.`
+- The window opens but stays blank or white.
+- The window flickers, especially while resizing.
+- The app dies on resize with no useful error output.
+- Console shows `AcceleratedSurfaceDMABuf was unable to construct a complete framebuffer`.
+- Console shows `Gdk-Message: Error 71 (Protocol error) dispatching to Wayland display.`
 
 Most of these come from the WebKitGTK DMABUF renderer requesting buffer formats the NVIDIA driver does not provide. See the [WebKitGTK bug tracker](https://bugs.webkit.org/show_bug.cgi?id=261874) and the [NVIDIA forums](https://forums.developer.nvidia.com/t/geforce-rtx-4070-flickering-issue-when-using-the-dmabuf-renderer-in-webkitgtk/274741) for upstream discussion.
 
@@ -42,7 +42,7 @@ Only ship an unconditional override like this if you have verified your app is a
 
 Not every problem crashes or shows an error. WebGL and canvas content can silently land on a slow path while the rest of the app looks fine. Two things make this hard to detect from inside your frontend:
 
-* WebGL2 context creation succeeds even when the result is backed by a software rasterizer or a slow presentation path. There is no error to catch.
-* WebKitGTK masks the WebGL renderer string for fingerprinting protection. `WEBGL_debug_renderer_info` reports `Apple GPU` on every Linux machine, so you cannot check what is actually behind the context.
+- WebGL2 context creation succeeds even when the result is backed by a software rasterizer or a slow presentation path. There is no error to catch.
+- WebKitGTK masks the WebGL renderer string for fingerprinting protection. `WEBGL_debug_renderer_info` reports `Apple GPU` on every Linux machine, so you cannot check what is actually behind the context.
 
 In practice this shows up as high input latency or low frame rates in WebGL heavy views (terminal emulators, editors, maps, charts), while the same code is fast in a regular browser. If your app has a WebGL rendering path, give it a non WebGL fallback on Linux and consider exposing a setting so users can switch, instead of trusting the context to tell you.
