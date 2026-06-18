@@ -1,0 +1,1202 @@
+---
+title: Tauri 1.0에서 업그레이드
+i18nReady: true
+sidebar:
+  order: 15
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+여기서는 Tauri 1.0 애플리케이션을 Tauri 2.0으로 업그레이드하는 절차를 설명합니다.
+
+## 모바일용 준비
+
+Tauri의 모바일 인터페이스는 해당 프로젝트가 공유 라이브러리를 출력하도록 해야 합니다. 기존 애플리케이션을 모바일용으로 변경하는 경우, 데스크톱 실행 파일과 함께 해당 라이브러리 파일을 생성하도록 크레이트를 변경해야 합니다.
+
+1. 라이브러리를 생성하기 위해 Cargo 매니페스트를 변경합니다. 다음 블록을 추가합니다:
+
+```toml
+// src-tauri/Cargo.toml
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+2. `src-tauri/src/main.rs` 부분을 `src-tauri/src/lib.rs`로 변경합니다. 이 파일은 데스크톱 버전과 모바일 버전 모두에서 공유됩니다.
+
+3. `lib.rs`에 있는 `main` 함수 헤더의 이름을 다음과 같이 변경합니다:
+
+```rust
+// src-tauri/src/lib.rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // 여기에 코드를 작성합니다
+}
+```
+
+`tauri::mobile_entry_point` 매크로는 사용자가 만든 함수를 모바일에서 실행할 수 있도록 준비하는 것입니다.
+
+4. 공유 실행 함수를 호출하는 `main.rs` 파일을 다시 만듭니다.
+
+```rust
+// src-tauri/src/main.rs
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+fn main() {
+  app_lib::run();
+}
+```
+
+## 자동 마이그레이션
+
+Tauri v2 CLI에는 마이그레이션 작업의 대부분을 자동화하는 `migrate` 명령이 포함되어 있어 마이그레이션 완료에 도움이 됩니다.
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@latest
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@latest
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri migrate'
+/>
+
+`migrate` 명령에 대한 자세한 내용은 [명령줄 인터페이스 참조](/ko/reference/cli/#migrate)를 참조하십시오.
+
+## 변경 사항 요약
+
+Tauri 1.0에서 Tauri 2.0으로의 변경 사항 요약은 다음과 같습니다:
+
+### Tauri 설정
+
+- `package > productName` 및 `package > version`을 최상위 객체로 이동.
+- 바이너리 이름이 자동으로 `productName`과 일치하도록 변경되지 않으므로, `productName`과 일치하는 최상위 객체에 `mainBinaryName` 문자열을 추가해야 합니다.
+- `package` 삭제.
+- `tauri` 키를 `app`으로 개칭.
+- `tauri > allowlist` 삭제. [허가 마이그레이션](#허가-마이그레이션) 참조.
+- `tauri > allowlist > protocol > assetScope`를 `app > security > assetProtocol > scope`로 이동.
+- `tauri > cli`를 `plugins > cli`로 이동.
+- `tauri > windows > fileDropEnabled`를 `app > windows > dragDropEnabled`로 개칭.
+- `tauri > updater > active` 삭제.
+- `tauri > updater > dialog` 삭제.
+- `tauri > updater`를 `plugins > updater`로 이동.
+- `bundle > createUpdaterArtifacts` 추가. 앱 업데이터를 사용하는 경우 설정해야 합니다.
+  - 이미 배포된 v1 앱을 업그레이드하는 경우, 이를 `v1compatible`로 설정하십시오. 자세한 내용은 [업데이터 가이드](/ko/plugin/updater/)를 참조하십시오.
+- `tauri > systemTray`를 `app > trayIcon`으로 개칭.
+- `tauri > pattern`을 `app > security > pattern`으로 이동.
+- `tauri > bundle`을 최상위로 이동.
+- `tauri > bundle > identifier`를 최상위 객체로 이동.
+- `tauri > bundle > dmg`를 `bundle > macOS > dmg`로 이동.
+- `tauri > bundle > deb`를 `bundle > linux > deb`로 이동.
+- `tauri > bundle > appimage`를 `bundle > linux > appimage`로 이동.
+- `tauri > bundle > macOS > license` 삭제. 대신 `bundle > licenseFile`을 사용하십시오.
+- `tauri > bundle > windows > wix > license` 삭제. 대신 `bundle > licenseFile`을 사용하십시오.
+- `tauri > bundle > windows > nsis > license` 삭제. 대신 `bundle > licenseFile`을 사용하십시오.
+- `tauri > bundle > windows > webviewFixedRuntimePath` 삭제. 대신 `bundle > windows > webviewInstallMode`를 사용하십시오.
+- `build > withGlobalTauri`를 `app > withGlobalTauri`로 이동.
+- `build > distDir`을 `frontendDist`로 개칭.
+- `build > devPath`를 `devUrl`로 개칭.
+
+[Tauri 2.0 설정 API 참조](/ko/reference/config/)
+
+### Cargo의 새로운 기능
+
+- linux-protocol-body: 사용자 지정 프로토콜 요청의 본문 부분 분석을 활성화하고 IPC(프로세스 간 통신)에서 사용을 허용합니다. "webkit2gtk 2.40"이 필요합니다.
+
+### 삭제된 Cargo 기능
+
+- reqwest-client: 현재 "reqwest"만 유효한 클라이언트입니다.
+- reqwest-native-tls-vendored: 대신 `native-tls-vendored`를 사용하십시오.
+- process-command-api: 대신 `shell` 플러그인을 사용하십시오(아래 항목에서 사용법을 확인하십시오).
+- shell-open-api: 대신 `shell` 플러그인을 사용하십시오(아래 항목에서 사용법을 확인하십시오).
+- windows7-compat: `notification` 플러그인으로 이동.
+- updater: "Updater(업데이터)"는 현재 플러그인입니다.
+- linux-protocol-headers: "webkit2gtk" 최소화 버전을 업그레이드하고 기본적으로 활성화되었습니다.
+- system-tray: `tray-icon`으로 개칭.
+
+### Rust 크레이트 변경 사항
+
+- `api` 모듈이 삭제되었습니다. 각 API 모듈은 "Tauri 플러그인"에 있는 마이그레이션 대상을 참조하십시오.
+- `api::dialog` 모듈이 삭제되었습니다. 대신 `tauri-plugin-dialog`를 사용하십시오. [마이그레이션 대상](#dialog-플러그인-마이그레이션)
+- `api::file` 모듈이 삭제되었습니다. 대신 Rust의 [`std::fs`](https://doc.rust-lang.org/std/fs/)를 사용하십시오.
+- `api::http` 모듈이 삭제되었습니다. 대신 `tauri-plugin-http`를 사용하십시오. [마이그레이션 대상](#http-플러그인-마이그레이션)
+- `api::ip` 모듈이 다시 작성되어 `tauri::ipc`로 이동했습니다. 새로운 API, 특히 `tauri::ipc::Channel`을 확인하십시오.
+- `api::path` 모듈 기능과 `tauri::PathResolved`는 `tauri::Manager::path`로 이동했습니다. [마이그레이션 대상](#path-to-tauri-manager-마이그레이션)
+- `api::process::Command`, `tauri::api::shell` 및 `tauri::Manager::shell_scope`의 각 API는 삭제되었습니다. 대신 `tauri-plugin-shell`을 사용하십시오. [마이그레이션 대상](#shell-플러그인-마이그레이션)
+- `api::process::current_binary` 및 `tauri::api::process::restart`는 `tauri::process`로 이동했습니다.
+- `api::version` 모듈이 삭제되었습니다. 대신 [semver crate](https://docs.rs/semver/latest/semver/)를 사용하십시오.
+- `App::clipboard_manager` 및 `AppHandle::clipboard_manager`가 삭제되었습니다. 대신 `tauri-plugin-clipboard`를 사용하십시오. [마이그레이션 대상](#clipboard-플러그인-마이그레이션)
+- `App::get_cli_matches`가 삭제되었습니다. 대신 `tauri-plugin-cli`를 사용하십시오. [마이그레이션 대상](#cli-플러그인-마이그레이션)
+- `App::global_shortcut_manager` 및 `AppHandle::global_shortcut_manager`가 삭제되었습니다. 대신 `tauri-plugin-global-shortcut`을 사용하십시오. [마이그레이션 대상](#global-shortcut-플러그인-마이그레이션)
+- `Manager::fs_scope`가 삭제되었습니다. "파일 시스템 범위"는 `tauri_plugin_fs::FsExt`를 통해 액세스할 수 있습니다.
+- `Plugin::PluginApi`는 플러그인 설정을 두 번째 인수로 받게 되었습니다.
+- `Plugin::setup_with_config`가 삭제되었습니다. 대신 최신 `tauri::Plugin::PluginApi`를 사용하십시오.
+- `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` 및 `scope::ipc::RemoteDomainAccessScope::enables_tauri_api`가 삭제되었습니다. 대신 `scope::ipc::RemoteDomainAccessScope::add_plugin`을 통해 각 코어 플러그인을 개별적으로 활성화하십시오.
+- `scope::IpcScope`가 삭제되었습니다. 대신 `scope::ipc::Scope`를 사용하십시오.
+- `scope::FsScope`, `scope::GlobPattern` 및 `scope::FsScopeEvent`가 삭제되었습니다. 각각 `scope::fs::Scope`, `scope::fs::Pattern` 및 `scope::fs::Event`를 사용하십시오.
+- `updater` 모듈이 삭제되었습니다. 대신 `tauri-plugin-updater`를 사용하십시오. [마이그레이션 대상](#updater-플러그인-마이그레이션)
+- `Env.args` 필드가 삭제되었습니다. 대신 `Env.args_os` 필드를 사용하십시오.
+- `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` 및 `Builder::on_menu_event`의 각 API는 삭제되었습니다. [마이그레이션 대상](#menu-모듈-마이그레이션)
+- `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` 및 `SystemTrayMenuItem`의 각 API는 삭제되었습니다. [마이그레이션 대상](#tray-icon-모듈-마이그레이션)
+
+### JavaScript API 변경 사항
+
+`@tauri-apps/api` 패키지는 코어 이외의 모듈을 더 이상 제공하지 않습니다. 이전의 `tauri`(현재는 `core`), `path`, `event`, `window` 모듈만 내보내집니다. 다른 모든 것은 플러그인으로 이동되었습니다.
+
+- `@tauri-apps/api/tauri` 모듈은 `@tauri-apps/api/core`로 개칭되었습니다. [마이그레이션 대상](#코어-모듈-마이그레이션)
+- `@tauri-apps/api/cli` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-cli`를 사용하십시오. [마이그레이션 대상](#cli-플러그인-마이그레이션)
+- `@tauri-apps/api/clipboard` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-clipboard`를 사용하십시오. [마이그레이션 대상](#clipboard-플러그인-마이그레이션)
+- `@tauri-apps/api/dialog` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-dialog`를 사용하십시오. [마이그레이션 대상](#dialog-플러그인-마이그레이션)
+- `@tauri-apps/api/fs` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-fs`를 사용하십시오. [마이그레이션 대상](#file-system-플러그인-마이그레이션)
+- `@tauri-apps/api/global-shortcut` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-global-shortcut`을 사용하십시오. [마이그레이션 대상](#global-shortcut-플러그인-마이그레이션)
+- `@tauri-apps/api/http` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-http`를 사용하십시오. [마이그레이션 대상](#http-플러그인-마이그레이션)
+- `@tauri-apps/api/os` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-os`를 사용하십시오. [마이그레이션 대상](#os-플러그인-마이그레이션)
+- `@tauri-apps/api/notification` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-notification`을 사용하십시오. [마이그레이션 대상](#notification-플러그인-마이그레이션)
+- `@tauri-apps/api/process` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-process`를 사용하십시오. [마이그레이션 대상](#process-플러그인-마이그레이션)
+- `@tauri-apps/api/shell` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-shell`을 사용하십시오. [마이그레이션 대상](#shell-플러그인-마이그레이션)
+- `@tauri-apps/api/updater` 모듈이 삭제되었습니다. 대신 `@tauri-apps/plugin-updater`를 사용하십시오. [마이그레이션 대상](#updater-플러그인-마이그레이션)
+- `@tauri-apps/api/window` 모듈은 `@tauri-apps/api/webviewWindow`로 개칭되었습니다. [마이그레이션 대상](#새로운-window-api로-마이그레이션)
+
+버전 1의 플러그인은 `@tauri-apps/plugin-<plugin-name>`으로 공개되어 있습니다. 이는 이전에 git에서 `tauri-plugin-<plugin-name>-api`로 사용할 수 있었던 것입니다.
+
+### 환경 변수 변경 사항
+
+Tauri CLI에 의해 읽고 쓰이는 대부분의 환경 변수는 일관성과 실수 방지를 위해 이름이 변경되었습니다:
+
+- `TAURI_PRIVATE_KEY` -> `TAURI_SIGNING_PRIVATE_KEY`
+- `TAURI_KEY_PASSWORD` -> `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
+- `TAURI_SKIP_DEVSERVER_CHECK` -> `TAURI_CLI_NO_DEV_SERVER_WAIT`
+- `TAURI_DEV_SERVER_PORT` -> `TAURI_CLI_PORT`
+- `TAURI_PATH_DEPTH` -> `TAURI_CLI_CONFIG_DEPTH`
+- `TAURI_FIPS_COMPLIANT` -> `TAURI_BUNDLER_WIX_FIPS_COMPLIANT`
+- `TAURI_DEV_WATCHER_IGNORE_FILE` -> `TAURI_CLI_WATCHER_IGNORE_FILENAME`
+- `TAURI_TRAY` -> `TAURI_LINUX_AYATANA_APPINDICATOR`
+- `TAURI_APPLE_DEVELOPMENT_TEAM` -> `APPLE_DEVELOPMENT_TEAM`
+- `TAURI_PLATFORM` -> `TAURI_ENV_PLATFORM`
+- `TAURI_ARCH` -> `TAURI_ENV_ARCH`
+- `TAURI_FAMILY` -> `TAURI_ENV_FAMILY`
+- `TAURI_PLATFORM_VERSION` -> `TAURI_ENV_PLATFORM_VERSION`
+- `TAURI_PLATFORM_TYPE` -> `TAURI_ENV_PLATFORM_TYPE`
+- `TAURI_DEBUG` -> `TAURI_ENV_DEBUG`
+
+### 이벤트 시스템
+
+"이벤트 시스템"은 더 사용하기 쉽도록 재설계되었습니다. 이벤트 소스가 아닌 이벤트 대상에 의존하는 더 간결한 구현입니다.
+
+- `emit` 기능은 모든 이벤트 리스너에게 이벤트를 발생시킵니다.
+- 특정 대상에 이벤트를 발생시키는 새로운 `emit_to` 기능이 추가되었습니다.
+- `emit_filter`는 창이 아닌 [`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html)을 기반으로 필터링합니다.
+- `listen_global`을 `listen_any`로 개칭. 필터나 대상에 관계없이 모든 이벤트의 응답을 기다립니다.
+
+### 멀티 웹뷰 지원
+
+Tauri 버전 2에서는 현재 `unstable` 기능 플래그 아래에 있는 "멀티 웹뷰 multiwebview"에 대한 지원이 도입되었습니다.
+이 기능을 도입하기 위해 Rust의 `Window` 유형을 `WebviewWindow`로, Manager의 `get_window` 기능을 `get_webview_window`로 각각 개칭했습니다.
+
+`WebviewWindow` JS API 유형은 `@tauri-apps/api/window`가 아닌 `@tauri-apps/api/webviewWindow`에서 다시 내보내집니다.
+
+### Windows에서의 새로운 배포 원본 URL
+
+Windows에서는 프로덕션 앱의 프론트엔드 파일이 `https://tauri.localhost`가 아닌 `http://tauri.localhost`에서 호스팅됩니다. 이 때문에 버전 1에서 `dangerousUseHttpScheme`가 사용되지 않은 경우 "IndexedDB", "LocalStorage" 및 "Cookies"가 재설정됩니다. 이를 방지하려면 `app > windows > useHttpsScheme`를 `true`로 설정하거나 `WebviewWindowBuilder::use_https_scheme`를 사용하여 `https` 방식을 계속 사용하십시오.
+
+## 마이그레이션 절차 세부 정보
+
+Tauri 1.0 앱을 Tauri 2.0으로 마이그레이션할 때 발생할 수 있는 일반적인 흐름입니다.
+
+### 코어 모듈 마이그레이션
+
+`@tauri-apps/api/tauri` 모듈은 `@tauri-apps/api/core`로 개칭되었습니다.
+여기서의 작업은 모듈 가져오기 시 이름을 변경하는 것뿐입니다:
+
+```diff
+- import { invoke } from "@tauri-apps/api/tauri"
++ import { invoke } from "@tauri-apps/api/core"
+```
+
+### CLI 플러그인 마이그레이션
+
+Rust의 `App::get_cli_matches` 및 JavaScript의 `@tauri-apps/api/cli` API가 삭제되었습니다. 대신 플러그인 `@tauri-apps/plugin-cli`를 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-cli = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { getMatches } from '@tauri-apps/plugin-cli';
+const matches = await getMatches();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    use tauri_plugin_cli::CliExt;
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+        .setup(|app| {
+            let cli_matches = app.cli().matches()?;
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Clipboard 플러그인 마이그레이션
+
+Rust의 `App::clipboard_manager`와 `AppHandle::clipboard_manager`, 그리고 JavaScript의 `@tauri-apps/api/clipboard` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-clipboard-manager` 플러그인을 사용하십시오:
+
+```toml
+[dependencies]
+tauri-plugin-clipboard-manager = "2"
+```
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard_manager::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-clipboard-manager": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+await writeText('Tauri is awesome!');
+assert(await readText(), 'Tauri is awesome!');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard::{ClipboardExt, ClipKind};
+tauri::Builder::default()
+    .plugin(tauri_plugin_clipboard::init())
+    .setup(|app| {
+        app.clipboard().write(ClipKind::PlainText {
+            label: None,
+            text: "Tauri is awesome!".into(),
+        })?;
+        Ok(())
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### Dialog 플러그인 마이그레이션
+
+Rust의 `tauri::api::dialog` 및 JavaScript의 `@tauri-apps/api/dialog` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-dialog` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-dialog = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-dialog": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { save } from '@tauri-apps/plugin-dialog';
+const filePath = await save({
+  filters: [
+    {
+      name: 'Image',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
+});
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+tauri::Builder::default()
+    .plugin(tauri_plugin_dialog::init())
+    .setup(|app| {
+        app.dialog().file().pick_file(|file_path| {
+            // do something with the optional file path here
+            // the file path is `None` if the user closed the dialog
+        });
+
+        app.dialog().message("Tauri is Awesome!").show();
+        Ok(())
+     })
+```
+
+</TabItem>
+</Tabs>
+
+### File System 플러그인 마이그레이션
+
+Rust의 `App::get_cli_matches` 및 `@tauri-apps/api/fs` API가 삭제되었습니다. 대신 Rust에는 [`std::fs`](https://doc.rust-lang.org/std/fs/)를, JavaScript에는 `@tauri-apps/plugin-fs` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-fs = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-fs": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
+```
+
+몇 가지 함수와 유형이 개칭되거나 삭제되었습니다:
+
+- `Dir` enum 별칭(열거형·별칭)이 삭제되었습니다. `BaseDirectory`를 사용하십시오.
+- `FileEntry`, `FsBinaryFileOption`, `FsDirOptions`, `FsOptions`, `FsTextFileOption` 및 `BinaryFileContents`의 인터페이스와 유형 별칭이 삭제되고 각 함수에 적합한 새로운 인터페이스로 대체되었습니다.
+- `createDir`은 `mkdir`로 개칭되었습니다.
+- `readBinaryFile`은 `readFile`로 개칭되었습니다.
+- `removeDir`은 삭제되고 `remove`로 대체되었습니다.
+- `removeFile`은 삭제되고 `remove`로 대체되었습니다.
+- `renameFile`은 삭제되고 `rename`으로 대체되었습니다.
+- `writeBinaryFile`은 `writeFile`로 개칭되었습니다.
+
+</TabItem>
+<TabItem label="Rust">
+
+Rust의 [`std::fs`](https://doc.rust-lang.org/std/fs/) 함수를 사용하십시오.
+
+</TabItem>
+</Tabs>
+
+### Global Shortcut 플러그인 마이그레이션
+
+Rust의 `App::global_shortcut_manager`와 `AppHandle::global_shortcut_manager` 및 JavaScript의 `@tauri-apps/api/global-shortcut` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-global-shortcut` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))"].dependencies]
+tauri-plugin-global-shortcut = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_global_shortcut::Builder::default().build())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-global-shortcut": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { register } from '@tauri-apps/plugin-global-shortcut';
+await register('CommandOrControl+Shift+C', () => {
+  console.log('Shortcut triggered');
+});
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+    .plugin(
+        tauri_plugin_global_shortcut::Builder::new().with_handler(|app, shortcut| {
+            println!("Shortcut triggered: {:?}", shortcut);
+        })
+        .build(),
+    )
+    .setup(|app| {
+        // register a global shortcut
+        // on macOS, the Cmd key is used
+        // on Windows and Linux, the Ctrl key is used
+        app.global_shortcut().register("CmdOrCtrl+Y")?;
+        Ok(())
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### HTTP 플러그인 마이그레이션
+
+Rust의 `tauri::api::http` 및 JavaScript의 `@tauri-apps/api/http` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-http` 플러그인을 사용하십시오.
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-http = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-http": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { fetch } from '@tauri-apps/plugin-http';
+const response = await fetch(
+  'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
+);
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_http::reqwest;
+
+tauri::Builder::default()
+    .plugin(tauri_plugin_http::init())
+    .setup(|app| {
+        let response_data = tauri::async_runtime::block_on(async {
+            let response = reqwest::get(
+                "https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json",
+            )
+            .await
+            .unwrap();
+            response.text().await
+        })?;
+        Ok(())
+    })
+```
+
+HTTP 플러그인은 [reqwest](https://docs.rs/reqwest/latest/reqwest/)를 다시 내보냅니다. 자세한 내용은 "reqwest" 문서를 확인하십시오.
+
+</TabItem>
+</Tabs>
+
+### Notification 플러그인 마이그레이션
+
+Rust의 `tauri::api::notification` 및 JavaScript의 `@tauri-apps/api/notification` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-notification` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-notification = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-notification": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+sendNotification('Tauri is awesome!');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+        .setup(|app| {
+            if app.notification().permission_state()? == PermissionState::Unknown {
+                app.notification().request_permission()?;
+            }
+            if app.notification().permission_state()? == PermissionState::Granted {
+                app.notification()
+                    .builder()
+                    .body("Tauri is awesome!")
+                    .show()?;
+            }
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Menu 모듈 마이그레이션
+
+Rust의 `Menu` API는 `tauri::menu` 모듈로 이동되었으며, [muda 크레이트](https://github.com/tauri-apps/muda)를 사용하도록 리팩토링(최적화)되었습니다.
+
+#### `tauri::menu::MenuBuilder` 사용
+
+`tauri::Menu` 대신 `tauri::menu::MenuBuilder`를 사용하십시오. 이 생성자는 인수로 Manager 인스턴스(`App`, `AppHandle`, `WebviewWindow` 중 하나)를 받는다는 점에 유의하십시오.
+
+```rust
+use tauri::menu::MenuBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app)
+            .copy()
+            .paste()
+            .separator()
+            .undo()
+            .redo()
+            .text("open-url", "Open URL")
+            .check("toggle", "Toggle")
+            .icon("show-app", "Show App", app.default_window_icon().cloned().unwrap())
+            .build()?;
+        Ok(())
+    })
+```
+
+#### `tauri::menu::PredefinedMenuItem` 사용
+
+`tauri::MenuItem` 대신 `tauri::menu::PredefinedMenuItem`을 사용하십시오.
+
+```rust
+use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)?).build()?;
+        Ok(())
+    })
+```
+
+:::tip
+메뉴 빌더에는 미리 정의된 메뉴 항목을 추가할 수 있는 전용 메서드가 있으므로, `.item(&PredefinedMenuItem::copy(app, None)?)` 대신 `.copy()`를 호출할 수 있습니다.
+:::
+
+#### `tauri::menu::MenuItemBuilder` 사용
+
+`tauri::CustomMenuItem` 대신 `tauri::menu::MenuItemBuilder`를 사용합니다:
+
+```rust
+use tauri::menu::MenuItemBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app)?;
+        Ok(())
+    })
+```
+
+#### `tauri::menu::SubmenuBuilder` 사용
+
+`tauri::Submenu` 대신 `tauri::menu::SubmenuBuilder`를 사용합니다:
+
+```rust
+use tauri::menu::{MenuBuilder, SubmenuBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let submenu = SubmenuBuilder::new(app, "Sub")
+            .text("Tauri")
+            .separator()
+            .check("Is Awesome")
+            .build()?;
+        let menu = MenuBuilder::new(app).item(&submenu).build()?;
+        Ok(())
+    })
+```
+
+`tauri::Builder::menu`는 메뉴를 구축하기 위해 Manager 인스턴스가 필요하므로 클로저를 받게 되었습니다. 자세한 내용은 [문서(관련 문서)](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu)를 참조하십시오.
+
+#### Menu Events(메뉴 이벤트)
+
+Rust의 `tauri::Builder::on_menu_event` API가 삭제되었습니다. 대신 `tauri::App::on_menu_event` 또는 `tauri::AppHandle::on_menu_event`를 사용하십시오:
+
+```rust
+use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
+        let check = CheckMenuItemBuilder::new("Mark").build(app)?;
+        let menu = MenuBuilder::new(app).items(&[&toggle, &check]).build()?;
+
+        app.set_menu(menu)?;
+
+        app.on_menu_event(move |app, event| {
+            if event.id() == check.id() {
+                println!("`check` triggered, do something! is checked? {}", check.is_checked().unwrap());
+            } else if event.id() == "toggle" {
+                println!("toggle triggered!");
+            }
+        });
+        Ok(())
+    })
+```
+
+참고: 어떤 메뉴 항목이 선택되었는지 확인하는 방법에는 두 가지가 있습니다. 하나는 "항목"을 이벤트 핸들러 클로저로 이동하여 ID를 비교하는 방법이고, 다른 하나는 "항목"을 `with_id` 생성자를 통해 사용자 지정 ID를 정의하고 해당 ID 문자열을 사용하여 비교하는 방법입니다. 주의하십시오.
+
+:::tip
+메뉴 항목은 메뉴 간에 공유할 수 있으며, 메뉴 이벤트는 메뉴나 창이 아닌 메뉴 항목에 바인딩됩니다.
+메뉴 항목이 선택되었을 때 모든 리스너가 트리거되지 않도록 하려면 메뉴 항목을 공유하지 말고 대신 전용 인스턴스를 사용하십시오. 이렇게 하면 `tauri::WebviewWindow/WebviewWindowBuilder::on_menu_event` 클로저로 이동할 수 있습니다.
+:::
+
+### OS 플러그인 마이그레이션
+
+Rust의 `tauri::api::os` 및 JavaScript의 `@tauri-apps/api/os` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-os` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-os = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-os": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { arch } from '@tauri-apps/plugin-os';
+const architecture = await arch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+        .setup(|app| {
+            let os_arch = tauri_plugin_os::arch();
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Process 플러그인 마이그레이션
+
+Rust의 `tauri::api::process` 및 JavaScript의 `@tauri-apps/api/process` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-process` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-process = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-process": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+await exit(0);
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .setup(|app| {
+            // exit the app with a status code
+            app.handle().exit(1);
+            // restart the app
+            app.handle().restart();
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Shell 플러그인 마이그레이션
+
+Rust의 `tauri::api::shell` 및 JavaScript의 `@tauri-apps/api/shell` API가 삭제되었습니다. 대신 `@tauri-apps/plugin-shell` 플러그인을 사용하십시오:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-shell = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-shell": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { Command, open } from '@tauri-apps/plugin-shell';
+const output = await Command.create('echo', 'message').execute();
+
+await open('https://github.com/tauri-apps/tauri');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+- URL 열기.
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            app.shell().open("https://github.com/tauri-apps/tauri", None)?;
+            Ok(())
+        })
+}
+```
+
+- 자식 프로세스를 생성하고 상태 코드를 가져옵니다.
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let status = tauri::async_runtime::block_on(async move { app.shell().command("which").args(["ls"]).status().await.unwrap() });
+            println!("`which` finished with status: {:?}", status.code());
+            Ok(())
+        })
+}
+```
+
+- 자식 프로세스를 생성하고 그 출력을 캡처합니다.
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let output = tauri::async_runtime::block_on(async move { app.shell().command("echo").args(["TAURI"]).output().await.unwrap() });
+            assert!(output.status.success());
+            assert_eq!(String::from_utf8(output.stdout).unwrap(), "TAURI");
+            Ok(())
+        })
+}
+```
+
+- 자식 프로세스를 생성하고 그 이벤트를 비동기적으로 읽습니다.
+
+```rust
+use tauri_plugin_shell::{ShellExt, process::CommandEvent};
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let (mut rx, mut child) = handle.shell().command("cargo")
+                    .args(["tauri", "dev"])
+                    .spawn()
+                    .expect("Failed to spawn cargo");
+
+                let mut i = 0;
+                while let Some(event) = rx.recv().await {
+                    if let CommandEvent::Stdout(line) = event {
+                        println!("got: {}", String::from_utf8(line).unwrap());
+                       i += 1;
+                       if i == 4 {
+                           child.write("message from Rust\n".as_bytes()).unwrap();
+                           i = 0;
+                       }
+                   }
+                }
+            });
+            Ok(())
+        })
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Tray Icon 모듈 마이그레이션
+
+Rust의 `SystemTray` API는 표기의 일관성을 확보하기 위해 `TrayIcon`으로 개칭되었습니다. 새로운 API는 Rust의 "tray 모듈"에서 참조할 수 있습니다.
+
+#### `tauri::tray::TrayIconBuilder` 사용
+
+`tauri::SystemTray` 대신 `tauri::tray::TrayIconBuilder`를 사용하십시오.
+
+```rust
+let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
+```
+
+자세한 내용은 [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) 항목을 참조하십시오.
+
+#### Menu 마이그레이션
+
+`tauri::SystemTrayMenu` 대신 `tauri::menu::Menu`를, `tauri::SystemTraySubmenu` 대신 `tauri::menu::Submenu`를, 그리고 `tauri::SystemTrayMenuItem` 대신 `tauri::menu::PredefinedMenuItem`을 사용하십시오.
+
+#### Tray Events(트레이 이벤트)
+
+`tauri::SystemTray::on_event`는 `tauri::tray::TrayIconBuilder::on_menu_event`와 `tauri::tray::TrayIconBuilder::on_tray_icon_event`로 분할되었습니다:
+
+```rust
+use tauri::{
+    menu::{MenuBuilder, MenuItemBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
+        let menu = MenuBuilder::new(app).items(&[&toggle]).build()?;
+        let tray = TrayIconBuilder::new()
+            .menu(&menu)
+            .on_menu_event(move |app, event| match event.id().as_ref() {
+                "toggle" => {
+                    println!("toggle clicked");
+                }
+                _ => (),
+            })
+            .on_tray_icon_event(|tray, event| {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
+                    let app = tray.app_handle();
+                    if let Some(webview_window) = app.get_webview_window("main") {
+                       let _ = webview_window.unminimize();
+                       let _ = webview_window.show();
+                       let _ = webview_window.set_focus();
+                    }
+                }
+            })
+            .build(app)?;
+
+        Ok(())
+    })
+```
+
+### Updater 플러그인 마이그레이션
+
+자동 업데이트 확인 기능을 갖춘 내장 대화 상자가 삭제되었습니다. 대신 Rust 및 JavaScript API를 사용하여 업데이트를 확인하고 설치하십시오.
+
+Rust의 `tauri::updater` 및 JavaScript의 `@tauri-apps/api-updater` API가 삭제되었습니다. `@tauri-apps/plugin-updater`를 사용하여 사용자 지정 업데이터 대상을 설정하려면:
+
+1. Cargo에 종속성을 추가합니다:
+
+```toml
+[dependencies]
+tauri-plugin-updater = "2"
+```
+
+2. JavaScript 또는 Rust 프로젝트에서 사용합니다:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-updater": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update?.available) {
+  console.log(`Update to ${update.version} available! Date: ${update.date}`);
+  console.log(`Release notes: ${update.body}`);
+  await update.downloadAndInstall();
+  // requires the `process` plugin
+  await relaunch();
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+업데이트를 확인하려면:
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            let handle = app.handle();
+            tauri::async_runtime::spawn(async move {
+                let response = handle.updater().check().await;
+            });
+            Ok(())
+        })
+}
+```
+
+사용자 지정 업데이터 대상을 설정하려면:
+
+```rust
+fn main() {
+    let mut updater = tauri_plugin_updater::Builder::new();
+    #[cfg(target_os = "macos")]
+    {
+        updater = updater.target("darwin-universal");
+    }
+    tauri::Builder::default()
+        .plugin(updater.build())
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Path to Tauri Manager 마이그레이션
+
+Rust의 `tauri::api::path` 모듈 기능 및 `tauri::PathResolver`는 `tauri::Manager::path`로 이동되었습니다:
+
+```rust
+use tauri::{path::BaseDirectory, Manager};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let home_dir_path = app.path().home_dir().expect("failed to get home dir");
+
+        let path = app.path().resolve("path/to/something", BaseDirectory::Config)?;
+
+        Ok(())
+  })
+```
+
+### 새로운 Window API로 마이그레이션
+
+Rust 관련해서는 `Window`의 이름이 `WebviewWindow`로, 그 빌더 이름 `WindowBuilder`가 `WebviewWindowBuilder`로, `WindowUrl`의 이름이 `WebviewUrl`로 변경되었습니다.
+
+또한 상위 "창 부모 API"를 지원하기 위해 `Manager::get_window` 함수는 `get_webview_window`로, 창의 `parent_window` API는 `parent_raw`로 개칭되었습니다.
+
+JavaScript 관련해서는 `WebviewWindow` 클래스가 `@tauri-apps/api/webviewWindow` 경로로 내보내집니다.
+
+`onMenuClicked` 함수는 삭제되었지만, 대신 JavaScript에서 메뉴를 만들면 메뉴 이벤트를 포착할 수 있습니다.
+
+### 포함된 추가 파일 마이그레이션(리소스)
+
+JavaScript 관련해서는 [File System 플러그인 마이그레이션](#file-system-플러그인-마이그레이션)을 실행하는 것을 잊지 마십시오.
+또한 [허가 마이그레이션](#허가-마이그레이션) 항목에서 "버전 1" 허가 목록에 추가된 변경 내용에도 주의하십시오.
+
+Rust 관련해서는 [Path to Tauri Manger 마이그레이션](#path-to-tauri-manager-마이그레이션) 설명 내용을 반드시 실행하십시오.
+
+### 포함된 외부 바이너리 마이그레이션(사이드카 컨테이너)
+
+Tauri 버전 1(v1)에서는 외부 바이너리와 그 인수가 허가 목록에 정의되어 있었습니다. 버전 2(v2)에서는 새로운 허가 시스템을 사용합니다. 자세한 내용은 [허가 마이그레이션](#허가-마이그레이션)을 참조하십시오.
+
+JavaScript 관련해서는 [Shell 플러그인 마이그레이션](#shell-플러그인-마이그레이션) 내용을 반드시 실행하십시오.
+
+Rust 관련해서는 `tauri::api::process` API가 삭제되었습니다. 대신 `tauri_plugin_shell::ShellExt` 및 `tauri_plugin_shell::process::CommandEvent` API를 사용하십시오. 사용법에 대해서는 [외부 바이너리 포함](/ko/develop/sidecar/#rust에서-실행하기) 가이드를 참조하십시오.
+
+"process-command-api" 기능 플래그는 버전 2(v2)에서 삭제되었습니다. 따라서 외부 바이너리 실행에 이 기능을 Tauri 구성에서 정의할 필요가 없어졌습니다.
+
+### 허가 마이그레이션
+
+버전 1의 허가 목록("v1 허가 목록")은 완전히 새로운 허가 시스템으로 다시 작성되었습니다. 이를 통해 개별 플러그인에서 기능하고 "멀티 윈도우"와 "원격 URL 지원"으로 더 유연한 설정이 가능해졌습니다.
+이 새로운 허가 시스템은 접근 제어 목록(ACL)처럼 작동하며, 명령 허가/거부, 특정 창과 도메인 세트에 대한 허가 할당, 접근 범위 정의 등을 수행할 수 있습니다.
+
+앱에 허가를 설정하려면 `src-tauri/capabilities` 폴더 내에 "기능 파일(capability file)"을 만듭니다. 그러면 Tauri가 대신 다른 모든 것을 자동으로 설정합니다.
+
+`migrate` CLI 명령은 v1 허가 목록을 자동으로 구문 분석하고 관련 기능 파일을 생성합니다.
+
+허가와 기능에 대한 자세한 내용은 [보안 관련 문서](/ko/security/)를 참조하십시오.

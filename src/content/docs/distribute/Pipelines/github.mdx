@@ -14,6 +14,10 @@ To set up code signing for Windows and macOS in your workflow, follow the specif
 - [Windows Code Signing](/distribute/sign/windows/)
 - [macOS Code Signing](/distribute/sign/macos/)
 
+If you build a macOS app without an Apple signing certificate, configure an
+[ad-hoc signing identity](/distribute/sign/macos/#ad-hoc-signing). This can avoid
+macOS treating Apple Silicon builds downloaded from GitHub releases as damaged.
+
 :::
 
 ## Getting Started
@@ -51,7 +55,7 @@ For a full list of possible trigger configurations, check out the official [GitH
 
 Below is an example workflow that has been set up to run every time you push to the `release` branch.
 
-This workflow will build and release your app for Linux x64, Windows x64, macOS x64 and macOS Arm64 (M1 and above).
+This workflow will build and release your app for Windows x64, Linux x64, Linux Arm64, macOS x64 and macOS Arm64 (M1 and above).
 
 The steps this workflow takes are:
 
@@ -85,6 +89,8 @@ jobs:
             args: '--target x86_64-apple-darwin'
           - platform: 'ubuntu-22.04'
             args: ''
+          - platform: 'ubuntu-22.04-arm' # Only available in public repos.
+            args: ''
           - platform: 'windows-latest'
             args: ''
 
@@ -93,7 +99,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        if: matrix.platform == 'ubuntu-22.04' || matrix.platform == 'ubuntu-22.04-arm' # This must match the platform value defined above.
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
@@ -140,6 +146,10 @@ Carefully read through the [Usage limits, billing, and administration](https://d
 :::
 
 ## Arm Runner Compilation
+
+:::note[August 2025 Update]
+Github has [released](https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/#get-started) publicly available `ubuntu-22.04-arm` and `ubuntu-24.04-arm` runners. You can use these to build your app for Arm64 in public repos with the workflow example above.
+:::
 
 This workflow uses [`pguyot/arm-runner-action`](https://github.com/pguyot/arm-runner-action) to compile directly on an emulated Arm runner. This bridges the gap for missing cross-architecture build support in the AppImage tooling.
 

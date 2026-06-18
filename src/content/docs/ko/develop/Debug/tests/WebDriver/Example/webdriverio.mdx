@@ -1,0 +1,224 @@
+---
+title: WebdriverIO 이용하기
+sidebar:
+  order: 31
+i18nReady: true
+---
+
+{/* TODO: REVISE COPY TO V2 */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+:::note[모델 애플리케이션]
+
+이 "[WebdriverIO]"(웹드라이버 IO) 설정 가이드에서는, 절차를 따라 읽기 위해, 이전 장의 "[모델 애플리케이션의 기본 설정]"을 읽었다고 가정합니다. 그 외에도 일반적인 정보로도 유용할 것입니다.
+
+:::
+
+이 장의 WebDriver 테스트 사례에서는 [WebdriverIO]와 그 테스트 스위트를 사용하므로,
+`npm` 또는 `yarn`과 함께 Node.js가 이미 설치되어 있는 것을 전제로 합니다([완성된 모델 애플리케이션]에서는 `yarn`이 사용됩니다).
+
+## 테스트용 디렉토리 생성
+
+프로젝트 내에 테스트를 작성할 장소를 만듭시다.
+이 프로젝트 사례에서는 "중첩된" 디렉토리를 사용하지만, 이는 나중에 다른 프레임워크에 대해서도 자세히 알아보기 위함이며, 일반적으로는 "하나의 프레임워크"만 필요합니다.
+`mkdir -p webdriver/webdriverio`로 사용할 디렉토리를 만듭니다. 이하 이 설정 가이드에서는 `webdriver/webdriverio` 디렉토리 내에 있다고 가정합니다.
+
+## WebdriverIO 프로젝트 초기화
+
+기존 `package.json`을 사용하여 이 테스트 스위트를 부트스트랩(시작)합니다. 이미 구체적인 [WebdriverIO] 설정 옵션을 선정했으며, 간단하고 실용적인 솔루션을 소개하기 위함입니다.
+이 항목의 마지막 "**> 여기를 클릭...**" 부분에 빈 상태에서 설정하는 절차에 대한 설정 가이드가 접혀 있습니다.
+
+`package.json`:
+
+```json
+{
+  "name": "webdriverio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "wdio run wdio.conf.js"
+  },
+  "dependencies": {
+    "@wdio/cli": "^7.9.1"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "^7.9.1",
+    "@wdio/mocha-framework": "^7.9.1",
+    "@wdio/spec-reporter": "^7.9.0"
+  }
+}
+```
+
+테스트 스위트로 [WebdriverIO] 설정을 실행하는 스크립트가 있으며, 이는 `test` 명령으로 사용할 수 있습니다.
+또한, 처음에 설정할 때 `@wdio/cli` 명령으로 추가되는 종속성도 있습니다.
+간단히 말해, 이러한 종속성은 로컬 WebDriver 러너, 테스트 프레임워크로서의 [Mocha], 그리고 단순한 Spec Reporter를 사용한 가장 간단한 설정을 위한 것입니다.
+
+<details>
+  <summary>여기를 클릭(프로젝트를 빈 상태에서 설정하는 경우)</summary>
+
+CLI는 대화형이며, 직접 조작할 도구를 선택할 수 있습니다.
+단, 설정 가이드의 설명과 다를 수 있으며, 다른 부분은 직접 설정해야 한다는 점에 유의하십시오.
+
+이 npm 프로젝트에 [WebdriverIO] CLI를 추가합시다.
+
+<CommandTabs npm="npm install @wdio/cli" yarn="yarn add @wdio/cli" />
+
+다음으로, 대화형 config 명령을 실행하여 [WebdriverIO] 테스트 스위트를 설정하려면 다음 명령을 실행합니다:
+
+<CommandTabs npm="npx wdio config" yarn="yarn wdio config" />
+
+</details>
+
+## 설정
+
+`package.json` 내의 `test` 스크립트에 `wdio.conf.js` 파일이 기재되어 있는 것을 눈치채셨을 것입니다.
+이는 [WebdriverIO] 설정 파일로, 테스트 스위트의 대부분의 측면을 제어하는 것입니다.
+
+`wdio.conf.js`:
+
+```javascript
+const os = require('os');
+const path = require('path');
+const { spawn, spawnSync } = require('child_process');
+
+// `tauri-driver` 자식 프로세스 추적
+let tauriDriver;
+
+exports.config = {
+  specs: ['./develop/tests/specs/**/*.js'],
+  maxInstances: 1,
+  capabilities: [
+    {
+      maxInstances: 1,
+      'tauri:options': {
+        application: '../../target/release/hello-tauri-webdriver',
+      },
+    },
+  ],
+  reporters: ['spec'],
+  framework: 'mocha',
+  mochaOpts: {
+    ui: 'bdd',
+    timeout: 60000,
+  },
+
+  // Webdriver 세션에 필요한 Rust 프로젝트가 빌드되었는지 확인
+  onPrepare: () => spawnSync('cargo', ['build', '--release']),
+
+  // Webdriver 요청을 프록시할 수 있도록 세션 시작 전에 `tauri-driver`가 실행 중인지 확인
+  beforeSession: () =>
+    (tauriDriver = spawn(
+      path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+      [],
+      { stdio: [null, process.stdout, process.stderr] }
+    )),
+
+  // 세션 시작 시 생성된 "tauri-driver" 프로세스 정리
+  afterSession: () => tauriDriver.kill(),
+};
+```
+
+`exports.config` 객체의 속성에 관심이 있다면 [webdriver 문서]를 참조하십시오.
+webdriverIO 고유가 아닌 항목에 대해서는 `onPrepare`, `beforeSession`, `afterSession` 내에서 왜 명령을 실행하는지에 대한 주석이 있습니다.
+"스펙(테스트 사양)"도 `"./develop/tests/specs/**/*.js"`로 설정되므로, 다음에 "테스트 사양"을 만듭시다.
+
+## 테스트 사양
+
+"테스트 사양"에는 실제 애플리케이션을 테스트하는 코드가 포함되어 있습니다.
+테스트 러너는 이 "테스트 사양"을 읽고 필요에 따라 자동으로 실행합니다. 그럼 지정된 디렉토리에 "테스트 사양"을 만듭시다.
+
+`test/specs/example.e2e.js`:
+
+```javascript
+// "16진수 색상" `#abcdef`에서 "휘도(luma 루마)"를 계산
+function luma(hex) {
+  if (hex.startsWith('#')) {
+    hex = hex.substring(1);
+  }
+
+  const rgb = parseInt(hex, 16);
+  const r = (rgb >> 16) & 0xff;
+  const g = (rgb >> 8) & 0xff;
+  const b = (rgb >> 0) & 0xff;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+describe('Hello Tauri', () => {
+  it('should be cordial', async () => {
+    const header = await $('body > h1');
+    const text = await header.getText();
+    expect(text).toMatch(/^[hH]ello/);
+  });
+
+  it('should be excited', async () => {
+    const header = await $('body > h1');
+    const text = await header.getText();
+    expect(text).toMatch(/!$/);
+  });
+
+  it('should be easy on the eyes', async () => {
+    const body = await $('body');
+    const backgroundColor = await body.getCSSProperty('background-color');
+    expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100);
+  });
+});
+```
+
+첫 번째 [luma] 함수는 테스트 중 하나에 대한 헬퍼 함수일 뿐이며, 실제 애플리케이션 테스트와는 관련이 없습니다.
+다른 테스트 프레임워크에 익숙하다면 `describe`, `it`, `expect` 등 사용된 유사한 함수가 "개방"(외부 액세스 가능)되어 있음을 알 수 있습니다.
+기타 API, 예를 들어 `$`와 같은 항목이나 공개된 메서드 등에 대해서는 [WebdriverIO API 문서]에서 설명합니다.
+
+## 테스트 스위트 실행
+
+설정과 테스트 사양이 모두 준비되었으므로 실행해 봅시다!
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+다음과 같은 출력이 표시될 것입니다:
+
+```text
+➜  webdriverio git:(main) ✗ yarn test
+yarn run v1.22.11
+$ wdio run wdio.conf.js
+
+Execution of 1 workers started at 2021-08-17T08:06:10.279Z
+
+[0-0] RUNNING in undefined - /develop/tests/specs/example.e2e.js
+[0-0] PASSED in undefined - /develop/tests/specs/example.e2e.js
+
+ "spec" Reporter:
+------------------------------------------------------------------
+[wry 0.12.1 linux #0-0] Running: wry (v0.12.1) on linux
+[wry 0.12.1 linux #0-0] Session ID: 81e0107b-4d38-4eed-9b10-ee80ca47bb83
+[wry 0.12.1 linux #0-0]
+[wry 0.12.1 linux #0-0] » /develop/tests/specs/example.e2e.js
+[wry 0.12.1 linux #0-0] Hello Tauri
+[wry 0.12.1 linux #0-0]    ✓ should be cordial
+[wry 0.12.1 linux #0-0]    ✓ should be excited
+[wry 0.12.1 linux #0-0]    ✓ should be easy on the eyes
+[wry 0.12.1 linux #0-0]
+[wry 0.12.1 linux #0-0] 3 passing (244ms)
+
+
+Spec Files:	 1 passed, 1 total (100% completed) in 00:00:01
+
+Done in 1.98s.
+```
+
+Spec Reporter 부분에는 `test/specs/example.e2e.js` 파일의 세 가지 테스트 모두와 최종 보고서 `Spec Files: 1 passed, 1 total (100% Complete) in 00:00:01`가 표시됩니다.
+
+[WebdriverIO] 테스트 스위트를 사용하면 몇 줄의 설정과 하나의 명령 실행만으로 Tauri 애플리케이션의 e2e 테스트를 쉽게 실행할 수 있었습니다! 더욱 놀라운 것은 애플리케이션을 전혀 수정할 필요가 없었다는 것입니다.
+
+[모델 애플리케이션의 기본 설정]: /ko/develop/debug/tests/webdriver/example/
+[webdriverio]: https://webdriver.io/ko/
+[완성된 모델 애플리케이션]: https://github.com/chippers/hello_tauri
+[mocha]: https://mochajs.org/
+[webdriver 문서]: https://webdriver.io/docs/configurationfile
+[webdriverio api 문서]: https://webdriver.io/docs/api
+[luma]: https://ko.wikipedia.org/wiki/휘도
+
+<div style="text-align: right">
+  【※ 이 한국어판은, 「Feb 22, 2025 영문판」에 근거하고 있습니다】
+</div>

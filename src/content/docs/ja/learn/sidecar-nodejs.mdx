@@ -1,0 +1,202 @@
+---
+title: Node.js サイドカー
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CTA from '@fragments/cta.mdx';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+この章では、Node.js アプリケーションを自己完結型バイナリにパッケージ化して、エンドユーザーが Node.js をインストールすることなく Tauri アプリケーションの「サイドカー」として利用できるようにします。
+このチュートリアル例は、デスクトップ・オペレーティング・システムにのみ適用可能です。
+
+「Tauri サイドカー」の仕組みをより深く理解するために、まずは一般的な [サイドカー・ガイド] を読むことをお勧めします。
+
+以下の事例では、コマンドライン [process.argv] から入力を読み取り、[console.log] を使用して出力を stdout（標準出力）に書き込む Node.js アプリケーションを作成します。<br/>
+「ローカルホスト・サーバー」、「stdin/stdout」（標準入出力）、「ローカル・ソケット」などといった代替のプロセス間通信システムを活用できます。
+これらはそれぞれに利点、欠点、セキュリティ上の懸念があることに注意してください。
+
+## 事前準備（必要なもの）
+
+シェル・プラグインを使用してセットアップされた「既存の Tauri アプリケーション」。このシェル・プラグインは、ローカルでコンパイルおよび実行を行ないます。
+
+:::tip[試作アプリの作成]
+
+あなたが上級ユーザーでない場合は、ここで提供されているオプションとフレームワークをそのまま使用することを**強く推奨**します。これはあくまで「試作（ラボ）」なので、作業終了後にはプロジェクトを削除できます。
+
+<CTA />
+
+- プロジェクト名： `node-sidecar-lab`
+- フロントエンド用言語の選択： `Typescript / Javascript`
+- パッケージ・マネージャーの選択： `pnpm`
+- UI テンプレートの選択： `Vanilla`
+- UI フレーバーの選択： `Typescript`
+- モバイル用プロジェクトも設定しますか？： `yes`
+
+:::
+
+:::note
+プラグインを正しく設定して初期化するには、まず[シェル・プラグイン・ガイド](/ja/plugin/shell/)に従ってください。
+プラグインの初期化と設定が行なわれていないと、以下の事例は機能しません。
+:::
+
+## ガイド
+
+<Steps>
+
+1.  ##### サイドカー・プロジェクトの初期化
+
+    サイドカー実装を格納する新しい Node.js プロジェクトを作成しましょう。
+    **Tauri アプリケーションのルート・フォルダー** に新しいディレクトリを作成し（この事例では `sidecar-app` と呼びます）、そのディレクトリ内で、好みの Node.js パッケージ・マネージャーの `init` コマンドを実行します。
+
+    <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
+
+    [pkg] コマンドを使用して、Node.js アプリケーションを自己完結型バイナリにコンパイルします。
+
+    <TranslationNote lang="ja">
+
+    **自己完結型バイナリ**　原文 a self contained binary：　この語は本稿一行目にも記載あり。ただし、この「ガイド」項目内では a self contain**er** binary と記載されており、表記のゆらぎか誤記かは不明。翻訳では self contained の意味として表記を統一してあります。
+
+    </TranslationNote>
+
+    それを開発依存関係としてインストールしましょう：
+
+    <CommandTabs
+      npm="npm add @yao-pkg/pkg --save-dev"
+      yarn="yarn add @yao-pkg/pkg --dev"
+      pnpm="pnpm add @yao-pkg/pkg --save-dev"
+    />
+
+1.  ##### サイドカー・ロジックの記述
+
+    では、Tauri アプリケーションによって実行される JavaScript コードの作成を始めましょう。
+
+    この事例では、コマンドライン引数からコマンドを処理し、出力を stdout（標準出力）に書き出します。
+    つまり、このプロセスは短命で、一度に一つのコマンドのみを処理します。
+    もしあなたのアプリケーションが「長い存続時間」（長命のプロセス）を必要としている場合には、別の「プロセス間通信システム」の使用を検討してください。
+
+    `sidecar-app` ディレクトリに `index.js` ファイルを作成し、基本的な Node.js アプリを記述しましょう：
+
+    ```js title=sidecar-app/index.js
+    const command = process.argv[2];
+
+    switch (command) {
+      case 'ping':
+        const message = process.argv[3];
+        console.log(`pong, ${message}`);
+        break;
+      default:
+        console.error(`unknown command ${command}`);
+        process.exit(1);
+    }
+    ```
+
+1.  ##### サイドカーのパッケージ化
+
+    Node.js アプリケーションを自己完結型バイナリにパッケージ化するには、以下の `pkg` コマンドを実行します：
+
+    <CommandTabs
+      npm="npm run pkg -- --output app"
+      yarn="yarn pkg --output app"
+      pnpm="pnpm pkg --output app"
+    />
+
+    これにより、Linux および macOS では `sidecar-app/app` バイナリが作成され、Windows では `sidecar-app/app.exe` 実行可能ファイルが作成されます。
+    このファイル名を Tauri サイドカー・ファイル名で要求される形式に変更するには、次の Node.js スクリプトを使用します：
+
+    ```js
+    import { execSync } from 'child_process';
+    import fs from 'fs';
+
+    const ext = process.platform === 'win32' ? '.exe' : '';
+
+    const rustInfo = execSync('rustc -vV');
+    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+    if (!targetTriple) {
+      console.error('Failed to determine platform target triple');
+    }
+    fs.renameSync(
+      `app${ext}`,
+      `../src-tauri/binaries/app-${targetTriple}${ext}`
+    );
+    ```
+
+1.  ##### Tauriアプリケーションでのサイドカー設定
+
+    Node.js アプリケーションの準備ができたので、[`bundle > externalBin`] 配列を設定して、これを Tauri アプリケーションに接続します：
+
+    ```json title="src-tauri/tauri.conf.json"
+    {
+      "bundle": {
+        "externalBin": ["binaries/app"]
+      }
+    }
+    ```
+
+    Tauri CLI は、サイドカー・バイナリが `src-tauri/binaries/app-<target-triple>` として存在する限り、サイドカー・バイナリのバンドルを処理します。
+
+    <TranslationNote lang="ja">
+
+    **target-triple**　「target」はアプリが対象とするプラットフォーム、「triple」は target の内容を示す三要素 \<machine>-\<vendor>-\<os>：　例 aarch64-apple-darwin（ARM64-apple-macOS）〔[参考](https://doc.rust-lang.org/nightly/rustc/platform-support.html)〕
+
+    </TranslationNote>
+
+1.  ##### サイドカーの実行
+
+    サイドカー・バイナリは、Rust コードからでも、直接 JavaScript からでも実行できます。
+
+    <Tabs syncKey="lang">
+
+      <TabItem label="JavaScript">
+
+        Node.js サイドカーで `ping` コマンドを直接実行してみましょう：
+
+        ```javascript
+        import { Command } from '@tauri-apps/plugin-shell';
+
+        const message = 'Tauri';
+
+        const command = Command.sidecar('binaries/app', ['ping', message]);
+        const output = await command.execute();
+        const response = output.stdout;
+        ```
+
+      </TabItem>
+
+      <TabItem label="Rust">
+
+        Tauri コマンド `pipe` を Node.js サイドカーにパイプ処理をしてみましょう：
+
+        ```rust
+        #[tauri::command]
+        async fn ping(app: tauri::AppHandle, message: String) -> String {
+          let sidecar_command = app
+            .shell()
+            .sidecar("app")
+            .unwrap()
+            .arg("ping")
+            .arg(message);
+          let output = sidecar_command.output().unwrap();
+          let response = String::from_utf8(output.stdout).unwrap();
+          response
+        }
+        ```
+
+      </TabItem>
+
+    </Tabs>
+
+</Steps>
+
+[サイドカー・ガイド]: /ja/develop/sidecar/
+[process.argv]: https://nodejs.org/docs/latest/api/process.html#processargv
+[console.log]: https://nodejs.org/api/console.html#consolelogdata-args
+[pkg]: https://github.com/vercel/pkg
+[`bundle > externalBin`]: /reference/config/#externalbin
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

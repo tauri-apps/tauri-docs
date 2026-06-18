@@ -1,0 +1,358 @@
+---
+title: SQL（エス・キュー・エル）
+description: フロントエンドが sqlx を介して SQL データベースと通信するためのインターフェースを提供する Tauri プラグイン。
+plugin: sql
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+フロントエンドが [sqlx](https://github.com/launchbadge/sqlx) を介して SQL データベースと通信するためのインターフェースを提供するプラグインです。Cargo 機能によって有効化された SQLite、MySQL、PostgreSQL ドライバをサポートしています。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「SQL」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        <CommandTabs npm="npm run tauri add sql"
+        yarn="yarn run tauri add sql"
+        pnpm="pnpm tauri add sql"
+        bun="bun tauri add sql"
+        deno="deno task tauri add sql"
+        cargo="cargo tauri add sql" />
+
+    </TabItem>
+    <TabItem label="手動で設定">
+
+        <Steps>
+
+        1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-sql
+            ```
+
+        2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+                pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_sql::Builder::default().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-sql"
+                yarn="yarn add @tauri-apps/plugin-sql"
+                pnpm="pnpm add @tauri-apps/plugin-sql"
+                deno="deno add npm:@tauri-apps/plugin-sql"
+                bun="bun add @tauri-apps/plugin-sql"
+            />
+
+        </Steps>
+
+</TabItem>
+</Tabs>
+
+このプラグインをインストールした後、サポートされているデータベース・エンジンを選択する必要があります。
+利用可能なデータベース・エンジンは、「Sqlite」、「MySQL」、「PostgreSQL」です。
+`src-tauri` フォルダーにある以下のコマンドを実行して、利用したいデータベース・エンジンを有効化します：
+
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features sqlite
+    ```
+
+  </TabItem>
+  <TabItem label="MySQL">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features mysql
+    ```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+  
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features postgres
+    ```
+  
+  </TabItem>
+</Tabs>
+
+## 使用方法
+
+プラグイン API のすべてが、JavaScript Guest バインディングを通して利用できます：
+
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+
+パスは [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig) を基準とした相対パスです。
+
+```javascript
+import Database from '@tauri-apps/plugin-sql';
+// `"withGlobalTauri": true` を使用する場合は、
+// const Database = window.__TAURI__.sql; を使用できます
+
+const db = await Database.load('sqlite:test.db');
+await db.execute('INSERT INTO ...');
+```
+
+  </TabItem>
+  <TabItem label="MySQL">
+
+```javascript
+import Database from '@tauri-apps/plugin-sql';
+// `"withGlobalTauri": true` を使用する場合は、
+// const Database = window.__TAURI__.sql; を使用できます
+
+const db = await Database.load('mysql://user:password@host/test');
+await db.execute('INSERT INTO ...');
+```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+
+```javascript
+import Database from '@tauri-apps/plugin-sql';
+// `"withGlobalTauri": true` を使用する場合は、
+// const Database = window.__TAURI__.sql; を使用できます
+
+const db = await Database.load('postgres://user:password@host/test');
+await db.execute('INSERT INTO ...');
+```
+
+  </TabItem>
+</Tabs>
+
+## 構文 Syntax
+
+基本ライブラリとして [sqlx](https://docs.rs/sqlx/latest/sqlx/) を用い、そのクエリ構文を使用します。
+
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+クエリデータを代入するには「$#」構文を使用します
+
+```javascript
+const result = await db.execute(
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
+);
+
+const result = await db.execute(
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
+);
+```
+
+  </TabItem>
+  <TabItem label="MySQL">
+クエリデータを代入するには「?」を使用します
+
+```javascript
+const result = await db.execute(
+  'INSERT into todos (id, title, status) VALUES (?, ?, ?)',
+  [todos.id, todos.title, todos.status]
+);
+
+const result = await db.execute(
+  'UPDATE todos SET title = ?, status = ? WHERE id = ?',
+  [todos.title, todos.status, todos.id]
+);
+```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+
+クエリデータを代入するには「$#」構文を使用します
+
+```javascript
+const result = await db.execute(
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
+);
+
+const result = await db.execute(
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
+);
+```
+
+  </TabItem>
+</Tabs>
+
+## 移行 Migrations
+
+このプラグインはデータベースの「移行」処理をサポートしており、時間の経過に伴うデータベースの「スキーマ進化」を管理できます。
+
+<TranslationNote lang="ja">
+
+**スキーマ進化**　schema evolution：　「構造進化」。新しい要件やデータ・モデルの出現に伴い、データベースの構造を時とともに修正していくプロセス。《参考：　[IBM](https://www.ibm.com/docs/ja/db2/12.1.0?topic=warehouse-schema-evolution-support); [wikipedia](https://en.wikipedia.org/wiki/Schema_evolution)》
+
+</TranslationNote>
+
+### 「移行」の定義
+
+Rustでは、いくつかの「移行 Migrations」処理が「[`Migration`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Migration.html)構造体」を用いて定義されています。それぞれの移行方式には、「一意のバージョン番号」、「内容説明」、実行する「SQL」、「移行の種類」（Up または Down）を含める必要があります。
+
+「移行」の事例：
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
+    kind: MigrationKind::Up,
+};
+```
+
+あるいは、ファイルから SQL を使用したい場合には、`include_str!` を使用してそのファイルをインクルード（取り込み）できます。
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: include_str!("../drizzle/0000_graceful_boomer.sql"),
+    kind: MigrationKind::Up,
+};
+```
+
+### プラグイン・ビルダーに「移行」処理を追加
+
+「移行 Migrations」処理は、プラグインが提供する [`Builder`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Builder.html) 構造体に登録されます。特定のデータベース接続用の「移行」処理をプラグインに追加するには、`add_migrations` メソッドを使用します。
+
+「移行追加」の事例：
+
+```rust title="src-tauri/src/main.rs" {1} {6-11} {17}
+use tauri_plugin_sql::{Builder, Migration, MigrationKind};
+
+fn main() {
+    let migrations = vec![
+        // ここで「移行」処理内容を定義します
+        Migration {
+            version: 1,
+            description: "create_initial_tables",
+            sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
+            kind: MigrationKind::Up,
+        }
+    ];
+
+    tauri::Builder::default()
+        .plugin(
+            tauri_plugin_sql::Builder::default()
+                .add_migrations("sqlite:mydatabase.db", migrations)
+                .build(),
+        )
+        ...
+}
+```
+
+### 「移行」処理の適用
+
+プラグインが初期化される時に「移行 migrations」処理を適用するには、「接続文字列 connection string」を `tauri.conf.json` ファイルに追加します：
+
+<TranslationNote lang="ja">
+
+**接続文字列**　connection string：　データ・ソースに関する情報とそれに接続する方法を指定する文字列。　《参考：　[wikipedia](https://en.wikipedia.org/wiki/Connection_string)》
+
+</TranslationNote>
+
+```json title="src-tauri/tauri.conf.json" {3-5}
+{
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:mydatabase.db"]
+    }
+  }
+}
+```
+
+あるいは、クライアント側の `load()` でも、指定された接続文字列の「移行」処理を実行します：
+
+```ts
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
+```
+
+「移行」処理が正しい順序で定義されており、複数回実行しても安全であることを確認してください。
+
+:::note
+すべての「移行」処理はトランザクション内で実行されるため、アトミック性が確保されます。「移行」処理が失敗した場合、トランザクション全体がロールバック（巻き戻し／取り消し）され、データベースは一貫性のある状態のままになります。
+:::
+
+<TranslationNote lang="ja">
+
+**トランザクション**　transaction：　「取引・処理」の意味ですが、IT 分野では「コンピュータ内で実行される、分割できない一連の情報処理の一纏まりの単位」を意味します。《参照：　[wikipedia](https://ja.wikipedia.org/wiki/トランザクション)》
+
+**アトミック性**　atomicity：　訳「不可分性／原子性」。トランザクション処理の信頼性を保証するために必要とされる性質。トランザクションに含まれる各タスクの組み合わせ（全操作）は原子（アトム）のように一体で分割できず（＝不可分性）、「全てのタスク（全操作）が実行されてトランザクションが完了する」か、「全タスク中のタスクが一つでも失敗した場合には、全てのタスクが取り消される（トランザクションは未完了）」かのどちらかの状態しか許されないこと。　《参考：　[wikipedia](<https://ja.wikipedia.org/wiki/ACID_(コンピュータ科学)>)》
+
+</TranslationNote>
+
+### 「移行」処理の管理
+
+- **バージョン管理**：　各「移行］処理には「一意のバージョン番号」が必要です。これは、「移行」処理が正しい順序で適用されることを保証するために不可欠です。
+- **冪等性**（べきとうせい）：　エラーや予期しない結果を引き起こすことなく安全に再実行できるような方法で「移行」処理を記述します。
+- **テスト**：　「移行」処理が期待どおりに機能し、データベースの整合性が損なわれないことを確認するために、「移行」処理を徹底的にテストします。
+
+<TranslationNote lang="ja">
+
+**冪等性**　idemotence / idempotency：　読み「べきとうせい」。ある操作を1度行なっても複数回行なっても同じ効果となること。《参考：　[wikipedia](https://ja.wikipedia.org/wiki/冪等)》
+
+</TranslationNote>
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={4-5}
+{
+  "permissions": [
+    ...,
+    "sql:default",
+    "sql:allow-execute",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+
+【※ この日本語版は、「Nov 4, 2025 英語版」に基づいています】
+
+</div>

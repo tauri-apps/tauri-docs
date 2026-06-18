@@ -70,7 +70,7 @@ Install the Single Instance plugin to get started.
 
 </Tabs>
 
-:::info
+:::note
 
 The Single Instance plugin must be the first one to be registered to work well. This assures that it runs before other plugins can interfere.
 
@@ -197,3 +197,7 @@ finish-args:
 ```
 
 This will allow your app to send and receive requests from/to the DBus service as expected by the Single Instance plugin.
+
+## Permissions
+
+Because this Plugin currently does not have JavaScript APIs you do not have to configure [capabilities](/security/capabilities/) to use it.

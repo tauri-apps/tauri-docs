@@ -1,0 +1,43 @@
+---
+title: Debian
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+{/* Is this about building .deb files, creating PPAs, or adding something to the debian/ubuntu repos? */}
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+## Debian（デビアン）
+
+Tauri バンドラーによって生成される通常の [Debian] パッケージには、あなたのアプリケーションを Debian ベースの Linux ディストリビューションに配布するために必要なものがすべて含まれています。たとえば、アプリケーション・アイコンの定義、デスクトップ・ファイルの生成、`libwebkit2gtk-4.1-0` と `libgtk-3-0` の依存関係の指定（もしアプリケーションがシステム・トレイを使用しているのであれば `libappindicator3-1` の依存関係も）、などです。
+
+### カスタム・ファイル
+
+より多くの調整が必要な場合に備えて、Tauri は Debian パッケージの設定をいくつか公開しています。
+
+あなたのアプリが他のシステム依存関係をも必要としている場合は、`tauri.conf.json > bundle > linux > deb` で指定できます。
+
+Debian パッケージにカスタム・ファイルを含めるには、`tauri.conf.json > bundle > linux > deb > files` にファイルまたはフォルダのリストを指定します。設定オブジェクトは、Debian パッケージ内のパスを、あなたのファイルシステム上のファイルへのパスに、`tauri.conf.json` ファイルからの相対パスで展開（マッピング）します。以下が設定事例です：
+
+```json
+{
+  "bundle": {
+    "linux": {
+      "deb": {
+        "files": {
+          "/usr/share/README.md": "../README.md", // 「../README.md」ファイルを「/usr/share/README.md」にコピー
+          "/usr/share/assets": "../assets/" // 「../assets」ディレクトリのすべてを「/usr/assets」にコピー
+        }
+      }
+    }
+  }
+}
+```
+
+[Debian]: https://www.debian.or.jp/using/
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

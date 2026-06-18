@@ -1,0 +1,123 @@
+---
+title: セキュリティ
+sidebar:
+  order: 1
+  label: Overview
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+このセクションでは、Tauri の設計とエコシステムの中核をなす高レベルの概念とセキュリティ機能を説明することを目的としています。この概念とセキュリティ機能は、開発者であるあなた自身、作成するアプリケーション、およびそのユーザーのセキュリティをデフォルトで強化いたします。
+
+また、「ベスト・プラクティス」（最良の実践モデル）に関するアドバイス、脆弱性をTauri チームに報告する方法、および詳細な概念説明への参考情報も言及されています。
+
+:::note
+
+Tauri アプリケーションのセキュリティは、Tauri 自体の全体的なセキュリティ、Rust および npm のすべての依存関係、あなた自身のコード、および最終的なアプリケーションを実行するデバイス、これらすべてのセキュリティの総和であることを覚えておくことが重要です。
+Tauri チームはチームとしての役割に最善を尽くし、セキュリティ・コミュニティもその役割を果たしますので、あなた自身もいくつかある重要な「ベスト・プラクティス」のやり方に倣ってみてください。
+
+:::
+
+## 信頼境界線 Trust Boundaries
+
+> 「信頼境界線／トラスト・バウンダリ」とは、コンピューター・サイエンスとセキュリティの分野で使われる用語で、プログラム・データまたは実行プログラムの「信頼」レベルが切り替わる境界線、あるいは、異なるセキュリティ・レベル<sup>※</sup> を持つ二つの動作主体（「セキュリティ・プリンシパル」）がデータやコマンドをやり取りする際の信頼レベル限界線、のことです。
+> [^wikipedia-trust-boundary]（英語版）
+
+[^wikipedia-trust-boundary]: [https://en.wikipedia.org/wiki/Trust_boundary](https://en.wikipedia.org/wiki/Trust_boundary).
+
+> > > 《訳注》 **セキュリティ・レベル**　原文 different **capabilities**（異なる**機能**）の訳。具体的な意味内容が不明のため、Wikipedia 中国語版での表記「**信頼レベル**の異なる2つのシステムが・・・」（Google翻訳による）とあるのに基づき「セキュリティ・レベル」と訳してあります。[セキュリティ・レベル](/ja/security/capabilities/) を参照。
+
+Tauri のセキュリティ・モデルは、アプリケーションのコア用に記述された「Rust コード」部と、システム WebView が理解できる任意のフレームワークまたは言語で記述された「フロントエンド・コード」部に分かれています。
+
+境界間でやり取りされるすべてのデータを検査し厳密に定義することは、「信頼境界の侵害」（violation）を防ぐために非常に重要です。もしデータが「アクセス制御なし」で境界線間を渡されると、攻撃者にとっては権限を昇格させて悪用することが簡単になります。
+
+[IPC レイヤー](/ja/concept/inter-process-communication/) （プロセス間通信）は、この二つの信頼グループ間の通信のブリッジ（橋渡し）となり、境界が破られないようにしています。
+
+![IPC Diagram](@assets/security/tauri-trust-boundaries.svg)
+
+> > > 《訳注》 図中の用語
+> > > **System WebView**　システム・ウェッブビュー
+> > > ・ Application Frontend　アプリケーション・フロントエンド
+> > > ・ Remote Sources & Assets　リモート・ソースおよびアセット
+> > > **IPC**　プロセス間通信
+> > > **Application Core**　アプリケーション・コア
+> > > ・ Tarui Core　タウリ・コア部
+> > > ・ Backend　バックエンド
+> > > ・ Plugins　プラグイン
+> > > ・ Local System　ローカル・システム
+
+プラグインまたはアプリケーション・コアによって実行されるコードは、利用可能なすべてのシステム・リソースに完全にアクセスでき、制約はありません。
+
+WebView で実行されるコードは、公開されたシステム・リソースのみに、明確に定義された IPC レイヤーを介してアクセスできます。
+コア・アプリケーション・コマンドへのアクセスは、アプリケーション設定で定義されたセキュリティ・レベルによって設定および制限されます。
+個々のコマンド実装は、これもまた「セキュリティ・レベル設定」でも定義されている任意設定のきめ細かいアクセス・レベルを適用します。
+
+それぞれのコンポーネントと境界適用の詳細については、以下を参照してください：
+
+<CardGrid>
+  <LinkCard title="アクセス権" href="/ja/security/permissions/" />
+  <LinkCard title="スコープ" href="/ja/security/scope/" />
+  <LinkCard title="セキュリティ・レベル" href="/ja/security/capabilities/" />
+  <LinkCard title="ランタイム統制" href="/ja/security/runtime-authority/" />
+</CardGrid>
+
+Tauri では、開発者が独自のフロントエンド・スタックとフレームワークを選択できます。
+このことは、Tauri が選択された個々のフロントエンド・スタックに対するセキュリティ強化ガイドを提供できていないということではなく、Tauri は攻撃対象領域を制御し封じ込めるための包括的な機能を提供しているということを意味しています。
+
+<CardGrid>
+  <LinkCard
+    title="コンテンツ・セキュリティ・ ポリシー（CSP）"
+    href="/ja/security/csp/"
+  />
+  <LinkCard
+    title="アイソレーション型"
+    href="/ja/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+## WebViews のバンドル”なし”
+
+Tauri のアプローチは、オペレーティング・システム付属の WebView に依存し、WebView をアプリケーション・バイナリにバンドルしないことです。
+
+これにはさまざまな理由がありますが、セキュリティの観点から最も重要な理由は、WebView のセキュリティ・パッチが公開されてからアプリケーションのエンドユーザーに展開されるまでに要する平均時間です。
+
+![IPC Diagram](@assets/security/tauri-update-lag.svg)
+
+> > > 《訳注》 図： WebView バンドル有無によるセキュリティ更新時間の差
+
+観察したところでは、WebView パケットのメンテナーとオペレーティング・システム・パケットのメンテナーは、WebView をアプリケーションに直接バンドルするアプリケーション開発者よりも、セキュリティ・パッチを適用して Webview リリースを展開する速度が、平均して遥かに速いことがわかっています。
+
+この観察には例外があり、理論的にはどちらの方法でも同様の時間枠内で実行できますが、それには各アプリケーションに対して付随的コストがより大きいインフラストラクチャの関与が必要になります。
+
+Tauri アプリケーション開発者の経験上、バンドルには悪い面があります。それが本質的に安全でないとは考えているわけではありませんが、現在の設計仕様は、現実の既知の脆弱性を大幅に減らすためのトレードオフ（妥協点）なのです。
+
+## エコシステム
+
+Tauri の組織は、ただ単に Tauri リポジトリだけを提供・維持管理しているだけではなく、合理的で安全なマルチプラットフォームのアプリケーション・フレームワークを確実に提供するために、さらに先を行く努力しています。
+
+開発プロセスのセキュリティ確保方法、適応および実装できる内容、アプリケーションが直面する可能性のある既知の脅威、今後の改善や強化の計画などについて詳しく知りたい場合は、以下のドキュメントをご覧ください：
+
+<CardGrid>
+  <LinkCard title="エコシステム・セキュリティ" href="/ja/security/ecosystem/" />
+  <LinkCard
+    title="アプリケーション・ ライフサイクルでの脅威"
+    href="/ja/security/lifecycle/"
+  />
+  <LinkCard title="これからの取り組み" href="/ja/security/future/" />
+</CardGrid>
+
+## 協調的な情報開示
+
+Tauri またはその他のリポジトリにセキュリティ上の懸念や問題があると思われる場合には、**発見した事項について公にはコメントしない** でください。代わりに、直接、Tauri のセキュリティ・チームにご連絡ください。
+
+推奨される報告方法は、影響を受けるリポジトリの [Github Vulnerability Disclosure](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability) （Github 脆弱性報告）経由です。
+Tauli のほとんどのリポジトリではこの連絡機能が有効になっていますが、よく判らない場合には [Tauri リポジトリ](https://github.com/tauri-apps/tauri/security/advisories/new) から送信してください。
+
+あるいは、[security@tauri.app](mailto:security@tauri.app) まで電子メールでご連絡いただくこともできます。
+
+現在、セキュリティ報奨金の予算はありませんが、場合によっては、限られたリソース内で協調的な情報開示に報奨を与えることも検討します。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

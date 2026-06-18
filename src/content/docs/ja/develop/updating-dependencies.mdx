@@ -1,0 +1,62 @@
+---
+title: 依存関係の更新
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+{/* TODO: Add plugin update example */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+## npm パッケージの更新
+
+`tauri` パッケージを使用している場合：
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+  yarn="yarn up @tauri-apps/cli @tauri-apps/api"
+  pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+/>
+
+以下のコマンドを使用すれば、コマンド・ラインで Tauri の最新バージョンを検出することもできます。
+
+<CommandTabs
+  npm="npm outdated @tauri-apps/cli"
+  yarn="yarn outdated @tauri-apps/cli"
+  pnpm="pnpm outdated @tauri-apps/cli"
+/>
+
+## Cargo パッケージの更新
+
+古いパッケージは、[`cargo outdated`] または crates.io ページ [tauri] / [tauri-build] で確認できます。
+
+`src-tauri/Cargo.toml` ファイルに移動し、`tauri` と `tauri-build` を次のように変更します：
+
+```toml
+[build-dependencies]
+tauri-build = "%version%"
+
+[dependencies]
+tauri = { version = "%version%" }
+```
+
+ここで、`%version%` は [tauri-build] / [tauri] の対応するバージョン番号のことです。
+
+次に、次の操作を実行します：
+
+```shell
+cd src-tauri
+cargo update
+```
+
+あるいは、[cargo-edit] が提供する `cargo upgrade` コマンドを実行して、こうした処理をすべて自動的に実行することもできます。
+
+[`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
+[tauri]: https://crates.io/crates/tauri/versions
+[tauri-build]: https://crates.io/crates/tauri-build/versions
+[cargo-edit]: https://github.com/killercup/cargo-edit
+
+<div style="text-align: right">
+  【※ この日本語版は、「Jul 23, 2024 英語版」に基づいています】
+</div>

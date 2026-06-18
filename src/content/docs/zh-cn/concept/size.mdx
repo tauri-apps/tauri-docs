@@ -17,6 +17,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="Stable">
+
 ```toml
 # src-tauri/Cargo.toml
 [profile.dev]
@@ -28,11 +29,12 @@ lto = true # 启用链接时优化。
 opt-level = "s" # 优先考虑小的二进制文件大小。如果您更喜欢速度，请使用 `3`。
 panic = "abort" # 通过禁用 panic 处理程序来提高性能。
 strip = true # 确保移除调试符号。
+```
 
-````
 </TabItem>
 
 <TabItem label="Nightly">
+
 ```toml
 # src-tauri/Cargo.toml
 [profile.dev]
@@ -47,7 +49,7 @@ panic = "abort" # 通过禁用 panic 处理程序来提高性能。
 strip = true # 确保移除调试符号。
 trim-paths = "all" # 从您的二进制文件中移除潜在的特权信息。
 rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # 提高编译性能。
-````
+```
 
 </TabItem>
 </Tabs>

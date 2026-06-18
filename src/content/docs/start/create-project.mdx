@@ -5,13 +5,13 @@ sidebar:
 i18nReady: true
 ---
 
-import { Card, Steps } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
 
 import Cta from '@fragments/cta.mdx';
 
 One thing that makes Tauri so flexible is its ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you create a new Tauri project using one of the officially maintained framework templates.
 
-`create-tauri-app` currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore-rs.netlify.app/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri).
+`create-tauri-app` currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore.dev/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri).
 
 {/* TODO: redirect to integrate to existing front-end project specific docs */}
 Alternatively, you can [add Tauri to an existing project](#manual-setup-tauri-cli) to quickly turn your existing codebase into a Tauri app.
@@ -128,8 +128,9 @@ import CommandTabs from '@components/CommandTabs.astro';
     bun install
     bun tauri dev
   "
-  cargo="cd tauri-app
-    cargo tauri dev"
+  cargo='cd tauri-app
+    cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri dev'
 />
 
 You'll now see a new window open with your app running.
@@ -222,7 +223,8 @@ The following example assumes you are creating a new project. If you've already 
 
 ## Next Steps
 
+- [Learn about the project layout and what each file does](/start/project-structure/)
 - [Add and Configure a Frontend Framework](/start/frontend/)
 - [Tauri Command Line Interface (CLI) Reference](/reference/cli/)
-- [Learn how to build your Tauri app](/develop/)
+- [Learn how to develop your Tauri app](/develop/)
 - [Discover additional features to extend Tauri](/plugin/)

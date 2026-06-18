@@ -51,7 +51,7 @@ function generateCommandDoc(command: string, level: number, subcommandList: Comm
 
   const heading = '#'.repeat(level);
   return `${heading} \`${command}\`
-  
+
 <CommandTabs
   npm="npm run tauri ${command}"
   yarn="yarn tauri ${command}"
@@ -76,6 +76,31 @@ const commandList: Command[] = [];
 let doc = '';
 
 for (const command of subcommands) {
+  if (command.name === 'migrate' && process.platform !== 'darwin') {
+    doc += readFileSync('../../src/content/docs/reference/_cli_ios.mdx').toString();
+    doc += '\n\n'; // just in case we format _cli_ios.mdx
+
+    commandList.push(
+      { name: 'ios', description: 'iOS commands' },
+      {
+        name: 'ios init',
+        description: 'Initialize iOS target in the project',
+      },
+      {
+        name: 'ios dev',
+        description: 'Run your app in development mode on iOS',
+      },
+      {
+        name: 'ios build',
+        description: 'Build your app in release mode for iOS and generate IPAs',
+      },
+      {
+        name: 'ios run',
+        description: 'Run your app in production mode on iOS',
+      }
+    );
+  }
+
   commandList.push(command);
   const commandDoc = generateCommandDoc(command.name, 3, commandList);
   doc += commandDoc;

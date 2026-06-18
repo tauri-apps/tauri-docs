@@ -1,12 +1,16 @@
 :root {
-  --sl-hue-orange: 42;
+  --tauri-transition-speed: 200ms;
+}
+
+:root[data-theme='dark'] {
+  --sl-hue-orange: 35;
   --sl-color-orange-low: hsl(var(--sl-hue-orange), 100%, 15%);
-  --sl-color-orange: hsl(var(--sl-hue-orange), 100%, 60%);
+  --sl-color-orange: #ffc131;
   --sl-color-orange-high: hsl(var(--sl-hue-orange), 100%, 90%);
-  --sl-hue-blue: 186;
-  --sl-color-blue-low: hsl(var(--sl-hue-blue), 72%, 15%);
-  --sl-color-blue: hsl(var(--sl-hue-blue), 72%, 50%);
-  --sl-color-blue-high: hsl(var(--sl-hue-blue), 72%, 90%);
+  --sl-hue-blue: 187;
+  --sl-color-blue-low: hsl(var(--sl-hue-blue), 71%, 15%);
+  --sl-color-blue: #24c8db;
+  --sl-color-blue-high: hsl(var(--sl-hue-blue), 71%, 90%);
   --sl-hue-accent: var(--sl-hue-blue);
   --sl-color-accent-low: var(--sl-color-blue-low);
   --sl-color-accent: var(--sl-color-blue);
@@ -20,7 +24,23 @@
   --sl-color-gray-5: #383838;
   --sl-color-gray-6: #272727;
   --sl-color-black: #181818;
+}
 
-  /* Custom */
-  --tauri-transition-speed: 200ms;
+:root[data-theme='light'] {
+  // --tauri-blue: oklch(76.61% 0.12577 206.774);
+  // Using a hue that's as close to the tauri blue as possible,
+  // while targeting a chroma of 0.15 with a 50% lightness
+  --sl-color-accent-low: oklch(40% 0.12 253);
+  --sl-color-accent: oklch(50% 0.15 253);
+  --sl-color-accent-high: oklch(70% 0.15 253);
+
+  --sl-color-white: #070707;
+  --sl-color-gray-1: #2f2f2f;
+  --sl-color-gray-2: #353841;
+  --sl-color-gray-3: #545861;
+  --sl-color-gray-4: #888b96;
+  --sl-color-gray-5: #c0c2c7;
+  --sl-color-gray-6: #eceef2;
+  --sl-color-gray-7: #f6f6f6;
+  --sl-color-black: #ffffff;
 }

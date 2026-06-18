@@ -82,6 +82,25 @@ cargo tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
 This is particularly useful when setting up your CI/CD to upload your app to the Microsoft Store while having a separate configuration
 for the Windows installer you distribute outside the app store.
 
+### Silent install
+
+The Microsoft Store requires Win32 installers to support silent installation. If your installer does not install silently,
+your submission is rejected with an error such as:
+
+```
+10.2.9.2 Security - Package Submissions | Win32 products must install silently.
+```
+
+When you register your installer in Partner Center you must provide the [silent install parameters] so the Store can run it
+unattended. Tauri's NSIS `-setup.exe` installer installs silently with the `/S` flag (note the uppercase `S`):
+
+```
+MyApp_x64-setup.exe /S
+```
+
+Enter `/S` as the silent install argument in the installer parameters of your Microsoft Store product.
+If you distribute the MSI installer instead, use the standard `msiexec` flag `/quiet`.
+
 ### Publisher
 
 Your application [publisher] name cannot match the application product name.
@@ -120,4 +139,5 @@ and link it in your application page in the Microsoft Store website.
 [code signed]: /distribute/sign/windows/
 [Offline Installer]: /distribute/windows-installer/#offline-installer
 [official publish documentation]: https://learn.microsoft.com/en-us/windows/apps/publish/
+[silent install parameters]: https://learn.microsoft.com/en-us/windows/uwp/publish/msiexe/provide-package-details
 [publisher]: /reference/config/#publisher

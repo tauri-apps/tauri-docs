@@ -1,0 +1,116 @@
+---
+import { existsSync, readFileSync } from 'node:fs';
+import { OPEN_COLLECTIVE_FILE } from 'packages/fetch-sponsors/config';
+import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
+
+import OcAvatar from './OcAvatar.astro';
+
+let openCollectiveSponsors = [];
+if (existsSync(OPEN_COLLECTIVE_FILE)) {
+  openCollectiveSponsors = JSON.parse(readFileSync(OPEN_COLLECTIVE_FILE, 'utf-8'));
+} else {
+  throw new Error('Open Collective data file not found.');
+}
+
+const sponsorsByTier = {
+  platinum: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'platinum'),
+  gold: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'gold'),
+  silver: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'silver'),
+  bronze: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'bronze'),
+};
+
+const platinumSponsors = sponsorsByTier.platinum;
+const goldSponsors = sponsorsByTier.gold;
+const silverSponsors = sponsorsByTier.silver;
+
+// disabled
+// const bronzeSponsors = sponsorsByTier.bronze
+//   .filter((sponsor: Sponsor) => sponsor.name !== 'Incognito')
+//   .slice(0, 50);
+// const totalBronzeSponsors = sponsorsByTier.bronze.length;
+
+const sponsorTiers = [
+  { title: 'Platinum', name: 'platinum', sponsors: platinumSponsors },
+  { title: 'Gold', name: 'gold', sponsors: goldSponsors },
+  { title: 'Silver', name: 'silver', sponsors: silverSponsors },
+];
+---
+
+<>
+  {
+    sponsorTiers.map((tier) => (
+      <div class="tier-section ">
+        {/* <h4 class="text-center">{tier.title}</h4> */}
+        {tier.sponsors.length > 0 && (
+          <div class={`sponsor-container ${tier.name}`}>
+            {tier.sponsors.map((sponsor: Sponsor) => (
+              <div>
+                <OcAvatar {sponsor} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    ))
+  }
+</>
+
+<!-- {
+  bronzeSponsors.length > 0 && (
+    <div class="tier-section">
+      <h4>Bronze Sponsors</h4>
+      <div class="sponsor-list">
+        {bronzeSponsors.map((sponsor, index) => (
+          <OcAvatar {sponsor} needComma={index < bronzeSponsors.length - 1} />
+        ))}
+        {totalBronzeSponsors > bronzeSponsors.length && (
+          <span class="more-sponsors">
+            and {totalBronzeSponsors - bronzeSponsors.length} more...
+          </span>
+        )}
+      </div>
+    </div>
+  )
+} -->
+
+<style>
+  :root {
+    --silver-overlap: 16px;
+  }
+
+  .sponsor-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: auto;
+    justify-content: center;
+  }
+
+  .sponsor-container.silver > div {
+    margin-inline-start: calc(var(--silver-overlap) * -1);
+  }
+
+  .sponsor-container.silver {
+    /* margin-inline-start: var(--silver-overlap); */
+    max-width: 80ch;
+  }
+
+  .sponsor-container.gold {
+    gap: 8px 4px;
+    max-width: 100ch;
+  }
+
+  .sponsor-container.platinum {
+    gap: 12px;
+  }
+
+  .tier-section {
+    margin-bottom: 2rem;
+  }
+
+  h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: var(--sl-color-text-muted);
+  }
+</style>

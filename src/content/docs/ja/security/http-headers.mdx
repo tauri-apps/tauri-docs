@@ -1,0 +1,320 @@
+---
+title: HTTP ヘッダー
+author: 39zde <git@39zde>
+sidebar:
+  order: 7
+  badge:
+    text: New
+    variant: tip
+i18nReady: true
+---
+
+import SinceVersion from '@components/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" />
+
+「設定」内で定義されたヘッダーは、Webview への応答とともに送信されます。
+これには「IPC（プロセス間通信）」メッセージと「エラー応答」は含まれません。
+より具体的に言えば、
+
+<a
+  href="https://github.com/tauri-apps/tauri/blob/8e8312bb8201ccc609e4bbc1a990bdc314daa00f/crates/tauri/src/protocol/tauri.rs#L103"
+  target="\_blank"
+>
+  {' '}
+  crates/tauri/src/protocol/tauri.rs ↗
+</a>
+の `get_response`
+関数を介して送信されるすべての応答に、このヘッダーが含まれます。
+
+### ヘッダー名
+
+「ヘッダー名」は以下に限定されています：
+
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials"
+    target="_blank"
+  >
+    Access-Control-Allow-Credentials ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Access-Control-Allow-Headers"
+    target="_blank"
+  >
+    Access-Control-Allow-Headers ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Access-Control-Allow-Methods"
+    target="_blank"
+  >
+    Access-Control-Allow-Methods ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Access-Control-Expose-Headers"
+    target="_blank"
+  >
+    Access-Control-Expose-Headers ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Access-Control-Max-Age"
+    target="_blank"
+  >
+    Access-Control-Max-Age ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+    target="_blank"
+  >
+    Cross-Origin-Embedder-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+    target="_blank"
+  >
+    Cross-Origin-Opener-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+    target="_blank"
+  >
+    Cross-Origin-Resource-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Permissions-Policy"
+    target="_blank"
+  >
+    Permissions-Policy ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Timing-Allow-Origin"
+    target="_blank"
+  >
+    Timing-Allow-Origin ↗
+  </a>
+- <a
+    href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Content-Type-Options"
+    target="_blank"
+  >
+    X-Content-Type-Options ↗
+  </a>
+- Tauri-Custom-Header
+
+:::note[（注記）]
+
+`Tauri-Custom-Header` は、本番環境での使用を目的としたものではありません。
+
+:::
+
+:::note[（注記）]
+
+<a href="../ja/csp/">コンテンツ・セキュリティー・ポリシー（CSP）</a>
+は、ここでは定義されていません。
+
+:::
+
+### ヘッダーの設定方法
+
+- 文字列で
+- 文字列の配列で
+- オブジェクト／キー値で（値は文字列である必要があります）
+- null 値で
+
+実際の応答では、ヘッダー値は常に​​文字列に変換されます。設定ファイルの内容によっては、ヘッダー値のいくつかを作成する必要があります。
+この複合値がどのように作成されるかに関するルールは次のとおりです：
+
+- `string`：　「文字列」の場合は、作成されたヘッダー値でも同一内容です。
+- `Array`：　「配列」の場合は、作成されたヘッダー値では、各項（要素）が `, ` で連結されます。
+- `key-value`：　「キー値」では、各項目が「キー＋スペース＋値」から作成され、その後、作成されたヘッダー値では各項が `; ` で連結されます。
+- `null`：　「null 値」の場合、ヘッダーは無視されます。
+
+### 設定例
+
+```javascript title="src-tauri/tauri.conf.json"
+{
+ //...
+  "app":{
+    //...
+    "security": {
+      //...
+      "headers": {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Timing-Allow-Origin": [
+          "https://developer.mozilla.org",
+          "https://example.com",
+        ],
+        "X-Content-Type-Options": null, // gets ignored
+        "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+        "Tauri-Custom-Header": {
+          "key1": "'value1' 'value2'",
+          "key2": "'value3'"
+        }
+      },
+      // CSP がヘッダー項目内定義されていないことに注意してください。
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost",
+    }
+  }
+}
+```
+
+:::note[（注記）]
+`Tauri-Custom-Header` は、本番環境での使用を目的としたものではありません。
+テストでは、`Access-Control-Expose-Headers` を適切に設定することを忘れないでください。
+:::
+
+この事例では、`Cross-Origin-Opener-Policy` と `Cross-Origin-Embedder-Policy` が、<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank">`SharedArrayBuffer ↗`</a> の使用を許可するように設定されています。
+`Timing-Allow-Origin` は、リストに記載された Web サイトから読み込まれたスクリプトが、<a href="https://developer.mozilla.org/ja/docs/Web/API/Performance_API/Resource_timing" target="_blank">Resource Timing API（リソースタイミング） ↗</a> を介して詳細なネットワーク・タイミング・データにアクセスすることを許可します。
+
+「helloworld」の例では、設定は次のようになります：
+
+```http
+access-control-allow-origin:  http://tauri.localhost
+access-control-expose-headers: Tauri-Custom-Header
+content-security-policy: default-src 'self'; connect-src ipc: http://ipc.localhost; script-src 'self' 'sha256-Wjjrs6qinmnr+tOry8x8PPwI77eGpUFR3EEGZktjJNs='
+content-type: text/html
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+tauri-custom-header: key1 'value1' 'value2'; key2 'value3'
+timing-allow-origin: https://developer.mozilla.org, https://example.com
+```
+
+### フレームワーク
+
+一部の開発環境では、運用環境をエミュレートするための追加設定が必要です。
+
+#### JavaScript/TypeScript
+
+ビルド・ツール「**Vite**（ヴィート）」（**Qwik、React、Solid、Svelte、Vue** も含む）を実行するセットアップ・ツールには、必要なヘッダーを `vite.config.ts` に追加します。
+
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // ...
+  server: {
+    // ...
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Timing-Allow-Origin':
+        'https://developer.mozilla.org, https://example.com',
+      'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+      'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'",
+    },
+  },
+});
+```
+
+場合によっては、`vite.config.ts` がフレームワーク設定ファイルに統合されているときがありますが、セットアップの内容は同じです。
+フロントエンド・フレームワークが **Angular** の場合は、必要なヘッダーを `angular.json` に追加します。
+
+```json title=angular.json
+{
+  //...
+  "projects": {
+    //...
+    "insert-project-name": {
+      //...
+      "architect": {
+        //...
+        "serve": {
+          //...
+          "options": {
+            //...
+            "headers": {
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Timing-Allow-Origin": "https://developer.mozilla.org, https://example.com",
+              "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+              "Tauri-Custom-Header": "key1 'value1' 'value2'; key2 'value3'"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+同様に、**Nuxt** の場合は `nuxt.config.ts` に追記します。
+
+```typescript title=nuxt.config.ts
+export default defineNuxtConfig({
+  //...
+  vite: {
+    //...
+    server: {
+      //...
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin':
+          'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'",
+      },
+    },
+  },
+});
+```
+
+**Next.js** は Vite を利用しないため、アプローチが異なります。
+詳しくは <a href="https://nextjs.org/docs/pages/api-reference/next-config-js/headers" target="_blank">こちら ↗</a> （英語版）をご覧ください。
+ヘッダーは `next.config.js` で定義します。
+
+```javascript title=next.config.js
+module.exports = {
+  //...
+  async headers() {
+    return [
+      {
+        source: '/*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Timing-Allow-Origin',
+            value: 'https://developer.mozilla.org, https://example.com',
+          },
+          {
+            key: 'Access-Control-Expose-Headers',
+            value: 'Tauri-Custom-Header',
+          },
+          {
+            key: 'Tauri-Custom-Header',
+            value: "key1 'value1' 'value2'; key2 'value3'",
+          },
+        ],
+      },
+    ];
+  },
+};
+```
+
+#### Rust
+
+**Yew** と **Leptos** では、ヘッダーを `Trunk.toml` に追記してください：
+
+```toml title=Trunk.toml
+#...
+[serve]
+#...
+headers = {
+  "Cross-Origin-Opener-Policy" = "same-origin",
+  "Cross-Origin-Embedder-Policy" = "require-corp",
+  "Timing-Allow-Origin" = "https://developer.mozilla.org, https://example.com",
+  "Access-Control-Expose-Headers" = "Tauri-Custom-Header",
+  "Tauri-Custom-Header" = "key1 'value1' 'value2'; key2 'value3'"
+}
+
+```
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Mar 12, 2025 英語版」に基づいています】
+</div>

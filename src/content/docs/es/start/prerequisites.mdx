@@ -84,7 +84,7 @@ sudo dnf group install "c-development"
 ```sh
 sudo emerge --ask \
   net-libs/webkit-gtk:4.1 \
-  dev-libs/libappindicator \
+  dev-libs/libayatana-appindicator \
   net-misc/curl \
   net-misc/wget \
   sys-apps/file
@@ -122,40 +122,8 @@ sudo apk add \
   <TabItem label="NixOS">
 
 :::note
-Esto también instalará Rust y Node.js, además de la CLI de `cargo-tauri` por ti, por lo que puedes omitir esos pasos a continuación.
+Las instrucciones para Nix/NixOS pueden ser encontradas en [NixOS Wiki](https://wiki.nixos.org/wiki/Tauri).
 :::
-
-Using `nix-shell`:
-
-```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
-
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
-}
-```
 
   </TabItem>
 </Tabs>
@@ -246,7 +214,7 @@ winget install --id Rustlang.Rustup
 
 :::caution[MSVC toolchain como predeterminado]
 
-Para un soporte total para Tauri y herramientas como [`trunk`](https://trunkrs.dev/) asegurate de que la toolchain MSVC de Rust sea el `default host triple` en el diálogo del instalador. Dependiendo de tu sistema, debería ser `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, o `aarch64-pc-windows-msvc`.
+Para un soporte total para Tauri y herramientas como [`trunk`](https://trunk-rs.github.io/trunk/) asegurate de que la toolchain MSVC de Rust sea el `default host triple` en el diálogo del instalador. Dependiendo de tu sistema, debería ser `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, o `aarch64-pc-windows-msvc`.
 
 Si ya tienes Rust instalado, puedes asegurarte de que esté instalada la toolchain correcta ejecutando el siguiente comando:
 

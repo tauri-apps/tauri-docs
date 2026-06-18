@@ -81,10 +81,28 @@ sudo dnf group install "c-development"
 ```sh
 sudo emerge --ask \
   net-libs/webkit-gtk:4.1 \
-  dev-libs/libappindicator \
+  dev-libs/libayatana-appindicator \
   net-misc/curl \
   net-misc/wget \
   sys-apps/file
+```
+
+  </TabItem>
+  <TabItem label="OSTree">
+
+```sh
+sudo rpm-ostree install webkit2gtk4.1-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel \
+  libxdo-devel \
+  gcc \
+  gcc-c++ \
+  make
+sudo systemctl reboot
 ```
 
   </TabItem>
@@ -107,7 +125,7 @@ sudo zypper in -t pattern devel_basis
 ```sh
 sudo apk add \
   build-base \
-  webkit2gtk \
+  webkit2gtk-4.1-dev \
   curl \
   wget \
   file \
@@ -115,44 +133,15 @@ sudo apk add \
   libayatana-appindicator-dev \
   librsvg
 ```
+
+> Note: Alpine Linux containers don’t include any fonts by default. To ensure text renders correctly in your Tauri app, install at least one font package (for example, `font-dejavu `).
+
   </TabItem>
   <TabItem label="NixOS">
 
 :::note
-This will also install Rust and Node.js as well as the `cargo-tauri` CLI for you, so you can skip those steps below.
+Instructions for Nix/NixOS can be found in the [NixOS Wiki](https://wiki.nixos.org/wiki/Tauri).
 :::
-
-Using `nix-shell`:
-
-```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
-
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
-}
-```
 
   </TabItem>
 </Tabs>
@@ -261,7 +250,7 @@ winget install --id Rustlang.Rustup
 
 :::caution[MSVC toolchain as default]
 
-For full support for Tauri and tools like [`trunk`](https://trunkrs.dev/) make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
+For full support for Tauri and tools like [`trunk`](https://trunk-rs.github.io/trunk/) make sure the MSVC Rust toolchain is the selected `default host triple` in the installer dialog. Depending on your system it should be either `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, or `aarch64-pc-windows-msvc`.
 
 If you already have Rust installed, you can make sure the correct toolchain is installed by running this command:
 
@@ -274,7 +263,7 @@ rustup default stable-msvc
   </TabItem>
 </Tabs>
 
-**Be sure to restart your Terminal (and in some cases your system) for the changes to take affect.**
+**Be sure to restart your Terminal (and in some cases your system) for the changes to take effect.**
 
 Next: [Configure for Mobile Targets](#configure-for-mobile-targets) if you'd like to build for Android and iOS, or, if you'd like to use a JavaScript framework, [install Node](#nodejs). Otherwise [Create a Project](/start/create-project/).
 
@@ -285,7 +274,6 @@ Only if you intend to use a JavaScript frontend framework
 :::
 
 1. Go to the [Node.js website](https://nodejs.org), download the Long Term Support (LTS) version and install it.
-
 2. Check if Node was successfully installed by running:
 
 ```sh
