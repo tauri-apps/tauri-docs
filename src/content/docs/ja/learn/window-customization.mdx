@@ -75,14 +75,14 @@ macOS では、カスタム・タイトルバーを使用すると、[ウィン�
 }
 ```
 
-| Permission                                   | Description                                                                |
-| -------------------------------------------- | -------------------------------------------------------------------------- |
-| `core:window:default`                        | plugin 用デフォルト・アクセス権。                                          |
-| `core:window:allow-close`                    | スコープ（適用範囲）の事前設定なしで close コマンドを有効にします。        |
-| `core:window:allow-minimize`                 | スコープの事前設定なしで minimize コマンドを有効にします。                 |
-| `core:window:allow-start-dragging`           | スコープの事前設定なしで start_dragging コマンドを有効にします。           |
-| `core:window:allow-toggle-maximize`          | スコープの事前設定なしで toggle_maximize コマンドを有効にします。          |
-| `core:window:allow-internal-toggle-maximize` | スコープの事前設定なしで internal_toggle_maximize コマンドを有効にします。 |
+| Permission                                   | Description                                                                                  |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `core:window:default`                        | plugin 用デフォルト・アクセス権。This includes `core:window:allow-internal-toggle-maximize`. |
+| `core:window:allow-close`                    | スコープ（適用範囲）の事前設定なしで close コマンドを有効にします。                          |
+| `core:window:allow-minimize`                 | スコープの事前設定なしで minimize コマンドを有効にします。                                   |
+| `core:window:allow-start-dragging`           | スコープの事前設定なしで start_dragging コマンドを有効にします。                             |
+| `core:window:allow-toggle-maximize`          | スコープの事前設定なしで toggle_maximize コマンドを有効にします。                            |
+| `core:window:allow-internal-toggle-maximize` | スコープの事前設定なしで internal_toggle_maximize コマンドを有効にします。                   |
 
 #### CSS
 
