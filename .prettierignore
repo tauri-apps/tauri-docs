@@ -21,10 +21,6 @@ pnpm-lock.yaml
 .github
 !.github/**.md
 
-# TODO: Figure out why this format isn't acceptable
-# https://github.com/withastro/prettier-plugin-astro/issues/407
-src/components/overrides/Header.astro
-
 # TODO: Prettier breaks these pages
 src/content/docs/start/frontend/qwik.mdx
 src/content/docs/*/start/frontend/qwik.mdx
