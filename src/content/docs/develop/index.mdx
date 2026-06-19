@@ -54,7 +54,7 @@ for a more detailed explanation.
 
 :::
 
-### Developing Your Desktop Application
+## Developing Your Desktop Application
 
 To develop your application for desktop, run the `tauri dev` command.
 
@@ -73,12 +73,12 @@ Since they are cached, subsequent builds are much faster, as only your code need
 Once Rust has finished building, the webview opens, displaying your web app.
 You can make changes to your web app, and if your tooling supports it, the webview should update automatically, just like a browser.
 
-#### Opening the Web Inspector
+### Opening the Web Inspector
 
 You can open the Web Inspector to debug your application by performing a right-click on the webview and clicking "Inspect" or
 using the `Ctrl + Shift + I` shortcut on Windows and Linux or `Cmd + Option + I` shortcut on macOS.
 
-### Developing Your Mobile Application
+## Developing Your Mobile Application
 
 Developing for mobile is similar to how desktop development works, but you must run `tauri android dev` or `tauri ios dev` instead:
 
@@ -94,7 +94,7 @@ Developing for mobile is similar to how desktop development works, but you must 
 The first time you run this command, the Rust package manager may need **several minutes** to download and build all the required packages.
 Since they are cached, subsequent builds are much faster, as only your code needs rebuilding.
 
-#### Development Server
+### Development Server
 
 The development server on mobile works similarly to the desktop one, but if you are trying to run on a physical iOS device,
 you must configure it to listen to a particular address provided by the Tauri CLI, defined in the `TAURI_DEV_HOST` environment variable.
@@ -138,7 +138,7 @@ Projects created with [create-tauri-app](https://github.com/tauri-apps/create-ta
 your development server for mobile dev out of the box.
 :::
 
-#### Device Selection
+### Device Selection
 
 By default, the mobile dev command tries to run your application on a connected device,
 and falls back to prompting you to select a simulator to use.
@@ -153,7 +153,7 @@ To define the run target upfront, you can provide the device or simulator name a
   cargo="cargo tauri ios dev 'iPhone 15'"
 />
 
-#### Using Xcode or Android Studio
+### Using Xcode or Android Studio
 
 Alternatively you can choose to use Xcode or Android Studio to develop your application.
 This can help you troubleshoot some development issues by using the IDE instead of the command line tools.
@@ -188,7 +188,7 @@ To use Xcode or Android Studio, the Tauri CLI process **must** be running and **
 It is recommended to use the `tauri [android|ios] dev --open` command and keep the process alive until you close the IDE.
 :::
 
-#### Opening the Web Inspector
+### Opening the Web Inspector
 
 - iOS
 
@@ -218,7 +218,7 @@ It is recommended to use the `tauri [android|ios] dev --open` command and keep t
   Your device or emulator should appear in the remote devices list if your Android application is running, and you can open the developer tools
   by clicking **inspect** on the entry matching your device.
 
-#### Troubleshooting
+### Troubleshooting
 
 1. Error running build script on Xcode
 
@@ -232,7 +232,7 @@ When you first execute `tauri ios dev`, you might see iOS prompting you for perm
 to devices on your local network. This permission is required because, to access your development server from an iOS device,
 it must be exposed on the local network. To run your app on your device, you must click Allow and restart your application.
 
-### Reacting to Source Code Changes
+## Reacting to Source Code Changes
 
 Similarly to how your webview reflects changes in real time,
 `tauri dev` watches your `src-tauri` folder and its dependent crates in the workspace for changes,
@@ -251,14 +251,14 @@ deny.toml
 `.taurignore` files are usually put in the `src-tauri` directory or [cargo workspace](https://doc.rust-lang.org/cargo/reference/workspaces.html) root folder.
 Currently, `tauri dev` looks for `.taurignore` files anywhere inside the common ancestor of the watched folders and the Cargo workspace root folder.
 
-### Using the Browser DevTools
+## Using the Browser DevTools
 
 Tauri's APIs only work in your app window, so once you start using them you won't be able to open your frontend in your system's browser anymore.
 
 If you prefer using your browser's developer tooling, you must configure [tauri-invoke-http](https://github.com/tauri-apps/tauri-invoke-http)
 to bridge Tauri API calls through a HTTP server.
 
-### Source Control
+## Source Control
 
 In your project repository, you **SHOULD** commit the `src-tauri/Cargo.lock` along with the `src-tauri/Cargo.toml` to git
 because Cargo uses the lockfile to provide deterministic builds. As a result, it is recommended that all applications check in
