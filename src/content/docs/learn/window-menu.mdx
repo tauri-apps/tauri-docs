@@ -36,7 +36,7 @@ const menu = await Menu.new({
       checked: true,
     },
     {
-      type: 'Separator',
+      item: 'Separator',
     },
     {
       id: 'disabled_item',
@@ -292,8 +292,8 @@ fn main() {
                 .build(app)?;
 
             let check_sub_item_2 = CheckMenuItemBuilder::new("Chinese")
-                .id("en")
-                .checked(lang_str == "en")
+                .id("zh")
+                .checked(lang_str == "zh")
                 .enabled(false)
                 .build(app)?;
 

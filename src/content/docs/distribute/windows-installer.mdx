@@ -340,6 +340,21 @@ Your application WILL NOT work if the user does not have the runtime installed a
 }
 ```
 
+## Minimum Webview2 version
+
+If your app requires features only available in newer Webview2 versions (such as custom URI schemes), you can instruct the Windows installer
+to verify the current Webview2 version and run the Webview2 bootstrapper if it does not match the target version.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "minimumWebview2Version": "110.0.1531.0"
+    }
+  }
+}
+```
+
 ## Customizing the WiX Installer
 
 See the [WiX configuration] for the complete list of customization options.
@@ -671,23 +686,6 @@ You can also configure the installer to display a language selector before the i
     "windows": {
       "nsis": {
         "displayLanguageSelector": true
-      }
-    }
-  }
-}
-```
-
-### Minimum Webview2 version
-
-If your app requires features only available in newer Webview2 versions (such as custom URI schemes), you can instruct the Windows installer
-to verify the current Webview2 version and run the Webview2 bootstrapper if it does not match the target version.
-
-```json title="tauri.conf.json"
-{
-  "bundle": {
-    "windows": {
-      "nsis": {
-        "minimumWebview2Version": "110.0.1531.0"
       }
     }
   }

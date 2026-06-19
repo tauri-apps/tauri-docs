@@ -178,6 +178,8 @@ To notarize your application, you must provide credentials for Tauri to authenti
   </TabItem>
 </Tabs>
 
+After setting these environment variables, rerun your Tauri build or bundle command. For example, to build a DMG with pnpm, run `pnpm tauri build --bundles dmg` again. If you need to skip stapling for an initial notarization pass, append `--skip-stapling` directly to the Tauri command, such as `pnpm tauri build --bundles dmg --skip-stapling`.
+
 :::note
 Notarization is required when using a _Developer ID Application_ certificate.
 :::
