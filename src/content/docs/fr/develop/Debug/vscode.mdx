@@ -53,7 +53,7 @@ Créez un fichier `.vscode/launch.json` et collez-y le contenu JSON suivant :
 
 `cargo` est directement utilisé pour compiler l'application Rust et la charger à la fois en mode développement et en mode production.
 
-Notez que puisque la CLI Tauri n'est pas utilisée, les fonctionnalitées exclusives à la CLI ne seront pas exécutées. Les scripts `beforeDevCommand` et `beforeBuildCommand` doivent être exécutés préalablement ou configurés comme tâche dans le champ `preLaunchTask`. Vous trouverez ci-dessous un exemple de fichier `.vscode/tasks.json` qui contient deux tâches : une pour `beforeDevCommand` qui crée un serveur de développement et une pour `beforeBuildCommand`. 
+Notez que puisque la CLI Tauri n'est pas utilisée, les fonctionnalitées exclusives à la CLI ne seront pas exécutées. Les scripts `beforeDevCommand` et `beforeBuildCommand` doivent être exécutés préalablement ou configurés comme tâche dans le champ `preLaunchTask`. Vous trouverez ci-dessous un exemple de fichier `.vscode/tasks.json` qui contient deux tâches : une pour `beforeDevCommand` qui crée un serveur de développement et une pour `beforeBuildCommand`.
 
 ```json title=".vscode/tasks.json"
 {
@@ -116,7 +116,7 @@ Installez l'extension [C/C++](https://marketplace.visualstudio.com/items?itemNam
 }
 ```
 
-Notez que puisque la CLI Tauri n'est pas utilisée, les fonctionnalitées exclusives à la CLI ne seront pas exécutées. Le fichier `tasks.json` est le même que pour `lldb` mais vous devez y ajouter un groupe de configuration et sélectionner votre `preLaunchTask` depuis `launch.json` si vous voulez toujours compiler avant le lancement. 
+Notez que puisque la CLI Tauri n'est pas utilisée, les fonctionnalitées exclusives à la CLI ne seront pas exécutées. Le fichier `tasks.json` est le même que pour `lldb` mais vous devez y ajouter un groupe de configuration et sélectionner votre `preLaunchTask` depuis `launch.json` si vous voulez toujours compiler avant le lancement.
 
 Voici un exemple montrant comment exécuter un serveur de développement (équivalent à `beforeDevCommand`) et la compilation (`cargo build`) au sein d'un même groupe de tâches.. Pour l'utiliser, changez la configuration de `preLaunchTask` dans `launch.json` pour `dev` (ou le nom que vous avez donné à votre groupe).
 
