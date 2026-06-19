@@ -142,7 +142,7 @@ The `.well-known/apple-app-site-association` endpoint must be served over HTTPS.
 To test localhost you can either use a self-signed TLS certificate and install it on the iOS simulator or use services like [ngrok].
 :::
 
-Where `$DEVELOPMENT_TEAM_ID` is the value defined on `tauri.conf.json > tauri > bundle > iOS > developmentTeam` or the
+Where `$DEVELOPMENT_TEAM_ID` is the value defined on `tauri.conf.json > bundle > iOS > developmentTeam` or the
 `TAURI_APPLE_DEVELOPMENT_TEAM` environment variable and `$APP_BUNDLE_ID` is the value defined on [`tauri.conf.json > identifier`].
 
 To verify if your domain has been properly configured to expose the app associations, you can run the following command,

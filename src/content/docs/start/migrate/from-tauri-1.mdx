@@ -52,7 +52,7 @@ fn main() {
 
 :::danger
 
-This command is not a substitude for this guide! Please read the _whole_ page regardless of whether you chose to use the command.
+This command is not a substitute for this guide! Please read the _whole_ page regardless of whether you chose to use the command.
 
 :::
 
@@ -82,7 +82,7 @@ Below is a summary of the changes from Tauri 1.0 to Tauri 2.0:
 - `package` removed.
 - `tauri` key renamed to `app`.
 - `tauri > allowlist` removed. Refer to [Migrate Permissions](#migrate-permissions).
-- `tauri > allowlist > protocol > assetScope` moved to `app > security > assetProtocol > scope`.
+- `tauri > allowlist > protocol > assetScope` moved to `app > security > assetProtocol > scope`. See [Asset protocol scope](/security/asset-protocol/) for `enable`, glob patterns, `requireLiteralLeadingDot`, and dynamic paths.
 - `tauri > cli` moved to `plugins > cli`.
 - `tauri > windows > fileDropEnabled` renamed to `app > windows > dragDropEnabled`.
 - `tauri > updater > active` removed.
@@ -400,7 +400,7 @@ tauri::Builder::default()
 
 ### Migrate to File System Plugin
 
-The Rust `App::get_cli_matches` JavaScript `@tauri-apps/api/fs` APIs have been removed. Use the [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust and `@tauri-apps/plugin-fs` plugin for JavaScript instead:
+The Rust `tauri::api::file` and JavaScript `@tauri-apps/api/fs` APIs have been removed. Use [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust and the `@tauri-apps/plugin-fs` plugin for JavaScript instead:
 
 1. Add to cargo dependencies:
 

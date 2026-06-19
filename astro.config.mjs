@@ -76,7 +76,11 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
-        starlightBlog({ authors }),
+        starlightBlog({
+          authors,
+          // We're doing it in `src/components/overrides/Header.astro`
+          navigation: 'none',
+        }),
         starlightSidebarTopics(
           [
             {
@@ -132,7 +136,11 @@ export default defineConfig({
                         es: 'Configuración del frontend',
                       },
                       collapsed: true,
-                      autogenerate: { directory: 'start/frontend' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'start/frontend' },
+                        },
+                      ],
                     },
                     {
                       label: 'Upgrade & Migrate',
@@ -141,7 +149,7 @@ export default defineConfig({
                         es: 'Actualizar y migrar',
                       },
                       collapsed: true,
-                      autogenerate: { directory: 'start/migrate' },
+                      items: [{ autogenerate: { directory: 'start/migrate' } }],
                     },
                   ],
                 },
@@ -152,7 +160,7 @@ export default defineConfig({
                     es: 'Conceptos básicos',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'concept' },
+                  items: [{ autogenerate: { directory: 'concept', collapsed: true } }],
                 },
                 {
                   label: 'Security',
@@ -161,7 +169,7 @@ export default defineConfig({
                     es: 'Seguridad',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'security' },
+                  items: [{ autogenerate: { directory: 'security', collapsed: true } }],
                 },
                 {
                   label: 'Develop',
@@ -183,17 +191,29 @@ export default defineConfig({
                     {
                       label: 'Debug',
                       collapsed: true,
-                      autogenerate: { directory: 'develop/Debug' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Debug' },
+                        },
+                      ],
                     },
                     {
                       label: 'Plugins',
                       collapsed: true,
-                      autogenerate: { directory: 'develop/Plugins' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Plugins' },
+                        },
+                      ],
                     },
                     {
                       label: 'Tests',
                       collapsed: true,
-                      autogenerate: { directory: 'develop/Tests' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Tests', collapsed: true },
+                        },
+                      ],
                     },
                   ],
                 },
@@ -204,7 +224,11 @@ export default defineConfig({
                     es: 'Distribuir',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'distribute' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'distribute', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'Learn',
@@ -213,7 +237,11 @@ export default defineConfig({
                     es: 'Aprende',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'learn' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'learn', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'Plugins',
@@ -222,7 +250,11 @@ export default defineConfig({
                     es: 'Plugins',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'plugin' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'plugin' },
+                    },
+                  ],
                 },
                 {
                   label: 'About',
@@ -231,7 +263,11 @@ export default defineConfig({
                     es: 'Acerca de',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'about' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'about' },
+                    },
+                  ],
                 },
               ],
             },
@@ -256,7 +292,11 @@ export default defineConfig({
                     es: 'Seguridad',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'reference/acl' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'reference/acl' },
+                    },
+                  ],
                 },
                 {
                   label: 'Configuration',
@@ -289,12 +329,20 @@ export default defineConfig({
                     es: 'Lanzamientos',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'release' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'release', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'JavaScript',
                   collapsed: true,
-                  autogenerate: { directory: 'reference/javascript' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'reference/javascript', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'Rust (docs.rs)',

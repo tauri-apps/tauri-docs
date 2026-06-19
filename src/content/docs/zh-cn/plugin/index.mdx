@@ -1,6 +1,9 @@
 ---
-title: 功能及秘诀列表
+title: 功能 & 示例
 i18nReady: true
+sidebar:
+  label: 概述
+tableOfContents: false
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
@@ -8,23 +11,31 @@ import FeaturesList from '@components/list/Features.astro';
 import CommunityList from '@components/list/Community.astro';
 import Search from '@components/CardGridSearch.astro';
 import AwesomeTauri from '@components/AwesomeTauri.astro';
+import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+import { platformOptions } from 'src/types';
+import { platformFilters } from 'src/api/search.ts';
 
-Tauri 考虑到了可扩展性。在此页面上，你可以找到：
+Tauri 在设计之初就考虑到了可扩展性。在本页面中你将找到：
 
-- **[特性](#特性)**：Tauri 内置功能和特性
-- **[社区资源](#社区资源)**：更多由 Tauri 社区创作的插件和秘诀
+- **[官方功能](#官方功能)**: Tauri 内置的功能与特性
+- **[社区资源](#社区插件)**: 由 Tauri 社区开发的更多插件与示例。你也可以在 [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 上贡献你自己的作品
+- **[支持表](#支持表)**: 一份兼容性表格，展示了每个官方插件所支持的平台
 
-<Search>
-  ## 特性
+<br />
+
+**使用搜索和筛选功能来查找功能或社区资源：**
+
+<Search filters={platformFilters}>
+  #### 官方功能
   <FeaturesList />
-  ## 社区资源
-  <LinkCard
-    title="有什么要分享？"
-    description="打开拉取请求，向我们展示您的惊人资源。"
-    href="https://github.com/tauri-apps/awesome-tauri/pulls"
-  />
-  ### 插件
+  #### 社区插件
   <AwesomeTauri section="plugins-no-official" />
-  ### 集成
+  #### 社区集成
   <AwesomeTauri section="integrations" />
 </Search>
+
+## 支持表
+
+将鼠标悬停在 "\*" 上以查看注释。了解详细信息，请访问插件页面
+
+<TableCompatibility />
