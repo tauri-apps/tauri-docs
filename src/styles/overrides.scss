@@ -21,8 +21,8 @@
   border-color: var(--sl-color-text-accent);
   background-color: unset;
 }
-.sl-link-card:hover a {
-  text-decoration: none;
+.sl-link-card a {
+  text-decoration: none !important;
 }
 .sl-link-card:hover,
 .sl-link-card:hover svg,
