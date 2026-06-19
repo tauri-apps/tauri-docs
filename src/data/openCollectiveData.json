@@ -667,6 +667,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Christoph Karrer-Hoffmann",
     "id": "Christoph Karrer-Hoffmann",
     "avatarUrl": "https://images.opencollective.com/christoph-karrer-hoffmann/9b639f4/avatar/256.jpg",
@@ -680,15 +689,6 @@
     "id": "Thong Tran",
     "avatarUrl": "https://images.opencollective.com/thong-tran/be5f073/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/thong-tran",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
