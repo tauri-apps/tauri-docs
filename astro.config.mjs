@@ -470,17 +470,6 @@ export default defineConfig({
     shikiConfig: {
       langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
     },
-
-    rehypePlugins: [
-      rehypeHeadingIds,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-        },
-      ],
-    ],
   },
   redirects: {
     // Old blog url schema redirects

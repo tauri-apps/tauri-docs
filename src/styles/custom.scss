@@ -17,24 +17,6 @@
   padding: 1rem 0;
 }
 
-/* Heading link styling */
-.heading-link::after {
-  content: '#';
-  padding-inline-start: 0.25em;
-  opacity: 0;
-  transition: var(--tauri-transition-speed);
-}
-
-.heading-link:hover::after {
-  color: var(--sl-color-text-accent);
-  opacity: 1;
-}
-
-.heading-link {
-  text-decoration: none;
-  color: var(--sl-color-white) !important;
-}
-
 .sl-markdown-content .inline-icon {
   display: inline-block;
 }
