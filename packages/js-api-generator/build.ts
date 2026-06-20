@@ -1,18 +1,16 @@
 import {
   Application,
-  DeclarationReflection,
   Options,
   PageEvent,
   Reflection,
-  SignatureReflection,
   TSConfigReader,
+  type RouterTarget,
   type TypeDocOptions,
 } from 'typedoc';
 import {
   MarkdownPageEvent,
   MarkdownTheme,
   MarkdownThemeContext,
-  type MarkdownApplication,
   type PluginOptions,
 } from 'typedoc-plugin-markdown';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -47,7 +45,6 @@ async function generator() {
       entryPoints: ['../tauri/packages/api/src/index.ts'],
       tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
-      publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
       ...typeDocConfigBaseOptions,
     };
@@ -101,11 +98,10 @@ async function generator() {
     );
 
     plugins.forEach(async (plugin) => {
-      const pluginJsOptions: Partial<TypeDocOptions> = {
+      const pluginJsOptions: Partial<TypeDocOptions & PluginOptions> = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
         tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
         gitRevision: 'v2',
-        publicPath: `/reference/javascript/`,
         basePath: `/reference/javascript/`,
         ...typeDocConfigBaseOptions,
         // Must go after to override base
@@ -125,7 +121,6 @@ async function generator() {
       entryPoints: ['../tauri/packages/api/src/index.ts'],
       tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
-      publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
       ...typeDocConfigBaseOptions,
     };
@@ -139,15 +134,14 @@ async function generator() {
 }
 
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
-async function generateDocs(options: Partial<TypeDocOptions>) {
-  const outputDir = `../../src/content/docs${options.publicPath}`;
+async function generateDocs(options: Partial<TypeDocOptions & PluginOptions>) {
+  const outputDir = `../../src/content/docs${options.basePath}`;
 
   const app = await Application.bootstrapWithPlugins(options);
   app.options.addReader(new TSConfigReader());
-  // @ts-ignore
   app.renderer.defineTheme('tauri-theme', TauriTheme);
 
-  app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
+  app.renderer.on(PageEvent.END, (event: PageEvent<RouterTarget>) => {
     pageEventEnd(event);
   });
 
@@ -160,7 +154,7 @@ async function generateDocs(options: Partial<TypeDocOptions>) {
 
 // Adds frontmatter to the top of the file
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
-function pageEventEnd(event: PageEvent<DeclarationReflection>) {
+function pageEventEnd(event: PageEvent<RouterTarget>) {
   if (!event.contents) {
     return;
   }
@@ -186,7 +180,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
     this.partials = {
       ...this.partials,
       // Formats `@source` to be a single line
-      sources: (model: DeclarationReflection | SignatureReflection, options: object) => {
+      sources: (model, options) => {
         if (!model.sources) {
           return '';
         }
@@ -229,13 +223,13 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
   }
 
   // Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
-  override getRelativeUrl = (url: string) => {
+  override relativeURL = (url: string) => {
     if (/^(http|ftp)s?:\/\//.test(url)) {
       return url;
     }
 
     url = decodeURI(
-      super.getRelativeUrl(url).replaceAll('.md', '/').replaceAll('.', '').toLowerCase()
+      super.relativeURL(url).replaceAll('.md', '/').replaceAll('.', '').toLowerCase()
     ).replaceAll('\\', '/');
     return url;
   };
