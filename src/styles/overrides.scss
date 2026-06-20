@@ -2,6 +2,10 @@
   border-radius: 0.5rem;
 }
 
+starlight-tabs .tab [role='tab'] {
+  font-weight: 600;
+}
+
 .sl-markdown-content code:not(:where(.not-content *)) {
   border-radius: 4px;
 }
