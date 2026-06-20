@@ -6,8 +6,6 @@ sidebar:
 i18nReady: true
 ---
 
-import TranslationNote from '@components/i18n/TranslationNote.astro';
-
 Linux といくつかのプログラムを利用して仮のディスプレイを作成すると、CI （継続的インテグレーション・テストツール）上で [`tauri-driver`] を使用して [WebDriver] テストの実行が可能になります。
 以下では、[WebdriverIO] による[予め作成したテスト事例]と GitHub Actions を使用しています。
 
