@@ -9,13 +9,14 @@ tableOfContents:
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
-Next.js（ネクスト・ジェイエス）は React 用のメタ・フレームワークです。Next.js の詳細については、https://nextjs.org ををご覧ください。以下の説明内容は、「Next.js 14.2.3 バージョン」に準拠しています。
+Next.js（ネクスト・ジェイエス）は React 用のメタ・フレームワークです。Next.js の詳細については、https://nextjs.org をご覧ください。以下の説明内容は、「Next.js 14.2.3 バージョン」に準拠しています。
 
 ## チェック項目
 
 - `output: 'export'` を設定して「静的エクスポート」を使用してください。Tauri はサーバー・ベースの方式には対応していません。
-- `tauri.conf.json` の `frontendDist` に「`out`」ディレクトリを使用してください。
+- `tauri.conf.json` では「`out`」ディレクトリを `frontendDist` として使用してください。
 
 ## 設定例
 
@@ -131,7 +132,5 @@ Next.js（ネクスト・ジェイエス）は React 用のメタ・フレーム
 </Steps>
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Nov 01, 2024 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「May 29, 2026 英語版」に基づいています】
 </div>

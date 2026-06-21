@@ -55,7 +55,7 @@ per una spiegazione più dettagliata.
 
 :::
 
-### Sviluppa la tua applicazione Desktop
+## Sviluppa la tua applicazione Desktop
 
 Per sviluppare la tua applicazione per desktop, esegui il comando `tauri dev`.
 
@@ -73,12 +73,12 @@ Visto che sono salvati nella cache, le compilazioni successive sono molto più v
 Una volta che Rust ha finito di compilare, la webview si apre, mostrando la tua applicazione web.
 Puoi fare modifiche alla tua applicazione web, e se i tuoi strumenti lo supportano, la webview dovrebbe aggiornarsi automaticamente, come un browser.
 
-#### Aprire gli Strumenti di Sviluppo
+### Aprire gli Strumenti di Sviluppo
 
 Puoi aprire gli strumenti di sviluppo per debuggare la tua applicazione cliccando con il tasto destro sulla webview e cliccando "Ispeziona",
 oppure usando la scorciatoia `Ctrl + Shift + I` su Windows e Linux o `Cmd + Option + I` su macOS.
 
-### Sviluppa la tua applicazione Mobile
+## Sviluppa la tua applicazione Mobile
 
 Lo sviluppo mobile è simile a quello desktop, ma devi eseguire il comando `tauri android dev` o `tauri ios dev`:
 
@@ -93,7 +93,7 @@ La prima volta che esegui questo comando, il gestore dei pacchetti di Rust potre
 per scaricare e compilare tutti i pacchetti necessari.
 Visto che sono salvati nella cache, le compilazioni successive sono molto più veloci, visto che sarà necessario ricompilare solo il tuo codice.
 
-#### Server di Sviluppo
+### Server di Sviluppo
 
 Il server di sviluppo per le app mobile si comporta in maniera simile a quello del desktop,
 ma se stai cercando di eseguire l'app sun un dispositivo iOS fisico,
@@ -140,7 +140,7 @@ I progetti creati con [create-tauri-app](https://github.com/tauri-apps/create-ta
 il server di sviluppo per lo sviluppo mobile automaticamente.
 :::
 
-#### Selezione del dispositivo
+### Selezione del dispositivo
 
 In automatico il comando per lo sviluppo mobile prova ad eseguire l'applicazione su un dispositivo connesso,
 se non riesce allora ti chiede di selezionare il simulatore da usare.
@@ -153,7 +153,7 @@ Per definire il dispositivo anticipatamente puoi fornire il nome del dispositivo
   cargo="cargo tauri ios dev 'iPhone 15'"
 />
 
-#### Usare Xcode o Android Studio
+### Usare Xcode o Android Studio
 
 Puoi decidere se usare Xcode o Android Studio per sviluppare la tua applicazione.
 Questo può aiutarti ad identificare dei problemi durante lo sviluppo usando l'IDE al posto degli strumenti nella riga di comando.
@@ -171,7 +171,7 @@ Per usare Xcode o Android Studio il processo della CLI di Tauri **deve** essere 
 È raccomandabile usare il comando `tauri [android|ios] dev --open` e mantenere il processo attivo finché non chiudi l'IDE.
 :::
 
-#### Aprire gli Strumenti di Sviluppo
+### Aprire gli Strumenti di Sviluppo
 
 - iOS
 
@@ -202,7 +202,7 @@ Per usare Xcode o Android Studio il processo della CLI di Tauri **deve** essere 
   Il tuo dispositivo o l'emulatore dovrebbe essere presente nella lista dei dispositivi remoti se la tua applicazione Android è in esecuzione,
   ed è possibile aprire gli strumenti cliccando **ispeziona** sul tuo dispositivo.
 
-#### Risoluzione dei problemi
+### Risoluzione dei problemi
 
 1. Errore nell'eseguire lo script di compilazione su Xcode
 
@@ -217,7 +217,7 @@ La prima volta che esegui `tauri ios dev` è probabile che iOS ti chieda il perm
 dispositivi nella tua rete locale. Dare questo permesso è necessario perché per accedere al server di sviluppo da un dispositivo iOS,
 dobbiamo renderlo visibile nella rete locale. Per eseguire l'app sul tuo dispositivo devi premere Consenti e riavviare l'applicazione.
 
-### Reagire ai cambiamenti del codice sorgente
+## Reagire ai cambiamenti del codice sorgente
 
 Analogamente a come la webview riflette i cambiamenti in tempo reale,
 Tauri controlla se i tuoi file Rust vengono modificati così che anche quando solo uno cambia la tua applicazione
@@ -234,7 +234,7 @@ src/generated/*.rs
 deny.toml
 ```
 
-### Usare i DevTools del Browser
+## Usare i DevTools del Browser
 
 Le API di Tauri funziono solo nella finestra della tua app,
 quindi da quando inizi ad usarle non sarai più in grado di aprire il tuo frontend sul browser del tuo computer.
@@ -242,7 +242,7 @@ quindi da quando inizi ad usarle non sarai più in grado di aprire il tuo fronte
 Se preferisci usare i DevTools del tuo browser, devi configurare [tauri-invoke-http](https://github.com/tauri-apps/tauri-invoke-http)
 per collegare le chiamate API di Tauri tramite un server HTTP.
 
-### Controllo del codice sorgente
+## Controllo del codice sorgente
 
 Nella repository del tuo progetto, **DOVRESTI** fare il commit del file `src-tauri/Cargo.lock` insieme al file `src-tauri/Cargo.toml` su git
 perché Cargo utilizza il file di lock per fornire compilazioni deterministiche.
