@@ -231,16 +231,18 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
   }
 
   // Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
-  override relativeURL = (url: string) => {
+  override urlTo(reflection: Reflection): string {
+    const url = super.urlTo(reflection);
+
     if (/^(http|ftp)s?:\/\//.test(url)) {
       return url;
     }
 
-    url = decodeURI(
-      super.relativeURL(url).replaceAll('.md', '/').replaceAll('.', '').toLowerCase()
-    ).replaceAll('\\', '/');
-    return url;
-  };
+    return decodeURI(url.replaceAll('.md', '/').replaceAll('.', '').toLowerCase()).replaceAll(
+      '\\',
+      '/'
+    );
+  }
 }
 
 // Overrides and extensions based on https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/customizing.md
