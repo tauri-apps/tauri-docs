@@ -15,7 +15,7 @@ import {
 } from 'typedoc-plugin-markdown';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
-type ConfigOptions = Partial<TypeDocOptions & PluginOptions>;
+type ConfigOptions = Partial<Omit<TypeDocOptions, 'outputs'> & PluginOptions>;
 
 const typeDocConfigBaseOptions: ConfigOptions = {
   // TypeDoc options
@@ -142,7 +142,10 @@ async function generator() {
 async function generateDocs(options: ConfigOptions) {
   const outputDir = `../../src/content/docs${options.publicPath}`;
 
-  const app = await Application.bootstrapWithPlugins(options);
+  const app = await Application.bootstrapWithPlugins({
+    ...options,
+    outputs: [{ name: 'markdown', path: outputDir }],
+  });
   app.options.addReader(new TSConfigReader());
   app.renderer.defineTheme('tauri-theme', TauriTheme);
 
@@ -153,7 +156,7 @@ async function generateDocs(options: ConfigOptions) {
   const project = await app.convert();
 
   if (project) {
-    await app.generateDocs(project, outputDir);
+    await app.generateOutputs(project);
   }
 }
 
