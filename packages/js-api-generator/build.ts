@@ -15,7 +15,9 @@ import {
 } from 'typedoc-plugin-markdown';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
-const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
+type ConfigOptions = Partial<TypeDocOptions & PluginOptions>;
+
+const typeDocConfigBaseOptions: ConfigOptions = {
   // TypeDoc options
   // https://typedoc.org/options/
   githubPages: false,
@@ -41,10 +43,11 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 
 async function generator() {
   if (existsSync('../tauri/packages/api/node_modules')) {
-    const coreJsOptions: Partial<TypeDocOptions> = {
+    const coreJsOptions: ConfigOptions = {
       entryPoints: ['../tauri/packages/api/src/index.ts'],
       tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
+      publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
       ...typeDocConfigBaseOptions,
     };
@@ -98,10 +101,11 @@ async function generator() {
     );
 
     plugins.forEach(async (plugin) => {
-      const pluginJsOptions: Partial<TypeDocOptions & PluginOptions> = {
+      const pluginJsOptions: ConfigOptions = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
         tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
         gitRevision: 'v2',
+        publicPath: `/reference/javascript/`,
         basePath: `/reference/javascript/`,
         ...typeDocConfigBaseOptions,
         // Must go after to override base
@@ -117,10 +121,11 @@ async function generator() {
   }
 
   if (existsSync('../tauri/packages/api/node_modules')) {
-    const coreJsOptions: Partial<TypeDocOptions> = {
+    const coreJsOptions: ConfigOptions = {
       entryPoints: ['../tauri/packages/api/src/index.ts'],
       tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
+      publicPath: '/reference/javascript/api/',
       basePath: '/reference/javascript/api/',
       ...typeDocConfigBaseOptions,
     };
@@ -134,8 +139,8 @@ async function generator() {
 }
 
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
-async function generateDocs(options: Partial<TypeDocOptions & PluginOptions>) {
-  const outputDir = `../../src/content/docs${options.basePath}`;
+async function generateDocs(options: ConfigOptions) {
+  const outputDir = `../../src/content/docs${options.publicPath}`;
 
   const app = await Application.bootstrapWithPlugins(options);
   app.options.addReader(new TSConfigReader());
