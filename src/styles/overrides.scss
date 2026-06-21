@@ -6,10 +6,11 @@
   border-radius: 4px;
 }
 
-.sl-markdown-content a:not(:where(.not-content, .not-content *, .heading-link)) {
+.sl-markdown-content a:not(:where(.not-content *)) {
   text-decoration: none;
 }
-.sl-markdown-content a:hover:not(:where(.not-content, .not-content *, .heading-link)) {
+.sl-markdown-content
+  a:hover:not(:where(.not-content, .not-content *, .heading-link, .sl-link-card *)) {
   color: var(--sl-color-text-accent);
   text-decoration: underline;
 }
@@ -20,9 +21,6 @@
 .sl-link-card:hover {
   border-color: var(--sl-color-text-accent);
   background-color: unset;
-}
-.sl-link-card a {
-  text-decoration: none !important;
 }
 .sl-link-card:hover,
 .sl-link-card:hover svg,
