@@ -55,10 +55,10 @@ const links: Link[] = [
       })
     }
   </div>
+  <div class="sl-flex search">
+    <Search />
+  </div>
   <div class="sl-hidden md:sl-flex right-group">
-    <div class="sl-flex search">
-      <Search />
-    </div>
     <div class="sl-flex social-icons">
       <SocialIcons />
     </div>
@@ -73,7 +73,13 @@ const links: Link[] = [
     gap: var(--sl-nav-gap);
     align-content: center;
     height: 100%;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto auto;
+  }
+
+  @media (width < 50rem) {
+    .header {
+      grid-template-columns: 1fr auto;
+    }
   }
 
   .title-wrapper {
@@ -91,11 +97,17 @@ const links: Link[] = [
     gap: 1rem;
     align-items: center;
   }
-  .search::after,
   .social-icons::after {
     content: '';
     height: 2rem;
     border-inline-end: 1px solid var(--sl-color-gray-5);
+  }
+  @media (width > 50rem) {
+    .search::after {
+      content: '';
+      height: 2rem;
+      border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
   }
 
   a {
@@ -121,7 +133,7 @@ const links: Link[] = [
     gap: 1rem;
     padding-inline-end: 1rem;
   }
-  @media (width > 72rem) {
+  @media (width > 50rem) {
     .desktop {
       display: flex;
     }
