@@ -48,3 +48,40 @@ footer .pagination-links > a:hover {
 // footer .pagination-links > a:hover .link-title {
 //   color: var(--sl-color-text-accent);
 // }
+
+#starlight__sidebar summary,
+#starlight__sidebar summary .large,
+#starlight__sidebar a {
+  font-size: var(--sl-text-sm);
+  // font-size: 0.9rem;
+  color: var(--sl-color-text);
+}
+
+#starlight__sidebar a,
+#starlight__sidebar summary {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+#starlight__sidebar summary:hover,
+#starlight__sidebar summary:hover .large,
+#starlight__sidebar a:hover {
+  color: var(--sl-color-text-accent);
+}
+
+#starlight__sidebar a[aria-current='page'] {
+  color: var(--sl-color-text-accent);
+  background-color: var(--sl-color-gray-6);
+}
+:root[data-theme='dark'] #starlight__sidebar a[aria-current='page'] {
+  background-color: var(--sl-color-gray-5);
+}
+
+#starlight__sidebar ul.top-level > li > a,
+#starlight__sidebar .group-label > span {
+  font-weight: normal;
+}
+
+#starlight__sidebar .top-level > li + li {
+  margin-top: 0.25rem;
+}
