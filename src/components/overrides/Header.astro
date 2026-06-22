@@ -6,6 +6,7 @@ import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from './ThemeSelect.astro';
 
 const curLocale = Astro.locals.starlightRoute.locale;
+const { topics } = Astro.locals.starlightSidebarTopics;
 
 type Link = {
   title: string;
@@ -21,7 +22,7 @@ const links: Link[] = [
   },
   {
     title: 'References',
-    value: '/reference/acl/capability/',
+    value: '/reference/cli/',
     transfer: true,
   },
   {
@@ -43,11 +44,15 @@ const links: Link[] = [
   </div>
   <div class="desktop">
     {
-      links.map((link) => (
-        <a href={link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value}>
-          {link.title}
-        </a>
-      ))
+      links.map((link) => {
+        const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
+        const current = topics.find((topic) => topic.isCurrent && topic.link === href);
+        return (
+          <a href={href} class:list={{ 'starlight-sidebar-topics-current': current }}>
+            {link.title}
+          </a>
+        );
+      })
     }
   </div>
   <div class="sl-hidden md:sl-flex right-group">
@@ -96,6 +101,9 @@ const links: Link[] = [
     color: var(--sl-color-white);
     font-weight: 600;
     text-decoration: none;
+  }
+  a.starlight-sidebar-topics-current {
+    color: var(--sl-color-text-accent);
   }
   a:hover {
     color: var(--sl-color-gray-2);
