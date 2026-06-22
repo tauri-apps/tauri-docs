@@ -73,7 +73,7 @@ const links: Link[] = [
     gap: var(--sl-nav-gap);
     align-content: center;
     height: 100%;
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: auto 1fr 1fr auto;
   }
 
   @media (width < 50rem) {
@@ -89,6 +89,10 @@ const links: Link[] = [
     padding: 0.25rem;
     margin: -0.25rem;
     min-width: 0;
+  }
+
+  .search {
+    justify-content: end;
   }
 
   .search,
