@@ -1,0 +1,39 @@
+---
+import Default from 'starlight-sidebar-topics/overrides/Sidebar.astro';
+
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+
+import links from '../../data/header-links.json';
+
+const { sidebar } = Astro.locals.starlightRoute;
+const { isPageWithTopic } = Astro.locals.starlightSidebarTopics;
+---
+
+{
+  sidebar && isPageWithTopic ? (
+    <Default>
+      <slot />
+    </Default>
+  ) : (
+    <>
+      <SidebarPersister>
+        <SidebarSublist
+          sublist={links.map((link) => ({
+            type: 'link',
+            label: link.title,
+            href: link.value,
+            isCurrent: false,
+            badge: undefined,
+            attrs: {},
+          }))}
+        />
+      </SidebarPersister>
+
+      <div class="md:sl-hidden">
+        <MobileMenuFooter />
+      </div>
+    </>
+  )
+}
