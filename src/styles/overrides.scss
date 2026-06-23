@@ -48,3 +48,40 @@ footer .pagination-links > a:hover {
 // footer .pagination-links > a:hover .link-title {
 //   color: var(--sl-color-text-accent);
 // }
+
+#starlight__sidebar .top-level summary,
+#starlight__sidebar .top-level summary .large,
+#starlight__sidebar .top-level a {
+  font-size: 0.9rem;
+  // color: var(--sl-color-text);
+  color: var(--sl-color-gray-3);
+}
+
+#starlight__sidebar .top-level a,
+#starlight__sidebar .top-level summary {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+#starlight__sidebar .top-level a,
+#starlight__sidebar .top-level .group-label > span {
+  font-weight: 500;
+}
+
+#starlight__sidebar .top-level summary:hover,
+#starlight__sidebar .top-level summary:hover .large,
+#starlight__sidebar .top-level a:hover {
+  color: var(--sl-color-text-accent);
+}
+
+#starlight__sidebar .top-level a[aria-current='page'] {
+  color: var(--sl-color-text-accent);
+  background-color: var(--sl-color-gray-6);
+}
+:root[data-theme='dark'] #starlight__sidebar .top-level a[aria-current='page'] {
+  background-color: var(--sl-color-gray-5);
+}
+
+#starlight__sidebar .top-level > li + li {
+  margin-top: 0.25rem;
+}
