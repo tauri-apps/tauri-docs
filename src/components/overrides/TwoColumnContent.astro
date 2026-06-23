@@ -14,11 +14,10 @@
 <style>
   @media (width > 72rem) {
     .two-column-content {
-      /* margin-inline: var(--sl-content-pad-x); */
       margin-inline: auto;
       padding-inline: var(--sl-content-pad-x);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 30%;
+      grid-template-columns: minmax(0, 1fr) 25%;
       justify-content: center;
       max-width: 85rem;
     }
@@ -44,8 +43,6 @@
       }
 
       :global([data-has-sidebar][data-has-toc]) .main-pane {
-        /* --sl-content-margin-inline: auto 0; */
-
         order: 1;
       }
     }
