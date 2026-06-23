@@ -3307,6 +3307,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "ListCrawler",
+    "id": "ListCrawler",
+    "avatarUrl": "https://images.opencollective.com/listcrawler/64c42d8/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/listcrawler",
+    "socialLinks": {
+      "website": "https://listcrawler.sh/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Indokasino",
     "id": "Indokasino",
     "avatarUrl": "https://images.opencollective.com/indokasino-asia/logo/256.jpg",

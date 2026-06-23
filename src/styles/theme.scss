@@ -16,14 +16,14 @@
   --sl-color-accent: var(--sl-color-blue);
   --sl-color-accent-high: var(--sl-color-blue-high);
 
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: #eeeeee;
-  --sl-color-gray-2: #c2c2c2;
-  --sl-color-gray-3: #8b8b8b;
-  --sl-color-gray-4: #585858;
-  --sl-color-gray-5: #383838;
-  --sl-color-gray-6: #272727;
-  --sl-color-black: #181818;
+  --sl-color-white: hsl(0, 0%, 100%);
+  --sl-color-gray-1: hsl(0, 0%, 93%);
+  --sl-color-gray-2: hsl(0, 0%, 83%);
+  --sl-color-gray-3: hsl(0, 0%, 75%);
+  --sl-color-gray-4: hsl(0, 0%, 35%);
+  --sl-color-gray-5: hsl(0, 0%, 22%);
+  --sl-color-gray-6: hsl(0, 0%, 15%);
+  --sl-color-black: hsl(0, 0%, 10%);
 }
 
 :root[data-theme='light'] {
@@ -34,13 +34,16 @@
   --sl-color-accent: oklch(50% 0.15 253);
   --sl-color-accent-high: oklch(70% 0.15 253);
 
-  --sl-color-white: #070707;
-  --sl-color-gray-1: #2f2f2f;
-  --sl-color-gray-2: #353841;
-  --sl-color-gray-3: #545861;
-  --sl-color-gray-4: #888b96;
-  --sl-color-gray-5: #c0c2c7;
-  --sl-color-gray-6: #eceef2;
-  --sl-color-gray-7: #f6f6f6;
-  --sl-color-black: #ffffff;
+  --sl-color-gray-2: hsl(224, 14%, 16%);
+
+  // Starlight defaults
+  // --sl-color-white: hsl(224, 10%, 10%);
+  // --sl-color-gray-1: hsl(224, 14%, 16%);
+  // --sl-color-gray-2: hsl(224, 10%, 23%);
+  // --sl-color-gray-3: hsl(224, 7%, 36%);
+  // --sl-color-gray-4: hsl(224, 6%, 56%);
+  // --sl-color-gray-5: hsl(224, 6%, 77%);
+  // --sl-color-gray-6: hsl(224, 20%, 94%);
+  // --sl-color-gray-7: hsl(224, 19%, 97%);
+  // --sl-color-black: hsl(0, 0%, 100%);
 }
