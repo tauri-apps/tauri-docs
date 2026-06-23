@@ -323,19 +323,6 @@ export default defineConfig({
                   link: '/reference/webview-versions/',
                 },
                 {
-                  label: 'Releases',
-                  translations: {
-                    'zh-CN': '发行版',
-                    es: 'Lanzamientos',
-                  },
-                  collapsed: true,
-                  items: [
-                    {
-                      autogenerate: { directory: 'release', collapsed: true },
-                    },
-                  ],
-                },
-                {
                   label: 'JavaScript',
                   collapsed: true,
                   items: [
@@ -358,6 +345,17 @@ export default defineConfig({
               // Empty item to instruct it that is is local files, not an external link
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
+            },
+            {
+              label: { en: 'Releases', 'zh-CN': '发行版', es: 'Lanzamientos' },
+              id: 'release',
+              link: '/release/',
+              icon: 'list-format',
+              items: [
+                {
+                  autogenerate: { directory: 'release', collapsed: true },
+                },
+              ],
             },
           ],
           {
