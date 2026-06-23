@@ -36,6 +36,13 @@
 
   --sl-color-gray-2: hsl(224, 14%, 16%);
 
+  // Same as the `--sl-color-accent` hue
+  --sl-hue-blue: 209;
+  --sl-color-blue-low: hsl(var(--sl-hue-blue), 80%, 95%);
+  --sl-color-orange-low: hsl(var(--sl-hue-orange), 70%, 90%);
+  --sl-color-red-low: hsl(var(--sl-hue-red), 80%, 95%);
+  --sl-color-purple-low: hsl(var(--sl-hue-purple), 80%, 95%);
+
   // Starlight defaults
   // --sl-color-white: hsl(224, 10%, 10%);
   // --sl-color-gray-1: hsl(224, 14%, 16%);
@@ -46,4 +53,20 @@
   // --sl-color-gray-6: hsl(224, 20%, 94%);
   // --sl-color-gray-7: hsl(224, 19%, 97%);
   // --sl-color-black: hsl(0, 0%, 100%);
+
+  // --sl-color-orange-high: hsl(var(--sl-hue-orange), 80%, 25%);
+  // --sl-color-orange: hsl(var(--sl-hue-orange), 90%, 60%);
+  // --sl-color-orange-low: hsl(var(--sl-hue-orange), 90%, 88%);
+  // --sl-color-green-high: hsl(var(--sl-hue-green), 80%, 22%);
+  // --sl-color-green: hsl(var(--sl-hue-green), 90%, 46%);
+  // --sl-color-green-low: hsl(var(--sl-hue-green), 85%, 90%);
+  // --sl-color-blue-high: hsl(var(--sl-hue-blue), 80%, 30%);
+  // --sl-color-blue: hsl(var(--sl-hue-blue), 90%, 60%);
+  // --sl-color-blue-low: hsl(var(--sl-hue-blue), 88%, 90%);
+  // --sl-color-purple-high: hsl(var(--sl-hue-purple), 90%, 30%);
+  // --sl-color-purple: hsl(var(--sl-hue-purple), 90%, 60%);
+  // --sl-color-purple-low: hsl(var(--sl-hue-purple), 80%, 90%);
+  // --sl-color-red-high: hsl(var(--sl-hue-red), 80%, 30%);
+  // --sl-color-red: hsl(var(--sl-hue-red), 90%, 60%);
+  // --sl-color-red-low: hsl(var(--sl-hue-red), 80%, 90%);
 }
