@@ -105,3 +105,12 @@ starlight-menu-button > button {
 starlight-menu-button > button > svg {
   --sl-icon-size: 1.2rem !important;
 }
+
+starlight-toc a {
+  padding-block: 0.3rem;
+  line-height: 1.5;
+}
+
+aside .right-sidebar-panel > .sl-container {
+  width: unset;
+}
