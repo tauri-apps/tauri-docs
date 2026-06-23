@@ -2,6 +2,12 @@
   border-radius: 0.5rem;
 }
 
+@media (width > 50rem) {
+  #starlight__sidebar > .sidebar-content > .starlight-sidebar-topics {
+    display: none;
+  }
+}
+
 starlight-tabs .tab [role='tab'] {
   font-weight: 600;
   padding-bottom: 0.5rem;
@@ -84,4 +90,16 @@ footer .pagination-links > a:hover {
 
 #starlight__sidebar .top-level > li + li {
   margin-top: 0.25rem;
+}
+
+starlight-menu-button > button {
+  background-color: unset;
+  box-shadow: unset;
+  justify-content: center;
+  align-items: center;
+  padding: unset;
+}
+
+starlight-menu-button > button > svg {
+  --sl-icon-size: 1.2rem !important;
 }
