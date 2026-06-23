@@ -5,37 +5,10 @@ import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from './ThemeSelect.astro';
 
+import links from '../../data/header-links.json'
+
 const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
-
-type Link = {
-  title: string;
-  value: string;
-  transfer: boolean;
-};
-
-const links: Link[] = [
-  {
-    title: 'Guides',
-    value: '/start/',
-    transfer: true,
-  },
-  {
-    title: 'References',
-    value: '/reference/cli/',
-    transfer: true,
-  },
-  {
-    title: 'Blog',
-    value: '/blog/',
-    transfer: false,
-  },
-  {
-    title: 'Releases',
-    value: '/release/',
-    transfer: true,
-  },
-];
 ---
 
 <div class="header">
@@ -76,7 +49,7 @@ const links: Link[] = [
     grid-template-columns: auto 1fr 1fr auto;
   }
 
-  @media (width < 50rem) {
+  @media (width <= 50rem) {
     .header {
       grid-template-columns: 1fr auto;
     }
@@ -153,6 +126,13 @@ const links: Link[] = [
   }
   body[data-mobile-menu-expanded] header {
     background-color: var(--sl-color-bg);
+  }
+
+  @media (width <= 50rem) {
+    header {
+      /* We always show the sidebar on mobile */
+      padding-inline-end: calc(var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size));
+    }
   }
 
   .title-wrapper img {
