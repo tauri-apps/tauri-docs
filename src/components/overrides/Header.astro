@@ -5,7 +5,7 @@ import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from './ThemeSelect.astro';
 
-import links from '../../data/header-links.json'
+import links from '../../data/header-links.json';
 
 const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
@@ -131,7 +131,9 @@ const { topics } = Astro.locals.starlightSidebarTopics;
   @media (width <= 50rem) {
     header {
       /* We always show the sidebar on mobile */
-      padding-inline-end: calc(var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size));
+      padding-inline-end: calc(
+        var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size)
+      );
     }
   }
 

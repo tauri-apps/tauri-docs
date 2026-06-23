@@ -4,8 +4,6 @@ import Sidebar from 'virtual:starlight/components/Sidebar';
 import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
-const { sidebar } = Astro.locals.starlightRoute;
-console.log(sidebar)
 ---
 
 <div class="page sl-flex">
@@ -21,7 +19,10 @@ console.log(sidebar)
         </div>
       </nav>
     ) : (
-      <nav class="sidebar md:sl-hidden print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>
+      <nav
+        class="sidebar md:sl-hidden print:hidden"
+        aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}
+      >
         <MobileMenuToggle />
         <div id="starlight__sidebar" class="sidebar-pane">
           <div class="sidebar-content sl-flex">
