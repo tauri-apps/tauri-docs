@@ -393,6 +393,7 @@ export default defineConfig({
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
         PageFrame: 'src/components/overrides/PageFrame.astro',
         Sidebar: 'src/components/overrides/Sidebar.astro',
+        TwoColumnContent: 'src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
