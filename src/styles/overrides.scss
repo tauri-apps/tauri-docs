@@ -98,6 +98,8 @@ starlight-menu-button > button {
   justify-content: center;
   align-items: center;
   padding: unset;
+
+  --sl-icon-color: var(--sl-color-gray-1);
 }
 
 starlight-menu-button > button > svg {
