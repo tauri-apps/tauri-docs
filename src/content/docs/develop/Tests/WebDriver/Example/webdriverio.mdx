@@ -13,6 +13,15 @@ Make sure to go through the [prerequisites instructions] to be able to follow th
 
 :::
 
+:::tip[Recommended: the WebdriverIO Tauri service]
+
+This guide wires [WebdriverIO] up to [`tauri-driver`] by hand so you can see how the pieces fit together. For most
+projects the [`@wdio/tauri-service`] is the easier path: it manages [`tauri-driver`], detects your app binary, keeps
+the Edge WebDriver in sync on Windows, and adds macOS support, Tauri API access, mocking, and more. See the
+[WebdriverIO Tauri documentation] to get started in a couple of commands.
+
+:::
+
 This WebDriver testing example will use [WebdriverIO], and its testing suite. It is expected to have Node.js already
 installed, along with `npm` or `yarn` although the [finished example project] uses `pnpm`.
 
@@ -274,6 +283,9 @@ of configuration and a single command to run it! Even better, we didn't have to 
 
 [prerequisites instructions]: /develop/tests/webdriver/
 [webdriverio]: https://webdriver.io/
+[`tauri-driver`]: https://crates.io/crates/tauri-driver
+[`@wdio/tauri-service`]: https://webdriver.io/docs/desktop-testing/tauri
+[webdriverio tauri documentation]: https://webdriver.io/docs/desktop-testing/tauri
 [finished example project]: https://github.com/tauri-apps/webdriver-example
 [mocha]: https://mochajs.org/
 [webdriver documentation]: https://webdriver.io/docs/configurationfile
