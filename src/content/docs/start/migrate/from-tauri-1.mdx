@@ -52,7 +52,7 @@ fn main() {
 
 :::danger
 
-This command is not a substitude for this guide! Please read the _whole_ page regardless of whether you chose to use the command.
+This command is not a substitute for this guide! Please read the _whole_ page regardless of whether you chose to use the command.
 
 :::
 
@@ -400,7 +400,7 @@ tauri::Builder::default()
 
 ### Migrate to File System Plugin
 
-The Rust `App::get_cli_matches` JavaScript `@tauri-apps/api/fs` APIs have been removed. Use the [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust and `@tauri-apps/plugin-fs` plugin for JavaScript instead:
+The Rust `tauri::api::file` and JavaScript `@tauri-apps/api/fs` APIs have been removed. Use [`std::fs`](https://doc.rust-lang.org/std/fs/) for Rust and the `@tauri-apps/plugin-fs` plugin for JavaScript instead:
 
 1. Add to cargo dependencies:
 

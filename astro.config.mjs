@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
@@ -323,19 +321,6 @@ export default defineConfig({
                   link: '/reference/webview-versions/',
                 },
                 {
-                  label: 'Releases',
-                  translations: {
-                    'zh-CN': '发行版',
-                    es: 'Lanzamientos',
-                  },
-                  collapsed: true,
-                  items: [
-                    {
-                      autogenerate: { directory: 'release', collapsed: true },
-                    },
-                  ],
-                },
-                {
                   label: 'JavaScript',
                   collapsed: true,
                   items: [
@@ -358,6 +343,17 @@ export default defineConfig({
               // Empty item to instruct it that is is local files, not an external link
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
+            },
+            {
+              label: { en: 'Releases', 'zh-CN': '发行版', es: 'Lanzamientos' },
+              id: 'release',
+              link: '/release/',
+              icon: 'list-format',
+              items: [
+                {
+                  autogenerate: { directory: 'release', collapsed: true },
+                },
+              ],
             },
           ],
           {
@@ -393,6 +389,9 @@ export default defineConfig({
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
+        PageFrame: 'src/components/overrides/PageFrame.astro',
+        Sidebar: 'src/components/overrides/Sidebar.astro',
+        TwoColumnContent: 'src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
@@ -429,7 +428,19 @@ export default defineConfig({
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
-        styleOverrides: { borderRadius: '0.5rem' },
+        styleOverrides: {
+          codePaddingBlock: '1rem',
+          codePaddingInline: '1.35rem',
+          borderRadius: '0.5rem',
+          // borderWidth: '0',
+          textMarkers: {
+            borderLuminance: '66',
+            backgroundOpacity: '25%',
+          },
+          frames: {
+            editorActiveTabIndicatorHeight: '0',
+          },
+        },
       },
       locales,
       lastUpdated: true,
@@ -441,6 +452,7 @@ export default defineConfig({
       },
     }),
     serviceWorker({
+      // @ts-expect-error `swDest` is not required here, see https://github.com/tatethurston/astrojs-service-worker/issues/29
       workbox: {
         cleanupOutdatedCaches: true,
         clientsClaim: true,
@@ -468,19 +480,9 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: {
+      // @ts-expect-error The typing is wrong here, strings are valid values
       langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
     },
-
-    rehypePlugins: [
-      rehypeHeadingIds,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-        },
-      ],
-    ],
   },
   redirects: {
     // Old blog url schema redirects
@@ -566,29 +568,38 @@ export default defineConfig({
   },
 });
 
-// Generates a redirect for each locale.
 /**
+ * Generates a redirect for each locale.
+ *
  * @param {string} from
  * @param {string} to
  */
 function i18nRedirect(from, to) {
+  /** @type { {[from: string]: string} } */
   const routes = {};
-  Object.keys(locales).map((locale) =>
-    locale === 'root'
-      ? (routes[from] = to)
-      : (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-          /^\/*/g,
-          ''
-        )}`)
-  );
+  for (const locale of Object.keys(locales)) {
+    if (locale === 'root') {
+      routes[from] = to;
+    } else {
+      routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+        /^\/*/g,
+        ''
+      )}`;
+    }
+  }
   return routes;
 }
 
-// Read the HTTP header file in `public/_headers`
+/**
+ * Read the HTTP header file in `public/_headers`
+ *
+ * @returns {import('http').OutgoingHttpHeaders}
+ */
 function readHeaders() {
   const header_file = readFileSync('public/_headers', { encoding: 'utf8' })
     .split('\n')
     .filter(Boolean);
+  /** @type {import('http').OutgoingHttpHeaders} */
   const headers = {};
   for (const line of header_file) {
     const [key, val] = line.trim().split(/\s*:\s*(.+)/);
