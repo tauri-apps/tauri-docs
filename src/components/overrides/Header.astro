@@ -19,10 +19,11 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     {
       links.map((link) => {
         const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
-        const current = topics.find((topic) => topic.isCurrent && topic.link === href);
+        const topic = topics.find((topic) => topic.link === href);
+        const current = topic?.isCurrent;
         return (
           <a href={href} class:list={{ 'starlight-sidebar-topics-current': current }}>
-            {link.title}
+            {topic?.label ?? link.title}
           </a>
         );
       })
