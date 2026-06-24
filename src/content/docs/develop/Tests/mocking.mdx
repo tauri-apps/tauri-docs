@@ -7,15 +7,6 @@ i18nReady: true
 
 import SinceVersion from '../../../../components/SinceVersion.astro';
 
-:::note[Looking for end-to-end mocking?]
-
-This page covers **frontend mocking** with the [`@tauri-apps/api/mocks`] module, which runs under a mock runtime — your
-real webview and Rust backend are not executed. To mock Tauri commands during **end-to-end WebDriver tests**, against a
-running app or your frontend in a browser, the [`@wdio/tauri-service`] adds a Vitest-compatible `browser.tauri.mock()`
-API. See [WebDriver testing] to get started.
-
-:::
-
 When writing your frontend tests, having a "fake" Tauri environment to simulate windows or intercept IPC calls is common, so-called _mocking_.
 The [`@tauri-apps/api/mocks`] module provides some helpful tools to make this easier for you:
 
@@ -136,6 +127,14 @@ mockIPC(async (cmd, args) => {
   }
 });
 ```
+
+:::note[See also]
+
+`mockIPC` fakes `invoke` under the mock runtime — no real webview or Rust backend runs. To mock the same commands in
+**end-to-end** tests, against a running app or your frontend in a browser, [`@wdio/tauri-service`] provides an equivalent
+`browser.tauri.mock()`. See [WebDriver testing].
+
+:::
 
 ### Mocking Events
 
