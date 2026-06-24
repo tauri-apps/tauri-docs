@@ -42,13 +42,13 @@ export const config: WebdriverIO.Config = {
 };
 ```
 
-Setting this up uses one or two small Tauri plugins, depending on what you need:
+Setting this up uses two small Tauri plugins, both optional depending on your requirements:
 
 - **`tauri-plugin-wdio-webdriver`** runs the embedded WebDriver server. It's required for the `embedded` provider (the
-  default) — the service drives your app through it, with no external driver, and it's how macOS is supported. You only
-  skip it if you use the `external` or `crabnebula` provider instead.
-- **`tauri-plugin-wdio`** is optional. Add it for Tauri-aware testing on top of plain WebDriver: `browser.tauri.execute()`,
-  command (IPC) mocking, and log capture.
+  default) — the service drives your app through it, with no external driver, and it's how macOS is supported. You can
+  skip it if you want to use the `external` or `crabnebula` provider instead.
+- **`tauri-plugin-wdio`** enables backend access including: `browser.tauri.execute()`, command (IPC) mocking, and log
+  capture.
 
 See [Plugin Setup] for the full steps, and the [CrabNebula setup guide] if you use that provider.
 
