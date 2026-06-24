@@ -42,9 +42,11 @@ export const config: WebdriverIO.Config = {
 };
 ```
 
-These capabilities come from two small Tauri plugins you add to your app: `tauri-plugin-wdio` for backend access
-(`browser.tauri.execute()`, command mocking, and log capture), and `tauri-plugin-wdio-webdriver` to run the embedded
-WebDriver server. See [Plugin Setup] for the full steps, and the [CrabNebula setup guide] if you use that provider.
+Two small Tauri plugins, added to your app, make this work. `tauri-plugin-wdio` provides backend access —
+`browser.tauri.execute()`, command (IPC) mocking, and log capture. `tauri-plugin-wdio-webdriver` runs the embedded
+WebDriver server, which is what gives you macOS support without CrabNebula; it's required whenever you use the embedded
+provider (the default). See [Plugin Setup] for the full steps, and the [CrabNebula setup guide] if you use that provider
+instead.
 
 For fast, renderer-only tests there is also a **browser mode** that runs your Tauri frontend in plain Chrome against a
 Vite dev server — no Tauri binary, driver, or plugin required. It intercepts `invoke()` calls so you can mock commands
