@@ -428,7 +428,19 @@ export default defineConfig({
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
-        styleOverrides: { borderRadius: '0.5rem' },
+        styleOverrides: {
+          codePaddingBlock: '1rem',
+          codePaddingInline: '1.35rem',
+          borderRadius: '0.5rem',
+          // borderWidth: '0',
+          textMarkers: {
+            borderLuminance: '66',
+            backgroundOpacity: '25%',
+          },
+          frames: {
+            editorActiveTabIndicatorHeight: '0',
+          },
+        },
       },
       locales,
       lastUpdated: true,

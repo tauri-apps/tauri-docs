@@ -10,7 +10,7 @@
   --sl-hue-blue: 187;
   --sl-color-blue-low: hsl(var(--sl-hue-blue), 71%, 15%);
   --sl-color-blue: #24c8db;
-  --sl-color-blue-high: hsl(var(--sl-hue-blue), 71%, 90%);
+  --sl-color-blue-high: hsl(var(--sl-hue-blue), 85%, 80%);
   --sl-hue-accent: var(--sl-hue-blue);
   --sl-color-accent-low: var(--sl-color-blue-low);
   --sl-color-accent: var(--sl-color-blue);
@@ -35,6 +35,7 @@
   --sl-color-accent-high: oklch(70% 0.15 253);
 
   --sl-color-gray-2: hsl(224, 14%, 16%);
+  --sl-color-gray-5: hsl(224, 10%, 85%);
 
   // Same as the `--sl-color-accent` hue
   --sl-hue-blue: 209;
