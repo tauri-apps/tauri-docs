@@ -7,8 +7,9 @@ import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
 import links from '../../data/header-links.json';
 
+const curLocale = Astro.locals.starlightRoute.locale;
 const { sidebar } = Astro.locals.starlightRoute;
-const { isPageWithTopic } = Astro.locals.starlightSidebarTopics;
+const { isPageWithTopic, topics } = Astro.locals.starlightSidebarTopics;
 ---
 
 {
@@ -20,14 +21,27 @@ const { isPageWithTopic } = Astro.locals.starlightSidebarTopics;
     <>
       <SidebarPersister>
         <SidebarSublist
-          sublist={links.map((link) => ({
-            type: 'link',
-            label: link.title,
-            href: link.value,
-            isCurrent: false,
-            badge: undefined,
-            attrs: {},
-          }))}
+          sublist={links.map((link) => {
+            const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
+            const topic = topics.find((topic) => topic.link === href);
+            return topic
+              ? {
+                  type: 'link',
+                  label: topic.label,
+                  href: topic.link,
+                  isCurrent: false,
+                  badge: topic.badge,
+                  attrs: topic.attrs ?? {},
+                }
+              : {
+                  type: 'link',
+                  label: link.title,
+                  href,
+                  isCurrent: false,
+                  badge: undefined,
+                  attrs: {},
+                };
+          })}
         />
       </SidebarPersister>
 
