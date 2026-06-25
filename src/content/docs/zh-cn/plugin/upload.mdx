@@ -100,3 +100,20 @@ download(
   { 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
 );
 ```
+
+## 权限（Permissions）
+
+默认情况下，所有可能带来安全风险的插件命令（Commands）和作用域（Scopes）均处于禁止状态，无法被访问。如需启用这些功能，你必须在 `capabilities` 配置中显式授予相应权限。
+
+更多信息请参阅 [Capabilities 概览](/security/capabilities/)，以及关于如何使用插件权限的[分步指南](/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "upload:default"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
