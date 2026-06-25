@@ -25,8 +25,12 @@ article.card {
   border-radius: 0.5rem;
 }
 
-body {
-  overflow-y: scroll;
+// A small hack to avoid scroll bar layout shifts,
+// a mirror of https://github.com/withastro/starlight/blob/56860717dcb8f70a8438b5970967bdff4826a640/packages/starlight/components/MobileMenuToggle.astro#L101-L105
+@media (width > 50rem) {
+  [data-search-modal-open] {
+    overflow: auto;
+  }
 }
 
 figcaption {
