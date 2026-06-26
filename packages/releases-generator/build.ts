@@ -199,6 +199,6 @@ if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('releas
   generator();
 } else {
   const indexMdx = join(baseDir, 'index.mdx');
-  writeFileSync(indexMdx, '');
-  console.info(`Skipping \`/release\` pages build, pushing ${indexMdx} as a stub`);
+  writeFileSync(indexMdx, '---\ntitle: release stub\n---');
+  console.info(`Skipping \`/release\` pages build, pushing an empty ${indexMdx} as a stub`);
 }
