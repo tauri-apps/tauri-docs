@@ -67,6 +67,10 @@ const authors = {
 
 const site = 'https://v2.tauri.app';
 
+const production =
+  process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages');
+const excludeReleasesLinksCheck = production ? [] : ['/releases'];
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -401,7 +405,11 @@ export default defineConfig({
         starlightLinksValidator({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
-          exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
+          exclude: [
+            '/plugin/*/#default-permission',
+            '/plugin/*/#permission-table',
+            ...excludeReleasesLinksCheck,
+          ],
         }),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
