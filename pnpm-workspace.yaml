@@ -10,3 +10,6 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - sharp
+
+overrides:
+  "@astrojs/mdx@^5.0.6": "^7.0.0" # For `starlight-blog@0.26.1`
