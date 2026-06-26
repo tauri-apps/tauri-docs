@@ -198,5 +198,7 @@ function entitify(str: string): string {
 if (process.env.CONTEXT === 'production' || process.env.HEAD?.startsWith('release-pages')) {
   generator();
 } else {
-  console.info('Skipping `/release` pages build');
+  const indexMdx = join(baseDir, 'index.mdx');
+  writeFileSync(indexMdx, '');
+  console.info(`Skipping \`/release\` pages build, pushing ${indexMdx} as a stub`);
 }
