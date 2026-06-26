@@ -121,8 +121,9 @@ async function generator() {
     note,
     extraNote,
     `title: 'Tauri Core Ecosystem Releases'`,
-    `editUrl: 'https://github.com/tauri-apps/tauri-docs/packages/releases-generator/build.ts'`,
+    `editUrl: 'https://github.com/tauri-apps/tauri-docs/blob/v2/packages/releases-generator/build.ts'`,
     'tableOfContents: false',
+    'next: false',
     'sidebar:',
     '  label: Overview',
     '  order: -1000000',
@@ -143,11 +144,11 @@ async function generator() {
     return links
       .map(
         (link) => `
-      <LinkCard 
-        key="${link.key}" 
-        title="${link.title}" 
+      <LinkCard
+        key="${link.key}"
+        title="${link.title}"
         description="${latestVersions[link.key]}"
-        href="/release/${link.key}/${latestVersions[link.key]}/" 
+        href="/release/${link.key}/${latestVersions[link.key]}/"
       />
     `
       )
