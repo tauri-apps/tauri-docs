@@ -2,6 +2,7 @@
 	path = packages/plugins-workspace
 	url = https://github.com/tauri-apps/plugins-workspace.git
 	branch = v2
+	ignore = dirty
 [submodule "packages/awesome-tauri"]
 	path = packages/awesome-tauri
 	url = https://github.com/tauri-apps/awesome-tauri
@@ -10,3 +11,4 @@
 	path = packages/tauri
 	url = https://github.com/tauri-apps/tauri.git
 	branch = dev
+	ignore = dirty
