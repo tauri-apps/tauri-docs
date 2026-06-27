@@ -351,7 +351,42 @@ export default defineConfig({
               icon: 'list-format',
               items: [
                 {
-                  autogenerate: { directory: 'release', collapsed: true },
+                  slug: 'release',
+                },
+                {
+                  label: 'tauri',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tauri' } }],
+                },
+                {
+                  label: '@tauri-apps/api',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/@tauri-apps/api' } }],
+                },
+                {
+                  label: 'tauri-cli (Rust)',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tauri-cli' } }],
+                },
+                {
+                  label: '@tauri-apps/cli (JavaScript)',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/@tauri-apps/cli' } }],
+                },
+                {
+                  label: 'tauri-bundler',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tauri-bundler' } }],
+                },
+                {
+                  label: 'wry',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/wry' } }],
+                },
+                {
+                  label: 'tao',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tao' } }],
                 },
               ],
             },
