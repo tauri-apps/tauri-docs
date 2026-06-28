@@ -29,24 +29,33 @@ import 'src/styles/home.css';
 </div>
 
 <CardGrid>
-  <Card title="Frontend Independent" icon="rocket">
-    Bring your existing web stack to Tauri or start that new dream project.
-    Tauri supports any frontend framework so you don't need to change your
-    stack.
-  </Card>
+  <a href="/start/frontend/" className="card-link card-frontend not-content">
+    <Card title="Frontend Independent" icon="rocket">
+      Bring your existing web stack to Tauri or start that new dream project.
+      Tauri supports any frontend framework so you don't need to change your stack.
+    </Card>
+  </a>
+
+<a href="/distribute/" className="card-link card-platform not-content">
   <Card title="Cross Platform" icon="rocket">
     Build your app for Linux, macOS, Windows, Android and iOS - all from a
     single codebase. Write your frontend in JavaScript, application logic in
     Rust, and integrate deep into the system with Swift and Kotlin.
   </Card>
+</a>
+
+<a href="/security/" className="card-link card-security not-content">
   <Card title="Maximum Security" icon="rocket">
     Front-of-mind for the Tauri Team that drives our highest priorities and
     biggest innovations.
   </Card>
-  <Card title="Minimal Size" icon="rocket">
-    By using the OS's native web renderer, the size of a Tauri app can be little
-    as 600KB.
-  </Card>
+</a>
+
+  <a href="/concept/size/" className="card-link card-size not-content">
+    <Card title="Minimal Size" icon="rocket">
+      By using the OS's native web renderer, the size of a Tauri app can be little as 600KB.
+    </Card>
+  </a>
 </CardGrid>
 
 <SponsorList />

@@ -2,6 +2,7 @@
 // copied from LinkCard.Astro
 // removed icon
 // added a footer field to place the supported platform icons
+// matches the `src/styles/overrides.scss` styling
 
 import type { HTMLAttributes } from 'astro/types';
 
@@ -14,7 +15,7 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
 const { title, description, footer, ...attributes } = Astro.props;
 ---
 
-<div class="sl-link-card">
+<div class="sl-link-card-custom not-content">
   <span class="sl-flex stack">
     <a {...attributes}>
       <span class="title" set:html={title} />
@@ -34,14 +35,14 @@ const { title, description, footer, ...attributes } = Astro.props;
     left: 1em;
   }
 
-  .sl-link-card {
+  .sl-link-card-custom {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 0.5rem;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.5rem;
     padding: 1rem;
-    box-shadow: var(--sl-shadow-sm);
+    /* box-shadow: var(--sl-shadow-sm); */
     position: relative;
     /* space for icons */
     padding-bottom: 5em;
@@ -75,17 +76,10 @@ const { title, description, footer, ...attributes } = Astro.props;
     line-height: 1.5;
   }
 
-  .icon {
-    color: var(--sl-color-gray-3);
-  }
-
   /* Hover state */
-  .sl-link-card:hover {
-    background: var(--sl-color-gray-7, var(--sl-color-gray-6));
-    border-color: var(--sl-color-gray-2);
-  }
-
-  .sl-link-card:hover .icon {
-    color: var(--sl-color-white);
+  .sl-link-card-custom:hover {
+    /* background: var(--sl-color-gray-7, var(--sl-color-gray-6)); */
+    /* border-color: var(--sl-color-gray-2); */
+    border-color: var(--sl-color-text-accent);
   }
 </style>

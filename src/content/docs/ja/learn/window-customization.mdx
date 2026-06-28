@@ -59,24 +59,30 @@ macOS では、カスタム・タイトルバーを使用すると、[ウィン�
 
 詳細については「[セキュリティ・レベルの概要](/ja/security/capabilities/)」の章を参照してください。また、プラグイン権限を使用するには「[プラグイン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章を参照してください。
 
-```json title="src-tauri/capabilities/default.json" ins={6}
+```json title="src-tauri/capabilities/default.json" ins={7-11}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
-  "permissions": ["core:window:default", "core:window:allow-start-dragging"]
+  "permissions": [
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-start-dragging"
+  ]
 }
 ```
 
-| Permission                                   | Description                                                                      |
-| -------------------------------------------- | -------------------------------------------------------------------------------- |
-| `core:window:default`                        | plugin 用デフォルト・アクセス権。ただし、 `window:allow-start-dragging` を除く。 |
-| `core:window:allow-close`                    | スコープ（適用範囲）の事前設定なしで close コマンドを有効にします。              |
-| `core:window:allow-minimize`                 | スコープの事前設定なしで minimize コマンドを有効にします。                       |
-| `core:window:allow-start-dragging`           | スコープの事前設定なしで start_dragging コマンドを有効にします。                 |
-| `core:window:allow-toggle-maximize`          | スコープの事前設定なしで toggle_maximize コマンドを有効にします。                |
-| `core:window:allow-internal-toggle-maximize` | スコープの事前設定なしで internal_toggle_maximize コマンドを有効にします。       |
+| Permission                                   | Description                                                                                  |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `core:window:default`                        | plugin 用デフォルト・アクセス権。This includes `core:window:allow-internal-toggle-maximize`. |
+| `core:window:allow-close`                    | スコープ（適用範囲）の事前設定なしで close コマンドを有効にします。                          |
+| `core:window:allow-minimize`                 | スコープの事前設定なしで minimize コマンドを有効にします。                                   |
+| `core:window:allow-start-dragging`           | スコープの事前設定なしで start_dragging コマンドを有効にします。                             |
+| `core:window:allow-toggle-maximize`          | スコープの事前設定なしで toggle_maximize コマンドを有効にします。                            |
+| `core:window:allow-internal-toggle-maximize` | スコープの事前設定なしで internal_toggle_maximize コマンドを有効にします。                   |
 
 #### CSS
 
@@ -123,19 +129,34 @@ macOS では、カスタム・タイトルバーを使用すると、[ウィン�
   <div class="controls">
     <button id="titlebar-minimize" title="minimize">
       <!-- https://api.iconify.design/mdi:window-minimize.svg -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M19 13H5v-2h14z" /><path>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="currentColor" d="M19 13H5v-2h14z" />
       </svg>
     </button>
     <button id="titlebar-maximize" title="maximize">
       <!-- https://api.iconify.design/mdi:window-maximize.svg -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
         <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
       </svg>
     </button>
     <button id="titlebar-close" title="close">
       <!-- https://api.iconify.design/mdi:close.svg -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
         <path
           fill="currentColor"
           d="M13.46 12L19 17.54V19h-1.46L12 13.46L6.46 19H5v-1.46L10.54 12L5 6.46V5h1.46L12 10.54L17.54 5H19v1.46z"

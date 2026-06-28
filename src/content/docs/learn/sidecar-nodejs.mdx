@@ -123,8 +123,7 @@ Without the plugin being initialized and configured the example won't work.
 
     const ext = process.platform === 'win32' ? '.exe' : '';
 
-    const rustInfo = execSync('rustc -vV');
-    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+    const targetTriple = execSync('rustc --print host-tuple').toString().trim();
     if (!targetTriple) {
       console.error('Failed to determine platform target triple');
     }
@@ -134,6 +133,16 @@ Without the plugin being initialized and configured the example won't work.
       `../src-tauri/binaries/my-sidecar-${targetTriple}${ext}`
     );
     ```
+
+    :::note
+    The `--print host-tuple` flag was added in Rust 1.84.0. If you're using an older version, you'll need to parse the output of `rustc -Vv` instead:
+
+    ```js
+    const rustInfo = execSync('rustc -vV');
+    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+    ```
+
+    :::
 
     And run `node rename.js` from the `sidecar-app` directory.
 
@@ -259,5 +268,5 @@ Without the plugin being initialized and configured the example won't work.
 [sidecar guide]: /develop/sidecar/
 [process.argv]: https://nodejs.org/docs/latest/api/process.html#processargv
 [console.log]: https://nodejs.org/api/console.html#consolelogdata-args
-[pkg]: https://github.com/vercel/pkg
+[pkg]: https://github.com/yao-pkg/pkg
 [`bundle > externalBin`]: /reference/config/#externalbin

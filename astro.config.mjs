@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
@@ -76,7 +74,11 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
-        starlightBlog({ authors }),
+        starlightBlog({
+          authors,
+          // We're doing it in `src/components/overrides/Header.astro`
+          navigation: 'none',
+        }),
         starlightSidebarTopics(
           [
             {
@@ -132,7 +134,11 @@ export default defineConfig({
                         es: 'Configuración del frontend',
                       },
                       collapsed: true,
-                      autogenerate: { directory: 'start/frontend' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'start/frontend' },
+                        },
+                      ],
                     },
                     {
                       label: 'Upgrade & Migrate',
@@ -141,7 +147,7 @@ export default defineConfig({
                         es: 'Actualizar y migrar',
                       },
                       collapsed: true,
-                      autogenerate: { directory: 'start/migrate' },
+                      items: [{ autogenerate: { directory: 'start/migrate' } }],
                     },
                   ],
                 },
@@ -152,7 +158,7 @@ export default defineConfig({
                     es: 'Conceptos básicos',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'concept' },
+                  items: [{ autogenerate: { directory: 'concept', collapsed: true } }],
                 },
                 {
                   label: 'Security',
@@ -161,7 +167,7 @@ export default defineConfig({
                     es: 'Seguridad',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'security' },
+                  items: [{ autogenerate: { directory: 'security', collapsed: true } }],
                 },
                 {
                   label: 'Develop',
@@ -183,17 +189,29 @@ export default defineConfig({
                     {
                       label: 'Debug',
                       collapsed: true,
-                      autogenerate: { directory: 'develop/Debug' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Debug' },
+                        },
+                      ],
                     },
                     {
                       label: 'Plugins',
                       collapsed: true,
-                      autogenerate: { directory: 'develop/Plugins' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Plugins' },
+                        },
+                      ],
                     },
                     {
                       label: 'Tests',
                       collapsed: true,
-                      autogenerate: { directory: 'develop/Tests' },
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Tests', collapsed: true },
+                        },
+                      ],
                     },
                   ],
                 },
@@ -204,7 +222,11 @@ export default defineConfig({
                     es: 'Distribuir',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'distribute' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'distribute', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'Learn',
@@ -213,7 +235,11 @@ export default defineConfig({
                     es: 'Aprende',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'learn' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'learn', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'Plugins',
@@ -222,7 +248,11 @@ export default defineConfig({
                     es: 'Plugins',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'plugin' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'plugin' },
+                    },
+                  ],
                 },
                 {
                   label: 'About',
@@ -231,7 +261,11 @@ export default defineConfig({
                     es: 'Acerca de',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'about' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'about' },
+                    },
+                  ],
                 },
               ],
             },
@@ -256,7 +290,11 @@ export default defineConfig({
                     es: 'Seguridad',
                   },
                   collapsed: true,
-                  autogenerate: { directory: 'reference/acl' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'reference/acl' },
+                    },
+                  ],
                 },
                 {
                   label: 'Configuration',
@@ -283,18 +321,13 @@ export default defineConfig({
                   link: '/reference/webview-versions/',
                 },
                 {
-                  label: 'Releases',
-                  translations: {
-                    'zh-CN': '发行版',
-                    es: 'Lanzamientos',
-                  },
-                  collapsed: true,
-                  autogenerate: { directory: 'release' },
-                },
-                {
                   label: 'JavaScript',
                   collapsed: true,
-                  autogenerate: { directory: 'reference/javascript' },
+                  items: [
+                    {
+                      autogenerate: { directory: 'reference/javascript', collapsed: true },
+                    },
+                  ],
                 },
                 {
                   label: 'Rust (docs.rs)',
@@ -310,6 +343,52 @@ export default defineConfig({
               // Empty item to instruct it that is is local files, not an external link
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
+            },
+            {
+              label: { en: 'Releases', 'zh-CN': '发行版', es: 'Lanzamientos' },
+              id: 'release',
+              link: '/release/',
+              icon: 'list-format',
+              items: [
+                {
+                  slug: 'release',
+                },
+                {
+                  label: 'tauri',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tauri' } }],
+                },
+                {
+                  label: '@tauri-apps/api',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/@tauri-apps/api' } }],
+                },
+                {
+                  label: 'tauri-cli (Rust)',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tauri-cli' } }],
+                },
+                {
+                  label: '@tauri-apps/cli (JavaScript)',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/@tauri-apps/cli' } }],
+                },
+                {
+                  label: 'tauri-bundler',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tauri-bundler' } }],
+                },
+                {
+                  label: 'wry',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/wry' } }],
+                },
+                {
+                  label: 'tao',
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'release/tao' } }],
+                },
+              ],
             },
           ],
           {
@@ -345,6 +424,9 @@ export default defineConfig({
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
+        PageFrame: 'src/components/overrides/PageFrame.astro',
+        Sidebar: 'src/components/overrides/Sidebar.astro',
+        TwoColumnContent: 'src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
@@ -381,7 +463,19 @@ export default defineConfig({
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
-        styleOverrides: { borderRadius: '0.5rem' },
+        styleOverrides: {
+          codePaddingBlock: '1rem',
+          codePaddingInline: '1.35rem',
+          borderRadius: '0.5rem',
+          // borderWidth: '0',
+          textMarkers: {
+            borderLuminance: '66',
+            backgroundOpacity: '25%',
+          },
+          frames: {
+            editorActiveTabIndicatorHeight: '0',
+          },
+        },
       },
       locales,
       lastUpdated: true,
@@ -393,6 +487,7 @@ export default defineConfig({
       },
     }),
     serviceWorker({
+      // @ts-expect-error `swDest` is not required here, see https://github.com/tatethurston/astrojs-service-worker/issues/29
       workbox: {
         cleanupOutdatedCaches: true,
         clientsClaim: true,
@@ -420,19 +515,9 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: {
+      // @ts-expect-error The typing is wrong here, strings are valid values
       langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
     },
-
-    rehypePlugins: [
-      rehypeHeadingIds,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-        },
-      ],
-    ],
   },
   redirects: {
     // Old blog url schema redirects
@@ -518,29 +603,38 @@ export default defineConfig({
   },
 });
 
-// Generates a redirect for each locale.
 /**
+ * Generates a redirect for each locale.
+ *
  * @param {string} from
  * @param {string} to
  */
 function i18nRedirect(from, to) {
+  /** @type { {[from: string]: string} } */
   const routes = {};
-  Object.keys(locales).map((locale) =>
-    locale === 'root'
-      ? (routes[from] = to)
-      : (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-          /^\/*/g,
-          ''
-        )}`)
-  );
+  for (const locale of Object.keys(locales)) {
+    if (locale === 'root') {
+      routes[from] = to;
+    } else {
+      routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+        /^\/*/g,
+        ''
+      )}`;
+    }
+  }
   return routes;
 }
 
-// Read the HTTP header file in `public/_headers`
+/**
+ * Read the HTTP header file in `public/_headers`
+ *
+ * @returns {import('http').OutgoingHttpHeaders}
+ */
 function readHeaders() {
   const header_file = readFileSync('public/_headers', { encoding: 'utf8' })
     .split('\n')
     .filter(Boolean);
+  /** @type {import('http').OutgoingHttpHeaders} */
   const headers = {};
   for (const line of header_file) {
     const [key, val] = line.trim().split(/\s*:\s*(.+)/);
