@@ -128,6 +128,14 @@ mockIPC(async (cmd, args) => {
 });
 ```
 
+:::note[See also]
+
+`mockIPC` fakes `invoke` under the mock runtime — no real webview or Rust backend runs. To mock the same commands in
+**end-to-end** tests, against a running app or your frontend in a browser, [`@wdio/tauri-service`] provides an equivalent
+`browser.tauri.mock()`. See [WebDriver testing].
+
+:::
+
 ### Mocking Events
 
 <SinceVersion version="2.7.0" />
@@ -200,3 +208,5 @@ test('invoke', async () => {
 [`clearmocks()`]: /reference/javascript/api/namespacemocks/#clearmocks
 [vitest]: https://vitest.dev
 [Event System]: /develop/calling-frontend/#event-system
+[`@wdio/tauri-service`]: https://webdriver.io/docs/desktop-testing/tauri
+[webdriver testing]: /develop/tests/webdriver/
