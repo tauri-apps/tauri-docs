@@ -42,7 +42,7 @@
     "sass": "^1.89.0",
     "sharp": "^0.34.5",
     "shiki": "^4.0.2",
-    "starlight-blog": "^0.26.1",
+    "starlight-blog": "^0.27.0",
     "starlight-links-validator": "^0.25.1",
     "starlight-sidebar-topics": "^0.8.0",
     "vite": "^8.1.0"
