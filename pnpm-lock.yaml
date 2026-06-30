@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@astrojs/mdx@^5.0.6': ^7.0.0
-
 importers:
 
   .:
