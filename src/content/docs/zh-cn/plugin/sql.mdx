@@ -2,90 +2,120 @@
 title: SQL
 description: 插件提供了一个接口，让前端可以通过 sqlx 与 SQL 数据库进行通信
 plugin: sql
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
 import Compatibility from '@components/plugins/Compatibility.astro';
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
-这个插件提供了一个接口，让前端可以通过 [sqlx](https://github.com/launchbadge/sqlx) 与 SQL 数据库进行通信。
-它支持 SQLite、MySQL 和 PostgreSQL 驱动程序，通过 Cargo 特性来启用。
+这个插件提供了一个接口，让前端可以通过 [sqlx](https://github.com/launchbadge/sqlx) 与 SQL 数据库进行通信。它支持 SQLite、MySQL 和 PostgreSQL 驱动程序，通过 Cargo 特性来启用。
 
 ## Supported Platforms
 
 <Compatibility plugin={frontmatter.plugin} />
 
-## 安装
+## 设置
 
-首先，在你的 `Cargo.toml` 文件中添加以下内容来安装插件。
+安装 SQL 插件以开始使用。
 
 <Tabs>
-  <TabItem label="crates.io">
-```toml title="src-tauri/Cargo.toml"
-[dependencies.tauri-plugin-sql]
-features = ["sqlite"] # or "postgres", or "mysql"
-version = "2.0.0"
-```
-  </TabItem>
-  <TabItem label="Git">
+    <TabItem label="自动安装">
 
-```toml title="src-tauri/Cargo.toml"
-[dependencies.tauri-plugin-sql]
-features = ["sqlite"] # or "postgres", or "mysql"
-git = "https://github.com/tauri-apps/plugins-workspace"
-branch = "v2"
-```
+        使用项目的包管理器添加依赖：
 
-  </TabItem>
+        <CommandTabs npm="npm run tauri add sql"
+        yarn="yarn run tauri add sql"
+        pnpm="pnpm tauri add sql"
+        bun="bun tauri add sql"
+        deno="deno task tauri add sql"
+        cargo="cargo tauri add sql" />
+
+    </TabItem>
+    <TabItem label="手动安装">
+
+        <Steps>
+
+        1.  在 `src-tauri` 文件夹中运行以下命令，将插件添加到项目的 `Cargo.toml` 依赖中：
+
+            ```sh frame=none
+            cargo add tauri-plugin-sql
+            ```
+
+        2.  修改 `lib.rs` 以初始化插件：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            		pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_sql::Builder::default().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.	使用你偏好的 JavaScript 包管理器安装 JavaScript Guest 绑定：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-sql"
+                yarn="yarn add @tauri-apps/plugin-sql"
+                pnpm="pnpm add @tauri-apps/plugin-sql"
+                deno="deno add npm:@tauri-apps/plugin-sql"
+                bun="bun add @tauri-apps/plugin-sql"
+            />
+
+        </Steps>
+
+</TabItem>
 </Tabs>
 
-然后，你必须使用你喜欢的 JavaScript 包管理器添加 JavaScript Guest 绑定。
+安装插件后，你必须选择支持的数据库引擎。
+可用的引擎有 Sqlite、MySQL 和 PostgreSQL。
+在 `src-tauri` 文件夹中运行以下命令以启用你偏好的引擎：
 
-<Tabs>
-  <TabItem label="npm">
-    <CommandTabs
-      npm="npm add @tauri-apps/plugin-sql"
-      yarn="yarn add @tauri-apps/plugin-sql"
-      pnpm="pnpm add @tauri-apps/plugin-sql"
-      bun="bun add @tauri-apps/plugin-sql"
-    />
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features sqlite
+    ```
+
   </TabItem>
-  <TabItem label="Git">
-    <CommandTabs
-      npm="npm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-      yarn="yarn add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-      pnpm="pnpm add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-      bun="bun add https://github.com/tauri-apps/tauri-plugin-sql#v2"
-    />
+  <TabItem label="MySQL">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features mysql
+    ```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+  
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features postgres
+    ```
+  
   </TabItem>
 </Tabs>
 
 ## 用法
 
-首先，你需要在 Tauri 中注册插件：
+所有插件的 API 都可以通过 JavaScript Guest 绑定使用：
 
-```rust title="src-tauri/src/main.rs" ins={3}
-fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_sql::Builder::default().build())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
-
-之后，所有插件的 API 都可以通过 JavaScript Guest 绑定使用。
-
-<Tabs syncKey="SQLvariant">
+<Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 
-这个路径是相对于 `tauri::api::path::BaseDirectory::App` 的。
+路径相对于 [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig)。
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
 const db = await Database.load('sqlite:test.db');
 await db.execute('INSERT INTO ...');
 ```
@@ -95,7 +125,10 @@ await db.execute('INSERT INTO ...');
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
-const db = await Database.load('mysql://user:pass@host/database');
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load('mysql://user:password@host/test');
 await db.execute('INSERT INTO ...');
 ```
 
@@ -104,7 +137,10 @@ await db.execute('INSERT INTO ...');
 
 ```javascript
 import Database from '@tauri-apps/plugin-sql';
-const db = await Database.load('postgres://postgres:password@localhost/test');
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load('postgres://user:password@host/test');
 await db.execute('INSERT INTO ...');
 ```
 
@@ -115,7 +151,7 @@ await db.execute('INSERT INTO ...');
 
 我们使用 [sqlx](https://docs.rs/sqlx/latest/sqlx/) 作为底层库并采用它们的查询语法。
 
-<Tabs syncKey="SQLvariant">
+<Tabs syncKey='SQLvariant'>
   <TabItem label="SQLite">
 在替换查询数据时使用 "$#" 语法
 
@@ -172,10 +208,9 @@ const result = await db.execute(
 
 ### 定义迁移
 
-迁移在 Rust 中使用 [`Migration`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Migration.html) 结构体定义。
-每个迁移都应该包含唯一的版本号、描述、要执行的 SQL 和迁移类型（向上或向下）。
+迁移在 Rust 中使用 [`Migration`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Migration.html) 结构体定义。每个迁移都应该包含唯一的版本号、描述、要执行的 SQL 和迁移类型（向上或向下）。
 
-迁移的例子：
+迁移示例：
 
 ```rust
 use tauri_plugin_sql::{Migration, MigrationKind};
@@ -188,12 +223,24 @@ let migration = Migration {
 };
 ```
 
+如果你想使用文件中的 SQL，可以通过 `include_str!` 来引入：
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: include_str!("../drizzle/0000_graceful_boomer.sql"),
+    kind: MigrationKind::Up,
+};
+```
+
 ### 向插件构建器添加迁移
 
-迁移用插件提供的 [`Builder`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Builder.html) 结构体注册。
-使用 `add_migrations` 方法将迁移添加到特定数据库连接的插件中。
+迁移用插件提供的 [`Builder`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Builder.html) 结构体注册。使用 `add_migrations` 方法将迁移添加到特定数据库连接的插件中。
 
-添加迁移的例子：
+添加迁移的示例：
 
 ```rust title="src-tauri/src/main.rs" {1} {6-11} {17}
 use tauri_plugin_sql::{Builder, Migration, MigrationKind};
@@ -221,10 +268,51 @@ fn main() {
 
 ### 应用迁移
 
-迁移在插件初始化时自动应用。插件针对连接字符串指定的数据库运行这些迁移。确保迁移按照正确的顺序定义，并且是幂等的（可以安全运行多次）。
+要在插件初始化时应用迁移，请将连接字符串添加到 `tauri.conf.json` 文件中：
+
+```json title="src-tauri/tauri.conf.json" {3-5}
+{
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:mydatabase.db"]
+    }
+  }
+}
+```
+
+或者，客户端 `load()` 方法也会为给定的连接字符串运行迁移：
+
+```ts
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
+```
+
+确保迁移按照正确的顺序定义，并且可以安全地多次运行。
+
+:::note
+所有迁移都在一个事务中执行，确保原子性。如果任何迁移失败，整个事务将回滚，使数据库保持一致状态。
+:::
 
 ### 迁移管理
 
 - **版本控制**：每个迁移必须有一个唯一的版本号。这对于确保迁移按正确的顺序应用至关重要。
 - **幂等性**：编写迁移时，要确保它们能够安全重新运行，而不会导致错误或意外后果。
 - **测试**：彻底测试迁移，确保它们按预期工作，并且不会损害数据库的完整性。
+
+## 权限
+
+默认情况下，所有潜在危险的插件命令和作用域都被阻止，无法访问。你必须在 `capabilities` 配置中修改权限以启用它们。
+
+有关更多信息，请参阅 [Capabilities 概述](/zh-cn/security/capabilities/) 以及使用插件权限的 [分步指南](/zh-cn/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/default.json" ins={4-5}
+{
+  "permissions": [
+    ...,
+    "sql:default",
+    "sql:allow-execute",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
