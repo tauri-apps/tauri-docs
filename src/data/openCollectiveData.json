@@ -60,6 +60,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Daniel Thompson-Yvetot",
     "id": "Daniel Thompson-Yvetot",
     "avatarUrl": "https://images.opencollective.com/daniel-thompson-yvetot/30121fa/avatar/256.jpg",
@@ -68,15 +77,6 @@
       "website": "https://github.com/nothingismagick",
       "github": "https://github.com/nothingismagick"
     },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
-    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -145,6 +145,18 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Pete Thomas",
     "id": "Pete Thomas",
     "avatarUrl": "https://images.opencollective.com/user-44f56a2f/avatar/256.jpg",
@@ -173,18 +185,6 @@
     },
     "tier": "gold",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "gold",
-    "type": "ORGANIZATION"
   },
   {
     "name": "CoParse",
@@ -1325,6 +1325,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Scanavium21",
+    "id": "Scanavium21",
+    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/scanavium21",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Tom",
     "id": "Tom",
     "avatarUrl": "https://images.opencollective.com/guest-b7b90c7e/avatar/256.jpg",
@@ -1560,15 +1569,6 @@
     "id": "Incognito",
     "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/user-16370161",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Scanavium21",
-    "id": "Scanavium21",
-    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/scanavium21",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
