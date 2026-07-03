@@ -23,7 +23,7 @@ There are 3 steps to express interest and apply for candidacy:
 2. Prepare a written introduction about yourself that covers who you are, your history and relevance to Tauri, and what you would like to bring to the Board. (Examples from previous years can be found at https://github.com/tauri-apps/governance-and-guidance).
 3. **Apply prior to July 7th, 2026** by emailing [board@tauri.app](mailto:board@tauri.app) or messaging the `@board` role on the [Tauri Discord](https://discord.com/invite/tauri).
 
-Voting will take place starting on July 7th through July 14th, 2026 where Tauri Working Group Members will cast their votes. We're expecting to announce the results on or before July 19, 2025. If elected, we'll ask you to sign [this pledge](https://dracc.commonsconservancy.org/0016/) if you haven't done so previously.
+Voting will take place starting on July 7th through July 14th, 2026 where Tauri Working Group Members will cast their votes. We're expecting to announce the results on or before July 19, 2026. If elected, we'll ask you to sign [this pledge](https://dracc.commonsconservancy.org/0016/) if you haven't done so previously.
 
 If you have any questions or would like more information please reach out by emailing [board@tauri.app](mailto:board@tauri.app), messaging the `@board` role on the [Tauri Discord](https://discord.com/invite/tauri).
 
