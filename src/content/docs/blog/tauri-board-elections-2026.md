@@ -5,7 +5,7 @@ authors: [jbolda]
 excerpt: Time flies and it is time for a new round of elections for the next term.
 ---
 
-As we continue to be amazed by all the applications you've created with Tauri v2, it's been 4 years since Tauri has become a Programme within [The Commons Conservancy](https://commonsconservancy.org/)! This means we're preparing for a new round of Tauri Board Director elections for the next term.
+As we continue to be amazed by all the applications you've created with Tauri v2, it's been 5 years since Tauri has become a Programme within [The Commons Conservancy](https://commonsconservancy.org/)! This means we're preparing for a new round of Tauri Board Director elections for the next term.
 
 ## Board Elections
 
