@@ -24,12 +24,10 @@ async function fetchData() {
   });
 
   return data.organization.sponsors.nodes
-    .map(
-      (node: any): GitHubSponsor => ({
-        name: node.login,
-        avatarUrl: node.avatarUrl,
-      })
-    )
+    .map((node: any): GitHubSponsor => ({
+      name: node.login,
+      avatarUrl: node.avatarUrl,
+    }))
     .sort((a: GitHubSponsor, b: GitHubSponsor) => a.name.localeCompare(b.name));
 }
 

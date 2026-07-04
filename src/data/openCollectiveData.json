@@ -60,6 +60,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Daniel Thompson-Yvetot",
     "id": "Daniel Thompson-Yvetot",
     "avatarUrl": "https://images.opencollective.com/daniel-thompson-yvetot/30121fa/avatar/256.jpg",
@@ -68,15 +77,6 @@
       "website": "https://github.com/nothingismagick",
       "github": "https://github.com/nothingismagick"
     },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
-    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -145,6 +145,18 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Controla",
+    "id": "Controla",
+    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/controla",
+    "socialLinks": {
+      "website": "https://www.controla.ai/",
+      "linkedin": "https://www.linkedin.com/company/mycontrola/"
+    },
+    "tier": "gold",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Pete Thomas",
     "id": "Pete Thomas",
     "avatarUrl": "https://images.opencollective.com/user-44f56a2f/avatar/256.jpg",
@@ -175,18 +187,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Controla",
-    "id": "Controla",
-    "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/controla",
-    "socialLinks": {
-      "website": "https://www.controla.ai/",
-      "linkedin": "https://www.linkedin.com/company/mycontrola/"
-    },
-    "tier": "gold",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "CoParse",
     "id": "CoParse",
     "avatarUrl": "https://images.opencollective.com/coparse_inc/0cf24ef/logo/256.jpg",
@@ -209,15 +209,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Rick Richardson",
-    "id": "Rick Richardson",
-    "avatarUrl": "https://images.opencollective.com/rick-richardson/0bcfb2c/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/rick-richardson",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "KOBA789",
     "id": "KOBA789",
     "avatarUrl": "https://images.opencollective.com/koba789/8cd4b42/avatar/256.jpg",
@@ -228,6 +219,15 @@
       "twitter": "https://x.com/KOBA789",
       "youtube": "https://youtube.com/@KOBA789"
     },
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Rick Richardson",
+    "id": "Rick Richardson",
+    "avatarUrl": "https://images.opencollective.com/rick-richardson/0bcfb2c/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/rick-richardson",
+    "socialLinks": {},
     "tier": "gold",
     "type": "INDIVIDUAL"
   },
@@ -345,6 +345,26 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Clemens Koza",
+    "id": "Clemens Koza",
+    "avatarUrl": "https://images.opencollective.com/clemens-koza/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/clemens-koza",
+    "socialLinks": {
+      "github": "https://github.com/SillyFreak"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Martin Kramer",
+    "id": "Martin Kramer",
+    "avatarUrl": "https://images.opencollective.com/martin-kramer/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/martin-kramer",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Riley Seaburg",
     "id": "Riley Seaburg",
     "avatarUrl": "https://images.opencollective.com/guest-7ba71ea5/avatar/256.jpg",
@@ -365,26 +385,6 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Clemens Koza",
-    "id": "Clemens Koza",
-    "avatarUrl": "https://images.opencollective.com/clemens-koza/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/clemens-koza",
-    "socialLinks": {
-      "github": "https://github.com/SillyFreak"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Martin Kramer",
-    "id": "Martin Kramer",
-    "avatarUrl": "https://images.opencollective.com/martin-kramer/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/martin-kramer",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "Jun Hashimoto",
@@ -492,15 +492,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Bitcoin Contributions",
-    "id": "Bitcoin Contributions",
-    "avatarUrl": "https://images.opencollective.com/bitcoin-contributions/0745f16/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/bitcoin-contributions",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "Archon Systems Inc.",
     "id": "Archon Systems Inc.",
     "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
@@ -510,6 +501,15 @@
       "twitter": "https://twitter.com/archonsystems",
       "github": "https://github.com/archonSystemsInc"
     },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
+    "name": "Bitcoin Contributions",
+    "id": "Bitcoin Contributions",
+    "avatarUrl": "https://images.opencollective.com/bitcoin-contributions/0745f16/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/bitcoin-contributions",
+    "socialLinks": {},
     "tier": "silver",
     "type": "ORGANIZATION"
   },
@@ -743,6 +743,18 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Alexander Eden",
+    "id": "Alexander Eden",
+    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-eden",
+    "socialLinks": {
+      "website": "https://github.com/alexeden",
+      "github": "https://github.com/alexeden"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Proxyman",
     "id": "Proxyman",
     "avatarUrl": "https://images.opencollective.com/proxyman_io/8644075/logo/256.jpg",
@@ -754,18 +766,6 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Alexander Eden",
-    "id": "Alexander Eden",
-    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-eden",
-    "socialLinks": {
-      "website": "https://github.com/alexeden",
-      "github": "https://github.com/alexeden"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "Fritz-Rainer Doebbelin",
@@ -1325,6 +1325,26 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Scanavium21",
+    "id": "Scanavium21",
+    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/scanavium21",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Tom",
     "id": "Tom",
     "avatarUrl": "https://images.opencollective.com/guest-b7b90c7e/avatar/256.jpg",
@@ -1545,30 +1565,10 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
-    "tier": "bronze",
-    "type": "ORGANIZATION"
-  },
-  {
     "name": "Incognito",
     "id": "Incognito",
     "avatarUrl": "https://images.opencollective.com/user-16370161/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/user-16370161",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Scanavium21",
-    "id": "Scanavium21",
-    "avatarUrl": "https://images.opencollective.com/scanavium21/ea9bd1b/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/scanavium21",
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
