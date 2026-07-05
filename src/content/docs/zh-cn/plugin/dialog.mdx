@@ -10,59 +10,67 @@ plugin: dialog
 import PluginLinks from '@components/PluginLinks.astro';
 import Compatibility from '@components/plugins/Compatibility.astro';
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
 本机系统对话框，用于打开和保存文件，以及消息对话框。
 
-## Supported Platforms
+## 支持的平台
 
 <Compatibility plugin={frontmatter.plugin} />
 
 ## 设置
 
-从安装对话框插件开始。
+安装对话框插件以开始使用。
 
 <Tabs>
     <TabItem label="自动">
 
-    使用项目的包管理器来添加依赖：
+        使用项目的包管理器来添加依赖：
 
-    <CommandTabs npm="npm run tauri add dialog"
+        <CommandTabs npm="npm run tauri add dialog"
                     yarn="yarn run tauri add dialog"
                     pnpm="pnpm tauri add dialog"
+                    deno="deno task tauri add dialog"
                     bun="bun tauri add dialog"
                     cargo="cargo tauri add dialog" />
 
     </TabItem>
     <TabItem label="手动">
+        <Steps>
 
-    1. 运行 `cargo add tauri-plugin-dialog` 命令，将插件添加到项目的 `cargo .toml` 依赖中。
+            1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到项目的 `Cargo.toml` 依赖中：
 
-    2. 修改 `lib.rs` 来初始化插件。
+                ```sh frame=none
+                cargo add tauri-plugin-dialog
+                ```
 
-    ```rust
-    // lib.rs
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialize the plugin
-            .plugin(tauri_plugin_dialog::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+            2.  修改 `lib.rs` 来初始化插件：
 
-    3. 如果你想在 JavaScript 中创建对话框，还需要安装 npm 包：
+                ```rust title="src-tauri/src/lib.rs" ins={4}
+                #[cfg_attr(mobile, tauri::mobile_entry_point)]
+                pub fn run() {
+                    tauri::Builder::default()
+                        .plugin(tauri_plugin_dialog::init())
+                        .run(tauri::generate_context!())
+                        .expect("error while running tauri application");
+                }
+                ```
 
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-dialog"
-        yarn="yarn add @tauri-apps/plugin-dialog"
-        pnpm="pnpm add @tauri-apps/plugin-dialog"
-        bun="bun add @tauri-apps/plugin-dialog"
-    />
+            3.  如果你想在 JavaScript 中创建对话框，还需要安装 npm 包：
+
+                <CommandTabs
+                    npm="npm install @tauri-apps/plugin-dialog"
+                    yarn="yarn add @tauri-apps/plugin-dialog"
+                    pnpm="pnpm add @tauri-apps/plugin-dialog"
+                    deno="deno add npm:@tauri-apps/plugin-dialog"
+                    bun="bun add @tauri-apps/plugin-dialog"
+                />
+
+        </Steps>
 
 </TabItem>
 </Tabs>
@@ -85,13 +93,19 @@ import CommandTabs from '@components/CommandTabs.astro';
 - [建立消息对话框](#建立消息对话框)
 - [建立一个文件选择器对话框](#建立一个文件选择器对话框)
 
----
+:::note
+文件对话框 API 在 Linux、Windows 和 macOS 上返回文件系统路径。
+
+在 iOS 上，返回的是 `file://<path>` URI。
+
+在 Android 上，返回的是 [content URIs]。
+
+[filesystem plugin] 可以直接处理任何路径格式。
+:::
 
 ### JavaScript
 
 可以在 JavaScript API 参考中查看所有 [Dialog 选项](/zh-cn/reference/javascript/dialog/)。
-
-{/* ASK */}
 
 #### 创建 Yes/No 对话框
 
@@ -99,8 +113,10 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ```javascript
 import { ask } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { ask } = window.__TAURI__.dialog;
 
-// 创建 Yes/No 对话框
+// Create a Yes/No dialog
 const answer = await ask('This action cannot be reverted. Are you sure?', {
   title: 'Tauri',
   kind: 'warning',
@@ -110,14 +126,14 @@ console.log(answer);
 // Prints boolean to the console
 ```
 
-{/* CONFIRM */}
-
 #### 创建 Ok/Cancel 对话框
 
 显示一个带有 "Ok" 和 "Cancel" 按钮的提问对话框。
 
 ```javascript
 import { confirm } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { confirm } = window.__TAURI__.dialog;
 
 // Creates a confirmation Ok/Cancel dialog
 const confirmation = await confirm(
@@ -129,20 +145,18 @@ console.log(confirmation);
 // Prints boolean to the console
 ```
 
-{/* MESSAGE */}
-
 #### 创建 Message 对话框
 
 一个带有 "Ok" 按钮的消息对话框。请注意，如果用户关闭对话框，它将返回 `false`。
 
 ```javascript
 import { message } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { message } = window.__TAURI__.dialog;
 
 // Shows message
 await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
-
-{/* OPEN */}
 
 #### 打开一个文件选择对话框
 
@@ -152,6 +166,8 @@ await message('File not found', { title: 'Tauri', kind: 'error' });
 
 ```javascript
 import { open } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { open } = window.__TAURI__.dialog;
 
 // Open a dialog
 const file = await open({
@@ -159,10 +175,8 @@ const file = await open({
   directory: false,
 });
 console.log(file);
-// Prints file path and name to the console
+// Prints file path or URI
 ```
-
-{/* SAVE */}
 
 #### 保存到文件对话框
 
@@ -170,6 +184,9 @@ console.log(file);
 
 ```javascript
 import { save } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { save } = window.__TAURI__.dialog;
+
 // Prompt to save a 'My Filter' with extension .png or .jpeg
 const path = await save({
   filters: [
@@ -194,26 +211,24 @@ console.log(path);
 显示一个带有 "Absolutely" 和 "Totally" 按钮的问题对话框。
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
 let answer = app.dialog()
         .message("Tauri is Awesome")
         .title("Tauri is Awesome")
-        .ok_button_label("Absolutely")
-        .cancel_button_label("Totally")
+        .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
         .blocking_show();
 ```
 
 如果你需要一个非阻塞操作，你可以使用 `show()`：
 
 ```rust
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
 app.dialog()
     .message("Tauri is Awesome")
     .title("Tauri is Awesome")
-    .ok_button_label("Absolutely")
-    .cancel_button_label("Totally")
+   .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
     .show(|result| match result {
         true => // do something,
         false =>// do something,
@@ -237,13 +252,13 @@ let ans = app.dialog()
 如果你需要一个非阻塞操作，你可以使用 `show()`：
 
 ```rust
-use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
 
 app.dialog()
     .message("Tauri is Awesome")
     .kind(MessageDialogKind::Info)
     .title("Information")
-    .ok_button_label("Absolutely")
+    .buttons(MessageDialogButtons::OkCustom("Absolutely"))
     .show(|result| match result {
         true => // do something,
         false => // do something,
@@ -261,7 +276,7 @@ let file_path = app.dialog().file().blocking_pick_file();
 // return a file_path `Option`, or `None` if the user closes the dialog
 ```
 
-如果你需要一个非阻塞操作，你可以使用 `show()`：
+如果你需要一个非阻塞操作，你可以使用 `pick_file()`：
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
@@ -297,3 +312,8 @@ app.dialog()
         // return a file_path `Option`, or `None` if the user closes the dialog
     });
 ```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[content URIs]: https://developer.android.com/guide/topics/providers/content-provider-basics
+[filesystem plugin]: /zh-cn/plugin/file-system/
