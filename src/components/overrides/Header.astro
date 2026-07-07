@@ -50,7 +50,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     grid-template-columns: auto 1fr 1fr auto;
   }
 
-  @media (width <= 50rem) {
+  @media (width < 50rem) {
     .header {
       grid-template-columns: 1fr auto;
     }
@@ -80,7 +80,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     height: 2rem;
     border-inline-end: 1px solid var(--sl-color-gray-5);
   }
-  @media (width > 50rem) {
+  @media (width >= 50rem) {
     .search::after {
       content: '';
       height: 2rem;
@@ -111,7 +111,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     gap: 1rem;
     padding-inline-end: 1rem;
   }
-  @media (width > 50rem) {
+  @media (width >= 50rem) {
     .desktop {
       display: flex;
     }
@@ -129,7 +129,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     background-color: var(--sl-color-bg);
   }
 
-  @media (width <= 50rem) {
+  @media (width < 50rem) {
     header {
       /* We always show the sidebar on mobile */
       padding-inline-end: calc(
