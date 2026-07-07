@@ -228,7 +228,7 @@ use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 app.dialog()
     .message("Tauri is Awesome")
     .title("Tauri is Awesome")
-   .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
+    .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
     .show(|result| match result {
         true => // do something,
         false =>// do something,
