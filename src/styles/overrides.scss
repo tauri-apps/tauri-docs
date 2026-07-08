@@ -2,7 +2,7 @@
   border-radius: 0.5rem;
 }
 
-@media (width > 50rem) {
+@media (width >= 50rem) {
   #starlight__sidebar > .sidebar-content > .starlight-sidebar-topics {
     display: none;
   }
