@@ -56,15 +56,6 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     }
   }
 
-  .title-wrapper {
-    /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
-    overflow: clip;
-    /* Avoid clipping focus ring around link inside title wrapper. */
-    padding: 0.25rem;
-    margin: -0.25rem;
-    min-width: 0;
-  }
-
   .search {
     justify-content: end;
   }
@@ -92,6 +83,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     color: var(--sl-color-white);
     font-weight: 600;
     text-decoration: none;
+    white-space: nowrap;
   }
   a.starlight-sidebar-topics-current {
     color: var(--sl-color-text-accent);
@@ -114,9 +106,6 @@ const { topics } = Astro.locals.starlightSidebarTopics;
   @media (width >= 50rem) {
     .desktop {
       display: flex;
-    }
-    .mobile {
-      display: none;
     }
   }
 </style>
