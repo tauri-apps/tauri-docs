@@ -4,11 +4,11 @@ import { join } from 'node:path';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import ProjectContext from 'virtual:starlight/project-context';
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import { JSDOM } from 'jsdom';
+import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 
-const md = await createMarkdownProcessor();
+const md = await createSatteriMarkdownProcessor();
 const workspaceRoot = fileURLToPath(ProjectContext.root);
 const res = readFile(join(workspaceRoot, 'packages/awesome-tauri/README.md'), 'utf-8');
 const content = await md.render(await res);
