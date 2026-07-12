@@ -40,7 +40,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "rehype-autolink-headings": "^7.1.0",
     "sass": "^1.89.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.0",
     "shiki": "^4.0.2",
     "starlight-blog": "^0.27.0",
     "starlight-links-validator": "^0.25.1",
