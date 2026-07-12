@@ -1,11 +1,5 @@
 {
-  "fileTypes": [
-    "nsi",
-    "nsh",
-    "bnsi",
-    "bnsh",
-    "nsdinc"
-  ],
+  "fileTypes": ["nsi", "nsh", "bnsi", "bnsh", "nsdinc"],
   "name": "NSIS",
   "patterns": [
     {
