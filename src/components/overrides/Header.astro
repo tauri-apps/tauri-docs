@@ -50,19 +50,10 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     grid-template-columns: auto 1fr 1fr auto;
   }
 
-  @media (width <= 50rem) {
+  @media (width < 50rem) {
     .header {
       grid-template-columns: 1fr auto;
     }
-  }
-
-  .title-wrapper {
-    /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
-    overflow: clip;
-    /* Avoid clipping focus ring around link inside title wrapper. */
-    padding: 0.25rem;
-    margin: -0.25rem;
-    min-width: 0;
   }
 
   .search {
@@ -80,7 +71,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     height: 2rem;
     border-inline-end: 1px solid var(--sl-color-gray-5);
   }
-  @media (width > 50rem) {
+  @media (width >= 50rem) {
     .search::after {
       content: '';
       height: 2rem;
@@ -92,6 +83,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     color: var(--sl-color-white);
     font-weight: 600;
     text-decoration: none;
+    white-space: nowrap;
   }
   a.starlight-sidebar-topics-current {
     color: var(--sl-color-text-accent);
@@ -111,12 +103,9 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     gap: 1rem;
     padding-inline-end: 1rem;
   }
-  @media (width > 50rem) {
+  @media (width >= 50rem) {
     .desktop {
       display: flex;
-    }
-    .mobile {
-      display: none;
     }
   }
 </style>
@@ -129,7 +118,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     background-color: var(--sl-color-bg);
   }
 
-  @media (width <= 50rem) {
+  @media (width < 50rem) {
     header {
       /* We always show the sidebar on mobile */
       padding-inline-end: calc(
