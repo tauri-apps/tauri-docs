@@ -11,6 +11,19 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
+import nsisGrammar from './src/langs/nsis.tmLanguage.json';
+import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
+
+const nsis = {
+  ...nsisGrammar,
+  name: 'nsis',
+  aliases: ['nsh', 'nsi'],
+};
+
+const pbxproj = {
+  ...pbxprojGrammar,
+  name: 'pbxproj',
+};
 
 const authors = {
   nothingismagick: {
@@ -463,6 +476,13 @@ export default defineConfig({
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
+        shiki: {
+          // @ts-ignore it works
+          langs: [nsis, pbxproj],
+          langAlias: {
+            d2: 'txt',
+          },
+        },
         styleOverrides: {
           codePaddingBlock: '1rem',
           codePaddingInline: '1.35rem',

@@ -226,7 +226,7 @@ Tauri 通过创建一个构建阶段来连接到 iOS Xcode 项目，该阶段会
 要限制需要监视更改的文件，可以在 src-tauri 文件夹中创建一个 `.taurignore` 文件。
 此文件的工作方式与常规 Git 忽略文件类似，因此你可以忽略任何文件夹或文件：
 
-```filename=.taurignore
+```txt title=".taurignore"
 build/
 src/generated/*.rs
 deny.toml
