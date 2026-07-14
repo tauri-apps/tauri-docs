@@ -93,20 +93,20 @@ NFC 插件需要 iOS 14 及以上版本。这是使用 Tauri CLI v2.8 及以上�
 
 在 `src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj` 文件中，将所有`IPHONEOS_DEPLOYMENT_TARGET` 属性设置为 `14.0`：
 
-```title="src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj"
+```pbxproj title="src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj"
 /* Begin XCBuildConfiguration section */
-		<random-id> /* release */ = {
+		1234567890ABCDEF12345678 /* release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				...
+				/* ... */
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = release;
 		};
-		<random-id> /* debug */ = {
+		ABCDEF1234567890ABCDEF12 /* debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-        ...
+        /* ... */
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = debug;
