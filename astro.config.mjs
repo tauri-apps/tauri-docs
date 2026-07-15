@@ -507,7 +507,6 @@ export default defineConfig({
       },
     }),
     serviceWorker({
-      // @ts-expect-error `swDest` is not required here, see https://github.com/tatethurston/astrojs-service-worker/issues/29
       workbox: {
         cleanupOutdatedCaches: true,
         clientsClaim: true,
