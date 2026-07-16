@@ -85,7 +85,7 @@ import { load } from '@tauri-apps/plugin-store';
 
 // 创建一个新 store 或加载现有的 store，
 // 注意，如果已经创建了该路径的 Store，则选项将被忽略
-const store = await load('store.json', { autoSave: false });
+const store = await load('store.json', { defaults: {}, autoSave: false });
 
 // 设置一个值。
 await store.set('some-key', { value: 5 });

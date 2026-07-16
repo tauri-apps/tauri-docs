@@ -92,7 +92,7 @@ import { load } from '@tauri-apps/plugin-store';
 
 // 新しい「Store」を作成するか、既存の「Store」をロードします。
 // 同じパスを持つ `Store` がすでに作成されている場合には、オプション設定が無視されることに注意してください。
-const store = await load('store.json', { autoSave: false });
+const store = await load('store.json', { defaults: {}, autoSave: false });
 
 // キー値を設定
 await store.set('some-key', { value: 5 });
