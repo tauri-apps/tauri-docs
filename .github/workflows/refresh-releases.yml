@@ -1,0 +1,51 @@
+name: Refresh release data
+
+on:
+  schedule:
+    - cron: '00 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-release-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --filter releases-site --frozen-lockfile
+
+      - name: Refresh release data
+        run: pnpm --filter releases-site run refresh
+
+      # Only data.json is committed — pages, tableData.json and latestVersions.ts
+      # are regenerated from it at build time by the releases Netlify site.
+      # Merging this PR only triggers the releases site build (the docs site
+      # build is skipped by the ignore rule in the repo root netlify.toml).
+      - name: Open release refresh PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'chore: refresh release data'
+          title: 'chore: refresh release data'
+          body: |
+            Automated release data refresh for the releases site.
+          branch: automated/refresh-release-data
+          delete-branch: true
+          add-paths: |
+            packages/releases-site/generator/data.json
