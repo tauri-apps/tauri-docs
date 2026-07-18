@@ -78,7 +78,6 @@ function generateCorePermissionsPage(permissionsDir: string, outputFile: string)
       throw Error(`Could not find the permission table in the ${module} permission reference`);
     }
 
- 
     // try to preserve the heading structure and anchors intact.
     const defaults = head
       .split(/^#### This default permission set includes the following:$/m)[1]
