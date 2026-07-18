@@ -17,11 +17,10 @@
     "check": "astro check",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
-    "build:releases": "pnpm --filter releases-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:astro",
     "preview": "astro preview"
   },
   "dependencies": {

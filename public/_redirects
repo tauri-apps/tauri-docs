@@ -45,3 +45,23 @@
 # mid v2 docs restructuring
 /plugin/system-tray             /learn/system-tray              301
 /plugin/window-customization    /learn/window-customization     301
+
+# Releases site (separate Netlify site, proxied below).
+# The releases site is English-only: locale-prefixed URLs redirect to the root ones.
+# (/ko and /it are already covered by the decommissioned-locale rules above.)
+/fr/release/*      /release/:splat   301
+/es/release/*      /release/:splat   301
+/zh-cn/release/*   /release/:splat   301
+/ja/release/*      /release/:splat   301
+/de/release/*      /release/:splat   301
+
+# Legacy SinceVersion library aliases
+/release/api/*      /release/@tauri-apps/api/:splat   301
+/release/rust-cli/* /release/tauri-cli/:splat         301
+/release/js-cli/*   /release/@tauri-apps/cli/:splat   301
+
+# Proxy the releases site. The target site serves the build output at its root,
+# so the /release prefix is stripped by :splat. Replace the hostname with the
+# production releases site when deploying (see packages/releases-site/README.md).
+/release      /release/                                              301
+/release/*    https://tauri-releases-site.netlify.app/:splat         200
