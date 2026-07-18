@@ -3,7 +3,7 @@ packages:
   - packages/config-generator
   - packages/cli-generator
   - packages/tauri-typedoc-theme
-  - packages/releases-generator
+  - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
 onlyBuiltDependencies:

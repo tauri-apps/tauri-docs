@@ -1,0 +1,8 @@
+# Netlify configuration for the releases site.
+# Site settings: Base directory = packages/releases-site (this file is then picked up).
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+  # Only build when the releases site itself (or the shared styles/header data
+  # it imports from the docs site) changed.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ../../src/styles/theme.scss ../../src/styles/overrides.scss ../../src/data/header-links.json"

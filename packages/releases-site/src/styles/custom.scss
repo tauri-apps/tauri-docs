@@ -1,0 +1,70 @@
+// Shared with the docs site for visual parity — the releases site is served
+// under the same domain at /release/* and must look like the same website.
+@import url('../../../../src/styles/theme.scss');
+@import url('../../../../src/styles/overrides.scss');
+
+// Generic rules kept in sync with the docs site's custom.scss
+.content details {
+  padding: 0 1rem;
+}
+
+.content details[open] {
+  background-color: var(--sl-color-gray-6);
+  padding-bottom: 1rem;
+}
+
+.content summary {
+  cursor: pointer;
+  padding: 1rem 0;
+}
+
+article.card {
+  border-radius: 0.5rem;
+}
+
+// A small hack to avoid scroll bar layout shifts,
+// a mirror of https://github.com/withastro/starlight/blob/56860717dcb8f70a8438b5970967bdff4826a640/packages/starlight/components/MobileMenuToggle.astro#L101-L105
+@media (width >= 50rem) {
+  [data-search-modal-open] {
+    overflow: auto;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none !important;
+  }
+}
+
+// Releases-specific styles
+
+.release-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+
+  a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.release-date-row {
+  margin-top: 0.5rem;
+}
+
+.release-date {
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-xs);
+}
+
+.sl-markdown-content li > .release-date {
+  margin-inline-start: 0.5rem;
+}

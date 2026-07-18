@@ -1,0 +1,329 @@
+---
+// Vanilla-JS port of the tauri-releases table (previously Vue + Vuetify + TanStack).
+// Data comes from public/tableData.json, generated at build time from data.json.
+---
+
+<releases-table class="releases-table">
+  <p class="table-state" data-state>Loading…</p>
+
+  <div class="table-toolbar" data-toolbar hidden>
+    <div class="table-summary">
+      <span class="table-summary-count" data-count></span>
+      <span class="table-summary-detail" data-filter-count></span>
+    </div>
+    <button class="table-reset" type="button" data-reset hidden>Reset filters</button>
+  </div>
+
+  <div class="table-filters" data-filters hidden>
+    <label class="table-filter">
+      <span class="table-filter-label">Repository</span>
+      <select data-repo></select>
+    </label>
+    <details class="table-filter projects-dropdown" data-projects-dropdown>
+      <summary>
+        <span class="table-filter-label">Projects</span>
+        <span class="projects-summary" data-projects-summary></span>
+      </summary>
+      <div class="projects-list" data-projects></div>
+    </details>
+    <label class="table-filter">
+      <span class="table-filter-label">Since</span>
+      <input type="date" data-date />
+    </label>
+  </div>
+
+  <div class="table-empty" data-empty hidden>
+    <p class="table-empty-title">No matching releases.</p>
+    <p class="table-empty-body">Widen the date range or reset filters.</p>
+    <button class="table-reset" type="button" data-reset-empty>Reset filters</button>
+  </div>
+
+  <div class="table-scroll" data-table-wrap hidden>
+    <table class="release-data-table">
+      <thead>
+        <tr>
+          <th>Repository</th>
+          <th>Package</th>
+          <th>Version</th>
+          <th>Changelog</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody data-rows></tbody>
+    </table>
+  </div>
+
+  <dialog class="changelog-dialog" data-dialog>
+    <div class="changelog-dialog-header">
+      <h2>Changelog</h2>
+      <button type="button" data-dialog-close>Close</button>
+    </div>
+    <div class="changelog-dialog-content sl-markdown-content" data-dialog-content></div>
+  </dialog>
+</releases-table>
+
+<script>
+  import './releases-table.ts';
+</script>
+
+<style is:global>
+  releases-table {
+    display: block;
+  }
+
+  releases-table .table-state {
+    margin: 1rem 0;
+    color: var(--sl-color-gray-3);
+  }
+
+  releases-table .table-state-error {
+    color: var(--sl-color-red);
+  }
+
+  releases-table .table-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin: 0 0 1rem;
+  }
+
+  releases-table .table-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+  }
+
+  releases-table .table-summary-count {
+    font-weight: 600;
+  }
+
+  releases-table .table-summary-detail {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+  }
+
+  releases-table .table-reset {
+    background: transparent;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    color: var(--sl-color-text-accent);
+    cursor: pointer;
+    font-size: var(--sl-text-sm);
+    padding: 0.25rem 0.75rem;
+  }
+
+  releases-table .table-reset:hover {
+    border-color: var(--sl-color-text-accent);
+  }
+
+  releases-table .table-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  releases-table .table-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 12rem;
+  }
+
+  releases-table .table-filter-label {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+  }
+
+  releases-table select,
+  releases-table input[type='date'] {
+    background-color: var(--sl-color-black);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    padding: 0.4rem 0.5rem;
+  }
+
+  releases-table .projects-dropdown {
+    position: relative;
+  }
+
+  releases-table .projects-dropdown summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  releases-table .projects-dropdown summary::-webkit-details-marker {
+    display: none;
+  }
+
+  releases-table .projects-summary {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    font-size: var(--sl-text-sm);
+    padding: 0.4rem 0.5rem;
+  }
+
+  releases-table .projects-list {
+    position: absolute;
+    top: 100%;
+    inset-inline-start: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    background-color: var(--sl-color-black);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    max-height: 18rem;
+    min-width: 16rem;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  releases-table .projects-list label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--sl-text-sm);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  releases-table .table-empty {
+    padding: 1rem;
+    margin-top: 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-gray-6);
+  }
+
+  releases-table .table-empty-title {
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+  }
+
+  releases-table .table-empty-body {
+    margin: 0 0 1rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  releases-table .table-scroll {
+    max-height: 70vh;
+    overflow: auto;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+  }
+
+  releases-table .release-data-table {
+    display: table;
+    margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  releases-table .release-data-table th,
+  releases-table .release-data-table td {
+    border: none;
+    border-bottom: 1px solid var(--sl-color-hairline);
+    padding: 0.4rem 0.75rem;
+    text-align: start;
+  }
+
+  releases-table .release-data-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--sl-color-bg);
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  releases-table .release-data-table tbody tr:hover {
+    background: var(--sl-color-gray-6);
+  }
+
+  releases-table .release-version {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  releases-table .release-version-number {
+    font-weight: 600;
+  }
+
+  releases-table .release-version-date {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    font-weight: 400;
+  }
+
+  releases-table .release-data-table a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+
+  releases-table .release-data-table a:hover {
+    text-decoration: underline;
+  }
+
+  releases-table .changelog-dialog {
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    color: var(--sl-color-text);
+    max-width: min(40rem, 90vw);
+    padding: 0;
+    width: 100%;
+  }
+
+  releases-table .changelog-dialog::backdrop {
+    background: rgb(0 0 0 / 0.5);
+  }
+
+  releases-table .changelog-dialog-header {
+    align-items: center;
+    border-bottom: 1px solid var(--sl-color-hairline);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  releases-table .changelog-dialog-header h2 {
+    font-size: var(--sl-text-lg);
+    margin: 0;
+  }
+
+  releases-table .changelog-dialog-header button {
+    background: transparent;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    color: var(--sl-color-text-accent);
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+  }
+
+  releases-table .changelog-dialog-content {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    releases-table .table-toolbar {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    releases-table .table-filter {
+      min-width: 100%;
+    }
+  }
+</style>
