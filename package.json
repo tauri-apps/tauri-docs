@@ -47,7 +47,7 @@
     "vite": "^8.1.4"
   },
   "minimumReleaseAge": 4320,
-  "packageManager": "pnpm@10.34.3",
+  "packageManager": "pnpm@10.34.5",
   "engines": {
     "pnpm": "^10.16.0"
   }
