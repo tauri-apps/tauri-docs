@@ -1,66 +1,47 @@
 import { createStarlightTypeDocPlugin } from 'starlight-typedoc';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import type { StarlightTypeDocOptions } from 'starlight-typedoc';
 
 /**
- * PROTOTYPE A — native Markdown via the upstream `starlight-typedoc` plugin.
+ * JavaScript API reference generation via the upstream `starlight-typedoc` plugin.
  *
  * Replaces the hand-rolled `packages/js-api-generator` (which copied starlight-typedoc's
- * internals) with the real plugin. Output URL structure + typedoc options are kept
- * compatible with the current site so existing `/reference/javascript/*` links keep working:
+ * internals). Output URL structure + typedoc options are kept compatible with the current
+ * site so existing `/reference/javascript/*` links keep working:
  *   - core   -> src/content/docs/reference/javascript/api/index.md   (/reference/javascript/api/)
- *   - plugin -> src/content/docs/reference/javascript/<name>.md      (/reference/javascript/<name>/)
+ *   - plugin -> src/content/docs/reference/javascript/<name>/index.md (/reference/javascript/<name>/)
  *
  * Each package gets its own plugin instance via `createStarlightTypeDocPlugin()` (unique
  * sidebar placeholder — avoids the shared-singleton conflict of calling the default export
- * N times). We drive the sidebar with `autogenerate` in astro.config.mjs, so the plugin is
+ * N times). The sidebar is driven by `autogenerate` in astro.config.mjs, so the plugin is
  * used purely for generation.
  */
 
-// Slice for the "build both, then decide" prototype. Flip PROTOTYPE_FULL to true to
-// generate every plugin (needed for a fully link-clean site build).
-const PROTOTYPE_FULL = false;
+const API_PACKAGE = 'packages/tauri/packages/api';
+const PLUGINS_DIR = 'packages/plugins-workspace/plugins';
 
-const ALL_PLUGINS = [
-  'autostart',
-  'barcode-scanner',
-  'biometric',
-  'cli',
-  'clipboard-manager',
-  'deep-link',
-  'dialog',
-  'fs',
-  'geolocation',
-  'global-shortcut',
-  'haptics',
-  'http',
-  'log',
-  'nfc',
-  'notification',
-  'opener',
-  'os',
-  'positioner',
-  'process',
-  'shell',
-  'sql',
-  'store',
-  'stronghold',
-  'updater',
-  'upload',
-  'websocket',
-  'window-state',
-];
+/**
+ * Auto-discover every plugin that ships a JS/TS guest API (`guest-js/index.ts`), instead of
+ * hardcoding the list. New plugins in the submodule are picked up automatically.
+ */
+function discoverPlugins(): string[] {
+  if (!existsSync(PLUGINS_DIR)) return [];
+  return readdirSync(PLUGINS_DIR, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .filter((name) => existsSync(`${PLUGINS_DIR}/${name}/guest-js/index.ts`))
+    .sort();
+}
 
-// The evaluated slice: core + a namespaced plugin (fs) + a flat plugin (autostart).
-const SLICE_PLUGINS = ['fs', 'autostart'];
-
-const PLUGINS = PROTOTYPE_FULL ? ALL_PLUGINS : SLICE_PLUGINS;
-
-// Shared typedoc-plugin-markdown options — mirror the current generator so the rendered
+// Shared typedoc-plugin-markdown options — mirror the previous generator so the rendered
 // pages and anchors match today's URLs (single page per module, flat output).
 const sharedTypeDoc: StarlightTypeDocOptions['typeDoc'] = {
   plugin: ['typedoc-plugin-mdn-links', './config/typedoc-tauri-plugin.mjs'],
+  // Generate docs from the AST regardless of TypeScript errors in a plugin's own sources
+  // (e.g. shell's guest-js/init.ts, a webview-injected script with DOM typing gaps).
+  // Type-checking the plugins is their CI's job, not the docs build's.
+  skipErrorChecking: true,
   outputFileStrategy: 'modules',
   flattenOutputFiles: true,
   hidePageHeader: true,
@@ -91,28 +72,28 @@ export function getTauriTypeDocPlugins(): { plugins: StarlightPlugin[] } {
   const plugins: StarlightPlugin[] = [];
 
   // Core @tauri-apps/api
-  if (existsSync('packages/tauri/packages/api/node_modules') && !alreadyGenerated(CORE_OUTPUT)) {
+  if (existsSync(`${API_PACKAGE}/node_modules`) && !alreadyGenerated(CORE_OUTPUT)) {
     const [coreTypeDoc] = createStarlightTypeDocPlugin();
     plugins.push(
       coreTypeDoc({
-        tsconfig: './packages/tauri/packages/api/tsconfig.json',
-        entryPoints: ['./packages/tauri/packages/api/src/index.ts'],
+        tsconfig: `./${API_PACKAGE}/tsconfig.json`,
+        entryPoints: [`./${API_PACKAGE}/src/index.ts`],
         output: CORE_OUTPUT,
         typeDoc: { ...sharedTypeDoc, entryFileName: 'index.md', gitRevision: 'dev' },
       })
     );
   }
 
-  // Plugins from plugins-workspace
-  if (existsSync('packages/plugins-workspace/node_modules')) {
-    for (const name of PLUGINS) {
+  // Plugins from plugins-workspace (auto-discovered)
+  if (existsSync(`${PLUGINS_DIR}/../node_modules`)) {
+    for (const name of discoverPlugins()) {
       const output = pluginOutput(name);
       if (alreadyGenerated(output)) continue;
       const [pluginTypeDoc] = createStarlightTypeDocPlugin();
       plugins.push(
         pluginTypeDoc({
-          tsconfig: `./packages/plugins-workspace/plugins/${name}/tsconfig.json`,
-          entryPoints: [`./packages/plugins-workspace/plugins/${name}/guest-js/index.ts`],
+          tsconfig: `./${PLUGINS_DIR}/${name}/tsconfig.json`,
+          entryPoints: [`./${PLUGINS_DIR}/${name}/guest-js/index.ts`],
           output,
           typeDoc: { ...sharedTypeDoc, entryFileName: 'index.md', gitRevision: 'v2' },
         })
