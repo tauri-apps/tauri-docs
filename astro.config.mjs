@@ -5,6 +5,7 @@ import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import starlightBlog from 'starlight-blog';
+import starlightLlmsTxt from 'starlight-llms-txt';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import path from 'path';
@@ -372,6 +373,50 @@ export default defineConfig({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
+        }),
+        starlightLlmsTxt({
+          projectName: 'Tauri',
+          description:
+            'Tauri is a framework for building tiny, fast binaries for all major desktop and mobile platforms. Developers can integrate any frontend framework that compiles to HTML, JavaScript, and CSS for building their user experience while leveraging languages such as Rust, Swift, and Kotlin for backend logic when needed.',
+          details: `The documentation covers everything from getting started to advanced concepts, distribution of Tauri applications, and full reference material.
+
+The documentation is organized into key sections:
+
+- **start**: Information for getting up and running with Tauri, including prerequisites and installation instructions
+- **concept**: Topics that you should get more intimately familiar with if you want to get the most out of the framework
+- **security**: High-level concepts and security features at the core of Tauri's design and ecosystem that make you, your applications and your users more secure by default
+- **develop**: Topics pertaining to the development of Tauri applications, including how to use the Tauri API, communicating between the frontend and backend, configuration, state management, debugging and more
+- **distribute**: Information on the tooling you need to distribute your application either to the platform app stores or as platform-specific installers
+- **learn**: Tutorials intended to provide end-to-end learning experiences to guide you through specific Tauri topics and help you apply knowledge from the guides and reference documentation
+- **plugin**: Information on the extensibility of Tauri from built-in Tauri features and functionality to provided plugins and recipes built by the Tauri community
+- **about**: Various information about Tauri from governance, philosophy, and trademark guidelines
+- **reference**: Auto-generated reference documentation for the JavaScript API, configuration schema, command line interface, and the permission system (ACL)`,
+          customSets: [
+            {
+              label: 'Guides',
+              description:
+                'guides, concepts, and tutorials for developing and distributing Tauri applications',
+              paths: [
+                'start{,/**}',
+                'concept{,/**}',
+                'security{,/**}',
+                'develop{,/**}',
+                'distribute{,/**}',
+                'learn{,/**}',
+                'plugin{,/**}',
+                'about{,/**}',
+              ],
+            },
+            {
+              label: 'Reference',
+              description:
+                'reference documentation for the JavaScript API, configuration schema, command line interface, and the permission system (ACL)',
+              paths: ['reference{,/**}'],
+            },
+          ],
+          // `exclude` only applies to llms-small.txt; `demote` sorts to the end of llms-full.txt 
+          exclude: ['release/**', 'blog/**', 'contribute/**', '_fragments/**',],
+          demote: ['release/**', 'blog/**', '_fragments/**'],
         }),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
