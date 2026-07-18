@@ -34,7 +34,7 @@
     "astro": "^7.0.9",
     "astro-d2": "^0.13.0",
     "astro-feelback": "^0.3.4",
-    "astrojs-service-worker": "^2.0.0",
+    "astrojs-service-worker": "^2.0.2",
     "jsdom": "^29.0.0",
     "prettier": "3.9.4",
     "prettier-plugin-astro": "^0.14.1",
