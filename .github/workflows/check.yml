@@ -5,6 +5,9 @@ name: 'Check formatting'
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 concurrency:
   group: format-${{ github.ref }}
   cancel-in-progress: true
