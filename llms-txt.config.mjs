@@ -49,7 +49,35 @@ ${sections
       paths: ['reference{,/**}'],
     },
   ],
+  optionalLinks: [
+    {
+      label: 'Tauri GitHub repository',
+      url: 'https://github.com/tauri-apps/tauri',
+      description: 'source code and issue tracker for the Tauri framework',
+    },
+    {
+      label: 'Awesome Tauri',
+      url: 'https://github.com/tauri-apps/awesome-tauri',
+      description: 'list of community plugins, templates, and resources',
+    },
+  ],
+  // sort the getting-started content to the top of llms-full.txt and llms-small.txt
+  promote: ['index*', 'start{,/**}'],
   // `exclude` only applies to llms-small.txt; `demote` sorts to the end of llms-full.txt
-  exclude: ['release/**', 'blog/**', 'contribute/**', '_fragments/**'],
-  demote: ['release/**', 'blog/**', '_fragments/**'],
+  exclude: ['release/**', 'blog/**', 'contribute/**', '_fragments/**', '_it/**'],
+  demote: ['release/**', 'blog/**', '_fragments/**', '_it/**'],
+  customSelectors: {
+    all: [
+      // "Section titled …" heading anchor links
+      '.sl-anchor-link',
+      // homepage sponsor logo grid
+      '.sponsors',
+      // astro-d2 diagram images (render as broken image paths)
+      'img[src^="/d2/"]',
+      // features/community search and platform filter UI on the plugin page
+      '.pagefind-ui',
+    ],
+  },
+  // keep `:::note` asides in llms-small.txt (tips are still stripped)
+  minify: { note: false },
 };
