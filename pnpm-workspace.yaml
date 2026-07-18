@@ -1,5 +1,7 @@
 packages:
-  - packages/js-api-generator
+  # Prototype A: js-api-generator is replaced by the starlight-typedoc plugin
+  # (config/typedoc-plugins.ts). Removed from the workspace so its old typedoc@0.26
+  # / typedoc-plugin-markdown@4.2 deps don't shadow the modern stack.
   - packages/config-generator
   - packages/cli-generator
   - packages/tauri-typedoc-theme

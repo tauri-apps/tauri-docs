@@ -13,6 +13,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
+import { getTauriTypeDocPlugins } from './config/typedoc-plugins';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
 
@@ -82,6 +83,8 @@ const authors = {
 
 const site = 'https://v2.tauri.app';
 
+const { plugins: typeDocPlugins } = getTauriTypeDocPlugins();
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -89,6 +92,7 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
+        ...typeDocPlugins,
         starlightBlog({
           authors,
           // We're doing it in `src/components/overrides/Header.astro`
