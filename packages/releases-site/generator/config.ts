@@ -8,13 +8,6 @@ export const contentDir = 'src/content/docs';
 export const publicDir = 'public';
 export const generatorDir = 'generator';
 
-// const releaseBaseUrl () => = ""
-// if repo === name, except tauri
-// releaseFormat = "repo/name/version"
-
-// todo: remove non userfacing packages
-// todo: deal with branches
-
 export const repositories = [
   {
     name: 'tauri',

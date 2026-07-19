@@ -61,7 +61,12 @@
 /release/js-cli/*   /release/@tauri-apps/cli/:splat   301
 
 # Proxy the releases site. The target site serves the build output at its root,
-# so the /release prefix is stripped by :splat. Replace the hostname with the
-# production releases site when deploying (see packages/releases-site/README.md).
-/release      /release/                                              301
+# so the /release prefix is stripped by :splat.
+# TODO(deploy): the hostname below is a PLACEHOLDER — before merging, replace it
+# with the actual releases Netlify site domain (or name that site exactly
+# `tauri-releases-site` so the placeholder is real).
+# Setup steps: packages/releases-site/README.md.
+# NOTE: no `/release → /release/` slash rule here — Netlify matching treats
+# them as the same path, so such a rule matches `/release/` too and loops.
+# Bare /release is caught by the splat rule below (empty splat → site root).
 /release/*    https://tauri-releases-site.netlify.app/:splat         200

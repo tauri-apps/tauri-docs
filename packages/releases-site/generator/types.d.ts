@@ -34,7 +34,7 @@ export interface CratesData {
 // CHANGELOG.MD file with all versions
 export type RawMarkdown = string;
 
-// repo and group are the same thing - or should be
+// group is the repo name when the repo has multiple packages, else ''
 export interface PackageData {
   [packageName: string]: {
     group?: string;

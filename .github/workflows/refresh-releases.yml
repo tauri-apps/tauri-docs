@@ -18,14 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
 
       - name: Install dependencies
@@ -34,12 +34,24 @@ jobs:
       - name: Refresh release data
         run: pnpm --filter releases-site run refresh
 
+      # Fetch failures are collected in generator/error.log instead of throwing;
+      # a PR built from partial data would silently drop packages, so fail here.
+      - name: Fail on fetch errors
+        run: |
+          if [ -s packages/releases-site/generator/error.log ]; then
+            echo '::error::Release data refresh had fetch failures:'
+            cat packages/releases-site/generator/error.log
+            exit 1
+          fi
+
       # Only data.json is committed — pages, tableData.json and latestVersions.ts
       # are regenerated from it at build time by the releases Netlify site.
       # Merging this PR only triggers the releases site build (the docs site
       # build is skipped by the ignore rule in the repo root netlify.toml).
+      # Uses GITHUB_TOKEN; upstream may prefer ORG_TAURI_BOT_PAT + automerge
+      # like syncSponsorsData.yml.
       - name: Open release refresh PR
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # 8.1.1
         with:
           commit-message: 'chore: refresh release data'
           title: 'chore: refresh release data'

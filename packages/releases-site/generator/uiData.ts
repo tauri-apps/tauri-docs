@@ -94,6 +94,8 @@ export function buildHomeSummaryRepos(
   }));
 }
 
+// The version shown per registry is the latest changelog entry, which can
+// briefly be ahead of what the registry has actually published.
 export function buildLatestVersions(
   packageData: PackageData,
   releasesByPackage: ReleasesByPackage

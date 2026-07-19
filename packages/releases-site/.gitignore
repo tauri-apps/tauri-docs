@@ -8,3 +8,7 @@ generator/*.log
 dist/
 .astro/
 node_modules/
+
+# Local Netlify folder
+.netlify
+deno.lock

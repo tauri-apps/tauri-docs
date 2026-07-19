@@ -9,6 +9,10 @@ const fetchWithCache = async (url: string, cacheDir: string): Promise<string> =>
   const response = await fetch(url, {
     cachePath: join(generatorDir, '.cache', cacheDir),
     cache: 'no-cache',
+    // crates.io asks API clients to identify themselves
+    headers: {
+      'user-agent': 'tauri-docs releases-site (https://github.com/tauri-apps/tauri-docs)',
+    },
   });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
@@ -71,23 +75,22 @@ export async function fetchData(repositories: Repository[]): Promise<PackageData
             logError(`failed ${pkg.name} - ${githubUrl}`, error);
           }
         }
-        // todo: else warn missing
 
         if (npmPath) {
           const npmUrl = `https://registry.npmjs.org/${npmPath}`;
           try {
             const npmResponse = await fetchWithCache(npmUrl, `npm/${pkg.name}`);
             const rawData = JSON.parse(npmResponse);
+            // rawData.time maps each version to its publish timestamp,
+            // plus two bookkeeping keys we don't want
             const versions = rawData.time;
-
             delete versions.created;
             delete versions.modified;
 
             packageData.npmData = {
               id: rawData._id,
               name: rawData.name,
-              // object keyed by version - time
-              versions: rawData.time,
+              versions,
             };
             logOk(`fetched npm data for ${pkg.name}`, npmUrl);
           } catch (error) {

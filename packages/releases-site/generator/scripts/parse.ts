@@ -1,4 +1,4 @@
-import { rcompare } from 'semver';
+import { rcompare, valid as semverValid } from 'semver';
 import type { Release } from '../types.js';
 
 /**
@@ -32,7 +32,15 @@ function parseChangelog(changelog: string): Array<{ version: string; notes: stri
 }
 
 export function parseAndSortChangelog(changelog: string): Release[] {
-  const releases = parseChangelog(changelog);
+  // rcompare throws on anything that isn't valid semver (e.g. an upstream
+  // "## [Unreleased]" heading), which would break every build until fixed.
+  const releases = parseChangelog(changelog).filter(({ version }) => {
+    if (!semverValid(version)) {
+      console.warn(`skipping non-semver changelog heading: "${version}"`);
+      return false;
+    }
+    return true;
+  });
 
   releases.sort((a, b) => {
     return rcompare(a.version, b.version);
