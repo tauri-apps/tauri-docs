@@ -31,6 +31,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --filter releases-site --frozen-lockfile
 
+      # Persist the HTTP cache across runs: make-fetch-happen revalidates with
+      # conditional requests, so unchanged changelogs/registry metadata come
+      # back as body-less 304s instead of full downloads. Keys are immutable,
+      # so each run saves under its own key and restores the newest previous.
+      - name: Restore HTTP cache
+        uses: actions/cache@v4
+        with:
+          path: packages/releases-site/generator/.cache
+          key: releases-http-cache-${{ github.run_id }}
+          restore-keys: releases-http-cache-
+
       - name: Refresh release data
         run: pnpm --filter releases-site run refresh
 
