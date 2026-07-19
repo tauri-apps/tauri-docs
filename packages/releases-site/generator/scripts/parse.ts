@@ -17,18 +17,19 @@ function parseChangelog(changelog: string): Array<{ version: string; notes: stri
   return valid
     .filter((item) => !item.includes('# Changelog'))
     .map((section) => {
-      const [version, ...c] = section.split('\n');
-      if (!version) {
+      const [heading, ...c] = section.split('\n');
+      // Skip unreleased entries, e.g. "## \[0.6.1] - (Not Published)"
+      if (!heading || heading.includes('Not Published')) {
         return null;
       }
-      const contents = c.join('\n');
       return {
-        version: version.replace('\\[', '').replace(']', ''),
-        notes: contents,
+        // The heading still carries the closing bracket (and a leading escape
+        // in the "## \[x.y.z]" form) — the version is what comes before it
+        version: heading.replaceAll('\\[', '').split(']')[0] ?? '',
+        notes: c.join('\n'),
       };
     })
-    .filter((r): r is { version: string; notes: string } => r !== null)
-    .filter(({ version }) => !version.includes('Not Published'));
+    .filter((r): r is { version: string; notes: string } => r !== null);
 }
 
 export function parseAndSortChangelog(changelog: string): Release[] {
