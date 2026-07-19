@@ -9,17 +9,15 @@ import type { StarlightTypeDocOptions } from 'starlight-typedoc';
 /**
  * JavaScript API reference generation via the upstream `starlight-typedoc` plugin.
  *
- * Replaces the hand-rolled `packages/js-api-generator` (which copied starlight-typedoc's
- * internals). Output URL structure + typedoc options are kept compatible with the current
- * site so existing `/reference/javascript/*` links keep working:
+ * Output layout:
  *   - core   -> src/content/docs/reference/javascript/api/index.md   (/reference/javascript/api/)
  *   - plugin -> src/content/docs/reference/javascript/<name>/index.md (/reference/javascript/<name>/)
  *
  * Each package gets its own plugin instance via `createStarlightTypeDocPlugin()` (unique
  * sidebar placeholder — avoids the shared-singleton conflict of calling the default export
- * N times). The sidebar is built by `getTauriTypeDocPlugins()` too (explicit links, so
- * plugin pages stay flat entries instead of one-page directory groups) and consumed in
- * astro.config.mjs.
+ * N times). `getTauriTypeDocPlugins()` also builds the sidebar (explicit links, so plugin
+ * pages stay flat entries instead of one-page directory groups); astro.config.mjs consumes
+ * both.
  *
  * Generation is skipped when the output already exists AND was generated from the submodule
  * revision currently checked out (tracked in .astro/tauri-typedoc-revisions.json). A
@@ -58,8 +56,7 @@ function discoverPlugins(): string[] {
     .sort();
 }
 
-// Shared typedoc-plugin-markdown options — mirror the previous generator so the rendered
-// pages and anchors match today's URLs (single page per module, flat output).
+// Shared typedoc-plugin-markdown options: one page per module, flat output, member tables.
 const sharedTypeDoc: StarlightTypeDocOptions['typeDoc'] = {
   plugin: ['typedoc-plugin-mdn-links', join(PKG_DIR, 'typedoc-tauri-plugin.mjs')],
   // Generate docs from the AST regardless of TypeScript errors in a plugin's own sources
@@ -86,8 +83,7 @@ const sharedTypeDoc: StarlightTypeDocOptions['typeDoc'] = {
 
 // Each package MUST have its own output directory: TypeDoc cleans its output dir on every
 // run, so multiple instances sharing one dir clobber each other. A dir per plugin
-// (reference/javascript/<name>/index.md) yields the same public URL (/reference/javascript/<name>/)
-// as the old flat <name>.md file, with no clobbering.
+// (reference/javascript/<name>/index.md) serves the page at /reference/javascript/<name>/.
 function pluginOutput(name: string): string {
   return `reference/javascript/${name}`;
 }
@@ -127,12 +123,12 @@ function needsGeneration(
 }
 
 /**
- * The old js-api-generator wrote flat files (fs.md, dialog.md, ...) directly into
- * reference/javascript/. Leftovers from a build on another branch collide with the new
- * <name>/index.md layout (duplicate slugs), so drop them. Everything in this directory is
- * generated (gitignored via src/content/docs/reference/.gitignore) — never authored.
+ * Everything in reference/javascript/ is generated output (gitignored via
+ * src/content/docs/reference/.gitignore) — never authored. Flat files directly in it
+ * (fs.md, dialog.md, ...) can only be stale leftovers from a build with a different
+ * layout, and they collide with the <name>/index.md pages (duplicate slugs), so drop them.
  */
-function removeLegacyFlatFiles(): void {
+function removeStaleFlatFiles(): void {
   if (!existsSync(REF_DIR)) return;
   for (const entry of readdirSync(REF_DIR, { withFileTypes: true })) {
     if (entry.isFile() && entry.name.endsWith('.md')) rmSync(join(REF_DIR, entry.name));
@@ -150,9 +146,8 @@ function walkMarkdownFiles(dir: string): string[] {
 }
 
 // TS 5.7+ makes Uint8Array generic, so signatures render as `Uint8Array<ArrayBuffer>` /
-// `Uint8Array<ArrayBufferLike>`. The type parameter is lib-level noise for API docs (the
-// old generator stripped it by rewriting the plugin sources before generation); normalize
-// the rendered markdown instead. Covers raw code blocks, escaped text, and the
+// `Uint8Array<ArrayBufferLike>`. The type parameter is lib-level noise for API docs, so
+// strip it from the rendered markdown. Covers raw code blocks, escaped text, and the
 // typedoc-plugin-mdn-links linked form `[`Uint8Array`](...)\<[`ArrayBuffer`](...)\>`.
 const UINT8_GENERIC_RE =
   /(\[`Uint8Array`\]\([^)\s]*\)|`?Uint8Array`?)\\?<(?:\[`ArrayBuffer(?:Like)?`\]\([^)\s]*\)|`?ArrayBuffer(?:Like)?`?)\\?>/g;
@@ -160,9 +155,9 @@ const UINT8_GENERIC_RE =
 /**
  * Post-process a generated page (idempotent):
  *  - strip `Uint8Array<ArrayBuffer[Like]>` type parameters (see above)
- *  - restore the old generator's `tableOfContents.maxHeadingLevel: 5` frontmatter so h4/h5
- *    member headings (methods, enum members) stay reachable from the on-page ToC
- *    (Starlight's default cuts off at h3).
+ *  - add `tableOfContents.maxHeadingLevel: 5` frontmatter so h4/h5 member headings
+ *    (methods, enum members) stay reachable from the on-page ToC (Starlight's default
+ *    cuts off at h3).
  */
 function normalizeGeneratedPage(content: string): string {
   let result = content.replace(UINT8_GENERIC_RE, '$1');
@@ -204,10 +199,10 @@ function makeFinalizerPlugin(generated: Record<string, string>): StarlightPlugin
 }
 
 /**
- * Sidebar items for the JavaScript reference section, replacing a plain `autogenerate` over
- * reference/javascript (which would render each plugin's one-page directory as a nested
- * single-item group labeled with the full package name). Mirrors the old sidebar: an "api"
- * group for the core package's module pages, then one flat link per plugin.
+ * Sidebar items for the JavaScript reference section: an "api" group for the core package's
+ * module pages, then one flat link per plugin. Built explicitly rather than with a plain
+ * `autogenerate` over reference/javascript, which would render each plugin's one-page
+ * directory as a nested single-item group labeled with the full package name.
  */
 function buildSidebarItems(coreReady: boolean, pluginsReady: boolean): SidebarItem[] {
   // Union of plugins that can be generated this run and plugin docs already on disk, so the
@@ -241,7 +236,7 @@ export function getTauriTypeDocPlugins(): {
   plugins: StarlightPlugin[];
   sidebarItems: SidebarItem[];
 } {
-  removeLegacyFlatFiles();
+  removeStaleFlatFiles();
 
   const stamp = readStamp();
   const plugins: StarlightPlugin[] = [];
