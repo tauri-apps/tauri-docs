@@ -1,0 +1,16 @@
+{
+  "name": "tauri-typedoc",
+  "version": "1.0.0",
+  "description": "JS API reference generation for the Tauri docs via starlight-typedoc. Lives in its own workspace package so typedoc resolves this package's typescript (the JS-API compiler typedoc requires) instead of the repo root's typescript >= 7 (native compiler, no JS API).",
+  "private": true,
+  "type": "module",
+  "main": "./typedoc-plugins.ts",
+  "license": "MIT",
+  "dependencies": {
+    "starlight-typedoc": "^0.23.0",
+    "typedoc": "^0.28.0",
+    "typedoc-plugin-markdown": "^4.12.0",
+    "typedoc-plugin-mdn-links": "^5.1.1",
+    "typescript": "5.5"
+  }
+}

@@ -4,6 +4,11 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
+  # typedoc requires the TypeScript JS compiler API, which typescript >= 7 (the native
+  # compiler) no longer ships. The typedoc stack lives in its own package so it resolves
+  # that package's typescript 5.5 while the repo root uses typescript 7. Collapse it back
+  # into the root once typedoc supports the native compiler.
+  - packages/tauri-typedoc
 # Single source for versions that must stay aligned between the docs site
 # (repo root) and packages/releases-site — the releases site imports docs-site
 # components, which only works when pnpm dedupes both to one instance.
@@ -14,3 +19,10 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - sharp
+resolvePeersFromWorkspaceRoot: true
+# astro is already version-locked at the workspace root; this exclusion only lets that
+# same locked version satisfy packages/tauri-typedoc's transitive starlight -> astro peer,
+# which pnpm otherwise re-checks against minimumReleaseAge for the new importer and
+# rejects even though the version is already vetted in the lockfile.
+minimumReleaseAgeExclude:
+  - astro

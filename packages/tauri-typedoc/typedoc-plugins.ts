@@ -26,12 +26,13 @@ import type { StarlightTypeDocOptions } from 'starlight-typedoc';
  * submodule bump therefore triggers regeneration on the next build.
  */
 
-// All paths are anchored to the repo root (this file lives in <root>/config/), so the
-// module behaves the same no matter which cwd loads astro.config.mjs. POSIX separators
+// All paths are anchored to the repo root (this file lives in <root>/packages/tauri-typedoc/),
+// so the module behaves the same no matter which cwd loads astro.config.mjs. POSIX separators
 // throughout: TypeDoc rejects Windows `\` in glob inputs (entryPoints), and node's fs
 // accepts `/` on every platform.
 const { join, dirname } = posix;
-const ROOT = fileURLToPath(new URL('..', import.meta.url)).replaceAll('\\', '/');
+const PKG_DIR = fileURLToPath(new URL('.', import.meta.url)).replaceAll('\\', '/');
+const ROOT = fileURLToPath(new URL('../..', import.meta.url)).replaceAll('\\', '/');
 const TAURI_SUBMODULE = join(ROOT, 'packages/tauri');
 const API_PACKAGE = join(TAURI_SUBMODULE, 'packages/api');
 const PLUGINS_WORKSPACE = join(ROOT, 'packages/plugins-workspace');
@@ -60,7 +61,7 @@ function discoverPlugins(): string[] {
 // Shared typedoc-plugin-markdown options — mirror the previous generator so the rendered
 // pages and anchors match today's URLs (single page per module, flat output).
 const sharedTypeDoc: StarlightTypeDocOptions['typeDoc'] = {
-  plugin: ['typedoc-plugin-mdn-links', join(ROOT, 'config/typedoc-tauri-plugin.mjs')],
+  plugin: ['typedoc-plugin-mdn-links', join(PKG_DIR, 'typedoc-tauri-plugin.mjs')],
   // Generate docs from the AST regardless of TypeScript errors in a plugin's own sources
   // (e.g. shell's guest-js/init.ts, a webview-injected script with DOM typing gaps).
   // Type-checking the plugins is their CI's job, not the docs build's.

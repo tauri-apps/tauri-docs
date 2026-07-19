@@ -50,7 +50,8 @@
     "typedoc-plugin-markdown": "^4.12.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "unified": "^11.0.5",
-    "vite": "^8.1.4"ototype(js-api): native JS API reference via starlight-typedoc)
+    "vite": "^8.1.4",
+    "tauri-typedoc": "workspace:*"
   },
   "minimumReleaseAge": 4320,
   "packageManager": "pnpm@10.34.5",
