@@ -8,7 +8,9 @@ const repos = buildHomeSummaryRepos(repositories, latestVersions);
 
 function describe(pkg: (typeof repos)[number]['packages'][number]): string {
   const pills = pkg.versions
-    .map(({ label, version }) => `<span class="version-pill">${label} ${version}</span>`)
+    .map(
+      ({ label, version, href }) => `<a class="version-pill" href="${href}">${label} ${version}</a>`
+    )
     .join(' ');
   const date = pkg.latestReleaseDateLabel
     ? ` <small class="release-date">${pkg.latestReleaseDateLabel}</small>`
@@ -63,5 +65,14 @@ function describe(pkg: (typeof repos)[number]['packages'][number]): string {
     padding: 0 0.5rem;
     font-size: var(--sl-text-xs);
     color: var(--sl-color-gray-2);
+    text-decoration: none;
+    /* Sit above the LinkCard's full-card overlay anchor so the pill is clickable */
+    position: relative;
+    z-index: 1;
+  }
+
+  :global(a.version-pill:hover) {
+    border-color: var(--sl-color-text-accent);
+    color: var(--sl-color-text-accent);
   }
 </style>

@@ -1,4 +1,4 @@
-import { cratesWebUrl, npmWebUrl } from './config.js';
+import { basePath, cratesWebUrl, npmWebUrl } from './config.js';
 import type { ReleasesByPackage } from './pageGenerator.js';
 import type { PackageData, RepoPackage, Repository } from './types.js';
 
@@ -18,6 +18,8 @@ export interface PackageLink {
 export interface VersionPill {
   label: 'crate' | 'npm';
   version: string;
+  /** The version's release-notes page */
+  href: string;
 }
 
 export interface HomeSummaryPackage {
@@ -58,13 +60,22 @@ function buildVersionPills(
   latestVersions: LatestVersionsEntry | undefined
 ): VersionPill[] {
   const pills: VersionPill[] = [];
+  const versionHref = (version: string) => `${basePath}/${pkg.name}/v${version}/`;
 
   if (pkg.cratesPath && latestVersions?.crate) {
-    pills.push({ label: 'crate', version: latestVersions.crate });
+    pills.push({
+      label: 'crate',
+      version: latestVersions.crate,
+      href: versionHref(latestVersions.crate),
+    });
   }
 
   if (pkg.npmPath && latestVersions?.npm) {
-    pills.push({ label: 'npm', version: latestVersions.npm });
+    pills.push({
+      label: 'npm',
+      version: latestVersions.npm,
+      href: versionHref(latestVersions.npm),
+    });
   }
 
   return pills;
