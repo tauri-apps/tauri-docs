@@ -9,11 +9,11 @@ Serves the release notes for the whole Tauri core ecosystem (46 packages across 
 ## How it works
 
 ```
-generator/data.json          committed checkpoint (~2.3 MB), refreshed daily by
+generator/data.json          committed checkpoint (~2.5 MB), refreshed daily by
                              .github/workflows/refresh-releases.yml (PR-based)
         │  pnpm generate
         ▼
-src/content/docs/<pkg>/      ~2,600 generated .md pages (gitignored):
+src/content/docs/<pkg>/      ~2,800 generated .md pages (gitignored):
   index.md                     version list with dates + registry links
   all-versions.md              full changelog on one page
   v<version>.md                one page per release
@@ -43,7 +43,8 @@ and `SiteTitle.astro` (logo links to the docs home `/`, not this site's base). T
 duplicated file is `public/favicon.svg`
 
 Constraints: `astro` and `@astrojs/starlight` versions must stay aligned between the
-repo root and this package (pnpm then dedupes to one instance), and the Netlify
+repo root and this package — both resolve through the `catalog:` block in the repo
+root `pnpm-workspace.yaml`, so there is a single place to bump them — and the Netlify
 `ignore` rule in `netlify.toml` must list every shared path so docs-side UI edits
 trigger a rebuild here. Cross-package file access needs `vite.server.fs.allow`
 (already set in `astro.config.mjs`) during `astro dev`.
@@ -65,4 +66,4 @@ pnpm --filter releases-site refresh # re-fetches upstream data into generator/da
    - Environment: `SITE_URL=https://<your-docs-domain>` (canonical origin used for `astro.config.mjs`'s `site`; omit for production `https://v2.tauri.app`).
 2. **Docs site** (existing): no settings change.
 3. The repo root `netlify.toml` has an `ignore` rule so commits touching only `packages/releases-site/**` (e.g. merged data-refresh PRs) skip the docs build.
-4.
+4. The daily refresh workflow (`.github/workflows/refresh-releases.yml`) opens data PRs as `tauri-bot` via the org-level `ORG_TAURI_BOT_PAT` secret (the same one `syncSponsorsData.yml` uses)
