@@ -24,9 +24,7 @@ const LIST_ITEM_HEADING_RE = /^#{1,6}[ \t]+(-[ \t]+\S.*)$/gm;
 
 /** Exported for testing. */
 export function normalizeCommentText(text) {
-  return text
-    .replace(PLATFORM_HEADING_RE, '**$1**')
-    .replace(LIST_ITEM_HEADING_RE, '$1');
+  return text.replace(PLATFORM_HEADING_RE, '**$1**').replace(LIST_ITEM_HEADING_RE, '$1');
 }
 
 function normalizeCommentDisplayParts(parts) {
