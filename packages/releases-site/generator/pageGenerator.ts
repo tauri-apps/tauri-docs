@@ -1,7 +1,16 @@
 import { createWriteStream, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { finished } from 'node:stream/promises';
-import { contentDir, publicDir, repositories } from './config.js';
+import {
+  changelogFilePath,
+  contentDir,
+  cratesWebUrl,
+  npmWebUrl,
+  publicDir,
+  repositories,
+  resolveBranch,
+} from './config.js';
+import { releaseDateFormat } from './dateFormat.js';
 import { parseAndSortChangelog } from './scripts/parse.js';
 import {
   getAllVersionsHead,
@@ -11,7 +20,7 @@ import {
   type PageLink,
 } from './scripts/writePage.js';
 import type { PackageData, Release, RepoPackage, Repository, TableMetadata } from './types.js';
-import { parseMarkdown } from './utils.js';
+import { escapeChangelogMarkdown } from './utils.js';
 import { writeLatestVersions } from './writeLatestVersions.js';
 
 export type ReleaseWithDate = Release & {
@@ -27,19 +36,10 @@ interface PackageConfig {
   changelogUrl: string;
 }
 
-const releaseDateFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-});
+const releaseDateFormatter = new Intl.DateTimeFormat('en-US', releaseDateFormat);
 
 function getGitHubReleaseTagBase(repo: Repository, pkg: RepoPackage): string {
-  if (repo.name === 'plugins-workspace') {
-    return pkg.name;
-  }
-
-  return pkg.cratesPath || pkg.npmPath || pkg.name;
+  return repo.tagsUsePackageName ? pkg.name : pkg.cratesPath || pkg.npmPath || pkg.name;
 }
 
 function buildGitHubReleaseUrl(repo: Repository, pkg: RepoPackage, version: string): string {
@@ -53,16 +53,10 @@ function buildExternalLinks(config: PackageConfig | undefined): PageLink[] {
   }
   const links: PageLink[] = [];
   if (config.pkg.cratesPath) {
-    links.push({
-      label: 'crates.io',
-      href: `https://crates.io/crates/${config.pkg.cratesPath}`,
-    });
+    links.push({ label: 'crates.io', href: cratesWebUrl(config.pkg.cratesPath) });
   }
   if (config.pkg.npmPath) {
-    links.push({
-      label: 'npm',
-      href: `https://www.npmjs.com/package/${config.pkg.npmPath}`,
-    });
+    links.push({ label: 'npm', href: npmWebUrl(config.pkg.npmPath) });
   }
   links.push({ label: 'GitHub', href: config.repo.repoUrl });
   return links;
@@ -70,24 +64,19 @@ function buildExternalLinks(config: PackageConfig | undefined): PageLink[] {
 
 const packageConfigs = new Map<string, PackageConfig>();
 for (const repo of repositories) {
-  const branch = repo.branch || 'dev';
   for (const pkg of repo.packages) {
-    const path = pkg.githubPath === '__root__' ? 'CHANGELOG.md' : `${pkg.githubPath}/CHANGELOG.md`;
     packageConfigs.set(pkg.name, {
       repo,
       pkg,
-      changelogUrl: `${repo.repoUrl}/blob/${branch}/${path}`,
+      changelogUrl: `${repo.repoUrl}/blob/${resolveBranch(repo)}/${changelogFilePath(pkg)}`,
     });
   }
 }
 
-export async function generatePagesAndTableData(
-  packageData: PackageData,
-  outputDir: string = contentDir
-) {
+export async function generatePagesAndTableData(packageData: PackageData) {
   const releasesByPackage = buildReleasesByPackage(packageData);
   await writeTableData(packageData, releasesByPackage);
-  await writePageData(packageData, releasesByPackage, outputDir);
+  await writePageData(packageData, releasesByPackage);
   writeLatestVersions(packageData, releasesByPackage);
 }
 
@@ -108,14 +97,13 @@ function buildReleasesByPackage(packageData: PackageData): ReleasesByPackage {
 
 async function writePageData(
   packageData: PackageData,
-  releasesByPackage: ReleasesByPackage,
-  outputDir: string = contentDir
+  releasesByPackage: ReleasesByPackage
 ): Promise<void> {
   const streamFinalizers: Promise<void>[] = [];
 
   for (const packageName of Object.keys(packageData)) {
     // Flat layout: /release/<package>/... regardless of the source repo
-    const workingDir = join(outputDir, packageName);
+    const workingDir = join(contentDir, packageName);
     mkdirSync(workingDir, { recursive: true });
 
     const releases = releasesByPackage.get(packageName) ?? [];
@@ -136,7 +124,7 @@ async function writePageData(
 
     for (const release of releases) {
       const { version, notes, dateLabel } = release;
-      const rawMd = parseMarkdown(notes, 'markdown');
+      const rawMd = escapeChangelogMarkdown(notes);
 
       const heading = `\n\n## v${version}\n\n`;
       const releaseDateLabel = renderReleaseDateLabel(dateLabel);
@@ -151,8 +139,8 @@ async function writePageData(
         packageName,
         version,
         notes: rawMd,
-        ...(dateLabel ? { releaseDateLabel: dateLabel } : {}),
-        ...(releaseUrl ? { githubReleaseUrl: releaseUrl } : {}),
+        releaseDateLabel: dateLabel,
+        githubReleaseUrl: releaseUrl,
         workingDir,
       });
     }
@@ -205,17 +193,10 @@ async function writeTableData(
         stream.write(',');
       }
 
-      const { version, notes, date } = release;
-      const parsedMd = parseMarkdown(notes, 'html');
-
-      const row = {
-        name: packageName,
-        repo,
-        version,
-        changelog: parsedMd,
-        ...(date ? { date } : {}),
-      };
-      stream.write(JSON.stringify(row));
+      // No changelog content here — the table fetches it on demand from the
+      // release's own page, keeping this payload small.
+      const { version, date } = release;
+      stream.write(JSON.stringify({ name: packageName, repo, version, date }));
       isFirst = false;
     }
   }
@@ -241,14 +222,5 @@ function withReleaseDates(releases: Release[], data: PackageData[string]): Relea
 }
 
 function getReleaseDate(version: string, data: PackageData[string]): string | undefined {
-  const npmDate = data.npmData?.versions?.[version];
-  if (npmDate) {
-    return npmDate;
-  }
-
-  const cratesDate = data.cratesData?.versions?.[version];
-  if (cratesDate) {
-    return cratesDate;
-  }
-  return undefined;
+  return data.npmData?.versions?.[version] ?? data.cratesData?.versions?.[version];
 }

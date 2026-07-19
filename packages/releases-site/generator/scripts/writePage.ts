@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { note } from '../config.js';
+import { basePath, note } from '../config.js';
 
 export type VersionListEntry = {
   version: string;
@@ -77,7 +77,7 @@ export function writeVersionPage(params: {
   ]);
 
   const header = renderPageLinks([
-    { label: `← ${packageName} releases`, href: `/release/${packageName}/` },
+    { label: `← ${packageName} releases`, href: `${basePath}/${packageName}/` },
     ...(githubReleaseUrl
       ? [{ label: 'View on GitHub', href: githubReleaseUrl, align: 'end' as const }]
       : []),
@@ -103,7 +103,7 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   ]);
 
   const header = renderPageLinks([
-    { label: `← ${packageName} releases`, href: `/release/${packageName}/` },
+    { label: `← ${packageName} releases`, href: `${basePath}/${packageName}/` },
     ...(changelogUrl
       ? [{ label: 'CHANGELOG.md on GitHub', href: changelogUrl, align: 'end' as const }]
       : []),
@@ -138,7 +138,7 @@ export function writePackageIndex(params: {
 
   const versionList = releases
     .map(({ version, dateLabel }) => {
-      const link = `[v${version}](/release/${packageName}/v${version}/)`;
+      const link = `[v${version}](${basePath}/${packageName}/v${version}/)`;
       return dateLabel ? `- ${link} <small class="release-date">${dateLabel}</small>` : `- ${link}`;
     })
     .join('\n');
@@ -147,7 +147,7 @@ export function writePackageIndex(params: {
     frontmatter,
     header,
     ...(description ? [description] : []),
-    `[Full changelog on a single page](/release/${packageName}/all-versions/)`,
+    `[Full changelog on a single page](${basePath}/${packageName}/all-versions/)`,
     '## Versions',
     versionList,
   ]

@@ -8,11 +8,10 @@ import { buildLatestVersions, formatLatestVersionsModule } from './uiData.js';
 
 export function writeLatestVersions(
   packageData: PackageData,
-  releasesByPackage: ReleasesByPackage,
-  outputDir = generatorDir
+  releasesByPackage: ReleasesByPackage
 ): void {
   const latestVersions = buildLatestVersions(packageData, releasesByPackage);
-  const generatedDir = join(outputDir, 'generated');
+  const generatedDir = join(generatorDir, 'generated');
   mkdirSync(generatedDir, { recursive: true });
   writeFileSync(
     join(generatedDir, 'latestVersions.ts'),

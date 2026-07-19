@@ -11,6 +11,8 @@ export interface Repository {
   displayName: string;
   repoUrl: string;
   branch?: string;
+  /** GitHub release tags are `<package name>-v<version>` instead of `<crates/npm path>-v<version>` */
+  tagsUsePackageName?: boolean;
   packages: RepoPackage[];
 }
 
@@ -48,7 +50,6 @@ export interface TableData {
   name: string;
   repo: string;
   version: string;
-  changelog: RawMarkdown;
   date?: string;
 }
 

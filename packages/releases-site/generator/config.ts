@@ -1,4 +1,4 @@
-import type { Repository } from './types.js';
+import type { Repository, RepoPackage } from './types.js';
 
 export const note =
   '\n#### NOTE: This file is auto-generated in packages/releases-site/generator/build.ts';
@@ -7,6 +7,25 @@ export const note =
 export const contentDir = 'src/content/docs';
 export const publicDir = 'public';
 export const generatorDir = 'generator';
+
+// URL prefix all generated links carry (must match `base` in astro.config.mjs)
+export const basePath = '/release';
+
+export function resolveBranch(repo: Repository): string {
+  return repo.branch || 'dev';
+}
+
+export function changelogFilePath(pkg: RepoPackage): string {
+  return pkg.githubPath === '__root__' ? 'CHANGELOG.md' : `${pkg.githubPath}/CHANGELOG.md`;
+}
+
+export function cratesWebUrl(cratesPath: string): string {
+  return `https://crates.io/crates/${cratesPath}`;
+}
+
+export function npmWebUrl(npmPath: string): string {
+  return `https://www.npmjs.com/package/${npmPath}`;
+}
 
 export const repositories = [
   {
@@ -138,6 +157,8 @@ export const repositories = [
     displayName: 'Plugins',
     repoUrl: 'https://github.com/tauri-apps/plugins-workspace',
     branch: 'v2',
+    // Release tags here are `<plugin-name>-v<version>`, not the crates/npm path
+    tagsUsePackageName: true,
     packages: [
       {
         name: 'autostart',

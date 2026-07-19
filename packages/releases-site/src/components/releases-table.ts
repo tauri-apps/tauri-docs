@@ -1,3 +1,4 @@
+import { releaseDateFormat } from '../../generator/dateFormat';
 import type { TableData, TableMetadata } from '../../generator/types';
 
 interface ReleaseDataPayload {
@@ -28,12 +29,7 @@ function loadReleaseData(): Promise<ReleaseDataPayload> {
   return releaseDataPromise;
 }
 
-const dateFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-});
+const dateFormatter = new Intl.DateTimeFormat('en-US', releaseDateFormat);
 
 function formatReleaseDate(value: string | undefined): string | undefined {
   if (!value) return undefined;
@@ -85,8 +81,11 @@ class ReleasesTable extends HTMLElement {
     rows: HTMLElement;
     dialog: HTMLDialogElement;
     dialogClose: HTMLButtonElement;
+    dialogTitle: HTMLElement;
     dialogContent: HTMLElement;
   };
+
+  private changelogCache = new Map<string, string>();
 
   async connectedCallback() {
     const q = <T extends Element>(selector: string) => {
@@ -113,6 +112,7 @@ class ReleasesTable extends HTMLElement {
       rows: q('[data-rows]'),
       dialog: q('[data-dialog]'),
       dialogClose: q('[data-dialog-close]'),
+      dialogTitle: q('[data-dialog-title]'),
       dialogContent: q('[data-dialog-content]'),
     };
 
@@ -182,6 +182,17 @@ class ReleasesTable extends HTMLElement {
     const reset = () => this.resetFilters();
     this.refs.reset.addEventListener('click', reset);
     this.refs.resetEmpty.addEventListener('click', reset);
+
+    // One delegated listener instead of a closure per rendered row
+    this.refs.rows.addEventListener('click', (event) => {
+      const anchor =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>('a[data-changelog]')
+          : null;
+      if (!anchor) return;
+      event.preventDefault();
+      void this.openChangelog(anchor);
+    });
 
     this.refs.dialogClose.addEventListener('click', () => this.refs.dialog.close());
     this.refs.dialog.addEventListener('click', (event) => {
@@ -291,26 +302,70 @@ class ReleasesTable extends HTMLElement {
     }
     versionTd.append(version);
 
+    const pageUrl = `${base}${row.name}/v${row.version}/`;
+
     const changelogTd = document.createElement('td');
     const seeMore = document.createElement('a');
-    seeMore.href = '#';
+    seeMore.href = pageUrl;
+    seeMore.dataset.changelog = '';
+    seeMore.dataset.dialogTitle = `${row.name} v${row.version}`;
     seeMore.textContent = 'see more';
-    seeMore.addEventListener('click', (event) => {
-      event.preventDefault();
-      // Sanitized at build time (DOMPurify) before being written to tableData.json
-      this.refs.dialogContent.innerHTML = row.changelog;
-      this.refs.dialog.showModal();
-    });
     changelogTd.append(seeMore);
 
     const linkTd = document.createElement('td');
     const link = document.createElement('a');
-    link.href = `${base}${row.name}/v${row.version}/`;
+    link.href = pageUrl;
     link.textContent = 'Link';
     linkTd.append(link);
 
     tr.append(repoTd, nameTd, versionTd, changelogTd, linkTd);
     return tr;
+  }
+
+  private async openChangelog(anchor: HTMLAnchorElement) {
+    this.refs.dialogTitle.textContent = anchor.dataset.dialogTitle ?? 'Changelog';
+    this.refs.dialogContent.textContent = 'Loading…';
+    this.refs.dialog.showModal();
+
+    try {
+      this.refs.dialogContent.innerHTML = await this.fetchChangelog(anchor.href);
+    } catch {
+      this.refs.dialogContent.textContent = '';
+      const fallback = document.createElement('p');
+      const link = document.createElement('a');
+      link.href = anchor.href;
+      link.textContent = 'open the release page';
+      fallback.append('Could not load the changelog here — ', link, '.');
+      this.refs.dialogContent.append(fallback);
+    }
+  }
+
+  /**
+   * The changelog HTML is not shipped in tableData.json (it would be ~3 MB for
+   * a rarely used feature); it is fetched on demand from the release's own
+   * page — same-origin content this site generated, safe to inject.
+   */
+  private async fetchChangelog(pageUrl: string): Promise<string> {
+    const cached = this.changelogCache.get(pageUrl);
+    if (cached) return cached;
+
+    const response = await fetch(pageUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to load ${pageUrl}: ${response.statusText}`);
+    }
+    const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
+    const content = doc.querySelector('.sl-markdown-content');
+    if (!content) {
+      throw new Error(`Unexpected page markup at ${pageUrl}`);
+    }
+    // Drop the page's own nav/date header rows; keep just the notes
+    for (const el of content.querySelectorAll('.release-links, .release-date-row')) {
+      el.remove();
+    }
+
+    const html = content.innerHTML;
+    this.changelogCache.set(pageUrl, html);
+    return html;
   }
 }
 

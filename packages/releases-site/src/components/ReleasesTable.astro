@@ -61,7 +61,7 @@
 
   <dialog class="changelog-dialog" data-dialog>
     <div class="changelog-dialog-header">
-      <h2>Changelog</h2>
+      <h2 data-dialog-title>Changelog</h2>
       <button type="button" data-dialog-close>Close</button>
     </div>
     <div class="changelog-dialog-content sl-markdown-content" data-dialog-content></div>
@@ -281,6 +281,8 @@
   }
 
   releases-table .changelog-dialog {
+    /* Restore UA dialog centering (the theme's margin reset removes it) */
+    margin: auto;
     background: var(--sl-color-bg);
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.5rem;

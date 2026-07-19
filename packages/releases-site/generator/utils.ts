@@ -1,25 +1,12 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import createDOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
-import { marked } from 'marked';
 import { generatorDir } from './config.js';
 
-const window = new JSDOM('').window as unknown as Window;
-const DOMPurify = createDOMPurify(window as unknown as Parameters<typeof createDOMPurify>[0]);
-
-export function parseMarkdown(content: string, type: 'markdown' | 'html' = 'markdown'): string {
-  const hed = entitify(content);
-  if (type === 'markdown') {
-    return hed;
-  }
-  if (type === 'html') {
-    return DOMPurify.sanitize(marked(hed, { async: false }));
-  }
-  return '';
-}
-
-function entitify(str: string): string {
+/**
+ * Escape raw changelog content so HTML tags and template-ish sequences render
+ * as text when the generated .md pages are compiled.
+ */
+export function escapeChangelogMarkdown(str: string): string {
   return str
     .replace(/[&<>"']/g, (entity) => {
       switch (entity) {

@@ -2,7 +2,7 @@ import { appendFileSync } from 'node:fs';
 import { join } from 'node:path';
 import fetch from 'make-fetch-happen';
 
-import { generatorDir } from './config.js';
+import { changelogFilePath, generatorDir, resolveBranch } from './config.js';
 import type { PackageData, Repository } from './types.js';
 
 const fetchWithCache = async (url: string, cacheDir: string): Promise<string> => {
@@ -59,62 +59,54 @@ export async function fetchData(repositories: Repository[]): Promise<PackageData
 
       const { githubPath, npmPath, cratesPath } = pkg;
       console.log(`fetching ${pkg.name}...`);
-      try {
-        if (githubPath) {
-          const path = githubPath === '__root__' ? '' : githubPath;
-          const rawUrl = repo.repoUrl.replace('github.com', 'raw.githubusercontent.com');
-          const branch = repo.branch || 'dev';
-          const githubUrl = path
-            ? `${rawUrl}/${branch}/${path}/CHANGELOG.md`
-            : `${rawUrl}/${branch}/CHANGELOG.md`;
+      if (githubPath) {
+        const rawUrl = repo.repoUrl.replace('github.com', 'raw.githubusercontent.com');
+        const githubUrl = `${rawUrl}/${resolveBranch(repo)}/${changelogFilePath(pkg)}`;
 
-          try {
-            packageData.changelogs = await fetchWithCache(githubUrl, `changelogs/${pkg.name}`);
-            logOk(`fetched changelog for ${pkg.name}`, githubUrl);
-          } catch (error) {
-            logError(`failed ${pkg.name} - ${githubUrl}`, error);
-          }
+        try {
+          packageData.changelogs = await fetchWithCache(githubUrl, `changelogs/${pkg.name}`);
+          logOk(`fetched changelog for ${pkg.name}`, githubUrl);
+        } catch (error) {
+          logError(`failed ${pkg.name} - ${githubUrl}`, error);
         }
+      }
 
-        if (npmPath) {
-          const npmUrl = `https://registry.npmjs.org/${npmPath}`;
-          try {
-            const npmResponse = await fetchWithCache(npmUrl, `npm/${pkg.name}`);
-            const rawData = JSON.parse(npmResponse);
-            // rawData.time maps each version to its publish timestamp,
-            // plus two bookkeeping keys we don't want
-            const versions = rawData.time;
-            delete versions.created;
-            delete versions.modified;
+      if (npmPath) {
+        const npmUrl = `https://registry.npmjs.org/${npmPath}`;
+        try {
+          const npmResponse = await fetchWithCache(npmUrl, `npm/${pkg.name}`);
+          const rawData = JSON.parse(npmResponse);
+          // rawData.time maps each version to its publish timestamp,
+          // plus two bookkeeping keys we don't want
+          const versions = rawData.time;
+          delete versions.created;
+          delete versions.modified;
 
-            packageData.npmData = {
-              id: rawData._id,
-              name: rawData.name,
-              versions,
-            };
-            logOk(`fetched npm data for ${pkg.name}`, npmUrl);
-          } catch (error) {
-            logError(`failed ${pkg.name} - ${npmUrl}`, error);
-          }
+          packageData.npmData = {
+            id: rawData._id,
+            name: rawData.name,
+            versions,
+          };
+          logOk(`fetched npm data for ${pkg.name}`, npmUrl);
+        } catch (error) {
+          logError(`failed ${pkg.name} - ${npmUrl}`, error);
         }
+      }
 
-        if (cratesPath) {
-          const cratesUrl = `https://crates.io/api/v1/crates/${cratesPath}`;
-          try {
-            const cratesResponse = await fetchWithCache(cratesUrl, `crates/${pkg.name}`);
-            const rawData = JSON.parse(cratesResponse);
-            packageData.cratesData = {
-              id: rawData.crate.id,
-              name: rawData.crate.name,
-              versions: formatCrateVersion(rawData.versions || []),
-            };
-            logOk(`fetched crates data for ${pkg.name}`, cratesUrl);
-          } catch (error) {
-            logError(`failed ${pkg.name} - ${cratesUrl}`, error);
-          }
+      if (cratesPath) {
+        const cratesUrl = `https://crates.io/api/v1/crates/${cratesPath}`;
+        try {
+          const cratesResponse = await fetchWithCache(cratesUrl, `crates/${pkg.name}`);
+          const rawData = JSON.parse(cratesResponse);
+          packageData.cratesData = {
+            id: rawData.crate.id,
+            name: rawData.crate.name,
+            versions: formatCrateVersion(rawData.versions || []),
+          };
+          logOk(`fetched crates data for ${pkg.name}`, cratesUrl);
+        } catch (error) {
+          logError(`failed ${pkg.name} - ${cratesUrl}`, error);
         }
-      } catch (error) {
-        logError(`Failed to fetch data for ${pkg.name}`, error);
       }
     }
   }

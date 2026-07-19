@@ -1,3 +1,4 @@
+import { cratesWebUrl, npmWebUrl } from './config.js';
 import type { ReleasesByPackage } from './pageGenerator.js';
 import type { PackageData, RepoPackage, Repository } from './types.js';
 
@@ -42,18 +43,11 @@ function buildPackageLinks(pkg: RepoPackage): PackageLink[] {
   const links: PackageLink[] = [];
 
   if (pkg.cratesPath) {
-    const slug = pkg.cratesPath.split('/').pop() ?? pkg.cratesPath;
-    links.push({
-      name: `${pkg.name} (crate)`,
-      href: `https://crates.io/crates/${slug}`,
-    });
+    links.push({ name: `${pkg.name} (crate)`, href: cratesWebUrl(pkg.cratesPath) });
   }
 
   if (pkg.npmPath) {
-    links.push({
-      name: `${pkg.name} (npm)`,
-      href: `https://www.npmjs.com/package/${pkg.npmPath}`,
-    });
+    links.push({ name: `${pkg.name} (npm)`, href: npmWebUrl(pkg.npmPath) });
   }
 
   return links;
@@ -84,13 +78,16 @@ export function buildHomeSummaryRepos(
     displayName: repo.displayName,
     repoUrl: repo.repoUrl,
     repoSlug: repo.repoUrl.replace('https://github.com/', '').replace(/\/$/, ''),
-    packages: repo.packages.map((pkg) => ({
-      name: pkg.name,
-      description: pkg.description,
-      links: buildPackageLinks(pkg),
-      versions: buildVersionPills(pkg, latestVersions[getLatestVersionKey(repo.name, pkg.name)]),
-      latestReleaseDateLabel: latestVersions[getLatestVersionKey(repo.name, pkg.name)]?.dateLabel,
-    })),
+    packages: repo.packages.map((pkg) => {
+      const latest = latestVersions[getLatestVersionKey(repo.name, pkg.name)];
+      return {
+        name: pkg.name,
+        description: pkg.description,
+        links: buildPackageLinks(pkg),
+        versions: buildVersionPills(pkg, latest),
+        latestReleaseDateLabel: latest?.dateLabel,
+      };
+    }),
   }));
 }
 
