@@ -1,12 +1,10 @@
 # releases-site
 
-A standalone [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) site that serves the release notes for the whole Tauri core ecosystem (39 packages across `tauri`, `wry`, `tao`, `create-tauri-app`, and `plugins-workspace`) at `/release/*` of the docs domain.
+Serves the release notes for the whole Tauri core ecosystem (39 packages across `tauri`, `wry`, `tao`, `create-tauri-app`, and `plugins-workspace`) at `/release/*` of the docs domain.
 
 ## Why a separate site?
 
-- **No i18n fallback overhead.** The docs site builds a fallback copy of every docs-collection page for each of its 7 locales. Release pages are English-only, so keeping the ~2,600 release pages in their own single-locale site avoids ~16,000 wasted fallback pages per docs build.
-- **Decoupled builds.** Docs prose edits no longer rebuild the release pages, and daily release-data refreshes don't rebuild the docs. Each Netlify site has an `ignore` rule scoped to its own files.
-- **Same domain, same look.** The docs site proxies `/release/*` to this site (Netlify 200 rewrite in `public/_redirects` at the repo root), and this site reuses the docs site's theme styles and header/footer/theme-switcher overrides, so it reads as one website.
+- No i18n fallback overhead and decoupled builds
 
 ## How it works
 
@@ -32,9 +30,7 @@ dist/                        published by the releases Netlify site
 
 ## Shared UI
 
-To read as one website, this site imports the docs site's UI **directly by relative
-path** — there are no copies to keep in sync; a docs-side change propagates on this
-site's next build:
+This site imports the docs site's UI **directly by relative path**
 
 - **Styles:** `src/styles/{theme,overrides,shared}.scss` (imported by `src/styles/custom.scss`)
 - **Components:** `src/components/overrides/{Footer,ThemeSelect,PageFrame}.astro`
@@ -44,7 +40,7 @@ site's next build:
 
 Deliberate forks kept local: `Header.astro` (English-only, no topics/locale integration)
 and `SiteTitle.astro` (logo links to the docs home `/`, not this site's base). The only
-duplicated file is `public/favicon.svg` (public dirs are per-site static).
+duplicated file is `public/favicon.svg`
 
 Constraints: `astro` and `@astrojs/starlight` versions must stay aligned between the
 repo root and this package (pnpm then dedupes to one instance), and the Netlify
@@ -64,14 +60,9 @@ pnpm --filter releases-site refresh # re-fetches upstream data into generator/da
 ## Netlify setup (two sites, one repo)
 
 1. **Releases site** (new):
-   - Base directory: `packages/releases-site` (its `netlify.toml` supplies build command, publish dir, and the ignore rule).
+   - Base directory: `packages/releases-site`
    - Environment: `SITE_URL=https://<your-docs-domain>` (canonical origin used for `astro.config.mjs`'s `site`; omit for production `https://v2.tauri.app`).
    - Note the resulting `https://<name>.netlify.app` domain.
 2. **Docs site** (existing): no settings change. In the repo root `public/_redirects`, replace the proxy target hostname (`tauri-releases-site.netlify.app`) with the releases site domain from step 1.
 3. The repo root `netlify.toml` has an `ignore` rule so commits touching only `packages/releases-site/**` (e.g. merged data-refresh PRs) skip the docs build.
-
-## Data refresh
-
-`.github/workflows/refresh-releases.yml` runs daily (07:00 UTC) and opens a PR
-(`automated/refresh-release-data`) updating only `generator/data.json`. Merging
-it triggers only the releases site build.
+4. 
