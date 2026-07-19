@@ -70,20 +70,35 @@ jobs:
             exit 1
           fi
 
+      - name: Git config
+        run: |
+          git config --global user.name "tauri-bot"
+          git config --global user.email "tauri-bot@tauri.app"
+
       # Only data.json is committed — pages, tableData.json and latestVersions.ts
       # are regenerated from it at build time by the releases Netlify site.
       # Merging this PR only triggers the releases site build (the docs site
       # build is skipped by the ignore rule in the repo root netlify.toml).
-      # Uses GITHUB_TOKEN; upstream may prefer ORG_TAURI_BOT_PAT + automerge
-      # like syncSponsorsData.yml.
+      # Bot PAT + automerge, same flow as syncSponsorsData.yml (a PAT-created
+      # PR also triggers CI checks, which GITHUB_TOKEN-created PRs don't).
       - name: Open release refresh PR
+        id: cpr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # 8.1.1
         with:
+          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore: refresh release data'
           title: 'chore: refresh release data'
           body: |
             Automated release data refresh for the releases site.
-          branch: automated/refresh-release-data
+          branch: ci/v2/refresh-release-data
           delete-branch: true
+          labels: 'bot'
+          sign-commits: true
           add-paths: |
             packages/releases-site/generator/data.json
+
+      - name: Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        run: gh pr merge --squash --auto ${{ steps.cpr.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
