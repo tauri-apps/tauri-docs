@@ -97,8 +97,10 @@ jobs:
           add-paths: |
             packages/releases-site/generator/data.json
 
-      - name: Automerge
-        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
-        run: gh pr merge --squash --auto ${{ steps.cpr.outputs.pull-request-number }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Disabled while the refresh PRs go through manual review — re-enable
+      # once the data flow has proven itself.
+      # - name: Automerge
+      #   if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+      #   run: gh pr merge --squash --auto ${{ steps.cpr.outputs.pull-request-number }}
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
