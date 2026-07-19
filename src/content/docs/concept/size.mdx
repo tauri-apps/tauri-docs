@@ -21,7 +21,7 @@ Before you can optimize your app, you need to figure out what takes up space in 
 
 - **[`vite-bundle-analyzer`]** - You noticed a dependency included in your final frontend bundle, but you are unsure why? `vite-bundle-analyzer` renders an interactive treemap of your bundle so you can drill down into what ends up in it.
 
-These are just a couple of tools that you might use. Make sure to check your frontend bundler's plugin list for more!
+These are a couple of the tools available. Make sure to check your frontend bundler's plugin list for more!
 
 ## Cargo Configuration
 
@@ -145,14 +145,6 @@ tauri = { version = "2", features = ["wry", "common-controls-v6", "dynamic-acl",
 The feature list above mirrors the current default features of the `tauri` crate minus `compression`. Check the [tauri crate's features][tauri-features] for the default set of the version you are using.
 :::
 
-## Installer Size
-
-The tips on this page shrink your app's binary, but what users actually download also depends on how the app is packaged.
-
-On Windows, the biggest factor is how the installer ships the WebView2 runtime, controlled by the `bundle > windows > webviewInstallMode` config. The default `downloadBootstrapper` keeps the installer smallest, `embedBootstrapper` adds around 1.8MB, and `offlineInstaller` embeds the entire runtime, adding around 127MB. See the [WebView2 installation options][webview2-install-options] in the Windows Installer guide for the trade-offs.
-
-On Linux, the bundle format matters: an AppImage bundles your app's shared libraries into the artifact itself, so it is considerably larger than a `.deb` or `.rpm` package of the same app.
-
 ## Minify JavaScript
 
 JavaScript makes up a large portion of a typical Tauri app, so it's important to make the JavaScript as lightweight as possible.
@@ -165,13 +157,13 @@ This option removes unused JavaScript from your bundle. All popular bundlers ena
 
 ### Enable minification
 
-Minification removes unnecessary whitespace, shortens variable names, and applies other optimizations. Most bundlers enable this by default — Vite, for example, minifies production builds out of the box. A notable exception is Rollup, where you need plugins like [@rollup/plugin-terser].
+Minification removes unnecessary whitespace, shortens variable names, and applies other optimizations. Most bundlers enable this by default. Vite, for example, minifies production builds out of the box. A notable exception is Rollup, where you need plugins like [@rollup/plugin-terser].
 
-Note: You can use minifiers like [terser] and [esbuild] as standalone tools.
+Minifiers like [terser] and [esbuild] can also be used as standalone tools.
 
 ### Disable source maps
 
-Source maps provide a pleasant developer experience when working with languages that compile to JavaScript, such as [TypeScript]. As source maps tend to be quite large, you must disable them when building for production — most bundlers, including Vite, already do this by default. They have no benefit to your end-user, so it's effectively dead weight.
+Source maps provide a pleasant developer experience when working with languages that compile to JavaScript, such as [TypeScript]. As source maps tend to be quite large, you must disable them when building for production. Most bundlers, including Vite, already do this by default. They have no benefit to your end-user, so it's effectively dead weight.
 
 ## Optimize Dependencies
 
@@ -221,7 +213,7 @@ Consider not shipping custom fonts with your app and relying on system fonts ins
 
 Fonts can be pretty big, so using the fonts already included in the Operating System reduces the footprint of your app. It also avoids FOUT (Flash of Unstyled Text) and makes your app feel more "native" since it uses the same font as all other apps.
 
-If you must include custom fonts, make sure you include them in modern formats such as `woff2` as those tend to be much smaller than legacy formats. Also consider subsetting the font to the characters your app actually uses — tools like [fontTools' `pyftsubset`][pyftsubset] or [glyphhanger] can often shrink font files by 90% or more.
+If you must include custom fonts, make sure you include them in modern formats such as `woff2` as those tend to be much smaller than legacy formats. Also consider subsetting the font to the characters your app actually uses. Tools like [fontTools' `pyftsubset`][pyftsubset] or [glyphhanger] can often shrink font files by 90% or more.
 
 Use so-called **"System Font Stacks"** in your CSS. There are a number
 of variations, but here are 3 basic ones to get you started:
@@ -328,6 +320,14 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
     --------------------   ------   -----------   -----------
     963140 ->    274448   28.50%   macho/amd64   app
 ```
+
+## Installer Size
+
+The tips above shrink your app's binary, but what users actually download also depends on how the app is packaged.
+
+On Windows, the biggest factor is how the installer ships the WebView2 runtime, controlled by the `bundle > windows > webviewInstallMode` config. The default `downloadBootstrapper` keeps the installer smallest, `embedBootstrapper` adds around 1.8MB, and `offlineInstaller` embeds the entire runtime, adding around 127MB. See the [WebView2 installation options][webview2-install-options] in the Windows Installer guide for the trade-offs.
+
+On Linux, the bundle format matters: an AppImage bundles your app's shared libraries into the artifact itself, so it is considerably larger than a `.deb` or `.rpm` package of the same app.
 
 [`cargo-bloat`]: https://github.com/RazrFalcon/cargo-bloat
 [macros]: https://doc.rust-lang.org/book/ch19-06-macros.html
