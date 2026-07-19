@@ -1,16 +1,13 @@
 import { Converter } from 'typedoc';
 
 /**
- * Local TypeDoc plugin for the Tauri JS API reference (Prototype A).
+ * Local TypeDoc plugin for the Tauri JS API reference.
  *
  * JSDoc comments in the Tauri sources use `#### Platform-specific` headings. When
  * typedoc-plugin-markdown renders members as tables, that raw `####` leaks into a table
- * cell as literal text (a heading can't live inside a table cell). The old hand-rolled
- * generator stripped these markers by overriding the markdown theme's `comment` partial and
- * mutating the string; here we do it non-destructively at the reflection level (no source
- * files are touched, unlike the old `Uint8Array<ArrayBuffer>` writeFileSync hack).
- *
- * We turn the heading into bold inline text so it reads cleanly in both tables and prose.
+ * cell as literal text (a heading can't live inside a table cell). We normalize the
+ * comments at the reflection level — no source files are touched — turning the heading
+ * into bold inline text so it reads cleanly in both tables and prose.
  *
  * Two variants exist in the sources, both handled here:
  *   `#### Platform-specific` / `#### Platform-specific:`  -> bold label
@@ -64,9 +61,9 @@ export function load(app) {
   // Symbols re-exported from a dependency (e.g. the fs plugin re-exporting BaseDirectory
   // from @tauri-apps/api) resolve to sources under node_modules. With `disableGit` +
   // `sourceLinkTemplate` every source gets a URL, so those would link to a nonexistent
-  // GitHub path. Drop the link (the old generator rendered "Source: undefined" for these —
-  // there is no meaningful target in the docs' repos) and shorten the displayed file name
-  // to the package-relative part (`@tauri-apps/api/path.d.ts` instead of a pnpm store path).
+  // GitHub path. Drop the link (there is no meaningful target in the docs' repos) and
+  // shorten the displayed file name to the package-relative part
+  // (`@tauri-apps/api/path.d.ts` instead of a pnpm store path).
   app.converter.on(Converter.EVENT_RESOLVE_END, (context) => {
     for (const reflection of Object.values(context.project.reflections)) {
       if (!Array.isArray(reflection.sources)) continue;
