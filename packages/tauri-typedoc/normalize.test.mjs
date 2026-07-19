@@ -156,11 +156,9 @@ test('strips Uint8Array type parameters', () => {
   assert.equal(n('`Uint8Array`\\<`ArrayBufferLike`\\>'), '`Uint8Array`');
 });
 
-test('injects tableOfContents frontmatter once', () => {
+test('leaves frontmatter untouched (supplied by typedoc-plugin-frontmatter)', () => {
   const page = '---\ntitle: x\n---\n\nbody';
-  const once = n(page);
-  assert.match(once, /maxHeadingLevel: 5/);
-  assert.equal(n(once), once);
+  assert.equal(n(page), page);
 });
 
 test('is idempotent over a page exercising every transform', () => {
