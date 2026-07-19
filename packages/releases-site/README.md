@@ -32,6 +32,28 @@ dist/                        published by the releases Netlify site
 - `base: '/release'` makes all generated URLs carry the prefix; the build output has no `/release` directory, so the docs-site proxy strips the prefix (`/release/* → <this site>/:splat 200`) and this site's own `public/_redirects` does the same for direct visits.
 - A fresh `data.json` is produced with `pnpm refresh` (fetches upstream CHANGELOG.md files, npm and crates.io metadata; HTTP-cached in `generator/.cache/`).
 
+## Shared UI
+
+To read as one website, this site imports the docs site's UI **directly by relative
+path** — there are no copies to keep in sync; a docs-side change propagates on this
+site's next build:
+
+- **Styles:** `src/styles/{theme,overrides,shared}.scss` (imported by `src/styles/custom.scss`)
+- **Components:** `src/components/overrides/{Footer,ThemeSelect,PageFrame}.astro`
+  (referenced straight from `astro.config.mjs` `components`)
+- **Assets:** `src/assets/logo.svg` + `logo_light.svg` (referenced from the `logo` config)
+- **Nav data:** `src/data/header-links.json` (imported by the local Header)
+
+Deliberate forks kept local: `Header.astro` (English-only, no topics/locale integration)
+and `SiteTitle.astro` (logo links to the docs home `/`, not this site's base). The only
+duplicated file is `public/favicon.svg` (public dirs are per-site static).
+
+Constraints: `astro` and `@astrojs/starlight` versions must stay aligned between the
+repo root and this package (pnpm then dedupes to one instance), and the Netlify
+`ignore` rule in `netlify.toml` must list every shared path so docs-side UI edits
+trigger a rebuild here. Cross-package file access needs `vite.server.fs.allow`
+(already set in `astro.config.mjs`) during `astro dev`.
+
 ## Local development
 
 ```sh

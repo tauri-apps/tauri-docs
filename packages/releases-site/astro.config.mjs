@@ -17,8 +17,9 @@ export default defineConfig({
       title: 'Tauri Releases',
       description: 'Release notes for the Tauri core ecosystem',
       logo: {
-        dark: './src/assets/logo.svg',
-        light: './src/assets/logo_light.svg',
+        // Shared with the docs site (see README "Shared UI")
+        dark: '../../src/assets/logo.svg',
+        light: '../../src/assets/logo_light.svg',
         replacesTitle: true,
       },
       social: [
@@ -30,10 +31,13 @@ export default defineConfig({
         { icon: 'rss', label: 'RSS', href: 'https://v2.tauri.app/rss' },
       ],
       components: {
+        // Header (and its SiteTitle) is a deliberate fork — English-only, no
+        // topics, logo links to the docs home. The rest is imported straight
+        // from the docs site so UI changes propagate (see README "Shared UI").
         Header: './src/components/overrides/Header.astro',
-        Footer: './src/components/overrides/Footer.astro',
-        ThemeSelect: './src/components/overrides/ThemeSelect.astro',
-        PageFrame: './src/components/overrides/PageFrame.astro',
+        Footer: '../../src/components/overrides/Footer.astro',
+        ThemeSelect: '../../src/components/overrides/ThemeSelect.astro',
+        PageFrame: '../../src/components/overrides/PageFrame.astro',
       },
       head: [
         {

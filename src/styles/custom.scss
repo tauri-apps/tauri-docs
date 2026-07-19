@@ -1,36 +1,11 @@
 @import url('./theme.scss');
 @import url('./overrides.scss');
+@import url('./shared.scss');
 @import url('./lp.scss');
 @import url('./partners.scss');
 
-.content details {
-  padding: 0 1rem;
-}
-
-.content details[open] {
-  background-color: var(--sl-color-gray-6);
-  padding-bottom: 1rem;
-}
-
-.content summary {
-  cursor: pointer;
-  padding: 1rem 0;
-}
-
 .sl-markdown-content .inline-icon {
   display: inline-block;
-}
-
-article.card {
-  border-radius: 0.5rem;
-}
-
-// A small hack to avoid scroll bar layout shifts,
-// a mirror of https://github.com/withastro/starlight/blob/56860717dcb8f70a8438b5970967bdff4826a640/packages/starlight/components/MobileMenuToggle.astro#L101-L105
-@media (width >= 50rem) {
-  [data-search-modal-open] {
-    overflow: auto;
-  }
 }
 
 figcaption {
@@ -59,10 +34,4 @@ figure > img {
 
 .text-center {
   text-align: center;
-}
-
-@media (prefers-reduced-motion) {
-  * {
-    transition: none !important;
-  }
 }
