@@ -1,0 +1,31 @@
+name: 'Pull Request Labeler'
+
+# SECURITY: runs on pull_request_target — never add a checkout of PR code here.
+
+on:
+  pull_request_target:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: labeler-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  add_labels:
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+    steps:
+      - id: label-pr
+        uses: actions/labeler@v4
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+
+      # Trigger prod netlify re-build to refresh i18n dashboard
+      - name: Rebuild i18n Dashboard
+        if: contains(steps.label-pr.outputs.all-labels, 'i18n')
+        env:
+          NETLIFY_BUILD_KEY: ${{ secrets.NETLIFY_BUILD_KEY }}
+        run: curl -X POST -d {} https://api.netlify.com/build_hooks/$NETLIFY_BUILD_KEY
