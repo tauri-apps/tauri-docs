@@ -3,11 +3,25 @@
  * typedoc-plugins.ts on every build. All transforms are idempotent: pages are rewritten in
  * place and processed again on the next build.
  *
- * Why this exists: typedoc-plugin-markdown escapes markdown metacharacters in contexts it
- * considers unsafe (headings, link labels, type expressions), and starlight-typedoc emits
- * `:::` aside directives even where they cannot render (inside table cells). Starlight's
- * own markdown pipeline handles all of these fine, so we undo the over-escaping and
- * flatten the impossible constructs. TODO: upstream what applies.
+ * Every transform here is a workaround for a known upstream bug or rough edge, kept in one
+ * place so each can be deleted once fixed at the source. Current inventory:
+ *
+ *  - typedoc-plugin-markdown `escapeChars` (dist/libs/utils/escape-chars.js) escapes
+ *    backticks unconditionally, so inline code in headings and mixed link labels renders
+ *    as literal backticks -> ESCAPED_CODE_SPAN_RE undoes it. (Reported-upstream candidate.)
+ *  - starlight-typedoc appends `:::` aside directives to member comments (libs/theme.ts
+ *    #addDeprecatedAside); with table formats the comment lands in a table cell where a
+ *    block directive cannot parse and leaks as literal text -> TABLE_ASIDE_RE flattens it
+ *    to bold. (Reported-upstream candidate.)
+ *  - typedoc-plugin-markdown emits type expressions as code-span fragments joined by
+ *    escaped angle brackets, which renders as broken-looking chips with literal `<` `>`
+ *    -> mergeGenerics() collapses the safe cases. (Cosmetic; likely by design upstream.)
+ *  - typedoc-plugin-markdown v4 titles every constructor section "Constructor", which is
+ *    ambiguous in the ToC and broke the previous generator's #new-classname anchors
+ *    -> renameConstructorHeading() restores `new ClassName()`. (v4 design change, no
+ *    opt-out found.)
+ *  - TS 5.7+ generic Uint8Array noise and Starlight's h3 ToC cutoff, handled at the
+ *    bottom of normalizeGeneratedPage() (not upstream bugs, just docs-build preferences).
  */
 
 // TS 5.7+ makes Uint8Array generic, so signatures render as `Uint8Array<ArrayBuffer>` /
@@ -18,9 +32,23 @@ const UINT8_GENERIC_RE =
   /(\[`Uint8Array`\]\([^)\s]*\)|`?Uint8Array`?)\\?<(?:\[`ArrayBuffer(?:Like)?`\]\([^)\s]*\)|`?ArrayBuffer(?:Like)?`?)\\?>/g;
 
 // A pair of escaped backticks wrapping a token: `\`open\`` in a heading or link label,
-// where the JSDoc author wrote real inline code. Requires the closing pair so a code span
-// that *contains* a backslash (`` `\` on Windows ``) is left alone.
-const ESCAPED_CODE_SPAN_RE = /\\`([^`\\]*)\\`/g;
+// where the JSDoc author wrote real inline code. Content must be non-empty (`\`\`` would
+// merge into a runaway double-backtick span) and may contain backslashes only when not
+// directly before a backtick, so both pairing stays unambiguous for content like `C:\foo`
+// and a code span that *contains* a backslash (`` `\` on Windows ``) is left alone.
+// Applied only to headings and link labels — the two contexts typedoc-plugin-markdown
+// over-escapes — so intentionally literal backtick pairs in ordinary prose survive.
+const ESCAPED_CODE_SPAN_RE = /\\`((?:[^`\\]|\\[^`])+)\\`/g;
+
+function unescapeCodeSpans(text) {
+  return text.replace(ESCAPED_CODE_SPAN_RE, '`$1`');
+}
+
+const HEADING_RE = /^#{1,6} /;
+// A markdown link label immediately followed by its target: `[label](`.
+const LINK_LABEL_RE = /\[([^[\]]*)\](?=\()/g;
+// A code-fence marker: a run of 3+ backticks or tildes at the start of a line.
+const FENCE_MARKER_RE = /^\s*(`{3,}|~{3,})/;
 
 // starlight-typedoc appends `:::type[Title]\ncontent\n:::` asides to member comments. With
 // propertiesFormat: 'table' the comment is flattened into one table cell where a block
@@ -39,24 +67,26 @@ const LINKED_GENERIC_RE = new RegExp(
   String.raw`\[\x60([^\x60\\]+)\x60\]\(([^()\s]+)\)\\<(${TYPE_ARGS})\\>`,
   'g'
 );
-const PLAIN_GENERIC_RE = new RegExp(
-  String.raw`\x60([^\x60\\]+)\x60\\<(${TYPE_ARGS})\\>`,
-  'g'
-);
+const PLAIN_GENERIC_RE = new RegExp(String.raw`\x60([^\x60\\]+)\x60\\<(${TYPE_ARGS})\\>`, 'g');
 
 function mergeTypeArguments(args) {
   return args.replaceAll('`', '');
 }
 
 function mergeGenerics(line) {
-  for (let pass = 0; pass < 4; pass++) {
+  // Iterate to a fixpoint so arbitrarily deep nesting resolves in a single call (the
+  // idempotency contract above). Terminates: every successful replacement strictly
+  // reduces the number of `\<` occurrences on the line.
+  for (;;) {
     const merged = line
-      .replace(LINKED_GENERIC_RE, (_, name, url, args) => `[\`${name}<${mergeTypeArguments(args)}>\`](${url})`)
+      .replace(
+        LINKED_GENERIC_RE,
+        (_, name, url, args) => `[\`${name}<${mergeTypeArguments(args)}>\`](${url})`
+      )
       .replace(PLAIN_GENERIC_RE, (_, name, args) => `\`${name}<${mergeTypeArguments(args)}>\``);
-    if (merged === line) break;
+    if (merged === line) return line;
     line = merged;
   }
-  return line;
 }
 
 /**
@@ -69,8 +99,12 @@ function mergeGenerics(line) {
 function renameConstructorHeading(lines, index) {
   const match = /^(#{2,6}) Constructor$/.exec(lines[index]);
   if (!match) return;
-  for (let j = index + 1; j < Math.min(index + 6, lines.length); j++) {
-    if (!lines[j].startsWith('```')) continue;
+  // The signature fence usually directly follows the heading, but scan the whole section
+  // (up to the next heading) so extra emitted lines — an anchor, an aside — can't silently
+  // disable the rename.
+  for (let j = index + 1; j < lines.length; j++) {
+    if (HEADING_RE.test(lines[j])) return;
+    if (!FENCE_MARKER_RE.test(lines[j])) continue;
     const name = /^new ([A-Za-z0-9_$]+)/.exec((lines[j + 1] ?? '').trim());
     if (name) lines[index] = `${match[1]} new ${name[1]}()`;
     return;
@@ -85,7 +119,11 @@ function transformProseLine(line) {
         `**${title || type.charAt(0).toUpperCase() + type.slice(1)}** ${content}`
     );
   }
-  line = line.replace(ESCAPED_CODE_SPAN_RE, '`$1`');
+  if (HEADING_RE.test(line)) {
+    line = unescapeCodeSpans(line);
+  } else {
+    line = line.replace(LINK_LABEL_RE, (_, label) => `[${unescapeCodeSpans(label)}]`);
+  }
   return mergeGenerics(line);
 }
 
@@ -93,15 +131,29 @@ function transformProseLine(line) {
 export function normalizeGeneratedPage(content) {
   let result = content.replace(UINT8_GENERIC_RE, '$1');
 
-  // Line-scoped transforms, skipping fenced code blocks (example code must stay verbatim).
+  // Line-scoped transforms, skipping fenced code blocks (example code must stay
+  // verbatim). Fence state tracks the opening marker: per CommonMark, only a fence of the
+  // same character, at least as long, with nothing else on the line, closes the block —
+  // so a ~~~ or nested-fence line *inside* a ``` block cannot desync the state.
   const lines = result.split('\n');
-  let inFence = false;
+  let fence = null; // { char, length } of the open fence, or null
   for (let i = 0; i < lines.length; i++) {
-    if (/^\s*(```|~~~)/.test(lines[i])) {
-      inFence = !inFence;
+    const marker = FENCE_MARKER_RE.exec(lines[i]);
+    if (fence) {
+      if (
+        marker &&
+        marker[1][0] === fence.char &&
+        marker[1].length >= fence.length &&
+        lines[i].trim() === marker[1]
+      ) {
+        fence = null;
+      }
       continue;
     }
-    if (inFence) continue;
+    if (marker) {
+      fence = { char: marker[1][0], length: marker[1].length };
+      continue;
+    }
     renameConstructorHeading(lines, i);
     lines[i] = transformProseLine(lines[i]);
   }

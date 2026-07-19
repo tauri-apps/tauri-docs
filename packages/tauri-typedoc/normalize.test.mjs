@@ -17,7 +17,9 @@ test('unescapes inline code in link labels (also inside headings)', () => {
     '### Restricting access to the [`open`](/reference/javascript/shell/#open) API'
   );
   assert.equal(
-    n('the [\\`$APPDATA\\` directory](https://v2.tauri.app/reference/javascript/api/namespacepath/#appdatadir):'),
+    n(
+      'the [\\`$APPDATA\\` directory](https://v2.tauri.app/reference/javascript/api/namespacepath/#appdatadir):'
+    ),
     'the [`$APPDATA` directory](https://v2.tauri.app/reference/javascript/api/namespacepath/#appdatadir):'
   );
 });
@@ -26,9 +28,24 @@ test('leaves a code span containing a backslash alone', () => {
   assert.equal(n('- `\\` on Windows'), '- `\\` on Windows');
 });
 
+test('pairs escaped spans correctly when content contains a backslash', () => {
+  assert.equal(n('### Use \\`C:\\foo\\` and \\`bar\\`'), '### Use `C:\\foo` and `bar`');
+});
+
+test('leaves escaped backticks in ordinary prose alone (headings/labels only)', () => {
+  const prose = 'type \\` to open and \\` to close a code span';
+  assert.equal(n(prose), prose);
+});
+
+test('leaves an empty escaped pair alone (would become a runaway `` span)', () => {
+  assert.equal(n('### a \\`\\` b'), '### a \\`\\` b');
+});
+
 test('rewrites asides inside table cells to bold labels', () => {
   assert.equal(
-    n('| ~~`okLabel?`~~ | `string` | The label. :::caution[Deprecated] Use [`buttons`](/x/#y) instead. ::: | z |'),
+    n(
+      '| ~~`okLabel?`~~ | `string` | The label. :::caution[Deprecated] Use [`buttons`](/x/#y) instead. ::: | z |'
+    ),
     '| ~~`okLabel?`~~ | `string` | The label. **Deprecated** Use [`buttons`](/x/#y) instead. | z |'
   );
   // no title -> capitalized type
@@ -63,6 +80,13 @@ test('keeps generics with linked type arguments fragmented (preserves links)', (
   assert.equal(n(line), line);
 });
 
+test('fully merges deep nesting in a single call (idempotency)', () => {
+  const line = '[`A`](u)\\<`B`\\<`C`\\<`D`\\<`E`\\<`F`\\>\\>\\>\\>\\>';
+  const once = n(line);
+  assert.equal(once, '[`A<B<C<D<E<F>>>>>`](u)');
+  assert.equal(n(once), once);
+});
+
 test('renames Constructor headings from the signature below', () => {
   const input = [
     '<a id="constructor"></a>',
@@ -85,9 +109,47 @@ test('does not touch the plural Constructors section heading', () => {
   assert.equal(n('#### Constructors'), '#### Constructors');
 });
 
+test('renames Constructor headings across extra intervening lines', () => {
+  const input = [
+    '##### Constructor',
+    '',
+    '<a id="constructor"></a>',
+    '',
+    'Some emitted note.',
+    '',
+    '```ts',
+    'new Resource(rid): Resource;',
+    '```',
+  ].join('\n');
+  assert.match(n(input), /^##### new Resource\(\)$/m);
+});
+
+test('constructor rename stops at the next heading when no signature exists', () => {
+  const input = ['##### Constructor', '', '#### Methods', '', '```ts', 'new Foo();', '```'].join(
+    '\n'
+  );
+  assert.match(n(input), /^##### Constructor$/m);
+});
+
 test('leaves fenced code blocks verbatim', () => {
-  const code = ['```ts', 'const s = `a \\` b`;', '// :::caution[Deprecated] x :::', '```'].join('\n');
+  const code = ['```ts', 'const s = `a \\` b`;', '// :::caution[Deprecated] x :::', '```'].join(
+    '\n'
+  );
   assert.equal(n(code), code);
+});
+
+test('a ~~~ line inside a ``` block does not desync fence tracking', () => {
+  const page = [
+    '```ts',
+    '~~~anything',
+    'code \\`x\\` stays',
+    '```',
+    '',
+    '### prose \\`y\\` transformed',
+  ].join('\n');
+  const out = n(page);
+  assert.match(out, /code \\`x\\` stays/);
+  assert.match(out, /^### prose `y` transformed$/m);
 });
 
 test('strips Uint8Array type parameters', () => {
