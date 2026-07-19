@@ -145,6 +145,14 @@ tauri = { version = "2", features = ["wry", "common-controls-v6", "dynamic-acl",
 The feature list above mirrors the current default features of the `tauri` crate minus `compression`. Check the [tauri crate's features][tauri-features] for the default set of the version you are using.
 :::
 
+## Installer Size
+
+The tips on this page shrink your app's binary, but what users actually download also depends on how the app is packaged.
+
+On Windows, the biggest factor is how the installer ships the WebView2 runtime, controlled by the `bundle > windows > webviewInstallMode` config. The default `downloadBootstrapper` keeps the installer smallest, `embedBootstrapper` adds around 1.8MB, and `offlineInstaller` embeds the entire runtime, adding around 127MB. See the [WebView2 installation options][webview2-install-options] in the Windows Installer guide for the trade-offs.
+
+On Linux, the bundle format matters: an AppImage bundles your app's shared libraries into the artifact itself, so it is considerably larger than a `.deb` or `.rpm` package of the same app.
+
 ## Minify JavaScript
 
 JavaScript makes up a large portion of a typical Tauri app, so it's important to make the JavaScript as lightweight as possible.
@@ -174,6 +182,8 @@ Most libraries you use depend on many libraries themselves, so a library that lo
 You can use [Bundlephobia] to find the cost of JavaScript dependencies. Inspecting the cost of Rust dependencies is generally harder since the compiler does many optimizations.
 
 If you find a library that seems excessively large, Google around, chances are someone else already had the same thought and created an alternative. A good example is [Moment.js] and its [many alternatives][you-dont-need-momentjs].
+
+The same applies to your UI framework: if it shows up prominently in your bundle analysis, lighter alternatives such as [Preact] (a drop-in replacement for React) or compiler-based frameworks like [Svelte] and [Solid] can shave a substantial amount off your bundle.
 
 But keep in mind: **The best dependency is no dependency**, meaning that you should always prefer language builtins over 3rd party packages.
 
@@ -211,7 +221,7 @@ Consider not shipping custom fonts with your app and relying on system fonts ins
 
 Fonts can be pretty big, so using the fonts already included in the Operating System reduces the footprint of your app. It also avoids FOUT (Flash of Unstyled Text) and makes your app feel more "native" since it uses the same font as all other apps.
 
-If you must include custom fonts, make sure you include them in modern formats such as `woff2` as those tend to be much smaller than legacy formats.
+If you must include custom fonts, make sure you include them in modern formats such as `woff2` as those tend to be much smaller than legacy formats. Also consider subsetting the font to the characters your app actually uses — tools like [fontTools' `pyftsubset`][pyftsubset] or [glyphhanger] can often shrink font files by 90% or more.
 
 Use so-called **"System Font Stacks"** in your CSS. There are a number
 of variations, but here are 3 basic ones to get you started:
@@ -339,6 +349,7 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [capabilities]: /security/capabilities/
 [remove-unused-commands-pr]: https://github.com/tauri-apps/tauri/pull/12890
 [tauri-features]: https://docs.rs/crate/tauri/latest/features
+[webview2-install-options]: /distribute/windows-installer/#webview2-installation-options
 [vite]: https://vite.dev
 [rolldown]: https://rolldown.rs
 [webpack]: https://webpack.js.org
@@ -350,6 +361,9 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [bundlephobia]: https://bundlephobia.com
 [moment.js]: https://momentjs.com
 [you-dont-need-momentjs]: https://github.com/you-dont-need/You-Dont-Need-Momentjs
+[preact]: https://preactjs.com
+[svelte]: https://svelte.dev
+[solid]: https://www.solidjs.com
 [http archive]: https://httparchive.org
 [http-archive-page-weight]: https://httparchive.org/reports/page-weight#bytesImg
 [gimp]: https://www.gimp.org
@@ -362,6 +376,8 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 [sharp]: https://sharp.pixelplumbing.com
 [svgo]: https://svgo.dev
 [responsive images]: https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Responsive_images
+[pyftsubset]: https://fonttools.readthedocs.io/en/stable/subset/
+[glyphhanger]: https://github.com/zachleat/glyphhanger
 [cargo-unstable-features]: https://doc.rust-lang.org/cargo/reference/unstable.html#unstable-features
 [override file]: https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file
 [cargo-build-std]: https://doc.rust-lang.org/cargo/reference/unstable.html#build-std
