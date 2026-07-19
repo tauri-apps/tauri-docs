@@ -4,8 +4,8 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "generate": "tsx generator/build.ts",
-    "refresh": "tsx generator/build.ts --refresh --no-pages",
+    "generate": "node generator/build.ts",
+    "refresh": "node generator/build.ts --refresh --no-pages",
     "dev": "pnpm generate && astro dev --port 4322",
     "build:astro": "astro build",
     "build": "pnpm generate && astro build",
@@ -17,8 +17,7 @@
     "make-fetch-happen": "^14.0.3",
     "sass": "^1.89.0",
     "semver": "^7.6.3",
-    "sharp": "^0.35.3",
-    "tsx": "^4.21.0"
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@types/make-fetch-happen": "^10.0.4",

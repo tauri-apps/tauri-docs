@@ -2,8 +2,8 @@ import { appendFileSync } from 'node:fs';
 import { join } from 'node:path';
 import fetch from 'make-fetch-happen';
 
-import { changelogFilePath, generatorDir, resolveBranch } from './config.js';
-import type { PackageData, Repository } from './types.js';
+import { changelogFilePath, generatorDir, resolveBranch } from './config.ts';
+import type { PackageData, Repository } from './types.ts';
 
 const fetchWithCache = async (url: string, cacheDir: string): Promise<string> => {
   const response = await fetch(url, {

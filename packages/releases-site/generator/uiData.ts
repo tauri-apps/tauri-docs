@@ -1,6 +1,6 @@
-import { basePath, cratesWebUrl, npmWebUrl } from './config.js';
-import type { ReleasesByPackage } from './pageGenerator.js';
-import type { PackageData, RepoPackage, Repository } from './types.js';
+import { basePath, cratesWebUrl, npmWebUrl } from './config.ts';
+import type { ReleasesByPackage } from './pageGenerator.ts';
+import type { PackageData, RepoPackage, Repository } from './types.ts';
 
 interface LatestVersionsEntry {
   crate?: string;

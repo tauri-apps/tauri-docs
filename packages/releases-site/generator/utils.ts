@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { generatorDir } from './config.js';
+import { generatorDir } from './config.ts';
 
 /**
  * Escape raw changelog content so HTML tags and template-ish sequences render

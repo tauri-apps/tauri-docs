@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { basePath, note } from '../config.js';
+import { basePath, note } from '../config.ts';
 
 export type VersionListEntry = {
   version: string;

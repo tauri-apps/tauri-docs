@@ -1,9 +1,9 @@
-import type { Repository, RepoPackage } from './types.js';
+import type { Repository, RepoPackage } from './types.ts';
 
 export const note =
   '\n#### NOTE: This file is auto-generated in packages/releases-site/generator/build.ts';
 
-// All paths are relative to the package root (scripts run as `tsx generator/build.ts`)
+// All paths are relative to the package root (scripts run as `node generator/build.ts`)
 export const contentDir = 'src/content/docs';
 export const publicDir = 'public';
 export const generatorDir = 'generator';

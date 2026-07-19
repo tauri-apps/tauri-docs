@@ -1,5 +1,9 @@
 # Netlify configuration for the releases site.
 # Site settings: Base directory = packages/releases-site (this file is then picked up).
+[build.environment]
+  # The generator runs TypeScript natively via Node's type stripping
+  NODE_VERSION = "24"
+
 [build]
   command = "pnpm run build"
   publish = "dist"

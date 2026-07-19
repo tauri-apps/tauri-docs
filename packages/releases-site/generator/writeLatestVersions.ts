@@ -1,10 +1,10 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { generatorDir } from './config.js';
-import type { ReleasesByPackage } from './pageGenerator.js';
-import type { PackageData } from './types.js';
-import { buildLatestVersions, formatLatestVersionsModule } from './uiData.js';
+import { generatorDir } from './config.ts';
+import type { ReleasesByPackage } from './pageGenerator.ts';
+import type { PackageData } from './types.ts';
+import { buildLatestVersions, formatLatestVersionsModule } from './uiData.ts';
 
 export function writeLatestVersions(
   packageData: PackageData,

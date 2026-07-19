@@ -9,19 +9,19 @@ import {
   publicDir,
   repositories,
   resolveBranch,
-} from './config.js';
-import { releaseDateFormat } from './dateFormat.js';
-import { parseAndSortChangelog } from './scripts/parse.js';
+} from './config.ts';
+import { releaseDateFormat } from './dateFormat.ts';
+import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
   getAllVersionsHead,
   renderReleaseDateLabel,
   writePackageIndex,
   writeVersionPage,
   type PageLink,
-} from './scripts/writePage.js';
-import type { PackageData, Release, RepoPackage, Repository, TableMetadata } from './types.js';
-import { escapeChangelogMarkdown } from './utils.js';
-import { writeLatestVersions } from './writeLatestVersions.js';
+} from './scripts/writePage.ts';
+import type { PackageData, Release, RepoPackage, Repository, TableMetadata } from './types.ts';
+import { escapeChangelogMarkdown } from './utils.ts';
+import { writeLatestVersions } from './writeLatestVersions.ts';
 
 export type ReleaseWithDate = Release & {
   date?: string;

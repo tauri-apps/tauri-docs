@@ -1,5 +1,5 @@
 import { rcompare, valid as semverValid } from 'semver';
-import type { Release } from '../types.js';
+import type { Release } from '../types.ts';
 
 /**
  * Parse changelog content into individual releases
