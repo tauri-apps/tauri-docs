@@ -21,6 +21,6 @@
     "@octokit/types": "^16.0.0",
     "@types/node": "^24.0.0",
     "dotenv": "^17.2.1",
-    "typescript": "^5.8.3"
+    "typescript": "^7.0.2"
   }
 }
