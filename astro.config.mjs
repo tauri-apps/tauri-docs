@@ -83,7 +83,7 @@ const authors = {
 
 const site = 'https://v2.tauri.app';
 
-const { plugins: typeDocPlugins } = getTauriTypeDocPlugins();
+const { plugins: typeDocPlugins, sidebarItems: typeDocSidebarItems } = getTauriTypeDocPlugins();
 
 // https://astro.build/config
 export default defineConfig({
@@ -342,11 +342,7 @@ export default defineConfig({
                 {
                   label: 'JavaScript',
                   collapsed: true,
-                  items: [
-                    {
-                      autogenerate: { directory: 'reference/javascript', collapsed: true },
-                    },
-                  ],
+                  items: typeDocSidebarItems,
                 },
                 {
                   label: 'Rust (docs.rs)',

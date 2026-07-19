@@ -60,4 +60,22 @@ export function load(app) {
       }
     }
   });
+
+  // Symbols re-exported from a dependency (e.g. the fs plugin re-exporting BaseDirectory
+  // from @tauri-apps/api) resolve to sources under node_modules. With `disableGit` +
+  // `sourceLinkTemplate` every source gets a URL, so those would link to a nonexistent
+  // GitHub path. Drop the link (the old generator rendered "Source: undefined" for these —
+  // there is no meaningful target in the docs' repos) and shorten the displayed file name
+  // to the package-relative part (`@tauri-apps/api/path.d.ts` instead of a pnpm store path).
+  app.converter.on(Converter.EVENT_RESOLVE_END, (context) => {
+    for (const reflection of Object.values(context.project.reflections)) {
+      if (!Array.isArray(reflection.sources)) continue;
+      for (const source of reflection.sources) {
+        const marker = source.fileName.lastIndexOf('node_modules/');
+        if (marker === -1) continue;
+        source.url = undefined;
+        source.fileName = source.fileName.slice(marker + 'node_modules/'.length);
+      }
+    }
+  });
 }
