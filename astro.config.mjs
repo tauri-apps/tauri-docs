@@ -13,7 +13,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
-import { getTauriTypeDocPlugins } from './config/typedoc-plugins';
+import { getTauriTypeDocPlugins } from 'tauri-typedoc';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
 
