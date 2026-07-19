@@ -637,6 +637,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Pochoclin",
     "id": "Pochoclin",
     "avatarUrl": "https://images.opencollective.com/pochoclin/fb0a3f2/avatar/256.jpg",
@@ -662,15 +671,6 @@
     "id": "Florian Neumann",
     "avatarUrl": "https://images.opencollective.com/florian-neumann/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/florian-neumann",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
