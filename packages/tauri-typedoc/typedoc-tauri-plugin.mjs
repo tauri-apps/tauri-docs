@@ -50,7 +50,7 @@ export function load(app) {
   app.converter.on(Converter.EVENT_RESOLVE_BEGIN, (context) => {
     for (const reflection of Object.values(context.project.reflections)) {
       normalizeComment(reflection.comment);
-      if ('signatures' in reflection && Array.isArray(reflection.signatures)) {
+      if (Array.isArray(reflection.signatures)) {
         for (const sig of reflection.signatures) normalizeComment(sig.comment);
       }
     }

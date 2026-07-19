@@ -16,10 +16,3 @@ onlyBuiltDependencies:
   - esbuild
   - sharp
 resolvePeersFromWorkspaceRoot: true
-# FIXME: maybe a bug in pnpm
-# astro is already version-locked at the workspace root; this exclusion only lets that
-# same locked version satisfy packages/tauri-typedoc's transitive starlight -> astro peer,
-# which pnpm otherwise re-checks against minimumReleaseAge for the new importer and
-# rejects even though the version is already vetted in the lockfile.
-minimumReleaseAgeExclude:
-  - astro

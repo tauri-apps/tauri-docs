@@ -20,8 +20,12 @@
  *    ambiguous in the ToC and broke the previous generator's #new-classname anchors
  *    -> renameConstructorHeading() restores `new ClassName()`. (v4 design change, no
  *    opt-out found.)
- *  - TS 5.7+ generic Uint8Array noise and Starlight's h3 ToC cutoff, handled at the
- *    bottom of normalizeGeneratedPage() (not upstream bugs, just docs-build preferences).
+ *  - TS 5.7+ generic Uint8Array noise, stripped via UINT8_GENERIC_RE (not an upstream
+ *    bug, just a docs-build preference).
+ *
+ * Page frontmatter is out of scope here: typedoc-plugin-frontmatter supplies it via
+ * `frontmatterGlobals` in typedoc-plugins.ts, and starlight-typedoc merges its own keys
+ * into that.
  */
 
 // TS 5.7+ makes Uint8Array generic, so signatures render as `Uint8Array<ArrayBuffer>` /
@@ -74,6 +78,8 @@ function mergeTypeArguments(args) {
 }
 
 function mergeGenerics(line) {
+  // Both regexes require a literal `\<`; skip the scans for the common line without one.
+  if (!line.includes('\\<')) return line;
   // Iterate to a fixpoint so arbitrarily deep nesting resolves in a single call (the
   // idempotency contract above). Terminates: every successful replacement strictly
   // reduces the number of `\<` occurrences on the line.
@@ -157,15 +163,5 @@ export function normalizeGeneratedPage(content) {
     renameConstructorHeading(lines, i);
     lines[i] = transformProseLine(lines[i]);
   }
-  result = lines.join('\n');
-
-  // h4/h5 member headings (methods, enum members) must stay reachable from the on-page
-  // ToC; Starlight's default cuts off at h3.
-  if (result.startsWith('---\n')) {
-    const frontmatterEnd = result.indexOf('\n---', 4);
-    if (frontmatterEnd !== -1 && !result.slice(0, frontmatterEnd).includes('tableOfContents:')) {
-      result = `---\ntableOfContents:\n  maxHeadingLevel: 5\n${result.slice(4)}`;
-    }
-  }
-  return result;
+  return lines.join('\n');
 }
