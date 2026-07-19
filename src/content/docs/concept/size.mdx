@@ -17,9 +17,9 @@ Before you can optimize your app, you need to figure out what takes up space in 
 
 - **[`cargo-expand`](https://github.com/dtolnay/cargo-expand)** - [Macros](https://doc.rust-lang.org/book/ch19-06-macros.html) make your Rust code more concise and easier to read, but they are also hidden size traps! Use `cargo-expand` to see what those macros generate under the hood.
 
-- **[`rollup-plugin-visualizer`](https://github.com/btd/rollup-plugin-visualizer)** - A tool that generates beautiful (and insightful) graphs from your rollup bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
+- **[`rollup-plugin-visualizer`](https://github.com/btd/rollup-plugin-visualizer)** - A tool that generates beautiful (and insightful) graphs from your Vite, Rollup, or Rolldown bundle. Very convenient for figuring out what JavaScript dependencies contribute to your final bundle size the most.
 
-- **[`rollup-plugin-graph`](https://github.com/ondras/rollup-plugin-graph)** - You noticed a dependency included in your final frontend bundle, but you are unsure why? `rollup-plugin-graph` generates Graphviz-compatible visualizations of your entire dependency graph.
+- **[`vite-bundle-analyzer`](https://github.com/nonzzz/vite-bundle-analyzer)** - You noticed a dependency included in your final frontend bundle, but you are unsure why? `vite-bundle-analyzer` renders an interactive treemap of your bundle so you can drill down into what ends up in it.
 
 These are just a couple of tools that you might use. Make sure to check your frontend bundler's plugin list for more!
 
@@ -149,7 +149,7 @@ The feature list above mirrors the current default features of the `tauri` crate
 
 JavaScript makes up a large portion of a typical Tauri app, so it's important to make the JavaScript as lightweight as possible.
 
-You can choose from a plethora of JavaScript bundlers; popular choices are [Vite](https://vite.dev), [webpack](https://webpack.js.org), and [Rollup](https://rollupjs.org). All of them can produce minified JavaScript if configured correctly, so consult your bundler documentation for specific options. Generally speaking, you should make sure to:
+You can choose from a plethora of JavaScript bundlers; the de-facto standard today is [Vite](https://vite.dev), which most Tauri project templates use and which is powered by the Rust-based [Rolldown](https://rolldown.rs) bundler since Vite 8. [webpack](https://webpack.js.org) and [Rollup](https://rollupjs.org) are still common in existing projects, with Rollup's role progressively being taken over by Rolldown, its successor. All of them can produce minified JavaScript if configured correctly, so consult your bundler documentation for specific options. Generally speaking, you should make sure to:
 
 ### Enable tree shaking
 
@@ -157,7 +157,7 @@ This option removes unused JavaScript from your bundle. All popular bundlers ena
 
 ### Enable minification
 
-Minification removes unnecessary whitespace, shortens variable names, and applies other optimizations. Most bundlers enable this by default — [Vite](https://vite.dev), for example, minifies production builds with [esbuild](https://esbuild.github.io) out of the box. A notable exception is [Rollup](https://rollupjs.org), where you need plugins like [@rollup/plugin-terser](https://github.com/rollup/plugins/tree/master/packages/terser).
+Minification removes unnecessary whitespace, shortens variable names, and applies other optimizations. Most bundlers enable this by default — Vite, for example, minifies production builds out of the box. A notable exception is Rollup, where you need plugins like [@rollup/plugin-terser](https://github.com/rollup/plugins/tree/master/packages/terser).
 
 Note: You can use minifiers like [terser](https://terser.org) and [esbuild](https://esbuild.github.io) as standalone tools.
 
@@ -181,9 +181,9 @@ But keep in mind: **The best dependency is no dependency**, meaning that you sho
 
 According to the [HTTP Archive](https://httparchive.org), images are the [biggest contributor to website weight](https://httparchive.org/reports/page-weight#bytesImg). So if your app includes images or icons, make sure to optimize them!
 
-You can choose between a variety of manual options ([GIMP](https://www.gimp.org), [Photoshop](https://www.adobe.com/de/products/photoshop.html), [Squoosh](https://squoosh.app)) or plugins for your favorite frontend build tools ([vite-imagetools](https://github.com/JonasKruckenberg/imagetools), [vite-plugin-imagemin](https://github.com/vbenjs/vite-plugin-imagemin), [image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin)).
+You can choose between a variety of manual options ([GIMP](https://www.gimp.org), [Photoshop](https://www.adobe.com/de/products/photoshop.html), [Squoosh](https://squoosh.app)) or plugins for your favorite frontend build tools ([vite-imagetools](https://github.com/JonasKruckenberg/imagetools), [vite-plugin-image-optimizer](https://github.com/FatehAK/vite-plugin-image-optimizer)).
 
-Do note that the `imagemin` library most of the plugins use is [officially unmaintained](https://github.com/imagemin/imagemin/issues/385).
+Do note that the `imagemin` library many older plugins use is [officially unmaintained](https://github.com/imagemin/imagemin/issues/385), so prefer plugins built on actively maintained tools such as [Sharp](https://sharp.pixelplumbing.com) and [SVGO](https://svgo.dev).
 
 ### Use Modern Image Formats
 
