@@ -14,7 +14,13 @@
     <button class="table-reset" type="button" data-reset hidden>Reset filters</button>
   </div>
 
-  <div class="table-filters" data-filters hidden>
+  {
+    /* not-content: opt the filters out of Starlight's <details>/<summary> markdown
+      styling (caret ::before, summary padding), which otherwise breaks the
+      Projects dropdown. The changelog dialog must NOT get this class — its
+      content relies on sl-markdown-content styling. */
+  }
+  <div class="table-filters not-content" data-filters hidden>
     <label class="table-filter">
       <span class="table-filter-label">Repository</span>
       <select data-repo></select>
