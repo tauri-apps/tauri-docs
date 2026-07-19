@@ -123,10 +123,7 @@ function needsGeneration(
 }
 
 /**
- * Everything in reference/javascript/ is generated output (gitignored via
- * src/content/docs/reference/.gitignore) — never authored. Flat files directly in it
- * (fs.md, dialog.md, ...) can only be stale leftovers from a build with a different
- * layout, and they collide with the <name>/index.md pages (duplicate slugs), so drop them.
+ * Remove any flat plugin pages that were generated in a previous run but are no longer compatile
  */
 function removeStaleFlatFiles(): void {
   if (!existsSync(REF_DIR)) return;
@@ -145,6 +142,8 @@ function walkMarkdownFiles(dir: string): string[] {
   return files;
 }
 
+// TODO: WHAT?
+
 // TS 5.7+ makes Uint8Array generic, so signatures render as `Uint8Array<ArrayBuffer>` /
 // `Uint8Array<ArrayBufferLike>`. The type parameter is lib-level noise for API docs, so
 // strip it from the rendered markdown. Covers raw code blocks, escaped text, and the
@@ -153,6 +152,7 @@ const UINT8_GENERIC_RE =
   /(\[`Uint8Array`\]\([^)\s]*\)|`?Uint8Array`?)\\?<(?:\[`ArrayBuffer(?:Like)?`\]\([^)\s]*\)|`?ArrayBuffer(?:Like)?`?)\\?>/g;
 
 /**
+ * TODO: upstream
  * Post-process a generated page (idempotent):
  *  - strip `Uint8Array<ArrayBuffer[Like]>` type parameters (see above)
  *  - add `tableOfContents.maxHeadingLevel: 5` frontmatter so h4/h5 member headings
