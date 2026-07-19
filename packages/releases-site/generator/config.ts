@@ -189,6 +189,13 @@ export const repositories = [
         npmPath: '@tauri-apps/plugin-clipboard-manager',
       },
       {
+        name: 'cli',
+        githubPath: 'plugins/cli',
+        description: 'Parse command-line arguments.',
+        cratesPath: 'tauri-plugin-cli',
+        npmPath: '@tauri-apps/plugin-cli',
+      },
+      {
         name: 'deep-link',
         githubPath: 'plugins/deep-link',
         description: 'Open your app through a custom URL scheme.',
@@ -210,6 +217,13 @@ export const repositories = [
         npmPath: '@tauri-apps/plugin-fs',
       },
       {
+        name: 'geolocation',
+        githubPath: 'plugins/geolocation',
+        description: "Access the device's location.",
+        cratesPath: 'tauri-plugin-geolocation',
+        npmPath: '@tauri-apps/plugin-geolocation',
+      },
+      {
         name: 'global-shortcut',
         githubPath: 'plugins/global-shortcut',
         description: 'Register global shortcuts for your app.',
@@ -217,11 +231,24 @@ export const repositories = [
         npmPath: '@tauri-apps/plugin-global-shortcut',
       },
       {
+        name: 'haptics',
+        githubPath: 'plugins/haptics',
+        description: 'Trigger haptic feedback and vibration.',
+        cratesPath: 'tauri-plugin-haptics',
+        npmPath: '@tauri-apps/plugin-haptics',
+      },
+      {
         name: 'http',
         githubPath: 'plugins/http',
         description: 'Make HTTP requests from your app.',
         cratesPath: 'tauri-plugin-http',
         npmPath: '@tauri-apps/plugin-http',
+      },
+      {
+        name: 'localhost',
+        githubPath: 'plugins/localhost',
+        description: 'Serve your app over localhost.',
+        cratesPath: 'tauri-plugin-localhost',
       },
       {
         name: 'log',
@@ -245,11 +272,24 @@ export const repositories = [
         npmPath: '@tauri-apps/plugin-notification',
       },
       {
+        name: 'opener',
+        githubPath: 'plugins/opener',
+        description: 'Open files and URLs in external applications.',
+        cratesPath: 'tauri-plugin-opener',
+        npmPath: '@tauri-apps/plugin-opener',
+      },
+      {
         name: 'os',
         githubPath: 'plugins/os',
         description: 'Access operating system-specific information.',
         cratesPath: 'tauri-plugin-os',
         npmPath: '@tauri-apps/plugin-os',
+      },
+      {
+        name: 'persisted-scope',
+        githubPath: 'plugins/persisted-scope',
+        description: 'Persist runtime scope changes across restarts.',
+        cratesPath: 'tauri-plugin-persisted-scope',
       },
       {
         name: 'positioner',
@@ -271,6 +311,12 @@ export const repositories = [
         description: 'Open external programs and URLs.',
         cratesPath: 'tauri-plugin-shell',
         npmPath: '@tauri-apps/plugin-shell',
+      },
+      {
+        name: 'single-instance',
+        githubPath: 'plugins/single-instance',
+        description: 'Ensure a single instance of your app is running.',
+        cratesPath: 'tauri-plugin-single-instance',
       },
       {
         name: 'sql',

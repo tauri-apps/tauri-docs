@@ -34,6 +34,21 @@ jobs:
       - name: Refresh release data
         run: pnpm --filter releases-site run refresh
 
+      # The package list is maintained by hand in generator/config.ts — warn
+      # when plugins-workspace gained a plugin that is not listed there.
+      - name: Check for unlisted plugins
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api "repos/tauri-apps/plugins-workspace/contents/plugins?ref=v2" \
+            --jq '.[] | select(.type=="dir") | .name' | sort > /tmp/upstream-plugins
+          grep -o "githubPath: 'plugins/[^']*'" packages/releases-site/generator/config.ts \
+            | sed "s|.*plugins/||; s|'||" | sort > /tmp/listed-plugins
+          missing=$(comm -23 /tmp/upstream-plugins /tmp/listed-plugins)
+          if [ -n "$missing" ]; then
+            echo "::warning::plugins-workspace has plugins not listed in releases-site config.ts: $(echo $missing | tr '\n' ' ')"
+          fi
+
       # Fetch failures are collected in generator/error.log instead of throwing;
       # a PR built from partial data would silently drop packages, so fail here.
       - name: Fail on fetch errors

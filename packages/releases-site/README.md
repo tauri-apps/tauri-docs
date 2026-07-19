@@ -1,6 +1,6 @@
 # releases-site
 
-Serves the release notes for the whole Tauri core ecosystem (39 packages across `tauri`, `wry`, `tao`, `create-tauri-app`, and `plugins-workspace`) at `/release/*` of the docs domain.
+Serves the release notes for the whole Tauri core ecosystem (46 packages across `tauri`, `wry`, `tao`, `create-tauri-app`, and `plugins-workspace`) at `/release/*` of the docs domain.
 
 ## Why a separate site?
 
@@ -65,4 +65,4 @@ pnpm --filter releases-site refresh # re-fetches upstream data into generator/da
    - Note the resulting `https://<name>.netlify.app` domain.
 2. **Docs site** (existing): no settings change. In the repo root `public/_redirects`, replace the proxy target hostname (`tauri-releases-site.netlify.app`) with the releases site domain from step 1.
 3. The repo root `netlify.toml` has an `ignore` rule so commits touching only `packages/releases-site/**` (e.g. merged data-refresh PRs) skip the docs build.
-4. 
+4.
