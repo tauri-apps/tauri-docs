@@ -10,7 +10,16 @@ export type VersionListEntry = {
 export type PageLink = {
   label: string;
   href: string;
+  /** Push this link to the far end of the links row */
+  align?: 'end';
 };
+
+// Starlight's native `external` icon. Generated pages are plain .md (no
+// component support), so the path data is copied from
+// @astrojs/starlight/components-internals/Icons.ts (not an exported module)
+// and wrapped the same way its <Icon> component renders.
+const externalIcon =
+  '<svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M19.33 10.18a1 1 0 0 1-.77 0 1 1 0 0 1-.62-.93l.01-1.83-8.2 8.2a1 1 0 0 1-1.41-1.42l8.2-8.2H14.7a1 1 0 0 1 0-2h4.25a1 1 0 0 1 1 1v4.25a1 1 0 0 1-.62.93Z"/><path d="M11 4a1 1 0 1 1 0 2H7a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-4a1 1 0 1 1 2 0v4a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h4Z"/></svg>';
 
 // Single-quoted YAML scalar; single quotes are escaped by doubling
 function yaml(value: string): string {
@@ -25,9 +34,12 @@ function renderPageLinks(links: PageLink[]): string {
   if (links.length === 0) {
     return '';
   }
-  const anchors = links.map(({ label, href }) => {
-    const attrs = href.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-    return `<a href="${href}"${attrs}>${label}</a>`;
+  const anchors = links.map(({ label, href, align }) => {
+    const external = href.startsWith('http');
+    const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+    const cls = align === 'end' ? ' class="align-end"' : '';
+    const icon = external ? ` ${externalIcon}` : '';
+    return `<a href="${href}"${cls}${attrs}>${label}${icon}</a>`;
   });
   return `<div class="release-links">${anchors.join('\n')}</div>`;
 }
@@ -66,7 +78,9 @@ export function writeVersionPage(params: {
 
   const header = renderPageLinks([
     { label: `← ${packageName} releases`, href: `/release/${packageName}/` },
-    ...(githubReleaseUrl ? [{ label: 'View on GitHub', href: githubReleaseUrl }] : []),
+    ...(githubReleaseUrl
+      ? [{ label: 'View on GitHub', href: githubReleaseUrl, align: 'end' as const }]
+      : []),
   ]);
 
   const date = renderReleaseDateLabel(releaseDateLabel);
@@ -90,7 +104,9 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
 
   const header = renderPageLinks([
     { label: `← ${packageName} releases`, href: `/release/${packageName}/` },
-    ...(changelogUrl ? [{ label: 'CHANGELOG.md on GitHub', href: changelogUrl }] : []),
+    ...(changelogUrl
+      ? [{ label: 'CHANGELOG.md on GitHub', href: changelogUrl, align: 'end' as const }]
+      : []),
   ]);
 
   return `${frontmatter}\n\n${header}\n\n`;

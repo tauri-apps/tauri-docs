@@ -22,6 +22,16 @@
       text-decoration: underline;
     }
   }
+
+  .align-end {
+    margin-inline-start: auto;
+  }
+
+  .external-icon {
+    display: inline-block;
+    vertical-align: -0.08em;
+    margin-inline-start: 0.15rem;
+  }
 }
 
 .release-date-row {

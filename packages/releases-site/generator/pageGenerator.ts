@@ -192,7 +192,6 @@ async function writeTableData(
   tableMetadata.repoList = Array.from(repoList);
 
   stream.write(JSON.stringify(tableMetadata, null, 2));
-  // open
   stream.write(',\n"tableData": [');
 
   let isFirst = true;
@@ -220,7 +219,6 @@ async function writeTableData(
       isFirst = false;
     }
   }
-  // close
   stream.write(']\n}');
   stream.end();
   await finished(stream);

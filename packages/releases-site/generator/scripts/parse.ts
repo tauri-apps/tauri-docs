@@ -5,8 +5,8 @@ import type { Release } from '../types.js';
  * Parse changelog content into individual releases
  */
 function parseChangelog(changelog: string): Array<{ version: string; notes: string }> {
-  // maybe json parse is escaping some characters
-
+  // Version headings appear as either "## [x.y.z]" or "## \[x.y.z]" depending
+  // on the source changelog; split on whichever form this file actually uses.
   const nonEscaped = changelog.split('## [');
   const escaped = changelog.split('## \\[');
   let valid = escaped;

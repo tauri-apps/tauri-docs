@@ -2,8 +2,6 @@
 
 A standalone [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) site that serves the release notes for the whole Tauri core ecosystem (39 packages across `tauri`, `wry`, `tao`, `create-tauri-app`, and `plugins-workspace`) at `/release/*` of the docs domain.
 
-It replaces both the old in-repo `releases-generator` (7 packages, rebuilt on every docs deploy) and the separate VitePress site at [vasfvitor/tauri-releases](https://github.com/vasfvitor/tauri-releases).
-
 ## Why a separate site?
 
 - **No i18n fallback overhead.** The docs site builds a fallback copy of every docs-collection page for each of its 7 locales. Release pages are English-only, so keeping the ~2,600 release pages in their own single-locale site avoids ~16,000 wasted fallback pages per docs build.
