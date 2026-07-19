@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync
 import { posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { StarlightTypeDocOptions } from 'starlight-typedoc';
+import { normalizeGeneratedPage } from './normalize.mjs';
 
 /**
  * JavaScript API reference generation via the upstream `starlight-typedoc` plugin.
@@ -142,34 +143,6 @@ function walkMarkdownFiles(dir: string): string[] {
   return files;
 }
 
-// TODO: WHAT?
-
-// TS 5.7+ makes Uint8Array generic, so signatures render as `Uint8Array<ArrayBuffer>` /
-// `Uint8Array<ArrayBufferLike>`. The type parameter is lib-level noise for API docs, so
-// strip it from the rendered markdown. Covers raw code blocks, escaped text, and the
-// typedoc-plugin-mdn-links linked form `[`Uint8Array`](...)\<[`ArrayBuffer`](...)\>`.
-const UINT8_GENERIC_RE =
-  /(\[`Uint8Array`\]\([^)\s]*\)|`?Uint8Array`?)\\?<(?:\[`ArrayBuffer(?:Like)?`\]\([^)\s]*\)|`?ArrayBuffer(?:Like)?`?)\\?>/g;
-
-/**
- * TODO: upstream
- * Post-process a generated page (idempotent):
- *  - strip `Uint8Array<ArrayBuffer[Like]>` type parameters (see above)
- *  - add `tableOfContents.maxHeadingLevel: 5` frontmatter so h4/h5 member headings
- *    (methods, enum members) stay reachable from the on-page ToC (Starlight's default
- *    cuts off at h3).
- */
-function normalizeGeneratedPage(content: string): string {
-  let result = content.replace(UINT8_GENERIC_RE, '$1');
-  if (result.startsWith('---\n')) {
-    const frontmatterEnd = result.indexOf('\n---', 4);
-    if (frontmatterEnd !== -1 && !result.slice(0, frontmatterEnd).includes('tableOfContents:')) {
-      result = `---\ntableOfContents:\n  maxHeadingLevel: 5\n${result.slice(4)}`;
-    }
-  }
-  return result;
-}
-
 /**
  * Runs after all typedoc plugin instances (Starlight executes plugins in array order):
  * post-processes every generated page, then records the submodule revisions the outputs
@@ -261,6 +234,7 @@ export function getTauriTypeDocPlugins(): {
           tsconfig: join(API_PACKAGE, 'tsconfig.json'),
           entryPoints: [join(API_PACKAGE, 'src/index.ts')],
           output: CORE_OUTPUT,
+          pagination: true,
           typeDoc: {
             ...sharedTypeDoc,
             displayBasePath: TAURI_SUBMODULE,
@@ -293,6 +267,7 @@ export function getTauriTypeDocPlugins(): {
           tsconfig: join(PLUGINS_DIR, name, 'tsconfig.json'),
           entryPoints: [join(PLUGINS_DIR, name, 'guest-js/index.ts')],
           output,
+          pagination: true,
           typeDoc: {
             ...sharedTypeDoc,
             displayBasePath: PLUGINS_WORKSPACE,
