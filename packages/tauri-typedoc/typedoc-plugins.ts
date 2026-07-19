@@ -191,7 +191,10 @@ function makeFinalizerPlugin(generated: Record<string, string>): StarlightPlugin
         }
         if (Object.keys(generated).length > 0) {
           mkdirSync(dirname(STAMP_FILE), { recursive: true });
-          writeFileSync(STAMP_FILE, `${JSON.stringify({ ...readStamp(), ...generated }, null, 2)}\n`);
+          writeFileSync(
+            STAMP_FILE,
+            `${JSON.stringify({ ...readStamp(), ...generated }, null, 2)}\n`
+          );
         }
       },
     },
@@ -210,7 +213,11 @@ function buildSidebarItems(coreReady: boolean, pluginsReady: boolean): SidebarIt
   const names = new Set<string>(pluginsReady ? discoverPlugins() : []);
   if (existsSync(REF_DIR)) {
     for (const entry of readdirSync(REF_DIR, { withFileTypes: true })) {
-      if (entry.isDirectory() && entry.name !== 'api' && outputIndexExists(pluginOutput(entry.name))) {
+      if (
+        entry.isDirectory() &&
+        entry.name !== 'api' &&
+        outputIndexExists(pluginOutput(entry.name))
+      ) {
         names.add(entry.name);
       }
     }
@@ -268,7 +275,9 @@ export function getTauriTypeDocPlugins(): {
       '[typedoc] Tauri V2 submodule is not initialized — serving previously generated @tauri-apps/api docs, which may be stale.'
     );
   } else {
-    console.warn('Tauri V2 submodule is not initialized, respective API routes will not be rendered.');
+    console.warn(
+      'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
+    );
   }
 
   // Plugins from plugins-workspace (auto-discovered)
