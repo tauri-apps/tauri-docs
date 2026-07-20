@@ -17,6 +17,6 @@
   {
     "title": "Releases",
     "value": "/release/",
-    "transfer": true
+    "transfer": false
   }
 ]

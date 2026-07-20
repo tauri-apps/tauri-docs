@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
@@ -357,52 +357,9 @@ export default defineConfig({
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
-            {
-              label: { en: 'Releases', 'zh-CN': '发行版', es: 'Lanzamientos' },
-              id: 'release',
-              link: '/release/',
-              icon: 'list-format',
-              items: [
-                {
-                  slug: 'release',
-                },
-                {
-                  label: 'tauri',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tauri' } }],
-                },
-                {
-                  label: '@tauri-apps/api',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/@tauri-apps/api' } }],
-                },
-                {
-                  label: 'tauri-cli (Rust)',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tauri-cli' } }],
-                },
-                {
-                  label: '@tauri-apps/cli (JavaScript)',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/@tauri-apps/cli' } }],
-                },
-                {
-                  label: 'tauri-bundler',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tauri-bundler' } }],
-                },
-                {
-                  label: 'wry',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/wry' } }],
-                },
-                {
-                  label: 'tao',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tao' } }],
-                },
-              ],
-            },
+            // The Releases section is a separate Starlight site (packages/releases-site)
+            // proxied at /release/* — see public/_redirects. The header link to it comes
+            // from src/data/header-links.json.
           ],
           {
             exclude: ['**/_*/**'],
@@ -516,7 +473,11 @@ export default defineConfig({
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
           {
-            urlPattern: new RegExp('.*'),
+            // Never handle /release/* — it is a separate Netlify site proxied
+            // under this domain with its own deploy cadence; a CacheFirst copy
+            // of its hashed assets goes stale on its next deploy and breaks
+            // the releases UI until a hard refresh.
+            urlPattern: new RegExp('^https?://[^/]+/(?!release(/|$))'),
             handler: 'CacheFirst',
             options: {
               cacheName: 'tauri-runtime',
@@ -530,6 +491,12 @@ export default defineConfig({
     }),
   ],
   image: {
+    // The PR build gate sets TAURI_DOCS_SKIP_IMAGE_OPT=true to skip sharp
+    // processing entirely (throwaway build). Netlify production builds keep the
+    // default sharp service. Do NOT key this off `CI` — Netlify sets CI=true.
+    ...(process.env.TAURI_DOCS_SKIP_IMAGE_OPT === 'true'
+      ? { service: passthroughImageService() }
+      : {}),
     domains: ['tauri.app', 'images.opencollective.com', 'avatars.githubusercontent.com'],
   },
   markdown: {

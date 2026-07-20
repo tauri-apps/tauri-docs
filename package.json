@@ -14,24 +14,24 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
+    "check": "astro check",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
-    "build:releases": "pnpm --filter releases-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
     "build:astro": "astro build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:astro",
     "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.3",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/starlight": "0.41.3",
+    "@astrojs/starlight": "catalog:",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/jsdom": "^28.0.1",
     "@types/json-schema": "^7.0.15",
-    "astro": "^7.0.9",
+    "astro": "catalog:",
     "astro-d2": "^0.13.0",
     "astro-feelback": "^0.3.4",
     "astrojs-service-worker": "^2.0.2",
@@ -50,5 +50,9 @@
   "packageManager": "pnpm@10.34.5",
   "engines": {
     "pnpm": "^10.16.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
   }
 }

@@ -8,5 +8,6 @@
       "@fragments/*": ["./src/content/docs/_fragments/*"],
       "@utils/*": ["./src/utils/*"]
     }
-  }
+  },
+  "exclude": ["dist", "packages"]
 }

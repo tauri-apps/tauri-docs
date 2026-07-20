@@ -1,0 +1,48 @@
+// Shared with the docs site for visual parity — the releases site is served
+// under the same domain at /release/* and must look like the same website.
+@import url('../../../../src/styles/theme.scss');
+@import url('../../../../src/styles/overrides.scss');
+@import url('../../../../src/styles/shared.scss');
+
+// Releases-specific styles
+
+.release-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+
+  a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .align-end {
+    margin-inline-start: auto;
+  }
+
+  .external-icon {
+    display: inline-block;
+    vertical-align: -0.08em;
+    margin-inline-start: 0.15rem;
+  }
+}
+
+.release-date-row {
+  margin-top: 0.5rem;
+}
+
+.release-date {
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-xs);
+}
+
+.sl-markdown-content li > .release-date {
+  margin-inline-start: 0.5rem;
+}
