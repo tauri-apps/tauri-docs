@@ -1,0 +1,14 @@
+src/content/docs/*
+!src/content/docs/index.mdx
+!src/content/docs/table.mdx
+public/tableData.json
+generator/generated/
+generator/.cache/
+generator/*.log
+dist/
+.astro/
+node_modules/
+
+# Local Netlify folder
+.netlify
+deno.lock

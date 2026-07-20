@@ -35,15 +35,25 @@ interface Props {
    */
   href?: string;
 }
+
+// Map the library shorthands to the package paths used by the releases site
+const libraryPaths: Record<string, string> = {
+  api: '@tauri-apps/api',
+  'rust-cli': 'tauri-cli',
+  'js-cli': '@tauri-apps/cli',
+};
+const library = Astro.props.library
+  ? (libraryPaths[Astro.props.library] ?? Astro.props.library)
+  : undefined;
 ---
 
 <a
   class="not-content"
   href={Astro.props.href
     ? Astro.props.href
-    : Astro.props.library
-      ? `${Astro.url.origin}/release/${Astro.props.library}/v${Astro.props.version}`
-      : `${Astro.url.origin}/release/tauri/v${Astro.props.version}`}
+    : library
+      ? `${Astro.url.origin}/release/${library}/v${Astro.props.version}/`
+      : `${Astro.url.origin}/release/tauri/v${Astro.props.version}/`}
   target="_blank"
 >
   <Icon name="seti:clock" />Since <code>{Astro.props.version}</code>

@@ -1,0 +1,130 @@
+---
+import Search from '@astrojs/starlight/components/Search.astro';
+import SiteTitle from './SiteTitle.astro';
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+import ThemeSelect from '../../../../../src/components/overrides/ThemeSelect.astro';
+
+// Shared with the docs site so the nav items stay in sync.
+// This site is English-only and served at /release/* of the docs domain,
+// so links are root-relative (they resolve to the docs site through the
+// shared domain) and there is no LanguageSelect or topics integration.
+import links from '../../../../../src/data/header-links.json';
+---
+
+<div class="header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+  </div>
+  <div class="desktop">
+    {
+      links.map((link) => {
+        const current = link.value === '/release/';
+        return (
+          <a href={link.value} class:list={{ 'starlight-sidebar-topics-current': current }}>
+            {link.title}
+          </a>
+        );
+      })
+    }
+  </div>
+  <div class="sl-flex search">
+    <Search />
+  </div>
+  <div class="sl-hidden md:sl-flex right-group">
+    <div class="sl-flex social-icons">
+      <SocialIcons />
+    </div>
+    <ThemeSelect />
+  </div>
+</div>
+
+<style>
+  .header {
+    display: grid;
+    gap: var(--sl-nav-gap);
+    align-content: center;
+    height: 100%;
+    grid-template-columns: auto 1fr 1fr auto;
+  }
+
+  @media (width < 50rem) {
+    .header {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .search {
+    justify-content: end;
+  }
+
+  .search,
+  .right-group,
+  .social-icons {
+    gap: 1rem;
+    align-items: center;
+  }
+  .social-icons::after {
+    content: '';
+    height: 2rem;
+    border-inline-end: 1px solid var(--sl-color-gray-5);
+  }
+  @media (width >= 50rem) {
+    .search::after {
+      content: '';
+      height: 2rem;
+      border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
+  }
+
+  a {
+    color: var(--sl-color-white);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  a.starlight-sidebar-topics-current {
+    color: var(--sl-color-text-accent);
+  }
+  a:hover {
+    color: var(--sl-color-gray-2);
+  }
+  :root[data-theme='light'] {
+    .header a:hover {
+      color: var(--sl-color-gray-3);
+    }
+  }
+
+  .desktop {
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    padding-inline-end: 1rem;
+  }
+  @media (width >= 50rem) {
+    .desktop {
+      display: flex;
+    }
+  }
+</style>
+
+<style is:global>
+  .header {
+    border: none !important;
+  }
+  body[data-mobile-menu-expanded] header {
+    background-color: var(--sl-color-bg);
+  }
+
+  @media (width < 50rem) {
+    header {
+      /* We always show the sidebar on mobile */
+      padding-inline-end: calc(
+        var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size)
+      );
+    }
+  }
+
+  .title-wrapper img {
+    height: 2rem;
+  }
+</style>

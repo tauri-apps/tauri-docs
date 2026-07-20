@@ -357,52 +357,9 @@ export default defineConfig({
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
-            {
-              label: { en: 'Releases', 'zh-CN': '发行版', es: 'Lanzamientos' },
-              id: 'release',
-              link: '/release/',
-              icon: 'list-format',
-              items: [
-                {
-                  slug: 'release',
-                },
-                {
-                  label: 'tauri',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tauri' } }],
-                },
-                {
-                  label: '@tauri-apps/api',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/@tauri-apps/api' } }],
-                },
-                {
-                  label: 'tauri-cli (Rust)',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tauri-cli' } }],
-                },
-                {
-                  label: '@tauri-apps/cli (JavaScript)',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/@tauri-apps/cli' } }],
-                },
-                {
-                  label: 'tauri-bundler',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tauri-bundler' } }],
-                },
-                {
-                  label: 'wry',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/wry' } }],
-                },
-                {
-                  label: 'tao',
-                  collapsed: true,
-                  items: [{ autogenerate: { directory: 'release/tao' } }],
-                },
-              ],
-            },
+            // The Releases section is a separate Starlight site (packages/releases-site)
+            // proxied at /release/* — see public/_redirects. The header link to it comes
+            // from src/data/header-links.json.
           ],
           {
             exclude: ['**/_*/**'],
@@ -516,7 +473,11 @@ export default defineConfig({
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
           {
-            urlPattern: new RegExp('.*'),
+            // Never handle /release/* — it is a separate Netlify site proxied
+            // under this domain with its own deploy cadence; a CacheFirst copy
+            // of its hashed assets goes stale on its next deploy and breaks
+            // the releases UI until a hard refresh.
+            urlPattern: new RegExp('^https?://[^/]+/(?!release(/|$))'),
             handler: 'CacheFirst',
             options: {
               cacheName: 'tauri-runtime',
