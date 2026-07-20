@@ -53,13 +53,14 @@ function generateCorePermissionsPage(permissionsDir: string, outputFile: string)
 
   const output = [
     `---
-  # NOTE: This file is auto-generated. Do not edit here!
-  # For corrections please edit the permission definitions in the Tauri source code:
-  # - https://github.com/tauri-apps/tauri/tree/dev/crates/tauri/permissions
+# NOTE: This file is auto-generated. Do not edit here!
+# For corrections please edit the permission definitions in the Tauri source code:
+# - https://github.com/tauri-apps/tauri/tree/dev/crates/tauri/permissions
 
-  title: Core Permissions
-  sidebar:
-    order: 4\n---`,
+title: Core Permissions
+sidebar:
+  order: 4
+---`,
     'A list of all permissions that can be used with the core of the Tauri framework.',
     'If you are looking for permissions to specific Tauri plugins, please refer to the [Plugins section](/plugin/) of the documentation.',
     '## Default Permissions',

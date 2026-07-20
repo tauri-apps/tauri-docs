@@ -18,7 +18,15 @@ function sectionDescription(section) {
     new URL(`./src/content/docs/${section}/index.mdx`, import.meta.url)
   );
   const frontmatter = readFileSync(indexFile, 'utf-8').match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
-  return frontmatter?.match(/^description:\s*(.+?)\s*$/m)?.[1].replace(/^(['"])(.*)\1$/, '$2');
+  const description = frontmatter
+    ?.match(/^description:\s*(.+?)\s*$/m)?.[1]
+    .replace(/^(['"])(.*)\1$/, '$2');
+  if (!description) {
+    throw Error(
+      `Missing or unparseable description frontmatter in ${section}/index.mdx (used to describe the section in llms.txt)`
+    );
+  }
+  return description;
 }
 
 export default {
@@ -28,12 +36,7 @@ export default {
   details: `
 The documentation is organized into key sections:
 
-${sections
-  .flatMap((section) => {
-    const description = sectionDescription(section);
-    return description ? [`- **${section}**: ${description}`] : [];
-  })
-  .join('\n')}
+${sections.map((section) => `- **${section}**: ${sectionDescription(section)}`).join('\n')}
 - **reference**: ${referenceDescription}`,
   customSets: [
     {
