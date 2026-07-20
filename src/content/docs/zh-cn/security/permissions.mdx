@@ -15,10 +15,10 @@ commands.allow = [
     "read_file"
 ]
 
-[[scope.allow]]
+[[permission.scope.allow]]
 my-scope = "$HOME/*"
 
-[[scope.deny]]
+[[permission.scope.deny]]
 my-scope = "$HOME/secret"
 ```
 
@@ -115,7 +115,7 @@ identifier = "scope-home"
 description = """This scope permits access to all files and
 list content of top level directories in the `$HOME`folder."""
 
-[[scope.allow]]
+[[permission.scope.allow]]
 path = "$HOME/*"
 ```
 
