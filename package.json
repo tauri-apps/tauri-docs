@@ -14,6 +14,7 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
+    "check": "astro check",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
     "build:releases": "pnpm --filter releases-generator run build",
@@ -50,5 +51,9 @@
   "packageManager": "pnpm@10.34.5",
   "engines": {
     "pnpm": "^10.16.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
   }
 }

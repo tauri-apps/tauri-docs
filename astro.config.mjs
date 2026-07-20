@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
@@ -530,6 +530,12 @@ export default defineConfig({
     }),
   ],
   image: {
+    // The PR build gate sets TAURI_DOCS_SKIP_IMAGE_OPT=true to skip sharp
+    // processing entirely (throwaway build). Netlify production builds keep the
+    // default sharp service. Do NOT key this off `CI` — Netlify sets CI=true.
+    ...(process.env.TAURI_DOCS_SKIP_IMAGE_OPT === 'true'
+      ? { service: passthroughImageService() }
+      : {}),
     domains: ['tauri.app', 'images.opencollective.com', 'avatars.githubusercontent.com'],
   },
   markdown: {
