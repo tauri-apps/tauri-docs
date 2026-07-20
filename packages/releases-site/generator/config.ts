@@ -24,7 +24,7 @@ export function cratesWebUrl(cratesPath: string): string {
 }
 
 export function npmWebUrl(npmPath: string): string {
-  return `https://www.npmjs.com/package/${npmPath}`;
+  return `https://npmx.dev/package/${npmPath}`;
 }
 
 export const repositories = [
