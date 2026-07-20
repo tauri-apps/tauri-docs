@@ -1,6 +1,11 @@
 [context.deploy-preview.environment]
 TAURI_DOCS_SKIP_IMAGE_OPT = "true"
 
+# Skip docs builds for commits that only touch the releases site
+# (it deploys as its own Netlify site — see packages/releases-site/netlify.toml)
+[build]
+ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)packages/releases-site'"
+
 [[redirects]]
 from = "/:locale/v1/*"
 to = "https://v1.tauri.app/:locale/v1/:splat"

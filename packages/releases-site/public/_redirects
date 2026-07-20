@@ -1,0 +1,5 @@
+# The canonical way to reach this site is through the docs site's proxy at
+# <docs-domain>/release/* (see the repo root public/_redirects). All generated
+# URLs therefore include the /release prefix, but the build output has no
+# /release directory — strip the prefix when this site is browsed directly.
+/release/*  /:splat  200
