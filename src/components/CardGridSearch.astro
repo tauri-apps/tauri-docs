@@ -95,7 +95,12 @@ const { placeholder = 'Search features and community resources...', filters = []
         .map((select) => {
           const value = select.value;
           const pattern = select.dataset.cssPattern || '';
-          return value ? { value, pattern } : null;
+          if (!value) return null;
+          const allClasses = Array.from(select.options)
+            .map((option) => option.value)
+            .filter(Boolean)
+            .map((optionValue) => pattern.replace('${value}', optionValue));
+          return { value, pattern, allClasses };
         })
         .filter(Boolean);
 
@@ -117,6 +122,12 @@ const { placeholder = 'Search features and community resources...', filters = []
           let filterMatches = true;
           for (const filter of activeFilters) {
             if (!filter) {
+              continue;
+            }
+            const hasFilterData = filter.allClasses.some(
+              (className) => htmlElement.querySelector(`.${className}`) !== null
+            );
+            if (!hasFilterData) {
               continue;
             }
             const className = filter.pattern.replace('${value}', filter.value);
