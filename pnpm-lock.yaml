@@ -112,14 +112,11 @@ importers:
   packages/community-resources:
     dependencies:
       '@types/node':
-        specifier: ^22.0.0
-        version: 22.15.21
-      tsm:
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^24.0.0
+        version: 24.13.3
       typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
+        specifier: ^7.0.2
+        version: 7.0.2
 
   packages/compatibility-table:
     dependencies:
