@@ -2,13 +2,28 @@
 import communityResourcesData from '../data/communityResources.json';
 import { Icon } from '@astrojs/starlight/components';
 
-const { resources, count, generated } = communityResourcesData;
+interface Resource {
+  source: string;
+  name: string;
+  description: string;
+  version: string;
+  version_npm?: string;
+  created_at?: string;
+  repository: string | null;
+  npm?: string;
+  crates_io?: string;
+  license?: string;
+  homepage?: string;
+  stars?: number | null;
+}
+
+const resources = communityResourcesData.resources as Resource[];
 
 const filteredResources = resources.filter((item) => !item.repository?.includes('tauri-apps'));
 ---
 
 <p>
-  <a href="/plugin"><Icon name="left-arrow" class="inline" />Plugins</a>
+  <a href="/plugin/"><Icon name="left-arrow" class="inline" />Plugins</a>
 </p>
 
 <community-resources>
@@ -35,10 +50,11 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
         <select id="sort-by" class="filter-select">
           <option value="date">Date Created</option>
           <option value="name">Name</option>
+          <option value="stars">Stars</option>
         </select>
       </label>
     </div>
-    <div class="summary" id="resource-summary">
+    <div class="summary" id="resource-summary" aria-live="polite">
       Showing <strong id="visible-count">{filteredResources.length}</strong> of <strong
         >{filteredResources.length}</strong
       > community plugins
@@ -51,6 +67,7 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
         <tr>
           <th class="name-header">Name & Links</th>
           <th class="description-header">Description</th>
+          <th class="stars-header">Stars</th>
           <th class="created-header">Created</th>
         </tr>
       </thead>
@@ -59,11 +76,10 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
           filteredResources.map((item) => (
             <tr
               class="resource-row"
-              data-name={item.name}
-              data-description={item.description}
               data-has-npm={item.npm ? 'true' : 'false'}
               data-has-crates={item.crates_io ? 'true' : 'false'}
               data-created={item.created_at || ''}
+              data-stars={typeof item.stars === 'number' ? String(item.stars) : ''}
             >
               <td class="name-cell">
                 <div class="name-with-links">
@@ -98,6 +114,9 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
                 </div>
               </td>
               <td class="description-cell">{item.description}</td>
+              <td class="stars-cell">
+                {typeof item.stars === 'number' ? item.stars.toLocaleString('en-US') : '-'}
+              </td>
               <td class="created-cell">
                 {item.created_at
                   ? new Date(item.created_at).toLocaleDateString('en-US', {
@@ -219,7 +238,12 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
   }
 
   .description-header {
-    width: 60%;
+    width: 50%;
+  }
+
+  .stars-header {
+    width: 10%;
+    text-align: right;
   }
 
   .created-header {
@@ -256,9 +280,15 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
   }
 
   .description-cell {
-    width: 60%;
+    width: 50%;
     line-height: 1.4;
     word-wrap: break-word;
+  }
+
+  .stars-cell {
+    width: 10%;
+    text-align: right;
+    white-space: nowrap;
   }
 
   .created-cell {
@@ -318,6 +348,16 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
 </style>
 
 <script>
+  interface RowData {
+    el: HTMLTableRowElement;
+    name: string;
+    description: string;
+    created: number;
+    stars: number;
+    hasNpm: boolean;
+    hasCrates: boolean;
+  }
+
   class CommunityResources extends HTMLElement {
     searchInput: HTMLInputElement;
     sourceFilter: HTMLSelectElement;
@@ -326,8 +366,7 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
     summaryEl: HTMLElement;
     visibleCountEl: HTMLElement;
     noResultsEl: HTMLElement;
-    rows: HTMLTableRowElement[];
-    totalCount: number;
+    rows: RowData[];
 
     constructor() {
       super();
@@ -339,8 +378,18 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
       this.summaryEl = this.querySelector('#resource-summary') as HTMLElement;
       this.visibleCountEl = this.querySelector('#visible-count') as HTMLElement;
       this.noResultsEl = this.querySelector('#no-results') as HTMLElement;
-      this.rows = Array.from(this.tbody.querySelectorAll('.resource-row'));
-      this.totalCount = this.rows.length;
+
+      this.rows = Array.from(this.tbody.querySelectorAll<HTMLTableRowElement>('.resource-row')).map(
+        (el) => ({
+          el,
+          name: el.querySelector('.name-cell code')?.textContent?.toLowerCase() || '',
+          description: el.querySelector('.description-cell')?.textContent?.toLowerCase() || '',
+          created: el.dataset.created ? new Date(el.dataset.created).getTime() : 0,
+          stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
+          hasNpm: el.dataset.hasNpm === 'true',
+          hasCrates: el.dataset.hasCrates === 'true',
+        })
+      );
 
       this.searchInput.addEventListener('input', () => this.filterAndSort());
       this.sourceFilter.addEventListener('change', () => this.filterAndSort());
@@ -351,21 +400,16 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
       const query = this.searchInput.value.toLowerCase();
       const sourceFilter = this.sourceFilter.value;
 
-      let visibleRows = this.rows.filter((row) => {
-        const name = row.dataset.name?.toLowerCase() || '';
-        const description = row.dataset.description?.toLowerCase() || '';
-        const hasNpm = row.dataset.hasNpm === 'true';
-        const hasCrates = row.dataset.hasCrates === 'true';
-
-        const matchesQuery = !query || name.includes(query) || description.includes(query);
+      const visibleRows = this.rows.filter((row) => {
+        const matchesQuery = !query || row.name.includes(query) || row.description.includes(query);
 
         let matchesSource = true;
         if (sourceFilter === 'both') {
-          matchesSource = hasNpm && hasCrates;
+          matchesSource = row.hasNpm && row.hasCrates;
         } else if (sourceFilter === 'npm') {
-          matchesSource = hasNpm;
+          matchesSource = row.hasNpm;
         } else if (sourceFilter === 'crates') {
-          matchesSource = hasCrates;
+          matchesSource = row.hasCrates;
         }
 
         return matchesQuery && matchesSource;
@@ -374,20 +418,20 @@ const filteredResources = resources.filter((item) => !item.repository?.includes(
       const sortBy = this.sortSelect.value;
       visibleRows.sort((a, b) => {
         if (sortBy === 'date') {
-          const dateA = a.dataset.created ? new Date(a.dataset.created).getTime() : 0;
-          const dateB = b.dataset.created ? new Date(b.dataset.created).getTime() : 0;
-          return dateB - dateA;
+          return b.created - a.created;
         } else if (sortBy === 'name') {
-          return (a.dataset.name || '').localeCompare(b.dataset.name || '');
+          return a.name.localeCompare(b.name);
+        } else if (sortBy === 'stars') {
+          return b.stars - a.stars;
         }
         return 0;
       });
 
-      this.rows.forEach((row) => row.classList.add('hidden'));
+      this.rows.forEach((row) => row.el.classList.add('hidden'));
       visibleRows.forEach((row) => {
-        row.classList.remove('hidden');
+        row.el.classList.remove('hidden');
 
-        this.tbody.appendChild(row);
+        this.tbody.appendChild(row.el);
       });
 
       const visibleCount = visibleRows.length;

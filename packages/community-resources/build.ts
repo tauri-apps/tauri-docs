@@ -14,7 +14,12 @@ function cleanRepoUrl(url: string) {
   if (!url) {
     return null;
   }
-  return url.replace(/^git\+/, '').replace(/\.git$/, '');
+  const cleaned = url.replace(/^git\+/, '').replace(/\.git$/, '');
+  // registry metadata is author-controlled; only keep http(s) URLs
+  if (!/^https?:\/\//.test(cleaned)) {
+    return null;
+  }
+  return cleaned;
 }
 
 async function fetchJson(url: string, headers?: Headers) {
@@ -28,11 +33,19 @@ async function fetchJson(url: string, headers?: Headers) {
     );
   }
 
-  const res = await fetch(url, { headers });
-  if (!res.ok) {
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch(url, { headers, signal: AbortSignal.timeout(30_000) });
+    if (res.ok) {
+      return res.json();
+    }
+    if ((res.status === 429 || res.status >= 500) && attempt < 4) {
+      const retryAfter = Number(res.headers.get('retry-after')) || attempt * 15;
+      console.warn(`  ${res.status} for ${url} - retrying in ${retryAfter}s`);
+      await sleep(retryAfter * 1000);
+      continue;
+    }
     throw new Error(`Failed ${url}: ${res.status} ${res.statusText}`);
   }
-  return res.json();
 }
 
 // https://crates.io/data-access
@@ -79,36 +92,65 @@ interface ResultsItem {
   repository: string | null;
   npm?: string;
   crates_io?: string;
+  stars?: number | null;
 }
 
 // https://docs.npmjs.com/policies/open-source-terms
 async function fetchNpm() {
   const results: ResultsItem[] = [];
   const size = 250;
-  const url = `https://registry.npmjs.org/-/v1/search?text=tauri-plugin-&size=${size}`;
-  const j = await fetchJson(url);
-  if (!j.objects) return results;
-  for (const obj of j.objects) {
-    const p = obj.package;
-    const name = p.name;
-    if (!name) {
-      continue;
+  let from = 0;
+  while (true) {
+    const url = `https://registry.npmjs.org/-/v1/search?text=${query}&size=${size}&from=${from}`;
+    const j = await fetchJson(url);
+    const objects = j.objects || [];
+    if (objects.length === 0) {
+      break;
     }
-    if (!/(^|\/)tauri-plugin-/.test(name)) {
-      continue;
+    let pageMatches = 0;
+    for (const obj of objects) {
+      const p = obj.package;
+      const name = p.name;
+      if (!name) {
+        continue;
+      }
+      if (!/(^|\/)tauri-plugin-/.test(name)) {
+        continue;
+      }
+      pageMatches++;
+      const repo = p.links && p.links.repository ? p.links.repository : p.repository;
+      results.push({
+        source: 'npm',
+        name,
+        description: p.description || '',
+        version: p.version || '',
+        created_at: p.date || '',
+        repository: cleanRepoUrl(repo || p.links?.homepage || ''),
+        npm: `https://www.npmjs.com/package/${encodeURIComponent(name)}`,
+      });
     }
-    const repo = p.links && p.links.repository ? p.links.repository : p.repository;
-    results.push({
-      source: 'npm',
-      name,
-      description: p.description || '',
-      version: p.version || '',
-      created_at: p.date || '',
-      repository: cleanRepoUrl(repo || p.links?.homepage || ''),
-      npm: `https://www.npmjs.com/package/${encodeURIComponent(name)}`,
-    });
+    from += size;
+    // `text=` matches fuzzily (descriptions, keywords), so j.total is far
+    // larger than the set of real name matches, and npm caps `from` at 10k
+    // anyway. Results are relevance-sorted, so once a whole page has no
+    // name match the tail is only noise - stop there.
+    if (pageMatches === 0 || from >= Math.min(j.total || 0, 10_000 - size)) {
+      break;
+    }
+    await sleep(1001);
   }
   return results;
+}
+
+// the npm search API only exposes the last-publish date; the real creation
+// date lives in the package's registry document under time.created
+async function fetchNpmCreatedDate(name: string) {
+  try {
+    const j = await fetchJson(`https://registry.npmjs.org/${encodeURIComponent(name)}`);
+    return j.time?.created || null;
+  } catch (e) {
+    return null;
+  }
 }
 
 function extractGithubRepo(url: string) {
@@ -159,6 +201,10 @@ async function run() {
 
   const map = new Map();
 
+  // NOTE: entries are deduplicated by exact name only. The same plugin
+  // published as e.g. `tauri-plugin-foo` (crate) and `tauri-plugin-foo-api`
+  // (npm) intentionally stays as two entries - there is no reliable
+  // cross-registry key to merge them on.
   for (const c of crates) {
     map.set(c.name, { ...c });
   }
@@ -174,7 +220,44 @@ async function run() {
     }
   }
 
-  const items = Array.from(map.values()).sort((a, b) => {
+  const items: ResultsItem[] = Array.from(map.values());
+
+  const npmOnly = items.filter((item) => item.source === 'npm');
+  console.log(`Fetching creation dates for ${npmOnly.length} npm-only packages...`);
+  let done = 0;
+  for (const item of npmOnly) {
+    const created = await fetchNpmCreatedDate(item.name);
+    if (created) {
+      item.created_at = created;
+    }
+    done++;
+    if (done % 50 === 0) {
+      console.log(`  ${done}/${npmOnly.length}`);
+    }
+    await sleep(100);
+  }
+
+  if (GITHUB_TOKEN) {
+    console.log('Fetching GitHub star counts...');
+    const starsCache = new Map<string, number | null>();
+    for (const item of items) {
+      const ownerRepo = extractGithubRepo(item.repository || '');
+      if (!ownerRepo) {
+        continue;
+      }
+      if (!starsCache.has(ownerRepo)) {
+        starsCache.set(ownerRepo, await fetchGithubStars(ownerRepo));
+        await sleep(100);
+      }
+      item.stars = starsCache.get(ownerRepo) ?? null;
+    }
+  } else {
+    console.warn(
+      'GITHUB_TOKEN not set - skipping star counts (unauthenticated rate limits are too low).'
+    );
+  }
+
+  items.sort((a, b) => {
     const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
     const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
     return dateB - dateA;
