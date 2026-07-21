@@ -38,6 +38,7 @@ export default defineConfig({
         Footer: '../../src/components/overrides/Footer.astro',
         ThemeSelect: '../../src/components/overrides/ThemeSelect.astro',
         PageFrame: '../../src/components/overrides/PageFrame.astro',
+        TwoColumnContent: '../../src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
@@ -55,6 +56,22 @@ export default defineConfig({
           items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
         })),
       ],
+      // Copied from the docs site's expressiveCode.styleOverrides (keep in
+      // sync) so code blocks in changelog notes match the docs code blocks.
+      expressiveCode: {
+        styleOverrides: {
+          codePaddingBlock: '1rem',
+          codePaddingInline: '1.35rem',
+          borderRadius: '0.5rem',
+          textMarkers: {
+            borderLuminance: '66',
+            backgroundOpacity: '25%',
+          },
+          frames: {
+            editorActiveTabIndicatorHeight: '0',
+          },
+        },
+      },
       lastUpdated: false,
     }),
   ],
