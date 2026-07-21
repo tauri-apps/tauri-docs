@@ -25,13 +25,13 @@ importers:
         version: 4.0.19
       '@astrojs/starlight':
         specifier: 'catalog:'
-        version: 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
       '@lunariajs/core':
         specifier: ^0.1.1
         version: 0.1.1
       '@lunariajs/starlight':
         specifier: ^0.1.1
-        version: 0.1.1(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))
+        version: 0.1.1(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))
       '@types/jsdom':
         specifier: ^28.0.1
         version: 28.0.3
@@ -70,23 +70,23 @@ importers:
         version: 4.3.1
       starlight-blog:
         specifier: ^0.28.0
-        version: 0.28.0(@astrojs/markdown-satteri@0.3.4)(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.28.0(@astrojs/markdown-satteri@0.3.4)(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
       starlight-links-validator:
         specifier: ^0.25.2
-        version: 0.25.2(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))
+        version: 0.25.2(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))
       starlight-sidebar-topics:
         specifier: ^0.8.0
-        version: 0.8.0(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))
+        version: 0.8.0(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))
       vite:
         specifier: ^8.1.4
         version: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0)
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.9
-        version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@5.9.3)
+        version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@7.0.2)
       typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
+        specifier: ^7.0.0
+        version: 7.0.2
 
   packages/cli-generator:
     dependencies:
@@ -4339,11 +4339,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@7.0.2:
     resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
     engines: {node: '>=16.20.0'}
@@ -4870,12 +4865,12 @@ snapshots:
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
-  '@astrojs/check@0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@5.9.3)':
+  '@astrojs/check@0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@7.0.2)':
     dependencies:
-      '@astrojs/language-server': 2.16.12(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@5.9.3)
+      '@astrojs/language-server': 2.16.12(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@7.0.2)
       chokidar: 4.0.3
       kleur: 4.1.5
-      typescript: 5.9.3
+      typescript: 7.0.2
       yargs: 17.7.3
     transitivePeerDependencies:
       - prettier
@@ -4959,12 +4954,12 @@ snapshots:
       smol-toml: 1.7.0
       unified: 11.0.5
 
-  '@astrojs/language-server@2.16.12(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@5.9.3)':
+  '@astrojs/language-server@2.16.12(prettier-plugin-astro@0.14.1)(prettier@3.9.5)(typescript@7.0.2)':
     dependencies:
       '@astrojs/compiler': 2.13.1
       '@astrojs/yaml2ts': 0.2.4
       '@jridgewell/sourcemap-codec': 1.5.5
-      '@volar/kit': 2.4.28(typescript@5.9.3)
+      '@volar/kit': 2.4.28(typescript@7.0.2)
       '@volar/language-core': 2.4.28
       '@volar/language-server': 2.4.28
       '@volar/language-service': 2.4.28
@@ -5111,7 +5106,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)':
+  '@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)':
     dependencies:
       '@astrojs/markdown-satteri': 0.3.4
       '@astrojs/mdx': 7.0.0(@astrojs/markdown-satteri@0.3.4)(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))
@@ -5127,7 +5122,7 @@ snapshots:
       hast-util-select: 6.0.4
       hast-util-to-string: 3.0.1
       hastscript: 9.0.1
-      i18next: 26.3.6(typescript@5.9.3)
+      i18next: 26.3.6(typescript@7.0.2)
       js-yaml: 4.3.0
       klona: 2.0.6
       magic-string: 0.30.21
@@ -6256,9 +6251,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))':
+  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))':
     dependencies:
-      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
       '@lunariajs/core': 0.1.1
       astro: 7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0)
     transitivePeerDependencies:
@@ -6880,12 +6875,12 @@ snapshots:
 
   '@ungap/structured-clone@1.3.1': {}
 
-  '@volar/kit@2.4.28(typescript@5.9.3)':
+  '@volar/kit@2.4.28(typescript@7.0.2)':
     dependencies:
       '@volar/language-service': 2.4.28
       '@volar/typescript': 2.4.28
       typesafe-path: 0.2.2
-      typescript: 5.9.3
+      typescript: 7.0.2
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
 
@@ -8144,10 +8139,6 @@ snapshots:
     transitivePeerDependencies:
       - kerberos
       - supports-color
-
-  i18next@26.3.6(typescript@5.9.3):
-    optionalDependencies:
-      typescript: 5.9.3
 
   i18next@26.3.6(typescript@7.0.2):
     optionalDependencies:
@@ -9511,13 +9502,13 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  schema-dts-lib@1.0.0(typescript@5.9.3):
+  schema-dts-lib@1.0.0(typescript@7.0.2):
     dependencies:
-      typescript: 5.9.3
+      typescript: 7.0.2
 
-  schema-dts@2.0.0(typescript@5.9.3):
+  schema-dts@2.0.0(typescript@7.0.2):
     dependencies:
-      schema-dts-lib: 1.0.0(typescript@5.9.3)
+      schema-dts-lib: 1.0.0(typescript@7.0.2)
     transitivePeerDependencies:
       - typescript
 
@@ -9697,19 +9688,19 @@ snapshots:
     dependencies:
       minipass: 7.1.3
 
-  starlight-blog@0.28.0(@astrojs/markdown-satteri@0.3.4)(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3):
+  starlight-blog@0.28.0(@astrojs/markdown-satteri@0.3.4)(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2):
     dependencies:
       '@astrojs/markdown-remark': 7.2.0
       '@astrojs/mdx': 7.0.0(@astrojs/markdown-satteri@0.3.4)(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))
       '@astrojs/rss': 4.0.19
-      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
       hast-util-to-html: 9.0.5
       hast-util-to-string: 3.0.1
       mdast-util-mdx-expression: 2.0.1
       satteri: 0.9.5
-      schema-dts: 2.0.0(typescript@5.9.3)
+      schema-dts: 2.0.0(typescript@7.0.2)
       unist-util-is: 6.0.1
       unist-util-remove: 4.0.0
       unist-util-visit: 5.1.0
@@ -9719,10 +9710,10 @@ snapshots:
       - supports-color
       - typescript
 
-  starlight-links-validator@0.25.2(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0)):
+  starlight-links-validator@0.25.2(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2))(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0)):
     dependencies:
       '@astrojs/markdown-satteri': 0.3.4
-      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
       '@types/picomatch': 4.0.3
       astro: 7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0)
       github-slugger: 2.0.0
@@ -9738,9 +9729,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  starlight-sidebar-topics@0.8.0(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)):
+  starlight-sidebar-topics@0.8.0(@astrojs/starlight@0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)):
     dependencies:
-      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
       picomatch: 4.0.5
 
   stream-replace-string@2.0.0: {}
@@ -9960,8 +9951,6 @@ snapshots:
       semver: 7.8.5
 
   typescript@5.5.4: {}
-
-  typescript@5.9.3: {}
 
   typescript@7.0.2:
     optionalDependencies:
