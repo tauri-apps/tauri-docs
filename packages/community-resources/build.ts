@@ -201,15 +201,28 @@ async function run() {
 
   const map = new Map();
 
-  // NOTE: entries are deduplicated by exact name only. The same plugin
-  // published as e.g. `tauri-plugin-foo` (crate) and `tauri-plugin-foo-api`
-  // (npm) intentionally stays as two entries - there is no reliable
-  // cross-registry key to merge them on.
   for (const c of crates) {
     map.set(c.name, { ...c });
   }
   for (const n of npm) {
-    const existing = map.get(n.name);
+    // Merge by exact name, or by the documented naming convention: a crate
+    // `tauri-plugin-X` publishes its JS bindings as `tauri-plugin-X-api`.
+    // The convention match additionally requires the repositories not to
+    // disagree - monorepos share one repo URL across different plugins, so
+    // neither the suffix nor the URL is a safe key on its own. Scoped
+    // packages (`@scope/plugin-X`) are not matched and stay separate rows.
+    let existing = map.get(n.name);
+    if (!existing && n.name.endsWith('-api')) {
+      const candidate = map.get(n.name.slice(0, -'-api'.length));
+      if (
+        candidate &&
+        (!candidate.repository ||
+          !n.repository ||
+          candidate.repository.toLowerCase() === n.repository.toLowerCase())
+      ) {
+        existing = candidate;
+      }
+    }
     if (existing) {
       existing.npm = n.npm;
       existing.version_npm = n.version;
