@@ -7,7 +7,7 @@ You may need to embed external binaries to add additional functionality to your 
 
 Binaries are executables written in any programming language. Common use cases are Python CLI applications or API servers bundled using `pyinstaller`.
 
-To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri > bundle` object in your `tauri.conf.json`.
+To bundle the binaries of your choice, you can add the `externalBin` property to the `bundle` object in your `tauri.conf.json`.
 The `externalBin` configuration expects a list of strings targeting binaries either with absolute or relative paths.
 
 Here is a Tauri configuration snippet to illustrate a sidecar configuration:
@@ -34,23 +34,26 @@ So `binaries/my-sidecar` would represent `<PROJECT ROOT>/src-tauri/binaries/my-s
 To make the external binary work on each supported architecture, a binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path.
 For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux or `src-tauri/binaries/my-sidecar-aarch64-apple-darwin` on Mac OS with Apple Silicon.
 
-You can find your **current** platform's `-$TARGET_TRIPLE` suffix by looking at the `host:` property reported by the following command:
+You can find your **current** platform's `-$TARGET_TRIPLE` suffix by running the following command:
 
 ```sh
-rustc -Vv
+rustc --print host-tuple
 ```
 
-If the `grep` and `cut` commands are available, as they should on most Unix systems, you can extract the target triple directly with the following command:
+This directly outputs your host's target triple (e.g., `x86_64-unknown-linux-gnu` or `aarch64-apple-darwin`).
 
-```shell
+:::note
+The `--print host-tuple` flag was added in Rust 1.84.0. If you're using an older version, you'll need to parse the output of `rustc -Vv` instead:
+
+```sh
+# Unix (Linux/macOS)
 rustc -Vv | grep host | cut -f2 -d' '
-```
 
-On Windows you can use PowerShell instead:
-
-```powershell
+# Windows PowerShell
 rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 ```
+
+:::
 
 Here's a Node.js script to append the target triple to a binary:
 
@@ -60,8 +63,7 @@ import fs from 'fs';
 
 const extension = process.platform === 'win32' ? '.exe' : '';
 
-const rustInfo = execSync('rustc -vV');
-const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+const targetTriple = execSync('rustc --print host-tuple').toString().trim();
 if (!targetTriple) {
   console.error('Failed to determine platform target triple');
 }

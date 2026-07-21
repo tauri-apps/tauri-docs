@@ -11,7 +11,7 @@ import Cta from '@fragments/cta.mdx';
 
 One thing that makes Tauri so flexible is its ability to work with virtually any frontend framework. We've created the [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) utility to help you create a new Tauri project using one of the officially maintained framework templates.
 
-`create-tauri-app` currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore-rs.netlify.app/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri).
+`create-tauri-app` currently includes templates for vanilla (HTML, CSS and JavaScript without a framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos), and [Sycamore](https://sycamore.dev/). You can also find or add your own community templates and frameworks in the [Awesome Tauri repo](https://github.com/tauri-apps/awesome-tauri).
 
 {/* TODO: redirect to integrate to existing front-end project specific docs */}
 Alternatively, you can [add Tauri to an existing project](#manual-setup-tauri-cli) to quickly turn your existing codebase into a Tauri app.
@@ -128,8 +128,9 @@ import CommandTabs from '@components/CommandTabs.astro';
     bun install
     bun tauri dev
   "
-  cargo="cd tauri-app
-    cargo tauri dev"
+  cargo='cd tauri-app
+    cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri dev'
 />
 
 You'll now see a new window open with your app running.
@@ -203,7 +204,21 @@ The following example assumes you are creating a new project. If you've already 
 
         This will create a `src-tauri` directory in your project with the necessary Tauri configuration files.
 
-    5. Verify your Tauri app is working by running the development server:
+    5. Configure the `server.watch.ignored` option in `vite.config.ts` to prevent Vite from watching the `src-tauri` directory:
+
+        ```js title="vite.config.ts"
+        import { defineConfig } from "vite";
+
+        export default defineConfig({
+          server: {
+            watch: {
+              ignored: ["**/src-tauri/**"],
+            },
+          },
+        });
+        ```
+
+    6. Verify your Tauri app is working by running the development server:
 
         <CommandTabs
             npm="npx tauri dev"

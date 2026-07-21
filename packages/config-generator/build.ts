@@ -1,4 +1,4 @@
-import { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-schema';
+import type { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'json-schema';
 import { existsSync, writeFileSync } from 'node:fs';
 import { slug } from 'github-slugger';
 
@@ -38,15 +38,15 @@ async function generatePageFromSchema(
     );
   }
 
-  let schema: JSONSchema7 = (await import(schemaFile)).default;
+  let schema: JSONSchema7 = (await import(schemaFile, { with: { type: 'json' } })).default;
 
   const output = [
     `---
   # NOTE: This file is auto-generated. Do not edit here!
   # For corrections please directly edit the documentation of the underlying Rust source code.
-  # Example for the configuration reference: 
+  # Example for the configuration reference:
   # - https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-utils/src/config.rs
-  
+
   title: ${pageTitle}
   sidebar:
     order: ${sidebarOrder}\n---`,

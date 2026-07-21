@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://v2.tauri.app/sitemap-index.xml
+# The releases section (/release/*) is a separate proxied site with its own
+# sitemap that crawlers cannot discover by convention.
+Sitemap: https://v2.tauri.app/release/sitemap-index.xml

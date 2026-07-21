@@ -82,7 +82,7 @@ CI/CD プラットフォームで証明書を使用するためには、以下�
 4. ターミナルで次のスクリプトを実行して、「`.p12` ファイル」を base64 に変換します：
 
 ```sh
-openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
+openssl base64 -A -in /path/to/certificate.p12 -out certificate-base64.txt
 ```
 
 5. 「`certificate-base64.txt` ファイル」の内容を環境変数の「`APPLE_CERTIFICATE`」に設定します。

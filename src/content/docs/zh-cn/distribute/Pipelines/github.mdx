@@ -1,0 +1,259 @@
+---
+title: GitHub
+---
+
+本教程将向您展示如何在 [GitHub Actions](https://docs.github.com/en/actions) 中使用 [tauri-action](https://github.com/tauri-apps/tauri-action) 来轻松构建和上传您的应用程序，以及如何使 Tauri 的 `updater` 插件通过 GitHub Releases 获取更新。
+
+本文还将展示如何为 Linux Arm AppImage 设置更复杂的构建工作流。
+
+:::note[代码签名]
+
+要在工作流中设置 Windows 和 macOS 的代码签名，请按照每个平台的具体指南操作：
+
+- [Windows 代码签名](/distribute/sign/windows/)
+- [macOS 代码签名](/distribute/sign/macos/)
+
+:::
+
+## 开始
+
+要设置 `tauri-action`，您必须首先设置一个 GitHub 仓库。您也可以在尚未配置 Tauri 的仓库中使用此操作，因为它可以自动为您初始化 Tauri，具体配置选项请参见 [action 的自述文件](https://github.com/tauri-apps/tauri-action/#project-initialization)。
+
+进入您的 GitHub 项目页面的 Actions 选项卡，选择“New workflow”，然后选择“Set up a workflow yourself”。用下面的工作流或 [action 的示例](https://github.com/tauri-apps/tauri-action/tree/dev/examples) 中的一个替换该文件。
+
+## 配置
+
+请参阅 `tauri-action` 的 [自述文件](https://github.com/tauri-apps/tauri-action/#inputs) 以获取所有可用的配置选项。
+
+当您的应用程序不在仓库根目录时，请使用 `projectPath` 输入。
+
+您可以自由修改工作流名称，更改其触发器，并添加更多步骤，例如 `npm run lint` 或 `npm run test`。重要的是，您必须保留工作流末尾的以下行，因为它运行构建脚本并发布您的应用程序。
+
+### 配置触发器
+
+下面和 `tauri-action` 示例中显示的发布工作流是由推送到 `release` 分支触发的。该操作会自动使用应用程序版本创建一个 git 标签和 GitHub 发布的标题。
+
+作为另一个示例，您还可以将触发器更改为在推送版本 git 标签（例如 `app-v0.7.0`）时运行工作流：
+
+```yaml
+name: 'publish'
+
+on:
+  push:
+    tags:
+      - 'app-v*'
+```
+
+有关可能的触发器配置的完整列表，请参阅官方的 [GitHub 文档](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)。
+
+## 示例工作流
+
+下面是一个示例工作流，它已设置为每次推送到 `release` 分支时运行。
+
+该工作流将为 Windows x64、Linux x64、Linux Arm64、macOS x64 和 macOS Arm64（M1 及以上）构建并发布您的应用程序。
+
+该工作流执行的步骤包括：
+
+1. 使用 `actions/checkout@v4` 签出仓库。
+2. 安装构建应用程序所需的 Linux 系统依赖项。
+3. 使用 `actions/setup-node@v4` 设置 Node.js LTS 版本并缓存全局 npm/yarn/pnpm 包数据。
+4. 使用 `dtolnay/rust-toolchain@stable` 和 `swatinem/rust-cache@v2` 设置 Rust 并缓存 Rust 的构建产物。
+5. 安装前端依赖项，如果未配置 [`beforeBuildCommand`](/reference/config/#beforebuildcommand)，则运行 Web 应用的构建脚本。
+6. 最后，使用 `tauri-apps/tauri-action@v0` 运行 `tauri build`，生成构建产物，并创建 GitHub 发布。
+
+```yaml
+name: 'publish'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest' # for Arm based macs (M1 and above).
+            args: '--target aarch64-apple-darwin'
+          - platform: 'macos-latest' # for Intel based macs.
+            args: '--target x86_64-apple-darwin'
+          - platform: 'ubuntu-22.04'
+            args: ''
+          - platform: 'ubuntu-22.04-arm' # Only available in public repos.
+            args: ''
+          - platform: 'windows-latest'
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'yarn' # Set this to npm, yarn or pnpm.
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: yarn install # change this to npm or pnpm depending on which one you use.
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
+```
+
+有关更多配置选项，请查看 [`tauri-action`](https://github.com/tauri-apps/tauri-action) 仓库及其 [示例](https://github.com/tauri-apps/tauri-action/blob/dev/examples/)。
+
+:::caution
+
+请仔细阅读 GitHub Actions 的[使用限制、计费和管理](https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration)文档。
+
+:::
+
+## 使用 Arm Runner 编译
+
+:::note[2025 年 8 月更新]
+GitHub 已[发布](https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/#get-started)公开可用的 `ubuntu-22.04-arm` 和 `ubuntu-24.04-arm` 运行器。您可以使用上述工作流示例在公共仓库中为 Arm64 构建您的应用程序。
+:::
+
+此工作流使用 [`pguyot/arm-runner-action`](https://github.com/pguyot/arm-runner-action) 在模拟的 Arm 运行器上直接编译。这弥补了 AppImage 工具链中缺失的跨架构构建支持。
+
+:::danger
+`arm-runner-action` 比 GitHub 的标准运行器**慢得多**，因此在按构建时长计费的私有仓库中请谨慎使用。对于一个全新的 `create-tauri-app` 项目，未缓存的构建大约需要 1 小时。
+:::
+
+```yaml
+name: 'Publish Linux Arm builds'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        arch: [aarch64, armv7l]
+        include:
+          - arch: aarch64
+            cpu: cortex-a72
+            base_image: https://dietpi.com/downloads/images/DietPi_RPi5-ARMv8-Bookworm.img.xz
+            deb: arm64
+            rpm: aarch64
+            appimage: aarch64
+          - arch: armv7l
+            cpu: cortex-a53
+            deb: armhfp
+            rpm: arm
+            appimage: armhf
+            base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv7-Bookworm.img.xz
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          cache-on-failure: true
+
+      - name: Build app
+        uses: pguyot/arm-runner-action@v2.6.5
+        with:
+          base_image: ${{ matrix.base_image }}
+          cpu: ${{ matrix.cpu }}
+          bind_mount_repository: true
+          image_additional_mb: 10240
+          optimize_image: no
+          #exit_on_fail: no
+          commands: |
+            # 防止 Rust 抱怨 $HOME 与 eid home 不匹配
+            export HOME=/root
+
+            # 解决 CI 工作节点卡在更新 crates.io 索引的问题
+            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+
+            # 安装设置先决条件
+            apt-get update -y --allow-releaseinfo-change
+            apt-get autoremove -y
+            apt-get install -y --no-install-recommends --no-install-suggests curl libwebkit2gtk-4.1-dev build-essential libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2 file
+            curl https://sh.rustup.rs -sSf | sh -s -- -y
+            . "$HOME/.cargo/env"
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
+            apt-get install -y nodejs
+
+            # 安装前端依赖
+            npm install
+
+            # 构建应用程序
+            npm run tauri build -- --verbose
+
+      - name: Get app version
+        run: echo "APP_VERSION=$(jq -r .version src-tauri/tauri.conf.json)" >> $GITHUB_ENV
+
+      # TODO: 将此与基本工作流结合并上传文件到 Release。
+      - name: Upload deb bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: Debian Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/appname_${{ env.APP_VERSION }}_${{ matrix.deb }}.deb
+
+      - name: Upload rpm bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: RPM Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-${{ env.APP_VERSION }}-1.${{ matrix.rpm }}.rpm
+
+      - name: Upload appimage bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: AppImage Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_${{ env.APP_VERSION }}_${{ matrix.appimage }}.AppImage
+```
+
+## 故障排除
+
+### GitHub 环境令牌
+
+GitHub 会为每次工作流运行自动签发 GitHub 令牌，无需进一步配置，这意味着没有机密泄露的风险。然而，此令牌默认情况下仅具有读取权限，在运行工作流时，您可能会遇到 “Resource not accessible by integration” 错误。如果发生这种情况，您可能需要为此令牌添加写入权限。为此，请转到您的 GitHub 项目设置，选择 `Actions`，向下滚动到 `Workflow permissions`，并勾选 “Read and write permissions”。
+
+您可以通过工作流中的这一行看到传递给工作流的 GitHub 令牌：
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```

@@ -82,7 +82,7 @@ and configure the `APPLE_CERTIFICATE` and `APPLE_CERTIFICATE_PASSWORD` environme
 4. Convert the `.p12` file to base64 running the following script on the terminal:
 
 ```sh
-openssl base64 -in /path/to/certificate.p12 -out certificate-base64.txt
+openssl base64 -A -in /path/to/certificate.p12 -out certificate-base64.txt
 ```
 
 5. Set the contents of the `certificate-base64.txt` file to the `APPLE_CERTIFICATE` environment variable.
@@ -177,6 +177,8 @@ To notarize your application, you must provide credentials for Tauri to authenti
     3. Set the `APPLE_TEAM_ID` environment variable to your Apple Team ID. You can find your Team ID in [your account's membership page][membership].
   </TabItem>
 </Tabs>
+
+After setting these environment variables, rerun your Tauri build or bundle command. For example, to build a DMG with pnpm, run `pnpm tauri build --bundles dmg` again. If you need to skip stapling for an initial notarization pass, append `--skip-stapling` directly to the Tauri command, such as `pnpm tauri build --bundles dmg --skip-stapling`.
 
 :::note
 Notarization is required when using a _Developer ID Application_ certificate.

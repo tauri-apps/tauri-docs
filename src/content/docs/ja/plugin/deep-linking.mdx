@@ -51,13 +51,13 @@ Tauri アプリケーションを URL のデフォルト・ハンドラーとし
   <TabItem label="手動で設定">
     <Steps>
 
-      1.  `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+      1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
 
           ```sh frame=none
           cargo add tauri-plugin-deep-link@2.0.0
           ```
 
-      2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+      2. 追加したプラグインを初期化するために `lib.rs` を修正します：
 
           ```rust title="src-tauri/src/lib.rs" ins={4}
           #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -69,7 +69,7 @@ Tauri アプリケーションを URL のデフォルト・ハンドラーとし
           }
           ```
 
-      3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+      3. お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
 
           <CommandTabs
               npm="npm install @tauri-apps/plugin-deep-link"
@@ -215,7 +215,7 @@ pub fn run() {
 
 </TranslationNote>
 
-:::warn
+:::caution
 ユーザーは、引数に URL を含めることで、自分で擬似的（フェイク）な「deep link」を手動トリガーできます。
 Tauri は、コマンドラインの引数を設定されたスキームと照合してこれを受け入れます<sup>訳注</sup>が、
 URL が期待している形式と一致しているかどうかを確認する必要はあります。
@@ -510,11 +510,11 @@ adb shell am start -a android.intent.action.VIEW -d https://<host>/path <bundle-
 [`tauri.conf.json > identifier`]: /reference/config/#identifier
 [Android アプリリンクの検証]: https://developer.android.com/training/app-links/verify-android-applinks#web-assoc
 [ユニバーサル・リンク]: https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc
-[single instance]: /plugin/single-instance/
+[single instance]: /ja/plugin/single-instance/
 [`register_all`]: https://docs.rs/tauri-plugin-deep-link/2.0.0/tauri_plugin_deep_link/struct.DeepLink.html#method.register_all
 [ngrok]: https://ngrok.com/
 [`Env::args_os`]: https://docs.rs/tauri/2.0.0/tauri/struct.Env.html#structfield.args_os
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Sep 29, 2025 英語版」に基づいています】
+  【※ この日本語版は、「Oct 18, 2025 英語版」に基づいています】
 </div>

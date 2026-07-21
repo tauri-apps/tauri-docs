@@ -7,16 +7,16 @@ tableOfContents:
 ---
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
-Nuxt（ナクスト）は Vue 用のメタ・フレームワークです。Nuxt の詳細については、https://nuxt.com をご覧ください。以下の説明内容は、「Nuxt 3.11. バージョン」に準拠しています。
+Nuxt（ナクスト）は Vue 用のメタ・フレームワークです。Nuxt の詳細については、https://nuxt.com をご覧ください。以下の説明内容は、「Nuxt 4.2 バージョン」に準拠しています。
 
 ## チェック項目
 
-- `ssr: false` を設定して SSG を使用してください。Tauri はサーバー・ベースの方式には対応していません。
-- iOS の物理デバイス上で動作するように設定されている場合、開発サーバーのホスト IP に `process.env.TAURI_DEV_HOST` を使用してください。
-- `tauri.conf.json` では `frontendDist` として `dist/` を指定します。
-- `nuxi generate` を使用してコンパイルします。
-- （任意設定項目） `nuxt.config.ts` で `telemetry: false` と設定して、テレメトリを無効にします。
+- `ssr: false` を設定（サーバー・サイド・レンダリングをオフ）して SSG（静的サイト生成）を使用してください。Tauri はサーバー・ベースの方式には対応していません。
+- `tauri.conf.json` では `dist/` を `frontendDist` として指定します。
+- `nuxi build` を使用してコンパイルします。
+- （任意設定項目） `nuxt.config.ts` 内のテレメトリ設定をオフに設定（ `telemetry: false`）して、テレメトリを無効にします。
 
 ## 設定例
 
@@ -93,12 +93,15 @@ Nuxt（ナクスト）は Vue 用のメタ・フレームワークです。Nuxt 
 
     ```ts
     export default defineNuxtConfig({
+      compatibilityDate: '2025-05-15',
       //（任意）「Nuxt devtools」を有効化します
       devtools: { enabled: true },
-      //「SSG」を有効化します
+      //「SSG（静的サイト生成）」を有効化します
       ssr: false,
-      // iOS の物理デバイス上で動作しているときに他のデバイスから開発サーバーを検出可能にします
-      devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
+      // 開発サーバーを有効化し、iOS の物理デバイス上で動作しているときに他のデバイスから検出可能にします
+      devServer: {
+        host: '0',
+      },
       vite: {
         // Tauri CLI 出力のサポート強化
         clearScreen: false,
@@ -111,13 +114,13 @@ Nuxt（ナクスト）は Vue 用のメタ・フレームワークです。Nuxt 
           strictPort: true,
         },
       },
+      // [unhandledRejection] EMFILE エラー（開いているファイルが多すぎます）を回避し、監視します
+      ignore: ['**/src-tauri/**'],
     });
     ```
 
 </Steps>
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Nov 01, 2024 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「Dec 16, 2025 英語版」に基づいています】
 </div>

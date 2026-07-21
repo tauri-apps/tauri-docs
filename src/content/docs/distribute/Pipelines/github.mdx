@@ -14,6 +14,10 @@ To set up code signing for Windows and macOS in your workflow, follow the specif
 - [Windows Code Signing](/distribute/sign/windows/)
 - [macOS Code Signing](/distribute/sign/macos/)
 
+If you build a macOS app without an Apple signing certificate, configure an
+[ad-hoc signing identity](/distribute/sign/macos/#ad-hoc-signing). This can avoid
+macOS treating Apple Silicon builds downloaded from GitHub releases as damaged.
+
 :::
 
 ## Getting Started
@@ -55,12 +59,12 @@ This workflow will build and release your app for Windows x64, Linux x64, Linux 
 
 The steps this workflow takes are:
 
-1. Checkout the repository using `actions/checkout@v4`.
+1. Checkout the repository using `actions/checkout@v7`.
 2. Install Linux system dependencies required to build the app.
-3. Set up Node.js LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v4`.
+3. Set up Node.js LTS and a cache for global npm/yarn/pnpm package data using `actions/setup-node@v6`.
 4. Set up Rust and a cache for Rust's build artifacts using `dtolnay/rust-toolchain@stable` and `swatinem/rust-cache@v2`.
 5. Install the frontend dependencies and, if not configured as [`beforeBuildCommand`](/reference/config/#beforebuildcommand), run the web app's build script.
-6. Lastly, it uses `tauri-apps/tauri-action@v0` to run `tauri build`, generate the artifacts, and create a GitHub release.
+6. Lastly, it uses `tauri-apps/tauri-action@v1` to run `tauri build`, generate the artifacts, and create a GitHub release.
 
 ```yaml
 name: 'publish'
@@ -92,22 +96,22 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        if: matrix.platform == 'ubuntu-22.04' || matrix.platform == 'ubuntu-22.04-arm' # This must match the platform value defined above.
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
 
       - name: setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
-          cache: 'yarn' # Set this to npm, yarn or pnpm.
+          cache: 'npm' # Set this to npm, yarn or pnpm.
 
       - name: install Rust stable
-        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+        uses: dtolnay/rust-toolchain@stable
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
@@ -115,17 +119,18 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
+          # This matches tauri's default project layout. Change this if you have a different layout.
           workspaces: './src-tauri -> target'
 
       - name: install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: yarn install # change this to npm or pnpm depending on which one you use.
+        run: npm install # change this to npm, yarn or pnpm depending on which one you use.
 
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          tagName: app-v__VERSION__ # the action automatically replaces __VERSION__ with the app version.
           releaseName: 'App v__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true

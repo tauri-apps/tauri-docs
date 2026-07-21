@@ -52,7 +52,7 @@ Tauri CLI 会帮你启动开发服务器:
 
 :::
 
-### 开发你的桌面应用
+## 开发你的桌面应用
 
 如果要为桌面环境开发应用，请执行 `tauri dev` 命令。
 
@@ -70,11 +70,11 @@ Tauri CLI 会帮你启动开发服务器:
 
 Rust 构建完成后，webview 会打开，显示你的 web 应用。你可以对 web 应用进行更改，如果你的工具支持，webview 应该会自动更新，就像浏览器一样。
 
-#### 打开 web 检查器
+### 打开 web 检查器
 
 你可以打开 web 检查器来调试你的应用，打开的方法是在webview上右键并点击 "Inspect" 或使用快捷键 `Ctrl + Shift + I`（Windows，Linux），`Cmd + Option + I`（macOS）。
 
-### 开发你的移动应用
+## 开发你的移动应用
 
 移动应用开发和桌面端相差不大，不同是需要执行`tauri android dev` 或 `tauri ios dev` :
 
@@ -90,7 +90,7 @@ Rust 构建完成后，webview 会打开，显示你的 web 应用。你可以�
 第一次执行这个命令时 Rust 包管理器可能会需要**一些时间**来下载并构建所有需要的包。
 他们会被缓存，以后的构建会快得多，因为只有你的代码需要重新构建。
 
-#### 开发服务器
+### 开发服务器
 
 移动开发服务器运行与桌面端类似，但如果要在iOS物理机运行，
 则必须将其配置为监听 Tauri CLI 提供的特定地址，该地址在 `TAURI_DEV_HOST` 环境变量中定义。
@@ -130,7 +130,7 @@ export default defineConfig({
 使用 [create-tauri-app](https://github.com/tauri-apps/create-tauri-app) 创建的项目可为你的移动开发配置开箱即用的开发服务器。
 :::
 
-#### 设备选择
+### 设备选择
 
 默认情况下，mobile dev 命令会尝试在已连接的设备中运行你的应用，并回退到提示你选择要使用的模拟器。
 要预先定义运行目标，你可以提供设备或模拟器名称作为参数:
@@ -144,7 +144,7 @@ export default defineConfig({
   cargo="cargo tauri ios dev 'iPhone 15'"
 />
 
-#### 使用 Xcode 或 Android Studio
+### 使用 Xcode 或 Android Studio
 
 或者，你可以选择使用 Xcode 或 Android Studio 来开发你的应用。这可以帮助你通过使用 IDE 而不是命令行工具来排查一些开发问题。
 要打开移动 IDE 而不是在连接的设备或模拟器上运行， 请使用 `--open` 标志：
@@ -176,7 +176,7 @@ export default defineConfig({
 建议使用 `tauri [android|ios] dev --open` 命令，并保持该进程处于活动状态，直到关闭 IDE。
 :::
 
-#### 打开 web 检查器
+### 打开 web 检查器
 
 - iOS
 
@@ -202,7 +202,7 @@ export default defineConfig({
   Android 版 Web Inspector 由 Google Chrome 的 DevTools 提供支持，你可以通过在 Chrome 浏览器中访问 `chrome://inspect` 来访问。
   如果你的 Android 应用程序正在运行，你的设备或模拟器应该会出现在远程设备列表中，你可以通过点击设备上的**检查**来打开开发者工具。
 
-#### 故障排除
+### 故障排除
 
 1. 在 Xcode 上运行构建脚本时出错
 
@@ -216,7 +216,7 @@ Tauri 通过创建一个构建阶段来连接到 iOS Xcode 项目，该阶段会
 此权限是必需的，因为要从 iOS 设备访问你的开发服务器，我们必须将其暴露在本地网络中。
 要在你的设备中运行你的应用，你必须点击“允许”并重新启动你的应用。
 
-### 响应源代码更改
+## 响应源代码更改
 
 与你的 webview 实时反映变化的方式类似，Tauri 会监视你的 Rust 文件的变化，
 因此当你修改其中任何一个文件时，你的应用程序就会自动重建并重新启动。
@@ -226,18 +226,18 @@ Tauri 通过创建一个构建阶段来连接到 iOS Xcode 项目，该阶段会
 要限制需要监视更改的文件，可以在 src-tauri 文件夹中创建一个 `.taurignore` 文件。
 此文件的工作方式与常规 Git 忽略文件类似，因此你可以忽略任何文件夹或文件：
 
-```filename=.taurignore
+```txt title=".taurignore"
 build/
 src/generated/*.rs
 deny.toml
 ```
 
-### 使用浏览器 DevTools
+## 使用浏览器 DevTools
 
 Tauri 的 API 仅在你的应用程序窗口中有效，因此一旦你开始使用它们，你将无法再在系统浏览器中打开前端。
 
 如果你更喜欢使用浏览器的开发人员工具，则需要配置 [tauri-invoke-http](https://github.com/tauri-apps/tauri-invoke-http) 通过 HTTP 服务器桥接 Tauri API 调用。
 
-### 源代码控制
+## 源代码控制
 
 在你的项目仓库中，你**应该**将 `src-tauri/Cargo.lock` 和 `src-tauri/Cargo.toml` 一起提交到 git，因为 Cargo 使用 lockfile 来提供确定性构建。因此, 建议所有应用程序都写入其 `Cargo.lock` 文件。你**不应该**提交 `src-tauri/target` 文件夹或其中的任何内容。

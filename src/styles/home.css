@@ -2,3 +2,81 @@
 .content-panel:has(h1#_top:not([data-page-title])) {
   display: none;
 }
+
+/** * Link wrapper for Starlight Cards
+ * Ensures the entire card is clickable while maintaining the grid layout
+ */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Hover effects */
+.card-link:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.1);
+  cursor: pointer;
+}
+
+/* Ensure the inner Card component stretches to fill the link height */
+.card-link > .card {
+  flex: 1;
+  width: 100%;
+  margin-top: 0 !important;
+}
+
+/**
+ * Starlight color logic replication
+ * Restores automatic coloring lost when wrapping Cards in <a> tags
+ */
+
+/* 1st Card: Orange */
+.card-link:nth-child(4n + 1) .card {
+  --sl-card-border: var(--sl-color-orange);
+  --sl-card-bg: var(--sl-color-orange-low);
+}
+
+/* 2nd Card: Purple (Default component state) */
+.card-link:nth-child(4n + 2) .card {
+  --sl-card-border: var(--sl-color-purple);
+  --sl-card-bg: var(--sl-color-purple-low);
+}
+
+/* 3rd Card: Green */
+.card-link:nth-child(4n + 3) .card {
+  --sl-card-border: var(--sl-color-green);
+  --sl-card-bg: var(--sl-color-green-low);
+}
+
+/* 4th Card: Red */
+.card-link:nth-child(4n + 4) .card {
+  --sl-card-border: var(--sl-color-red);
+  --sl-card-bg: var(--sl-color-red-low);
+}
+
+/**
+ * Grid Stagger Behavior
+ * Handles the vertical offset for even-numbered cards in the grid
+ */
+@media (min-width: 50rem) {
+  .stagger > .card-link:nth-child(2n) {
+    transform: translateY(var(--stagger-height, 5rem));
+  }
+
+  /* Combine the stagger offset with the hover lift effect */
+  .stagger > .card-link:nth-child(2n):hover {
+    transform: translateY(calc(var(--stagger-height, 5rem) - 4px));
+  }
+}
+
+header {
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
