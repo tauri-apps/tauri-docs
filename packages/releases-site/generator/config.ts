@@ -141,7 +141,7 @@ export const repositories = [
   },
   {
     name: 'create-tauri-app',
-    displayName: 'CTA',
+    displayName: 'Create Tauri App',
     repoUrl: 'https://github.com/tauri-apps/create-tauri-app',
     packages: [
       {

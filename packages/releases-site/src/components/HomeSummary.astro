@@ -23,7 +23,7 @@ function describe(pkg: (typeof repos)[number]['packages'][number]): string {
 {
   repos.map((repo) => (
     <section class="repo-summary">
-      <h2 id={repo.displayName.toLowerCase()}>
+      <h2 id={repo.displayName.toLowerCase().replaceAll(' ', '-')}>
         {repo.displayName}
         <a class="repo-link" href={repo.repoUrl} target="_blank" rel="noopener noreferrer">
           {repo.repoSlug}
