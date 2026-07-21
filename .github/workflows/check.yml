@@ -5,9 +5,17 @@ name: 'Check formatting'
 on:
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: format-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   format:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     steps:
       - name: Check out code using Git
         uses: actions/checkout@v6

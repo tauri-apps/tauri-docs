@@ -1,0 +1,27 @@
+{
+  "name": "releases-site",
+  "type": "module",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "node generator/build.ts",
+    "refresh": "node generator/build.ts --refresh --no-pages",
+    "dev": "pnpm generate && astro dev --port 4322",
+    "build:astro": "astro build",
+    "build": "pnpm generate && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "catalog:",
+    "astro": "catalog:",
+    "make-fetch-happen": "^16.0.1",
+    "sass": "^1.89.0",
+    "semver": "^7.6.3",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@types/make-fetch-happen": "^10.0.4",
+    "@types/node": "^24.12.2",
+    "@types/semver": "^7.5.8"
+  }
+}

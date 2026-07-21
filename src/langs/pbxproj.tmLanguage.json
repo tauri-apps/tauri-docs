@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json.schemastore.org/tmLanguage.json",
+  "name": "Project.pbxproj",
+  "scopeName": "source.pbxproj",
+  "patterns": [
+    { "include": "#keywords" },
+    { "include": "#numbers" },
+    { "include": "#properties" },
+    { "include": "#strings" },
+    { "include": "#comment" },
+    { "include": "#comments" }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.project.pbxproj",
+          "match": "([A-Z|0-9]{32})|([A-Z|0-9]{24})|([A-Z|0-9]{10})(\\s|;)"
+        }
+      ]
+    },
+    "properties": {
+      "patterns": [
+        {
+          "name": "variable.name",
+          "match": "([a-zA-Z0-9_][a-zA-Z0-9_]*)((.[a-zA-Z0-9_][a-zA-Z0-9_]*)+)?"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric",
+          "match": "-?([0-9]+)((.[0-9]+)+)?(\\s|;)"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.project.pbxproj",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.project.pbxproj",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "comment": {
+      "match": "\"(comment)\"\\s*?:\\s*?\"(.+?)\"",
+      "captures": {
+        "1": { "name": "keyword.other.control.project.pbxproj" },
+        "2": { "name": "comment.project.pbxproj" }
+      }
+    },
+    "comments": {
+      "patterns": [
+        {
+          "match": "(//).*",
+          "name": "comment.line.double-slash.project.pbxproj"
+        },
+        {
+          "begin": "/\\*",
+          "end": "\\*/",
+          "name": "comment.block.project.pbxproj"
+        }
+      ]
+    }
+  }
+}

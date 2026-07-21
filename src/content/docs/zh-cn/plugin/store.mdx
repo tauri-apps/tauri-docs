@@ -2,17 +2,21 @@
 title: Store
 description: 持久键值存储。
 plugin: store
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
 import Compatibility from '@components/plugins/Compatibility.astro';
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
-简单、持久的键值存储。
+这个插件提供了一个持久化的键值存储。这是在应用程序中处理状态的众多选项之一。更多信息请参见[状态管理概览](/develop/state-management/)。
+
+该存储允许你将状态持久化到文件中，可以在应用重启之间按需保存和加载。请注意，这个过程是异步的，需要在代码中进行处理。它可以在 Webview 或 Rust 中使用。
 
 ## 支持的平台
 
@@ -20,52 +24,51 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 ## 设置
 
-请安装 store 插件。
+安装 store 插件即可开始。
 
 <Tabs>
     <TabItem label="自动">
 
-    使用项目的包管理器来添加依赖。
+    使用项目的包管理器添加依赖：
 
     <CommandTabs npm="npm run tauri add store"
-        yarn="yarn run tauri add store"
-        pnpm="pnpm tauri add store"
-        bun="bun tauri add store"
-        cargo="cargo tauri add store" />
+    yarn="yarn run tauri add store"
+    pnpm="pnpm tauri add store"
+    deno="deno task tauri add store"
+    bun="bun tauri add store"
+    cargo="cargo tauri add store" />
 
     </TabItem>
     <TabItem label="手动">
+        <Steps>
+        1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 的依赖中：
 
-    1. 在你的 `Cargo.toml` 文件中添加以下内容来安装 store 插件。
+            ```sh frame=none
+            cargo add tauri-plugin-store
+            ```
 
-    ```toml title="src-tauri/Cargo.toml"
-    [dependencies]
-    tauri-plugin-store = "2.0.0"
-    # 或者使用 GIT：
-    tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-    ```
+        2.  修改 `lib.rs` 以初始化插件：
 
-    2. 修改 `lib.rs` 来初始化插件。
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_store::Builder::new().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
 
-    ```rust title="src-tauri/src/lib.rs" ins={4}
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    fn run() {
-        tauri::Builder::default()
-            .plugin(tauri_plugin_store::Builder::new().build())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+        3.  使用你偏好的 JavaScript 包管理器安装 JavaScript Guest 绑定：
 
-    3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
-
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-store"
-        yarn="yarn add @tauri-apps/plugin-store"
-        pnpm="pnpm add @tauri-apps/plugin-store"
-        bun="bun add @tauri-apps/plugin-store"
-    />
-
+            <CommandTabs
+            npm = "npm install @tauri-apps/plugin-store"
+            yarn = "yarn add @tauri-apps/plugin-store"
+            pnpm = "pnpm add @tauri-apps/plugin-store"
+            deno = "deno add npm:@tauri-apps/plugin-store"
+            bun = "bun add @tauri-apps/plugin-store"
+            />
+        </Steps>
     </TabItem>
 
 </Tabs>
@@ -75,21 +78,26 @@ import CommandTabs from '@components/CommandTabs.astro';
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
-```javascript
-import { Store } from '@tauri-apps/plugin-store';
+```typescript
+import { load } from '@tauri-apps/plugin-store';
+// 当使用 `"withGlobalTauri": true` 时，你可以使用
+// const { load } = window.__TAURI__.store;
 
-// Store 会在 JavaScript 绑定时自动加载。
-const store = new Store('store.bin');
+// 创建一个新 store 或加载现有的 store，
+// 注意，如果已经创建了该路径的 Store，则选项将被忽略
+const store = await load('store.json', { autoSave: false });
 
 // 设置一个值。
 await store.set('some-key', { value: 5 });
 
 // 获取一个值。
-const val = await store.get('some-key');
+const val = await store.get<{ value: number }>('some-key');
 console.log(val); // { value: 5 }
 
-// 您可以在进行更改后手动保存存储
-// 否则如上所述，它将在正常退出时保存。
+// 你可以在更改后手动保存 store。
+// 否则，它会在正常退出时保存。
+// 如果你将 `autoSave` 设置为一个数字或不填，
+// 它将在防抖延迟后将更改保存到磁盘，默认为 100ms。
 await store.save();
 ```
 
@@ -98,7 +106,7 @@ await store.save();
 
 ```rust title="src-tauri/src/lib.rs"
 use tauri::Wry;
-use tauri_plugin_store::{with_store, StoreCollection};
+use tauri_plugin_store::StoreExt;
 use serde_json::json;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -106,24 +114,23 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let stores = app.app_handle().state::<StoreCollection<Wry>>();
-            let path = PathBuf::from("store.bin");
+            // 创建一个新的 store 或加载现有的 store
+            // 这也会将 store 放入应用的资源表中
+            // 因此你后续的 `store` 调用（来自 Rust 和 JS）
+            // 将复用同一个 store。
 
-            with_store(app.app_handle().clone(), stores, path, |store| {
-                // 注意，值必须是 serde_json::Value 的实例，
-                // 否则，它们将与 JavaScript 绑定不兼容。
-                store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+            let store = app.store("store.json")?;
 
-                // 从 Store 中获取一个值。
-                let value = store.get("some-key").expect("Failed to get value from store");
-                println!("{}", value); // {"value":5}
+            // 注意，值必须是 serde_json::Value 的实例，
+            // 否则，它们将与 JavaScript 绑定不兼容。
+            store.set("some-key", json!({ "value": 5 }));
 
-                // 您可以在进行更改后手动保存存储
-                // 否则如上所述，它将在正常退出时保存。
-                store.save()?;
+            // 从 store 中获取一个值。
+            let value = store.get("some-key").expect("Failed to get value from store");
+            println!("{}", value); // {"value":5}
 
-                Ok(())
-            });
+            // 从资源表中移除 store
+            store.close_resource();
 
             Ok(())
         })
@@ -135,50 +142,54 @@ pub fn run() {
 </TabItem>
 </Tabs>
 
+### LazyStore
+
+还有一个高级 JavaScript API `LazyStore`，它只在首次访问时才加载 store。
+
+```typescript
+import { LazyStore } from '@tauri-apps/plugin-store';
+
+const store = new LazyStore('settings.json');
+```
+
+## 从 v1 和 v2 beta/rc 迁移
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```diff
+- import { Store } from '@tauri-apps/plugin-store';
++ import { LazyStore } from '@tauri-apps/plugin-store';
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```diff
+- with_store(app.handle().clone(), stores, path, |store| {
+-     store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+-     Ok(())
+- });
++ let store = app.store(path)?;
++ store.set("some-key".to_string(), json!({ "value": 5 }));
+```
+
+</TabItem>
+</Tabs>
+
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有潜在危险的插件命令和作用域都被阻止，无法访问。你必须在 `capabilities` 配置中修改权限才能启用它们。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
+有关更多信息，请参见[功能概述](/security/capabilities/)以及[使用插件权限的分步指南](/learn/security/using-plugin-permissions/)。
 
-```json title="src-tauri/capabilities/default.json" ins={6-11}
+```json title="src-tauri/capabilities/default.json" ins={4}
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "main-capability",
-  "description": "Capability for the main window",
-  "windows": ["main"],
   "permissions": [
-    "store:allow-get",
-    "store:allow-set",
-    "store:allow-save",
-    "store:allow-load"
+    ...,
+    "store:default",
   ]
 }
 ```
 
-| 权限                  | 描述                                              |
-| --------------------- | ------------------------------------------------- |
-| `store:allow-clear`   | 在没有预先配置作用域的情况下，启用 clear 命令。   |
-| `store:deny-clear`    | 拒绝没有任何预配置范围的 clear 命令。             |
-| `store:allow-delete`  | 在没有预先配置作用域的情况下，启用                |
-| `store:deny-delete`   | 拒绝没有任何预配置范围的 delete 命令。            |
-| `store:allow-entries` | 在没有预先配置作用域的情况下，启用 entries 命令。 |
-| `store:deny-entries`  | 拒绝没有任何预配置范围的 entries 命令。           |
-| `store:allow-get`     | 在没有预先配置作用域的情况下，启用 get 命令。     |
-| `store:deny-get`      | 拒绝没有任何预配置范围的 get 命令。               |
-| `store:allow-has`     | 在没有预先配置作用域的情况下，启用 has 命令。     |
-| `store:deny-has`      | 拒绝没有任何预配置范围的 has 命令。               |
-| `store:allow-keys`    | 在没有预先配置作用域的情况下，启用 keys 命令。    |
-| `store:deny-keys`     | 拒绝没有任何预配置范围的 keys 命令。              |
-| `store:allow-length`  | 在没有预先配置作用域的情况下，启用 length 命令。  |
-| `store:deny-length`   | 拒绝没有任何预配置范围的 length 命令。            |
-| `store:allow-load`    | 在没有预先配置作用域的情况下，启用 load 命令。    |
-| `store:deny-load`     | 拒绝没有任何预配置范围的 load 命令。              |
-| `store:allow-reset`   | 在没有预先配置作用域的情况下，启用 reset 命令。   |
-| `store:deny-reset`    | 拒绝没有任何预配置范围的 reset 命令。             |
-| `store:allow-save`    | 在没有预先配置作用域的情况下，启用 save 命令。    |
-| `store:deny-save`     | 拒绝没有任何预配置范围的 save 命令。              |
-| `store:allow-set`     | 在没有预先配置作用域的情况下，启用 set 命令。     |
-| `store:deny-set`      | 拒绝没有任何预配置范围的 set 命令。               |
-| `store:allow-values`  | 在没有预先配置作用域的情况下，启用 values 命令。  |
-| `store:deny-values`   | 拒绝没有任何预配置范围的 values 命令。            |
+<PluginPermissions plugin={frontmatter.plugin} />
