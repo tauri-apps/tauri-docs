@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-21T21:23:23.213Z",
-  "count": 659,
+  "generated": "2026-07-21T22:11:28.087Z",
+  "count": 512,
   "resources": [
     {
       "source": "crates",
@@ -31,18 +31,7 @@
       "version": "0.1.1",
       "created_at": "2026-07-15T16:00:23.391Z",
       "repository": "https://github.com/airlock-labs/coreframe",
-      "npm": "https://www.npmjs.com/package/%40coreframe%2Ftauri-plugin-pulsar",
-      "version_npm": "0.1.1"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-icloud-kvs-api",
-      "description": "TypeScript bindings for tauri-plugin-icloud-kvs (Apple iCloud Key-Value Store for Tauri 2)",
-      "version": "0.1.0",
-      "created_at": "2026-07-15T02:05:55.723Z",
-      "repository": "https://github.com/kmuncie/tauri-plugin-icloud-kvs",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-kvs-api",
-      "version_npm": "0.1.0"
+      "npm": "https://www.npmjs.com/package/%40coreframe%2Ftauri-plugin-pulsar"
     },
     {
       "source": "crates",
@@ -53,7 +42,9 @@
       "repository": "https://github.com/kmuncie/tauri-plugin-icloud-kvs",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-icloud-kvs"
+      "crates_io": "https://crates.io/crates/tauri-plugin-icloud-kvs",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-kvs-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -122,16 +113,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-xdg-portal"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-hot-update-api",
-      "description": "TypeScript API for tauri-plugin-hot-update — hot update / OTA live updates (CodePush-style, self-hosted) for Tauri v2 mobile and desktop apps",
-      "version": "0.1.0",
-      "created_at": "2026-07-11T04:20:28.120Z",
-      "repository": "https://github.com/yanqianglu/tauri-plugin-hot-update",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-hot-update-api",
-      "version_npm": "0.1.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-hot-update",
       "description": "Hot update / OTA live updates for Tauri v2 mobile and desktop apps — CodePush-style, self-hosted",
@@ -140,7 +121,9 @@
       "repository": "https://github.com/yanqianglu/tauri-plugin-hot-update",
       "license": "",
       "homepage": "https://github.com/yanqianglu/tauri-plugin-hot-update",
-      "crates_io": "https://crates.io/crates/tauri-plugin-hot-update"
+      "crates_io": "https://crates.io/crates/tauri-plugin-hot-update",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-hot-update-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -215,8 +198,7 @@
       "version": "0.2.1",
       "created_at": "2026-07-05T10:48:19.020Z",
       "repository": "https://github.com/spicavi/tauri-plugin-purchases",
-      "npm": "https://www.npmjs.com/package/%40spicavi%2Ftauri-plugin-purchases",
-      "version_npm": "0.2.1"
+      "npm": "https://www.npmjs.com/package/%40spicavi%2Ftauri-plugin-purchases"
     },
     {
       "source": "npm",
@@ -225,8 +207,7 @@
       "version": "0.1.0",
       "created_at": "2026-07-03T21:03:48.258Z",
       "repository": "https://github.com/darsan-in/tauri-plugin-phonepe",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-phonepe-api",
-      "version_npm": "0.1.0"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-phonepe-api"
     },
     {
       "source": "crates",
@@ -284,16 +265,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sharehub"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-icloud-container-api",
-      "description": "Typed guest JS API for tauri-plugin-icloud-container",
-      "version": "0.1.0-beta.1",
-      "created_at": "2026-06-30T04:47:14.840Z",
-      "repository": "https://github.com/TensorBinge/tauri-plugin-icloud-container",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-container-api",
-      "version_npm": "0.1.0-beta.1"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-icloud-container",
       "description": "iCloud container access plugin for Tauri 2",
@@ -302,7 +273,9 @@
       "repository": "https://github.com/TensorBinge/tauri-plugin-icloud-container",
       "license": "",
       "homepage": "https://github.com/TensorBinge/tauri-plugin-icloud-container",
-      "crates_io": "https://crates.io/crates/tauri-plugin-icloud-container"
+      "crates_io": "https://crates.io/crates/tauri-plugin-icloud-container",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-container-api",
+      "version_npm": "0.1.0-beta.1"
     },
     {
       "source": "crates",
@@ -329,16 +302,6 @@
       "version_npm": "0.1.3"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-android-installer-api",
-      "description": "JS bindings for tauri-plugin-android-installer — install Android APKs from a Tauri v2 app.",
-      "version": "0.1.0",
-      "created_at": "2026-06-25T00:03:35.022Z",
-      "repository": "https://github.com/iMalFect/tauri-plugin-android-installer",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-installer-api",
-      "version_npm": "0.1.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-android-installer",
       "description": "Tauri v2 plugin to install Android APKs from a local path (in-app self-update / sideload).",
@@ -347,7 +310,9 @@
       "repository": "https://github.com/iMalFect/tauri-plugin-android-installer",
       "license": "",
       "homepage": "https://github.com/iMalFect/tauri-plugin-android-installer",
-      "crates_io": "https://crates.io/crates/tauri-plugin-android-installer"
+      "crates_io": "https://crates.io/crates/tauri-plugin-android-installer",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-installer-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -380,18 +345,7 @@
       "version": "0.1.6",
       "created_at": "2026-06-23T12:50:19.182Z",
       "repository": "https://github.com/darsan-in/tauri-plugin-clerk-auth",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-clerk-auth-api",
-      "version_npm": "0.1.6"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-serialport-api",
-      "description": "Tauri v2 plugin for serial port communication",
-      "version": "2.0.0",
-      "created_at": "2026-06-22T19:26:58.754Z",
-      "repository": "https://github.com/deid84/tauri-plugin-serialport",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-serialport-api",
-      "version_npm": "2.0.0"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-clerk-auth-api"
     },
     {
       "source": "crates",
@@ -402,7 +356,9 @@
       "repository": "https://github.com/deid84/tauri-plugin-serialport",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-serialport"
+      "crates_io": "https://crates.io/crates/tauri-plugin-serialport",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-serialport-api",
+      "version_npm": "2.0.0"
     },
     {
       "source": "crates",
@@ -470,8 +426,7 @@
       "version": "1.0.0-rc.2",
       "created_at": "2026-06-16T08:33:05.368Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40vnidrop%2Ftauri-plugin-fs",
-      "version_npm": "1.0.0-rc.2"
+      "npm": "https://www.npmjs.com/package/%40vnidrop%2Ftauri-plugin-fs"
     },
     {
       "source": "crates",
@@ -502,8 +457,7 @@
       "version": "0.1.0",
       "created_at": "2026-06-15T08:53:25.055Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40sosweetham%2Ftauri-plugin-health-api",
-      "version_npm": "0.1.0"
+      "npm": "https://www.npmjs.com/package/%40sosweetham%2Ftauri-plugin-health-api"
     },
     {
       "source": "crates",
@@ -523,8 +477,7 @@
       "version": "0.1.7",
       "created_at": "2026-06-15T06:52:59.613Z",
       "repository": "https://github.com/sosweetham/tauri-plugin-system-components",
-      "npm": "https://www.npmjs.com/package/%40sosweetham%2Ftauri-plugin-system-components-api",
-      "version_npm": "0.1.7"
+      "npm": "https://www.npmjs.com/package/%40sosweetham%2Ftauri-plugin-system-components-api"
     },
     {
       "source": "crates",
@@ -549,16 +502,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-takanawa"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-keylight-api",
-      "description": "JavaScript/TypeScript bindings for the Keylight Tauri v2 plugin — license activation, validation, and entitlement checks.",
-      "version": "0.3.3",
-      "created_at": "2026-06-10T16:13:40.646Z",
-      "repository": "https://github.com/keylight-dev/keylight-rust",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keylight-api",
-      "version_npm": "0.3.3"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-keylight",
       "description": "Tauri v2 plugin for the Keylight licensing SDK (Rust side)",
@@ -567,7 +510,9 @@
       "repository": "https://github.com/keylight-dev/keylight-rust",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keylight"
+      "crates_io": "https://crates.io/crates/tauri-plugin-keylight",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keylight-api",
+      "version_npm": "0.3.3"
     },
     {
       "source": "crates",
@@ -616,15 +561,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-auditaur-macros"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-ios-glass-tabbar-api",
-      "description": "A native iOS 26 Liquid Glass UITabBar for Tauri apps, bridged to your web navigation.",
-      "version": "0.1.0",
-      "created_at": "2026-06-08T16:48:28.658Z",
-      "repository": "https://github.com/tuanle96/tauri-plugin-ios-glass-tabbar",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-glass-tabbar-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-ios-glass-tabbar",
       "description": "A native iOS 26 Liquid Glass UITabBar for Tauri apps, bridged to your web navigation.",
@@ -633,7 +569,9 @@
       "repository": "https://github.com/tuanle96/tauri-plugin-ios-glass-tabbar",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-ios-glass-tabbar"
+      "crates_io": "https://crates.io/crates/tauri-plugin-ios-glass-tabbar",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-glass-tabbar-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -682,16 +620,6 @@
       "version_npm": "1.0.9"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-ota-self-update-api",
-      "description": "JavaScript API for tauri-plugin-ota-self-update - self-hosted OTA web asset updates for Tauri v2 apps.",
-      "version": "0.2.1",
-      "created_at": "2026-05-28T09:30:00.218Z",
-      "repository": "https://github.com/s00d/tauri-plugin-ota-self-update",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ota-self-update-api",
-      "version_npm": "0.2.1"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-ota-self-update",
       "description": "Self-hosted OTA updates for Tauri v2 web assets.",
@@ -700,7 +628,9 @@
       "repository": "https://github.com/s00d/tauri-plugin-ota-self-update",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-ota-self-update"
+      "crates_io": "https://crates.io/crates/tauri-plugin-ota-self-update",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ota-self-update-api",
+      "version_npm": "0.2.1"
     },
     {
       "source": "crates",
@@ -733,27 +663,9 @@
       "repository": "https://github.com/uvarov-frontend/tauri-plugin-file-access",
       "license": "",
       "homepage": "https://github.com/uvarov-frontend/tauri-plugin-file-access",
-      "crates_io": "https://crates.io/crates/tauri-plugin-file-access"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-file-access-api",
-      "description": "JavaScript API for tauri-plugin-file-access",
-      "version": "1.0.0",
-      "created_at": "2026-05-24T16:18:58.704Z",
-      "repository": "https://github.com/uvarov-frontend/tauri-plugin-file-access",
+      "crates_io": "https://crates.io/crates/tauri-plugin-file-access",
       "npm": "https://www.npmjs.com/package/tauri-plugin-file-access-api",
       "version_npm": "1.0.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-supertonic-api",
-      "description": "TypeScript bindings for the Supertonic TTS Tauri plugin",
-      "version": "0.1.0",
-      "created_at": "2026-05-23T19:53:52.615Z",
-      "repository": "https://github.com/TheoSlater/supertonic-rs",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-supertonic-api",
-      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -764,7 +676,9 @@
       "repository": "https://github.com/TheoSlater/supertonic-rs",
       "license": "",
       "homepage": "https://github.com/TheoSlater/supertonic-rs",
-      "crates_io": "https://crates.io/crates/tauri-plugin-supertonic"
+      "crates_io": "https://crates.io/crates/tauri-plugin-supertonic",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-supertonic-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -786,15 +700,7 @@
       "repository": "https://github.com/Yoak3n/tauri-plugin-sprite-pet",
       "license": "",
       "homepage": "https://github.com/Yoak3n/tauri-plugin-sprite-pet",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sprite-pet"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sprite-pet-api",
-      "description": "JavaScript API for tauri-plugin-sprite-pet — animated sprite pet desktop companions",
-      "version": "0.3.3",
-      "created_at": "2026-05-18T19:37:21.410Z",
-      "repository": "https://github.com/Yoak3n/tauri-plugin-sprite-pet",
+      "crates_io": "https://crates.io/crates/tauri-plugin-sprite-pet",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sprite-pet-api",
       "version_npm": "0.3.3"
     },
@@ -807,16 +713,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-whisper-rs"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-whisper-rs-api",
-      "description": "Local Whisper-based audio transcription plugin for Tauri applications.",
-      "version": "0.2.2",
-      "created_at": "2026-05-18T10:32:28.967Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-whisper-rs-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-whisper-rs",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-whisper-rs-api",
+      "version_npm": "0.2.2"
     },
     {
       "source": "crates",
@@ -830,15 +729,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-esc-pos"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-window-system-api",
-      "description": "TypeScript API for the Tauri Window System plugin.",
-      "version": "0.1.1",
-      "created_at": "2026-05-17T13:46:22.528Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-window-system-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-window-system",
       "description": "Tauri plugin for multi-window registry, lifecycle, and routing.",
@@ -847,7 +737,9 @@
       "repository": "https://github.com/YU000jp/tauri-window-system",
       "license": "",
       "homepage": "https://github.com/YU000jp/tauri-window-system",
-      "crates_io": "https://crates.io/crates/tauri-plugin-window-system"
+      "crates_io": "https://crates.io/crates/tauri-plugin-window-system",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-window-system-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -892,15 +784,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-tauri-watch"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-huggingface-downloader-android-api",
-      "description": "A lightweight Tauri 2.0 Android plugin for downloading large files from Hugging Face repositories. Features real-time progress tracking via optimized callbacks, background thread execution, and safe stream management for high-performance model handling.",
-      "version": "0.1.1",
-      "created_at": "2026-05-13T11:24:32.346Z",
-      "repository": "https://github.com/HMUysal/tauri-plugin-huggingface-downloader-android",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-huggingface-downloader-android-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-huggingface-downloader-android",
       "description": "A lightweight Tauri 2.0 Android plugin for downloading large files from Hugging Face repositories. Features real-time progress tracking via optimized callbacks, background thread execution, and safe stream management for high-performance model handling.",
@@ -909,7 +792,9 @@
       "repository": "https://github.com/HMUysal/tauri-plugin-huggingface-downloader-android",
       "license": "",
       "homepage": "https://github.com/HMUysal/tauri-plugin-huggingface-downloader-android#readme",
-      "crates_io": "https://crates.io/crates/tauri-plugin-huggingface-downloader-android"
+      "crates_io": "https://crates.io/crates/tauri-plugin-huggingface-downloader-android",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-huggingface-downloader-android-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -920,15 +805,7 @@
       "repository": "https://github.com/s00d/tauri-plugin-keyring-store",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keyring-store"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-keyring-store-api",
-      "description": "JavaScript API for tauri-plugin-keyring-store — OS keychain / credential manager storage with Stronghold-compatible sessions.",
-      "version": "0.2.0",
-      "created_at": "2026-05-13T08:28:36.008Z",
-      "repository": "https://github.com/s00d/tauri-plugin-keyring-store",
+      "crates_io": "https://crates.io/crates/tauri-plugin-keyring-store",
       "npm": "https://www.npmjs.com/package/tauri-plugin-keyring-store-api",
       "version_npm": "0.2.0"
     },
@@ -963,16 +840,9 @@
       "repository": "https://github.com/HMUysal/tauri-plugin-audio-recorder-android",
       "license": "",
       "homepage": "https://github.com/HMUysal/tauri-plugin-audio-recorder-android",
-      "crates_io": "https://crates.io/crates/tauri-plugin-audio-recorder-android"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-audio-recorder-android-api",
-      "description": "High-performance background audio recording plugin for Tauri 2.0 Android apps with Foreground Service and real-time amplitude support.",
-      "version": "0.1.9",
-      "created_at": "2026-05-07T10:13:30.571Z",
-      "repository": "https://github.com/HMUysal/tauri-plugin-audio-recorder-android",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-android-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-audio-recorder-android",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-android-api",
+      "version_npm": "0.1.9"
     },
     {
       "source": "crates",
@@ -988,16 +858,6 @@
       "version_npm": "0.1.1"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-nostr-sync-api",
-      "description": "A Tauri plugin for Nostr synchronization",
-      "version": "0.1.0-alpha.2",
-      "created_at": "2026-05-06T02:26:27.008Z",
-      "repository": "https://github.com/dkackman/tauri-plugin-nostr",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-nostr-sync-api",
-      "version_npm": "0.1.0-alpha.2"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-nostr-sync",
       "description": "Encrypted decentralized state sync via Nostr for Tauri apps",
@@ -1006,17 +866,9 @@
       "repository": "https://github.com/dkackman/tauri-plugin-nostr",
       "license": "",
       "homepage": "https://github.com/dkackman/tauri-plugin-nostr",
-      "crates_io": "https://crates.io/crates/tauri-plugin-nostr-sync"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-secure-storage-api",
-      "description": "Tauri plugin for secure storage using the system's keyring.",
-      "version": "1.5.0",
-      "created_at": "2026-05-05T10:10:26.284Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-secure-storage-api",
-      "version_npm": "1.5.0"
+      "crates_io": "https://crates.io/crates/tauri-plugin-nostr-sync",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-nostr-sync-api",
+      "version_npm": "0.1.0-alpha.2"
     },
     {
       "source": "crates",
@@ -1035,18 +887,10 @@
       "description": "A Tauri plugin that provides multi-instance HTTP server support.",
       "version": "0.1.0",
       "created_at": "2026-05-04T18:11:27.109873Z",
-      "repository": null,
+      "repository": "https://github.com/alwynkalleii/tauri-plugin-httpd",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-httpd"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-httpd-api",
-      "description": "A Tauri plugin that provides multi-instance HTTP server support.",
-      "version": "0.1.0",
-      "created_at": "2026-05-04T17:55:28.378Z",
-      "repository": "https://github.com/alwynkalleii/tauri-plugin-httpd",
+      "crates_io": "https://crates.io/crates/tauri-plugin-httpd",
       "npm": "https://www.npmjs.com/package/tauri-plugin-httpd-api",
       "version_npm": "0.1.0"
     },
@@ -1068,8 +912,7 @@
       "version": "0.1.40",
       "created_at": "2026-05-03T10:43:21.348Z",
       "repository": "https://github.com/veecore/permission-flow",
-      "npm": "https://www.npmjs.com/package/%40veecore%2Ftauri-plugin-permission-flow-api",
-      "version_npm": "0.1.40"
+      "npm": "https://www.npmjs.com/package/%40veecore%2Ftauri-plugin-permission-flow-api"
     },
     {
       "source": "crates",
@@ -1135,15 +978,7 @@
       "repository": "https://github.com/OzymandiasTheGreat/tauri-plugin-bare-kit",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-bare-kit"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-bare-kit-api",
-      "description": "Effortless JavaScript backends for Tauri apps - Android 🤖 iOS 📱Linux 🐧 Macos 🖥️ Windows 💩",
-      "version": "0.2.3",
-      "created_at": "2026-04-29T13:56:01.381Z",
-      "repository": "https://github.com/OzymandiasTheGreat/tauri-plugin-bare-kit",
+      "crates_io": "https://crates.io/crates/tauri-plugin-bare-kit",
       "npm": "https://www.npmjs.com/package/tauri-plugin-bare-kit-api",
       "version_npm": "0.2.3"
     },
@@ -1156,7 +991,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-admob-android"
+      "crates_io": "https://crates.io/crates/tauri-plugin-admob-android",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-admob-android-api",
+      "version_npm": "0.1.12"
     },
     {
       "source": "npm",
@@ -1166,15 +1003,6 @@
       "created_at": "2026-04-27T12:41:07.540Z",
       "repository": "https://github.com/eurora-labs/tauri-plugin-appauth",
       "npm": "https://www.npmjs.com/package/%40eurora-labs%2Ftauri-plugin-appauth"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-admob-android-api",
-      "description": "AdMob integration for Tauri Android applications.",
-      "version": "0.1.12",
-      "created_at": "2026-04-27T12:40:28.369Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-admob-android-api"
     },
     {
       "source": "crates",
@@ -1194,8 +1022,7 @@
       "version": "0.1.1",
       "created_at": "2026-04-26T20:36:21.305Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40hypothesi%2Ftauri-plugin-device-ai-apis",
-      "version_npm": "0.1.1"
+      "npm": "https://www.npmjs.com/package/%40hypothesi%2Ftauri-plugin-device-ai-apis"
     },
     {
       "source": "crates",
@@ -1244,25 +1071,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-iroh-http"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-network-switch-api",
-      "description": "Guest JS bindings for tauri-plugin-network-switch",
-      "version": "0.1.0",
-      "created_at": "2026-04-20T14:35:59.193Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-network-switch-api",
-      "version_npm": "0.1.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-leap-ai-api",
-      "description": "LEAP model lifecycle + inference plugin for Tauri v2.",
-      "version": "0.1.1",
-      "created_at": "2026-04-20T14:35:35.305Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-leap-ai-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-network-switch",
       "description": "Cross-platform Wi-Fi scan and switch plugin for Tauri (Windows + macOS)",
@@ -1271,7 +1079,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-network-switch"
+      "crates_io": "https://crates.io/crates/tauri-plugin-network-switch",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-network-switch-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "npm",
@@ -1280,8 +1090,7 @@
       "version": "0.1.0",
       "created_at": "2026-04-20T13:57:38.132Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-cblite",
-      "version_npm": "0.1.0"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-cblite"
     },
     {
       "source": "crates",
@@ -1391,15 +1200,7 @@
       "repository": "https://github.com/denniskribl/tauri-plugin-hotswap",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-hotswap"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-hotswap-api",
-      "description": "Open-source OTA frontend updates for Tauri v2 apps. Self-hosted, signed bundles, auto-rollback, runtime channels.",
-      "version": "0.0.4",
-      "created_at": "2026-04-05T23:13:08.674Z",
-      "repository": "https://github.com/denniskribl/tauri-plugin-hotswap",
+      "crates_io": "https://crates.io/crates/tauri-plugin-hotswap",
       "npm": "https://www.npmjs.com/package/tauri-plugin-hotswap-api",
       "version_npm": "0.0.4"
     },
@@ -1485,16 +1286,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-orpc"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-ios-bookmark-api",
-      "description": "TypeScript API for tauri-plugin-ios-bookmark",
-      "version": "0.1.2",
-      "created_at": "2026-03-23T16:09:39.723Z",
-      "repository": "https://github.com/TensorBinge/tauri-plugin-ios-bookmark",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-bookmark-api",
-      "version_npm": "0.1.2"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-ios-bookmark",
       "description": "iOS security-scoped bookmark plugin for Tauri 2",
@@ -1503,7 +1294,9 @@
       "repository": "https://github.com/TensorBinge/tauri-plugin-ios-bookmark",
       "license": "",
       "homepage": "https://github.com/TensorBinge/tauri-plugin-ios-bookmark",
-      "crates_io": "https://crates.io/crates/tauri-plugin-ios-bookmark"
+      "crates_io": "https://crates.io/crates/tauri-plugin-ios-bookmark",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-bookmark-api",
+      "version_npm": "0.1.2"
     },
     {
       "source": "crates",
@@ -1527,26 +1320,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-shizuku"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-shizuku-api",
-      "description": "Android Tauri v2 plugin for communicating with Shizuku.",
-      "version": "0.1.1",
-      "created_at": "2026-03-22T09:36:40.662Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-shizuku-api"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-android-accessibility-api",
-      "description": "A Tauri plugin that supports Android accessibility features, allowing Tauri applications to interact with Android's accessibility services for enhanced functionality and user experience.",
-      "version": "0.2.2",
-      "created_at": "2026-03-20T08:57:54.233Z",
-      "repository": "https://github.com/zhangnjsd/tauri-plugin-android-accessibility",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-accessibility-api",
-      "version_npm": "0.2.2"
+      "crates_io": "https://crates.io/crates/tauri-plugin-shizuku",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-shizuku-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -1557,7 +1333,9 @@
       "repository": "https://github.com/zhangnjsd/tauri-plugin-android-accessibility",
       "license": "",
       "homepage": "https://github.com/zhangnjsd/tauri-plugin-android-accessibility",
-      "crates_io": "https://crates.io/crates/tauri-plugin-android-accessibility"
+      "crates_io": "https://crates.io/crates/tauri-plugin-android-accessibility",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-accessibility-api",
+      "version_npm": "0.2.2"
     },
     {
       "source": "crates",
@@ -1568,7 +1346,9 @@
       "repository": "https://github.com/yanqianglu/tauri-plugin-auth-session",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-auth-session"
+      "crates_io": "https://crates.io/crates/tauri-plugin-auth-session",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-auth-session-api",
+      "version_npm": "0.2.2"
     },
     {
       "source": "crates",
@@ -1579,25 +1359,7 @@
       "repository": "https://github.com/yanqianglu/tauri-plugin-mobile-push",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-mobile-push"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-auth-session-api",
-      "description": "TypeScript API for tauri-plugin-auth-session — in-app OAuth on macOS, iOS, and Android",
-      "version": "0.2.2",
-      "created_at": "2026-03-19T20:13:30.812Z",
-      "repository": "https://github.com/yanqianglu/tauri-plugin-auth-session",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-auth-session-api",
-      "version_npm": "0.2.2"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-mobile-push-api",
-      "description": "TypeScript API for tauri-plugin-mobile-push — push notifications for iOS (APNs) and Android (FCM)",
-      "version": "0.1.4",
-      "created_at": "2026-03-19T20:09:50.594Z",
-      "repository": "https://github.com/yanqianglu/tauri-plugin-mobile-push",
+      "crates_io": "https://crates.io/crates/tauri-plugin-mobile-push",
       "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-push-api",
       "version_npm": "0.1.4"
     },
@@ -1610,16 +1372,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-scoped-storage"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-scoped-storage-api",
-      "description": "Guest-side bindings for the Tauri scoped storage plugin",
-      "version": "1.5.0",
-      "created_at": "2026-03-18T08:15:34.205Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-scoped-storage-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-scoped-storage",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-scoped-storage-api",
+      "version_npm": "1.5.0"
     },
     {
       "source": "crates",
@@ -1683,16 +1438,9 @@
       "repository": "https://github.com/loafday0/tauri-plugin-custom-themes",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-custom-themes"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-custom-themes-api",
-      "description": "A simple theme system plugin for Tauri v2 apps.   Supports color themes, dark mode, locale switching, and custom fonts.",
-      "version": "0.1.0",
-      "created_at": "2026-03-11T18:59:52.674Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-custom-themes-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-custom-themes",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-custom-themes-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -1721,15 +1469,6 @@
       "version_npm": "1.0.0"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-axum-api",
-      "description": "Call your Axum router directly — just like a local database, not a remote server.",
-      "version": "0.10.0",
-      "created_at": "2026-03-05T15:50:37.120Z",
-      "repository": "https://github.com/mcitem/tauri-plugin-axum",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-axum-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-axum",
       "description": "A Tauri plugin that allows calling Axum Router endpoints directly.",
@@ -1738,7 +1477,9 @@
       "repository": "https://github.com/mcitem/tauri-plugin-axum",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-axum"
+      "crates_io": "https://crates.io/crates/tauri-plugin-axum",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-axum-api",
+      "version_npm": "0.10.0"
     },
     {
       "source": "crates",
@@ -1815,16 +1556,9 @@
       "repository": "https://github.com/s00d/tauri-plugin-widgets",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-widgets"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-widgets-api",
-      "description": "A Tauri v2 plugin to interact with App Widgets on Android and iOS, with desktop fallback. SharedPreferences / UserDefaults / WidgetKit / AppWidgetManager.",
-      "version": "0.3.0",
-      "created_at": "2026-02-27T21:01:45.288Z",
-      "repository": "https://github.com/s00d/tauri-plugin-widgets",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-widgets-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-widgets",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-widgets-api",
+      "version_npm": "0.3.0"
     },
     {
       "source": "crates",
@@ -1835,16 +1569,9 @@
       "repository": "https://github.com/GavynStanley/tauri-plugin-siwa",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-siwa"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-siwa-api",
-      "description": "Sign In with Apple for Tauri 2 — supports iOS and macOS.",
-      "version": "1.0.0",
-      "created_at": "2026-02-26T20:13:09.240Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-siwa-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-siwa",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-siwa-api",
+      "version_npm": "1.0.0"
     },
     {
       "source": "npm",
@@ -1853,8 +1580,7 @@
       "version": "1.1.0",
       "created_at": "2026-02-26T06:12:07.443Z",
       "repository": "https://github.com/bishen/tauri-plugin-export",
-      "npm": "https://www.npmjs.com/package/%40bishen%2Ftauri-plugin-export-api",
-      "version_npm": "1.1.0"
+      "npm": "https://www.npmjs.com/package/%40bishen%2Ftauri-plugin-export-api"
     },
     {
       "source": "crates",
@@ -1879,16 +1605,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-thermoprint"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-configurate-api",
-      "description": "Tauri v2 plugin for type-safe application configuration management.",
-      "version": "0.5.2",
-      "created_at": "2026-02-25T07:28:38.293Z",
-      "repository": "https://github.com/Crysta1221/tauri-plugin-configurate",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-configurate-api",
-      "version_npm": "0.5.2"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-configurate",
       "description": "Tauri v2 plugin for type-safe application configuration management.",
@@ -1897,7 +1613,9 @@
       "repository": "https://github.com/Crysta1221/tauri-plugin-configurate",
       "license": "",
       "homepage": "https://github.com/Crysta1221/tauri-plugin-configurate",
-      "crates_io": "https://crates.io/crates/tauri-plugin-configurate"
+      "crates_io": "https://crates.io/crates/tauri-plugin-configurate",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-configurate-api",
+      "version_npm": "0.5.2"
     },
     {
       "source": "crates",
@@ -1905,18 +1623,10 @@
       "description": "Tauri plugin for libsql with encryption and drizzle ORM support",
       "version": "0.1.0",
       "created_at": "2026-02-24T22:14:06.298821Z",
-      "repository": null,
+      "repository": "https://github.com/HuakunShen/tauri-plugin-libsql",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-libsql"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-libsql-api",
-      "description": "Tauri plugin for libsql with encryption support",
-      "version": "0.1.1",
-      "created_at": "2026-02-24T22:13:32.652Z",
-      "repository": "https://github.com/HuakunShen/tauri-plugin-libsql",
+      "crates_io": "https://crates.io/crates/tauri-plugin-libsql",
       "npm": "https://www.npmjs.com/package/tauri-plugin-libsql-api",
       "version_npm": "0.1.1"
     },
@@ -1941,15 +1651,6 @@
       "npm": "https://www.npmjs.com/package/%40vasakgroup%2Ftauri-plugin-i18n"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-system-api",
-      "description": "Comprehensive cross-platform system information plugin for Tauri applications",
-      "version": "0.1.0",
-      "created_at": "2026-02-22T23:01:11.031Z",
-      "repository": "https://github.com/Taiizor/tauri-plugin-system",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-system-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-system",
       "description": "Comprehensive cross-platform system information plugin for Tauri applications. Provides CPU, RAM, disk, GPU, battery, network, thermal, display, and OS information through native platform APIs.",
@@ -1958,7 +1659,9 @@
       "repository": "https://github.com/Taiizor/tauri-plugin-system",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-system"
+      "crates_io": "https://crates.io/crates/tauri-plugin-system",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-system-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -1983,15 +1686,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-ambient-fs"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-task-queue",
-      "description": "Priority-based task queue system for Tauri v2",
-      "version": "1.0.0",
-      "created_at": "2026-02-20T13:12:52.856Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-task-queue"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-native-audio",
       "description": "Native mobile audio playback plugin for Tauri",
@@ -2000,15 +1694,7 @@
       "repository": "https://github.com/uvarov-frontend/tauri-plugin-native-audio",
       "license": "",
       "homepage": "https://github.com/uvarov-frontend/tauri-plugin-native-audio",
-      "crates_io": "https://crates.io/crates/tauri-plugin-native-audio"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-native-audio-api",
-      "description": "JavaScript API for tauri-plugin-native-audio",
-      "version": "1.0.5",
-      "created_at": "2026-02-19T19:40:49.102Z",
-      "repository": "https://github.com/uvarov-frontend/tauri-plugin-native-audio",
+      "crates_io": "https://crates.io/crates/tauri-plugin-native-audio",
       "npm": "https://www.npmjs.com/package/tauri-plugin-native-audio-api",
       "version_npm": "1.0.5"
     },
@@ -2021,25 +1707,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-leap-ai"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-immersionbar-api",
-      "description": "tauri immersionbar for android & ios",
-      "version": "0.1.3",
-      "created_at": "2026-02-16T08:01:33.391Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-immersionbar-api"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-js-api",
-      "description": "Bring Node/Bun/Deno to Tauri apps with full Type Safety (kkrpc)",
-      "version": "0.2.0",
-      "created_at": "2026-02-14T18:03:19.381Z",
-      "repository": "https://github.com/huakunshen/tauri-plugin-js",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-js-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-leap-ai",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-leap-ai-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -2050,17 +1720,9 @@
       "repository": "https://github.com/HuakunShen/tauri-plugin-js",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-js"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-fs-stream-api",
-      "description": "File streaming API for Tauri",
-      "version": "2.0.3",
-      "created_at": "2026-02-14T16:08:37.704Z",
-      "repository": "https://github.com/aiueo13/tauri-plugin-fs-stream",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-stream-api",
-      "version_npm": "2.0.3"
+      "crates_io": "https://crates.io/crates/tauri-plugin-js",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-js-api",
+      "version_npm": "0.2.0"
     },
     {
       "source": "crates",
@@ -2071,7 +1733,9 @@
       "repository": "https://github.com/aiueo13/tauri-plugin-fs-stream",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-fs-stream"
+      "crates_io": "https://crates.io/crates/tauri-plugin-fs-stream",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-stream-api",
+      "version_npm": "2.0.3"
     },
     {
       "source": "crates",
@@ -2126,8 +1790,7 @@
       "version": "1.0.1",
       "created_at": "2026-02-13T16:11:09.447Z",
       "repository": "https://github.com/milangress/outis-captcha",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-outis-captcha-api",
-      "version_npm": "1.0.1"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-outis-captcha-api"
     },
     {
       "source": "crates",
@@ -2169,8 +1832,7 @@
       "version": "1.0.1",
       "created_at": "2026-02-07T16:30:45.049Z",
       "repository": "https://github.com/setoelkahfi/tauri-plugin-ios-window",
-      "npm": "https://www.npmjs.com/package/%40smbcloud%2Ftauri-plugin-ios-window-api",
-      "version_npm": "1.0.1"
+      "npm": "https://www.npmjs.com/package/%40smbcloud%2Ftauri-plugin-ios-window-api"
     },
     {
       "source": "crates",
@@ -2181,16 +1843,8 @@
       "repository": "https://github.com/HuakunShen/tauri-plugin-user-input",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-user-input"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-google-admob-api",
-      "description": "A comprehensive Tauri plugin for integrating Google AdMob advertisements into your mobile applications. This plugin supports all major ad formats including banner, interstitial, rewarded, rewarded interstitial, and app open ads.",
-      "version": "0.1.1",
-      "created_at": "2026-02-04T22:42:39.169Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-google-admob-api",
+      "crates_io": "https://crates.io/crates/tauri-plugin-user-input",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-user-input-api",
       "version_npm": "0.1.1"
     },
     {
@@ -2202,7 +1856,9 @@
       "repository": "https://github.com/vmaspad/tauri-plugin-google-admob",
       "license": "",
       "homepage": "https://github.com/vmaspad/tauri-plugin-google-admob",
-      "crates_io": "https://crates.io/crates/tauri-plugin-google-admob"
+      "crates_io": "https://crates.io/crates/tauri-plugin-google-admob",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-google-admob-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -2213,15 +1869,7 @@
       "repository": "https://github.com/milangress/outis",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-outis"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-outis-api",
-      "description": "Tauri plugin for reading captchas.",
-      "version": "0.5.1",
-      "created_at": "2026-02-02T07:26:43.423Z",
-      "repository": "https://github.com/milangress/outis",
+      "crates_io": "https://crates.io/crates/tauri-plugin-outis",
       "npm": "https://www.npmjs.com/package/tauri-plugin-outis-api",
       "version_npm": "0.5.1"
     },
@@ -2245,27 +1893,9 @@
       "repository": "https://github.com/milangress/voucher-captcha-system",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-captcha-breaker"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-captcha-breaker-api",
-      "description": "Tauri plugin for breaking captchas.",
-      "version": "0.4.10",
-      "created_at": "2026-02-01T13:43:45.163Z",
-      "repository": "https://github.com/milangress/voucher-captcha-system",
+      "crates_io": "https://crates.io/crates/tauri-plugin-captcha-breaker",
       "npm": "https://www.npmjs.com/package/tauri-plugin-captcha-breaker-api",
       "version_npm": "0.4.10"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-automation-api",
-      "description": "JavaScript API for tauri-plugin-automation - HTTP automation server for Tauri apps (v1 and v2)",
-      "version": "0.2.0",
-      "created_at": "2026-02-01T04:28:12.607Z",
-      "repository": "https://github.com/dcherrera/tauri-plugin-automation",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-automation-api",
-      "version_npm": "0.2.0"
     },
     {
       "source": "crates",
@@ -2285,8 +1915,7 @@
       "version": "0.1.2",
       "created_at": "2026-01-26T13:50:07.318Z",
       "repository": "https://github.com/bishen/tauri-plugin-redb-cache",
-      "npm": "https://www.npmjs.com/package/%40bishen%2Ftauri-plugin-redb-cache-api",
-      "version_npm": "0.1.2"
+      "npm": "https://www.npmjs.com/package/%40bishen%2Ftauri-plugin-redb-cache-api"
     },
     {
       "source": "crates",
@@ -2308,15 +1937,7 @@
       "repository": "https://github.com/edisdev/tauri-plugin-device-info",
       "license": "",
       "homepage": "https://edisdev.github.io/tauri-plugin-device-info",
-      "crates_io": "https://crates.io/crates/tauri-plugin-device-info"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-device-info-api",
-      "description": "A Tauri plugin to access device information.",
-      "version": "1.0.1",
-      "created_at": "2026-01-25T16:18:56.529Z",
-      "repository": "https://github.com/edisdev/tauri-plugin-device-info",
+      "crates_io": "https://crates.io/crates/tauri-plugin-device-info",
       "npm": "https://www.npmjs.com/package/tauri-plugin-device-info-api",
       "version_npm": "1.0.1"
     },
@@ -2329,15 +1950,7 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-modular-agent"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-modular-agent-api",
-      "description": "Tauri plugin for Modular Agent",
-      "version": "0.16.0",
-      "created_at": "2026-01-25T04:30:59.141Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-modular-agent",
       "npm": "https://www.npmjs.com/package/tauri-plugin-modular-agent-api",
       "version_npm": "0.16.0"
     },
@@ -2385,27 +1998,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-mak"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-mak-api",
-      "description": "Tauri plugin for Modular Agent Kit",
-      "version": "0.11.0",
-      "created_at": "2026-01-20T13:12:17.589Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-mak",
       "npm": "https://www.npmjs.com/package/tauri-plugin-mak-api",
       "version_npm": "0.11.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-android-battery-optimization-api",
-      "description": "JavaScript bindings for tauri-plugin-android-battery-optimization. Manage Android battery optimization settings and request unrestricted background usage.",
-      "version": "0.1.0",
-      "created_at": "2026-01-19T13:18:37.966Z",
-      "repository": "https://github.com/NeoHuncho/tauri-plugin-android-battery-optimization",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-battery-optimization-api",
-      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -2416,16 +2011,8 @@
       "repository": "https://github.com/NeoHuncho/tauri-plugin-android-battery-optimization",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-android-battery-optimization"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-native-camera-api",
-      "description": "JavaScript/TypeScript API for tauri-plugin-native-camera",
-      "version": "0.1.0",
-      "created_at": "2026-01-16T08:35:47.555Z",
-      "repository": "https://github.com/kushaldas/tauri-plugin-native-camera",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-native-camera-api",
+      "crates_io": "https://crates.io/crates/tauri-plugin-android-battery-optimization",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-battery-optimization-api",
       "version_npm": "0.1.0"
     },
     {
@@ -2437,7 +2024,9 @@
       "repository": "https://github.com/kushaldas/tauri-plugin-native-camera",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-native-camera"
+      "crates_io": "https://crates.io/crates/tauri-plugin-native-camera",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-native-camera-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "npm",
@@ -2466,8 +2055,7 @@
       "version": "0.1.0",
       "created_at": "2026-01-14T20:54:39.494Z",
       "repository": "https://github.com/fltsci/tauri-plugin-profiling",
-      "npm": "https://www.npmjs.com/package/%40fltsci%2Ftauri-plugin-profiling",
-      "version_npm": "0.1.0"
+      "npm": "https://www.npmjs.com/package/%40fltsci%2Ftauri-plugin-profiling"
     },
     {
       "source": "crates",
@@ -2537,8 +2125,7 @@
       "version": "3.12.0",
       "created_at": "2025-12-29T17:55:24.092Z",
       "repository": "https://github.com/cyberlife-coder/VelesDB",
-      "npm": "https://www.npmjs.com/package/%40wiscale%2Ftauri-plugin-velesdb",
-      "version_npm": "3.12.0"
+      "npm": "https://www.npmjs.com/package/%40wiscale%2Ftauri-plugin-velesdb"
     },
     {
       "source": "crates",
@@ -2549,15 +2136,7 @@
       "repository": "https://github.com/zhoushi1/tauri-plugin-clipboard-next",
       "license": "",
       "homepage": "https://github.com/zhoushi1/tauri-plugin-clipboard-next",
-      "crates_io": "https://crates.io/crates/tauri-plugin-clipboard-next"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-clipboard-next-api",
-      "description": "Tauri 2 clipboard plugin - read/write/listen to clipboard (text/rtf/html/image/files) across Windows, macOS, Linux and iOS.",
-      "version": "0.2.4",
-      "created_at": "2025-12-28T14:28:11.639Z",
-      "repository": "https://github.com/zhoushi1/tauri-plugin-clipboard-next",
+      "crates_io": "https://crates.io/crates/tauri-plugin-clipboard-next",
       "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-next-api",
       "version_npm": "0.2.4"
     },
@@ -2573,16 +2152,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-wdio"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-lingua-api",
-      "description": "JavaScript API for tauri-plugin-lingua - language detection for Tauri apps",
-      "version": "0.2.0",
-      "created_at": "2025-12-28T06:51:03.233Z",
-      "repository": "https://github.com/Hkmu/tauri-plugin-lingua",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-lingua-api",
-      "version_npm": "0.2.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-lingua",
       "description": "A Tauri plugin for language detection using lingua-rs",
@@ -2591,7 +2160,9 @@
       "repository": "https://github.com/Hkmu/tauri-plugin-lingua",
       "license": "",
       "homepage": "https://github.com/Hkmu/tauri-plugin-lingua",
-      "crates_io": "https://crates.io/crates/tauri-plugin-lingua"
+      "crates_io": "https://crates.io/crates/tauri-plugin-lingua",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-lingua-api",
+      "version_npm": "0.2.0"
     },
     {
       "source": "npm",
@@ -2642,16 +2213,9 @@
       "repository": "https://github.com/IT-ess/tauri-plugin-mobile-sharetarget",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-mobile-sharetarget"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-preferences-api",
-      "description": "A Tauri plugin that provides cross-platform preferences storage using native system APIs",
-      "version": "0.1.0",
-      "created_at": "2025-12-24T08:36:40.272Z",
-      "repository": "https://github.com/ahonn/tauri-plugin-preferences",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-preferences-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-mobile-sharetarget",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-sharetarget-api",
+      "version_npm": "2.0.0"
     },
     {
       "source": "crates",
@@ -2662,7 +2226,9 @@
       "repository": "https://github.com/ahonn/tauri-plugin-preferences",
       "license": "",
       "homepage": "https://github.com/ahonn/tauri-plugin-preferences",
-      "crates_io": "https://crates.io/crates/tauri-plugin-preferences"
+      "crates_io": "https://crates.io/crates/tauri-plugin-preferences",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-preferences-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "npm",
@@ -2671,17 +2237,7 @@
       "version": "0.3.0",
       "created_at": "2025-12-24T08:07:43.244Z",
       "repository": "https://github.com/Gbyte-Group/tauri-plugin-ios-photos",
-      "npm": "https://www.npmjs.com/package/%40gbyte%2Ftauri-plugin-ios-photos",
-      "version_npm": "0.3.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-screen-wake-lock-api",
-      "description": "A Tauri plugin to keep the screen awake while enabled (desktop only).",
-      "version": "0.1.0",
-      "created_at": "2025-12-22T13:36:59.241Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-screen-wake-lock-api"
+      "npm": "https://www.npmjs.com/package/%40gbyte%2Ftauri-plugin-ios-photos"
     },
     {
       "source": "crates",
@@ -2692,7 +2248,9 @@
       "repository": "https://github.com/cijiugechu/tauri-plugin-screen-wake-lock",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-screen-wake-lock"
+      "crates_io": "https://crates.io/crates/tauri-plugin-screen-wake-lock",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-screen-wake-lock-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -2706,16 +2264,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-velesdb"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-dev-invoke-api",
-      "description": "JavaScript API for tauri-plugin-dev-invoke",
-      "version": "0.2.0",
-      "created_at": "2025-12-21T12:14:07.334Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-dev-invoke-api",
-      "version_npm": "0.2.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-dev-invoke",
       "description": "Enables external browsers to invoke Tauri commands via HTTP for dev/testing",
@@ -2724,7 +2272,9 @@
       "repository": "https://github.com/almontasser/tauri-plugin-dev-invoke",
       "license": "",
       "homepage": "https://github.com/almontasser/tauri-plugin-dev-invoke",
-      "crates_io": "https://crates.io/crates/tauri-plugin-dev-invoke"
+      "crates_io": "https://crates.io/crates/tauri-plugin-dev-invoke",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-dev-invoke-api",
+      "version_npm": "0.2.0"
     },
     {
       "source": "crates",
@@ -2751,16 +2301,6 @@
       "version_npm": "0.1.6"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-audio-recorder-api",
-      "description": "Cross-platform audio recording API for Tauri applications with pause/resume support",
-      "version": "0.1.2",
-      "created_at": "2025-12-18T20:17:07.485Z",
-      "repository": "https://github.com/brenogonzaga/tauri-plugin-audio-recorder",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-api",
-      "version_npm": "0.1.2"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-audio-recorder",
       "description": "Cross-platform audio recording plugin for Tauri applications with pause/resume support",
@@ -2769,16 +2309,9 @@
       "repository": "https://github.com/brenogonzaga/tauri-plugin-audio-recorder",
       "license": "",
       "homepage": "https://github.com/brenogonzaga/tauri-plugin-audio-recorder",
-      "crates_io": "https://crates.io/crates/tauri-plugin-audio-recorder"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-media-toolkit-api",
-      "description": "Comprehensive media toolkit API for Tauri: edit, play, convert audio/video files",
-      "version": "0.1.1",
-      "created_at": "2025-12-18T20:14:48.870Z",
-      "repository": "https://github.com/brenogonzaga/tauri-plugin-media-toolkit",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-media-toolkit-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-audio-recorder",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-api",
+      "version_npm": "0.1.2"
     },
     {
       "source": "crates",
@@ -2789,17 +2322,9 @@
       "repository": "https://github.com/brenogonzaga/tauri-plugin-media-toolkit",
       "license": "",
       "homepage": "https://github.com/brenogonzaga/tauri-plugin-media-toolkit",
-      "crates_io": "https://crates.io/crates/tauri-plugin-media-toolkit"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-stt-api",
-      "description": "Speech-to-text recognition API for Tauri with multi-language support",
-      "version": "0.2.2",
-      "created_at": "2025-12-18T20:12:34.284Z",
-      "repository": "https://github.com/brenogonzaga/tauri-plugin-stt",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-stt-api",
-      "version_npm": "0.2.2"
+      "crates_io": "https://crates.io/crates/tauri-plugin-media-toolkit",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-media-toolkit-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -2810,17 +2335,9 @@
       "repository": "https://github.com/brenogonzaga/tauri-plugin-stt",
       "license": "",
       "homepage": "https://github.com/brenogonzaga/tauri-plugin-stt",
-      "crates_io": "https://crates.io/crates/tauri-plugin-stt"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-tts-api",
-      "description": "Native text-to-speech API for Tauri with multi-language and voice selection",
-      "version": "0.1.11",
-      "created_at": "2025-12-18T14:38:06.447Z",
-      "repository": "https://github.com/brenogonzaga/tauri-plugin-tts",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-tts-api",
-      "version_npm": "0.1.11"
+      "crates_io": "https://crates.io/crates/tauri-plugin-stt",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-stt-api",
+      "version_npm": "0.2.2"
     },
     {
       "source": "crates",
@@ -2831,7 +2348,9 @@
       "repository": "https://github.com/brenogonzaga/tauri-plugin-tts",
       "license": "",
       "homepage": "https://github.com/brenogonzaga/tauri-plugin-tts",
-      "crates_io": "https://crates.io/crates/tauri-plugin-tts"
+      "crates_io": "https://crates.io/crates/tauri-plugin-tts",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-tts-api",
+      "version_npm": "0.1.11"
     },
     {
       "source": "crates",
@@ -2842,27 +2361,9 @@
       "repository": "https://github.com/hkandala/tauri-plugin-liquid-glass",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-liquid-glass"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-liquid-glass-api",
-      "description": "macOS 26+ Liquid Glass effect support for Tauri",
-      "version": "0.1.6",
-      "created_at": "2025-12-18T08:53:48.160Z",
-      "repository": "https://github.com/hkandala/tauri-plugin-liquid-glass",
+      "crates_io": "https://crates.io/crates/tauri-plugin-liquid-glass",
       "npm": "https://www.npmjs.com/package/tauri-plugin-liquid-glass-api",
       "version_npm": "0.1.6"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sparkle-updater-api",
-      "description": "Tauri plugin for macOS app updates using the Sparkle framework",
-      "version": "0.2.2",
-      "created_at": "2025-12-17T07:18:13.818Z",
-      "repository": "https://github.com/ahonn/tauri-plugin-sparkle-updater",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sparkle-updater-api",
-      "version_npm": "0.2.2"
     },
     {
       "source": "crates",
@@ -2873,17 +2374,9 @@
       "repository": "https://github.com/ahonn/tauri-plugin-sparkle-updater",
       "license": "",
       "homepage": "https://github.com/ahonn/tauri-plugin-sparkle-updater",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sparkle-updater"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-secure-element-api",
-      "description": "Tauri plugin for secure element use on iOS (Secure Enclave) and Android (Strongbox and TEE).",
-      "version": "0.1.0-beta.4",
-      "created_at": "2025-12-14T23:39:11.611Z",
-      "repository": "https://github.com/dkackman/tauri-plugin-secure-element",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-secure-element-api",
-      "version_npm": "0.1.0-beta.4"
+      "crates_io": "https://crates.io/crates/tauri-plugin-sparkle-updater",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sparkle-updater-api",
+      "version_npm": "0.2.2"
     },
     {
       "source": "crates",
@@ -2894,7 +2387,9 @@
       "repository": "https://github.com/dkackman/tauri-plugin-secure-element",
       "license": "",
       "homepage": "https://github.com/dkackman/tauri-plugin-secure-element",
-      "crates_io": "https://crates.io/crates/tauri-plugin-secure-element"
+      "crates_io": "https://crates.io/crates/tauri-plugin-secure-element",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-secure-element-api",
+      "version_npm": "0.1.0-beta.4"
     },
     {
       "source": "crates",
@@ -2906,16 +2401,6 @@
       "license": "",
       "homepage": "",
       "crates_io": "https://crates.io/crates/tauri-plugin-extension-nyumi"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-mobile-sharetarget-api",
-      "description": "JS bindings to use the mobile-sharetarget tauri plugin",
-      "version": "2.0.0",
-      "created_at": "2025-12-11T14:34:25.890Z",
-      "repository": "https://github.com/IT-ess/tauri-plugin-mobile-sharetarget",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-sharetarget-api",
-      "version_npm": "2.0.0"
     },
     {
       "source": "crates",
@@ -2959,8 +2444,7 @@
       "version": "0.12.0",
       "created_at": "2025-11-27T03:37:57.387Z",
       "repository": "https://github.com/hypothesi/mcp-server-tauri",
-      "npm": "https://www.npmjs.com/package/%40hypothesi%2Ftauri-plugin-mcp-bridge",
-      "version_npm": "0.12.0"
+      "npm": "https://www.npmjs.com/package/%40hypothesi%2Ftauri-plugin-mcp-bridge"
     },
     {
       "source": "crates",
@@ -2985,15 +2469,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-edge-to-edge"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-netwait-api",
-      "description": "A Tauri plugin for network status monitoring and waiting.",
-      "version": "0.1.0",
-      "created_at": "2025-11-25T13:25:04.837Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-netwait-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-netwait",
       "description": "A Tauri plugin for network status monitoring and waiting.",
@@ -3002,17 +2477,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-netwait"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sse-api",
-      "description": "![Crates.io Version](https://img.shields.io/crates/v/tauri-plugin-sse) ![License](https://img.shields.io/badge/License-MIT%20or%20Apache%202-green.svg)",
-      "version": "0.1.1",
-      "created_at": "2025-11-20T01:39:20.607Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sse-api",
-      "version_npm": "0.1.1"
+      "crates_io": "https://crates.io/crates/tauri-plugin-netwait",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-netwait-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -3024,16 +2491,6 @@
       "license": "",
       "homepage": "https://github.com/yigitkonur/tauri-plugin-macos-input-monitor",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-input-monitor"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-android-fs-api",
-      "description": "Android file system API for Tauri",
-      "version": "28.4.0",
-      "created_at": "2025-11-17T10:58:43.148Z",
-      "repository": "https://github.com/aiueo13/tauri-plugin-android-fs",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-fs-api",
-      "version_npm": "28.4.0"
     },
     {
       "source": "crates",
@@ -3063,22 +2520,12 @@
     },
     {
       "source": "npm",
-      "name": "tauri-plugin-ntb-api",
-      "description": "**NTB** (**N**ative **T**itle **B**ar) is a [Tauri v2](https://v2.tauri.app) plugin providing native-looking title bar.",
-      "version": "1.1.1",
-      "created_at": "2025-11-06T17:00:46.502Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ntb-api"
-    },
-    {
-      "source": "npm",
       "name": "@crabnebula/tauri-plugin-better-auth-license",
       "description": "Tauri plugin for license-based authentication and secure device validation.",
       "version": "0.0.9",
       "created_at": "2025-11-05T17:45:12.408Z",
       "repository": "https://github.com/crabnebula-dev/better-auth-license",
-      "npm": "https://www.npmjs.com/package/%40crabnebula%2Ftauri-plugin-better-auth-license",
-      "version_npm": "0.0.9"
+      "npm": "https://www.npmjs.com/package/%40crabnebula%2Ftauri-plugin-better-auth-license"
     },
     {
       "source": "crates",
@@ -3089,7 +2536,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-ntb"
+      "crates_io": "https://crates.io/crates/tauri-plugin-ntb",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ntb-api",
+      "version_npm": "1.1.1"
     },
     {
       "source": "crates",
@@ -3111,7 +2560,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sse"
+      "crates_io": "https://crates.io/crates/tauri-plugin-sse",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sse-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -3131,8 +2582,7 @@
       "version": "2.0.1",
       "created_at": "2025-11-02T16:49:57.507Z",
       "repository": "https://github.com/razein97/tauri-plugin-i18n",
-      "npm": "https://www.npmjs.com/package/%40razein97%2Ftauri-plugin-i18n",
-      "version_npm": "2.0.1"
+      "npm": "https://www.npmjs.com/package/%40razein97%2Ftauri-plugin-i18n"
     },
     {
       "source": "crates",
@@ -3157,16 +2607,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-mcp-gui"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-askit-api",
-      "description": "Tauri plugin for Agent Stream Kit",
-      "version": "0.10.0",
-      "created_at": "2025-10-26T02:22:06.888Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-askit-api",
-      "version_npm": "0.10.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-askit",
       "description": "Tauri plugin for Agent Stream Kit",
@@ -3175,17 +2615,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-askit"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-use-ffmpeg-api",
-      "description": "A Tauri plugin for using FFmpeg without pre-installation",
-      "version": "0.1.0",
-      "created_at": "2025-10-24T06:06:30.277Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-use-ffmpeg-api",
-      "version_npm": "0.1.0"
+      "crates_io": "https://crates.io/crates/tauri-plugin-askit",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-askit-api",
+      "version_npm": "0.10.0"
     },
     {
       "source": "crates",
@@ -3196,7 +2628,9 @@
       "repository": "https://github.com/lin52025iq/tauri-plugin-use-ffmpeg",
       "license": "",
       "homepage": "https://github.com/lin52025iq/tauri-plugin-use-ffmpeg",
-      "crates_io": "https://crates.io/crates/tauri-plugin-use-ffmpeg"
+      "crates_io": "https://crates.io/crates/tauri-plugin-use-ffmpeg",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-use-ffmpeg-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -3207,15 +2641,7 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-system-fonts",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-system-fonts"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-system-fonts-api",
-      "description": "Support getting all fonts installed on your system.",
-      "version": "2.0.2",
-      "created_at": "2025-10-20T17:26:55.805Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-system-fonts",
+      "crates_io": "https://crates.io/crates/tauri-plugin-system-fonts",
       "npm": "https://www.npmjs.com/package/tauri-plugin-system-fonts-api",
       "version_npm": "2.0.2"
     },
@@ -3241,15 +2667,7 @@
       "repository": "https://github.com/YeonV/tauri-plugin-videoplayer",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-videoplayer"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-videoplayer-api",
-      "description": "[![crate](https://img.shields.io/crates/v/tauri-plugin-videoplayer.svg?logo=rust&logoColor=white)](https://crates.io/crates/tauri-plugin-videoplayer) [![npm](https://img.shields.io/npm/v/tauri-plugin-videoplayer-api?logo=npm&logoColor=white)](https://www.",
-      "version": "0.1.6",
-      "created_at": "2025-10-12T17:22:06.063Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-videoplayer",
       "npm": "https://www.npmjs.com/package/tauri-plugin-videoplayer-api",
       "version_npm": "0.1.6"
     },
@@ -3271,8 +2689,7 @@
       "version": "0.5.0-rc.11",
       "created_at": "2025-10-07T15:19:04.816Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-notifications",
-      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-notifications-api",
-      "version_npm": "0.5.0-rc.11"
+      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-notifications-api"
     },
     {
       "source": "crates",
@@ -3305,15 +2722,7 @@
       "repository": "https://github.com/2221ch/tauri-plugin-sumup",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sumup"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sumup-api",
-      "description": "JavaScript bindings for tauri-plugin-sumup - SumUp payment processing for Tauri mobile apps",
-      "version": "0.1.2",
-      "created_at": "2025-10-02T18:28:58.061Z",
-      "repository": "https://github.com/2221ch/tauri-plugin-sumup",
+      "crates_io": "https://crates.io/crates/tauri-plugin-sumup",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sumup-api",
       "version_npm": "0.1.2"
     },
@@ -3324,18 +2733,7 @@
       "version": "1.1.1",
       "created_at": "2025-10-02T08:52:14.252Z",
       "repository": "https://github.com/cloudworxx/tauri-plugin-mac-rounded-corners",
-      "npm": "https://www.npmjs.com/package/%40cloudworxx%2Ftauri-plugin-mac-rounded-corners",
-      "version_npm": "1.1.1"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-widget-api",
-      "description": "A Tauri plugin to interact with App Widgets (Android). Allows your Tauri app to shared preferences (Android), and update timeline widgets.",
-      "version": "0.1.1",
-      "created_at": "2025-09-28T14:08:47.973Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-widget-api",
-      "version_npm": "0.1.1"
+      "npm": "https://www.npmjs.com/package/%40cloudworxx%2Ftauri-plugin-mac-rounded-corners"
     },
     {
       "source": "crates",
@@ -3346,7 +2744,9 @@
       "repository": "https://github.com/fwy13/tauri-plugin-widget",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-widget"
+      "crates_io": "https://crates.io/crates/tauri-plugin-widget",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-widget-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -3357,26 +2757,9 @@
       "repository": "https://github.com/nini22P/tauri-plugin-libmpv",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-libmpv"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-libmpv-api",
-      "description": "A Tauri plugin for embedding the mpv player in your app via libmpv.",
-      "version": "0.3.2",
-      "created_at": "2025-09-27T00:49:37.636Z",
-      "repository": "https://github.com/nini22P/tauri-plugin-libmpv",
+      "crates_io": "https://crates.io/crates/tauri-plugin-libmpv",
       "npm": "https://www.npmjs.com/package/tauri-plugin-libmpv-api",
       "version_npm": "0.3.2"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-broadcast-api",
-      "description": "Tauri V2 plugin for listening to Android intents and broadcasts.",
-      "version": "0.4.1",
-      "created_at": "2025-09-18T05:21:08.246Z",
-      "repository": "https://github.com/dduutt/tauri-plugin-broadcast",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-broadcast-api"
     },
     {
       "source": "npm",
@@ -3385,8 +2768,7 @@
       "version": "0.2.0",
       "created_at": "2025-09-15T09:01:26.937Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40duttt%2Ftauri-plugin-broadcast-api",
-      "version_npm": "0.2.0"
+      "npm": "https://www.npmjs.com/package/%40duttt%2Ftauri-plugin-broadcast-api"
     },
     {
       "source": "crates",
@@ -3397,16 +2779,9 @@
       "repository": "https://github.com/dduutt/tauri-plugin-broadcast",
       "license": "",
       "homepage": "https://github.com/dduutt/tauri-plugin-broadcast",
-      "crates_io": "https://crates.io/crates/tauri-plugin-broadcast"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-pldownloader-api",
-      "description": "TypeScript client for the Tauri PLDownloader plugin (Android/iOS).",
-      "version": "1.0.1",
-      "created_at": "2025-09-10T10:04:29.408Z",
-      "repository": "https://github.com/lecaobaophuc0912/tauri-plugin-pldownloader",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-pldownloader-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-broadcast",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-broadcast-api",
+      "version_npm": "0.4.1"
     },
     {
       "source": "crates",
@@ -3417,7 +2792,9 @@
       "repository": "https://github.com/lecaobaophuc0912/tauri-plugin-pldownloader",
       "license": "",
       "homepage": "https://github.com/lecaobaophuc0912/tauri-plugin-pldownloader",
-      "crates_io": "https://crates.io/crates/tauri-plugin-pldownloader"
+      "crates_io": "https://crates.io/crates/tauri-plugin-pldownloader",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-pldownloader-api",
+      "version_npm": "1.0.1"
     },
     {
       "source": "crates",
@@ -3428,15 +2805,7 @@
       "repository": "https://github.com/Taiizor/tauri-plugin-media",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-media"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-media-api",
-      "description": "Advanced system media control integration plugin for Tauri applications with comprehensive playback controls, rich metadata support, and seamless native OS media interface integration across Windows, macOS, and Linux",
-      "version": "0.1.1",
-      "created_at": "2025-09-06T20:27:53.620Z",
-      "repository": "https://github.com/Taiizor/tauri-plugin-media",
+      "crates_io": "https://crates.io/crates/tauri-plugin-media",
       "npm": "https://www.npmjs.com/package/tauri-plugin-media-api",
       "version_npm": "0.1.1"
     },
@@ -3469,8 +2838,7 @@
       "version": "0.3.0-rc.1",
       "created_at": "2025-09-05T15:30:16.967Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-biometry",
-      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-biometry-api",
-      "version_npm": "0.3.0-rc.1"
+      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-biometry-api"
     },
     {
       "source": "crates",
@@ -3492,27 +2860,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-posthog"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-posthog-api",
-      "description": "A Tauri v2 plugin for integrating PostHog analytics - JavaScript/TypeScript API",
-      "version": "0.2.2",
-      "created_at": "2025-09-03T15:45:23.910Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-posthog",
       "npm": "https://www.npmjs.com/package/tauri-plugin-posthog-api",
       "version_npm": "0.2.2"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-mpv-api",
-      "description": "A Tauri plugin for embedding the mpv player in your app by controlling its process via JSON IPC.",
-      "version": "0.5.2",
-      "created_at": "2025-09-03T12:45:06.378Z",
-      "repository": "https://github.com/nini22P/tauri-plugin-mpv",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mpv-api",
-      "version_npm": "0.5.2"
     },
     {
       "source": "crates",
@@ -3523,7 +2873,9 @@
       "repository": "https://github.com/nini22P/tauri-plugin-mpv",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-mpv"
+      "crates_io": "https://crates.io/crates/tauri-plugin-mpv",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mpv-api",
+      "version_npm": "0.5.2"
     },
     {
       "source": "crates",
@@ -3543,8 +2895,7 @@
       "version": "0.4.0-rc.5",
       "created_at": "2025-08-28T13:36:03.715Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-sharekit",
-      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-sharekit-api",
-      "version_npm": "0.4.0-rc.5"
+      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-sharekit-api"
     },
     {
       "source": "crates",
@@ -3564,8 +2915,7 @@
       "version": "0.0.1",
       "created_at": "2025-08-27T06:47:02.991Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40bling-yshs%2Ftauri-plugin-toast",
-      "version_npm": "0.0.1"
+      "npm": "https://www.npmjs.com/package/%40bling-yshs%2Ftauri-plugin-toast"
     },
     {
       "source": "crates",
@@ -3585,8 +2935,7 @@
       "version": "0.6.0-rc.2",
       "created_at": "2025-08-26T16:03:30.172Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-google-auth",
-      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-google-auth-api",
-      "version_npm": "0.6.0-rc.2"
+      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-google-auth-api"
     },
     {
       "source": "crates",
@@ -3617,18 +2966,7 @@
       "version": "0.1.0",
       "created_at": "2025-08-21T15:23:23.210Z",
       "repository": "https://github.com/saurL/tauri-plugin-safe-area-insets-css",
-      "npm": "https://www.npmjs.com/package/%40saurl%2Ftauri-plugin-safe-area-insets-css-api",
-      "version_npm": "0.1.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-serialplugin-api",
-      "description": "[![npm version](https://img.shields.io/npm/v/tauri-plugin-serialplugin-api/latest?style=for-the-badge)](https://www.npmjs.com/package/tauri-plugin-serialplugin-api) [![Crates.io](https://img.shields.io/crates/v/tauri-plugin-serialplugin?style=for-the-badg",
-      "version": "3.0.1",
-      "created_at": "2025-08-20T11:49:58.491Z",
-      "repository": "https://github.com/s00d/tauri-plugin-serialplugin",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-serialplugin-api",
-      "version_npm": "3.0.1"
+      "npm": "https://www.npmjs.com/package/%40saurl%2Ftauri-plugin-safe-area-insets-css-api"
     },
     {
       "source": "crates",
@@ -3661,16 +2999,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-authium"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-authium-api",
-      "description": "Plugin for Tauri as a wrapper for Authium.",
-      "version": "0.2.2",
-      "created_at": "2025-08-19T13:36:45.932Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-authium-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-authium",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-authium-api",
+      "version_npm": "0.2.2"
     },
     {
       "source": "npm",
@@ -3679,8 +3010,7 @@
       "version": "1.1.5",
       "created_at": "2025-08-19T13:30:27.967Z",
       "repository": "https://github.com/smbcloudXYZ/tauri-plugin-android-tv-check",
-      "npm": "https://www.npmjs.com/package/%40smbcloud%2Ftauri-plugin-android-tv-check-api",
-      "version_npm": "1.1.5"
+      "npm": "https://www.npmjs.com/package/%40smbcloud%2Ftauri-plugin-android-tv-check-api"
     },
     {
       "source": "crates",
@@ -3696,16 +3026,6 @@
       "version_npm": "0.1.4"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-plauth-api",
-      "description": "Tauri plugin for authentication (PLAUTH) supporting macOS and iOS platforms with ASWebAuthenticationSession",
-      "version": "1.0.4",
-      "created_at": "2025-08-15T03:35:19.014Z",
-      "repository": "https://github.com/lecaobaophuc0912/tauri-plugin-plauth",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-plauth-api",
-      "version_npm": "1.0.4"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-plauth",
       "description": "Tauri plugin for authentication (PLAUTH) supporting macOS and iOS platforms with ASWebAuthenticationSession",
@@ -3714,7 +3034,9 @@
       "repository": "https://github.com/lecaobaophuc0912/tauri-plugin-plauth",
       "license": "",
       "homepage": "https://github.com/lecaobaophuc0912/tauri-plugin-plauth",
-      "crates_io": "https://crates.io/crates/tauri-plugin-plauth"
+      "crates_io": "https://crates.io/crates/tauri-plugin-plauth",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-plauth-api",
+      "version_npm": "1.0.4"
     },
     {
       "source": "crates",
@@ -3736,15 +3058,7 @@
       "repository": "https://github.com/s00d/tauri-plugin-centrifugo",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-centrifugo"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-centrifugo-api",
-      "description": "Tauri plugin for Centrifugo real-time communication using tokio-centrifuge",
-      "version": "0.1.2",
-      "created_at": "2025-08-13T11:51:45.342Z",
-      "repository": "https://github.com/s00d/tauri-plugin-centrifugo",
+      "crates_io": "https://crates.io/crates/tauri-plugin-centrifugo",
       "npm": "https://www.npmjs.com/package/tauri-plugin-centrifugo-api",
       "version_npm": "0.1.2"
     },
@@ -3821,8 +3135,7 @@
       "version": "0.10.0-rc.8",
       "created_at": "2025-07-31T19:15:38.240Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-iap",
-      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-iap-api",
-      "version_npm": "0.10.0-rc.8"
+      "npm": "https://www.npmjs.com/package/%40choochmeque%2Ftauri-plugin-iap-api"
     },
     {
       "source": "npm",
@@ -3840,8 +3153,7 @@
       "version": "2.2.8",
       "created_at": "2025-07-30T19:54:34.971Z",
       "repository": "https://github.com/razein97/tauri-plugin-rusqlite2",
-      "npm": "https://www.npmjs.com/package/%40razein97%2Ftauri-plugin-rusqlite2",
-      "version_npm": "2.2.8"
+      "npm": "https://www.npmjs.com/package/%40razein97%2Ftauri-plugin-rusqlite2"
     },
     {
       "source": "crates",
@@ -3900,8 +3212,7 @@
       "version": "1.0.0-rc",
       "created_at": "2025-07-27T19:51:29.477Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40vnidrop%2Ftauri-plugin-share",
-      "version_npm": "1.0.0-rc"
+      "npm": "https://www.npmjs.com/package/%40vnidrop%2Ftauri-plugin-share"
     },
     {
       "source": "crates",
@@ -3945,15 +3256,7 @@
       "repository": "https://github.com/patrickquinn/tauri-plugin-apple-music-kit",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-apple-music-kit"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-apple-music-kit-api",
-      "description": "Tauri plugin for Apple MusicKit integration - TypeScript API bindings",
-      "version": "0.2.7",
-      "created_at": "2025-07-11T13:39:59.825Z",
-      "repository": "https://github.com/patrickquinn/tauri-plugin-apple-music-kit",
+      "crates_io": "https://crates.io/crates/tauri-plugin-apple-music-kit",
       "npm": "https://www.npmjs.com/package/tauri-plugin-apple-music-kit-api",
       "version_npm": "0.2.7"
     },
@@ -4024,16 +3327,6 @@
       "npm": "https://www.npmjs.com/package/tauri-plugin-justdownload-api"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-remote-push-api",
-      "description": "A Tauri plugin for remote push notifications on iOS and Android.",
-      "version": "1.0.10",
-      "created_at": "2025-06-22T13:41:50.946Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-remote-push-api",
-      "version_npm": "1.0.10"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-remote-push",
       "description": "A Tauri plugin for remote push notifications on iOS and Android.",
@@ -4042,7 +3335,9 @@
       "repository": "https://github.com/YOUR_USERNAME/tauri-plugin-remote-push",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-remote-push"
+      "crates_io": "https://crates.io/crates/tauri-plugin-remote-push",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-remote-push-api",
+      "version_npm": "1.0.10"
     },
     {
       "source": "crates",
@@ -4097,8 +3392,7 @@
       "version": "0.13.0",
       "created_at": "2025-06-19T11:29:22.325Z",
       "repository": "https://github.com/universalappfactory/tauri-plugin-medialibrary",
-      "npm": "https://www.npmjs.com/package/%40universalappfactory%2Ftauri-plugin-medialibrary",
-      "version_npm": "0.13.0"
+      "npm": "https://www.npmjs.com/package/%40universalappfactory%2Ftauri-plugin-medialibrary"
     },
     {
       "source": "crates",
@@ -4106,10 +3400,12 @@
       "description": "Tauri plugin for automation via WebDriver",
       "version": "0.1.3",
       "created_at": "2025-06-09T19:56:36.435322Z",
-      "repository": null,
+      "repository": "https://github.com/dcherrera/tauri-plugin-automation",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-automation"
+      "crates_io": "https://crates.io/crates/tauri-plugin-automation",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-automation-api",
+      "version_npm": "0.2.0"
     },
     {
       "source": "crates",
@@ -4120,26 +3416,9 @@
       "repository": "https://github.com/IT-ess/tauri-plugin-matrix-svelte",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-matrix-svelte"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-matrix-svelte-api",
-      "description": "A Tauri plugin that exposes high level Matrix data through Svelte Rune stores",
-      "version": "0.1.0",
-      "created_at": "2025-06-05T08:53:46.771Z",
-      "repository": "https://github.com/IT-ess/tauri-plugin-matrix-svelte",
+      "crates_io": "https://crates.io/crates/tauri-plugin-matrix-svelte",
       "npm": "https://www.npmjs.com/package/tauri-plugin-matrix-svelte-api",
       "version_npm": "0.1.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-apple-camera-api",
-      "description": "",
-      "version": "0.1.0",
-      "created_at": "2025-06-03T12:18:52.388Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-camera-api"
     },
     {
       "source": "crates",
@@ -4150,16 +3429,9 @@
       "repository": "https://github.com/Grano22/tauri-plugin-apple_camera/",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-apple-camera"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-app-control-api",
-      "description": "JS/TS API for Tauri App Control plugin (Android lifecycle).",
-      "version": "0.1.1",
-      "created_at": "2025-05-29T11:07:37.163Z",
-      "repository": "https://github.com/your-username/tauri-plugin-app-control",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-app-control-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-apple-camera",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-camera-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -4170,7 +3442,9 @@
       "repository": "https://github.com/your-username/tauri-plugin-app-control",
       "license": "",
       "homepage": "https://github.com/your-username/tauri-plugin-app-control",
-      "crates_io": "https://crates.io/crates/tauri-plugin-app-control"
+      "crates_io": "https://crates.io/crates/tauri-plugin-app-control",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-app-control-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "npm",
@@ -4225,23 +3499,12 @@
     },
     {
       "source": "npm",
-      "name": "tauri-plugin-cache-api",
-      "description": "Comprehensive disk and memory caching solution for Tauri applications. Features dynamic TTL management, intelligent data compression, automatic cleanup, and statistics monitoring. Delivers high-performance data access, optimized storage, and improved user",
-      "version": "0.1.6",
-      "created_at": "2025-05-22T15:39:54.033Z",
-      "repository": "https://github.com/Taiizor/tauri-plugin-cache",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-cache-api",
-      "version_npm": "0.1.6"
-    },
-    {
-      "source": "npm",
       "name": "@0x330a/tauri-plugin-p256-signer-api",
       "description": "JS Bindings for the tauri-plugin-p256-signer Tauri plugin",
       "version": "0.1.2",
       "created_at": "2025-05-22T04:14:18.488Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%400x330a%2Ftauri-plugin-p256-signer-api",
-      "version_npm": "0.1.2"
+      "npm": "https://www.npmjs.com/package/%400x330a%2Ftauri-plugin-p256-signer-api"
     },
     {
       "source": "crates",
@@ -4252,7 +3515,9 @@
       "repository": "https://github.com/Taiizor/tauri-plugin-cache",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-cache"
+      "crates_io": "https://crates.io/crates/tauri-plugin-cache",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-cache-api",
+      "version_npm": "0.1.6"
     },
     {
       "source": "npm",
@@ -4261,8 +3526,7 @@
       "version": "0.1.3",
       "created_at": "2025-05-16T17:57:54.065Z",
       "repository": "https://github.com/inkibra/tauri-plugins",
-      "npm": "https://www.npmjs.com/package/%40inkibra%2Ftauri-plugin-ota",
-      "version_npm": "0.1.3"
+      "npm": "https://www.npmjs.com/package/%40inkibra%2Ftauri-plugin-ota"
     },
     {
       "source": "crates",
@@ -4287,16 +3551,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-zubridge"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-webauthn-api",
-      "description": "A Tauri plugin for WebAuthn API",
-      "version": "0.2.0",
-      "created_at": "2025-05-12T22:20:59.049Z",
-      "repository": "https://github.com/profiidev/tauri-plugin-webauthn",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-webauthn-api",
-      "version_npm": "0.2.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-webauthn",
       "description": "a Tauri plugin for WebAuthn",
@@ -4305,7 +3559,9 @@
       "repository": "https://github.com/Profiidev/tauri-plugin-webauthn",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-webauthn"
+      "crates_io": "https://crates.io/crates/tauri-plugin-webauthn",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-webauthn-api",
+      "version_npm": "0.2.0"
     },
     {
       "source": "crates",
@@ -4347,8 +3603,7 @@
       "version": "0.9.0-beta.2",
       "created_at": "2025-05-01T10:56:38.723Z",
       "repository": "https://github.com/moeru-ai/airi",
-      "npm": "https://www.npmjs.com/package/%40proj-airi%2Ftauri-plugin-mcp",
-      "version_npm": "0.9.0-beta.2"
+      "npm": "https://www.npmjs.com/package/%40proj-airi%2Ftauri-plugin-mcp"
     },
     {
       "source": "crates",
@@ -4370,18 +3625,7 @@
       "version": "0.3.4",
       "created_at": "2025-04-28T00:53:39.112Z",
       "repository": "https://github.com/fltsci/tauri-plugin-tracing",
-      "npm": "https://www.npmjs.com/package/%40fltsci%2Ftauri-plugin-tracing",
-      "version_npm": "0.3.4"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sqlite-api",
-      "description": "tauri plugin for sqlite",
-      "version": "0.1.2",
-      "created_at": "2025-04-26T10:18:13.038Z",
-      "repository": "https://github.com/return764/tauri-plugin-sqlite",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sqlite-api",
-      "version_npm": "0.1.2"
+      "npm": "https://www.npmjs.com/package/%40fltsci%2Ftauri-plugin-tracing"
     },
     {
       "source": "crates",
@@ -4389,22 +3633,12 @@
       "description": "tauri plugin for sqlite",
       "version": "0.1.1",
       "created_at": "2025-04-26T09:22:22.065757Z",
-      "repository": "https://github.com/popo1221/tauri-plugin-sqlite",
+      "repository": "https://github.com/return764/tauri-plugin-sqlite",
       "license": "",
       "homepage": "",
       "crates_io": "https://crates.io/crates/tauri-plugin-sqlite",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sqlite",
       "version_npm": "0.0.1"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-mixpanel-api",
-      "description": "Tauri plugin API for Mixpanel analytics",
-      "version": "0.1.0",
-      "created_at": "2025-04-26T05:49:37.435Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mixpanel-api",
-      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -4415,16 +3649,8 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-mixpanel"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-buttonkit-api",
-      "description": "Tauri plugin for detecting physical button presses on mobile devices",
-      "version": "0.1.0",
-      "created_at": "2025-04-25T14:36:14.247Z",
-      "repository": "https://github.com/dovaldev/tauri-plugin-buttonkit",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-buttonkit-api",
+      "crates_io": "https://crates.io/crates/tauri-plugin-mixpanel",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mixpanel-api",
       "version_npm": "0.1.0"
     },
     {
@@ -4436,7 +3662,9 @@
       "repository": "https://github.com/dovaldev/tauri-plugin-buttonkit",
       "license": "",
       "homepage": "https://github.com/dovaldev/tauri-plugin-buttonkit",
-      "crates_io": "https://crates.io/crates/tauri-plugin-buttonkit"
+      "crates_io": "https://crates.io/crates/tauri-plugin-buttonkit",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-buttonkit-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -4452,16 +3680,6 @@
       "version_npm": "0.2.3"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-web-auth-api",
-      "description": "Leverage iOS' ASWebAuthenticationSession and Android's Custom Tabs to authenticate users in your Tauri app.",
-      "version": "1.0.0",
-      "created_at": "2025-04-21T20:04:30.547Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-web-auth-api",
-      "version_npm": "1.0.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-web-auth",
       "description": "Leverage iOS' ASWebAuthenticationSession and Android's Custom Tabs to authenticate users in your Tauri app.",
@@ -4470,7 +3688,9 @@
       "repository": "https://github.com/Manaf941/tauri-plugin-web_auth",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-web-auth"
+      "crates_io": "https://crates.io/crates/tauri-plugin-web-auth",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-web-auth-api",
+      "version_npm": "1.0.0"
     },
     {
       "source": "crates",
@@ -4478,19 +3698,12 @@
       "description": "Tauri plugin to open browsers in the app (SFSafariViewController & Chrome Custom Tabs)",
       "version": "1.0.1",
       "created_at": "2025-04-21T03:06:50.612657Z",
-      "repository": null,
+      "repository": "https://github.com/Manaf941/tauri-plugin-in_app_browser",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-in-app-browser"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-in-app-browser-api",
-      "description": "> [!CAUTION] > This was a plugin primarily made for myself. I've made it open-source so that other people could use it, but I'm not willing to document everything. If you do need some help / clarification / changes, you can contact me on Discord / Twitter",
-      "version": "1.0.0",
-      "created_at": "2025-04-21T03:00:24.092Z",
-      "repository": "https://github.com/Manaf941/tauri-plugin-in_app_browser",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-in-app-browser-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-in-app-browser",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-in-app-browser-api",
+      "version_npm": "1.0.0"
     },
     {
       "source": "crates",
@@ -4501,26 +3714,9 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-clipboard-x",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-clipboard-x"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-clipboard-x-api",
-      "description": "Supports clipboard change listening and enables reading and writing of various clipboard formats (plain text, rich text, html, image, and files).",
-      "version": "2.0.2",
-      "created_at": "2025-04-19T15:17:48.830Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-clipboard-x",
+      "crates_io": "https://crates.io/crates/tauri-plugin-clipboard-x",
       "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-x-api",
       "version_npm": "2.0.2"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-persistence-api",
-      "description": "A wrapper plugin for several persistence backends, focused on managing complex project folders with less boilerplate.",
-      "version": "0.2.1",
-      "created_at": "2025-04-18T18:24:16.081Z",
-      "repository": "https://github.com/dax-dot-gay/tauri-plugin-persistence",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-persistence-api"
     },
     {
       "source": "crates",
@@ -4531,7 +3727,9 @@
       "repository": "https://github.com/dax-dot-gay/tauri-plugin-persistence",
       "license": "",
       "homepage": "https://github.com/dax-dot-gay/tauri-plugin-persistence",
-      "crates_io": "https://crates.io/crates/tauri-plugin-persistence"
+      "crates_io": "https://crates.io/crates/tauri-plugin-persistence",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-persistence-api",
+      "version_npm": "0.2.1"
     },
     {
       "source": "crates",
@@ -4542,16 +3740,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-graphql-next"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-graphql-next-api",
-      "description": "",
-      "version": "0.5.0",
-      "created_at": "2025-04-17T10:45:44.079Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-graphql-next-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-graphql-next",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-graphql-next-api",
+      "version_npm": "0.5.0"
     },
     {
       "source": "npm",
@@ -4560,18 +3751,7 @@
       "version": "0.1.7",
       "created_at": "2025-04-15T07:10:55.320Z",
       "repository": "https://github.com/bspeckco/tauri-v2-plugin-workspace",
-      "npm": "https://www.npmjs.com/package/%40bspeckco%2Ftauri-plugin-sqlite",
-      "version_npm": "0.1.7"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-packagemanager-api",
-      "description": "A Tauri plugin for interfacing with the Android PackageManager API",
-      "version": "0.2.1",
-      "created_at": "2025-04-12T21:21:47.827Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-packagemanager-api",
-      "version_npm": "0.2.1"
+      "npm": "https://www.npmjs.com/package/%40bspeckco%2Ftauri-plugin-sqlite"
     },
     {
       "source": "crates",
@@ -4582,7 +3762,9 @@
       "repository": "https://github.com/jack-weilage/tauri-plugin-packagemanager",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-packagemanager"
+      "crates_io": "https://crates.io/crates/tauri-plugin-packagemanager",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-packagemanager-api",
+      "version_npm": "0.2.1"
     },
     {
       "source": "crates",
@@ -4593,15 +3775,7 @@
       "repository": "https://github.com/jack-weilage/tauri-plugin-usagestats",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-usagestats"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-usagestats-api",
-      "description": "A Tauri plugin to interact with the Android UsageStats API",
-      "version": "0.1.1",
-      "created_at": "2025-04-11T03:14:55.359Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-usagestats",
       "npm": "https://www.npmjs.com/package/tauri-plugin-usagestats-api",
       "version_npm": "0.1.1"
     },
@@ -4614,15 +3788,7 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-windows-version",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-windows-version"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-windows-version-api",
-      "description": "Get the version number of the current Windows OS.",
-      "version": "2.0.0",
-      "created_at": "2025-04-09T08:07:46.292Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-windows-version",
+      "crates_io": "https://crates.io/crates/tauri-plugin-windows-version",
       "npm": "https://www.npmjs.com/package/tauri-plugin-windows-version-api",
       "version_npm": "2.0.0"
     },
@@ -4644,8 +3810,7 @@
       "version": "0.2.3",
       "created_at": "2025-04-02T14:17:40.418Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40redfernelec%2Ftauri-plugin-hid-api",
-      "version_npm": "0.2.3"
+      "npm": "https://www.npmjs.com/package/%40redfernelec%2Ftauri-plugin-hid-api"
     },
     {
       "source": "crates",
@@ -4678,15 +3843,7 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-locale",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-locale"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-locale-api",
-      "description": "get the locale of the system.",
-      "version": "2.0.1",
-      "created_at": "2025-03-24T15:06:33.384Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-locale",
+      "crates_io": "https://crates.io/crates/tauri-plugin-locale",
       "npm": "https://www.npmjs.com/package/tauri-plugin-locale-api",
       "version_npm": "2.0.1"
     },
@@ -4710,7 +3867,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-admob"
+      "crates_io": "https://crates.io/crates/tauri-plugin-admob",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-admob-api",
+      "version_npm": "0.0.4"
     },
     {
       "source": "crates",
@@ -4732,15 +3891,7 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-mic-recorder",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-mic-recorder"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-mic-recorder-api",
-      "description": "Supports recording audio using a microphone and saving the recorded data as a file.",
-      "version": "2.0.0",
-      "created_at": "2025-03-18T06:57:36.481Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-mic-recorder",
+      "crates_io": "https://crates.io/crates/tauri-plugin-mic-recorder",
       "npm": "https://www.npmjs.com/package/tauri-plugin-mic-recorder-api",
       "version_npm": "2.0.0"
     },
@@ -4782,7 +3933,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sherpa-ncnn"
+      "crates_io": "https://crates.io/crates/tauri-plugin-sherpa-ncnn",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sherpa-ncnn-api",
+      "version_npm": "0.1.4"
     },
     {
       "source": "crates",
@@ -4805,15 +3958,6 @@
       "npm": "https://www.npmjs.com/package/tauri-plugin-grubbrr-epson-printer-sdk-api"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-sherpa-ncnn-api",
-      "description": "Real-time Speech recognition plugin for Tauri V2 Android.",
-      "version": "0.1.4",
-      "created_at": "2025-03-03T08:57:26.770Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sherpa-ncnn-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-ios-network-detect",
       "description": "A plugin that detects iOS network permission status and automatically displays an authorization.",
@@ -4833,15 +3977,7 @@
       "repository": "https://github.com/marcomq/tauri-plugin-deno",
       "license": "",
       "homepage": "https://github.com/marcomq/tauri-plugin-deno",
-      "crates_io": "https://crates.io/crates/tauri-plugin-deno"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-deno-api",
-      "description": "Javascript package for tauri plugin deno.",
-      "version": "0.2.0",
-      "created_at": "2025-02-28T14:45:50.708Z",
-      "repository": "https://github.com/marcomq/tauri-plugin-deno",
+      "crates_io": "https://crates.io/crates/tauri-plugin-deno",
       "npm": "https://www.npmjs.com/package/tauri-plugin-deno-api",
       "version_npm": "0.2.0"
     },
@@ -4854,15 +3990,7 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-screenshots",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-screenshots"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-screenshots-api",
-      "description": "Get screenshots of windows and monitors.",
-      "version": "2.2.0",
-      "created_at": "2025-02-27T14:36:42.125Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-screenshots",
+      "crates_io": "https://crates.io/crates/tauri-plugin-screenshots",
       "npm": "https://www.npmjs.com/package/tauri-plugin-screenshots-api",
       "version_npm": "2.2.0"
     },
@@ -4904,18 +4032,7 @@
       "version": "2.1.0-alpha.1",
       "created_at": "2025-02-20T09:29:32.621Z",
       "repository": "https://github.com/impierce/tauri-plugin-keystore",
-      "npm": "https://www.npmjs.com/package/%40impierce%2Ftauri-plugin-keystore",
-      "version_npm": "2.1.0-alpha.1"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-bluetooth-api",
-      "description": "JavaScript API for tauri-plugin-bluetooth",
-      "version": "0.1.1",
-      "created_at": "2025-02-19T10:39:33.205Z",
-      "repository": "https://github.com/26F-Studio/tauri-plugin-bluetooth",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-bluetooth-api",
-      "version_npm": "0.1.1"
+      "npm": "https://www.npmjs.com/package/%40impierce%2Ftauri-plugin-keystore"
     },
     {
       "source": "crates",
@@ -4926,7 +4043,9 @@
       "repository": "https://github.com/26F-Studio/tauri-plugin-bluetooth",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-bluetooth"
+      "crates_io": "https://crates.io/crates/tauri-plugin-bluetooth",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-bluetooth-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -4937,16 +4056,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-tinys-internal-fs"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-tinys-internal-fs-api",
-      "description": "This plugin is primarily designed for Tinywang's convenience in developing Tauri applications and is tailored to personal needs only.",
-      "version": "0.1.3",
-      "created_at": "2025-02-13T06:00:19.934Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-tinys-internal-fs-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-tinys-internal-fs",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-tinys-internal-fs-api",
+      "version_npm": "0.1.3"
     },
     {
       "source": "crates",
@@ -4957,7 +4069,9 @@
       "repository": "https://github.com/aiueo13/tauri-plugin-android-fs",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-android-fs"
+      "crates_io": "https://crates.io/crates/tauri-plugin-android-fs",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-fs-api",
+      "version_npm": "28.4.0"
     },
     {
       "source": "crates",
@@ -4968,15 +4082,7 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-billing"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-billing-api",
-      "description": "A Tauri plugin to access the Android billing SDK",
-      "version": "0.1.4",
-      "created_at": "2025-02-11T11:15:46.182Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-billing",
       "npm": "https://www.npmjs.com/package/tauri-plugin-billing-api",
       "version_npm": "0.1.4"
     },
@@ -5029,16 +4135,6 @@
       "version_npm": "0.1.0"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-python-api",
-      "description": "Javascript package for tauri 2 python plugin.",
-      "version": "0.3.9",
-      "created_at": "2025-01-04T21:35:02.962Z",
-      "repository": "https://github.com/marcomq/tauri-plugin-python",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-python-api",
-      "version_npm": "0.3.9"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-python",
       "description": "A tauri 2 plugin to use python code in the backend.",
@@ -5047,7 +4143,9 @@
       "repository": "https://github.com/marcomq/tauri-plugin-python",
       "license": "",
       "homepage": "https://github.com/marcomq/tauri-plugin-python",
-      "crates_io": "https://crates.io/crates/tauri-plugin-python"
+      "crates_io": "https://crates.io/crates/tauri-plugin-python",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-python-api",
+      "version_npm": "0.3.9"
     },
     {
       "source": "crates",
@@ -5061,16 +4159,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-async-wrapper"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-user-input-api",
-      "description": "Tauri plugin for user input monitoring and simulation (keyboard and mouse events)",
-      "version": "0.1.1",
-      "created_at": "2024-12-29T22:15:35.942Z",
-      "repository": "https://github.com/HuakunShen/tauri-plugin-user-input",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-user-input-api",
-      "version_npm": "0.1.1"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-keyring",
       "description": "A tauri plugin wrapper for the keyring crate",
@@ -5079,27 +4167,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keyring"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-keyring-api",
-      "description": "![NPM Version](https://img.shields.io/npm/v/tauri-plugin-keyring-api) ![Crates.io Version](https://img.shields.io/crates/v/tauri-plugin-keyring)",
-      "version": "0.1.1",
-      "created_at": "2024-12-23T16:34:33.063Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-keyring",
       "npm": "https://www.npmjs.com/package/tauri-plugin-keyring-api",
       "version_npm": "0.1.1"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-keepawake-api",
-      "description": "",
-      "version": "0.1.0",
-      "created_at": "2024-12-23T11:49:08.244Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keepawake-api",
-      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -5110,7 +4180,9 @@
       "repository": "https://github.com/thewh1teagle/tauri-plugin-keepawake",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keepawake"
+      "crates_io": "https://crates.io/crates/tauri-plugin-keepawake",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keepawake-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "npm",
@@ -5119,8 +4191,7 @@
       "version": "0.8.0",
       "created_at": "2024-12-22T17:54:10.915Z",
       "repository": "https://github.com/pytauri/pytauri",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-pytauri-api",
-      "version_npm": "0.8.0"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-pytauri-api"
     },
     {
       "source": "crates",
@@ -5145,15 +4216,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-svelte"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-is-simulator-api",
-      "description": "A simple Tauri plugin to check if the app is running in a simulator.",
-      "version": "1.0.0",
-      "created_at": "2024-12-16T11:12:54.853Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-is-simulator-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-is-simulator",
       "description": "A simple Tauri plugin to check if the app is running in a simulator.",
@@ -5162,7 +4224,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-is-simulator"
+      "crates_io": "https://crates.io/crates/tauri-plugin-is-simulator",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-is-simulator-api",
+      "version_npm": "1.0.0"
     },
     {
       "source": "crates",
@@ -5174,15 +4238,6 @@
       "license": "",
       "homepage": "",
       "crates_io": "https://crates.io/crates/tauri-plugin-is-simulator-temp"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-printerpdf",
-      "description": "",
-      "version": "0.1.0",
-      "created_at": "2024-12-13T20:02:40.677Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-printerpdf"
     },
     {
       "source": "npm",
@@ -5254,8 +4309,7 @@
       "version": "0.2.5",
       "created_at": "2024-12-12T10:17:52.109Z",
       "repository": "https://github.com/inkibra/tauri-plugins",
-      "npm": "https://www.npmjs.com/package/%40inkibra%2Ftauri-plugin-auth",
-      "version_npm": "0.2.5"
+      "npm": "https://www.npmjs.com/package/%40inkibra%2Ftauri-plugin-auth"
     },
     {
       "source": "npm",
@@ -5275,27 +4329,9 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-fs-pro",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-fs-pro"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-fs-pro-api",
-      "description": "Extended with additional methods for files and directories.",
-      "version": "2.4.0",
-      "created_at": "2024-11-23T12:12:53.597Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-fs-pro",
+      "crates_io": "https://crates.io/crates/tauri-plugin-fs-pro",
       "npm": "https://www.npmjs.com/package/tauri-plugin-fs-pro-api",
       "version_npm": "2.4.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-macos-permissions-api",
-      "description": "Support for checking and requesting macos system permissions.",
-      "version": "2.3.0",
-      "created_at": "2024-11-21T15:48:31.372Z",
-      "repository": "https://github.com/ayangweb/tauri-plugin-macos-permissions",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-permissions-api",
-      "version_npm": "2.3.0"
     },
     {
       "source": "crates",
@@ -5306,16 +4342,9 @@
       "repository": "https://github.com/kennardpeters/tauri-plugin-fs-ios",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-fs-ios"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-fs-ios-api",
-      "description": "",
-      "version": "0.4.0",
-      "created_at": "2024-11-19T07:22:40.062Z",
-      "repository": "https://github.com/kennardpeters/tauri-plugin-fs-ios",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-ios-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-fs-ios",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-ios-api",
+      "version_npm": "0.4.0"
     },
     {
       "source": "crates",
@@ -5352,7 +4381,9 @@
       "repository": "https://github.com/ayangweb/tauri-plugin-macos-permissions",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-macos-permissions"
+      "crates_io": "https://crates.io/crates/tauri-plugin-macos-permissions",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-permissions-api",
+      "version_npm": "2.3.0"
     },
     {
       "source": "crates",
@@ -5360,18 +4391,10 @@
       "description": "A mobile plugin for Tauri for viewing and sharing files.",
       "version": "0.0.5",
       "created_at": "2024-11-16T18:54:03.449179Z",
-      "repository": null,
+      "repository": "https://github.com/ecmel/tauri-plugin-view",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-view"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-view-api",
-      "description": "A mobile plugin for Tauri for viewing and sharing files.",
-      "version": "0.0.5",
-      "created_at": "2024-11-16T03:32:17.440Z",
-      "repository": "https://github.com/ecmel/tauri-plugin-view",
+      "crates_io": "https://crates.io/crates/tauri-plugin-view",
       "npm": "https://www.npmjs.com/package/tauri-plugin-view-api",
       "version_npm": "0.0.5"
     },
@@ -5419,26 +4442,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sign-in-with-apple"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sign-in-with-apple-api",
-      "description": "probably unstable, use with caution !",
-      "version": "1.0.2",
-      "created_at": "2024-11-11T01:25:55.216Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-sign-in-with-apple",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sign-in-with-apple-api",
       "version_npm": "1.0.2"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-polygon-api",
-      "description": "A plugin for [tauri@v2](https://tauri.app/) to achieve click-through of the tauri main window by allowing developers to define polygons, thus customizing the mouse response area.",
-      "version": "0.1.2",
-      "created_at": "2024-11-10T01:02:14.866Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-polygon-api"
     },
     {
       "source": "crates",
@@ -5449,7 +4455,9 @@
       "repository": "https://github.com/houycth/tauri-plugin-polygon",
       "license": "",
       "homepage": "https://github.com/houycth/tauri-plugin-polygon",
-      "crates_io": "https://crates.io/crates/tauri-plugin-polygon"
+      "crates_io": "https://crates.io/crates/tauri-plugin-polygon",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-polygon-api",
+      "version_npm": "0.1.2"
     },
     {
       "source": "npm",
@@ -5458,17 +4466,7 @@
       "version": "2.1.0",
       "created_at": "2024-11-05T15:18:25.386Z",
       "repository": "https://github.com/FabianLars/tauri-plugin-oauth",
-      "npm": "https://www.npmjs.com/package/%40fabianlars%2Ftauri-plugin-oauth",
-      "version_npm": "2.1.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sharetarget-api",
-      "description": "tauri apps: receive share intents on Android",
-      "version": "0.1.6",
-      "created_at": "2024-11-02T19:52:59.800Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sharetarget-api"
+      "npm": "https://www.npmjs.com/package/%40fabianlars%2Ftauri-plugin-oauth"
     },
     {
       "source": "crates",
@@ -5479,7 +4477,9 @@
       "repository": "https://gitlab.com/lafleurdeboum/tauri-plugin-sharetarget",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sharetarget"
+      "crates_io": "https://crates.io/crates/tauri-plugin-sharetarget",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sharetarget-api",
+      "version_npm": "0.1.6"
     },
     {
       "source": "crates",
@@ -5490,15 +4490,7 @@
       "repository": "https://github.com/wtto00/tauri-plugin-app-events",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-app-events"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-app-events-api",
-      "description": "A plugin for tauri@v2 to listen some events on iOS and Android.",
-      "version": "0.2.0",
-      "created_at": "2024-10-28T11:20:04.346Z",
-      "repository": "https://github.com/wtto00/tauri-plugin-app-events",
+      "crates_io": "https://crates.io/crates/tauri-plugin-app-events",
       "npm": "https://www.npmjs.com/package/tauri-plugin-app-events-api",
       "version_npm": "0.2.0"
     },
@@ -5511,26 +4503,8 @@
       "repository": "https://github.com/cijiugechu/tauri-plugin-power-manager",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-power-manager"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-power-manager-api",
-      "description": "tauri plugin for shut down, reboot or log out operations.",
-      "version": "0.1.1",
-      "created_at": "2024-10-28T03:38:01.328Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-power-manager",
       "npm": "https://www.npmjs.com/package/tauri-plugin-power-manager-api",
-      "version_npm": "0.1.1"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-app-exit-api",
-      "description": "A plugin for tauri@v2 to exit app.",
-      "version": "0.1.1",
-      "created_at": "2024-10-23T13:48:43.436Z",
-      "repository": "https://github.com/wtto00/tauri-plugin-app-exit",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-app-exit-api",
       "version_npm": "0.1.1"
     },
     {
@@ -5542,7 +4516,9 @@
       "repository": "https://github.com/wtto00/tauri-plugin-app-exit",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-app-exit"
+      "crates_io": "https://crates.io/crates/tauri-plugin-app-exit",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-app-exit-api",
+      "version_npm": "0.1.1"
     },
     {
       "source": "crates",
@@ -5562,18 +4538,7 @@
       "version": "0.1.0",
       "created_at": "2024-10-19T18:30:39.781Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40kuyoonjo%2Ftauri-plugin-mqtt",
-      "version_npm": "0.1.0"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-sentry-api",
-      "description": "Tauri Plugin for Sentry",
-      "version": "0.5.0",
-      "created_at": "2024-10-19T11:18:14.850Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sentry-api",
-      "version_npm": "0.5.0"
+      "npm": "https://www.npmjs.com/package/%40kuyoonjo%2Ftauri-plugin-mqtt"
     },
     {
       "source": "crates",
@@ -5584,7 +4549,9 @@
       "repository": "https://github.com/timfish/sentry-tauri",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-sentry"
+      "crates_io": "https://crates.io/crates/tauri-plugin-sentry",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sentry-api",
+      "version_npm": "0.5.0"
     },
     {
       "source": "npm",
@@ -5624,26 +4591,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keygen-rs2"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-keygen-rs2-api",
-      "description": "Tauri V2 plugin for Keygen.sh licensing, based on the keygen-rs SDK.",
-      "version": "0.2.4",
-      "created_at": "2024-10-14T12:45:44.991Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keygen-rs2-api"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-macos-haptics-api",
-      "description": "Utilize the Taptic Engine (TM) on macOS for Tauri v2 apps.",
-      "version": "1.0.0",
-      "created_at": "2024-10-03T08:27:20.519Z",
-      "repository": "https://github.com/itseeleeya/tauri-plugin-macos-haptics",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-haptics-api",
-      "version_npm": "1.0.0"
+      "crates_io": "https://crates.io/crates/tauri-plugin-keygen-rs2",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keygen-rs2-api",
+      "version_npm": "0.2.4"
     },
     {
       "source": "crates",
@@ -5654,16 +4604,9 @@
       "repository": "https://github.com/dax-dot-gay/tauri-plugin-polodb",
       "license": "",
       "homepage": "https://github.com/dax-dot-gay/tauri-plugin-polodb",
-      "crates_io": "https://crates.io/crates/tauri-plugin-polodb"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-polodb-api",
-      "description": "A Tauri plugin to expose the PoloDB embedded database to applications",
-      "version": "0.1.0",
-      "created_at": "2024-09-05T20:12:15.741Z",
-      "repository": "https://github.com/dax-dot-gay/tauri-plugin-polodb",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-polodb-api"
+      "crates_io": "https://crates.io/crates/tauri-plugin-polodb",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-polodb-api",
+      "version_npm": "0.1.0"
     },
     {
       "source": "crates",
@@ -5674,15 +4617,7 @@
       "repository": "https://github.com/Charlie-XIAO/tauri-plugin-desktop-underlay",
       "license": "",
       "homepage": "https://github.com/Charlie-XIAO/tauri-plugin-desktop-underlay",
-      "crates_io": "https://crates.io/crates/tauri-plugin-desktop-underlay"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-desktop-underlay-api",
-      "description": "Tauri plugin for attaching a window to desktop, below icons and above wallpaper.",
-      "version": "0.2.1",
-      "created_at": "2024-09-03T19:27:04.284Z",
-      "repository": "https://github.com/Charlie-XIAO/tauri-plugin-desktop-underlay",
+      "crates_io": "https://crates.io/crates/tauri-plugin-desktop-underlay",
       "npm": "https://www.npmjs.com/package/tauri-plugin-desktop-underlay-api",
       "version_npm": "0.2.1"
     },
@@ -5693,8 +4628,7 @@
       "version": "0.0.1",
       "created_at": "2024-08-29T19:21:19.774Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40buildyourwebapp%2Ftauri-plugin-sharesheet",
-      "version_npm": "0.0.1"
+      "npm": "https://www.npmjs.com/package/%40buildyourwebapp%2Ftauri-plugin-sharesheet"
     },
     {
       "source": "crates",
@@ -5719,16 +4653,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-ota-updater"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-keygen-rs-api",
-      "description": "Tauri plugin for Keygen.sh licensing, based on keygen-rs",
-      "version": "0.2.3",
-      "created_at": "2024-08-27T09:29:27.412Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keygen-rs-api",
-      "version_npm": "0.2.3"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-keygen-rs",
       "description": "Tauri plugin for Keygen.sh licensing, based on keygen-rs",
@@ -5737,7 +4661,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keygen-rs"
+      "crates_io": "https://crates.io/crates/tauri-plugin-keygen-rs",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keygen-rs-api",
+      "version_npm": "0.2.3"
     },
     {
       "source": "crates",
@@ -5748,17 +4674,9 @@
       "repository": "https://github.com/itseeleeya/tauri-plugin-macos-haptics",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-macos-haptics"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-keep-screen-on-api",
-      "description": "Tauri plugin that provides commands to disable automatic screen dimming in Adroid and iOS.",
-      "version": "0.1.4",
-      "created_at": "2024-08-07T21:44:57.834Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keep-screen-on-api",
-      "version_npm": "0.1.4"
+      "crates_io": "https://crates.io/crates/tauri-plugin-macos-haptics",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-haptics-api",
+      "version_npm": "1.0.0"
     },
     {
       "source": "crates",
@@ -5769,7 +4687,9 @@
       "repository": "https://gitlab.com/cristofa/tauri-plugin-keep-screen-on",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-keep-screen-on"
+      "crates_io": "https://crates.io/crates/tauri-plugin-keep-screen-on",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keep-screen-on-api",
+      "version_npm": "0.1.4"
     },
     {
       "source": "crates",
@@ -5827,15 +4747,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-core"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-admob-api",
-      "description": "> For now this is just a copy of [admob-plus](https://github.com/admob-plus/admob-plus) in the future I would like to refactor the code to be more Tauri friendly.",
-      "version": "0.0.4",
-      "created_at": "2024-07-27T17:21:16.517Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-admob-api"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-structure-manager",
       "description": "A Tauri plugin for managing application structure, including directory and file creation and validation. This plugin helps ensure that the necessary project structure is maintained and allows for easy setup and verification of the application's file system.",
@@ -5858,16 +4769,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-accept-cookie"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-status-bar-color-api",
-      "description": "A Tauri plugin for set status bar's color.",
-      "version": "1.0.0",
-      "created_at": "2024-07-09T15:29:42.755Z",
-      "repository": "https://github.com/Cinea4678/tauri-plugin-status-bar-color",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-status-bar-color-api",
-      "version_npm": "1.0.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-status-bar-color",
       "description": "A Tauri plugin for set status bar's color.",
@@ -5876,7 +4777,9 @@
       "repository": "https://github.com/Cinea4678/tauri-plugin-status-bar-color",
       "license": "",
       "homepage": "https://github.com/Cinea4678/tauri-plugin-status-bar-color",
-      "crates_io": "https://crates.io/crates/tauri-plugin-status-bar-color"
+      "crates_io": "https://crates.io/crates/tauri-plugin-status-bar-color",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-status-bar-color-api",
+      "version_npm": "1.0.0"
     },
     {
       "source": "crates",
@@ -5955,15 +4858,7 @@
       "repository": "https://github.com/HuakunShen/tauri-plugin-shellx",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-shellx"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-shellx-api",
-      "description": "Unlocked Tauri Shell Plugin",
-      "version": "2.0.16",
-      "created_at": "2024-06-19T05:11:17.029Z",
-      "repository": "https://github.com/HuakunShen/tauri-plugin-shellx",
+      "crates_io": "https://crates.io/crates/tauri-plugin-shellx",
       "npm": "https://www.npmjs.com/package/tauri-plugin-shellx-api",
       "version_npm": "2.0.16"
     },
@@ -6005,8 +4900,7 @@
       "version": "0.1.1",
       "created_at": "2024-06-04T05:55:16.812Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40kuyoonjo%2Ftauri-plugin-udp",
-      "version_npm": "0.1.1"
+      "npm": "https://www.npmjs.com/package/%40kuyoonjo%2Ftauri-plugin-udp"
     },
     {
       "source": "crates",
@@ -6132,8 +5026,7 @@
       "version": "0.1.3",
       "created_at": "2024-04-18T07:16:24.818Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40kuyoonjo%2Ftauri-plugin-serialport-api",
-      "version_npm": "0.1.3"
+      "npm": "https://www.npmjs.com/package/%40kuyoonjo%2Ftauri-plugin-serialport-api"
     },
     {
       "source": "crates",
@@ -6153,8 +5046,7 @@
       "version": "0.1.3",
       "created_at": "2024-04-10T20:57:54.174Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-nosleep-api-fork",
-      "version_npm": "0.1.3"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-nosleep-api-fork"
     },
     {
       "source": "crates",
@@ -6179,16 +5071,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-cors-fetch"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-rusqlite-api",
-      "description": "Tauri Plugin based on Rusqlite",
-      "version": "0.4.4",
-      "created_at": "2024-03-21T23:54:27.782Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-rusqlite-api",
-      "version_npm": "0.4.4"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-rusqlite",
       "description": "Tauri Plugin based on Rusqlite",
@@ -6197,7 +5079,9 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-rusqlite"
+      "crates_io": "https://crates.io/crates/tauri-plugin-rusqlite",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-rusqlite-api",
+      "version_npm": "0.4.4"
     },
     {
       "source": "crates",
@@ -6209,15 +5093,6 @@
       "license": "",
       "homepage": "",
       "crates_io": "https://crates.io/crates/tauri-plugin-fanto"
-    },
-    {
-      "source": "npm",
-      "name": "@fourviere/tauri-plugin-channel-api",
-      "description": "",
-      "version": "0.1.0",
-      "created_at": "2024-02-22T12:58:12.107Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/%40fourviere%2Ftauri-plugin-channel-api"
     },
     {
       "source": "crates",
@@ -6239,15 +5114,7 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-zustand-storage"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-zustand-storage-api",
-      "description": "A Tauri plugin for zustand storage",
-      "version": "0.1.9",
-      "created_at": "2024-02-12T13:17:07.460Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-zustand-storage",
       "npm": "https://www.npmjs.com/package/tauri-plugin-zustand-storage-api",
       "version_npm": "0.1.9"
     },
@@ -6319,15 +5186,6 @@
     },
     {
       "source": "npm",
-      "name": "tauri-plugin-io",
-      "description": "tauri 应用 IO 插件",
-      "version": "0.0.2",
-      "created_at": "2024-01-21T08:54:46.545Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-io"
-    },
-    {
-      "source": "npm",
       "name": "tauri-plugin-file-extra",
       "description": "核心 API 中未包含的其他文件方法",
       "version": "0.0.3",
@@ -6342,8 +5200,7 @@
       "version": "1.0.0",
       "created_at": "2024-01-12T22:15:09.359Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40thenbe%2Ftauri-plugin-serialport-api",
-      "version_npm": "1.0.0"
+      "npm": "https://www.npmjs.com/package/%40thenbe%2Ftauri-plugin-serialport-api"
     },
     {
       "source": "npm",
@@ -6416,8 +5273,7 @@
       "version": "0.0.6",
       "created_at": "2023-12-13T18:38:28.971Z",
       "repository": "https://github.com/eugenehp/tauri-plugin-gamepad",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-gamepad-api",
-      "version_npm": "0.0.6"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-gamepad-api"
     },
     {
       "source": "crates",
@@ -6437,8 +5293,7 @@
       "version": "2.1.0",
       "created_at": "2023-12-07T13:45:28.346Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/%40crabnebula%2Ftauri-plugin-drag",
-      "version_npm": "2.1.0"
+      "npm": "https://www.npmjs.com/package/%40crabnebula%2Ftauri-plugin-drag"
     },
     {
       "source": "npm",
@@ -6467,8 +5322,7 @@
       "version": "0.0.4",
       "created_at": "2023-09-27T18:23:16.317Z",
       "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-printing-ext-api",
-      "version_npm": "0.0.4"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-printing-ext-api"
     },
     {
       "source": "crates",
@@ -6493,16 +5347,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-barcode-scanner"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-network-api",
-      "description": "Network Plugin for Tauri Apps",
-      "version": "2.0.5",
-      "created_at": "2023-08-17T18:53:37.613Z",
-      "repository": "https://github.com/HuakunShen/tauri-plugin-network",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-network-api",
-      "version_npm": "2.0.5"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-network",
       "description": "A tauri plugin for retrieving system info",
@@ -6511,7 +5355,9 @@
       "repository": "https://github.com/HuakunShen/tauri-plugin-network",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-network"
+      "crates_io": "https://crates.io/crates/tauri-plugin-network",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-network-api",
+      "version_npm": "2.0.5"
     },
     {
       "source": "crates",
@@ -6522,15 +5368,7 @@
       "repository": "https://github.com/HuakunShen/tauri-plugin-system-info",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-system-info"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-system-info-api",
-      "description": "System Info Plugin for Tauri Apps",
-      "version": "2.0.10",
-      "created_at": "2023-08-16T21:54:23.283Z",
-      "repository": "https://github.com/HuakunShen/tauri-plugin-system-info",
+      "crates_io": "https://crates.io/crates/tauri-plugin-system-info",
       "npm": "https://www.npmjs.com/package/tauri-plugin-system-info-api",
       "version_npm": "2.0.10"
     },
@@ -6635,7 +5473,9 @@
       "repository": "https://github.com/tauri-apps/plugins-workspace",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-store"
+      "crates_io": "https://crates.io/crates/tauri-plugin-store",
+      "npm": "https://www.npmjs.com/package/tauri-plugin-store-api",
+      "version_npm": "0.0.0"
     },
     {
       "source": "crates",
@@ -6814,16 +5654,6 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-app"
     },
     {
-      "source": "npm",
-      "name": "tauri-plugin-store-api",
-      "description": "Simple, persistent key-value store.",
-      "version": "0.0.0",
-      "created_at": "2023-05-05T09:17:59.498Z",
-      "repository": null,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-store-api",
-      "version_npm": "0.0.0"
-    },
-    {
       "source": "crates",
       "name": "tauri-plugin-oauth",
       "description": "A Tauri plugin for spawning a localhost server. Needed for some oauth flows (Login with X).",
@@ -6878,15 +5708,7 @@
       "repository": "https://github.com/zzzze/tauri-plugin-spotlight",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-spotlight"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-spotlight-api",
-      "description": "Tauri plugin that provides a MacOS Spotlight-like search functionality for Tauri windows.",
-      "version": "0.1.2",
-      "created_at": "2023-02-19T09:39:31.153Z",
-      "repository": "https://github.com/zzzze/tauri-plugin-spotlight",
+      "crates_io": "https://crates.io/crates/tauri-plugin-spotlight",
       "npm": "https://www.npmjs.com/package/tauri-plugin-spotlight-api",
       "version_npm": "0.1.2"
     },
@@ -6912,15 +5734,7 @@
       "repository": "https://github.com/CrossCopy/tauri-plugin-clipboard",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-clipboard"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-clipboard-api",
-      "description": "[![Clippy](https://github.com/CrossCopy/tauri-plugin-clipboard/actions/workflows/clippy.yml/badge.svg)](https://github.com/CrossCopy/tauri-plugin-clipboard/actions/workflows/clippy.yml) [![Test](https://github.com/CrossCopy/tauri-plugin-clipboard/actions/",
-      "version": "2.1.11",
-      "created_at": "2023-01-19T21:26:11.676Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-clipboard",
       "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-api",
       "version_npm": "2.1.11"
     },
@@ -6931,8 +5745,7 @@
       "version": "0.0.4",
       "created_at": "2022-10-28T06:06:18.961Z",
       "repository": "https://github.com/ddchef/tauri-plugin-reqwest",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-reqwest",
-      "version_npm": "0.0.4"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-reqwest"
     },
     {
       "source": "crates",
@@ -6976,15 +5789,7 @@
       "repository": null,
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-nosleep"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-nosleep-api",
-      "description": "Tauri plugin to block the power save functionality in the OS",
-      "version": "0.1.1",
-      "created_at": "2022-05-08T13:02:17.053Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-nosleep",
       "npm": "https://www.npmjs.com/package/tauri-plugin-nosleep-api",
       "version_npm": "0.1.1"
     },
@@ -7017,15 +5822,7 @@
       "repository": "https://github.com/tauri-apps/plugins-workspace",
       "license": "",
       "homepage": "",
-      "crates_io": "https://crates.io/crates/tauri-plugin-positioner"
-    },
-    {
-      "source": "npm",
-      "name": "tauri-plugin-positioner-api",
-      "description": "Helps positioning your tauri windows.",
-      "version": "0.2.7",
-      "created_at": "2021-11-19T16:54:41.231Z",
-      "repository": null,
+      "crates_io": "https://crates.io/crates/tauri-plugin-positioner",
       "npm": "https://www.npmjs.com/package/tauri-plugin-positioner-api",
       "version_npm": "0.2.7"
     }
