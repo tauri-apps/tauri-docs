@@ -69,7 +69,6 @@ export function writeVersionPage(params: {
     `title: ${yaml(`${packageName}@${version}`)}`,
     `description: ${yaml(`${packageName} ${version} release notes`)}`,
     `slug: ${yaml(`${packageName}/v${version}`)}`,
-    'tableOfContents: false',
     'pagefind: false',
     'editUrl: false',
     'prev: false',
@@ -95,7 +94,11 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
     `title: ${yaml(`${packageName} full changelog`)}`,
     `description: ${yaml(`All changelog entries for ${packageName}`)}`,
     `slug: ${yaml(`${packageName}/all-versions`)}`,
-    'tableOfContents: false',
+    // Keep the TOC to one entry per version — with the per-release
+    // sub-headings included it doubles in size and drowns the version list
+    'tableOfContents:',
+    '  minHeadingLevel: 2',
+    '  maxHeadingLevel: 2',
     'pagefind: false',
     'editUrl: false',
     'prev: false',
@@ -128,7 +131,6 @@ export function writePackageIndex(params: {
     `title: ${yaml(packageName)}`,
     `description: ${yaml(description ?? `${packageName} releases`)}`,
     `slug: ${yaml(packageName)}`,
-    'tableOfContents: false',
     'editUrl: false',
     'prev: false',
     'next: false',
