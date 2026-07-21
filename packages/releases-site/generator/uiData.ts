@@ -31,6 +31,7 @@ export interface HomeSummaryPackage {
 }
 
 export interface HomeSummaryRepo {
+  name: string;
   displayName: string;
   repoUrl: string;
   repoSlug: string;
@@ -86,6 +87,7 @@ export function buildHomeSummaryRepos(
   latestVersions: LatestVersionsMap
 ): HomeSummaryRepo[] {
   return repositories.map((repo) => ({
+    name: repo.name,
     displayName: repo.displayName,
     repoUrl: repo.repoUrl,
     repoSlug: repo.repoUrl.replace('https://github.com/', '').replace(/\/$/, ''),

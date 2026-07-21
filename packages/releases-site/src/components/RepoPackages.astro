@@ -4,9 +4,18 @@ import { repositories } from '../../generator/config';
 import { latestVersions } from '../../generator/generated/latestVersions';
 import { buildHomeSummaryRepos } from '../../generator/uiData';
 
-const repos = buildHomeSummaryRepos(repositories, latestVersions);
+interface Props {
+  name: string;
+}
 
-function describe(pkg: (typeof repos)[number]['packages'][number]): string {
+const repo = buildHomeSummaryRepos(repositories, latestVersions).find(
+  (r) => r.name === Astro.props.name
+);
+if (!repo) {
+  throw new Error(`Unknown repository "${Astro.props.name}" (see generator/config.ts)`);
+}
+
+function describe(pkg: (typeof repo)['packages'][number]): string {
   const pills = pkg.versions
     .map(
       ({ label, version, href }) => `<a class="version-pill" href="${href}">${label} ${version}</a>`
@@ -20,43 +29,15 @@ function describe(pkg: (typeof repos)[number]['packages'][number]): string {
 }
 ---
 
-{
-  repos.map((repo) => (
-    <section class="repo-summary">
-      <h2 id={repo.displayName.toLowerCase()}>
-        {repo.displayName}
-        <a class="repo-link" href={repo.repoUrl} target="_blank" rel="noopener noreferrer">
-          {repo.repoSlug}
-        </a>
-      </h2>
-      <CardGrid>
-        {repo.packages.map((pkg) => (
-          <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
-        ))}
-      </CardGrid>
-    </section>
-  ))
-}
+<CardGrid>
+  {
+    repo.packages.map((pkg) => (
+      <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
+    ))
+  }
+</CardGrid>
 
 <style>
-  .repo-summary h2 {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-  }
-
-  .repo-link {
-    color: var(--sl-color-gray-3);
-    font-size: var(--sl-text-sm);
-    font-weight: 400;
-    text-decoration: none;
-  }
-
-  .repo-link:hover {
-    color: var(--sl-color-text-accent);
-    text-decoration: underline;
-  }
-
   :global(.version-pill) {
     display: inline-block;
     background-color: var(--sl-color-gray-6);
