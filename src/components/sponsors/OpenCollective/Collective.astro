@@ -1,16 +1,10 @@
 ---
-import { existsSync, readFileSync } from 'node:fs';
-import { OPEN_COLLECTIVE_FILE } from 'packages/fetch-sponsors/config';
 import { type OpenCollectiveSponsor as Sponsor } from 'packages/fetch-sponsors/types';
+import { getOpenCollectiveSponsors } from '../data';
 
 import OcAvatar from './OcAvatar.astro';
 
-let openCollectiveSponsors = [];
-if (existsSync(OPEN_COLLECTIVE_FILE)) {
-  openCollectiveSponsors = JSON.parse(readFileSync(OPEN_COLLECTIVE_FILE, 'utf-8'));
-} else {
-  throw new Error('Open Collective data file not found.');
-}
+const openCollectiveSponsors = await getOpenCollectiveSponsors();
 
 const sponsorsByTier = {
   platinum: openCollectiveSponsors.filter((sponsor: Sponsor) => sponsor.tier === 'platinum'),
