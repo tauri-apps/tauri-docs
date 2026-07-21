@@ -16,23 +16,32 @@ const roundingStyle: Record<Sponsor['type'], string> = {
   INDIVIDUAL: 'rounded-full',
 };
 
-function getUrl(sponsor: Sponsor): string {
-  return `${sponsor.socialLinks?.website ?? sponsor.profileUrl}?ref=tauri.app&utm_source=tauri.app`;
+function getUrl(sponsor: Sponsor): string | undefined {
+  for (const candidate of [sponsor.socialLinks?.website, sponsor.profileUrl]) {
+    if (!candidate) continue;
+    try {
+      const url = new URL(candidate);
+      if (url.protocol !== 'https:' && url.protocol !== 'http:') continue;
+      url.searchParams.set('ref', 'tauri.app');
+      url.searchParams.set('utm_source', 'tauri.app');
+      return url.toString();
+    } catch {
+      continue;
+    }
+  }
+  return undefined;
 }
 
-const res = await fetch(sponsor.avatarUrl, { method: 'HEAD' });
-if (res && !res.ok) {
-  sponsor.avatarUrl = fallbackImage.src;
-}
+const avatarSrc = sponsor.avatarUrl ?? fallbackImage.src;
 ---
 
 {
   sponsor.tier === 'platinum' && (
     <div class="platinum image-container">
-      <a href={getUrl(sponsor)} target="_blank">
+      <a href={getUrl(sponsor)} target="_blank" rel="noopener noreferrer">
         <Image
           loading={'lazy'}
-          src={sponsor.avatarUrl}
+          src={avatarSrc}
           alt={sponsor.name}
           width={OC_IMAGE_DIMENSION}
           height={OC_IMAGE_DIMENSION}
@@ -47,10 +56,10 @@ if (res && !res.ok) {
 {
   (sponsor.tier === 'gold' || sponsor.tier === 'silver') && (
     <div class="image-container">
-      <a href={getUrl(sponsor)} target="_blank">
+      <a href={getUrl(sponsor)} target="_blank" rel="noopener noreferrer">
         <Image
           loading={'lazy'}
-          src={sponsor.avatarUrl}
+          src={avatarSrc}
           alt={sponsor.name}
           width={OC_IMAGE_DIMENSION}
           height={OC_IMAGE_DIMENSION}
@@ -64,7 +73,7 @@ if (res && !res.ok) {
 {
   sponsor.tier === 'bronze' && (
     <>
-      <a href={getUrl(sponsor)} target="_blank" class="bronze-sponsor">
+      <a href={getUrl(sponsor)} target="_blank" rel="noopener noreferrer" class="bronze-sponsor">
         {sponsor.name}
       </a>
       {needComma && <span class="bronze-separator">, </span>}
