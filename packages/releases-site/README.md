@@ -33,8 +33,10 @@ dist/                        published by the releases Netlify site
 This site imports the docs site's UI **directly by relative path**
 
 - **Styles:** `src/styles/{theme,overrides,shared}.scss` (imported by `src/styles/custom.scss`)
-- **Components:** `src/components/overrides/{Footer,ThemeSelect,PageFrame}.astro`
+- **Components:** `src/components/overrides/{Footer,ThemeSelect,PageFrame,TwoColumnContent}.astro`
   (referenced straight from `astro.config.mjs` `components`)
+- **Config values:** `src/shared-config.mjs` (logo, social links, expressive-code
+  style overrides — imported by both `astro.config.mjs` files)
 - **Assets:** `src/assets/logo.svg` + `logo_light.svg` (referenced from the `logo` config)
 - **Nav data:** `src/data/header-links.json` (imported by the local Header)
 

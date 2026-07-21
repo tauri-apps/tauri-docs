@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { repositories } from './generator/config.ts';
+import { logo, social, ecStyleOverrides } from '../../src/shared-config.mjs';
 
 // Canonical origin is the docs site (the releases site is proxied at <docs>/release/*).
 // Override with SITE_URL for fork demos.
@@ -16,20 +17,8 @@ export default defineConfig({
     starlight({
       title: 'Tauri Releases',
       description: 'Release notes for the Tauri core ecosystem',
-      logo: {
-        // Shared with the docs site (see README "Shared UI")
-        dark: '../../src/assets/logo.svg',
-        light: '../../src/assets/logo_light.svg',
-        replacesTitle: true,
-      },
-      social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/tauri-apps/tauri' },
-        { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
-        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
-        { icon: 'blueSky', label: 'Bluesky', href: 'https://bsky.app/profile/tauri.app' },
-        { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
-        { icon: 'rss', label: 'RSS', href: 'https://v2.tauri.app/rss' },
-      ],
+      logo: logo('../../'),
+      social,
       components: {
         // Header (and its SiteTitle) is a deliberate fork — English-only, no
         // topics, logo links to the docs home. The rest is imported straight
@@ -56,21 +45,9 @@ export default defineConfig({
           items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
         })),
       ],
-      // Copied from the docs site's expressiveCode.styleOverrides (keep in
-      // sync) so code blocks in changelog notes match the docs code blocks.
+      // Shared with the docs site so code blocks in changelog notes match
       expressiveCode: {
-        styleOverrides: {
-          codePaddingBlock: '1rem',
-          codePaddingInline: '1.35rem',
-          borderRadius: '0.5rem',
-          textMarkers: {
-            borderLuminance: '66',
-            backgroundOpacity: '25%',
-          },
-          frames: {
-            editorActiveTabIndicatorHeight: '0',
-          },
-        },
+        styleOverrides: ecStyleOverrides,
       },
       lastUpdated: false,
     }),

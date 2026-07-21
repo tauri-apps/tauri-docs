@@ -13,6 +13,7 @@ import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
+import { logo, social, ecStyleOverrides } from './src/shared-config.mjs';
 
 const nsis = {
   ...nsisGrammar,
@@ -377,19 +378,8 @@ export default defineConfig({
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
-      logo: {
-        dark: './src/assets/logo.svg',
-        light: './src/assets/logo_light.svg',
-        replacesTitle: true,
-      },
-      social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/tauri-apps/tauri' },
-        { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
-        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
-        { icon: 'blueSky', label: 'Bluesky', href: 'https://bsky.app/profile/tauri.app' },
-        { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
-        { icon: 'rss', label: 'RSS', href: `${site}/rss` },
-      ],
+      logo: logo(),
+      social,
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
@@ -440,19 +430,7 @@ export default defineConfig({
             d2: 'txt',
           },
         },
-        styleOverrides: {
-          codePaddingBlock: '1rem',
-          codePaddingInline: '1.35rem',
-          borderRadius: '0.5rem',
-          // borderWidth: '0',
-          textMarkers: {
-            borderLuminance: '66',
-            backgroundOpacity: '25%',
-          },
-          frames: {
-            editorActiveTabIndicatorHeight: '0',
-          },
-        },
+        styleOverrides: ecStyleOverrides,
       },
       locales,
       lastUpdated: true,
