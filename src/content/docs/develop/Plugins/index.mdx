@@ -62,6 +62,26 @@ This will initialize the plugin at the directory `tauri-plugin-[name]` and, depe
 
 If you have an existing plugin and would like to add Android or iOS capabilities to it, you can use `plugin android add` and `plugin ios add` to bootstrap the mobile library projects and guide you through the changes needed.
 
+## Declaring Platform Support
+
+Plugins can declare which platforms they support, and to what extent in `[package.metadata.platforms.support]` section of the crate's `Cargo.toml`:
+
+```toml title="Cargo.toml"
+[package.metadata.platforms.support]
+windows = { level = "full", notes = "" }
+linux = { level = "full", notes = "" }
+macos = { level = "full", notes = "" }
+android = { level = "partial", notes = "Access is restricted to Application folder by default" }
+ios = { level = "none", notes = "" }
+```
+
+Each entry maps a platform (`windows`, `linux`, `macos`, `android`, `ios`) to a support declaration:
+
+- `level`: one of `"full"` (works as intended on that platform), `"partial"` (works with limitations) or `"none"` (not supported).
+- `notes`: a free-form string describing caveats or limitations, shown alongside the support level. Markdown is supported.
+
+This metadata is the source of the platform [support](/plugin/#support-table) and the plugins search. Declaring the metadata makes your plugin's platform support discoverable in the published crate and available to future tooling, so we encourage including it.
+
 ## Mobile Plugin Development
 
 Plugins can run native mobile code written in Kotlin (or Java) and Swift. The default plugin template includes an Android library project using Kotlin and a Swift package. It includes an example mobile command showing how to trigger its execution from Rust code.
