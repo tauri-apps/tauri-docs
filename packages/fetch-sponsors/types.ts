@@ -1,13 +1,13 @@
 export type GitHubSponsor = {
   name: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
   profileUrl?: string;
 };
 
 export type OpenCollectiveSponsor = {
   id: string;
   name: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
   profileUrl?: string;
   tier?: Tier;
   socialLinks?: {
