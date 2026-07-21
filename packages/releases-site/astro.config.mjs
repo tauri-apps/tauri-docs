@@ -45,7 +45,6 @@ export default defineConfig({
           items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
         })),
       ],
-      // Shared with the docs site so code blocks in changelog notes match
       expressiveCode: {
         styleOverrides: ecStyleOverrides,
       },
