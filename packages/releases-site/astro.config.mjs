@@ -24,6 +24,9 @@ export default defineConfig({
         // topics, logo links to the docs home. The rest is imported straight
         // from the docs site so UI changes propagate (see README "Shared UI").
         Header: './src/components/overrides/Header.astro',
+        // Highlights the package entry while on its version pages, which have
+        // no sidebar entries of their own
+        Sidebar: './src/components/overrides/Sidebar.astro',
         Footer: '../../src/components/overrides/Footer.astro',
         ThemeSelect: '../../src/components/overrides/ThemeSelect.astro',
         PageFrame: '../../src/components/overrides/PageFrame.astro',
@@ -41,7 +44,7 @@ export default defineConfig({
         { label: 'Changelog Table', link: '/table/' },
         ...repositories.map((repo) => ({
           label: repo.displayName,
-          collapsed: true,
+          collapsed: false,
           items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
         })),
       ],
