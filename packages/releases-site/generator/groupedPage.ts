@@ -55,8 +55,10 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
     }));
 }
 
-// The cli pair publishes the same changelog to crates.io and npm — collapse
-// identical (version, notes) twins into one "cli" entry
+// The cli pair is one covector release published to both crates.io and npm.
+// Collapse identical (version, notes) twins into one "cli" entry; when the
+// notes differ, keep both but align their dates to the earlier publish so a
+// lagging registry (gaps up to days occur in the wild) can't split the event
 function dedupeCliPair(entries: CoreEntry[]): void {
   const crate = new Map(
     entries.filter((e) => e.pkgLabel === 'tauri-cli').map((e) => [e.version, e])
@@ -67,13 +69,19 @@ function dedupeCliPair(entries: CoreEntry[]): void {
       continue;
     }
     const twin = crate.get(entry.version);
-    if (twin && twin.notes === entry.notes) {
+    if (!twin) {
+      continue;
+    }
+    const [earlier, later] =
+      entry.date && (!twin.date || entry.date < twin.date) ? [entry, twin] : [twin, entry];
+    if (twin.notes === entry.notes) {
       twin.pkgLabel = 'cli';
-      if (entry.date && (!twin.date || entry.date < twin.date)) {
-        twin.date = entry.date;
-        twin.dateLabel = entry.dateLabel;
-      }
+      twin.date = earlier.date;
+      twin.dateLabel = earlier.dateLabel;
       entries.splice(i, 1);
+    } else {
+      later.date = earlier.date;
+      later.dateLabel = earlier.dateLabel;
     }
   }
 }

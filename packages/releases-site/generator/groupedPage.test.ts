@@ -85,6 +85,23 @@ test('dedupes identical cli pair entries into one "cli" entry', () => {
   );
 });
 
+test('same-version cli twins share an event despite publish lag', () => {
+  // Real case: tauri-cli 2.11.3 hit crates.io Jun 17, @tauri-apps/cli 2.11.3
+  // hit npm Jun 19 — same covector release (tauri#15409)
+  const groups = buildCoreGroups(
+    data({
+      tauri: [release('2.11.3', '2026-06-17T13:46:00Z')],
+      'tauri-cli': [release('2.11.3', '2026-06-17T13:48:00Z', 'crate notes')],
+      '@tauri-apps/cli': [release('2.11.3', '2026-06-19T12:45:00Z', 'npm notes')],
+    })
+  );
+  assert.equal(groups[0].events.length, 1);
+  assert.deepEqual(
+    groups[0].events[0].entries.map((e) => e.pkgLabel),
+    ['tauri', 'tauri-cli', '@tauri-apps/cli']
+  );
+});
+
 test('keeps cli pair entries separate when notes differ', () => {
   const groups = buildCoreGroups(
     data({
