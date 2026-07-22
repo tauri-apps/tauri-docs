@@ -9,6 +9,11 @@ import { generatorDir } from './config.ts';
  * entities there would show verbatim on the page.
  */
 export function escapeChangelogMarkdown(str: string): string {
+  return mapProseLines(str, escapeOutsideCodeSpans);
+}
+
+/** Apply a transform to each line outside fenced code blocks */
+export function mapProseLines(str: string, transform: (line: string) => string): string {
   const out: string[] = [];
   let fence: string | undefined;
   for (const line of str.split('\n')) {
@@ -26,7 +31,7 @@ export function escapeChangelogMarkdown(str: string): string {
       out.push(line);
       continue;
     }
-    out.push(escapeOutsideCodeSpans(line));
+    out.push(transform(line));
   }
   return out.join('\n');
 }

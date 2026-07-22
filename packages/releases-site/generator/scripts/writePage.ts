@@ -1,6 +1,8 @@
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { basePath, note } from '../config.ts';
+import { demoteNotesHeadings, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
+import { escapeChangelogMarkdown } from '../utils.ts';
 
 export type VersionListEntry = {
   version: string;
@@ -113,6 +115,62 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   ]);
 
   return `${frontmatter}\n\n${header}\n\n`;
+}
+
+function renderCoreEvent(event: CoreEvent): string {
+  const names = event.entries.map((e) => `${e.pkgLabel} ${e.version}`).join(' · ');
+  const date = event.dateLabel ? ` — ${event.dateLabel}` : '';
+  const bodies = event.entries.map((entry) => {
+    const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes));
+    return event.entries.length > 1 ? `**${entry.pkgLabel} ${entry.version}**\n\n${notes}` : notes;
+  });
+  return [`### ${names}${date}`, ...bodies].join('\n\n');
+}
+
+/**
+ * write the grouped changelog of the core packages: one section per minor,
+ * one sub-heading per release event
+ */
+export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string }): void {
+  const { groups, workingDir } = params;
+
+  const frontmatter = frontmatterBlock([
+    `title: ${yaml('Tauri Core Releases')}`,
+    `description: ${yaml('Grouped release notes for tauri, @tauri-apps/api, and the CLI')}`,
+    `slug: ${yaml('core')}`,
+    // One TOC entry per minor version
+    'tableOfContents:',
+    '  minHeadingLevel: 2',
+    '  maxHeadingLevel: 2',
+    'pagefind: false',
+    'editUrl: false',
+    'prev: false',
+    'next: false',
+  ]);
+
+  const header = renderPageLinks([
+    {
+      label: 'Releases on GitHub',
+      href: 'https://github.com/tauri-apps/tauri/releases',
+      align: 'end',
+    },
+  ]);
+
+  const intro =
+    'All 2.x releases of `tauri`, `@tauri-apps/api`, and the CLI, grouped by ' +
+    'minor version. Packages published together appear as one entry, even when ' +
+    'their patch versions differ.';
+
+  const sections = groups.map((group) => {
+    const range = group.dateRange ? ` (${group.dateRange})` : '';
+    const events = group.events.map(renderCoreEvent).join('\n\n');
+    return `## ${group.minor}${range}\n\n${events}`;
+  });
+
+  const content = [frontmatter, header, intro, ...sections].join('\n\n');
+
+  mkdirSync(workingDir, { recursive: true });
+  writeFileSync(join(workingDir, 'core.md'), content);
 }
 
 /**
