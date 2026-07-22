@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { basePath, note } from '../config.ts';
-import { demoteNotesHeadings, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
+import { demoteNotesHeadings, type CoreEntry, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
 import { escapeChangelogMarkdown } from '../utils.ts';
 
 export type VersionListEntry = {
@@ -117,14 +117,24 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   return `${frontmatter}\n\n${header}\n\n`;
 }
 
+// The merged "cli" entry represents both cli packages; link it to the npm one
+function versionHref(entry: CoreEntry): string {
+  const pkg = entry.pkgLabel === 'cli' ? '@tauri-apps/cli' : entry.pkgLabel;
+  return `${basePath}/${pkg}/v${entry.version}/`;
+}
+
 function renderCoreEvent(event: CoreEvent): string {
-  const names = event.entries.map((e) => `${e.pkgLabel} ${e.version}`).join(' · ');
-  const date = event.dateLabel ? ` — ${event.dateLabel}` : '';
+  const pills = event.entries
+    .map(
+      (e) => `<a class="version-pill" href="${versionHref(e)}">${e.pkgLabel} ${e.version}</a>`
+    )
+    .join('');
+  const date = event.dateLabel ? `<small class="release-date">${event.dateLabel}</small>` : '';
   const bodies = event.entries.map((entry) => {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes));
     return event.entries.length > 1 ? `**${entry.pkgLabel} ${entry.version}**\n\n${notes}` : notes;
   });
-  return [`### ${names}${date}`, ...bodies].join('\n\n');
+  return [`<div class="event-header">${pills}${date}</div>`, ...bodies].join('\n\n');
 }
 
 /**
@@ -162,9 +172,9 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
     'their patch versions differ.';
 
   const sections = groups.map((group) => {
-    const range = group.dateRange ? ` (${group.dateRange})` : '';
+    const range = renderReleaseDateLabel(group.dateRange);
     const events = group.events.map(renderCoreEvent).join('\n\n');
-    return `## ${group.minor}${range}\n\n${events}`;
+    return [`## ${group.minor}`, range, events].filter(Boolean).join('\n\n');
   });
 
   const content = [frontmatter, header, intro, ...sections].join('\n\n');

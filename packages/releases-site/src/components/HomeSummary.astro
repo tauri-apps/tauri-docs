@@ -81,23 +81,4 @@ function describe(pkg: (typeof repos)[number]['packages'][number]): string {
     margin-inline-start: auto;
     white-space: nowrap;
   }
-
-  :global(.version-pill) {
-    display: inline-block;
-    background-color: var(--sl-color-gray-6);
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.5rem;
-    padding: 0 0.5rem;
-    font-size: var(--sl-text-xs);
-    color: var(--sl-color-gray-2);
-    text-decoration: none;
-    /* Sit above the LinkCard's full-card overlay anchor so the pill is clickable */
-    position: relative;
-    z-index: 1;
-  }
-
-  :global(a.version-pill:hover) {
-    border-color: var(--sl-color-text-accent);
-    color: var(--sl-color-text-accent);
-  }
 </style>
