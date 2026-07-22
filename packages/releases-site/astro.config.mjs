@@ -42,11 +42,17 @@ export default defineConfig({
       sidebar: [
         { label: 'Overview', link: '/' },
         { label: 'Changelog Table', link: '/table/' },
-        ...repositories.map((repo) => ({
-          label: repo.displayName,
-          collapsed: false,
-          items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
-        })),
+        ...repositories.map((repo) =>
+          // Single-package repos (Wry, Tao, Create Tauri App) become plain
+          // links — a one-child group is just noise
+          repo.packages.length === 1
+            ? { label: repo.displayName, link: `/${repo.packages[0].name}/` }
+            : {
+                label: repo.displayName,
+                collapsed: false,
+                items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
+              }
+        ),
       ],
       expressiveCode: {
         styleOverrides: ecStyleOverrides,
