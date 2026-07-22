@@ -379,7 +379,7 @@ export default defineConfig({
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
       logo: logo(),
-      social,
+      social: social(site),
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',

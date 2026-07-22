@@ -18,7 +18,7 @@ export default defineConfig({
       title: 'Tauri Releases',
       description: 'Release notes for the Tauri core ecosystem',
       logo: logo('../../'),
-      social,
+      social: social(site),
       components: {
         // Header (and its SiteTitle) is a deliberate fork — English-only, no
         // topics, logo links to the docs home. The rest is imported straight
