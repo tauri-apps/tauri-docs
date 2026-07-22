@@ -5,6 +5,7 @@
   "version": "0.0.1",
   "scripts": {
     "generate": "node generator/build.ts",
+    "test": "node --test",
     "refresh": "node generator/build.ts --refresh --no-pages",
     "dev": "pnpm generate && astro dev --port 4322",
     "build:astro": "astro build",
