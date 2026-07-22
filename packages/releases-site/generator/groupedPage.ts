@@ -22,11 +22,12 @@ const EVENT_ORDER = ['tauri', '@tauri-apps/api', 'cli', 'tauri-cli', '@tauri-app
 const EVENT_WINDOW_MS = 6 * 60 * 60 * 1000;
 
 /**
- * Group the core packages' 2.x releases into minor-version sections, each
- * holding release events: entries clustered by registry publish-time
- * proximity. A cluster never holds two versions of the same package, so
- * close-together but distinct releases stay apart while true co-releases
- * (whose patch versions may diverge) merge.
+ * Group the core packages' 2.x releases into release events — entries
+ * clustered by registry publish-time proximity — and file each event into a
+ * minor-version section keyed by its lead package (tauri when present). A
+ * cluster never holds two versions of the same package, so close-together
+ * but distinct releases stay apart while true co-releases (whose patch — or
+ * even minor — versions may diverge) merge.
  */
 export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]>): CoreGroup[] {
   const entries: CoreEntry[] = [];
@@ -40,18 +41,19 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
 
   dedupeCliPair(entries);
 
-  const byMinor = new Map<string, CoreEntry[]>();
-  for (const entry of entries) {
-    const minor = `2.${semver.minor(entry.version)}`;
-    byMinor.set(minor, [...(byMinor.get(minor) ?? []), entry]);
+  const byMinor = new Map<string, CoreEvent[]>();
+  for (const event of clusterEvents(entries)) {
+    // entries are in EVENT_ORDER, so the first one is the lead package
+    const minor = `2.${semver.minor(event.entries[0].version)}`;
+    byMinor.set(minor, [...(byMinor.get(minor) ?? []), event]);
   }
 
   return [...byMinor.entries()]
     .sort(([a], [b]) => Number(b.split('.')[1]) - Number(a.split('.')[1]))
-    .map(([minor, list]) => ({
+    .map(([minor, events]) => ({
       minor,
-      dateRange: dateRange(list),
-      events: clusterEvents(list),
+      dateRange: dateRange(events.flatMap((e) => e.entries)),
+      events,
     }));
 }
 

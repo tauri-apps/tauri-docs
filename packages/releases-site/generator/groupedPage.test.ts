@@ -123,6 +123,20 @@ test('dateless entries become singleton events at the end', () => {
   assert.equal(groups[0].events[1].entries[0].version, '2.11.9');
 });
 
+test('cross-minor co-release stays one event, filed under the lead minor', () => {
+  // Hypothetical but possible: api takes a minor bump in a release where
+  // tauri only takes a patch — the event must not tear across sections
+  const groups = buildCoreGroups(
+    data({
+      tauri: [release('2.11.6', '2026-08-01T10:00:00Z')],
+      '@tauri-apps/api': [release('2.12.0', '2026-08-01T10:05:00Z')],
+    })
+  );
+  assert.equal(groups.length, 1);
+  assert.equal(groups[0].minor, '2.11');
+  assert.equal(groups[0].events.length, 1);
+});
+
 test('ignores non-core packages', () => {
   const groups = buildCoreGroups(data({ wry: [release('2.5.0', '2026-06-01T00:00:00Z')] }));
   assert.equal(groups.length, 0);
