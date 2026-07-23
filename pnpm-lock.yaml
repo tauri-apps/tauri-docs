@@ -217,6 +217,9 @@ importers:
 
   packages/tauri-typedoc:
     dependencies:
+      '@astrojs/starlight':
+        specifier: 'catalog:'
+        version: 0.41.3(astro@7.1.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.5.4)
       starlight-typedoc:
         specifier: ^0.23.0
         version: 0.23.0(@astrojs/starlight@0.41.5(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.5.4))(typedoc-plugin-markdown@4.12.0(typedoc@0.28.20(typescript@5.5.4)))(typedoc@0.28.20(typescript@5.5.4))

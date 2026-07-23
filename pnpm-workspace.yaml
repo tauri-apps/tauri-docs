@@ -5,9 +5,7 @@ packages:
   - packages/compatibility-table
   - packages/fetch-sponsors
   - packages/tauri-typedoc
-# Single source for versions that must stay aligned between the docs site
-# (repo root) and packages/releases-site — the releases site imports docs-site
-# components, which only works when pnpm dedupes both to one instance.
+# Single source for versions that must stay aligned across the workspace
 catalog:
   '@astrojs/starlight': 0.41.5
   astro: 7.1.5
@@ -15,8 +13,3 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - sharp
-# Workspace-wide: lets any workspace package satisfy its peer deps from the root's
-# dependencies. Needed so starlight-typedoc (a dep of packages/tauri-typedoc) resolves
-# its @astrojs/starlight peer to the root's single instance instead of duplicating it —
-# the same one-instance requirement the catalog above enforces for releases-site.
-resolvePeersFromWorkspaceRoot: true
