@@ -9,10 +9,7 @@ function collectLinks(items: SidebarItem[]): Extract<SidebarItem, { type: 'link'
 }
 
 /**
- * Generated version pages have no sidebar entry of their own, so Starlight
- * leaves the sidebar with no current item. Highlight the closest
- * ancestor instead: the longest link whose href prefixes the current path —
- * in practice the package's entry.
+ * will highlight the closest ancestor
  */
 export function markCurrentByPrefix(items: SidebarItem[], pathname: string): void {
   const links = collectLinks(items);

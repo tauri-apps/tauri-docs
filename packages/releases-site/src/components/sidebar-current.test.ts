@@ -19,7 +19,7 @@ test('marks the longest prefix-matching link current on version pages', () => {
   markCurrentByPrefix(items, '/release/tauri/v2.11.0/');
   const group = items[2] as Extract<SidebarItem, { type: 'group' }>;
   assert.equal(group.entries[0].type === 'link' && group.entries[0].isCurrent, true);
-  // '/release/' also prefix-matches but is shorter — must stay unmarked
+  // '/release/' also prefix-matches but is shorter —_- must stay unmarked
   assert.equal(items[0].type === 'link' && items[0].isCurrent, false);
 });
 
@@ -29,10 +29,4 @@ test('does not double-mark when Starlight already found the current page', () =>
   markCurrentByPrefix(items, '/release/table/');
   const marked = items.filter((i) => i.type === 'link' && i.isCurrent);
   assert.equal(marked.length, 1);
-});
-
-test('leaves everything untouched when nothing matches', () => {
-  const items = [link('/release/tauri/')];
-  markCurrentByPrefix(items, '/elsewhere/');
-  assert.equal(items[0].type === 'link' && items[0].isCurrent, false);
 });

@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { repositories } from './generator/config.ts';
+import { corePageSlug, repositories } from './generator/config.ts';
 import { logo, social, ecStyleOverrides } from '../../src/shared-config.mjs';
 
 // Canonical origin is the docs site (the releases site is proxied at <docs>/release/*).
@@ -24,9 +24,10 @@ export default defineConfig({
         // topics, logo links to the docs home. The rest is imported straight
         // from the docs site so UI changes propagate (see README "Shared UI").
         Header: './src/components/overrides/Header.astro',
-        // Highlights the package entry while on its version pages, which have
-        // no sidebar entries of their own
+        // sidebar override for highlighting
         Sidebar: './src/components/overrides/Sidebar.astro',
+
+        // shared overrides
         Footer: '../../src/components/overrides/Footer.astro',
         ThemeSelect: '../../src/components/overrides/ThemeSelect.astro',
         PageFrame: '../../src/components/overrides/PageFrame.astro',
@@ -43,16 +44,14 @@ export default defineConfig({
         { label: 'Overview', link: '/' },
         { label: 'Changelog Table', link: '/table/' },
         ...repositories.map((repo) => {
-          // Single-package repos (Wry, Tao, Create Tauri App) become plain
-          // links — a one-child group is just noise
           if (repo.packages.length === 1) {
             return { label: repo.displayName, link: `/${repo.packages[0].name}/` };
           }
           const items = repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` }));
           if (repo.name === 'tauri') {
-            items.unshift({ label: 'Core Releases', link: '/core/' });
+            items.unshift({ label: 'Core Releases', link: `/${corePageSlug}/` });
           }
-          return { label: repo.displayName, collapsed: false, items };
+          return { label: repo.displayName, items };
         }),
       ],
       expressiveCode: {

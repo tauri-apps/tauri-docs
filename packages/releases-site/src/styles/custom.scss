@@ -67,16 +67,21 @@
   }
 }
 
-// Release-event row on the grouped core page: version pills left, date right
-.event-header {
+// Version pills left, release date pinned right — shared by the home cards'
+// meta row and the core page's event headers
+.version-meta-row {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.5rem;
-  margin-top: 2.5rem;
 
   .release-date {
     margin-inline-start: auto;
     white-space: nowrap;
   }
+}
+
+// Release-event row on the grouped core page
+.event-header {
+  margin-top: 2.5rem;
 }

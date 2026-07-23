@@ -4,11 +4,16 @@ import { mapProseLines } from './utils.ts';
 
 export type CoreEntry = {
   pkgLabel: string;
+  /** Package whose version page to link to, when it differs from pkgLabel
+   * (the merged "cli" entry links to one of the pair's pages) */
+  linkPkg?: string;
   version: string;
   notes: string;
   date?: string;
   dateLabel?: string;
 };
+
+type DatedEntry = CoreEntry & { date: string };
 
 export type CoreEvent = { dateLabel?: string; entries: CoreEntry[] };
 
@@ -16,6 +21,7 @@ export type CoreGroup = { minor: string; dateRange: string; events: CoreEvent[] 
 
 const CORE_PACKAGES = ['tauri', '@tauri-apps/api', 'tauri-cli', '@tauri-apps/cli'];
 
+// Display order within an event; 'cli' is the merged tauri-cli/@tauri-apps/cli pair
 const EVENT_ORDER = ['tauri', '@tauri-apps/api', 'cli', 'tauri-cli', '@tauri-apps/cli'];
 
 // Max publish-time gap for two entries to count as the same release event
@@ -78,6 +84,8 @@ function dedupeCliPair(entries: CoreEntry[]): void {
       entry.date && (!twin.date || entry.date < twin.date) ? [entry, twin] : [twin, entry];
     if (twin.notes === entry.notes) {
       twin.pkgLabel = 'cli';
+      // the merged entry links to the npm twin's version page
+      twin.linkPkg = entry.pkgLabel;
       twin.date = earlier.date;
       twin.dateLabel = earlier.dateLabel;
       entries.splice(i, 1);
@@ -88,15 +96,17 @@ function dedupeCliPair(entries: CoreEntry[]): void {
   }
 }
 
+function hasDate(e: CoreEntry): e is DatedEntry {
+  return Boolean(e.date);
+}
+
 function clusterEvents(list: CoreEntry[]): CoreEvent[] {
-  const dated = list
-    .filter((e) => e.date)
-    .sort((a, b) => (a.date as string).localeCompare(b.date as string));
+  const dated = list.filter(hasDate).sort((a, b) => a.date.localeCompare(b.date));
   const events: CoreEvent[] = [];
-  let current: CoreEntry[] = [];
+  let current: DatedEntry[] = [];
   for (const entry of dated) {
     const last = current[current.length - 1];
-    const gap = last ? Date.parse(entry.date as string) - Date.parse(last.date as string) : 0;
+    const gap = last ? Date.parse(entry.date) - Date.parse(last.date) : 0;
     const samePackage = current.some((e) => e.pkgLabel === entry.pkgLabel);
     if (!last || (gap <= EVENT_WINDOW_MS && !samePackage)) {
       current.push(entry);
@@ -125,15 +135,15 @@ function toEvent(entries: CoreEntry[]): CoreEvent {
 
 function dateRange(list: CoreEntry[]): string {
   const labels = list
-    .filter((e) => e.date)
-    .sort((a, b) => (a.date as string).localeCompare(b.date as string))
-    .map((e) => e.dateLabel);
+    .filter(hasDate)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map((e) => e.dateLabel ?? '');
   if (labels.length === 0) {
     return '';
   }
   const first = labels[0];
   const last = labels[labels.length - 1];
-  return first === last ? `${first}` : `${first} – ${last}`;
+  return first === last ? first : `${first} – ${last}`;
 }
 
 /**
@@ -141,9 +151,5 @@ function dateRange(list: CoreEntry[]): string {
  * page's per-event `###` headings. Skips fenced code blocks.
  */
 export function demoteNotesHeadings(notes: string): string {
-  return mapProseLines(notes, (line) =>
-    line.replace(/^(#{1,6})(\s)/, (_, hashes, space) =>
-      hashes.length < 6 ? `#${hashes}${space}` : `${hashes}${space}`
-    )
-  );
+  return mapProseLines(notes, (line) => line.replace(/^#{1,5}(?=\s)/, '#$&'));
 }

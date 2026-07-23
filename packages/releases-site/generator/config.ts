@@ -11,6 +11,14 @@ export const generatorDir = 'generator';
 // URL prefix all generated links carry (must match `base` in astro.config.mjs)
 export const basePath = '/release';
 
+// Slug of the grouped core-packages changelog page (writeCorePage); the
+// sidebar link in astro.config.mjs is built from it
+export const corePageSlug = 'core';
+
+export function versionPageHref(packageName: string, version: string): string {
+  return `${basePath}/${packageName}/v${version}/`;
+}
+
 export function resolveBranch(repo: Repository): string {
   return repo.branch || 'dev';
 }

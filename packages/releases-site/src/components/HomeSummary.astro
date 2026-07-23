@@ -2,20 +2,18 @@
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import { repositories } from '../../generator/config';
 import { latestVersions } from '../../generator/generated/latestVersions';
-import { buildHomeSummaryRepos } from '../../generator/uiData';
+import { buildHomeSummaryRepos, renderVersionPill } from '../../generator/uiData';
 
 const repos = buildHomeSummaryRepos(repositories, latestVersions);
 
 function describe(pkg: (typeof repos)[number]['packages'][number]): string {
   const pills = pkg.versions
-    .map(
-      ({ label, version, href }) => `<a class="version-pill" href="${href}">${label} ${version}</a>`
-    )
+    .map(({ label, version, href }) => renderVersionPill(label, version, href))
     .join('');
   const date = pkg.latestReleaseDateLabel
     ? `<small class="release-date">${pkg.latestReleaseDateLabel}</small>`
     : '';
-  const meta = pills || date ? `<span class="card-meta">${pills}${date}</span>` : '';
+  const meta = pills || date ? `<span class="card-meta version-meta-row">${pills}${date}</span>` : '';
   return `${pkg.description}${meta}`;
 }
 ---
@@ -57,7 +55,6 @@ function describe(pkg: (typeof repos)[number]['packages'][number]): string {
     text-decoration: underline;
   }
 
-  /* Reserve room for the meta row pinned to the card's bottom edge */
   .repo-summary :global(.sl-link-card) {
     padding-bottom: 3em;
   }
@@ -66,19 +63,9 @@ function describe(pkg: (typeof repos)[number]['packages'][number]): string {
     font-size: var(--sl-text-sm);
   }
 
-  /* Pills bottom-left, date bottom-right, aligned across cards of a row */
   .repo-summary :global(.card-meta) {
     position: absolute;
     inset-inline: 1rem;
     bottom: 0.75rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5em;
-  }
-
-  .repo-summary :global(.card-meta .release-date) {
-    margin-inline-start: auto;
-    white-space: nowrap;
   }
 </style>

@@ -13,7 +13,7 @@ export const logo = (root = './') => ({
 
 /** Starlight `social` config. The RSS feed lives on the docs site — pass its
  * `site` so fork/preview deployments keep pointing at their own feed. */
-export const social = (site = 'https://v2.tauri.app') => [
+export const social = (site) => [
   { icon: 'github', label: 'GitHub', href: 'https://github.com/tauri-apps/tauri' },
   { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
   { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },

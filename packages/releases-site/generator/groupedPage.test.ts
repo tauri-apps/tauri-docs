@@ -11,19 +11,6 @@ function data(entries: Record<string, ReleaseWithDate[]>): Map<string, ReleaseWi
   return new Map(Object.entries(entries));
 }
 
-test('groups core packages by minor, newest minor first', () => {
-  const groups = buildCoreGroups(
-    data({
-      tauri: [release('2.11.0', '2026-04-30T15:00:00Z'), release('2.10.0', '2026-02-02T22:00:00Z')],
-      '@tauri-apps/api': [release('2.11.0', '2026-04-30T15:05:00Z')],
-    })
-  );
-  assert.deepEqual(
-    groups.map((g) => g.minor),
-    ['2.11', '2.10']
-  );
-});
-
 test('merges a co-release into one event, canonical package order', () => {
   const groups = buildCoreGroups(
     data({

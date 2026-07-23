@@ -1,7 +1,8 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { basePath, note } from '../config.ts';
-import { demoteNotesHeadings, type CoreEntry, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
+import { basePath, corePageSlug, note, versionPageHref } from '../config.ts';
+import { demoteNotesHeadings, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
+import { renderVersionPill } from '../uiData.ts';
 import { escapeChangelogMarkdown } from '../utils.ts';
 
 export type VersionListEntry = {
@@ -96,8 +97,6 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
     `title: ${yaml(`${packageName} full changelog`)}`,
     `description: ${yaml(`All changelog entries for ${packageName}`)}`,
     `slug: ${yaml(`${packageName}/all-versions`)}`,
-    // Keep the TOC to one entry per version — with the per-release
-    // sub-headings included it doubles in size and drowns the version list
     'tableOfContents:',
     '  minHeadingLevel: 2',
     '  maxHeadingLevel: 2',
@@ -117,16 +116,10 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   return `${frontmatter}\n\n${header}\n\n`;
 }
 
-// The merged "cli" entry represents both cli packages; link it to the npm one
-function versionHref(entry: CoreEntry): string {
-  const pkg = entry.pkgLabel === 'cli' ? '@tauri-apps/cli' : entry.pkgLabel;
-  return `${basePath}/${pkg}/v${entry.version}/`;
-}
-
 function renderCoreEvent(event: CoreEvent): string {
   const pills = event.entries
-    .map(
-      (e) => `<a class="version-pill" href="${versionHref(e)}">${e.pkgLabel} ${e.version}</a>`
+    .map((e) =>
+      renderVersionPill(e.pkgLabel, e.version, versionPageHref(e.linkPkg ?? e.pkgLabel, e.version))
     )
     .join('');
   const date = event.dateLabel ? `<small class="release-date">${event.dateLabel}</small>` : '';
@@ -134,7 +127,9 @@ function renderCoreEvent(event: CoreEvent): string {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes));
     return event.entries.length > 1 ? `**${entry.pkgLabel} ${entry.version}**\n\n${notes}` : notes;
   });
-  return [`<div class="event-header">${pills}${date}</div>`, ...bodies].join('\n\n');
+  return [`<div class="event-header version-meta-row">${pills}${date}</div>`, ...bodies].join(
+    '\n\n'
+  );
 }
 
 /**
@@ -147,7 +142,7 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
   const frontmatter = frontmatterBlock([
     `title: ${yaml('Tauri Core Releases')}`,
     `description: ${yaml('Grouped release notes for tauri, @tauri-apps/api, and the CLI')}`,
-    `slug: ${yaml('core')}`,
+    `slug: ${yaml(corePageSlug)}`,
     // One TOC entry per minor version
     'tableOfContents:',
     '  minHeadingLevel: 2',
@@ -166,21 +161,16 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
     },
   ]);
 
-  const intro =
-    'All 2.x releases of `tauri`, `@tauri-apps/api`, and the CLI, grouped by ' +
-    'minor version. Packages published together appear as one entry, even when ' +
-    'their patch versions differ.';
-
   const sections = groups.map((group) => {
     const range = renderReleaseDateLabel(group.dateRange);
     const events = group.events.map(renderCoreEvent).join('\n\n');
     return [`## ${group.minor}`, range, events].filter(Boolean).join('\n\n');
   });
 
-  const content = [frontmatter, header, intro, ...sections].join('\n\n');
+  const content = [frontmatter, header, ...sections].join('\n\n');
 
   mkdirSync(workingDir, { recursive: true });
-  writeFileSync(join(workingDir, 'core.md'), content);
+  writeFileSync(join(workingDir, `${corePageSlug}.md`), content);
 }
 
 /**
@@ -208,7 +198,7 @@ export function writePackageIndex(params: {
 
   const versionList = releases
     .map(({ version, dateLabel }) => {
-      const link = `[v${version}](${basePath}/${packageName}/v${version}/)`;
+      const link = `[v${version}](${versionPageHref(packageName, version)})`;
       return dateLabel ? `- ${link} <small class="release-date">${dateLabel}</small>` : `- ${link}`;
     })
     .join('\n');
