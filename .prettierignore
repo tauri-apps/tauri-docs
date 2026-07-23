@@ -12,6 +12,7 @@ src/content/docs/reference
 packages/releases-site/src/content/docs
 packages/releases-site/generator/data.json
 packages/releases-site/generator/generated
+packages/releases-site/generator/.cache
 packages/releases-site/public/tableData.json
 
 # Git Modules
