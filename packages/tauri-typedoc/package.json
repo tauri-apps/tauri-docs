@@ -6,6 +6,9 @@
   "type": "module",
   "main": "./typedoc-plugins.ts",
   "license": "MIT",
+  "scripts": {
+    "test": "node --test normalize.test.mjs"
+  },
   "dependencies": {
     "starlight-typedoc": "^0.23.0",
     "typedoc": "^0.28.0",
