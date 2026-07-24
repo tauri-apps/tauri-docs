@@ -207,7 +207,7 @@ export function writePackageIndex(params: {
     frontmatter,
     header,
     ...(description ? [description] : []),
-    `[Full changelog on a single page](${basePath}/${packageName}/all-versions/)`,
+    `[Full changelog](${basePath}/${packageName}/all-versions/)`,
     '## Versions',
     versionList,
   ]
