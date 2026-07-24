@@ -162,9 +162,9 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
   ]);
 
   const sections = groups.map((group) => {
-    const range = renderReleaseDateLabel(group.dateRange);
+    const date = renderReleaseDateLabel(group.date);
     const events = group.events.map(renderCoreEvent).join('\n\n');
-    return [`## ${group.minor}`, range, events].filter(Boolean).join('\n\n');
+    return [`## ${group.minor}`, date, events].filter(Boolean).join('\n\n');
   });
 
   const content = [frontmatter, header, ...sections].join('\n\n');

@@ -17,7 +17,7 @@ type DatedEntry = CoreEntry & { date: string };
 
 export type CoreEvent = { dateLabel?: string; entries: CoreEntry[] };
 
-export type CoreGroup = { minor: string; dateRange: string; events: CoreEvent[] };
+export type CoreGroup = { minor: string; date: string; events: CoreEvent[] };
 
 const CORE_PACKAGES = ['tauri', '@tauri-apps/api', 'tauri-cli', '@tauri-apps/cli'];
 
@@ -58,7 +58,7 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
     .sort(([a], [b]) => Number(b.split('.')[1]) - Number(a.split('.')[1]))
     .map(([minor, events]) => ({
       minor,
-      dateRange: dateRange(events.flatMap((e) => e.entries)),
+      date: releaseDate(events.flatMap((e) => e.entries)),
       events,
     }));
 }
@@ -133,17 +133,16 @@ function toEvent(entries: CoreEntry[]): CoreEvent {
   };
 }
 
-function dateRange(list: CoreEntry[]): string {
-  const labels = list
+/**
+ * The minor's own release date — its earliest publish. The later entries are
+ * that minor's patches, each already dated on its own event row.
+ */
+function releaseDate(list: CoreEntry[]): string {
+  const earliest = list
     .filter(hasDate)
     .sort((a, b) => a.date.localeCompare(b.date))
-    .map((e) => e.dateLabel ?? '');
-  if (labels.length === 0) {
-    return '';
-  }
-  const first = labels[0];
-  const last = labels[labels.length - 1];
-  return first === last ? first : `${first} – ${last}`;
+    .at(0);
+  return earliest?.dateLabel ?? '';
 }
 
 /**
