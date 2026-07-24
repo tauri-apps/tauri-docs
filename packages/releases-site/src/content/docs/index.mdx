@@ -6,7 +6,11 @@ prev: false
 next: false
 ---
 
-import HomeSummary from '../../components/HomeSummary.astro';
+import RepoLink from '../../components/RepoLink.astro';
+import RepoPackages from '../../components/RepoPackages.astro';
+
+{/* Section headings must stay in sync with `displayName` in generator/config.ts —
+    they are markdown so Starlight picks them up for the table of contents. */}
 
 Release notes for every package in the Tauri core ecosystem, generated from the
 upstream changelogs. Pick a package below, or explore every release at once in
@@ -15,4 +19,22 @@ groups `tauri`, `@tauri-apps/api`, and CLI changes by minor version, showing
 packages released together as one entry. For per-platform plugin availability,
 see the [plugin support table](/plugin/#support-table).
 
-<HomeSummary />
+## Tauri<RepoLink name="tauri" />
+
+<RepoPackages name="tauri" />
+
+## Wry<RepoLink name="wry" />
+
+<RepoPackages name="wry" />
+
+## Tao<RepoLink name="tao" />
+
+<RepoPackages name="tao" />
+
+## CTA<RepoLink name="create-tauri-app" />
+
+<RepoPackages name="create-tauri-app" />
+
+## Plugins<RepoLink name="plugins-workspace" />
+
+<RepoPackages name="plugins-workspace" />

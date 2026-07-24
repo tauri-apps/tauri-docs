@@ -40,10 +40,7 @@ test('leaves fenced code blocks untouched', () => {
 });
 
 test('escapes template-ish sequences outside code but not inside', () => {
-  assert.equal(
-    escapeChangelogMarkdown('Set `${HOME}` or ${HOME}'),
-    'Set `${HOME}` or $\\{HOME}'
-  );
+  assert.equal(escapeChangelogMarkdown('Set `${HOME}` or ${HOME}'), 'Set `${HOME}` or $\\{HOME}');
 });
 
 test('leaves an unpaired backtick as prose', () => {

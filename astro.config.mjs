@@ -5,6 +5,8 @@ import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import starlightBlog from 'starlight-blog';
+import starlightLlmsTxt from 'starlight-llms-txt';
+import llmsTxtConfig from './llms-txt.config.mjs';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import path from 'path';
@@ -374,6 +376,7 @@ export default defineConfig({
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
+        starlightLlmsTxt(llmsTxtConfig),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',

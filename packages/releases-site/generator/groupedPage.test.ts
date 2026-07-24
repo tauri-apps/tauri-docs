@@ -50,7 +50,10 @@ test('splits events when the publish gap exceeds the window', () => {
 test('excludes non-2.x versions and folds prereleases into their minor', () => {
   const groups = buildCoreGroups(
     data({
-      tauri: [release('1.8.3', '2026-01-01T00:00:00Z'), release('2.0.0-rc.15', '2024-09-25T00:00:00Z')],
+      tauri: [
+        release('1.8.3', '2026-01-01T00:00:00Z'),
+        release('2.0.0-rc.15', '2024-09-25T00:00:00Z'),
+      ],
     })
   );
   assert.deepEqual(
@@ -144,10 +147,7 @@ test('sorts minors numerically, not lexicographically', () => {
 test('group date range spans earliest to latest entry labels', () => {
   const groups = buildCoreGroups(
     data({
-      tauri: [
-        release('2.11.0', '2026-04-30T15:00:00Z'),
-        release('2.11.5', '2026-07-01T13:00:00Z'),
-      ],
+      tauri: [release('2.11.0', '2026-04-30T15:00:00Z'), release('2.11.5', '2026-07-01T13:00:00Z')],
     })
   );
   assert.equal(groups[0].dateRange, 'label 2026-04-30T15:00:00Z – label 2026-07-01T13:00:00Z');

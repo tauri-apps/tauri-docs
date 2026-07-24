@@ -22,34 +22,46 @@ import 'src/styles/home.css';
   v1Docs="Tauri 1.0 ドキュメント"
 />
 
-<div class="lp-cta-card">
+<div>
   <Card title="プロジェクトを始める" icon="rocket">
     <Cta />
   </Card>
 </div>
 
 <CardGrid>
-  <Card title="フロントエンドはそのままで…" icon="rocket">
-    既に利用している Web 技術をそのまま Tauri
-    で利用する。あるいは夢のプロジェクトを新しく始める。 Tauri
-    はどのようなフロントエンド・フレームワーク技術も利用できるので、現在の設定を変更する必要はありません。
-  </Card>
+  <a href="/start/frontend/" className="card-link card-frontend not-content">
+    <Card title="フロントエンドはそのままで…" icon="rocket">
+      既に利用している Web 技術をそのまま Tauri で利用する。あるいは夢のプロジェクトを新しく始める。
+      Tauri はどのようなフロントエンド・フレームワーク技術も利用できるので、現在の設定を変更する必要はありません。
+    </Card>
+  </a>
+
+<a href="/distribute/" className="card-link card-platform not-content">
   <Card title="クロスプラットフォームに対応" icon="rocket">
     同じひとつのコードから、Linux 用、macOS 用、Windows 用、Android 用、iOS
     用のアプリをすべて構築できます。フロントエンド部は JavaScript
     で、アプリケーション・ロジックは Rust で記述し、Swift と Kotlin
     を用いてシステムの奥深くでその二つを統合します。
   </Card>
+</a>
+
+<a href="/security/" className="card-link card-security not-content">
   <Card title="最大限の安全性" icon="rocket">
     セキュリティは、最優先事項と最大のイノベーションを推し進める Tauri
     チームの「根本原則」です。
   </Card>
-  <Card title="最小限のサイズ" icon="rocket">
-    OS 固有の Web レンダリング・エンジンを利用することで、Tauri
-    アプリのプログラム・サイズは わずか「600 KB」ほどにもできます。
-  </Card>
+</a>
+
+  <a href="/concept/size/" className="card-link card-size not-content"> 
+    <Card title="最小限のサイズ" icon="rocket">
+      OS 固有の Web レンダリング・エンジンを利用することで、Tauri
+      アプリのプログラム・サイズは わずか「600 KB」ほどにもできます。
+    </Card>
+  </a>
 </CardGrid>
 
+<SponsorList />
+
 <div style="text-align: right;">
-  【※ この日本語版は、「Aug 11, 2025 英語版」に基づいています】
+  【※ この日本語版は、「Jun 19, 2026 英語版」に基づいています】
 </div>

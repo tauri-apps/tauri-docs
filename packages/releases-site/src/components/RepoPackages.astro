@@ -1,0 +1,56 @@
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { repositories } from '../../generator/config';
+import { latestVersions } from '../../generator/generated/latestVersions';
+import { buildHomeSummaryRepos, renderVersionPill } from '../../generator/uiData';
+
+interface Props {
+  name: string;
+}
+
+const repo = buildHomeSummaryRepos(repositories, latestVersions).find(
+  (r) => r.name === Astro.props.name
+);
+if (!repo) {
+  throw new Error(`Unknown repository "${Astro.props.name}" (see generator/config.ts)`);
+}
+
+function describe(pkg: (typeof repo)['packages'][number]): string {
+  const pills = pkg.versions
+    .map(({ label, version, href }) => renderVersionPill(label, version, href))
+    .join('');
+  const date = pkg.latestReleaseDateLabel
+    ? `<small class="release-date">${pkg.latestReleaseDateLabel}</small>`
+    : '';
+  const meta =
+    pills || date ? `<span class="card-meta version-meta-row">${pills}${date}</span>` : '';
+  return `${pkg.description}${meta}`;
+}
+---
+
+<div class="repo-packages">
+  <CardGrid>
+    {
+      repo.packages.map((pkg) => (
+        <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
+      ))
+    }
+  </CardGrid>
+</div>
+
+<style>
+  /* Reserve room for the meta row pinned to the card's bottom edge */
+  .repo-packages :global(.sl-link-card) {
+    padding-bottom: 3em;
+  }
+
+  .repo-packages :global(.sl-link-card .description) {
+    font-size: var(--sl-text-sm);
+  }
+
+  .repo-packages :global(.card-meta) {
+    position: absolute;
+    inset-inline: 1rem;
+    bottom: 0.75rem;
+  }
+</style>
