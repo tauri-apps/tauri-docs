@@ -4,9 +4,6 @@ import { mapProseLines } from './utils.ts';
 
 export type CoreEntry = {
   pkgLabel: string;
-  /** Package whose version page to link to, when it differs from pkgLabel
-   * (the merged "cli" entry links to one of the pair's pages) */
-  linkPkg?: string;
   version: string;
   notes: string;
   date?: string;
@@ -84,8 +81,6 @@ function dedupeCliPair(entries: CoreEntry[]): void {
       entry.date && (!twin.date || entry.date < twin.date) ? [entry, twin] : [twin, entry];
     if (twin.notes === entry.notes) {
       twin.pkgLabel = 'cli';
-      // the merged entry links to the npm twin's version page
-      twin.linkPkg = entry.pkgLabel;
       twin.date = earlier.date;
       twin.dateLabel = earlier.dateLabel;
       entries.splice(i, 1);

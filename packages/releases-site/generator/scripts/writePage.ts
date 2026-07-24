@@ -2,7 +2,6 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { basePath, corePageSlug, note, versionPageHref } from '../config.ts';
 import { demoteNotesHeadings, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
-import { renderVersionPill } from '../uiData.ts';
 import { escapeChangelogMarkdown } from '../utils.ts';
 
 export type VersionListEntry = {
@@ -116,20 +115,15 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   return `${frontmatter}\n\n${header}\n\n`;
 }
 
-function renderCoreEvent(event: CoreEvent): string {
-  const pills = event.entries
-    .map((e) =>
-      renderVersionPill(e.pkgLabel, e.version, versionPageHref(e.linkPkg ?? e.pkgLabel, e.version))
-    )
-    .join('');
+function renderCoreEvent(event: CoreEvent, { separator = true } = {}): string {
+  // rule is drawn in CSS, so it opens the event even when the date is missing
   const date = event.dateLabel ? `<small class="release-date">${event.dateLabel}</small>` : '';
+  const header = separator ? [`<div class="event-header">${date}</div>`] : [];
   const bodies = event.entries.map((entry) => {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes));
-    return event.entries.length > 1 ? `**${entry.pkgLabel} ${entry.version}**\n\n${notes}` : notes;
+    return `### ${entry.pkgLabel} ${entry.version}\n\n${notes}`;
   });
-  return [`<div class="event-header version-meta-row">${pills}${date}</div>`, ...bodies].join(
-    '\n\n'
-  );
+  return [...header, ...bodies].join('\n\n');
 }
 
 /**
@@ -163,7 +157,9 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
 
   const sections = groups.map((group) => {
     const date = renderReleaseDateLabel(group.date);
-    const events = group.events.map(renderCoreEvent).join('\n\n');
+    const events = group.events
+      .map((event, i) => renderCoreEvent(event, { separator: i > 0 }))
+      .join('\n\n');
     return [`## ${group.minor}`, date, events].filter(Boolean).join('\n\n');
   });
 
