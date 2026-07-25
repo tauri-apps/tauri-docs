@@ -35,12 +35,30 @@ const sections = {
 
 const section = Astro.props.section as keyof typeof sections;
 
+const heading = sections[section];
+if (!heading) {
+  throw new Error(
+    `AwesomeTauri: unknown section "${section}". Known sections: ${Object.keys(sections).join(', ')}.`
+  );
+}
+
 const workspaceRoot = fileURLToPath(ProjectContext.root);
 const allSections = await loadAwesomeSections(
   join(workspaceRoot, 'packages/awesome-tauri/README.md')
 );
 
-const cards = (allSections.get(sections[section]) ?? []).filter((entry) => {
+// The README is scraped by heading text, so an upstream rename silently empties a
+// section here. Fail the build instead of rendering an empty grid.
+const entries = allSections.get(heading);
+if (!entries?.length) {
+  throw new Error(
+    `AwesomeTauri: no entries under the "${heading}" heading in packages/awesome-tauri/README.md ` +
+      `(section "${section}"). The heading was likely renamed or removed upstream, update the ` +
+      `\`sections\` map in this file to match.`
+  );
+}
+
+const cards = entries.filter((entry) => {
   if (section.includes('-no-official')) {
     if (entry.img1Src?.includes('official')) return false;
     if (entry.img2Src?.includes('official')) return false;
