@@ -15,7 +15,7 @@ import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
-import { buildReleases } from './src/release-config.mjs';
+import { hasGeneratedReleasePages } from './src/release-config.mjs';
 
 const nsis = {
   ...nsisGrammar,
@@ -360,9 +360,6 @@ export default defineConfig({
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
-            // The Releases section is not a topic: it is served by the custom
-            // routes in src/routes/release/, and its link comes from
-            // src/data/header-links.json.
           ],
           {
             // Release pages carry their own sidebar and belong to no topic; without
@@ -379,11 +376,7 @@ export default defineConfig({
           exclude: [
             '/plugin/*/#default-permission',
             '/plugin/*/#permission-table',
-            // Release pages are custom routes, which the validator can only see as
-            // opaque pages — and they don't exist at all outside production builds.
             '/release/**',
-            // Upstream changelog prose links to the dev server (create-tauri-app).
-            // We don't author that text, so it can't be fixed at the source.
             'http://localhost:*',
           ],
         }),
@@ -476,13 +469,18 @@ export default defineConfig({
       lastUpdated: true,
     }),
     {
-      // /release/* is English-only and ~2,800 pages, so it is built on production
-      // deploys only. Keeping the route in src/routes/ rather than src/pages/ is
-      // what makes it optional: nothing is a route until it is injected.
+      // /release/* is served whenever its (gitignored) pages have been generated
+      // — always on production deploys, never on previews, and locally once you
+      // have run `BUILD_RELEASES=1 pnpm build:releases`. Keeping the route in
+      // src/routes/ rather than src/pages/ is what makes it optional: nothing is
+      // a route until it is injected.
       name: 'tauri-release-routes',
       hooks: {
-        'astro:config:setup'({ injectRoute }) {
-          if (!buildReleases) return;
+        'astro:config:setup'({ injectRoute, logger }) {
+          if (!hasGeneratedReleasePages()) {
+            logger.info('no generated release pages found - skipping /release/*');
+            return;
+          }
           injectRoute({
             pattern: '/release/[...slug]',
             entrypoint: './src/routes/release/page.astro',
