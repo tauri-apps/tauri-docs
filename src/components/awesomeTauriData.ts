@@ -1,13 +1,13 @@
 import { readFile } from 'node:fs/promises';
-import { JSDOM } from 'jsdom';
-import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
+import { fromMarkdown } from 'mdast-util-from-markdown';
+import type { Definition, PhrasingContent, RootContent } from 'mdast';
 
 export interface AwesomeEntry {
   href: string;
   name: string;
   description: string | undefined;
   /**
-   * `src` of the entry's 2nd and 3rd children. AwesomeTauri.astro's
+   * `url` of the entry's 2nd and 3rd children. AwesomeTauri.astro's
    * `-no-official` / `-no-video` / `-only-video` filters read these, so entries
    * are cached unfiltered — the filter depends on `section`, which differs per
    * render, while the parse does not.
@@ -24,34 +24,60 @@ let cache: Promise<Map<string, AwesomeEntry[]>> | undefined;
  */
 export function loadAwesomeSections(readmePath: string) {
   cache ??= (async () => {
-    const md = await createSatteriMarkdownProcessor();
-    const content = await md.render(await readFile(readmePath, 'utf-8'));
-    const dom = new JSDOM('<!DOCTYPE html>' + content.code);
+    const root = fromMarkdown(await readFile(readmePath, 'utf-8'));
+
+    const definitions = new Map<string, string>();
+    for (const node of root.children) {
+      if (node.type === 'definition') definitions.set(node.identifier, node.url);
+    }
 
     const sections = new Map<string, AwesomeEntry[]>();
-    for (const header of dom.window.document.querySelectorAll('h3')) {
-      const list = header.nextSibling?.nextSibling as HTMLElement | null;
-      if (!list?.children) continue;
+    root.children.forEach((header, index) => {
+      if (header.type !== 'heading' || header.depth !== 3) return;
+      const list = root.children[index + 1];
+      if (list?.type !== 'list') return;
 
       const entries: AwesomeEntry[] = [];
-      for (const entry of list.children) {
-        const link = entry.children[0] as HTMLAnchorElement | undefined;
-        if (!link) continue;
+      for (const item of list.children) {
+        const paragraph = item.children[0];
+        if (paragraph?.type !== 'paragraph') continue;
+
+        // `- [name](href) ![badge] ![badge] - description`: the link and the
+        // badges are the paragraph's first three non-text children.
+        const [link, badge1, badge2] = paragraph.children.filter((node) => node.type !== 'text');
+        if (link?.type !== 'link') continue;
         entries.push({
-          href: link.href,
-          name: link.textContent ?? '',
-          description: entry.textContent?.split(' - ')[1],
-          img1Src: (entry.children[1] as HTMLImageElement | undefined)?.src,
-          img2Src: (entry.children[2] as HTMLImageElement | undefined)?.src,
+          href: link.url,
+          name: textOf(link.children),
+          description: textOf(item.children).split(' - ')[1],
+          img1Src: srcOf(badge1, definitions),
+          img2Src: srcOf(badge2, definitions),
         });
       }
 
-      const key = header.textContent ?? '';
+      const key = textOf(header.children);
       const existing = sections.get(key);
       if (existing) existing.push(...entries);
       else sections.set(key, entries);
-    }
+    });
     return sections;
   })();
   return cache;
+}
+
+function srcOf(node: PhrasingContent | undefined, definitions: Map<string, Definition['url']>) {
+  if (node?.type === 'image') return node.url;
+  if (node?.type === 'imageReference') return definitions.get(node.identifier);
+  return undefined;
+}
+
+/** The rendered text of `nodes`, excluding image alt text. */
+function textOf(nodes: RootContent[]): string {
+  let text = '';
+  for (const node of nodes) {
+    if (node.type === 'image' || node.type === 'imageReference' || node.type === 'html') continue;
+    if ('children' in node) text += textOf(node.children);
+    else if ('value' in node) text += node.value;
+  }
+  return text;
 }
