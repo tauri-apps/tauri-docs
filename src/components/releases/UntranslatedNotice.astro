@@ -1,0 +1,26 @@
+---
+// used for release pages (no /{locale}/release page)
+import ContentNotice from '@astrojs/starlight/components/ContentNotice.astro';
+import { useTranslations } from '@astrojs/starlight/internal';
+import locales from '../../../locales.json';
+
+const translated = Object.entries(locales).filter(([code]) => code !== 'root');
+---
+
+{
+  translated.map(([code, locale]) => (
+    <div data-untranslated-locale={code} hidden>
+      <ContentNotice
+        icon="warning"
+        label={useTranslations(locale.lang)('i18n.untranslatedContent')}
+      />
+    </div>
+  ))
+}
+
+<script>
+  import { readRememberedLocale } from '../locale-memory';
+  import { applyReleaseLocale } from './release-locale';
+
+  applyReleaseLocale(readRememberedLocale());
+</script>

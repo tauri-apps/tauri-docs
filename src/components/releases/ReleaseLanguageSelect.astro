@@ -1,0 +1,38 @@
+---
+// The default picker offers the current page in each language; on /release/*
+// those URLs are the ones public/_redirects bounces straight back here. Picking
+// a language records it instead, which is what the header links and the
+// untranslated-content notice read.
+import Select from '@astrojs/starlight/components/Select.astro';
+import locales from '../../../locales.json';
+
+const options = Object.entries(locales).map(([code, locale]) => ({
+  value: code === 'root' ? '' : code,
+  label: locale.label,
+  selected: code === 'root',
+}));
+---
+
+<tauri-release-lang-select>
+  <Select
+    icon="translate"
+    label={Astro.locals.t('languageSelect.accessibleLabel')}
+    options={options}
+    width="7em"
+  />
+</tauri-release-lang-select>
+
+<script>
+  import { rememberLocale } from '../locale-memory';
+  import { applyReleaseLocale } from './release-locale';
+
+  for (const select of document.querySelectorAll<HTMLSelectElement>(
+    'tauri-release-lang-select select'
+  )) {
+    select.addEventListener('change', (event) => {
+      const { value } = event.currentTarget as HTMLSelectElement;
+      rememberLocale(value);
+      applyReleaseLocale(value);
+    });
+  }
+</script>
