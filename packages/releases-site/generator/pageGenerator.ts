@@ -77,7 +77,7 @@ for (const repo of repositories) {
 }
 
 /**
- * `pages: false` skips the ~2,800 markdown pages and tableData.json, which are
+ * `pages: false` skips /releases, which are
  * only needed when the docs build actually injects the /release/* routes.
  * latestVersions.ts is always written: RepoPackages.astro imports it, so
  * `astro check` needs it even in builds where the routes are gated off.

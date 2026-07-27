@@ -2,7 +2,6 @@
 TAURI_DOCS_SKIP_IMAGE_OPT = "true"
 
 [build.environment]
-# The content generators run TypeScript directly via Node's type stripping
 NODE_VERSION = "24"
 
 [[redirects]]
