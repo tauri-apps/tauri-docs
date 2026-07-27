@@ -183,24 +183,12 @@ importers:
 
   packages/releases-site:
     dependencies:
-      '@astrojs/starlight':
-        specifier: 'catalog:'
-        version: 0.41.5(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)
-      astro:
-        specifier: 'catalog:'
-        version: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
       make-fetch-happen:
         specifier: ^16.0.1
         version: 16.0.1
-      sass:
-        specifier: ^1.89.0
-        version: 1.102.0
       semver:
         specifier: ^7.6.3
         version: 7.8.5
-      sharp:
-        specifier: ^0.35.3
-        version: 0.35.3(@types/node@24.13.3)
     devDependencies:
       '@types/make-fetch-happen':
         specifier: ^10.0.4
@@ -4859,28 +4847,6 @@ snapshots:
       hast-util-from-html: 2.0.3
       satteri: 0.9.5
 
-  '@astrojs/mdx@7.0.0(@astrojs/markdown-satteri@0.3.5)(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))':
-    dependencies:
-      '@astrojs/internal-helpers': 0.10.0
-      '@astrojs/markdown-remark': 7.2.0
-      '@mdx-js/mdx': 3.1.1
-      acorn: 8.16.0
-      astro: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
-      es-module-lexer: 2.3.1
-      estree-util-visit: 2.0.0
-      hast-util-to-html: 9.0.5
-      piccolore: 0.1.3
-      rehype-raw: 7.0.0
-      remark-gfm: 4.0.1
-      remark-smartypants: 3.0.3
-      source-map: 0.7.6
-      unist-util-visit: 5.1.0
-      vfile: 6.0.3
-    optionalDependencies:
-      '@astrojs/markdown-satteri': 0.3.5
-    transitivePeerDependencies:
-      - supports-color
-
   '@astrojs/mdx@7.0.0(@astrojs/markdown-satteri@0.3.5)(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))':
     dependencies:
       '@astrojs/internal-helpers': 0.10.0
@@ -4918,42 +4884,6 @@ snapshots:
       sitemap: 9.0.1
       stream-replace-string: 2.0.0
       zod: 4.4.3
-
-  '@astrojs/starlight@0.41.5(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@7.0.2)':
-    dependencies:
-      '@astrojs/markdown-satteri': 0.3.5
-      '@astrojs/mdx': 7.0.0(@astrojs/markdown-satteri@0.3.5)(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))
-      '@astrojs/sitemap': 3.7.2
-      '@pagefind/default-ui': 1.3.0
-      '@types/hast': 3.0.5
-      '@types/js-yaml': 4.0.9
-      '@types/mdast': 4.0.4
-      astro: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
-      astro-expressive-code: 0.44.0(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))
-      bcp-47: 2.1.0
-      hast-util-from-html: 2.0.3
-      hast-util-select: 6.0.4
-      hast-util-to-string: 3.0.1
-      hastscript: 9.0.1
-      i18next: 26.3.6(typescript@7.0.2)
-      js-yaml: 4.3.0
-      klona: 2.0.6
-      magic-string: 0.30.21
-      mdast-util-directive: 3.1.0
-      mdast-util-to-markdown: 2.1.2
-      mdast-util-to-string: 4.0.0
-      pagefind: 1.5.2
-      rehype: 13.0.2
-      rehype-format: 5.0.1
-      remark-directive: 4.0.0
-      satteri: 0.9.5
-      ultrahtml: 1.7.0
-      unified: 11.0.5
-      unist-util-visit: 5.1.0
-      vfile: 6.0.3
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
 
   '@astrojs/starlight@0.41.5(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)':
     dependencies:
@@ -6814,109 +6744,11 @@ snapshots:
       satteri: 0.9.5
       unist-util-visit: 5.1.0
 
-  astro-expressive-code@0.44.0(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)):
-    dependencies:
-      astro: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
-      rehype-expressive-code: 0.44.0
-      url-extras: 0.1.0
-
   astro-expressive-code@0.44.0(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)):
     dependencies:
       astro: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
       rehype-expressive-code: 0.44.0
       url-extras: 0.1.0
-
-  astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0):
-    dependencies:
-      '@astrojs/compiler-rs': 0.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
-      '@astrojs/internal-helpers': 0.10.2
-      '@astrojs/markdown-satteri': 0.3.5
-      '@astrojs/telemetry': 3.3.3
-      '@capsizecss/unpack': 4.0.1
-      '@clack/prompts': 1.7.0
-      '@oslojs/encoding': 1.1.0
-      '@rollup/pluginutils': 5.4.0(rollup@2.80.0)
-      am-i-vibing: 0.4.0
-      aria-query: 5.3.2
-      axobject-query: 4.1.0
-      ci-info: 4.4.0
-      clsx: 2.1.1
-      common-ancestor-path: 2.0.0
-      cookie: 2.0.1
-      devalue: 5.8.2
-      diff: 8.0.4
-      dset: 3.1.4
-      es-module-lexer: 2.3.1
-      esbuild: 0.28.1
-      flattie: 1.1.1
-      fontace: 0.4.1
-      get-tsconfig: 5.0.0-beta.4
-      github-slugger: 2.0.0
-      html-escaper: 3.0.3
-      http-cache-semantics: 4.2.0
-      js-yaml: 4.3.0
-      jsonc-parser: 3.3.1
-      magic-string: 1.1.0
-      magicast: 0.5.3
-      mrmime: 2.0.1
-      neotraverse: 1.0.1
-      obug: 2.1.4
-      p-limit: 7.3.1
-      p-queue: 9.3.3
-      package-manager-detector: 1.8.0
-      piccolore: 0.1.3
-      picomatch: 4.0.5
-      semver: 7.8.5
-      shiki: 4.4.1
-      smol-toml: 1.7.1
-      svgo: 4.0.2
-      tinyclip: 0.1.15
-      tinyexec: 1.2.4
-      tinyglobby: 0.2.17
-      ultrahtml: 1.7.0
-      unifont: 0.7.4
-      unstorage: 1.17.5
-      vite: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
-      vitefu: 1.1.3(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))
-      xxhash-wasm: 1.1.0
-      yargs-parser: 22.0.0
-      zod: 4.4.3
-    optionalDependencies:
-      sharp: 0.35.3(@types/node@24.13.3)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@emnapi/core'
-      - '@emnapi/runtime'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@types/node'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/functions'
-      - '@vercel/kv'
-      - '@vitejs/devtools'
-      - aws4fetch
-      - db0
-      - idb-keyval
-      - ioredis
-      - jiti
-      - less
-      - rollup
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - uploadthing
-      - yaml
 
   astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0):
     dependencies:
@@ -7949,10 +7781,6 @@ snapshots:
   i18next@26.3.6(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
-
-  i18next@26.3.6(typescript@7.0.2):
-    optionalDependencies:
-      typescript: 7.0.2
 
   iconv-lite@0.7.3:
     dependencies:
@@ -9323,39 +9151,6 @@ snapshots:
       functions-have-names: 1.2.3
       has-property-descriptors: 1.0.2
 
-  sharp@0.35.3(@types/node@24.13.3):
-    dependencies:
-      '@img/colour': 1.1.0
-      detect-libc: 2.1.2
-      semver: 7.8.5
-    optionalDependencies:
-      '@img/sharp-darwin-arm64': 0.35.3
-      '@img/sharp-darwin-x64': 0.35.3
-      '@img/sharp-freebsd-wasm32': 0.35.3
-      '@img/sharp-libvips-darwin-arm64': 1.3.2
-      '@img/sharp-libvips-darwin-x64': 1.3.2
-      '@img/sharp-libvips-linux-arm': 1.3.2
-      '@img/sharp-libvips-linux-arm64': 1.3.2
-      '@img/sharp-libvips-linux-ppc64': 1.3.2
-      '@img/sharp-libvips-linux-riscv64': 1.3.2
-      '@img/sharp-libvips-linux-s390x': 1.3.2
-      '@img/sharp-libvips-linux-x64': 1.3.2
-      '@img/sharp-libvips-linuxmusl-arm64': 1.3.2
-      '@img/sharp-libvips-linuxmusl-x64': 1.3.2
-      '@img/sharp-linux-arm': 0.35.3
-      '@img/sharp-linux-arm64': 0.35.3
-      '@img/sharp-linux-ppc64': 0.35.3
-      '@img/sharp-linux-riscv64': 0.35.3
-      '@img/sharp-linux-s390x': 0.35.3
-      '@img/sharp-linux-x64': 0.35.3
-      '@img/sharp-linuxmusl-arm64': 0.35.3
-      '@img/sharp-linuxmusl-x64': 0.35.3
-      '@img/sharp-webcontainers-wasm32': 0.35.3
-      '@img/sharp-win32-arm64': 0.35.3
-      '@img/sharp-win32-ia32': 0.35.3
-      '@img/sharp-win32-x64': 0.35.3
-      '@types/node': 24.13.3
-
   sharp@0.35.3(@types/node@26.1.1):
     dependencies:
       '@img/colour': 1.1.0
@@ -9922,22 +9717,6 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0):
-    dependencies:
-      lightningcss: 1.33.0
-      picomatch: 4.0.5
-      postcss: 8.5.21
-      rolldown: 1.1.5
-      tinyglobby: 0.2.17
-    optionalDependencies:
-      '@types/node': 24.13.3
-      esbuild: 0.28.1
-      fsevents: 2.3.3
-      jiti: 1.21.6
-      sass: 1.102.0
-      terser: 5.31.0
-      yaml: 2.9.0
-
   vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
@@ -9953,10 +9732,6 @@ snapshots:
       sass: 1.102.0
       terser: 5.31.0
       yaml: 2.9.0
-
-  vitefu@1.1.3(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)):
-    optionalDependencies:
-      vite: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
 
   vitefu@1.1.3(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)):
     optionalDependencies:

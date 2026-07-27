@@ -1,10 +1,6 @@
-// Shared with the docs site for visual parity — the releases site is served
-// under the same domain at /release/* and must look like the same website.
-@import url('../../../../src/styles/theme.scss');
-@import url('../../../../src/styles/overrides.scss');
-@import url('../../../../src/styles/shared.scss');
-
-// Releases-specific styles
+// Styles for the generated /release/* pages. The markdown the releases
+// generator writes is plain .md (no components), so it emits these class names
+// as raw HTML — see packages/releases-site/generator/scripts/writePage.ts.
 
 .release-links {
   display: flex;

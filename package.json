@@ -19,9 +19,11 @@
     "build:references": "pnpm --filter js-api-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
+    "build:releases": "pnpm --filter releases-site run generate",
     "build:astro": "astro build",
-    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:astro",
-    "preview": "astro preview"
+    "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
+    "preview": "astro preview",
+    "test": "node --test \"src/**/*.test.ts\""
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.3",

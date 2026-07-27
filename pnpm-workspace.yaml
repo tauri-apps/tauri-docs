@@ -5,9 +5,9 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
-# Single source for versions that must stay aligned between the docs site
-# (repo root) and packages/releases-site — the releases site imports docs-site
-# components, which only works when pnpm dedupes both to one instance.
+# Exact pins for the two packages that must not move on their own: a range here
+# lets Renovate update the lockfile without the manifest, which breaks every PR's
+# `pnpm i --frozen-lockfile` with ERR_PNPM_LOCKFILE_CONFIG_MISMATCH.
 catalog:
   '@astrojs/starlight': 0.41.5
   astro: 7.1.5
