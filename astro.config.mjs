@@ -1,18 +1,31 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import starlightBlog from 'starlight-blog';
+import starlightLlmsTxt from 'starlight-llms-txt';
+import llmsTxtConfig from './llms-txt.config.mjs';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
+import nsisGrammar from './src/langs/nsis.tmLanguage.json';
+import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
+
+const nsis = {
+  ...nsisGrammar,
+  name: 'nsis',
+  aliases: ['nsh', 'nsi'],
+};
+
+const pbxproj = {
+  ...pbxprojGrammar,
+  name: 'pbxproj',
+};
 
 const authors = {
   nothingismagick: {
@@ -323,19 +336,6 @@ export default defineConfig({
                   link: '/reference/webview-versions/',
                 },
                 {
-                  label: 'Releases',
-                  translations: {
-                    'zh-CN': '发行版',
-                    es: 'Lanzamientos',
-                  },
-                  collapsed: true,
-                  items: [
-                    {
-                      autogenerate: { directory: 'release', collapsed: true },
-                    },
-                  ],
-                },
-                {
                   label: 'JavaScript',
                   collapsed: true,
                   items: [
@@ -359,6 +359,9 @@ export default defineConfig({
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
+            // The Releases section is a separate Starlight site (packages/releases-site)
+            // proxied at /release/* — see public/_redirects. The header link to it comes
+            // from src/data/header-links.json.
           ],
           {
             exclude: ['**/_*/**'],
@@ -372,6 +375,7 @@ export default defineConfig({
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
+        starlightLlmsTxt(llmsTxtConfig),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
@@ -393,6 +397,9 @@ export default defineConfig({
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
+        PageFrame: 'src/components/overrides/PageFrame.astro',
+        Sidebar: 'src/components/overrides/Sidebar.astro',
+        TwoColumnContent: 'src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
@@ -429,7 +436,26 @@ export default defineConfig({
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
-        styleOverrides: { borderRadius: '0.5rem' },
+        shiki: {
+          // @ts-ignore it works
+          langs: [nsis, pbxproj],
+          langAlias: {
+            d2: 'txt',
+          },
+        },
+        styleOverrides: {
+          codePaddingBlock: '1rem',
+          codePaddingInline: '1.35rem',
+          borderRadius: '0.5rem',
+          // borderWidth: '0',
+          textMarkers: {
+            borderLuminance: '66',
+            backgroundOpacity: '25%',
+          },
+          frames: {
+            editorActiveTabIndicatorHeight: '0',
+          },
+        },
       },
       locales,
       lastUpdated: true,
@@ -450,7 +476,11 @@ export default defineConfig({
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
           {
-            urlPattern: new RegExp('.*'),
+            // Never handle /release/* — it is a separate Netlify site proxied
+            // under this domain with its own deploy cadence; a CacheFirst copy
+            // of its hashed assets goes stale on its next deploy and breaks
+            // the releases UI until a hard refresh.
+            urlPattern: new RegExp('^https?://[^/]+/(?!release(/|$))'),
             handler: 'CacheFirst',
             options: {
               cacheName: 'tauri-runtime',
@@ -464,23 +494,19 @@ export default defineConfig({
     }),
   ],
   image: {
+    // The PR build gate sets TAURI_DOCS_SKIP_IMAGE_OPT=true to skip sharp
+    // processing entirely (throwaway build). Netlify production builds keep the
+    // default sharp service. Do NOT key this off `CI` — Netlify sets CI=true.
+    ...(process.env.TAURI_DOCS_SKIP_IMAGE_OPT === 'true'
+      ? { service: passthroughImageService() }
+      : {}),
     domains: ['tauri.app', 'images.opencollective.com', 'avatars.githubusercontent.com'],
   },
   markdown: {
     shikiConfig: {
+      // @ts-expect-error The typing is wrong here, strings are valid values
       langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
     },
-
-    rehypePlugins: [
-      rehypeHeadingIds,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-        },
-      ],
-    ],
   },
   redirects: {
     // Old blog url schema redirects
@@ -566,29 +592,38 @@ export default defineConfig({
   },
 });
 
-// Generates a redirect for each locale.
 /**
+ * Generates a redirect for each locale.
+ *
  * @param {string} from
  * @param {string} to
  */
 function i18nRedirect(from, to) {
+  /** @type { {[from: string]: string} } */
   const routes = {};
-  Object.keys(locales).map((locale) =>
-    locale === 'root'
-      ? (routes[from] = to)
-      : (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-          /^\/*/g,
-          ''
-        )}`)
-  );
+  for (const locale of Object.keys(locales)) {
+    if (locale === 'root') {
+      routes[from] = to;
+    } else {
+      routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+        /^\/*/g,
+        ''
+      )}`;
+    }
+  }
   return routes;
 }
 
-// Read the HTTP header file in `public/_headers`
+/**
+ * Read the HTTP header file in `public/_headers`
+ *
+ * @returns {import('http').OutgoingHttpHeaders}
+ */
 function readHeaders() {
   const header_file = readFileSync('public/_headers', { encoding: 'utf8' })
     .split('\n')
     .filter(Boolean);
+  /** @type {import('http').OutgoingHttpHeaders} */
   const headers = {};
   for (const line of header_file) {
     const [key, val] = line.trim().split(/\s*:\s*(.+)/);

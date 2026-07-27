@@ -204,7 +204,21 @@ import CommandTabs from '@components/CommandTabs.astro';
 
         这将在你的项目中创建一个 `src-tauri` 目录，其中包含 Tauri 所需的配置文件。
 
-    5. 通过运行开发服务器来验证你的 Tauri 应用是否正常工作：
+    5. 在 `vite.config.ts` 中配置 `server.watch.ignored` 选项，避免 Vite 监听 `src-tauri` 目录：
+
+        ```js title="vite.config.ts"
+        import { defineConfig } from "vite";
+
+        export default defineConfig({
+          server: {
+            watch: {
+              ignored: ["**/src-tauri/**"],
+            },
+          },
+        });
+        ```
+
+    6. 通过运行开发服务器来验证你的 Tauri 应用是否正常工作：
 
         <CommandTabs
             npm="npx tauri dev"

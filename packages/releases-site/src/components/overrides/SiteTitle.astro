@@ -1,0 +1,50 @@
+---
+// Starlight's SiteTitle links to this site's base (/release/). This site is
+// served at /release/* of the docs domain, where the logo means "back to the
+// main site" — link it to the docs home instead (root-relative, so it resolves
+// through the shared domain like the other header links).
+import { logos } from 'virtual:starlight/user-images';
+import config from 'virtual:starlight/user-config';
+
+const { siteTitle } = Astro.locals.starlightRoute;
+---
+
+<a href="/" class="site-title sl-flex">
+  <img
+    class="light:sl-hidden print:hidden"
+    alt={config.logo?.alt}
+    src={logos.dark?.src}
+    width={logos.dark?.width}
+    height={logos.dark?.height}
+  />
+  <img
+    class="dark:sl-hidden print:block"
+    alt={config.logo?.alt}
+    src={logos.light?.src}
+    width={logos.light?.width}
+    height={logos.light?.height}
+  />
+  <span class="sr-only" translate="no">{siteTitle}</span>
+</a>
+
+<style>
+  @layer starlight.core {
+    .site-title {
+      align-items: center;
+      gap: var(--sl-nav-gap);
+      font-size: var(--sl-text-h4);
+      font-weight: 600;
+      color: var(--sl-color-text-accent);
+      text-decoration: none;
+      white-space: nowrap;
+      min-width: 0;
+    }
+    img {
+      height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: 0 50%;
+    }
+  }
+</style>

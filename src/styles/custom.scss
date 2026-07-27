@@ -1,50 +1,11 @@
 @import url('./theme.scss');
 @import url('./overrides.scss');
+@import url('./shared.scss');
 @import url('./lp.scss');
 @import url('./partners.scss');
 
-.content details {
-  padding: 0 1rem;
-}
-
-.content details[open] {
-  background-color: var(--sl-color-gray-6);
-  padding-bottom: 1rem;
-}
-
-.content summary {
-  cursor: pointer;
-  padding: 1rem 0;
-}
-
-/* Heading link styling */
-.heading-link::after {
-  content: '#';
-  padding-inline-start: 0.25em;
-  opacity: 0;
-  transition: var(--tauri-transition-speed);
-}
-
-.heading-link:hover::after {
-  color: var(--sl-color-text-accent);
-  opacity: 1;
-}
-
-.heading-link {
-  text-decoration: none;
-  color: var(--sl-color-white) !important;
-}
-
 .sl-markdown-content .inline-icon {
   display: inline-block;
-}
-
-article.card {
-  border-radius: 0.5rem;
-}
-
-body {
-  overflow-y: scroll;
 }
 
 figcaption {
@@ -73,10 +34,4 @@ figure > img {
 
 .text-center {
   text-align: center;
-}
-
-@media (prefers-reduced-motion) {
-  * {
-    transition: none !important;
-  }
 }

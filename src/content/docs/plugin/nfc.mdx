@@ -93,20 +93,20 @@ The NFC plugin requires iOS 14+. This is the default for Tauri applications crea
 
 In the `src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj` file, set all `IPHONEOS_DEPLOYMENT_TARGET` properties to `14.0`:
 
-```title="src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj"
+```pbxproj title="src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj"
 /* Begin XCBuildConfiguration section */
-		<random-id> /* release */ = {
+		1234567890ABCDEF12345678 /* release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				...
+				/* ... */
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = release;
 		};
-		<random-id> /* debug */ = {
+		ABCDEF1234567890ABCDEF12 /* debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-        ...
+        /* ... */
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = debug;

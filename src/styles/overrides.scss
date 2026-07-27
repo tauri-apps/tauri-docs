@@ -1,3 +1,116 @@
 .starlight-aside {
   border-radius: 0.5rem;
 }
+
+@media (width >= 50rem) {
+  #starlight__sidebar > .sidebar-content > .starlight-sidebar-topics {
+    display: none;
+  }
+}
+
+starlight-tabs .tab [role='tab'] {
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+}
+
+.sl-markdown-content code:not(:where(.not-content *)) {
+  border-radius: 4px;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  text-decoration: none;
+}
+.sl-markdown-content
+  a:hover:not(:where(.not-content, .not-content *, .heading-link, .sl-link-card *)) {
+  color: var(--sl-color-text-accent);
+  text-decoration: underline;
+}
+
+.sl-link-card {
+  box-shadow: none;
+}
+.sl-link-card:hover {
+  border-color: var(--sl-color-text-accent);
+  background-color: unset;
+}
+// .sl-link-card:hover,
+// .sl-link-card:hover svg,
+// .sl-link-card:hover a > span {
+//   color: var(--sl-color-text-accent);
+// }
+
+footer .pagination-links > a {
+  font-size: 0.9rem;
+  box-shadow: none;
+}
+footer .pagination-links > a svg {
+  font-size: 1.2rem;
+}
+
+footer .pagination-links > a:hover {
+  border-color: var(--sl-color-text-accent);
+}
+// footer .pagination-links > a:hover,
+// footer .pagination-links > a:hover .link-title {
+//   color: var(--sl-color-text-accent);
+// }
+
+#starlight__sidebar .top-level summary,
+#starlight__sidebar .top-level summary .large,
+#starlight__sidebar .top-level a {
+  font-size: 0.9rem;
+  // color: var(--sl-color-text);
+  color: var(--sl-color-gray-3);
+}
+
+#starlight__sidebar .top-level a,
+#starlight__sidebar .top-level summary {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+#starlight__sidebar .top-level a,
+#starlight__sidebar .top-level .group-label > span {
+  font-weight: 500;
+}
+
+#starlight__sidebar .top-level summary:hover,
+#starlight__sidebar .top-level summary:hover .large,
+#starlight__sidebar .top-level a:hover {
+  color: var(--sl-color-text-accent);
+}
+
+#starlight__sidebar .top-level a[aria-current='page'] {
+  color: var(--sl-color-text-accent);
+  background-color: var(--sl-color-gray-6);
+}
+:root[data-theme='dark'] #starlight__sidebar .top-level a[aria-current='page'] {
+  background-color: var(--sl-color-gray-5);
+}
+
+#starlight__sidebar .top-level > li + li {
+  margin-top: 0.25rem;
+}
+
+starlight-menu-button > button {
+  background-color: unset;
+  box-shadow: unset;
+  justify-content: center;
+  align-items: center;
+  padding: unset;
+
+  --sl-icon-color: var(--sl-color-gray-1);
+}
+
+starlight-menu-button > button > svg {
+  --sl-icon-size: 1.2rem !important;
+}
+
+starlight-toc a {
+  padding-block: 0.3rem;
+  line-height: 1.5;
+}
+
+aside .right-sidebar-panel > .sl-container {
+  width: unset;
+}

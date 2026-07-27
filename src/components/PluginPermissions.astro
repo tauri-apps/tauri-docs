@@ -2,7 +2,7 @@
 import fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import ProjectContext from 'virtual:starlight/project-context';
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 import path from 'path';
 
 interface Props {
@@ -29,7 +29,7 @@ async function importMDX(plugin: string): Promise<string> {
     throw err;
   }
 }
-const md = await createMarkdownProcessor();
+const md = await createSatteriMarkdownProcessor();
 
 const pageContent: string = await importMDX(plugin);
 const content = await md.render(pageContent);
