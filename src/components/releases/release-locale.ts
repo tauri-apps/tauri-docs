@@ -8,15 +8,20 @@
  */
 export function applyReleaseLocale(locale: string): void {
   for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-locale-link]')) {
-    const path = link.dataset.localeLink ?? link.pathname;
+    const path = link.dataset.localeLink as string;
     link.href = locale ? `/${locale}${path}` : path;
   }
 
   const siteTitle = document.querySelector<HTMLAnchorElement>('a.site-title');
   if (siteTitle) siteTitle.href = locale ? `/${locale}/` : '/';
 
-  for (const notice of document.querySelectorAll<HTMLElement>('[data-untranslated-locale]')) {
-    notice.hidden = notice.dataset.untranslatedLocale !== locale;
+  const notice = document.querySelector<HTMLElement>('[data-untranslated-labels]');
+  if (notice) {
+    const labels: Record<string, string> = JSON.parse(notice.dataset.untranslatedLabels ?? '{}');
+    const label = labels[locale];
+    notice.hidden = !label;
+    const text = notice.querySelector('span');
+    if (text) text.textContent = label ?? '';
   }
 
   // Both the header and the mobile menu render a picker.
