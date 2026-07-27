@@ -76,10 +76,21 @@ for (const repo of repositories) {
   }
 }
 
-export async function generatePagesAndTableData(packageData: PackageData) {
+/**
+ * `pages: false` skips the ~2,800 markdown pages and tableData.json, which are
+ * only needed when the docs build actually injects the /release/* routes.
+ * latestVersions.ts is always written: RepoPackages.astro imports it, so
+ * `astro check` needs it even in builds where the routes are gated off.
+ */
+export async function generatePagesAndTableData(
+  packageData: PackageData,
+  { pages = true }: { pages?: boolean } = {}
+) {
   const releasesByPackage = buildReleasesByPackage(packageData);
-  await writeTableData(packageData, releasesByPackage);
-  await writePageData(packageData, releasesByPackage);
+  if (pages) {
+    await writeTableData(packageData, releasesByPackage);
+    await writePageData(packageData, releasesByPackage);
+  }
   writeLatestVersions(packageData, releasesByPackage);
 }
 

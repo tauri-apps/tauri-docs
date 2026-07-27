@@ -2,6 +2,7 @@
 import Default from 'starlight-sidebar-topics/overrides/Sidebar.astro';
 
 import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import StarlightSidebar from '@astrojs/starlight/components/Sidebar.astro';
 import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
@@ -10,10 +11,18 @@ import links from '../../data/header-links.json';
 const curLocale = Astro.locals.starlightRoute.locale;
 const { sidebar } = Astro.locals.starlightRoute;
 const { isPageWithTopic, topics } = Astro.locals.starlightSidebarTopics;
+
+// Release pages belong to no topic and pass their own sidebar; their current-page
+// highlighting happens in src/routeData.ts.
+const isReleasePage = Astro.url.pathname.startsWith('/release/');
 ---
 
 {
-  sidebar && isPageWithTopic ? (
+  isReleasePage ? (
+    <StarlightSidebar>
+      <slot />
+    </StarlightSidebar>
+  ) : sidebar && isPageWithTopic ? (
     <Default>
       <slot />
     </Default>

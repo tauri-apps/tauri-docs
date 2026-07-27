@@ -5,6 +5,7 @@ import { fetchData } from './dataFetch.ts';
 import { generatePagesAndTableData } from './pageGenerator.ts';
 import type { PackageData } from './types.ts';
 import { writeOutput } from './utils.ts';
+import { buildReleases } from '../../../src/release-config.mjs';
 
 async function buildSite() {
   const dataFilePath = join(generatorDir, 'data.json');
@@ -23,7 +24,11 @@ async function buildSite() {
     return;
   }
 
-  await generatePagesAndTableData(packageData);
+  if (!buildReleases) {
+    console.log('Skipping release pages - set BUILD_RELEASES=1 to build them');
+  }
+
+  await generatePagesAndTableData(packageData, { pages: buildReleases });
 }
 
 buildSite().catch((error) => {

@@ -8,12 +8,12 @@
 # Generated reference docs
 src/content/docs/reference
 
-# Releases site: generated content and the committed data checkpoint
-packages/releases-site/src/content/docs
+# Release notes: generated content and the committed data checkpoint
+src/content/releases
+public/release
 packages/releases-site/generator/data.json
 packages/releases-site/generator/generated
 packages/releases-site/generator/.cache
-packages/releases-site/public/tableData.json
 
 # Git Modules
 packages/tauri

@@ -3,16 +3,18 @@ import type { Repository, RepoPackage } from './types.ts';
 export const note =
   '\n#### NOTE: This file is auto-generated in packages/releases-site/generator/build.ts';
 
-// All paths are relative to the package root (scripts run as `node generator/build.ts`)
-export const contentDir = 'src/content/docs';
-export const publicDir = 'public';
+// All paths are relative to the package root (scripts run as `node generator/build.ts`).
+// The output lands in the docs site: pages feed its `releases` content collection,
+// tableData.json is served as a static asset at /release/tableData.json.
+export const contentDir = '../../src/content/releases';
+export const publicDir = '../../public/release';
 export const generatorDir = 'generator';
 
-// URL prefix all generated links carry (must match `base` in astro.config.mjs)
+// URL prefix all generated links carry (must match the injected routes in astro.config.mjs)
 export const basePath = '/release';
 
 // Slugs of the grouped core-packages changelog pages; the sidebar links in
-// astro.config.mjs are built from them
+// `releaseSidebar` below are built from them
 export const corePageSlug = 'core';
 export const corePrereleasesSlug = 'core/prereleases';
 
@@ -379,3 +381,30 @@ export const repositories = [
     ],
   },
 ] satisfies Repository[];
+
+/**
+ * Sidebar shared by every /release/* route. Version pages are deliberately not
+ * listed — the per-package index page is the version list — so the Sidebar
+ * override highlights the nearest ancestor link instead of an exact match.
+ */
+export const releaseSidebar = [
+  { label: 'Overview', link: `${basePath}/` },
+  { label: 'Changelog Table', link: `${basePath}/table/` },
+  ...repositories.map((repo) => {
+    const [onlyPackage] = repo.packages;
+    if (repo.packages.length === 1 && onlyPackage) {
+      return { label: repo.displayName, link: `${basePath}/${onlyPackage.name}/` };
+    }
+    const items = repo.packages.map((pkg) => ({
+      label: pkg.name,
+      link: `${basePath}/${pkg.name}/`,
+    }));
+    if (repo.name === 'tauri') {
+      items.unshift(
+        { label: 'Core Releases', link: `${basePath}/${corePageSlug}/` },
+        { label: '2.0 Prereleases', link: `${basePath}/${corePrereleasesSlug}/` }
+      );
+    }
+    return { label: repo.displayName, items };
+  }),
+];

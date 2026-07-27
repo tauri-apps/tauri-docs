@@ -1,0 +1,9 @@
+---
+// Release pages are English-only, so the picker would only offer locale-prefixed
+// URLs that public/_redirects bounces straight back to the page you are on.
+import Default from '@astrojs/starlight/components/LanguageSelect.astro';
+
+const isReleasePage = Astro.url.pathname.startsWith('/release/');
+---
+
+{!isReleasePage && <Default />}

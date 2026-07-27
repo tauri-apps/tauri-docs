@@ -1,0 +1,30 @@
+---
+// Every /release/* page: the landing page, the changelog table, and the ~2,800
+// pages written by packages/releases-site. This route is injected from
+// astro.config.mjs only when `buildReleases` is set, and it lives outside the
+// `docs` collection so Starlight never builds per-locale fallback copies of it.
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection, render } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { releaseSidebar } from '../../../packages/releases-site/generator/config';
+
+export const getStaticPaths = (async () => {
+  const entries = await getCollection('releases');
+  return entries.map((entry) => ({
+    // The landing page carries `slug: ''`; a rest parameter has to be undefined
+    // rather than empty, or the emitted URL doubles the slash.
+    params: { slug: entry.data.slug || undefined },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const { slug, ...frontmatter } = entry.data;
+---
+
+<StarlightPage frontmatter={frontmatter} headings={headings} sidebar={releaseSidebar}>
+  <Content />
+</StarlightPage>

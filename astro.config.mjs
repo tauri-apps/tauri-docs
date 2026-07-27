@@ -15,7 +15,7 @@ import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
-import { logo, social, ecStyleOverrides } from './src/shared-config.mjs';
+import { buildReleases } from './src/release-config.mjs';
 
 const nsis = {
   ...nsisGrammar,
@@ -360,12 +360,14 @@ export default defineConfig({
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
-            // The Releases section is a separate Starlight site (packages/releases-site)
-            // proxied at /release/* — see public/_redirects. The header link to it comes
-            // from src/data/header-links.json.
+            // The Releases section is not a topic: it is served by the custom
+            // routes in src/routes/release/, and its link comes from
+            // src/data/header-links.json.
           ],
           {
-            exclude: ['**/_*/**'],
+            // Release pages carry their own sidebar and belong to no topic; without
+            // the exclusion this plugin's route middleware throws on every one of them.
+            exclude: ['**/_*/**', '/release', '/release/**'],
             topics: {
               blog: ['/blog', '/blog/*', '/blog/**/*', '**/blog', '**/blog/*', '**/blog/**/*'],
             },
@@ -374,15 +376,37 @@ export default defineConfig({
         starlightLinksValidator({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
-          exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
+          exclude: [
+            '/plugin/*/#default-permission',
+            '/plugin/*/#permission-table',
+            // Release pages are custom routes, which the validator can only see as
+            // opaque pages — and they don't exist at all outside production builds.
+            '/release/**',
+            // Upstream changelog prose links to the dev server (create-tauri-app).
+            // We don't author that text, so it can't be fixed at the source.
+            'http://localhost:*',
+          ],
         }),
         starlightLlmsTxt(llmsTxtConfig),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
-      logo: logo(),
-      social: social(site),
+      logo: {
+        dark: './src/assets/logo.svg',
+        light: './src/assets/logo_light.svg',
+        replacesTitle: true,
+      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/tauri-apps/tauri' },
+        { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
+        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
+        { icon: 'blueSky', label: 'Bluesky', href: 'https://bsky.app/profile/tauri.app' },
+        { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
+        // resolved, not concatenated: a site with a trailing slash would give `//rss`
+        { icon: 'rss', label: 'RSS', href: new URL('/rss', site).href },
+      ],
+      routeMiddleware: './src/routeData.ts',
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
@@ -390,6 +414,8 @@ export default defineConfig({
         PageFrame: 'src/components/overrides/PageFrame.astro',
         Sidebar: 'src/components/overrides/Sidebar.astro',
         TwoColumnContent: 'src/components/overrides/TwoColumnContent.astro',
+        // Covers the mobile menu; the header imports the same override directly
+        LanguageSelect: 'src/components/overrides/LanguageSelect.astro',
       },
       head: [
         {
@@ -433,11 +459,37 @@ export default defineConfig({
             d2: 'txt',
           },
         },
-        styleOverrides: ecStyleOverrides,
+        styleOverrides: {
+          codePaddingBlock: '1rem',
+          codePaddingInline: '1.35rem',
+          borderRadius: '0.5rem',
+          textMarkers: {
+            borderLuminance: '66',
+            backgroundOpacity: '25%',
+          },
+          frames: {
+            editorActiveTabIndicatorHeight: '0',
+          },
+        },
       },
       locales,
       lastUpdated: true,
     }),
+    {
+      // /release/* is English-only and ~2,800 pages, so it is built on production
+      // deploys only. Keeping the route in src/routes/ rather than src/pages/ is
+      // what makes it optional: nothing is a route until it is injected.
+      name: 'tauri-release-routes',
+      hooks: {
+        'astro:config:setup'({ injectRoute }) {
+          if (!buildReleases) return;
+          injectRoute({
+            pattern: '/release/[...slug]',
+            entrypoint: './src/routes/release/page.astro',
+          });
+        },
+      },
+    },
     astroD2({
       skipGeneration: process.env.CONTEXT !== 'd2',
       theme: {
@@ -454,10 +506,9 @@ export default defineConfig({
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
           {
-            // Never handle /release/* — it is a separate Netlify site proxied
-            // under this domain with its own deploy cadence; a CacheFirst copy
-            // of its hashed assets goes stale on its next deploy and breaks
-            // the releases UI until a hard refresh.
+            // Never handle /release/* — a CacheFirst copy of the 280 KB
+            // tableData.json is dead weight for the 30-minute window, and the
+            // table is the one page that reads it.
             urlPattern: new RegExp('^https?://[^/]+/(?!release(/|$))'),
             handler: 'CacheFirst',
             options: {
