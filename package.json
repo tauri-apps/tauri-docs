@@ -29,7 +29,6 @@
     "@astrojs/starlight": "catalog:",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
-    "@types/json-schema": "^7.0.15",
     "@types/mdast": "^4.0.4",
     "astro": "catalog:",
     "astro-d2": "^0.13.0",
