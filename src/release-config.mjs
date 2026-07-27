@@ -10,6 +10,10 @@ const contentDir = fileURLToPath(new URL('./content/releases', import.meta.url))
 export const buildReleases =
   process.env.BUILD_RELEASES === '1' || process.env.CONTEXT === 'production';
 
+export function isReleasePage(pathname) {
+  return pathname.startsWith('/release/');
+}
+
 export function hasGeneratedReleasePages() {
   if (!existsSync(contentDir)) {
     return false;

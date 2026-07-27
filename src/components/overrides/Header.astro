@@ -10,19 +10,16 @@ import links from '../../data/header-links.json';
 const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
 
-// /release and /blog have no locale-prefixed URLs of their own, so the root
-// locale there means "this section has no prefix", not "the reader picked
-// English" — recording it would wipe the locale on the way through.
-const isEnglishOnlySection = ['/release/', '/blog/'].some((section) =>
-  Astro.url.pathname.startsWith(section)
+// A link marked `transfer: false` has no locale-prefixed URLs of its own, so the
+// root locale inside that section means "no prefix here", not "the reader picked
+// English". Recording it would wipe the locale. Omitting the
+// attribute is what tells the script below to leave the locale
+const isEnglishOnlySection = links.some(
+  (link) => !link.transfer && Astro.url.pathname.startsWith(link.value)
 );
 ---
 
-<div
-  class="header"
-  data-locale={curLocale ?? ''}
-  data-remember-locale={isEnglishOnlySection ? undefined : ''}
->
+<div class="header" data-locale={isEnglishOnlySection ? undefined : (curLocale ?? '')}>
   <div class="title-wrapper sl-flex">
     <SiteTitle />
   </div>
@@ -61,7 +58,7 @@ const isEnglishOnlySection = ['/release/', '/blog/'].some((section) =>
 <script>
   import { rememberLocale } from '../locale-memory';
 
-  const header = document.querySelector<HTMLElement>('.header[data-remember-locale]');
+  const header = document.querySelector<HTMLElement>('.header[data-locale]');
   if (header) rememberLocale(header.dataset.locale ?? '');
 </script>
 

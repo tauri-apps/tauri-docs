@@ -1,8 +1,7 @@
 ---
 import Default from '@astrojs/starlight/components/LanguageSelect.astro';
 import ReleaseLanguageSelect from '../releases/ReleaseLanguageSelect.astro';
-
-const isReleasePage = Astro.url.pathname.startsWith('/release/');
+import { isReleasePage } from '../../release-config.mjs';
 ---
 
-{isReleasePage ? <ReleaseLanguageSelect /> : <Default />}
+{isReleasePage(Astro.url.pathname) ? <ReleaseLanguageSelect /> : <Default />}

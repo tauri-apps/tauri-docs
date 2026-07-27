@@ -4,19 +4,16 @@ import ContentNotice from '@astrojs/starlight/components/ContentNotice.astro';
 import { useTranslations } from '@astrojs/starlight/internal';
 import locales from '../../../locales.json';
 
-const translated = Object.entries(locales).filter(([code]) => code !== 'root');
+const labels = Object.fromEntries(
+  Object.entries(locales)
+    .filter(([code]) => code !== 'root')
+    .map(([code, locale]) => [code, useTranslations(locale.lang)('i18n.untranslatedContent')])
+);
 ---
 
-{
-  translated.map(([code, locale]) => (
-    <div data-untranslated-locale={code} hidden>
-      <ContentNotice
-        icon="warning"
-        label={useTranslations(locale.lang)('i18n.untranslatedContent')}
-      />
-    </div>
-  ))
-}
+<div data-untranslated-labels={JSON.stringify(labels)} hidden>
+  <ContentNotice icon="warning" label="" />
+</div>
 
 <script>
   import { readRememberedLocale } from '../locale-memory';
