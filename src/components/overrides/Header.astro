@@ -9,9 +9,20 @@ import links from '../../data/header-links.json';
 
 const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
+
+// /release and /blog have no locale-prefixed URLs of their own, so the root
+// locale there means "this section has no prefix", not "the reader picked
+// English" — recording it would wipe the locale on the way through.
+const isEnglishOnlySection = ['/release/', '/blog/'].some((section) =>
+  Astro.url.pathname.startsWith(section)
+);
 ---
 
-<div class="header">
+<div
+  class="header"
+  data-locale={curLocale ?? ''}
+  data-remember-locale={isEnglishOnlySection ? undefined : ''}
+>
   <div class="title-wrapper sl-flex">
     <SiteTitle />
   </div>
@@ -24,7 +35,11 @@ const { topics } = Astro.locals.starlightSidebarTopics;
         // back to a path match for it.
         const current = topic?.isCurrent ?? Astro.url.pathname.startsWith(link.value);
         return (
-          <a href={href} class:list={{ 'starlight-sidebar-topics-current': current }}>
+          <a
+            href={href}
+            data-locale-link={link.transfer ? link.value : undefined}
+            class:list={{ 'starlight-sidebar-topics-current': current }}
+          >
             {topic?.label ?? link.title}
           </a>
         );
@@ -42,6 +57,13 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     <ThemeSelect />
   </div>
 </div>
+
+<script>
+  import { rememberLocale } from '../locale-memory';
+
+  const header = document.querySelector<HTMLElement>('.header[data-remember-locale]');
+  if (header) rememberLocale(header.dataset.locale ?? '');
+</script>
 
 <style>
   .header {

@@ -2,6 +2,7 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import { getCollection, render } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import UntranslatedNotice from '../../components/releases/UntranslatedNotice.astro';
 import { releaseSidebar } from '../../../packages/releases-site/generator/config';
 
 export const getStaticPaths = (async () => {
@@ -20,5 +21,6 @@ const { slug, ...frontmatter } = entry.data;
 ---
 
 <StarlightPage frontmatter={frontmatter} headings={headings} sidebar={releaseSidebar}>
+  <UntranslatedNotice />
   <Content />
 </StarlightPage>
