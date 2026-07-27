@@ -137,10 +137,9 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
     `title: ${yaml('Tauri Core Releases')}`,
     `description: ${yaml('Grouped release notes for tauri, @tauri-apps/api, and the CLI')}`,
     `slug: ${yaml(corePageSlug)}`,
-    // One TOC entry per minor version
     'tableOfContents:',
     '  minHeadingLevel: 2',
-    '  maxHeadingLevel: 2',
+    '  maxHeadingLevel: 3',
     'pagefind: false',
     'editUrl: false',
     'prev: false',
