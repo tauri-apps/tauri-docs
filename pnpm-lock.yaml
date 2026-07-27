@@ -44,9 +44,6 @@ importers:
       astro-d2:
         specifier: ^0.13.0
         version: 0.13.1(astro@7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.7)(terser@5.31.0)(yaml@2.9.0))
-      astro-feelback:
-        specifier: ^0.3.4
-        version: 0.3.4
       astrojs-service-worker:
         specifier: ^2.0.2
         version: 2.0.2(@types/babel__core@7.20.5)(astro@7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.7)(terser@5.31.0)(yaml@2.9.0))
@@ -1196,9 +1193,6 @@ packages:
   '@expressive-code/plugin-text-markers@0.44.0':
     resolution: {integrity: sha512-0/m3A5b+lz2upyNq+wzZ1S69HRoJmyFs5LsR42lVZ9pmGRlBiSBYQpvqlji4DBj1+Riamxc0AvcCr5kuzOQeWA==}
 
-  '@feelback/js@0.3.4':
-    resolution: {integrity: sha512-xr7gTqSJcVUYQlELs1TntYovCBjMcYUr/hGKTnDoF64/lig5CbX4bOmqLoF50IImCy5q3oIwg9w+TSFvtBwsIA==}
-
   '@gar/promise-retry@1.0.3':
     resolution: {integrity: sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA==}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -2213,9 +2207,6 @@ packages:
     resolution: {integrity: sha512-b1wN/ZvbJprzxlGKIpIes2kQrCY5KRLwys2tWbZAZyjGZcW5ZtgneZnBwzNRiBna9/48d4mQl19KLjcRuhO1hw==}
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0 || ^6.0.0-beta || ^7.0.0
-
-  astro-feelback@0.3.4:
-    resolution: {integrity: sha512-ra69QTsdyjzQKdYeu+qngNcPOgspaWOFJLDFdpA/JryGo55uruw76455UVt2rf3NsZulBnYHS6+upPIO5O7t7A==}
 
   astro@7.1.3:
     resolution: {integrity: sha512-4dhPyAAXthf3xLEYnG8SeL7yr/nTPPABfY7e9YF0yuO+vK9Xp+8Q5j4xzsmL3GueukQv4oNwGNTBepLOiDGeJA==}
@@ -5915,8 +5906,6 @@ snapshots:
     dependencies:
       '@expressive-code/core': 0.44.0
 
-  '@feelback/js@0.3.4': {}
-
   '@gar/promise-retry@1.0.3': {}
 
   '@iarna/toml@2.2.5': {}
@@ -6827,10 +6816,6 @@ snapshots:
       astro: 7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.7)(terser@5.31.0)(yaml@2.9.0)
       rehype-expressive-code: 0.44.0
       url-extras: 0.1.0
-
-  astro-feelback@0.3.4:
-    dependencies:
-      '@feelback/js': 0.3.4
 
   astro@7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(jiti@1.21.6)(rollup@2.80.0)(sass@1.101.7)(terser@5.31.0)(yaml@2.9.0):
     dependencies:
