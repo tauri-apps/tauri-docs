@@ -81,29 +81,93 @@
   }
 }
 
-.event-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 3rem;
+// Grouped core page: `## minor` → `### release` → `#### package` → `##### notes`.
+// Starlight spaces every heading by 1.5em *of its own font size*, so a package
+// and the `##### Bug Fixes` under it end up about as far apart as two packages —
+// the sections then read as floating rather than belonging to the heading above.
+// Space the levels explicitly so each block holds together.
+//
+// The anchor-link feature wraps every heading in `.sl-heading-wrapper` and moves
+// that 1.5em onto the wrapper, so the margins and the rule belong there: set on
+// the heading itself they would collapse against the wrapper's margin, and the
+// smaller ones would simply lose.
+.sl-markdown-content:has(.version-date) {
+  // A minor and a release are both a bare version number with a date under
+  // them, and 35px against 29px is not a difference you see — they read as the
+  // same thing said twice. So the minor stops competing: it marks the section
+  // it opens rather than heading it, as a badge sharing one line with its date,
+  // and the releases inside are the only headlines left.
+  --sl-text-h2: var(--sl-text-sm);
 
-  &::before {
-    content: '';
-    flex: 1;
-    border-top: 1px solid var(--sl-color-gray-5);
+  .minor-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 5rem;
   }
-}
 
-.sl-markdown-content:has(.event-header) {
-  h3 {
-    margin-top: 3.5rem;
+  .minor-head .sl-heading-wrapper.level-h2,
+  .minor-head .release-date-row {
+    margin-top: 0;
+  }
+
+  // the same pill the home cards put versions in
+  .minor-head h2 {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    padding: 0.15rem 0.6rem;
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-2);
+  }
+
+  .sl-heading-wrapper.level-h3 {
+    margin-top: 3.25rem;
+  }
+
+  // Four heading levels on one page blur together when they differ only in
+  // size — h3 and h4 sit 29px against 24px, close enough to read as equals.
+  // Give each level its own register instead: the version stays a headline, the
+  // package becomes an identifier, and the notes' categories become labels.
+  // Overriding the size variables rather than the elements catches both the
+  // heading and the wrapper Starlight copies the size onto.
+  --sl-text-h4: var(--sl-text-xl);
+  --sl-text-h5: var(--sl-text-sm);
+
+  // Each package and its notes as one banded block, so "Bug Fixes" three
+  // packages down still visibly belongs to the package that opened the band.
+  // Dimmer than the release band around it, so the nesting has a direction.
+  .package-block {
+    margin-top: 2.25rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--sl-color-gray-5);
+  }
+
+  // the band opens the block; the heading needs no gap of its own
+  .package-block > .sl-heading-wrapper.level-h4 {
+    margin-top: 0;
   }
 
   h4 {
+    font-family: var(--__sl-font-mono);
+  }
+
+  // the version the package shipped; the release heading already announced it
+  .package-version {
+    font-size: var(--sl-text-xs);
+    font-weight: 400;
+    color: var(--sl-color-gray-3);
+  }
+
+  .sl-heading-wrapper.level-h5 {
     margin-top: 1.5rem;
   }
-  .event-header + h3,
-  .release-date-row + h3 {
-    margin-top: 1.75rem;
+
+  // "Bug Fixes", "Dependencies" — the same handful of categories on nearly
+  // every release, so they organise the bullets under them without asking to be
+  // read as headlines
+  h5 {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sl-color-gray-2);
   }
 }

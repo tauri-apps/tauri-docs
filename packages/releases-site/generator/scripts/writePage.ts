@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { basePath, corePageSlug, note, versionPageHref } from '../config.ts';
-import { demoteNotesHeadings, type CoreEvent, type CoreGroup } from '../groupedPage.ts';
+import { demoteNotesHeadings, type CoreGroup, type CoreRelease } from '../groupedPage.ts';
 import { escapeChangelogMarkdown } from '../utils.ts';
 
 export type VersionListEntry = {
@@ -46,12 +46,13 @@ function renderPageLinks(links: PageLink[]): string {
   return `<div class="release-links">${anchors.join('\n')}</div>`;
 }
 
-export function renderReleaseDateLabel(date: string | undefined): string {
+export function renderReleaseDateLabel(date: string | undefined, extraClass = ''): string {
   if (!date) {
     return '';
   }
 
-  return `<div class="release-date-row"><small class="release-date">${date}</small></div>`;
+  const cls = ['release-date-row', extraClass].filter(Boolean).join(' ');
+  return `<div class="${cls}"><small class="release-date">${date}</small></div>`;
 }
 
 /**
@@ -115,20 +116,42 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   return `${frontmatter}\n\n${header}\n\n`;
 }
 
-function renderCoreEvent(event: CoreEvent, { separator = true } = {}): string {
-  // rule is drawn in CSS, so it opens the event even when the date is missing
-  const date = event.dateLabel ? `<small class="release-date">${event.dateLabel}</small>` : '';
-  const header = separator ? [`<div class="event-header">${date}</div>`] : [];
-  const bodies = event.entries.map((entry) => {
-    const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes));
-    return `### ${entry.pkgLabel} ${entry.version}\n\n${notes}`;
+/**
+ * A release: the version, then one `####` section per package that published
+ * it. The package heading has to outrank the notes' own sections, or a reader
+ * scrolling through "Bug Fixes / Dependencies" loses track of which package
+ * they are reading.
+ *
+ * The release is dated by its first publish, so a package only carries a date
+ * of its own when it got to this version later — `@tauri-apps/api` reached
+ * 2.11.1 six weeks after `tauri` did, and that gap should be visible rather
+ * than flattened into the heading above.
+ */
+function renderCoreRelease(release: CoreRelease): string {
+  const date = renderReleaseDateLabel(release.dateLabel, 'version-date');
+  const bodies = release.entries.map((entry) => {
+    const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes), 2);
+    const lagged =
+      entry.dateLabel && entry.dateLabel !== release.dateLabel
+        ? renderReleaseDateLabel(entry.dateLabel, 'package-date')
+        : '';
+    // the version repeats the heading above — it stays for a unique anchor id
+    // and for anyone scanning mid-page, but it is styled back out of the way
+    const heading = `#### ${entry.pkgLabel} <small class="package-version">${entry.version}</small>`;
+    // a package and its notes need to be one object on the page: every package
+    // in a release repeats the same "Bug Fixes / Dependencies" categories, so
+    // without something enclosing them a reader mid-scroll cannot tell whose
+    // they are. Blank lines keep the markdown between the tags parsed as markdown.
+    return ['<div class="package-block">', heading, lagged, notes, '</div>']
+      .filter(Boolean)
+      .join('\n\n');
   });
-  return [...header, ...bodies].join('\n\n');
+  return [`### ${release.version}`, date, ...bodies].filter(Boolean).join('\n\n');
 }
 
 /**
  * write the grouped changelog of the core packages: one section per minor,
- * one sub-heading per release event
+ * one sub-section per version
  */
 export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string }): void {
   const { groups, workingDir } = params;
@@ -137,6 +160,9 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
     `title: ${yaml('Tauri Core Releases')}`,
     `description: ${yaml('Grouped release notes for tauri, @tauri-apps/api, and the CLI')}`,
     `slug: ${yaml(corePageSlug)}`,
+    // A minor per top-level entry, its releases nested under it. Deeper levels
+    // stay out: those are the packages and their notes sections, which repeat
+    // ("Bug Fixes", "Dependencies") on every release and would bury the versions.
     'tableOfContents:',
     '  minHeadingLevel: 2',
     '  maxHeadingLevel: 3',
@@ -155,11 +181,14 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
   ]);
 
   const sections = groups.map((group) => {
-    const date = renderReleaseDateLabel(group.date);
-    const events = group.events
-      .map((event, i) => renderCoreEvent(event, { separator: i > 0 }))
+    const date = renderReleaseDateLabel(group.date, 'minor-date');
+    // the minor marks the section it opens rather than heading it — the releases
+    // inside are what you read — so it and its date share one line as a badge
+    const head = ['<div class="minor-head">', `## ${group.minor}`, date, '</div>']
+      .filter(Boolean)
       .join('\n\n');
-    return [`## ${group.minor}`, date, events].filter(Boolean).join('\n\n');
+    const releases = group.releases.map(renderCoreRelease).join('\n\n');
+    return [head, releases].join('\n\n');
   });
 
   const content = [frontmatter, header, ...sections].join('\n\n');

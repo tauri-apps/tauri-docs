@@ -12,13 +12,17 @@ export function escapeChangelogMarkdown(str: string): string {
   return mapProseLines(str, escapeOutsideCodeSpans);
 }
 
-/** Apply a transform to each line outside fenced code blocks */
-export function mapProseLines(str: string, transform: (line: string) => string): string {
-  const out: string[] = [];
+/**
+ * Split into lines, flagging those a fenced code block owns — its delimiters
+ * included. Callers must leave those alone: markdown renders them literally, so
+ * anything done to them shows up verbatim on the page.
+ */
+export function proseLines(str: string): { line: string; inFence: boolean }[] {
+  const out: { line: string; inFence: boolean }[] = [];
   let fence: string | undefined;
   for (const line of str.split('\n')) {
     if (fence) {
-      out.push(line);
+      out.push({ line, inFence: true });
       const close = line.match(/^ {0,3}(`{3,}|~{3,})[ \t]*$/);
       if (close && close[1][0] === fence[0] && close[1].length >= fence.length) {
         fence = undefined;
@@ -28,12 +32,19 @@ export function mapProseLines(str: string, transform: (line: string) => string):
     const open = line.match(/^ {0,3}(`{3,}|~{3,})/);
     if (open) {
       fence = open[1];
-      out.push(line);
+      out.push({ line, inFence: true });
       continue;
     }
-    out.push(transform(line));
+    out.push({ line, inFence: false });
   }
-  return out.join('\n');
+  return out;
+}
+
+/** Apply a transform to each line outside fenced code blocks */
+export function mapProseLines(str: string, transform: (line: string) => string): string {
+  return proseLines(str)
+    .map(({ line, inFence }) => (inFence ? line : transform(line)))
+    .join('\n');
 }
 
 // Inline code span: a backtick run closed by an equal-length run
