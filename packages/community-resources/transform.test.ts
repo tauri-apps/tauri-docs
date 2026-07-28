@@ -15,7 +15,6 @@ function crate(name: string, repository: string | null = null): Resource {
     source: 'crates',
     name,
     description: '',
-    version: '1.0.0',
     repository,
     crates_io: `https://crates.io/crates/${name}`,
   };
@@ -26,7 +25,6 @@ function pkg(name: string, repository: string | null = null): Resource {
     source: 'npm',
     name,
     description: '',
-    version: '1.0.0',
     repository,
     npm: npmPackageUrl(name),
   };

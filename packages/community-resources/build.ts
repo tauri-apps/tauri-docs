@@ -29,10 +29,7 @@ function isRateLimited(res: Response) {
   );
 }
 
-async function fetchJson(url: string, headers?: Headers) {
-  if (!headers) {
-    headers = new Headers();
-  }
+async function fetchJson(url: string, headers = new Headers()) {
   if (!headers.has('User-Agent')) {
     headers.set(
       'User-Agent',
@@ -74,11 +71,8 @@ async function fetchCrates(): Promise<Resource[]> {
         source: 'crates',
         name: c.name,
         description: c.description || '',
-        version: c.max_version || c.newest_version || '',
         created_at: c.created_at || '',
         repository: cleanRepoUrl(c.repository || c.homepage || ''),
-        license: c.license || '',
-        homepage: c.homepage || '',
         crates_io: `https://crates.io/crates/${c.name}`,
       });
     }
@@ -116,7 +110,6 @@ async function fetchNpm(): Promise<Resource[]> {
         source: 'npm',
         name,
         description: p.description || '',
-        version: p.version || '',
         created_at: p.date || '',
         // `links` is sparse - many packages expose only `links.npm`
         repository: cleanRepoUrl(p.links?.repository || p.links?.homepage || ''),
@@ -162,6 +155,46 @@ async function fetchGithubStars(ownerRepo: string) {
   }
 }
 
+async function addNpmCreatedDates(items: Resource[]) {
+  const npmOnly = items.filter((item) => item.source === 'npm');
+  console.log(`Fetching creation dates for ${npmOnly.length} npm-only packages...`);
+  let done = 0;
+  for (const item of npmOnly) {
+    const created = await fetchNpmCreatedDate(item.name);
+    if (created) {
+      item.created_at = created;
+    }
+    done++;
+    if (done % 50 === 0) {
+      console.log(`  dates ${done}/${npmOnly.length}`);
+    }
+    await sleep(100);
+  }
+}
+
+async function addGithubStars(items: Resource[]) {
+  if (!GITHUB_TOKEN) {
+    console.warn(
+      'GITHUB_TOKEN not set - skipping star counts (unauthenticated rate limits are too low).'
+    );
+    return;
+  }
+
+  console.log('Fetching GitHub star counts...');
+  const starsCache = new Map<string, number | null>();
+  for (const item of items) {
+    const ownerRepo = githubRepo(item.repository);
+    if (!ownerRepo) {
+      continue;
+    }
+    if (!starsCache.has(ownerRepo)) {
+      starsCache.set(ownerRepo, await fetchGithubStars(ownerRepo));
+      await sleep(100);
+    }
+    item.stars = starsCache.get(ownerRepo) ?? null;
+  }
+}
+
 async function readPrevious(): Promise<Snapshot | null> {
   try {
     return JSON.parse(await fs.readFile(OUTPUT_FILE, 'utf8')) as Snapshot;
@@ -187,40 +220,9 @@ async function run() {
     `Merged to ${merged.length} entries, ${merged.length - items.length} official dropped.`
   );
 
-  const npmOnly = items.filter((item) => item.source === 'npm');
-  console.log(`Fetching creation dates for ${npmOnly.length} npm-only packages...`);
-  let done = 0;
-  for (const item of npmOnly) {
-    const created = await fetchNpmCreatedDate(item.name);
-    if (created) {
-      item.created_at = created;
-    }
-    done++;
-    if (done % 50 === 0) {
-      console.log(`  ${done}/${npmOnly.length}`);
-    }
-    await sleep(100);
-  }
-
-  if (GITHUB_TOKEN) {
-    console.log('Fetching GitHub star counts...');
-    const starsCache = new Map<string, number | null>();
-    for (const item of items) {
-      const ownerRepo = githubRepo(item.repository);
-      if (!ownerRepo) {
-        continue;
-      }
-      if (!starsCache.has(ownerRepo)) {
-        starsCache.set(ownerRepo, await fetchGithubStars(ownerRepo));
-        await sleep(100);
-      }
-      item.stars = starsCache.get(ownerRepo) ?? null;
-    }
-  } else {
-    console.warn(
-      'GITHUB_TOKEN not set - skipping star counts (unauthenticated rate limits are too low).'
-    );
-  }
+  // registry.npmjs.org and api.github.com have independent rate budgets, and
+  // the two passes touch different fields, so they can run side by side
+  await Promise.all([addNpmCreatedDates(items), addGithubStars(items)]);
 
   const resources = sortByCreatedDesc(items);
   assertNoDataLoss(previous, resources);
@@ -234,7 +236,8 @@ async function run() {
 
   const output: Snapshot = { generated: new Date().toISOString(), resources };
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
-  await fs.writeFile(OUTPUT_FILE, JSON.stringify(output, null, 2), 'utf8');
+  // trailing newline so the file is already prettier-clean and CI needs no format pass
+  await fs.writeFile(OUTPUT_FILE, JSON.stringify(output, null, 2) + '\n', 'utf8');
   console.log(`Wrote ${resources.length} resources to ${OUTPUT_FILE}`);
 }
 

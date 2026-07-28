@@ -2,12 +2,8 @@ export interface Resource {
   source: 'crates' | 'npm';
   name: string;
   description: string;
-  version: string;
-  version_npm?: string;
   created_at?: string;
   repository: string | null;
-  license?: string;
-  homepage?: string;
   npm?: string;
   crates_io?: string;
   stars?: number | null;
@@ -85,7 +81,6 @@ export function mergeRegistries(crates: Resource[], npm: Resource[]): Resource[]
     }
     if (existing) {
       existing.npm = pkg.npm;
-      existing.version_npm = pkg.version;
       existing.description ||= pkg.description;
       existing.repository ||= pkg.repository;
     } else {
@@ -122,9 +117,9 @@ export function assertNoDataLoss(previous: Snapshot | null, resources: Resource[
     );
   }
 
-  const hasStars = (list: Resource[]) => list.filter((r) => typeof r.stars === 'number').length;
-  const starsBefore = hasStars(previous.resources);
-  if (starsBefore > 0 && hasStars(resources) === 0) {
+  const countStars = (list: Resource[]) => list.filter((r) => typeof r.stars === 'number').length;
+  const starsBefore = countStars(previous.resources);
+  if (starsBefore > 0 && countStars(resources) === 0) {
     throw new Error(
       `Refusing to write: ${starsBefore} entries had star counts and none do now. Check GITHUB_TOKEN.`
     );

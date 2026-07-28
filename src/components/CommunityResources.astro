@@ -1,22 +1,7 @@
 ---
 import communityResourcesData from '../data/communityResources.json';
 import { Icon } from '@astrojs/starlight/components';
-import { Icons } from 'node_modules/@astrojs/starlight/components-internals/Icons';
-
-interface Resource {
-  source: string;
-  name: string;
-  description: string;
-  version: string;
-  version_npm?: string;
-  created_at?: string;
-  repository: string | null;
-  npm?: string;
-  crates_io?: string;
-  license?: string;
-  homepage?: string;
-  stars?: number | null;
-}
+import type { Resource } from 'packages/community-resources/transform';
 
 const resources = communityResourcesData.resources as Resource[];
 
@@ -24,15 +9,17 @@ const resources = communityResourcesData.resources as Resource[];
 // until then the column and its sort option would be dead UI
 const hasStars = resources.some((item) => typeof item.stars === 'number');
 
-// this page lives one level below the plugin index in every locale
-const backHref = Astro.url.pathname.replace(/[^/]+\/?$/, '');
+const { locale } = Astro.locals.starlightRoute;
+const backHref = locale ? `/${locale}/plugin/` : '/plugin/';
 
 const dateFormat = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
 });
+const numberFormat = new Intl.NumberFormat('en-US');
 
+// depends on /assets/registries.svg
 const links = [
   { key: 'repository', icon: 'cr-github', title: 'Repository' },
   { key: 'crates_io', icon: 'cr-crate', title: 'crates.io' },
@@ -43,13 +30,6 @@ const links = [
 <p>
   <a href={backHref}><Icon name="left-arrow" class="inline" />Plugins</a>
 </p>
-
-{/* one copy of each icon, referenced per row - inlining them costs ~11kB each */}
-<svg class="icon-sprite" aria-hidden="true">
-  <symbol id="cr-github" viewBox="0 0 24 24" set:html={Icons['github']} />
-  <symbol id="cr-crate" viewBox="0 0 24 24" set:html={Icons['seti:rust']} />
-  <symbol id="cr-npm" viewBox="0 0 24 24" set:html={Icons['seti:npm']} />
-</svg>
 
 <community-resources>
   <div class="search-container">
@@ -80,7 +60,7 @@ const links = [
         </select>
       </label>
     </div>
-    <div class="summary" id="resource-summary" aria-live="polite">
+    <div class="summary" aria-live="polite">
       Showing <strong id="visible-count">{resources.length}</strong> of <strong
         >{resources.length}</strong
       > community plugins
@@ -89,7 +69,7 @@ const links = [
 
   <div class="table-wrapper">
     <table class:list={['resources-table', { 'no-stars': !hasStars }]}>
-      <caption class="visually-hidden"> Community plugins published to crates.io and npm </caption>
+      <caption class="sr-only"> Community plugins published to crates.io and npm </caption>
       <thead>
         <tr>
           <th class="name-header">Name & Links</th>
@@ -103,10 +83,8 @@ const links = [
           resources.map((item) => (
             <tr
               class="resource-row"
-              data-has-npm={item.npm ? 'true' : 'false'}
-              data-has-crates={item.crates_io ? 'true' : 'false'}
-              data-created={item.created_at || ''}
-              data-stars={typeof item.stars === 'number' ? String(item.stars) : ''}
+              data-source={item.npm && item.crates_io ? 'both' : item.npm ? 'npm' : 'crates'}
+              data-stars={typeof item.stars === 'number' ? String(item.stars) : undefined}
             >
               <td class="name-cell">
                 <div class="name-with-links">
@@ -122,7 +100,7 @@ const links = [
                           aria-label={`${item.name} on ${title}`}
                         >
                           <svg class="link-icon" aria-hidden="true">
-                            <use href={`#${icon}`} />
+                            <use xlink:href={`/assets/registries.svg#${icon}`} />
                           </svg>
                         </a>
                       ) : null
@@ -133,7 +111,7 @@ const links = [
               <td class="description-cell">{item.description}</td>
               {hasStars && (
                 <td class="stars-cell">
-                  {typeof item.stars === 'number' ? item.stars.toLocaleString('en-US') : '-'}
+                  {typeof item.stars === 'number' ? numberFormat.format(item.stars) : '-'}
                 </td>
               )}
               <td class="created-cell">
@@ -152,19 +130,6 @@ const links = [
   .inline {
     display: inline-block;
     vertical-align: middle;
-  }
-
-  .icon-sprite {
-    display: none;
-  }
-
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 
   community-resources {
@@ -236,7 +201,6 @@ const links = [
 
   .resources-table {
     width: 100%;
-    min-width: 100%;
     border-collapse: collapse;
     font-size: 0.9rem;
     table-layout: fixed;
@@ -373,13 +337,11 @@ const links = [
 <script>
   interface RowData {
     el: HTMLTableRowElement;
+    index: number;
     name: string;
     description: string;
-    created: number;
     stars: number;
-    hasNpm: boolean;
-    hasCrates: boolean;
-    visible: boolean;
+    source: string;
   }
 
   class CommunityResources extends HTMLElement {
@@ -390,8 +352,7 @@ const links = [
     tableWrapper: HTMLElement;
     visibleCountEl: HTMLElement;
     noResultsEl: HTMLElement;
-    rows: RowData[];
-    sortedBy: string;
+    cachedRows: RowData[] | undefined;
     searchTimer: number | undefined;
 
     constructor() {
@@ -405,42 +366,41 @@ const links = [
       this.visibleCountEl = this.querySelector('#visible-count') as HTMLElement;
       this.noResultsEl = this.querySelector('#no-results') as HTMLElement;
 
-      this.rows = Array.from(this.tbody.querySelectorAll<HTMLTableRowElement>('.resource-row')).map(
-        (el) => ({
-          el,
-          name: el.querySelector('.name-cell code')?.textContent?.toLowerCase() || '',
-          description: el.querySelector('.description-cell')?.textContent?.toLowerCase() || '',
-          created: el.dataset.created ? new Date(el.dataset.created).getTime() : 0,
-          stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
-          hasNpm: el.dataset.hasNpm === 'true',
-          hasCrates: el.dataset.hasCrates === 'true',
-          visible: true,
-        })
-      );
-
-      // the server renders rows already sorted by date
-      this.sortedBy = 'date';
-
       this.searchInput.addEventListener('input', () => {
         clearTimeout(this.searchTimer);
         this.searchTimer = setTimeout(() => this.update(), 150);
       });
       this.sourceFilter.addEventListener('change', () => this.update());
-      this.sortSelect.addEventListener('change', () => this.update());
+      this.sortSelect.addEventListener('change', () => {
+        this.sort(this.sortSelect.value);
+        this.update();
+      });
+    }
+
+    // indexing 479 rows is only worth paying for once the reader interacts
+    get rows(): RowData[] {
+      this.cachedRows ??= Array.from(
+        this.tbody.querySelectorAll<HTMLTableRowElement>('.resource-row')
+      ).map((el, index) => ({
+        el,
+        index,
+        name: el.querySelector('.name-cell code')?.textContent?.toLowerCase() || '',
+        description: el.querySelector('.description-cell')?.textContent?.toLowerCase() || '',
+        stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
+        source: el.dataset.source || '',
+      }));
+      return this.cachedRows;
     }
 
     matches(row: RowData, query: string, source: string) {
       if (query && !row.name.includes(query) && !row.description.includes(query)) {
         return false;
       }
-      if (source === 'both') return row.hasNpm && row.hasCrates;
-      if (source === 'npm') return row.hasNpm && !row.hasCrates;
-      if (source === 'crates') return row.hasCrates && !row.hasNpm;
-      return true;
+      return !source || row.source === source;
     }
 
     // the DOM is kept in sort order at all times, so filtering only has to
-    // toggle visibility and a re-order is needed only when the key changes
+    // toggle visibility. `index` is the server's created-desc order.
     sort(sortBy: string) {
       const ordered = [...this.rows];
       if (sortBy === 'name') {
@@ -448,7 +408,7 @@ const links = [
       } else if (sortBy === 'stars') {
         ordered.sort((a, b) => b.stars - a.stars);
       } else {
-        ordered.sort((a, b) => b.created - a.created);
+        ordered.sort((a, b) => a.index - b.index);
       }
 
       const fragment = document.createDocumentFragment();
@@ -456,24 +416,16 @@ const links = [
         fragment.appendChild(row.el);
       }
       this.tbody.appendChild(fragment);
-      this.sortedBy = sortBy;
     }
 
     update() {
-      if (this.sortSelect.value !== this.sortedBy) {
-        this.sort(this.sortSelect.value);
-      }
-
       const query = this.searchInput.value.toLowerCase();
       const source = this.sourceFilter.value;
       let visibleCount = 0;
 
       for (const row of this.rows) {
         const visible = this.matches(row, query, source);
-        if (visible !== row.visible) {
-          row.el.classList.toggle('hidden', !visible);
-          row.visible = visible;
-        }
+        row.el.classList.toggle('hidden', !visible);
         if (visible) visibleCount++;
       }
 
