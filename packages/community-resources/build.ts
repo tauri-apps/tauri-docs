@@ -1,6 +1,17 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {
+  assertNoDataLoss,
+  cleanRepoUrl,
+  githubRepo,
+  isOfficial,
+  mergeRegistries,
+  npmPackageUrl,
+  sortByCreatedDesc,
+  type Resource,
+  type Snapshot,
+} from './transform.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_FILE = path.resolve(__dirname, '../../src/data/communityResources.json');
@@ -10,16 +21,12 @@ const query = 'tauri-plugin-';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function cleanRepoUrl(url: string) {
-  if (!url) {
-    return null;
-  }
-  const cleaned = url.replace(/^git\+/, '').replace(/\.git$/, '');
-  // registry metadata is author-controlled; only keep http(s) URLs
-  if (!/^https?:\/\//.test(cleaned)) {
-    return null;
-  }
-  return cleaned;
+// GitHub answers 403 (not 429) when a token is exhausted, so status alone
+// can't tell a rate limit from a genuine permission error
+function isRateLimited(res: Response) {
+  return (
+    res.status === 429 || (res.status === 403 && res.headers.get('x-ratelimit-remaining') === '0')
+  );
 }
 
 async function fetchJson(url: string, headers?: Headers) {
@@ -38,7 +45,7 @@ async function fetchJson(url: string, headers?: Headers) {
     if (res.ok) {
       return res.json();
     }
-    if ((res.status === 429 || res.status >= 500) && attempt < 4) {
+    if ((isRateLimited(res) || res.status >= 500) && attempt < 4) {
       const retryAfter = Number(res.headers.get('retry-after')) || attempt * 15;
       console.warn(`  ${res.status} for ${url} - retrying in ${retryAfter}s`);
       await sleep(retryAfter * 1000);
@@ -49,8 +56,8 @@ async function fetchJson(url: string, headers?: Headers) {
 }
 
 // https://crates.io/data-access
-async function fetchCrates() {
-  const results = [];
+async function fetchCrates(): Promise<Resource[]> {
+  const results: Resource[] = [];
   let page = 1;
   const per_page = 100;
   while (true) {
@@ -82,22 +89,9 @@ async function fetchCrates() {
   return results;
 }
 
-interface ResultsItem {
-  source: string;
-  name: string;
-  description: string;
-  version: string;
-  version_npm?: string;
-  created_at?: string;
-  repository: string | null;
-  npm?: string;
-  crates_io?: string;
-  stars?: number | null;
-}
-
 // https://docs.npmjs.com/policies/open-source-terms
-async function fetchNpm() {
-  const results: ResultsItem[] = [];
+async function fetchNpm(): Promise<Resource[]> {
+  const results: Resource[] = [];
   const size = 250;
   let from = 0;
   while (true) {
@@ -118,15 +112,15 @@ async function fetchNpm() {
         continue;
       }
       pageMatches++;
-      const repo = p.links && p.links.repository ? p.links.repository : p.repository;
       results.push({
         source: 'npm',
         name,
         description: p.description || '',
         version: p.version || '',
         created_at: p.date || '',
-        repository: cleanRepoUrl(repo || p.links?.homepage || ''),
-        npm: `https://www.npmjs.com/package/${encodeURIComponent(name)}`,
+        // `links` is sparse - many packages expose only `links.npm`
+        repository: cleanRepoUrl(p.links?.repository || p.links?.homepage || ''),
+        npm: npmPackageUrl(name),
       });
     }
     from += size;
@@ -148,49 +142,37 @@ async function fetchNpmCreatedDate(name: string) {
   try {
     const j = await fetchJson(`https://registry.npmjs.org/${encodeURIComponent(name)}`);
     return j.time?.created || null;
-  } catch (e) {
-    return null;
-  }
-}
-
-function extractGithubRepo(url: string) {
-  if (!url) {
-    return null;
-  }
-  try {
-    const u = new URL(url);
-    if (u.hostname !== 'github.com') {
-      return null;
-    }
-    const parts = u.pathname.replace(/^\//, '').split('/');
-    if (parts.length < 2) {
-      return null;
-    }
-    return `${parts[0]}/${parts[1]}`;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
 async function fetchGithubStars(ownerRepo: string) {
-  if (!ownerRepo) {
-    return null;
-  }
-  const url = `https://api.github.com/repos/${ownerRepo}`;
-  const headers = new Headers();
-  headers.append('Accept', 'application/vnd.github+json');
+  const headers = new Headers({ Accept: 'application/vnd.github+json' });
   if (GITHUB_TOKEN) {
     headers.append('Authorization', `token ${GITHUB_TOKEN}`);
   }
   try {
-    const j = await fetchJson(url, headers);
+    const j = await fetchJson(`https://api.github.com/repos/${ownerRepo}`, headers);
     return j.stargazers_count ?? null;
   } catch (e) {
+    // a 404 here is normal (repo renamed or deleted); anything else is worth seeing
+    console.warn(`  no stars for ${ownerRepo}: ${(e as Error).message}`);
+    return null;
+  }
+}
+
+async function readPrevious(): Promise<Snapshot | null> {
+  try {
+    return JSON.parse(await fs.readFile(OUTPUT_FILE, 'utf8')) as Snapshot;
+  } catch {
     return null;
   }
 }
 
 async function run() {
+  const previous = await readPrevious();
+
   console.log('Fetching crates.io packages...');
   const crates = await fetchCrates();
   console.log(`Found ${crates.length} crates matching prefix.`);
@@ -199,41 +181,11 @@ async function run() {
   const npm = await fetchNpm();
   console.log(`Found ${npm.length} npm packages matching prefix.`);
 
-  const map = new Map();
-
-  for (const c of crates) {
-    map.set(c.name, { ...c });
-  }
-  for (const n of npm) {
-    // Merge by exact name, or by the documented naming convention: a crate
-    // `tauri-plugin-X` publishes its JS bindings as `tauri-plugin-X-api`.
-    // The convention match additionally requires the repositories not to
-    // disagree - monorepos share one repo URL across different plugins, so
-    // neither the suffix nor the URL is a safe key on its own. Scoped
-    // packages (`@scope/plugin-X`) are not matched and stay separate rows.
-    let existing = map.get(n.name);
-    if (!existing && n.name.endsWith('-api')) {
-      const candidate = map.get(n.name.slice(0, -'-api'.length));
-      if (
-        candidate &&
-        (!candidate.repository ||
-          !n.repository ||
-          candidate.repository.toLowerCase() === n.repository.toLowerCase())
-      ) {
-        existing = candidate;
-      }
-    }
-    if (existing) {
-      existing.npm = n.npm;
-      existing.version_npm = n.version;
-      existing.description = existing.description || n.description;
-      existing.repository = existing.repository || n.repository;
-    } else {
-      map.set(n.name, { ...n });
-    }
-  }
-
-  const items: ResultsItem[] = Array.from(map.values());
+  const merged = mergeRegistries(crates, npm);
+  const items = merged.filter((item) => !isOfficial(item.repository));
+  console.log(
+    `Merged to ${merged.length} entries, ${merged.length - items.length} official dropped.`
+  );
 
   const npmOnly = items.filter((item) => item.source === 'npm');
   console.log(`Fetching creation dates for ${npmOnly.length} npm-only packages...`);
@@ -254,7 +206,7 @@ async function run() {
     console.log('Fetching GitHub star counts...');
     const starsCache = new Map<string, number | null>();
     for (const item of items) {
-      const ownerRepo = extractGithubRepo(item.repository || '');
+      const ownerRepo = githubRepo(item.repository);
       if (!ownerRepo) {
         continue;
       }
@@ -270,21 +222,20 @@ async function run() {
     );
   }
 
-  items.sort((a, b) => {
-    const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
-    const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
-    return dateB - dateA;
-  });
+  const resources = sortByCreatedDesc(items);
+  assertNoDataLoss(previous, resources);
 
-  const outputData = {
-    generated: new Date().toISOString(),
-    count: items.length,
-    resources: items,
-  };
+  // the timestamp alone would make every weekly run a diff, and the sync
+  // workflow would open a pull request for it
+  if (previous && JSON.stringify(previous.resources) === JSON.stringify(resources)) {
+    console.log(`No changes to ${resources.length} resources - leaving the file untouched.`);
+    return;
+  }
 
+  const output: Snapshot = { generated: new Date().toISOString(), resources };
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
-  await fs.writeFile(OUTPUT_FILE, JSON.stringify(outputData, null, 2), 'utf8');
-  console.log(`Wrote ${items.length} resources to ${OUTPUT_FILE}`);
+  await fs.writeFile(OUTPUT_FILE, JSON.stringify(output, null, 2), 'utf8');
+  console.log(`Wrote ${resources.length} resources to ${OUTPUT_FILE}`);
 }
 
 run().catch((e) => {

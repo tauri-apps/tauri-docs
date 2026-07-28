@@ -53,9 +53,5 @@ jobs:
           title: Update Community Resources
           labels: 'bot'
           sign-commits: true
-
-      - name: Automerge
-        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
-        run: gh pr merge --squash --auto ${{ steps.cpr.outputs.pull-request-number }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # deliberately not automerged: this list is author-supplied metadata
+          # from open registries, so the weekly diff gets a human read
