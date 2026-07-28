@@ -64,23 +64,23 @@ If you have an existing plugin and would like to add Android or iOS capabilities
 
 ## Declaring Platform Support
 
-Plugins can declare which platforms they support, and to what extent in `[package.metadata.platforms.support]` section of the crate's `Cargo.toml`:
+Plugins can declare which platforms they support, and to what extent, in the `[package.metadata.platforms.support]` section of the crate's `Cargo.toml`:
 
 ```toml title="Cargo.toml"
 [package.metadata.platforms.support]
-windows = { level = "full", notes = "" }
-linux = { level = "full", notes = "" }
-macos = { level = "full", notes = "" }
-android = { level = "partial", notes = "Access is restricted to Application folder by default" }
-ios = { level = "none", notes = "" }
+windows = { level = "full" }
+linux = { level = "full" }
+macos = { level = "full" }
+android = { level = "partial", notes = "Access is restricted to the Application folder by default" }
+ios = { level = "none" }
 ```
 
-Each entry maps a platform (`windows`, `linux`, `macos`, `android`, `ios`) to a support declaration:
+Each key is a platform (`windows`, `linux`, `macos`, `android`, `ios`) and accepts two fields:
 
-- `level`: one of `"full"` (works as intended on that platform), `"partial"` (works with limitations) or `"none"` (not supported).
-- `notes`: a free-form string describing caveats or limitations, shown alongside the support level. Markdown is supported.
+- `level` (required): `"full"` if the plugin works as intended, `"partial"` if it works with limitations, or `"none"` if the platform isn't supported.
+- `notes` (optional): a short description of the caveats or limitations. It renders as Markdown on the plugin's page. In the [support table](/plugin/#support-table) it shows up as plain text in a tooltip.
 
-This metadata is the source of the platform [support](/plugin/#support-table) and the plugins search. Declaring the metadata makes your plugin's platform support discoverable in the published crate and available to future tooling, so we encourage including it.
+The support table and the platform filter on the [Features & Recipes](/plugin/) page are generated from this metadata.
 
 ## Mobile Plugin Development
 

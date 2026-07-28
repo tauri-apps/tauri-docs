@@ -10,6 +10,11 @@ export interface FilterConfig {
   label: string;
   options: { value: string; label: string }[];
   cssClassPattern: string;
+  /**
+   * Class marking a card as carrying data for this filter. Cards without it are exempt
+   * from the filter rather than hidden by it. Omit to filter every card in the grid.
+   */
+  presenceClass?: string;
 }
 
 interface Props {
@@ -58,6 +63,7 @@ const { placeholder = 'Search features and community resources...', filters = []
                 class="ui_filter-select"
                 data-filter-id={filter.id}
                 data-css-pattern={filter.cssClassPattern}
+                data-presence-class={filter.presenceClass}
                 aria-label={filter.label}
               >
                 <option value="">All</option>
@@ -94,15 +100,15 @@ const { placeholder = 'Search features and community resources...', filters = []
       const activeFilters = filterSelects
         .map((select) => {
           const value = select.value;
-          const pattern = select.dataset.cssPattern || '';
           if (!value) return null;
-          const allClasses = Array.from(select.options)
-            .map((option) => option.value)
-            .filter(Boolean)
-            .map((optionValue) => pattern.replace('${value}', optionValue));
-          return { value, pattern, allClasses };
+          const pattern = select.dataset.cssPattern || '';
+          const presenceClass = select.dataset.presenceClass;
+          return {
+            selector: `.${pattern.replace('${value}', value)}`,
+            presenceSelector: presenceClass ? `.${presenceClass}` : '',
+          };
         })
-        .filter(Boolean);
+        .filter((filter) => filter !== null);
 
       const resultCounts: { heading: string; count: number }[] = [];
 
@@ -119,24 +125,14 @@ const { placeholder = 'Search features and community resources...', filters = []
 
           const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
 
-          let filterMatches = true;
-          for (const filter of activeFilters) {
-            if (!filter) {
-              continue;
+          const filterMatches = activeFilters.every((filter) => {
+            // A card carrying no data for this filter is exempt from it rather than
+            // filtered out. Checked first: most cards on the page are in that group.
+            if (filter.presenceSelector && !htmlElement.querySelector(filter.presenceSelector)) {
+              return true;
             }
-            const hasFilterData = filter.allClasses.some(
-              (className) => htmlElement.querySelector(`.${className}`) !== null
-            );
-            if (!hasFilterData) {
-              continue;
-            }
-            const className = filter.pattern.replace('${value}', filter.value);
-            const hasClass = htmlElement.querySelector(`.${className}`) !== null;
-            if (!hasClass) {
-              filterMatches = false;
-              break;
-            }
-          }
+            return htmlElement.querySelector(filter.selector) !== null;
+          });
 
           if (textMatches && filterMatches) {
             visibleCount++;

@@ -29,7 +29,12 @@ function fetchData(pluginSlug: string) {
       return '';
     }
   }
-  return pluginData.support.map((plat) => getPlatformSupportIcon(plat.level, plat.platform));
+  const icons = pluginData.support
+    .map((plat) => getPlatformSupportIcon(plat.level, plat.platform))
+    .join('');
+  // Unsupported platforms render no icon, so this marker is what tells the platform
+  // filter the card has platform data at all. See `presenceClass` in `src/api/search.ts`.
+  return `${icons}<span class="has-platform-data" hidden></span>`;
 }
 ---
 
