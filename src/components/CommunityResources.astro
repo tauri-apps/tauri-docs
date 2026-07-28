@@ -2,6 +2,7 @@
 import communityResourcesData from '../data/communityResources.json';
 import { Icon } from '@astrojs/starlight/components';
 import type { Resource } from 'packages/community-resources/transform';
+import locales from 'locales.json';
 
 const resources = communityResourcesData.resources as Resource[];
 
@@ -9,8 +10,12 @@ const resources = communityResourcesData.resources as Resource[];
 // until then the column and its sort option would be dead UI
 const hasStars = resources.some((item) => typeof item.stars === 'number');
 
-const { locale } = Astro.locals.starlightRoute;
-const backHref = locale ? `/${locale}/plugin/` : '/plugin/';
+// `locals.starlightRoute` is not populated when starlight-llms-txt re-renders
+// page content, so read the locale off the URL. English is the `root` locale
+// and therefore unprefixed.
+const [firstSegment] = Astro.url.pathname.split('/').filter(Boolean);
+const localePrefix = firstSegment && firstSegment in locales ? `/${firstSegment}` : '';
+const backHref = `${localePrefix}/plugin/`;
 
 const dateFormat = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
@@ -377,7 +382,7 @@ const links = [
       });
     }
 
-    // indexing 479 rows is only worth paying for once the reader interacts
+    // indexing every row is only worth paying for once the reader interacts
     get rows(): RowData[] {
       this.cachedRows ??= Array.from(
         this.tbody.querySelectorAll<HTMLTableRowElement>('.resource-row')
