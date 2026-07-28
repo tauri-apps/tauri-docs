@@ -1,6 +1,12 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { basePath, corePageSlug, note, versionPageHref } from '../config.ts';
+import { dirname, join } from 'node:path';
+import {
+  basePath,
+  corePageSlug,
+  corePrereleasesSlug,
+  note,
+  versionPageHref,
+} from '../config.ts';
 import { demoteNotesHeadings, type CoreGroup, type CoreRelease } from '../groupedPage.ts';
 import { escapeChangelogMarkdown } from '../utils.ts';
 
@@ -149,17 +155,61 @@ function renderCoreRelease(release: CoreRelease): string {
   return [`### ${release.version}`, date, ...bodies].filter(Boolean).join('\n\n');
 }
 
+const githubReleasesLink: PageLink = {
+  label: 'Releases on GitHub',
+  href: 'https://github.com/tauri-apps/tauri/releases',
+  align: 'end',
+};
+
 /**
  * write the grouped changelog of the core packages: one section per minor,
  * one sub-section per version
  */
 export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string }): void {
-  const { groups, workingDir } = params;
+  writeGroupedPage({
+    ...params,
+    slug: corePageSlug,
+    title: 'Tauri Core Releases',
+    description: 'Grouped release notes for tauri, @tauri-apps/api, and the CLI',
+    links: [
+      { label: '2.0 prereleases', href: `${basePath}/${corePrereleasesSlug}/` },
+      githubReleasesLink,
+    ],
+  });
+}
+
+/**
+ * write the same page for the alpha, beta and rc releases that led to 2.0. They
+ * are two thirds of the releases and most of the weight of a page that is
+ * already heavy enough to stall a browser, and nobody runs those versions.
+ */
+export function writeCorePrereleasesPage(params: {
+  groups: CoreGroup[];
+  workingDir: string;
+}): void {
+  writeGroupedPage({
+    ...params,
+    slug: corePrereleasesSlug,
+    title: 'Tauri 2.0 Prereleases',
+    description: 'Release notes for the alpha, beta and rc releases leading to Tauri 2.0',
+    links: [{ label: '← Core releases', href: `${basePath}/${corePageSlug}/` }, githubReleasesLink],
+  });
+}
+
+function writeGroupedPage(params: {
+  groups: CoreGroup[];
+  workingDir: string;
+  slug: string;
+  title: string;
+  description: string;
+  links: PageLink[];
+}): void {
+  const { groups, workingDir, slug, title, description, links } = params;
 
   const frontmatter = frontmatterBlock([
-    `title: ${yaml('Tauri Core Releases')}`,
-    `description: ${yaml('Grouped release notes for tauri, @tauri-apps/api, and the CLI')}`,
-    `slug: ${yaml(corePageSlug)}`,
+    `title: ${yaml(title)}`,
+    `description: ${yaml(description)}`,
+    `slug: ${yaml(slug)}`,
     // A minor per top-level entry, its releases nested under it. Deeper levels
     // stay out: those are the packages and their notes sections, which repeat
     // ("Bug Fixes", "Dependencies") on every release and would bury the versions.
@@ -172,13 +222,7 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
     'next: false',
   ]);
 
-  const header = renderPageLinks([
-    {
-      label: 'Releases on GitHub',
-      href: 'https://github.com/tauri-apps/tauri/releases',
-      align: 'end',
-    },
-  ]);
+  const header = renderPageLinks(links);
 
   const sections = groups.map((group) => {
     const date = renderReleaseDateLabel(group.date, 'minor-date');
@@ -193,8 +237,10 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
 
   const content = [frontmatter, header, ...sections].join('\n\n');
 
-  mkdirSync(workingDir, { recursive: true });
-  writeFileSync(join(workingDir, `${corePageSlug}.md`), content);
+  // a slug can carry a path, so the file needs the directories under it
+  const file = join(workingDir, `${slug}.md`);
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, content);
 }
 
 /**

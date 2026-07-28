@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildCoreGroups, demoteNotesHeadings } from './groupedPage.ts';
+import { buildCoreGroups, demoteNotesHeadings, splitPrereleases } from './groupedPage.ts';
 import type { ReleaseWithDate } from './pageGenerator.ts';
 
 function release(version: string, date?: string, notes = `notes ${version}`): ReleaseWithDate {
@@ -231,6 +231,40 @@ test('releases run newest first within a minor, by version not publish order', (
     groups[0].releases.map((r) => r.version),
     ['2.11.9', '2.11.5', '2.11.2', '2.11.0']
   );
+});
+
+test('splitting sends prereleases to their own page and redates what stays', () => {
+  const groups = buildCoreGroups(
+    data({
+      tauri: [
+        release('2.0.0', '2024-10-02T00:00:00Z'),
+        release('2.0.1', '2024-10-10T00:00:00Z'),
+        release('2.0.0-alpha.4', '2023-04-01T00:00:00Z'),
+        release('2.0.0-rc.1', '2024-08-01T00:00:00Z'),
+      ],
+    })
+  );
+  const { stable, prereleases } = splitPrereleases(groups);
+  assert.deepEqual(
+    stable[0].releases.map((r) => r.version),
+    ['2.0.1', '2.0.0']
+  );
+  assert.deepEqual(
+    prereleases[0].releases.map((r) => r.version),
+    ['2.0.0-rc.1', '2.0.0-alpha.4']
+  );
+  // the section's date follows its own releases, not the ones that left
+  assert.equal(stable[0].date, 'label 2024-10-02T00:00:00Z');
+  assert.equal(prereleases[0].date, 'label 2023-04-01T00:00:00Z');
+});
+
+test('a minor with no prereleases contributes nothing to that page', () => {
+  const groups = buildCoreGroups(
+    data({ tauri: [release('2.11.0', '2026-04-30T00:00:00Z')] })
+  );
+  const { stable, prereleases } = splitPrereleases(groups);
+  assert.equal(stable.length, 1);
+  assert.equal(prereleases.length, 0);
 });
 
 test('prereleases sort below the version they lead up to', () => {

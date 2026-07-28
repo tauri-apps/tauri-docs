@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { corePageSlug, repositories } from './generator/config.ts';
+import { corePageSlug, corePrereleasesSlug, repositories } from './generator/config.ts';
 import { logo, social, ecStyleOverrides } from '../../src/shared-config.mjs';
 
 // Canonical origin is the docs site (the releases site is proxied at <docs>/release/*).
@@ -49,7 +49,10 @@ export default defineConfig({
           }
           const items = repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` }));
           if (repo.name === 'tauri') {
-            items.unshift({ label: 'Core Releases', link: `/${corePageSlug}/` });
+            items.unshift(
+              { label: 'Core Releases', link: `/${corePageSlug}/` },
+              { label: '2.0 Prereleases', link: `/${corePrereleasesSlug}/` }
+            );
           }
           return { label: repo.displayName, items };
         }),

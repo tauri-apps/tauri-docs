@@ -15,7 +15,6 @@ type DatedEntry = CoreEntry & { date: string };
 export type CoreRelease = {
   version: string;
   /** Earliest publish among the entries — when this version first existed */
-  date?: string;
   dateLabel?: string;
   entries: CoreEntry[];
 };
@@ -82,7 +81,6 @@ function toReleases(entries: CoreEntry[]): CoreRelease[] {
       .at(0);
     return {
       version,
-      date: earliest?.date,
       dateLabel: earliest?.dateLabel,
       entries: [...list].sort(
         (a, b) => PACKAGE_ORDER.indexOf(a.pkgLabel) - PACKAGE_ORDER.indexOf(b.pkgLabel)
@@ -206,6 +204,36 @@ function render(sections: NotesSection[]): string {
 
 function hasDate(e: CoreEntry): e is DatedEntry {
   return Boolean(e.date);
+}
+
+/**
+ * Split the history into stable releases and the prereleases leading to them.
+ * Every prerelease belongs to 2.0 — the run-up to the 2.0 launch — and they are
+ * two thirds of the releases and most of the page weight, for a version line
+ * nobody runs any more. They get a page of their own.
+ */
+export function splitPrereleases(groups: CoreGroup[]): {
+  stable: CoreGroup[];
+  prereleases: CoreGroup[];
+} {
+  const stable: CoreGroup[] = [];
+  const prereleases: CoreGroup[] = [];
+  for (const group of groups) {
+    const early = group.releases.filter((r) => semver.prerelease(r.version));
+    const released = group.releases.filter((r) => !semver.prerelease(r.version));
+    if (released.length) {
+      stable.push(regroup(group, released));
+    }
+    if (early.length) {
+      prereleases.push(regroup(group, early));
+    }
+  }
+  return { stable, prereleases };
+}
+
+// the minor is dated by whichever of its releases ended up on this page
+function regroup(group: CoreGroup, releases: CoreRelease[]): CoreGroup {
+  return { ...group, releases, date: releaseDate(releases.flatMap((r) => r.entries)) };
 }
 
 /**

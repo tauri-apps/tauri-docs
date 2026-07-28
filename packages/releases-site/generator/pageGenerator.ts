@@ -11,12 +11,13 @@ import {
   resolveBranch,
 } from './config.ts';
 import { releaseDateFormat } from './dateFormat.ts';
-import { buildCoreGroups } from './groupedPage.ts';
+import { buildCoreGroups, splitPrereleases } from './groupedPage.ts';
 import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
   getAllVersionsHead,
   renderReleaseDateLabel,
   writeCorePage,
+  writeCorePrereleasesPage,
   writePackageIndex,
   writeVersionPage,
   type PageLink,
@@ -151,7 +152,9 @@ async function writePageData(
     streamFinalizers.push(finished(allVersionsStream));
   }
 
-  writeCorePage({ groups: buildCoreGroups(releasesByPackage), workingDir: contentDir });
+  const { stable, prereleases } = splitPrereleases(buildCoreGroups(releasesByPackage));
+  writeCorePage({ groups: stable, workingDir: contentDir });
+  writeCorePrereleasesPage({ groups: prereleases, workingDir: contentDir });
 
   await Promise.all(streamFinalizers);
 }

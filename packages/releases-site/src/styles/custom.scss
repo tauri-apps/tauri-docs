@@ -47,15 +47,23 @@
   margin-inline-start: 0.5rem;
 }
 
-// Used on the home cards and the core page's event headers
-.version-pill {
+// The pill a version sits in. Padding and size are the caller's, so a linked
+// pill and the core page's minor badge can differ in weight without the surface
+// they share drifting apart.
+@mixin version-pill-surface {
   display: inline-block;
   background-color: var(--sl-color-gray-6);
   border: 1px solid var(--sl-color-gray-5);
   border-radius: 0.5rem;
+  color: var(--sl-color-gray-2);
+}
+
+// Used on the home cards
+.version-pill {
+  @include version-pill-surface;
+
   padding: 0 0.5rem;
   font-size: var(--sl-text-xs);
-  color: var(--sl-color-gray-2);
   text-decoration: none;
   // Sit above the LinkCard's full-card overlay anchor so the pill is clickable
   position: relative;
@@ -88,9 +96,16 @@
 // Space the levels explicitly so each block holds together.
 //
 // The anchor-link feature wraps every heading in `.sl-heading-wrapper` and moves
-// that 1.5em onto the wrapper, so the margins and the rule belong there: set on
-// the heading itself they would collapse against the wrapper's margin, and the
-// smaller ones would simply lose.
+// that 1.5em onto the wrapper, so the margins belong there: set on the heading
+// itself they would collapse against the wrapper's margin, and the smaller ones
+// would simply lose.
+//
+// That wrapper is Starlight's markup for its own anchor-icon feature, not a
+// theming API, and this page is plain generated .md with no component pipeline
+// to reach for instead. So the coupling is deliberate but blind: if the anchor
+// links are ever switched off, or Starlight restructures them, every rule below
+// stops matching and the spacing silently reverts to defaults rather than
+// erroring. Re-check this page's rhythm after a Starlight upgrade.
 .sl-markdown-content:has(.version-date) {
   // A minor and a release are both a bare version number with a date under
   // them, and 35px against 29px is not a difference you see — they read as the
@@ -111,13 +126,11 @@
     margin-top: 0;
   }
 
-  // the same pill the home cards put versions in
+  // the same pill the home cards put versions in, a size up
   .minor-head h2 {
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.5rem;
+    @include version-pill-surface;
+
     padding: 0.15rem 0.6rem;
-    background-color: var(--sl-color-gray-6);
-    color: var(--sl-color-gray-2);
   }
 
   .sl-heading-wrapper.level-h3 {
@@ -134,8 +147,7 @@
   --sl-text-h5: var(--sl-text-sm);
 
   // Each package and its notes as one banded block, so "Bug Fixes" three
-  // packages down still visibly belongs to the package that opened the band.
-  // Dimmer than the release band around it, so the nesting has a direction.
+  // packages down still visibly belongs to the package that opened the band
   .package-block {
     margin-top: 2.25rem;
     padding-left: 1.25rem;
@@ -148,7 +160,7 @@
   }
 
   h4 {
-    font-family: var(--__sl-font-mono);
+    font-family: var(--sl-font-mono, var(--sl-font-system-mono));
   }
 
   // the version the package shipped; the release heading already announced it
