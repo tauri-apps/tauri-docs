@@ -97,8 +97,7 @@
     margin-top: 5rem;
   }
 
-  .minor-head .sl-heading-wrapper.level-h2,
-  .minor-head .release-date-row {
+  .minor-head .sl-heading-wrapper.level-h2 {
     margin-top: 0;
   }
 
@@ -108,8 +107,19 @@
     padding: 0.15rem 0.6rem;
   }
 
-  .sl-heading-wrapper.level-h3 {
+  // the date sits opposite the version rather than inside the heading, which
+  // would carry it into the table of contents
+  .release-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
     margin-top: 3.25rem;
+  }
+
+  .release-head .sl-heading-wrapper.level-h3,
+  .release-head .release-date-row {
+    margin-top: 0;
   }
 
   // one band per package, so "Bug Fixes" three packages down still has a visible owner

@@ -1,5 +1,4 @@
 import semver from 'semver';
-import { releaseDateFormatter } from './dateFormat.ts';
 import type { ReleaseWithDate } from './pageGenerator.ts';
 import { mapProseLines, proseLines } from './utils.ts';
 
@@ -20,7 +19,7 @@ export type CoreRelease = {
   entries: CoreEntry[];
 };
 
-export type CoreGroup = { minor: string; date: string; releases: CoreRelease[] };
+export type CoreGroup = { minor: string; releases: CoreRelease[] };
 
 const CORE_PACKAGES = ['tauri', '@tauri-apps/api', 'tauri-cli', '@tauri-apps/cli'];
 
@@ -54,7 +53,6 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
     .sort(([a], [b]) => Number(b.split('.')[1]) - Number(a.split('.')[1]))
     .map(([minor, releases]) => ({
       minor,
-      date: dateRangeLabel(releases.flatMap((r) => r.entries)),
       // newest first, the same direction the minors run in
       releases: releases.sort((a, b) => semver.rcompare(a.version, b.version)),
     }));
@@ -228,26 +226,11 @@ export function splitPrereleases(groups: CoreGroup[]): {
   return { stable, prereleases };
 }
 
-// the minor is dated by whichever of its releases ended up on this page
 function regroup(group: CoreGroup, releases: CoreRelease[]): CoreGroup {
-  return { ...group, releases, date: dateRangeLabel(releases.flatMap((r) => r.entries)) };
+  return { ...group, releases };
 }
 
-/**
- * The span a minor was published over, first release to last patch — it is the
- * only date the page shows for the whole section. `formatRange` drops the
- * repeated year and collapses to one date when both ends fall on the same day.
- */
-function dateRangeLabel(list: CoreEntry[]): string {
-  const dates = list
-    .filter(hasDate)
-    .map((entry) => new Date(entry.date))
-    .sort((a, b) => a.getTime() - b.getTime());
-  return dates.length ? releaseDateFormatter.formatRange(dates[0], dates[dates.length - 1]) : '';
-}
-
-/** When the packages in `list` first reached what they have in common — a version
- * for a release, the minor itself for a group. */
+/** When the packages in `list` first reached the version they have in common. */
 function earliestDateLabel(list: CoreEntry[]): string | undefined {
   return list
     .filter(hasDate)

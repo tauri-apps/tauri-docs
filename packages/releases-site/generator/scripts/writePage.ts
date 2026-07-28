@@ -115,10 +115,19 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
 
 /**
  * The version, then one `####` section per package that published it — the
- * package heading has to outrank the notes' own sections. Only the minor above
- * carries a date; a release is identified by its version alone.
+ * package heading has to outrank the notes' own sections. The date sits beside
+ * the heading rather than inside it, or it would read into the table of contents.
  */
 function renderCoreRelease(release: CoreRelease): string {
+  const head = [
+    '<div class="release-head">',
+    `### ${release.version}`,
+    renderReleaseDateLabel(release.dateLabel),
+    '</div>',
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+
   const bodies = release.entries.map((entry) => {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes), 2);
     // repeats the heading above, but earns a unique anchor id; styled back out of the way
@@ -127,7 +136,7 @@ function renderCoreRelease(release: CoreRelease): string {
     // owner. Blank lines keep the markdown between the tags parsed as markdown.
     return ['<div class="package-block">', heading, notes, '</div>'].filter(Boolean).join('\n\n');
   });
-  return [`### ${release.version}`, ...bodies].filter(Boolean).join('\n\n');
+  return [head, ...bodies].filter(Boolean).join('\n\n');
 }
 
 const githubReleasesLink: PageLink = {
@@ -197,12 +206,9 @@ function writeGroupedPage(params: {
   const header = renderPageLinks(links);
 
   const sections = groups.map((group) => {
-    const date = renderReleaseDateLabel(group.date);
     // `.x` so the badge reads as the line of releases under it, not a version of
     // its own. custom.scss also keys the grouped-page style block off `.minor-head`
-    const head = ['<div class="minor-head">', `## ${group.minor}.x`, date, '</div>']
-      .filter(Boolean)
-      .join('\n\n');
+    const head = ['<div class="minor-head">', `## ${group.minor}.x`, '</div>'].join('\n\n');
     const releases = group.releases.map(renderCoreRelease).join('\n\n');
     return [head, releases].join('\n\n');
   });
