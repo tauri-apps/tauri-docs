@@ -84,7 +84,7 @@
 // lose. Generated .md has no component pipeline to reach for instead, so if
 // anchor links are ever turned off every rule below stops matching and the
 // spacing silently reverts. Re-check this page after a Starlight upgrade.
-.sl-markdown-content:has(.version-date) {
+.sl-markdown-content:has(.minor-head) {
   // catches the heading and the wrapper Starlight copies the size onto
   --sl-text-h2: var(--sl-text-sm);
   --sl-text-h4: var(--sl-text-xl);

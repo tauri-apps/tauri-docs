@@ -1,4 +1,5 @@
 import semver from 'semver';
+import { releaseDateFormatter } from './dateFormat.ts';
 import type { ReleaseWithDate } from './pageGenerator.ts';
 import { mapProseLines, proseLines } from './utils.ts';
 
@@ -53,7 +54,7 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
     .sort(([a], [b]) => Number(b.split('.')[1]) - Number(a.split('.')[1]))
     .map(([minor, releases]) => ({
       minor,
-      date: earliestDateLabel(releases.flatMap((r) => r.entries)) ?? '',
+      date: dateRangeLabel(releases.flatMap((r) => r.entries)),
       // newest first, the same direction the minors run in
       releases: releases.sort((a, b) => semver.rcompare(a.version, b.version)),
     }));
@@ -229,11 +230,20 @@ export function splitPrereleases(groups: CoreGroup[]): {
 
 // the minor is dated by whichever of its releases ended up on this page
 function regroup(group: CoreGroup, releases: CoreRelease[]): CoreGroup {
-  return {
-    ...group,
-    releases,
-    date: earliestDateLabel(releases.flatMap((r) => r.entries)) ?? '',
-  };
+  return { ...group, releases, date: dateRangeLabel(releases.flatMap((r) => r.entries)) };
+}
+
+/**
+ * The span a minor was published over, first release to last patch — it is the
+ * only date the page shows for the whole section. `formatRange` drops the
+ * repeated year and collapses to one date when both ends fall on the same day.
+ */
+function dateRangeLabel(list: CoreEntry[]): string {
+  const dates = list
+    .filter(hasDate)
+    .map((entry) => new Date(entry.date))
+    .sort((a, b) => a.getTime() - b.getTime());
+  return dates.length ? releaseDateFormatter.formatRange(dates[0], dates[dates.length - 1]) : '';
 }
 
 /** When the packages in `list` first reached what they have in common — a version

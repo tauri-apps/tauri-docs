@@ -11,6 +11,10 @@ function data(entries: Record<string, ReleaseWithDate[]>): Map<string, ReleaseWi
   return new Map(Object.entries(entries));
 }
 
+// Intl wraps a range's en dash in thin spaces (U+2009); collapse them so the
+// expectations below stay readable and survive an ICU tweak
+const spans = (label: string) => label.replace(/\s+/g, ' ');
+
 test('a version is one release, holding every package that published it', () => {
   const groups = buildCoreGroups(
     data({
@@ -199,13 +203,27 @@ test('sorts minors numerically, not lexicographically', () => {
   );
 });
 
-test("group date is the minor's own release, not its latest patch", () => {
+test('a group is dated by the span from its first release to its last', () => {
   const groups = buildCoreGroups(
     data({
       tauri: [release('2.11.0', '2026-04-30T15:00:00Z'), release('2.11.5', '2026-07-01T13:00:00Z')],
     })
   );
-  assert.equal(groups[0].date, 'label 2026-04-30T15:00:00Z');
+  assert.equal(spans(groups[0].date), 'Apr 30 – Jul 1, 2026');
+});
+
+test('a group with one publish shows a single date, not a range', () => {
+  const groups = buildCoreGroups(data({ tauri: [release('2.11.0', '2026-04-30T15:00:00Z')] }));
+  assert.equal(spans(groups[0].date), 'Apr 30, 2026');
+});
+
+test('a span crossing new year keeps both years', () => {
+  const groups = buildCoreGroups(
+    data({
+      tauri: [release('2.9.0', '2025-11-09T10:00:00Z'), release('2.9.4', '2026-01-20T10:00:00Z')],
+    })
+  );
+  assert.equal(spans(groups[0].date), 'Nov 9, 2025 – Jan 20, 2026');
 });
 
 test('demotes notes headings by one level outside code fences', () => {
@@ -276,9 +294,9 @@ test('splitting sends prereleases to their own page and redates what stays', () 
     prereleases[0].releases.map((r) => r.version),
     ['2.0.0-rc.1', '2.0.0-alpha.4']
   );
-  // the section's date follows its own releases, not the ones that left
-  assert.equal(stable[0].date, 'label 2024-10-02T00:00:00Z');
-  assert.equal(prereleases[0].date, 'label 2023-04-01T00:00:00Z');
+  // the section's span follows its own releases, not the ones that left
+  assert.equal(spans(stable[0].date), 'Oct 2 – 10, 2024');
+  assert.equal(spans(prereleases[0].date), 'Apr 1, 2023 – Aug 1, 2024');
 });
 
 test('a minor with no prereleases contributes nothing to that page', () => {

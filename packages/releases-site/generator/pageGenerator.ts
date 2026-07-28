@@ -10,7 +10,7 @@ import {
   repositories,
   resolveBranch,
 } from './config.ts';
-import { releaseDateFormat } from './dateFormat.ts';
+import { releaseDateFormatter } from './dateFormat.ts';
 import { buildCoreGroups, splitPrereleases } from './groupedPage.ts';
 import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
@@ -38,8 +38,6 @@ interface PackageConfig {
   pkg: RepoPackage;
   changelogUrl: string;
 }
-
-const releaseDateFormatter = new Intl.DateTimeFormat('en-US', releaseDateFormat);
 
 function getGitHubReleaseTagBase(repo: Repository, pkg: RepoPackage): string {
   return repo.tagsUsePackageName ? pkg.name : pkg.cratesPath || pkg.npmPath || pkg.name;

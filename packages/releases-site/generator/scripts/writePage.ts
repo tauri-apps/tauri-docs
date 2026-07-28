@@ -44,13 +44,12 @@ function renderPageLinks(links: PageLink[]): string {
   return `<div class="release-links">${anchors.join('\n')}</div>`;
 }
 
-export function renderReleaseDateLabel(date: string | undefined, extraClass = ''): string {
+export function renderReleaseDateLabel(date: string | undefined): string {
   if (!date) {
     return '';
   }
 
-  const cls = ['release-date-row', extraClass].filter(Boolean).join(' ');
-  return `<div class="${cls}"><small class="release-date">${date}</small></div>`;
+  return `<div class="release-date-row"><small class="release-date">${date}</small></div>`;
 }
 
 /**
@@ -116,28 +115,19 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
 
 /**
  * The version, then one `####` section per package that published it — the
- * package heading has to outrank the notes' own sections. A package carries its
- * own date only when it reached the version after the release was already dated.
+ * package heading has to outrank the notes' own sections. Only the minor above
+ * carries a date; a release is identified by its version alone.
  */
 function renderCoreRelease(release: CoreRelease): string {
-  // custom.scss keys the whole grouped-page style block off `version-date`:
-  // generated .md carries no class of its own
-  const date = renderReleaseDateLabel(release.dateLabel, 'version-date');
   const bodies = release.entries.map((entry) => {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes), 2);
-    const lagged =
-      entry.dateLabel && entry.dateLabel !== release.dateLabel
-        ? renderReleaseDateLabel(entry.dateLabel)
-        : '';
     // repeats the heading above, but earns a unique anchor id; styled back out of the way
     const heading = `#### ${entry.pkgLabel} <small class="package-version">${entry.version}</small>`;
     // one block per package, or the repeated "Bug Fixes" headings have no visible
     // owner. Blank lines keep the markdown between the tags parsed as markdown.
-    return ['<div class="package-block">', heading, lagged, notes, '</div>']
-      .filter(Boolean)
-      .join('\n\n');
+    return ['<div class="package-block">', heading, notes, '</div>'].filter(Boolean).join('\n\n');
   });
-  return [`### ${release.version}`, date, ...bodies].filter(Boolean).join('\n\n');
+  return [`### ${release.version}`, ...bodies].filter(Boolean).join('\n\n');
 }
 
 const githubReleasesLink: PageLink = {
@@ -152,9 +142,10 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
     ...params,
     slug: corePageSlug,
     title: 'Tauri Core Releases',
-    description: 'Grouped release notes for tauri, @tauri-apps/api, and the CLI',
+    description: 'Release notes for tauri, @tauri-apps/api, and the Tauri CLI, grouped by version',
+    intro: '`tauri`, `@tauri-apps/api`, and the Tauri CLI, grouped by version.',
     links: [
-      { label: '2.0 prereleases', href: `${basePath}/${corePrereleasesSlug}/` },
+      { label: '2.0 Prereleases', href: `${basePath}/${corePrereleasesSlug}/` },
       githubReleasesLink,
     ],
   });
@@ -170,8 +161,10 @@ export function writeCorePrereleasesPage(params: {
     ...params,
     slug: corePrereleasesSlug,
     title: 'Tauri 2.0 Prereleases',
-    description: 'Release notes for the alpha, beta and rc releases leading to Tauri 2.0',
-    links: [{ label: '← Core releases', href: `${basePath}/${corePageSlug}/` }, githubReleasesLink],
+    description:
+      'Release notes for the alpha, beta, and release candidate versions that led to Tauri 2.0',
+    intro: 'The alpha, beta, and release candidate versions that led up to Tauri 2.0.',
+    links: [{ label: '← Core Releases', href: `${basePath}/${corePageSlug}/` }, githubReleasesLink],
   });
 }
 
@@ -181,9 +174,10 @@ function writeGroupedPage(params: {
   slug: string;
   title: string;
   description: string;
+  intro: string;
   links: PageLink[];
 }): void {
-  const { groups, workingDir, slug, title, description, links } = params;
+  const { groups, workingDir, slug, title, description, intro, links } = params;
 
   const frontmatter = frontmatterBlock([
     `title: ${yaml(title)}`,
@@ -204,15 +198,16 @@ function writeGroupedPage(params: {
 
   const sections = groups.map((group) => {
     const date = renderReleaseDateLabel(group.date);
-    // the minor and its date share one line as a badge, not a heading
-    const head = ['<div class="minor-head">', `## ${group.minor}`, date, '</div>']
+    // `.x` so the badge reads as the line of releases under it, not a version of
+    // its own. custom.scss also keys the grouped-page style block off `.minor-head`
+    const head = ['<div class="minor-head">', `## ${group.minor}.x`, date, '</div>']
       .filter(Boolean)
       .join('\n\n');
     const releases = group.releases.map(renderCoreRelease).join('\n\n');
     return [head, releases].join('\n\n');
   });
 
-  const content = [frontmatter, header, ...sections].join('\n\n');
+  const content = [frontmatter, header, intro, ...sections].join('\n\n');
 
   // a slug can carry a path, so the file needs the directories under it
   const file = join(workingDir, `${slug}.md`);
