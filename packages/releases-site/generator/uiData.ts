@@ -81,12 +81,6 @@ function buildVersionPills(
   return pills;
 }
 
-// Shared by the home cards and the core page's event headers, which are
-// styled as the same element (see `.version-pill` in custom.scss)
-export function renderVersionPill(label: string, version: string, href: string): string {
-  return `<a class="version-pill" href="${href}">${label} ${version}</a>`;
-}
-
 export function buildHomeSummaryRepos(
   repositories: Repository[],
   latestVersions: LatestVersionsMap

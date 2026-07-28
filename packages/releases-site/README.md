@@ -58,7 +58,13 @@ pnpm install
 pnpm --filter releases-site dev     # generates pages, serves on http://localhost:4322/release/
 pnpm --filter releases-site build   # generates pages + astro build into dist/
 pnpm --filter releases-site refresh # re-fetches upstream data into generator/data.json
+pnpm --filter releases-site test    # generator unit tests (node --test, no runner)
 ```
+
+The tests are deliberately **not** wired into CI: the only PR gate is `pnpm format:check`
+(`.github/workflows/check.yml`). Run them locally after touching `generator/` — they
+cover the changelog escaping, the notes-heading demotion and the core-page grouping,
+which are the parts whose output is otherwise only visible in a full build.
 
 ## Netlify setup (two sites, one repo)
 

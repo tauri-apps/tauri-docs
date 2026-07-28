@@ -1,12 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import {
-  basePath,
-  corePageSlug,
-  corePrereleasesSlug,
-  note,
-  versionPageHref,
-} from '../config.ts';
+import { basePath, corePageSlug, corePrereleasesSlug, note, versionPageHref } from '../config.ts';
 import { demoteNotesHeadings, type CoreGroup, type CoreRelease } from '../groupedPage.ts';
 import { escapeChangelogMarkdown } from '../utils.ts';
 
@@ -22,10 +16,8 @@ export type PageLink = {
   align?: 'end';
 };
 
-// Starlight's native `external` icon. Generated pages are plain .md (no
-// component support), so the path data is copied from
-// @astrojs/starlight/components-internals/Icons.ts (not an exported module)
-// and wrapped the same way its <Icon> component renders.
+// Generated pages are plain .md, so Starlight's `external` icon is copied from
+// components-internals/Icons.ts (not an exported module) and wrapped like <Icon>.
 const externalIcon =
   '<svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M19.33 10.18a1 1 0 0 1-.77 0 1 1 0 0 1-.62-.93l.01-1.83-8.2 8.2a1 1 0 0 1-1.41-1.42l8.2-8.2H14.7a1 1 0 0 1 0-2h4.25a1 1 0 0 1 1 1v4.25a1 1 0 0 1-.62.93Z"/><path d="M11 4a1 1 0 1 1 0 2H7a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-4a1 1 0 1 1 2 0v4a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h4Z"/></svg>';
 
@@ -123,31 +115,24 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
 }
 
 /**
- * A release: the version, then one `####` section per package that published
- * it. The package heading has to outrank the notes' own sections, or a reader
- * scrolling through "Bug Fixes / Dependencies" loses track of which package
- * they are reading.
- *
- * The release is dated by its first publish, so a package only carries a date
- * of its own when it got to this version later — `@tauri-apps/api` reached
- * 2.11.1 six weeks after `tauri` did, and that gap should be visible rather
- * than flattened into the heading above.
+ * The version, then one `####` section per package that published it — the
+ * package heading has to outrank the notes' own sections. A package carries its
+ * own date only when it reached the version after the release was already dated.
  */
 function renderCoreRelease(release: CoreRelease): string {
+  // custom.scss keys the whole grouped-page style block off `version-date`:
+  // generated .md carries no class of its own
   const date = renderReleaseDateLabel(release.dateLabel, 'version-date');
   const bodies = release.entries.map((entry) => {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes), 2);
     const lagged =
       entry.dateLabel && entry.dateLabel !== release.dateLabel
-        ? renderReleaseDateLabel(entry.dateLabel, 'package-date')
+        ? renderReleaseDateLabel(entry.dateLabel)
         : '';
-    // the version repeats the heading above — it stays for a unique anchor id
-    // and for anyone scanning mid-page, but it is styled back out of the way
+    // repeats the heading above, but earns a unique anchor id; styled back out of the way
     const heading = `#### ${entry.pkgLabel} <small class="package-version">${entry.version}</small>`;
-    // a package and its notes need to be one object on the page: every package
-    // in a release repeats the same "Bug Fixes / Dependencies" categories, so
-    // without something enclosing them a reader mid-scroll cannot tell whose
-    // they are. Blank lines keep the markdown between the tags parsed as markdown.
+    // one block per package, or the repeated "Bug Fixes" headings have no visible
+    // owner. Blank lines keep the markdown between the tags parsed as markdown.
     return ['<div class="package-block">', heading, lagged, notes, '</div>']
       .filter(Boolean)
       .join('\n\n');
@@ -161,10 +146,7 @@ const githubReleasesLink: PageLink = {
   align: 'end',
 };
 
-/**
- * write the grouped changelog of the core packages: one section per minor,
- * one sub-section per version
- */
+/** the grouped core changelog: one section per minor, one sub-section per version */
 export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string }): void {
   writeGroupedPage({
     ...params,
@@ -178,11 +160,8 @@ export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string 
   });
 }
 
-/**
- * write the same page for the alpha, beta and rc releases that led to 2.0. They
- * are two thirds of the releases and most of the weight of a page that is
- * already heavy enough to stall a browser, and nobody runs those versions.
- */
+/** the same page for the 2.0 alphas, betas and rcs — two thirds of the releases,
+ * split off to keep the main page from stalling a browser */
 export function writeCorePrereleasesPage(params: {
   groups: CoreGroup[];
   workingDir: string;
@@ -210,9 +189,8 @@ function writeGroupedPage(params: {
     `title: ${yaml(title)}`,
     `description: ${yaml(description)}`,
     `slug: ${yaml(slug)}`,
-    // A minor per top-level entry, its releases nested under it. Deeper levels
-    // stay out: those are the packages and their notes sections, which repeat
-    // ("Bug Fixes", "Dependencies") on every release and would bury the versions.
+    // minors and their releases only — the levels below repeat "Bug Fixes" on
+    // every release and would bury the versions
     'tableOfContents:',
     '  minHeadingLevel: 2',
     '  maxHeadingLevel: 3',
@@ -225,9 +203,8 @@ function writeGroupedPage(params: {
   const header = renderPageLinks(links);
 
   const sections = groups.map((group) => {
-    const date = renderReleaseDateLabel(group.date, 'minor-date');
-    // the minor marks the section it opens rather than heading it — the releases
-    // inside are what you read — so it and its date share one line as a badge
+    const date = renderReleaseDateLabel(group.date);
+    // the minor and its date share one line as a badge, not a heading
     const head = ['<div class="minor-head">', `## ${group.minor}`, date, '</div>']
       .filter(Boolean)
       .join('\n\n');

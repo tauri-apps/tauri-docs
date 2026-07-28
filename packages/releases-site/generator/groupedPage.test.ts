@@ -99,7 +99,9 @@ test('the npm twin\'s "Upgraded to tauri-cli" line never reaches the merged note
   // it names the merged entry itself; four rc twins name the crate version below theirs
   const groups = buildCoreGroups(
     data({
-      'tauri-cli': [release('2.0.0-rc.10', '2024-09-01T10:00:00Z', '### Bug Fixes\n\n- fixed a thing')],
+      'tauri-cli': [
+        release('2.0.0-rc.10', '2024-09-01T10:00:00Z', '### Bug Fixes\n\n- fixed a thing'),
+      ],
       '@tauri-apps/cli': [
         release(
           '2.0.0-rc.10',
@@ -112,6 +114,27 @@ test('the npm twin\'s "Upgraded to tauri-cli" line never reaches the merged note
   const [cli] = groups[0].releases[0].entries;
   assert.equal(cli.pkgLabel, 'cli');
   assert.equal(cli.notes, '### Bug Fixes\n\n- fixed a thing');
+});
+
+test('a wrapper that lags a version carries nothing into the merged notes', () => {
+  // npm 2.0.0-rc.10 shipped crate 2.0.0-rc.9, so its body repeats rc.9's notes —
+  // carrying them would print the same fix under rc.9 and rc.10 both
+  const groups = buildCoreGroups(
+    data({
+      'tauri-cli': [
+        release('2.0.0-rc.10', '2024-09-05T10:00:00Z', '### Bug Fixes\n\n- rc.10 only'),
+      ],
+      '@tauri-apps/cli': [
+        release(
+          '2.0.0-rc.10',
+          '2024-09-05T10:05:00Z',
+          '### Bug Fixes\n\n- belongs to rc.9\n\n### Dependencies\n\n- Upgraded to `tauri-cli@2.0.0-rc.9`'
+        ),
+      ],
+    })
+  );
+  const [cli] = groups[0].releases[0].entries;
+  assert.equal(cli.notes, '### Bug Fixes\n\n- rc.10 only');
 });
 
 test('a line only the npm twin has is carried into the merged notes', () => {
@@ -259,9 +282,7 @@ test('splitting sends prereleases to their own page and redates what stays', () 
 });
 
 test('a minor with no prereleases contributes nothing to that page', () => {
-  const groups = buildCoreGroups(
-    data({ tauri: [release('2.11.0', '2026-04-30T00:00:00Z')] })
-  );
+  const groups = buildCoreGroups(data({ tauri: [release('2.11.0', '2026-04-30T00:00:00Z')] }));
   const { stable, prereleases } = splitPrereleases(groups);
   assert.equal(stable.length, 1);
   assert.equal(prereleases.length, 0);

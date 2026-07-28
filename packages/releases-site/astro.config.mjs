@@ -20,14 +20,13 @@ export default defineConfig({
       logo: logo('../../'),
       social: social(site),
       components: {
-        // Header (and its SiteTitle) is a deliberate fork — English-only, no
-        // topics, logo links to the docs home. The rest is imported straight
-        // from the docs site so UI changes propagate (see README "Shared UI").
+        // Local: Header (and its SiteTitle) is a deliberate fork — English-only,
+        // no topics, logo links to the docs home. Sidebar wraps the default to
+        // highlight a package on its generated version pages.
         Header: './src/components/overrides/Header.astro',
-        // sidebar override for highlighting
         Sidebar: './src/components/overrides/Sidebar.astro',
 
-        // shared overrides
+        // Imported from the docs site so UI changes propagate (README "Shared UI")
         Footer: '../../src/components/overrides/Footer.astro',
         ThemeSelect: '../../src/components/overrides/ThemeSelect.astro',
         PageFrame: '../../src/components/overrides/PageFrame.astro',

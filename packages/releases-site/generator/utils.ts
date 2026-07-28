@@ -12,11 +12,7 @@ export function escapeChangelogMarkdown(str: string): string {
   return mapProseLines(str, escapeOutsideCodeSpans);
 }
 
-/**
- * Split into lines, flagging those a fenced code block owns — its delimiters
- * included. Callers must leave those alone: markdown renders them literally, so
- * anything done to them shows up verbatim on the page.
- */
+/** Split into lines, flagging those a fenced code block owns, delimiters included. */
 export function proseLines(str: string): { line: string; inFence: boolean }[] {
   const out: { line: string; inFence: boolean }[] = [];
   let fence: string | undefined;
