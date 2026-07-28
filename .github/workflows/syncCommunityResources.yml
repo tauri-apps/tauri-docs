@@ -27,14 +27,15 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      # build.ts only needs Node's own APIs, so skip installing the docs site
+      - run: pnpm install --frozen-lockfile --filter community-resources
+
+      - run: pnpm test:community-resources
 
       - name: sync-community-resources
-        run: pnpm build:community-resources
+        run: pnpm sync:community-resources
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - run: pnpm prettier src/data -w
 
       # tauri-docs PR
       - name: Git config
@@ -53,5 +54,3 @@ jobs:
           title: Update Community Resources
           labels: 'bot'
           sign-commits: true
-          # deliberately not automerged: this list is author-supplied metadata
-          # from open registries, so the weekly diff gets a human read
