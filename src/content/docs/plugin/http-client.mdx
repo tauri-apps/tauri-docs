@@ -11,6 +11,7 @@ import Compatibility from '@components/plugins/Compatibility.astro';
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
 import PluginPermissions from '@components/PluginPermissions.astro';
+import SinceVersion from '@components/SinceVersion.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
@@ -73,6 +74,16 @@ Install the http plugin to get started.
 
 </Tabs>
 
+The Rust crate has Cargo features that add or remove capabilities. `rustls-tls`, `http2`, `charset`, `cookies`, and `macos-system-configuration` are enabled by default; the most useful opt-in features are:
+
+- `gzip`, `brotli`, `deflate`, `zstd`: response body decompression
+- `multipart` and `json`: the matching [reqwest](https://docs.rs/reqwest/) helpers for the Rust side
+- `socks`: SOCKS proxy support
+- `blocking`: the `reqwest` blocking client
+- `tracing`: request and response tracing logs
+- `unsafe-headers`: allow setting [forbidden request headers] from `fetch`
+- `dangerous-settings`: allow disabling TLS validation
+
 ## Usage
 
 The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest/) re-export and JavaScript.
@@ -101,6 +112,7 @@ The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest
 2.  Send a request
 
     The `fetch` method tries to be as close and compliant to the [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as possible.
+    It deviates in two deliberate ways: all requests share a persistent [cookie store](#cookies), and `Set-Cookie` response headers are readable through `response.headers`, which browsers never expose.
 
     ```javascript
     import { fetch } from '@tauri-apps/plugin-http';
@@ -122,9 +134,52 @@ The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest
     tauri-plugin-http = { version = "2", features = ["unsafe-headers"] }
     ```
 
+    `fetch` always sets an `Origin` header derived from the webview URL. With `unsafe-headers` enabled you can override it, or remove it entirely by passing an empty string for services that reject unexpected origins.
+
     :::
 
+    :::caution
+    The `danger` option (`danger: { acceptInvalidCerts: true, acceptInvalidHostnames: true }`) disables TLS validation for the request. It only works when the Rust side is compiled with the `dangerous-settings` feature flag. Without it, any request that passes `danger` fails with an error. Only use this with servers you control.
+    :::
+
+3.  Stream a response
+
+    `fetch` resolves as soon as the response headers arrive. The response body is a [`ReadableStream`], so you can process data in chunks as it is received instead of waiting for the full body:
+
+    ```javascript
+    import { fetch } from '@tauri-apps/plugin-http';
+
+    const response = await fetch('http://test.tauri.app/stream');
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      // process each chunk as it arrives
+      console.log(decoder.decode(value, { stream: true }));
+    }
+    ```
+
 </Steps>
+
+### Cookies
+
+<SinceVersion version="2.4.3" href="/release/http/v2.4.3/" />
+
+All `fetch` calls share a cookie store: cookies set by a response are sent along with later requests to the same host, like a browser would. The store is written to a `.cookies` file in the app's cache directory and loaded again on the next launch, so persistent cookies survive restarts.
+
+Cookie handling is part of the default feature set. To turn it off, disable default features in `Cargo.toml` and keep the ones you need:
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-http = { version = "2", default-features = false, features = [
+  "rustls-tls",
+  "http2",
+  "charset",
+  "macos-system-configuration",
+] }
+```
 
 ### Rust
 
@@ -141,3 +196,4 @@ println!("{:?}", res.text().await); // e.g Ok("{ Content }")
 <PluginPermissions plugin={frontmatter.plugin} />
 
 [Forbidden request headers]: https://fetch.spec.whatwg.org/#terminology-headers
+[`ReadableStream`]: https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream

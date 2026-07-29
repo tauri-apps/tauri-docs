@@ -137,10 +137,16 @@ The generated files depend on the [`createUpdaterArtifacts`] configuration value
 }
 ```
 
-On Linux, Tauri will create the normal AppImage inside the `target/release/bundle/appimage/` folder:
+On Linux, Tauri will create the normal AppImage, Deb, and RPM bundles inside the `target/release/bundle/appimage/`, `deb/` and `rpm/` folders:
 
 - `myapp.AppImage` - The standard app bundle. It will be re-used by the updater.
 - `myapp.AppImage.sig` - The signature of the updater bundle.
+- `myapp.deb` - The standard Deb package. It will be re-used by the updater.
+- `myapp.deb.sig` - The signature of the update bundle.
+- `myapp.rpm` - The standard RPM package. It will be re-used by the updater.
+- `myapp.rpm.sig` - The signature of the update bundle.
+
+The updater installs the same format the app was installed with: AppImage updates in place, while Deb and RPM updates install the new package. Installing a Deb or RPM update requires root, so the updater prompts the user for elevation: `pkexec` if available, falling back to a graphical `sudo` prompt (`zenity` or `kdialog`) and then to terminal `sudo`. AppImage updates need no elevation. Deb updates require updater plugin 2.1.0, RPM updates 2.10.0.
 
 On macOS, Tauri will create a .tar.gz archive from the application bundle inside the target/release/bundle/macos/ folder:
 
@@ -204,12 +210,15 @@ Set up the `tauri.conf.json` in this format for the updater to start working.
 | `pubkey`                             | This has to be the public key generated from the Tauri CLI in the step above. It **cannot** be a file path!                                                                                                                                                                                    |
 | `endpoints`                          | This must be an array of endpoint URLs as strings. TLS is enforced in production mode. Tauri will only continue to the next url if a non-2XX status code is returned!                                                                                                                          |
 | `dangerousInsecureTransportProtocol` | Setting this to `true` allows the updater to accept non-HTTPS endpoints. Use this configuration with caution!                                                                                                                                                                                  |
+| `dangerousAcceptInvalidCerts`        | Setting this to `true` makes the updater accept invalid TLS certificates, e.g. for an internal update server with a self-signed certificate. Use this configuration with caution!                                                                                                             |
+| `dangerousAcceptInvalidHostnames`    | Setting this to `true` makes the updater accept TLS certificates whose hostname does not match the endpoint. Use this configuration with caution!                                                                                                                                             |
 
 Each updater URL can contain the following dynamic variables, allowing you to determine server-side if an update is available.
 
 - `{{current_version}}`: The version of the app that is requesting the update.
 - `{{target}}`: The operating system name (one of `linux`, `windows` or `darwin`).
-- `{{arch}}`: The architecture of the machine (one of `x86_64`, `i686`, `aarch64` or `armv7`).
+- `{{arch}}`: The architecture of the machine (one of `x86_64`, `i686`, `aarch64`, `armv7` or `riscv64`).
+- `{{bundle_type}}`: The format the running app was installed with (one of `appimage`, `deb`, `rpm`, `app`, `msi` or `nsis`; `unknown` if it cannot be detected), letting the server pick the matching package.
 
 ```json title=tauri.conf.json
 {
@@ -266,13 +275,15 @@ When using static, you just need to return a JSON containing the required inform
 | `version`   | Must be a valid [SemVer](https://semver.org/), with or without a leading `v`, meaning that both `1.0.0` and `v1.0.0` are valid.                                 |
 | `notes`     | Notes about the update.                                                                                                                                         |
 | `pub_date`  | The date must be formatted according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) if present.                                                   |
-| `platforms` | Each platform key is in the `OS-ARCH` format, where `OS` is one of `linux`, `darwin` or `windows`, and `ARCH` is one of `x86_64`, `aarch64`, `i686` or `armv7`. |
+| `platforms` | Each platform key is in the `OS-ARCH` format, where `OS` is one of `linux`, `darwin` or `windows`, and `ARCH` is one of `x86_64`, `aarch64`, `i686`, `armv7` or `riscv64`. |
 | `signature` | The content of the generated `.sig` file, which may change with each build. A path or URL does not work!                                                        |
 
 :::note
 When using [custom targets](#custom-target) the provided target string is matched against the `platforms` key
 instead of the default `OS-ARCH` value.
 :::
+
+A platform key may also carry an install-format suffix in the `OS-ARCH-FORMAT` format, where `FORMAT` is one of `appimage`, `deb`, `rpm`, `app`, `msi` or `nsis`. The updater first looks for the key matching its own install format and falls back to the plain `OS-ARCH` key. This is how you serve different packages when shipping several Linux formats, e.g. `linux-x86_64-deb` and `linux-x86_64-rpm` alongside `linux-x86_64` for the AppImage.
 
 The required keys are `"version"`, `"platforms.[target].url"` and `"platforms.[target].signature"`; the others are optional.
 
@@ -322,7 +333,7 @@ If an update is required, your server should respond with a status code of [`200
 | `url`       | This Must be a valid URL to the update bundle.                                                                                       |
 | `signature` | The content of the generated `.sig` file, which may change with each build. A path or URL does not work!                             |
 
-The required keys are `"url"`, `"version"` and `"signature"`; the others are optional.
+The required keys are `"url"`, `"version"` and `"signature"`; the others are optional. The server may include additional fields of its own: the plugin does not parse them, but the app can read them through `update.rawJson` in JavaScript or `update.raw_json` in Rust.
 
 ```json
 {
@@ -573,7 +584,7 @@ how to handle the update by either waiting until the user manually restarts the 
 On Windows the application is automatically exited when the install step is executed due to a limitation of Windows installers.
 :::
 
-When checking and downloading updates it is possible to define a custom request timeout, a proxy and request headers.
+When checking for updates it is possible to define a custom request timeout, a proxy and request headers. The proxy and headers are reused for the download step, but the timeout is not: `download` and `downloadAndInstall` accept their own `timeout` (and replacement `headers`) in a separate options argument.
 
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
@@ -587,6 +598,14 @@ const update = await check({
   headers: {
     Authorization: 'Bearer <token>',
   },
+});
+
+// the download options are passed separately
+await update.downloadAndInstall(undefined, {
+  headers: {
+    Authorization: 'Bearer <token>',
+  },
+  timeout: 30000,
 });
 ```
 
@@ -713,7 +732,23 @@ which returns an `Option<String>` that is `None` when the updater is not support
 #### Allowing downgrades
 
 By default Tauri checks if the update version is greater than the current app version to verify if it should update or not.
-To allow downgrades, you must use the updater builder's `version_comparator` API:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+To allow downgrades, pass the `allowDowngrades` option to `check`. Any version different from the current one is then accepted as an update:
+
+```js
+import { check } from '@tauri-apps/plugin-updater';
+
+const update = await check({ allowDowngrades: true });
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+To allow downgrades, use the updater builder's `version_comparator` API:
 
 ```rust
 use tauri_plugin_updater::UpdaterExt;
@@ -728,6 +763,9 @@ let update = app
   .check()
   .await?;
 ```
+
+</TabItem>
+</Tabs>
 
 #### Windows before exit hook
 

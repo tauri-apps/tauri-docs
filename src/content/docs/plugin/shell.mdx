@@ -22,7 +22,9 @@ Access the system shell. Allows you to spawn child processes.
 
 ## Opener
 
-If you're looking for documentation for the `shell.open` API, check out the new [Opener plugin](../opener/) instead.
+If you're looking for documentation for the `shell.open` API, check out the new [Opener plugin](/plugin/opener/) instead.
+
+The legacy `open` command is still available for compatibility. It is controlled by `tauri.conf.json > plugins > shell > open`: `true` or leaving it unset applies the default validation regex (`^((mailto:\w+)|(tel:\w+)|(https?://\w+)).+`), a string registers a custom regex, and `false` disables the command for JavaScript entirely.
 
 ## Setup
 
@@ -127,6 +129,10 @@ if output.status.success() {
 By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+:::caution
+Command scopes constrain the JavaScript API only. Rust code that obtains a shell handle through `ShellExt::shell()` is **not** scope-validated: the scope gates webview calls, not your own Rust code.
+:::
 
 ```json title="src-tauri/capabilities/default.json" ins={6-23}
 {

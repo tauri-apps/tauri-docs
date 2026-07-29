@@ -48,6 +48,12 @@ Install the dialog plugin to get started.
                 cargo add tauri-plugin-dialog
                 ```
 
+                On Linux the dialogs use the GTK3 backend by default. To use the XDG desktop portal instead (recommended for sandboxed environments such as Flatpak), disable default features and enable `xdg-portal`:
+
+                ```toml title="src-tauri/Cargo.toml"
+                tauri-plugin-dialog = { version = "2", default-features = false, features = ["xdg-portal"] }
+                ```
+
             2.  Modify `lib.rs` to initialize the plugin:
 
                 ```rust title="src-tauri/src/lib.rs" ins={4}
@@ -147,7 +153,7 @@ console.log(confirmation);
 
 #### Create Message Dialog
 
-Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
+Shows a message dialog with an `Ok` button. `message` resolves with the button that was pressed: `'Ok'`, `'Yes'`, `'No'`, `'Cancel'`, or the label of a custom button.
 
 ```javascript
 import { message } from '@tauri-apps/plugin-dialog';
@@ -156,6 +162,18 @@ import { message } from '@tauri-apps/plugin-dialog';
 
 // Shows message
 await message('File not found', { title: 'Tauri', kind: 'error' });
+```
+
+The `buttons` option switches the dialog to two or three buttons, either a platform default set (`'OkCancel'`, `'YesNo'`, `'YesNoCancel'`) or custom labels:
+
+```javascript
+import { message } from '@tauri-apps/plugin-dialog';
+
+const result = await message('Save changes before closing?', {
+  title: 'Tauri',
+  buttons: { yes: 'Save', no: "Don't save", cancel: 'Cancel' },
+});
+// Resolves with 'Save', "Don't save" or 'Cancel'
 ```
 
 #### Open a File Selector Dialog
@@ -177,6 +195,10 @@ const file = await open({
 console.log(file);
 // Prints file path or URI
 ```
+
+On iOS the system has distinct document and media pickers, and the plugin chooses one based on `filters`: filters made up of only image or video types open the media picker instead of the document picker. The `pickerMode` option (`'media'`, `'image'`, or `'video'`) forces the media picker with the matching selection; iOS 13 and below ignore it. On Android `pickerMode` narrows the file types the system picker offers. On desktop the option is ignored.
+
+On iOS and macOS document pickers, the `fileAccessMode` option decides what you get access to. The default `'copy'` copies the picked file into the app sandbox. The copy belongs to your app, and **you** are responsible for deleting it when you no longer need it. `'scoped'` leaves the file in place and the system manages [security-scoped access] to it. Image and video pickers always copy, since their items are only accessible inside the picker callback.
 
 #### Save to File Dialog
 
@@ -237,7 +259,7 @@ app.dialog()
 
 #### Build a Message Dialog
 
-Shows a message dialog with an `Ok` button. Keep in mind that if the user closes the dialog it will return `false`.
+Shows a message dialog with an `Ok` button. `blocking_show()` returns `true` if the user pressed the OK/Yes button and `false` otherwise.
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
@@ -263,6 +285,23 @@ app.dialog()
         true => // do something,
         false => // do something,
     });
+```
+
+For a three-button dialog the boolean is not enough. Use `blocking_show_with_result()` (or `show_with_result()`) to get the exact button that was pressed:
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogResult};
+
+let result = app.dialog()
+    .message("Save changes before closing?")
+    .buttons(MessageDialogButtons::YesNoCancel)
+    .blocking_show_with_result();
+
+match result {
+    MessageDialogResult::Yes => { /* save */ }
+    MessageDialogResult::No => { /* discard */ }
+    _ => { /* keep the app open */ }
+}
 ```
 
 #### Build a File Selector Dialog
@@ -317,3 +356,4 @@ app.dialog()
 
 [content URIs]: https://developer.android.com/guide/topics/providers/content-provider-basics
 [filesystem plugin]: /plugin/file-system/
+[security-scoped access]: https://developer.apple.com/documentation/foundation/nsurl/startaccessingsecurityscopedresource()
