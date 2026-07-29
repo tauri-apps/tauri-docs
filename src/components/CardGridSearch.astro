@@ -10,11 +10,6 @@ export interface FilterConfig {
   label: string;
   options: { value: string; label: string }[];
   cssClassPattern: string;
-  /**
-   * Class marking a card as carrying data for this filter. Cards without it are exempt
-   * from the filter rather than hidden by it. Omit to filter every card in the grid.
-   */
-  presenceClass?: string;
 }
 
 interface Props {
@@ -63,7 +58,6 @@ const { placeholder = 'Search features and community resources...', filters = []
                 class="ui_filter-select"
                 data-filter-id={filter.id}
                 data-css-pattern={filter.cssClassPattern}
-                data-presence-class={filter.presenceClass}
                 aria-label={filter.label}
               >
                 <option value="">All</option>
@@ -102,10 +96,13 @@ const { placeholder = 'Search features and community resources...', filters = []
           const value = select.value;
           if (!value) return null;
           const pattern = select.dataset.cssPattern || '';
-          const presenceClass = select.dataset.presenceClass;
+          const toSelector = (v: string) => `.${pattern.replace('${value}', v)}`;
           return {
-            selector: `.${pattern.replace('${value}', value)}`,
-            presenceSelector: presenceClass ? `.${presenceClass}` : '',
+            selector: toSelector(value),
+            anySelector: Array.from(select.options)
+              .filter((option) => option.value)
+              .map((option) => toSelector(option.value))
+              .join(', '),
           };
         })
         .filter((filter) => filter !== null);
@@ -126,11 +123,7 @@ const { placeholder = 'Search features and community resources...', filters = []
           const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
 
           const filterMatches = activeFilters.every((filter) => {
-            // A card carrying no data for this filter is exempt from it rather than
-            // filtered out. Checked first: most cards on the page are in that group.
-            if (filter.presenceSelector && !htmlElement.querySelector(filter.presenceSelector)) {
-              return true;
-            }
+            if (!htmlElement.querySelector(filter.anySelector)) return true;
             return htmlElement.querySelector(filter.selector) !== null;
           });
 
