@@ -1,21 +1,10 @@
 ---
-const { section } = Astro.props;
 import { join } from 'node:path';
-import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import ProjectContext from 'virtual:starlight/project-context';
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { JSDOM } from 'jsdom';
-import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
+import { loadAwesomeSections } from './awesomeTauriData';
 
-const md = await createSatteriMarkdownProcessor();
-const workspaceRoot = fileURLToPath(ProjectContext.root);
-const res = readFile(join(workspaceRoot, 'packages/awesome-tauri/README.md'), 'utf-8');
-const content = await md.render(await res);
-const dom = new JSDOM('<!DOCTYPE html>' + content.code);
-const document = dom.window.document;
-let categories = document.querySelectorAll('h3');
-let cards = [];
 const sections = {
   plugins: 'Plugins',
   'plugins-no-official': 'Plugins',
@@ -44,43 +33,45 @@ const sections = {
   'applications-utilities': 'Utilities',
 };
 
-for (const header of categories) {
-  if (header.textContent === sections[section]) {
-    const list = header.nextSibling.nextSibling as HTMLElement;
-    for (let entry of list.children) {
-      entry = entry as HTMLLinkElement;
-      if (section.includes('-no-official')) {
-        let img = entry.children[1];
-        if (img && img.src && img.src.includes('official')) continue;
-        img = entry.children[2];
-        if (img && img.src && img.src.includes('official')) continue;
-      }
-      if (section.includes('-no-video')) {
-        let img = entry.children[1];
-        if (img && img.src && img.src.includes('YouTube')) continue;
-        img = entry.children[2];
-        if (img && img.src && img.src.includes('YouTube')) continue;
-      }
-      if (section.includes('-only-video')) {
-        let skip = true;
-        let img = entry.children[1];
-        if (img && img.src && img.src.includes('YouTube')) {
-          skip = false;
-        }
-        img = entry.children[2];
-        if (img && img.src && img.src.includes('YouTube')) {
-          skip = false;
-        }
-        if (skip) continue;
-      }
-      cards.push({
-        href: entry.children[0].href,
-        name: entry.children[0].textContent,
-        description: entry.textContent.split(' - ')[1],
-      });
-    }
-  }
+const section = Astro.props.section as keyof typeof sections;
+
+const heading = sections[section];
+if (!heading) {
+  throw new Error(
+    `AwesomeTauri: unknown section "${section}". Known sections: ${Object.keys(sections).join(', ')}.`
+  );
 }
+
+const workspaceRoot = fileURLToPath(ProjectContext.root);
+const allSections = await loadAwesomeSections(
+  join(workspaceRoot, 'packages/awesome-tauri/README.md')
+);
+
+// The README is scraped by heading text, so an upstream rename silently empties a
+// section here. Fail the build instead of rendering an empty grid.
+const entries = allSections.get(heading);
+if (!entries?.length) {
+  throw new Error(
+    `AwesomeTauri: no entries under the "${heading}" heading in packages/awesome-tauri/README.md ` +
+      `(section "${section}"). The heading was likely renamed or removed upstream, update the ` +
+      `\`sections\` map in this file to match.`
+  );
+}
+
+const cards = entries.filter((entry) => {
+  if (section.includes('-no-official')) {
+    if (entry.img1Src?.includes('official')) return false;
+    if (entry.img2Src?.includes('official')) return false;
+  }
+  if (section.includes('-no-video')) {
+    if (entry.img1Src?.includes('YouTube')) return false;
+    if (entry.img2Src?.includes('YouTube')) return false;
+  }
+  if (section.includes('-only-video')) {
+    if (!entry.img1Src?.includes('YouTube') && !entry.img2Src?.includes('YouTube')) return false;
+  }
+  return true;
+});
 ---
 
 <CardGrid>
