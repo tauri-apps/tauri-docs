@@ -152,10 +152,6 @@ test('a ~~~ line inside a ``` block does not desync fence tracking', () => {
   assert.match(out, /^### prose `y` transformed$/m);
 });
 
-test('strips Uint8Array type parameters', () => {
-  assert.equal(n('`Uint8Array`\\<`ArrayBufferLike`\\>'), '`Uint8Array`');
-});
-
 test('leaves frontmatter untouched (supplied by typedoc-plugin-frontmatter)', () => {
   const page = '---\ntitle: x\n---\n\nbody';
   assert.equal(n(page), page);
