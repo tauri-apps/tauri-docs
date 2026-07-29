@@ -15,7 +15,8 @@ import { buildCoreGroups, splitPrereleases } from './groupedPage.ts';
 import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
   getAllVersionsHead,
-  renderReleaseDateLabel,
+  renderReleaseHead,
+  renderReleaseNotes,
   writeCorePage,
   writeCorePrereleasesPage,
   writePackageIndex,
@@ -127,10 +128,8 @@ async function writePageData(
       const { version, notes, dateLabel } = release;
       const rawMd = escapeChangelogMarkdown(notes);
 
-      const heading = `\n\n## v${version}\n\n`;
-      const releaseDateLabel = renderReleaseDateLabel(dateLabel);
-      const content = [heading, releaseDateLabel, rawMd].filter(Boolean).join('\n\n');
-      allVersionsStream.write(content);
+      const head = renderReleaseHead(2, version, dateLabel);
+      allVersionsStream.write(`\n\n${[head, renderReleaseNotes(rawMd)].join('\n\n')}`);
 
       const releaseUrl = config
         ? buildGitHubReleaseUrl(config.repo, config.pkg, version)

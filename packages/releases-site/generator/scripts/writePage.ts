@@ -44,12 +44,28 @@ function renderPageLinks(links: PageLink[]): string {
   return `<div class="release-links">${anchors.join('\n')}</div>`;
 }
 
-export function renderReleaseDateLabel(date: string | undefined): string {
+function renderReleaseDateLabel(date: string | undefined): string {
   if (!date) {
     return '';
   }
 
   return `<div class="release-date-row"><small class="release-date">${date}</small></div>`;
+}
+
+/** The date stays outside the heading, or it reads into the table of contents. */
+export function renderReleaseHead(level: number, version: string, date?: string): string {
+  return [
+    '<div class="release-head">',
+    `${'#'.repeat(level)} ${version}`,
+    renderReleaseDateLabel(date),
+    '</div>',
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+}
+
+export function renderReleaseNotes(notes: string): string {
+  return ['<div class="release-notes">', notes, '</div>'].join('\n\n');
 }
 
 /**
@@ -83,7 +99,9 @@ export function writeVersionPage(params: {
   ]);
 
   const date = renderReleaseDateLabel(releaseDateLabel);
-  const content = [frontmatter, header, date, notes].filter(Boolean).join('\n\n');
+  const content = [frontmatter, header, date, renderReleaseNotes(notes)]
+    .filter(Boolean)
+    .join('\n\n');
   const fileName = `v${version}.md`;
 
   writeFileSync(join(workingDir, fileName), content);
@@ -115,18 +133,10 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
 
 /**
  * The version, then one `####` section per package that published it — the
- * package heading has to outrank the notes' own sections. The date sits beside
- * the heading rather than inside it, or it would read into the table of contents.
+ * package heading has to outrank the notes' own sections.
  */
 function renderCoreRelease(release: CoreRelease): string {
-  const head = [
-    '<div class="release-head">',
-    `### ${release.version}`,
-    renderReleaseDateLabel(release.dateLabel),
-    '</div>',
-  ]
-    .filter(Boolean)
-    .join('\n\n');
+  const head = renderReleaseHead(3, release.version, release.dateLabel);
 
   const bodies = release.entries.map((entry) => {
     const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes), 2);
@@ -134,7 +144,9 @@ function renderCoreRelease(release: CoreRelease): string {
     const heading = `#### ${entry.pkgLabel} <small class="package-version">${entry.version}</small>`;
     // one block per package, or the repeated "Bug Fixes" headings have no visible
     // owner. Blank lines keep the markdown between the tags parsed as markdown.
-    return ['<div class="package-block">', heading, notes, '</div>'].filter(Boolean).join('\n\n');
+    return ['<div class="package-block">', heading, renderReleaseNotes(notes), '</div>'].join(
+      '\n\n'
+    );
   });
   return [head, ...bodies].filter(Boolean).join('\n\n');
 }
