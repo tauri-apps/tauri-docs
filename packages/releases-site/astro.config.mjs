@@ -19,12 +19,11 @@ export default defineConfig({
       description: 'Release notes for the Tauri core ecosystem',
       logo: logo('../../'),
       social: social(site),
+      routeMiddleware: './src/routeData.ts',
       components: {
         // Local: Header (and its SiteTitle) is a deliberate fork — English-only,
-        // no topics, logo links to the docs home. Sidebar wraps the default to
-        // highlight a package on its generated version pages.
+        // no topics, logo links to the docs home.
         Header: './src/components/overrides/Header.astro',
-        Sidebar: './src/components/overrides/Sidebar.astro',
 
         // Imported from the docs site so UI changes propagate (README "Shared UI")
         Footer: '../../src/components/overrides/Footer.astro',

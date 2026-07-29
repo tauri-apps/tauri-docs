@@ -1,8 +1,0 @@
----
-import Default from '@astrojs/starlight/components/Sidebar.astro';
-import { markCurrentByPrefix } from '../sidebar-current.ts';
-
-markCurrentByPrefix(Astro.locals.starlightRoute.sidebar, Astro.url.pathname);
----
-
-<Default><slot /></Default>
