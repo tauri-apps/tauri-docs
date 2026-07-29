@@ -143,6 +143,9 @@
   // one band per package, so "Bug Fixes" three packages down still has a visible owner
   .package-block {
     margin-top: 2.25rem;
+  }
+
+  .package-block .release-notes {
     padding-left: 1.25rem;
     border-left: 2px solid var(--sl-color-gray-5);
   }
