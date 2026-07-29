@@ -1,4 +1,4 @@
-import { Converter } from 'typedoc';
+import { Converter, makeRecursiveVisitor } from 'typedoc';
 
 /**
  * Local TypeDoc plugin for the Tauri JS API reference.
@@ -21,6 +21,21 @@ import { Converter } from 'typedoc';
  */
 const PLATFORM_HEADING_RE = /^#{1,6}[ \t]+(Platform-specific):?[ \t]*$/gm;
 const LIST_ITEM_HEADING_RE = /^#{1,6}[ \t]+(-[ \t]+\S.*)$/gm;
+
+// TS 5.7+ makes Uint8Array generic, so signatures pick up `<ArrayBuffer>` /
+// `<ArrayBufferLike>` type arguments — lib-level noise for API docs. Dropped here at the
+// reflection level, so every rendered form (signature code block, table cell, mdn-linked
+// prose) comes out as plain `Uint8Array`. Only the lib-supplied buffer types are dropped;
+// an explicit `Uint8Array<SharedArrayBuffer>` in a source signature would be kept.
+export function stripUint8Generic(type) {
+  if (type.name !== 'Uint8Array' || type.typeArguments?.length !== 1) return;
+  const arg = type.typeArguments[0];
+  if (arg.type === 'reference' && (arg.name === 'ArrayBuffer' || arg.name === 'ArrayBufferLike')) {
+    type.typeArguments = undefined;
+  }
+}
+
+const STRIP_UINT8_VISITOR = makeRecursiveVisitor({ reference: stripUint8Generic });
 
 /** Exported for testing. */
 export function normalizeCommentText(text) {
@@ -53,6 +68,9 @@ export function load(app) {
       if (Array.isArray(reflection.signatures)) {
         for (const sig of reflection.signatures) normalizeComment(sig.comment);
       }
+      // Signatures and parameters are registered reflections themselves, so this one
+      // flat pass reaches return types, parameter types, and property/alias types.
+      reflection.type?.visit(STRIP_UINT8_VISITOR);
     }
   });
 

@@ -20,20 +20,11 @@
  *    ambiguous in the ToC and broke the previous generator's #new-classname anchors
  *    -> renameConstructorHeading() restores `new ClassName()`. (v4 design change, no
  *    opt-out found.)
- *  - TS 5.7+ generic Uint8Array noise, stripped via UINT8_GENERIC_RE (not an upstream
- *    bug, just a docs-build preference).
  *
  * Page frontmatter is out of scope here: typedoc-plugin-frontmatter supplies it via
  * `frontmatterGlobals` in typedoc-plugins.ts, and starlight-typedoc merges its own keys
  * into that.
  */
-
-// TS 5.7+ makes Uint8Array generic, so signatures render as `Uint8Array<ArrayBuffer>` /
-// `Uint8Array<ArrayBufferLike>`. The type parameter is lib-level noise for API docs, so
-// strip it from the rendered markdown. Covers raw code blocks, escaped text, and the
-// typedoc-plugin-mdn-links linked form `[`Uint8Array`](...)\<[`ArrayBuffer`](...)\>`.
-const UINT8_GENERIC_RE =
-  /(\[`Uint8Array`\]\([^)\s]*\)|`?Uint8Array`?)\\?<(?:\[`ArrayBuffer(?:Like)?`\]\([^)\s]*\)|`?ArrayBuffer(?:Like)?`?)\\?>/g;
 
 // A pair of escaped backticks wrapping a token: `\`open\`` in a heading or link label,
 // where the JSDoc author wrote real inline code. Content must be non-empty (`\`\`` would
@@ -135,13 +126,11 @@ function transformProseLine(line) {
 
 /** Post-process a generated page. Exported for typedoc-plugins.ts and tests. */
 export function normalizeGeneratedPage(content) {
-  let result = content.replace(UINT8_GENERIC_RE, '$1');
-
   // Line-scoped transforms, skipping fenced code blocks (example code must stay
   // verbatim). Fence state tracks the opening marker: per CommonMark, only a fence of the
   // same character, at least as long, with nothing else on the line, closes the block —
   // so a ~~~ or nested-fence line *inside* a ``` block cannot desync the state.
-  const lines = result.split('\n');
+  const lines = content.split('\n');
   let fence = null; // { char, length } of the open fence, or null
   for (let i = 0; i < lines.length; i++) {
     const marker = FENCE_MARKER_RE.exec(lines[i]);
