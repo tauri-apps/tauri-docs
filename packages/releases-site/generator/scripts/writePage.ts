@@ -52,7 +52,7 @@ function renderReleaseDateLabel(date: string | undefined): string {
   return `<div class="release-date-row"><small class="release-date">${date}</small></div>`;
 }
 
-/** The date stays outside the heading, or it reads into the table of contents. */
+/** the date stays outside the heading, or it reads into the table of contents */
 export function renderReleaseHead(level: number, version: string, date?: string): string {
   return [
     '<div class="release-head">',
@@ -64,8 +64,13 @@ export function renderReleaseHead(level: number, version: string, date?: string)
     .join('\n\n');
 }
 
+export function renderSeriesHead(series: string): string {
+  return ['<div class="series-head">', `## ${series}.x`, '</div>'].join('\n\n');
+}
+
+/** changelog categories are `###`; demoting them to h5 here is what custom.scss targets */
 export function renderReleaseNotes(notes: string): string {
-  return ['<div class="release-notes">', notes, '</div>'].join('\n\n');
+  return ['<div class="release-notes">', demoteNotesHeadings(notes, 2), '</div>'].join('\n\n');
 }
 
 /**
@@ -85,6 +90,10 @@ export function writeVersionPage(params: {
     `title: ${yaml(`${packageName}@${version}`)}`,
     `description: ${yaml(`${packageName} ${version} release notes`)}`,
     `slug: ${yaml(`${packageName}/v${version}`)}`,
+    // the note categories, which land at h5 like every other release surface
+    'tableOfContents:',
+    '  minHeadingLevel: 5',
+    '  maxHeadingLevel: 6',
     'pagefind: false',
     'editUrl: false',
     'prev: false',
@@ -114,7 +123,7 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
     `slug: ${yaml(`${packageName}/all-versions`)}`,
     'tableOfContents:',
     '  minHeadingLevel: 2',
-    '  maxHeadingLevel: 2',
+    '  maxHeadingLevel: 3',
     'pagefind: false',
     'editUrl: false',
     'prev: false',
@@ -131,19 +140,16 @@ export function getAllVersionsHead(packageName: string, changelogUrl: string | u
   return `${frontmatter}\n\n${header}\n\n`;
 }
 
-/**
- * The version, then one `####` section per package that published it — the
- * package heading has to outrank the notes' own sections.
- */
+/** one `####` section per package that published the version — it has to outrank the
+ * notes' own sections */
 function renderCoreRelease(release: CoreRelease): string {
   const head = renderReleaseHead(3, release.version, release.dateLabel);
 
   const bodies = release.entries.map((entry) => {
-    const notes = demoteNotesHeadings(escapeChangelogMarkdown(entry.notes), 2);
+    const notes = escapeChangelogMarkdown(entry.notes);
     // repeats the heading above, but earns a unique anchor id; styled back out of the way
     const heading = `#### ${entry.pkgLabel} <small class="package-version">${entry.version}</small>`;
-    // one block per package, or the repeated "Bug Fixes" headings have no visible
-    // owner. Blank lines keep the markdown between the tags parsed as markdown.
+    // blank lines keep the markdown between the tags parsed as markdown
     return ['<div class="package-block">', heading, renderReleaseNotes(notes), '</div>'].join(
       '\n\n'
     );
@@ -157,7 +163,6 @@ const githubReleasesLink: PageLink = {
   align: 'end',
 };
 
-/** the grouped core changelog: one section per minor, one sub-section per version */
 export function writeCorePage(params: { groups: CoreGroup[]; workingDir: string }): void {
   writeGroupedPage({
     ...params,
@@ -204,7 +209,7 @@ function writeGroupedPage(params: {
     `title: ${yaml(title)}`,
     `description: ${yaml(description)}`,
     `slug: ${yaml(slug)}`,
-    // minors and their releases only — the levels below repeat "Bug Fixes" on
+    // series and their releases only — the levels below repeat "Bug Fixes" on
     // every release and would bury the versions
     'tableOfContents:',
     '  minHeadingLevel: 2',
@@ -218,11 +223,8 @@ function writeGroupedPage(params: {
   const header = renderPageLinks(links);
 
   const sections = groups.map((group) => {
-    // `.x` so the badge reads as the line of releases under it, not a version of
-    // its own. custom.scss also keys the grouped-page style block off `.minor-head`
-    const head = ['<div class="minor-head">', `## ${group.minor}.x`, '</div>'].join('\n\n');
     const releases = group.releases.map(renderCoreRelease).join('\n\n');
-    return [head, releases].join('\n\n');
+    return [renderSeriesHead(group.series), releases].join('\n\n');
   });
 
   const content = [frontmatter, header, intro, ...sections].join('\n\n');

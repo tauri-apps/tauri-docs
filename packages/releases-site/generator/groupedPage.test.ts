@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildCoreGroups, demoteNotesHeadings, splitPrereleases } from './groupedPage.ts';
+import {
+  buildCoreGroups,
+  demoteNotesHeadings,
+  groupBySeries,
+  splitPrereleases,
+} from './groupedPage.ts';
 import type { ReleaseWithDate } from './pageGenerator.ts';
 
 function release(version: string, date?: string, notes = `notes ${version}`): ReleaseWithDate {
@@ -49,7 +54,7 @@ test('packages on different versions land in different releases', () => {
   );
 });
 
-test('excludes non-2.x versions and folds prereleases into their minor', () => {
+test('excludes non-2.x versions and gives a prerelease channel its own series', () => {
   const groups = buildCoreGroups(
     data({
       tauri: [
@@ -59,8 +64,8 @@ test('excludes non-2.x versions and folds prereleases into their minor', () => {
     })
   );
   assert.deepEqual(
-    groups.map((g) => g.minor),
-    ['2.0']
+    groups.map((g) => g.series),
+    ['2.0.0-rc']
   );
 });
 
@@ -177,7 +182,7 @@ test('a package on a different minor files under its own', () => {
     })
   );
   assert.deepEqual(
-    groups.map((g) => g.minor),
+    groups.map((g) => g.series),
     ['2.12', '2.11']
   );
 });
@@ -194,7 +199,7 @@ test('sorts minors numerically, not lexicographically', () => {
     })
   );
   assert.deepEqual(
-    groups.map((g) => g.minor),
+    groups.map((g) => g.series),
     ['2.11', '2.9']
   );
 });
@@ -247,7 +252,7 @@ test('releases run newest first within a minor, by version not publish order', (
   );
 });
 
-test('splitting sends prereleases to their own page and redates what stays', () => {
+test('splitting sends prereleases to their own page, one section per channel', () => {
   const groups = buildCoreGroups(
     data({
       tauri: [
@@ -260,12 +265,16 @@ test('splitting sends prereleases to their own page and redates what stays', () 
   );
   const { stable, prereleases } = splitPrereleases(groups);
   assert.deepEqual(
+    stable.map((g) => g.series),
+    ['2.0']
+  );
+  assert.deepEqual(
     stable[0].releases.map((r) => r.version),
     ['2.0.1', '2.0.0']
   );
   assert.deepEqual(
-    prereleases[0].releases.map((r) => r.version),
-    ['2.0.0-rc.1', '2.0.0-alpha.4']
+    prereleases.map((g) => g.series),
+    ['2.0.0-rc', '2.0.0-alpha']
   );
 });
 
@@ -276,7 +285,23 @@ test('a minor with no prereleases contributes nothing to that page', () => {
   assert.equal(prereleases.length, 0);
 });
 
-test('prereleases sort below the version they lead up to', () => {
+test('a patch prerelease does not split the stable series it ranks inside', () => {
+  // real tauri-bundler: 2.0.1-beta.2 sorts between 2.0.1 and 2.0.0, so walking the
+  // sorted list would open `2.0.x`, break for the betas, then open `2.0.x` again
+  const groups = groupBySeries(
+    ['2.0.1', '2.0.1-beta.2', '2.0.1-beta.0', '2.0.0'].map((version) => ({ version }))
+  );
+  assert.deepEqual(
+    groups.map((g) => g.series),
+    ['2.0', '2.0.1-beta']
+  );
+  assert.deepEqual(
+    groups[0].releases.map((r) => r.version),
+    ['2.0.1', '2.0.0']
+  );
+});
+
+test('a prerelease channel sorts below the version it led up to', () => {
   const groups = buildCoreGroups(
     data({
       tauri: [
@@ -287,8 +312,8 @@ test('prereleases sort below the version they lead up to', () => {
     })
   );
   assert.deepEqual(
-    groups[0].releases.map((r) => r.version),
-    ['2.0.0', '2.0.0-rc.1', '2.0.0-alpha.4']
+    groups.map((g) => g.series),
+    ['2.0', '2.0.0-rc', '2.0.0-alpha']
   );
 });
 

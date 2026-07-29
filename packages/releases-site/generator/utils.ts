@@ -6,7 +6,7 @@ import { generatorDir } from './config.ts';
  * Escape raw changelog content so HTML tags and template-ish sequences render
  * as text when the generated .md pages are compiled. Code spans and fenced
  * blocks are left untouched: markdown renders their content literally, so
- * entities there would show verbatim on the page.
+ * entities there would show verbatim on the page
  */
 export function escapeChangelogMarkdown(str: string): string {
   return mapProseLines(str, escapeOutsideCodeSpans);

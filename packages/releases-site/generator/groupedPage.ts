@@ -19,17 +19,22 @@ export type CoreRelease = {
   entries: CoreEntry[];
 };
 
-export type CoreGroup = { minor: string; releases: CoreRelease[] };
+export type CoreGroup = { series: string; releases: CoreRelease[] };
 
 const CORE_PACKAGES = ['tauri', '@tauri-apps/api', 'tauri-cli', '@tauri-apps/cli'];
 
 // Display order within a release; 'cli' is the merged tauri-cli/@tauri-apps/cli pair
 const PACKAGE_ORDER = ['tauri', '@tauri-apps/api', 'cli', 'tauri-cli', '@tauri-apps/cli'];
 
-/**
- * Group the core packages' 2.x releases by version, then by minor. One entry per
- * package per version, so the page reads as a version history, not a publish log.
- */
+export function seriesOf(version: string): string {
+  const minor = `${semver.major(version)}.${semver.minor(version)}`;
+  const channel = semver.prerelease(version)?.[0];
+
+  return channel ? `${minor}.${semver.patch(version)}-${channel}` : minor;
+}
+
+/** one entry per package per version, so the page reads as a version history, not a
+ * publish log */
 export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]>): CoreGroup[] {
   const entries: CoreEntry[] = [];
   for (const pkgLabel of CORE_PACKAGES) {
@@ -43,25 +48,32 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
   mergeRepeatedVersions(entries);
   dedupeCliPair(entries);
 
-  const byMinor = new Map<string, CoreRelease[]>();
-  for (const release of toReleases(entries)) {
-    const minor = `2.${semver.minor(release.version)}`;
-    byMinor.set(minor, [...(byMinor.get(minor) ?? []), release]);
+  return groupBySeries(toReleases(entries));
+}
+
+/** sorting alone will not group these: `2.0.1-beta.2` ranks between `2.0.1` and `2.0.0`,
+ * splitting tauri-bundler's stable 2.0 run in two */
+export function groupBySeries<T extends { version: string }>(
+  releases: T[]
+): { series: string; releases: T[] }[] {
+  const bySeries = new Map<string, T[]>();
+  for (const release of releases) {
+    const series = seriesOf(release.version);
+    bySeries.set(series, [...(bySeries.get(series) ?? []), release]);
   }
 
-  return [...byMinor.entries()]
-    .sort(([a], [b]) => Number(b.split('.')[1]) - Number(a.split('.')[1]))
-    .map(([minor, releases]) => ({
-      minor,
-      // newest first, the same direction the minors run in
-      releases: releases.sort((a, b) => semver.rcompare(a.version, b.version)),
-    }));
+  return [...bySeries.entries()]
+    .map(([series, list]) => ({
+      series,
+      releases: [...list].sort((a, b) => semver.rcompare(a.version, b.version)),
+    }))
+    .sort((a, b) => semver.rcompare(a.releases[0].version, b.releases[0].version));
 }
 
 /**
  * One release per version string, holding every package that reached it whenever
  * it got there — `@tauri-apps/api` took six weeks to catch `tauri` at 2.11.1. The
- * first publish dates the release; the renderer dates the stragglers separately.
+ * first publish dates the release; the renderer dates the stragglers separately
  */
 function toReleases(entries: CoreEntry[]): CoreRelease[] {
   const byVersion = new Map<string, CoreEntry[]>();
@@ -79,7 +91,7 @@ function toReleases(entries: CoreEntry[]): CoreRelease[] {
 }
 
 // tauri-cli's changelog lists 2.0.0-rc.9 under two headings. They share a publish
-// date, so nothing downstream can tell them apart — fold the later into the first.
+// date, so nothing downstream can tell them apart — fold the later into the first
 function mergeRepeatedVersions(entries: CoreEntry[]): void {
   const first = new Map<string, CoreEntry>();
   for (let i = 0; i < entries.length;) {
@@ -98,7 +110,7 @@ function mergeRepeatedVersions(entries: CoreEntry[]): void {
 
 // The cli pair is one covector release on two registries, so same-version twins
 // collapse into one "cli" entry however far apart they were published — gaps of
-// days occur. An npm entry with no crate twin has nothing to merge into and stays.
+// days occur. An npm entry with no crate twin has nothing to merge into and stays
 function dedupeCliPair(entries: CoreEntry[]): void {
   const crate = new Map(
     entries.filter((e) => e.pkgLabel === 'tauri-cli').map((e) => [e.version, e])
@@ -125,17 +137,17 @@ function dedupeCliPair(entries: CoreEntry[]): void {
 type NotesSection = { heading: string; lines: string[] };
 
 // The npm wrapper's whole contribution to its own changelog, and the crate version
-// it wraps. Once merged, that dependency is the entry itself, so the line goes.
+// it wraps. Once merged, that dependency is the entry itself, so the line goes
 const CRATE_UPGRADE = /^-\s+Upgraded to `tauri-cli@([^`]+)`/;
 
 /**
  * Fold the npm twin's notes into the crate's. Covector writes the wrapper the
  * crate's notes plus the upgrade line, so most pairs contribute nothing; a line
- * of the twin's own is kept, under the heading it came from.
+ * of the twin's own is kept, under the heading it came from
  *
  * A wrapper naming a *different* crate version is a release behind — npm rc.10
  * shipped crate rc.9 — so its body belongs to that release, which has its own
- * entry. Carrying it would print the same fix under two consecutive versions.
+ * entry. Carrying it would print the same fix under two consecutive versions
  */
 function mergeCliNotes(crateNotes: string, npmNotes: string, version: string): string {
   const npmSections = toSections(npmNotes);
@@ -205,7 +217,7 @@ function hasDate(e: CoreEntry): e is DatedEntry {
 /**
  * Split stable releases from the prereleases leading to them. Every prerelease
  * belongs to the 2.0 run-up, and they are two thirds of the releases and most of
- * the page weight for a version line nobody runs — so they get a page of their own.
+ * the page weight for a version line nobody runs — so they get a page of their own
  */
 export function splitPrereleases(groups: CoreGroup[]): {
   stable: CoreGroup[];
@@ -214,23 +226,12 @@ export function splitPrereleases(groups: CoreGroup[]): {
   const stable: CoreGroup[] = [];
   const prereleases: CoreGroup[] = [];
   for (const group of groups) {
-    const early = group.releases.filter((r) => semver.prerelease(r.version));
-    const released = group.releases.filter((r) => !semver.prerelease(r.version));
-    if (released.length) {
-      stable.push(regroup(group, released));
-    }
-    if (early.length) {
-      prereleases.push(regroup(group, early));
-    }
+    // a channel keys its own series, so no group straddles the two pages
+    (semver.prerelease(group.releases[0].version) ? prereleases : stable).push(group);
   }
   return { stable, prereleases };
 }
 
-function regroup(group: CoreGroup, releases: CoreRelease[]): CoreGroup {
-  return { ...group, releases };
-}
-
-/** When the packages in `list` first reached the version they have in common. */
 function earliestDateLabel(list: CoreEntry[]): string | undefined {
   return list
     .filter(hasDate)
@@ -239,7 +240,7 @@ function earliestDateLabel(list: CoreEntry[]): string | undefined {
 }
 
 /** Demote headings by `levels` (capped at h6) so notes nest under the page's own
- * headings. Skips fenced code blocks. */
+ * headings. Skips fenced code blocks */
 export function demoteNotesHeadings(notes: string, levels = 1): string {
   return mapProseLines(notes, (line) =>
     line.replace(/^#{1,6}(?=\s)/, (hashes) => '#'.repeat(Math.min(6, hashes.length + levels)))

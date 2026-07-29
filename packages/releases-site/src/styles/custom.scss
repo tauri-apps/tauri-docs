@@ -47,7 +47,7 @@
   margin-inline-start: 0.5rem;
 }
 
-// Zeroing the wrapper's margin costs the heading its spacing, so the row carries it.
+// Zeroing the wrapper's margin costs the heading its spacing, so the row carries it
 .sl-markdown-content .release-head {
   display: flex;
   align-items: baseline;
@@ -61,27 +61,27 @@
   }
 }
 
-// "Bug Fixes", "Dependencies" — labels, not headlines. Keyed by class because the
-// notes land at h3 on a package's pages and h5 under the core page's extra nesting.
+// Notes headings are h5 everywhere — `renderReleaseNotes` in writePage.ts demotes them
 .sl-markdown-content .release-notes {
-  --sl-text-h3: var(--sl-text-sm);
-  --sl-text-h4: var(--sl-text-sm);
   --sl-text-h5: var(--sl-text-sm);
   --sl-text-h6: var(--sl-text-sm);
+
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--sl-color-gray-5);
 
   .sl-heading-wrapper {
     margin-top: 1.5rem;
   }
 
-  :is(h3, h4, h5, h6) {
+  :is(h5, h6) {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--sl-color-gray-2);
   }
 }
 
-// Padding and size are the caller's — the home-card pill and the core page's
-// minor badge share the surface at different weights.
+// Padding and size are the caller's — the home-card pill and the series badge share
+// the surface at different weights
 @mixin version-pill-surface {
   display: inline-block;
   background-color: var(--sl-color-gray-6);
@@ -107,47 +107,38 @@
   }
 }
 
-// Grouped core page: `## minor` → `### release` → `#### package` → notes.
-// Levels that differ only in size read as one, so each gets its own register —
-// badge, headline, identifier — and the spacing is set per level, since
-// Starlight's default 1.5em is relative to each heading's own size. The notes
-// themselves are `.release-notes`, shared with the per-package pages.
-//
-// Margins go on `.sl-heading-wrapper`, which is Starlight's anchor-link markup,
-// not a theming API: set on the heading they collapse against the wrapper's and
-// lose. Generated .md has no component pipeline to reach for instead, so if
-// anchor links are ever turned off every rule below stops matching and the
-// spacing silently reverts. Re-check this page after a Starlight upgrade.
-.sl-markdown-content:has(.minor-head) {
-  // catches the heading and the wrapper Starlight copies the size onto
+// Margins below go on `.sl-heading-wrapper`, Starlight's anchor-link markup and not a
+// theming API — set on the heading they collapse against the wrapper's and lose. Turning
+// anchor links off silently reverts the spacing, so re-check after a Starlight upgrade
+
+// The var sits here rather than on the page: it has to reach the heading and the wrapper
+// Starlight copies the size onto
+.sl-markdown-content .series-head {
   --sl-text-h2: var(--sl-text-sm);
-  --sl-text-h4: var(--sl-text-xl);
 
-  .minor-head {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 5rem;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 5rem;
 
-  .minor-head .sl-heading-wrapper.level-h2 {
+  .sl-heading-wrapper.level-h2 {
     margin-top: 0;
   }
 
-  .minor-head h2 {
+  h2 {
     @include version-pill-surface;
 
     padding: 0.15rem 0.6rem;
   }
+}
 
-  // one band per package, so "Bug Fixes" three packages down still has a visible owner
+// Core pages only: one band per package, so "Bug Fixes" three packages down still has an
+// owner. A package's full changelog has one owner throughout and skips this level
+.sl-markdown-content:has(.package-block) {
+  --sl-text-h4: var(--sl-text-xl);
+
   .package-block {
     margin-top: 2.25rem;
-  }
-
-  .package-block .release-notes {
-    padding-left: 1.25rem;
-    border-left: 2px solid var(--sl-color-gray-5);
   }
 
   .package-block > .sl-heading-wrapper.level-h4 {

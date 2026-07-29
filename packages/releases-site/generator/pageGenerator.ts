@@ -11,10 +11,11 @@ import {
   resolveBranch,
 } from './config.ts';
 import { releaseDateFormatter } from './dateFormat.ts';
-import { buildCoreGroups, splitPrereleases } from './groupedPage.ts';
+import { buildCoreGroups, groupBySeries, splitPrereleases } from './groupedPage.ts';
 import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
   getAllVersionsHead,
+  renderSeriesHead,
   renderReleaseHead,
   renderReleaseNotes,
   writeCorePage,
@@ -124,25 +125,29 @@ async function writePageData(
 
     allVersionsStream.write(getAllVersionsHead(packageName, changelogUrl));
 
-    for (const release of releases) {
-      const { version, notes, dateLabel } = release;
-      const rawMd = escapeChangelogMarkdown(notes);
+    for (const group of groupBySeries(releases)) {
+      allVersionsStream.write(`\n\n${renderSeriesHead(group.series)}`);
 
-      const head = renderReleaseHead(2, version, dateLabel);
-      allVersionsStream.write(`\n\n${[head, renderReleaseNotes(rawMd)].join('\n\n')}`);
+      for (const release of group.releases) {
+        const { version, notes, dateLabel } = release;
+        const rawMd = escapeChangelogMarkdown(notes);
 
-      const releaseUrl = config
-        ? buildGitHubReleaseUrl(config.repo, config.pkg, version)
-        : changelogUrl;
+        const head = renderReleaseHead(3, version, dateLabel);
+        allVersionsStream.write(`\n\n${[head, renderReleaseNotes(rawMd)].join('\n\n')}`);
 
-      writeVersionPage({
-        packageName,
-        version,
-        notes: rawMd,
-        releaseDateLabel: dateLabel,
-        githubReleaseUrl: releaseUrl,
-        workingDir,
-      });
+        const releaseUrl = config
+          ? buildGitHubReleaseUrl(config.repo, config.pkg, version)
+          : changelogUrl;
+
+        writeVersionPage({
+          packageName,
+          version,
+          notes: rawMd,
+          releaseDateLabel: dateLabel,
+          githubReleaseUrl: releaseUrl,
+          workingDir,
+        });
+      }
     }
 
     allVersionsStream.end();

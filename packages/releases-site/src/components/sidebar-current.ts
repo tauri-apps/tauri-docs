@@ -1,5 +1,5 @@
 // Structural subset of Starlight's SidebarEntry, so node:test can import this
-// without Astro.
+// without Astro
 export type SidebarItem =
   { type: 'link'; href: string; isCurrent: boolean } | { type: 'group'; entries: SidebarItem[] };
 
@@ -10,7 +10,7 @@ function collectLinks(items: SidebarItem[]): Extract<SidebarItem, { type: 'link'
 /**
  * Mark the deepest sidebar link the path sits under. Generated version pages are
  * not sidebar entries, so Starlight highlights nothing on them; this points at
- * the package instead. A page it already matched is left alone.
+ * the package instead. A page it already matched is left alone
  */
 export function markCurrentByPrefix(items: SidebarItem[], pathname: string): void {
   const links = collectLinks(items);
