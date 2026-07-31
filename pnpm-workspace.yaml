@@ -11,7 +11,7 @@ packages:
 # components, which only works when pnpm dedupes both to one instance.
 catalog:
   '@astrojs/starlight': 0.41.4
-  astro: 7.1.3
+  astro: 7.1.4
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
