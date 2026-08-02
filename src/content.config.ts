@@ -15,43 +15,7 @@ export const collections = {
   i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
   releases: defineCollection({
     loader: glob({ base: './src/content/releases', pattern: '**/*.{md,mdx}' }),
-    // Exactly the frontmatter the generator writes. Everything but `slug` is
-    // handed to <StarlightPage> as-is, so the shapes must match Starlight's.
-    // `slug` is ours: filenames like `v2.0.0.md` would mis-slugify on the dots.
-    schema: z.object({
-      slug: z.string(),
-      title: z.string(),
-      description: z.string().optional(),
-      tableOfContents: z
-        .union([
-          z.literal(false),
-          z.object({ minHeadingLevel: z.number(), maxHeadingLevel: z.number() }),
-        ])
-        .optional(),
-      pagefind: z.boolean().optional(),
-      editUrl: z.union([z.string(), z.literal(false)]).optional(),
-      prev: z.boolean().optional(),
-      next: z.boolean().optional(),
-      head: z
-        .array(
-          z.object({
-            tag: z.enum([
-              'title',
-              'base',
-              'link',
-              'style',
-              'meta',
-              'script',
-              'noscript',
-              'template',
-            ]),
-            attrs: z
-              .record(z.string(), z.union([z.string(), z.boolean(), z.undefined()]))
-              .optional(),
-            content: z.string().optional(),
-          })
-        )
-        .optional(),
-    }),
+    // `slug` is ours: filenames like `v2.0.0.md` would mis-slugify on the dots
+    schema: docsSchema({ extend: z.object({ slug: z.string() }) }),
   }),
 };

@@ -4,15 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@astrojs/starlight':
-      specifier: 0.41.5
-      version: 0.41.5
-    astro:
-      specifier: 7.1.5
-      version: 7.1.5
-
 importers:
 
   .:
@@ -24,7 +15,7 @@ importers:
         specifier: ^4.0.19
         version: 4.0.19
       '@astrojs/starlight':
-        specifier: 'catalog:'
+        specifier: 0.41.5
         version: 0.41.5(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
       '@lunariajs/core':
         specifier: ^0.1.1
@@ -36,7 +27,7 @@ importers:
         specifier: ^4.0.4
         version: 4.0.4
       astro:
-        specifier: 'catalog:'
+        specifier: 7.1.5
         version: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(rollup@2.80.0)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
       astro-d2:
         specifier: ^0.13.0

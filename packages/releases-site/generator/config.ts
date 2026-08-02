@@ -3,9 +3,7 @@ import type { Repository, RepoPackage } from './types.ts';
 export const note =
   '\n#### NOTE: This file is auto-generated in packages/releases-site/generator/build.ts';
 
-// All paths are relative to the package root (scripts run as `node generator/build.ts`).
-// The output lands in the docs site: pages feed its `releases` content collection,
-// tableData.json is served as a static asset at /release/tableData.json.
+// Relative to the package root (scripts run as `node generator/build.ts`)
 export const contentDir = '../../src/content/releases';
 export const publicDir = '../../public/release';
 export const generatorDir = 'generator';
@@ -13,8 +11,10 @@ export const generatorDir = 'generator';
 // URL prefix all generated links carry (must match the injected routes in astro.config.mjs)
 export const basePath = '/release';
 
-// Slugs of the grouped core-packages changelog pages; the sidebar links in
-// `releaseSidebar` below are built from them
+/** BUILD_RELEASES=1 to generate locally; not keyed off `CI` — Netlify sets CI=true in every context */
+export const buildReleases =
+  process.env.BUILD_RELEASES === '1' || process.env.CONTEXT === 'production';
+
 export const corePageSlug = 'core';
 export const corePrereleasesSlug = 'core/prereleases';
 
@@ -382,11 +382,7 @@ export const repositories = [
   },
 ] satisfies Repository[];
 
-/**
- * Sidebar shared by every /release/* route. Version pages are deliberately not
- * listed — the per-package index page is the version list — so the Sidebar
- * override highlights the nearest ancestor link instead of an exact match.
- */
+/** version pages are deliberately not listed — src/routeData.ts highlights the nearest ancestor link instead */
 export const releaseSidebar = [
   { label: 'Overview', link: `${basePath}/` },
   { label: 'Changelog Table', link: `${basePath}/table/` },

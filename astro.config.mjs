@@ -362,8 +362,7 @@ export default defineConfig({
             },
           ],
           {
-            // Release pages carry their own sidebar and belong to no topic; without
-            // the exclusion this plugin's route middleware throws on every one of them.
+            // without this the plugin's route middleware throws on every release page
             exclude: ['**/_*/**', '/release', '/release/**'],
             topics: {
               blog: ['/blog', '/blog/*', '/blog/**/*', '**/blog', '**/blog/*', '**/blog/**/*'],
@@ -396,8 +395,7 @@ export default defineConfig({
         { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
         { icon: 'blueSky', label: 'Bluesky', href: 'https://bsky.app/profile/tauri.app' },
         { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
-        // resolved, not concatenated: a site with a trailing slash would give `//rss`
-        { icon: 'rss', label: 'RSS', href: new URL('/rss', site).href },
+        { icon: 'rss', label: 'RSS', href: `${site}/rss` },
       ],
       routeMiddleware: './src/routeData.ts',
       components: {
@@ -469,11 +467,7 @@ export default defineConfig({
       lastUpdated: true,
     }),
     {
-      // /release/* is served whenever its (gitignored) pages have been generated
-      // — always on production deploys, never on previews, and locally once you
-      // have run `BUILD_RELEASES=1 pnpm build:releases`. Keeping the route in
-      // src/routes/ rather than src/pages/ is what makes it optional: nothing is
-      // a route until it is injected.
+      // page.astro lives in src/routes/, not src/pages/: only a route when injected
       name: 'tauri-release-routes',
       hooks: {
         'astro:config:setup'({ injectRoute, logger }) {
@@ -504,9 +498,8 @@ export default defineConfig({
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
           {
-            // Never handle /release/* — a CacheFirst copy of the 280 KB
-            // tableData.json is dead weight for the 30-minute window, and the
-            // table is the one page that reads it.
+            // never handle /release/*: a CacheFirst copy of the 280 KB tableData.json
+            // is dead weight for the 30-minute window
             urlPattern: new RegExp('^https?://[^/]+/(?!release(/|$))'),
             handler: 'CacheFirst',
             options: {

@@ -1,8 +1,6 @@
 ---
-// The default picker offers the current page in each language; on /release/*
-// those URLs are the ones public/_redirects bounces straight back here. Picking
-// a language records it instead, which is what the header links and the
-// untranslated-content notice read.
+// the default picker links to /{locale}/release/* URLs that public/_redirects
+// bounces straight back here; this one records the choice instead
 import Select from '@astrojs/starlight/components/Select.astro';
 import locales from '../../../locales.json';
 

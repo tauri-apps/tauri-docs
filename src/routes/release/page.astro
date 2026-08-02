@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import UntranslatedNotice from '../../components/releases/UntranslatedNotice.astro';
 import { releaseSidebar } from '../../../packages/releases-site/generator/config';
+import '../../styles/releases.scss';
 
 export const getStaticPaths = (async () => {
   const entries = await getCollection('releases');
@@ -24,3 +25,10 @@ const { slug, ...frontmatter } = entry.data;
   <UntranslatedNotice />
   <Content />
 </StarlightPage>
+
+<script>
+  import { readRememberedLocale } from '../../components/locale-memory';
+  import { applyReleaseLocale } from '../../components/releases/release-locale';
+
+  applyReleaseLocale(readRememberedLocale());
+</script>

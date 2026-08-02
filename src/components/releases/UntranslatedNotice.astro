@@ -1,5 +1,4 @@
 ---
-// used for release pages (no /{locale}/release page)
 import ContentNotice from '@astrojs/starlight/components/ContentNotice.astro';
 import { useTranslations } from '@astrojs/starlight/internal';
 import locales from '../../../locales.json';
@@ -14,10 +13,3 @@ const labels = Object.fromEntries(
 <div data-untranslated-labels={JSON.stringify(labels)} hidden>
   <ContentNotice icon="warning" label="" />
 </div>
-
-<script>
-  import { readRememberedLocale } from '../locale-memory';
-  import { applyReleaseLocale } from './release-locale';
-
-  applyReleaseLocale(readRememberedLocale());
-</script>

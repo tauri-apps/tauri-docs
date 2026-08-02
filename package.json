@@ -28,11 +28,11 @@
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.3",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/starlight": "catalog:",
+    "@astrojs/starlight": "0.41.5",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/mdast": "^4.0.4",
-    "astro": "catalog:",
+    "astro": "7.1.5",
     "astro-d2": "^0.13.0",
     "astrojs-service-worker": "^2.0.2",
     "mdast-util-definitions": "^6.0.0",
