@@ -6,12 +6,13 @@ tableOfContents:
 ---
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 Vite（ヴィート）は、 最新の Web プロジェクトで、より高速で無駄のない開発体験が得られることを目指したビルド・ツールです。以下の説明内容は、「Vite バージョン 5.4.8」に準拠しています。　
 
 ## チェック項目
 
-- `tauri.conf.json` では `frontendDist` として `dist/` を指定します。
+- `src-tauri/tauri.conf.json` では `frontendDist` として `../dist` を指定します。
 - iOS の物理デバイス上で動作するように設定されている場合、開発サーバーのホスト IP に `process.env.TAURI_DEV_HOST` を使用してください。
 
 ## 設定例
@@ -20,18 +21,20 @@ Vite（ヴィート）は、 最新の Web プロジェクトで、より高速�
 
 1.  ##### Tauri の設定をアップデート
 
-    `package.json` の中に次の `dev` および `build` スクリプト設定があると仮定します：
+    `package.json` の中に以下の `dev` および `build` スクリプト設定があると仮定します：
 
     ```json
     {
       "scripts": {
-        "dev": "vite dev",
-        "build": "vite build"
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "tauri": "tauri"
       }
     }
     ```
 
-    Vite 開発サーバーと dist フォルダーをフック機能（関数）とともに使用して、Vite スクリプトを自動的に実行するように Tauri CLI を設定できます。
+    自分の Vite 開発サーバーと、「dist」フォルダーをフック関数とともに使用して、Vite スクリプトを自動的に実行するように Tauri CLI を設定できます。
 
     <Tabs>
 
@@ -109,26 +112,39 @@ Vite（ヴィート）は、 最新の Web プロジェクトで、より高速�
     const host = process.env.TAURI_DEV_HOST;
 
     export default defineConfig({
-      // Vite が Rust のエラーを不明瞭にするのを防止します
+      // Vite が Rust 側処理でのエラー表示を上書きし不明確な内容にしてしまうのを防止します
       clearScreen: false,
       server: {
-        // Tauri は固定ポートで動作しているので、そのポートが見つからない場合機能しません
-        strictPort: true,
-        // Tauri が要求しているホストが設定されている場合は、それを使用します
-        host: host || false,
+        // 以下のポートが「tauri.conf.json」ファイルの「devUrl ポート」と一致していることを確認してください
         port: 5173,
+        // Tauri は固定ポートで動作しているので、そのポートが見つからない場合は機能しません
+        strictPort: true,
+        // ホストは、Tauri が要求しているものが設定されている場合は、それを使用します
+        host: host || false,
+        hmr: host
+          ? {
+              protocol: 'ws',
+              host,
+              port: 1421,
+            }
+          : undefined,
+
+        watch: {
+          // vite が「`src-tauri`」を監視しないようにします
+          ignored: ['**/src-tauri/**'],
+        },
       },
-      // `envPrefix` の項目で始まる環境変数は `import.meta.env` を通じて Tauri のソース・コードから参照できます
+      // `envPrefix` に記載されている項目で始まる環境変数は `import.meta.env` を通して Tauri のソース・コードから参照できます
       envPrefix: ['VITE_', 'TAURI_ENV_*'],
       build: {
-        // Tauriは、Windows では Chromium を、macOS と Linux では WebKit を使用しています
+        // Tauriは、Windows では Chromium を、macOS と Linux では WebKit を使用します
         target:
           process.env.TAURI_ENV_PLATFORM == 'windows'
             ? 'chrome105'
             : 'safari13',
-        // デバッグ・ビルドでは「ファイルの軽量化（ミニファイ）」をさせない
+        // デバッグ・ビルドでは「ファイルの軽量化（ミニファイ）」をさせないようにします
         minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
-        // デバッグ・ビルドで「SourceMap」を作成します
+        // デバッグ・ビルドで「sourcemap」を作成します
         sourcemap: !!process.env.TAURI_ENV_DEBUG,
       },
     });
@@ -137,7 +153,5 @@ Vite（ヴィート）は、 最新の Web プロジェクトで、より高速�
 </Steps>
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Nov 01, 2024 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「Jun 24, 2025 英語版」に基づいています】
 </div>
