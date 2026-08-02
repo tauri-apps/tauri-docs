@@ -11,6 +11,15 @@ export const generatorDir = 'generator';
 // URL prefix all generated links carry (must match `base` in astro.config.mjs)
 export const basePath = '/release';
 
+// Slugs of the grouped core-packages changelog pages; the sidebar links in
+// astro.config.mjs are built from them
+export const corePageSlug = 'core';
+export const corePrereleasesSlug = 'core/prereleases';
+
+export function versionPageHref(packageName: string, version: string): string {
+  return `${basePath}/${packageName}/v${version}/`;
+}
+
 export function resolveBranch(repo: Repository): string {
   return repo.branch || 'dev';
 }
@@ -141,7 +150,7 @@ export const repositories = [
   },
   {
     name: 'create-tauri-app',
-    displayName: 'CTA',
+    displayName: 'Create Tauri App',
     repoUrl: 'https://github.com/tauri-apps/create-tauri-app',
     packages: [
       {

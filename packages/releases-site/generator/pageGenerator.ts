@@ -10,11 +10,16 @@ import {
   repositories,
   resolveBranch,
 } from './config.ts';
-import { releaseDateFormat } from './dateFormat.ts';
+import { releaseDateFormatter } from './dateFormat.ts';
+import { buildCoreGroups, groupBySeries, splitPrereleases } from './groupedPage.ts';
 import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
   getAllVersionsHead,
-  renderReleaseDateLabel,
+  renderSeriesHead,
+  renderReleaseHead,
+  renderReleaseNotes,
+  writeCorePage,
+  writeCorePrereleasesPage,
   writePackageIndex,
   writeVersionPage,
   type PageLink,
@@ -35,8 +40,6 @@ interface PackageConfig {
   pkg: RepoPackage;
   changelogUrl: string;
 }
-
-const releaseDateFormatter = new Intl.DateTimeFormat('en-US', releaseDateFormat);
 
 function getGitHubReleaseTagBase(repo: Repository, pkg: RepoPackage): string {
   return repo.tagsUsePackageName ? pkg.name : pkg.cratesPath || pkg.npmPath || pkg.name;
@@ -122,32 +125,38 @@ async function writePageData(
 
     allVersionsStream.write(getAllVersionsHead(packageName, changelogUrl));
 
-    for (const release of releases) {
-      const { version, notes, dateLabel } = release;
-      const rawMd = escapeChangelogMarkdown(notes);
+    for (const group of groupBySeries(releases)) {
+      allVersionsStream.write(`\n\n${renderSeriesHead(group.series)}`);
 
-      const heading = `\n\n## v${version}\n\n`;
-      const releaseDateLabel = renderReleaseDateLabel(dateLabel);
-      const content = [heading, releaseDateLabel, rawMd].filter(Boolean).join('\n\n');
-      allVersionsStream.write(content);
+      for (const release of group.releases) {
+        const { version, notes, dateLabel } = release;
+        const rawMd = escapeChangelogMarkdown(notes);
 
-      const releaseUrl = config
-        ? buildGitHubReleaseUrl(config.repo, config.pkg, version)
-        : changelogUrl;
+        const head = renderReleaseHead(3, version, dateLabel);
+        allVersionsStream.write(`\n\n${[head, renderReleaseNotes(rawMd)].join('\n\n')}`);
 
-      writeVersionPage({
-        packageName,
-        version,
-        notes: rawMd,
-        releaseDateLabel: dateLabel,
-        githubReleaseUrl: releaseUrl,
-        workingDir,
-      });
+        const releaseUrl = config
+          ? buildGitHubReleaseUrl(config.repo, config.pkg, version)
+          : changelogUrl;
+
+        writeVersionPage({
+          packageName,
+          version,
+          notes: rawMd,
+          releaseDateLabel: dateLabel,
+          githubReleaseUrl: releaseUrl,
+          workingDir,
+        });
+      }
     }
 
     allVersionsStream.end();
     streamFinalizers.push(finished(allVersionsStream));
   }
+
+  const { stable, prereleases } = splitPrereleases(buildCoreGroups(releasesByPackage));
+  writeCorePage({ groups: stable, workingDir: contentDir });
+  writeCorePrereleasesPage({ groups: prereleases, workingDir: contentDir });
 
   await Promise.all(streamFinalizers);
 }

@@ -1,7 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { repositories } from './generator/config.ts';
+import { corePageSlug, corePrereleasesSlug, repositories } from './generator/config.ts';
+import { logo, social, ecStyleOverrides } from '../../src/shared-config.mjs';
 
 // Canonical origin is the docs site (the releases site is proxied at <docs>/release/*).
 // Override with SITE_URL for fork demos.
@@ -16,28 +17,19 @@ export default defineConfig({
     starlight({
       title: 'Tauri Releases',
       description: 'Release notes for the Tauri core ecosystem',
-      logo: {
-        // Shared with the docs site (see README "Shared UI")
-        dark: '../../src/assets/logo.svg',
-        light: '../../src/assets/logo_light.svg',
-        replacesTitle: true,
-      },
-      social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/tauri-apps/tauri' },
-        { icon: 'discord', label: 'Discord', href: 'https://discord.com/invite/tauri' },
-        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/TauriApps' },
-        { icon: 'blueSky', label: 'Bluesky', href: 'https://bsky.app/profile/tauri.app' },
-        { icon: 'mastodon', label: 'Mastodon', href: 'https://fosstodon.org/@TauriApps' },
-        { icon: 'rss', label: 'RSS', href: 'https://v2.tauri.app/rss' },
-      ],
+      logo: logo('../../'),
+      social: social(site),
+      routeMiddleware: './src/routeData.ts',
       components: {
-        // Header (and its SiteTitle) is a deliberate fork — English-only, no
-        // topics, logo links to the docs home. The rest is imported straight
-        // from the docs site so UI changes propagate (see README "Shared UI").
+        // Local: Header (and its SiteTitle) is a deliberate fork — English-only,
+        // no topics, logo links to the docs home.
         Header: './src/components/overrides/Header.astro',
+
+        // Imported from the docs site so UI changes propagate (README "Shared UI")
         Footer: '../../src/components/overrides/Footer.astro',
         ThemeSelect: '../../src/components/overrides/ThemeSelect.astro',
         PageFrame: '../../src/components/overrides/PageFrame.astro',
+        TwoColumnContent: '../../src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
@@ -49,12 +41,23 @@ export default defineConfig({
       sidebar: [
         { label: 'Overview', link: '/' },
         { label: 'Changelog Table', link: '/table/' },
-        ...repositories.map((repo) => ({
-          label: repo.displayName,
-          collapsed: true,
-          items: repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` })),
-        })),
+        ...repositories.map((repo) => {
+          if (repo.packages.length === 1) {
+            return { label: repo.displayName, link: `/${repo.packages[0].name}/` };
+          }
+          const items = repo.packages.map((pkg) => ({ label: pkg.name, link: `/${pkg.name}/` }));
+          if (repo.name === 'tauri') {
+            items.unshift(
+              { label: 'Core Releases', link: `/${corePageSlug}/` },
+              { label: '2.0 Prereleases', link: `/${corePrereleasesSlug}/` }
+            );
+          }
+          return { label: repo.displayName, items };
+        }),
       ],
+      expressiveCode: {
+        styleOverrides: ecStyleOverrides,
+      },
       lastUpdated: false,
     }),
   ],
