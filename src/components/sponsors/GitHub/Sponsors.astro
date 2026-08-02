@@ -1,15 +1,11 @@
 ---
 import { Image } from 'astro:assets';
-import { existsSync, readFileSync } from 'node:fs';
-import { GITHUB_SPONSORS_FILE } from 'packages/fetch-sponsors/config';
+import { GH_IMAGE_DIMENSION } from 'packages/fetch-sponsors/config';
 import type { GitHubSponsor } from 'packages/fetch-sponsors/types';
+import fallbackImage from 'src/assets/fallback.jpg';
+import { getGitHubSponsors } from '../data';
 
-let gitHubSponsors = [];
-if (existsSync(GITHUB_SPONSORS_FILE)) {
-  gitHubSponsors = JSON.parse(readFileSync(GITHUB_SPONSORS_FILE, 'utf-8'));
-} else {
-  throw new Error('GitHub sponsors data file not found.');
-}
+const gitHubSponsors = await getGitHubSponsors();
 const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
 ---
 
@@ -18,15 +14,19 @@ const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
     <div class="container">
       {gitHubSponsors.map((sponsor: GitHubSponsor) => (
         <div>
-          {sponsor.avatarUrl && (
-            <a
-              href={`https://github.com/${sponsor.name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image class="avatar" inferSize src={sponsor.avatarUrl} alt={sponsor.name} />
-            </a>
-          )}
+          <a
+            href={`https://github.com/${encodeURIComponent(sponsor.name)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              class="avatar"
+              width={GH_IMAGE_DIMENSION}
+              height={GH_IMAGE_DIMENSION}
+              src={sponsor.avatarUrl ?? fallbackImage.src}
+              alt={sponsor.name}
+            />
+          </a>
         </div>
       ))}
     </div>

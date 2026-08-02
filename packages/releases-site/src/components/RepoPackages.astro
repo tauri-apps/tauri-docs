@@ -1,0 +1,59 @@
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { repositories } from '../../generator/config';
+import { latestVersions } from '../../generator/generated/latestVersions';
+import { buildHomeSummaryRepos } from '../../generator/uiData';
+
+interface Props {
+  name: string;
+}
+
+const repo = buildHomeSummaryRepos(repositories, latestVersions).find(
+  (r) => r.name === Astro.props.name
+);
+if (!repo) {
+  throw new Error(`Unknown repository "${Astro.props.name}" (see generator/config.ts)`);
+}
+
+function describe(pkg: (typeof repo)['packages'][number]): string {
+  const pills = pkg.versions
+    .map(
+      ({ label, version, href }) => `<a class="version-pill" href="${href}">${label} ${version}</a>`
+    )
+    .join(' ');
+  const date = pkg.latestReleaseDateLabel
+    ? ` <small class="release-date">${pkg.latestReleaseDateLabel}</small>`
+    : '';
+  const meta = pills || date ? `<br/>${pills}${date}` : '';
+  return `${pkg.description}${meta}`;
+}
+---
+
+<CardGrid>
+  {
+    repo.packages.map((pkg) => (
+      <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
+    ))
+  }
+</CardGrid>
+
+<style>
+  :global(.version-pill) {
+    display: inline-block;
+    background-color: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+    /* Sit above the LinkCard's full-card overlay anchor so the pill is clickable */
+    position: relative;
+    z-index: 1;
+  }
+
+  :global(a.version-pill:hover) {
+    border-color: var(--sl-color-text-accent);
+    color: var(--sl-color-text-accent);
+  }
+</style>
