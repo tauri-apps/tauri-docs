@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Repository, RepoPackage } from './types.ts';
@@ -13,9 +14,28 @@ export const generatorDir = fileURLToPath(new URL('.', import.meta.url));
 // URL prefix all generated links carry (must match the injected routes in astro.config.mjs)
 export const basePath = '/release';
 
+// files that change what /release/* renders
+const releasePaths =
+  /^(packages\/releases-site\/|src\/routes\/release\/|src\/components\/releases\/|src\/styles\/releases\.scss|src\/release-config\.mjs|src\/routeData\.ts|src\/content\.config\.ts|netlify\.toml)/m;
+
+function previewTouchesReleases(): boolean {
+  const git = (cmd: string) =>
+    execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  try {
+    git('git fetch --no-tags --depth=1 origin v2');
+    // deploy previews build the PR merged into v2, so the tree diff against the v2 tip is the PR's changes
+    return releasePaths.test(git('git diff --name-only FETCH_HEAD HEAD'));
+  } catch (error) {
+    console.warn('Could not diff against origin/v2 - skipping release pages', error);
+    return false;
+  }
+}
+
 /** BUILD_RELEASES=1 to generate locally; not keyed off `CI` — Netlify sets CI=true in every context */
-export const buildReleases =
-  process.env.BUILD_RELEASES === '1' || process.env.CONTEXT === 'production';
+export function shouldBuildReleases(): boolean {
+  if (process.env.BUILD_RELEASES === '1' || process.env.CONTEXT === 'production') return true;
+  return process.env.CONTEXT === 'deploy-preview' && previewTouchesReleases();
+}
 
 export const corePageSlug = 'core';
 export const corePrereleasesSlug = 'core/prereleases';

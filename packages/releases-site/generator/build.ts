@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { buildReleases, generatorDir, repositories } from './config.ts';
+import { generatorDir, repositories, shouldBuildReleases } from './config.ts';
 import { fetchData } from './dataFetch.ts';
 import { generatePagesAndTableData } from './pageGenerator.ts';
 import type { PackageData } from './types.ts';
@@ -23,6 +23,7 @@ async function buildSite() {
     return;
   }
 
+  const buildReleases = shouldBuildReleases();
   if (!buildReleases) {
     console.log('Skipping release pages - set BUILD_RELEASES=1 to build them');
   }
