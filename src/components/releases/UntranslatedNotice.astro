@@ -6,7 +6,10 @@ import locales from '../../../locales.json';
 const labels = Object.fromEntries(
   Object.entries(locales)
     .filter(([code]) => code !== 'root')
-    .map(([code, locale]) => [code, useTranslations(locale.lang)('i18n.untranslatedContent')])
+    .map(([code, locale]) => [
+      code,
+      { lang: locale.lang, text: useTranslations(locale.lang)('i18n.untranslatedContent') },
+    ])
 );
 ---
 
