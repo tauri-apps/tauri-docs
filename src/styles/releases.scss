@@ -1,7 +1,3 @@
-// Styles for the generated /release/* pages. The markdown the releases
-// generator writes is plain .md (no components), so it emits these class names
-// as raw HTML — see packages/releases-site/generator/scripts/writePage.ts.
-
 .release-links {
   display: flex;
   flex-wrap: wrap;

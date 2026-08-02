@@ -76,12 +76,7 @@ for (const repo of repositories) {
   }
 }
 
-/**
- * `pages: false` skips /releases, which are
- * only needed when the docs build actually injects the /release/* routes.
- * latestVersions.ts is always written: RepoPackages.astro imports it, so
- * `astro check` needs it even in builds where the routes are gated off.
- */
+/** latestVersions.ts is always written: RepoPackages.astro imports it, so `astro check` needs it even when the pages are skipped */
 export async function generatePagesAndTableData(
   packageData: PackageData,
   { pages = true }: { pages?: boolean } = {}

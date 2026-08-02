@@ -8,7 +8,7 @@ Generates the release notes for the Tauri ecosystem (46 packages across `tauri`,
 
 ## Generating vs serving
 
-Refer to `src/release-config.mjs`:
+Refer to `buildReleases` in `generator/config.ts` and `hasGeneratedReleasePages` in `src/release-config.mjs`:
 
 - **Generating** the pages happens on Netlify production deploys, or locally with `BUILD_RELEASES=1`. Otherwise `pnpm generate` writes only `generator/generated/latestVersions.ts` — the landing-page component imports it, so it must always exist.
 - **Serving** `/release/*` happens whenever those pages are on disk. Generate once locally and every later `astro dev` / `astro build` picks them up; a deploy preview, whose checkout never has them, skips the routes and 404s on `/release/*` including the header's Releases link.

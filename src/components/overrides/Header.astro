@@ -10,10 +10,8 @@ import links from '../../data/header-links.json';
 const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
 
-// A link marked `transfer: false` has no locale-prefixed URLs of its own, so the
-// root locale inside that section means "no prefix here", not "the reader picked
-// English". Recording it would wipe the locale. Omitting the
-// attribute is what tells the script below to leave the locale
+// in a `transfer: false` section the root locale means "no prefix here", not
+// "the reader picked English" — omit data-locale so the script doesn't record it
 const isEnglishOnlySection = links.some(
   (link) => !link.transfer && Astro.url.pathname.startsWith(link.value)
 );
@@ -28,8 +26,7 @@ const isEnglishOnlySection = links.some(
       links.map((link) => {
         const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
         const topic = topics.find((topic) => topic.link === href);
-        // /release/* is not a topic — it is served by its own routes — so fall
-        // back to a path match for it.
+        // /release/* is not a topic, so fall back to a path match for it
         const current = topic?.isCurrent ?? Astro.url.pathname.startsWith(link.value);
         return (
           <a

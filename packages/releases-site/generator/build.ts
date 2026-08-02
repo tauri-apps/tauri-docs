@@ -1,11 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { generatorDir, repositories } from './config.ts';
+import { buildReleases, generatorDir, repositories } from './config.ts';
 import { fetchData } from './dataFetch.ts';
 import { generatePagesAndTableData } from './pageGenerator.ts';
 import type { PackageData } from './types.ts';
 import { writeOutput } from './utils.ts';
-import { buildReleases } from '../../../src/release-config.mjs';
 
 async function buildSite() {
   const dataFilePath = join(generatorDir, 'data.json');

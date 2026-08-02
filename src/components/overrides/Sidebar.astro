@@ -13,8 +13,7 @@ const curLocale = Astro.locals.starlightRoute.locale;
 const { sidebar } = Astro.locals.starlightRoute;
 const { isPageWithTopic, topics } = Astro.locals.starlightSidebarTopics;
 
-// Release pages belong to no topic and pass their own sidebar; their current-page
-// highlighting happens in src/routeData.ts.
+// release pages: no topic, own sidebar; highlighting happens in src/routeData.ts
 const isRelease = isReleasePage(Astro.url.pathname);
 ---
 
