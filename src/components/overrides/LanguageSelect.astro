@@ -8,16 +8,17 @@ import { isReleasePage } from '../../release-config.mjs';
 
 <script>
   import locales from '../../../locales.json';
-  import { rememberLocale } from '../locale-memory';
+  import { recordPickedLocale } from '../locale-memory';
 
-  // an explicit pick always records — Header.astro skips English-only sections
+  // select values are page URLs: the first segment is the locale, except for
+  // English, which has no prefix
   const known = new Set(Object.keys(locales));
   for (const select of document.querySelectorAll<HTMLSelectElement>(
     'starlight-lang-select select'
   )) {
     select.addEventListener('change', (event) => {
       const [, segment = ''] = (event.currentTarget as HTMLSelectElement).value.split('/');
-      rememberLocale(known.has(segment) ? segment : '');
+      recordPickedLocale(known.has(segment) ? segment : '');
     });
   }
 </script>

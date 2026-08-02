@@ -9,15 +9,9 @@ import links from '../../data/header-links.json';
 
 const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
-
-// in a `transfer: false` section the root locale means "no prefix here", not
-// "the reader picked English" — omit data-locale so the script doesn't record it
-const isEnglishOnlySection = links.some(
-  (link) => !link.transfer && Astro.url.pathname.startsWith(link.value)
-);
 ---
 
-<div class="header" data-locale={isEnglishOnlySection ? undefined : (curLocale ?? '')}>
+<div class="header" data-locale={curLocale}>
   <div class="title-wrapper sl-flex">
     <SiteTitle />
   </div>
@@ -53,10 +47,10 @@ const isEnglishOnlySection = links.some(
 </div>
 
 <script>
-  import { rememberLocale } from '../locale-memory';
+  import { recordBrowsedLocale } from '../locale-memory';
 
   const header = document.querySelector<HTMLElement>('.header[data-locale]');
-  if (header) rememberLocale(header.dataset.locale ?? '');
+  if (header) recordBrowsedLocale(header.dataset.locale ?? '');
 </script>
 
 <style>
