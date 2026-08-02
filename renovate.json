@@ -20,6 +20,10 @@
       "separateMajorMinor": false
     },
     {
+      "matchPackageNames": ["@types/mdast", "mdast-util-*", "remark-*", "unified"],
+      "groupName": "unified packages"
+    },
+    {
       "matchPackageNames": ["typedoc", "typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
       "enabled": false
     },
