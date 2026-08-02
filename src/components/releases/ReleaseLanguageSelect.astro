@@ -21,7 +21,7 @@ const options = Object.entries(locales).map(([code, locale]) => ({
 </tauri-release-lang-select>
 
 <script>
-  import { rememberLocale } from '../locale-memory';
+  import { recordPickedLocale } from '../locale-memory';
   import { applyReleaseLocale } from './release-locale';
 
   for (const select of document.querySelectorAll<HTMLSelectElement>(
@@ -29,7 +29,7 @@ const options = Object.entries(locales).map(([code, locale]) => ({
   )) {
     select.addEventListener('change', (event) => {
       const { value } = event.currentTarget as HTMLSelectElement;
-      rememberLocale(value);
+      recordPickedLocale(value);
       applyReleaseLocale(value);
     });
   }
