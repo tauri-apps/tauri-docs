@@ -6,3 +6,5 @@ export const releaseDateFormat: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   timeZone: 'UTC',
 };
+
+export const releaseDateFormatter = new Intl.DateTimeFormat('en-US', releaseDateFormat);

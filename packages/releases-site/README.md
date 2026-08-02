@@ -33,8 +33,10 @@ dist/                        published by the releases Netlify site
 This site imports the docs site's UI **directly by relative path**
 
 - **Styles:** `src/styles/{theme,overrides,shared}.scss` (imported by `src/styles/custom.scss`)
-- **Components:** `src/components/overrides/{Footer,ThemeSelect,PageFrame}.astro`
+- **Components:** `src/components/overrides/{Footer,ThemeSelect,PageFrame,TwoColumnContent}.astro`
   (referenced straight from `astro.config.mjs` `components`)
+- **Config values:** `src/shared-config.mjs` (logo, social links, expressive-code
+  style overrides — imported by both `astro.config.mjs` files)
 - **Assets:** `src/assets/logo.svg` + `logo_light.svg` (referenced from the `logo` config)
 - **Nav data:** `src/data/header-links.json` (imported by the local Header)
 
@@ -56,7 +58,13 @@ pnpm install
 pnpm --filter releases-site dev     # generates pages, serves on http://localhost:4322/release/
 pnpm --filter releases-site build   # generates pages + astro build into dist/
 pnpm --filter releases-site refresh # re-fetches upstream data into generator/data.json
+pnpm --filter releases-site test    # generator unit tests (node --test, no runner)
 ```
+
+The tests are deliberately **not** wired into CI: the only PR gate is `pnpm format:check`
+(`.github/workflows/check.yml`). Run them locally after touching `generator/` — they
+cover the changelog escaping, the notes-heading demotion and the core-page grouping,
+which are the parts whose output is otherwise only visible in a full build.
 
 ## Netlify setup (two sites, one repo)
 

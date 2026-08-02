@@ -20,40 +20,48 @@ function describe(pkg: (typeof repo)['packages'][number]): string {
     .map(
       ({ label, version, href }) => `<a class="version-pill" href="${href}">${label} ${version}</a>`
     )
-    .join(' ');
+    .join('');
   const date = pkg.latestReleaseDateLabel
-    ? ` <small class="release-date">${pkg.latestReleaseDateLabel}</small>`
+    ? `<small class="release-date">${pkg.latestReleaseDateLabel}</small>`
     : '';
-  const meta = pills || date ? `<br/>${pills}${date}` : '';
+  const meta = pills || date ? `<span class="card-meta">${pills}${date}</span>` : '';
   return `${pkg.description}${meta}`;
 }
 ---
 
-<CardGrid>
-  {
-    repo.packages.map((pkg) => (
-      <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
-    ))
-  }
-</CardGrid>
+<div class="repo-packages">
+  <CardGrid>
+    {
+      repo.packages.map((pkg) => (
+        <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
+      ))
+    }
+  </CardGrid>
+</div>
 
 <style>
-  :global(.version-pill) {
-    display: inline-block;
-    background-color: var(--sl-color-gray-6);
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.5rem;
-    padding: 0 0.5rem;
-    font-size: var(--sl-text-xs);
-    color: var(--sl-color-gray-2);
-    text-decoration: none;
-    /* Sit above the LinkCard's full-card overlay anchor so the pill is clickable */
-    position: relative;
-    z-index: 1;
+  /* Reserve room for the meta row pinned to the card's bottom edge */
+  .repo-packages :global(.sl-link-card) {
+    padding-bottom: 3em;
   }
 
-  :global(a.version-pill:hover) {
-    border-color: var(--sl-color-text-accent);
-    color: var(--sl-color-text-accent);
+  .repo-packages :global(.sl-link-card .description) {
+    font-size: var(--sl-text-sm);
+  }
+
+  /* version pills left, release date pinned right */
+  .repo-packages :global(.card-meta) {
+    position: absolute;
+    inset-inline: 1rem;
+    bottom: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .repo-packages :global(.card-meta .release-date) {
+    margin-inline-start: auto;
+    white-space: nowrap;
   }
 </style>
