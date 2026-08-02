@@ -9,7 +9,9 @@
 src/content/docs/reference
 
 # Release notes: generated content and the committed data checkpoint
-src/content/releases
+src/content/releases/**
+!src/content/releases/index.mdx
+!src/content/releases/table.mdx
 public/release
 packages/releases-site/generator/data.json
 packages/releases-site/generator/generated

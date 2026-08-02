@@ -15,13 +15,39 @@ const { isPageWithTopic, topics } = Astro.locals.starlightSidebarTopics;
 
 // release pages: no topic, own sidebar; highlighting happens in src/routeData.ts
 const isRelease = isReleasePage(Astro.url.pathname);
+
+const headerLinks = links.map((link) => {
+  const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
+  const topic = topics.find((topic) => topic.link === href);
+  return topic
+    ? {
+        type: 'link' as const,
+        label: topic.label,
+        href: topic.link,
+        isCurrent: false,
+        badge: topic.badge,
+        attrs: topic.attrs ?? {},
+      }
+    : {
+        type: 'link' as const,
+        label: link.title,
+        href,
+        isCurrent: false,
+        badge: undefined,
+        attrs: {},
+      };
+});
 ---
 
 {
   isRelease ? (
-    <StarlightSidebar>
-      <slot />
-    </StarlightSidebar>
+    <>
+      {/* below 50rem the header nav is hidden — without these the docs are unreachable */}
+      <div class="md:sl-hidden">
+        <SidebarSublist sublist={headerLinks} />
+      </div>
+      <StarlightSidebar />
+    </>
   ) : sidebar && isPageWithTopic ? (
     <Default>
       <slot />
@@ -29,29 +55,7 @@ const isRelease = isReleasePage(Astro.url.pathname);
   ) : (
     <>
       <SidebarPersister>
-        <SidebarSublist
-          sublist={links.map((link) => {
-            const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
-            const topic = topics.find((topic) => topic.link === href);
-            return topic
-              ? {
-                  type: 'link',
-                  label: topic.label,
-                  href: topic.link,
-                  isCurrent: false,
-                  badge: topic.badge,
-                  attrs: topic.attrs ?? {},
-                }
-              : {
-                  type: 'link',
-                  label: link.title,
-                  href,
-                  isCurrent: false,
-                  badge: undefined,
-                  attrs: {},
-                };
-          })}
-        />
+        <SidebarSublist sublist={headerLinks} />
       </SidebarPersister>
 
       <div class="md:sl-hidden">

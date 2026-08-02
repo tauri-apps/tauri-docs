@@ -1,12 +1,14 @@
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { Repository, RepoPackage } from './types.ts';
 
 export const note =
   '\n#### NOTE: This file is auto-generated in packages/releases-site/generator/build.ts';
 
-// Relative to the package root (scripts run as `node generator/build.ts`)
-export const contentDir = '../../src/content/releases';
-export const publicDir = '../../public/release';
-export const generatorDir = 'generator';
+const repoRoot = fileURLToPath(new URL('../../..', import.meta.url));
+export const contentDir = join(repoRoot, 'src/content/releases');
+export const publicDir = join(repoRoot, 'public/release');
+export const generatorDir = fileURLToPath(new URL('.', import.meta.url));
 
 // URL prefix all generated links carry (must match the injected routes in astro.config.mjs)
 export const basePath = '/release';

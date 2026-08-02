@@ -5,3 +5,19 @@ import { isReleasePage } from '../../release-config.mjs';
 ---
 
 {isReleasePage(Astro.url.pathname) ? <ReleaseLanguageSelect /> : <Default />}
+
+<script>
+  import locales from '../../../locales.json';
+  import { rememberLocale } from '../locale-memory';
+
+  // an explicit pick always records — Header.astro skips English-only sections
+  const known = new Set(Object.keys(locales));
+  for (const select of document.querySelectorAll<HTMLSelectElement>(
+    'starlight-lang-select select'
+  )) {
+    select.addEventListener('change', (event) => {
+      const [, segment = ''] = (event.currentTarget as HTMLSelectElement).value.split('/');
+      rememberLocale(known.has(segment) ? segment : '');
+    });
+  }
+</script>

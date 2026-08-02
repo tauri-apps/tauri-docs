@@ -4,6 +4,15 @@
  * matching untranslated-content notice, and syncs the language picker.
  */
 export function applyReleaseLocale(locale: string): void {
+  const notice = document.querySelector<HTMLElement>('[data-untranslated-labels]');
+  const labels: Record<string, { lang: string; text: string }> = JSON.parse(
+    notice?.dataset.untranslatedLabels ?? '{}'
+  );
+  if (locale && !(locale in labels)) {
+    // stale value from a decommissioned locale
+    locale = '';
+  }
+
   for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-locale-link]')) {
     const path = link.dataset.localeLink as string;
     link.href = locale ? `/${locale}${path}` : path;
@@ -12,13 +21,14 @@ export function applyReleaseLocale(locale: string): void {
   const siteTitle = document.querySelector<HTMLAnchorElement>('a.site-title');
   if (siteTitle) siteTitle.href = locale ? `/${locale}/` : '/';
 
-  const notice = document.querySelector<HTMLElement>('[data-untranslated-labels]');
   if (notice) {
-    const labels: Record<string, string> = JSON.parse(notice.dataset.untranslatedLabels ?? '{}');
     const label = labels[locale];
     notice.hidden = !label;
     const text = notice.querySelector('span');
-    if (text) text.textContent = label ?? '';
+    if (text) {
+      text.textContent = label?.text ?? '';
+      if (label) text.setAttribute('lang', label.lang);
+    }
   }
 
   // both the header and the mobile menu render a picker
