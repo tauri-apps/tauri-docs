@@ -149,10 +149,10 @@ importers:
         version: 15.0.0(@octokit/core@7.0.7)
       '@octokit/plugin-retry':
         specifier: ^8.0.1
-        version: 8.1.0(@octokit/core@7.0.7)
+        version: 8.1.1(@octokit/core@7.0.7)
       '@octokit/plugin-throttling':
         specifier: ^11.0.1
-        version: 11.0.3(@octokit/core@7.0.7)
+        version: 11.0.4(@octokit/core@7.0.7)
       '@octokit/types':
         specifier: ^17.0.0
         version: 17.0.0
@@ -1472,14 +1472,14 @@ packages:
     peerDependencies:
       '@octokit/core': '>=6'
 
-  '@octokit/plugin-retry@8.1.0':
-    resolution: {integrity: sha512-O1FZgXeiGb2sowEr/hYTr6YunGdSAFWnr2fyW39Ah85H8O33ELASQxcvOFF5LE6Tjekcyu2ms4qAzJVhSaJxTw==}
+  '@octokit/plugin-retry@8.1.1':
+    resolution: {integrity: sha512-VCVvZ/R1+u3WuiBWpNavZ0mY4aaJNAsENrpBP9aLSR2QyOpQgd7DhM5j4AW7z4MQpnJYgwBPf0XqPQoNBRdQwg==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@octokit/core': '>=7'
 
-  '@octokit/plugin-throttling@11.0.3':
-    resolution: {integrity: sha512-34eE0RkFCKycLl2D2kq7W+LovheM/ex3AwZCYN8udpi6bxsyjZidb2McXs69hZhLmJlDqTSP8cH+jSRpiaijBg==}
+  '@octokit/plugin-throttling@11.0.4':
+    resolution: {integrity: sha512-a1rCpQPm8OPtanwBiGQyOEXWFjV0moEzVrAsiNt/2KnBd4WQUjmRwuB7j9plx/SPcV5awA/VOm7oek4YzK4lXw==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@octokit/core': ^7.0.0
@@ -6188,14 +6188,14 @@ snapshots:
       '@octokit/core': 7.0.7
       '@octokit/types': 17.0.0
 
-  '@octokit/plugin-retry@8.1.0(@octokit/core@7.0.7)':
+  '@octokit/plugin-retry@8.1.1(@octokit/core@7.0.7)':
     dependencies:
       '@octokit/core': 7.0.7
       '@octokit/request-error': 7.1.1
-      '@octokit/types': 16.0.0
+      '@octokit/types': 17.0.0
       bottleneck: 2.19.5
 
-  '@octokit/plugin-throttling@11.0.3(@octokit/core@7.0.7)':
+  '@octokit/plugin-throttling@11.0.4(@octokit/core@7.0.7)':
     dependencies:
       '@octokit/core': 7.0.7
       '@octokit/types': 16.0.0
