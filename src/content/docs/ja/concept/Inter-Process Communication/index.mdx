@@ -1,0 +1,100 @@
+---
+title: プロセス間通信
+sidebar:
+  label: Overview
+  order: 1
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+「プロセス間通信 Inter-Process Communication」（IPC）は、単独のプロセスが安全に通信することを可能にし、より複雑なアプリケーションを構築するための鍵となります。
+
+具体的な「プロセス間通信（IPC）」の型（パターン）については、次の説明内容を参照してください：
+
+<CardGrid>
+  <LinkCard
+    title="Brownfield<br>ブラウンフィールド型"
+    href="/ja/concept/inter-process-communication/brownfield/"
+  />
+  <LinkCard
+    title="Isolation<br>アイソレーション型"
+    href="/ja/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+Tauri は、[Asynchronous Message Passing]（非同期メッセージ・パッシング、[日本語版リンク](<https://ja.wikipedia.org/wiki/メッセージ_(コンピュータ)>)）と呼ばれる特別なスタイルのプロセス間通信を使用します。この方法では、プロセス同士が単純なデータ表現を使用してシリアル化された「_リクエスト_（要求）」と「_レスポンス_（応答）」をやり取りします。メッセージ・パッシングは、インターネット上のクライアント・サーバー通信に使用される仕組みであるため、Web 開発の経験がある人なら誰でも馴染みがあるはずです。
+
+また、メッセージ・パッシングは受信者が必要に応じて「リクエスト」を拒否または破棄できるため、「共有メモリ方式」や「直接関数アクセス方式」よりも安全な手法です。たとえば、Tauri コア・プロセスが「リクエスト」を悪意のあるものと判断した場合、そのリクエストは破棄され、対応する関数処理は実行されません。
+
+以下では、Tauri の二つの「IPC プリミティブ（同期基本命令）」、すなわち「イベント `Events` 」と「コマンド `Commands` 」について詳しく説明します。
+
+## イベント
+
+「イベント」は、自動追尾型・一方向性の「IPC メッセージ」で、ライフサイクル中の各イベントと状態の変化を伝達するのに最適です。
+「[コマンド](#コマンド)」とは異なり、「イベント」はフロントエンドと Tauri Core（コア部）の両方から発行できます。
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+Frontend: {
+  shape: rectangle
+  label: "Webview\nFrontend"
+}
+Core: {
+  shape: rectangle
+  label: "Core\nBackend"
+}
+
+Frontend -> Core: "イベント"{style.animated: true}
+Core -> Frontend: "イベント"{style.animated: true}
+```
+
+<figcaption>コア部と Webview 間でやり取りされるイベント</figcaption>
+</figure>
+
+## コマンド
+
+Tauri は、また、「IPC メッセージ」に加えて、[foreign function interface]（外部関数インターフェース、[日本語版リンク](https://ja.wikipedia.org/wiki/Foreign_function_interface)）のような抽象化も提供します[^1]。基本主要 API である `invoke` は、ブラウザの `fetch` API に似ており、フロントエンドが Rust 関数を呼び出し、引数を渡して、データを受信できるようにします。
+
+このメカニズムは、内部で [JSON-RPC] のようなプロトコルを使用してリクエストとレスポンスをシリアル化するので、すべての引数と戻り値データは JSON の規格に従ってシリアル化可能である必要があります。
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+
+Frontend: {
+  label: "Webview\nFrontend"
+}
+
+Core: {
+  label: "Core\nBackend"
+}
+InvokeHandler: {
+  label: "Invoke\nHandler"
+}
+
+Frontend -> Core: "IPC リクエスト"{style.animated: true}
+Core -> InvokeHandler: "コマンド 呼び出し"{style.animated: true}
+InvokeHandler -> Core: "戻り値 シリアル化"{style.animated: true}
+Core -> Frontend: "レスポンス"{style.animated: true}
+```
+
+<figcaption>コマンド呼び出しに関与する IPC メッセージ</figcaption>
+</figure>
+
+[^1]: コマンドは、内部ではメッセージ・パッシングを使用しているため、実際の「外部関数インターフェース（FFI）」と同じようなセキュリティ上の落とし穴はありません。
+
+[Asynchronous Message Passing]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
+[json-rpc]: https://www.jsonrpc.org
+[foreign function interface]: https://en.wikipedia.org/wiki/Foreign_function_interface
+
+<div style="text-align:right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

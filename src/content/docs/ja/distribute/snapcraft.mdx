@@ -1,0 +1,185 @@
+---
+title: Snapcraft
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Snapcraft**　スナップクラフト：　アプリケーションを Snap 用に「Snapフォーマット」でパッケージングするツール。**Snap** は、英 Canonical 社が開発している Linux 用のディストリビューションに依存しないパッケージ管理システム（パッケージマネージャ）。〔[Wikipedia](<https://ja.wikipedia.org/wiki/Snap_(ソフトウェア)>)〕
+
+</TranslationNote>
+
+## 事前準備
+
+**1. `snap` のインストール**
+
+{/* prettier-ignore */}
+<Tabs syncKey="distro">
+  <TabItem label="Debian">
+    ```shell
+    sudo apt install snapd
+    ```
+  </TabItem>
+  <TabItem label="Arch">
+    ```shell
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/snapd.git
+    cd snapd
+    makepkg -si
+    sudo systemctl enable --now snapd.socket
+    sudo systemctl start snapd.socket
+    sudo systemctl enable --now snapd.apparmor.service
+    ```
+  </TabItem>
+  <TabItem label="Fedora">
+    ```shell
+    sudo dnf install snapd
+    # Enable classic snap support
+    sudo ln -s /var/lib/snapd/snap /snap
+    ```
+
+    その後システムを再起動してください。
+
+  </TabItem>
+</Tabs>
+
+**2. 「base snap」のインストール**
+
+<TranslationNote lang="ja">
+
+**base snap**　ベース・スナップ：　多くのアプリケーションに共通するライブラリと依存関係（ベースとなるコア機能）により一貫性と信頼性のある実行環境を提供するもの？　〔[参考](https://snapcraft.io/core)〕
+
+</TranslationNote>
+
+```shell
+sudo snap install core22
+```
+
+**3. `snapcraft` のインストール**
+
+```shell
+sudo snap install snapcraft --classic
+```
+
+## 設定
+
+1. UbuntuOne アカウントを作成します。
+2. [Snapcraft](https://snapcraft.io) のウェブサイトにアクセスし、アプリ名を登録します。
+3. プロジェクトのルートに snapcraft.yaml ファイルを作成します。
+4. snapcraft.yaml ファイル内の名前を調整します。
+
+```yaml
+name: appname
+base: core22
+version: '0.1.0'
+summary: Your summary # 79 文字の要約文（《訳注》1 バイト文字で？）
+description: |
+  Your description
+
+grade: stable
+confinement: strict
+
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1
+
+apps:
+  appname:
+    command: usr/bin/appname
+    desktop: usr/share/applications/appname.desktop
+    extensions: [gnome]
+    #plugs:
+    #  - network
+    # 必要なプラグをここに追加します。詳細については、https://snapcraft.io/docs/snapcraft-interfaces を参照してください。
+    # gnome 拡張機能には既に [desktop、desktop-legacy、gsettings、opengl、wayland、x11、mount-observe、calendar-service] が含まれています。
+
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [noble]
+    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
+    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
+
+parts:
+  build-app:
+    plugin: dump
+    build-snaps:
+      - node/20/stable
+      - rustup/latest/stable
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - build-essential
+      - curl
+      - wget
+      - file
+      - libxdo-dev
+      - libssl-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+      - dpkg
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libayatana-appindicator3-1
+    source: .
+    override-build: |
+      set -eu
+      npm install
+      npm run tauri build -- --bundles deb
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb $SNAPCRAFT_PART_INSTALL/
+      sed -i -e "s|Icon=appname|Icon=/usr/share/icons/hicolor/32x32/apps/appname.png|g" $SNAPCRAFT_PART_INSTALL/usr/share/applications/appname.desktop
+```
+
+### 項目説明
+
+- `name` 変数には「アプリの名前」を定義します。これには、上記で登録した名前を設定する必要があります。
+- `base` 変数には、使用している base snaps の「core名」を定義します。
+- `version` 変数には「バージョン番号」を定義します。これは、ソース・リポジトリが変更されるたびに更新する必要があります。
+- `apps` 欄では、ユーザーがあなたのアプリを実行できるように、デスクトップ・ファイルとバイナリ・ファイルを公開することができます。
+- `package-repositories` 欄では、依存関係を充足するのに役立つパッケージ・リポジトリを追加できます。
+- `build-packages`/`build-snaps` 欄では、スナップのビルド依存関係を定義します。
+- `stage-packages`/`stage-snaps` 欄は、スナップのランタイム依存関係を定義します。
+- `override-pull` 欄では、ソースが pull される前に一連のコマンドを実行します。
+- `craftctl default` はデフォルトの pull コマンドを実行します。
+- `organize` 欄では、バイナリ・ファイルとデスクトップ・ファイルが `apps` セクションに公開されるように、ファイルを適切なディレクトリに移動します。
+
+<TranslationNote lang="ja">
+
+**項目説明**　上記の説明内容は、snapcraft.yaml ファイルの項目に関する説明ですが、'override-pull' 以降の項目の入力箇所が不詳です。[snapcraft.yaml](https://documentation.ubuntu.com/snapcraft/stable/reference/project-file/snapcraft-yaml/#) なども参照してみてください。
+
+</TranslationNote>
+
+## ビルド
+
+```sh
+sudo snapcraft
+```
+
+## テスト
+
+{/* TODO: This seems to be wrong */}
+
+```shell
+snap run your-app
+```
+
+## 手動でリリース
+
+```shell
+snapcraft login # UbuntuOneの認証情報でログインしてください
+snapcraft upload --release=stable mysnap_latest_amd64.snap
+```
+
+## 自動的にビルド
+
+1. アプリ開発者ページで、「`builds`」（ビルド）タブをクリックします。
+2. 「`login with github`」（github でログイン）をクリックします。
+3. リポジトリの詳細を入力します。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

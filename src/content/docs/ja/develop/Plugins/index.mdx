@@ -1,0 +1,502 @@
+---
+title: プラグインの開発
+i18nReady: true
+sidebar:
+  label: 概要
+  order: 10
+---
+
+{/* TODO: Add a CLI section */}
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[プラグインの開発]
+
+この章は「Tauri プラグインの開発」に関するものです。現在利用可能なプラグインのリストとその使い方については、目次 **Plugins** の「概要」にある [機能とレシピのリスト](/ja/plugin/)をご覧ください。
+
+:::
+
+プラグインは、Tauri ライフサイクルにフックしたり、Webview API に依存している Rust コードを開放したり、Rust、Kotlin、Swift コードでコマンドを処理したり、その他さまざまなことを行なうことができます。
+
+Tauriは、Webview 機能を備えたウィンドウ・システム、Rust プロセスとWebview との間のメッセージ送信方法、イベント・システム、そして開発エクスペリエンス（体験）を向上させる各種のツール群を提供します。設計上、Tauri コアにはすべての人に必要というわけではない機能は含まれていません。その代わりに、「プラグイン」と呼ばれる Tauri アプリケーションに外部機能を追加するためのメカニズムを提供しています。
+
+Tauri プラグインは、「Cargo クレート」と、コマンドとイベントのAPIバインディングを提供するオプションの「NPM パッケージ」とで構成されています。さらに、プラグイン・プロジェクトには、Android ライブラリ・プロジェクトと iOS 用の Swift パッケージも含めることができます。Android および iOS 向けプラグイン開発の詳細については、次章 [モバイル・プラグイン開発ガイド](/ja/develop/plugins/develop-mobile/) をご覧ください。
+
+<TranslationNote lang="ja">
+  **API バインディング**　原文 API bindings。「API バインディング」は、API
+  の呼び出し時にやりとりされる様々なデータを、API
+  の仕様に適合するように、自動的に複雑なデータ変換処理を行なう仕組み。
+</TranslationNote>
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## 命名規則
+
+Tauri プラグインには、「プレフィックス」（接頭辞）とそれに続く「プラグイン名」が付きます。「プラグイン名」は [`tauri.conf.json > plugins`](/reference/config/#pluginconfig) のプラグイン設定で指定されています。
+
+デフォルトでは、Tauri は、あなたが作成するプラグイン・クレートに `tauri-plugin-` という「プレフィックス」を付けます。これにより、プラグインが Tauri コミュニティ内で見付けられやすくなり、Tauri CLI でも利用しやすくなります。新しいプラグイン・プロジェクトを初期化する際には、「プラグイン名」を指定する必要があります。生成されるクレート名は `tauri-plugin-{プラグイン名}`、JavaScript NPM パッケージ名は `tauri-plugin-{プラグイン名}-api` になります（ただし、可能であれば [NPM スコープ](https://docs.npmjs.com/about-scopes) を使用することをお勧めします）。Tauri の NPM パッケージの命名規則は `@scope-name/plugin-{プラグイン名}` です。
+
+## プラグイン・プロジェクトの初期化
+
+新しいプラグイン・プロジェクトをブートストラップ（起動）するには、`plugin new` を実行します。NPM パッケージが不要な場合は、`--no-api` CLI フラグを使用してください。Android または iOS をサポートするようにプラグインを初期化する場合は、`--android` または `--ios` フラグを使用してください。
+
+インストール後、次のコマンドを実行してプラグイン・プロジェクトを作成できます：
+
+<CommandTabs npm="npx @tauri-apps/cli plugin new [name]" />
+
+これにより、ディレクトリ `tauri-plugin-[name（プラグイン名）]` でプラグインが初期化され、指定した CLI フラグに応じて、出来上がったプロジェクトは、たとえば次のようになります：
+
+```
+. tauri-plugin-[name（プラグイン名）]/
+├── src/                - Rust のコード
+│ ├── commands.rs       - webview が使用できるコマンドを定義
+| ├── desktop.rs        - デスクトップ実装
+| ├── error.rs          - 結果戻り値で用いるデフォルト・エラー型
+│ ├── lib.rs            - 適切な実装・設定状態 ... を再転送
+│ ├── mobile.rs         - モバイル実装
+│ └── models.rs         - 共用される構造体
+├── permissions/        - （作成された）コマンド用アクセス権ファイルを格納します
+├── android             - Android ライブラリ
+├── ios                 - Swift パッケージ
+├── guest-js            - JavaScript API バインディングのソースコード
+├── dist-js             - guest-js から変換されたアセット
+├── Cargo.toml          - Cargo クレートのメタデータ
+└── package.json        - NPM パケージのメタデータ
+```
+
+既存のプラグインに Android または iOS の機能を追加したい場合は、`plugin android add` と `plugin ios add` を使用してモバイル・ライブラリ・プロジェクトをブートストラップ（起動）し、必要な変更を組み込むことができます。
+
+## モバイル・プラグインの開発
+
+プラグインは、Kotlin（またはJava）とSwiftで記述されたネイティブのモバイル・コードを実行できます。デフォルトのプラグイン・テンプレートには、Kotlin を使用した「Android ライブラリ・プロジェクト」と「Swift パッケージ」が含まれています。Rust コードからどのように実行させる（トリガーする）のかを示すモバイル・コマンドのサンプルも含みます。
+
+モバイル用プラグイン開発の詳細については、次章の [モバイル・プラグインの開発](/ja/develop/plugins/develop-mobile/) をご覧ください。
+
+## プラグインの設定
+
+プラグインが使用される Tauri アプリケーションでは、プラグインの設定を `tauri.conf.json` で行ないます。項目の `plugin-name` は実際の「プラグインの名前」のことです：
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+プラグインの設定は `Builder` にセットされ、実行時に解析されます。以下は、プラグインの設定を指定するために使用される `Config` 構造体の例です。
+
+```rust title="src/lib.rs"
+use tauri::plugin::{Builder, Runtime, TauriPlugin};
+use serde::Deserialize;
+
+// プラグインの設定を定義する
+#[derive(Deserialize)]
+struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
+  // 代わりに `Builder::<R, Option<Config>>` を使用して
+  // プラグインの設定をオプションにする
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config().timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## ライフサイクル・イベント
+
+プラグインは、いくつかのライフサイクル・イベントにフックできます：
+
+- [setup](#setup): プラグインが初期化されるとき
+- [on_navigation](#on_navigation): Webview がナビゲーションを実行し始めたとき
+- [on_webview_ready](#on_webview_ready): 新しいウィンドウが生成されたとき
+- [on_event](#on_event): イベント・ループ「イベント」通知のとき
+- [on_drop](#on_drop): プラグインが破棄されたとき
+
+上記以外に、モバイル・プラグイン関連の [ライフサイクル・イベント](/ja/develop/plugins/develop-mobile/#ライフサイクルイベント) もあります。
+
+### 「setup」
+
+- **いつ**：　プラグインが初期化されるとき
+- **目的**：　モバイル・プラグインの登録、状態の管理、バックグラウンド・タスクの実行
+
+```rust title="src/lib.rs"
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### 「on_navigation」
+
+- **いつ**：　Webview がナビゲーションを実行し始めたとき
+- **目的**：　ナビゲーションの検証、URL 変更の追跡
+
+`false` が返されると、ナビゲーションがキャンセルされます。
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // 禁止されている場合はナビゲーションをキャンセルします
+    url.scheme() != "forbidden"
+  })
+```
+
+### 「on_webview_ready」
+
+- **いつ**：　新しいウィンドウが生成されたとき
+- **目的**：　すべてのウィンドウに対して初期化スクリプトを実行
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
+  })
+```
+
+### 「on_event」
+
+- **いつ**：　イベント・ループ「イベント」通知のとき
+- **目的**：　ウィンドウ・イベント、メニュー・イベント、アプリケーション終了要求などのコア・イベントを処理
+
+このライフサイクル・フックを使用すると、あらゆるイベント・ループの「[イベント](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html)」通知を受け取ることができます。
+
+```rust title="src/lib.rs"
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // ユーザーがウィンドウを閉じるように要求し、ウィンドウが残っていません
+
+        // アプリの終了を防ぎます：
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // アプリが終了します。ここでクリーンアップします。
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### 「on_drop」
+
+- **いつ**：　プラグインが破棄されたとき
+- **目的**：　プラグインが破棄されたときにコードを実行
+
+詳細については、[`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) を参照してください。
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // プラグインが破棄されました...
+  })
+```
+
+## Rust APIs の開放
+
+<TranslationNote lang="ja">
+
+**開放**　原文は
+expose（暴露する、露呈する、曝す、公開する）。本稿では「〜から見られるようにする」という観点から主に「開放」という訳語をあてています。
+
+</TranslationNote>
+
+プロジェクトの `desktop.rs` および `mobile.rs` で定義されたプラグイン API は、プラグインと同じ名前（「パスカル・ケース」で表記）を持つ構造体としてユーザーにエクスポートされます。プラグインがセットアップされると、この構造体のインスタンスが作成され、「状態」として管理されます。これにより、ユーザーはプラグインに定義された拡張トレイトを通じて、いつでも `Manager` インスタンス（たとえば `AppHandle`、`App`、`Window` など）を使用してこの構造体を取得できます。
+
+<TranslationNote lang="ja">
+
+**パスカル・ケース**　pascal case。変数名などを複合語で表記する際の命名規則のひとつで、各単語の先頭の文字を 「PascalCase」のように大文字にする形式。なお、同様の表記法に「キャメル・ケース camelCase」があるが、キャメル・ケースでは、先頭の単語は大文字を用いない。詳しくは、Wikipedia の「[キャメルケース](https://ja.wikipedia.org/wiki/キャメルケース) を参照してください。
+
+</TranslationNote>
+
+たとえば、[`global-shortcut plugin`](/ja/plugin/global-shortcut/) は、`GlobalShortcutExt` トレイトの `global_shortcut` メソッドを使用して読み取ることができる `GlobalShortcut` 構造体を定義します：
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## コマンドの追加
+
+コマンド（命令）は `commands.rs` ファイルで定義されています。これらは通常の Tauri アプリケーションのコマンドです。アプリケーション・コマンドと同じように、AppHandle および Window の各インスタンスに直接アクセスし、「状態」を確認し、入力を取得できます。Tauri コマンドの詳細については、前述の「フロントエンドから Rust を呼び出す」の章にある [コマンド・ガイド](/ja/develop/calling-rust/) をお読みください。
+
+次のコマンドは、[依存性の注入](https://ja.wikipedia.org/wiki/依存性の注入) を介して `AppHandle` と `Window` インスタンスにアクセスする方法を示しており、二つの入力パラメータ （`on_progress` と `url`）を受け取ります。
+
+```rust title="src/commands.rs"
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // ここにコマンド・ロジックを実装します
+  on_progress.send(100).unwrap();
+}
+```
+
+コマンドを Webview に開放するには、`lib.rs` の `invoke_handler()` 呼び出しにフックする必要があります。
+
+```rust title="src/lib.rs"
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+プラグイン・ユーザーが JavaScript でコマンドを簡単に呼び出せるように、`webview-src/index.ts` にバインディング関数を定義してください：
+
+```js name="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/core'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+テストする前に必ず TypeScript コードをビルドしてください。
+
+### コマンドのアクセス権
+
+デフォルトでは、フロントエンドからコマンドにアクセスできません。コマンドのいずれかを実行しようとすると、「拒否」エラーが発生します。実際にコマンドを利用できるようにするには、各コマンドを許可するアクセス権も定義する必要があります。
+
+#### アクセス権ファイル
+
+アクセス権は、`permissions` ディレクトリ内の JSON または TOML ファイルとして定義されています。各ファイルでは、アクセス権のリスト、アクセス権セットのリスト、およびプラグインのデフォルトのアクセス権を定義できます。
+
+##### アクセス権
+
+アクセス権はプラグイン・コマンドの権限を定義します。コマンドのリストを「許可」または「拒否」できたり、コマンド固有のスコープ（適用範囲）とグローバル・スコープを関連付けたりすることができます。
+
+```toml title="permissions/start-server.toml"
+"$schema" = "schemas/schema.json"
+
+[[permission]]
+identifier = "allow-start-server"
+description = "Enables the start_server command."
+commands.allow = ["start_server"]
+
+[[permission]]
+identifier = "deny-start-server"
+description = "Denies the start_server command."
+commands.deny = ["start_server"]
+```
+
+##### スコープ（適用範囲）
+
+スコープを使用すると、プラグインは個々のコマンドに対してより詳細な制限を定義できます。
+それぞれのアクセス権には、コマンド毎に、またはプラグイン全体に対して、「許可」または「拒否」される内容を定義するスコープ・オブジェクトのリストを定義します。
+
+では、`shell` プラグインで生成が「許可」されるバイナリ・リスト用のスコープ・データを保持する構造体サンプルを定義してみましょう：
+
+```rust title="src/scope.rs"
+#[derive(Debug, schemars::JsonSchema)]
+pub struct Entry {
+    pub binary: String,
+}
+```
+
+###### コマンド・スコープ
+
+プラグインの利用者（コンシューマー）は、自分の「セキュリティ設定」ファイルで、特定のコマンドのスコープを定義できます（詳しくは [英語版ドキュメント](/reference/acl/scope/) を参照してください）。
+コマンド固有のスコープは、[`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) 構造体を使用して読み取ることができます。
+
+<TranslationNote lang="ja">
+  **プラグインの利用者（コンシューマー）**　plugin
+  consumer。「コンシューマー」は消費者の意味ですが、本稿では読み易さを考え「利用者」としています。consumer
+  という語が用いられている理由は「プラグインの使用者が必ずしも人間ではない〔サービスを消費するのが者／コマンド／システム等々である〕ため」との説明が
+  [GitHub](https://github.com/Kong/kong/issues/4391) にあります。
+</TranslationNote>
+
+```rust title="src/commands.rs"
+use tauri::ipc::CommandScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+  let allowed = command_scope.allows();
+  let denied = command_scope.denies();
+  todo!()
+}
+```
+
+###### グローバル・スコープ
+
+アクセス権に、「許可」または「拒否」するコマンドが定義されていない場合は「スコープ権限」とみなされ、プラグインにはグローバル・スコープのみが定義されます：
+
+<TranslationNote lang="ja">
+  **スコープ権限**　正規訳不明。原文 it’s considered a scope
+  permission（文意不詳）。
+</TranslationNote>
+
+```toml title="permissions/spawn-node.toml"
+[[permission]]
+identifier = "allow-spawn-node"
+description = "This scope permits spawning the `node` binary."
+
+[[permission.scope.allow]]
+binary = "node"
+```
+
+グローバル・スコープは、[`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html) 構造体を使用して読み取ることができます。
+
+```rust title="src/commands.rs"
+use tauri::ipc::GlobalScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+  let allowed = scope.allows();
+  let denied = scope.denies();
+  todo!()
+}
+```
+
+:::note
+柔軟性のために、グローバル・スコープとコマンド・スコープの両方をチェックすることをお勧めします。
+
+<TranslationNote lang="ja">
+  **柔軟性のために** for
+  flexibility（文意不詳、直訳）。「自由度？」「融通？」「弾力的な運用？」
+</TranslationNote>
+
+:::
+
+###### スキーマ（データ構造定義）
+
+スコープ・エントリ（スコープ設定）には、プラグイン利用者（コンシューマー）がスコープの形式を認識し、IDE で自動補完できるように、「JSON スキーマ」を生成するための `schemars` 依存関係が必要です。
+
+<TranslationNote lang="ja">
+  **JSON スキーマ**　JSON
+  schema。JSONデータの構造（キー、値、オブジェクト、配列、データ型、制約などの要素）を定義し、データ形式に適合しているかを検証するためのツール。
+</TranslationNote>
+
+スキーマを定義するには、最初に Cargo.toml ファイルに依存関係を追加します。
+
+```toml
+# scope.rs モジュールはアプリ・コードとビルド・スクリプトとの間で共有されるため、依存関係とビルド依存関係の両方に schemars を追加する必要があります。
+[dependencies]
+schemars = "0.8"
+
+[build-dependencies]
+schemars = "0.8"
+```
+
+ビルド・スクリプトに以下のコードを追加します：
+
+```rust title="build.rs"
+#[path = "src/scope.rs"]
+mod scope;
+
+const COMMANDS: &[&str] = &[];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS)
+        .global_scope_schema(schemars::schema_for!(scope::Entry))
+        .build();
+}
+```
+
+##### アクセス権のセット
+
+「アクセス権のセット」とは、ユーザーがより高い抽象化レベルでプラグインを管理できる個々のアクセス権のグループです。
+たとえば、ひとつの API が複数のコマンドを使用したり、あるいはコマンドのコレクションに論理的な関係があるような場合には、そのようなコマンドを含んだセットを定義する必要があります：
+
+```toml title="permissions/websocket.toml"
+"$schema" = "schemas/schema.json"
+[[set]]
+identifier = "allow-websocket"
+description = "Allows connecting and sending messages through a WebSocket"
+permissions = ["allow-connect", "allow-send"]
+```
+
+##### デフォルトのアクセス権
+
+「デフォルトのアクセス権」とは、識別子「`default`」を持つ特別なアクセス権のセットです。必要なコマンドはデフォルトで有効化しておくことをお勧めします。
+たとえば、`http` プラグインは、`request` コマンドが許可されていないと役に立ちません。
+
+```toml title="permissions/default.toml"
+"$schema" = "schemas/schema.json"
+[default]
+description = "Allows making HTTP requests"
+permissions = ["allow-request"]
+```
+
+#### 自動生成されたアクセス権
+
+各コマンドのアクセス権を定義する最も簡単な方法は、`build.rs` ファイルで定義されたプラ​​グインのビルド・スクリプトにある「自動生成」オプションを使用することです。
+定数「`COMMANDS`」内で、コマンドのリストを「[snake_case](https://ja.wikipedia.org/wiki/スネークケース)」（スネークケース）で定義します（コマンド関数名と一致する必要があります）。すると Tauri は自動的に `allow-$commandname` と `deny-$commandname` のアクセス権限を生成します。
+
+次の例では、`allow-upload` および `deny-upload` のアクセス権限を生成しています：
+
+```rust title="src/commands.rs"
+const COMMANDS: &[&str] = &["upload"];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS).build();
+}
+```
+
+詳細については、目次 **Security** の部の「[アクセス権 Permissions](/ja/security/permissions/)」の章を参照してください。
+
+## 「状態」の管理
+
+プラグインは Tauri アプリケーションと同じように、「状態 state」を管理できます。詳しくは、目次 **Develop** の部の「[状態管理](/ja/develop/state-management/)」の章をご覧ください。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 2, 2024 英語版」に基づいています】
+</div>

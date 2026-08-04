@@ -3,10 +3,6 @@ title: Announcing the Tauri v2 Beta Release
 date: 2024-02-02
 authors: [lucasfernog]
 excerpt: Tauri v2 is ready to take the next step towards being stable! 2.0.0-beta.0 has been published.
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 ![Hero Image](./tauri_2_0_0_alpha_0/header.png)

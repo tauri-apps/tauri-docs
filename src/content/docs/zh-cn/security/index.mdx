@@ -1,0 +1,107 @@
+---
+title: 安全
+sidebar:
+  order: 1
+  label: 概述
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+本页面旨在解释 Tauri 设计和生态系统核心的高级概念和安全特性，这些特性默认情况下能让你和构建的应用程序以及它们的用户更加安全。
+
+本页面还包括最佳实践建议，如何向我们报告漏洞，以及详细概念说明的参考。
+
+:::note
+
+需谨记：Tauri 应用程序的安全性取决于 Tauri 框架本身、所有 Rust 和 npm 依赖项、您的代码以及运行最终应用的设备的整体安全性之和。
+Tauri 团队已尽其职责，安全社区也贡献了力量，您同样需要遵循一些重要的最佳实践。
+
+:::
+
+## 信任边界
+
+> 信任边界（Trust boundary）是计算机科学与安全领域的术语，用于描述以下两种场景的分界线
+>
+> 1. 程序数据或执行流的信任级别发生变化的边界
+> 2. 具有不同权限的主体（如用户、系统模块）之间交换数据或命令的边界
+>    [^wikipedia-trust-boundary]
+
+[^wikipedia-trust-boundary]: [https://en.wikipedia.org/wiki/Trust_boundary](https://en.wikipedia.org/wiki/Trust_boundary).
+
+Tauri 的安全模型严格区分以下两类代码：
+
+1. 应用核心逻辑的 Rust 代码
+2. 前端代码（可使用任意框架或系统 WebView 支持的语言编写）
+
+对跨越边界传递的所有数据进行严格检查与明确定义，是防止信任边界违规的关键。
+若这些边界间的数据传递缺乏访问控制，攻击者将极易通过此漏洞提升并滥用权限。
+
+[IPC 层（进程间通信层）](/zh-cn/concept/inter-process-communication/) 作为两个信任组之间的通信桥梁，并确保信任边界不被破坏。
+
+![IPC Diagram](@assets/security/tauri-trust-boundaries.svg)
+
+由插件或应用程序核心执行的任何代码均可完全访问所有可用系统资源，且不受任何限制。
+
+在 WebView 中执行的代码，仅能通过明确定义的进程间通信（IPC）层访问系统资源。
+核心应用命令的访问权限由应用配置中定义的能力（capabilities）进行配置和限制，而每个命令的具体实现还会根据能力配置中定义的细粒度访问级别进行强制校验。
+
+详细了解各组件及边界执行机制：
+
+<CardGrid>
+  <LinkCard title="权限" href="/zh-cn/security/permissions/" />
+  <LinkCard title="作用域" href="/zh-cn/security/scope/" />
+  <LinkCard title="能力" href="/zh-cn/security/capabilities/" />
+  <LinkCard title="运行时权限" href="/zh-cn/security/runtime-authority/" />
+</CardGrid>
+
+Tauri 允许开发者自由选择前端技术栈和框架，这意味着我们无法为每个具体的前端技术栈提供安全加固指南，但 Tauri 提供了通用功能来控制和约束潜在的攻击面。
+
+<CardGrid>
+  <LinkCard title="内容安全策略" href="/zh-cn/security/csp/" />
+  <LinkCard
+    title="隔离模式"
+    href="/zh-cn/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+## （非）打包式 WebView 方案
+
+Tauri 的设计思路是依赖操作系统自带的 WebView 组件，而非将其捆绑到应用程序的二进制文件中。
+
+这背后存在多重原因，但从安全角度来看，最关键的因素是：
+从发布 WebView 的安全补丁版本到实际部署至应用程序终端用户所需的平均耗时。
+
+![IPC Diagram](@assets/security/tauri-update-lag.svg)
+
+我们观察到，WebView 软件包维护者与操作系统软件包维护者平均修补并发布安全更新的 WebView 版本的速度，显著快于直接将 WebView 捆绑到应用程序中的开发者。
+
+尽管存在与此观察结果相悖的例外情况，且理论上两种路径可在相近时间范围内执行，
+但每条路径的实施均需为每个应用程序承担更大的额外基础设施开销。
+
+代码打包机制虽对 Tauri 应用开发者体验存在不足，但我们并不认为其本质存在安全缺陷。
+当前设计是一种权衡策略，通过降低攻击面显著减少了已知漏洞的实际风险。
+
+## 生态系统
+
+Tauri 组织不仅维护 Tauri 主仓库，还提供其他工具与资源。为确保构建合理安全的多平台应用框架，我们在安全性和跨平台支持上投入了更多努力。
+
+若需深入了解我们如何保障开发流程的安全性，您可参考或实施的安全措施，应用程序可能面临的已知威胁，以及我们未来的改进与强化计划，请查阅以下文档：
+
+<CardGrid>
+  <LinkCard title="生态系统安全" href="/zh-cn/security/ecosystem/" />
+  <LinkCard title="应用程序生命周期威胁" href="/zh-cn/security/lifecycle/" />
+  <LinkCard title="后续开发计划" href="/zh-cn/security/future/" />
+</CardGrid>
+
+## 协调披露
+
+如果您认为 Tauri 或本组织其他代码库中的任何内容存在安全疑虑或漏洞，**请勿公开讨论或披露您的发现**，而应直接联系我们的安全团队。
+
+{/* 我们建议的漏洞披露方式是通过受影响代码库的GitHub漏洞披露功能提交。虽然我们大多数代码库已启用该功能，但若您不确定，请通过Tauri主仓库提交报告。 */}
+我们建议的漏洞披露方式是通过受影响代码库的 [GitHub 漏洞披露功能提交](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)
+虽然我们大多数代码库已启用该功能，但若您不确定，请通过 [Tauri 仓库提交报告](https://github.com/tauri-apps/tauri/security/advisories/new)。
+
+您也可以通过以下电子邮件联系我们： [security@tauri.app](mailto:security@tauri.app).
+
+尽管我们目前没有专门的安全漏洞赏金预算，但在某些情况下，我们会根据资源条件对符合协调披露原则的漏洞报告给予奖励。

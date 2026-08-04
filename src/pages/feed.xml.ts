@@ -1,6 +1,6 @@
 // This RSS includes all pages in root locale, excluding releases and references
 import config from 'virtual:starlight/user-config';
-import { getNewestCommitDate } from 'node_modules/@astrojs/starlight/utils/git';
+import { getNewestCommitDate } from 'virtual:starlight/git-info';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { join } from 'node:path';
@@ -34,7 +34,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       pubDate: post.id.startsWith('blog') ? post.data.date : getTimestamp(post.id),
       description: post.id.startsWith('blog') ? post.data.excerpt : post.data.description,
-      link: `/${post.slug}/`,
+      link: `/${post.id}/`,
     })),
   });
 }

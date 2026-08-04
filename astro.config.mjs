@@ -1,16 +1,32 @@
-import { defineConfig } from 'astro/config';
+// @ts-check
+import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import locales from './locales.json';
 import starlightLinksValidator from 'starlight-links-validator';
+import starlightSidebarTopics from 'starlight-sidebar-topics';
 import starlightBlog from 'starlight-blog';
+import starlightLlmsTxt from 'starlight-llms-txt';
+import llmsTxtConfig from './llms-txt.config.mjs';
 import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
-import starlightUtils from '@lorenzo_lewis/starlight-utils';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
+import { readFileSync } from 'fs';
+import nsisGrammar from './src/langs/nsis.tmLanguage.json';
+import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
+import { logo, social, ecStyleOverrides } from './src/shared-config.mjs';
+
+const nsis = {
+  ...nsisGrammar,
+  name: 'nsis',
+  aliases: ['nsh', 'nsi'],
+};
+
+const pbxproj = {
+  ...pbxprojGrammar,
+  name: 'pbxproj',
+};
 
 const authors = {
   nothingismagick: {
@@ -58,6 +74,11 @@ const authors = {
     title: 'Tauri Security',
     picture: '/authors/chip.png',
   },
+  tony: {
+    name: 'Tony',
+    title: 'Tauri Development',
+    picture: '/authors/tony.jpeg',
+  },
 };
 
 const site = 'https://v2.tauri.app';
@@ -69,39 +90,306 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
-        starlightUtils({
-          multiSidebar: {
-            switcherStyle: 'horizontalList',
-          },
+        starlightBlog({
+          authors,
+          // We're doing it in `src/components/overrides/Header.astro`
+          navigation: 'none',
         }),
-        starlightBlog({ authors }),
+        starlightSidebarTopics(
+          [
+            {
+              label: {
+                en: 'Guides',
+                'zh-CN': '指引',
+                es: 'Guías',
+              },
+              id: 'guides',
+              link: '/start/',
+              icon: 'open-book',
+              items: [
+                {
+                  label: 'Quick Start',
+                  translations: {
+                    'zh-CN': '快速开始',
+                    es: 'Guía rápida',
+                  },
+                  collapsed: true,
+                  items: [
+                    'start',
+                    'start/prerequisites',
+                    'start/create-project',
+                    'start/project-structure',
+                    // {
+                    //   label: 'What is Tauri?',
+                    //   // translations: {
+                    //   //   'zh-CN': '什么是 Tauri？',
+                    //   //   es: '¿Qué es Tauri?',
+                    //   // },
+                    //   link: '/start/',
+                    // },
+                    // {
+                    //   label: 'Prerequisites',
+                    //   // translations: {
+                    //   //   'zh-CN': '前置条件',
+                    //   //   es: 'Requisitos previos',
+                    //   // },
+                    //   link: '/start/prerequisites/',
+                    // },
+                    // {
+                    //   label: 'Create a Project',
+                    //   // translations: {
+                    //   //   'zh-CN': '创建项目',
+                    //   //   es: 'Crea un proyecto',
+                    //   // },
+                    //   link: '/start/create-project/',
+                    // },
+                    {
+                      label: 'Frontend Configuration',
+                      translations: {
+                        'zh-CN': '前端配置',
+                        es: 'Configuración del frontend',
+                      },
+                      collapsed: true,
+                      items: [
+                        {
+                          autogenerate: { directory: 'start/frontend' },
+                        },
+                      ],
+                    },
+                    {
+                      label: 'Upgrade & Migrate',
+                      translations: {
+                        'zh-CN': '升级和迁移',
+                        es: 'Actualizar y migrar',
+                      },
+                      collapsed: true,
+                      items: [{ autogenerate: { directory: 'start/migrate' } }],
+                    },
+                  ],
+                },
+                {
+                  label: 'Core Concepts',
+                  translations: {
+                    'zh-CN': '核心概念',
+                    es: 'Conceptos básicos',
+                  },
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'concept', collapsed: true } }],
+                },
+                {
+                  label: 'Security',
+                  translations: {
+                    'zh-CN': '安全',
+                    es: 'Seguridad',
+                  },
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: 'security', collapsed: true } }],
+                },
+                {
+                  label: 'Develop',
+                  translations: {
+                    'zh-CN': '开发',
+                    es: 'Desarrollo',
+                  },
+                  collapsed: true,
+                  items: [
+                    'develop',
+                    'develop/configuration-files',
+                    'develop/calling-rust',
+                    'develop/calling-frontend',
+                    'develop/resources',
+                    'develop/sidecar',
+                    'develop/state-management',
+                    'develop/updating-dependencies',
+                    'develop/icons',
+                    {
+                      label: 'Debug',
+                      collapsed: true,
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Debug' },
+                        },
+                      ],
+                    },
+                    {
+                      label: 'Plugins',
+                      collapsed: true,
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Plugins' },
+                        },
+                      ],
+                    },
+                    {
+                      label: 'Tests',
+                      collapsed: true,
+                      items: [
+                        {
+                          autogenerate: { directory: 'develop/Tests', collapsed: true },
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  label: 'Distribute',
+                  translations: {
+                    'zh-CN': '分发',
+                    es: 'Distribuir',
+                  },
+                  collapsed: true,
+                  items: [
+                    {
+                      autogenerate: { directory: 'distribute', collapsed: true },
+                    },
+                  ],
+                },
+                {
+                  label: 'Learn',
+                  translations: {
+                    'zh-CN': '学习',
+                    es: 'Aprende',
+                  },
+                  collapsed: true,
+                  items: [
+                    {
+                      autogenerate: { directory: 'learn', collapsed: true },
+                    },
+                  ],
+                },
+                {
+                  label: 'Plugins',
+                  translations: {
+                    'zh-CN': '插件',
+                    es: 'Plugins',
+                  },
+                  collapsed: true,
+                  items: [
+                    {
+                      autogenerate: { directory: 'plugin' },
+                    },
+                  ],
+                },
+                {
+                  label: 'About',
+                  translations: {
+                    'zh-CN': '关于',
+                    es: 'Acerca de',
+                  },
+                  collapsed: true,
+                  items: [
+                    {
+                      autogenerate: { directory: 'about' },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              label: { en: 'References', 'zh-CN': '参考', es: 'Referencias' },
+              id: 'references',
+              link: '/reference/cli',
+              icon: 'document',
+              items: [
+                {
+                  label: 'Command Line Interface',
+                  translations: {
+                    'zh-CN': '命令行接口（CLI）',
+                    es: 'Interfaz de línea de comandos',
+                  },
+                  link: '/reference/cli/',
+                },
+                {
+                  label: 'Security',
+                  translations: {
+                    'zh-CN': '安全',
+                    es: 'Seguridad',
+                  },
+                  collapsed: true,
+                  items: [
+                    {
+                      autogenerate: { directory: 'reference/acl' },
+                    },
+                  ],
+                },
+                {
+                  label: 'Configuration',
+                  translations: {
+                    'zh-CN': '配置',
+                    es: 'Configuración',
+                  },
+                  link: '/reference/config/',
+                },
+                {
+                  label: 'Environment Variables',
+                  translations: {
+                    'zh-CN': '环境变量',
+                    es: 'Variables de entorno',
+                  },
+                  link: '/reference/environment-variables/',
+                },
+                {
+                  label: 'Webview Versions',
+                  translations: {
+                    'zh-CN': 'Webview 版本',
+                    es: 'Versiones de Webview',
+                  },
+                  link: '/reference/webview-versions/',
+                },
+                {
+                  label: 'JavaScript',
+                  collapsed: true,
+                  items: [
+                    {
+                      autogenerate: { directory: 'reference/javascript', collapsed: true },
+                    },
+                  ],
+                },
+                {
+                  label: 'Rust (docs.rs)',
+                  link: 'https://docs.rs/tauri/~2/',
+                },
+              ],
+            },
+            {
+              label: 'Blog',
+              id: 'blog',
+              link: '/blog/',
+              icon: 'pen',
+              // Empty item to instruct it that is is local files, not an external link
+              //  this is actually filled in through the topics dir for `blog` below
+              items: [],
+            },
+            // The Releases section is a separate Starlight site (packages/releases-site)
+            // proxied at /release/* — see public/_redirects. The header link to it comes
+            // from src/data/header-links.json.
+          ],
+          {
+            exclude: ['**/_*/**'],
+            topics: {
+              blog: ['/blog', '/blog/*', '/blog/**/*', '**/blog', '**/blog/*', '**/blog/**/*'],
+            },
+          }
+        ),
         starlightLinksValidator({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
           exclude: ['/plugin/*/#default-permission', '/plugin/*/#permission-table'],
         }),
+        starlightLlmsTxt(llmsTxtConfig),
         lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
-      logo: {
-        dark: './src/assets/logo.svg',
-        light: './src/assets/logo_light.svg',
-        replacesTitle: true,
-      },
-      social: {
-        github: 'https://github.com/tauri-apps/tauri',
-        discord: 'https://discord.com/invite/tauri',
-        twitter: 'https://twitter.com/TauriApps',
-        mastodon: 'https://fosstodon.org/@TauriApps',
-        rss: `${site}/rss/`,
-      },
+      logo: logo(),
+      social: social(site),
       components: {
         Header: './src/components/overrides/Header.astro',
         Footer: 'src/components/overrides/Footer.astro',
         ThemeSelect: 'src/components/overrides/ThemeSelect.astro',
         PageFrame: 'src/components/overrides/PageFrame.astro',
-        TableOfContents: 'src/components/overrides/TableOfContents.astro',
+        Sidebar: 'src/components/overrides/Sidebar.astro',
+        TwoColumnContent: 'src/components/overrides/TwoColumnContent.astro',
       },
       head: [
         {
@@ -138,201 +426,15 @@ export default defineConfig({
       },
       customCss: ['./src/styles/custom.scss'],
       expressiveCode: {
-        styleOverrides: { borderRadius: '0.5rem' },
+        shiki: {
+          // @ts-ignore it works
+          langs: [nsis, pbxproj],
+          langAlias: {
+            d2: 'txt',
+          },
+        },
+        styleOverrides: ecStyleOverrides,
       },
-      sidebar: [
-        {
-          label: 'Guides',
-          translations: {
-            'zh-CN': '指引',
-          },
-          collapsed: true,
-          items: [
-            {
-              label: 'Quick Start',
-              translations: {
-                'zh-CN': '快速开始',
-              },
-              collapsed: true,
-              items: [
-                {
-                  label: 'What is Tauri?',
-                  translations: {
-                    'zh-CN': '什么是 Tauri？',
-                  },
-                  link: '/start/',
-                },
-                {
-                  label: 'Prerequisites',
-                  translations: {
-                    'zh-CN': '前置条件',
-                  },
-                  link: '/start/prerequisites/',
-                },
-                {
-                  label: 'Create a Project',
-                  translations: {
-                    'zh-CN': '创建项目',
-                  },
-                  link: '/start/create-project/',
-                },
-                {
-                  label: 'Frontend Configuration',
-                  translations: {
-                    'zh-CN': '前端配置',
-                  },
-                  collapsed: true,
-                  autogenerate: { directory: 'start/frontend' },
-                },
-                {
-                  label: 'Upgrade & Migrate',
-                  translations: {
-                    'zh-CN': '升级和迁移',
-                  },
-                  collapsed: true,
-                  autogenerate: { directory: 'start/migrate' },
-                },
-              ],
-            },
-            {
-              label: 'Core Concepts',
-              translations: {
-                'zh-CN': '核心概念',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'concept' },
-            },
-            {
-              label: 'Security',
-              translations: {
-                'zh-CN': '安全',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'security' },
-            },
-            {
-              label: 'Develop',
-              translations: {
-                'zh-CN': '开发',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'develop' },
-            },
-            {
-              label: 'Distribute',
-              translations: {
-                'zh-CN': '分发',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'distribute' },
-            },
-            {
-              label: 'Learn',
-              translations: {
-                'zh-CN': '学习',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'learn' },
-            },
-            {
-              label: 'Plugins',
-              translations: {
-                'zh-CN': '插件',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'plugin' },
-            },
-            {
-              label: 'About',
-              translations: {
-                'zh-CN': '关于',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'about' },
-            },
-          ],
-        },
-        {
-          label: 'References',
-          translations: {
-            'zh-CN': '参考',
-          },
-          collapsed: true,
-          items: [
-            {
-              label: 'Security',
-              translations: {
-                'zh-CN': '安全',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'reference/acl' },
-            },
-            {
-              label: 'Command Line Interface',
-              translations: {
-                'zh-CN': '命令行接口（CLI）',
-              },
-              link: '/reference/cli/',
-            },
-            {
-              label: 'Configuration',
-              translations: {
-                'zh-CN': '配置',
-              },
-              link: '/reference/config/',
-            },
-            {
-              label: 'Environment Variables',
-              translations: {
-                'zh-CN': '环境变量',
-              },
-              link: '/reference/environment-variables/',
-            },
-            {
-              label: 'Webview Versions',
-              translations: {
-                'zh-CN': 'Webview 版本',
-              },
-              link: '/reference/webview-versions/',
-            },
-            {
-              label: 'Releases',
-              translations: {
-                'zh-CN': '发行版',
-              },
-              collapsed: true,
-              autogenerate: { directory: 'release' },
-            },
-            {
-              label: 'JavaScript',
-              collapsed: true,
-              autogenerate: { directory: 'reference/javascript' },
-            },
-            {
-              label: 'Rust (docs.rs)',
-              link: 'https://docs.rs/tauri/~2/',
-            },
-          ],
-        },
-        {
-          label: 'Blog',
-          translations: {
-            'zh-CN': '博客',
-          },
-          collapsed: true,
-          items: [
-            {
-              label: 'All posts',
-              link: '/blog/',
-            },
-            {
-              label: 'Recent posts',
-              collapsed: false,
-              autogenerate: { directory: 'blog', sort: 'date', order: 'descending' },
-            },
-          ],
-        },
-      ],
       locales,
       lastUpdated: true,
     }),
@@ -352,7 +454,11 @@ export default defineConfig({
         globPatterns: ['**/*.js', '**/*.css'],
         runtimeCaching: [
           {
-            urlPattern: new RegExp('.*'),
+            // Never handle /release/* — it is a separate Netlify site proxied
+            // under this domain with its own deploy cadence; a CacheFirst copy
+            // of its hashed assets goes stale on its next deploy and breaks
+            // the releases UI until a hard refresh.
+            urlPattern: new RegExp('^https?://[^/]+/(?!release(/|$))'),
             handler: 'CacheFirst',
             options: {
               cacheName: 'tauri-runtime',
@@ -365,20 +471,20 @@ export default defineConfig({
       },
     }),
   ],
+  image: {
+    // The PR build gate sets TAURI_DOCS_SKIP_IMAGE_OPT=true to skip sharp
+    // processing entirely (throwaway build). Netlify production builds keep the
+    // default sharp service. Do NOT key this off `CI` — Netlify sets CI=true.
+    ...(process.env.TAURI_DOCS_SKIP_IMAGE_OPT === 'true'
+      ? { service: passthroughImageService() }
+      : {}),
+    domains: ['tauri.app', 'images.opencollective.com', 'avatars.githubusercontent.com'],
+  },
   markdown: {
     shikiConfig: {
+      // @ts-expect-error The typing is wrong here, strings are valid values
       langs: ['powershell', 'ts', 'rust', 'bash', 'json', 'toml', 'html', 'js'],
     },
-    rehypePlugins: [
-      rehypeHeadingIds,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' },
-        },
-      ],
-    ],
   },
   redirects: {
     // Old blog url schema redirects
@@ -400,7 +506,7 @@ export default defineConfig({
     '/blog/2023/06/14/tauri-1-4': '/blog/tauri-1-4',
     '/blog/2023/06/15/tauri-board-elections-and-governance-updates':
       '/blog/tauri-board-elections-and-governance-updates',
-    'about/intro': 'about/philosophy',
+    '/about/intro': '/about/philosophy',
     // v1 /guides/debugging -> /guides/debug
     ...i18nRedirect('/v1/guides/debugging/application', '/guides/debug/application'),
     ...i18nRedirect('/v1/guides/debugging/vs-code', '/guides/debug/vs-code'),
@@ -462,29 +568,40 @@ export default defineConfig({
   server: {
     headers: readHeaders(),
   },
-  //
 });
 
-// Generates a redirect for each locale.
+/**
+ * Generates a redirect for each locale.
+ *
+ * @param {string} from
+ * @param {string} to
+ */
 function i18nRedirect(from, to) {
+  /** @type { {[from: string]: string} } */
   const routes = {};
-  Object.keys(locales).map((locale) =>
-    locale === 'root'
-      ? (routes[from] = to)
-      : (routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
-          /^\/*/g,
-          ''
-        )}`)
-  );
+  for (const locale of Object.keys(locales)) {
+    if (locale === 'root') {
+      routes[from] = to;
+    } else {
+      routes[`/${locale}/${from.replaceAll(/^\/*/g, '')}`] = `/${locale}/${to.replaceAll(
+        /^\/*/g,
+        ''
+      )}`;
+    }
+  }
   return routes;
 }
 
-// Read the HTTP header file in `public/_headers`
+/**
+ * Read the HTTP header file in `public/_headers`
+ *
+ * @returns {import('http').OutgoingHttpHeaders}
+ */
 function readHeaders() {
-  const header_file = fs
-    .readFileSync('public/_headers', { encoding: 'utf8' })
+  const header_file = readFileSync('public/_headers', { encoding: 'utf8' })
     .split('\n')
     .filter(Boolean);
+  /** @type {import('http').OutgoingHttpHeaders} */
   const headers = {};
   for (const line of header_file) {
     const [key, val] = line.trim().split(/\s*:\s*(.+)/);

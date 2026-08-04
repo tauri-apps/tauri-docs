@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Guides",
+    "value": "/start/",
+    "transfer": true
+  },
+  {
+    "title": "References",
+    "value": "/reference/cli/",
+    "transfer": true
+  },
+  {
+    "title": "Blog",
+    "value": "/blog/",
+    "transfer": false
+  },
+  {
+    "title": "Releases",
+    "value": "/release/",
+    "transfer": false
+  }
+]

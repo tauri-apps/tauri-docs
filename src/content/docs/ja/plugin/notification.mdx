@@ -1,0 +1,329 @@
+---
+title: Notifications（通知）
+description: ネイティブ通知をユーザーに送信します。
+i18nReady: true
+plugin: notification
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+「notification（通知）」プラグインを使用して、ユーザーにネイティブ通知を送信します。
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「notifications」プラグインをインストールしてください。
+
+<Tabs>
+    <TabItem label="自動で設定">
+
+        自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+        <CommandTabs npm="npm run tauri add notification"
+            yarn="yarn run tauri add notification"
+            pnpm="pnpm tauri add notification"
+            bun="bun tauri add notification"
+        deno="deno task tauri add notification"
+            cargo="cargo tauri add notification" />
+
+
+    </TabItem>
+    <TabItem label="手動で設定">
+        <Steps>
+
+        1. `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+           ```sh frame=none
+           cargo add tauri-plugin-notification
+           ```
+
+        2. 追加したプラグインを初期化するために `lib.rs` を修正します：
+
+           ```rust title="src-tauri/src/lib.rs" ins={4}
+           #[cfg_attr(mobile, tauri::mobile_entry_point)]
+           pub fn run() {
+               tauri::Builder::default()
+                   .plugin(tauri_plugin_notification::init())
+                   .run(tauri::generate_context!())
+                   .expect("error while running tauri application");
+           }
+           ```
+
+        3. JavaScript で「noficication（通知）」を使用する場合は、npm パッケージもインストールしてください：
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-notification"
+                yarn="yarn add @tauri-apps/plugin-notification"
+                pnpm="pnpm add @tauri-apps/plugin-notification"
+                deno="bun add npm:@tauri-apps/plugin-notification"
+                bun="bun add @tauri-apps/plugin-notification"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## 使用法
+
+以下に「notification」プラグインの使用方法の例をいくつか示します：
+
+- [ユーザーへ Notification（通知）を送信](#notification通知を送信)
+- [Notification（通知）にアクションを追加](#actionsアクション)
+- [Notification（通知）に添付ファイルを追加](#attachments添付ファイル)
+- [特定のチャンネルで Notification（通知）を送信](#channelsチャンネル)
+
+「notification」プラグインは JavaScript と Rust の両方で利用できます。
+
+### Notification（通知）を送信
+
+「通知 notification」を送信するには、次の手順に従ってください：
+
+<Steps>
+1. アクセス権限が与えられているかどうかを確認します
+
+2. アクセス権限が与えられていない場合はその許可を要求します
+
+3. 「通知」を送信します
+
+</Steps>
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI__.notification; を使用できます
+
+// 通知を送信するためのアクセス権限はありますか？
+let permissionGranted = await isPermissionGranted();
+
+// アクセス権限が設定されていない場合はアクセス権限を要求する必要があります
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+
+// アクセス権限が付与され次第、通知が送信されます
+if (permissionGranted) {
+  sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
+    .setup(|app| {
+        use tauri_plugin_notification::NotificationExt;
+        app.notification()
+            .builder()
+            .title("Tauri")
+            .body("Tauri is awesome")
+            .show()
+            .unwrap();
+
+        Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+```
+
+</TabItem>
+</Tabs>
+
+### Actions（アクション）
+
+:::caution[Mobile のみ]
+「Actions」API はモバイル・プラットフォームでのみ利用できます。
+:::
+
+Actions（アクション）は、notification（通知）にインタラクティブ（対話型）のボタンや入力機能を追加します。これらを使用することで、ユーザーにとって応答性のよい使用感を実現できます。
+
+#### アクションタイプの登録
+
+インタラクティブな要素を定義するには、アクション・タイプを登録します：
+
+```javascript
+import { registerActionTypes } from '@tauri-apps/plugin-notification';
+
+await registerActionTypes([
+  {
+    id: 'messages',
+    actions: [
+      {
+        id: 'reply',
+        title: 'Reply',
+        input: true,
+        inputButtonTitle: 'Send',
+        inputPlaceholder: 'Type your reply...',
+      },
+      {
+        id: 'mark-read',
+        title: 'Mark as Read',
+        foreground: false,
+      },
+    ],
+  },
+]);
+```
+
+#### アクション・プロパティ（属性）
+
+| プロパティ（属性）       | 説明                               |
+| ------------------------ | ---------------------------------- |
+| `id`                     | アクションの一意の識別子           |
+| `title`                  | アクションボタンのテキストを表示   |
+| `requiresAuthentication` | デバイス認証が必要                 |
+| `foreground`             | トリガーされるとアプリを前面に配置 |
+| `destructive`            | iOS ではアクションが赤で表示       |
+| `input`                  | テキスト入力を有効化               |
+| `inputButtonTitle`       | 入力送信ボタン用の表示テキスト     |
+| `inputPlaceholder`       | 入力フィールド用の表示テキスト     |
+
+#### アクションへの応答検知
+
+「通知 notification」アクションでのユーザーの対話型操作の状態を監視検知します：
+
+```javascript
+import { onAction } from '@tauri-apps/plugin-notification';
+
+await onAction((notification) => {
+  console.log('Action performed:', notification);
+});
+```
+
+### Attachments（添付ファイル）
+
+添付ファイルは「通知 notification」にメディア・コンテンツを追加します。サポート状況はプラットフォームによって異なります。
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Image',
+  body: 'Check out this picture',
+  attachments: [
+    {
+      id: 'image-1',
+      url: 'asset:///notification-image.jpg',
+    },
+  ],
+});
+```
+
+#### 添付ファイルのプロパティ（属性）
+
+| プロパティ | 説明                                                         |
+| ---------- | ------------------------------------------------------------ |
+| `id`       | 一意の識別子                                                 |
+| `url`      | asset:// または file:// プロトコルを使用したコンテンツの URL |
+
+注: 添付ファイルがターゲット・プラットフォームで利用できるかどうかの確認を行なってください。
+
+### Channels（チャンネル）
+
+「チャンネル」は、notification（通知）を異なる動作ごとに分類するものです。主に Android で使用されますが、どのプラットフォームにも一貫した API を提供します。
+
+#### チャンネルの作成
+
+```javascript
+import {
+  createChannel,
+  Importance,
+  Visibility,
+} from '@tauri-apps/plugin-notification';
+
+await createChannel({
+  id: 'messages',
+  name: 'Messages',
+  description: 'Notifications for new messages',
+  importance: Importance.High,
+  visibility: Visibility.Private,
+  lights: true,
+  lightColor: '#ff0000',
+  vibration: true,
+  sound: 'notification_sound',
+});
+```
+
+#### チャンネルのプロパティ（属性）
+
+| プロパティ    | 説明                                              |
+| ------------- | ------------------------------------------------- |
+| `id`          | 一意の識別子                                      |
+| `name`        | 表示名                                            |
+| `description` | 目的の説明                                        |
+| `importance`  | 優先度レベル（なし、最小、低、デフォルト、高）    |
+| `visibility`  | プライバシー設定（秘密、非公開、公開）            |
+| `lights`      | notification（通知）LED の有効化（Android）　　　 |
+| `lightColor`  | LED の色（Android）                               |
+| `vibration`   | バイブレーション機能の有効化                      |
+| `sound`       | カスタム・サウンド・ファイル名                    |
+
+#### チャンネルの管理
+
+既存のチャネルを一覧表示します：
+
+```javascript
+import { channels } from '@tauri-apps/plugin-notification';
+
+const existingChannels = await channels();
+```
+
+チャンネルを削除します：
+
+```javascript
+import { removeChannel } from '@tauri-apps/plugin-notification';
+
+await removeChannel('messages');
+```
+
+#### チャンネルの使用
+
+チャンネルを使用して notification（通知）を送信します：
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Message',
+  body: 'You have a new message',
+  channelId: 'messages',
+});
+```
+
+注: notification（通知）を送信する前に、その通知が参照するチャンネルを作成してください。無効なチャンネル ID の場合、通知は表示されません。
+
+## セキュリティに関する配慮
+
+ユーザー入力の通常の安全化手順（機密情報の削除）以外には、現在のところセキュリティに関して考慮すべき事柄はありません。
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 10, 2024 英語版」に基づいています】
+</div>

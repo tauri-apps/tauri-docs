@@ -1,8 +1,10 @@
 ---
 title: Security
+description: High-level concepts and security features at the core of Tauri's design and ecosystem that make you, your applications and your users more secure by default
 sidebar:
   order: 1
   label: Overview
+i18nReady: true
 ---
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
@@ -80,7 +82,7 @@ of choice, but Tauri provides generic features to control and contain the attack
 Tauri's approach is to rely on the operating system WebView and not bundling
 the WebView into the application binary.
 
-This has a multitide of reasons but from a security perspective the most
+This has a multitude of reasons but from a security perspective the most
 important reason is the average time it takes from publication of a
 security patched version of a WebView to being rolled out to the
 application end user.
@@ -103,8 +105,8 @@ that significantly reduces known vulnerabilities in the wild.
 ## Ecosystem
 
 The Tauri organization provides and maintains more than just the Tauri
-repository and to ensure that our efforts to provide a reasonable secure
-multi platform application framework we need to go some extra miles.
+repository, and to ensure we provide a reasonable secure
+multi platform application framework, we make sure to go some extra miles.
 
 To learn more about how we secure our development process,
 what you could adapt and implement, what known threats your application

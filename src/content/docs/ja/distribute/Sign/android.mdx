@@ -1,0 +1,173 @@
+---
+title: Android でのコード署名
+sidebar:
+  label: Android
+  order: 15
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+「Play ストア」でアプリを公開するには、「デジタル証明書」を使用してアプリに署名する必要があります。
+
+「Android アプリ・バンドル」と「APK」は、配布用にアップロードする前に署名する必要があります。
+
+<TranslationNote lang="ja">
+
+**APK**　Android Application Package：　Google によって開発された Android 専用ソフトウェア・パッケージのファイル・フォーマット。
+
+</TranslationNote>
+
+Google はまた、「Play ストア」で配布される「Android アプリ・バンドル」に対して別の署名方法も提供しています。
+詳細については、[Play アプリ署名の公式ドキュメント（英語）] をご覧ください。
+
+## Keystore の作成と Key のアップロード
+
+<TranslationNote lang="ja">
+
+**Keystore**　キーストア（「鍵保管所」の意）。証明書と秘密鍵のリポジトリとして機能するバイナリ・ファイル。[公式ドキュメント](https://developer.android.com/studio/publish/app-signing?hl=ja#certificates-keystores)
+
+</TranslationNote>
+
+Android の署名では、公式の `keytool` CLI を使用して生成される「Java Keystore ファイル」が必要です：
+
+<Tabs syncKey="OS">
+  <TabItem label="macOS/Linux">
+  
+```
+keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+  </TabItem>
+
+  <TabItem label="Windows">
+  
+```
+keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+  </TabItem>
+</Tabs>
+
+このコマンドは、「`upload-keystore.jks` ファイル」をホーム・ディレクトリに保存します。
+別の場所に保存したい場合は、`-keystore` パラメータに渡す引数を変更します。
+
+:::tip
+
+- `keytool` コマンドが PATH 内に存在していない場合があります。
+  Android Studio とともにインストールされる JDK（Java Development Kit）内にインストールされている可能性があります。
+
+<Tabs syncKey="OS">
+
+<TabItem label="Linux">
+  <Code code="/opt/android-studio/jbr/bin/keytool ...args" lang="sh" />
+  **Android Studio のディレクトリ・パスは Linux
+  のディストリビューションによって異なります**
+</TabItem>
+
+<TabItem label="macOS">
+  <Code
+    code="/Applications/Android\ Studio.app/Contents/jbr/Contents/Home/bin/keytool ...args"
+    lang="sh"
+  />
+</TabItem>
+
+<TabItem label="Windows">
+  <Code
+    code="C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\keytool.exe ...args"
+    lang="sh"
+  />
+</TabItem>
+
+</Tabs>
+
+:::
+
+:::caution[セキュリティ警告]
+
+「`keystore` ファイル」は**非公開**にして、パブリック・ソース管理ではチェックを入れないでください。
+
+:::
+
+詳細については、[Android 公式ドキュメント](https://developer.android.com/studio/publish/app-signing?hl=ja#generate-key) を参照してください。
+
+## 署名鍵の設定
+
+「`[project]/src-tauri/gen/android/keystore.properties`」という名前のファイルを作成します。このファイルにはあなたの「キーストア」への参照を含んでいます：
+
+```
+password=<password defined when keytool was executed>
+keyAlias=upload
+storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks or C:\\Users\\<user name>\\upload-keystore.jks>
+```
+
+:::caution[セキュリティ警告]
+「`keystore.properties` ファイル」は非公開にし、パブリック・ソース管理ではチェックを入れないでください。
+:::
+
+通常、このファイルは CI/CD プラットフォームで生成されます。以下のスニペットは、GitHub Actions のジョブ・ステップの例です：
+
+```yml
+- name: setup Android signing
+  run: |
+    cd src-tauri/gen/android
+    echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" > keystore.properties
+    echo "password=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
+    base64 -d <<< "${{ secrets.ANDROID_KEY_BASE64 }}" > $RUNNER_TEMP/keystore.jks
+    echo "storeFile=$RUNNER_TEMP/keystore.jks" >> keystore.properties
+```
+
+この例では、キーストアは `base64 -i /path/to/keystore.jks` を使用して base64 エンコード後エクスポートされ、「`ANDROID_KEY_BASE64` シークレット」として設定されます。
+
+### 証明鍵を使用するための Gradle 設定
+
+「`[project]/src-tauri/gen/android/app/build.gradle.kts` ファイル」を編集し、リリース・モードでアプリをビルドするときに「アップロード・キー」を使用するように、Gradle を設定します。
+
+1.  必要となるインポート文をファイルの先頭に追加します：
+
+    ```kotlin
+    import java.io.FileInputStream
+    ```
+
+2.  「`buildTypes` ブロック」の前に「`release` 署名設定（signing config）」を追加します：
+
+    ```kotlin {3-12}
+    signingConfigs {
+        create("release") {
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            val keystoreProperties = Properties()
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+            }
+
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["password"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["password"] as String
+        }
+    }
+
+    buildTypes {
+        ...
+    }
+    ```
+
+3.  「`buildTypes` ブロック」の「`release` 設定」にある新しい「`release` 署名設定」を使用します：
+
+    ```kotlin {3}
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+    ```
+
+以上で、アプリのリリース・ビルドが自動的に署名されるようになります。
+
+[Play アプリ署名の公式ドキュメント（英語）]: https://support.google.com/googleplay/android-developer/answer/9842756?hl=en&visit_id=638549803861403647-3347771264&rd=1
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

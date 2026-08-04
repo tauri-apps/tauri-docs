@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import NetlifyLight from '@assets/partners/netlify/light.svg';
+import NetlifyDark from '@assets/partners/netlify/dark.svg';
+import MeiliSearchLight from '@assets/partners/meilisearch/light.svg';
+import MeiliSearchDark from '@assets/partners/meilisearch/dark.svg';
+
+type SVG = ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
+
+interface Partner {
+  name: string;
+  image?: ImageMetadata;
+  // https://docs.astro.build/en/guides/images/#svg-components
+  svg?: { light: SVG; dark: SVG };
+  url: string;
+  description?: string;
+}
+
+const partners: Partner[] = [
+  {
+    name: 'Meilisearch',
+    url: 'https://www.meilisearch.com/',
+    svg: { light: MeiliSearchLight, dark: MeiliSearchDark },
+  },
+  {
+    name: 'Netlify',
+    url: 'https://netlify.com/',
+    svg: { light: NetlifyLight, dark: NetlifyDark },
+  },
+];
+---
+
+<div class="partners-container">
+  <div class="partners">
+    {
+      partners.map((partner) => (
+        <a href={partner.url} target="_blank" rel="noopener noreferrer" class="partner not-content">
+          <div class="partner-logo">
+            {partner.svg && (
+              <>
+                <partner.svg.light class="external-logo light" />
+                <partner.svg.dark class="external-logo dark" />
+              </>
+            )}
+            {partner.image && <Image src={partner.image} alt={partner.name} />}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>

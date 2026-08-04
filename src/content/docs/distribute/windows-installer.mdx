@@ -2,6 +2,7 @@
 title: Windows Installer
 sidebar:
   order: 1
+i18nReady: true
 ---
 
 import CommandTabs from '@components/CommandTabs.astro';
@@ -10,8 +11,8 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Tauri applications for Windows are either distributed as Microsoft Installers (`.msi` files) using the [WiX Toolset v3]
 or as setup executables (`-setup.exe` files) using [NSIS].
 
-Please note that `.msi` installers can **only be created on Windows** as cross-compilation doesn't work.
-Cross-compilation for NSIS installers is currently experimental.
+Please note that `.msi` installers can **only be created on Windows** as WiX can only run on Windows systems.
+Cross-compilation for NSIS installers is shown below.
 
 This guide provides information about available customization options for the installer.
 
@@ -24,18 +25,27 @@ To build and bundle your app into a Windows installer you can use the Tauri CLI 
   yarn="yarn tauri build"
   pnpm="pnpm tauri build"
   deno="deno task tauri build"
+  bun="bun tauri build"
   cargo="cargo tauri build"
 />
 
-### Experimental: Build Windows apps on Linux and macOS
+:::note[VBSCRIPT requirement for MSI packages]
 
-Cross compiling Windows apps on Linux and macOS hosts is possible when using [NSIS].
-Note that this is currently considered highly experimental and may not work on every system or for every project.
+Building MSI packages (`"targets": "msi"` or `"targets": "all"` in `tauri.conf.json`) requires the VBSCRIPT optional feature to be enabled on Windows. This feature is enabled by default on most Windows installations, but if you encounter errors like `failed to run light.exe`, you may need to enable it manually through **Settings** → **Apps** → **Optional features** → **More Windows features**. See the [Prerequisites guide](/start/prerequisites/#vbscript-for-msi-installers) for detailed instructions.
+
+:::
+
+### Build Windows apps on Linux and macOS
+
+Cross compiling Windows apps on Linux and macOS hosts is possible with caveats when using [NSIS].
+It is not as straight forward as compiling on Windows directly and is not tested as much.
 Therefore it should only be used as a last resort if local VMs or CI solutions like GitHub Actions don't work for you.
 
 :::note
+
 Signing cross compiled Windows installers requires an external signing tool.
 See the [signing documentation] for more information.
+
 :::
 
 Since Tauri officially only supports the MSVC Windows target, the setup is a bit more involved.
@@ -81,7 +91,7 @@ we will also need the `llvm-rc` binary which is part of the LLVM project.
 
 <Tabs syncKey="OS">
 <TabItem label="Linux">
-  
+
 ```sh title="Ubuntu"
 sudo apt install lld llvm
 ```
@@ -128,6 +138,7 @@ Now it should be as simple as adding the runner and target to the `tauri build` 
   yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   deno="deno task tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  bun="bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
 />
 
@@ -145,8 +156,9 @@ using the `--target` flag:
   npm="npm run tauri build -- --target i686-pc-windows-msvc"
   yarn="yarn tauri build --target i686-pc-windows-msvc"
   pnpm="pnpm tauri build --target i686-pc-windows-msvc"
-  cargo="cargo tauri build --target i686-pc-windows-msvc"
   deno="deno task tauri build --target i686-pc-windows-msvc"
+  bun="bun tauri build --target i686-pc-windows-msvc"
+  cargo="cargo tauri build --target i686-pc-windows-msvc"
 />
 
 By default, Rust only installs toolchains for your machine's target,
@@ -154,7 +166,7 @@ so you need to install the 32-bit Windows toolchain first: `rustup target add i6
 
 If you need to build for **ARM64** you first need to install additional build tools.
 To do this, open `Visual Studio Installer`, click on "Modify", and in the "Individual Components" tab install the "C++ ARM64 build tools".
-At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.  
+At the time of writing, the exact name in VS2022 is `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`.
 Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc` and then use the above-mentioned method to compile your app:
 
 <CommandTabs
@@ -162,10 +174,11 @@ Now you can add the rust target with `rustup target add aarch64-pc-windows-msvc`
   yarn="yarn tauri build --target aarch64-pc-windows-msvc"
   pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
   deno="deno task tauri build --target aarch64-pc-windows-msvc"
+  bun="bun tauri build --target aarch64-pc-windows-msvc"
   cargo="cargo tauri build --target aarch64-pc-windows-msvc"
 />
 
-:::info
+:::note
 
 Note that the NSIS installer itself will still be x86 running on the ARM machine via emulation. The app itself will be a native ARM64 binary.
 
@@ -187,11 +200,11 @@ tauri-plugin-notification = { version = "2.0.0", features = [ "windows7-compat" 
 
 ## FIPS Compliance
 
-If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_FIPS_COMPLIANT` environment variable to `true`
+If your system requires the MSI bundle to be FIPS compliant you can set the `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` environment variable to `true`
 before running `tauri build`. In PowerShell you can set it for the current terminal session like this:
 
 ```powershell
-$env:TAURI_FIPS_COMPLIANT="true"
+$env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 ```
 
 ## WebView2 Installation Options
@@ -208,7 +221,7 @@ See the following table for a comparison between these methods:
 | [`fixedVersion`](#fixed-version)                   | No                            | ~180MB                    | Embeds a fixed WebView2 version.                                                                                        |
 | [`skip`](#skipping-installation)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
 
-:::info
+:::note
 
 On Windows 10 (April 2018 release or later) and Windows 11, the WebView2 runtime is distributed as part of the operating system.
 
@@ -322,6 +335,21 @@ Your application WILL NOT work if the user does not have the runtime installed a
       "webviewInstallMode": {
         "type": "skip"
       }
+    }
+  }
+}
+```
+
+## Minimum Webview2 version
+
+If your app requires features only available in newer Webview2 versions (such as custom URI schemes), you can instruct the Windows installer
+to verify the current Webview2 version and run the Webview2 bootstrapper if it does not match the target version.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "minimumWebview2Version": "110.0.1531.0"
     }
   }
 }
@@ -518,7 +546,7 @@ Supported hooks are:
 - `NSIS_HOOK_PREUNINSTALL`: Runs before removing any files, registry keys and shortcuts.
 - `NSIS_HOOK_POSTUNINSTALL`: Runs after files, registry keys and shortcuts have been removed.
 
-For example, create a `hooks.nsi` file in the `src-tauri/windows` folder and define the hooks you need:
+For example, create a `hooks.nsh` file in the `src-tauri/windows` folder and define the hooks you need:
 
 ```nsh
 !macro NSIS_HOOK_PREINSTALL
@@ -545,9 +573,70 @@ Then you must configure Tauri to use that hook file:
   "bundle": {
     "windows": {
       "nsis": {
-        "installerHooks": "./windows/hooks.nsi"
+        "installerHooks": "./windows/hooks.nsh"
       }
     }
+  }
+}
+```
+
+#### Installing Dependencies with Hooks
+
+You can use installer hooks to automatically install system dependencies that your application requires. This is particularly useful for runtime dependencies like Visual C++ Redistributables, DirectX, OpenSSL or other system libraries that may not be present on all Windows systems.
+
+**MSI Installer Example (Visual C++ Redistributable):**
+
+```nsh
+!macro NSIS_HOOK_POSTINSTALL
+  ; Check if Visual C++ 2019 Redistributable is installed (via Windows Registry)
+  ReadRegDWord $0 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+
+  ${If} $0 == 1
+    DetailPrint "Visual C++ Redistributable already installed"
+    Goto vcredist_done
+  ${EndIf}
+
+  ; Install from bundled MSI if not installed
+  ${If} ${FileExists} "$INSTDIR\resources\vc_redist.x64.msi"
+    DetailPrint "Installing Visual C++ Redistributable..."
+    ; Copy to TEMP folder and then execute installer
+    CopyFiles "$INSTDIR\resources\vc_redist.x64.msi" "$TEMP\vc_redist.x64.msi"
+    ExecWait 'msiexec /i "$TEMP\vc_redist.x64.msi" /passive /norestart' $0
+
+    ; Check wether installation process exited successfully (code 0) or not
+    ${If} $0 == 0
+      DetailPrint "Visual C++ Redistributable installed successfully"
+    ${Else}
+      MessageBox MB_ICONEXCLAMATION "Visual C++ installation failed. Some features may not work."
+    ${EndIf}
+
+    ; Clean up setup files from TEMP and your installed app
+    Delete "$TEMP\vc_redist.x64.msi"
+    Delete "$INSTDIR\resources\vc_redist.x64.msi"
+  ${EndIf}
+
+  vcredist_done:
+!macroend
+```
+
+**Key considerations:**
+
+- A good practice is to always check if the dependency is already installed using registry keys or file existence or via Windows [where] command.
+- Use `/passive`, `/quiet`, or `/silent` flags to avoid interrupting the installation flow. Check out [msiexec] options for `.msi` files, or the setup manual for app-specific flags
+- Include `/norestart` to prevent automatic system reboots during installation for setups that restarts user devices
+- Clean up temporary files and bundled installers to avoid bloating the application
+- Consider that dependencies might be shared with other applications when uninstalling
+- Provide meaningful error messages if installation fails
+
+Ensure to bundle the dependency installers in your `src-tauri/resources` folder and add to `tauri.conf.json` so they get bundled, and can be accessed during installation from `$INSTDIR\resources\`:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "resources": [
+      "resources/my-dependency.exe",
+      "resources/another-one.msi
+    ]
   }
 }
 ```
@@ -603,23 +692,6 @@ You can also configure the installer to display a language selector before the i
 }
 ```
 
-### Minimum Webview2 version
-
-If your app requires features only available in newer Webview2 versions (such as custom URI schemes), you can instruct the Windows installer
-to verify the current Webview2 version and run the Webview2 bootstrapper if it does not match the target version.
-
-```json title="tauri.conf.json"
-{
-  "bundle": {
-    "windows": {
-      "nsis": {
-        "minimumWebview2Version": "110.0.1531.0"
-      }
-    }
-  }
-}
-```
-
 [wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
 [nsis]: https://nsis.sourceforge.io/Main_Page
 [platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
@@ -642,3 +714,5 @@ to verify the current Webview2 version and run the Webview2 bootstrapper if it d
 [NSIS configuration]: /reference/config/#nsisconfig
 [installMode]: /reference/config/#installmode
 [NSISInstallerMode]: /reference/config/#nsisinstallermode
+[where]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where
+[msiexec]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec

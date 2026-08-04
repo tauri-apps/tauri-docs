@@ -1,0 +1,117 @@
+---
+title: Nuxt
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Nuxt(넉스트)는 Vue용 메타 프레임워크입니다. Nuxt에 대한 자세한 내용은 https://nuxt.com 을 참조하십시오. 아래 설명은 "Nuxt 3.11. 버전"을 기준으로 합니다.
+
+## 체크 항목
+
+- `ssr: false`를 설정하여 SSG를 사용하십시오. Tauri는 서버 기반 방식을 지원하지 않습니다.
+- iOS 물리적 장치에서 실행되도록 설정된 경우, 개발 서버의 호스트 IP에 `process.env.TAURI_DEV_HOST`를 사용하십시오.
+- `tauri.conf.json`에서는 `frontendDist`로 `dist/`를 지정합니다.
+- `nuxi generate`를 사용하여 컴파일합니다.
+- (선택 사항) `nuxt.config.ts`에서 `telemetry: false`로 설정하여 원격 측정을 비활성화합니다.
+
+## 설정 예
+
+<Steps>
+
+1.  ##### Tauri 설정 업데이트
+
+          <Tabs>
+
+    <TabItem label="npm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="pnpm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="deno">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "deno task dev",
+            "beforeBuildCommand": "deno task generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+
+          </Tabs>
+
+2.  ##### Nuxt 설정 업데이트
+
+    ```ts
+    export default defineNuxtConfig({
+      //(선택 사항) "Nuxt devtools"를 활성화합니다
+      devtools: { enabled: true },
+      //"SSG"를 활성화합니다
+      ssr: false,
+      // iOS 물리적 장치에서 실행 중일 때 다른 장치에서 개발 서버를 검색할 수 있도록 합니다
+      devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
+      vite: {
+        // Tauri CLI 출력 지원 강화
+        clearScreen: false,
+        // 환경 변수 활성화
+        // 추가 환경 변수는 다음 사이트에서 볼 수 있습니다
+        // https://v2.tauri.app/reference/environment-variables/
+        envPrefix: ['VITE_', 'TAURI_'],
+        server: {
+          // Tauri는 일관된 포트가 필요합니다
+          strictPort: true,
+        },
+      },
+    });
+    ```
+
+</Steps>

@@ -1,0 +1,27 @@
+---
+title: Tauri RSS フィード
+i18nReady: true
+topic: guides # this sidebar is active when viewing this page
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<LinkCard
+  title="すべての更新情報"
+  description="サイト全体の更新通知を受け取ります。"
+  href="/feed.xml"
+/>
+
+<LinkCard
+  title="ブログの更新情報"
+  description="最新のブログ投稿や記事を確認します。"
+  href="/blog/rss.xml"
+/>
+
+<LinkCard
+  title="ページの更新情報"
+  description="メインサイトの更新情報を受け取ります。"
+  href="/pages.xml"
+/>
+
+<div style="text-align: right;">Doc-JP 2.00.00</div>

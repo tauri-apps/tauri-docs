@@ -1,0 +1,528 @@
+---
+title: モバイル・プラグインの開発
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+:::tip[プラグインの開発]
+
+この章の多くの概念は、前章の [プラグインの開発](/ja/develop/plugins/) で説明されている基礎の上に構築されているため、その内容を十分に理解しておいてください。
+
+:::
+
+プラグインは、Kotlin（またはJava）とSwiftで記述されたネイティブ（そのまま）のモバイル・コードを実行できます。デフォルトのプラグイン・テンプレートには、Kotlin を使用した「Android ライブラリ・プロジェクト」と、Rust コードからどのように実行させるのか（トリガーするのか）を説明するモバイル・コマンドのサンプルを含んだ「Swift パッケージ」が含まれています。
+
+## プラグイン・プロジェクトの初期化
+
+新しいプラグイン・プロジェクトを初期化するには、前章 [プラグインの開発](/ja/develop/plugins/#プラグインプロジェクトの初期化)の手順に従ってください。
+
+既存のプラグインに Android または iOS の機能を追加したい場合は、`plugin android init` と `plugin ios init` を使用してモバイル・ライブラリ・プロジェクトをブートストラップ（起動）し、必要な変更を組み込むことができます。
+
+デフォルトのプラグイン・テンプレートは、プラグインの実装を `desktop.rs` と `mobile.rs` という二つの別々のモジュールに分割します。
+
+「デスクトップ実装」では Rust コードを用いて機能を実装しますが、「モバイル実装」ではネイティブ・モバイル・コードにメッセージを送信して関数を実行して結果を取得します。両方の実装で共通のロジックが必要な場合は、`lib.rs` で定義します：
+
+```rust title="src/lib.rs"
+use tauri::Runtime;
+
+impl<R: Runtime> <plugin-name><R> {
+  pub fn do_something(&self) {
+    // ここにデスクトップとモバイルの間で共有される実装（この例では do_something 関数の内容）を定義します
+  }
+}
+```
+
+この実装により、コマンドと Rust コードの両方で使用可能な API を共有するプロセスが簡素化されます。
+
+### Android プラグインの開発
+
+Android 用の Tauri プラグインは、`app.tauri.plugin.Plugin` を拡張し、`app.tauri.annotation.TauriPlugin` でアノテーションされた「Kotlin クラス」として定義されます。`app.tauri.annotation.Command` でアノテーションされた各メソッドは、Rust または JavaScript から呼び出すことができます。
+
+<TranslationNote lang="ja">
+  **アノテーション**　annotation。データに対して関連する情報を注釈として付与すること。詳しくは
+  [Wikipedia](https://ja.wikipedia.org/wiki/アノテーション) を参照してください。
+</TranslationNote>
+
+Tauri は、Android プラグインの実装にデフォルトで Kotlin を使用しますが、必要に応じて Java に切り替えることもできます。プラグインを生成後、Android Studio で Kotlin プラグイン・クラスを右クリックし、メニューから「Kotlin ファイルを Java ファイルに変換」オプションを選択します。Kotlin プロジェクトの Java への移行では Android Studio のガイドに従ってください。
+
+### iOS プラグインの開発
+
+iOS 用の Tauri プラグインは、`Tauri` パッケージの `Plugin` クラスを拡張する Swift クラスとして定義されています。`@objc` 属性と `(_invoke: Invoke)` パラメータを持つ各関数（たとえば `@objc private func download(_invoke: Invoke) { }` ）は、Rust または JavaScript から呼び出すことができます。
+
+プラグインは [Swift パッケージ](https://www.swift.org/package-manager/) として定義されているため、Swift のパッケージ・マネージャーを使用して依存関係を管理できます。
+
+## プラグインの設定
+
+プラグイン設定の方法に関する詳細については、前章「プラグインの開発」の[プラグインの設定](/ja/develop/plugins/#プラグインの設定) を参照してください。
+
+モバイルのプラグイン・インスタンスには、プラグイン設定用の「ゲッター」コマンドがあります：
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+import app.tauri.annotation.InvokeArg
+
+@InvokeArg
+class Config {
+    var timeout: Int? = 3000
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  private var timeout: Int? = 3000
+
+  override fun load(webView: WebView) {
+    getConfig(Config::class.java).let {
+       this.timeout = it.timeout
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+struct Config: Decodable {
+  let timeout: Int?
+}
+
+class ExamplePlugin: Plugin {
+  var timeout: Int? = 3000
+
+  @objc public override func load(webview: WKWebView) {
+    do {
+      let config = try parseConfig(Config.self)
+      self.timeout = config.timeout
+    } catch {}
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## ライフサイクル・イベント
+
+プラグインは、いくつかのライフサイクル・イベントにフックできます：
+
+- [load](#load)：　プラグインが Webview に読み込まれたとき
+- [onNewIntent](#onnewintent)：　Android のみ。アクティビティが再開されたとき
+
+前章の「プラグインの開発」には、上記以外の [プラグインのライフサイクル・イベント](/ja/develop/plugins/#ライフサイクルイベント) が記載されています。
+
+### 「load」
+
+- **いつ**：　プラグインが Webview に読み込まれたとき
+- **目的**：　プラグイン初期化コードの実行
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    // ここでプラグイン設定を実行
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 「onNewIntent」
+
+**注記**：　このプラグインは Android でのみ利用可能です。
+
+- **いつ**：　アクティビティが再開されたとき。詳細については、[Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) を参照してください。
+- **目的**：　「通知」がクリックされたときや「[ディープリンク](https://ja.wikipedia.org/wiki/ディープリンク)」にアクセスしたときなどに、アプリケーションの再起動を処理
+
+```kotlin
+import android.app.Activity
+import android.content.Intent
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun onNewIntent(intent: Intent) {
+    // 新しい「インテント」イベントを処理
+  }
+}
+```
+
+## モバイル・コマンドの追加
+
+それぞれのモバイル・プロジェクトには、Rust コードから呼び出し可能なコマンドを定義できるプラグイン・クラスがあります：
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+Kotlinの `suspend` 関数を使用したい場合は、カスタムの「[コルーチン](https://ja.wikipedia.org/wiki/コルーチン)」スコープを使用する必要があります。
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+// データの取得を目的としている場合は Dispatchers.IO に変更します
+val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    scope.launch {
+      openCameraInner(invoke)
+    }
+  }
+
+  private suspend fun openCameraInner(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+</TabItem>
+</Tabs>
+
+Rust からモバイル・コマンドを呼び出すには、[`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0/tauri/plugin/struct.PluginHandle.html) を使用します。
+
+```rust
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> <plugin-name;pascal-case><R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
+```
+
+## コマンド引数
+
+引数はシリアル化されてコマンドに渡され、モバイル・プラグインで `Invoke::parseArgs` 関数を使用して解析可能となり、引数オブジェクトを記述するクラスを受け取ります。
+
+{/* 原文 Arguments are serialized to commands の部分、文意不詳。「コマンドに渡される順に引数をシリアル化し・・・」のような意味合いと解釈してあります。 */}
+
+### Android
+
+Androidでは、引数は `@app.tauri.annotation.InvokeArg` でアノテーションされたクラスとして定義されます。内部オブジェクトにもアノテーションを付与する必要があります：
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.Command
+import app.tauri.annotation.InvokeArg
+import app.tauri.annotation.TauriPlugin
+
+@InvokeArg
+internal class OpenAppArgs {
+  lateinit var name: String
+  var timeout: Int? = null
+}
+
+@InvokeArg
+internal class OpenArgs {
+  lateinit var requiredArg: String
+  var allowEdit: Boolean = false
+  var quality: Int = 100
+  var app: OpenAppArgs? = null
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val args = invoke.parseArgs(OpenArgs::class.java)
+  }
+}
+```
+
+:::note
+オプションの引数は `var <argumentName>: Type? = null` として定義されます。
+
+デフォルト値を持つ引数は `var <argumentName>: Type = <default-value>` として定義されます。
+
+必須の引数は `lateinit var <argumentName>: Type` として定義されます。
+:::
+
+### iOS
+
+iOSでは、引数は `Decodable` を継承するクラスとして定義されます。内部オブジェクトも Decodable プロトコルを継承していなければなりません：
+
+```swift
+class OpenAppArgs: Decodable {
+  let name: String
+  var timeout: Int?
+}
+
+class OpenArgs: Decodable {
+  let requiredArg: String
+  var allowEdit: Bool?
+  var quality: UInt8?
+  var app: OpenAppArgs?
+}
+
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    let args = try invoke.parseArgs(OpenArgs.self)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+:::note
+オプションの引数は `var <argumentName>: Type?` として定義されます。
+
+デフォルト値を持つ引数は**サポートされません**。
+代わりに、「null 許容型」を使用して、コマンド関数にデフォルト値を設定します。
+
+必須の引数は `let <argumentName>: Type` として定義されます。
+:::
+
+## アクセス権
+
+プラグインがエンドユーザーからのアクセス権を必要としている場合には、Tauri はアクセス権の確認と要求のプロセスを簡素化します。
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+まず、必要とされるアクセス権のリストと、コード内で各グループを識別するためのエイリアス（別名）を定義します。この処理は `TauriPlugin` アノテーション内で行なわれます：
+
+```kotlin
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
+class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+まず、`checkPermissions` 関数と `requestPermissions` 関数をオーバーライドします：
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // ここでアクセス権を要求します
+    // 続いて要求を解決します
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Tauri は、プラグインに対する二つのコマンド `checkPermissions` と `requestPermissions` を自動的に実装します。
+この二つのコマンドは、JavaScript または Rust から直接呼び出すことができます。
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { invoke, PermissionState } from '@tauri-apps/api/core'
+
+interface Permissions {
+  postNotification: PermissionState
+}
+
+// アクセス権の状態を確認
+const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+
+if (permission.postNotification === 'prompt-with-rationale') {
+  // ユーザーに対してアクセス権が必要な理由についての情報を表示する
+}
+
+// アクセス権を要求
+if (permission.postNotification.startsWith('prompt')) {
+  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use serde::{Serialize, Deserialize};
+use tauri::{plugin::PermissionState, Runtime};
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PermissionResponse {
+  pub post_notification: PermissionState,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestPermission {
+  post_notification: bool,
+}
+
+impl<R: Runtime> Notification<R> {
+  pub fn request_post_notification_permission(&self) -> crate::Result<PermissionState> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("requestPermissions", RequestPermission { post_notification: true })
+      .map(|r| r.post_notification)
+      .map_err(Into::into)
+  }
+
+  pub fn check_permissions(&self) -> crate::Result<PermissionResponse> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("checkPermissions", ())
+      .map_err(Into::into)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## プラグイン・イベント
+
+{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+
+プラグインは、`trigger` 関数を使用していつでもイベントを発行できます：
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+    override fun load(webView: WebView) {
+      trigger("load", JSObject())
+    }
+
+    override fun onNewIntent(intent: Intent) {
+      // 新しい「インテント」イベントを処理
+      if (intent.action == Intent.ACTION_VIEW) {
+        val data = intent.data.toString()
+        val event = JSObject()
+        event.put("data", data)
+        trigger("newIntent", event)
+      }
+    }
+
+    @Command
+    fun openCamera(invoke: Invoke) {
+      val payload = JSObject()
+      payload.put("open", true)
+      trigger("camera", payload)
+    }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+[`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) というヘルパー関数を使用して NPM パッケージからヘルパー関数を呼び出すことができます：
+
+```javascript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
+
+export async function onRequest(
+	handler: (url: string) => void
+): Promise<PluginListener> {
+	return await addPluginListener(
+		'<plugin-name>',
+		'event-name',
+		handler
+	);
+}
+```
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 13, 2024 英語版」に基づいています】
+</div>

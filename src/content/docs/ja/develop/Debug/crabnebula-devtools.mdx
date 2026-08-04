@@ -1,0 +1,58 @@
+---
+title: CrabNebula DevTools
+sidebar:
+  badge:
+    text: New
+    variant: tip
+i18nReady: true
+---
+
+import { Image } from 'astro:assets';
+import devToolsPrint from '@assets/develop/Debug/crabnebula-devtools.png';
+
+[クラブネビュラ CrabNebula](https://crabnebula.dev/) 社は、Tauri プロジェクトとのパートナーシップの一環として、Tauri 用のフリー（無償／自由利用）の [DevTools](https://crabnebula.dev/devtools/) アプリケーションを提供しています。このアプリケーションを使用すると、埋め込まれたアセット、Tauri 構成ファイル、ログ、スパンを取り込み、Web フロントエンドを提供することで、データをリアルタイムでシームレスに視覚化できるように Tauri アプリを補強できます。
+
+> > > 《訳注》 **クラブネビュラ**　Tauri の公式パートナー企業名。Crab（“蟹”）＋ Nebura（星雲）の意。Rust（蟹）・Tauri（おうし座）・CrabNebula（かに星雲）、という流れ。
+
+CrabNebula DevTools では、ペイロード（伝送データ本体）や応答、内部ログ、実行期間などを含む Tauri のイベントやコマンド用の特別なインターフェースを用いて、アプリのログ・イベント（依存関係からのログを含みます）を検査し、コマンド呼び出しのパフォーマンスと Tauri API の全体的な使用状況を追跡できます。
+
+CrabNebula DevTools を有効化するには、devtools クレートをインストールします：
+
+```sh frame=none
+cargo add tauri-plugin-devtools@2.0.0
+```
+
+そして、メイン関数でできるだけ早くプラグインを初期化します：
+
+```rust
+fn main() {
+    // これはアプリ実行のできるだけ早い段階で呼び出す必要があります
+    #[cfg(debug_assertions)] // 開発ビルドへの導入のみを有効にします
+    let devtools = tauri_plugin_devtools::init();
+
+    let mut builder = tauri::Builder::default();
+
+    #[cfg(debug_assertions)]
+    {
+        builder = builder.plugin(devtools);
+    }
+
+    builder
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+その後、通常どおりアプリを実行します。すべてが正しく設定されていれば、devtools は次のメッセージを出力します：
+
+<Image src={devToolsPrint} alt="DevTools message on terminal" />
+
+:::note
+この件では、デバッグ・アプリケーション用の devtools プラグインのみを初期化しています。この方法が推奨されます。
+:::
+
+詳細については、[CrabNebula DevTools](https://docs.crabnebula.dev/devtools/get-started/) のドキュメントを参照してください。
+
+<div style="text-align: right">
+  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+</div>

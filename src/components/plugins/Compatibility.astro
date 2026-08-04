@@ -1,14 +1,14 @@
 ---
+import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 import { type PluginData, getSupportIcon, getSupportText } from './_helpers';
 import data from './_tableContent.json';
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 
 const { plugin } = Astro.props;
 
 interface Props {
   plugin: string;
 }
-const md = await createMarkdownProcessor();
+const md = await createSatteriMarkdownProcessor();
 
 const pluginData: PluginData = data[plugin];
 

@@ -1,0 +1,119 @@
+---
+title: Portapapeles
+description: Lee y escribe en el portapapeles del sistema.
+plugin: clipboard-manager
+i18nReady: true
+---
+
+import Stub from '@components/Stub.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Lee y escribe en el portapapeles del sistema utilizando el plugin de portapapeles.
+
+## Plataformas compatibles
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuración
+
+Instala el plugin de portapapeles para comenzar.
+
+<Tabs>
+    <TabItem label="Automático">
+
+    Usa el gestor de paquetes de tu proyecto para añadir la dependencia:
+
+    <CommandTabs npm="npm run tauri add clipboard-manager"
+    yarn="yarn run tauri add clipboard-manager"
+    pnpm="pnpm tauri add clipboard-manager"
+    bun="bun tauri add clipboard-manager"
+    deno="deno task tauri add clipboard-manager"
+    cargo="cargo tauri add clipboard-manager" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1. Ejecuta el siguiente comando en la carpeta `src-tauri` para añadir el plugin a las dependencias del proyecto en `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-clipboard-manager
+            ```
+
+        2.  Modifica `lib.rs` para inicializar el plugin:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_clipboard_manager::init())
+                    .run(tauri::generate_context!())
+                    .expect("error al ejecutar la aplicación tauri");
+            }
+            ```
+
+        3.  Si deseas gestionar el portapapeles en JavaScript, también debes instalar el paquete de npm:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-clipboard-manager"
+                yarn="yarn add @tauri-apps/plugin-clipboard-manager"
+                pnpm="pnpm add @tauri-apps/plugin-clipboard-manager"
+                deno="deno add npm:@tauri-apps/plugin-clipboard-manager"
+                bun="bun add @tauri-apps/plugin-clipboard-manager"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Uso
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+El plugin de portapapeles está disponible tanto en JavaScript como en Rust.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+// cuando uses `"withGlobalTauri": true`, deberías usar
+// const { writeText, readText } = window.__TAURI__.clipboardManager;
+
+// Escribe contenido al portapapeles
+await writeText('¡Tauri es increíble!');
+
+// Leer contenido del portapapeles
+const content = await readText();
+console.log(content);
+// Imprime "¡Tauri es increíble!" en la consola
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+
+app.clipboard().write_text("¡Tauri es increíble!".to_string()).unwrap();
+
+// Leer contenido del portapapeles
+let content = app.clipboard().read_text();
+println!("{:?}", content.unwrap());
+// Muestra "¡Tauri es increíble!" en la terminal
+
+
+```
+
+</TabItem>
+</Tabs>
+
+<PluginPermissions plugin={frontmatter.plugin} />

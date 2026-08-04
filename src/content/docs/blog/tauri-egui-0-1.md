@@ -3,10 +3,6 @@ title: Announcing tauri-egui 0.1.0
 date: 2022-09-19
 authors: [lucasfernog]
 excerpt: The Tauri team is happy to announce the tauri-egui 0.1.0 release.
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 The Tauri team is pleased to announce the first release of [tauri-egui](https://github.com/tauri-apps/tauri-egui).

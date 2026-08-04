@@ -1,7 +1,5 @@
 ---
 title: Embedding External Binaries
-sidebar:
-  order: 1
 i18nReady: true
 ---
 
@@ -9,7 +7,7 @@ You may need to embed external binaries to add additional functionality to your 
 
 Binaries are executables written in any programming language. Common use cases are Python CLI applications or API servers bundled using `pyinstaller`.
 
-To bundle the binaries of your choice, you can add the `externalBin` property to the `tauri > bundle` object in your `tauri.conf.json`.
+To bundle the binaries of your choice, you can add the `externalBin` property to the `bundle` object in your `tauri.conf.json`.
 The `externalBin` configuration expects a list of strings targeting binaries either with absolute or relative paths.
 
 Here is a Tauri configuration snippet to illustrate a sidecar configuration:
@@ -36,23 +34,26 @@ So `binaries/my-sidecar` would represent `<PROJECT ROOT>/src-tauri/binaries/my-s
 To make the external binary work on each supported architecture, a binary with the same name and a `-$TARGET_TRIPLE` suffix must exist on the specified path.
 For instance, `"externalBin": ["binaries/my-sidecar"]` requires a `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` executable on Linux or `src-tauri/binaries/my-sidecar-aarch64-apple-darwin` on Mac OS with Apple Silicon.
 
-You can find your **current** platform's `-$TARGET_TRIPLE` suffix by looking at the `host:` property reported by the following command:
+You can find your **current** platform's `-$TARGET_TRIPLE` suffix by running the following command:
 
 ```sh
-rustc -Vv
+rustc --print host-tuple
 ```
 
-If the `grep` and `cut` commands are available, as they should on most Unix systems, you can extract the target triple directly with the following command:
+This directly outputs your host's target triple (e.g., `x86_64-unknown-linux-gnu` or `aarch64-apple-darwin`).
 
-```shell
+:::note
+The `--print host-tuple` flag was added in Rust 1.84.0. If you're using an older version, you'll need to parse the output of `rustc -Vv` instead:
+
+```sh
+# Unix (Linux/macOS)
 rustc -Vv | grep host | cut -f2 -d' '
-```
 
-On Windows you can use PowerShell instead:
-
-```powershell
+# Windows PowerShell
 rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
 ```
+
+:::
 
 Here's a Node.js script to append the target triple to a binary:
 
@@ -62,8 +63,7 @@ import fs from 'fs';
 
 const extension = process.platform === 'win32' ? '.exe' : '';
 
-const rustInfo = execSync('rustc -vV');
-const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+const targetTriple = execSync('rustc --print host-tuple').toString().trim();
 if (!targetTriple) {
   console.error('Failed to determine platform target triple');
 }
@@ -88,9 +88,10 @@ On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `
 ```rust
 use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::CommandEvent;
+use tauri::Emitter;
 
 let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
-let (mut rx, mut _child) = sidecar_command
+let (mut rx, mut child) = sidecar_command
   .spawn()
   .expect("Failed to spawn sidecar");
 
@@ -99,7 +100,7 @@ tauri::async_runtime::spawn(async move {
   while let Some(event) = rx.recv().await {
     if let CommandEvent::Stdout(line_bytes) = event {
       let line = String::from_utf8_lossy(&line_bytes);
-      window
+      app
         .emit("message", Some(format!("'{}'", line)))
         .expect("failed to emit event");
       // write to stdin
@@ -133,7 +134,7 @@ You can place this code inside a Tauri command to easily pass the AppHandle or y
 
 When running the sidecar, Tauri requires you to give the sidecar permission to run the `execute` or `spawn` method on the child process. To grant this permission, go to the file `<PROJECT ROOT>/src-tauri/capabilities/default.json` and add the section below to the permissions array. Don't forget to name your sidecar according to the relative path mentioned earlier.
 
-```json title="src-tauri/capabilities/default.json" ins={4-13}
+```json title="src-tauri/capabilities/default.json" ins={4-12}
 {
   "permissions": [
     "core:default",
@@ -145,8 +146,7 @@ When running the sidecar, Tauri requires you to give the sidecar permission to r
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```
@@ -173,11 +173,11 @@ The string provided to `Command.sidecar` must match one of the strings defined i
 
 You can pass arguments to Sidecar commands just like you would for running normal [Command][std::process::Command].
 
-Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `<file_path>` or `localhost:<PORT>`). You define the arguments in the exact order in which you'd call them. Static arguments are defined as-is, while dynamic arguments can be defined using a regular expression.
+Arguments can be either **static** (e.g. `-o` or `serve`) or **dynamic** (e.g. `<file_path>` or `localhost:<PORT>`). A value of `true` will allow any arguments to be passed to the command. `false` will disable all arguments. If neither `true` or `false` is set, you define the arguments in the exact order in which you'd call them. Static arguments are defined as-is, while dynamic arguments can be defined using a regular expression.
 
 First, define the arguments that need to be passed to the sidecar command in `src-tauri/capabilities/default.json`:
 
-```json title="src-tauri/capabilities/default.json" ins={8-25}
+```json title="src-tauri/capabilities/default.json" ins={8-24}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
@@ -201,8 +201,7 @@ First, define the arguments that need to be passed to the sidecar command in `sr
           "sidecar": true
         }
       ]
-    },
-    "shell:allow-open"
+    }
   ]
 }
 ```

@@ -1,0 +1,141 @@
+---
+title: 从 Rust 调用前端
+---
+
+`@tauri-apps/api` NPM 包提供 API 来监听全局事件和特定于 webview 的事件。
+
+- 监听全局事件
+
+  ```ts
+  import { listen } from '@tauri-apps/api/event';
+
+  type DownloadStarted = {
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
+
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
+  ```
+
+- 监听特定的 webview 事件
+
+  ```ts
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
+  ```
+
+`listen` 函数会在应用程序的整个生命周期内保持事件监听器的注册。
+要停止监听某个事件，可以使用 `listen` 函数返回的 `unlisten` 函数：
+
+```js
+import { listen } from '@tauri-apps/api/event';
+
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
+```
+
+:::note
+当执行上下文超出范围时（例如卸载组件时），请始终使用 unlisten 函数。
+
+当页面重新加载或导航至其他 URL 时，监听器将自动注销。但这不适用于单页应用（SPA）路由器。
+:::
+
+此外， Tauri 还提供了一个实用函数，用于精确监听一次事件：
+
+```js
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+once('ready', (event) => {});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
+```
+
+:::note
+前端发出的事件也会触发这些 API 注册的监听器。更多信息请参阅 [从前端调用 Rust] 文档。
+:::
+
+#### 监听 Rust 上的事件
+
+全局事件和特定于 webview 的事件也会传递给在 Rust 中注册的监听器。
+
+- 监听全局事件
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::Listener;
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        app.listen("download-started", |event| {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.payload()) {
+            println!("downloading {}", payload.url);
+          }
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+- 监听特定的 webview 事件
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::{Listener, Manager};
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        let webview = app.get_webview_window("main").unwrap();
+        webview.listen("logged-in", |event| {
+          let session_token = event.data;
+          // save token..
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+`listen` 函数会在应用程序的整个生命周期内保持事件监听器的注册。
+要停止监听某个事件，可以使用 `unlisten` 函数：
+
+```rust
+// 在事件处理程序作用域外取消监听：
+let event_id = app.listen("download-started", |event| {});
+app.unlisten(event_id);
+
+// 当满足某些事件条件时取消监听：
+let handle = app.handle().clone();
+app.listen("status-changed", |event| {
+  if event.data == "ready" {
+    handle.unlisten(event.id);
+  }
+});
+```
+
+此外， Tauri 还提供了一个实用函数，用于精确监听一次事件：
+
+```rust
+app.once("ready", |event| {
+  println!("app is ready");
+});
+```
+
+在这种情况下，事件监听器在第一次触发后立即取消注册。
+
+[从前端调用 Rust]: /develop/calling-rust/

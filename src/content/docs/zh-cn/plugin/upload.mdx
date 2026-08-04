@@ -6,6 +6,7 @@ plugin: upload
 
 import PluginLinks from '@components/PluginLinks.astro';
 import Compatibility from '@components/plugins/Compatibility.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
@@ -29,6 +30,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     	npm="npm run tauri add upload"
     	yarn="yarn run tauri add upload"
     	pnpm="pnpm tauri add upload"
+    	deno="deno task tauri add upload"
     	bun="bun tauri add upload"
     	cargo="cargo tauri add upload"
     />
@@ -38,20 +40,22 @@ import CommandTabs from '@components/CommandTabs.astro';
 
     	<Steps>
 
-    	1. 运行 `cargo add tauri-plugin-upload` 命令，将插件添加到项目的 `Cargo.toml` 依赖中。
+    	1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
+    		```sh frame=none
+              cargo add tauri-plugin-upload
+            ```
 
     	2. 修改 `lib.rs` 来初始化插件。
 
-    		```rust title="src-tauri/src/lib.rs" ins={5}
-    		#[cfg_attr(mobile, tauri::mobile_entry_point)]
-    		pb fn run() {
-    			tauri::Builder::default()
-    				// Initialize the plugin
-    				.plugin(tauri_plugin_upload::init())
-        			.run(tauri::generate_context!())
-        			.expect("error while running tauri application");
-    		}
-    		```
+    		```rust title="src-tauri/src/lib.rs" ins={4}
+    			#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    			pub fn run() {
+    				tauri::Builder::default()
+    					.plugin(tauri_plugin_upload::init())
+    					.run(tauri::generate_context!())
+    					.expect("error while running tauri application");
+    			}
+            ```
 
     	3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
 
@@ -59,6 +63,7 @@ import CommandTabs from '@components/CommandTabs.astro';
     			npm="npm install @tauri-apps/plugin-upload"
     			yarn="yarn add @tauri-apps/plugin-upload"
     			pnpm="pnpm add @tauri-apps/plugin-upload"
+                deno="deno add npm:@tauri-apps/plugin-upload"
     			bun="bun add @tauri-apps/plugin-upload"
     		/>
 
@@ -96,3 +101,20 @@ download(
   { 'Content-Type': 'text/plain' } // 与请求一起发送的可选头信息
 );
 ```
+
+## 权限（Permissions）
+
+默认情况下，所有可能带来安全风险的插件命令（Commands）和作用域（Scopes）均处于禁止状态，无法被访问。如需启用这些功能，你必须在 `capabilities` 配置中显式授予相应权限。
+
+更多信息请参阅 [Capabilities 概览](/security/capabilities/)，以及关于如何使用插件权限的[分步指南](/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "upload:default"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,0 +1,42 @@
+---
+title: 内容安全策略 (CSP)
+sidebar:
+  order: 6
+---
+
+Tauri 会对您 HTML 页面的[内容安全策略]（CSP）加以限制。
+这可用于降低或防止常见基于网络的漏洞（如跨站脚本攻击（XSS））所带来的影响。
+
+本地脚本经过哈希处理，样式和外部脚本使用加密随机数引用，这可防止加载未经授权的内容。
+
+:::caution
+避免加载诸如通过内容分发网络（CDN）提供的脚本之类的远程内容，因为它们会引入攻击途径。
+通常，任何不受信任的文件都可能引入新的、不易察觉的攻击途径。
+:::
+
+只有在 Tauri 配置文件中设置了 CSP 保护，该保护才会启用。
+您应尽可能将其限制得严格些，仅允许网页视图从您信任的主机（最好是您自己的主机）加载资源。
+在编译时，Tauri 会自动将随机数和哈希值附加到捆绑代码和资源的相关 CSP 属性中，因此您只需关注您应用程序特有的内容即可。
+
+这是从 Tauri 的 [`api`](https://github.com/tauri-apps/tauri/blob/dev/examples/api/src-tauri/tauri.conf.json#L22) 示例中获取的一个 CSP 配置示例，但每个应用程序开发者都需要根据自身应用需求对此进行调整。
+
+```json title="tauri/examples/api/src-tauri/tauri.conf.json"
+  "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "font-src": ["https://fonts.gstatic.com"],
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self' https://fonts.googleapis.com"
+      },
+```
+
+:::tip
+当使用 Rust 开发前端，或者您的前端以其他方式使用 WebAssembly 时，请记得将 `'wasm-unsafe-eval'` 作为 `script-src` 包含在内。
+:::
+
+有关此保护措施的更多信息，请参阅 [`script-src`]、[`style-src`] 和 [CSP 源]。
+
+[内容安全策略]: https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Guides/CSP
+[`script-src`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
+[`style-src`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+[csp 源]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources

@@ -1,0 +1,26 @@
+{
+  "name": "fetch-sponsors",
+  "version": "1.0.0",
+  "private": "true",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "node ./main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "packageManager": "pnpm@10.34.5",
+  "dependencies": {
+    "@octokit/core": "^7.0.3",
+    "@octokit/plugin-paginate-graphql": "^6.0.0",
+    "@octokit/plugin-paginate-rest": "^14.0.0",
+    "@octokit/plugin-retry": "^8.0.1",
+    "@octokit/plugin-throttling": "^11.0.1",
+    "@octokit/types": "^17.0.0",
+    "@types/node": "^24.0.0",
+    "dotenv": "^17.2.1",
+    "typescript": "^7.0.2"
+  }
+}

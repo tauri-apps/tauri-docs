@@ -58,7 +58,8 @@ sudo pacman -S --needed \
   openssl \
   appmenu-gtk-module \
   libappindicator-gtk3 \
-  librsvg
+  librsvg \
+  xdotool
 ```
 
   </TabItem>
@@ -72,7 +73,8 @@ sudo dnf install webkit2gtk4.1-devel \
   wget \
   file \
   libappindicator-gtk3-devel \
-  librsvg2-devel
+  librsvg2-devel \
+  libxdo-devel
 sudo dnf group install "c-development"
 ```
 
@@ -82,7 +84,7 @@ sudo dnf group install "c-development"
 ```sh
 sudo emerge --ask \
   net-libs/webkit-gtk:4.1 \
-  dev-libs/libappindicator \
+  dev-libs/libayatana-appindicator \
   net-misc/curl \
   net-misc/wget \
   sys-apps/file
@@ -120,40 +122,8 @@ sudo apk add \
   <TabItem label="NixOS">
 
 :::note
-Esto también instalará Rust y Node.js, además de la CLI de `cargo-tauri` por ti, por lo que puedes omitir esos pasos a continuación.
+Las instrucciones para Nix/NixOS pueden ser encontradas en [NixOS Wiki](https://wiki.nixos.org/wiki/Tauri).
 :::
-
-Using `nix-shell`:
-
-```nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    gobject-introspection
-    cargo
-    cargo-tauri
-    nodejs
-  ];
-
-  buildInputs = with pkgs;[
-    at-spi2-atk
-    atkmm
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    harfbuzz
-    librsvg
-    libsoup_3
-    pango
-    webkitgtk_4_1
-    openssl
-  ];
-}
-```
 
   </TabItem>
 </Tabs>
@@ -244,7 +214,7 @@ winget install --id Rustlang.Rustup
 
 :::caution[MSVC toolchain como predeterminado]
 
-Para un soporte total para Tauri y herramientas como [`trunk`](https://trunkrs.dev/) asegurate de que la toolchain MSVC de Rust sea el `default host triple` en el diálogo del instalador. Dependiendo de tu sistema, debería ser `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, o `aarch64-pc-windows-msvc`.
+Para un soporte total para Tauri y herramientas como [`trunk`](https://trunk-rs.github.io/trunk/) asegurate de que la toolchain MSVC de Rust sea el `default host triple` en el diálogo del instalador. Dependiendo de tu sistema, debería ser `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`, o `aarch64-pc-windows-msvc`.
 
 Si ya tienes Rust instalado, puedes asegurarte de que esté instalada la toolchain correcta ejecutando el siguiente comando:
 
@@ -259,7 +229,7 @@ rustup default stable-msvc
 
 **Asegúrate de reiniciar tu Terminal (y en algunos casos tu sistema) para que los cambios surtan efecto.**
 
-Siguiente: [Configurar para Móvil](#configurar-para-móvil) si deseas construir para Android e iOS, o, si te gustaría usar un framework de JavaScript, [instala Node](#nodejs). De lo contrario, [Crea un Proyecto](/start/create-project/).
+Siguiente: [Configurar para Móvil](#configurar-para-móvil) si deseas construir para Android e iOS, o, si te gustaría usar un framework de JavaScript, [instala Node](#nodejs). De lo contrario, [Crea un Proyecto](/es/start/create-project/).
 
 ## Node.js
 
@@ -282,7 +252,7 @@ Es importante reiniciar tu Terminal para asegurarse de que reconoce la nueva ins
 
 Aunque npm es el gestor de paquetes predeterminado para Node.js, puedes usar otros como por ejemplo pnpm o yarn. Para habilitarlos, ejecuta `corepack enable` en tu Terminal. Este paso es opcional y únicamente necesario si prefieres usar otro gestor de paquetes que no sea npm.
 
-Next: [Configurar para Móvil](#configurar-para-móvil) o [Crea un proyecto](/start/create-project/).
+Next: [Configurar para Móvil](#configurar-para-móvil) o [Crea un proyecto](/es/start/create-project/).
 
 ## Configurar para Móvil
 
@@ -391,7 +361,7 @@ rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-andro
   </TabItem>
 </Tabs>
 
-Siguiente: [Configurar para iOS](#ios) o [Crear un proyecto](/start/create-project/).
+Siguiente: [Configurar para iOS](#ios) o [Crear un proyecto](/es/start/create-project/).
 
 ### iOS
 
@@ -417,14 +387,14 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 brew install cocoapods
 ```
 
-Siguiente: [Crear un proyecto](/start/create-project/).
+Siguiente: [Crear un proyecto](/es/start/create-project/).
 
 ## Solución de Problemas
 
-Si tienes algún problema durante la instalación, asegúrate de revisar la [Guía de Solución de Problemas](/develop/debug/) o comunícate en el [Discord de Tauri](https://discord.com/invite/tauri).
+Si tienes algún problema durante la instalación, asegúrate de revisar la [Guía de Solución de Problemas](/es/develop/debug/) o comunícate en el [Discord de Tauri](https://discord.com/invite/tauri).
 
 <Card title="Siguientes Pasos" icon="rocket">
 
-¡Ahora que has instalado todos los prerequisitos estás listo para [crear tu primer proyecto Tauri](/start/create-project/)!
+¡Ahora que has instalado todos los prerequisitos estás listo para [crear tu primer proyecto Tauri](/es/start/create-project/)!
 
 </Card>

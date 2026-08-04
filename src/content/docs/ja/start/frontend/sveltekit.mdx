@@ -1,0 +1,142 @@
+---
+title: SvelteKit
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメタ・フレームワークです。SvelteKit の詳細は「公式サイト https://svelte.dev/」をご覧ください。以下の説明内容は「SvelteKit 2.5.7 / Svelte 4.2.15」に準拠しています。
+
+## チェック項目
+
+- `static-adapter` 経由で [SSG](https://svelte.dev/docs/kit/adapter-static) および／または [SPA](https://svelte.dev/docs/kit/single-page-apps) を使用してください。Tauri はサーバー・ベースの方式には対応していません。
+- `tauri.conf.json` では `frontendDist` として `dist/` を指定します。
+
+## 設定例
+
+<Steps>
+
+1.  ##### `@sveltejs/adapter-static` のインストール
+
+    <CommandTabs
+      npm="npm install --save-dev @sveltejs/adapter-static"
+      yarn="yarn add -D @sveltejs/adapter-static"
+      pnpm="pnpm add -D @sveltejs/adapter-static"
+      deno="deno add -D npm:@sveltejs/adapter-static"
+    />
+
+1.  ##### Tauri の設定アップデート
+
+          <Tabs>
+
+      <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    </Tabs>
+
+1.  ##### SvelteKit の設定アップデート
+
+    ```js title="svelte.config.js" {1}
+    import adapter from '@sveltejs/adapter-static';
+    import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+    /** @type {import('@sveltejs/kit').Config} */
+    const config = {
+      // 前処理系の詳細については、公式サイト
+      // https://svelte.dev/docs/kit/integrations#preprocessors を参照してください
+      preprocess: vitePreprocess(),
+
+      kit: {
+        adapter: adapter(),
+      },
+    };
+
+    export default config;
+    ```
+
+1.  ##### 「SSR」の無効化
+
+    最後に、「SSR」（サーバーサイドレンダリング）を無効化し、以下の内容を含む「ルート `+layout.ts` ファイル」（TypeScript を使用していない場合は `+layout.js`）を追加して、事前レンダリングを有効化する必要があります：
+
+    ```ts
+    // src/routes/+layout.ts
+    export const prerender = true;
+    export const ssr = false;
+    ```
+
+    `static-adapter` は、アプリ全体に対して「SSR を無効化」することを求めているわけではありませんが、そうすることで、（Tauri の API のような）グローバル・ウィンドウ・オブジェクトに依存する API を [クライアント側のチェック](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window) なしで使用できるようになります。《リンク先は、Svelte 公式サイトの FQA ページ（英語版）です》
+
+    さらにいえば、「SSG」（静的サイト生成）よりも「シングルページ・アプリケーション (SPA)」モードを好む場合は、[アダプタ関連ドキュメント](https://svelte.dev/docs/kit/single-page-apps) 《英語版ページ》に従ってアダプタ設定と `+layout.ts` を変更できます。
+
+</Steps>
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Nov 01, 2024 英語版」に基づいています】
+  <br />
+  Doc-JP 2.00.00
+</div>

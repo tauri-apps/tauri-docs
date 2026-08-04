@@ -1,0 +1,140 @@
+---
+title: アプリ・アイコン
+sidebar:
+  order: 1
+---
+
+{/* TODO: More platform specific explanations like macOS requiring padding in the icon (waiting for https://github.com/tauri-apps/tauri/pull/11037) */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+Tauri は、Tauri ロゴに基づいたデフォルトのアイコン・セットが付けられて公開されますが、自分のアプリケーションをリリースする際にはそうしたくはないかもしれません。このデフォルト処理を回避するために、Tauri には、受け取った入力ファイル（デフォルトでは `"./app-icon.png"` ）からさまざまなプラットフォームに必要なすべてのアイコンを作成する「`icon` コマンド」が提供されています。
+
+:::note[アイコンファイルのタイプに関する注記]
+
+- `icon.icns` = macOS 用
+- `icon.ico` = Windows 用
+- `*.png` = Linux 用
+- `Square*Logo.png` & `StoreLogo.png` = 現状は未使用、「AppX/MS Store」用
+
+一部のアイコン・タイプは、上記で想定しているプラットフォーム以外でも使用される場合があります（特に `png`）。そのため、特定のプラットフォームのみを対象にビルドする場合でも、すべてのアイコン・タイプを含めておくことをお勧めします。
+
+:::
+
+<TranslationNote lang="ja">
+
+**AppX**　 Windows アプリケーションのインストールに必要なすべてのファイル（メタデータ、ファイル、資格情報も）を含んだアプリケーションの配布とインストールに使用される配布可能なパッケージ・ファイル形式。［[参考](https://docs.fileformat.com/ja/programming/appx/)］
+
+</TranslationNote>
+
+## コマンドの使用法
+
+<CommandTabs
+  npm="npm run tauri icon"
+  yarn="yarn tauri icon"
+  pnpm="pnpm tauri icon"
+  cargo="cargo tauri icon"
+  deno="deno task tauri icon"
+/>
+
+```console
+> pnpm tauri icon --help
+
+Generate various icons for all major platforms
+〔主要プラットフォーム向けのさまざまなアイコンを生成〕
+
+Usage: pnpm run tauri icon [OPTIONS] [INPUT]
+〔使用法： pnpm run tauri icon [OPTION 指定] [引数 INPUT]〕
+
+Arguments:〔引数〕
+  [INPUT]  Path to the source icon (squared PNG or SVG file with transparency) [default: ./app-icon.png]
+  〔ソース・アイコンへのパス（背景が透明な正方形の PNG または SVG ファイル）[デフォルトのパス設定： ./app-icon.png]〕
+
+Options:〔オプション指定〕
+  -o, --output <OUTPUT>        Output directory. Default: 'icons' directory next to the tauri.conf.json file
+  〔-o、出力先　　　　　　　　　　　出力先ディレクトリ。デフォルト： tauri.conf.json ファイルの隣にある 'icons' ディレクトリ〕
+  -v, --verbose...             Enables verbose logging
+  〔-v、詳細レポートを表示　　　　　詳細ログを有効化〕
+  -p,
+      --png <PNG>              Custom PNG icon sizes to generate. When set, the default icons are not generated
+      〔-p, --png、PNG　　　　　　生成する PNG アイコンのサイズをカスタマイズします。設定すると、デフォルトのアイコンは生成されません。〕
+      --ios-color <IOS_COLOR>  The background color of the iOS icon - string as defined in the W3C's CSS Color Module Level 4 <https://www.w3.org/TR/css-color-4/> [default: #fff]
+      〔-p, --ios、IOS_COLOR　　iOS アイコンの背景色。W3C の CSS カラーモジュール・レベル 4 で定義された文字列。デフォルト： #fff（白）〕
+  -h, --help                   Print help
+  〔-h、ヘルプ　　　　　　　　　　　ヘルプを印字〕
+  -V, --version                Print version
+  〔-V、バージョン　　　　　　　　　バージョンを印字〕
+```
+
+「**デスクトップ** アイコン」はすべて、デフォルトでは `src-tauri/icons` フォルダに配置され、ビルドされたあなたのアプリに自動的に含められます。もしアイコンを別の場所から取得したい場合は、`tauri.conf.json` ファイルの以下の部分を編集してください：
+
+```json
+{
+  "bundle": {
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
+```
+
+「**モバイル** アイコン」は、Xcode および Android Studio プロジェクト内に直接配置されます。
+
+## アイコンを自分で作成する
+
+アイコンを自分で作成したい場合、たとえば、小さいサイズ用にシンプルなデザインにしたいとか、CLI による内部イメージのサイズ変更に依存したくない場合には、その自作のアイコンがいくつかの要件を満たす必要があることに注意してください：
+
+- `icon.icns`：　[`icns`] ファイル（Apple Icon Image format）に必要なレイヤーの「サイズと名前」は [Tauri リポジトリ]（英語サイト）に記載されています。
+- `icon.ico`：　[`ico`] ファイル（ICO file format）には、16、24、32、48、64、256 ピクセルの各レイヤーが含まれている必要があります。_開発中の_ ICO 画像を最適に表示するには、32 ピクセルのレイヤーを最初のレイヤーにする必要があります。
+- `png`：　PNG アイコンの要件は、「幅 == 高さ」、「RGBA」（RGB ＋透明度）、「ピクセルあたり32ビット」（各チャンネルあたり8ビット）です。デスクトップ用で一般的に求められているサイズは、32、128、256、512 ピクセルです。少なくとも `tauri icon` の出力サイズである「`32x32.png`」、「`128x128.png`」、「`128x128@2x.png`」、「`icon.png`」を準備しておくことを推奨します。
+
+### Android 用
+
+Android（アンドロイド）用でも、上記と同じ要件を満たす PNG アイコン（ただしサイズが異なるもの）が必要になります。アイコンは Android Studio プロジェクトの中に直接配置する必要があります：
+
+- `src-tauri/gen/android/app/src/main/res/`
+  - `mipmap-hdpi/`
+    - `ic_launcher.png` & `ic_launcher_round.png`: 49x49px
+    - `ic_launcher_foreground.png`: 162x162px
+  - `mipmap-mdpi/`
+    - `ic_launcher.png` & `ic_launcher_round.png`: 48x48px
+    - `ic_launcher_foreground.png`: 108x108px
+  - `mipmap-xhdpi/`
+    - `ic_launcher.png` & `ic_launcher_round.png`: 96x96px
+    - `ic_launcher_foreground.png`: 216x216px
+  - `mipmap-xxhdpi/`
+    - `ic_launcher.png` & `ic_launcher_round.png`: 144x144px
+    - `ic_launcher_foreground.png`: 324x324px
+  - `mipmap-xxxhdpi/`
+    - `ic_launcher.png` & `ic_launcher_round.png`: 192x192px
+    - `ic_launcher_foreground.png`: 432x432px
+
+もし `tauri icon` が利用できない場合は、その代わりに Android Studio の [Image Asset Studio] を確認することをお勧めします。
+
+### iOS 用
+
+iOS 用にも、上記要件を満たす PNG アイコンが必要ですが、**透過なし**で、サイズも異なります。また、Xcode プロジェクト内の`src-tauri/gen/apple/Assets.xcassets/AppIcon.appiconset/` に直接配置する必要があります。以下のアイコンが必要です：
+
+- 20px の 1x、2x、3x 版と、2x 版の追加アイコン
+- 29px の 1x、2x、3x 版と、2x 版の追加アイコン
+- 40px の 1x、2x、3x 版と、2x 版の追加アイコン
+- 60px の 2x、3x 版
+- 76px の 1x、2x 版
+- 83.5px の 2x 版
+- 512px の 2x 版を `AppIcon-512@2x.png` として保存
+
+ファイル名は `AppIcon-{size}x{size}@{scaling}{extra}.png` という形式になります。20px アイコンの場合であれば、20x20、40x40、60x60 の各サイズのアイコンをそれぞれ `AppIcon-20x20@1x.png` 、`AppIcon-20x20@2x.png`、`AppIcon-20x20@3x.png` という名前で保存し、`2x` 版を追加で、`AppIcon-20x20@2x-1.png`（「追加アイコン」）として保存する必要があります。
+
+[Tauri リポジトリ]: https://github.com/tauri-apps/tauri/blob/1.x/tooling/cli/src/helpers/icns.json
+[`icns`]: https://en.wikipedia.org/wiki/Apple_Icon_Image_format
+[`ico`]: https://ja.wikipedia.org/wiki/ICO_(ファイルフォーマット)
+[image asset studio]: https://developer.android.com/studio/write/create-app-icons?hl=ja
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jul 21, 2025 英語版」に基づいています】
+</div>

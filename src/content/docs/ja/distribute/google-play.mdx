@@ -1,0 +1,171 @@
+---
+title: Google Play
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+「Google Play」（グーグル・プレイ）は、Google 社が運営する Android アプリ配信サービスです。
+
+この章では、Android アプリを Google Play に公開するために必要なことがらについて説明しています。
+
+:::note
+Tauri は内部で Android Studio プロジェクトを使用しているため、Android アプリのビルドと公開に関する公の慣行（決まりごと）はあなたのアプリにも適用されます。
+詳細については、[Google Play 公式ドキュメント]を参照してください。
+:::
+
+<TranslationNote lang="ja">
+
+**Android Studio プロジェクト**　Android Studio project：　「Android Studio（アンドロイド・スタジオ）」は Android アプリ開発を行なうための Google 公式開発ツール名。「[プロジェクト](https://developer.android.com/studio/projects?hl=ja)」は、アプリのソースコードやアセット、ビルド構成など、必要な情報をすべて定義・格納したファイルを言います。
+
+</TranslationNote>
+
+## 必要事項
+
+Android アプリを、Google の Play Store で配布するには、[Google Play Console] で「デベロッパー・アカウント」を作成する必要があります。
+
+さらには、[コード署名]も設定しなければなりません。
+
+詳細については、[Google Play のリリース・チェックリスト] を参照してください。
+
+## アプリ・アイコンの変更
+
+`tauri android init` を実行して「Android Studio プロジェクト」をセットアップした後、`tauri icon` コマンドを使用してアプリ・アイコンを更新できます。
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png"
+  yarn="yarn tauri icon /path/to/app-icon.png"
+  pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
+  bun="bun tauri icon /path/to/app-icon.png"
+  cargo="cargo tauri icon /path/to/app-icon.png"
+/>
+
+## 設定
+
+Google Play Console で「デベロッパー・アカウント」を作成したら、あなたのアプリを Google Play Console ウェブサイトに登録する必要があります。必要なフォームの記入や設定作業はすべて、ウェブサイトの案内に従って進めていきます。
+
+## ビルド
+
+次のコマンドを実行すると、Android App Bundle (AAB) をビルドして Google Play にアップロードできます：
+
+<TranslationNote lang="ja">
+
+**AAB 形式**　Android App Bundle 形式：　アプリのコンパイル済みコードとリソースがすべて含まれた公開形式。Google Play は App Bundle から、デバイス設定ごとに最適化した APK を生成、配信します。下記「[APKs のビルド](#apks-のビルド)」の項も参照。〔[参考](https://developer.android.com/guide/app-bundle?hl=ja#other_considerations)〕
+
+</TranslationNote>
+
+<CommandTabs
+  npm="npm run tauri android build -- --aab"
+  yarn="yarn tauri android build --aab"
+  pnpm="pnpm tauri android build --aab"
+  deno="deno task tauri android build --aab"
+  bun="bun tauri android build --aab"
+  cargo="cargo tauri android build --aab"
+/>
+
+Tauri は、[`tauri.conf.json > version`] に定義されている値 (`versionCode = major*1000000 + minor*1000 + patch`) からバージョン・コードを取得します。
+異なるバージョン・コードの書式（たとえば、連続コード）で表示したい場合には、[`tauri.conf.json > bundle > android > versionCode`] の設定で独自のバージョン・コードを設定できます：
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "android": {
+      "versionCode": 100
+    }
+  }
+}
+```
+
+### APKs のビルド
+
+Google Play にアップロードするバンドル・ファイルとしては「AAB 形式」が推奨されていますが、Google Play ストア外でのテストや配布に使用できる「APK」（Android アプリケーション・パッケージ）を生成することもできます。
+あなたのアプリを「APK」形式でコンパイルするには、引数 `--apk` を指定します：
+
+<TranslationNote lang="ja">
+
+**APK**　Android Application Package：　「Android パッケージ」形式（APK）は、Android 用のインストール可能かつ実行可能なアプリ形式です。上記の AAB 形式は、公開のみを目的としており、Android デバイスにインストールすることはできません。〔[参考](https://developer.android.com/guide/app-bundle/faq?hl=ja)〕
+
+</TranslationNote>
+
+<CommandTabs
+  npm="npm run tauri android build -- --apk"
+  yarn="yarn tauri android build --apk"
+  pnpm="pnpm tauri android build --apk"
+  deno="deno task tauri android build --apk"
+  bun="bun tauri android build --apk"
+  cargo="cargo tauri android build --apk"
+/>
+
+### 対象アーキテクチャの選択
+
+デフォルトでは、Tauri はサポート対象のすべてのアーキテクチャ（すなわち、aarch64、armv7、i686、x86_64）用にアプリをビルドします。
+特定のアーキテクチャのみを対象にコンパイルを行なうには、引数 `--target` で指定します。
+
+<CommandTabs
+  npm="npm run tauri android build -- --aab --target aarch64 --target armv7"
+  yarn="yarn tauri android build --aab --target aarch64 --target armv7"
+  pnpm="pnpm tauri android build --aab --target aarch64 --target armv7"
+  deno="deno task tauri android build --aab --target aarch64 --target armv7"
+  bun="bun tauri android build --aab --target aarch64 --target armv7"
+  cargo="cargo tauri android build --aab --target aarch64 --target armv7"
+/>
+
+### アーキテクチャごとの個別バンドル
+
+デフォルトでは、生成された「AAB」と「APK」は汎用仕様であり、サポートされているすべてのアーキテクチャが含まれています。
+アーキテクチャごとに個別のバンドルを生成するには、引数 `--split-per-abi` を指定します。
+
+:::note
+この指定は、ファイル・サイズを小さくできるものの、アプリのアップロードするには（個別対応になり）不便なため、Google Play 外でのテストや配布でのみ有用です。Google Play はサポートされているアーキテクチャをあなたに代わって処理してくれます。
+:::
+
+<CommandTabs
+  npm="npm run tauri android build -- --apk --split-per-abi"
+  yarn="yarn tauri android build --apk --split-per-abi"
+  pnpm="pnpm tauri android build --apk --split-per-abi"
+  deno="deno task tauri android build --apk --split-per-abi"
+  bun="bun tauri android build --apk --split-per-abi"
+  cargo="cargo tauri android build --apk --split-per-abi"
+/>
+
+### サポート対象の Android 最小バージョンの変更
+
+Tauri アプリがサポートしてる最小の（最も古い） Android バージョンは「Android 7.0」（コード名 Nougat、SDK 24）です。
+
+古いシステムもサポートしつつ、新しい Android API を使用するテクニックのないわけではありません。
+詳細については、[Android ドキュメント] を参照してください。
+
+あなたのアプリをより新しい Android バージョンで実行しなければならない場合は、[`tauri.conf.json > bundle > android > minSdkVersion`] で「最小 SDK バージョン」の指定ができます：
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "android": {
+      "minSdkVersion": 28
+    }
+  }
+}
+```
+
+## アップロード
+
+アプリのビルドと「Android App Bundle」ファイルの生成が完了したら（これらは `gen/android/app/build/outputs/bundle/universalRelease/app-universal-release.aab` にあります）、いよいよ新しいリリースを作成して Google Play Console にアップロードします。
+
+初回のアップロードは、このウェブサイトで「アプリの署名」と「バンドル ID」が検証されるように、手作業で行なう必要があります。
+Tauri は現在、Android リリースの作成プロセスを自動化する処理方法を提供していませんが（これには [Google Play Developer API] を利用する必要があります）、現在開発中です。
+
+[Android ドキュメント]: https://developer.android.com/training/basics/supporting-devices/platforms#version-codes
+[Google Play 公式ドキュメント]: https://developer.android.com/distribute?hl=ja
+[Google Play Console]: https://play.google.com/console/developers?hl=ja
+[コード署名]: /ja/distribute/sign/android/
+[Google Play のリリース・チェックリスト]: https://play.google.com/console/about/guides/releasewithconfidence/
+[`tauri.conf.json > version`]: /reference/config/#version
+[Google Play Developer API]: https://developers.google.com/android-publisher/api-ref/rest
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Mar 29, 2025 英語版」に基づいています】
+</div>

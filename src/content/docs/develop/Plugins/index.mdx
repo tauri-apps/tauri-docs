@@ -87,12 +87,15 @@ In the Tauri application where the plugin is used, the plugin configuration is s
 The plugin's configuration is set on the `Builder` and is parsed at runtime. Here is an example of the `Config` struct being used to specify the plugin configuration:
 
 ```rust title="src/lib.rs"
-use tauri::plugin::{Builder, Runtime, TauriPlugin};
 use serde::Deserialize;
+use tauri::{
+    plugin::{Builder, TauriPlugin},
+    Runtime,
+};
 
 // Define the plugin config
 #[derive(Deserialize)]
-struct Config {
+pub struct Config {
   timeout: usize,
 }
 

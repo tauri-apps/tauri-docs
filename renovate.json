@@ -7,5 +7,31 @@
   "git-submodules": {
     "enabled": true,
     "schedule": ["every weekend"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["*"],
+      "semanticCommitType": "chore",
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i"],
+      "groupName": "astro & starlight packages",
+      "separateMajorMinor": false
+    },
+    {
+      "matchPackageNames": ["@types/mdast", "mdast-util-*", "remark-*", "unified"],
+      "groupName": "unified packages"
+    },
+    {
+      "matchPackageNames": ["typedoc", "typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+      "enabled": false
+    },
+    {
+      "description": "typedoc needs the TypeScript JS compiler API, which typescript >= 7 (native compiler) no longer ships. The typescript instance in the typedoc package context must stay on the last JS-based line; the repo root's typescript follows the latest release.",
+      "matchFileNames": ["packages/js-api-generator/**"],
+      "matchPackageNames": ["typescript"],
+      "enabled": false
+    }
+  ]
 }

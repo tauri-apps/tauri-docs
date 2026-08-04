@@ -1,18 +1,16 @@
 ---
-title: 深度链接（deep-link）
+title: 深度链接（Deep Linking）
 description: 将你的 Tauri 应用程序设置为 URL 的默认处理程序。
-sidebar:
-  badge:
-    text: New
-    variant: tip
 plugin: deep-link
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
 import Compatibility from '@components/plugins/Compatibility.astro';
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
 
 <PluginLinks plugin={frontmatter.plugin} />
 
@@ -22,58 +20,71 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <Compatibility plugin={frontmatter.plugin} />
 
-## 设置
+## 安装
 
-请安装 deep-link 插件。
+请安装 deep-link 插件来开始使用。
 
 <Tabs>
   <TabItem label="自动">
 
-使用项目的包管理器来添加依赖。
+    使用项目的包管理器来添加依赖：
 
-{' '}
+    {' '}
 
-<CommandTabs
-  npm="npm run tauri add deep-link"
-  yarn="yarn run tauri add deep-link"
-  pnpm="pnpm tauri add deep-link"
-  bun="bun tauri add deep-link"
-  cargo="cargo tauri add deep-link"
-/>
+    <CommandTabs
+      npm="npm run tauri add deep-link"
+      yarn="yarn run tauri add deep-link"
+      pnpm="pnpm tauri add deep-link"
+      deno="deno task tauri add deep-link"
+      bun="bun tauri add deep-link"
+      cargo="cargo tauri add deep-link"
+    />
 
   </TabItem>
   <TabItem label="手动">
+    <Steps>
 
-1. 运行 `cargo add tauri-plugin-deep-link` 以将插件添加到 `Cargo.toml` 的项目依赖中。
+      1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中：
 
-2. 修改 `lib.rs` 来初始化插件。
+          ```sh frame=none
+          cargo add tauri-plugin-deep-link@2.0.0
+          ```
 
-```rust title="lib.rs" ins={4}
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_deep_link::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
+      2. 修改 `lib.rs` 来初始化插件：
 
-3. 使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定。
+          ```rust title="src-tauri/src/lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .plugin(tauri_plugin_deep_link::init())
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
 
-  <CommandTabs
-      npm="npm install @tauri-apps/plugin-deep-link"
-      yarn="yarn add @tauri-apps/plugin-deep-link"
-      pnpm="pnpm add @tauri-apps/plugin-deep-link"
-      bun="bun add @tauri-apps/plugin-deep-link"
-  />
+      3. 使用你偏好的 JavaScript 包管理器安装 JavaScript Guest 绑定：
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-deep-link"
+              yarn="yarn add @tauri-apps/plugin-deep-link"
+              pnpm="pnpm add @tauri-apps/plugin-deep-link"
+              deno="deno add npm:@tauri-apps/plugin-deep-link"
+              bun="bun add @tauri-apps/plugin-deep-link"
+          />
+
+    </Steps>
+
   </TabItem>
 </Tabs>
 
-## 设置
+## 平台配置
 
 ### Android
 
-对于 [app links](https://developer.android.com/training/app-links#android-app-links)，你需要一个具有 `.well-known/assetlinks.json` 端点的服务器，该端点必须返回给定格式的文本响应。
+在 Android 上有两种方式可以从链接打开你的应用：
+
+1. **App Links (http/https + host, 已验证)**
+   对于 [app links](https://developer.android.com/training/app-links#android-app-links)，你需要一个带有 `.well-known/assetlinks.json` 端点的服务器，该端点必须以给定格式返回文本响应：
 
 ```json title=".well-known/assetlinks.json"
 [
@@ -90,13 +101,17 @@ fn run() {
 ]
 ```
 
-其中 `$APP_BUNDLE_ID` 是 `tauri.conf.json > identifier` 上定义的值，其中 `-` 替换为 `_` ， `$CERT_FINGERPRINT` 是你的应用签名证书的 SHA256 指纹列表，请参阅 [verify android applinks](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc) 以获取更多信息。
+其中 `$APP_BUNDLE_ID` 是 [`tauri.conf.json > identifier`] 上定义的值，其中 `-` 替换为 `_`，`$CERT_FINGERPRINT` 是你的应用签名证书的 SHA256 指纹列表，请参阅 [verify Android applinks] 以获取更多信息。
+
+2. **自定义 URI schemes（无需 host，无需验证）**
+   对于像 `myapp://...` 这样的 URI，你可以在不托管任何文件的情况下声明自定义 scheme。在移动端配置中使用 `scheme` 字段并省略 `host`。
 
 ### iOS
 
-#### Server
+在 iOS 上有两种方式可以从链接打开你的应用：
 
-对于 [universal links](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=obj)，你需要一个具有 `.well-known/apple-app-site-association` 端点的服务器，该端点必须返回给定格式的文本响应。
+1. **Universal Links (https + host, 已验证)**
+   对于 [universal links]，你需要一个带有 `.well-known/apple-app-site-association` 端点的服务器，该端点必须以给定格式返回 JSON 响应：
 
 ```json title=".well-known/apple-app-site-association"
 {
@@ -116,40 +131,116 @@ fn run() {
 }
 ```
 
-其中 `$DEVELOPMENT_TEAM_ID` 是 `tauri.conf.json > tauri > bundle > iOS > developmentTeam` 或 `TAURI_APPLE_DEVELOPMENT_TEAM` 环境变量上定义的值，`$APP_BUNDLE_ID`是定义在`tauri.conf.json > identifier` 上的值。请参阅 [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details) 以获取更多信息。
+:::note
+响应 `Content-Type` 标头必须是 `application/json`。
 
-#### App
+`.well-known/apple-app-site-association` 端点必须通过 HTTPS 提供服务。
+要测试 localhost，你可以使用自签名 TLS 证书并将其安装到 iOS 模拟器上，或使用像 [ngrok] 这样的服务。
+:::
 
-你还需要将相关域名添加到应用的 `entitlement` 文件中。
+其中 `$DEVELOPMENT_TEAM_ID` 是 `tauri.conf.json > bundle > iOS > developmentTeam` 或 `TAURI_APPLE_DEVELOPMENT_TEAM` 环境变量上定义的值，`$APP_BUNDLE_ID` 是 [`tauri.conf.json > identifier`] 上定义的值。
 
-```xml title="src-tauri/gen/apple/[App Name]_iOS/[App Name]_iOS.entitlements" ins={5-9}
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>com.apple.developer.associated-domains</key>
-	<array>
-		<string>applinks:your.website.com</string>
-		<string>applinks:nother.site.br</string>
-	</array>
-</dict>
-</plist>
+要验证你的域名是否正确配置以暴露应用关联，可以运行以下命令，将 `<host>` 替换为你的实际主机：
+
+```sh
+curl -v https://app-site-association.cdn-apple.com/a/v1/<host>
 ```
 
-有关更多信息，请参阅 [supporting associated domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains?language=objc)。
+请参阅 [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details-swift.dictionary) 以获取更多信息。
+
+2. **自定义 URI schemes（无需 host，无需验证）**
+   对于像 `myapp://...` 这样的 URI，你可以在移动端配置下声明自定义 scheme，设置 `"appLink": false`（或省略该字段）。插件会在你应用的 Info.plist 中生成相应的 `CFBundleURLTypes` 条目。无需 `.well-known` 文件或 HTTPS 主机。
+
+### 桌面端（Desktop）
+
+在 Linux 和 Windows 上，深度链接以命令行参数的形式传递给新的应用进程。
+如果你希望使用唯一的应用实例来接收事件，深度链接插件可以与 [single instance] 插件集成。
+
+- 首先，你必须为单实例插件添加 `deep-link` 特性：
+
+```toml title="src-tauri/Cargo.toml"
+[target."cfg(any(target_os = \"macos\", windows, target_os = \"linux\"))".dependencies]
+tauri-plugin-single-instance = { version = "2.0.0", features = ["deep-link"] }
+```
+
+- 然后配置单实例插件，该插件应始终是你注册的第一个插件：
+
+```rust title="src-tauri/lib.rs"
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    let mut builder = tauri::Builder::default();
+
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|_app, argv, _cwd| {
+          println!("a new app instance was opened with {argv:?} and the deep link event was already triggered");
+          // 在运行时定义深度链接 schemes 时，你还必须在此处检查 `argv`
+        }));
+    }
+
+    builder = builder.plugin(tauri_plugin_deep_link::init());
+}
+```
+
+:::caution
+用户可以通过将 URL 作为参数传入来手动触发伪造的深度链接。
+Tauri 会通过将命令行参数与已配置的 schemes 进行匹配来缓解此问题，但你仍然应检查 URL 是否符合你期望的格式。
+
+这意味着 Tauri 只处理静态配置的 schemes 的深度链接，而运行时注册的 schemes 必须使用 [`Env::args_os`] 手动检查。
+:::
 
 ## 配置
 
-在 `tauri.conf.json > plugins > deep-link` 下，配置你想要关联到你的应用程序的域。
+在 `tauri.conf.json > plugins > deep-link` 下，配置你想要与应用程序关联的移动端域名/scheme 和桌面端 scheme。
+
+### 示例
+
+**移动端自定义 scheme（无需服务器）：**
 
 ```json title="tauri.conf.json"
 {
   "plugins": {
     "deep-link": {
       "mobile": [
-        { "host": "your.website.com", "pathPrefix": ["/open"] },
-        { "host": "another.site.br" }
-      ],
+        {
+          "scheme": ["ovi"],
+          "appLink": false
+        }
+      ]
+    }
+  }
+}
+```
+
+这将在 Android 和 iOS 上注册 `ovi://*` scheme。
+
+**App Link / Universal Link（已验证的 https + host）：**
+
+```json
+{
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        {
+          "scheme": ["https"],
+          "host": "your.website.com",
+          "pathPrefix": ["/open"],
+          "appLink": true
+        }
+      ]
+    }
+  }
+}
+```
+
+这将注册 `https://your.website.com/open/*` 为 app/universal link。
+
+**桌面端自定义 scheme：**
+
+```json
+{
+  "plugins": {
+    "deep-link": {
       "desktop": {
         "schemes": ["something", "my-tauri-app"]
       }
@@ -160,13 +251,25 @@ fn run() {
 
 ## 用法
 
-deep-link 有 JavaScript 和 Rust 两种版本。
+deep-link 插件有 JavaScript 和 Rust 两种版本。
+
+### 监听深度链接
 
 <Tabs syncKey="lang">
   <TabItem label="JavaScript">
 
+当深度链接在应用运行时触发时，会调用 `onOpenUrl` 回调。要检测你的应用是否是通过深度链接打开的，请在应用启动时使用 `getCurrent`。
+
 ```javascript
-import { onOpenUrl } from '@tauri-apps/plugin-deep-link';
+import { getCurrent, onOpenUrl } from '@tauri-apps/plugin-deep-link';
+// 当使用 `"withGlobalTauri": true` 时，你可以使用
+// const { getCurrent, onOpenUrl } = window.__TAURI__.deepLink;
+
+const startUrls = await getCurrent();
+if (startUrls) {
+  // 应用很可能是通过深度链接启动的
+  // 注意：getCurrent 的返回值在每次 onOpenUrl 被触发时也会更新
+}
 
 await onOpenUrl((urls) => {
   console.log('deep link:', urls);
@@ -176,16 +279,25 @@ await onOpenUrl((urls) => {
   </TabItem>
   <TabItem label="Rust">
 
+当深度链接在应用运行时触发时，会调用插件的 `on_open_url` 闭包。要检测你的应用是否是通过深度链接打开的，请在应用启动时使用 `get_current`。
+
 ```rust title="src-tauri/src/lib.rs"
-use tauri_plugin_cli::CliExt;
+use tauri_plugin_deep_link::DeepLinkExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-fn run() {
+pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
         .setup(|app| {
-            app.listen("deep-link://new-url", |url| {
-              dbg!(url);
+            // 注意：get_current 的返回值在每次 on_open_url 被触发时也会更新
+            let start_urls = app.deep_link().get_current()?;
+            if let Some(urls) = start_urls {
+                // 应用很可能是通过深度链接启动的
+                println!("deep link URLs: {:?}", urls);
+            }
+
+            app.deep_link().on_open_url(|event| {
+                println!("deep link URLs: {:?}", event.urls());
             });
             Ok(())
         })
@@ -197,29 +309,154 @@ fn run() {
   </TabItem>
 </Tabs>
 
+:::note
+打开 URL 事件会触发一个 URL 列表，这是为了兼容 macOS 深度链接 API 而设计的，
+但在大多数情况下，你的应用只会收到单个 URL。
+:::
+
+### 在运行时注册桌面端深度链接
+
+[配置](#配置) 部分描述了如何为你的应用定义静态深度链接 schemes。
+
+在 Linux 和 Windows 上，还可以通过 `register` Rust 函数在运行时将 schemes 与你的应用关联。
+
+在以下代码段中，我们将在运行时注册 `my-app` scheme。首次执行应用后，操作系统会将 `my-app://*` URL 打开到我们的应用中：
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            #[cfg(desktop)]
+            app.deep_link().register("my-app")?;
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+:::note
+在 Linux 和 Windows 上开发时，在运行时注册深度链接很有用，因为默认情况下深度链接只在应用安装时注册。
+
+安装 AppImage 可能很复杂，因为它需要一个 AppImage launcher。
+
+在运行时注册深度链接可能是更好的选择，因此 Tauri 还包含一个辅助函数，用于在运行时强制注册所有静态配置的深度链接。
+调用此函数还可以确保深度链接在开发模式下注册：
+
+```rust
+#[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
+{
+  use tauri_plugin_deep_link::DeepLinkExt;
+  app.deep_link().register_all()?;
+}
+```
+
+:::
+
+## 测试
+
+测试应用的深度链接有一些注意事项。
+
+### 桌面端
+
+深度链接仅对已安装的桌面应用触发。
+在 Linux 和 Windows 上，你可以使用 [`register_all`] Rust 函数来绕过此限制，该函数会注册所有已配置的 schemes 以触发当前可执行文件：
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            #[cfg(any(windows, target_os = "linux"))]
+            {
+                use tauri_plugin_deep_link::DeepLinkExt;
+                app.deep_link().register_all()?;
+            }
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+:::note
+在 Linux 上安装支持深度链接的 AppImage 需要一个 AppImage launcher 来将 AppImage 与操作系统集成。
+使用 `register_all` 函数，你可以开箱即用地支持深度链接，而无需用户使用外部工具。
+
+当 AppImage 被移动到文件系统的其他位置时，深度链接会失效，因为它使用的是可执行文件的绝对路径，这使得在运行时注册 schemes 更加重要。
+
+有关更多信息，请参阅 [在运行时注册桌面端深度链接](#在运行时注册桌面端深度链接) 部分。
+:::
+
+:::caution
+在 macOS 上无法在运行时注册深度链接，因此深度链接只能在打包后的应用上进行测试，且该应用必须安装在 `/Applications` 目录中。
+:::
+
+#### Windows
+
+要在 Windows 上触发深度链接，你可以在浏览器中打开 `<scheme>://url`，或在终端中运行以下命令：
+
+```sh
+start <scheme>://url
+```
+
+#### Linux
+
+要在 Linux 上触发深度链接，你可以在浏览器中打开 `<scheme>://url`，或在终端中运行 `xdg-open`：
+
+```sh
+xdg-open <scheme>://url
+```
+
+### iOS
+
+要在 iOS 上触发应用链接，你可以在浏览器中打开 `https://<host>/path` URL。对于模拟器，你可以使用 `simctl` CLI 直接从终端打开链接：
+
+```sh
+xcrun simctl openurl booted https://<host>/path
+```
+
+### Android
+
+要在 Android 上触发应用链接，你可以在浏览器中打开 `https://<host>/path` URL。对于模拟器，你可以使用 `adb` CLI 直接从终端打开链接：
+
+```sh
+adb shell am start -a android.intent.action.VIEW -d https://<host>/path <bundle-identifier>
+```
+
 ## 权限
 
-默认情况下，所有插件命令都被阻止，无法访问。
-你必须在你的 `capabilities` 配置中定义一个权限列表。
+默认情况下，所有潜在危险的插件命令和作用域都被阻止，无法访问。你必须在你的 `capabilities` 配置中修改权限以启用它们。
 
-更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
+更多信息请参见[能力概述](/security/capabilities/)和[使用插件权限的逐步指南](/learn/security/using-plugin-permissions/)。
 
 ```json title="src-tauri/capabilities/default.json" ins={9}
 {
-  "$schema": "./schemas/mobile-schema.json",
+  "$schema": "../gen/schemas/mobile-schema.json",
   "identifier": "mobile-capability",
   "windows": ["main"],
   "platforms": ["iOS", "android"],
   "permissions": [
-    // 通常需要 event:default 来监听 deep-link 事件
+    // 通常你需要 core:event:default 来监听深度链接事件
     "core:event:default",
     "deep-link:default"
   ]
 }
 ```
 
-| 权限                          | 描述                                                  |
-| ----------------------------- | ----------------------------------------------------- |
-| `deep-link:default`           | 允许通过 get_current 命令读取打开的深度链接。         |
-| `deep-link:allow-get-current` | 在没有预先配置的作用域的情况下启用 get_current 命令。 |
-| `deep-link:deny-get-current`  | 拒绝没有任何预配置范围的 get_current 命令。           |
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[`tauri.conf.json > identifier`]: /reference/config/#identifier
+[verify Android applinks]: https://developer.android.com/training/app-links/verify-android-applinks#web-assoc
+[universal links]: https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc
+[single instance]: /plugin/single-instance/
+[`register_all`]: https://docs.rs/tauri-plugin-deep-link/2.0.0/tauri_plugin_deep_link/struct.DeepLink.html#method.register_all
+[ngrok]: https://ngrok.com/
+[`Env::args_os`]: https://docs.rs/tauri/2.0.0/tauri/struct.Env.html#structfield.args_os

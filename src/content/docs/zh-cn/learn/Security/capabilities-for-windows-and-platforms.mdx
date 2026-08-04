@@ -1,0 +1,184 @@
+---
+title: 适用于不同 Windows 和平台的功能
+sidebar:
+  order: 11
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro'
+import Cta from '@fragments/cta.mdx';
+
+本指南将帮助你自定义 Tauri 应用程序的功能。
+
+## 本指南的内容
+
+- Tauri 应用中创建多个窗口
+- 对不同的窗口使用不同的功能
+- 使用平台特定的功能
+
+## 先决条件
+
+完成 [`使用插件权限`](/learn/security/using-plugin-permissions/) 后再阅读此练习。
+
+## 指导
+
+<Steps>
+1. ### 在 Tauri 应用程序中创建多个窗口 
+
+   这里我们创建一个有两个窗口的应用程序，并分别标记为 `first` 和 `second` 。
+   在 Tauri 应用程序中，有很多种方法可以创建窗口。
+
+   #### 使用 Tauri 配置文件创建窗口
+
+   在 Tauri 配置文件中，通常名为 `tauri.conf.json` ：
+
+    <ShowSolution>
+    ```javascript
+      "productName": "multiwindow",
+      ...
+      "app": {
+        "windows": [
+          {
+            "label": "first",
+            "title": "First",
+            "width": 800,
+            "height": 600
+          },
+          {
+            "label": "second",
+            "title": "Second",
+            "width": 800,
+            "height": 600
+          }
+        ],
+      },
+      ...
+    }
+    ```
+    </ShowSolution>
+
+   #### 以编程的方式创建窗口
+
+    在 Rust 代码中创建 Tauri 应用程序：
+
+    <ShowSolution>
+    ```rust
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![greet])
+        .setup(|app| {
+            let webview_url = tauri::WebviewUrl::App("index.html".into());
+            // 第一个窗口
+            tauri::WebviewWindowBuilder::new(app, "first", webview_url.clone())
+                .title("First")
+                .build()?;
+            // 第二个窗口
+            tauri::WebviewWindowBuilder::new(app, "second", webview_url)
+                .title("Second")
+                .build()?;
+            Ok(())
+        })
+        .run(context)
+        .expect("error while running tauri application");
+    ```
+    </ShowSolution>
+
+2. ### 将不同的功能应用于不同的窗口
+
+    Tauri 应用的窗口可以使用 Tauri 后端的不同功能或插件。为了提高安全性，建议只为每个窗口提供必要的功能。
+    我们模拟了一个场景，其中 `first` 窗口使用文件系统和对话框功能，`second` 只使用对话框功能。
+
+    #### 每个类别单独的功能文件
+
+    建议根据功能文件所支持的操作类别来分离功能文件。
+
+    <ShowSolution>
+    `src-tauri/capabilities` 中的 JSON 文件将被纳入功能系统。
+    在这里，我们将与文件系统和对话框窗口相关的功能分别存储到 `filesystem.json` 和 `dialog.json` 中。
+
+    *Tauri 项目的文件树：*
+    ```
+    /src
+    /src-tauri
+      /capabilities
+        filesystem.json
+        dialog.json
+      tauri.conf.json
+    package.json
+    README.md
+    ```
+    </ShowSolution>
+
+    #### 为 `first` 窗口提供文件系统功能
+
+    我们赋予 `first` 窗口读取 `$HOME` 目录内容的权限。
+
+    <ShowSolution>
+    在功能文件中使用具有一个或多个窗口标签的 `windows` 字段。
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": [
+        "fs:allow-home-read",
+      ]
+    }
+    ```
+    </ShowSolution>
+
+    #### 为 `first` 和 `second` 窗口提供对话框功能
+
+    我们为 `first` 和 `second` 窗口提供创建“是/否”的对话框的功能。
+
+    <ShowSolution>
+    在功能文件中使用具有一个或多个窗口标签的 `windows` 字段。
+
+    ```json title="dialog.json"
+    {
+      "identifier": "dialog",
+      "description": "Allow to open a dialog",
+      "local": true,
+      "windows": ["first", "second"],
+      "permissions": ["dialog:allow-ask"]
+    }
+    ```
+
+    </ShowSolution>
+
+
+3. ### 使功能依赖于平台
+
+    我们现在想自定义功能，使其仅在某些平台上有效。我们使我们的文件系统功能仅在 `linux` 和 `windows` 上有效。
+
+    <ShowSolution>
+    在功能文件中使用 `platforms` 字段使其特定于平台。
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": [
+        "fs:allow-home-read",
+      ],
+      "platforms": ["linux", "windows"]
+    }
+    ```
+
+    目前可用的平台有 `linux` 、 `windows` 、 `macos` 、 `android` 和 `ios` 。
+    </ShowSolution>
+
+</Steps>
+
+## 结论和资源
+
+我们学习了如何在 Tauri 应用中创建多个窗口并赋予它们特定功能。此外，这些功能还可以针对特定平台进行定制。
+
+在 [Tauri Github 仓库](https://github.com/tauri-apps/tauri) 的 
+[`api` 示例](https://github.com/tauri-apps/tauri/tree/dev/examples/api) 
+中可以找到一个使用窗口功能的示例程序。
+功能文件中可以使用的字段在 [功能](/reference/acl/capability/) 参考中列出。

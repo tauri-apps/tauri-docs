@@ -1,0 +1,807 @@
+---
+title: File System（ファイル・システム）
+description: ファイル・システムにアクセスします
+plugin: fs
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin 各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+</TranslationNote>
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+ファイル・システムにアクセスします。
+
+:::note[Rust 側では std::fs または tokio::fs を使用します]
+
+Rust を通して「ファイル」や「ディレクトリ」を操作したい場合には、従来の Rust のライブラリ (std::fs、tokio::fs など) を使用します。
+
+:::
+
+## 対応プラットフォーム
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## セットアップ
+
+はじめに、「fs（ファイル・システム）」プラグインをインストールしてください。
+
+<Tabs>
+	<TabItem label="自動で設定" >
+
+    	自分のプロジェクトのパッケージ・マネージャーを使用して依存関係を追加します：
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add fs"
+            yarn="yarn run tauri add fs"
+            pnpm="pnpm tauri add fs"
+            deno="deno task tauri add fs"
+            bun="bun tauri add fs"
+            cargo="cargo tauri add fs"
+    	/>
+
+    </TabItem>
+    <TabItem label = "自動で設定">
+    	<Steps>
+
+        1.  `src-tauri` フォルダで次のコマンドを実行して、このプラグインを `Cargo.toml` 内のプロジェクトの依存関係に追加します：
+
+            ```sh frame=none
+            cargo add tauri-plugin-fs
+            ```
+
+        2.  追加したプラグインを初期化するために `lib.rs` を修正します：
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+              tauri::Builder::default()
+                .plugin(tauri_plugin_fs::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+            }
+            ```
+
+        3.  お好みの JavaScript パッケージ・マネージャーを使用して、「JavaScript Guest」バインディングをインストールします：
+
+            <CommandTabs
+                npm = "npm install @tauri-apps/plugin-fs"
+                yarn = "yarn add @tauri-apps/plugin-fs"
+                pnpm = "pnpm add @tauri-apps/plugin-fs"
+                deno = "deno add npm:@tauri-apps/plugin-fs"
+                bun = "bun add @tauri-apps/plugin-fs"
+            />
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## 設定
+
+### Android
+
+オーディオ、キャッシュ、ドキュメント、ダウンロード、画像、パブリック、またはビデオのディレクトリを使用する場合、アプリは外部ストレージにアクセス可能である必要があります。
+
+`gen/android/app/src/main/AndroidManifest.xml` ファイルの中の `manifest` タグに次のアクセス権限を含めてください：
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+### iOS
+
+Apple 社は、ユーザーのプライバシー保護を強化するために、アプリ開発者に API の使用に対する「承認理由」を明記することを義務付けています。
+
+このため、必要な [NSPrivacyAccessedAPICategoryFileTimestamp] キーと [C617.1] 推奨の理由を含む `PrivacyInfo.xcprivacy` ファイルを `src-tauri/gen/apple` フォルダ内に作成してください。
+
+<TranslationNote lang="ja">
+
+**承認理由** approved reasons：　Apple 社の「API に対する使用承認理由」記載要求は 2024/05/01 から適用されています（[参考](https://developer.apple.com/news/upcoming-requirements/?id=05012024a)）。その理由・背景は、上記本文内のリンク先にある Apple 社サイト（英語版）に記載されています。以下、その要訳を示します：　アプリのコア機能を司る API には、開発者によるものもサードパーティ製 SDK に含まれているものも、デバイスの内部信号にアクセスしてデバイスやユーザーの識別・特定（フィンカープリンティング）に繋がる潜在的な危険性があるため、その API が必要である理由（required reasons for APIs）を確認するための措置。この理由を明示しない場合、App Store でのアプリのアップロードが拒否されます。
+
+**C617.1**：　API 使用理由コード番号のひとつ。　「[NSPrivacyAccessedAPICategory](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype)」で規定されている API 選定理由コード。「C617.1」は、「アプリ・コンテナ、アプリ・グループ・コンテナ、またはアプリの CloudKit コンテナ内のファイルのタイムスタンプ、サイズ、その他のメタデータにアクセスする」場合に、この理由コードを宣言するものです。
+
+</TranslationNote>
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>C617.1</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>
+```
+
+## 使用法
+
+「fs（ファイルシステム）」プラグインは JavaScript と Rust の両方で利用可能です。
+
+:::caution[Different APIs]
+このプラグインは、フロントエンドでは「ファイル操作 API」が機能しますが、バックエンドには一部のリソース（ファイル、ディレクトリなど）のアクセス権限を変更するメソッドのみが提供されます。
+
+Rust 側では、[std::fs](https://doc.rust-lang.org/std/fs/struct.File.html) や [tokio::fs](https://docs.rs/tokio/latest/tokio/fs/index.html) などの、
+従来のファイル操作ライブラリが使用できます。
+
+:::
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript" >
+
+```javascript
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+// `"withGlobalTauri": true` を使用する場合は、
+// const { exists, BaseDirectory } = window.__TAURI__.fs; を使用できます
+
+// `$APPDATA/avatar.png`ファイルが存在するかどうかを確認します
+await exists('avatar.png', { baseDir: BaseDirectory.AppData });
+```
+
+  </TabItem>
+  <TabItem label = "Rust" >
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_fs::FsExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+  tauri::Builder::default()
+      .plugin(tauri_plugin_fs::init())
+      .setup(|app| {
+          // allowed the given directory
+          let scope = app.fs_scope();
+        	scope.allow_directory("/path/to/directory", false);
+          dbg!(scope.allowed());
+
+          Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## セキュリティ
+
+このモジュールは「パス・トラバーサル」を防止し、親ディレクトリへの「アクセサ」メソッドの使用を許可しません
+（つまり、「/usr/path/to/../file」や「../path/to/file」へのパスは許可されません）。
+この API を使用してアクセスされるパスは、[ベース・ディレクトリ] のどれかひとつに関連しているか、[path API] を使用して作成されている必要があります。
+
+<TranslationNote lang="ja">
+
+**パス・トラバーサル**　path traversal：　「ディレクトリ・トラバーサル」とも呼ばれるコンピュータ・システムへの攻撃手法。ユーザーが指定したファイル名のセキュリティ検証または無害化が不十分なことを悪用し、攻撃者がファイル・システム API に対し、本来アクセスできない「親（別）ディレクトリへの移動（トラバース）」を可能にするパス情報を与えることで、システム内の別の場所にあるパスワードや個人情報を奪取するもの。《[wikipedia](https://ja.wikipedia.org/wiki/ディレクトリトラバーサル)》
+
+**アクセサ** accessor：　オブジェクトの中のプロパティの値を取り出したり、変更したりする関数（メソッド）のこと。
+
+</TranslationNote>
+
+詳しくは、[@tauri-apps/plugin-fs - Security]（英語サイト）をご覧ください。
+
+## パス Paths
+
+「ファイル・システム」プラグインは、パスを操作するための二つの方法（「ベース・ディレクトリ」と「[path API]」）を提供しています。
+
+- ベース・ディレクトリ
+
+  操作の作業ディレクトリとして機能する [baseDir][ベース・ディレクトリ] ​​が定義できるオプション引数が、どの API にもあります。
+
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  const contents = await readFile('avatars/tauri.png', {
+    baseDir: BaseDirectory.Home,
+  });
+  ```
+
+  上記の例では、「**Home** ベース・ディレクトリ」を使用しているため、~/avatars/tauri.png ファイルが読み取られます。
+
+- path API（パス API）
+
+  別の方法として、「パス API」を使用してパス操作を実行することもできます。
+
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  import * as path from '@tauri-apps/api/path';
+  const home = await path.homeDir();
+  const contents = await readFile(await path.join(home, 'avatars/tauri.png'));
+  ```
+
+## ファイル Files
+
+### Create（作成）
+
+この操作では、ファイルを作成し、そのハンドル（識別子）を返します。ファイルが既に存在する場合は、切り捨てられます。
+
+```js
+import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
+const file = await create('foo/bar.txt', { baseDir: BaseDirectory.AppData });
+await file.write(new TextEncoder().encode('Hello world'));
+await file.close();
+```
+
+:::note
+ファイルの操作が完了したら、常に `file.close()` を呼び出してください。
+:::
+
+### Write（書き込み）
+
+「ファイル・システム」プラグインでは、パフォーマンス向上のために「テキスト・ファイル」と「バイナリ・ファイル」を書き込むために別々の API を提供しています。
+
+- テキスト・ファイル
+
+  ```js
+  import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = JSON.stringify({ notifications: true });
+  await writeTextFile('config.json', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+- バイナリ・ファイル
+
+  ```js
+  import { writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = new Uint8Array(); // fill a byte array
+  await writeFile('config', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+### Open（開く）
+
+この処理では、ファイルを開き、そのハンドルを返します。
+この API を使用すると、ファイルを開く方法をより詳細に制御できます。
+（読み取り専用モード、書き込み専用モード、上書きではなく追加、ファイルが存在しない場合にのみ作成、など）。
+
+:::note
+ファイルの操作が完了したら、常に `file.close()` を呼び出してください。
+:::
+
+- 読み取り専用 read-only
+
+  デフォルト・モードです。
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    read: true,
+    baseDir: BaseDirectory.AppData,
+  });
+
+  const stat = await file.stat();
+  const buf = new Uint8Array(stat.size);
+  await file.read(buf);
+  const textContents = new TextDecoder().decode(buf);
+  await file.close();
+  ```
+
+- 書き込み専用 write-only
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('Hello world'));
+  await file.close();
+  ```
+
+  デフォルトでは、`file.write()` 呼び出しで、ファイルは切り捨てられます。
+  既存のコンテンツに追加する方法の詳細については、次の例を参照してください。
+
+- 追加 append
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    append: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  `{ append: true }` は `{ write: true, append: true }` と同じ効果を持つことに注意してください。
+
+- 切り捨て truncate
+
+  `truncate` オプションが設定されていて、しかもファイルがすでに存在する場合、ファイルは長さ「0」に切り捨てられます。
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    truncate: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  このオプションでは、`write` が `true` である必要があります。
+
+  このオプションは、複数の `file.write()` 呼び出しを使用して既存のファイルを書き換える場合は、`append` オプションと一緒に使用できます。
+
+- 作成 create
+
+  デフォルトでは、`open` API は既存のファイルのみを開きます。ファイルが存在しない場合には作成し、存在する場合にはそのファイルを開くようにするには、`create` を `true` に設定してください：
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    create: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  ファイルが作成されるようにするには、`write` も `append` も `true` に設定する必要があります。
+
+  ファイルがすでに存在する場合にファイルを作成しないようにするには、次の `createNew` を参照してください。
+
+- 新規作成 createNew
+
+  `createNew` は `create` 同様に動作しますが、ファイルがすでに存在する場合はファイルを作成しません。
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    createNew: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  ファイルが作成されるようにするには、`write` も `true` に設定する必要があります。
+
+### Read（読み取り）
+
+このプラグインは、パフォーマンス向上のために「テキスト・ファイル」と「バイナリ・ファイル」を読み取りに別々の API を提供しています。
+
+- テキスト・ファイル
+
+  ```js
+  import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const configToml = await readTextFile('config.toml', {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+  ファイルが大きい場合は、`readTextFileLines` API を使用して、ストリーミング（シーケンシャルに「数行ごとの読み出し」を行なうこと）ができます：
+
+  ```typescript
+  import { readTextFileLines, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const lines = await readTextFileLines('app.logs', {
+    baseDir: BaseDirectory.AppLog,
+  });
+  for await (const line of lines) {
+    console.log(line);
+  }
+  ```
+
+- バイナリ・ファイル
+
+  ```js
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const icon = await readFile('icon.png', {
+    baseDir: BaseDirectory.Resources,
+  });
+  ```
+
+### Remove（削除）
+
+ファイルを削除するには `remove()` を呼び出します。ファイルが存在しない場合はエラーが返されます。
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('user.db', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Copy（コピー）
+
+`copyFile` 関数は、「ソース・パス source path」と「宛先パス destination path」を受け取ります。
+それぞれのベース・ディレクトリを別々に設定する必要があることに注意してください。
+
+```js
+import { copyFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+await copyFile('user.db', 'user.db.bk', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+上記の例では、「\<app-local-data\>/user.db」ファイルが「$TMPDIR/user.db.bk」にコピーされます。
+
+### Exists（ファイル有無確認）
+
+ファイルが存在するかどうかを確認するには、`exists()` 関数を使用します。
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('token', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Metadata（メタデータ）
+
+ファイルのメタデータは、`stat` および `lstat` 関数を使用して取得できます。
+「`stat` 関数」はシンボリック・リンクを辿ります（実際に指し示しているファイルが「スコープ」で許可されていない場合にはエラーを返します）。
+一方、「`lstat` 関数」はシンボリック・リンクを辿らず、シンボリック・リンク自体の情報を返します。
+
+<TranslationNote lang="ja">
+
+**シンボリック・リンク**　symlink：　「ソフト・リンク」。コンピュータのディスク上で扱うファイルやディレクトリを、本来の位置にファイルを残しつつそれとは別の場所に置いたり別名を付けてアクセスする手段。Windows では「ショートカット」、macOS では「エイリアス」と呼ばれます。《[wikipedia](https://ja.wikipedia.org/wiki/ソフトリンク)》
+
+</TranslationNote>
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('app.db', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Rename（名前の変更）
+
+「`rename` 関数」は「ソース・パス」と「宛先パス」を受け取ります。
+それぞれのベース・ディレクトリを別々に設定する必要があることに注意してください。
+
+```js
+import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
+await rename('user.db.bk', 'user.db', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+上記の例では、「\<app-local-data\>/user.db.bk」ファイルの名前が「$TMPDIR/user.db」に変更されます。
+
+### Truncate（切り捨て）
+
+指定されたファイルを、指定されたファイルの長さ（デフォルトは「0」）に達するまで「切り捨て」るか「拡張」します。
+
+- 「長さ 0」に切り捨て
+
+```typescript
+import { truncate } from '@tauri-apps/plugin-fs';
+await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
+```
+
+- 「指定の長さ」に切り捨て
+
+```typescript
+import {
+  truncate,
+  readTextFile,
+  writeTextFile,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
+
+const filePath = 'file.txt';
+await writeTextFile(filePath, 'Hello World', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+await truncate(filePath, 7, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+const data = await readTextFile(filePath, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+console.log(data); // "Hello W"（「Hello World」を「7」文字で切り捨て）
+```
+
+## ディレクトリ Directories
+
+### Create（作成）
+
+ディレクトリを作成するには、「`mkdir` 関数」を呼び出します：
+
+```js
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Read（読み出し）
+
+「`readDir` 関数」はディレクトリの内容項目を再帰的にリストします：
+
+<TranslationNote lang="ja">
+
+**再帰的**　recursively：　「再帰的に」とは「同じ処理を同じルールで直接の対象とその下位の内容にまで適用する」ことです。たとえば「再帰的にリストする」とは対象のディレクトリの内容とそのサブディレクトリの内容までリストし、『再帰的に削除する」とはその下位のファイルまで削除する、という処理が行なわれます。
+
+</TranslationNote>
+
+```typescript
+import { readDir, BaseDirectory } from '@tauri-apps/plugin-fs';
+const entries = await readDir('users', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Remove（削除）
+
+ディレクトリを削除するには　`remove()` を呼び出します。ディレクトリが存在しない場合はエラーが返されます。
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', { baseDir: BaseDirectory.AppLocalData });
+```
+
+ディレクトリが空でない場合は、`recursive` オプションを `true` に設定する必要があります：
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', {
+  baseDir: BaseDirectory.AppLocalData,
+  recursive: true,
+});
+```
+
+### Exists（ディレクトリ有無確認）
+
+ディレクトリが存在するかどうかを確認するには、「`exists()` 関数」を使用します：
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Metadata（メタデータ）
+
+ディレクトリのメタデータは、`stat` および `lstat` 関数を使用して取得できます。
+「`stat` 関数」はシンボリック・リンクを辿ります（実際に指し示しているファイルが「スコープ」で許可されていない場合にはエラーを返します）。
+一方、「`lstat` 関数」はシンボリック・リンクを辿らず、シンボリック・リンク自体の情報を返します。
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('databases', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+## 変化の監視
+
+ディレクトリまたはファイルの変更を監視するには、`watch` または `watchImmediate` 関数を使用します。
+
+- watch（監視）関数
+
+  「`watch` 関数」はデバウンスを発生させるため、一定の遅延後にのみイベントが発行されます：
+
+<TranslationNote lang="ja">
+
+**デバウンス**　debounce：　キー入力やマウスの移動のような特定のイベントが短時間で連続して発生した際に、各イベントを個別に処理するのではなく、ある一定時間（たとえば 数 100ミリ秒）の間イベントが発生しなかった場合にのみそれまでの処理をまとめて実行する方法。
+
+</TranslationNote>
+
+```js
+import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+await watch(
+  'app.log',
+  (event) => {
+    console.log('app.log event', event);
+  },
+  {
+    baseDir: BaseDirectory.AppLog,
+    delayMs: 500,
+  }
+);
+```
+
+- watchImmediate（即時監視）関数
+
+  「`watchImmediate` 関数」は、イベントのリスナーに直ちに通知を行ないます：
+
+  ```js
+  import { watchImmediate, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watchImmediate(
+    'logs',
+    (event) => {
+      console.log('logs directory event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      recursive: true,
+    }
+  );
+  ```
+
+デフォルトでは、ディレクトリの監視操作は「再帰的」ではありません。
+すべてのサブディレクトリの変更を再帰的に監視するには、`recursive`（再帰）オプションを `true` に設定します。
+
+:::note
+「watch 関数」には `watch` 機能フラグが必要です：
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-fs = { version = "2.0.0", features = ["watch"] }
+```
+
+:::
+
+## アクセス権限 Permissions
+
+デフォルトでは、潜在的に危険なプラグイン・コマンドとそのスコープ（有効範囲）はすべてブロックされており、アクセスできません。これらを有効にするには、`capabilities` 設定でアクセス権限を変更する必要があります。
+
+詳細については「[セキュリティ・レベル Capabilities](/ja/security/capabilities/)」の章を参照してください。また、プラグインのアクセス権限を設定するには「[プライグン・アクセス権の使用](/ja/learn/security/using-plugin-permissions/)」の章のステップ・バイ・ステップ・ガイドを参照してください。
+
+```json title="src-tauri/capabilities/default.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+### Scopes
+
+このプラグインのアクセス権限には、どのパスが許可されるか、または明示的に拒否されるかを定義するためのスコープ（有効範囲）が含まれています。
+
+「スコープ」の詳細については、「[コマンド・スコープ]」を参照してください。
+
+「許可 `allow`」または「拒否 `deny`」のスコープのどちらにも、許可または拒否する必要があるすべてのパスをリストした配列を含める必要があります。
+スコープのエントリは「`{ path: string }`」形式です。
+
+:::note
+「`deny` 指定」は「`allow` 指定」よりも優先されるため、あるパスがスコープによって拒否された場合には、
+別のスコープによって許可されている場合でも、実行時にブロックされます。
+:::
+
+スコープ・エントリでは、「`$<path>` 変数」を使用して、ホーム・ディレクトリ、アプリ・リソース・ディレクトリ、設定ディレクトリなどの一般的なシステムパスを参照できます。
+以下の表に、参照可能な一般的なパスをすべて示します：
+
+| Path                                                                                            | 変数          |
+| ----------------------------------------------------------------------------------------------- | ------------- |
+| [appConfigDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appconfigdir)       | $APPCONFIG    |
+| [appDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appdatadir)           | $APPDATA      |
+| [appLocalDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appLocaldatadir) | $APPLOCALDATA |
+| [appcacheDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appcachedir)         | $APPCACHE     |
+| [applogDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#applogdir)             | $APPLOG       |
+| [audioDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#audiodir)               | $AUDIO        |
+| [cacheDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#cachedir)               | $CACHE        |
+| [configDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#configdir)             | $CONFIG       |
+| [dataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#datadir)                 | $DATA         |
+| [localDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#localdatadir)       | $LOCALDATA    |
+| [desktopDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#desktopdir)           | $DESKTOP      |
+| [documentDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#documentdir)         | $DOCUMENT     |
+| [downloadDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#downloaddir)         | $DOWNLOAD     |
+| [executableDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#executabledir)     | $EXE          |
+| [fontDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#fontdir)                 | $FONT         |
+| [homeDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#homedir)                 | $HOME         |
+| [pictureDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#picturedir)           | $PICTURE      |
+| [publicDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#publicdir)             | $PUBLIC       |
+| [runtimeDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#runtimedir)           | $RUNTIME      |
+| [templateDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#templatedir)         | $TEMPLATE     |
+| [videoDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#videodir)               | $VIDEO        |
+| [resourceDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#resourcedir)         | $RESOURCE     |
+| [tempDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#tempdir)                 | $TEMP         |
+
+#### 設定例
+
+- グローバル・スコープ
+
+どの `fs` コマンドにもスコープを適用するには、「`fs:scope` 権限」を使用します：
+
+```json title="src-tauri/capabilities/default.json" {7-10}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]
+    }
+  ]
+}
+```
+
+ある特定の`fs`コマンドだけにスコープを適用するには、
+アクセス権限のオブジェクト形式 `{ "identifier": string, "allow"?: [], "deny"?: [] }` を使用します：
+
+```json title="src-tauri/capabilities/default.json" {7-18}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**/*" }]
+    },
+    {
+      "identifier": "fs:allow-rename",
+      "deny": [{ "path": "$HOME/.config/**/*" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+上記の例では、任意の「`$APPDATA` サブ・パス」（サブ・ディレクトリを含まない）を使用して [`exists`](#existsファイル有無確認) API と [`rename`](#rename名前の変更) を使用します。
+
+:::tip
+Unix ベースのシステムの「ドット・ファイル」（例：`.gitignore`）あるいは「ドット・フォルダ」（例：`.ssh`）にアクセスしようとしている場合には、
+完全なパス（`/home/user/.ssh/example`）を指定するか、「ドット・フォルダー」のパス・コンポーネントの後ろに「グロブ（ワイルドカード）」を追加する形（`/home/user/.ssh/*`）のいずれかを用いる必要があります。
+
+<TranslationNote lang="ja">
+
+**グロブ**　glob：　主に Unix 系環境において、ワイルドカードでファイル名のセットを指定するパターンのこと 《[wikipedia](https://ja.wikipedia.org/wiki/グロブ)》
+
+</TranslationNote>
+
+もしあなたの使用事例でこれが機能しない場合は、任意のコンポーネントを有効な「パス・リテラル」（パスの直接指定値）として扱うようにプラグインを設定してください。
+
+<TranslationNote lang="ja">
+
+**パス・リテラル**　path literal：　リテラルは、プログラミング言語においてソースコード内に値を直接表記した形のものです。パス・リテラルは、ファイルやディレクトリのパスを「文字通りの」文字列として扱うことです。 《[wikipedia](https://ja.wikipedia.org/wiki/リテラル)》
+
+</TranslationNote>
+
+```json title="src-tauri/tauri.conf.json
+ "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": false
+    }
+  }
+```
+
+:::
+
+[NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[ベース・ディレクトリ]: /reference/javascript/api/namespacepath/#basedirectory
+[path API]: /reference/javascript/api/namespacepath/
+[@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
+[コマンド・スコープ]: /ja/security/scope/
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jun 18, 2025 英語版」に基づいています】
+</div>

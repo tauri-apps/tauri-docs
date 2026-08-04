@@ -4,10 +4,6 @@ date: 2023-02-09
 authors: [lorenzolewis, amrbashir]
 excerpt: Tauri Community Survey results and search improvements
 image: ./tauri_community_growth_and_feedback/header.jpg
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 ![Community growth and feedback hero image](./tauri_community_growth_and_feedback/header.jpg)

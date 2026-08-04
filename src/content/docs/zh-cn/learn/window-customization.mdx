@@ -13,9 +13,9 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 有三种方法可以修改 Window 的配置。
 
 - <Icon name="external" class="inline-icon" /> [通过
-  tauri.conf.json](/reference/config/#windowconfig)
+  tauri.conf.json](/zh-cn/reference/config/#windowconfig)
 - <Icon name="external" class="inline-icon" /> [通过 JavaScript
-  API](/reference/javascript/api/namespacewindow/#window)
+  API](/zh-cn/reference/javascript/api/namespacewindow/#window)
 - <Icon name="external" class="inline-icon" /> [通过 Rust 的
   Window](https://docs.rs/tauri/2.0.0/tauri/window/struct.Window.html)
 
@@ -55,19 +55,25 @@ Tauri 提供了许多自定义应用程序窗口外观的选项。您可以创�
 
 更多信息请参见[访问控制列表](/zh-cn/reference/acl/)。
 
-```json title="src-tauri/capabilities/default.json" ins={6}
+```json title="src-tauri/capabilities/default.json" ins={7-11}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-capability",
   "description": "Capability for the main window",
   "windows": ["main"],
-  "permissions": ["core:window:default", "core:window:allow-start-dragging"]
+  "permissions": [
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-start-dragging"
+  ]
 }
 ```
 
 | 权限                                    | 描述                                                               |
 | --------------------------------------- | ------------------------------------------------------------------ |
-| `window:default`                        | 插件的默认权限。除了 `window:allow-start-dragging`。               |
+| `window:default`                        | 插件的默认权限。包含 `window:allow-internal-toggle-maximize`。     |
 | `window:allow-close`                    | 在没有预先配置作用域的情况下，启用 close 命令。                    |
 | `window:allow-minimize`                 | 在没有预先配置作用域的情况下，启用 minimize 命令。                 |
 | `window:allow-start-dragging`           | 在没有预先配置作用域的情况下，启用 start_dragging 命令。           |

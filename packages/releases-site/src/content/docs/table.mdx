@@ -1,0 +1,18 @@
+---
+title: Changelog Table
+description: Every release across the Tauri core ecosystem in one filterable table
+pagefind: false
+editUrl: false
+prev: false
+next: false
+head:
+  - tag: link
+    attrs:
+      rel: prefetch
+      href: /release/tableData.json
+      as: fetch
+---
+
+import ReleasesTable from '../../components/ReleasesTable.astro';
+
+<ReleasesTable />

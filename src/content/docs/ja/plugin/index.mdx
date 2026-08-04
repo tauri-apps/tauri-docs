@@ -1,0 +1,52 @@
+---
+title: プラグイン：　機能と利用法
+i18nReady: true
+sidebar:
+  label: 概要
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+import FeaturesList from '@components/list/Features.astro';
+import CommunityList from '@components/list/Community.astro';
+import Search from '@components/CardGridSearch.astro';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**Plugin 説明内容の英語表記部分について**　Plugin の各章は、原文データからページ内容の一部が自動生成されているため、英語表記のままの部分があります。
+
+また、「コミュニティ・リソース版」プラグインは、公式 Tauri 文書にないため、翻訳は行なわれません。各リンク先の説明内容（英語版）を参照してください。
+
+</TranslationNote>
+
+Tauri は機能の拡張性を念頭に置いて設計されています。この章では以下のプラグインの内容ついてご覧いただけます：
+
+- **[Tauri 公式版](#tauri-公式版)**：　組み込まれている Tauri の機能と特徴
+- **[コミュニティ・リソース版](#コミュニティリソース版)**：　Tauri コミュニティによって作成された追加のプラグインとその利用法
+
+<Search>
+  ## Tauri-公式版
+  <FeaturesList />
+  ## コミュニティ・リソース版
+  <LinkCard
+    title="共有可能な資料はありますか？"
+    description="プル・リクエストでその素晴らしい資料を公開してみませんか"
+    href="https://github.com/tauri-apps/awesome-tauri/pulls"
+  />
+  ### プラグイン
+  <AwesomeTauri section="plugins-no-official" />
+  ### 統合化
+  <AwesomeTauri section="integrations" />
+</Search>
+
+## 対応プラットフォーム一覧表
+
+"\*" 印にカーソルを合わせるとそのプラグインの「対応状況」が表示されます。詳細については各プラグインの説明をご覧ください。
+
+<TableCompatibility />
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Sep 30, 2024 英語版」に基づいています】
+</div>

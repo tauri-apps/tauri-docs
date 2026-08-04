@@ -2,6 +2,7 @@
 title: Opener
 description: Open files and URLs in external applications.
 plugin: opener
+i18nReady: true
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
@@ -74,13 +75,13 @@ Install the opener plugin to get started.
 
 ## Usage
 
-The shell plugin is available in both JavaScript and Rust.
+The opener plugin is available in both JavaScript and Rust.
 
 <Tabs syncKey="lang">
 	<TabItem label="JavaScript" >
 
 ```javascript
-import { openPath } from '@tauri-apps/plugin-opener';
+import { openPath, openUrl } from '@tauri-apps/plugin-opener';
 // when using `"withGlobalTauri": true`, you may use
 // const { openPath } = window.__TAURI__.opener;
 
@@ -88,6 +89,8 @@ import { openPath } from '@tauri-apps/plugin-opener';
 await openPath('/path/to/file');
 // opens a file using `vlc` command on Windows:
 await openPath('C:/path/to/file', 'vlc');
+// opens a URL using the default program:
+await openUrl('https://tauri.app');
 ```
 
     </TabItem>
@@ -102,6 +105,8 @@ use tauri_plugin_opener::OpenerExt;
 app.opener().open_path("/path/to/file", None::<&str>);
 // opens a file using `vlc` command on Windows:
 app.opener().open_path("C:/path/to/file", Some("vlc"));
+// opens a URL using the default program:
+app.opener().open_url("https://tauri.app", None::<&str>);
 ```
 
     </TabItem>
@@ -113,6 +118,10 @@ app.opener().open_path("C:/path/to/file", Some("vlc"));
 By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+Below are two example scope configurations. Both `path` and `url` use the [glob pattern syntax](https://docs.rs/glob/latest/glob/struct.Pattern.html) to define allowed file paths and URLs.
+
+First, an example on how to add permissions to specific paths for the `openPath()` function:
 
 ```json title="src-tauri/capabilities/default.json" ins={6-15}
 {
@@ -126,6 +135,33 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
       "allow": [
         {
           "path": "/path/to/file"
+        },
+        {
+          "path": "$APPDATA/file"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Lastly, an example on how to add permissions for the exact `https://tauri.app` URL and all URLs on a custom protocol (must be known to the OS) for the `openUrl()` function:
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://tauri.app"
+        },
+        {
+          "url": "custom:*"
         }
       ]
     }

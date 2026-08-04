@@ -3,10 +3,6 @@ title: Migration to webkit2gtk-4.1 on Linux port
 date: 2023-02-03
 authors: [wusyong]
 excerpt: New v2.0 alpha released and new backend for Linux port
-banner:
-  content: |
-    You're reading the blog on the prerelease site for Tauri 2.0 -
-    <a href="https://tauri.app">Go to the Tauri 1.0 site</a>
 ---
 
 Hello everybody! We just released [Tauri v2.0.0-alpha3](https://github.com/tauri-apps/tauri/releases/tag/tauri-v2.0.0-alpha.3) recently. While it doesn't bring any major feature, it does bring some huge impacts on Linux port.

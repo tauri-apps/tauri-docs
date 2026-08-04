@@ -30,45 +30,37 @@ import CommandTabs from '@components/CommandTabs.astro';
     <CommandTabs npm="npm run tauri add single-instance"
       yarn="yarn run tauri add single-instance"
       pnpm="pnpm tauri add single-instance"
+      deno="deno task tauri add single-instance"
       bun="bun tauri add single-instance"
       cargo="cargo tauri add single-instance" />
 
     </TabItem>
     <TabItem label="手动">
-    <Steps>
-    <ol>
-      <li>
-        **安装：** 在 `Cargo.toml` 中将插件添加到项目的依赖中。
-      <Tabs>
-        <TabItem label="crates.io">
-      ```toml title="src-tauri/Cargo.toml" ins={2}
-      [dependencies]
-      tauri-plugin-single-instance = "2.0.0"
-      ```
-        </TabItem>
-        <TabItem label="Git">
+      <Steps>
 
-      ```toml title="src-tauri/Cargo.toml" ins={2}
-      [dependencies]
-      tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v2" }
-      ```
-        </TabItem>
-      </Tabs>
-      </li>
-      <li>
-        **初始化：** 更新 `lib.rs` （或者只针对桌面应用的 `main.rs`） 来初始化插件。
+        1. 在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 中的项目依赖项中。
 
-      ```rust title="src-tauri/src/lib.rs" ins={3}
-      pub fn run() {
-          tauri::Builder::default()
-              .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}))
-              .run(tauri::generate_context!())
-              .expect("error while running tauri application");
-      }
-      ```
-      </li>
-    </ol>
-    </Steps>
+            ```sh frame=none
+            cargo add tauri-plugin-single-instance --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2.  修改 `lib.rs` 来初始化插件。
+
+            ```rust title="lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}));
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+      </Steps>
     </TabItem>
 
 </Tabs>
@@ -80,7 +72,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 插件的 `init()` 方法接受一个闭包，该闭包在新 App 实例启动时调用，但由插件关闭。
 这个闭包有三个参数：
 
-1. **`app`**：应用程序的 [AppHandle](https://docs.rs/tauri/latest/tauri/struct.AppHandle.html) 。
+1. **`app`**：应用程序的 [AppHandle](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html) 。
 2. **`args`**：用户初始化新实例时传递的参数列表。
 3. **`cwd`**：当前工作目录表示启动新应用程序实例的目录。
 
@@ -96,26 +88,22 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 默认情况下，当应用程序已经在运行时启动新实例时，不会采取任何操作。当用户尝试打开一个新实例时，为了聚焦正在运行实例的窗口，修改回调闭包如下。
 
-```rust title="src-tauri/src/lib.rs" {1} {5-7} {12-21}
+```rust title="src-tauri/src/lib.rs" {1} {5-12}
 use tauri::{AppHandle, Manager};
 
 pub fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
-            let _ = show_window(app);
-        }))
+    let mut builder = tauri::Builder::default();
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = app.get_webview_window("main")
+                       .expect("no main window")
+                       .set_focus();
+        }));
+    }
+
+    builder
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-}
-
-fn show_window(app: &AppHandle) {
-    let windows = app.webview_windows();
-
-    windows
-        .values()
-        .next()
-        .expect("Sorry, no window found")
-        .set_focus()
-        .expect("Can't Bring Window to Focus");
 }
 ```

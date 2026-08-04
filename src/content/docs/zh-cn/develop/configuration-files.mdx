@@ -1,0 +1,268 @@
+---
+title: 配置文件
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri 是一个用于构建应用程序的工具包，因此可以使用许多文件来配置项目设置。你可能会遇到的一些常见文件有 `tauri.conf.json` 、 `package.json` 和 `Cargo.toml` 。我们将在本页面简要介绍每个文件，以帮助你确定需要修改哪些文件。
+
+## Tauri 配置
+
+Tauri 配置用于定义 Web 应用程序的来源、描述应用程序的元数据、配置打包方式、设置插件配置，并通过配置窗口、托盘图标、菜单等修改运行时行为。
+
+Tauri 运行时和 Tauri CLI 会使用该文件。你可以配置构建设置（例如[在 `tauri build` 前运行][before-build-command]或[在 `tauri dev` 前运行][before-dev-command]的命令），设置应用的[名称](/reference/config/#productname)和[版本](/reference/config/#version)、[控制 Tauri 运行时][appconfig]以及[配置插件][configure plugins]。
+
+:::tip
+你可以在[配置参考]中找到所有选项。
+:::
+
+### 支持的格式
+
+Tauri 配置的默认格式为 JSON。你可以通过在 `Cargo.toml` 中的 `tauri` 和 `tauri-build` 依赖项中分别添加 `config-json5` 或 `config-toml` 功能标志来启用 JSON5 或 TOML 格式。
+
+```toml title=Cargo.toml
+[build-dependencies]
+tauri-build = { version = "2.0.0", features = [ "config-json5" ] }
+
+[dependencies]
+tauri = { version = "2.0.0", features = [  "config-json5" ] }
+```
+
+所有格式的结构和值都是相同的，但是格式应与相应文件的格式一致：
+
+```json5 title=tauri.conf.json or tauri.conf.json5
+{
+  build: {
+    devUrl: 'http://localhost:3000',
+    // 启动开发服务器
+    beforeDevCommand: 'npm run dev',
+  },
+  bundle: {
+    active: true,
+    icon: ['icons/app.png'],
+  },
+  app: {
+    windows: [
+      {
+        title: 'MyApp',
+      },
+    ],
+  },
+  plugins: {
+    updater: {
+      pubkey: 'updater pub key',
+      endpoints: ['https://my.app.updater/{{target}}/{{current_version}}'],
+    },
+  },
+}
+```
+
+```toml title=Tauri.toml
+[build]
+dev-url = "http://localhost:3000"
+# 启动开发服务器
+before-dev-command = "npm run dev"
+
+[bundle]
+active = true
+icon = ["icons/app.png"]
+
+[[app.windows]]
+title = "MyApp"
+
+[plugins.updater]
+pubkey = "updater pub key"
+endpoints = ["https://my.app.updater/{{target}}/{{current_version}}"]
+```
+
+请注意，JSON5 和 TOML 支持注释，并且 TOML 可以使用短横线连接命名法作为更符合惯用的配置名称。
+
+### 平台特定配置
+
+除了默认配置文件之外，Tauri 还可以从以下位置读取特定于平台的配置：
+
+- `tauri.linux.conf.json` 或 `Tauri.linux.toml` （适用于 Linux）
+- `tauri.windows.conf.json` 或 `Tauri.windows.toml` （适用于 Windows）
+- `tauri.macos.conf.json` 或 `Tauri.macos.toml` （适用于 macOS）
+- `tauri.android.conf.json` 或 `Tauri.android.toml` （适用于 Android）
+- `tauri.ios.conf.json` 或 `Tauri.ios.toml` （适用于 iOS）
+
+特定于平台的配置文件按照 [JSON Merge Patch（RFC 7396）] 规范与主配置对象合并。
+
+例如，给定以下基本 `tauri.conf.json` ：
+
+```json title=tauri.conf.json
+{
+  "productName": "MyApp",
+  "bundle": {
+    "resources": ["./resources"]
+  },
+  "plugins": {
+    "deep-link": {}
+  }
+}
+```
+
+以及给定的 `tauri.linux.conf.json` ：
+
+```json title=tauri.linux.conf.json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+Linux 的解析配置将是以下对象：
+
+```json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+此外，你还可以通过 CLI 提供要合并的配置，请参阅以下部分了解更多信息。
+
+### 扩展配置
+
+Tauri CLI 允许你在运行 `dev` 、 `android dev` 、 `ios dev` 、 `build` 、 `android build` 、 `ios build` 或 `bundle` 命令之一时扩展 Tauri 配置。扩展配置可以通过 `--config` 参数以原始 JSON 字符串或 JSON 文件路径的形式提供。Tauri 使用 [JSON Merge Patch (RFC 7396)] 规范将提供的配置值与最初解析的配置对象合并。
+
+此机制可用于定义应用程序的多种风格，在配置应用程序包时具有更大的灵活性。
+
+例如，要分发完全隔离的*测试版*应用程序，你可以使用此功能配置单独的应用程序名称和标识符：
+
+```json title=src-tauri/tauri.beta.conf.json
+{
+  "productName": "My App Beta",
+  "identifier": "com.myorg.myappbeta"
+}
+```
+
+为了分发这个单独的*测试版*应用程序，你需要在构建它时提供此配置文件：
+
+<CommandTabs
+  npm="npm run tauri build -- --config src-tauri/tauri.beta.conf.json"
+  yarn="yarn tauri build --config src-tauri/tauri.beta.conf.json"
+  pnpm="pnpm tauri build --config src-tauri/tauri.beta.conf.json"
+  deno="deno task tauri build --config src-tauri/tauri.beta.conf.json"
+  bun="bun tauri build --config src-tauri/tauri.beta.conf.json"
+  cargo="cargo tauri build --config src-tauri/tauri.beta.conf.json"
+/>
+
+## `Cargo.toml`
+
+Cargo 的清单文件用于声明你的应用所依赖的 Rust 包、应用的元数据以及其他与 Rust 相关的功能。如果你不打算使用 Rust 为你的应用进行后端开发，那么你可能不会对其进行太多修改，但了解它的存在及其功能非常重要。
+
+以下是一个 Tauri 项目的 Cargo.toml 文件示例：
+
+```toml title=Cargo.toml
+[package]
+name = "app"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
+default-run = "app"
+edition = "2021"
+rust-version = "1.57"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0" }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "2.0.0", features = [ ] }
+```
+
+最需要重视的部分是 `tauri-build` 和 `tauri` 依赖项。通常，它们都必须与 Tauri CLI 一样处于最新的次要版本，但这并非严格要求。如果你在尝试运行应用时遇到问题，请检查所有 Tauri 版本（ `tauri` 和 `tauri-cli` ）是否处于其各自次要版本的最新版本。
+
+Cargo 版本号使用[语义化版本控制 (Semantic Versioning)] 。在 `src-tauri` 文件夹中运行 `cargo update` 将获取所有依赖项的最新可用语义兼容版本。例如，如果你指定 `2.0.0` 作为 `tauri-build` 的版本，Cargo 将检测并下载 `2.0.0.0` 版本，因为它是最新的可用语义兼容版本。每当引入重大变更时，Tauri 都会更新主版本号，这意味着你始终能够安全地升级到最新的次版本和补丁版本，而不必担心代码被破坏。
+
+如果你想使用特定的 crate 版本，你可以通过在依赖项的版本号前面添加 `=` 来使用精确的版本：
+
+```
+tauri-build = { version = "=2.0.0" }
+```
+
+另外需要注意的是 `tauri` 依赖项中的 `features=[]` 部分。运行 `tauri dev` 和 `tauri build` 会根据你的 Tauri 配置自动管理项目中需要启用的功能。有关 `tauri` 功能开关的更多信息，请参阅[文档][tauri Cargo features]。
+
+构建应用程序时会生成一个 `Cargo.lock `文件。此文件主要用于确保在开发过程中跨机器使用相同的依赖项（类似于 Node.js 中的 `yarn.lock` 、 `pnpm-lock.yaml` 或 `package-lock.json` ）。建议将此文件提交到你的源码仓库，以获得一致的构建。
+
+要了解有关 Cargo 清单文件的更多信息，请参阅[官方文档][cargo-manifest]。
+
+## `package.json`
+
+这是 Node.js 使用的包文件。如果你的 Tauri 应用的前端是使用基于 Node.js 的技术（例如 `npm` 、 `yarn` 或 `pnpm` ）开发的，那么此文件用于配置前端依赖项和脚本。
+
+Tauri 项目的 `package.json` 文件基本示例可能看起来像这样：
+
+```json title=package.json
+{
+  "scripts": {
+    "dev": "command to start your app development mode",
+    "build": "command to build your app frontend",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0.0",
+    "@tauri-apps/cli": "^2.0.0.0"
+  }
+}
+```
+
+通常使用 `"scripts"` 部分来存储用于启动和构建 Tauri 应用程序前端的命令。上面的 `package.json` 文件指定了 `dev` 命令（你可以使用 `yarn dev` 或 `npm run dev` 来运行它来启动前端框架），以及 `build` 命令（你可以使用 `yarn build` 或 `npm run build` 来运行它来构建前端的 Web 资源，这些资源将被 Tauri 添加到生产环境中）。使用这些脚本最便捷的方式是通过 Tauri 配置的 [beforeDevCommand][before-dev-command] 和 [beforeBuildCommand][before-build-command] 钩子将它们连接到 Tauri CLI：
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build"
+  }
+}
+```
+
+:::note
+仅在使用 `npm` 时才需要 `"tauri"` 脚本
+:::
+
+依赖项对象指明在运行 `yarn` 、 `pnpm install` 或 `npm install` （在本例中为 Tauri CLI 和 API）时 Node.js 应该下载哪些依赖项。
+
+除了 `package.json` 文件之外，你还可以看到 `yarn.lock` 、 `pnpm-lock.yaml` 或 `package-lock.json` 文件。这些文件有助于确保你稍后下载依赖项时获得与开发期间使用的完全相同的版本（类似于 Rust 中的 `Cargo.lock` ）。
+
+要了解有关 `package.json` 文件格式的更多信息，请参阅[官方文档][npm-package]。
+
+[配置参考]: /reference/config/
+[before-dev-command]: /reference/config/#beforedevcommand-1
+[before-build-command]: /reference/config/#beforebuildcommand
+[appconfig]: /reference/config/#appconfig
+[configure plugins]: /reference/config/#plugins
+[语义化版本控制 (Semantic Versioning)]: https://semver.org
+[cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
+[tauri Cargo features]: https://docs.rs/tauri/2.0.0/tauri/#cargo-features
+[JSON Merge Patch (RFC 7396)]: https://datatracker.ietf.org/doc/html/rfc7396

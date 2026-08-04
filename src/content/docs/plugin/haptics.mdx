@@ -1,0 +1,125 @@
+---
+title: Haptics
+description: Haptic feedback and vibrations on Android and iOS
+plugin: haptics
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Haptic feedback and vibrations on Android and iOS.
+
+There are no standards/requirements for vibration support on Android, so the feedback APIs may not work correctly on more affordable phones, including recently released ones.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+Install the haptics plugin to get started.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add haptics"
+      yarn="yarn run tauri add haptics"
+      pnpm="pnpm tauri add haptics"
+      deno="deno task tauri add haptics"
+      bun="bun tauri add haptics"
+      cargo="cargo tauri add haptics"
+    />
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+      1.  Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+          ```sh frame=none
+          cargo add tauri-plugin-haptics --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  Modify `lib.rs` to initialize the plugin:
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_haptics::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-haptics"
+              yarn="yarn add @tauri-apps/plugin-haptics"
+              pnpm="pnpm add @tauri-apps/plugin-haptics"
+              deno="deno add npm:@tauri-apps/plugin-haptics"
+              bun="bun add @tauri-apps/plugin-haptics"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+The haptics plugin is available in JavaScript.
+
+```javascript
+import {
+  vibrate,
+  impactFeedback,
+  notificationFeedback,
+  selectionFeedback,
+} from '@tauri-apps/plugin-haptics';
+
+await vibrate(1);
+await impactFeedback('medium');
+await notificationFeedback('warning');
+await selectionFeedback();
+```
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/mobile.json" ins={7-10}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "haptics:allow-impact-feedback",
+    "haptics:allow-notification-feedback",
+    "haptics:allow-selection-feedback",
+    "haptics:allow-vibrate"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

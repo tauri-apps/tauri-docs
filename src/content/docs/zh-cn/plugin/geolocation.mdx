@@ -1,0 +1,172 @@
+---
+title: 地理位置
+description: 获取并追踪设备的当前位置，包括海拔、航向和速度（如可用）等信息。
+plugin: geolocation
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+获取并追踪设备的当前位置，包括海拔、航向和速度（如可用）等信息。
+
+## 支持的平台
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## 设置
+
+安装地理位置插件开始使用。
+
+<Tabs>
+  <TabItem label="自动">
+
+    使用你项目的包管理器添加依赖：
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add geolocation"
+      yarn="yarn run tauri add geolocation"
+      pnpm="pnpm tauri add geolocation"
+      deno="deno task tauri add geolocation"
+      bun="bun tauri add geolocation"
+      cargo="cargo tauri add geolocation"
+    />
+
+  </TabItem>
+  <TabItem label="手动">
+    <Steps>
+
+      1.  在 `src-tauri` 文件夹中运行以下命令，将插件添加到 `Cargo.toml` 项目的依赖项中：
+
+          ```sh frame=none
+          cargo add tauri-plugin-geolocation --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  修改 `lib.rs` 以初始化插件：
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_geolocation::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  使用你喜欢的 JavaScript 包管理器安装 JavaScript Guest 绑定：
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-geolocation"
+              yarn="yarn add @tauri-apps/plugin-geolocation"
+              pnpm="pnpm add @tauri-apps/plugin-geolocation"
+              deno="deno add npm:@tauri-apps/plugin-geolocation"
+              bun="bun add @tauri-apps/plugin-geolocation"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## 配置
+
+### iOS
+
+Apple 要求在 Info.plist 文件中必须指定定位信息的隐私说明，您需要在其中描述应用为何需要访问该信息。下面展示了一个说明示例：
+
+```xml {6-7}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>Required to do XY</string>
+    </dict>
+</plist>
+```
+
+### Android
+
+该插件会自动将以下权限添加到你的 `AndroidManifest.xml` 文件中：
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+如果你的应用需要 GPS 功能才能运行，你应该在 `AndroidManifest.xml` 文件中添加以下内容：
+
+```xml
+<uses-feature android:name="android.hardware.location.gps" android:required="true" />
+```
+
+Google Play 商店会利用此属性来决定是否向不具备 GPS 功能的设备展示该应用。
+
+## 使用
+
+地理位置插件可在 JavaScript 中使用。
+
+```javascript
+import {
+  checkPermissions,
+  requestPermissions,
+  getCurrentPosition,
+  watchPosition,
+} from '@tauri-apps/plugin-geolocation';
+
+let permissions = await checkPermissions();
+if (
+  permissions.location === 'prompt' ||
+  permissions.location === 'prompt-with-rationale'
+) {
+  permissions = await requestPermissions(['location']);
+}
+
+if (permissions.location === 'granted') {
+  const pos = await getCurrentPosition();
+
+  await watchPosition(
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+    (pos) => {
+      console.log(pos);
+    }
+  );
+}
+```
+
+## 权限
+
+默认情况下，所有潜在的危险插件命令和作用域均被阻止，无法访问。你必须修改 `capabilities` 配置中的权限才能启用这些功能。
+
+有关更多信息，请参阅 [功能概述](/zh-cn/security/capabilities/)， 关于如何使用插件权限，请参阅 [分步指南](/zh-cn/learn/security/using-plugin-permissions/)。
+
+```json title="src-tauri/capabilities/mobile.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "core:default",
+    "geolocation:allow-check-permissions",
+    "geolocation:allow-request-permissions",
+    "geolocation:allow-get-current-position",
+    "geolocation:allow-watch-position"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

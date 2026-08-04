@@ -129,7 +129,10 @@ Visual Studio Windows Debugger 是一个仅适用于 Windows 的调试器，通�
     {
       "label": "build:debug",
       "type": "cargo",
-      "command": "build"
+      "command": "build",
+      "options": {
+        "cwd": "${workspaceRoot}/src-tauri"
+      }
     },
     {
       "label": "ui:dev",
