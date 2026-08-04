@@ -145,8 +145,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(@octokit/core@7.0.7)
       '@octokit/plugin-paginate-rest':
-        specifier: ^14.0.0
-        version: 14.0.0(@octokit/core@7.0.7)
+        specifier: ^15.0.0
+        version: 15.0.0(@octokit/core@7.0.7)
       '@octokit/plugin-retry':
         specifier: ^8.0.1
         version: 8.1.1(@octokit/core@7.0.7)
@@ -1466,8 +1466,8 @@ packages:
     peerDependencies:
       '@octokit/core': '>=6'
 
-  '@octokit/plugin-paginate-rest@14.0.0':
-    resolution: {integrity: sha512-fNVRE7ufJiAA3XUrha2omTA39M6IXIc6GIZLvlbsm8QOQCYvpq/LkMNGyFlB1d8hTDzsAXa3OKtybdMAYsV/fw==}
+  '@octokit/plugin-paginate-rest@15.0.0':
+    resolution: {integrity: sha512-lw9A9YL5s4VPj+VEx8uMxaxQm2YTgrPDkrLEuZuu18R8TK3oPcXF4K6t52nx6xn1RcogZC9i188sAr/4XYJaQQ==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@octokit/core': '>=6'
@@ -6183,10 +6183,10 @@ snapshots:
     dependencies:
       '@octokit/core': 7.0.7
 
-  '@octokit/plugin-paginate-rest@14.0.0(@octokit/core@7.0.7)':
+  '@octokit/plugin-paginate-rest@15.0.0(@octokit/core@7.0.7)':
     dependencies:
       '@octokit/core': 7.0.7
-      '@octokit/types': 16.0.0
+      '@octokit/types': 17.0.0
 
   '@octokit/plugin-retry@8.1.1(@octokit/core@7.0.7)':
     dependencies:
