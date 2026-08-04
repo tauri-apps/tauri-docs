@@ -11,7 +11,6 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "github-slugger": "^2.0.0",
     "typedoc": "0.26.6",
     "typedoc-plugin-markdown": "4.2.6",
     "typedoc-plugin-mdn-links": "3.2.11",

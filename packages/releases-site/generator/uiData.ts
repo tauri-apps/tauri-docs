@@ -1,4 +1,4 @@
-import { basePath, cratesWebUrl, npmWebUrl } from './config.ts';
+import { cratesWebUrl, npmWebUrl, versionPageHref } from './config.ts';
 import type { ReleasesByPackage } from './pageGenerator.ts';
 import type { PackageData, RepoPackage, Repository } from './types.ts';
 
@@ -61,13 +61,12 @@ function buildVersionPills(
   latestVersions: LatestVersionsEntry | undefined
 ): VersionPill[] {
   const pills: VersionPill[] = [];
-  const versionHref = (version: string) => `${basePath}/${pkg.name}/v${version}/`;
 
   if (pkg.cratesPath && latestVersions?.crate) {
     pills.push({
       label: 'crate',
       version: latestVersions.crate,
-      href: versionHref(latestVersions.crate),
+      href: versionPageHref(pkg.name, latestVersions.crate),
     });
   }
 
@@ -75,7 +74,7 @@ function buildVersionPills(
     pills.push({
       label: 'npm',
       version: latestVersions.npm,
-      href: versionHref(latestVersions.npm),
+      href: versionPageHref(pkg.name, latestVersions.npm),
     });
   }
 
