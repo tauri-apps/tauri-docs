@@ -21,20 +21,23 @@ pipx install . # Change this to your prefered installation method
 <TabItem label="Yarn">
 ```sh
 # Generate your Node Sources
-flatpak-node-generator --no-requests-cache -o node-sources.json yarn /path/to/your/lock/file/yarn.lock 
+flatpak-node-generator --no-requests-cache -o node-sources.json yarn /path/to/your/lock/file/yarn.lock
 
 # Generate your cargo sources
+
 python3 flatpak-builder-tools/cargo/flatpak-cargo-generator.py -o cargo-sources.json src-tauri/Cargo.lock
-```
+
+````
 </TabItem>
 <TabItem label="NPM">
 ```sh
 # Generate your Node Sources
-flatpak-node-generator --no-requests-cache -o node-sources.json npm /path/to/your/lock/file/package-lock.json 
+flatpak-node-generator --no-requests-cache -o node-sources.json npm /path/to/your/lock/file/package-lock.json
 
 # Generate your cargo sources
 python3 flatpak-builder-tools/cargo/flatpak-cargo-generator.py -o cargo-sources.json src-tauri/Cargo.lock
-```
+````
+
 </TabItem>
 </Tabs>
 3. Create your metainfo
@@ -95,6 +98,7 @@ Make sure to replace the relevant fields.
         </release>
     </releases>
     <update_contact>your-email@place.com</update_contact>
+
 </component>
 ```
 Your metadata is recommended to be included into your debian bundle although it is not required. This can be done by adjusting your bundle configuration like so.
@@ -117,47 +121,50 @@ sdk: org.gnome.Sdk
 
 command: tauri-app
 finish-args:
-  - --socket=wayland # Permission needed to show the window
-  - --socket=fallback-x11 # Permission needed to show the window on legacy windowing systems
-  - --device=dri # OpenGL, not necessary for all projects
-  - --share=ipc
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node20
-  - org.freedesktop.Sdk.Extension.rust-stable
-build-options:
+
+- --socket=wayland # Permission needed to show the window
+- --socket=fallback-x11 # Permission needed to show the window on legacy windowing systems
+- --device=dri # OpenGL, not necessary for all projects
+- --share=ipc
+  sdk-extensions:
+- org.freedesktop.Sdk.Extension.node20
+- org.freedesktop.Sdk.Extension.rust-stable
+  build-options:
   append-path: /usr/lib/sdk/node20/bin:/usr/lib/sdk/rust-stable/bin
 
 modules:
-  - name: your-command
-    buildsystem: simple
-    env:
-        HOME: /run/build/your-module
-        CARGO_HOME: /run/build/your-module/src-tauri
-        XDG_CACHE_HOME: /run/build/your-module/flatpak-node/cache
-        yarn_config_offline: 'true'
-        yarn_config_cache: /run/build/your-module/flatpak-node/yarn-cache
-    sources:
-      - type: git
-        url: https://github.com/Your-Github-Username/Your-Git-Repo.git
-        tag: v1.2.2
-      - cargo-sources.json
-      - node-sources.json
-    build-commands:
-      - echo -e 'yarn-offline-mirror "/run/build/your-module/flatpak-node/yarn-mirror"\nyarn-offline-mirror-pruning true' > /run/build/your-module/.yarnrc
-      - mkdir -p src-tauri/.cargo && echo -e '[source.crates-io]\nreplace-with = "vendored-sources"\n\n[source.vendored-sources]\ndirectory = "/run/build/your-module/cargo/vendor"' > src-tauri/.cargo/config.toml
-      - yarn install  --offline --immutable --immutable-cache --inline-builds
-      - yarn run tauri build -- -b deb
-      - ar -x src-tauri/target/release/bundle/deb/*.deb
-      - tar -xf src-tauri/target/release/bundle/deb/your-app/data.tar.gz
-      - install -Dm755 src-tauri/target/release/bundle/deb/your-app/data/usr/bin/your-command /app/bin/your-command
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/applications/your-app.desktop /app/share/applications/org.your.id.desktop
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/128x128/apps/your-app.png /app/share/icons/hicolor/128x128/apps/your-app.png
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/32x32/apps/your-app.png /app/share/icons/hicolor/32x32/apps/your-app.png
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/256x256@2/apps/your-app.png /app/share/icons/hicolor/512x512/apps/your-app.png
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/scalable/apps/your-app.svg /app/share/icons/hicolor/scalable/apps/your-app.svg
 
-      - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/metainfo/org.your.id /app/share/metainfo/org.your.id
-```
+- name: your-command
+  buildsystem: simple
+  env:
+  HOME: /run/build/your-module
+  CARGO_HOME: /run/build/your-module/src-tauri
+  XDG_CACHE_HOME: /run/build/your-module/flatpak-node/cache
+  yarn_config_offline: 'true'
+  yarn_config_cache: /run/build/your-module/flatpak-node/yarn-cache
+  sources:
+  - type: git
+    url: https://github.com/Your-Github-Username/Your-Git-Repo.git
+    tag: v1.2.2
+  - cargo-sources.json
+  - node-sources.json
+    build-commands:
+  - echo -e 'yarn-offline-mirror "/run/build/your-module/flatpak-node/yarn-mirror"\nyarn-offline-mirror-pruning true' > /run/build/your-module/.yarnrc
+  - mkdir -p src-tauri/.cargo && echo -e '[source.crates-io]\nreplace-with = "vendored-sources"\n\n[source.vendored-sources]\ndirectory = "/run/build/your-module/cargo/vendor"' > src-tauri/.cargo/config.toml
+  - yarn install --offline --immutable --immutable-cache --inline-builds
+  - yarn run tauri build -- -b deb
+  - ar -x src-tauri/target/release/bundle/deb/\*.deb
+  - tar -xf src-tauri/target/release/bundle/deb/your-app/data.tar.gz
+  - install -Dm755 src-tauri/target/release/bundle/deb/your-app/data/usr/bin/your-command /app/bin/your-command
+  - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/applications/your-app.desktop /app/share/applications/org.your.id.desktop
+  - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/128x128/apps/your-app.png /app/share/icons/hicolor/128x128/apps/your-app.png
+  - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/32x32/apps/your-app.png /app/share/icons/hicolor/32x32/apps/your-app.png
+  - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/256x256@2/apps/your-app.png /app/share/icons/hicolor/512x512/apps/your-app.png
+  - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/icons/hicolor/scalable/apps/your-app.svg /app/share/icons/hicolor/scalable/apps/your-app.svg
+
+  - install -Dm644 src-tauri/target/release/bundle/deb/your-app/data/usr/share/metainfo/org.your.id /app/share/metainfo/org.your.id
+
+````
 ## Submitting To Flathub
 **_1. Fork The [Flathub Repository](https://github.com/flathub/flathub/fork)_**
 
@@ -165,7 +172,7 @@ modules:
 
 ```shell
 git clone --branch=new-pr git@github.com:your_github_username/flathub.git
-```
+````
 
 **_3. Enter the repository_**
 
@@ -182,6 +189,7 @@ git checkout -b your_app_name
 **_5. Open a pull request against the `new-pr` branch on github_**
 
 **_6. Your app will now enter the review process in which you may be asked to make changes to your project._**
+
   </TabItem>
   <TabItem label="Closed Source">
 For detailed information on how Flatpak works, you can read [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html)
@@ -370,5 +378,6 @@ git checkout -b your_app_name
 When your pull request is approved then you will receive an invitation to edit your apps repository. From here on you can update your app continuously.
 
 You can read more about this [in the flatpak documentation](https://docs.flatpak.org/en/latest/dependencies.html#bundling)
+
   </TabItem>
 </Tabs>
