@@ -29,7 +29,9 @@ function fetchData(pluginSlug: string) {
       return '';
     }
   }
-  return pluginData.support.map((plat) => getPlatformSupportIcon(plat.level, plat.platform));
+  return pluginData.support
+    .map((plat) => getPlatformSupportIcon(plat.level, plat.platform))
+    .join('');
 }
 ---
 

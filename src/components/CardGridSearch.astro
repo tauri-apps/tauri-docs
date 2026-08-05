@@ -94,10 +94,18 @@ const { placeholder = 'Search features and community resources...', filters = []
       const activeFilters = filterSelects
         .map((select) => {
           const value = select.value;
+          if (!value) return null;
           const pattern = select.dataset.cssPattern || '';
-          return value ? { value, pattern } : null;
+          const toSelector = (v: string) => `.${pattern.replace('${value}', v)}`;
+          return {
+            selector: toSelector(value),
+            anySelector: Array.from(select.options)
+              .filter((option) => option.value)
+              .map((option) => toSelector(option.value))
+              .join(', '),
+          };
         })
-        .filter(Boolean);
+        .filter((filter) => filter !== null);
 
       const resultCounts: { heading: string; count: number }[] = [];
 
@@ -114,18 +122,10 @@ const { placeholder = 'Search features and community resources...', filters = []
 
           const textMatches = !query || txtValue.toUpperCase().indexOf(query) > -1;
 
-          let filterMatches = true;
-          for (const filter of activeFilters) {
-            if (!filter) {
-              continue;
-            }
-            const className = filter.pattern.replace('${value}', filter.value);
-            const hasClass = htmlElement.querySelector(`.${className}`) !== null;
-            if (!hasClass) {
-              filterMatches = false;
-              break;
-            }
-          }
+          const filterMatches = activeFilters.every((filter) => {
+            if (!htmlElement.querySelector(filter.anySelector)) return true;
+            return htmlElement.querySelector(filter.selector) !== null;
+          });
 
           if (textMatches && filterMatches) {
             visibleCount++;
