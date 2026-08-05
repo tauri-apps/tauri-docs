@@ -7,18 +7,16 @@ import { isReleasePage } from '../../release-config.mjs';
 {isReleasePage(Astro.url.pathname) ? <ReleaseLanguageSelect /> : <Default />}
 
 <script>
-  import locales from '../../../locales.json';
-  import { recordPickedLocale } from '../locale-memory';
+  import { isKnownLocale, recordPickedLocale } from '../locale-memory';
 
   // select values are page URLs: the first segment is the locale, except for
   // English, which has no prefix
-  const known = new Set(Object.keys(locales));
   for (const select of document.querySelectorAll<HTMLSelectElement>(
     'starlight-lang-select select'
   )) {
     select.addEventListener('change', (event) => {
       const [, segment = ''] = (event.currentTarget as HTMLSelectElement).value.split('/');
-      recordPickedLocale(known.has(segment) ? segment : '');
+      recordPickedLocale(isKnownLocale(segment) ? segment : '');
     });
   }
 </script>

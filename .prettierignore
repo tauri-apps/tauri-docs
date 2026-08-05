@@ -10,6 +10,7 @@ src/content/docs/reference
 
 # Release notes: generated content and the committed data checkpoint
 src/content/releases/**
+# TODO: Prettier rewrites `{/* */}` MDX comments to `{/_ _/}`, so `index.mdx` stays ignored
 !src/content/releases/table.mdx
 public/release
 packages/releases-site/generator/data.json

@@ -1,18 +1,8 @@
 ---
 import ContentNotice from '@astrojs/starlight/components/ContentNotice.astro';
-import { useTranslations } from '@astrojs/starlight/internal';
-import locales from '../../../locales.json';
-
-const labels = Object.fromEntries(
-  Object.entries(locales)
-    .filter(([code]) => code !== 'root')
-    .map(([code, locale]) => [
-      code,
-      { lang: locale.lang, text: useTranslations(locale.lang)('i18n.untranslatedContent') },
-    ])
-);
+import { untranslatedLabels } from './untranslated-labels';
 ---
 
-<div data-untranslated-labels={JSON.stringify(labels)} hidden>
+<div data-untranslated-labels={untranslatedLabels} hidden>
   <ContentNotice icon="warning" label="" />
 </div>

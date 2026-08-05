@@ -19,23 +19,14 @@ const isRelease = isReleasePage(Astro.url.pathname);
 const headerLinks = links.map((link) => {
   const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
   const topic = topics.find((topic) => topic.link === href);
-  return topic
-    ? {
-        type: 'link' as const,
-        label: topic.label,
-        href: topic.link,
-        isCurrent: false,
-        badge: topic.badge,
-        attrs: topic.attrs ?? {},
-      }
-    : {
-        type: 'link' as const,
-        label: link.title,
-        href,
-        isCurrent: false,
-        badge: undefined,
-        attrs: {},
-      };
+  return {
+    type: 'link' as const,
+    label: topic?.label ?? link.title,
+    href,
+    isCurrent: false,
+    badge: topic?.badge,
+    attrs: topic?.attrs ?? {},
+  };
 });
 ---
 
