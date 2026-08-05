@@ -8,10 +8,6 @@ export function applyReleaseLocale(locale: string): void {
   const labels: Record<string, { lang: string; text: string }> = JSON.parse(
     notice?.dataset.untranslatedLabels ?? '{}'
   );
-  if (locale && !(locale in labels)) {
-    // stale value from a decommissioned locale
-    locale = '';
-  }
 
   for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-locale-link]')) {
     const path = link.dataset.localeLink as string;
