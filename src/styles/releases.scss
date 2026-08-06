@@ -1,11 +1,3 @@
-// Shared with the docs site for visual parity — the releases site is served
-// under the same domain at /release/* and must look like the same website.
-@import url('../../../../src/styles/theme.scss');
-@import url('../../../../src/styles/overrides.scss');
-@import url('../../../../src/styles/shared.scss');
-
-// Releases-specific styles
-
 .release-links {
   display: flex;
   flex-wrap: wrap;
