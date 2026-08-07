@@ -105,10 +105,17 @@ To generate the keys the Tauri CLI provides the `signer generate` command. You c
 
 While building your update artifacts, you need to have the private key you generated above in your environment variables. `.env` files do _not_ work!
 
+:::note[Signing environment variables]
+Bundling reads **`TAURI_SIGNING_PRIVATE_KEY`**: set it to either the **path** of your private key file or the **key contents** as a string (path is tried first; if the value is not an existing file, it is treated as the key material). Optionally set **`TAURI_SIGNING_PRIVATE_KEY_PASSWORD`** if the key is encrypted.
+
+`tauri signer generate` may print a `TAURI_SIGNING_PRIVATE_KEY_PATH` hint. For `tauri build` / bundling, put that path (or the key string) in `TAURI_SIGNING_PRIVATE_KEY` — there is no separate path-only variable used by the bundler.
+:::
+
 <Tabs>
   <TabItem label="Mac/Linux">
   ```sh frame=none
-  export TAURI_SIGNING_PRIVATE_KEY="Path or content of your private key"
+  # Path to the key file (preferred) or the key contents as a string
+  export TAURI_SIGNING_PRIVATE_KEY="~/.tauri/myapp.key"
   # optionally also add a password
   export TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""
   ```
@@ -116,7 +123,8 @@ While building your update artifacts, you need to have the private key you gener
   <TabItem label="Windows">
   Run this in `PowerShell`:
   ```ps frame=none
-  $env:TAURI_SIGNING_PRIVATE_KEY="Path or content of your private key"
+  # Path to the key file (preferred) or the key contents as a string
+  $env:TAURI_SIGNING_PRIVATE_KEY="$env:USERPROFILE\.tauri\myapp.key"
   <# optionally also add a password #>
   $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""
   ```
