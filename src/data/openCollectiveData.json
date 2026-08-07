@@ -1793,6 +1793,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Waypad",
+    "id": "Waypad",
+    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/waypad",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Oscar Lito M Pablo",
     "id": "Oscar Lito M Pablo",
     "avatarUrl": "https://images.opencollective.com/fliponeup/ca37c6c/avatar/256.jpg",
