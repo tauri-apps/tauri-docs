@@ -286,7 +286,12 @@ export function writePackageIndex(params: {
     'next: false',
   ]);
 
-  const header = renderPageLinks(externalLinks);
+  const allVersionsHref = `${basePath}/${packageName}/all-versions/`;
+
+  const header = renderPageLinks([
+    ...externalLinks,
+    { label: 'Full changelog', href: allVersionsHref, align: 'end' },
+  ]);
 
   const versionList = releases
     .map(({ version, dateLabel }) => {
@@ -300,7 +305,8 @@ export function writePackageIndex(params: {
     header,
     ...(description ? [description] : []),
     renderInlineChangelog(groups),
-    `[Full changelog](${basePath}/${packageName}/all-versions/)`,
+    '## Full Changelog',
+    `[${packageName} full changelog](${allVersionsHref})`,
     '## Version List',
     versionList,
   ]
