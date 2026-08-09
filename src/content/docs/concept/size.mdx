@@ -9,7 +9,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 While Tauri by default provides very small binaries it doesn't hurt to push the limits a bit, so here are some tips and tricks for reaching optimal results.
 
-## You can't improve what you can't measure
+## Measure Your App
 
 Before you can optimize your app, you need to figure out what takes up space in your app! Here are a couple of tools that can assist you with that:
 
@@ -274,6 +274,7 @@ To tell Cargo that the current project uses the nightly toolchain, we will creat
 ```toml title="rust-toolchain.toml"
 [toolchain]
 channel = "nightly" # Pin to a specific nightly release if you need reproducible builds, e.g. "nightly-2026-07-01"
+components = ["rust-src"]
 profile = "minimal"
 ```
 
