@@ -165,9 +165,11 @@ The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest
 
 ### Cookies
 
+All `fetch` calls share a cookie store: cookies set by a response are sent along with later requests to the same host, like a browser would.
+
 <SinceVersion version="2.4.3" href="/release/http/v2.4.3/" />
 
-All `fetch` calls share a cookie store: cookies set by a response are sent along with later requests to the same host, like a browser would. The store is written to a `.cookies` file in the app's cache directory and loaded again on the next launch, so persistent cookies survive restarts.
+The store is written to a `.cookies` file in the app's cache directory and loaded again on the next launch, so persistent cookies survive restarts.
 
 Cookie handling is part of the default feature set. To turn it off, disable default features in `Cargo.toml` and keep the ones you need:
 

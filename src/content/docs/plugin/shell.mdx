@@ -24,7 +24,7 @@ Access the system shell. Allows you to spawn child processes.
 
 If you're looking for documentation for the `shell.open` API, check out the new [Opener plugin](/plugin/opener/) instead.
 
-The legacy `open` command is still available for compatibility. It is controlled by `tauri.conf.json > plugins > shell > open`: `true` or leaving it unset applies the default validation regex (`^((mailto:\w+)|(tel:\w+)|(https?://\w+)).+`), a string registers a custom regex, and `false` disables the command for JavaScript entirely.
+The legacy `open` command is still available for compatibility. It is controlled by `tauri.conf.json > plugins > shell > open`: `true` or leaving it unset applies the default validation regex (`^((mailto:\w+)|(tel:\w+)|(https?://\w+)).+`), a string registers a custom regex, and `false` disables the command for JavaScript entirely. A custom regex is anchored with `^` and `$`, so it must match the whole URL. End it with `.+` if you want the default's prefix-style matching.
 
 ## Setup
 

@@ -600,13 +600,15 @@ const update = await check({
   },
 });
 
-// the download options are passed separately
-await update.downloadAndInstall(undefined, {
-  headers: {
-    Authorization: 'Bearer <token>',
-  },
-  timeout: 30000,
-});
+if (update) {
+  // the download options are passed separately
+  await update.downloadAndInstall(undefined, {
+    headers: {
+      Authorization: 'Bearer <token>',
+    },
+    timeout: 30000,
+  });
+}
 ```
 
   </TabItem>

@@ -54,6 +54,8 @@ Install the dialog plugin to get started.
                 tauri-plugin-dialog = { version = "2", default-features = false, features = ["xdg-portal"] }
                 ```
 
+                The portal backend requires [`zenity`](https://gitlab.gnome.org/GNOME/zenity) and an [XDG Desktop Portal implementation](https://flatpak.github.io/xdg-desktop-portal/#using-portals) to be installed on the target system, or the dialogs won't show up.
+
             2.  Modify `lib.rs` to initialize the plugin:
 
                 ```rust title="src-tauri/src/lib.rs" ins={4}
@@ -153,7 +155,7 @@ console.log(confirmation);
 
 #### Create Message Dialog
 
-Shows a message dialog with an `Ok` button. `message` resolves with the button that was pressed: `'Ok'`, `'Yes'`, `'No'`, `'Cancel'`, or the label of a custom button.
+Shows a message dialog with an `Ok` button. `message` resolves with the button that was pressed: `'Ok'`, `'Yes'`, `'No'`, `'Cancel'`, or the label of a custom button. Closing the dialog without pressing a button also resolves with `'Cancel'`, even when the dialog has no Cancel button.
 
 ```javascript
 import { message } from '@tauri-apps/plugin-dialog';
@@ -164,7 +166,7 @@ import { message } from '@tauri-apps/plugin-dialog';
 await message('File not found', { title: 'Tauri', kind: 'error' });
 ```
 
-The `buttons` option switches the dialog to two or three buttons, either a platform default set (`'OkCancel'`, `'YesNo'`, `'YesNoCancel'`) or custom labels:
+The `buttons` option picks the buttons: one of the platform defaults (`'Ok'`, `'OkCancel'`, `'YesNo'`, `'YesNoCancel'`) or custom labels in the shapes `{ ok }`, `{ ok, cancel }`, and `{ yes, no, cancel }`. A single custom button (`buttons: { ok: 'Got it' }`) replaces the deprecated `okLabel` option:
 
 ```javascript
 import { message } from '@tauri-apps/plugin-dialog';
@@ -198,7 +200,7 @@ console.log(file);
 
 On iOS the system has distinct document and media pickers, and the plugin chooses one based on `filters`: filters made up of only image or video types open the media picker instead of the document picker. The `pickerMode` option (`'media'`, `'image'`, or `'video'`) forces the media picker with the matching selection; iOS 13 and below ignore it. On Android `pickerMode` narrows the file types the system picker offers. On desktop the option is ignored.
 
-On iOS and macOS document pickers, the `fileAccessMode` option decides what you get access to. The default `'copy'` copies the picked file into the app sandbox. The copy belongs to your app, and **you** are responsible for deleting it when you no longer need it. `'scoped'` leaves the file in place and the system manages [security-scoped access] to it. Image and video pickers always copy, since their items are only accessible inside the picker callback.
+On iOS document pickers, the `fileAccessMode` option decides what you get access to. The default `'copy'` copies the picked file into the app sandbox. The copy belongs to your app, and **you** are responsible for deleting it when you no longer need it. `'scoped'` leaves the file in place and the system manages [security-scoped access] to it. Image and video pickers always copy, since their items are only accessible inside the picker callback. Other platforms, including macOS, ignore the option and return the path of the original file.
 
 #### Save to File Dialog
 
