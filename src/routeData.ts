@@ -1,10 +1,22 @@
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import { markCurrentByPrefix } from './components/releases/sidebar-current.ts';
+import { ogTags } from './og/tags';
+import { docsCardSlug, hasCard, ogImagePath, releaseCardSlug } from './pages/open-graph/_pages';
 import { isReleasePage } from './release-config.mjs';
 
 export const onRequest = defineRouteMiddleware((context) => {
+  const { entry, head, sidebar } = context.locals.starlightRoute;
+  const isRelease = isReleasePage(context.url.pathname);
+
   // version pages are not sidebar entries — mark their package's entry instead
-  if (isReleasePage(context.url.pathname)) {
-    markCurrentByPrefix(context.locals.starlightRoute.sidebar, context.url.pathname);
+  if (isRelease) {
+    markCurrentByPrefix(sidebar, context.url.pathname);
   }
+
+  // docs match on `entry.id` so untranslated locales reuse the English card; release pages
+  // match on the URL because `<StarlightPage>` gets a synthesised entry without the slug
+  const slug = isRelease ? releaseCardSlug(context.url.pathname) : docsCardSlug(entry?.id ?? '');
+  const path = slug !== undefined && hasCard(slug) ? ogImagePath(slug) : '/og.png?v=1';
+
+  head.push(...ogTags(new URL(path, context.site)));
 });
