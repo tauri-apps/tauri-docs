@@ -5,7 +5,7 @@ import { retry } from '@octokit/plugin-retry';
 import type { Endpoints } from '@octokit/types';
 import { throttling } from '@octokit/plugin-throttling';
 
-import { GITHUB_CONTRIBUTORS_FILE } from './config.ts';
+import { GITHUB_CONTRIBUTORS_FILE } from './paths.ts';
 import { GITHUB_TOKEN, saveToFile } from './utils.ts';
 
 export interface Contributor {

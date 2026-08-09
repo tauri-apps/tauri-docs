@@ -3,8 +3,8 @@ import {
   PLATINUM_THRESHOLD,
   SILVER_THRESHOLD,
   OC_IMAGE_DIMENSION,
-  OPEN_COLLECTIVE_FILE,
 } from './config.ts';
+import { OPEN_COLLECTIVE_FILE } from './paths.ts';
 import { type OpenCollectiveSponsor, type Tier } from './types.ts';
 import { saveToFile, q } from './utils.ts';
 
