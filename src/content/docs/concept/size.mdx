@@ -149,11 +149,11 @@ The feature list above mirrors the current default features of the `tauri` crate
 
 JavaScript makes up a large portion of a typical Tauri app, so it's important to make the JavaScript as lightweight as possible.
 
-You can choose from a plethora of JavaScript bundlers; the de-facto standard today is [Vite], which most Tauri project templates use and which is powered by the Rust-based [Rolldown] bundler since Vite 8. [webpack] and [Rollup] are still common in existing projects, with Rollup's role progressively being taken over by Rolldown, its successor. All of them can produce minified JavaScript if configured correctly, so consult your bundler documentation for specific options. Generally speaking, you should make sure to:
+You can choose from a plethora of JavaScript bundlers; the de-facto standard today is [Vite], which most Tauri project templates use and which uses the Rust-based [Rolldown] bundler by default since Vite 8. [webpack] and [Rollup] are still common in existing projects, with Rollup's role progressively being taken over by Rolldown, which is designed to replace it. All of them can produce minified JavaScript if configured correctly, so consult your bundler documentation for specific options. Generally speaking, you should make sure to:
 
 ### Enable tree shaking
 
-This option removes unused JavaScript from your bundle. All popular bundlers enable this by default.
+This option removes unused JavaScript from your bundle. All popular bundlers enable this by default (webpack only in its production mode).
 
 ### Enable minification
 
@@ -219,7 +219,7 @@ of variations, but here are 3 basic ones to get you started:
 
 ```css
 font-family:
-  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+  system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif,
   'Apple Color Emoji', 'Segoe UI Emoji';
 ```
 
