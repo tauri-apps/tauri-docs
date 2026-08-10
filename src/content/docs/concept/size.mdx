@@ -34,15 +34,12 @@ Dependent on whether you use the stable or nightly Rust toolchain the options av
 
 ```toml
 # src-tauri/Cargo.toml
-[profile.dev]
-incremental = true # Compile your binary in smaller steps.
-
 [profile.release]
 codegen-units = 1 # Allows LLVM to perform better optimization.
 lto = true # Enables link-time-optimizations.
 opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
-panic = "abort" # Higher performance by disabling panic handlers.
-strip = true # Ensures debug symbols are removed.
+panic = "abort" # Reduces binary size by removing panic unwinding.
+strip = true # Removes symbols and debuginfo from the binary.
 ```
 
 </TabItem>
@@ -51,18 +48,19 @@ strip = true # Ensures debug symbols are removed.
 
 ```toml
 # src-tauri/Cargo.toml
+cargo-features = ["trim-paths", "profile-rustflags"] # Unstable features must be declared at the very top of the manifest.
+
 [profile.dev]
-incremental = true # Compile your binary in smaller steps.
 rustflags = ["-Zthreads=8"] # Better compile performance.
 
 [profile.release]
 codegen-units = 1 # Allows LLVM to perform better optimization.
 lto = true # Enables link-time-optimizations.
 opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
-panic = "abort" # Higher performance by disabling panic handlers.
-strip = true # Ensures debug symbols are removed.
+panic = "abort" # Reduces binary size by removing panic unwinding.
+strip = true # Removes symbols and debuginfo from the binary.
 trim-paths = "all" # Removes potentially privileged information from your binaries.
-rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # Better compile performance.
+rustflags = ["-Zthreads=8"] # Better compile performance.
 ```
 
 </TabItem>
@@ -74,16 +72,14 @@ rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # Better compile performance.
 This is not a complete reference over all available options, merely the ones that we'd like to draw extra attention to.
 :::
 
-- [incremental:][profile-incremental] Compile your binary in smaller steps.
-- [codegen-units:][profile-codegen-units] Speeds up compile times at the cost of compile time optimizations.
+- [codegen-units:][profile-codegen-units] Speeds up compile times at the cost of runtime performance.
 - [lto:][profile-lto] Enables link time optimizations.
-- [opt-level:][profile-opt-level] Determines the focus of the compiler. Use `3` to optimize performance, `z` to optimize for size, and `s` for something in-between.
+- [opt-level:][profile-opt-level] Determines the focus of the compiler. Use `3` to optimize performance, `s` to optimize for size, and `z` to also turn off loop vectorization. Results vary, so measure which one works best for your app.
 - [panic:][profile-panic] Reduce size by removing panic unwinding.
 - [strip:][profile-strip] Strip either symbols or debuginfo from a binary.
 - [rpath:][profile-rpath] Assists in finding the dynamic libraries the binary requires by hard coding information into the binary.
 - [trim-paths:][trim-paths-rfc] Removes potentially privileged information from binaries.
 - [rustflags:][profile-rustflags] Sets Rust compiler flags on a profile by profile basis.
-  - `-Cdebuginfo=0`: Whether debuginfo symbols should be included in the build.
   - `-Zthreads=8`: Increases the number of threads used during compilation.
 
 For a detailed explanation of each option and a bunch more, refer to the [Cargo book's Profiles section][cargo-profiles].
@@ -337,7 +333,6 @@ On Linux, the bundle format matters: an AppImage bundles your app's shared libra
 [`vite-bundle-analyzer`]: https://github.com/nonzzz/vite-bundle-analyzer
 [why is a rust executable large?]: https://lifthrasiir.github.io/rustlog/why-is-a-rust-executable-large.html
 [minimizing rust binary size]: https://github.com/johnthagen/min-sized-rust
-[profile-incremental]: https://doc.rust-lang.org/cargo/reference/profiles.html#incremental
 [profile-codegen-units]: https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units
 [profile-lto]: https://doc.rust-lang.org/cargo/reference/profiles.html#lto
 [profile-opt-level]: https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level
