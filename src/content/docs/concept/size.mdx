@@ -274,7 +274,7 @@ components = ["rust-src"]
 profile = "minimal"
 ```
 
-The Rust Standard Library comes precompiled. This means Rust is faster to install, but also that the compiler can't optimize the Standard Library. You can apply the optimization options for the rest of your binary + dependencies to the std with an unstable flag. This flag requires specifying your target, so know the target triple you are targeting.
+The Rust Standard Library comes precompiled. This means Rust is faster to install, but also that the compiler can't optimize the Standard Library. You can apply the optimization options for the rest of your binary + dependencies to the std with an unstable flag. The commands below pass the target explicitly, so know the target triple you are building for.
 
 ```shell
 cargo tauri build --target <Target triple to build for> -- -Z build-std
@@ -285,6 +285,8 @@ If you are using `panic = "abort"` in your release profile optimizations, you ne
 ```shell
 cargo tauri build --target <Target triple to build for> -- -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort
 ```
+
+Recent nightly toolchains are replacing the `panic_immediate_abort` feature with the `-Cpanic=immediate-abort` compiler flag, so check [Minimizing Rust Binary Size] for the invocation that matches your toolchain, and measure the result either way.
 
 See the unstable documentation for more details about [`-Z build-std`][cargo-build-std] and [`-Z build-std-features`][cargo-build-std-features].
 
