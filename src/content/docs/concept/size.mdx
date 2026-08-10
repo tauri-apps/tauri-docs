@@ -132,7 +132,7 @@ and although it's not encouraged, you can still set this environment variable yo
 
 ## Disable Tauri's Asset Compression
 
-By default, Tauri uses Brotli to compress assets in the final binary. Brotli embeds a large (~170KiB) lookup table to achieve great results, but if the resources you embed are smaller than this or compress poorly, the resulting binary may be bigger than any savings.
+By default, Tauri uses Brotli to compress assets in the final binary. Brotli embeds a large (~120KiB) lookup table to achieve great results, but if the resources you embed are smaller than this or compress poorly, the resulting binary may be bigger than any savings.
 
 Compression can be disabled by setting `default-features` to `false` and specifying everything except the `compression` feature:
 
@@ -293,7 +293,7 @@ See the unstable documentation for more details about [`-Z build-std`][cargo-bui
 
 ## UPX
 
-UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packers. This well-maintained piece of kit is GPL-v2 licensed with a pretty liberal usage declaration. Our understanding of the licensing is that you can use it for any purposes (commercial or otherwise) without needing to change your license unless you modify the source code of UPX.
+UPX, **Ultimate Packer for eXecutables**, is a dinosaur amongst the binary packers. This well-maintained piece of kit is GPL licensed (version 2 or later) with a pretty liberal usage declaration. Our understanding of the licensing is that you can use it for any purposes (commercial or otherwise) without needing to change your license, as long as the decompression stub it embeds in your binary stays unmodified.
 
 Maybe your target audience has very slow internet, or your app needs to fit on a tiny USB stick, and all the above steps haven't resulted in the savings you need. Fear not, as we have one last trick up our sleeves:
 
@@ -325,7 +325,7 @@ UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
 
 The tips above shrink your app's binary, but what users actually download also depends on how the app is packaged.
 
-On Windows, the biggest factor is how the installer ships the WebView2 runtime, controlled by the `bundle > windows > webviewInstallMode` config. The default `downloadBootstrapper` keeps the installer smallest, `embedBootstrapper` adds around 1.8MB, and `offlineInstaller` embeds the entire runtime, adding around 127MB. See the [WebView2 installation options][webview2-install-options] in the Windows Installer guide for the trade-offs.
+On Windows, the biggest factor is how the installer ships the WebView2 runtime, controlled by the `bundle > windows > webviewInstallMode` config. The default `downloadBootstrapper` keeps the installer smallest, `embedBootstrapper` adds around 1.8MB, and `offlineInstaller` embeds the entire runtime, adding around 127MB at the time of writing (the runtime grows with new Edge releases). See the [WebView2 installation options][webview2-install-options] in the Windows Installer guide for the trade-offs.
 
 On Linux, the bundle format matters: an AppImage bundles your app's shared libraries into the artifact itself, so it is considerably larger than a `.deb` or `.rpm` package of the same app.
 
