@@ -109,7 +109,11 @@ This feature requires `tauri@2.4`, `tauri-build@2.1`, `tauri-plugin@2.1` and `ta
 :::
 
 :::note
-This won't be accounting for dynamically added ACLs at runtime so make sure to check it when using this
+Capabilities added at runtime through the `dynamic-acl` feature (the `add_capability` API) are not visible at build time, so commands they rely on may get removed. Test your app thoroughly when using this
+:::
+
+:::note
+For commands from inlined plugins, add `#![plugin(<plugin_name>)]` inside your `tauri::generate_handler![]` usage so their commands can be tracked
 :::
 
 <details>
