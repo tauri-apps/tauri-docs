@@ -5,12 +5,6 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
-# Single source for versions that must stay aligned between the docs site
-# (repo root) and packages/releases-site — the releases site imports docs-site
-# components, which only works when pnpm dedupes both to one instance.
-catalog:
-  '@astrojs/starlight': 0.41.5
-  astro: 7.1.5
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild

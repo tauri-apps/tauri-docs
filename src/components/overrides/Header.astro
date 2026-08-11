@@ -1,5 +1,5 @@
 ---
-import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+import LanguageSelect from './LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
@@ -11,7 +11,7 @@ const curLocale = Astro.locals.starlightRoute.locale;
 const { topics } = Astro.locals.starlightSidebarTopics;
 ---
 
-<div class="header">
+<div class="header" data-locale={curLocale}>
   <div class="title-wrapper sl-flex">
     <SiteTitle />
   </div>
@@ -20,9 +20,14 @@ const { topics } = Astro.locals.starlightSidebarTopics;
       links.map((link) => {
         const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
         const topic = topics.find((topic) => topic.link === href);
-        const current = topic?.isCurrent;
+        // /release/* is not a topic, so fall back to a path match for it
+        const current = topic?.isCurrent ?? Astro.url.pathname.startsWith(link.value);
         return (
-          <a href={href} class:list={{ 'starlight-sidebar-topics-current': current }}>
+          <a
+            href={href}
+            data-locale-link={link.transfer ? link.value : undefined}
+            class:list={{ 'starlight-sidebar-topics-current': current }}
+          >
             {topic?.label ?? link.title}
           </a>
         );
@@ -40,6 +45,13 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     <ThemeSelect />
   </div>
 </div>
+
+<script>
+  import { recordBrowsedLocale } from '../locale-memory';
+
+  const header = document.querySelector<HTMLElement>('.header[data-locale]');
+  if (header) recordBrowsedLocale(header.dataset.locale ?? '');
+</script>
 
 <style>
   .header {

@@ -1,4 +1,4 @@
-import { createWriteStream, mkdirSync } from 'node:fs';
+import { createWriteStream, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { finished } from 'node:stream/promises';
 import {
@@ -76,10 +76,16 @@ for (const repo of repositories) {
   }
 }
 
-export async function generatePagesAndTableData(packageData: PackageData) {
+/** latestVersions.ts is always written: RepoPackages.astro imports it, so `astro check` needs it even when the pages are skipped */
+export async function generatePagesAndTableData(
+  packageData: PackageData,
+  { pages = true }: { pages?: boolean } = {}
+) {
   const releasesByPackage = buildReleasesByPackage(packageData);
-  await writeTableData(packageData, releasesByPackage);
-  await writePageData(packageData, releasesByPackage);
+  if (pages) {
+    await writeTableData(packageData, releasesByPackage);
+    await writePageData(packageData, releasesByPackage);
+  }
   writeLatestVersions(packageData, releasesByPackage);
 }
 
@@ -102,6 +108,13 @@ async function writePageData(
   packageData: PackageData,
   releasesByPackage: ReleasesByPackage
 ): Promise<void> {
+  // stale pages from renamed or removed packages would otherwise keep shipping
+  for (const entry of readdirSync(contentDir, { withFileTypes: true })) {
+    if (entry.isDirectory() || entry.name.endsWith('.md')) {
+      rmSync(join(contentDir, entry.name), { recursive: true, force: true });
+    }
+  }
+
   const streamFinalizers: Promise<void>[] = [];
 
   for (const packageName of Object.keys(packageData)) {
