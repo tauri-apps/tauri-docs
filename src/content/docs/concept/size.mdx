@@ -86,7 +86,7 @@ For a detailed explanation of each option and a bunch more, refer to the [Cargo 
 
 ## Remove Unused Commands
 
-In Tauri 1 you could reduce the app size by only enabling the Tauri API features you needed via the `allowlist` config. In Tauri 2 the [capability system][capabilities] determines which commands are available, and commands that are never allowed can be stripped from the binary entirely.
+The [capability system][capabilities] determines which commands are available to your app, and commands that are never allowed can be stripped from the binary entirely.
 
 In Pull Request [`feat: add a new option to remove unused commands`][remove-unused-commands-pr], we added in a new option in the tauri config file
 
