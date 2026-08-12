@@ -16,8 +16,7 @@ import { parseAndSortChangelog } from './scripts/parse.ts';
 import {
   getAllVersionsHead,
   renderSeriesHead,
-  renderReleaseHead,
-  renderReleaseNotes,
+  renderRelease,
   writeCorePage,
   writeCorePrereleasesPage,
   writePackageIndex,
@@ -95,7 +94,11 @@ function buildReleasesByPackage(packageData: PackageData): ReleasesByPackage {
     if (!data.changelogs) {
       console.warn(`missing changelog ${packageName}`);
     }
-    const releases = withReleaseDates(parseAndSortChangelog(data.changelogs), data);
+    // escaped once here so no renderer escapes its own copy, which would show the
+    // entities verbatim
+    const releases = escapeReleaseNotes(
+      withReleaseDates(parseAndSortChangelog(data.changelogs), data)
+    );
     if (releases.length === 0) {
       console.warn(`missing releases ${packageName}`);
     }
@@ -123,6 +126,7 @@ async function writePageData(
     mkdirSync(workingDir, { recursive: true });
 
     const releases = releasesByPackage.get(packageName) ?? [];
+    const groups = groupBySeries(releases);
     const config = packageConfigs.get(packageName);
     const changelogUrl = config?.changelogUrl;
 
@@ -131,6 +135,7 @@ async function writePageData(
       description: config?.pkg.description,
       externalLinks: buildExternalLinks(config),
       releases,
+      groups,
       workingDir,
     });
 
@@ -138,15 +143,13 @@ async function writePageData(
 
     allVersionsStream.write(getAllVersionsHead(packageName, changelogUrl));
 
-    for (const group of groupBySeries(releases)) {
+    for (const group of groups) {
       allVersionsStream.write(`\n\n${renderSeriesHead(group.series)}`);
 
       for (const release of group.releases) {
         const { version, notes, dateLabel } = release;
-        const rawMd = escapeChangelogMarkdown(notes);
 
-        const head = renderReleaseHead(3, version, dateLabel);
-        allVersionsStream.write(`\n\n${[head, renderReleaseNotes(rawMd)].join('\n\n')}`);
+        allVersionsStream.write(`\n\n${renderRelease(release)}`);
 
         const releaseUrl = config
           ? buildGitHubReleaseUrl(config.repo, config.pkg, version)
@@ -155,7 +158,7 @@ async function writePageData(
         writeVersionPage({
           packageName,
           version,
-          notes: rawMd,
+          notes,
           releaseDateLabel: dateLabel,
           githubReleaseUrl: releaseUrl,
           workingDir,
@@ -225,6 +228,10 @@ async function writeTableData(
   stream.write(']\n}');
   stream.end();
   await finished(stream);
+}
+
+function escapeReleaseNotes(releases: ReleaseWithDate[]): ReleaseWithDate[] {
+  return releases.map((release) => ({ ...release, notes: escapeChangelogMarkdown(release.notes) }));
 }
 
 function withReleaseDates(releases: Release[], data: PackageData[string]): ReleaseWithDate[] {

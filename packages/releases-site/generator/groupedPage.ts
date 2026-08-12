@@ -19,7 +19,9 @@ export type CoreRelease = {
   entries: CoreEntry[];
 };
 
-export type CoreGroup = { series: string; releases: CoreRelease[] };
+export type SeriesGroup<T> = { series: string; releases: T[] };
+
+export type CoreGroup = SeriesGroup<CoreRelease>;
 
 const CORE_PACKAGES = ['tauri', '@tauri-apps/api', 'tauri-cli', '@tauri-apps/cli'];
 
@@ -53,9 +55,7 @@ export function buildCoreGroups(releasesByPackage: Map<string, ReleaseWithDate[]
 
 /** sorting alone will not group these: `2.0.1-beta.2` ranks between `2.0.1` and `2.0.0`,
  * splitting tauri-bundler's stable 2.0 run in two */
-export function groupBySeries<T extends { version: string }>(
-  releases: T[]
-): { series: string; releases: T[] }[] {
+export function groupBySeries<T extends { version: string }>(releases: T[]): SeriesGroup<T>[] {
   const bySeries = new Map<string, T[]>();
   for (const release of releases) {
     const series = seriesOf(release.version);
