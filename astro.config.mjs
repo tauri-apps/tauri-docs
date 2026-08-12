@@ -380,7 +380,9 @@ export default defineConfig({
           ],
         }),
         starlightLlmsTxt(llmsTxtConfig),
-        lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
+        ...(process.env.CONTEXT === 'deploy-preview'
+          ? []
+          : [lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' })]),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
