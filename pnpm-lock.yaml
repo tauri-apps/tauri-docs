@@ -74,21 +74,9 @@ importers:
       starlight-sidebar-topics:
         specifier: ^0.8.0
         version: 0.8.0(@astrojs/starlight@0.41.7(@astrojs/markdown-remark@7.2.2)(astro@7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))
-      starlight-typedoc:
-        specifier: ^0.23.0
-        version: 0.23.1(@astrojs/starlight@0.41.7(@astrojs/markdown-remark@7.2.2)(astro@7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typedoc-plugin-markdown@4.12.0(typedoc@0.28.20(typescript@5.9.3)))(typedoc@0.28.20(typescript@5.9.3))
       tauri-typedoc:
         specifier: workspace:*
         version: link:packages/tauri-typedoc
-      typedoc:
-        specifier: ^0.28.0
-        version: 0.28.20(typescript@5.9.3)
-      typedoc-plugin-markdown:
-        specifier: ^4.12.0
-        version: 4.12.0(typedoc@0.28.20(typescript@5.9.3))
-      typedoc-plugin-mdn-links:
-        specifier: ^5.1.1
-        version: 5.1.1(typedoc@0.28.20(typescript@5.9.3))
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -9329,14 +9317,6 @@ snapshots:
       typedoc: 0.28.20(typescript@5.5.4)
       typedoc-plugin-markdown: 4.12.0(typedoc@0.28.20(typescript@5.5.4))
 
-  starlight-typedoc@0.23.1(@astrojs/starlight@0.41.7(@astrojs/markdown-remark@7.2.2)(astro@7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typedoc-plugin-markdown@4.12.0(typedoc@0.28.20(typescript@5.9.3)))(typedoc@0.28.20(typescript@5.9.3)):
-    dependencies:
-      '@astrojs/starlight': 0.41.7(@astrojs/markdown-remark@7.2.2)(astro@7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0))(typescript@5.9.3)
-      astro: 7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
-      github-slugger: 2.0.0
-      typedoc: 0.28.20(typescript@5.9.3)
-      typedoc-plugin-markdown: 4.12.0(typedoc@0.28.20(typescript@5.9.3))
-
   stream-replace-string@2.0.0: {}
 
   string-width@7.2.0:
@@ -9530,17 +9510,9 @@ snapshots:
     dependencies:
       typedoc: 0.28.20(typescript@5.5.4)
 
-  typedoc-plugin-markdown@4.12.0(typedoc@0.28.20(typescript@5.9.3)):
-    dependencies:
-      typedoc: 0.28.20(typescript@5.9.3)
-
   typedoc-plugin-mdn-links@5.1.1(typedoc@0.28.20(typescript@5.5.4)):
     dependencies:
       typedoc: 0.28.20(typescript@5.5.4)
-
-  typedoc-plugin-mdn-links@5.1.1(typedoc@0.28.20(typescript@5.9.3)):
-    dependencies:
-      typedoc: 0.28.20(typescript@5.9.3)
 
   typedoc@0.28.20(typescript@5.5.4):
     dependencies:
@@ -9549,15 +9521,6 @@ snapshots:
       markdown-it: 14.3.0
       minimatch: 10.2.5
       typescript: 5.5.4
-      yaml: 2.9.0
-
-  typedoc@0.28.20(typescript@5.9.3):
-    dependencies:
-      '@gerrit0/mini-shiki': 3.23.0
-      lunr: 2.3.9
-      markdown-it: 14.3.0
-      minimatch: 10.2.5
-      typescript: 5.9.3
       yaml: 2.9.0
 
   typesafe-path@0.2.2: {}
