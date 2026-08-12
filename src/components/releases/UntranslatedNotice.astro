@@ -1,0 +1,8 @@
+---
+import ContentNotice from '@astrojs/starlight/components/ContentNotice.astro';
+import { untranslatedLabels } from './untranslated-labels';
+---
+
+<div data-untranslated-labels={untranslatedLabels} hidden>
+  <ContentNotice icon="warning" label="" />
+</div>

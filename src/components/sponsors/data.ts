@@ -1,13 +1,6 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { GITHUB_SPONSORS_FILE, OPEN_COLLECTIVE_FILE } from 'packages/fetch-sponsors/config';
+import githubSponsorsData from '../../data/githubSponsorsData.json';
+import openCollectiveData from '../../data/openCollectiveData.json';
 import type { GitHubSponsor, OpenCollectiveSponsor } from 'packages/fetch-sponsors/types';
-
-function loadDataFile<T>(filePath: string, name: string): T {
-  if (!existsSync(filePath)) {
-    throw new Error(`${name} data file not found.`);
-  }
-  return JSON.parse(readFileSync(filePath, 'utf-8'));
-}
 
 // Avatar URLs point at third-party hosts and can go stale between data syncs.
 async function validateAvatars(
@@ -46,13 +39,13 @@ async function validateAvatars(
 }
 
 async function loadOpenCollectiveSponsors(): Promise<OpenCollectiveSponsor[]> {
-  const sponsors = loadDataFile<OpenCollectiveSponsor[]>(OPEN_COLLECTIVE_FILE, 'Open Collective');
+  const sponsors = openCollectiveData as unknown as OpenCollectiveSponsor[];
   await validateAvatars(sponsors.filter((sponsor) => sponsor.tier !== 'bronze'));
   return sponsors;
 }
 
 async function loadGitHubSponsors(): Promise<GitHubSponsor[]> {
-  const sponsors = loadDataFile<GitHubSponsor[]>(GITHUB_SPONSORS_FILE, 'GitHub sponsors');
+  const sponsors = githubSponsorsData as unknown as GitHubSponsor[];
   await validateAvatars(sponsors);
   return sponsors;
 }

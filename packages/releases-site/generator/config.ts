@@ -1,24 +1,58 @@
+import { execSync } from 'node:child_process';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { Repository, RepoPackage } from './types.ts';
+import { basePath } from './urls.ts';
+
+export { basePath, versionPageHref } from './urls.ts';
 
 export const note =
   '\n#### NOTE: This file is auto-generated in packages/releases-site/generator/build.ts';
 
-// All paths are relative to the package root (scripts run as `node generator/build.ts`)
-export const contentDir = 'src/content/docs';
-export const publicDir = 'public';
-export const generatorDir = 'generator';
+const repoRoot = fileURLToPath(new URL('../../..', import.meta.url));
+export const contentDir = join(repoRoot, 'src/content/releases');
+export const publicDir = join(repoRoot, 'public/release');
+export const generatorDir = fileURLToPath(new URL('.', import.meta.url));
 
-// URL prefix all generated links carry (must match `base` in astro.config.mjs)
-export const basePath = '/release';
+// files that change what /release/* renders. A rename here silently turns
+// preview generation off, so keep this list in sync when moving any of them
+const releasePaths = [
+  'packages/releases-site/',
+  'src/routes/release/',
+  'src/components/releases/',
+  'src/styles/releases.scss',
+  'src/release-config.mjs',
+  'src/routeData.ts',
+  'src/content.config.ts',
+  // the generator needs the Node version pinned there
+  'netlify.toml',
+];
 
-// Slugs of the grouped core-packages changelog pages; the sidebar links in
-// astro.config.mjs are built from them
+function previewTouchesReleases(): boolean {
+  const git = (cmd: string) =>
+    execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  try {
+    git('git fetch --no-tags --depth=1 origin v2');
+    // deploy previews build the PR merged into v2, so the tree diff against the v2 tip is the PR's changes
+    const changed = git('git diff --name-only FETCH_HEAD HEAD').split('\n');
+    return changed.some((file) => releasePaths.some((path) => file.startsWith(path)));
+  } catch (error) {
+    console.warn('Could not diff against origin/v2 - skipping release pages', error);
+    return false;
+  }
+}
+
+/** BUILD_RELEASES=1 to generate locally; not keyed off `CI` — Netlify sets CI=true in every context */
+export function shouldBuildReleases(): boolean {
+  if (process.env.BUILD_RELEASES === '1' || process.env.CONTEXT === 'production') return true;
+  return process.env.CONTEXT === 'deploy-preview' && previewTouchesReleases();
+}
+
 export const corePageSlug = 'core';
 export const corePrereleasesSlug = 'core/prereleases';
 
-export function versionPageHref(packageName: string, version: string): string {
-  return `${basePath}/${packageName}/v${version}/`;
-}
+/** how many minor series a landing page carries in full; older ones stay on its all-versions page */
+export const indexInlineSeriesCount = 6;
 
 export function resolveBranch(repo: Repository): string {
   return repo.branch || 'dev';
@@ -379,3 +413,25 @@ export const repositories = [
     ],
   },
 ] satisfies Repository[];
+
+/** version pages are deliberately not listed — src/routeData.ts highlights the nearest ancestor link instead */
+export const releaseSidebar = [
+  { label: 'Overview', link: `${basePath}/` },
+  { label: 'Changelog Table', link: `${basePath}/table/` },
+  ...repositories.map((repo) => {
+    if (repo.packages.length === 1) {
+      return { label: repo.displayName, link: `${basePath}/${repo.packages[0].name}/` };
+    }
+    const items = repo.packages.map((pkg) => ({
+      label: pkg.name,
+      link: `${basePath}/${pkg.name}/`,
+    }));
+    if (repo.name === 'tauri') {
+      items.unshift(
+        { label: 'Core Releases', link: `${basePath}/${corePageSlug}/` },
+        { label: '2.0 Prereleases', link: `${basePath}/${corePrereleasesSlug}/` }
+      );
+    }
+    return { label: repo.displayName, items };
+  }),
+];

@@ -1,0 +1,88 @@
+---
+title: 環境変数
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+本章は、tauri コア・クレートと tauri CLI で使用されるすべての環境変数に関する付随資料です。
+
+## Tauri CLI
+
+以下の環境変数は CLI への入力値であり、同等の「CLI フラグ」がある場合があります。
+
+:::tip[環境変数の優先度]
+
+「環境変数」と「CLI フラグ」の両方が使用されている場合には、「CLI フラグ」が優先されます。
+
+:::
+
+- `CI` — この設定が行なわれている場合には、CLI は「CI モード」で実行され、ユーザーの操作は必要ありません。
+  <TranslationNote lang="ja">
+    **CI モード** CI mode：　Continuous Integration
+    mode／「継続的インテグレーション」と呼ばれる自動化プロセス
+  </TranslationNote>
+- `TAURI_CLI_CONFIG_DEPTH` — tauri 設定ファイルを見つけるために走査するレベルの深さ（階層数）。
+- `TAURI_CLI_PORT` — CLI 組み込み開発サーバー用に使用するポート。
+- `TAURI_CLI_WATCHER_IGNORE_FILENAME` — `dev` コマンドで CLI が監視するファイルを指定するための `.gitignore` 形式のファイルの名前。CLI は各ディレクトリでこのファイル名を検索します。
+- `TAURI_CLI_NO_DEV_SERVER_WAIT` — tauri アプリケーションをビルドする前の、フロントエンド開発サーバーの起動待ちを省略。
+- `TAURI_LINUX_AYATANA_APPINDICATOR` — この変数を `true` または `1` に設定すると、Linux のシステム・トレイで `libayatana-appindicator` の使用を強制します。
+- `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` — バンドラーの WiX `FipsCompliant` オプションを指定します。
+  <TranslationNote lang="ja">
+    **WiX**：　Windows Installer XML Toolset の略。XML ドキュメントから Windows
+    Installer（MSI）パッケージを作成するためのツールセット。《[Wikipedia](https://ja.wikipedia.org/wiki/WiX)》
+  </TranslationNote>
+- `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR` - tauri バンドラーが使用するファイルとツールをダウンロードするための GitHub ミラー・リポジトリを指定します。
+- `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE` - tauri バンドラーが使用するファイルとツールをダウンロードするための GitHub ミラー・テンプレートを指定します (例: `https://mirror.example.com/<owner>/<repo>/releases/download/<version>/<asset>`)。
+- `TAURI_SKIP_SIDECAR_SIGNATURE_CHECK` - 「サイドカー」の署名確認を省略します。
+- `TAURI_SIGNING_PRIVATE_KEY` — アプリ・バンドルに署名するために使用される「秘密鍵」。「文字列」または「ファイルへのパス」のいずれかになります。
+- `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` — 署名秘密鍵のパスワードについては、上記「TAURI_SIGNING_PRIVATE_KEY」を参照してください。
+- `TAURI_SIGNING_RPM_KEY` — RPM バンドルに署名するために使用される「秘密 GPG 鍵」で、ASCII-armored format（アスキー・アーマード形式）にエクスポートされます。
+  <TranslationNote lang="ja">
+    **RPM**　Red Hat Package Manager **ASCII-armored
+    format**　バイナリデータをテキスト（ASCII
+    文字）に変換するためのフォーマット。「《英》armor 鎧」
+  </TranslationNote>
+- `TAURI_SIGNING_RPM_KEY_PASSPHRASE` — `TAURI_SIGNING_RPM_KEY` の「GPG 鍵パスフレーズ」（必要な場合のみ）。
+- `TAURI_WINDOWS_SIGNTOOL_PATH` — Windows でアプリケーションのコード署名に使用される `signtool.exe` へのパスを指定します。
+- `APPLE_CERTIFICATE` — コード署名用の `.p12` 証明書を Base64 方式でエンコードしたものです。この値を取得するには、`openssl base64 -in MyCertificate.p12 -out MyCertificate-base64.txt` を実行してください。
+- `APPLE_CERTIFICATE_PASSWORD` — 証明書をエクスポートするために使用したパスワードです。
+- `APPLE_ID` — アプリケーションの認証に使用される Apple ID です。この環境変数を指定する場合には、`APPLE_PASSWORD` と `APPLE_TEAM_ID` も設定する必要があります。あるいは、`APPLE_API_KEY` と `APPLE_API_ISSUER` を使用して認証することも可能です。
+- `APPLE_PASSWORD` — アプリケーションの公証の認証に使用される 「Apple パスワード」です。`APPLE_ID` が指定されている場合は必須です。[アプリ固有のパスワード／app-specific password](https://support.apple.com/ja-jp/HT204397)も使用できます。パスワードをプレーンテキストで入力する代わりに、「@keychain:」または「@env:」のプレフィックスに続けて「キーチェーン・パスワード項目名」または「環境変数名」でも指定できます。
+- `APPLE_TEAM_ID`: 「開発者チーム ID」のことです。チーム ID を確認するには、Apple Developer Web サイトの [アカウント](https://developer.apple.com/account) ページにアクセスし、メンバーシップの詳細を確認してください。
+- `APPLE_API_KEY` — JWT（JSON Web Token）を使用した公証認証で、「`APPLE_ID`」と「`APPLE_PASSWORD`」の代わりに使用するものです。iOS 証明書とプロビジョニング・プロファイル管理の自動化も可能です。
+  - 詳細については、[API キーの作成／creating API keys](https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api) を参照してください。
+- `API_PRIVATE_KEYS_DIR` — 「認証鍵ファイル」（AuthKey）が保存されているディレクトリを指定します。`APPLE_API_KEY` の項を参照してください。
+- `APPLE_API_ISSUER` — 「発行者 ID」のことです。`APPLE_API_KEY` が指定されている場合には必須です。
+- `APPLE_API_KEY_PATH` - 「APIキー `.p8` ファイル」へのパスです。この値が指定されていない場合、macOS アプリでは、バンドラーが以下のディレクトリ内で「AuthKey\_\<api_key>.p8」という名前の秘密鍵ファイルを順に検索します： 「./private_keys」、「~/private_keys」、「~/.private_keys」、「~/.appstoreconnect/private_keys」。**iOSの場合、この変数は必須です**。
+- `APPLE_SIGNING_IDENTITY` — コード署名に使用する ID で、`tauri.conf.json > bundle > macOS > signingIdentity` を上書きします。どちらも設定されていない場合は、`APPLE_CERTIFICATE` に値が指定されていれば、そこから推測されます。
+- `APPLE_PROVIDER_SHORT_NAME` — あなたの Apple ID が複数のチームと接続されている場合には、あなたのアプリの認証に使用するチームの「プロバイダー・ショートネーム」を指定する必要があります。この値は `tauri.conf.json > bundle > macOS > providerShortName` の値を上書きします。
+- `APPLE_DEVELOPMENT_TEAM` — iOS でコード署名に使用する「チーム ID」で、`tauri.conf.json > bundle > iOS > developmentTeam` を上書きします。この値は https://developer.apple.com/account#MembershipDetailsCard で確認できます。
+- `TAURI_WEBVIEW_AUTOMATION` — Webview 自動化を有効にします (Linux のみ)。
+- `TAURI_ANDROID_PROJECT_PATH` — tauri android プロジェクトのパスで、通常は `<project>/src-tauri/gen/android` になります。
+- `TAURI_IOS_PROJECT_PATH` — tauri iOS プロジェクトのパスで、通常は `<project>/src-tauri/gen/ios` になります。
+
+## Tauri CLI フック・コマンド
+
+以下の環境変数は、各フック・コマンド （`beforeDevCommand`、`beforeBuildCommand` …など）に対して設定され、条件付きでフロントエンドをビルドしたり、特定のアクションを実行したりするのに役立ちます。
+
+- `TAURI_ENV_DEBUG` — `dev` コマンドまたは `build --debug` の場合には `true`、それ以外の場合は `false`。
+- `TAURI_ENV_TARGET_TRIPLE` — CLI がビルド対象としているプラットフォーム（Target triple）。
+
+  <TranslationNote lang="ja">
+    **Target Triple**
+    ターゲット・トリプル：　プログラムが実行の対象（target）としているプラットフォームを指し、三つ（triple）の項目（主に「CPU
+    アーキテクチャー（ARCH）」「CPU メーカー（Vendor）」「システム OS
+    名（sys）」）で指定します。例： `aarch64-apple-darwin`。以下の各項も参照。
+  </TranslationNote>
+
+- `TAURI_ENV_ARCH` — 対象となる「CPU アーキテクチャ」のこと。`x86_64`、`aarch64`、… など。
+- `TAURI_ENV_PLATFORM` — 対象となる「OS プラットフォーム」のこと。`windows`、`darwin`、`linux`、… など。
+- `TAURI_ENV_PLATFORM_VERSION` — 対象となるプラットフォームのバージョン。
+- `TAURI_ENV_FAMILY` — 対象のプラットフォーム・ファミリー名： `unix` または `windows`。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Jan 30, 2026 英語版」に基づいています】
+</div>

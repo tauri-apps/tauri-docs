@@ -1,0 +1,44 @@
+---
+title: コマンド・ライン・インターフェース
+sidebar:
+  order: 1
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
+
+<TranslationNote lang="ja">
+
+**コマンド・リスト部の英語表記について**　コマンド・ライン・インターフェース の章は、原文データからページ内容が自動生成されているため、英語表記のままになっています。
+
+</TranslationNote>
+
+Tauri コマンド・ライン・インターフェース (CLI) は、開発期間全体に亙って Tauri と間でやり取りを行なうための手段です。
+
+利用しているパッケージ・マネージャーを使用して、現在のプロジェクトに Tauri CLI を追加できます。
+
+<CommandTabs
+  npm="npm install --save-dev @tauri-apps/cli@latest"
+  yarn="yarn add -D @tauri-apps/cli@latest"
+  pnpm="pnpm add -D @tauri-apps/cli@latest"
+  deno="deno add -D npm:@tauri-apps/cli@latest"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked'
+/>
+
+:::tip[プラグインの開発]
+
+プラグインの開発に関連する CLI コマンドについては、「[Tauri プラグインの開発](/ja/develop/plugins/)」ガイドをご覧ください。
+
+:::
+
+## コマンド・リスト
+
+$LIST_OF_COMMANDS
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Aug 12, 2024 英語版」に基づいています】
+</div>

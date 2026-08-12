@@ -76,9 +76,7 @@ jobs:
           git config --global user.email "tauri-bot@tauri.app"
 
       # Only data.json is committed — pages, tableData.json and latestVersions.ts
-      # are regenerated from it at build time by the releases Netlify site.
-      # Merging this PR only triggers the releases site build (the docs site
-      # build is skipped by the ignore rule in the repo root netlify.toml).
+      # are regenerated from it by the docs site's production build.
       # Bot PAT + automerge, same flow as syncSponsorsData.yml (a PAT-created
       # PR also triggers CI checks, which GITHUB_TOKEN-created PRs don't).
       - name: Open release refresh PR
@@ -89,7 +87,7 @@ jobs:
           commit-message: 'chore: refresh release data'
           title: 'chore: refresh release data'
           body: |
-            Automated release data refresh for the releases site.
+            Automated release data refresh for the release pages.
           branch: ci/v2/refresh-release-data
           delete-branch: true
           labels: 'bot'

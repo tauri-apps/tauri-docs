@@ -1,8 +1,8 @@
 ---
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
-import { repositories } from '../../generator/config';
-import { latestVersions } from '../../generator/generated/latestVersions';
-import { buildHomeSummaryRepos } from '../../generator/uiData';
+import { repositories } from '../../../packages/releases-site/generator/config';
+import { latestVersions } from '../../../packages/releases-site/generator/generated/latestVersions';
+import { buildHomeSummaryRepos } from '../../../packages/releases-site/generator/uiData';
 
 interface Props {
   name: string;

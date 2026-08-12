@@ -10,7 +10,7 @@
     "test": "node --test normalize.test.mjs"
   },
   "dependencies": {
-    "@astrojs/starlight": "catalog:",
+    "@astrojs/starlight": "0.41.7",
     "starlight-typedoc": "^0.23.0",
     "typedoc": "^0.28.0",
     "typedoc-plugin-frontmatter": "^1.3.1",

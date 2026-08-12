@@ -1,20 +1,17 @@
-import { releaseDateFormat } from '../../generator/dateFormat';
-import type { TableData, TableMetadata } from '../../generator/types';
+import { releaseDateFormat } from '../../../packages/releases-site/generator/dateFormat';
+import type { TableData, TableMetadata } from '../../../packages/releases-site/generator/types';
+import { basePath, versionPageHref } from '../../../packages/releases-site/generator/urls';
 
 interface ReleaseDataPayload {
   tableMetadata: TableMetadata;
   tableData: TableData[];
 }
 
-const base = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
-
 let releaseDataPromise: Promise<ReleaseDataPayload> | null = null;
 
 function loadReleaseData(): Promise<ReleaseDataPayload> {
   if (!releaseDataPromise) {
-    releaseDataPromise = fetch(`${base}tableData.json`)
+    releaseDataPromise = fetch(`${basePath}/tableData.json`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to load release data: ${response.statusText}`);
@@ -302,7 +299,7 @@ class ReleasesTable extends HTMLElement {
     }
     versionTd.append(version);
 
-    const pageUrl = `${base}${row.name}/v${row.version}/`;
+    const pageUrl = versionPageHref(row.name, row.version);
 
     const changelogTd = document.createElement('td');
     const seeMore = document.createElement('a');

@@ -5,10 +5,6 @@ packages:
   - packages/compatibility-table
   - packages/fetch-sponsors
   - packages/tauri-typedoc
-# Single source for versions that must stay aligned across the workspace
-catalog:
-  '@astrojs/starlight': 0.41.5
-  astro: 7.1.5
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild

@@ -46,8 +46,7 @@
 /plugin/system-tray             /learn/system-tray              301
 /plugin/window-customization    /learn/window-customization     301
 
-# Releases site (separate Netlify site, proxied below).
-# The releases site is English-only: locale-prefixed URLs redirect to the root ones.
+# Release pages are English-only: locale-prefixed URLs redirect to the root ones.
 # (/ko and /it are already covered by the decommissioned-locale rules above.)
 /fr/release/*      /release/:splat   301
 /es/release/*      /release/:splat   301
@@ -59,12 +58,3 @@
 /release/api/*      /release/@tauri-apps/api/:splat   301
 /release/rust-cli/* /release/tauri-cli/:splat         301
 /release/js-cli/*   /release/@tauri-apps/cli/:splat   301
-
-# Proxy the releases site. The target site serves the build output at its root,
-# so the /release prefix is stripped by :splat.
-# The target is the `tauri-releases` Netlify site — setup steps in
-# packages/releases-site/README.md.
-# NOTE: no `/release → /release/` slash rule here — Netlify matching treats
-# them as the same path, so such a rule matches `/release/` too and loops.
-# Bare /release is caught by the splat rule below (empty splat → site root).
-/release/*    https://tauri-releases.netlify.app/:splat         200

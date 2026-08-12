@@ -2,47 +2,51 @@
 import Default from 'starlight-sidebar-topics/overrides/Sidebar.astro';
 
 import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import StarlightSidebar from '@astrojs/starlight/components/Sidebar.astro';
 import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
+import { isReleasePage } from '../../release-config.mjs';
 import links from '../../data/header-links.json';
 
 const curLocale = Astro.locals.starlightRoute.locale;
 const { sidebar } = Astro.locals.starlightRoute;
 const { isPageWithTopic, topics } = Astro.locals.starlightSidebarTopics;
+
+// release pages: no topic, own sidebar; highlighting happens in src/routeData.ts
+const isRelease = isReleasePage(Astro.url.pathname);
+
+const headerLinks = links.map((link) => {
+  const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
+  const topic = topics.find((topic) => topic.link === href);
+  return {
+    type: 'link' as const,
+    label: topic?.label ?? link.title,
+    href,
+    isCurrent: false,
+    badge: topic?.badge,
+    attrs: topic?.attrs ?? {},
+  };
+});
 ---
 
 {
-  sidebar && isPageWithTopic ? (
+  isRelease ? (
+    <>
+      {/* below 50rem the header nav is hidden — without these the docs are unreachable */}
+      <div class="md:sl-hidden">
+        <SidebarSublist sublist={headerLinks} />
+      </div>
+      <StarlightSidebar />
+    </>
+  ) : sidebar && isPageWithTopic ? (
     <Default>
       <slot />
     </Default>
   ) : (
     <>
       <SidebarPersister>
-        <SidebarSublist
-          sublist={links.map((link) => {
-            const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
-            const topic = topics.find((topic) => topic.link === href);
-            return topic
-              ? {
-                  type: 'link',
-                  label: topic.label,
-                  href: topic.link,
-                  isCurrent: false,
-                  badge: topic.badge,
-                  attrs: topic.attrs ?? {},
-                }
-              : {
-                  type: 'link',
-                  label: link.title,
-                  href,
-                  isCurrent: false,
-                  badge: undefined,
-                  attrs: {},
-                };
-          })}
-        />
+        <SidebarSublist sublist={headerLinks} />
       </SidebarPersister>
 
       <div class="md:sl-hidden">
