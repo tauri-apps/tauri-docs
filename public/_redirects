@@ -42,6 +42,9 @@
 /features                   /plugin                             301
 /start/upgrade--migrate     /start/migrate                      301
 
+/develop/window-customization   /learn/window-customization   301
+/develop/debug/tests/*          /develop/tests/:splat         301
+
 # mid v2 docs restructuring
 /plugin/system-tray             /learn/system-tray              301
 /plugin/window-customization    /learn/window-customization     301
@@ -58,3 +61,25 @@
 /release/api/*      /release/@tauri-apps/api/:splat   301
 /release/rust-cli/* /release/tauri-cli/:splat         301
 /release/js-cli/*   /release/@tauri-apps/cli/:splat   301
+
+/blog/atom.xml   /blog/rss.xml       301
+/sitemap.xml     /sitemap-index.xml  301
+/zh/*   /zh-cn/:splat   301
+/img/social.png   /og.png   301
+
+# docusaurus-era site structure; deep /docs/* paths don't map to current pages
+/docs             /start/   301
+/docs/*           /start/   301
+
+# favicon variants
+/favicon.png                        /favicon.ico            301
+/img/favicon.ico                    /favicon.ico            301
+/images/favicon.ico                 /favicon.ico            301
+/assets/favicon.ico                 /favicon.ico            301
+/static/favicon.ico                 /favicon.ico            301
+/icon/favicon.ico                   /favicon.ico            301
+/meta/favicon-32x32.png             /favicon.ico            301
+/meta/favicon-96x96.png             /favicon.ico            301
+/meta/favicon-apple-touch-icon.png  /apple-touch-icon.png   301
+/meta/manifest.json                 /manifest.json          301
+/apple-touch-icon-precomposed.png   /apple-touch-icon.png   301
