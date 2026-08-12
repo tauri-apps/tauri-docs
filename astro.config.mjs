@@ -603,6 +603,8 @@ export default defineConfig({
     ...i18nRedirect('/v1/reference/configuration-files', '/reference/configuration-files'),
     ...i18nRedirect('/v1/reference/webview-versions', '/reference/webview-versions'),
 
+    ...i18nRedirect('/develop/window-customization', '/learn/window-customization/'),
+
     // Decommissioned locales -> refer to /public/_redirects file
     // '/ko/[...slug]': '/[...slug]',
     // '/it/[...slug]': '/[...slug]',

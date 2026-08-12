@@ -42,8 +42,12 @@
 /features                   /plugin                             301
 /start/upgrade--migrate     /start/migrate                      301
 
-/develop/window-customization   /learn/window-customization   301
-/develop/debug/tests/*          /develop/tests/:splat         301
+/develop/debug/tests/*        /develop/tests/:splat         301
+/fr/develop/debug/tests/*     /fr/develop/tests/:splat      301
+/es/develop/debug/tests/*     /es/develop/tests/:splat      301
+/zh-cn/develop/debug/tests/*  /zh-cn/develop/tests/:splat   301
+/ja/develop/debug/tests/*     /ja/develop/tests/:splat      301
+/de/develop/debug/tests/*     /de/develop/tests/:splat      301
 
 # mid v2 docs restructuring
 /plugin/system-tray             /learn/system-tray              301
