@@ -1,0 +1,36 @@
+---
+// the default picker links to /{locale}/release/* URLs that public/_redirects
+// bounces straight back here; this one records the choice instead
+import Select from '@astrojs/starlight/components/Select.astro';
+import locales from '../../../locales.json';
+
+const options = Object.entries(locales).map(([code, locale]) => ({
+  value: code === 'root' ? '' : code,
+  label: locale.label,
+  selected: code === 'root',
+}));
+---
+
+<tauri-release-lang-select>
+  <Select
+    icon="translate"
+    label={Astro.locals.t('languageSelect.accessibleLabel')}
+    options={options}
+    width="7em"
+  />
+</tauri-release-lang-select>
+
+<script>
+  import { recordPickedLocale } from '../locale-memory';
+  import { applyReleaseLocale } from './release-locale';
+
+  for (const select of document.querySelectorAll<HTMLSelectElement>(
+    'tauri-release-lang-select select'
+  )) {
+    select.addEventListener('change', (event) => {
+      const { value } = event.currentTarget as HTMLSelectElement;
+      recordPickedLocale(value);
+      applyReleaseLocale(value);
+    });
+  }
+</script>

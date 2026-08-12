@@ -1,11 +1,23 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { basePath, corePageSlug, corePrereleasesSlug, note, versionPageHref } from '../config.ts';
-import { demoteNotesHeadings, type CoreGroup, type CoreRelease } from '../groupedPage.ts';
-import { escapeChangelogMarkdown } from '../utils.ts';
+import {
+  basePath,
+  corePageSlug,
+  corePrereleasesSlug,
+  indexInlineSeriesCount,
+  note,
+  versionPageHref,
+} from '../config.ts';
+import {
+  demoteNotesHeadings,
+  type CoreGroup,
+  type CoreRelease,
+  type SeriesGroup,
+} from '../groupedPage.ts';
 
-export type VersionListEntry = {
+export type IndexRelease = {
   version: string;
+  notes: string;
   dateLabel?: string;
 };
 
@@ -71,6 +83,10 @@ export function renderSeriesHead(series: string): string {
 /** changelog categories are `###`; demoting them to h5 here is what custom.scss targets */
 export function renderReleaseNotes(notes: string): string {
   return ['<div class="release-notes">', demoteNotesHeadings(notes, 2), '</div>'].join('\n\n');
+}
+
+export function renderRelease({ version, notes, dateLabel }: IndexRelease): string {
+  return [renderReleaseHead(3, version, dateLabel), renderReleaseNotes(notes)].join('\n\n');
 }
 
 /**
@@ -146,11 +162,9 @@ function renderCoreRelease(release: CoreRelease): string {
   const head = renderReleaseHead(3, release.version, release.dateLabel);
 
   const bodies = release.entries.map((entry) => {
-    const notes = escapeChangelogMarkdown(entry.notes);
     // repeats the heading above, but earns a unique anchor id; styled back out of the way
     const heading = `#### ${entry.pkgLabel} <small class="package-version">${entry.version}</small>`;
-    // blank lines keep the markdown between the tags parsed as markdown
-    return ['<div class="package-block">', heading, renderReleaseNotes(notes), '</div>'].join(
+    return ['<div class="package-block">', heading, renderReleaseNotes(entry.notes), '</div>'].join(
       '\n\n'
     );
   });
@@ -235,28 +249,49 @@ function writeGroupedPage(params: {
   writeFileSync(file, content);
 }
 
-/**
- * write the per-package landing page listing all versions
- */
+/** the newest series, wrapped out of the search index because landing pages are the
+ * only release pages pagefind indexes and a package should be found by its name,
+ * not by a changelog line */
+function renderInlineChangelog(groups: SeriesGroup<IndexRelease>[]): string {
+  const sections = groups
+    .slice(0, indexInlineSeriesCount)
+    .flatMap((group) => [renderSeriesHead(group.series), ...group.releases.map(renderRelease)]);
+
+  if (sections.length === 0) {
+    return '';
+  }
+
+  return ['<div data-pagefind-ignore>', ...sections, '</div>'].join('\n\n');
+}
+
 export function writePackageIndex(params: {
   packageName: string;
   description?: string;
   externalLinks: PageLink[];
-  releases: VersionListEntry[];
+  releases: IndexRelease[];
+  groups: SeriesGroup<IndexRelease>[];
   workingDir: string;
 }): void {
-  const { packageName, description, externalLinks, releases, workingDir } = params;
+  const { packageName, description, externalLinks, releases, groups, workingDir } = params;
 
   const frontmatter = frontmatterBlock([
     `title: ${yaml(packageName)}`,
     `description: ${yaml(description ?? `${packageName} releases`)}`,
     `slug: ${yaml(packageName)}`,
+    'tableOfContents:',
+    '  minHeadingLevel: 2',
+    '  maxHeadingLevel: 3',
     'editUrl: false',
     'prev: false',
     'next: false',
   ]);
 
-  const header = renderPageLinks(externalLinks);
+  const allVersionsHref = `${basePath}/${packageName}/all-versions/`;
+
+  const header = renderPageLinks([
+    ...externalLinks,
+    { label: 'Full changelog', href: allVersionsHref, align: 'end' },
+  ]);
 
   const versionList = releases
     .map(({ version, dateLabel }) => {
@@ -269,8 +304,10 @@ export function writePackageIndex(params: {
     frontmatter,
     header,
     ...(description ? [description] : []),
-    `[Full changelog](${basePath}/${packageName}/all-versions/)`,
-    '## Versions',
+    renderInlineChangelog(groups),
+    '## Full Changelog',
+    `[${packageName} full changelog](${allVersionsHref})`,
+    '## Version List',
     versionList,
   ]
     .filter(Boolean)

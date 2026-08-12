@@ -1345,6 +1345,17 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Marek Stapff",
+    "id": "Marek Stapff",
+    "avatarUrl": "https://images.opencollective.com/marek-stapff/d820a55/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/marek-stapff",
+    "socialLinks": {
+      "website": "https://www.marek-stapff.de/"
+    },
+    "tier": "bronze",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Tom",
     "id": "Tom",
     "avatarUrl": "https://images.opencollective.com/guest-b7b90c7e/avatar/256.jpg",
@@ -1791,6 +1802,15 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Waypad",
+    "id": "Waypad",
+    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/waypad",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   },
   {
     "name": "Oscar Lito M Pablo",
