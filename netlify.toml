@@ -3,7 +3,7 @@ TAURI_DOCS_SKIP_IMAGE_OPT = "true"
 
 [build]
 # Netlify clones shallow; Lunaria needs full git history to see files added in PRs
-command = "git fetch --unshallow origin && pnpm build"
+command = "if [ -f .git/shallow ]; then git fetch --unshallow origin; fi && pnpm build"
 
 [build.environment]
 NODE_VERSION = "24"
