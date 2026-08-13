@@ -1,0 +1,77 @@
+---
+import { Code } from '@astrojs/starlight/components';
+import { getStep } from './manifests';
+
+interface Props {
+  /** tutorial id matching `src/data/tutorials/<id>.manifest.json` */
+  tutorial: string;
+  /** step id inside that tutorial's manifest */
+  step: string;
+}
+
+const { tutorial, step } = Astro.props;
+// throws on unknown tutorial/step, failing the build, because drift between
+// prose and manifest is exactly what this component exists to catch
+const record = getStep(tutorial, step);
+
+// Shiki resolves extensions and aliases (`rs` → rust) natively; site-wide
+// remaps belong in `shiki.langAlias` in astro.config.mjs
+function langOf(file: string): string {
+  return file.split('.').pop() ?? 'txt';
+}
+
+type Block =
+  | { kind: 'diff'; code: string; lang: string; title?: string }
+  | { kind: 'file'; code: string; lang: string; title: string }
+  | { kind: 'command'; code: string };
+
+// Expressive Code applies diff-like rendering (marker stripping, ins/del
+// backgrounds, `lang` meta highlighting) only when the block is not a full
+// unified diff, so the `---`/`+++`/`@@` lines the runner records are dropped.
+// One block per hunk, because joining hunks silently glues disjoint regions.
+function diffBlocks(file: string, diff: string): Block[] {
+  const lang = langOf(file);
+  // the runner records created files as a "new file: <path>" line plus
+  // all-added lines; render them as a plain full-file block
+  if (diff.startsWith('new file: ')) {
+    const code = diff
+      .split('\n')
+      .slice(1)
+      .map((line) => line.replace(/^\+/, ''))
+      .join('\n');
+    return [{ kind: 'file', code, lang, title: file }];
+  }
+  const hunks: string[][] = [[]];
+  for (const line of diff.split('\n')) {
+    if (/^(--- |\+\+\+ |\\)/.test(line)) continue;
+    if (line.startsWith('@@')) {
+      if (hunks[hunks.length - 1].some((l) => l !== '')) hunks.push([]);
+      continue;
+    }
+    hunks[hunks.length - 1].push(line);
+  }
+  return hunks
+    .filter((h) => h.some((l) => l !== ''))
+    .map((h, i) => ({ kind: 'diff', code: h.join('\n'), lang, title: i === 0 ? file : undefined }));
+}
+
+const blocks = record.mutations.flatMap((m): Block[] => {
+  if (m.file && m.diff) return diffBlocks(m.file, m.diff);
+  if (m.command) return [{ kind: 'command', code: m.command }];
+  return [];
+});
+---
+
+<slot />
+
+{
+  blocks.map((b) =>
+    b.kind === 'command' ? (
+      <Code code={b.code} lang="sh" frame="none" />
+    ) : b.kind === 'file' ? (
+      <Code code={b.code} lang={b.lang} title={b.title} />
+    ) : (
+      <Code code={b.code} lang="diff" meta={`lang="${b.lang}"`} title={b.title} />
+    )
+  )
+}
