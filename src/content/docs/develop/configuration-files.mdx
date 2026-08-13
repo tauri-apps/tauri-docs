@@ -90,13 +90,22 @@ In addition to the default configuration file, Tauri can read a platform-specifi
 
 The platform-specific configuration file gets merged with the main configuration object following the [JSON Merge Patch (RFC 7396)] specification.
 
+:::note
+Objects are merged key by key, but arrays are replaced as a whole, including arrays nested in objects.
+In the example below `bundle` is merged, while `bundle.resources` is replaced.
+This also applies to `app.windows`, even though its entries are objects: a platform-specific entry
+replaces the base entry instead of being merged into it, so any field you omit falls back to its default
+rather than the value in your base configuration.
+Repeat every field you want to keep.
+:::
+
 For example, given the following base `tauri.conf.json`:
 
 ```json title=tauri.conf.json
 {
   "productName": "MyApp",
   "bundle": {
-    "resources": ["./resources"]
+    "resources": ["./resources", "./shared-assets"]
   },
   "plugins": {
     "deep-link": {}
