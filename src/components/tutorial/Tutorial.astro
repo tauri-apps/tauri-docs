@@ -1,0 +1,74 @@
+---
+import TutorialStep from './TutorialStep.astro';
+import { getTutorial } from './manifests';
+import locales from '../../../locales.json';
+
+interface Props {
+  /** tutorial id matching `src/data/tutorials/<id>.manifest.json` */
+  id: string;
+}
+
+const { id } = Astro.props;
+// throws on unknown id, failing the build
+const manifest = getTutorial(id);
+const stepIds = manifest.steps.map((s) => s.id);
+
+// Steps render in manifest order, one prose slot per step id, plus an
+// optional `<id>-after` slot for prose that belongs below the step's code.
+// Slot names are enumerable own properties of Astro.slots (astro
+// core/render/slots.js defines one per provided slot), so a typo'd name is
+// detectable here instead of silently dropping its prose.
+const provided = Object.keys(Astro.slots).filter((n) => n !== 'default');
+
+const problems: string[] = [];
+for (const name of provided) {
+  if (!stepIds.includes(name.replace(/-after$/, ''))) {
+    problems.push(`unknown slot "${name}" (steps: ${stepIds.join(', ')})`);
+  }
+}
+for (const stepId of stepIds) {
+  if (!Astro.slots.has(stepId)) {
+    problems.push(`step "${stepId}" has no prose slot`);
+  }
+}
+// prose placed directly inside <Tutorial> lands in the default slot and
+// would otherwise vanish; MDX always passes whitespace children, hence trim
+if (((await Astro.slots.render('default')) ?? '').trim()) {
+  problems.push('prose outside a step slot: wrap it in <Fragment slot="<step id>">');
+}
+
+// translated copies lag behind the manifest by design (Lunaria tracks the
+// gap), so under a locale prefix problems warn instead of failing the build
+const localePrefix = Astro.url.pathname.split('/').filter(Boolean)[0] ?? '';
+const isTranslation = localePrefix !== 'root' && localePrefix in locales;
+
+if (problems.length) {
+  const message = `tutorial "${id}" on ${Astro.url.pathname}: ${problems.join('; ')}`;
+  if (isTranslation) {
+    console.warn(`warn: ${message}`);
+  } else {
+    throw new Error(message);
+  }
+}
+
+const steps = await Promise.all(
+  stepIds.map(async (stepId) => ({
+    id: stepId,
+    prose: Astro.slots.has(stepId) ? await Astro.slots.render(stepId) : undefined,
+    after: Astro.slots.has(`${stepId}-after`)
+      ? await Astro.slots.render(`${stepId}-after`)
+      : undefined,
+  }))
+);
+---
+
+{
+  steps.map((s) => (
+    <>
+      <TutorialStep tutorial={id} step={s.id}>
+        {s.prose !== undefined && <Fragment set:html={s.prose} />}
+      </TutorialStep>
+      {s.after !== undefined && <Fragment set:html={s.after} />}
+    </>
+  ))
+}

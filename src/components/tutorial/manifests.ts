@@ -27,13 +27,18 @@ for (const mod of Object.values(files)) {
   manifests.set(mod.default.id, mod.default);
 }
 
-export function getStep(tutorial: string, step: string): TutorialStepRecord {
+export function getTutorial(tutorial: string): TutorialManifest {
   const manifest = manifests.get(tutorial);
   if (!manifest) {
     throw new Error(
       `unknown tutorial "${tutorial}": no src/data/tutorials/${tutorial}.manifest.json (known: ${[...manifests.keys()].join(', ') || 'none'})`
     );
   }
+  return manifest;
+}
+
+export function getStep(tutorial: string, step: string): TutorialStepRecord {
+  const manifest = getTutorial(tutorial);
   const record = manifest.steps.find((s) => s.id === step);
   if (!record) {
     throw new Error(

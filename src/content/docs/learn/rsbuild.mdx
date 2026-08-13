@@ -7,7 +7,7 @@ sidebar:
     variant: tip
 ---
 
-import TutorialStep from '@components/tutorial/TutorialStep.astro';
+import Tutorial from '@components/tutorial/Tutorial.astro';
 
 [Rspack](https://rspack.rs/guide/start/introduction) is a drop-in
 replacement for webpack with much higher performance and more powerful
@@ -15,6 +15,10 @@ features. [Rsbuild](https://rsbuild.rs/guide/start/) is a build tool powered
 by Rspack offering a more streamlined developer experience. In this lab
 we'll take the `create-tauri-app` vanilla TypeScript scaffold, which ships
 with Vite, and migrate it to Rsbuild without breaking the app's IPC.
+
+<Tutorial id="rsbuild">
+
+<Fragment slot="switch-to-rsbuild">
 
 ## Swap Vite for Rsbuild
 
@@ -25,10 +29,16 @@ bundle script in place of the hardcoded Vite tags. The stylesheet moves with
 it: the `<link>` leaves `index.html` and `src/main.ts` imports `styles.css`
 instead.
 
-<TutorialStep tutorial="rsbuild" step="switch-to-rsbuild" />
+</Fragment>
+
+<Fragment slot="switch-to-rsbuild-after">
 
 The `TAURI_DEV_HOST` handling in the config keeps the development server
 reachable when running on iOS physical devices.
+
+</Fragment>
+
+<Fragment slot="wire-tauri-config">
 
 ## Point Tauri at the Dev Server
 
@@ -38,7 +48,9 @@ folder. The scaffold's hooks already run the right scripts (`pnpm dev`,
 expects Vite's port 1420 instead of Rsbuild's default 3000, so the port is
 the only change:
 
-<TutorialStep tutorial="rsbuild" step="wire-tauri-config" />
+</Fragment>
+
+</Tutorial>
 
 Refer to the [Rsbuild documentation](https://rsbuild.rs/config/) for the
 full configuration surface. For other build tools and frameworks, see

@@ -1,7 +1,10 @@
-// Verifies that every page using <TutorialStep> agrees with the committed
-// tutorial manifests (src/data/tutorials/*.manifest.json): referenced steps
+// Verifies that every page using <TutorialStep> or a <Tutorial> wrapper
+// agrees with the committed tutorial manifests
+// (src/data/tutorials/*.manifest.json). For <TutorialStep>: referenced steps
 // exist, every step of a referenced tutorial is present, and they appear in
-// manifest order. Default-locale pages hard-fail; translated copies only warn,
+// manifest order. For <Tutorial>: the wrapper renders every step in manifest
+// order itself, so the page-side check reduces to slot names agreeing with
+// the step ids. Default-locale pages hard-fail; translated copies only warn,
 // because translation lag is expected and surfaced by Lunaria. The site build
 // still fails on any page that references an unknown tutorial or step, so the
 // leniency here only covers completeness and order.
@@ -50,11 +53,41 @@ for (const entry of fs.readdirSync(docsDir, { recursive: true })) {
     }
     refs.push({ tutorial, step });
   }
+  const wrapperIds = [];
+  for (const tag of text.matchAll(/<Tutorial\b[^>]*>/g)) {
+    const id = tag[0].match(/id="([^"]+)"/)?.[1];
+    if (!id) {
+      report.push(`${rel}: <Tutorial> without an id= prop`);
+      continue;
+    }
+    wrapperIds.push(id);
+  }
+  for (const id of wrapperIds) {
+    referenced.add(id);
+    if (!manifests.has(id)) report.push(`${rel}: references unknown tutorial "${id}"`);
+  }
+  // with several wrappers on one page, slot names cannot be attributed to a
+  // tutorial without real JSX parsing; Tutorial.astro still checks at build time
+  if (wrapperIds.length === 1 && manifests.has(wrapperIds[0])) {
+    const order = manifests.get(wrapperIds[0]).steps.map((s) => s.id);
+    const slots = [...text.matchAll(/slot="([^"]+)"/g)].map((m) => m[1]);
+    for (const name of slots) {
+      if (!order.includes(name.replace(/-after$/, ''))) {
+        report.push(`${rel}: tutorial "${wrapperIds[0]}" has no step for slot "${name}"`);
+      }
+    }
+    for (const id of order) {
+      if (!slots.includes(id)) {
+        report.push(`${rel}: step "${id}" of "${wrapperIds[0]}" has no prose slot`);
+      }
+    }
+  }
+
   if (!refs.length) {
     // a tag Prettier wrapped across lines is invisible to the regex above;
     // an import with zero matches is the tell
-    if (/import\s+TutorialStep\b/.test(text)) {
-      report.push(`${rel}: imports TutorialStep but no single-line <TutorialStep> tag matched`);
+    if (!wrapperIds.length && /import\s+Tutorial(Step)?\b/.test(text)) {
+      report.push(`${rel}: imports the tutorial components but no single-line tag matched`);
     }
     continue;
   }
