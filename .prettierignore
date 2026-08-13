@@ -8,6 +8,9 @@
 # Generated reference docs
 src/content/docs/reference
 
+# Emitted by `tatu schema --emit-ts` in the tutorial runner
+src/components/tutorial/manifest-types.generated.ts
+
 # Release notes: generated content and the committed data checkpoint
 src/content/releases/**
 # TODO: Prettier rewrites `{/* */}` MDX comments to `{/_ _/}`, so `index.mdx` stays ignored
