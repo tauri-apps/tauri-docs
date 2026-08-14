@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 2,
+  "id": "splashscreen",
+  "title": "Show a splashscreen while the app performs setup",
+  "steps": [
+    {
+      "id": "install-dependencies",
+      "task": "Install the frontend dependencies and confirm the scaffold builds and answers over IPC before changing anything.\n",
+      "mutations": [
+        {
+          "command": "pnpm install --no-frozen-lockfile",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        },
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "register-windows",
+      "task": "Register the windows in `tauri.conf.json`: a window labeled `main` created hidden, and a window labeled `splashscreen` shown directly, loading the `/splashscreen` URL. Leave the other options at their defaults.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/tauri.conf.json",
+          "diff": "--- a/src-tauri/tauri.conf.json\n+++ b/src-tauri/tauri.conf.json\n@@ -14,8 +14,15 @@\n     \"windows\": [\n       {\n         \"title\": \"tatu-app\",\n+        \"label\": \"main\",\n         \"width\": 800,\n-        \"height\": 600\n+        \"height\": 600,\n+        \"visible\": false\n+      },\n+      {\n+        \"title\": \"tatu-app\",\n+        \"label\": \"splashscreen\",\n+        \"url\": \"/splashscreen\"\n       }\n     ],\n     \"security\": {\n"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "splashscreen-page",
+      "task": "Create a `/splashscreen` page for the splashscreen window to load: a `splashscreen.html` next to `index.html`, and whatever build configuration is needed for `pnpm build` to emit it into `dist/` — the production app must be able to load it, not only the dev server.\n",
+      "mutations": [
+        {
+          "file": "splashscreen.html",
+          "diff": "new file: splashscreen.html\n+<!doctype html>\n+<html lang=\"en\">\n+  <head>\n+    <meta charset=\"UTF-8\" />\n+    <link rel=\"stylesheet\" href=\"/src/styles.css\" />\n+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n+    <title>Tauri App</title>\n+  </head>\n+  <body>\n+    <div class=\"container\">\n+      <h1>Tauri used Splash!</h1>\n+      <div class=\"row\">\n+        <h5>It was super effective!</h5>\n+      </div>\n+    </div>\n+  </body>\n+</html>\n+"
+        },
+        {
+          "file": "vite.config.ts",
+          "diff": "--- a/vite.config.ts\n+++ b/vite.config.ts\n@@ -10,6 +10,14 @@\n   //\n   // 1. prevent Vite from obscuring rust errors\n   clearScreen: false,\n+  // list both pages so `vite build` emits the splashscreen alongside the app;\n+  // without this only index.html reaches dist/ and the production splashscreen\n+  // window would load an empty page\n+  build: {\n+    rollupOptions: {\n+      input: [\"index.html\", \"splashscreen.html\"],\n+    },\n+  },\n   // 2. tauri expects a fixed port, fail if that port is not available\n   server: {\n     port: 1420,\n"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        },
+        {
+          "kind": "shell",
+          "run": "node -e \"process.exit(require('fs').existsSync('dist/splashscreen.html') ? 0 : 1)\"",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "setup-tasks",
+      "task": "Fake a heavy setup task on each side: a `setTimeout`-based task in the frontend and a Tokio sleep in the backend. Track both in a shared `SetupState` behind a `set_complete` command; when both sides report done, close the splashscreen window and show the main window.\n",
+      "mutations": [
+        {
+          "command": "cargo add tokio -F time",
+          "cwd": "src-tauri"
+        },
+        {
+          "file": "src/main.ts",
+          "diff": "--- a/src/main.ts\n+++ b/src/main.ts\n@@ -12,6 +12,21 @@\n   }\n }\n \n+// Utility function to implement a sleep function in TypeScript\n+function sleep(seconds: number): Promise<void> {\n+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));\n+}\n+\n+// Setup function\n+async function setup() {\n+  // Fake perform some really heavy setup task\n+  console.log(\"Performing really heavy frontend setup task...\");\n+  await sleep(3);\n+  console.log(\"Frontend setup task complete!\");\n+  // Set the frontend task as being completed\n+  invoke(\"set_complete\", { task: \"frontend\" });\n+}\n+\n window.addEventListener(\"DOMContentLoaded\", () => {\n   greetInputEl = document.querySelector(\"#greet-input\");\n   greetMsgEl = document.querySelector(\"#greet-msg\");\n@@ -19,4 +34,5 @@\n     e.preventDefault();\n     greet();\n   });\n+  setup();\n });\n"
+        },
+        {
+          "file": "src-tauri/src/lib.rs",
+          "diff": "--- a/src-tauri/src/lib.rs\n+++ b/src-tauri/src/lib.rs\n@@ -1,14 +1,90 @@\n+// Import functionalities we'll be using\n+use std::sync::Mutex;\n+use tauri::async_runtime::spawn;\n+use tauri::{AppHandle, Manager, State};\n+use tokio::time::{sleep, Duration};\n+\n+// Create a struct we'll use to track the completion of\n+// setup related tasks\n+struct SetupState {\n+    frontend_task: bool,\n+    backend_task: bool,\n+}\n+\n // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/\n #[tauri::command]\n-fn greet(name: &str) -> String {\n-    format!(\"Hello, {}! You've been greeted from Rust!\", name)\n+fn greet(name: String) -> String {\n+    format!(\"Hello {name} from Rust!\")\n+}\n+\n+// A custom task for setting the state of a setup task\n+#[tauri::command]\n+async fn set_complete(\n+    app: AppHandle,\n+    state: State<'_, Mutex<SetupState>>,\n+    task: String,\n+) -> Result<(), ()> {\n+    // Lock the state without write access\n+    let mut state_lock = state.lock().unwrap();\n+    match task.as_str() {\n+        \"frontend\" => state_lock.frontend_task = true,\n+        \"backend\" => state_lock.backend_task = true,\n+        _ => panic!(\"invalid task completed!\"),\n+    }\n+    // Check if both tasks are completed\n+    if state_lock.backend_task && state_lock.frontend_task {\n+        // Setup is complete, we can close the splashscreen\n+        // and unhide the main window!\n+        let splash_window = app.get_webview_window(\"splashscreen\").unwrap();\n+        let main_window = app.get_webview_window(\"main\").unwrap();\n+        splash_window.close().unwrap();\n+        main_window.show().unwrap();\n+    }\n+    Ok(())\n }\n \n+// An async function that does some heavy setup task\n+async fn setup(app: AppHandle) -> Result<(), ()> {\n+    // Fake performing some heavy action for 3 seconds\n+    println!(\"Performing really heavy backend setup task...\");\n+    sleep(Duration::from_secs(3)).await;\n+    println!(\"Backend setup task completed!\");\n+    // Set the backend task as being completed\n+    // Commands can be ran as regular functions as long as you take\n+    // care of the input arguments yourself\n+    set_complete(\n+        app.clone(),\n+        app.state::<Mutex<SetupState>>(),\n+        \"backend\".to_string(),\n+    )\n+    .await?;\n+    Ok(())\n+}\n+\n #[cfg_attr(mobile, tauri::mobile_entry_point)]\n pub fn run() {\n+    // Don't write code before Tauri starts, write it in the\n+    // setup hook instead!\n     tauri::Builder::default()\n         .plugin(tauri_plugin_opener::init())\n-        .invoke_handler(tauri::generate_handler![greet])\n+        // Register a `State` to be managed by Tauri\n+        // We need write access to it so we wrap it in a `Mutex`\n+        .manage(Mutex::new(SetupState {\n+            frontend_task: false,\n+            backend_task: false,\n+        }))\n+        // Add a command we can use to check\n+        .invoke_handler(tauri::generate_handler![greet, set_complete])\n+        // Use the setup hook to execute setup related tasks\n+        // Runs before the main loop, so no windows are yet created\n+        .setup(|app| {\n+            // Spawn setup as a non-blocking task so the windows can be\n+            // created and ran while it executes\n+            spawn(setup(app.handle().clone()));\n+            // The hook expects an Ok result\n+            Ok(())\n+        })\n+        // Run the app\n         .run(tauri::generate_context!())\n         .expect(\"error while running tauri application\");\n }\n"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-local",
+          "command": "set_complete",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-local",
+          "command": "set_complete",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}
