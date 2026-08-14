@@ -1,0 +1,108 @@
+---
+title: Read a File with the fs Plugin
+description: Add the fs plugin and grant it read access to the app data directory.
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+---
+
+import Tutorial from '@components/tutorial/Tutorial.astro';
+
+Installing a plugin exposes none of its commands to the webview: each one
+must be allowed by a capability first, and a missing permission fails at
+runtime, not at compile time. In this lab we'll take the `create-tauri-app`
+vanilla TypeScript scaffold, add the [file system plugin](/plugin/file-system/),
+and grant it the one permission needed to read a file from the app's data
+directory. We'll use `pnpm`, but any package manager works if you replace it
+in the commands.
+
+<Tutorial id="greet-command">
+
+<Fragment slot="verify-greet">
+
+## Verify the Scaffold
+
+Before changing anything, confirm the scaffold's IPC works. Run the app and
+greet yourself from the input field:
+
+```sh frame=none
+pnpm tauri dev
+```
+
+The `greet` command answering means the frontend, the IPC layer, and the
+Rust backend are all wired up, so anything that breaks from here on was
+caused by one of our changes.
+
+</Fragment>
+
+<Fragment slot="add-fs-plugin">
+
+## Add the fs Plugin
+
+The plugins maintained by the Tauri team are listed in the
+[Plugins](/plugin/) section. On the Rust side, adding one comes down to two
+changes: the crate dependency in `src-tauri/Cargo.toml` and the plugin
+registration on the builder in `src-tauri/src/lib.rs`.
+
+</Fragment>
+
+<Fragment slot="add-fs-plugin-after">
+
+The frontend needs the matching JavaScript bindings:
+
+```sh frame=none
+pnpm add @tauri-apps/plugin-fs
+```
+
+:::tip
+`pnpm tauri add fs` applies all of these changes in one run. We make them by
+hand here to see each moving part once.
+:::
+
+</Fragment>
+
+<Fragment slot="grant-fs-permission">
+
+## Grant the Permission
+
+The plugin is registered, but its commands are still unreachable. Try
+reading a file from the app's data directory:
+
+```typescript title="src/main.ts"
+import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+
+const contents = await readTextFile('data.json', {
+  baseDir: BaseDirectory.AppData,
+});
+```
+
+The call rejects, and the error names the permissions that would allow it:
+
+```sh frame=none
+fs.read_text_file not allowed. Permissions associated with this command: fs:allow-read-text-file, ...
+```
+
+The capability attached to the main window lives in
+`src-tauri/capabilities/default.json`. Add the plugin's
+[default permission set](/plugin/file-system/#default-permission) along with
+read access to the app's data directory:
+
+</Fragment>
+
+<Fragment slot="grant-fs-permission-after">
+
+The same call now resolves with the file contents. Note how narrow the
+grant is: it covers reads inside the app's data directory and nothing else,
+so reading from `$HOME` or writing anywhere still fails until a capability
+allows it. Granting each scope on purpose is the point of the system.
+
+</Fragment>
+
+</Tutorial>
+
+Learn how to inspect and tailor what a plugin exposes in
+[Using Plugin Permissions](/learn/security/using-plugin-permissions/), and
+see the [file system plugin](/plugin/file-system/) reference for every
+permission and scope it ships.
