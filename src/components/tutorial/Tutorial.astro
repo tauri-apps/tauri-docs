@@ -6,9 +6,11 @@ import locales from '../../../locales.json';
 interface Props {
   /** tutorial id matching `src/data/tutorials/<id>.manifest.json` */
   id: string;
+  /** hide every step's recorded code behind a Show-solution toggle (lab pages) */
+  solutions?: boolean;
 }
 
-const { id } = Astro.props;
+const { id, solutions = false } = Astro.props;
 // throws on unknown id, failing the build
 const manifest = getTutorial(id);
 const stepIds = manifest.steps.map((s) => s.id);
@@ -65,7 +67,7 @@ const steps = await Promise.all(
 {
   steps.map((s) => (
     <>
-      <TutorialStep tutorial={id} step={s.id}>
+      <TutorialStep tutorial={id} step={s.id} solution={solutions}>
         {s.prose !== undefined && <Fragment set:html={s.prose} />}
       </TutorialStep>
       {s.after !== undefined && <Fragment set:html={s.after} />}

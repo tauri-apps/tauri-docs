@@ -1,5 +1,6 @@
 ---
 import { Code } from '@astrojs/starlight/components';
+import ShowSolution from '../ShowSolution.astro';
 import { getStep } from './manifests';
 
 interface Props {
@@ -7,9 +8,11 @@ interface Props {
   tutorial: string;
   /** step id inside that tutorial's manifest */
   step: string;
+  /** hide the recorded code behind a Show-solution toggle (lab pages) */
+  solution?: boolean;
 }
 
-const { tutorial, step } = Astro.props;
+const { tutorial, step, solution = false } = Astro.props;
 // throws on unknown tutorial/step, failing the build, because drift between
 // prose and manifest is exactly what this component exists to catch
 const record = getStep(tutorial, step);
@@ -65,13 +68,16 @@ const blocks = record.mutations.flatMap((m): Block[] => {
 <slot />
 
 {
-  blocks.map((b) =>
-    b.kind === 'command' ? (
-      <Code code={b.code} lang="sh" frame="none" />
-    ) : b.kind === 'file' ? (
-      <Code code={b.code} lang={b.lang} title={b.title} />
-    ) : (
-      <Code code={b.code} lang="diff" meta={`lang="${b.lang}"`} title={b.title} />
-    )
-  )
+  (() => {
+    const rendered = blocks.map((b) =>
+      b.kind === 'command' ? (
+        <Code code={b.code} lang="sh" frame="none" />
+      ) : b.kind === 'file' ? (
+        <Code code={b.code} lang={b.lang} title={b.title} />
+      ) : (
+        <Code code={b.code} lang="diff" meta={`lang="${b.lang}"`} title={b.title} />
+      )
+    );
+    return solution && rendered.length > 0 ? <ShowSolution>{rendered}</ShowSolution> : rendered;
+  })()
 }
