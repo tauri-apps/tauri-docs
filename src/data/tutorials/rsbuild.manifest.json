@@ -1,9 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "rsbuild",
   "title": "Use Rsbuild as the frontend build tool",
-  "advisory": false,
-  "platform": "linux",
   "steps": [
     {
       "id": "switch-to-rsbuild",
@@ -46,7 +44,7 @@
       "mutations": [
         {
           "file": "src-tauri/tauri.conf.json",
-          "diff": "--- a/src-tauri/tauri.conf.json\n+++ b/src-tauri/tauri.conf.json\n@@ -5,7 +5,7 @@\n   \"identifier\": \"com.tatu.rsbuild\",\n   \"build\": {\n     \"beforeDevCommand\": \"pnpm dev\",\n-    \"devUrl\": \"http://localhost:1420\",\n+    \"devUrl\": \"http://localhost:3000\",\n     \"beforeBuildCommand\": \"pnpm build\",\n     \"frontendDist\": \"../dist\"\n   },\n"
+          "diff": "--- a/src-tauri/tauri.conf.json\n+++ b/src-tauri/tauri.conf.json\n@@ -5,7 +5,7 @@\n   \"identifier\": \"com.tatu.app\",\n   \"build\": {\n     \"beforeDevCommand\": \"pnpm dev\",\n-    \"devUrl\": \"http://localhost:1420\",\n+    \"devUrl\": \"http://localhost:3000\",\n     \"beforeBuildCommand\": \"pnpm build\",\n     \"frontendDist\": \"../dist\"\n   },\n"
         }
       ],
       "preconditions": [],

@@ -8,7 +8,7 @@
 
 import type { TutorialManifest, TutorialStepRecord } from './manifest-types.generated';
 
-const SUPPORTED_SCHEMA_VERSION = 1;
+const SUPPORTED_SCHEMA_VERSION = 2;
 
 const files = import.meta.glob<{ default: TutorialManifest }>(
   '../../data/tutorials/*.manifest.json',

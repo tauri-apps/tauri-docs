@@ -5,10 +5,12 @@ export interface TutorialManifest {
   schemaVersion: number;
   id: string;
   title: string;
-  /** true when produced outside the pinned container (`tatu check`) */
-  advisory: boolean;
+  /** true when produced outside the pinned container (`tatu check`); absent,
+like platform, in the committed expected manifest (`tatu bless` strips
+the run-environment fields) */
+  advisory?: boolean;
   /** node-compatible platform tag: win32 / darwin / linux */
-  platform: string;
+  platform?: string;
   steps: TutorialStepRecord[];
 }
 
@@ -35,5 +37,5 @@ export interface ResultRecord {
   status: Status;
 }
 
-export type Status = 'pass' | 'fail' | 'skipped';
+export type Status = 'pass' | 'fail';
 

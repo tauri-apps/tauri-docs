@@ -1,9 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "greet-command",
   "title": "Call a Rust command and read a file with the fs plugin",
-  "advisory": false,
-  "platform": "linux",
   "steps": [
     {
       "id": "verify-greet",
@@ -46,7 +44,7 @@
       "mutations": [
         {
           "file": "src-tauri/capabilities/default.json",
-          "diff": "--- a/src-tauri/capabilities/default.json\n+++ b/src-tauri/capabilities/default.json\n@@ -2,9 +2,13 @@\n   \"$schema\": \"../gen/schemas/desktop-schema.json\",\n   \"identifier\": \"default\",\n   \"description\": \"Capability for the main window\",\n-  \"windows\": [\"main\"],\n+  \"windows\": [\n+    \"main\"\n+  ],\n   \"permissions\": [\n     \"core:default\",\n-    \"opener:default\"\n+    \"opener:default\",\n+    \"fs:default\",\n+    \"fs:allow-appdata-read-recursive\"\n   ]\n }\n"
+          "diff": "--- a/src-tauri/capabilities/default.json\n+++ b/src-tauri/capabilities/default.json\n@@ -5,6 +5,8 @@\n   \"windows\": [\"main\"],\n   \"permissions\": [\n     \"core:default\",\n-    \"opener:default\"\n+    \"opener:default\",\n+    \"fs:default\",\n+    \"fs:allow-appdata-read-recursive\"\n   ]\n }\n"
         }
       ],
       "preconditions": [
