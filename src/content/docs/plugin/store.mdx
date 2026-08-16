@@ -52,7 +52,7 @@ Install the store plugin to get started.
            </TutorialStep>
 
         3. <TutorialStep tutorial="plugin-store" step="add-js-bindings">
-             Install the JavaScript Guest bindings with your package manager (recorded here with pnpm):
+             Install the JavaScript Guest bindings using your preferred JavaScript package manager:
            </TutorialStep>
 
         </Steps>
@@ -66,12 +66,11 @@ Install the store plugin to get started.
 <TabItem label="JavaScript">
 
 <TutorialStep tutorial="plugin-store" step="usage-js">
-  Load a store (creating it on first use), set and read a value back, and save
-  it. When using `"withGlobalTauri": true`, you may use `const {load} =
-  window.__TAURI__.store;` instead of the import. If you set `autoSave` to a
-  number or leave the options empty, changes are saved to disk after a debounce
-  delay (100ms by default) — otherwise the store saves upon graceful exit, or
-  when you call `save()` manually:
+  Load a store, set and read a value back, then save it. When using
+  `"withGlobalTauri": true`, you may use `const {load} =
+  window.__TAURI__.store;` instead of the import; setting `autoSave` to a number
+  (or leaving the options empty) saves changes to disk after a debounce delay,
+  100ms by default:
 </TutorialStep>
 
 </TabItem>
@@ -79,10 +78,7 @@ Install the store plugin to get started.
 
 <TutorialStep tutorial="plugin-store" step="usage-rust">
   The same store is available on the Rust side through the `StoreExt` trait —
-  here in the app's setup hook. Loading a store also puts it in the app's
-  resource table, so later `store` calls (from both Rust and JS) reuse the same
-  store. Note that values must be `serde_json::Value` instances, otherwise they
-  are not compatible with the JavaScript bindings:
+  here in the app's setup hook:
 </TutorialStep>
 
 </TabItem>

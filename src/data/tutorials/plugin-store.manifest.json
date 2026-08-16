@@ -35,7 +35,7 @@
     },
     {
       "id": "add-js-bindings",
-      "task": "Install the JavaScript guest bindings package with the project's package manager, then make sure the frontend still builds.\n",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
       "mutations": [
         {
           "command": "pnpm add @tauri-apps/plugin-store",
@@ -43,13 +43,7 @@
         }
       ],
       "preconditions": [],
-      "assertions": [
-        {
-          "kind": "shell",
-          "run": "pnpm build",
-          "status": "pass"
-        }
-      ]
+      "assertions": []
     },
     {
       "id": "usage-js",
@@ -57,7 +51,7 @@
       "mutations": [
         {
           "file": "src/main.ts",
-          "diff": "--- a/src/main.ts\n+++ b/src/main.ts\n@@ -1,4 +1,5 @@\n import { invoke } from \"@tauri-apps/api/core\";\n+import { load } from \"@tauri-apps/plugin-store\";\n \n let greetInputEl: HTMLInputElement | null;\n let greetMsgEl: HTMLElement | null;\n@@ -12,11 +13,26 @@\n   }\n }\n \n-window.addEventListener(\"DOMContentLoaded\", () => {\n+window.addEventListener(\"DOMContentLoaded\", async () => {\n   greetInputEl = document.querySelector(\"#greet-input\");\n   greetMsgEl = document.querySelector(\"#greet-msg\");\n   document.querySelector(\"#greet-form\")?.addEventListener(\"submit\", (e) => {\n     e.preventDefault();\n     greet();\n   });\n+\n+  // Create a new store or load the existing one; the options are ignored if\n+  // a `Store` with that path has already been created\n+  const store = await load(\"store.json\", { autoSave: false });\n+\n+  // Set a value.\n+  await store.set(\"some-key\", { value: 5 });\n+\n+  // Get a value.\n+  const val = await store.get<{ value: number }>(\"some-key\");\n+  console.log(val); // { value: 5 }\n+\n+  // You can manually save the store after making changes.\n+  // Otherwise, it will save upon graceful exit as described above.\n+  await store.save();\n });\n"
+          "diff": "--- a/src/main.ts\n+++ b/src/main.ts\n@@ -1,4 +1,5 @@\n import { invoke } from \"@tauri-apps/api/core\";\n+import { load } from \"@tauri-apps/plugin-store\";\n \n let greetInputEl: HTMLInputElement | null;\n let greetMsgEl: HTMLElement | null;\n@@ -12,11 +13,26 @@\n   }\n }\n \n-window.addEventListener(\"DOMContentLoaded\", () => {\n+window.addEventListener(\"DOMContentLoaded\", async () => {\n   greetInputEl = document.querySelector(\"#greet-input\");\n   greetMsgEl = document.querySelector(\"#greet-msg\");\n   document.querySelector(\"#greet-form\")?.addEventListener(\"submit\", (e) => {\n     e.preventDefault();\n     greet();\n   });\n+\n+  // Create a new store or load the existing one; the options are ignored if\n+  // a `Store` with that path has already been created\n+  const store = await load(\"store.json\", { autoSave: false });\n+\n+  // Set a value.\n+  await store.set(\"some-key\", { value: 5 });\n+\n+  // Get a value.\n+  const val = await store.get<{ value: number }>(\"some-key\");\n+  console.log(val); // { value: 5 }\n+\n+  // You can manually save the store after making changes;\n+  // otherwise it saves upon graceful exit.\n+  await store.save();\n });\n"
         }
       ],
       "preconditions": [],

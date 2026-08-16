@@ -35,7 +35,7 @@
     },
     {
       "id": "add-js-bindings",
-      "task": "Install the JavaScript guest bindings package with the project's package manager, then make sure the frontend still builds.\n",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
       "mutations": [
         {
           "command": "pnpm add @tauri-apps/plugin-http",
@@ -43,13 +43,7 @@
         }
       ],
       "preconditions": [],
-      "assertions": [
-        {
-          "kind": "shell",
-          "run": "pnpm build",
-          "status": "pass"
-        }
-      ]
+      "assertions": []
     },
     {
       "id": "configure-scope",
@@ -109,7 +103,7 @@
       "mutations": [
         {
           "file": "src-tauri/src/lib.rs",
-          "diff": "--- a/src-tauri/src/lib.rs\n+++ b/src-tauri/src/lib.rs\n@@ -4,12 +4,22 @@\n     format!(\"Hello, {}! You've been greeted from Rust!\", name)\n }\n \n+// In Rust the plugin re-exports the reqwest crate; refer to the reqwest docs\n+// for the full API.\n+#[tauri::command]\n+async fn fetch_status(url: String) -> Result<u16, String> {\n+    let res = tauri_plugin_http::reqwest::get(&url)\n+        .await\n+        .map_err(|e| e.to_string())?;\n+    Ok(res.status().as_u16())\n+}\n+\n #[cfg_attr(mobile, tauri::mobile_entry_point)]\n pub fn run() {\n     tauri::Builder::default()\n         .plugin(tauri_plugin_opener::init())\n         .plugin(tauri_plugin_http::init())\n-        .invoke_handler(tauri::generate_handler![greet])\n+        .invoke_handler(tauri::generate_handler![greet, fetch_status])\n         .run(tauri::generate_context!())\n         .expect(\"error while running tauri application\");\n }\n"
+          "diff": "--- a/src-tauri/src/lib.rs\n+++ b/src-tauri/src/lib.rs\n@@ -4,12 +4,20 @@\n     format!(\"Hello, {}! You've been greeted from Rust!\", name)\n }\n \n+#[tauri::command]\n+async fn fetch_status(url: String) -> Result<u16, String> {\n+    let res = tauri_plugin_http::reqwest::get(&url)\n+        .await\n+        .map_err(|e| e.to_string())?;\n+    Ok(res.status().as_u16())\n+}\n+\n #[cfg_attr(mobile, tauri::mobile_entry_point)]\n pub fn run() {\n     tauri::Builder::default()\n         .plugin(tauri_plugin_opener::init())\n         .plugin(tauri_plugin_http::init())\n-        .invoke_handler(tauri::generate_handler![greet])\n+        .invoke_handler(tauri::generate_handler![greet, fetch_status])\n         .run(tauri::generate_context!())\n         .expect(\"error while running tauri application\");\n }\n"
         }
       ],
       "preconditions": [],

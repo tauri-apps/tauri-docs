@@ -51,7 +51,7 @@ Install the SQL plugin to get started.
            </TutorialStep>
 
         3. <TutorialStep tutorial="plugin-sql" step="add-js-bindings">
-             Install the JavaScript Guest bindings with your package manager (recorded here with pnpm):
+             Install the JavaScript Guest bindings using your preferred JavaScript package manager:
            </TutorialStep>
 
         </Steps>
@@ -98,8 +98,7 @@ All the plugin's APIs are available through the JavaScript guest bindings:
   The path is relative to
   [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
   When using `"withGlobalTauri": true`, you may use `const Database =
-  window.__TAURI__.sql;` instead of the import. Substitute query data with the
-  `"$#"` syntax:
+  window.__TAURI__.sql;` instead of the import:
 </TutorialStep>
 
   </TabItem>

@@ -1,5 +1,6 @@
 ---
 import { Code } from '@astrojs/starlight/components';
+import CommandTabs from '../CommandTabs.astro';
 import ShowSolution from '../ShowSolution.astro';
 import { getStep } from './manifests';
 
@@ -26,7 +27,8 @@ function langOf(file: string): string {
 type Block =
   | { kind: 'diff'; code: string; lang: string; title?: string }
   | { kind: 'file'; code: string; lang: string; title: string }
-  | { kind: 'command'; code: string };
+  | { kind: 'command'; code: string }
+  | { kind: 'js-install'; pkg: string; code: string };
 
 // Expressive Code applies diff-like rendering (marker stripping, ins/del
 // backgrounds, `lang` meta highlighting) only when the block is not a full
@@ -60,7 +62,14 @@ function diffBlocks(file: string, diff: string): Block[] {
 
 const blocks = record.mutations.flatMap((m): Block[] => {
   if (m.file && m.diff) return diffBlocks(m.file, m.diff);
-  if (m.command) return [{ kind: 'command', code: m.command }];
+  if (m.command) {
+    // the runner records the one package manager that actually ran; a plain
+    // JS-package install is presentation-equivalent across managers, so it
+    // renders as the usual manager tabs instead of a pnpm-only line
+    const pkg = m.command.match(/^pnpm add (\S+)$/)?.[1];
+    if (pkg) return [{ kind: 'js-install', pkg, code: m.command }];
+    return [{ kind: 'command', code: m.command }];
+  }
   return [];
 });
 ---
@@ -72,6 +81,14 @@ const blocks = record.mutations.flatMap((m): Block[] => {
     const rendered = blocks.map((b) =>
       b.kind === 'command' ? (
         <Code code={b.code} lang="sh" frame="none" />
+      ) : b.kind === 'js-install' ? (
+        <CommandTabs
+          npm={`npm install ${b.pkg}`}
+          yarn={`yarn add ${b.pkg}`}
+          pnpm={b.code}
+          deno={`deno add npm:${b.pkg}`}
+          bun={`bun add ${b.pkg}`}
+        />
       ) : b.kind === 'file' ? (
         <Code code={b.code} lang={b.lang} title={b.title} />
       ) : (

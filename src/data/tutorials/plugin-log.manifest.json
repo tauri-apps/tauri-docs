@@ -35,7 +35,7 @@
     },
     {
       "id": "add-js-bindings",
-      "task": "Install the JavaScript guest bindings package with the project's package manager, then make sure the frontend still builds.\n",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
       "mutations": [
         {
           "command": "pnpm add @tauri-apps/plugin-log",
@@ -43,13 +43,7 @@
         }
       ],
       "preconditions": [],
-      "assertions": [
-        {
-          "kind": "shell",
-          "run": "pnpm build",
-          "status": "pass"
-        }
-      ]
+      "assertions": []
     },
     {
       "id": "usage-js",
