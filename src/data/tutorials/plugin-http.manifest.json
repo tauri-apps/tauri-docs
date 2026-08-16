@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 2,
+  "id": "plugin-http",
+  "title": "Install and use the http plugin",
+  "steps": [
+    {
+      "id": "add-cargo-dep",
+      "task": "Add the tauri-plugin-http crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
+      "mutations": [
+        {
+          "command": "cargo add tauri-plugin-http",
+          "cwd": "src-tauri"
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "register-plugin",
+      "task": "Register the http plugin with the app builder in `lib.rs`. The scaffold's `greet` command must keep working.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "diff": "--- a/src-tauri/src/lib.rs\n+++ b/src-tauri/src/lib.rs\n@@ -8,6 +8,7 @@\n pub fn run() {\n     tauri::Builder::default()\n         .plugin(tauri_plugin_opener::init())\n+        .plugin(tauri_plugin_http::init())\n         .invoke_handler(tauri::generate_handler![greet])\n         .run(tauri::generate_context!())\n         .expect(\"error while running tauri application\");\n"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-js-bindings",
+      "task": "Install the JavaScript guest bindings package with the project's package manager, then make sure the frontend still builds.\n",
+      "mutations": [
+        {
+          "command": "pnpm add @tauri-apps/plugin-http",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "configure-scope",
+      "task": "Allow the frontend to fetch from `*.tauri.app`, except the private subdomain. Fetching must be fully denied before the capability grants the scoped permission; after it, in-scope URLs work and out-of-scope or denied URLs are rejected.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/capabilities/default.json",
+          "diff": "--- a/src-tauri/capabilities/default.json\n+++ b/src-tauri/capabilities/default.json\n@@ -5,6 +5,19 @@\n   \"windows\": [\"main\"],\n   \"permissions\": [\n     \"core:default\",\n-    \"opener:default\"\n+    \"opener:default\",\n+    {\n+      \"identifier\": \"http:default\",\n+      \"allow\": [\n+        {\n+          \"url\": \"https://*.tauri.app\"\n+        }\n+      ],\n+      \"deny\": [\n+        {\n+          \"url\": \"https://private.tauri.app\"\n+        }\n+      ]\n+    }\n   ]\n }\n"
+        }
+      ],
+      "preconditions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "usage-js",
+      "task": "Fetch a URL from the frontend with the plugin's `fetch` API. The TypeScript build must stay green.\n",
+      "mutations": [
+        {
+          "file": "src/main.ts",
+          "diff": "--- a/src/main.ts\n+++ b/src/main.ts\n@@ -1,4 +1,5 @@\n import { invoke } from \"@tauri-apps/api/core\";\n+import { fetch } from \"@tauri-apps/plugin-http\";\n \n let greetInputEl: HTMLInputElement | null;\n let greetMsgEl: HTMLElement | null;\n@@ -12,11 +13,18 @@\n   }\n }\n \n-window.addEventListener(\"DOMContentLoaded\", () => {\n+window.addEventListener(\"DOMContentLoaded\", async () => {\n   greetInputEl = document.querySelector(\"#greet-input\");\n   greetMsgEl = document.querySelector(\"#greet-msg\");\n   document.querySelector(\"#greet-form\")?.addEventListener(\"submit\", (e) => {\n     e.preventDefault();\n     greet();\n   });\n+\n+  // Send a GET request\n+  const response = await fetch(\"https://test.tauri.app/data.json\", {\n+    method: \"GET\",\n+  });\n+  console.log(response.status); // e.g. 200\n+  console.log(response.statusText); // e.g. \"OK\"\n });\n"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "usage-rust",
+      "task": "Fetch from Rust through the reqwest re-export: expose a command that returns the HTTP status of a URL.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "diff": "--- a/src-tauri/src/lib.rs\n+++ b/src-tauri/src/lib.rs\n@@ -4,12 +4,22 @@\n     format!(\"Hello, {}! You've been greeted from Rust!\", name)\n }\n \n+// In Rust the plugin re-exports the reqwest crate; refer to the reqwest docs\n+// for the full API.\n+#[tauri::command]\n+async fn fetch_status(url: String) -> Result<u16, String> {\n+    let res = tauri_plugin_http::reqwest::get(&url)\n+        .await\n+        .map_err(|e| e.to_string())?;\n+    Ok(res.status().as_u16())\n+}\n+\n #[cfg_attr(mobile, tauri::mobile_entry_point)]\n pub fn run() {\n     tauri::Builder::default()\n         .plugin(tauri_plugin_opener::init())\n         .plugin(tauri_plugin_http::init())\n-        .invoke_handler(tauri::generate_handler![greet])\n+        .invoke_handler(tauri::generate_handler![greet, fetch_status])\n         .run(tauri::generate_context!())\n         .expect(\"error while running tauri application\");\n }\n"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "fetch_status",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}
