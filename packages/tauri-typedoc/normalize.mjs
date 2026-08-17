@@ -4,35 +4,41 @@
  * place and processed again on the next build.
  *
  * Every transform here is a workaround for a known upstream bug or rough edge, kept in one
- * place so each can be deleted once fixed at the source. Current inventory:
+ * place so each can be deleted once fixed at the source. Per transform below: `cause` is the
+ * upstream file that emits the artifact, `spot` a generated page where it shows up. Paths are
+ * relative to node_modules/. Before/after pairs for every case: normalize.test.mjs.
  *
- *  - typedoc-plugin-markdown `escapeChars` (dist/libs/utils/escape-chars.js) escapes
- *    backticks unconditionally, so inline code in headings and mixed link labels renders
- *    as literal backticks -> ESCAPED_CODE_SPAN_RE undoes it. (Reported-upstream candidate.)
- *  - starlight-typedoc appends `:::` aside directives to member comments (libs/theme.ts
- *    #addDeprecatedAside); with table formats the comment lands in a table cell where a
- *    block directive cannot parse and leaks as literal text -> TABLE_ASIDE_RE flattens it
- *    to bold. (Reported-upstream candidate.)
- *  - typedoc-plugin-markdown emits type expressions as code-span fragments joined by
- *    escaped angle brackets, which renders as broken-looking chips with literal `<` `>`
- *    -> mergeGenerics() collapses the safe cases. (Cosmetic; likely by design upstream.)
- *  - typedoc-plugin-markdown v4 titles every constructor section "Constructor", which is
- *    ambiguous in the ToC and broke the previous generator's #new-classname anchors
- *    -> renameConstructorHeading() restores `new ClassName()`. (v4 design change, no
- *    opt-out found.)
+ *  unescapeCodeSpans() -- backticks escaped in headings and link labels
+ *    cause: typedoc-plugin-markdown/dist/libs/utils/escape-chars.js (escapes unconditionally)
+ *    spot:  /reference/javascript/shell/ ("Restricting access to the `open` API" heading)
+ *    upstream: reportable
+ *  TABLE_ASIDE_RE -- `:::` directive leaking as literal text inside a table cell
+ *    cause: starlight-typedoc/libs/theme.ts (addDeprecatedAside)
+ *    spot:  /reference/javascript/api/namespacetray/#trayiconoptions (`menuOnLeftClick` row)
+ *    upstream: reportable
+ *  mergeGenerics() -- type expressions split into chips joined by literal `<` `>`
+ *    cause: typedoc-plugin-markdown/dist/theme/context/partials/type.reference.js
+ *    spot:  /reference/javascript/api/namespaceapp/#getname (`Promise<string>` return type)
+ *    upstream: cosmetic, likely by design
+ *  renameConstructorHeading() -- every constructor section titled "Constructor"
+ *    cause: typedoc-plugin-markdown/dist/theme/context/partials/member.constructors.js
+ *    spot:  /reference/javascript/api/namespacecore/#new-channel (anchor was #constructor)
+ *    upstream: v4 design change, no opt-out found
+ *  collapseWrappedUnion() -- short unions wrapped and oddly indented under expandParameters
+ *    cause: typedoc-plugin-markdown/dist/theme/context/partials/type.union.js
+ *    spot:  /reference/javascript/dialog/#ask (`string | ConfirmDialogOptions` parameter)
+ *    upstream: cosmetic, the 70-char heuristic measures the pre-render string
  *
  * Page frontmatter is out of scope here: typedoc-plugin-frontmatter supplies it via
  * `frontmatterGlobals` in typedoc-plugins.ts, and starlight-typedoc merges its own keys
  * into that.
  */
 
-// A pair of escaped backticks wrapping a token: `\`open\`` in a heading or link label,
-// where the JSDoc author wrote real inline code. Content must be non-empty (`\`\`` would
-// merge into a runaway double-backtick span) and may contain backslashes only when not
-// directly before a backtick, so both pairing stays unambiguous for content like `C:\foo`
-// and a code span that *contains* a backslash (`` `\` on Windows ``) is left alone.
-// Applied only to headings and link labels — the two contexts typedoc-plugin-markdown
-// over-escapes — so intentionally literal backtick pairs in ordinary prose survive.
+// A pair of escaped backticks wrapping a token: `\`open\`` in a heading or link label.
+// Content must be non-empty (`\`\`` would merge into a runaway double-backtick span) and may
+// contain backslashes only when not directly before a backtick, so pairing stays unambiguous
+// for content like `C:\foo` and a span that *contains* a backslash is left alone.
+// Applied to headings and link labels only, so literal backtick pairs in prose survive.
 const ESCAPED_CODE_SPAN_RE = /\\`((?:[^`\\]|\\[^`])+)\\`/g;
 
 function unescapeCodeSpans(text) {
@@ -45,18 +51,14 @@ const LINK_LABEL_RE = /\[([^[\]]*)\](?=\()/g;
 // A code-fence marker: a run of 3+ backticks or tildes at the start of a line.
 const FENCE_MARKER_RE = /^\s*(`{3,}|~{3,})/;
 
-// starlight-typedoc appends `:::type[Title]\ncontent\n:::` asides to member comments. With
-// propertiesFormat: 'table' the comment is flattened into one table cell where a block
-// directive cannot render and leaks as literal text. Rewritten to `**Title** content`.
+// `:::type[Title]\ncontent\n:::` aside, rewritten to `**Title** content` when it lands in a
+// table cell (propertiesFormat: 'table' flattens the whole comment into one).
 const TABLE_ASIDE_RE = /:::(\w+)(?:\[([^\]]*)\])?\s*(.*?)\s*:::/g;
 
-// Type expressions are emitted as sequences of code spans joined by escaped angle
-// brackets: [`Promise`](mdn)\<`void`\> renders as fragmented chips with literal `<` `>`
-// between them. Where the type arguments are plain code spans (no inner links to
-// preserve), merge the whole expression into a single code span. Nested generics resolve
-// over repeated passes (innermost first). Expressions with linked type arguments, e.g.
-// Promise\<[`FileInfo`](#fileinfo)\>, are intentionally left fragmented: merging would
-// drop the inner link.
+// [`Promise`](mdn)\<`void`\> -> [`Promise<void>`](mdn), merged only where the type arguments
+// are plain code spans. Nested generics resolve over repeated passes (innermost first).
+// Linked type arguments, e.g. Promise\<[`FileInfo`](#fileinfo)\>, stay fragmented on purpose:
+// merging would drop the inner link.
 const TYPE_ARGS = String.raw`(?:\x60[^\x60\\]+\x60(?:\[\])?)(?:,\s*\x60[^\x60\\]+\x60(?:\[\])?)*`;
 const LINKED_GENERIC_RE = new RegExp(
   String.raw`\[\x60([^\x60\\]+)\x60\]\(([^()\s]+)\)\\<(${TYPE_ARGS})\\>`,
@@ -86,12 +88,30 @@ function mergeGenerics(line) {
   }
 }
 
+// A `| `-prefixed continuation line, emitted when the union's pre-render text (links
+// included, though they are stripped inside code blocks) exceeds 70 chars. Every signature
+// fits on one line once the links are gone, so the continuations are joined back up. The
+// `: ` line ending (note the trailing space, another generator artifact) is the fingerprint
+// that keeps this away from hand-written example code.
+const UNION_CONTINUATION_RE = /^\s*\| /;
+
+function collapseWrappedUnion(lines, i) {
+  if (!lines[i].endsWith(': ')) return;
+  let j = i + 1;
+  while (j < lines.length && UNION_CONTINUATION_RE.test(lines[j])) {
+    const member = lines[j].replace(UNION_CONTINUATION_RE, '');
+    // After `x): ` the next line starts a fresh union (e.g. a wrapped return type), so
+    // it joins without a `|` separator.
+    lines[i] += lines[i].endsWith(': ') ? member : ` | ${member}`;
+    j++;
+  }
+  lines.splice(i + 1, j - i - 1);
+}
+
 /**
- * typedoc-plugin-markdown v4 titles every constructor section "Constructor", which is
- * ambiguous in the page ToC and changes the anchors the previous generator produced
- * (#new-channel -> #constructor). Restore the `new ClassName()` heading using the class
- * name from the signature code block that follows; Starlight's slugger then re-derives
- * the historical #new-classname anchors (deduped for overloads).
+ * Retitle a `Constructor` heading as `new ClassName()`, taking the name from the signature
+ * code block below it. Starlight's slugger then re-derives the #new-classname anchors the
+ * previous generator produced (deduped for overloads).
  */
 function renameConstructorHeading(lines, index) {
   const match = /^(#{2,6}) Constructor$/.exec(lines[index]);
@@ -126,8 +146,9 @@ function transformProseLine(line) {
 
 /** Post-process a generated page. Exported for typedoc-plugins.ts and tests. */
 export function normalizeGeneratedPage(content) {
-  // Line-scoped transforms, skipping fenced code blocks (example code must stay
-  // verbatim). Fence state tracks the opening marker: per CommonMark, only a fence of the
+  // Line-scoped transforms. Inside fenced code blocks only the wrapped-union collapse
+  // runs (example code must otherwise stay verbatim).
+  // Fence state tracks the opening marker: per CommonMark, only a fence of the
   // same character, at least as long, with nothing else on the line, closes the block —
   // so a ~~~ or nested-fence line *inside* a ``` block cannot desync the state.
   const lines = content.split('\n');
@@ -142,6 +163,8 @@ export function normalizeGeneratedPage(content) {
         lines[i].trim() === marker[1]
       ) {
         fence = null;
+      } else {
+        collapseWrappedUnion(lines, i);
       }
       continue;
     }
