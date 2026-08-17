@@ -1,6 +1,6 @@
 // Verifies that every page using <TutorialStep> or a <Tutorial> wrapper
-// agrees with the committed tutorial manifests
-// (src/data/tutorials/*.manifest.json). For <TutorialStep>: referenced steps
+// agrees with the committed tutorial trees
+// (src/data/tutorials/<id>/manifest.json). For <TutorialStep>: referenced steps
 // exist, every step of a referenced tutorial is present, and they appear in
 // manifest order. For <Tutorial>: the wrapper renders every step in manifest
 // order itself, so the page-side check reduces to slot names agreeing with
@@ -8,6 +8,9 @@
 // because translation lag is expected and surfaced by Lunaria. The site build
 // still fails on any page that references an unknown tutorial or step, so the
 // leniency here only covers completeness and order.
+//
+// The tree checks mirror the runner's check_tree_consistent: the snapshot
+// paths are a convention, not manifest fields, so both ends assert it.
 //
 // schemaVersion is enforced by the build gate in
 // src/components/tutorial/manifests.ts, not here; this script only reads ids.
@@ -24,17 +27,42 @@ const locales = Object.keys(
   JSON.parse(fs.readFileSync(path.join(root, 'locales.json'), 'utf8'))
 ).filter((l) => l !== 'root');
 
-const manifests = new Map();
-if (fs.existsSync(manifestDir)) {
-  for (const f of fs.readdirSync(manifestDir).filter((f) => f.endsWith('.manifest.json'))) {
-    const m = JSON.parse(fs.readFileSync(path.join(manifestDir, f), 'utf8'));
-    manifests.set(m.id, m);
-  }
-}
-
 const errors = [];
 const warnings = [];
 const referenced = new Set();
+
+// every file under a tutorial's base/ and steps/, relative to the tutorial dir
+function readTree(dir) {
+  const files = new Set();
+  for (const sub of ['base', 'steps']) {
+    const root = path.join(dir, sub);
+    if (!fs.existsSync(root)) continue;
+    for (const entry of fs.readdirSync(root, { recursive: true })) {
+      const rel = String(entry).replaceAll('\\', '/');
+      if (fs.statSync(path.join(root, entry)).isFile()) files.add(`${sub}/${rel}`);
+    }
+  }
+  return files;
+}
+
+const manifests = new Map();
+const trees = new Map();
+if (fs.existsSync(manifestDir)) {
+  for (const entry of fs.readdirSync(manifestDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const dir = path.join(manifestDir, entry.name);
+    if (!fs.existsSync(path.join(dir, 'manifest.json'))) {
+      errors.push(`src/data/tutorials/${entry.name}/ has no manifest.json`);
+      continue;
+    }
+    const m = JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8'));
+    if (m.id !== entry.name) {
+      errors.push(`src/data/tutorials/${entry.name}/manifest.json declares id "${m.id}"`);
+    }
+    manifests.set(m.id, m);
+    trees.set(m.id, readTree(dir));
+  }
+}
 
 for (const entry of fs.readdirSync(docsDir, { recursive: true })) {
   const rel = entry.replaceAll('\\', '/');
@@ -116,8 +144,49 @@ for (const entry of fs.readdirSync(docsDir, { recursive: true })) {
   }
 }
 
-for (const id of manifests.keys()) {
+for (const [id, manifest] of manifests) {
   if (!referenced.has(id)) warnings.push(`manifest "${id}" is not referenced by any page`);
+
+  const files = trees.get(id);
+  const used = new Set();
+  const mutated = new Set();
+  for (const step of manifest.steps) {
+    for (const m of step.mutations) {
+      const where = `tutorial "${id}" step "${step.id}"`;
+      if (!m.file) {
+        // shell mutations stay file-blind: a command, no snapshot, no `created`
+        if (!m.command) errors.push(`${where}: mutation with neither file nor command`);
+        if (m.created !== undefined) errors.push(`${where}: command mutation carries created`);
+        continue;
+      }
+      if (typeof m.created !== 'boolean') {
+        errors.push(`${where}: mutation of "${m.file}" has no created flag`);
+      }
+      const after = `steps/${step.id}/${m.file}`;
+      if (files.has(after)) used.add(after);
+      else
+        errors.push(
+          `${where}: mutates "${m.file}" but src/data/tutorials/${id}/${after} is missing`
+        );
+      // only the first mutation of a file says anything about base/
+      if (!mutated.has(m.file)) {
+        mutated.add(m.file);
+        const base = `base/${m.file}`;
+        if (files.has(base)) used.add(base);
+        if (m.created === true && files.has(base)) {
+          errors.push(`${where}: creates "${m.file}" but src/data/tutorials/${id}/${base} exists`);
+        }
+        if (m.created === false && !files.has(base)) {
+          errors.push(
+            `${where}: first mutates "${m.file}" but src/data/tutorials/${id}/${base} is missing`
+          );
+        }
+      }
+    }
+  }
+  for (const f of files) {
+    if (!used.has(f)) warnings.push(`tutorial "${id}": snapshot "${f}" belongs to no mutation`);
+  }
 }
 
 for (const w of warnings) console.warn(`warn: ${w}`);

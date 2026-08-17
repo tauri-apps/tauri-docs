@@ -1,0 +1,134 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "plugin-sql",
+  "title": "Install and use the sql plugin (SQLite)",
+  "steps": [
+    {
+      "id": "add-cargo-dep",
+      "task": "Add the tauri-plugin-sql crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
+      "mutations": [
+        {
+          "command": "cargo add tauri-plugin-sql",
+          "cwd": "src-tauri"
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "register-plugin",
+      "task": "Register the sql plugin with the app builder in `lib.rs`.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "add-js-bindings",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
+      "mutations": [
+        {
+          "command": "pnpm add @tauri-apps/plugin-sql",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "select-engine",
+      "task": "Enable the SQLite driver: the plugin compiles a database engine only when its Cargo feature is enabled. The backend must build with the plugin registered.\n",
+      "mutations": [
+        {
+          "command": "cargo add tauri-plugin-sql --features sqlite",
+          "cwd": "src-tauri"
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "usage-js",
+      "task": "From the frontend, load `sqlite:test.db` and run an INSERT with the \"$#\" substitution syntax. The TypeScript build must stay green.\n",
+      "mutations": [
+        {
+          "file": "src/main.ts",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-migrations",
+      "task": "Define an initial migration creating a `todos` table and register it on the plugin builder for the `sqlite:test.db` connection. The backend must keep compiling.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-preload",
+      "task": "Apply the migrations when the app starts by preloading the database connection in `tauri.conf.json`.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/tauri.conf.json",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "permissions",
+      "task": "Let the frontend use the database: loading it from the webview must be denied before the capability grants the sql permissions and succeed after — and loading applies the migrations.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/capabilities/default.json",
+          "created": false
+        }
+      ],
+      "preconditions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:sql|load",
+          "status": "pass"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:sql|load",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

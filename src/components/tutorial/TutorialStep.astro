@@ -2,10 +2,11 @@
 import { Code } from '@astrojs/starlight/components';
 import CommandTabs from '../CommandTabs.astro';
 import ShowSolution from '../ShowSolution.astro';
+import { fileBlocks, type FileBlock } from './derive';
 import { getStep } from './manifests';
 
 interface Props {
-  /** tutorial id matching `src/data/tutorials/<id>.manifest.json` */
+  /** tutorial id matching `src/data/tutorials/<id>/manifest.json` */
   tutorial: string;
   /** step id inside that tutorial's manifest */
   step: string;
@@ -25,43 +26,14 @@ function langOf(file: string): string {
 }
 
 type Block =
-  | { kind: 'diff'; code: string; lang: string; title?: string }
-  | { kind: 'file'; code: string; lang: string; title: string }
-  | { kind: 'command'; code: string }
-  | { kind: 'js-install'; pkg: string; code: string };
+  FileBlock | { kind: 'command'; code: string } | { kind: 'js-install'; pkg: string; code: string };
 
 // Expressive Code applies diff-like rendering (marker stripping, ins/del
 // backgrounds, `lang` meta highlighting) only when the block is not a full
-// unified diff, so the `---`/`+++`/`@@` lines the runner records are dropped.
-// One block per hunk, because joining hunks silently glues disjoint regions.
-function diffBlocks(file: string, diff: string): Block[] {
-  const lang = langOf(file);
-  // the runner records created files as a "new file: <path>" line plus
-  // all-added lines; render them as a plain full-file block
-  if (diff.startsWith('new file: ')) {
-    const code = diff
-      .split('\n')
-      .slice(1)
-      .map((line) => line.replace(/^\+/, ''))
-      .join('\n');
-    return [{ kind: 'file', code, lang, title: file }];
-  }
-  const hunks: string[][] = [[]];
-  for (const line of diff.split('\n')) {
-    if (/^(--- |\+\+\+ |\\)/.test(line)) continue;
-    if (line.startsWith('@@')) {
-      if (hunks[hunks.length - 1].some((l) => l !== '')) hunks.push([]);
-      continue;
-    }
-    hunks[hunks.length - 1].push(line);
-  }
-  return hunks
-    .filter((h) => h.some((l) => l !== ''))
-    .map((h, i) => ({ kind: 'diff', code: h.join('\n'), lang, title: i === 0 ? file : undefined }));
-}
-
+// unified diff, which is why derive.ts hands back bare hunk bodies. One block
+// per hunk, because joining hunks silently glues disjoint regions.
 const blocks = record.mutations.flatMap((m): Block[] => {
-  if (m.file && m.diff) return diffBlocks(m.file, m.diff);
+  if (m.file) return fileBlocks(tutorial, step, m.file, langOf(m.file));
   if (m.command) {
     // the runner records the one package manager that actually ran; a plain
     // JS-package install is presentation-equivalent across managers, so it

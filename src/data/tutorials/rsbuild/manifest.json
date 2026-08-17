@@ -1,0 +1,61 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "rsbuild",
+  "title": "Use Rsbuild as the frontend build tool",
+  "steps": [
+    {
+      "id": "switch-to-rsbuild",
+      "task": "Replace Vite with Rsbuild: point the package.json scripts at rsbuild, swap the devDependency, and add rsbuild.config.ts. The scaffold keeps its entry in `src/main.ts` and its own `index.html`, so tell Rsbuild about both — and let it inject the bundle script instead of the hardcoded Vite tags.\n",
+      "mutations": [
+        {
+          "file": "index.html",
+          "created": false
+        },
+        {
+          "file": "package.json",
+          "created": false
+        },
+        {
+          "file": "rsbuild.config.ts",
+          "created": true
+        },
+        {
+          "file": "src/main.ts",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm install --no-frozen-lockfile && pnpm build",
+          "status": "pass"
+        },
+        {
+          "kind": "shell",
+          "run": "node -e \"process.exit(require('fs').existsSync('dist/index.html') ? 0 : 1)\"",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "wire-tauri-config",
+      "task": "Point Tauri at the Rsbuild dev server and hooks: `pnpm dev` / `pnpm build` as the before-commands, Rsbuild's default port 3000 as `devUrl`, and `../dist` as `frontendDist`. The app's IPC must keep working with the new configuration.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/tauri.conf.json",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

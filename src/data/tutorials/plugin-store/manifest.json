@@ -1,0 +1,110 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "plugin-store",
+  "title": "Install and use the store plugin",
+  "steps": [
+    {
+      "id": "add-cargo-dep",
+      "task": "Add the tauri-plugin-store crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
+      "mutations": [
+        {
+          "command": "cargo add tauri-plugin-store",
+          "cwd": "src-tauri"
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "register-plugin",
+      "task": "Register the store plugin with the app builder in `lib.rs`. The scaffold's `greet` command must keep working.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-js-bindings",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
+      "mutations": [
+        {
+          "command": "pnpm add @tauri-apps/plugin-store",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "usage-js",
+      "task": "From the frontend, load a store called `store.json`, set a key, read it back and save the store. The TypeScript build must stay green.\n",
+      "mutations": [
+        {
+          "file": "src/main.ts",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "usage-rust",
+      "task": "Use the store from Rust in the app's setup hook: load `store.json`, set a key, read it back and release the resource.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "permissions",
+      "task": "Let the frontend use the store: loading a store from the webview must be denied before the capability grants the store permissions and succeed after.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/capabilities/default.json",
+          "created": false
+        }
+      ],
+      "preconditions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:store|load",
+          "status": "pass"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:store|load",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

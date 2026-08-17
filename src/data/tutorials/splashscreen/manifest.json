@@ -1,0 +1,112 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "splashscreen",
+  "title": "Show a splashscreen while the app performs setup",
+  "steps": [
+    {
+      "id": "install-dependencies",
+      "task": "Install the frontend dependencies and confirm the scaffold builds and answers over IPC before changing anything.\n",
+      "mutations": [
+        {
+          "command": "pnpm install --no-frozen-lockfile",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        },
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "register-windows",
+      "task": "Register the windows in `tauri.conf.json`: a window labeled `main` created hidden, and a window labeled `splashscreen` shown directly, loading the `/splashscreen` URL. Leave the other options at their defaults.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/tauri.conf.json",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "splashscreen-page",
+      "task": "Create a `/splashscreen` page for the splashscreen window to load: a `splashscreen.html` next to `index.html`, and whatever build configuration is needed for `pnpm build` to emit it into `dist/` — the production app must be able to load it, not only the dev server.\n",
+      "mutations": [
+        {
+          "file": "splashscreen.html",
+          "created": true
+        },
+        {
+          "file": "vite.config.ts",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        },
+        {
+          "kind": "shell",
+          "run": "node -e \"process.exit(require('fs').existsSync('dist/splashscreen.html') ? 0 : 1)\"",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "setup-tasks",
+      "task": "Fake a heavy setup task on each side: a `setTimeout`-based task in the frontend and a Tokio sleep in the backend. Track both in a shared `SetupState` behind a `set_complete` command; when both sides report done, close the splashscreen window and show the main window.\n",
+      "mutations": [
+        {
+          "command": "cargo add tokio -F time",
+          "cwd": "src-tauri"
+        },
+        {
+          "file": "src/main.ts",
+          "created": false
+        },
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-local",
+          "command": "set_complete",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-local",
+          "command": "set_complete",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

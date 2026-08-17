@@ -1,0 +1,67 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "greet-command",
+  "title": "Call a Rust command and read a file with the fs plugin",
+  "steps": [
+    {
+      "id": "verify-greet",
+      "task": "Confirm the scaffold's `greet` command answers over IPC: invoking `greet` with the name \"Tauri\" returns the greeting string.\n",
+      "mutations": [],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-fs-plugin",
+      "task": "Add the tauri-plugin-fs dependency to the Rust backend and register the plugin with the app builder. The greet command must keep working.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/Cargo.toml",
+          "created": false
+        },
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "grant-fs-permission",
+      "task": "Let the frontend read files from the app's data directory using the fs plugin. Reading must fail before the capability is granted and succeed after.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/capabilities/default.json",
+          "created": false
+        }
+      ],
+      "preconditions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:fs|read_text_file",
+          "status": "pass"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:fs|read_text_file",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

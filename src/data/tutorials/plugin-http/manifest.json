@@ -1,0 +1,120 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "plugin-http",
+  "title": "Install and use the http plugin",
+  "steps": [
+    {
+      "id": "add-cargo-dep",
+      "task": "Add the tauri-plugin-http crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
+      "mutations": [
+        {
+          "command": "cargo add tauri-plugin-http",
+          "cwd": "src-tauri"
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "register-plugin",
+      "task": "Register the http plugin with the app builder in `lib.rs`. The scaffold's `greet` command must keep working.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-js-bindings",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
+      "mutations": [
+        {
+          "command": "pnpm add @tauri-apps/plugin-http",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "configure-scope",
+      "task": "Allow the frontend to fetch from `*.tauri.app`, except the private subdomain. Fetching must be fully denied before the capability grants the scoped permission; after it, in-scope URLs work and out-of-scope or denied URLs are rejected.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/capabilities/default.json",
+          "created": false
+        }
+      ],
+      "preconditions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        },
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:http|fetch",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "usage-js",
+      "task": "Fetch a URL from the frontend with the plugin's `fetch` API. The TypeScript build must stay green.\n",
+      "mutations": [
+        {
+          "file": "src/main.ts",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "usage-rust",
+      "task": "Fetch from Rust through the reqwest re-export: expose a command that returns the HTTP status of a URL.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "fetch_status",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "../manifest.schema.json",
+  "schemaVersion": 3,
+  "id": "plugin-log",
+  "title": "Install and use the log plugin",
+  "steps": [
+    {
+      "id": "add-cargo-dep",
+      "task": "Add the tauri-plugin-log crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
+      "mutations": [
+        {
+          "command": "cargo add tauri-plugin-log",
+          "cwd": "src-tauri"
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "register-plugin",
+      "task": "Register the log plugin with the app builder in `lib.rs`. The scaffold's `greet` command must keep working.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/src/lib.rs",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "ipc-local",
+          "command": "greet",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "add-js-bindings",
+      "task": "Install the JavaScript guest bindings package with the project's package manager.\n",
+      "mutations": [
+        {
+          "command": "pnpm add @tauri-apps/plugin-log",
+          "cwd": "."
+        }
+      ],
+      "preconditions": [],
+      "assertions": []
+    },
+    {
+      "id": "usage-js",
+      "task": "Produce log records from the frontend with the plugin's `trace`, `info` and `error` APIs. The TypeScript build must stay green.\n",
+      "mutations": [
+        {
+          "file": "src/main.ts",
+          "created": false
+        }
+      ],
+      "preconditions": [],
+      "assertions": [
+        {
+          "kind": "shell",
+          "run": "pnpm build",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "id": "permissions",
+      "task": "Let the frontend log: the log command must be denied before the capability grants the permission and succeed after.\n",
+      "mutations": [
+        {
+          "file": "src-tauri/capabilities/default.json",
+          "created": false
+        }
+      ],
+      "preconditions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:log|log",
+          "status": "pass"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "ipc-acl",
+          "command": "plugin:log|log",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}
