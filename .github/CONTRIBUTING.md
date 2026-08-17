@@ -51,6 +51,8 @@ Use this chart to help you figure out where the right place for your content is:
 | theoretical knowledge     | work                    | [a reference](#reference) |
 | theoretical knowledge     | study                   | [a blog post](#blog-post) |
 
+Some pages render their code blocks from verified tutorial manifests instead of fenced code: see [`src/data/tutorials/README.md`](../src/data/tutorials/README.md) before editing those blocks.
+
 ### Writing Style
 
 **Dictionary**
