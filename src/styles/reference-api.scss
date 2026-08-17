@@ -1,0 +1,66 @@
+// TypeDoc's generated JS API pages (/reference/javascript/**)
+
+// TypeDoc's HTML anchor, in two forms. `:has()` cannot nest inside another `:has()`, so the
+// chain form is the one to pass as a `:has()` argument.
+$anchor-chain: 'p > a[id]:only-child:not([href])';
+$anchor-para: 'p:has(> a[id]:only-child:not([href]))';
+
+.sl-markdown-content:has(> #{$anchor-chain}) {
+  // Empty by definition, so its own margin only pads the heading it marks
+  > #{$anchor-para} {
+    margin: 0;
+  }
+
+  // Kind group (`Functions`, `Interfaces`, `Classes`): a caption for the band below, not a
+  // headline. The `+ anchor` test is what leaves prose h2s like `## iOS security-scoped
+  // resources` at their normal size.
+  .sl-heading-wrapper.level-h2:has(+ #{$anchor-chain}) {
+    --sl-text-h2: var(--sl-text-sm);
+
+    margin-top: 4rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    h2 {
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  // h3 is a symbol, h5 a class member. Both keep their weight, so only the spacing changes.
+  .sl-heading-wrapper.level-h3 {
+    margin-top: 3rem;
+  }
+
+  .sl-heading-wrapper.level-h5 {
+    margin-top: 2.25rem;
+  }
+
+  // The kind group already spaces the symbol that opens its band
+  .sl-heading-wrapper.level-h2:has(+ #{$anchor-chain}) + #{$anchor-para} + .sl-heading-wrapper.level-h3 {
+    margin-top: 1.5rem;
+  }
+
+  // Section label (`Parameters`, `Returns`, `Example`). h4 and h6 are one role at two depths
+  // and never appear as siblings, so they share a treatment.
+  .sl-heading-wrapper:is(.level-h4, .level-h6) {
+    --sl-text-h4: var(--sl-text-xs);
+    --sl-text-h6: var(--sl-text-xs);
+
+    margin-top: 1.75rem;
+
+    // markdown.css colors headings directly, so a color on the wrapper would not reach them
+    :is(h4, h6) {
+      color: var(--sl-color-gray-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  }
+
+  // A label belongs to what follows it, not to what precedes it
+  .sl-heading-wrapper:is(.level-h4, .level-h6) + * {
+    margin-top: 0.4rem;
+  }
+}
