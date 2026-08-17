@@ -32,7 +32,7 @@
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/mdast": "^4.0.4",
-    "astro": "7.2.0",
+    "astro": "7.2.1",
     "astro-d2": "^0.13.0",
     "astrojs-service-worker": "^2.0.2",
     "mdast-util-definitions": "^6.0.0",
