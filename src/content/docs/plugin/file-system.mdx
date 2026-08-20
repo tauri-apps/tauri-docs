@@ -618,6 +618,30 @@ By default all potentially dangerous plugin commands and scopes are blocked and 
 
 See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
 
+:::caution[Permissions alone do not grant a scope]
+Enabling a permission such as `fs:allow-exists` by itself does **not** allow access to any path. Most `fs` commands also require a **scope** that explicitly lists which paths the command may access. Without an `allow` scope, calls will fail at runtime with a `forbidden path` error, even though the permission is enabled.
+
+```json title="Not enough — permission has no scope, so no paths are allowed"
+{
+  "permissions": ["fs:default", "fs:allow-exists"]
+}
+```
+
+```json title="Works — the identifier form adds an explicit allow scope"
+{
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$HOME" }, { "path": "$HOME/**/*" }]
+    }
+  ]
+}
+```
+
+See [Scopes](#scopes) below for the full list of path variables you can use in `allow` and `deny`.
+:::
+
 ```json title="src-tauri/capabilities/default.json" ins={7-11}
 {
   "$schema": "../gen/schemas/desktop-schema.json",
