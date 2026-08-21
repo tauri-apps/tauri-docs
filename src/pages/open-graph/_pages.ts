@@ -59,11 +59,13 @@ const releasePageSlugs = [
   ...repositories.flatMap((repo) => repo.packages).map((pkg) => pkg.name),
 ];
 
+// filtered in the loader: the collection holds ~2,840 version pages and only the ~20 package
+// and index entries get a card
 const releaseEntries = new Map(
-  (ogMode === 'off' ? [] : await getCollection('releases')).map((entry) => [
-    entry.data.slug,
-    entry.data,
-  ])
+  (ogMode === 'off'
+    ? []
+    : await getCollection('releases', ({ data }) => releasePageSlugs.includes(data.slug))
+  ).map((entry) => [entry.data.slug, entry.data])
 );
 
 const releaseCardSlugFor = (pageSlug: string) =>
@@ -78,8 +80,19 @@ const releaseCards: OgCard[] = releasePageSlugs.flatMap((pageSlug) => {
 });
 
 // `OG_LIMIT=n` for local iteration; applied per group because docs cards outnumber release
-// cards 4:1 and a shared budget would never reach the release ones
-const limit = Number(process.env.OG_LIMIT ?? Infinity);
+// cards 4:1 and a shared budget would never reach the release ones. Anything that isn't a
+// number is an error rather than a silent `slice(0, NaN)` — an empty value would render no
+// cards at all and the deploy would still look healthy
+const limit = parseLimit(process.env.OG_LIMIT);
+
+function parseLimit(raw: string | undefined): number {
+  if (raw === undefined) return Infinity;
+  const n = Number(raw);
+  if (raw.trim() === '' || !Number.isInteger(n) || n < 0) {
+    throw new Error(`[og] OG_LIMIT must be a non-negative integer, got ${JSON.stringify(raw)}`);
+  }
+  return n;
+}
 const all = [...docsCards.slice(0, limit), ...releaseCards.slice(0, limit)];
 
 export const ogPages: Record<string, OgCard> = Object.fromEntries(
