@@ -53,7 +53,7 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
     join(PKG_DIR, 'typedoc-tauri-plugin.mjs'),
   ],
   // Starlight's on-page ToC stops at h3, which would drop method and enum-member headings.
-  frontmatterGlobals: { tableOfContents: { maxHeadingLevel: 4 } },
+  frontmatterGlobals: { tableOfContents: { maxHeadingLevel: 3 } },
   // Plugin sources carry TS errors of their own; type-checking them is their CI's job.
   skipErrorChecking: true,
   // Git detection is unreliable in submodule checkouts. Note `displayBasePath`, not
