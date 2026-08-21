@@ -619,6 +619,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Seth Lowie",
     "id": "Seth Lowie",
     "avatarUrl": "https://images.opencollective.com/seth-lowie/avatar/256.jpg",
@@ -632,15 +641,6 @@
     "id": "Jacob",
     "avatarUrl": "https://images.opencollective.com/jacob7/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/jacob7",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"

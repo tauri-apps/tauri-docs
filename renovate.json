@@ -15,6 +15,12 @@
       "minimumReleaseAge": "3 days"
     },
     {
+      "description": "Disable node/pnpm version updates",
+      "matchPackageNames": ["node", "pnpm"],
+      "matchDepTypes": ["engines", "packageManager"],
+      "enabled": false
+    },
+    {
       "matchPackageNames": ["/.*astro.*/i", "/.*starlight.*/i"],
       "groupName": "astro & starlight packages",
       "separateMajorMinor": false
