@@ -90,7 +90,16 @@ export const ogImageSlug = (slug: string) => `${slug}.webp`;
 
 export const ogImagePath = (slug: string) => `/open-graph/${ogImageSlug(slug)}`;
 
-export const hasCard = (slug: string) => Object.hasOwn(ogPages, slug);
+const existing = (slug: string) => (Object.hasOwn(ogPages, slug) ? slug : undefined);
+
+// translated pages whose own card wasn't rendered (`sample` mode, or an `OG_LIMIT` cut) fall
+// back to the English card, the same thing Starlight does for untranslated pages. Both resolvers
+// return `undefined` for "no card", so the middleware needs no second existence check
+export function docsCardSlugOrEnglish(id: string): string | undefined {
+  const own = existing(docsCardSlug(id));
+  if (own !== undefined || !isTranslated(id)) return own;
+  return existing(docsCardSlug(id.split('/').slice(1).join('/')));
+}
 
 // longest first so `core/prereleases` wins over `core`
 const byLength = releasePageSlugs
@@ -99,8 +108,8 @@ const byLength = releasePageSlugs
 
 export function releaseCardSlug(pathname: string): string | undefined {
   const path = pathname.slice(basePath.length).replace(/^\/|\/$/g, '');
-  if (path === '' || path === 'index') return releaseCardSlugFor('');
+  if (path === '' || path === 'index') return existing(releaseCardSlugFor(''));
 
   const match = byLength.find((pageSlug) => path === pageSlug || path.startsWith(pageSlug + '/'));
-  return match === undefined ? undefined : releaseCardSlugFor(match);
+  return match === undefined ? undefined : existing(releaseCardSlugFor(match));
 }
