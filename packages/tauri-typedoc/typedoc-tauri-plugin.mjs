@@ -1,4 +1,5 @@
-import { Converter, makeRecursiveVisitor } from 'typedoc';
+import { Converter, ReflectionKind, makeRecursiveVisitor } from 'typedoc';
+import { MarkdownPageEvent } from 'typedoc-plugin-markdown';
 
 /**
  * Two upstream `#### Platform-specific` variants, rewritten at the reflection level so no
@@ -40,7 +41,43 @@ function normalizeComment(comment) {
   for (const tag of comment.blockTags) normalizeCommentDisplayParts(tag.content);
 }
 
+// Plain-text first paragraph of a reflection's summary, for `description:` frontmatter. Links
+// keep their label and inline code its text; anything else is left as written.
+function summaryText(reflection) {
+  const summary = reflection.comment?.summary;
+  if (!summary?.length) return undefined;
+  const text = summary
+    .map((part) => part.text)
+    .join('')
+    .trim()
+    .split(/\n\s*\n/)[0]
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text || undefined;
+}
+
 export function load(app) {
+  // starlight-typedoc sets `title` to the bare reflection name in its own BEGIN listener, and
+  // priority -1 runs after it. A namespace page titled `path` means nothing once the link is
+  // shared, so it takes the import specifier and keeps the short name for the sidebar. The
+  // summary doubles as the page's meta description and its Open Graph card text.
+  app.renderer.on(
+    MarkdownPageEvent.BEGIN,
+    (page) => {
+      if (!page.frontmatter) return;
+      const { model, project } = page;
+      if (model.kind === ReflectionKind.Namespace && project.packageName) {
+        page.frontmatter.title = `${project.packageName}/${model.name}`;
+        page.frontmatter.sidebar = { ...page.frontmatter.sidebar, label: model.name };
+      }
+      const description = summaryText(model);
+      if (description) page.frontmatter.description = description;
+    },
+    -1
+  );
+
   app.converter.on(Converter.EVENT_RESOLVE_BEGIN, (context) => {
     for (const reflection of Object.values(context.project.reflections)) {
       normalizeComment(reflection.comment);
