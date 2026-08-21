@@ -136,6 +136,20 @@ sudo apk add \
 
 > Note: Alpine Linux containers don’t include any fonts by default. To ensure text renders correctly in your Tauri app, install at least one font package (for example, `font-dejavu `).
 
+> Note: Alpine targets the musl C library, so Rust builds link a number of system libraries statically. If `cargo`/`pnpm tauri build` fails with linker errors for symbols from libraries that `pkg-config` reports as present, install the matching `*-static` packages alongside the `-dev` ones above:
+>
+> ```sh
+> sudo apk add --no-cache \
+>   openssl-libs-static \
+>   cairo-static \
+>   harfbuzz-static \
+>   glib-static \
+>   wayland-static \
+>   zlib-static
+> ```
+>
+> Not every dependency Tauri pulls in is packaged as `*-static` on Alpine; in those cases you may need to build the missing static library from source.
+
   </TabItem>
   <TabItem label="NixOS">
 
