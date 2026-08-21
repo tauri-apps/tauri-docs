@@ -5,7 +5,8 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
-  - sharp
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+minimumReleaseAge: 4320
