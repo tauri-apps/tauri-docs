@@ -1,7 +1,7 @@
 import type { OGImageOptions } from 'astro-og-canvas';
 
 /**
- * Character budgets for roughly two rendered lines.
+ * Width budgets for roughly two rendered lines, in Latin-character units.
  *
  * An approximation, because the real constraint is rendered width and we can't measure that
  * from here. CanvasKit supports `maxLines`/`ellipsis` natively but astro-og-canvas doesn't
@@ -10,9 +10,26 @@ import type { OGImageOptions } from 'astro-og-canvas';
 const titleMax = 48;
 const descriptionMax = 73;
 
-function clampToTwoLines(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength).replace(/[\s.,;:!?-]+$/, '') + '…';
+// CJK glyphs are full-width, about twice an average Latin glyph at the same size; the two
+// ranges are CJK punctuation and the full-width forms
+const fullWidth = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}　-〿＀-￯]/u;
+const widthOf = (grapheme: string) => (fullWidth.test(grapheme) ? 2 : 1);
+
+const graphemes = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+
+// the Latin and CJK punctuation a cut can leave dangling before the ellipsis
+const trailingPunctuation = /[\s.,;:!?\-，。、：；！？]+$/u;
+
+function clampToTwoLines(text: string, maxWidth: number): string {
+  let width = 0;
+  let kept = '';
+  // grapheme segments so an emoji or a combining sequence is never split in two
+  for (const { segment } of graphemes.segment(text)) {
+    width += widthOf(segment);
+    if (width > maxWidth) return kept.replace(trailingPunctuation, '') + '…';
+    kept += segment;
+  }
+  return text;
 }
 
 const assetsDir = './src/og/images';
