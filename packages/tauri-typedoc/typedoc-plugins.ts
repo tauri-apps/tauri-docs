@@ -73,7 +73,7 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
   typeDeclarationFormat: 'table',
   enumMembersFormat: 'table',
   useHTMLAnchors: true,
-  hideGroupHeadings: true,
+  // hideGroupHeadings: true,
   groupOrder: [
     'Documents',
     'Modules',
