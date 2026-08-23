@@ -13,6 +13,7 @@
         "node_modules",
         "src/content/docs/reference/{acl,javascript}/**/*.{md,mdx}",
         "src/content/docs/reference/{config,cli}.{md,mdx}",
+        "src/content/docs/*/reference/{config,cli}.{md,mdx}",
         "src/content/docs/release"
       ],
       "type": "universal"

@@ -28,6 +28,10 @@ If that page isn't in the list, then now it's time for you to lead the effort! S
 
 Note that you may submit a draft pull request before your translation is complete: e.g., you may want to ask for help with translations or simply indicate to others that you're already translating a specific page. However, your pull request will not be merged until the translation is complete.
 
+## Translating Generated Pages
+
+The CLI reference (`src/content/docs/reference/cli.mdx`) is generated at build time from the template `src/content/docs/reference/_cli.mdx`. To translate it, create `src/content/docs/<lang>/reference/_cli.mdx` with the translated prose and keep the `$LIST_OF_COMMANDS` placeholder in place. The build expands the placeholder into the full command reference. The command help text itself comes from the `tauri` CLI and stays in English. If a translated `_cli_ios.mdx` sits next to your template, the build uses it for the iOS section. Otherwise it uses the English one.
+
 ## Updating a Translation
 
 ### Corrections
