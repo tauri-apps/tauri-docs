@@ -24,6 +24,7 @@ export type IndexRelease = {
 export type PageLink = {
   label: string;
   href: string;
+  icon?: string;
   /** Push this link to the far end of the links row */
   align?: 'end';
 };
@@ -46,12 +47,11 @@ function renderPageLinks(links: PageLink[]): string {
   if (links.length === 0) {
     return '';
   }
-  const anchors = links.map(({ label, href, align }) => {
+  const anchors = links.map(({ label, href, icon, align }) => {
     const external = href.startsWith('http');
     const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
     const cls = align === 'end' ? ' class="align-end"' : '';
-    const icon = external ? ` ${externalIcon}` : '';
-    return `<a href="${href}"${cls}${attrs}>${label}${icon}</a>`;
+    return `<a href="${href}"${cls}${attrs}>${icon ?? ''}${label}</a>`;
   });
   return `<div class="release-links">${anchors.join('\n')}</div>`;
 }

@@ -7,7 +7,7 @@
   "scripts": {
     "dev:setup:submodules": "git submodule update --init",
     "dev:setup:tauri": "pnpm install -C packages/tauri/packages/api --ignore-workspace --no-frozen-lockfile",
-    "dev:setup:plugins-workspace": "pnpm -C packages/plugins-workspace install",
+    "dev:setup:plugins-workspace": "pnpm -C packages/plugins-workspace install --pm-on-fail=ignore",
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace && pnpm build:compatibility-table",
     "sync:sponsors": "pnpm --filter fetch-sponsors run build sponsors",
     "sync:contributors": "pnpm --filter fetch-sponsors run build contributors",
@@ -35,7 +35,7 @@
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/mdast": "^4.0.4",
-    "astro": "7.2.0",
+    "astro": "7.2.2",
     "astro-d2": "^0.13.0",
     "astrojs-service-worker": "^2.0.2",
     "mdast-util-definitions": "^6.0.0",
@@ -53,10 +53,9 @@
     "starlight-sidebar-topics": "^0.8.0",
     "unified": "^11.0.5"
   },
-  "minimumReleaseAge": 4320,
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@11.21.0",
   "engines": {
-    "pnpm": "^10.16.0"
+    "pnpm": "^11.0.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
