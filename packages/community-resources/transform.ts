@@ -7,6 +7,8 @@ export interface Resource {
   npm?: string;
   crates_io?: string;
   stars?: number | null;
+  // crates.io reports the last 90 days, npm the last 30; a merged row keeps the crate's figure
+  downloads?: number | null;
 }
 
 export interface Snapshot {
@@ -83,6 +85,7 @@ export function mergeRegistries(crates: Resource[], npm: Resource[]): Resource[]
       existing.npm = pkg.npm;
       existing.description ||= pkg.description;
       existing.repository ||= pkg.repository;
+      existing.downloads ??= pkg.downloads;
     } else {
       map.set(pkg.name, { ...pkg });
     }

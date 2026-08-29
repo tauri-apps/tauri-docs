@@ -65,6 +65,22 @@ test('mergeRegistries folds an -api package into its crate', () => {
   assert.equal(merged[0].npm, 'https://www.npmjs.com/package/tauri-plugin-x-api');
 });
 
+test('mergeRegistries keeps the crate download count and falls back to npm', () => {
+  const repo = 'https://github.com/a/b';
+  const merged = mergeRegistries(
+    [{ ...crate('tauri-plugin-x', repo), downloads: 900 }, crate('tauri-plugin-y', repo)],
+    [
+      { ...pkg('tauri-plugin-x-api', repo), downloads: 300 },
+      { ...pkg('tauri-plugin-y-api', repo), downloads: 300 },
+    ]
+  );
+
+  assert.deepEqual(
+    merged.map((r) => r.downloads),
+    [900, 300]
+  );
+});
+
 test('mergeRegistries keeps -api separate when the repositories disagree', () => {
   const merged = mergeRegistries(
     [crate('tauri-plugin-x', 'https://github.com/a/b')],

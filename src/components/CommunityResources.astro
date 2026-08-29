@@ -9,6 +9,7 @@ const resources = communityResourcesData.resources as Resource[];
 // star counts need a token, so the workflow populates them on its first run -
 // until then the column and its sort option would be dead UI
 const hasStars = resources.some((item) => typeof item.stars === 'number');
+const hasDownloads = resources.some((item) => typeof item.downloads === 'number');
 
 // `locals.starlightRoute` is not populated when starlight-llms-txt re-renders
 // page content, so read the locale off the URL. English is the `root` locale
@@ -23,6 +24,11 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
 });
 const numberFormat = new Intl.NumberFormat('en-US');
+const compactFormat = new Intl.NumberFormat('en-US', { notation: 'compact' });
+const compact = (value?: number | null) =>
+  typeof value === 'number' ? compactFormat.format(value) : '-';
+const exact = (value?: number | null) =>
+  typeof value === 'number' ? numberFormat.format(value) : undefined;
 
 // depends on /assets/registries.svg
 const links = [
@@ -36,10 +42,11 @@ const links = [
   <a href={backHref}><Icon name="left-arrow" class="inline" />Plugins</a>
 </p>
 
-<community-resources>
+{/* not-content: Starlight's markdown styles would otherwise turn the table into a block */}
+<community-resources class="not-content">
   <div class="search-container">
     <input
-      type="text"
+      type="search"
       id="resource-search"
       placeholder="Search plugins by name or description..."
       aria-label="Search community plugins by name or description"
@@ -49,7 +56,7 @@ const links = [
     <div class="filters">
       <label>
         <span>Source:</span>
-        <select id="filter-source" class="filter-select">
+        <select id="filter-source" class="control">
           <option value="">All</option>
           <option value="both">Both (npm & crates)</option>
           <option value="npm">npm only</option>
@@ -58,28 +65,35 @@ const links = [
       </label>
       <label>
         <span>Sort by:</span>
-        <select id="sort-by" class="filter-select">
+        <select id="sort-by" class="control">
           <option value="date">Date Created</option>
           <option value="name">Name</option>
+          {hasDownloads && <option value="downloads">Downloads</option>}
           {hasStars && <option value="stars">Stars</option>}
         </select>
       </label>
     </div>
-    <div class="summary" aria-live="polite">
-      Showing <strong id="visible-count">{resources.length}</strong> of <strong
-        >{resources.length}</strong
-      > community plugins
-    </div>
+    <p class="summary" id="summary" aria-live="polite">
+      Showing all {resources.length} community plugins
+    </p>
   </div>
 
   <div class="table-wrapper">
-    <table class:list={['resources-table', { 'no-stars': !hasStars }]}>
+    <table class="resources-table">
       <caption class="sr-only"> Community plugins published to crates.io and npm </caption>
       <thead>
         <tr>
-          <th class="name-header">Name & Links</th>
-          <th class="description-header">Description</th>
-          {hasStars && <th class="stars-header">Stars</th>}
+          <th class="name-header">Name</th>
+          <th class="links-header"><span class="sr-only">Links</span></th>
+          <th>Description</th>
+          {
+            hasDownloads && (
+              <th class="numeric-header" title="crates.io: last 90 days · npm: last 30 days">
+                Downloads
+              </th>
+            )
+          }
+          {hasStars && <th class="numeric-header">Stars</th>}
           <th class="created-header">Created</th>
         </tr>
       </thead>
@@ -90,33 +104,43 @@ const links = [
               class="resource-row"
               data-source={item.npm && item.crates_io ? 'both' : item.npm ? 'npm' : 'crates'}
               data-stars={typeof item.stars === 'number' ? String(item.stars) : undefined}
+              data-downloads={
+                typeof item.downloads === 'number' ? String(item.downloads) : undefined
+              }
             >
               <td class="name-cell">
-                <div class="name-with-links">
-                  <code>{item.name}</code>
-                  <div class="links">
-                    {links.map(({ key, icon, title }) =>
-                      item[key] ? (
-                        <a
-                          href={item[key]}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title={title}
-                          aria-label={`${item.name} on ${title}`}
-                        >
-                          <svg class="link-icon" aria-hidden="true">
-                            <use xlink:href={`/assets/registries.svg#${icon}`} />
-                          </svg>
-                        </a>
-                      ) : null
-                    )}
-                  </div>
+                <code>{item.name}</code>
+              </td>
+              <td class="links-cell">
+                <div class="links">
+                  {links.map(({ key, icon, title }) =>
+                    item[key] ? (
+                      <a
+                        href={item[key]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={title}
+                        aria-label={`${item.name} on ${title}`}
+                      >
+                        <svg class="link-icon" aria-hidden="true">
+                          <use xlink:href={`/assets/registries.svg#${icon}`} />
+                        </svg>
+                      </a>
+                    ) : (
+                      <span />
+                    )
+                  )}
                 </div>
               </td>
               <td class="description-cell">{item.description}</td>
+              {hasDownloads && (
+                <td class="numeric-cell" title={exact(item.downloads)}>
+                  {compact(item.downloads)}
+                </td>
+              )}
               {hasStars && (
-                <td class="stars-cell">
-                  {typeof item.stars === 'number' ? numberFormat.format(item.stars) : '-'}
+                <td class="numeric-cell" title={exact(item.stars)}>
+                  {compact(item.stars)}
                 </td>
               )}
               <td class="created-cell">
@@ -128,7 +152,16 @@ const links = [
       </tbody>
     </table>
   </div>
-  <div class="no-results hidden" id="no-results">No plugins match your search criteria.</div>
+
+  <nav class="pagination" id="pagination" aria-label="Plugin list pages" hidden>
+    <button type="button" class="control" id="page-prev">Previous</button>
+    <label>
+      <span>Page</span>
+      <select id="page-select" class="control"></select>
+      <span>of <strong id="page-count"></strong></span>
+    </label>
+    <button type="button" class="control" id="page-next">Next</button>
+  </nav>
 </community-resources>
 
 <style>
@@ -140,6 +173,7 @@ const links = [
   community-resources {
     display: block;
     width: 100%;
+    scroll-margin-top: calc(var(--sl-nav-height) + 1rem);
   }
 
   .search-container {
@@ -150,7 +184,7 @@ const links = [
   .search-input {
     width: 100%;
     padding: 0.75rem 1rem;
-    font-size: 1rem;
+    font-size: var(--sl-text-base);
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.5rem;
     background: var(--sl-color-black);
@@ -172,27 +206,33 @@ const links = [
     margin-bottom: 1rem;
   }
 
-  .filters label {
+  .filters label,
+  .pagination label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 0;
-    font-size: 0.9rem;
+    font-size: var(--sl-text-sm);
     white-space: nowrap;
   }
 
-  .filter-select {
+  /* same look as the select/button controls in releases/ReleasesTable.astro */
+  .control {
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
     background: var(--sl-color-black);
     color: var(--sl-color-white);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: var(--sl-text-sm);
+  }
+
+  .control:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 
   .summary {
-    font-size: 0.9rem;
+    font-size: var(--sl-text-sm);
     color: var(--sl-color-gray-2);
     margin-bottom: 1rem;
   }
@@ -207,7 +247,7 @@ const links = [
   .resources-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: var(--sl-text-sm);
     table-layout: fixed;
   }
 
@@ -215,6 +255,7 @@ const links = [
   .resources-table td {
     padding: 0.75rem 1rem;
     text-align: left;
+    vertical-align: middle;
     border-bottom: 1px solid var(--sl-color-gray-6);
   }
 
@@ -226,31 +267,32 @@ const links = [
     font-weight: 600;
   }
 
-  .name-header,
-  .name-cell {
-    width: 25%;
+  /* fixed layout reads widths off the header row; the description column takes the rest */
+  .name-header {
+    width: 30%;
   }
 
-  .description-header,
-  .description-cell {
-    width: 50%;
+  .links-header {
+    width: 5.75rem;
   }
 
-  .no-stars .description-header,
-  .no-stars .description-cell {
-    width: 60%;
+  .numeric-header {
+    width: 6.5rem;
   }
 
-  .stars-header,
-  .stars-cell {
-    width: 10%;
-    text-align: right;
-    white-space: nowrap;
+  .created-header {
+    width: 8rem;
   }
 
+  .links-header,
+  .links-cell {
+    padding-inline: 0.5rem;
+  }
+
+  .numeric-header,
+  .numeric-cell,
   .created-header,
   .created-cell {
-    width: 15%;
     text-align: right;
     white-space: nowrap;
   }
@@ -263,23 +305,9 @@ const links = [
     background: var(--sl-color-gray-7);
   }
 
-  .name-cell {
-    white-space: nowrap;
-  }
-
-  .name-with-links {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
   .name-cell code {
-    font-size: 0.85rem;
-    background: transparent;
-    padding: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: var(--sl-text-xs);
+    overflow-wrap: anywhere;
   }
 
   .description-cell {
@@ -287,10 +315,11 @@ const links = [
     word-wrap: break-word;
   }
 
+  /* one slot per registry so the same icon lands in the same column on every row */
   .links {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1.25rem);
+    gap: 0.5rem;
   }
 
   .links a {
@@ -306,25 +335,27 @@ const links = [
   }
 
   .link-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
     fill: currentColor;
   }
 
-  .no-results {
-    padding: 3rem;
-    text-align: center;
-    color: var(--sl-color-gray-3);
-    font-size: 1.1rem;
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
   }
 
-  .hidden {
+  [hidden] {
     display: none !important;
   }
 
   @media (max-width: 768px) {
     .resources-table {
-      font-size: 0.8rem;
+      font-size: var(--sl-text-xs);
     }
 
     .resources-table th,
@@ -334,7 +365,7 @@ const links = [
 
     .description-cell {
       max-width: 200px;
-      font-size: 0.75rem;
+      font-size: var(--sl-text-2xs);
     }
   }
 </style>
@@ -346,97 +377,151 @@ const links = [
     name: string;
     description: string;
     stars: number;
+    downloads: number;
     source: string;
   }
 
+  const PAGE_SIZE = 50;
+
   class CommunityResources extends HTMLElement {
-    searchInput: HTMLInputElement;
-    sourceFilter: HTMLSelectElement;
-    sortSelect: HTMLSelectElement;
-    tbody: HTMLElement;
-    tableWrapper: HTMLElement;
-    visibleCountEl: HTMLElement;
-    noResultsEl: HTMLElement;
-    cachedRows: RowData[] | undefined;
-    searchTimer: number | undefined;
+    searchInput = this.querySelector('#resource-search') as HTMLInputElement;
+    sourceFilter = this.querySelector('#filter-source') as HTMLSelectElement;
+    sortSelect = this.querySelector('#sort-by') as HTMLSelectElement;
+    tbody = this.querySelector('#resources-tbody') as HTMLElement;
+    tableWrapper = this.querySelector('.table-wrapper') as HTMLElement;
+    summaryEl = this.querySelector('#summary') as HTMLElement;
+    paginationEl = this.querySelector('#pagination') as HTMLElement;
+    pageSelect = this.querySelector('#page-select') as HTMLSelectElement;
+    pageCountEl = this.querySelector('#page-count') as HTMLElement;
+    prevButton = this.querySelector('#page-prev') as HTMLButtonElement;
+    nextButton = this.querySelector('#page-next') as HTMLButtonElement;
+    searchTimer: ReturnType<typeof setTimeout> | undefined;
+    page = 1;
+
+    // kept in the current sort order alongside the DOM, so filtering and paging
+    // only toggle visibility. `index` is the server's created-desc order.
+    rows: RowData[] = Array.from(
+      this.tbody.querySelectorAll<HTMLTableRowElement>('.resource-row')
+    ).map((el, index) => ({
+      el,
+      index,
+      name: el.querySelector('.name-cell code')?.textContent?.toLowerCase() || '',
+      description: el.querySelector('.description-cell')?.textContent?.toLowerCase() || '',
+      stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
+      downloads: el.dataset.downloads ? Number(el.dataset.downloads) : -1,
+      source: el.dataset.source || '',
+    }));
 
     constructor() {
       super();
 
-      this.searchInput = this.querySelector('#resource-search') as HTMLInputElement;
-      this.sourceFilter = this.querySelector('#filter-source') as HTMLSelectElement;
-      this.sortSelect = this.querySelector('#sort-by') as HTMLSelectElement;
-      this.tbody = this.querySelector('#resources-tbody') as HTMLElement;
-      this.tableWrapper = this.querySelector('.table-wrapper') as HTMLElement;
-      this.visibleCountEl = this.querySelector('#visible-count') as HTMLElement;
-      this.noResultsEl = this.querySelector('#no-results') as HTMLElement;
-
       this.searchInput.addEventListener('input', () => {
         clearTimeout(this.searchTimer);
-        this.searchTimer = setTimeout(() => this.update(), 150);
+        this.searchTimer = setTimeout(() => this.update(1), 150);
       });
-      this.sourceFilter.addEventListener('change', () => this.update());
+      this.sourceFilter.addEventListener('change', () => this.update(1));
       this.sortSelect.addEventListener('change', () => {
         this.sort(this.sortSelect.value);
-        this.update();
+        this.update(1);
       });
+      this.prevButton.addEventListener('click', () => this.goTo(this.page - 1));
+      this.nextButton.addEventListener('click', () => this.goTo(this.page + 1));
+      this.pageSelect.addEventListener('change', () => this.goTo(Number(this.pageSelect.value)));
     }
 
-    // indexing every row is only worth paying for once the reader interacts
-    get rows(): RowData[] {
-      this.cachedRows ??= Array.from(
-        this.tbody.querySelectorAll<HTMLTableRowElement>('.resource-row')
-      ).map((el, index) => ({
-        el,
-        index,
-        name: el.querySelector('.name-cell code')?.textContent?.toLowerCase() || '',
-        description: el.querySelector('.description-cell')?.textContent?.toLowerCase() || '',
-        stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
-        source: el.dataset.source || '',
-      }));
-      return this.cachedRows;
+    connectedCallback() {
+      const params = new URLSearchParams(location.search);
+      this.searchInput.value = params.get('q') ?? '';
+      // an unknown value (e.g. `sort=stars` before the first token run) would
+      // blank the select, so fall back to the first option
+      this.sourceFilter.value = params.get('source') ?? '';
+      if (this.sourceFilter.selectedIndex === -1) this.sourceFilter.selectedIndex = 0;
+      this.sortSelect.value = params.get('sort') ?? 'date';
+      if (this.sortSelect.selectedIndex === -1) this.sortSelect.selectedIndex = 0;
+
+      if (this.sortSelect.value !== 'date') {
+        this.sort(this.sortSelect.value);
+      }
+      this.update(Number(params.get('page')) || 1);
     }
 
-    matches(row: RowData, query: string, source: string) {
+    isMatch(row: RowData, query: string, source: string) {
       if (query && !row.name.includes(query) && !row.description.includes(query)) {
         return false;
       }
       return !source || row.source === source;
     }
 
-    // the DOM is kept in sort order at all times, so filtering only has to
-    // toggle visibility. `index` is the server's created-desc order.
     sort(sortBy: string) {
-      const ordered = [...this.rows];
       if (sortBy === 'name') {
-        ordered.sort((a, b) => a.name.localeCompare(b.name));
+        this.rows.sort((a, b) => a.name.localeCompare(b.name));
       } else if (sortBy === 'stars') {
-        ordered.sort((a, b) => b.stars - a.stars);
+        this.rows.sort((a, b) => b.stars - a.stars);
+      } else if (sortBy === 'downloads') {
+        this.rows.sort((a, b) => b.downloads - a.downloads);
       } else {
-        ordered.sort((a, b) => a.index - b.index);
+        this.rows.sort((a, b) => a.index - b.index);
       }
 
       const fragment = document.createDocumentFragment();
-      for (const row of ordered) {
+      for (const row of this.rows) {
         fragment.appendChild(row.el);
       }
       this.tbody.appendChild(fragment);
     }
 
-    update() {
-      const query = this.searchInput.value.toLowerCase();
+    goTo(page: number) {
+      this.update(page);
+      this.scrollIntoView({ block: 'start' });
+    }
+
+    update(page: number) {
+      const query = this.searchInput.value.trim().toLowerCase();
       const source = this.sourceFilter.value;
-      let visibleCount = 0;
+      const matched = this.rows.filter((row) => this.isMatch(row, query, source));
+      const pageCount = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+      this.page = Math.min(Math.max(1, page), pageCount);
+      const start = (this.page - 1) * PAGE_SIZE;
+      const onPage = matched.slice(start, start + PAGE_SIZE);
 
-      for (const row of this.rows) {
-        const visible = this.matches(row, query, source);
-        row.el.classList.toggle('hidden', !visible);
-        if (visible) visibleCount++;
+      for (const row of this.rows) row.el.hidden = true;
+      for (const row of onPage) row.el.hidden = false;
+
+      const total = this.rows.length;
+      this.summaryEl.textContent =
+        (matched.length
+          ? `Showing ${start + 1}–${start + onPage.length} of ${matched.length} community plugins`
+          : 'No plugins match your search') + (matched.length === total ? '' : ` (${total} total)`);
+      this.tableWrapper.hidden = matched.length === 0;
+
+      this.paginationEl.hidden = pageCount === 1;
+      if (this.pageSelect.options.length !== pageCount) {
+        this.pageSelect.replaceChildren(
+          ...Array.from({ length: pageCount }, (_, i) => new Option(String(i + 1)))
+        );
+        this.pageCountEl.textContent = String(pageCount);
       }
+      this.pageSelect.value = String(this.page);
+      this.prevButton.disabled = this.page === 1;
+      this.nextButton.disabled = this.page === pageCount;
 
-      this.visibleCountEl.textContent = visibleCount.toString();
-      this.noResultsEl.classList.toggle('hidden', visibleCount > 0);
-      this.tableWrapper.classList.toggle('hidden', visibleCount === 0);
+      this.syncUrl(query, source);
+    }
+
+    // keep the list state shareable and survivable across reloads without
+    // polluting history - back should leave the page, not undo a keystroke
+    syncUrl(query: string, source: string) {
+      const params = new URLSearchParams();
+      if (query) params.set('q', query);
+      if (source) params.set('source', source);
+      if (this.sortSelect.value !== 'date') params.set('sort', this.sortSelect.value);
+      if (this.page > 1) params.set('page', String(this.page));
+      const search = params.toString();
+      history.replaceState(
+        null,
+        '',
+        `${location.pathname}${search ? `?${search}` : ''}${location.hash}`
+      );
     }
   }
 
