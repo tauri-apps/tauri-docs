@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T21:19:57.646Z",
+  "generated": "2026-08-29T23:58:24.848Z",
   "resources": [
     {
       "source": "crates",
@@ -878,7 +878,8 @@
       "created_at": "2026-05-17T11:01:03.621948Z",
       "repository": "https://github.com/YU000jp/tauri-window-system",
       "crates_io": "https://crates.io/crates/tauri-plugin-window-system",
-      "downloads": 14
+      "downloads": 14,
+      "npm": "https://www.npmjs.com/package/tauri-plugin-window-system-api"
     },
     {
       "source": "crates",
@@ -1450,7 +1451,8 @@
       "created_at": "2026-03-11T19:09:04.120231Z",
       "repository": "https://github.com/loafday0/tauri-plugin-custom-themes",
       "crates_io": "https://crates.io/crates/tauri-plugin-custom-themes",
-      "downloads": 7
+      "downloads": 7,
+      "npm": "https://www.npmjs.com/package/tauri-plugin-custom-themes-api"
     },
     {
       "source": "crates",
@@ -1652,6 +1654,15 @@
       "downloads": 7
     },
     {
+      "source": "npm",
+      "name": "tauri-plugin-task-queue",
+      "description": "Priority-based task queue system for Tauri v2",
+      "created_at": "2026-02-20T13:12:52.856Z",
+      "repository": null,
+      "npm": "https://www.npmjs.com/package/tauri-plugin-task-queue",
+      "downloads": 20
+    },
+    {
       "source": "crates",
       "name": "tauri-plugin-native-audio",
       "description": "Native mobile audio playback plugin for Tauri",
@@ -1698,7 +1709,8 @@
       "created_at": "2026-02-14T12:52:15.669238Z",
       "repository": "https://github.com/palanik1/tauri-plugin-agent-control",
       "crates_io": "https://crates.io/crates/tauri-plugin-agent-control",
-      "downloads": 64
+      "downloads": 64,
+      "npm": "https://www.npmjs.com/package/tauri-plugin-agent-control"
     },
     {
       "source": "crates",
@@ -1895,7 +1907,7 @@
       "repository": "https://github.com/ShuttleSpace/tauri-plugin-bar",
       "crates_io": "https://crates.io/crates/tauri-plugin-immersionbar",
       "downloads": 17,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-immersionbar-api"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-immersionbar"
     },
     {
       "source": "crates",
@@ -2844,6 +2856,15 @@
     },
     {
       "source": "npm",
+      "name": "@savori/tauri-plugin-share-api",
+      "description": "Share plugin for Tauri",
+      "created_at": "2025-07-31T05:09:54.740Z",
+      "repository": null,
+      "npm": "https://www.npmjs.com/package/@savori/tauri-plugin-share-api",
+      "downloads": 5
+    },
+    {
+      "source": "npm",
       "name": "@razein97/tauri-plugin-rusqlite2",
       "description": "A fork of tauri-plugin-sqlite by @bspeckco using rusqlite, supporting only SQLite with added transaction capabilities.",
       "created_at": "2025-07-30T19:54:34.971Z",
@@ -3074,7 +3095,8 @@
       "created_at": "2025-06-03T12:12:30.327527Z",
       "repository": "https://github.com/Grano22/tauri-plugin-apple_camera/",
       "crates_io": "https://crates.io/crates/tauri-plugin-apple-camera",
-      "downloads": 9
+      "downloads": 9,
+      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-camera-api"
     },
     {
       "source": "crates",
@@ -3749,6 +3771,15 @@
     },
     {
       "source": "npm",
+      "name": "@inkibra/tauri-plugin-sharing",
+      "description": "",
+      "created_at": "2024-12-12T10:17:52.654Z",
+      "repository": "https://github.com/inkibra/tauri-plugins",
+      "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-sharing",
+      "downloads": 5
+    },
+    {
+      "source": "npm",
       "name": "@inkibra/tauri-plugin-haptic-feedback",
       "description": "",
       "created_at": "2024-12-12T10:17:52.615Z",
@@ -4419,7 +4450,7 @@
       "repository": "https://github.com/s00d/tauri-plugin-serialplugin",
       "crates_io": "https://crates.io/crates/tauri-plugin-serialplugin",
       "downloads": 8824,
-      "npm": "https://www.npmjs.com/package/tauri-plugin-serialplugin-api"
+      "npm": "https://www.npmjs.com/package/tauri-plugin-serialplugin"
     },
     {
       "source": "npm",
