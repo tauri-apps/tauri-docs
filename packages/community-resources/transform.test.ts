@@ -65,6 +65,21 @@ test('mergeRegistries folds an -api package into its crate', () => {
   assert.equal(merged[0].npm, 'https://www.npmjs.com/package/tauri-plugin-x-api');
 });
 
+test('mergeRegistries prefers the exact npm name over -api whichever comes first', () => {
+  const repo = 'https://github.com/a/b';
+  const plain = pkg('tauri-plugin-x', repo);
+  const api = pkg('tauri-plugin-x-api', repo);
+
+  for (const npm of [
+    [plain, api],
+    [api, plain],
+  ]) {
+    const merged = mergeRegistries([crate('tauri-plugin-x', repo)], npm);
+    assert.equal(merged.length, 1);
+    assert.equal(merged[0].npm, plain.npm);
+  }
+});
+
 test('mergeRegistries keeps the crate download count and falls back to npm', () => {
   const repo = 'https://github.com/a/b';
   const merged = mergeRegistries(
@@ -137,11 +152,13 @@ test('assertNoDataLoss rejects a crawl that lost a tenth of the list', () => {
   assert.throws(() => assertNoDataLoss(previous, previous.resources.slice(0, 89)), /partial crawl/);
 });
 
-test('assertNoDataLoss rejects a run that silently lost every star count', () => {
-  const previous = { generated: '', resources: [{ ...crate('a'), stars: 7 }] };
+test('assertNoDataLoss rejects a run that lost a fifth of the star counts', () => {
+  const starred = Array.from({ length: 10 }, (_, i) => ({ ...crate(`p${i}`), stars: i }));
+  const previous = { generated: '', resources: starred };
+  const unstarred = (n: number) => starred.map((r, i) => (i < n ? crate(r.name) : r));
 
-  assert.throws(() => assertNoDataLoss(previous, [crate('a')]), /GITHUB_TOKEN/);
-  assert.doesNotThrow(() => assertNoDataLoss(previous, [{ ...crate('a'), stars: 0 }]));
+  assert.doesNotThrow(() => assertNoDataLoss(previous, unstarred(2)));
+  assert.throws(() => assertNoDataLoss(previous, unstarred(3)), /GITHUB_TOKEN/);
 });
 
 test('assertNoDataLoss accepts the first run', () => {

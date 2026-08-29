@@ -115,7 +115,15 @@ const links = [
                 <div>
                   {links.map(
                     ({ key, title }) =>
-                      item[key] && <a href={item[key]} target="_blank" title={title} class={key} />
+                      item[key] && (
+                        <a
+                          href={item[key]}
+                          target="_blank"
+                          title={title}
+                          aria-label={`${item.name} on ${title}`}
+                          class={key}
+                        />
+                      )
                   )}
                 </div>
               </td>
@@ -234,8 +242,11 @@ const links = [
       border-radius: 0.5rem;
     }
 
+    /* the fixed columns add up to ~20rem; below min-width the wrapper scrolls
+       instead of squeezing the name and description to nothing */
     table {
       width: 100%;
+      min-width: 40rem;
       border-collapse: collapse;
       font-size: var(--sl-text-sm);
       table-layout: fixed;
@@ -246,7 +257,12 @@ const links = [
       padding: 0.75rem 1rem;
       text-align: left;
       vertical-align: middle;
-      border-bottom: 1px solid var(--sl-color-gray-6);
+    }
+
+    /* a top border keeps the last visible row flush with the wrapper; with
+       paging, the DOM's last row is usually a hidden one */
+    tbody td {
+      border-top: 1px solid var(--sl-color-gray-6);
     }
 
     thead {
@@ -282,10 +298,6 @@ const links = [
     .created {
       text-align: right;
       white-space: nowrap;
-    }
-
-    tbody tr:last-child td {
-      border-bottom: none;
     }
 
     tbody tr:hover {
@@ -353,11 +365,6 @@ const links = [
       th,
       td {
         padding: 0.5rem;
-      }
-
-      td.description {
-        max-width: 200px;
-        font-size: var(--sl-text-2xs);
       }
     }
   }
@@ -496,13 +503,14 @@ const links = [
       this.prevButton.disabled = this.page === 1;
       this.nextButton.disabled = this.page === pageCount;
 
-      this.syncUrl(query, source);
+      this.syncUrl(source);
     }
 
     // keep the list state shareable and survivable across reloads without
     // polluting history - back should leave the page, not undo a keystroke
-    syncUrl(query: string, source: string) {
+    syncUrl(source: string) {
       const params = new URLSearchParams();
+      const query = this.searchInput.value.trim();
       if (query) params.set('q', query);
       if (source) params.set('source', source);
       if (this.sortSelect.value !== 'date') params.set('sort', this.sortSelect.value);

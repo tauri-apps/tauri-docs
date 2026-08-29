@@ -48,7 +48,9 @@ async function fetchJson(url: string, headers = new Headers()) {
       await sleep(retryAfter * 1000);
       continue;
     }
-    throw new Error(`Failed ${url}: ${res.status} ${res.statusText}`);
+    throw Object.assign(new Error(`Failed ${url}: ${res.status} ${res.statusText}`), {
+      rateLimited: isRateLimited(res),
+    });
   }
 }
 
@@ -86,7 +88,8 @@ async function fetchCrates(): Promise<Resource[]> {
 
 // https://docs.npmjs.com/policies/open-source-terms
 async function fetchNpm(): Promise<Resource[]> {
-  const results: Resource[] = [];
+  // relevance paging is not stable, so the same package shows up on several pages
+  const results = new Map<string, Resource>();
   const size = 250;
   let from = 0;
   while (true) {
@@ -96,18 +99,16 @@ async function fetchNpm(): Promise<Resource[]> {
     if (objects.length === 0) {
       break;
     }
-    let pageMatches = 0;
     for (const obj of objects) {
       const p = obj.package;
       const name = p.name;
       if (!name) {
         continue;
       }
-      if (!/(^|\/)tauri-plugin-/.test(name)) {
+      if (!/(^|\/)tauri-plugin-/.test(name) || results.has(name)) {
         continue;
       }
-      pageMatches++;
-      results.push({
+      results.set(name, {
         source: 'npm',
         name,
         description: p.description || '',
@@ -120,15 +121,15 @@ async function fetchNpm(): Promise<Resource[]> {
     }
     from += size;
     // `text=` matches fuzzily (descriptions, keywords), so j.total is far
-    // larger than the set of real name matches, and npm caps `from` at 10k
-    // anyway. Results are relevance-sorted, so once a whole page has no
-    // name match the tail is only noise - stop there.
-    if (pageMatches === 0 || from >= Math.min(j.total || 0, 10_000 - size)) {
+    // larger than the set of real name matches and name matches keep turning
+    // up deep into the ranking (pages with zero hits are followed by pages
+    // with several). Crawl to npm's 10k cap on `from`, ~40 requests.
+    if (from >= Math.min(j.total || 0, 10_000 - size)) {
       break;
     }
     await sleep(1001);
   }
-  return results;
+  return [...results.values()];
 }
 
 // the npm search API only exposes the last-publish date; the real creation
@@ -151,6 +152,11 @@ async function fetchGithubStars(ownerRepo: string) {
     const j = await fetchJson(`https://api.github.com/repos/${ownerRepo}`, headers);
     return j.stargazers_count ?? null;
   } catch (e) {
+    // an exhausted token would null out every remaining repo, one 90s retry
+    // cycle at a time, and still pass the star guard - fail the run instead
+    if ((e as { rateLimited?: boolean }).rateLimited) {
+      throw e;
+    }
     // a 404 here is normal (repo renamed or deleted); anything else is worth seeing
     console.warn(`  no stars for ${ownerRepo}: ${(e as Error).message}`);
     return null;

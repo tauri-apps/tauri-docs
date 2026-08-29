@@ -82,7 +82,11 @@ export function mergeRegistries(crates: Resource[], npm: Resource[]): Resource[]
       }
     }
     if (existing) {
-      existing.npm = pkg.npm;
+      // some crates publish both `tauri-plugin-x` and `tauri-plugin-x-api` on
+      // npm; the exact name wins regardless of which the search returns first
+      if (pkg.name === existing.name || !existing.npm) {
+        existing.npm = pkg.npm;
+      }
       existing.description ||= pkg.description;
       existing.repository ||= pkg.repository;
       existing.downloads ??= pkg.downloads;
@@ -122,9 +126,10 @@ export function assertNoDataLoss(previous: Snapshot | null, resources: Resource[
 
   const countStars = (list: Resource[]) => list.filter((r) => typeof r.stars === 'number').length;
   const starsBefore = countStars(previous.resources);
-  if (starsBefore > 0 && countStars(resources) === 0) {
+  const starsNow = countStars(resources);
+  if (starsBefore > 0 && starsNow < starsBefore * 0.8) {
     throw new Error(
-      `Refusing to write: ${starsBefore} entries had star counts and none do now. Check GITHUB_TOKEN.`
+      `Refusing to write: star counts dropped from ${starsBefore} entries to ${starsNow}. Check GITHUB_TOKEN.`
     );
   }
 }
