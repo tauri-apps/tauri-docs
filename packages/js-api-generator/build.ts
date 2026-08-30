@@ -1,23 +1,23 @@
 import {
   Application,
-  DeclarationReflection,
   Options,
   PageEvent,
   Reflection,
-  SignatureReflection,
   TSConfigReader,
+  type RouterTarget,
   type TypeDocOptions,
 } from 'typedoc';
 import {
   MarkdownPageEvent,
   MarkdownTheme,
   MarkdownThemeContext,
-  type MarkdownApplication,
   type PluginOptions,
 } from 'typedoc-plugin-markdown';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
-const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
+type ConfigOptions = Partial<Omit<TypeDocOptions, 'outputs'> & PluginOptions>;
+
+const typeDocConfigBaseOptions: ConfigOptions = {
   // TypeDoc options
   // https://typedoc.org/options/
   githubPages: false,
@@ -43,7 +43,7 @@ const typeDocConfigBaseOptions: Partial<TypeDocOptions | PluginOptions> = {
 
 async function generator() {
   if (existsSync('../tauri/packages/api/node_modules')) {
-    const coreJsOptions: Partial<TypeDocOptions> = {
+    const coreJsOptions: ConfigOptions = {
       entryPoints: ['../tauri/packages/api/src/index.ts'],
       tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
@@ -101,7 +101,7 @@ async function generator() {
     );
 
     plugins.forEach(async (plugin) => {
-      const pluginJsOptions: Partial<TypeDocOptions> = {
+      const pluginJsOptions: ConfigOptions = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
         tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
         gitRevision: 'v2',
@@ -121,7 +121,7 @@ async function generator() {
   }
 
   if (existsSync('../tauri/packages/api/node_modules')) {
-    const coreJsOptions: Partial<TypeDocOptions> = {
+    const coreJsOptions: ConfigOptions = {
       entryPoints: ['../tauri/packages/api/src/index.ts'],
       tsconfig: '../tauri/packages/api/tsconfig.json',
       gitRevision: 'dev',
@@ -139,28 +139,30 @@ async function generator() {
 }
 
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
-async function generateDocs(options: Partial<TypeDocOptions>) {
+async function generateDocs(options: ConfigOptions) {
   const outputDir = `../../src/content/docs${options.publicPath}`;
 
-  const app = await Application.bootstrapWithPlugins(options);
+  const app = await Application.bootstrapWithPlugins({
+    ...options,
+    outputs: [{ name: 'markdown', path: outputDir }],
+  });
   app.options.addReader(new TSConfigReader());
-  // @ts-ignore
   app.renderer.defineTheme('tauri-theme', TauriTheme);
 
-  app.renderer.on(PageEvent.END, (event: PageEvent<DeclarationReflection>) => {
+  app.renderer.on(PageEvent.END, (event: PageEvent<RouterTarget>) => {
     pageEventEnd(event);
   });
 
   const project = await app.convert();
 
   if (project) {
-    await app.generateDocs(project, outputDir);
+    await app.generateOutputs(project);
   }
 }
 
 // Adds frontmatter to the top of the file
 // Adapted from https://github.com/HiDeoo/starlight-typedoc
-function pageEventEnd(event: PageEvent<DeclarationReflection>) {
+function pageEventEnd(event: PageEvent<RouterTarget>) {
   if (!event.contents) {
     return;
   }
@@ -186,7 +188,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
     this.partials = {
       ...this.partials,
       // Formats `@source` to be a single line
-      sources: (model: DeclarationReflection | SignatureReflection, options: object) => {
+      sources: (model, options) => {
         if (!model.sources) {
           return '';
         }
@@ -229,16 +231,18 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
   }
 
   // Adapted from https://github.com/HiDeoo/starlight-typedoc/blob/d95072e218004276942a5132ec8a4e3561425903/packages/starlight-typedoc/src/libs/theme.ts#L28
-  override getRelativeUrl = (url: string) => {
+  override urlTo(reflection: Reflection): string {
+    const url = super.urlTo(reflection);
+
     if (/^(http|ftp)s?:\/\//.test(url)) {
       return url;
     }
 
-    url = decodeURI(
-      super.getRelativeUrl(url).replaceAll('.md', '/').replaceAll('.', '').toLowerCase()
-    ).replaceAll('\\', '/');
-    return url;
-  };
+    return decodeURI(url.replaceAll('.md', '/').replaceAll('.', '').toLowerCase()).replaceAll(
+      '\\',
+      '/'
+    );
+  }
 }
 
 // Overrides and extensions based on https://github.com/tgreyuk/typedoc-plugin-markdown/blob/next/packages/typedoc-plugin-markdown/docs/usage/customizing.md
