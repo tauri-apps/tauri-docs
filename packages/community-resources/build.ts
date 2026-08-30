@@ -5,7 +5,6 @@ import {
   assertNoDataLoss,
   chunk,
   cleanRepoUrl,
-  githubRepo,
   isOfficial,
   isPlaceholder,
   mergeRegistries,
@@ -21,7 +20,6 @@ import {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_FILE = path.resolve(__dirname, '../../src/data/communityResources.json');
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || null;
 const query = 'tauri-plugin-';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -53,9 +51,7 @@ async function fetchJson(url: string, headers = new Headers()) {
       await sleep(retryAfter * 1000);
       continue;
     }
-    throw Object.assign(new Error(`Failed ${url}: ${res.status} ${res.statusText}`), {
-      rateLimited: isRateLimited(res),
-    });
+    throw new Error(`Failed ${url}: ${res.status} ${res.statusText}`);
   }
 }
 
@@ -209,26 +205,6 @@ async function fetchNpmCompletion(found: Resource[]): Promise<Resource[]> {
   return added;
 }
 
-async function fetchGithubStars(ownerRepo: string) {
-  const headers = new Headers({ Accept: 'application/vnd.github+json' });
-  if (GITHUB_TOKEN) {
-    headers.append('Authorization', `token ${GITHUB_TOKEN}`);
-  }
-  try {
-    const j = await fetchJson(`https://api.github.com/repos/${ownerRepo}`, headers);
-    return j.stargazers_count ?? null;
-  } catch (e) {
-    // an exhausted token would null out every remaining repo, one 90s retry
-    // cycle at a time, and still pass the star guard - fail the run instead
-    if ((e as { rateLimited?: boolean }).rateLimited) {
-      throw e;
-    }
-    // a 404 here is normal (repo renamed or deleted); anything else is worth seeing
-    console.warn(`  no stars for ${ownerRepo}: ${(e as Error).message}`);
-    return null;
-  }
-}
-
 // the npm search API only exposes the last-publish date; the real creation
 // date lives in the package's registry document under time.created
 async function addNpmCreatedDates(items: Resource[], alreadyDated: Set<string>) {
@@ -245,29 +221,6 @@ async function addNpmCreatedDates(items: Resource[], alreadyDated: Set<string>) 
       console.log(`  dates ${done}/${npmOnly.length}`);
     }
     await sleep(100);
-  }
-}
-
-async function addGithubStars(items: Resource[]) {
-  if (!GITHUB_TOKEN) {
-    console.warn(
-      'GITHUB_TOKEN not set - skipping star counts (unauthenticated rate limits are too low).'
-    );
-    return;
-  }
-
-  console.log('Fetching GitHub star counts...');
-  const starsCache = new Map<string, number | null>();
-  for (const item of items) {
-    const ownerRepo = githubRepo(item.repository);
-    if (!ownerRepo) {
-      continue;
-    }
-    if (!starsCache.has(ownerRepo)) {
-      starsCache.set(ownerRepo, await fetchGithubStars(ownerRepo));
-      await sleep(100);
-    }
-    item.stars = starsCache.get(ownerRepo) ?? null;
   }
 }
 
@@ -300,12 +253,7 @@ async function run() {
     `Merged to ${merged.length} entries, ${merged.length - items.length} official dropped.`
   );
 
-  // registry.npmjs.org and api.github.com have independent rate budgets, and
-  // the two passes touch different fields, so they can run side by side
-  await Promise.all([
-    addNpmCreatedDates(items, new Set(completion.map((pkg) => pkg.name))),
-    addGithubStars(items),
-  ]);
+  await addNpmCreatedDates(items, new Set(completion.map((pkg) => pkg.name)));
 
   const resources = sortByCreatedDesc(items);
   assertNoDataLoss(previous, resources);

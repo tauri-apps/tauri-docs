@@ -213,15 +213,6 @@ test('assertNoDataLoss rejects a crawl that lost a tenth of the list', () => {
   assert.throws(() => assertNoDataLoss(previous, previous.resources.slice(0, 89)), /partial crawl/);
 });
 
-test('assertNoDataLoss rejects a run that lost a fifth of the star counts', () => {
-  const starred = Array.from({ length: 10 }, (_, i) => ({ ...crate(`p${i}`), stars: i }));
-  const previous = { generated: '', resources: starred };
-  const unstarred = (n: number) => starred.map((r, i) => (i < n ? crate(r.name) : r));
-
-  assert.doesNotThrow(() => assertNoDataLoss(previous, unstarred(2)));
-  assert.throws(() => assertNoDataLoss(previous, unstarred(3)), /GITHUB_TOKEN/);
-});
-
 test('assertNoDataLoss accepts the first run', () => {
   assert.doesNotThrow(() => assertNoDataLoss(null, []));
 });

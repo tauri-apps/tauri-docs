@@ -6,7 +6,6 @@ export interface Resource {
   repository: string | null;
   npm?: string;
   crates_io?: string;
-  stars?: number | null;
   // a merged row keeps the crate's figure, and the window that came with it
   downloads?: number | null;
   downloads_window?: DownloadsWindow;
@@ -160,9 +159,9 @@ export function sortByCreatedDesc(items: Resource[]): Resource[] {
 }
 
 /**
- * A partial crawl or an exhausted GitHub token both produce a technically valid
- * but much poorer file. The sync workflow commits whatever lands here, so bail
- * out rather than let a degraded run overwrite good data.
+ * A partial crawl produces a technically valid but much poorer file. The sync
+ * workflow commits whatever lands here, so bail out rather than let a degraded
+ * run overwrite good data.
  */
 export function assertNoDataLoss(previous: Snapshot | null, resources: Resource[]): void {
   if (!previous) {
@@ -173,15 +172,6 @@ export function assertNoDataLoss(previous: Snapshot | null, resources: Resource[
   if (before > 0 && resources.length < before * 0.9) {
     throw new Error(
       `Refusing to write: ${resources.length} resources, down from ${before}. Likely a partial crawl.`
-    );
-  }
-
-  const countStars = (list: Resource[]) => list.filter((r) => typeof r.stars === 'number').length;
-  const starsBefore = countStars(previous.resources);
-  const starsNow = countStars(resources);
-  if (starsBefore > 0 && starsNow < starsBefore * 0.8) {
-    throw new Error(
-      `Refusing to write: star counts dropped from ${starsBefore} entries to ${starsNow}. Check GITHUB_TOKEN.`
     );
   }
 }

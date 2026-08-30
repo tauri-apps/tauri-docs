@@ -34,8 +34,6 @@ jobs:
 
       - name: sync-community-resources
         run: pnpm sync:community-resources
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # tauri-docs PR
       - name: Git config

@@ -6,9 +6,6 @@ import locales from 'locales.json';
 
 const resources = communityResourcesData.resources as Resource[];
 
-// star counts need a token, so the workflow populates them on its first run -
-// until then the column and its sort option would be dead UI
-const hasStars = resources.some((item) => typeof item.stars === 'number');
 const hasDownloads = resources.some((item) => typeof item.downloads === 'number');
 
 // `locals.starlightRoute` is not populated when starlight-llms-txt re-renders
@@ -27,9 +24,6 @@ const numberFormat = new Intl.NumberFormat('en-US');
 const compactFormat = new Intl.NumberFormat('en-US', { notation: 'compact' });
 const compact = (value?: number | null) =>
   typeof value === 'number' ? compactFormat.format(value) : '-';
-// compact notation only rounds from 1000 up, below that the tooltip would repeat the cell
-const exact = (value?: number | null) =>
-  typeof value === 'number' && value >= 1000 ? numberFormat.format(value) : undefined;
 const downloadsTitle = ({ downloads, downloads_window }: Resource) =>
   typeof downloads === 'number'
     ? `${numberFormat.format(downloads)} in the last ${downloads_window === '90d' ? 90 : 30} days`
@@ -74,7 +68,6 @@ const links = [
           <option value="date">Date Created</option>
           <option value="name">Name</option>
           {hasDownloads && <option value="downloads">Downloads</option>}
-          {hasStars && <option value="stars">Stars</option>}
         </select>
       </label>
     </div>
@@ -98,7 +91,6 @@ const links = [
               </th>
             )
           }
-          {hasStars && <th class="numeric">Stars</th>}
           <th class="created">Created</th>
         </tr>
       </thead>
@@ -107,7 +99,6 @@ const links = [
           resources.map((item) => (
             <tr
               data-source={item.npm && item.crates_io ? 'both' : item.npm ? 'npm' : 'crates'}
-              data-stars={typeof item.stars === 'number' ? String(item.stars) : undefined}
               data-downloads={
                 typeof item.downloads === 'number' ? String(item.downloads) : undefined
               }
@@ -136,11 +127,6 @@ const links = [
               {hasDownloads && (
                 <td class="numeric" title={downloadsTitle(item)}>
                   {compact(item.downloads)}
-                </td>
-              )}
-              {hasStars && (
-                <td class="numeric" title={exact(item.stars)}>
-                  {compact(item.stars)}
                 </td>
               )}
               <td class="created">
@@ -367,7 +353,6 @@ const links = [
     // name without its npm scope, so `@scope/tauri-plugin-x` sorts next to `tauri-plugin-x`
     sortName: string;
     description: string;
-    stars: number;
     downloads: number;
     source: string;
   }
@@ -399,7 +384,6 @@ const links = [
         name,
         sortName: name.replace(/^@[^/]+\//, ''),
         description: el.querySelector('.description')?.textContent?.toLowerCase() || '',
-        stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
         downloads: el.dataset.downloads ? Number(el.dataset.downloads) : -1,
         source: el.dataset.source || '',
       };
@@ -425,8 +409,7 @@ const links = [
     connectedCallback() {
       const params = new URLSearchParams(location.search);
       this.searchInput.value = params.get('q') ?? '';
-      // an unknown value (e.g. `sort=stars` before the first token run) would
-      // blank the select, so fall back to the first option
+      // an unknown value in the URL would blank the select, so fall back to the first option
       this.sourceFilter.value = params.get('source') ?? '';
       if (this.sourceFilter.selectedIndex === -1) this.sourceFilter.selectedIndex = 0;
       this.sortSelect.value = params.get('sort') ?? 'date';
@@ -450,8 +433,6 @@ const links = [
         this.rows.sort(
           (a, b) => a.sortName.localeCompare(b.sortName) || a.name.localeCompare(b.name)
         );
-      } else if (sortBy === 'stars') {
-        this.rows.sort((a, b) => b.stars - a.stars);
       } else if (sortBy === 'downloads') {
         this.rows.sort((a, b) => b.downloads - a.downloads);
       } else {
