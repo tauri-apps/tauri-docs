@@ -7,9 +7,13 @@ export interface Resource {
   npm?: string;
   crates_io?: string;
   stars?: number | null;
-  // crates.io reports the last 90 days, npm the last 30; a merged row keeps the crate's figure
+  // a merged row keeps the crate's figure, and the window that came with it
   downloads?: number | null;
+  downloads_window?: DownloadsWindow;
 }
+
+// crates.io reports the last 90 days, npm the last 30
+export type DownloadsWindow = '90d' | '30d';
 
 export interface Snapshot {
   generated: string;
@@ -89,7 +93,10 @@ export function mergeRegistries(crates: Resource[], npm: Resource[]): Resource[]
       }
       existing.description ||= pkg.description;
       existing.repository ||= pkg.repository;
-      existing.downloads ??= pkg.downloads;
+      if (existing.downloads == null) {
+        existing.downloads = pkg.downloads;
+        existing.downloads_window = pkg.downloads_window;
+      }
     } else {
       map.set(pkg.name, { ...pkg });
     }

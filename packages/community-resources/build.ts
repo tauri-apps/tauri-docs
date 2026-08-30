@@ -77,6 +77,7 @@ async function fetchCrates(): Promise<Resource[]> {
         repository: cleanRepoUrl(c.repository || c.homepage || ''),
         crates_io: `https://crates.io/crates/${c.name}`,
         downloads: c.recent_downloads,
+        downloads_window: '90d',
       });
     }
     if (j.meta && j.meta.total <= page * per_page) break;
@@ -117,6 +118,7 @@ async function fetchNpm(): Promise<Resource[]> {
         repository: cleanRepoUrl(p.links?.repository || p.links?.homepage || ''),
         npm: npmPackageUrl(name),
         downloads: obj.downloads?.monthly,
+        downloads_window: '30d',
       });
     }
     from += size;

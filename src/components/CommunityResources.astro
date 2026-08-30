@@ -30,6 +30,10 @@ const compact = (value?: number | null) =>
 // compact notation only rounds from 1000 up, below that the tooltip would repeat the cell
 const exact = (value?: number | null) =>
   typeof value === 'number' && value >= 1000 ? numberFormat.format(value) : undefined;
+const downloadsTitle = ({ downloads, downloads_window }: Resource) =>
+  typeof downloads === 'number'
+    ? `${numberFormat.format(downloads)} in the last ${downloads_window === '90d' ? 90 : 30} days`
+    : undefined;
 
 // icons come from /assets/registries.svg, keyed by the same names
 const links = [
@@ -89,7 +93,7 @@ const links = [
           <th>Description</th>
           {
             hasDownloads && (
-              <th class="numeric" title="crates.io: last 90 days · npm: last 30 days">
+              <th class="numeric" title="crates.io counts the last 90 days, npm the last 30">
                 Downloads
               </th>
             )
@@ -130,7 +134,7 @@ const links = [
               </td>
               <td class="description">{item.description}</td>
               {hasDownloads && (
-                <td class="numeric" title={exact(item.downloads)}>
+                <td class="numeric" title={downloadsTitle(item)}>
                   {compact(item.downloads)}
                 </td>
               )}

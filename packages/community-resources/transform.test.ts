@@ -83,16 +83,22 @@ test('mergeRegistries prefers the exact npm name over -api whichever comes first
 test('mergeRegistries keeps the crate download count and falls back to npm', () => {
   const repo = 'https://github.com/a/b';
   const merged = mergeRegistries(
-    [{ ...crate('tauri-plugin-x', repo), downloads: 900 }, crate('tauri-plugin-y', repo)],
     [
-      { ...pkg('tauri-plugin-x-api', repo), downloads: 300 },
-      { ...pkg('tauri-plugin-y-api', repo), downloads: 300 },
+      { ...crate('tauri-plugin-x', repo), downloads: 900, downloads_window: '90d' },
+      crate('tauri-plugin-y', repo),
+    ],
+    [
+      { ...pkg('tauri-plugin-x-api', repo), downloads: 300, downloads_window: '30d' },
+      { ...pkg('tauri-plugin-y-api', repo), downloads: 300, downloads_window: '30d' },
     ]
   );
 
   assert.deepEqual(
-    merged.map((r) => r.downloads),
-    [900, 300]
+    merged.map((r) => [r.downloads, r.downloads_window]),
+    [
+      [900, '90d'],
+      [300, '30d'],
+    ]
   );
 });
 
