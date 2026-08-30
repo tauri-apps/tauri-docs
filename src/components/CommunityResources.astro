@@ -119,6 +119,7 @@ const links = [
                         <a
                           href={item[key]}
                           target="_blank"
+                          rel="noreferrer"
                           title={title}
                           aria-label={`${item.name} on ${title}`}
                           class={key}
@@ -375,6 +376,8 @@ const links = [
     el: HTMLTableRowElement;
     index: number;
     name: string;
+    // name without its npm scope, so `@scope/tauri-plugin-x` sorts next to `tauri-plugin-x`
+    sortName: string;
     description: string;
     stars: number;
     downloads: number;
@@ -400,15 +403,19 @@ const links = [
 
     // kept in the current sort order alongside the DOM, so filtering and paging
     // only toggle visibility. `index` is the server's created-desc order.
-    rows: RowData[] = Array.from(this.tbody.querySelectorAll('tr')).map((el, index) => ({
-      el,
-      index,
-      name: el.querySelector('.name')?.textContent?.toLowerCase() || '',
-      description: el.querySelector('.description')?.textContent?.toLowerCase() || '',
-      stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
-      downloads: el.dataset.downloads ? Number(el.dataset.downloads) : -1,
-      source: el.dataset.source || '',
-    }));
+    rows: RowData[] = Array.from(this.tbody.querySelectorAll('tr')).map((el, index) => {
+      const name = el.querySelector('.name')?.textContent?.toLowerCase() || '';
+      return {
+        el,
+        index,
+        name,
+        sortName: name.replace(/^@[^/]+\//, ''),
+        description: el.querySelector('.description')?.textContent?.toLowerCase() || '',
+        stars: el.dataset.stars ? Number(el.dataset.stars) : -1,
+        downloads: el.dataset.downloads ? Number(el.dataset.downloads) : -1,
+        source: el.dataset.source || '',
+      };
+    });
 
     constructor() {
       super();
@@ -452,7 +459,9 @@ const links = [
 
     sort(sortBy: string) {
       if (sortBy === 'name') {
-        this.rows.sort((a, b) => a.name.localeCompare(b.name));
+        this.rows.sort(
+          (a, b) => a.sortName.localeCompare(b.sortName) || a.name.localeCompare(b.name)
+        );
       } else if (sortBy === 'stars') {
         this.rows.sort((a, b) => b.stars - a.stars);
       } else if (sortBy === 'downloads') {
@@ -478,7 +487,7 @@ const links = [
       const source = this.sourceFilter.value;
       const matched = this.rows.filter((row) => this.isMatch(row, query, source));
       const pageCount = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
-      this.page = Math.min(Math.max(1, page), pageCount);
+      this.page = Math.min(Math.max(1, Math.floor(page) || 1), pageCount);
       const start = (this.page - 1) * PAGE_SIZE;
       const onPage = matched.slice(start, start + PAGE_SIZE);
 
