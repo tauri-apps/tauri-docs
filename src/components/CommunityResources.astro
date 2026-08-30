@@ -57,7 +57,7 @@ const links = [
     <div class="filters">
       <label>
         <span>Source:</span>
-        <select id="filter-source" class="control">
+        <select id="filter-source" class="form-control">
           <option value="">All</option>
           <option value="both">Both (npm & crates)</option>
           <option value="npm">npm only</option>
@@ -66,7 +66,7 @@ const links = [
       </label>
       <label>
         <span>Sort by:</span>
-        <select id="sort-by" class="control">
+        <select id="sort-by" class="form-control">
           <option value="date">Date Created</option>
           <option value="name">Name</option>
           {hasDownloads && <option value="downloads">Downloads</option>}
@@ -150,13 +150,13 @@ const links = [
   </div>
 
   <nav class="pagination" id="pagination" aria-label="Plugin list pages" hidden>
-    <button type="button" class="control" id="page-prev">Previous</button>
+    <button type="button" class="form-control" id="page-prev">Previous</button>
     <label>
       <span>Page</span>
-      <select id="page-select" class="control"></select>
+      <select id="page-select" class="form-control"></select>
       <span>of <strong id="page-count"></strong></span>
     </label>
-    <button type="button" class="control" id="page-next">Next</button>
+    <button type="button" class="form-control" id="page-next">Next</button>
   </nav>
 </community-resources>
 
@@ -212,22 +212,6 @@ const links = [
       gap: 0.5rem;
       font-size: var(--sl-text-sm);
       white-space: nowrap;
-    }
-
-    /* same look as the select/button controls in releases/ReleasesTable.astro */
-    .control {
-      padding: 0.5rem 0.75rem;
-      border: 1px solid var(--sl-color-gray-5);
-      border-radius: 0.5rem;
-      background: var(--sl-color-black);
-      color: var(--sl-color-white);
-      cursor: pointer;
-      font-size: var(--sl-text-sm);
-    }
-
-    .control:disabled {
-      opacity: 0.5;
-      cursor: default;
     }
 
     .summary {
