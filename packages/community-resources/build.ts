@@ -3,11 +3,16 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import {
   assertNoDataLoss,
+  chunk,
   cleanRepoUrl,
   githubRepo,
   isOfficial,
+  isPlaceholder,
   mergeRegistries,
+  missingNames,
+  NPM_NAME,
   npmPackageUrl,
+  resourceFromNpmDoc,
   sortByCreatedDesc,
   type Resource,
   type Snapshot,
@@ -106,7 +111,7 @@ async function fetchNpm(): Promise<Resource[]> {
       if (!name) {
         continue;
       }
-      if (!/(^|\/)tauri-plugin-/.test(name) || results.has(name)) {
+      if (!NPM_NAME.test(name) || results.has(name)) {
         continue;
       }
       results.set(name, {
@@ -134,15 +139,74 @@ async function fetchNpm(): Promise<Resource[]> {
   return [...results.values()];
 }
 
-// the npm search API only exposes the last-publish date; the real creation
-// date lives in the package's registry document under time.created
-async function fetchNpmCreatedDate(name: string) {
+async function fetchNpmDoc(name: string) {
   try {
-    const j = await fetchJson(`https://registry.npmjs.org/${encodeURIComponent(name)}`);
-    return j.time?.created || null;
+    return await fetchJson(`https://registry.npmjs.org/${encodeURIComponent(name)}`);
   } catch {
     return null;
   }
+}
+
+// undocumented CouchDB view, but the only exact prefix listing npm has; it
+// cannot list scoped names, and npm has restricted it before, so callers must
+// treat a failure as "search only"
+async function fetchNpmAllDocs(): Promise<string[]> {
+  const url = new URL('https://replicate.npmjs.com/_all_docs');
+  url.searchParams.set('startkey', JSON.stringify(query));
+  url.searchParams.set('endkey', JSON.stringify(`${query}￰`));
+  const j = await fetchJson(url.toString());
+  return (j.rows || []).map((row: { id: string }) => row.id);
+}
+
+async function fetchNpmDownloads(names: string[]) {
+  const downloads = new Map<string, number>();
+  for (const batch of chunk(names, 128)) {
+    const j = await fetchJson(
+      `https://api.npmjs.org/downloads/point/last-month/${batch.join(',')}`
+    );
+    // a single name gets the point object itself rather than a map keyed by name
+    const points: Record<string, { downloads?: unknown }> =
+      batch.length === 1 ? { [batch[0]]: j } : j;
+    for (const [name, point] of Object.entries(points)) {
+      if (typeof point?.downloads === 'number') {
+        downloads.set(name, point.downloads);
+      }
+    }
+    await sleep(1001);
+  }
+  return downloads;
+}
+
+// search ranking is not guaranteed to surface every name, so cross-check the
+// unscoped names against the exact listing and fetch whatever search missed
+async function fetchNpmCompletion(found: Resource[]): Promise<Resource[]> {
+  let ids: string[];
+  try {
+    ids = await fetchNpmAllDocs();
+  } catch (e) {
+    console.warn(
+      `  replicate _all_docs unavailable, npm stays search-only: ${(e as Error).message}`
+    );
+    return [];
+  }
+
+  const missing = missingNames(found, ids);
+  const added: Resource[] = [];
+  for (const name of missing) {
+    const item = resourceFromNpmDoc(await fetchNpmDoc(name));
+    if (item) {
+      added.push(item);
+    }
+    await sleep(100);
+  }
+  const downloads = await fetchNpmDownloads(added.map((item) => item.name));
+  for (const item of added) {
+    item.downloads = downloads.get(item.name);
+  }
+  console.log(
+    `Completion pass: ${missing.length} unscoped names missed by search, ${added.length} added.`
+  );
+  return added;
 }
 
 async function fetchGithubStars(ownerRepo: string) {
@@ -165,12 +229,14 @@ async function fetchGithubStars(ownerRepo: string) {
   }
 }
 
-async function addNpmCreatedDates(items: Resource[]) {
-  const npmOnly = items.filter((item) => item.source === 'npm');
+// the npm search API only exposes the last-publish date; the real creation
+// date lives in the package's registry document under time.created
+async function addNpmCreatedDates(items: Resource[], alreadyDated: Set<string>) {
+  const npmOnly = items.filter((item) => item.source === 'npm' && !alreadyDated.has(item.name));
   console.log(`Fetching creation dates for ${npmOnly.length} npm-only packages...`);
   let done = 0;
   for (const item of npmOnly) {
-    const created = await fetchNpmCreatedDate(item.name);
+    const created = (await fetchNpmDoc(item.name))?.time?.created;
     if (created) {
       item.created_at = created;
     }
@@ -223,8 +289,12 @@ async function run() {
   console.log('Fetching npm packages...');
   const npm = await fetchNpm();
   console.log(`Found ${npm.length} npm packages matching prefix.`);
+  const completion = await fetchNpmCompletion(npm);
 
-  const merged = mergeRegistries(crates, npm);
+  const merged = mergeRegistries(
+    crates,
+    [...npm, ...completion].filter((pkg) => !isPlaceholder(pkg.description))
+  );
   const items = merged.filter((item) => !isOfficial(item.repository));
   console.log(
     `Merged to ${merged.length} entries, ${merged.length - items.length} official dropped.`
@@ -232,7 +302,10 @@ async function run() {
 
   // registry.npmjs.org and api.github.com have independent rate budgets, and
   // the two passes touch different fields, so they can run side by side
-  await Promise.all([addNpmCreatedDates(items), addGithubStars(items)]);
+  await Promise.all([
+    addNpmCreatedDates(items, new Set(completion.map((pkg) => pkg.name))),
+    addGithubStars(items),
+  ]);
 
   const resources = sortByCreatedDesc(items);
   assertNoDataLoss(previous, resources);

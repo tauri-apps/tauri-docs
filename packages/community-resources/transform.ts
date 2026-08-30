@@ -20,6 +20,13 @@ export interface Snapshot {
   resources: Resource[];
 }
 
+export const NPM_NAME = /(^|\/)tauri-plugin-/;
+
+// npm keeps removed malware/spam packages as an empty placeholder under the same name
+export function isPlaceholder(description: string): boolean {
+  return /^\s*security holding package/i.test(description);
+}
+
 // registry metadata is author-controlled; only http(s) URLs are safe in an href
 export function cleanRepoUrl(url: unknown): string | null {
   if (typeof url !== 'string' || !url) {
@@ -56,6 +63,44 @@ export function isOfficial(repository: string | null): boolean {
 // the separator collapses it into a single path segment
 export function npmPackageUrl(name: string): string {
   return `https://www.npmjs.com/package/${name}`;
+}
+
+interface NpmDoc {
+  name?: string;
+  description?: string;
+  // the registry document nests the URL, the search API returns it as a string
+  repository?: { url?: unknown } | string;
+  time?: { created?: string; unpublished?: unknown };
+}
+
+export function resourceFromNpmDoc(doc: unknown): Resource | null {
+  const d = (doc ?? {}) as NpmDoc;
+  if (!d.name || !NPM_NAME.test(d.name) || d.time?.unpublished) {
+    return null;
+  }
+  const repository = typeof d.repository === 'object' ? d.repository?.url : d.repository;
+  return {
+    source: 'npm',
+    name: d.name,
+    description: d.description || '',
+    created_at: d.time?.created || '',
+    repository: cleanRepoUrl(repository),
+    npm: npmPackageUrl(d.name),
+    downloads_window: '30d',
+  };
+}
+
+export function missingNames(known: Resource[], ids: string[]): string[] {
+  const seen = new Set(known.map((item) => item.name));
+  return ids.filter((id) => NPM_NAME.test(id) && !seen.has(id));
+}
+
+export function chunk<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size));
+  }
+  return chunks;
 }
 
 function repositoriesAgree(a: string | null, b: string | null): boolean {

@@ -2,10 +2,14 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   assertNoDataLoss,
+  chunk,
   cleanRepoUrl,
   isOfficial,
+  isPlaceholder,
   mergeRegistries,
+  missingNames,
   npmPackageUrl,
+  resourceFromNpmDoc,
   sortByCreatedDesc,
   type Resource,
 } from './transform.ts';
@@ -132,6 +136,57 @@ test('mergeRegistries does not fold scoped packages by suffix', () => {
   );
 
   assert.equal(merged.length, 2);
+});
+
+test('isPlaceholder matches the npm holding text and nothing else', () => {
+  assert.equal(isPlaceholder('security holding package'), true);
+  assert.equal(isPlaceholder('  Security Holding Package'), true);
+  assert.equal(isPlaceholder('Security utilities for Tauri apps'), false);
+  assert.equal(isPlaceholder(''), false);
+});
+
+test('resourceFromNpmDoc reads the registry document shape', () => {
+  const doc = {
+    name: 'tauri-plugin-x',
+    description: 'X',
+    repository: { type: 'git', url: 'git+https://github.com/a/b.git' },
+    time: { created: '2024-01-01T00:00:00Z', modified: '2025-01-01T00:00:00Z' },
+  };
+
+  assert.deepEqual(resourceFromNpmDoc(doc), {
+    source: 'npm',
+    name: 'tauri-plugin-x',
+    description: 'X',
+    created_at: '2024-01-01T00:00:00Z',
+    repository: 'https://github.com/a/b',
+    npm: 'https://www.npmjs.com/package/tauri-plugin-x',
+    downloads_window: '30d',
+  });
+  assert.equal(resourceFromNpmDoc({ ...doc, time: { ...doc.time, unpublished: {} } }), null);
+  assert.equal(resourceFromNpmDoc({ ...doc, name: 'vite-plugin-tauri' }), null);
+  assert.equal(resourceFromNpmDoc(null), null);
+});
+
+test('missingNames keeps only prefix names the search did not return', () => {
+  const missing = missingNames(
+    [pkg('tauri-plugin-a'), pkg('@scope/tauri-plugin-c')],
+    ['tauri-plugin-a', 'tauri-plugin-b', 'tauri-plugins-helper', '@scope/tauri-plugin-c']
+  );
+
+  assert.deepEqual(missing, ['tauri-plugin-b']);
+});
+
+test('chunk splits at the exact size', () => {
+  const chunks = chunk(
+    Array.from({ length: 257 }, (_, i) => i),
+    128
+  );
+
+  assert.deepEqual(
+    chunks.map((c) => c.length),
+    [128, 128, 1]
+  );
+  assert.deepEqual(chunk([], 128), []);
 });
 
 test('sortByCreatedDesc puts unparseable and missing dates last', () => {
