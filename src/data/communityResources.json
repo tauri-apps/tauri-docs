@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-30T00:19:49.772Z",
+  "generated": "2026-08-30T00:40:47.802Z",
   "resources": [
     {
       "source": "npm",
@@ -17,10 +17,9 @@
       "created_at": "2026-08-29T06:05:05.798875Z",
       "repository": "https://github.com/jwyxym/tauri-plugin-sound-player",
       "crates_io": "https://crates.io/crates/tauri-plugin-sound-player",
-      "downloads": 36,
+      "downloads": 37,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sound-player",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sound-player"
     },
     {
       "source": "crates",
@@ -31,8 +30,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-multiline-menubar",
       "downloads": 13,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-multiline-menubar-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-multiline-menubar-api"
     },
     {
       "source": "crates",
@@ -42,8 +40,7 @@
       "repository": "https://github.com/Vasak-OS/tauri-plugin-vsk-journal/",
       "crates_io": "https://crates.io/crates/tauri-plugin-vsk-journal",
       "downloads": 33,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -53,8 +50,7 @@
       "repository": "https://github.com/SAHIL-VARTAK/tauri-plugin-safe-area-insets-css",
       "crates_io": "https://crates.io/crates/tauri-plugin-safe-area-insets-css-edge",
       "downloads": 25,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -64,8 +60,7 @@
       "repository": "https://github.com/arsalan-anwari/tauri-plugin-wayland-nvidia-quirk",
       "crates_io": "https://crates.io/crates/tauri-plugin-wayland-nvidia-quirk",
       "downloads": 55,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -75,8 +70,7 @@
       "repository": "https://github.com/crashdump/fidelity",
       "crates_io": "https://crates.io/crates/tauri-plugin-fidelity",
       "downloads": 13,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -86,8 +80,7 @@
       "repository": "https://github.com/VasakOS/tauri-plugin-vsk-contextual-menu",
       "crates_io": "https://crates.io/crates/tauri-plugin-vsk-contextual-menu",
       "downloads": 69,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -107,8 +100,7 @@
       "repository": "https://github.com/hrzlgnm/mdns-browser",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-update",
       "downloads": 83,
-      "downloads_window": "90d",
-      "stars": 177
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -119,8 +111,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-dglab-ws-server",
       "downloads": 114,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-dglab-ws-server",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-dglab-ws-server"
     },
     {
       "source": "crates",
@@ -129,9 +120,8 @@
       "created_at": "2026-08-20T05:11:34.255877Z",
       "repository": "https://github.com/mathematic-inc/tauri-plugin-ui-inspector",
       "crates_io": "https://crates.io/crates/tauri-plugin-ui-inspector",
-      "downloads": 391,
-      "downloads_window": "90d",
-      "stars": 6
+      "downloads": 393,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -141,8 +131,7 @@
       "repository": "https://github.com/Ifkafin/pub-sub",
       "crates_io": "https://crates.io/crates/tauri-plugin-finueva-pub-sub",
       "downloads": 39,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -152,8 +141,7 @@
       "repository": "https://github.com/SableClient/tauri-plugin-notifications",
       "npm": "https://www.npmjs.com/package/@sableclient/tauri-plugin-notifications-api",
       "downloads": 4328,
-      "downloads_window": "30d",
-      "stars": 2
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -163,8 +151,7 @@
       "repository": "https://github.com/SableClient/tauri-plugin-livekit-mobile",
       "npm": "https://www.npmjs.com/package/@sableclient/tauri-plugin-livekit-mobile",
       "downloads": 3435,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -175,8 +162,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sys-locale",
       "downloads": 24,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sys-locale-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sys-locale-api"
     },
     {
       "source": "crates",
@@ -185,9 +171,8 @@
       "created_at": "2026-08-17T18:33:41.696827Z",
       "repository": "https://github.com/CrispStrobe/apple-scoped-bookmarks",
       "crates_io": "https://crates.io/crates/tauri-plugin-scoped-bookmarks",
-      "downloads": 19,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads": 20,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -197,8 +182,7 @@
       "repository": "https://github.com/get-air/tauri-video-plugin",
       "crates_io": "https://crates.io/crates/tauri-plugin-video",
       "downloads": 84,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -208,8 +192,7 @@
       "repository": "https://github.com/WhoStoleMySleep/tauri-plugin-timer",
       "crates_io": "https://crates.io/crates/tauri-plugin-timer",
       "downloads": 19,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -230,8 +213,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-revenuecat",
       "downloads": 173,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-revenuecat",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-revenuecat"
     },
     {
       "source": "crates",
@@ -241,8 +223,7 @@
       "repository": "https://github.com/entro314-labs/tauri-plugin-apple-intelligence",
       "crates_io": "https://crates.io/crates/tauri-plugin-apple-intelligence",
       "downloads": 221,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -252,8 +233,7 @@
       "repository": "https://github.com/alexanderwanyoike/jolt",
       "crates_io": "https://crates.io/crates/tauri-plugin-jolt",
       "downloads": 68,
-      "downloads_window": "90d",
-      "stars": 5
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -262,9 +242,8 @@
       "created_at": "2026-08-03T12:30:32.947991Z",
       "repository": "https://github.com/Hushlor/mcp-server-tauri",
       "crates_io": "https://crates.io/crates/tauri-plugin-hushlor-mcp-bridge",
-      "downloads": 1288,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads": 1297,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -274,8 +253,7 @@
       "repository": "https://github.com/Hushlor/mcp-server-tauri",
       "npm": "https://www.npmjs.com/package/@hushlor/tauri-plugin-mcp-bridge",
       "downloads": 293,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -285,8 +263,7 @@
       "repository": "https://github.com/nyssance/tauri-hasgard",
       "crates_io": "https://crates.io/crates/tauri-plugin-hasgard",
       "downloads": 86,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -307,8 +284,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-steamworks",
       "downloads": 26,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-steamworks-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-steamworks-api"
     },
     {
       "source": "crates",
@@ -318,8 +294,7 @@
       "repository": "https://github.com/PSG-Team/tauri-steam-overlay-surface",
       "crates_io": "https://crates.io/crates/tauri-plugin-steam-overlay-surface",
       "downloads": 115,
-      "downloads_window": "90d",
-      "stars": 10
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -329,8 +304,7 @@
       "repository": "https://github.com/airlock-labs/coreframe",
       "npm": "https://www.npmjs.com/package/@coreframe/tauri-plugin-native-auth",
       "downloads": 781,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -340,8 +314,7 @@
       "repository": "https://github.com/airlock-labs/coreframe",
       "npm": "https://www.npmjs.com/package/@coreframe/tauri-plugin-auth-session",
       "downloads": 634,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -351,8 +324,7 @@
       "repository": "https://github.com/CrumbtrailDev/crumbtrail-cli",
       "crates_io": "https://crates.io/crates/tauri-plugin-crumbtrail",
       "downloads": 17,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -362,8 +334,7 @@
       "repository": "https://github.com/Jesper-Andersen/tauri-plugin-menubar-dnd",
       "crates_io": "https://crates.io/crates/tauri-plugin-menubar-dnd",
       "downloads": 41,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -373,8 +344,7 @@
       "repository": "https://github.com/darsan-in/tauri-plugin-stt",
       "npm": "https://www.npmjs.com/package/@cresteem/tauri-plugin-stt-api",
       "downloads": 39,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -385,8 +355,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-icloud-kvs",
       "downloads": 44,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-kvs-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-kvs-api"
     },
     {
       "source": "crates",
@@ -397,8 +366,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-push-notifications",
       "downloads": 77,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-push-notifications",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-push-notifications"
     },
     {
       "source": "npm",
@@ -408,8 +376,7 @@
       "repository": "https://github.com/spicavi/tauri-plugin-push-notifications",
       "npm": "https://www.npmjs.com/package/@spicavi/tauri-plugin-push-notifications",
       "downloads": 262,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -419,8 +386,7 @@
       "repository": "https://github.com/tomjn/picoframe",
       "crates_io": "https://crates.io/crates/tauri-plugin-picoframe-worker",
       "downloads": 17,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -430,8 +396,7 @@
       "repository": "https://github.com/liminal-hq/tauri-plugins-workspace",
       "crates_io": "https://crates.io/crates/tauri-plugin-desktop-integration",
       "downloads": 83,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -441,8 +406,7 @@
       "repository": "https://github.com/syncular/syncular",
       "crates_io": "https://crates.io/crates/tauri-plugin-syncular",
       "downloads": 1207,
-      "downloads_window": "90d",
-      "stars": 268
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -452,8 +416,7 @@
       "repository": "https://github.com/liminal-hq/tauri-plugins-workspace",
       "crates_io": "https://crates.io/crates/tauri-plugin-xdg-portal",
       "downloads": 100,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -464,8 +427,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-hot-update",
       "downloads": 61,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-hot-update-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-hot-update-api"
     },
     {
       "source": "crates",
@@ -475,8 +437,7 @@
       "repository": "https://github.com/iamthamanic/tauri-plugin-visual-editor",
       "crates_io": "https://crates.io/crates/tauri-plugin-visual-editor",
       "downloads": 64,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -486,8 +447,7 @@
       "repository": "https://github.com/iamthamanic/tauri-plugin-visual-editor",
       "crates_io": "https://crates.io/crates/tauri-plugin-visual-editor-core",
       "downloads": 100,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -497,8 +457,7 @@
       "repository": "https://github.com/xcodex/tauri-plugin-hdiff-update",
       "crates_io": "https://crates.io/crates/tauri-plugin-hdiff-update",
       "downloads": 269,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -508,8 +467,7 @@
       "repository": "https://github.com/byeongsu-hong/tauri-agent-plugin",
       "crates_io": "https://crates.io/crates/tauri-plugin-agent",
       "downloads": 23,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -519,8 +477,7 @@
       "repository": "https://github.com/momics/dns-sd",
       "crates_io": "https://crates.io/crates/tauri-plugin-dns-sd",
       "downloads": 60,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -530,8 +487,7 @@
       "repository": "https://github.com/spicavi/tauri-plugin-purchases",
       "crates_io": "https://crates.io/crates/tauri-plugin-purchases",
       "downloads": 124,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -541,8 +497,7 @@
       "repository": "https://github.com/spicavi/tauri-plugin-purchases",
       "npm": "https://www.npmjs.com/package/@spicavi/tauri-plugin-purchases",
       "downloads": 240,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -552,8 +507,7 @@
       "repository": "https://github.com/darsan-in/tauri-plugin-phonepe",
       "npm": "https://www.npmjs.com/package/tauri-plugin-phonepe-api",
       "downloads": 15,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -563,8 +517,7 @@
       "repository": "https://github.com/Vasak-OS/tauri-plugin-drag-and-drop-wayland",
       "crates_io": "https://crates.io/crates/tauri-plugin-drag-and-drop-wayland",
       "downloads": 71,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -575,8 +528,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sync-state",
       "downloads": 31,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sync-state",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sync-state"
     },
     {
       "source": "crates",
@@ -586,8 +538,7 @@
       "repository": "https://github.com/KingRainbow44/tauri-plugin-sync-state",
       "crates_io": "https://crates.io/crates/tauri-plugin-sync-state-macros",
       "downloads": 56,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -597,8 +548,7 @@
       "repository": "https://github.com/sosweetham/tauri-plugin-sharehub",
       "npm": "https://www.npmjs.com/package/@sosweetham/tauri-plugin-sharehub-api",
       "downloads": 109,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -608,8 +558,7 @@
       "repository": "https://github.com/sosweetham/tauri-plugin-sharehub",
       "crates_io": "https://crates.io/crates/tauri-plugin-sharehub",
       "downloads": 122,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -620,8 +569,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-icloud-container",
       "downloads": 23,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-container-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-icloud-container-api"
     },
     {
       "source": "crates",
@@ -630,9 +578,8 @@
       "created_at": "2026-06-27T23:47:01.178251Z",
       "repository": "https://github.com/oovz/tauri-plugin-decoration",
       "crates_io": "https://crates.io/crates/tauri-plugin-decoration",
-      "downloads": 818,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads": 825,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -643,8 +590,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-healthkit",
       "downloads": 91,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-healthkit",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-healthkit"
     },
     {
       "source": "crates",
@@ -655,8 +601,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-android-installer",
       "downloads": 87,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-installer-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-installer-api"
     },
     {
       "source": "crates",
@@ -667,8 +612,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-telemetry",
       "downloads": 127,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-telemetry",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-telemetry"
     },
     {
       "source": "crates",
@@ -678,8 +622,7 @@
       "repository": "https://github.com/tomjn/picoframe",
       "crates_io": "https://crates.io/crates/tauri-plugin-picoframe-hello",
       "downloads": 62,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -689,8 +632,7 @@
       "repository": "https://github.com/darsan-in/tauri-plugin-clerk-auth",
       "npm": "https://www.npmjs.com/package/tauri-plugin-clerk-auth-api",
       "downloads": 56,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -701,8 +643,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-serialport",
       "downloads": 75,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-serialport-api",
-      "stars": 103
+      "npm": "https://www.npmjs.com/package/tauri-plugin-serialport-api"
     },
     {
       "source": "crates",
@@ -712,8 +653,7 @@
       "repository": "https://github.com/ZAAFHachemrachid/tauri-plugin-nativecamera",
       "crates_io": "https://crates.io/crates/tauri-plugin-nativecamera",
       "downloads": 40,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -724,8 +664,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sql-pub",
       "downloads": 42,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sql-pub",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sql-pub"
     },
     {
       "source": "crates",
@@ -735,8 +674,7 @@
       "repository": "https://github.com/insd47/tauri-plugin-macos-refresh-rate",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-refresh-rate",
       "downloads": 29,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -747,8 +685,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-system-symbols",
       "downloads": 324,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-system-symbols",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-system-symbols"
     },
     {
       "source": "crates",
@@ -778,8 +715,7 @@
       "repository": "https://github.com/uniproc-dev/amethystate",
       "crates_io": "https://crates.io/crates/tauri-plugin-amethystate",
       "downloads": 145,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -789,8 +725,7 @@
       "repository": "https://github.com/sosweetham/tauri-plugin-health",
       "crates_io": "https://crates.io/crates/tauri-plugin-health",
       "downloads": 88,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -810,8 +745,7 @@
       "repository": "https://github.com/sosweetham/tauri-plugin-system-components",
       "crates_io": "https://crates.io/crates/tauri-plugin-system-components",
       "downloads": 226,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -821,8 +755,7 @@
       "repository": "https://github.com/sosweetham/tauri-plugin-system-components",
       "npm": "https://www.npmjs.com/package/@sosweetham/tauri-plugin-system-components-api",
       "downloads": 289,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -832,8 +765,7 @@
       "repository": "https://github.com/DominguesM/llama-crab",
       "crates_io": "https://crates.io/crates/tauri-plugin-llama-crab",
       "downloads": 169,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -843,8 +775,7 @@
       "repository": "https://github.com/yet-another-ai/takanawa",
       "crates_io": "https://crates.io/crates/tauri-plugin-takanawa",
       "downloads": 316,
-      "downloads_window": "90d",
-      "stars": 5
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -853,10 +784,9 @@
       "created_at": "2026-06-10T15:50:48.346307Z",
       "repository": "https://github.com/keylight-dev/keylight-rust",
       "crates_io": "https://crates.io/crates/tauri-plugin-keylight",
-      "downloads": 384,
+      "downloads": 388,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keylight-api",
-      "stars": 10
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keylight-api"
     },
     {
       "source": "crates",
@@ -877,8 +807,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-quicklook",
       "downloads": 245,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-quicklook",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-quicklook"
     },
     {
       "source": "crates",
@@ -898,8 +827,7 @@
       "repository": "https://github.com/sethjuarez/auditaur",
       "crates_io": "https://crates.io/crates/tauri-plugin-auditaur-macros",
       "downloads": 617,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -910,8 +838,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-glass-tabbar",
       "downloads": 25,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-glass-tabbar-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-glass-tabbar-api"
     },
     {
       "source": "crates",
@@ -921,8 +848,7 @@
       "repository": "https://github.com/sethjuarez/auditaur",
       "crates_io": "https://crates.io/crates/tauri-plugin-auditaur",
       "downloads": 541,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -932,8 +858,7 @@
       "repository": "https://github.com/insd47/tauri-plugin-persistent-window",
       "crates_io": "https://crates.io/crates/tauri-plugin-persistent-window",
       "downloads": 47,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -943,8 +868,7 @@
       "repository": "https://github.com/insd47/tauri-plugin-window-controls",
       "crates_io": "https://crates.io/crates/tauri-plugin-window-controls",
       "downloads": 403,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -953,10 +877,9 @@
       "created_at": "2026-05-29T06:51:41.331660Z",
       "repository": "https://github.com/Hyph-M/tauri-plugin-snap-layout",
       "crates_io": "https://crates.io/crates/tauri-plugin-snap-layout",
-      "downloads": 1556,
+      "downloads": 1555,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-snap-layout",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-snap-layout"
     },
     {
       "source": "crates",
@@ -967,8 +890,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-ota-self-update",
       "downloads": 25,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ota-self-update-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ota-self-update-api"
     },
     {
       "source": "crates",
@@ -977,9 +899,8 @@
       "created_at": "2026-05-28T02:19:37.397938Z",
       "repository": "https://github.com/coniferous-dev/phyto",
       "crates_io": "https://crates.io/crates/tauri-plugin-phyto",
-      "downloads": 195,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads": 144,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -989,8 +910,7 @@
       "repository": "https://github.com/uniproc-dev/amethystate",
       "crates_io": "https://crates.io/crates/tauri-plugin-rpstate",
       "downloads": 38,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1001,8 +921,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-file-access",
       "downloads": 135,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-file-access-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-file-access-api"
     },
     {
       "source": "crates",
@@ -1011,10 +930,9 @@
       "created_at": "2026-05-23T19:40:47.045411Z",
       "repository": "https://github.com/TheoSlater/supertonic-rs",
       "crates_io": "https://crates.io/crates/tauri-plugin-supertonic",
-      "downloads": 213,
+      "downloads": 196,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-supertonic-api",
-      "stars": 5
+      "npm": "https://www.npmjs.com/package/tauri-plugin-supertonic-api"
     },
     {
       "source": "crates",
@@ -1024,8 +942,7 @@
       "repository": "https://github.com/sakti-dev/baresync",
       "crates_io": "https://crates.io/crates/tauri-plugin-baresync",
       "downloads": 219,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1036,8 +953,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sprite-pet",
       "downloads": 65,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sprite-pet-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sprite-pet-api"
     },
     {
       "source": "crates",
@@ -1046,7 +962,7 @@
       "created_at": "2026-05-18T10:45:57.129178Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-whisper-rs",
-      "downloads": 83,
+      "downloads": 76,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-whisper-rs-api"
     },
@@ -1058,8 +974,7 @@
       "repository": "https://github.com/Kosadchiy/tauri-plugin-esc-pos",
       "crates_io": "https://crates.io/crates/tauri-plugin-esc-pos",
       "downloads": 75,
-      "downloads_window": "90d",
-      "stars": 13
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1070,8 +985,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-window-system",
       "downloads": 14,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-window-system-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-window-system-api"
     },
     {
       "source": "crates",
@@ -1081,8 +995,7 @@
       "repository": "https://github.com/qwook/tauri-plugin-steam-overlay",
       "crates_io": "https://crates.io/crates/tauri-plugin-steam-overlay",
       "downloads": 33,
-      "downloads_window": "90d",
-      "stars": 7
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1092,8 +1005,7 @@
       "repository": "https://github.com/GennaroBaratta/streaming-audio",
       "crates_io": "https://crates.io/crates/tauri-plugin-audio",
       "downloads": 18,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -1103,8 +1015,7 @@
       "repository": "https://github.com/alkkmia-inc/tauri-watch",
       "npm": "https://www.npmjs.com/package/@alkkmia/tauri-plugin-tauri-watch-api",
       "downloads": 17,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1114,8 +1025,7 @@
       "repository": "https://github.com/alkkmia-inc/tauri-watch",
       "crates_io": "https://crates.io/crates/tauri-plugin-tauri-watch",
       "downloads": 23,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1126,8 +1036,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-huggingface-downloader-android",
       "downloads": 13,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-huggingface-downloader-android-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-huggingface-downloader-android-api"
     },
     {
       "source": "crates",
@@ -1136,10 +1045,9 @@
       "created_at": "2026-05-13T08:28:52.111308Z",
       "repository": "https://github.com/s00d/tauri-plugin-keyring-store",
       "crates_io": "https://crates.io/crates/tauri-plugin-keyring-store",
-      "downloads": 2345,
+      "downloads": 2358,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keyring-store-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keyring-store-api"
     },
     {
       "source": "crates",
@@ -1159,8 +1067,7 @@
       "repository": "https://github.com/hypothesi/tauri-plugin-device-ai-apis",
       "crates_io": "https://crates.io/crates/tauri-plugin-device-ai-apis",
       "downloads": 33,
-      "downloads_window": "90d",
-      "stars": 10
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1171,8 +1078,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-audio-recorder-android",
       "downloads": 50,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-android-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-android-api"
     },
     {
       "source": "crates",
@@ -1183,8 +1089,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-cron",
       "downloads": 50,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-cron",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-cron"
     },
     {
       "source": "crates",
@@ -1195,8 +1100,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-nostr-sync",
       "downloads": 17,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-nostr-sync-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-nostr-sync-api"
     },
     {
       "source": "crates",
@@ -1205,9 +1109,8 @@
       "created_at": "2026-05-04T21:56:58.143140Z",
       "repository": "https://github.com/mindflowgo/tauri-idlemonitor/",
       "crates_io": "https://crates.io/crates/tauri-plugin-idlemonitor",
-      "downloads": 550,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads": 537,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1218,8 +1121,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-httpd",
       "downloads": 10,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-httpd-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-httpd-api"
     },
     {
       "source": "crates",
@@ -1239,8 +1141,7 @@
       "repository": "https://github.com/veecore/permission-flow",
       "npm": "https://www.npmjs.com/package/@veecore/tauri-plugin-permission-flow-api",
       "downloads": 52,
-      "downloads_window": "30d",
-      "stars": 1
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1250,8 +1151,7 @@
       "repository": "https://github.com/veecore/permission-flow",
       "crates_io": "https://crates.io/crates/tauri-plugin-permission-flow",
       "downloads": 16,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1260,9 +1160,8 @@
       "created_at": "2026-05-01T10:55:59.292479Z",
       "repository": "https://github.com/webdriverio/desktop-mobile",
       "crates_io": "https://crates.io/crates/tauri-plugin-wdio-webdriver",
-      "downloads": 71615,
-      "downloads_window": "90d",
-      "stars": 11
+      "downloads": 72036,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -1272,8 +1171,7 @@
       "repository": "https://github.com/ensombl/tauri-plugin-rekognition-liveness",
       "npm": "https://www.npmjs.com/package/@ensombl/tauri-plugin-rekognition-liveness-api",
       "downloads": 181,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1283,8 +1181,7 @@
       "repository": "https://github.com/ensombl/tauri-plugin-rekognition-liveness",
       "crates_io": "https://crates.io/crates/tauri-plugin-rekognition-liveness",
       "downloads": 34,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1295,8 +1192,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-frameless-window",
       "downloads": 108,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-frameless-window",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-frameless-window"
     },
     {
       "source": "crates",
@@ -1307,8 +1203,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-bare-kit",
       "downloads": 101,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-bare-kit-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-bare-kit-api"
     },
     {
       "source": "crates",
@@ -1329,8 +1224,7 @@
       "repository": "https://github.com/eurora-labs/tauri-plugin-appauth",
       "npm": "https://www.npmjs.com/package/@eurora-labs/tauri-plugin-appauth",
       "downloads": 8,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1340,8 +1234,7 @@
       "repository": "https://github.com/eurora-labs/tauri-plugin-appauth",
       "crates_io": "https://crates.io/crates/tauri-plugin-appauth",
       "downloads": 14,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -1351,8 +1244,7 @@
       "repository": "https://github.com/hypothesi/tauri-plugin-device-ai-apis",
       "npm": "https://www.npmjs.com/package/@hypothesi/tauri-plugin-device-ai-apis",
       "downloads": 48,
-      "downloads_window": "30d",
-      "stars": 10
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1361,7 +1253,7 @@
       "created_at": "2026-04-26T08:07:13.857130Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-oauth-session",
-      "downloads": 1100,
+      "downloads": 1046,
       "downloads_window": "90d"
     },
     {
@@ -1372,8 +1264,7 @@
       "repository": "https://github.com/riczescaran/tauri-plugin-barcode-scanner-continuous",
       "crates_io": "https://crates.io/crates/tauri-plugin-barcode-scanner-continuous",
       "downloads": 14,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1384,8 +1275,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-taskbar",
       "downloads": 108,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-taskbar",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-taskbar"
     },
     {
       "source": "crates",
@@ -1395,8 +1285,7 @@
       "repository": "https://github.com/momics/iroh-http",
       "crates_io": "https://crates.io/crates/tauri-plugin-iroh-http",
       "downloads": 129,
-      "downloads_window": "90d",
-      "stars": 9
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1427,8 +1316,7 @@
       "repository": "https://github.com/riczescaran/tauri-plugin-ios-webview-insets",
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-webview-insets",
       "downloads": 584,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1439,8 +1327,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-better-cors-fetch",
       "downloads": 308,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-better-cors-fetch",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-better-cors-fetch"
     },
     {
       "source": "npm",
@@ -1450,8 +1337,7 @@
       "repository": "https://github.com/brenogonzaga/tauri-plugin-stt",
       "npm": "https://www.npmjs.com/package/@shuttle_space/tauri-plugin-stt-api",
       "downloads": 26,
-      "downloads_window": "30d",
-      "stars": 23
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1472,8 +1358,7 @@
       "repository": "https://github.com/MegalithOfficial/tauri-plugin-single-window",
       "crates_io": "https://crates.io/crates/tauri-plugin-single-window",
       "downloads": 63,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1483,8 +1368,7 @@
       "repository": "https://github.com/mcginty/blew",
       "crates_io": "https://crates.io/crates/tauri-plugin-blew",
       "downloads": 192,
-      "downloads_window": "90d",
-      "stars": 16
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1494,8 +1378,7 @@
       "repository": "https://github.com/1iolabs/cokit",
       "crates_io": "https://crates.io/crates/tauri-plugin-co-sdk",
       "downloads": 9,
-      "downloads_window": "90d",
-      "stars": 15
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -1505,8 +1388,7 @@
       "repository": "https://github.com/1iolabs/cokit",
       "npm": "https://www.npmjs.com/package/@1io/tauri-plugin-co-sdk",
       "downloads": 173,
-      "downloads_window": "30d",
-      "stars": 15
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1525,10 +1407,9 @@
       "created_at": "2026-04-05T23:22:11.712576Z",
       "repository": "https://github.com/denniskribl/tauri-plugin-hotswap",
       "crates_io": "https://crates.io/crates/tauri-plugin-hotswap",
-      "downloads": 1966,
+      "downloads": 1920,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-hotswap-api",
-      "stars": 13
+      "npm": "https://www.npmjs.com/package/tauri-plugin-hotswap-api"
     },
     {
       "source": "crates",
@@ -1537,10 +1418,9 @@
       "created_at": "2026-04-04T18:24:27.877830Z",
       "repository": "https://github.com/dardourimohamed/tauri-background-service",
       "crates_io": "https://crates.io/crates/tauri-plugin-background-service",
-      "downloads": 1797,
+      "downloads": 1816,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-background-service",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-background-service"
     },
     {
       "source": "crates",
@@ -1549,9 +1429,8 @@
       "created_at": "2026-04-03T12:41:02.266962Z",
       "repository": "https://github.com/mpiton/tauri-pilot",
       "crates_io": "https://crates.io/crates/tauri-plugin-pilot",
-      "downloads": 2593,
-      "downloads_window": "90d",
-      "stars": 77
+      "downloads": 2588,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1581,9 +1460,8 @@
       "created_at": "2026-03-28T00:59:05.439789Z",
       "repository": "https://github.com/srsholmes/tauri-playwright",
       "crates_io": "https://crates.io/crates/tauri-plugin-playwright",
-      "downloads": 12524,
-      "downloads_window": "90d",
-      "stars": 39
+      "downloads": 12453,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1592,9 +1470,8 @@
       "created_at": "2026-03-26T16:03:10.032597Z",
       "repository": "https://github.com/powersync-ja/powersync-js/tree/main/packages/tauri",
       "crates_io": "https://crates.io/crates/tauri-plugin-powersync",
-      "downloads": 5241,
-      "downloads_window": "90d",
-      "stars": 717
+      "downloads": 5236,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1603,9 +1480,8 @@
       "created_at": "2026-03-26T11:26:36.658835Z",
       "repository": "https://github.com/ahonn/orpc-rs",
       "crates_io": "https://crates.io/crates/tauri-plugin-orpc",
-      "downloads": 1385,
-      "downloads_window": "90d",
-      "stars": 52
+      "downloads": 1384,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1616,8 +1492,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-bookmark",
       "downloads": 28,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-bookmark-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-ios-bookmark-api"
     },
     {
       "source": "crates",
@@ -1628,8 +1503,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-shadcn-menu",
       "downloads": 27,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-shadcn-menu",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-shadcn-menu"
     },
     {
       "source": "crates",
@@ -1651,8 +1525,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-android-accessibility",
       "downloads": 16,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-accessibility-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-accessibility-api"
     },
     {
       "source": "crates",
@@ -1661,10 +1534,9 @@
       "created_at": "2026-03-19T20:25:08.094105Z",
       "repository": "https://github.com/yanqianglu/tauri-plugin-auth-session",
       "crates_io": "https://crates.io/crates/tauri-plugin-auth-session",
-      "downloads": 4220,
+      "downloads": 4188,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-auth-session-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-auth-session-api"
     },
     {
       "source": "crates",
@@ -1675,8 +1547,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-mobile-push",
       "downloads": 1700,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-push-api",
-      "stars": 10
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-push-api"
     },
     {
       "source": "crates",
@@ -1696,9 +1567,8 @@
       "created_at": "2026-03-17T18:59:41.335751Z",
       "repository": "https://github.com/dickwu/tauri-connector",
       "crates_io": "https://crates.io/crates/tauri-plugin-connector",
-      "downloads": 753,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads": 751,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1718,8 +1588,7 @@
       "repository": "https://github.com/ultraknown/tauri-plugin-app-review",
       "npm": "https://www.npmjs.com/package/@ultraknown/tauri-plugin-app-review-api",
       "downloads": 17,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1728,9 +1597,8 @@
       "created_at": "2026-03-11T22:31:55.501916Z",
       "repository": "https://github.com/userFRM/tauri-plugin-macos-fps",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-fps",
-      "downloads": 59365,
-      "downloads_window": "90d",
-      "stars": 10
+      "downloads": 59089,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1740,8 +1608,7 @@
       "repository": "https://github.com/twiced-technology-gmbh/redline-plugin-tauri",
       "crates_io": "https://crates.io/crates/tauri-plugin-redline",
       "downloads": 78,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1752,8 +1619,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-custom-themes",
       "downloads": 7,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-custom-themes-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-custom-themes-api"
     },
     {
       "source": "crates",
@@ -1762,10 +1628,9 @@
       "created_at": "2026-03-09T17:43:51.706185Z",
       "repository": "https://github.com/srod/tauri-plugin-fcm",
       "crates_io": "https://crates.io/crates/tauri-plugin-fcm",
-      "downloads": 977,
+      "downloads": 978,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fcm",
-      "stars": 3
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fcm"
     },
     {
       "source": "crates",
@@ -1776,8 +1641,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-conduit",
       "downloads": 129,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-conduit",
-      "stars": 4
+      "npm": "https://www.npmjs.com/package/tauri-plugin-conduit"
     },
     {
       "source": "crates",
@@ -1786,10 +1650,9 @@
       "created_at": "2026-03-05T15:04:45.149958Z",
       "repository": "https://github.com/mcitem/tauri-plugin-axum",
       "crates_io": "https://crates.io/crates/tauri-plugin-axum",
-      "downloads": 275,
+      "downloads": 259,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-axum-api",
-      "stars": 9
+      "npm": "https://www.npmjs.com/package/tauri-plugin-axum-api"
     },
     {
       "source": "crates",
@@ -1798,10 +1661,9 @@
       "created_at": "2026-03-04T15:21:57.081177Z",
       "repository": "https://github.com/luis3132/tauri-plugin-thermal-printer",
       "crates_io": "https://crates.io/crates/tauri-plugin-thermal-printer",
-      "downloads": 1364,
+      "downloads": 1356,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-thermal-printer",
-      "stars": 24
+      "npm": "https://www.npmjs.com/package/tauri-plugin-thermal-printer"
     },
     {
       "source": "crates",
@@ -1811,8 +1673,7 @@
       "repository": "https://github.com/uvarov-frontend/tauri-plugin-social-auth",
       "crates_io": "https://crates.io/crates/tauri-plugin-social-auth",
       "downloads": 32,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1822,8 +1683,7 @@
       "repository": "https://github.com/licenseseat/licenseseat-rust",
       "crates_io": "https://crates.io/crates/tauri-plugin-licenseseat",
       "downloads": 152,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1834,8 +1694,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-tcpclient",
       "downloads": 11,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-tcpclient",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-tcpclient"
     },
     {
       "source": "npm",
@@ -1866,8 +1725,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-widgets",
       "downloads": 242,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-widgets-api",
-      "stars": 18
+      "npm": "https://www.npmjs.com/package/tauri-plugin-widgets-api"
     },
     {
       "source": "crates",
@@ -1876,10 +1734,9 @@
       "created_at": "2026-02-26T20:18:11.408908Z",
       "repository": "https://github.com/GavynStanley/tauri-plugin-siwa",
       "crates_io": "https://crates.io/crates/tauri-plugin-siwa",
-      "downloads": 163,
+      "downloads": 158,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-siwa-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-siwa-api"
     },
     {
       "source": "npm",
@@ -1889,8 +1746,7 @@
       "repository": "https://github.com/bishen/tauri-plugin-export",
       "npm": "https://www.npmjs.com/package/@bishen/tauri-plugin-export-api",
       "downloads": 15,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -1900,8 +1756,7 @@
       "repository": "https://github.com/bishen/tauri-plugin-export",
       "crates_io": "https://crates.io/crates/tauri-plugin-export",
       "downloads": 14,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1911,8 +1766,7 @@
       "repository": "https://github.com/mouhamed1296/thermoprint",
       "crates_io": "https://crates.io/crates/tauri-plugin-thermoprint",
       "downloads": 11,
-      "downloads_window": "90d",
-      "stars": 4
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1923,8 +1777,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-configurate",
       "downloads": 119,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-configurate-api",
-      "stars": 5
+      "npm": "https://www.npmjs.com/package/tauri-plugin-configurate-api"
     },
     {
       "source": "crates",
@@ -1935,8 +1788,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-libsql",
       "downloads": 320,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-libsql-api",
-      "stars": 16
+      "npm": "https://www.npmjs.com/package/tauri-plugin-libsql-api"
     },
     {
       "source": "crates",
@@ -1946,8 +1798,7 @@
       "repository": "https://github.com/VasakOS/tauri-plugin-i18n",
       "crates_io": "https://crates.io/crates/tauri-plugin-i18n-vsk",
       "downloads": 30,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -1968,8 +1819,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-system",
       "downloads": 16,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-system-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-system-api"
     },
     {
       "source": "crates",
@@ -1979,8 +1829,7 @@
       "repository": "https://github.com/afeather/tauri-plugin-android-mediastore",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-mediastore",
       "downloads": 284,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -1990,8 +1839,7 @@
       "repository": "https://github.com/kollabor/ambient-fs",
       "crates_io": "https://crates.io/crates/tauri-plugin-ambient-fs",
       "downloads": 7,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2010,10 +1858,9 @@
       "created_at": "2026-02-19T19:51:36.576258Z",
       "repository": "https://github.com/uvarov-frontend/tauri-plugin-native-audio",
       "crates_io": "https://crates.io/crates/tauri-plugin-native-audio",
-      "downloads": 1360,
+      "downloads": 1359,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-native-audio-api",
-      "stars": 10
+      "npm": "https://www.npmjs.com/package/tauri-plugin-native-audio-api"
     },
     {
       "source": "crates",
@@ -2035,8 +1882,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-js",
       "downloads": 260,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-js-api",
-      "stars": 18
+      "npm": "https://www.npmjs.com/package/tauri-plugin-js-api"
     },
     {
       "source": "crates",
@@ -2047,8 +1893,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-fs-stream",
       "downloads": 157,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-stream-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-stream-api"
     },
     {
       "source": "crates",
@@ -2059,8 +1904,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-agent-control",
       "downloads": 64,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-agent-control",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-agent-control"
     },
     {
       "source": "crates",
@@ -2069,9 +1913,8 @@
       "created_at": "2026-02-14T02:28:14.317315Z",
       "repository": "https://github.com/danielraffel/tauri-webdriver",
       "crates_io": "https://crates.io/crates/tauri-plugin-webdriver-automation",
-      "downloads": 13904,
-      "downloads_window": "90d",
-      "stars": 29
+      "downloads": 13640,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2080,9 +1923,8 @@
       "created_at": "2026-02-13T23:19:39.425247Z",
       "repository": "https://github.com/solrmax/tauri-plugin-media-session",
       "crates_io": "https://crates.io/crates/tauri-plugin-media-session",
-      "downloads": 483,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads": 466,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2092,8 +1934,7 @@
       "repository": "https://github.com/milangress/outis",
       "crates_io": "https://crates.io/crates/tauri-plugin-outis-captcha",
       "downloads": 10,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2103,8 +1944,7 @@
       "repository": "https://github.com/milangress/outis-captcha",
       "npm": "https://www.npmjs.com/package/tauri-plugin-outis-captcha-api",
       "downloads": 7,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2113,9 +1953,8 @@
       "created_at": "2026-02-11T13:02:18.259645Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-webdriver",
       "crates_io": "https://crates.io/crates/tauri-plugin-webdriver",
-      "downloads": 78226,
-      "downloads_window": "90d",
-      "stars": 37
+      "downloads": 77850,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2125,8 +1964,7 @@
       "repository": "https://github.com/liminal-hq/tauri-plugins-workspace",
       "crates_io": "https://crates.io/crates/tauri-plugin-material-you",
       "downloads": 16,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2136,8 +1974,7 @@
       "repository": "https://github.com/setoelkahfi/tauri-plugin-ios-window",
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-window",
       "downloads": 20,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2147,8 +1984,7 @@
       "repository": "https://github.com/setoelkahfi/tauri-plugin-ios-window",
       "npm": "https://www.npmjs.com/package/@smbcloud/tauri-plugin-ios-window-api",
       "downloads": 26,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2157,10 +1993,9 @@
       "created_at": "2026-02-06T07:55:18.017213Z",
       "repository": "https://github.com/HuakunShen/tauri-plugin-user-input",
       "crates_io": "https://crates.io/crates/tauri-plugin-user-input",
-      "downloads": 128,
+      "downloads": 127,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-user-input-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-user-input-api"
     },
     {
       "source": "crates",
@@ -2171,8 +2006,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-google-admob",
       "downloads": 32,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-google-admob-api",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-google-admob-api"
     },
     {
       "source": "crates",
@@ -2183,8 +2017,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-outis",
       "downloads": 11,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-outis-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-outis-api"
     },
     {
       "source": "crates",
@@ -2194,8 +2027,7 @@
       "repository": "https://github.com/thrashr888/tauri-browser",
       "crates_io": "https://crates.io/crates/tauri-plugin-debug-bridge",
       "downloads": 190,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2206,8 +2038,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-captcha-breaker",
       "downloads": 26,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-captcha-breaker-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-captcha-breaker-api"
     },
     {
       "source": "crates",
@@ -2216,9 +2047,8 @@
       "created_at": "2026-02-01T04:17:38.256828Z",
       "repository": "https://github.com/dcherrera/tauri-plugin-automation",
       "crates_io": "https://crates.io/crates/tauri-plugin-automation-server",
-      "downloads": 2011,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads": 2025,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2228,8 +2058,7 @@
       "repository": "https://github.com/bishen/tauri-plugin-redb-cache",
       "npm": "https://www.npmjs.com/package/@bishen/tauri-plugin-redb-cache-api",
       "downloads": 24,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2239,8 +2068,7 @@
       "repository": "https://github.com/bishen/tauri-plugin-redb-cache",
       "crates_io": "https://crates.io/crates/tauri-plugin-redb-cache",
       "downloads": 19,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2249,10 +2077,9 @@
       "created_at": "2026-01-25T16:26:17.357759Z",
       "repository": "https://github.com/edisdev/tauri-plugin-device-info",
       "crates_io": "https://crates.io/crates/tauri-plugin-device-info",
-      "downloads": 28267,
+      "downloads": 28409,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-device-info-api",
-      "stars": 33
+      "npm": "https://www.npmjs.com/package/tauri-plugin-device-info-api"
     },
     {
       "source": "crates",
@@ -2261,10 +2088,9 @@
       "created_at": "2026-01-25T04:31:16.398311Z",
       "repository": "https://github.com/modular-agent/modular-agent",
       "crates_io": "https://crates.io/crates/tauri-plugin-modular-agent",
-      "downloads": 144,
+      "downloads": 145,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-modular-agent-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-modular-agent-api"
     },
     {
       "source": "npm",
@@ -2274,8 +2100,7 @@
       "repository": "https://github.com/lott-ai/tauri-plugin-bun",
       "npm": "https://www.npmjs.com/package/tauri-plugin-bun",
       "downloads": 6,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2286,8 +2111,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-tauribun",
       "downloads": 10,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-tauribun",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-tauribun"
     },
     {
       "source": "crates",
@@ -2298,8 +2122,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-immersionbar",
       "downloads": 17,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-immersionbar",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-immersionbar"
     },
     {
       "source": "crates",
@@ -2319,10 +2142,9 @@
       "created_at": "2026-01-19T11:21:45.041731Z",
       "repository": "https://github.com/NeoHuncho/tauri-plugin-android-battery-optimization",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-battery-optimization",
-      "downloads": 482,
+      "downloads": 476,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-battery-optimization-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-battery-optimization-api"
     },
     {
       "source": "crates",
@@ -2333,8 +2155,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-native-camera",
       "downloads": 36,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-native-camera-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-native-camera-api"
     },
     {
       "source": "npm",
@@ -2344,8 +2165,7 @@
       "repository": "https://github.com/bishen/tauri-plugin-pg-sync",
       "npm": "https://www.npmjs.com/package/@bishen/tauri-plugin-pg-sync",
       "downloads": 66,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2355,8 +2175,7 @@
       "repository": "https://github.com/bishen/tauri-plugin-pg-sync",
       "crates_io": "https://crates.io/crates/tauri-plugin-pg-sync",
       "downloads": 34,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2366,8 +2185,7 @@
       "repository": "https://github.com/fltsci/tauri-plugin-profiling",
       "npm": "https://www.npmjs.com/package/@fltsci/tauri-plugin-profiling",
       "downloads": 16,
-      "downloads_window": "30d",
-      "stars": 3
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2376,9 +2194,8 @@
       "created_at": "2026-01-14T20:32:43.648411Z",
       "repository": "https://github.com/fltsci/tauri-plugin-profiling",
       "crates_io": "https://crates.io/crates/tauri-plugin-profiling",
-      "downloads": 11337,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads": 11217,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2387,9 +2204,8 @@
       "created_at": "2026-01-14T05:58:18.608956Z",
       "repository": "https://github.com/fltsci/tauri-plugin-tracing",
       "crates_io": "https://crates.io/crates/tauri-plugin-tracing",
-      "downloads": 12361,
-      "downloads_window": "90d",
-      "stars": 11
+      "downloads": 12215,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2400,8 +2216,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-mongoose",
       "downloads": 98,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mongoose",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mongoose"
     },
     {
       "source": "crates",
@@ -2412,8 +2227,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-nostrnative",
       "downloads": 22,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-nostrnative",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-nostrnative"
     },
     {
       "source": "crates",
@@ -2424,8 +2238,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-debug-tools",
       "downloads": 25,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-debug-tools",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-debug-tools"
     },
     {
       "source": "npm",
@@ -2435,8 +2248,7 @@
       "repository": "https://github.com/cyberlife-coder/VelesDB",
       "npm": "https://www.npmjs.com/package/@wiscale/tauri-plugin-velesdb",
       "downloads": 1242,
-      "downloads_window": "30d",
-      "stars": 90
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2447,8 +2259,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-clipboard-next",
       "downloads": 387,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-next-api",
-      "stars": 3
+      "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-next-api"
     },
     {
       "source": "crates",
@@ -2457,9 +2268,8 @@
       "created_at": "2025-12-28T13:38:24.364947Z",
       "repository": "https://github.com/webdriverio/desktop-mobile",
       "crates_io": "https://crates.io/crates/tauri-plugin-wdio",
-      "downloads": 50514,
-      "downloads_window": "90d",
-      "stars": 11
+      "downloads": 50947,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2470,8 +2280,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-lingua",
       "downloads": 12,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-lingua-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-lingua-api"
     },
     {
       "source": "npm",
@@ -2481,8 +2290,7 @@
       "repository": "https://github.com/senspond20/tauri-plugin-unified-log",
       "npm": "https://www.npmjs.com/package/@rgbitsoft/tauri-plugin-unified-log",
       "downloads": 14,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2492,8 +2300,7 @@
       "repository": "https://github.com/Gbyte-Group/tauri-plugin-in-app-review",
       "crates_io": "https://crates.io/crates/tauri-plugin-in-app-review",
       "downloads": 64,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2503,8 +2310,7 @@
       "repository": "https://github.com/Gbyte-Group/tauri-plugin-in-app-review",
       "npm": "https://www.npmjs.com/package/@gbyte/tauri-plugin-in-app-review",
       "downloads": 24,
-      "downloads_window": "30d",
-      "stars": 1
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2514,8 +2320,7 @@
       "repository": "https://github.com/Gbyte-Group/tauri-plugin-ios-photos",
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-photos",
       "downloads": 396,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2526,8 +2331,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-mobile-sharetarget",
       "downloads": 166,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-sharetarget-api",
-      "stars": 13
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-sharetarget-api"
     },
     {
       "source": "crates",
@@ -2538,8 +2342,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-preferences",
       "downloads": 11,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-preferences-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-preferences-api"
     },
     {
       "source": "npm",
@@ -2549,8 +2352,7 @@
       "repository": "https://github.com/Gbyte-Group/tauri-plugin-ios-photos",
       "npm": "https://www.npmjs.com/package/@gbyte/tauri-plugin-ios-photos",
       "downloads": 243,
-      "downloads_window": "30d",
-      "stars": 2
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2561,8 +2363,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-screen-wake-lock",
       "downloads": 14,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-screen-wake-lock-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-screen-wake-lock-api"
     },
     {
       "source": "crates",
@@ -2571,9 +2372,8 @@
       "created_at": "2025-12-22T09:41:42.931079Z",
       "repository": "https://github.com/cyberlife-coder/VelesDB",
       "crates_io": "https://crates.io/crates/tauri-plugin-velesdb",
-      "downloads": 1072,
-      "downloads_window": "90d",
-      "stars": 90
+      "downloads": 1070,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2584,8 +2384,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-dev-invoke",
       "downloads": 79,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-dev-invoke-api",
-      "stars": 9
+      "npm": "https://www.npmjs.com/package/tauri-plugin-dev-invoke-api"
     },
     {
       "source": "crates",
@@ -2595,8 +2394,7 @@
       "repository": "https://github.com/almontasser/tauri-plugin-dev-invoke",
       "crates_io": "https://crates.io/crates/tauri-plugin-dev-invoke-macros",
       "downloads": 11,
-      "downloads_window": "90d",
-      "stars": 9
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2605,10 +2403,9 @@
       "created_at": "2025-12-20T08:55:47.019563Z",
       "repository": "https://github.com/niusia-ua/better-posthog-rust",
       "crates_io": "https://crates.io/crates/tauri-plugin-better-posthog",
-      "downloads": 6829,
+      "downloads": 6818,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-better-posthog",
-      "stars": 4
+      "npm": "https://www.npmjs.com/package/tauri-plugin-better-posthog"
     },
     {
       "source": "crates",
@@ -2617,10 +2414,9 @@
       "created_at": "2025-12-18T20:16:58.965127Z",
       "repository": "https://github.com/brenogonzaga/tauri-plugin-audio-recorder",
       "crates_io": "https://crates.io/crates/tauri-plugin-audio-recorder",
-      "downloads": 1628,
+      "downloads": 1606,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-api",
-      "stars": 19
+      "npm": "https://www.npmjs.com/package/tauri-plugin-audio-recorder-api"
     },
     {
       "source": "crates",
@@ -2629,10 +2425,9 @@
       "created_at": "2025-12-18T20:14:40.575295Z",
       "repository": "https://github.com/brenogonzaga/tauri-plugin-media-toolkit",
       "crates_io": "https://crates.io/crates/tauri-plugin-media-toolkit",
-      "downloads": 60,
+      "downloads": 58,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-media-toolkit-api",
-      "stars": 7
+      "npm": "https://www.npmjs.com/package/tauri-plugin-media-toolkit-api"
     },
     {
       "source": "crates",
@@ -2643,8 +2438,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-stt",
       "downloads": 596,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-stt-api",
-      "stars": 23
+      "npm": "https://www.npmjs.com/package/tauri-plugin-stt-api"
     },
     {
       "source": "crates",
@@ -2655,8 +2449,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-tts",
       "downloads": 6768,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-tts-api",
-      "stars": 18
+      "npm": "https://www.npmjs.com/package/tauri-plugin-tts-api"
     },
     {
       "source": "crates",
@@ -2665,10 +2458,9 @@
       "created_at": "2025-12-18T10:22:04.631242Z",
       "repository": "https://github.com/hkandala/tauri-plugin-liquid-glass",
       "crates_io": "https://crates.io/crates/tauri-plugin-liquid-glass",
-      "downloads": 50306,
+      "downloads": 50484,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-liquid-glass-api",
-      "stars": 82
+      "npm": "https://www.npmjs.com/package/tauri-plugin-liquid-glass-api"
     },
     {
       "source": "crates",
@@ -2677,10 +2469,9 @@
       "created_at": "2025-12-17T07:12:22.150119Z",
       "repository": "https://github.com/ahonn/tauri-plugin-sparkle-updater",
       "crates_io": "https://crates.io/crates/tauri-plugin-sparkle-updater",
-      "downloads": 15885,
+      "downloads": 15873,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sparkle-updater-api",
-      "stars": 28
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sparkle-updater-api"
     },
     {
       "source": "crates",
@@ -2691,8 +2482,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-secure-element",
       "downloads": 116,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-secure-element-api",
-      "stars": 5
+      "npm": "https://www.npmjs.com/package/tauri-plugin-secure-element-api"
     },
     {
       "source": "crates",
@@ -2711,9 +2501,8 @@
       "created_at": "2025-12-09T16:02:44.671144Z",
       "repository": "https://github.com/clarifei/tauri-plugin-frame",
       "crates_io": "https://crates.io/crates/tauri-plugin-frame",
-      "downloads": 4340,
-      "downloads_window": "90d",
-      "stars": 40
+      "downloads": 4346,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2724,8 +2513,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-video-thumbnail",
       "downloads": 29,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-video-thumbnail",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-video-thumbnail"
     },
     {
       "source": "crates",
@@ -2734,9 +2522,8 @@
       "created_at": "2025-11-27T04:18:49.188220Z",
       "repository": "https://github.com/hypothesi/mcp-server-tauri",
       "crates_io": "https://crates.io/crates/tauri-plugin-mcp-bridge",
-      "downloads": 156747,
-      "downloads_window": "90d",
-      "stars": 294
+      "downloads": 153770,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2746,8 +2533,7 @@
       "repository": "https://github.com/hypothesi/mcp-server-tauri",
       "npm": "https://www.npmjs.com/package/@hypothesi/tauri-plugin-mcp-bridge",
       "downloads": 617,
-      "downloads_window": "30d",
-      "stars": 294
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2757,8 +2543,7 @@
       "repository": "https://github.com/1600822305/tauri-plugin-advanced-file-manager",
       "crates_io": "https://crates.io/crates/tauri-plugin-advanced-file-manager",
       "downloads": 15,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2767,9 +2552,8 @@
       "created_at": "2025-11-26T06:05:46.000104Z",
       "repository": "https://github.com/1600822305/tauri-plugin-edge-to-edge",
       "crates_io": "https://crates.io/crates/tauri-plugin-edge-to-edge",
-      "downloads": 1108,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads": 1105,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2790,8 +2574,7 @@
       "repository": "https://github.com/yigitkonur/tauri-plugin-macos-input-monitor",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-input-monitor",
       "downloads": 26,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2802,8 +2585,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-music-notification-api",
       "downloads": 10,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-music-notification-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-music-notification-api"
     },
     {
       "source": "crates",
@@ -2814,8 +2596,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-printer-wkhtml-bin",
       "downloads": 43,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-printer-wkhtml-bin",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-printer-wkhtml-bin"
     },
     {
       "source": "npm",
@@ -2825,8 +2606,7 @@
       "repository": "https://github.com/crabnebula-dev/better-auth-license",
       "npm": "https://www.npmjs.com/package/@crabnebula/tauri-plugin-better-auth-license",
       "downloads": 4770,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2856,7 +2636,7 @@
       "created_at": "2025-11-03T01:13:43.739753Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-sse",
-      "downloads": 12,
+      "downloads": 11,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sse-api"
     },
@@ -2867,9 +2647,8 @@
       "created_at": "2025-11-02T16:51:30.610510Z",
       "repository": "https://github.com/razein97/tauri-plugin-i18n",
       "crates_io": "https://crates.io/crates/tauri-plugin-i18n",
-      "downloads": 943,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads": 950,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2879,8 +2658,7 @@
       "repository": "https://github.com/razein97/tauri-plugin-i18n",
       "npm": "https://www.npmjs.com/package/@razein97/tauri-plugin-i18n",
       "downloads": 318,
-      "downloads_window": "30d",
-      "stars": 3
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2899,9 +2677,8 @@
       "created_at": "2025-10-27T00:42:03.117485Z",
       "repository": "https://github.com/delorenj/tauri-plugin-mcp",
       "crates_io": "https://crates.io/crates/tauri-plugin-mcp-gui",
-      "downloads": 79,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads": 78,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -2921,10 +2698,9 @@
       "created_at": "2025-10-24T05:31:19.192795Z",
       "repository": "https://github.com/lin52025iq/tauri-plugin-use-ffmpeg",
       "crates_io": "https://crates.io/crates/tauri-plugin-use-ffmpeg",
-      "downloads": 23,
+      "downloads": 22,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-use-ffmpeg-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-use-ffmpeg-api"
     },
     {
       "source": "crates",
@@ -2933,10 +2709,9 @@
       "created_at": "2025-10-20T17:28:49.883878Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-system-fonts",
       "crates_io": "https://crates.io/crates/tauri-plugin-system-fonts",
-      "downloads": 1965,
+      "downloads": 1989,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-system-fonts-api",
-      "stars": 11
+      "npm": "https://www.npmjs.com/package/tauri-plugin-system-fonts-api"
     },
     {
       "source": "crates",
@@ -2945,10 +2720,9 @@
       "created_at": "2025-10-16T22:45:13.831476Z",
       "repository": "https://github.com/Nipsuli/tauri-plugin-clerk/",
       "crates_io": "https://crates.io/crates/tauri-plugin-clerk",
-      "downloads": 8209,
+      "downloads": 8183,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-clerk",
-      "stars": 28
+      "npm": "https://www.npmjs.com/package/tauri-plugin-clerk"
     },
     {
       "source": "crates",
@@ -2957,10 +2731,9 @@
       "created_at": "2025-10-12T18:57:44.761173Z",
       "repository": "https://github.com/YeonV/tauri-plugin-videoplayer",
       "crates_io": "https://crates.io/crates/tauri-plugin-videoplayer",
-      "downloads": 54,
+      "downloads": 53,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-videoplayer-api",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-videoplayer-api"
     },
     {
       "source": "crates",
@@ -2969,9 +2742,8 @@
       "created_at": "2025-10-11T08:36:38.024383Z",
       "repository": "https://github.com/universalappfactory/tauri-plugin-medialibrary",
       "crates_io": "https://crates.io/crates/tauri-plugin-medialibrary",
-      "downloads": 2942,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads": 2954,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -2981,8 +2753,7 @@
       "repository": "https://github.com/Choochmeque/tauri-plugin-notifications",
       "npm": "https://www.npmjs.com/package/@choochmeque/tauri-plugin-notifications-api",
       "downloads": 29462,
-      "downloads_window": "30d",
-      "stars": 79
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -2991,9 +2762,8 @@
       "created_at": "2025-10-07T15:18:41.118545Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-notifications",
       "crates_io": "https://crates.io/crates/tauri-plugin-notifications",
-      "downloads": 11376,
-      "downloads_window": "90d",
-      "stars": 79
+      "downloads": 11292,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3003,8 +2773,7 @@
       "repository": "https://github.com/nini22P/tauri-plugin-libmpv",
       "crates_io": "https://crates.io/crates/tauri-plugin-libmpv-sys",
       "downloads": 9,
-      "downloads_window": "90d",
-      "stars": 21
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3015,8 +2784,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sumup",
       "downloads": 18,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sumup-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sumup-api"
     },
     {
       "source": "npm",
@@ -3026,8 +2794,7 @@
       "repository": "https://github.com/cloudworxx/tauri-plugin-mac-rounded-corners",
       "npm": "https://www.npmjs.com/package/@cloudworxx/tauri-plugin-mac-rounded-corners",
       "downloads": 1455,
-      "downloads_window": "30d",
-      "stars": 8
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3038,8 +2805,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-widget",
       "downloads": 21,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-widget-api",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-widget-api"
     },
     {
       "source": "crates",
@@ -3048,10 +2814,9 @@
       "created_at": "2025-09-27T00:52:11.341654Z",
       "repository": "https://github.com/nini22P/tauri-plugin-libmpv",
       "crates_io": "https://crates.io/crates/tauri-plugin-libmpv",
-      "downloads": 2246,
+      "downloads": 2233,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-libmpv-api",
-      "stars": 21
+      "npm": "https://www.npmjs.com/package/tauri-plugin-libmpv-api"
     },
     {
       "source": "npm",
@@ -3072,8 +2837,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-broadcast",
       "downloads": 30,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-broadcast-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-broadcast-api"
     },
     {
       "source": "crates",
@@ -3082,10 +2846,9 @@
       "created_at": "2025-09-10T10:03:00.968530Z",
       "repository": "https://github.com/lecaobaophuc0912/tauri-plugin-pldownloader",
       "crates_io": "https://crates.io/crates/tauri-plugin-pldownloader",
-      "downloads": 248,
+      "downloads": 247,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-pldownloader-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-pldownloader-api"
     },
     {
       "source": "crates",
@@ -3094,10 +2857,9 @@
       "created_at": "2025-09-06T20:33:33.371542Z",
       "repository": "https://github.com/Taiizor/tauri-plugin-media",
       "crates_io": "https://crates.io/crates/tauri-plugin-media",
-      "downloads": 125,
+      "downloads": 126,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-media-api",
-      "stars": 21
+      "npm": "https://www.npmjs.com/package/tauri-plugin-media-api"
     },
     {
       "source": "npm",
@@ -3116,7 +2878,7 @@
       "created_at": "2025-09-05T17:44:49.261208Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-typegen",
-      "downloads": 114,
+      "downloads": 115,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-typegen"
     },
@@ -3128,8 +2890,7 @@
       "repository": "https://github.com/Choochmeque/tauri-plugin-biometry",
       "npm": "https://www.npmjs.com/package/@choochmeque/tauri-plugin-biometry-api",
       "downloads": 8228,
-      "downloads_window": "30d",
-      "stars": 28
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3138,9 +2899,8 @@
       "created_at": "2025-09-05T15:24:44.799122Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-biometry",
       "crates_io": "https://crates.io/crates/tauri-plugin-biometry",
-      "downloads": 15525,
-      "downloads_window": "90d",
-      "stars": 28
+      "downloads": 15466,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3149,7 +2909,7 @@
       "created_at": "2025-09-03T15:47:13.081231Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-posthog",
-      "downloads": 5998,
+      "downloads": 5894,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-posthog-api"
     },
@@ -3160,10 +2920,9 @@
       "created_at": "2025-09-03T12:35:12.651202Z",
       "repository": "https://github.com/nini22P/tauri-plugin-mpv",
       "crates_io": "https://crates.io/crates/tauri-plugin-mpv",
-      "downloads": 635,
+      "downloads": 648,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mpv-api",
-      "stars": 29
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mpv-api"
     },
     {
       "source": "crates",
@@ -3173,8 +2932,7 @@
       "repository": "https://github.com/modeckrus/tauri-plugin-intent",
       "crates_io": "https://crates.io/crates/tauri-plugin-intent",
       "downloads": 14,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3184,8 +2942,7 @@
       "repository": "https://github.com/Choochmeque/tauri-plugin-sharekit",
       "npm": "https://www.npmjs.com/package/@choochmeque/tauri-plugin-sharekit-api",
       "downloads": 37790,
-      "downloads_window": "30d",
-      "stars": 21
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3194,9 +2951,8 @@
       "created_at": "2025-08-28T13:35:40.919048Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-sharekit",
       "crates_io": "https://crates.io/crates/tauri-plugin-sharekit",
-      "downloads": 33833,
-      "downloads_window": "90d",
-      "stars": 21
+      "downloads": 33949,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3226,8 +2982,7 @@
       "repository": "https://github.com/Choochmeque/tauri-plugin-google-auth",
       "npm": "https://www.npmjs.com/package/@choochmeque/tauri-plugin-google-auth-api",
       "downloads": 8133,
-      "downloads_window": "30d",
-      "stars": 21
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3236,9 +2991,8 @@
       "created_at": "2025-08-26T16:03:05.412590Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-google-auth",
       "crates_io": "https://crates.io/crates/tauri-plugin-google-auth",
-      "downloads": 11113,
-      "downloads_window": "90d",
-      "stars": 21
+      "downloads": 11028,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3247,7 +3001,7 @@
       "created_at": "2025-08-21T15:53:33.182659Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-safe-area-insets-css",
-      "downloads": 1731,
+      "downloads": 1727,
       "downloads_window": "90d"
     },
     {
@@ -3258,8 +3012,7 @@
       "repository": "https://github.com/saurL/tauri-plugin-safe-area-insets-css",
       "npm": "https://www.npmjs.com/package/@saurl/tauri-plugin-safe-area-insets-css-api",
       "downloads": 1528,
-      "downloads_window": "30d",
-      "stars": 12
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3279,8 +3032,7 @@
       "repository": "https://github.com/smbcloudXYZ/tauri-plugin-android-tv-check",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-tv-check",
       "downloads": 36,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3301,8 +3053,7 @@
       "repository": "https://github.com/smbcloudXYZ/tauri-plugin-android-tv-check",
       "npm": "https://www.npmjs.com/package/@smbcloud/tauri-plugin-android-tv-check-api",
       "downloads": 46,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3313,8 +3064,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-fcm-notifications",
       "downloads": 34,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fcm-notifications",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fcm-notifications"
     },
     {
       "source": "crates",
@@ -3325,8 +3075,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-plauth",
       "downloads": 23,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-plauth-api",
-      "stars": 3
+      "npm": "https://www.npmjs.com/package/tauri-plugin-plauth-api"
     },
     {
       "source": "crates",
@@ -3335,9 +3084,8 @@
       "created_at": "2025-08-14T03:02:38.769638Z",
       "repository": "https://github.com/yminghua/tauri-plugin-macos-passkey",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-passkey",
-      "downloads": 1873,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads": 1869,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3348,8 +3096,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-centrifugo",
       "downloads": 22,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-centrifugo-api",
-      "stars": 4
+      "npm": "https://www.npmjs.com/package/tauri-plugin-centrifugo-api"
     },
     {
       "source": "crates",
@@ -3358,9 +3105,8 @@
       "created_at": "2025-08-10T15:02:38.022304Z",
       "repository": "https://github.com/Choochmeque/tauri-plugin-iap",
       "crates_io": "https://crates.io/crates/tauri-plugin-iap",
-      "downloads": 9953,
-      "downloads_window": "90d",
-      "stars": 81
+      "downloads": 9882,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3369,9 +3115,8 @@
       "created_at": "2025-08-10T10:41:07.278435Z",
       "repository": "https://github.com/pineapp/tauri-plugin-ios-keyboard",
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-keyboard",
-      "downloads": 1271,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads": 1265,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3390,9 +3135,8 @@
       "created_at": "2025-08-04T23:03:54.319185Z",
       "repository": "https://github.com/alexqqqqqq777/tauri-plugin-dragout",
       "crates_io": "https://crates.io/crates/tauri-plugin-dragout",
-      "downloads": 122,
-      "downloads_window": "90d",
-      "stars": 93
+      "downloads": 121,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3401,10 +3145,9 @@
       "created_at": "2025-08-03T03:16:10.123492Z",
       "repository": "https://github.com/chen-collab/tauri-plugin-printer",
       "crates_io": "https://crates.io/crates/tauri-plugin-printer-v2",
-      "downloads": 749,
+      "downloads": 748,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-printer-v2",
-      "stars": 20
+      "npm": "https://www.npmjs.com/package/tauri-plugin-printer-v2"
     },
     {
       "source": "crates",
@@ -3413,9 +3156,8 @@
       "created_at": "2025-08-02T20:52:41.855254Z",
       "repository": "https://github.com/vnidrop/plugin-share",
       "crates_io": "https://crates.io/crates/tauri-plugin-vnidrop-share",
-      "downloads": 4587,
-      "downloads_window": "90d",
-      "stars": 4
+      "downloads": 4663,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3425,8 +3167,7 @@
       "repository": "https://github.com/Choochmeque/tauri-plugin-iap",
       "npm": "https://www.npmjs.com/package/@choochmeque/tauri-plugin-iap-api",
       "downloads": 6660,
-      "downloads_window": "30d",
-      "stars": 81
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -3446,8 +3187,7 @@
       "repository": "https://github.com/razein97/tauri-plugin-rusqlite2",
       "npm": "https://www.npmjs.com/package/@razein97/tauri-plugin-rusqlite2",
       "downloads": 102,
-      "downloads_window": "30d",
-      "stars": 7
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3457,8 +3197,7 @@
       "repository": "https://github.com/razein97/tauri-plugin-rusqlite2",
       "crates_io": "https://crates.io/crates/tauri-plugin-rusqlite2",
       "downloads": 88,
-      "downloads_window": "90d",
-      "stars": 7
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3478,7 +3217,7 @@
       "created_at": "2025-07-30T14:45:22.754089Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-secure-storage",
-      "downloads": 2016,
+      "downloads": 2004,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-secure-storage"
     },
@@ -3491,8 +3230,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-pliap",
       "downloads": 15,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-pliap",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-pliap"
     },
     {
       "source": "npm",
@@ -3512,8 +3250,7 @@
       "repository": "https://github.com/patrickquinn/tauri-plugin-apple-music-kit",
       "crates_io": "https://crates.io/crates/tauri-plugin-musickit",
       "downloads": 16,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3523,8 +3260,7 @@
       "repository": "https://github.com/charlesschaefer/tauri-plugin-schedule-task",
       "crates_io": "https://crates.io/crates/tauri-plugin-schedule-task",
       "downloads": 9,
-      "downloads_window": "90d",
-      "stars": 8
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3545,8 +3281,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-apple-music-kit",
       "downloads": 28,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-music-kit-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-music-kit-api"
     },
     {
       "source": "crates",
@@ -3588,8 +3323,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-sqlite-plus",
       "downloads": 9,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sqlite-plus",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sqlite-plus"
     },
     {
       "source": "crates",
@@ -3598,9 +3332,8 @@
       "created_at": "2025-07-04T16:00:24.396257Z",
       "repository": "https://github.com/Vasak-OS/tauri-plugin-vicons/",
       "crates_io": "https://crates.io/crates/tauri-plugin-vicons",
-      "downloads": 77,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads": 78,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3619,10 +3352,9 @@
       "created_at": "2025-06-22T13:40:09.514248Z",
       "repository": "https://github.com/YOUR_USERNAME/tauri-plugin-remote-push",
       "crates_io": "https://crates.io/crates/tauri-plugin-remote-push",
-      "downloads": 940,
+      "downloads": 937,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-remote-push-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-remote-push-api"
     },
     {
       "source": "crates",
@@ -3632,8 +3364,7 @@
       "repository": "https://github.com/Vasak-OS/tauri-plugin-network-manager",
       "crates_io": "https://crates.io/crates/tauri-plugin-network-manager",
       "downloads": 140,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3642,10 +3373,9 @@
       "created_at": "2025-06-19T18:05:13.444683Z",
       "repository": "https://github.com/tactile-eng/tauri-plugin-mobile-share",
       "crates_io": "https://crates.io/crates/tauri-plugin-mobile-share",
-      "downloads": 3413,
+      "downloads": 3411,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-share",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mobile-share"
     },
     {
       "source": "crates",
@@ -3655,8 +3385,7 @@
       "repository": "https://github.com/Vasak-OS/tauri-plugin-config-manager",
       "crates_io": "https://crates.io/crates/tauri-plugin-config-manager",
       "downloads": 117,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3666,8 +3395,7 @@
       "repository": "https://github.com/Vasak-OS/tauri-plugin-user-data",
       "crates_io": "https://crates.io/crates/tauri-plugin-user-data",
       "downloads": 27,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3677,8 +3405,7 @@
       "repository": "https://github.com/universalappfactory/tauri-plugin-medialibrary",
       "npm": "https://www.npmjs.com/package/@universalappfactory/tauri-plugin-medialibrary",
       "downloads": 814,
-      "downloads_window": "30d",
-      "stars": 1
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3687,10 +3414,9 @@
       "created_at": "2025-06-09T19:56:36.435322Z",
       "repository": "https://github.com/dcherrera/tauri-plugin-automation",
       "crates_io": "https://crates.io/crates/tauri-plugin-automation",
-      "downloads": 39698,
+      "downloads": 39096,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-automation-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-automation-api"
     },
     {
       "source": "crates",
@@ -3701,8 +3427,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-matrix-svelte",
       "downloads": 10,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-matrix-svelte-api",
-      "stars": 10
+      "npm": "https://www.npmjs.com/package/tauri-plugin-matrix-svelte-api"
     },
     {
       "source": "crates",
@@ -3713,8 +3438,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-apple-camera",
       "downloads": 9,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-camera-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-apple-camera-api"
     },
     {
       "source": "crates",
@@ -3725,8 +3449,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-app-control",
       "downloads": 25,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-app-control-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-app-control-api"
     },
     {
       "source": "npm",
@@ -3736,8 +3459,7 @@
       "repository": "https://github.com/0x330a-public/tauri-plugin-keystore",
       "npm": "https://www.npmjs.com/package/@0x330a/tauri-plugin-keystore-api",
       "downloads": 108,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3747,8 +3469,7 @@
       "repository": "https://github.com/holochain/android-service-runtime",
       "crates_io": "https://crates.io/crates/tauri-plugin-holochain-service",
       "downloads": 24,
-      "downloads_window": "90d",
-      "stars": 4
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3758,8 +3479,7 @@
       "repository": "https://github.com/holochain/android-service-runtime",
       "crates_io": "https://crates.io/crates/tauri-plugin-holochain-service-client",
       "downloads": 36,
-      "downloads_window": "90d",
-      "stars": 4
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3769,8 +3489,7 @@
       "repository": "https://github.com/sosweetham/tauri-plugin-torch",
       "npm": "https://www.npmjs.com/package/@sosweetham/tauri-plugin-torch-api",
       "downloads": 19,
-      "downloads_window": "30d",
-      "stars": 3
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3779,9 +3498,8 @@
       "created_at": "2025-05-26T07:08:54.468613Z",
       "repository": "https://github.com/sosweetham/tauri-plugin-torch",
       "crates_io": "https://crates.io/crates/tauri-plugin-torch",
-      "downloads": 276,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads": 277,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3800,10 +3518,9 @@
       "created_at": "2025-05-21T04:17:04.608934Z",
       "repository": "https://github.com/Taiizor/tauri-plugin-cache",
       "crates_io": "https://crates.io/crates/tauri-plugin-cache",
-      "downloads": 638,
+      "downloads": 623,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-cache",
-      "stars": 122
+      "npm": "https://www.npmjs.com/package/tauri-plugin-cache"
     },
     {
       "source": "npm",
@@ -3813,8 +3530,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-ota",
       "downloads": 17,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3825,8 +3541,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-vue",
       "downloads": 127,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-vue",
-      "stars": 138
+      "npm": "https://www.npmjs.com/package/tauri-plugin-vue"
     },
     {
       "source": "crates",
@@ -3836,8 +3551,7 @@
       "repository": "https://github.com/goosewobbler/zubridge",
       "crates_io": "https://crates.io/crates/tauri-plugin-zubridge",
       "downloads": 10,
-      "downloads_window": "90d",
-      "stars": 50
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -3846,10 +3560,9 @@
       "created_at": "2025-05-12T21:59:18.703458Z",
       "repository": "https://github.com/Profiidev/tauri-plugin-webauthn",
       "crates_io": "https://crates.io/crates/tauri-plugin-webauthn",
-      "downloads": 231,
+      "downloads": 241,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-webauthn-api",
-      "stars": 19
+      "npm": "https://www.npmjs.com/package/tauri-plugin-webauthn-api"
     },
     {
       "source": "crates",
@@ -3859,8 +3572,7 @@
       "repository": "https://github.com/auvoid/tauri-plugin-crypto-hw",
       "crates_io": "https://crates.io/crates/tauri-plugin-crypto-hw",
       "downloads": 18,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -3870,8 +3582,7 @@
       "repository": "https://github.com/auvoid/tauri-plugin-crypto-hw",
       "npm": "https://www.npmjs.com/package/@auvo/tauri-plugin-crypto-hw-api",
       "downloads": 128,
-      "downloads_window": "30d",
-      "stars": 2
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3882,8 +3593,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-camera",
       "downloads": 1005,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-camera",
-      "stars": 18
+      "npm": "https://www.npmjs.com/package/tauri-plugin-camera"
     },
     {
       "source": "npm",
@@ -3893,8 +3603,7 @@
       "repository": "https://github.com/moeru-ai/airi",
       "npm": "https://www.npmjs.com/package/@proj-airi/tauri-plugin-mcp",
       "downloads": 354,
-      "downloads_window": "30d",
-      "stars": 48566
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3903,10 +3612,9 @@
       "created_at": "2025-04-30T07:32:56.419032Z",
       "repository": "https://github.com/moeru-ai/airi",
       "crates_io": "https://crates.io/crates/tauri-plugin-mcp",
-      "downloads": 144,
+      "downloads": 145,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mcp",
-      "stars": 48566
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mcp"
     },
     {
       "source": "npm",
@@ -3916,8 +3624,7 @@
       "repository": "https://github.com/fltsci/tauri-plugin-tracing",
       "npm": "https://www.npmjs.com/package/@fltsci/tauri-plugin-tracing",
       "downloads": 11565,
-      "downloads_window": "30d",
-      "stars": 11
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -3926,10 +3633,9 @@
       "created_at": "2025-04-26T09:22:22.065757Z",
       "repository": "https://github.com/return764/tauri-plugin-sqlite",
       "crates_io": "https://crates.io/crates/tauri-plugin-sqlite",
-      "downloads": 67,
+      "downloads": 66,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sqlite",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sqlite"
     },
     {
       "source": "crates",
@@ -3938,7 +3644,7 @@
       "created_at": "2025-04-26T05:49:15.175957Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-mixpanel",
-      "downloads": 7969,
+      "downloads": 7785,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-mixpanel-api"
     },
@@ -3951,8 +3657,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-buttonkit",
       "downloads": 7,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-buttonkit-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-buttonkit-api"
     },
     {
       "source": "crates",
@@ -3963,8 +3668,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-hwinfo",
       "downloads": 857,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-hwinfo",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-hwinfo"
     },
     {
       "source": "crates",
@@ -3973,10 +3677,9 @@
       "created_at": "2025-04-21T20:03:58.943022Z",
       "repository": "https://github.com/Manaf941/tauri-plugin-web_auth",
       "crates_io": "https://crates.io/crates/tauri-plugin-web-auth",
-      "downloads": 6121,
+      "downloads": 6078,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-web-auth-api",
-      "stars": 20
+      "npm": "https://www.npmjs.com/package/tauri-plugin-web-auth-api"
     },
     {
       "source": "crates",
@@ -3985,10 +3688,9 @@
       "created_at": "2025-04-21T03:06:50.612657Z",
       "repository": "https://github.com/Manaf941/tauri-plugin-in_app_browser",
       "crates_io": "https://crates.io/crates/tauri-plugin-in-app-browser",
-      "downloads": 146,
+      "downloads": 145,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-in-app-browser-api",
-      "stars": 3
+      "npm": "https://www.npmjs.com/package/tauri-plugin-in-app-browser-api"
     },
     {
       "source": "crates",
@@ -3997,10 +3699,9 @@
       "created_at": "2025-04-19T15:19:08.496442Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-clipboard-x",
       "crates_io": "https://crates.io/crates/tauri-plugin-clipboard-x",
-      "downloads": 4996,
+      "downloads": 5022,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-x-api",
-      "stars": 22
+      "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-x-api"
     },
     {
       "source": "crates",
@@ -4009,10 +3710,9 @@
       "created_at": "2025-04-18T18:18:02.396886Z",
       "repository": "https://github.com/dax-dot-gay/tauri-plugin-persistence",
       "crates_io": "https://crates.io/crates/tauri-plugin-persistence",
-      "downloads": 65,
+      "downloads": 66,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-persistence-api",
-      "stars": 2
+      "npm": "https://www.npmjs.com/package/tauri-plugin-persistence-api"
     },
     {
       "source": "crates",
@@ -4033,8 +3733,7 @@
       "repository": "https://github.com/bspeckco/tauri-v2-plugin-workspace",
       "npm": "https://www.npmjs.com/package/@bspeckco/tauri-plugin-sqlite",
       "downloads": 39,
-      "downloads_window": "30d",
-      "stars": null
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -4045,8 +3744,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-packagemanager",
       "downloads": 17,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-packagemanager-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-packagemanager-api"
     },
     {
       "source": "crates",
@@ -4057,8 +3755,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-usagestats",
       "downloads": 11,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-usagestats-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-usagestats-api"
     },
     {
       "source": "crates",
@@ -4069,8 +3766,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-windows-version",
       "downloads": 382,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-windows-version-api",
-      "stars": 3
+      "npm": "https://www.npmjs.com/package/tauri-plugin-windows-version-api"
     },
     {
       "source": "crates",
@@ -4079,9 +3775,8 @@
       "created_at": "2025-04-09T07:14:37.397887Z",
       "repository": "https://github.com/kingsword09/tauri-plugins-workspace",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-package-install",
-      "downloads": 469,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads": 458,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -4100,9 +3795,8 @@
       "created_at": "2025-04-02T13:32:02.675141Z",
       "repository": "https://github.com/RedfernElec/tauri-plugin-hid",
       "crates_io": "https://crates.io/crates/tauri-plugin-hid",
-      "downloads": 1095,
-      "downloads_window": "90d",
-      "stars": 11
+      "downloads": 1101,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4112,8 +3806,7 @@
       "repository": "https://github.com/kingsword09/tauri-plugins-workspace",
       "crates_io": "https://crates.io/crates/tauri-plugin-mobile-onbackpressed-listener",
       "downloads": 62,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4122,10 +3815,9 @@
       "created_at": "2025-03-24T15:07:31.890196Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-locale",
       "crates_io": "https://crates.io/crates/tauri-plugin-locale",
-      "downloads": 5163,
+      "downloads": 5107,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-locale-api",
-      "stars": 4
+      "npm": "https://www.npmjs.com/package/tauri-plugin-locale-api"
     },
     {
       "source": "crates",
@@ -4134,9 +3826,8 @@
       "created_at": "2025-03-24T09:37:09.943346Z",
       "repository": "https://github.com/SkipperNDT/tauri-plugin-machine-uid",
       "crates_io": "https://crates.io/crates/tauri-plugin-machine-uid",
-      "downloads": 10922,
-      "downloads_window": "90d",
-      "stars": 17
+      "downloads": 10827,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4156,10 +3847,9 @@
       "created_at": "2025-03-22T23:52:13.729185Z",
       "repository": "https://github.com/ferreira-tb/tauri-store",
       "crates_io": "https://crates.io/crates/tauri-plugin-zustand",
-      "downloads": 2493,
+      "downloads": 2460,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-zustand",
-      "stars": 138
+      "npm": "https://www.npmjs.com/package/tauri-plugin-zustand"
     },
     {
       "source": "crates",
@@ -4168,10 +3858,9 @@
       "created_at": "2025-03-18T06:58:58.323289Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-mic-recorder",
       "crates_io": "https://crates.io/crates/tauri-plugin-mic-recorder",
-      "downloads": 2719,
+      "downloads": 2669,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-mic-recorder-api",
-      "stars": 26
+      "npm": "https://www.npmjs.com/package/tauri-plugin-mic-recorder-api"
     },
     {
       "source": "npm",
@@ -4211,8 +3900,7 @@
       "repository": "https://github.com/voixapp/tauri-plugin-hotkey",
       "crates_io": "https://crates.io/crates/tauri-plugin-hotkey",
       "downloads": 27,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4221,7 +3909,7 @@
       "created_at": "2025-03-09T09:02:04.408168Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-sherpa-ncnn",
-      "downloads": 12,
+      "downloads": 11,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sherpa-ncnn-api"
     },
@@ -4232,9 +3920,8 @@
       "created_at": "2025-03-06T14:00:57.098339Z",
       "repository": "https://github.com/aiueo13/tauri-plugin-android-prevent-screen-capture",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-prevent-screen-capture",
-      "downloads": 74,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads": 73,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -4254,8 +3941,7 @@
       "repository": "https://github.com/kingsword09/tauri-plugins-workspace",
       "crates_io": "https://crates.io/crates/tauri-plugin-ios-network-detect",
       "downloads": 11,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4266,8 +3952,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-deno",
       "downloads": 11,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-deno-api",
-      "stars": 31
+      "npm": "https://www.npmjs.com/package/tauri-plugin-deno-api"
     },
     {
       "source": "crates",
@@ -4276,10 +3961,9 @@
       "created_at": "2025-02-27T14:39:48.917718Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-screenshots",
       "crates_io": "https://crates.io/crates/tauri-plugin-screenshots",
-      "downloads": 5794,
+      "downloads": 5738,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-screenshots-api",
-      "stars": 142
+      "npm": "https://www.npmjs.com/package/tauri-plugin-screenshots-api"
     },
     {
       "source": "crates",
@@ -4289,8 +3973,7 @@
       "repository": "https://github.com/aiueo13/tauri-plugin-android-fix-font-size",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-fix-font-size",
       "downloads": 26,
-      "downloads_window": "90d",
-      "stars": 2
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -4300,8 +3983,7 @@
       "repository": "https://github.com/voixapp/tauri-plugin-hotkey",
       "npm": "https://www.npmjs.com/package/@voixapp/tauri-plugin-hotkey",
       "downloads": 43,
-      "downloads_window": "30d",
-      "stars": 1
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -4310,9 +3992,8 @@
       "created_at": "2025-02-20T09:40:40.816506Z",
       "repository": "https://github.com/impierce/tauri-plugin-keystore",
       "crates_io": "https://crates.io/crates/tauri-plugin-keystore",
-      "downloads": 787,
-      "downloads_window": "90d",
-      "stars": 4
+      "downloads": 782,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -4322,8 +4003,7 @@
       "repository": "https://github.com/impierce/tauri-plugin-keystore",
       "npm": "https://www.npmjs.com/package/@impierce/tauri-plugin-keystore",
       "downloads": 366,
-      "downloads_window": "30d",
-      "stars": 4
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -4334,8 +4014,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-bluetooth",
       "downloads": 20,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-bluetooth-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-bluetooth-api"
     },
     {
       "source": "crates",
@@ -4355,10 +4034,9 @@
       "created_at": "2025-02-13T00:31:08.818291Z",
       "repository": "https://github.com/aiueo13/tauri-plugin-android-fs",
       "crates_io": "https://crates.io/crates/tauri-plugin-android-fs",
-      "downloads": 12921,
+      "downloads": 12929,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-android-fs-api",
-      "stars": 37
+      "npm": "https://www.npmjs.com/package/tauri-plugin-android-fs-api"
     },
     {
       "source": "crates",
@@ -4378,9 +4056,8 @@
       "created_at": "2025-01-29T02:04:14.153584Z",
       "repository": "https://github.com/specta-rs/rspc",
       "crates_io": "https://crates.io/crates/tauri-plugin-rspc",
-      "downloads": 100,
-      "downloads_window": "90d",
-      "stars": 1388
+      "downloads": 96,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4391,8 +4068,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-drpc",
       "downloads": 996,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-drpc",
-      "stars": 99
+      "npm": "https://www.npmjs.com/package/tauri-plugin-drpc"
     },
     {
       "source": "crates",
@@ -4401,10 +4077,9 @@
       "created_at": "2025-01-07T01:55:35.033034Z",
       "repository": "https://github.com/ferreira-tb/tauri-store",
       "crates_io": "https://crates.io/crates/tauri-plugin-valtio",
-      "downloads": 266,
+      "downloads": 269,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-valtio",
-      "stars": 138
+      "npm": "https://www.npmjs.com/package/tauri-plugin-valtio"
     },
     {
       "source": "crates",
@@ -4413,7 +4088,7 @@
       "created_at": "2025-01-05T18:17:12.649720Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-safe-area-insets",
-      "downloads": 800,
+      "downloads": 791,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-safe-area-insets"
     },
@@ -4424,10 +4099,9 @@
       "created_at": "2025-01-04T21:14:03.921080Z",
       "repository": "https://github.com/marcomq/tauri-plugin-python",
       "crates_io": "https://crates.io/crates/tauri-plugin-python",
-      "downloads": 117,
+      "downloads": 119,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-python-api",
-      "stars": 160
+      "npm": "https://www.npmjs.com/package/tauri-plugin-python-api"
     },
     {
       "source": "crates",
@@ -4437,8 +4111,7 @@
       "repository": "https://github.com/mamahuhu-io/tauri-plugin-async-wrapper",
       "crates_io": "https://crates.io/crates/tauri-plugin-async-wrapper",
       "downloads": 14,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4447,7 +4120,7 @@
       "created_at": "2024-12-23T16:36:41.540205Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-keyring",
-      "downloads": 16196,
+      "downloads": 16098,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-keyring-api"
     },
@@ -4458,10 +4131,9 @@
       "created_at": "2024-12-23T11:44:24.351268Z",
       "repository": "https://github.com/thewh1teagle/tauri-plugin-keepawake",
       "crates_io": "https://crates.io/crates/tauri-plugin-keepawake",
-      "downloads": 5676,
+      "downloads": 5689,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keepawake-api",
-      "stars": null
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keepawake-api"
     },
     {
       "source": "npm",
@@ -4471,8 +4143,7 @@
       "repository": "https://github.com/pytauri/pytauri",
       "npm": "https://www.npmjs.com/package/tauri-plugin-pytauri-api",
       "downloads": 2164,
-      "downloads_window": "30d",
-      "stars": 1417
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -4481,9 +4152,8 @@
       "created_at": "2024-12-21T05:35:29.948514Z",
       "repository": "https://github.com/pytauri/pytauri/",
       "crates_io": "https://crates.io/crates/tauri-plugin-pytauri",
-      "downloads": 2984,
-      "downloads_window": "90d",
-      "stars": 1417
+      "downloads": 2954,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4492,10 +4162,9 @@
       "created_at": "2024-12-16T17:04:25.891914Z",
       "repository": "https://github.com/ferreira-tb/tauri-store",
       "crates_io": "https://crates.io/crates/tauri-plugin-svelte",
-      "downloads": 723,
+      "downloads": 720,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-svelte",
-      "stars": 138
+      "npm": "https://www.npmjs.com/package/tauri-plugin-svelte"
     },
     {
       "source": "crates",
@@ -4536,8 +4205,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-notifications",
       "downloads": 31,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4547,8 +4215,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-sharing",
       "downloads": 5,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4558,8 +4225,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-haptic-feedback",
       "downloads": 12,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4569,8 +4235,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-map-display",
       "downloads": 13,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4580,8 +4245,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-context-menu",
       "downloads": 10,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4591,8 +4255,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-geolocation",
       "downloads": 14,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4602,8 +4265,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-iap",
       "downloads": 11,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4613,8 +4275,7 @@
       "repository": "https://github.com/inkibra/tauri-plugins",
       "npm": "https://www.npmjs.com/package/@inkibra/tauri-plugin-auth",
       "downloads": 228,
-      "downloads_window": "30d",
-      "stars": 56
+      "downloads_window": "30d"
     },
     {
       "source": "npm",
@@ -4624,8 +4285,7 @@
       "repository": "https://github.com/smitea/tauri-plugin-polodb",
       "npm": "https://www.npmjs.com/package/tauri-plugin-polodb-api-beat",
       "downloads": 6,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -4634,10 +4294,9 @@
       "created_at": "2024-11-23T12:14:48.618916Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-fs-pro",
       "crates_io": "https://crates.io/crates/tauri-plugin-fs-pro",
-      "downloads": 2784,
+      "downloads": 2777,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-pro-api",
-      "stars": 109
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-pro-api"
     },
     {
       "source": "crates",
@@ -4648,8 +4307,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-fs-ios",
       "downloads": 45,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-ios-api",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-fs-ios-api"
     },
     {
       "source": "crates",
@@ -4660,8 +4318,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-m3",
       "downloads": 537,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-m3",
-      "stars": 17
+      "npm": "https://www.npmjs.com/package/tauri-plugin-m3"
     },
     {
       "source": "crates",
@@ -4670,10 +4327,9 @@
       "created_at": "2024-11-18T07:44:11.760961Z",
       "repository": "https://github.com/lindongchen/tauri-plugin-keychain",
       "crates_io": "https://crates.io/crates/tauri-plugin-keychain",
-      "downloads": 4994,
+      "downloads": 4931,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-keychain",
-      "stars": 12
+      "npm": "https://www.npmjs.com/package/tauri-plugin-keychain"
     },
     {
       "source": "crates",
@@ -4682,10 +4338,9 @@
       "created_at": "2024-11-18T04:40:35.336589Z",
       "repository": "https://github.com/ayangweb/tauri-plugin-macos-permissions",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-permissions",
-      "downloads": 160242,
+      "downloads": 157762,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-permissions-api",
-      "stars": 172
+      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-permissions-api"
     },
     {
       "source": "crates",
@@ -4694,10 +4349,9 @@
       "created_at": "2024-11-16T18:54:03.449179Z",
       "repository": "https://github.com/ecmel/tauri-plugin-view",
       "crates_io": "https://crates.io/crates/tauri-plugin-view",
-      "downloads": 2960,
+      "downloads": 2971,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-view-api",
-      "stars": 91
+      "npm": "https://www.npmjs.com/package/tauri-plugin-view-api"
     },
     {
       "source": "crates",
@@ -4706,9 +4360,8 @@
       "created_at": "2024-11-12T14:48:34.978139Z",
       "repository": "https://github.com/MnlPhlp/tauri-plugin-blec",
       "crates_io": "https://crates.io/crates/tauri-plugin-blec",
-      "downloads": 2705,
-      "downloads_window": "90d",
-      "stars": 226
+      "downloads": 2682,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4717,10 +4370,9 @@
       "created_at": "2024-11-11T14:05:45.371726Z",
       "repository": "https://github.com/lindongchen/tauri-plugin-share",
       "crates_io": "https://crates.io/crates/tauri-plugin-share",
-      "downloads": 1407,
+      "downloads": 1370,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-share",
-      "stars": 20
+      "npm": "https://www.npmjs.com/package/tauri-plugin-share"
     },
     {
       "source": "crates",
@@ -4729,7 +4381,7 @@
       "created_at": "2024-11-11T01:32:38.506647Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-sign-in-with-apple",
-      "downloads": 30125,
+      "downloads": 30249,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-sign-in-with-apple-api"
     },
@@ -4742,8 +4394,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-polygon",
       "downloads": 38,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-polygon-api",
-      "stars": 7
+      "npm": "https://www.npmjs.com/package/tauri-plugin-polygon-api"
     },
     {
       "source": "npm",
@@ -4753,8 +4404,7 @@
       "repository": "https://github.com/FabianLars/tauri-plugin-oauth",
       "npm": "https://www.npmjs.com/package/@fabianlars/tauri-plugin-oauth",
       "downloads": 71951,
-      "downloads_window": "30d",
-      "stars": 214
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -4774,10 +4424,9 @@
       "created_at": "2024-10-28T11:26:22.701467Z",
       "repository": "https://github.com/wtto00/tauri-plugin-app-events",
       "crates_io": "https://crates.io/crates/tauri-plugin-app-events",
-      "downloads": 1282,
+      "downloads": 1277,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-app-events-api",
-      "stars": 5
+      "npm": "https://www.npmjs.com/package/tauri-plugin-app-events-api"
     },
     {
       "source": "crates",
@@ -4786,10 +4435,9 @@
       "created_at": "2024-10-28T03:41:41.399582Z",
       "repository": "https://github.com/cijiugechu/tauri-plugin-power-manager",
       "crates_io": "https://crates.io/crates/tauri-plugin-power-manager",
-      "downloads": 280,
+      "downloads": 277,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-power-manager-api",
-      "stars": 0
+      "npm": "https://www.npmjs.com/package/tauri-plugin-power-manager-api"
     },
     {
       "source": "crates",
@@ -4800,8 +4448,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-app-exit",
       "downloads": 141,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-app-exit-api",
-      "stars": 4
+      "npm": "https://www.npmjs.com/package/tauri-plugin-app-exit-api"
     },
     {
       "source": "crates",
@@ -4811,8 +4458,7 @@
       "repository": "https://github.com/kuyoonjo/tauri-plugin-mqtt",
       "crates_io": "https://crates.io/crates/tauri-plugin-mqtt",
       "downloads": 172,
-      "downloads_window": "90d",
-      "stars": 93
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -4831,10 +4477,9 @@
       "created_at": "2024-10-19T11:17:04.535742Z",
       "repository": "https://github.com/timfish/sentry-tauri",
       "crates_io": "https://crates.io/crates/tauri-plugin-sentry",
-      "downloads": 176210,
+      "downloads": 173638,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-sentry-api",
-      "stars": 233
+      "npm": "https://www.npmjs.com/package/tauri-plugin-sentry-api"
     },
     {
       "source": "npm",
@@ -4853,9 +4498,8 @@
       "created_at": "2024-10-19T10:11:55.382402Z",
       "repository": "https://github.com/kuyoonjo/tauri-plugin-tcp",
       "crates_io": "https://crates.io/crates/tauri-plugin-tcp",
-      "downloads": 282,
-      "downloads_window": "90d",
-      "stars": 101
+      "downloads": 279,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -4874,7 +4518,7 @@
       "created_at": "2024-10-14T12:50:54.562456Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-keygen-rs2",
-      "downloads": 1035,
+      "downloads": 1029,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-keygen-rs2-api"
     },
@@ -4887,8 +4531,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-polodb",
       "downloads": 14,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-polodb-api",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-polodb-api"
     },
     {
       "source": "crates",
@@ -4897,10 +4540,9 @@
       "created_at": "2024-09-03T19:28:47.484141Z",
       "repository": "https://github.com/Charlie-XIAO/tauri-plugin-desktop-underlay",
       "crates_io": "https://crates.io/crates/tauri-plugin-desktop-underlay",
-      "downloads": 616,
+      "downloads": 612,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-desktop-underlay-api",
-      "stars": 142
+      "npm": "https://www.npmjs.com/package/tauri-plugin-desktop-underlay-api"
     },
     {
       "source": "npm",
@@ -4919,9 +4561,8 @@
       "created_at": "2024-08-29T19:20:41.713392Z",
       "repository": "https://github.com/buildyourwebapp/tauri-plugin-sharesheet",
       "crates_io": "https://crates.io/crates/tauri-plugin-sharesheet",
-      "downloads": 2003,
-      "downloads_window": "90d",
-      "stars": 106
+      "downloads": 1999,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4930,9 +4571,8 @@
       "created_at": "2024-08-28T14:28:45.645958Z",
       "repository": "https://github.com/crabnebula-dev/tauri-plugin-ota-updater",
       "crates_io": "https://crates.io/crates/tauri-plugin-ota-updater",
-      "downloads": 1915,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads": 1909,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4941,7 +4581,7 @@
       "created_at": "2024-08-27T09:29:12.898465Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-keygen-rs",
-      "downloads": 87,
+      "downloads": 83,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-keygen-rs-api"
     },
@@ -4952,10 +4592,9 @@
       "created_at": "2024-08-24T01:27:45.114261Z",
       "repository": "https://github.com/itseeleeya/tauri-plugin-macos-haptics",
       "crates_io": "https://crates.io/crates/tauri-plugin-macos-haptics",
-      "downloads": 470,
+      "downloads": 469,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-haptics-api",
-      "stars": 10
+      "npm": "https://www.npmjs.com/package/tauri-plugin-macos-haptics-api"
     },
     {
       "source": "crates",
@@ -4964,7 +4603,7 @@
       "created_at": "2024-08-03T15:57:39.645935Z",
       "repository": "https://gitlab.com/cristofa/tauri-plugin-keep-screen-on",
       "crates_io": "https://crates.io/crates/tauri-plugin-keep-screen-on",
-      "downloads": 2177,
+      "downloads": 2160,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-keep-screen-on-api"
     },
@@ -4976,8 +4615,7 @@
       "repository": "https://github.com/itseeleeya/tauri-plugin-trafficlights-positioner/",
       "crates_io": "https://crates.io/crates/tauri-plugin-trafficlights-positioner",
       "downloads": 17,
-      "downloads_window": "90d",
-      "stars": 8
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4987,8 +4625,7 @@
       "repository": "https://github.com/HubioLabs/tauri-plugin-structure-manager",
       "crates_io": "https://crates.io/crates/tauri-plugin-structure-manager",
       "downloads": 18,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -4998,8 +4635,7 @@
       "repository": "https://github.com/Cinea4678/tauri-plugin-accept-cookie",
       "crates_io": "https://crates.io/crates/tauri-plugin-accept-cookie",
       "downloads": 6,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5008,10 +4644,9 @@
       "created_at": "2024-07-09T15:29:34.154276Z",
       "repository": "https://github.com/Cinea4678/tauri-plugin-status-bar-color",
       "crates_io": "https://crates.io/crates/tauri-plugin-status-bar-color",
-      "downloads": 89,
+      "downloads": 88,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-status-bar-color-api",
-      "stars": 6
+      "npm": "https://www.npmjs.com/package/tauri-plugin-status-bar-color-api"
     },
     {
       "source": "crates",
@@ -5020,9 +4655,8 @@
       "created_at": "2024-07-09T06:28:10.276867Z",
       "repository": "https://github.com/Cinea4678/tauri-plugin-swipe-back-ios",
       "crates_io": "https://crates.io/crates/tauri-plugin-swipe-back-ios",
-      "downloads": 639,
-      "downloads_window": "90d",
-      "stars": 8
+      "downloads": 619,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5031,10 +4665,9 @@
       "created_at": "2024-07-05T00:23:57.162128Z",
       "repository": "https://github.com/ferreira-tb/tauri-store",
       "crates_io": "https://crates.io/crates/tauri-plugin-pinia",
-      "downloads": 17326,
+      "downloads": 17212,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-pinia",
-      "stars": 138
+      "npm": "https://www.npmjs.com/package/tauri-plugin-pinia"
     },
     {
       "source": "crates",
@@ -5043,9 +4676,8 @@
       "created_at": "2024-07-01T03:44:36.450244Z",
       "repository": "https://github.com/ferreira-tb/tauri-plugin-prevent-default",
       "crates_io": "https://crates.io/crates/tauri-plugin-prevent-default",
-      "downloads": 70698,
-      "downloads_window": "90d",
-      "stars": 230
+      "downloads": 70327,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5055,8 +4687,7 @@
       "repository": "https://github.com/HALLauncher/hal-steam-tools",
       "crates_io": "https://crates.io/crates/tauri-plugin-hal-steamworks",
       "downloads": 20,
-      "downloads_window": "90d",
-      "stars": 0
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5067,8 +4698,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-state",
       "downloads": 8,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-state",
-      "stars": 28
+      "npm": "https://www.npmjs.com/package/tauri-plugin-state"
     },
     {
       "source": "crates",
@@ -5078,8 +4708,7 @@
       "repository": "https://github.com/noctisynth/tauri-plugin-oblivion",
       "crates_io": "https://crates.io/crates/tauri-plugin-oblivion",
       "downloads": 6,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5090,8 +4719,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-shellx",
       "downloads": 1665,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-shellx-api",
-      "stars": 9
+      "npm": "https://www.npmjs.com/package/tauri-plugin-shellx-api"
     },
     {
       "source": "crates",
@@ -5111,8 +4739,7 @@
       "repository": "https://github.com/sner21/tauri-plugin-penetrable",
       "crates_io": "https://crates.io/crates/tauri-plugin-penetrable",
       "downloads": 32,
-      "downloads_window": "90d",
-      "stars": 12
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -5142,8 +4769,7 @@
       "repository": "https://github.com/kuyoonjo/tauri-plugin-udp",
       "crates_io": "https://crates.io/crates/tauri-plugin-udp",
       "downloads": 157,
-      "downloads_window": "90d",
-      "stars": 101
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5154,8 +4780,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-board",
       "downloads": 95,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-board",
-      "stars": 1
+      "npm": "https://www.npmjs.com/package/tauri-plugin-board"
     },
     {
       "source": "npm",
@@ -5185,8 +4810,7 @@
       "repository": "https://github.com/kuyoonjo/tauri-plugin-theme",
       "crates_io": "https://crates.io/crates/tauri-plugin-appearance",
       "downloads": 44,
-      "downloads_window": "90d",
-      "stars": 1
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5215,9 +4839,8 @@
       "created_at": "2024-05-23T14:29:27.585228Z",
       "repository": "https://github.com/crabnebula-dev/devtools",
       "crates_io": "https://crates.io/crates/tauri-plugin-devtools-app",
-      "downloads": 5797,
-      "downloads_window": "90d",
-      "stars": 422
+      "downloads": 5881,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5226,9 +4849,8 @@
       "created_at": "2024-05-13T00:24:25.986048Z",
       "repository": "https://github.com/clearlysid/tauri-plugin-decorum",
       "crates_io": "https://crates.io/crates/tauri-plugin-decorum",
-      "downloads": 23719,
-      "downloads_window": "90d",
-      "stars": 322
+      "downloads": 23262,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5238,8 +4860,7 @@
       "repository": "https://github.com/wyhaya/tauri-plugin-theme",
       "crates_io": "https://crates.io/crates/tauri-plugin-theme-v1",
       "downloads": 13,
-      "downloads_window": "90d",
-      "stars": 170
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -5278,7 +4899,7 @@
       "created_at": "2024-04-08T15:51:28.331877Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-openurl",
-      "downloads": 67,
+      "downloads": 64,
       "downloads_window": "90d"
     },
     {
@@ -5288,9 +4909,8 @@
       "created_at": "2024-03-23T16:31:06.822451Z",
       "repository": "https://github.com/idootop/tauri-plugin-cors-fetch",
       "crates_io": "https://crates.io/crates/tauri-plugin-cors-fetch",
-      "downloads": 4116,
-      "downloads_window": "90d",
-      "stars": 27
+      "downloads": 4098,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5311,8 +4931,7 @@
       "repository": "https://github.com/seongs1024/tauri-plugin-fanto",
       "crates_io": "https://crates.io/crates/tauri-plugin-fanto",
       "downloads": 12,
-      "downloads_window": "90d",
-      "stars": 3
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5343,8 +4962,7 @@
       "repository": "https://github.com/ren40/tauri-plugin-screen-lock-status",
       "crates_io": "https://crates.io/crates/tauri-plugin-screen-lock-status",
       "downloads": 15,
-      "downloads_window": "90d",
-      "stars": 5
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5353,10 +4971,9 @@
       "created_at": "2024-02-04T17:10:32.146073Z",
       "repository": "https://github.com/s00d/tauri-plugin-serialplugin",
       "crates_io": "https://crates.io/crates/tauri-plugin-serialplugin",
-      "downloads": 8824,
+      "downloads": 8751,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-serialplugin",
-      "stars": 178
+      "npm": "https://www.npmjs.com/package/tauri-plugin-serialplugin"
     },
     {
       "source": "npm",
@@ -5375,7 +4992,7 @@
       "created_at": "2024-01-31T11:25:57.688907Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-drag-as-window",
-      "downloads": 977,
+      "downloads": 974,
       "downloads_window": "90d"
     },
     {
@@ -5397,8 +5014,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-midi",
       "downloads": 448,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-midi",
-      "stars": 14
+      "npm": "https://www.npmjs.com/package/tauri-plugin-midi"
     },
     {
       "source": "npm",
@@ -5448,8 +5064,7 @@
       "repository": "https://github.com/ferreira-tb/manatsu",
       "crates_io": "https://crates.io/crates/tauri-plugin-manatsu",
       "downloads": 354,
-      "downloads_window": "90d",
-      "stars": null
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5458,7 +5073,7 @@
       "created_at": "2023-12-19T16:34:31.214708Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-pty",
-      "downloads": 11075,
+      "downloads": 11041,
       "downloads_window": "90d"
     },
     {
@@ -5468,9 +5083,8 @@
       "created_at": "2023-12-13T19:01:28.033668Z",
       "repository": "https://github.com/DeveloperMindset-com/tauri-plugin-gamepad",
       "crates_io": "https://crates.io/crates/tauri-plugin-gamepad",
-      "downloads": 767,
-      "downloads_window": "90d",
-      "stars": 15
+      "downloads": 766,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -5480,8 +5094,7 @@
       "repository": "https://github.com/eugenehp/tauri-plugin-gamepad",
       "npm": "https://www.npmjs.com/package/tauri-plugin-gamepad-api",
       "downloads": 850,
-      "downloads_window": "30d",
-      "stars": 15
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -5490,7 +5103,7 @@
       "created_at": "2023-12-07T14:49:55.050846Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-drag",
-      "downloads": 40913,
+      "downloads": 40964,
       "downloads_window": "90d"
     },
     {
@@ -5511,8 +5124,7 @@
       "repository": "https://github.com/roniemartinez/tauri-plugin-htmx",
       "npm": "https://www.npmjs.com/package/tauri-plugin-htmx",
       "downloads": 25,
-      "downloads_window": "30d",
-      "stars": 65
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -5521,9 +5133,8 @@
       "created_at": "2023-09-29T10:13:30.880553Z",
       "repository": "https://github.com/wyhaya/tauri-plugin-theme",
       "crates_io": "https://crates.io/crates/tauri-plugin-theme",
-      "downloads": 5899,
-      "downloads_window": "90d",
-      "stars": 170
+      "downloads": 5641,
+      "downloads_window": "90d"
     },
     {
       "source": "npm",
@@ -5542,9 +5153,8 @@
       "created_at": "2023-09-18T15:56:22.944599Z",
       "repository": "https://github.com/crabnebula-dev/devtools",
       "crates_io": "https://crates.io/crates/tauri-plugin-devtools",
-      "downloads": 279670,
-      "downloads_window": "90d",
-      "stars": 422
+      "downloads": 275826,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5553,10 +5163,9 @@
       "created_at": "2023-08-17T18:53:20.102506Z",
       "repository": "https://github.com/HuakunShen/tauri-plugin-network",
       "crates_io": "https://crates.io/crates/tauri-plugin-network",
-      "downloads": 3494,
+      "downloads": 3407,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-network-api",
-      "stars": 127
+      "npm": "https://www.npmjs.com/package/tauri-plugin-network-api"
     },
     {
       "source": "crates",
@@ -5565,10 +5174,9 @@
       "created_at": "2023-08-16T21:59:45.585695Z",
       "repository": "https://github.com/HuakunShen/tauri-plugin-system-info",
       "crates_io": "https://crates.io/crates/tauri-plugin-system-info",
-      "downloads": 3187,
+      "downloads": 3146,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-system-info-api",
-      "stars": 146
+      "npm": "https://www.npmjs.com/package/tauri-plugin-system-info-api"
     },
     {
       "source": "crates",
@@ -5577,10 +5185,9 @@
       "created_at": "2023-07-30T21:12:19.141107Z",
       "repository": "https://github.com/c2r0b/tauri-plugin-context-menu",
       "crates_io": "https://crates.io/crates/tauri-plugin-context-menu",
-      "downloads": 165,
+      "downloads": 164,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-context-menu",
-      "stars": 239
+      "npm": "https://www.npmjs.com/package/tauri-plugin-context-menu"
     },
     {
       "source": "crates",
@@ -5599,10 +5206,9 @@
       "created_at": "2023-05-29T06:00:44.426923Z",
       "repository": "https://github.com/alfianlensundev/tauri-plugin-printer",
       "crates_io": "https://crates.io/crates/tauri-plugin-printer",
-      "downloads": 135,
+      "downloads": 137,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-printer",
-      "stars": 90
+      "npm": "https://www.npmjs.com/package/tauri-plugin-printer"
     },
     {
       "source": "crates",
@@ -5621,7 +5227,7 @@
       "created_at": "2023-05-24T14:19:12.543768Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-app",
-      "downloads": 571,
+      "downloads": 568,
       "downloads_window": "90d"
     },
     {
@@ -5631,9 +5237,8 @@
       "created_at": "2023-04-07T13:45:38.697495Z",
       "repository": "https://github.com/FabianLars/tauri-plugin-oauth",
       "crates_io": "https://crates.io/crates/tauri-plugin-oauth",
-      "downloads": 147111,
-      "downloads_window": "90d",
-      "stars": 214
+      "downloads": 145704,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5642,10 +5247,9 @@
       "created_at": "2023-03-29T20:27:25.373070Z",
       "repository": "https://github.com/meslzy/tauri-plugin-wallpaper",
       "crates_io": "https://crates.io/crates/tauri-plugin-wallpaper",
-      "downloads": 275,
+      "downloads": 273,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-wallpaper",
-      "stars": 46
+      "npm": "https://www.npmjs.com/package/tauri-plugin-wallpaper"
     },
     {
       "source": "crates",
@@ -5654,9 +5258,8 @@
       "created_at": "2023-03-24T16:26:33.099782Z",
       "repository": "https://github.com/aptabase/tauri-plugin-aptabase",
       "crates_io": "https://crates.io/crates/tauri-plugin-aptabase",
-      "downloads": 14550,
-      "downloads_window": "90d",
-      "stars": 152
+      "downloads": 14388,
+      "downloads_window": "90d"
     },
     {
       "source": "crates",
@@ -5667,8 +5270,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-spotlight",
       "downloads": 17,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-spotlight-api",
-      "stars": 67
+      "npm": "https://www.npmjs.com/package/tauri-plugin-spotlight-api"
     },
     {
       "source": "crates",
@@ -5679,8 +5281,7 @@
       "crates_io": "https://crates.io/crates/tauri-plugin-http-ext",
       "downloads": 24,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-http-ext",
-      "stars": 3
+      "npm": "https://www.npmjs.com/package/tauri-plugin-http-ext"
     },
     {
       "source": "crates",
@@ -5689,10 +5290,9 @@
       "created_at": "2023-01-19T21:55:59.032589Z",
       "repository": "https://github.com/CrossCopy/tauri-plugin-clipboard",
       "crates_io": "https://crates.io/crates/tauri-plugin-clipboard",
-      "downloads": 16224,
+      "downloads": 16182,
       "downloads_window": "90d",
-      "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-api",
-      "stars": 314
+      "npm": "https://www.npmjs.com/package/tauri-plugin-clipboard-api"
     },
     {
       "source": "npm",
@@ -5702,8 +5302,7 @@
       "repository": "https://github.com/ddchef/tauri-plugin-reqwest",
       "npm": "https://www.npmjs.com/package/tauri-plugin-reqwest",
       "downloads": 13,
-      "downloads_window": "30d",
-      "stars": 0
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -5712,7 +5311,7 @@
       "created_at": "2022-05-08T13:10:22.304528Z",
       "repository": null,
       "crates_io": "https://crates.io/crates/tauri-plugin-nosleep",
-      "downloads": 1258,
+      "downloads": 1237,
       "downloads_window": "90d",
       "npm": "https://www.npmjs.com/package/tauri-plugin-nosleep-api"
     },
@@ -5724,8 +5323,7 @@
       "repository": "https://github.com/JonasKruckenberg/tauri-plugin-graphql",
       "npm": "https://www.npmjs.com/package/tauri-plugin-graphql-urql",
       "downloads": 46,
-      "downloads_window": "30d",
-      "stars": 163
+      "downloads_window": "30d"
     },
     {
       "source": "crates",
@@ -5735,8 +5333,7 @@
       "repository": "https://github.com/JonasKruckenberg/tauri-plugin-graphql",
       "crates_io": "https://crates.io/crates/tauri-plugin-graphql",
       "downloads": 44,
-      "downloads_window": "90d",
-      "stars": 163
+      "downloads_window": "90d"
     }
   ]
 }
