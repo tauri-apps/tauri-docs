@@ -1,0 +1,241 @@
+---
+title: Push Notifications
+description: Push notifications to your cross-platform app.
+sidebar:
+  badge:
+    text: New
+    variant: tip
+plugin: push-notifications
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Push notifications for your cross-platform Tauri app.
+
+## Supported Platforms
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Setup
+
+First, enable the `push-notifications` feature in your `Cargo.toml` file:
+
+```toml title="src-tauri/Cargo.toml" {3}
+[dependencies]
+tauri = { version = "1", features = ["push-notifications"] }
+```
+
+Then, install the `push-notifications` plugin:
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Use your project's package manager to add the dependency:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add push-notifications"
+      yarn="yarn run tauri add push-notifications"
+      pnpm="pnpm tauri add push-notifications"
+      bun="bun tauri add push-notifications"
+      cargo="cargo tauri add push-notifications"
+    />
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+      1.  Run the following command in the `src-tauri` folder to add the plugin to the project's dependencies in `Cargo.toml`:
+
+          ```sh frame=none
+          cargo add tauri-plugin-push-notifications
+          ```
+
+      2.  Modify `lib.rs` to initialize the plugin:
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(desktop)]
+                      app.handle().plugin(tauri_plugin_push_notifications::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Install the JavaScript Guest bindings using your preferred JavaScript package manager:
+
+          <CommandTabs
+              npm="npm install tauri-plugin-push-notifications"
+              yarn="yarn add tauri-plugin-push-notifications"
+              pnpm="pnpm add tauri-plugin-push-notifications"
+              deno="deno add npm:tauri-plugin-push-notifications"
+              bun="bun add tauri-plugin-push-notifications"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Configuration
+
+Each platform requires specific configuration to enable push notifications. Each push provider (Apple, Google, Microsoft, etc.) typically
+requires credentials and/or entitlements to obtain and use a push token.
+
+### Apple Platforms
+
+To access the [Apple Push Notification Service][0] (APNS) on macOS and iOS, you need to create an APNS certificate or token, and you must
+add an entitlement to your application.
+
+#### iOS Configuration
+
+Add the following entitlement to your iOS app:
+
+```xml title=src-tauri/entitlements.plist
+    <key>aps-environment</key>
+    <string>production</string>
+```
+
+Here's an example of a full entitlements file (yours may vary, `...` values are placeholders):
+
+```xml title=src-tauri/entitlements.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.application-identifier</key>
+    <string>...</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>...</string>
+    <key>aps-environment</key>
+    <string>production</string>
+</dict>
+</plist>
+```
+
+#### macOS Configuration
+
+Mac is similar to iOS. You still need an APNS certificate, which can be obtained from the Apple Developer portal. You also need to adjust your
+`Info.plist` and entitlements as shown below.
+
+Add the following to your entitlements:
+
+```xml title=src-tauri/entitlements.plist
+	<key>com.apple.developer.aps-environment</key>
+	<string>production</string>
+```
+
+Here's an example of a full entitlements file (yours may vary, `...` values are placeholders):
+
+```xml title=src-tauri/entitlements.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.application-identifier</key>
+    <string>...</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>...</string>
+    <key>com.apple.developer.aps-environment</key>
+    <string>production</string>
+</dict>
+</plist>
+```
+
+### Android
+
+Android uses [Firebase Cloud Messaging][1] (FCM) to send push notifications. To configure FCM, you need to create a Firebase project and add the
+`google-services.json` file to your project. You can find more information in the [Firebase documentation](https://firebase.google.com/docs/cloud-messaging/android/client).
+
+Once these steps are complete, you can send push notifications to your Android app.
+
+(TBD)
+
+### Windows
+
+Microsoft provides [Windows Notification System][2] (WNS) for pushing notifications to apps on Windows devices. WNS is newer than APNS and FCM,
+so it is not as widely used or supported, but it works in much the same way.
+
+**Support for WNS in Tauri is experimental.**
+
+Applications are automatically entitled for WNS on Windows. To obtain a push token, simply enable the `push-notifications` feature and use the plugin as described.
+
+## Usage
+
+The Push Notifications plugin is available in both JavaScript and Rust, allowing you to obtain a push token (where supported).
+
+### Obtaining the push token
+
+When the `push-notifications` feature is enabled within Tauri, the application will automatically request a push token from the underlying
+platform APIs when your app starts.
+
+Then, from JavaScript or Rust guest code, you can obtain this token, and do whatever you need with it (usually send it to a server for
+later use when pushing notifications).
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript
+import { pushToken } from 'tauri-plugin-push-notifications';
+
+// ... later ...
+
+const token = await pushToken();
+
+// `token` will be:
+//
+// - `null` if the platform does not support push notifications, or if
+//   push is not configured, entitled, or enabled for the app; or
+//
+// - a base64-encoded string expressing the raw bytes of the push token.
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+// coming soon
+```
+
+</TabItem>
+
+</Tabs>
+
+:::note
+Obtaining a `pushToken` is an inert operation when the app is not entitled for push on iOS or macOS.
+:::
+
+## Permissions
+
+By default all potentially dangerous plugin commands and scopes are blocked and cannot be accessed. You must modify the permissions in your `capabilities` configuration to enable these.
+
+See the [Capabilities Overview](/security/capabilities/) for more information and the [step by step guide](/learn/security/using-plugin-permissions/) to use plugin permissions.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "push-notifications:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[0]: https://developer.apple.com/documentation/usernotifications/sending-notification-requests-to-apns
+[1]: https://firebase.google.com/docs/cloud-messaging
+[2]: https://developer.microsoft.com/en-us/windows/apps/windows-push-notifications
