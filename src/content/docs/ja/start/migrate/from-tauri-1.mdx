@@ -137,7 +137,7 @@ Tauri 1.0 から Tauri 2.0 への変更内容の概要は以下のとおりで�
 - `api::http` モジュールは削除されました。代わりに「`tauri-plugin-http`」を使用して下さい。《[移行処置の説明はこちら](#http-プラグインへの移行)》
 - `api::ip` モジュールは書き直され、「`tauri::ipc`」に移動しました。新しい API群、特に `tauri::ipc::Channel` を確認してください。
 - `api::path` モジュール機能と `tauri::PathResolved` は 「`tauri::Manager::path`」へ移動しました。《[移行処置の説明はこちら](#tauri-manager-への-path-の移行)》
-- `api::process::Command`、`tauri::api::shell` および `tauri::Manager::shell_scope` の各 API は削除されました。代わりに 「`tauri-plugin-shell`」を使用してください。《[移行処置の説明はこちら](#Shell-プラグインへの移行)》
+- `api::process::Command`、`tauri::api::shell` および `tauri::Manager::shell_scope` の各 API は削除されました。代わりに 「`tauri-plugin-shell`」を使用してください。《[移行処置の説明はこちら](#shell-プラグインへの移行)》
 - `api::process::current_binary` および `tauri::api::process::restart` は 「`tauri::process`」へ移動しました。
 - `api::version` モジュールは削除されました。代わりに「[semver crate](https://docs.rs/semver/latest/semver/)」《英語サイト》 を使用して下さい。
 - `App::clipboard_manager` および `AppHandle::clipboard_manager` は削除されました。代わりに「`tauri-plugin-clipboard`」を使用してください。《[移行処置の説明はこちら](#clipboard-プラグインへの移行)》
