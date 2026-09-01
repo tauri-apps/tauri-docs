@@ -580,14 +580,18 @@ Then you must configure Tauri to use that hook file:
 }
 ```
 
-Tauri includes the hook file from its generated NSIS script. At the top level of a hook file, `${__FILEDIR__}` is the hook file's directory, so you can include a file beside it directly. NSIS expands hook macros in the generated script. Save the directory before defining a macro if the macro needs a file beside the hook:
+#### Including Files Next to the Hook
+
+Tauri includes your hook file from its generated NSIS script using `!include`. At the top level of the hook file, `${__FILEDIR__}` refers to the hook file's directory, so you can include a file beside it directly.
+
+Macro bodies, however, are expanded where Tauri inserts them into the generated script. Inside a hook macro, `${__FILEDIR__}` therefore refers to the generated script's directory instead. If a macro needs a file beside the hook, capture the hook directory in a top-level `!define` first:
 
 ```nsh
-!include "${__FILEDIR__}\\adjacent.nsh"
+!include "${__FILEDIR__}\adjacent.nsh"
 !define HOOK_FILE_DIR "${__FILEDIR__}"
 
 !macro NSIS_HOOK_PREINSTALL
-  File "${HOOK_FILE_DIR}\\example.txt"
+  File "${HOOK_FILE_DIR}\example.txt"
 !macroend
 ```
 
