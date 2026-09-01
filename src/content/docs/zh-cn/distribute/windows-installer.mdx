@@ -216,7 +216,7 @@ $env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 
 :::
 
-### 下载版引导程序 {#downloaded-bootstrapper}
+### Downloaded Bootstrapper
 
 这是构建 Windows 安装程序的默认设置。它会下载引导程序并运行它。
 需要互联网连接，但安装包体积更小。
@@ -234,7 +234,7 @@ $env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 }
 ```
 
-### 嵌入引导程序 {#embedded-bootstrapper}
+### Embedded Bootstrapper
 
 要嵌入 WebView2 引导程序，请将 [webviewInstallMode] 设置为 `embedBootstrapper`。
 这会将安装包体积增加约 1.8MB，但会提高与 Windows 7 系统的兼容性。
@@ -251,7 +251,7 @@ $env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 }
 ```
 
-### 离线安装程序 {#offline-installer}
+### Offline Installer
 
 要嵌入 WebView2 引导程序，请将 [webviewInstallMode] 设置为 `offlineInstaller`。
 
@@ -269,7 +269,7 @@ $env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
 }
 ```
 
-### 固定版本 {#fixed-version}
+### Fixed Version
 
 使用系统提供的运行时在安全性方面非常出色，因为 WebView 的漏洞补丁由 Windows 管理。
 如果你想控制每个应用中的 WebView2 分发（无论是自行管理发布补丁，还是在可能无法访问互联网的环境中分发应用），Tauri 可以为你打包运行时文件。
@@ -306,7 +306,7 @@ Expand .\Microsoft.WebView2.FixedVersionRuntime.128.0.2739.42.x64.cab -F:* ./src
 
 4. 运行 `tauri build`，以生成带有固定 WebView2 运行时的 Windows 安装程序。
 
-### 跳过安装 {#skipping-installation}
+### Skipping Installation
 
 你可以通过将 [webviewInstallMode] 设置为 `skip`，从安装程序中移除 WebView2 运行时下载检查。
 如果用户没有安装运行时，你的应用**将无法工作**。
