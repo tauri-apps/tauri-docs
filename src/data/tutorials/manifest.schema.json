@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Manifest",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "relative path to the JSON Schema, so an editor validates hand edits",
+      "type": "string",
+      "default": "../manifest.schema.json"
+    },
+    "schemaVersion": {
+      "description": "bumped when the manifest shape changes; consumers assert on it",
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "advisory": {
+      "description": "true when produced outside the pinned container (`tatu check`); absent,\nlike platform, in the committed expected manifest (`tatu bless` strips\nthe run-environment fields)",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "platform": {
+      "description": "node-compatible platform tag: win32 / darwin / linux",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/StepRecord"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "title",
+    "steps"
+  ],
+  "$defs": {
+    "StepRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "task": {
+          "type": "string"
+        },
+        "mutations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MutationRecord"
+          }
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResultRecord"
+          }
+        },
+        "assertions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResultRecord"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "task",
+        "mutations",
+        "preconditions",
+        "assertions"
+      ]
+    },
+    "MutationRecord": {
+      "description": "One record per file or per command. A command record is followed by the\nfile records that command produced, so a consumer renders the command and\nthen its diffs; a record never carries both.",
+      "type": "object",
+      "properties": {
+        "file": {
+          "description": "the mutated file; its content after this step is `steps/<step>/<file>`",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created": {
+          "description": "true when the mutation created the file, so there is no `base/<file>`\nand consumers render the whole file instead of a diff",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cwd": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ResultRecord": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/AssertionKind"
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "run": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/Status"
+        }
+      },
+      "required": [
+        "kind",
+        "status"
+      ]
+    },
+    "AssertionKind": {
+      "type": "string",
+      "enum": [
+        "ipc-local",
+        "ipc-acl",
+        "shell"
+      ]
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    }
+  }
+}

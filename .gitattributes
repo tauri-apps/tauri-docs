@@ -1,0 +1,3 @@
+# Tutorial snapshots are compared byte for byte against a fresh runner tree by
+# the drift cron, so they must not pick up CRLF on checkout.
+src/data/tutorials/** text eol=lf

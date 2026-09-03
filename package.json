@@ -14,13 +14,14 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
-    "check": "pnpm build:releases && astro check",
+    "check": "pnpm check:tutorials && pnpm build:releases && astro check",
+    "check:tutorials": "node scripts/check-tutorial-steps.mjs",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
     "build:config": "pnpm --filter config-generator run build",
     "build:cli": "pnpm --filter cli-generator run build",
     "build:releases": "pnpm --filter releases-site run generate",
-    "build:astro": "astro build",
+    "build:astro": "pnpm check:tutorials && astro build",
     "build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro",
     "preview": "astro preview",
     "test": "node --test \"src/**/*.test.ts\""
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "diff": "^9.0.0",
     "typescript": "^5.9.3"
   }
 }

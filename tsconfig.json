@@ -9,5 +9,5 @@
       "@utils/*": ["./src/utils/*"]
     }
   },
-  "exclude": ["dist", "packages"]
+  "exclude": ["dist", "packages", "src/data/tutorials"]
 }
