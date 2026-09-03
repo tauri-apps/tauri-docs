@@ -8,6 +8,9 @@ export function getStaticPaths() {
 }
 
 const cards = Object.values(ogPages);
+// built here rather than inline: prettier-plugin-astro breaks `<title>` on text mixed with an
+// expression, moving `</head>` above the styles
+const title = `OG cards (${cards.length})`;
 const groups = new Map<string, typeof cards>();
 for (const card of cards) {
   const key = card.slug.split('/')[0];
@@ -20,53 +23,52 @@ for (const card of cards) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <title>OG cards ({cards.length}</title></head
-  >)
-  <style>
-    body {
-      font: 14px system-ui;
-      background: #111;
-      color: #ddd;
-      margin: 1rem;
-    }
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-    h2 {
-      margin: 2rem 0 0.5rem;
-      position: sticky;
-      top: 0;
-      background: #111;
-      padding: 0.5rem 0;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
-      gap: 1rem;
-    }
-    figure {
-      margin: 0;
-    }
-    img {
-      width: 100%;
-      aspect-ratio: 1200/630;
-      background: #222;
-      display: block;
-    }
-    figcaption {
-      padding: 0.25rem 0;
-    }
-    code {
-      color: #9cf;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
-
+    <title>{title}</title>
+    <style>
+      body {
+        font: 14px system-ui;
+        background: #111;
+        color: #ddd;
+        margin: 1rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      h2 {
+        margin: 2rem 0 0.5rem;
+        position: sticky;
+        top: 0;
+        background: #111;
+        padding: 0.5rem 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+        gap: 1rem;
+      }
+      figure {
+        margin: 0;
+      }
+      img {
+        width: 100%;
+        aspect-ratio: 1200/630;
+        background: #222;
+        display: block;
+      }
+      figcaption {
+        padding: 0.25rem 0;
+      }
+      code {
+        color: #9cf;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
   <body>
     <input id="q" type="search" placeholder="filter by slug or title" autofocus />
     {
@@ -114,6 +116,4 @@ for (const card of cards) {
       });
     </script>
   </body>
-
-
 </html>
