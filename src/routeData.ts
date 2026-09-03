@@ -1,7 +1,6 @@
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import { markCurrentByPrefix } from './components/releases/sidebar-current.ts';
-import { ogTags } from './og/tags';
-import { docsCardSlugOrEnglish, ogImagePath, releaseCardSlug } from './pages/open-graph/_pages';
+import { docsCardSlugOrEnglish, ogImagePath, releaseCardSlug } from './og/pages';
 import { isReleasePage } from './release-config.mjs';
 
 export const onRequest = defineRouteMiddleware((context) => {
@@ -19,7 +18,11 @@ export const onRequest = defineRouteMiddleware((context) => {
   const slug = isRelease
     ? releaseCardSlug(context.url.pathname)
     : docsCardSlugOrEnglish(entry?.id ?? '');
-  const path = slug === undefined ? '/og.png?v=1' : ogImagePath(slug);
+  const image = new URL(slug === undefined ? '/og.png?v=1' : ogImagePath(slug), context.site);
 
-  head.push(...ogTags(new URL(path, context.site)));
+  // the only place these are set; don't add a site-wide pair to `head:` in `astro.config.mjs`
+  head.push(
+    { tag: 'meta', attrs: { property: 'og:image', content: image.toString() } },
+    { tag: 'meta', attrs: { name: 'twitter:image', content: image.toString() } }
+  );
 });

@@ -87,6 +87,9 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.9
         version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.6)(typescript@5.9.3)
+      fontace:
+        specifier: 0.4.1
+        version: 0.4.1
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

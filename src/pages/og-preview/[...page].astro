@@ -1,21 +1,18 @@
 ---
-import { ogImagePath, ogPages } from '../open-graph/_pages';
+import { isProductionDeploy } from '../../og/env';
+import { ogImagePath, ogPages } from '../../og/pages';
 
 // review aid: every rendered card on one page, grouped by the first slug segment, so a deploy
 // preview can be checked without opening cards one by one. Not built in production
 export function getStaticPaths() {
-  return process.env.CONTEXT === 'production' ? [] : [{ params: { page: undefined } }];
+  return isProductionDeploy ? [] : [{ params: { page: undefined } }];
 }
 
 const cards = Object.values(ogPages);
 // built here rather than inline: prettier-plugin-astro breaks `<title>` on text mixed with an
 // expression, moving `</head>` above the styles
 const title = `OG cards (${cards.length})`;
-const groups = new Map<string, typeof cards>();
-for (const card of cards) {
-  const key = card.slug.split('/')[0];
-  groups.set(key, [...(groups.get(key) ?? []), card]);
-}
+const groups = Map.groupBy(cards, (card) => card.slug.split('/')[0]);
 ---
 
 <html lang="en">

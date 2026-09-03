@@ -22,36 +22,32 @@ const trailingPunctuation = /[\s.,;:!?\-，。、：；！？]+$/u;
 
 function clampToTwoLines(text: string, maxWidth: number): string {
   let width = 0;
-  let kept = '';
   // grapheme segments so an emoji or a combining sequence is never split in two
-  for (const { segment } of graphemes.segment(text)) {
+  for (const { index, segment } of graphemes.segment(text)) {
     width += widthOf(segment);
-    if (width > maxWidth) return kept.replace(trailingPunctuation, '') + '…';
-    kept += segment;
+    if (width > maxWidth) return text.slice(0, index).replace(trailingPunctuation, '') + '…';
   }
   return text;
 }
 
 const assetsDir = './src/og/images';
 
+// the card URLs in `pages.ts` take their extension from this
+export const cardFormat = 'WEBP';
+
 export interface CardInput {
   title: string;
-  description?: string;
+  description: string;
   fonts: string[];
   families: string[];
 }
 
 // design per tauri-apps/tauri-docs#1616
-export function cardOptions({
-  title,
-  description = '',
-  fonts,
-  families,
-}: CardInput): OGImageOptions {
+export function cardOptions({ title, description, fonts, families }: CardInput): OGImageOptions {
   const text = (size: number) => ({ size, lineHeight: 1.25, weight: 'Normal' as const, families });
 
   return {
-    format: 'WEBP',
+    format: cardFormat,
     quality: 90,
     title: clampToTwoLines(title, titleMax),
     description: clampToTwoLines(description, descriptionMax),
@@ -60,5 +56,8 @@ export function cardOptions({
     logo: { path: `${assetsDir}/og-logo.png` },
     font: { title: text(72), description: text(48) },
     fonts,
+    // beside the font cache, under the directory Netlify's build cache keeps (see `fonts.ts`);
+    // the library default is `node_modules/.astro-og-canvas`
+    cacheDir: 'node_modules/.cache/astro-og-canvas',
   };
 }
