@@ -145,8 +145,8 @@ importers:
         specifier: ^11.0.1
         version: 11.0.5(@octokit/core@7.0.8)
       '@octokit/types':
-        specifier: ^17.0.0
-        version: 17.0.0
+        specifier: ^18.0.0
+        version: 18.0.0
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.3
