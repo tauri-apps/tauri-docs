@@ -81,13 +81,7 @@ for (const card of cards) {
             {list.map(({ slug, title, description }) => (
               <figure data-q={`${slug} ${title}`.toLowerCase()}>
                 <a href={ogImagePath(slug)} target="_blank">
-                  <img
-                    src={ogImagePath(slug)}
-                    alt={title}
-                    width="1200"
-                    height="630"
-                    loading="lazy"
-                  />
+                  <img src={ogImagePath(slug)} alt={title} loading="lazy" />
                 </a>
                 <figcaption>
                   <code>{slug}</code>
