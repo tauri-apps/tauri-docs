@@ -134,7 +134,7 @@ sudo apk add \
   librsvg
 ```
 
-> Note: Alpine Linux containers don’t include any fonts by default. To ensure text renders correctly in your Tauri app, install at least one font package (for example, `font-dejavu `).
+> Note: Alpine Linux containers don't include any fonts by default. To ensure text renders correctly in your Tauri app, install at least one font package (for example, `font-dejavu`).
 
 > Note: Alpine targets the musl C library, so Rust builds link a number of system libraries statically. If `cargo`/`pnpm tauri build` fails with linker errors for symbols from libraries that `pkg-config` reports as present, install the matching `*-static` packages alongside the `-dev` ones above:
 >
@@ -196,16 +196,61 @@ Follow the steps below to install the required dependencies.
 #### Microsoft C++ Build Tools
 
 1. Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation.
-2. During installation check the "Desktop development with C++" option.
+2. In the **Workloads** tab, select **"Desktop development with C++"**.
+3. Switch to the **Individual components** tab and verify that **both** of the following are checked:
+   - **"MSVC v143 - VS 2022 C++ x64/x86 build tools"** (or the latest version available)
+   - **"Windows 10/11 SDK"** (the latest version)
+4. Click **Install** or **Modify** to apply the changes.
 
 ![Visual Studio C++ Build Tools installer screenshot](@assets/start/prerequisites/visual-studio-build-tools-installer.png)
+
+##### Verify the C++ Tools Installation
+
+To verify that the C++ build tools are installed correctly, open the **Developer Command Prompt for VS 2022** from your Start Menu.
+
+In the Developer Command Prompt, run:
+
+```powershell
+link.exe /?
+```
+
+If you see help text with Microsoft linker options, `link.exe` is available in your environment.
+
+<details>
+<summary>❌ "link.exe" is not recognized?</summary>
+
+If `link.exe` is not recognized, make sure you are using the **Developer Command Prompt for VS 2022**. This shell automatically sets the environment variables needed to locate `link.exe`.
+
+If you are already using the Developer Command Prompt and still see the error, repair your Visual Studio Build Tools installation:
+
+1. Open the Visual Studio Installer.
+2. Select **"Modify"** for your installation.
+3. Ensure **"MSVC v143 - VS 2022 C++ x64/x86 build tools"** is checked in the **Individual components** tab.
+4. Click **Modify** to reinstall.
+
+Then run `link.exe /?` again to confirm.
+</details>
+
+<details>
+<summary>❌ "Windows SDK not found" when building?</summary>
+
+This error occurs when the Windows SDK is missing or wasn't selected during installation:
+
+1. Open the Visual Studio Installer again.
+2. Select **"Modify"** for your existing installation.
+3. Go to the **Individual components** tab.
+4. Search for **"Windows 10/11 SDK"** and ensure the latest version is checked.
+5. Click **Modify** to install the SDK.
+
+After installation, restart your terminal and IDE, then retry your Tauri build.
+</details>
 
 Next: [Install WebView2](#webview2).
 
 #### WebView2
 
 :::tip
-WebView 2 is already installed on Windows 10 (from version 1803 onward) and later versions of Windows. If you are developing on one of these versions then you can skip this step and go directly to [installing Rust](#rust).
+WebView2 is already installed on Windows 10 (from version 1803 onward) and later versions of Windows. If you are developing on one of these versions then you can skip this step and go directly to [installing Rust](#rust).
 :::
 
 Tauri uses Microsoft Edge WebView2 to render content on Windows.
