@@ -43,8 +43,9 @@ $anchor: 'a[id]:only-child:not([href])';
   }
 
   // Section label (`Parameters`, `Returns`, `Example`). h4 and h6 are one role at two depths
-  // and never appear as siblings, so they share a treatment.
-  .sl-heading-wrapper:is(.level-h4, .level-h6) {
+  // and never appear as siblings, so they share a treatment. Labels only ever follow a symbol
+  // heading; an h4 before the first h3 is prose from the module comment and keeps its size.
+  .sl-heading-wrapper.level-h3 ~ .sl-heading-wrapper:is(.level-h4, .level-h6) {
     --sl-text-h4: var(--sl-text-xs);
     --sl-text-h6: var(--sl-text-xs);
 
