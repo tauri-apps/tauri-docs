@@ -15,6 +15,11 @@
       "minimumReleaseAge": "3 days"
     },
     {
+      "description": "Submodule digests come from git refs, which carry no release timestamp.",
+      "matchManagers": ["git-submodules"],
+      "minimumReleaseAge": null
+    },
+    {
       "description": "Disable node/pnpm version updates",
       "matchPackageNames": ["node", "pnpm"],
       "matchDepTypes": ["engines", "packageManager"],

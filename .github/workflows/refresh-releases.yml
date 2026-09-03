@@ -81,7 +81,7 @@ jobs:
       # PR also triggers CI checks, which GITHUB_TOKEN-created PRs don't).
       - name: Open release refresh PR
         id: cpr
-        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # 8.1.1
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.ORG_TAURI_BOT_PAT }}
           commit-message: 'chore: refresh release data'
