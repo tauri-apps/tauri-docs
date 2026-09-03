@@ -22,7 +22,15 @@
   "outDir": "./dist/contribute/translate-status",
   "localizableProperty": "i18nReady",
   "renderer": "./lunaria/renderer.config.ts",
-  "ignoreKeywords": ["lunaria-ignore", "typo", "en-only", "broken link", "i18nReady", "i18nIgnore"],
+  "ignoreKeywords": [
+    "lunaria-ignore",
+    "i18n-ignore",
+    "typo",
+    "en-only",
+    "broken link",
+    "i18nReady",
+    "i18nIgnore"
+  ],
   "defaultLocale": {
     "label": "English",
     "lang": "en"
