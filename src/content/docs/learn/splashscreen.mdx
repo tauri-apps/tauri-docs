@@ -99,6 +99,8 @@ The easiest way to fake heavy operations in the backend is by using the Tokio cr
 
 Don't use `std::thread::sleep` in async functions, they run cooperatively in a concurrent environment not in parallel, meaning that if you sleep the thread instead of the Tokio task you'll be locking all tasks scheduled to run on that thread from being executed, causing your app to freeze.
 
+The backend code below keeps its builder chain in a `configure` function that `run` calls. The managed state and the setup hook go there, and `set_complete` is generic over the runtime, so the same code runs under the lab's checks.
+
 Add the Tokio crate by running the following command inside the `src-tauri` folder, where the `Cargo.toml` file is:
 
 </Fragment>

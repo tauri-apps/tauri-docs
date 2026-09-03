@@ -48,7 +48,7 @@ Install the store plugin to get started.
            </TutorialStep>
 
         2. <TutorialStep tutorial="plugin-store" step="register-plugin">
-             Modify `lib.rs` to initialize the plugin:
+             Modify `lib.rs` to initialize the plugin. The example app keeps its builder chain in a `configure` function that `run` calls, so the plugin registers there. If your `run` holds the chain, add the same line there:
            </TutorialStep>
 
         3. <TutorialStep tutorial="plugin-store" step="add-js-bindings">

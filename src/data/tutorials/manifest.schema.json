@@ -85,6 +85,7 @@
       ]
     },
     "MutationRecord": {
+      "description": "One record per file or per command. A command record is followed by the\nfile records that command produced, so a consumer renders the command and\nthen its diffs; a record never carries both.",
       "type": "object",
       "properties": {
         "file": {

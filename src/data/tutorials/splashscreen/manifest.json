@@ -77,8 +77,12 @@
       "task": "Fake a heavy setup task on each side: a `setTimeout`-based task in the frontend and a Tokio sleep in the backend. Track both in a shared `SetupState` behind a `set_complete` command; when both sides report done, close the splashscreen window and show the main window.\n",
       "mutations": [
         {
-          "command": "cargo add tokio -F time",
+          "command": "cargo add tokio@1 -F time",
           "cwd": "src-tauri"
+        },
+        {
+          "file": "src-tauri/Cargo.toml",
+          "created": false
         },
         {
           "file": "src/main.ts",

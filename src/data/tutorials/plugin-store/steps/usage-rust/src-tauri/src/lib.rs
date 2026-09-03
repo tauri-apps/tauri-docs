@@ -7,9 +7,8 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    tauri::Builder::default()
+pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
+    builder
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(tauri::generate_handler![greet])
@@ -27,11 +26,20 @@ pub fn run() {
             let value = store.get("some-key").expect("Failed to get value from store");
             println!("{}", value); // {"value":5}
 
+            // Flush the pending auto-save before releasing the store: dropping a
+            // store with one still pending deadlocks in tauri-plugin-store 2.4.4.
+            store.save()?;
+
             // Remove the store from the resource table.
             store.close_resource();
 
             Ok(())
         })
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    configure(tauri::Builder::default())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

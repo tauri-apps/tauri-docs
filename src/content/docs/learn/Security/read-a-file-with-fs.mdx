@@ -44,7 +44,9 @@ caused by one of our changes.
 The plugins maintained by the Tauri team are listed in the
 [Plugins](/plugin/) section. On the Rust side, adding one comes down to two
 changes: the crate dependency in `src-tauri/Cargo.toml` and the plugin
-registration on the builder in `src-tauri/src/lib.rs`.
+registration on the builder in `src-tauri/src/lib.rs`. In this lab the
+builder chain lives in a `configure` function that `run` calls, which is also
+what the lab's checks build the app from.
 
 </Fragment>
 

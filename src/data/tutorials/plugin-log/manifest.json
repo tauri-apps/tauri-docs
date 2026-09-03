@@ -9,8 +9,12 @@
       "task": "Add the tauri-plugin-log crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
       "mutations": [
         {
-          "command": "cargo add tauri-plugin-log",
+          "command": "cargo add tauri-plugin-log@2",
           "cwd": "src-tauri"
+        },
+        {
+          "file": "src-tauri/Cargo.toml",
+          "created": false
         }
       ],
       "preconditions": [],

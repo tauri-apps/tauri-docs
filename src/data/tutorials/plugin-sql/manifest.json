@@ -9,8 +9,12 @@
       "task": "Add the tauri-plugin-sql crate to the Rust backend's dependencies in `src-tauri/Cargo.toml`.\n",
       "mutations": [
         {
-          "command": "cargo add tauri-plugin-sql",
+          "command": "cargo add tauri-plugin-sql@2",
           "cwd": "src-tauri"
+        },
+        {
+          "file": "src-tauri/Cargo.toml",
+          "created": false
         }
       ],
       "preconditions": [],
@@ -45,8 +49,12 @@
       "task": "Enable the SQLite driver: the plugin compiles a database engine only when its Cargo feature is enabled. The backend must build with the plugin registered.\n",
       "mutations": [
         {
-          "command": "cargo add tauri-plugin-sql --features sqlite",
+          "command": "cargo add tauri-plugin-sql@2 --features sqlite",
           "cwd": "src-tauri"
+        },
+        {
+          "file": "src-tauri/Cargo.toml",
+          "created": false
         }
       ],
       "preconditions": [],

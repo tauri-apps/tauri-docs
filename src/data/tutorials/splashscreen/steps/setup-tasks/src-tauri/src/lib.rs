@@ -19,8 +19,8 @@ fn greet(name: String) -> String {
 
 // A custom task for setting the state of a setup task
 #[tauri::command]
-async fn set_complete(
-    app: AppHandle,
+async fn set_complete<R: tauri::Runtime>(
+    app: AppHandle<R>,
     state: State<'_, Mutex<SetupState>>,
     task: String,
 ) -> Result<(), ()> {
@@ -44,7 +44,7 @@ async fn set_complete(
 }
 
 // An async function that does some heavy setup task
-async fn setup(app: AppHandle) -> Result<(), ()> {
+async fn setup<R: tauri::Runtime>(app: AppHandle<R>) -> Result<(), ()> {
     // Fake performing some heavy action for 3 seconds
     println!("Performing really heavy backend setup task...");
     sleep(Duration::from_secs(3)).await;
@@ -61,11 +61,10 @@ async fn setup(app: AppHandle) -> Result<(), ()> {
     Ok(())
 }
 
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
+pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
     // Don't write code before Tauri starts, write it in the
     // setup hook instead!
-    tauri::Builder::default()
+    builder
         .plugin(tauri_plugin_opener::init())
         // Register a `State` to be managed by Tauri
         // We need write access to it so we wrap it in a `Mutex`
@@ -84,7 +83,12 @@ pub fn run() {
             // The hook expects an Ok result
             Ok(())
         })
-        // Run the app
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // Run the app
+    configure(tauri::Builder::default())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

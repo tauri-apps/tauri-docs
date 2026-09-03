@@ -20,6 +20,7 @@ only this directory; it never runs any external tool.
 
 They are recorded by [tatu](https://github.com/vasfvitor/tauri-tutorial-runner),
 a runner that executes every step against a clean `create-tauri-app` scaffold
+(plus a `configure` seam in `lib.rs` that its checks build the app from)
 and asserts the result over real IPC, capability ACLs, and frontend builds. The
 runner's CI re-runs the tutorials weekly against the latest toolchain, compares
 its output with what is committed here, and opens a PR when they diverge.
