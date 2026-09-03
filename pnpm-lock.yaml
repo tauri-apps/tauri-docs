@@ -100,6 +100,12 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
+  packages/community-resources:
+    dependencies:
+      '@types/node':
+        specifier: ^24.0.0
+        version: 24.13.3
+
   packages/compatibility-table:
     dependencies:
       '@iarna/toml':

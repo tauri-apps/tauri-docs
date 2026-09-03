@@ -5,6 +5,7 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
+  - packages/community-resources
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

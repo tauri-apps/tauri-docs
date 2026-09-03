@@ -1,0 +1,503 @@
+---
+import communityResourcesData from '../data/communityResources.json';
+import { Icon } from '@astrojs/starlight/components';
+import type { Resource } from 'packages/community-resources/transform';
+import { isKnownLocale } from './locale-memory';
+
+const resources = communityResourcesData.resources as Resource[];
+
+const hasDownloads = resources.some((item) => typeof item.downloads === 'number');
+
+// `locals.starlightRoute` is not populated when starlight-llms-txt re-renders
+// page content, so read the locale off the URL. English is the `root` locale
+// and therefore unprefixed.
+const [firstSegment] = Astro.url.pathname.split('/').filter(Boolean);
+const localePrefix = firstSegment && isKnownLocale(firstSegment) ? `/${firstSegment}` : '';
+const backHref = `${localePrefix}/plugin/`;
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+const numberFormat = new Intl.NumberFormat('en-US');
+const compactFormat = new Intl.NumberFormat('en-US', { notation: 'compact' });
+const compact = (value?: number | null) =>
+  typeof value === 'number' ? compactFormat.format(value) : '-';
+const downloadsTitle = ({ downloads, downloads_window }: Resource) =>
+  typeof downloads === 'number'
+    ? `${numberFormat.format(downloads)} in the last ${downloads_window === '90d' ? 90 : 30} days`
+    : undefined;
+
+// icons come from /assets/registries.svg, keyed by the same names
+const links = [
+  { key: 'repository', title: 'Repository' },
+  { key: 'crates_io', title: 'crates.io' },
+  { key: 'npm', title: 'npm' },
+] as const;
+---
+
+<p class="back-link">
+  <a href={backHref}><Icon name="left-arrow" />Plugins</a>
+</p>
+
+{/* not-content: Starlight's markdown styles would otherwise turn the table into a block */}
+<community-resources class="not-content">
+  <div class="search-container">
+    <input
+      type="search"
+      id="resource-search"
+      placeholder="Search plugins by name or description..."
+      aria-label="Search community plugins by name or description"
+      class="search-input"
+      autocomplete="off"
+    />
+    <div class="filters">
+      <label>
+        <span>Source:</span>
+        <select id="filter-source" class="form-control">
+          <option value="">All</option>
+          <option value="both">Both (npm & crates)</option>
+          <option value="npm">npm only</option>
+          <option value="crates">crates only</option>
+        </select>
+      </label>
+      <label>
+        <span>Sort by:</span>
+        <select id="sort-by" class="form-control">
+          <option value="date">Date Created</option>
+          <option value="name">Name</option>
+          {hasDownloads && <option value="downloads">Downloads</option>}
+        </select>
+      </label>
+    </div>
+    <p class="summary" id="summary" aria-live="polite">
+      Showing all {resources.length} community plugins
+    </p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <caption class="sr-only"> Community plugins published to crates.io and npm </caption>
+      <thead>
+        <tr>
+          <th class="name">Name</th>
+          <th class="links"><span class="sr-only">Links</span></th>
+          <th>Description</th>
+          {
+            hasDownloads && (
+              <th class="numeric" title="crates.io counts the last 90 days, npm the last 30">
+                Downloads
+              </th>
+            )
+          }
+          <th class="created">Created</th>
+        </tr>
+      </thead>
+      <tbody id="resources-tbody">
+        {
+          resources.map((item) => (
+            <tr
+              data-source={item.npm && item.crates_io ? 'both' : item.npm ? 'npm' : 'crates'}
+              data-downloads={
+                typeof item.downloads === 'number' ? String(item.downloads) : undefined
+              }
+            >
+              <td class="name">
+                <code>{item.name}</code>
+              </td>
+              <td class="links">
+                <div>
+                  {links.map(
+                    ({ key, title }) =>
+                      item[key] && (
+                        <a
+                          href={item[key]}
+                          target="_blank"
+                          rel="noreferrer"
+                          title={title}
+                          aria-label={`${item.name} on ${title}`}
+                          class={key}
+                        />
+                      )
+                  )}
+                </div>
+              </td>
+              <td class="description">{item.description}</td>
+              {hasDownloads && (
+                <td class="numeric" title={downloadsTitle(item)}>
+                  {compact(item.downloads)}
+                </td>
+              )}
+              <td class="created">
+                {item.created_at ? dateFormat.format(new Date(item.created_at)) : '-'}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="pagination" id="pagination" aria-label="Plugin list pages" hidden>
+    <button type="button" class="form-control" id="page-prev">Previous</button>
+    <label>
+      <span>Page</span>
+      <select id="page-select" class="form-control"></select>
+      <span>of <strong id="page-count"></strong></span>
+    </label>
+    <button type="button" class="form-control" id="page-next">Next</button>
+  </nav>
+</community-resources>
+
+{/* is:global: a scoped style would stamp its class on every element of every row */}
+<style is:global>
+  .back-link svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  community-resources {
+    display: block;
+    width: 100%;
+    scroll-margin-top: calc(var(--sl-nav-height) + 1rem);
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .search-container {
+      margin-bottom: 1.5rem;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: var(--sl-text-base);
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: 0.5rem;
+      background: var(--sl-color-black);
+      color: var(--sl-color-white);
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+
+    .search-input:focus {
+      outline: 2px solid var(--sl-color-text-accent);
+      outline-offset: 0;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--sl-text-sm);
+      white-space: nowrap;
+    }
+
+    .summary {
+      font-size: var(--sl-text-sm);
+      color: var(--sl-color-gray-2);
+      margin-bottom: 1rem;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: 0.5rem;
+    }
+
+    /* the fixed columns add up to ~20rem; below min-width the wrapper scrolls
+       instead of squeezing the name and description to nothing */
+    table {
+      width: 100%;
+      min-width: 40rem;
+      border-collapse: collapse;
+      font-size: var(--sl-text-sm);
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    /* a top border keeps the last visible row flush with the wrapper; with
+       paging, the DOM's last row is usually a hidden one */
+    tbody td {
+      border-top: 1px solid var(--sl-color-gray-6);
+    }
+
+    thead {
+      background: var(--sl-color-gray-6);
+    }
+
+    th {
+      font-weight: 600;
+    }
+
+    /* fixed layout reads widths off the header row; the description column takes the rest */
+    th.name {
+      width: 30%;
+    }
+
+    th.links {
+      width: 5.75rem;
+    }
+
+    th.numeric {
+      width: 6.5rem;
+    }
+
+    th.created {
+      width: 8rem;
+    }
+
+    .links {
+      padding-inline: 0.5rem;
+    }
+
+    .numeric,
+    .created {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    tbody tr:hover {
+      background: var(--sl-color-gray-7);
+    }
+
+    td.name code {
+      font-size: var(--sl-text-xs);
+      overflow-wrap: anywhere;
+    }
+
+    td.description {
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    /* one slot per registry so the same icon lands in the same column on every row */
+    td.links div {
+      display: grid;
+      grid-template-columns: repeat(3, 1.25rem);
+      gap: 0.5rem;
+    }
+
+    td.links a {
+      display: block;
+      height: 1.25rem;
+      background: var(--sl-color-text-accent);
+      mask: var(--icon) center / contain no-repeat;
+      transition: opacity 0.2s;
+    }
+
+    td.links a:hover {
+      opacity: 0.7;
+    }
+
+    .repository {
+      grid-column: 1;
+      --icon: url('/assets/registries.svg#github');
+    }
+
+    .crates_io {
+      grid-column: 2;
+      --icon: url('/assets/registries.svg#crate');
+    }
+
+    .npm {
+      grid-column: 3;
+      --icon: url('/assets/registries.svg#npm');
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: var(--sl-text-xs);
+      }
+
+      th,
+      td {
+        padding: 0.5rem;
+      }
+    }
+  }
+</style>
+
+<script>
+  interface RowData {
+    el: HTMLTableRowElement;
+    index: number;
+    name: string;
+    // name without its npm scope, so `@scope/tauri-plugin-x` sorts next to `tauri-plugin-x`
+    sortName: string;
+    description: string;
+    downloads: number;
+    source: string;
+  }
+
+  const PAGE_SIZE = 50;
+
+  class CommunityResources extends HTMLElement {
+    searchInput = this.querySelector('#resource-search') as HTMLInputElement;
+    sourceFilter = this.querySelector('#filter-source') as HTMLSelectElement;
+    sortSelect = this.querySelector('#sort-by') as HTMLSelectElement;
+    tbody = this.querySelector('#resources-tbody') as HTMLElement;
+    tableWrapper = this.querySelector('.table-wrapper') as HTMLElement;
+    summaryEl = this.querySelector('#summary') as HTMLElement;
+    paginationEl = this.querySelector('#pagination') as HTMLElement;
+    pageSelect = this.querySelector('#page-select') as HTMLSelectElement;
+    pageCountEl = this.querySelector('#page-count') as HTMLElement;
+    prevButton = this.querySelector('#page-prev') as HTMLButtonElement;
+    nextButton = this.querySelector('#page-next') as HTMLButtonElement;
+    searchTimer: ReturnType<typeof setTimeout> | undefined;
+    page = 1;
+
+    // kept in the current sort order alongside the DOM, so filtering and paging
+    // only toggle visibility. `index` is the server's created-desc order.
+    rows: RowData[] = Array.from(this.tbody.querySelectorAll('tr')).map((el, index) => {
+      const name = el.querySelector('.name')?.textContent?.toLowerCase() || '';
+      return {
+        el,
+        index,
+        name,
+        sortName: name.replace(/^@[^/]+\//, ''),
+        description: el.querySelector('.description')?.textContent?.toLowerCase() || '',
+        downloads: el.dataset.downloads ? Number(el.dataset.downloads) : -1,
+        source: el.dataset.source || '',
+      };
+    });
+
+    constructor() {
+      super();
+
+      this.searchInput.addEventListener('input', () => {
+        clearTimeout(this.searchTimer);
+        this.searchTimer = setTimeout(() => this.update(1), 150);
+      });
+      this.sourceFilter.addEventListener('change', () => this.update(1));
+      this.sortSelect.addEventListener('change', () => {
+        this.sort(this.sortSelect.value);
+        this.update(1);
+      });
+      this.prevButton.addEventListener('click', () => this.goTo(this.page - 1));
+      this.nextButton.addEventListener('click', () => this.goTo(this.page + 1));
+      this.pageSelect.addEventListener('change', () => this.goTo(Number(this.pageSelect.value)));
+    }
+
+    connectedCallback() {
+      const params = new URLSearchParams(location.search);
+      this.searchInput.value = params.get('q') ?? '';
+      // an unknown value in the URL would blank the select, so fall back to the first option
+      this.sourceFilter.value = params.get('source') ?? '';
+      if (this.sourceFilter.selectedIndex === -1) this.sourceFilter.selectedIndex = 0;
+      this.sortSelect.value = params.get('sort') ?? 'date';
+      if (this.sortSelect.selectedIndex === -1) this.sortSelect.selectedIndex = 0;
+
+      if (this.sortSelect.value !== 'date') {
+        this.sort(this.sortSelect.value);
+      }
+      this.update(Number(params.get('page')) || 1);
+    }
+
+    sort(sortBy: string) {
+      if (sortBy === 'name') {
+        this.rows.sort(
+          (a, b) => a.sortName.localeCompare(b.sortName) || a.name.localeCompare(b.name)
+        );
+      } else if (sortBy === 'downloads') {
+        this.rows.sort((a, b) => b.downloads - a.downloads);
+      } else {
+        this.rows.sort((a, b) => a.index - b.index);
+      }
+
+      const fragment = document.createDocumentFragment();
+      for (const row of this.rows) {
+        fragment.appendChild(row.el);
+      }
+      this.tbody.appendChild(fragment);
+    }
+
+    goTo(page: number) {
+      this.update(page);
+      this.scrollIntoView({ block: 'start' });
+    }
+
+    update(page: number) {
+      const query = this.searchInput.value.trim().toLowerCase();
+      const source = this.sourceFilter.value;
+      const matched = this.rows.filter(
+        (row) =>
+          (!query || row.name.includes(query) || row.description.includes(query)) &&
+          (!source || row.source === source)
+      );
+      const pageCount = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+      this.page = Math.min(Math.max(1, Math.floor(page) || 1), pageCount);
+      const start = (this.page - 1) * PAGE_SIZE;
+      const onPage = matched.slice(start, start + PAGE_SIZE);
+
+      for (const row of this.rows) row.el.hidden = true;
+      for (const row of onPage) row.el.hidden = false;
+
+      const total = this.rows.length;
+      this.summaryEl.textContent =
+        (matched.length
+          ? `Showing ${start + 1}–${start + onPage.length} of ${matched.length} community plugins`
+          : 'No plugins match your search') + (matched.length === total ? '' : ` (${total} total)`);
+      this.tableWrapper.hidden = matched.length === 0;
+
+      this.paginationEl.hidden = pageCount === 1;
+      if (this.pageSelect.options.length !== pageCount) {
+        this.pageSelect.replaceChildren(
+          ...Array.from({ length: pageCount }, (_, i) => new Option(String(i + 1)))
+        );
+        this.pageCountEl.textContent = String(pageCount);
+      }
+      this.pageSelect.value = String(this.page);
+      this.prevButton.disabled = this.page === 1;
+      this.nextButton.disabled = this.page === pageCount;
+
+      this.syncUrl();
+    }
+
+    // keep the list state shareable and survivable across reloads without
+    // polluting history - back should leave the page, not undo a keystroke
+    syncUrl() {
+      const params = new URLSearchParams();
+      const query = this.searchInput.value.trim();
+      if (query) params.set('q', query);
+      if (this.sourceFilter.value) params.set('source', this.sourceFilter.value);
+      if (this.sortSelect.value !== 'date') params.set('sort', this.sortSelect.value);
+      if (this.page > 1) params.set('page', String(this.page));
+      const search = params.toString();
+      history.replaceState(
+        null,
+        '',
+        `${location.pathname}${search ? `?${search}` : ''}${location.hash}`
+      );
+    }
+  }
+
+  customElements.define('community-resources', CommunityResources);
+</script>

@@ -1,0 +1,53 @@
+name: 'Sync Community Resources'
+
+on:
+  schedule:
+    # weekly on Mondays at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  sync-community-resources:
+    name: Sync Community Resources
+    runs-on: ubuntu-slim
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # build.ts only needs Node's own APIs, so skip installing the docs site
+      - run: pnpm install --frozen-lockfile --filter community-resources
+
+      - run: pnpm test:community-resources
+
+      - name: sync-community-resources
+        run: pnpm sync:community-resources
+
+      # tauri-docs PR
+      - name: Git config
+        run: |
+          git config --global user.name "tauri-bot"
+          git config --global user.email "tauri-bot@tauri.app"
+
+      - name: Create pull request for updated docs
+        id: cpr
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # 8.1.1
+        with:
+          token: ${{ secrets.ORG_TAURI_BOT_PAT }}
+          commit-message: 'chore(docs): Update Community Resources'
+          branch: ci/v2/update-community-resources
+          title: Update Community Resources
+          labels: 'bot'
+          sign-commits: true
