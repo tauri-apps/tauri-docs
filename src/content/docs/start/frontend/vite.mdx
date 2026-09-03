@@ -9,7 +9,7 @@ i18nReady: true
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
 Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
-This guide is accurate as of Vite 5.4.8.
+This guide is accurate as of Vite 8.
 
 ## Checklist
 
@@ -145,7 +145,7 @@ This guide is accurate as of Vite 5.4.8.
             ? 'chrome105'
             : 'safari13',
         // don't minify for debug builds
-        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+        minify: !process.env.TAURI_ENV_DEBUG,
         // produce sourcemaps for debug builds
         sourcemap: !!process.env.TAURI_ENV_DEBUG,
       },
