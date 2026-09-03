@@ -10,7 +10,7 @@ import {
   mergeRegistries,
   missingNames,
   NPM_NAME,
-  npmPackageUrl,
+  npmResource,
   resourceFromNpmDoc,
   sortByCreatedDesc,
   type Resource,
@@ -41,12 +41,23 @@ async function fetchJson(url: string, headers = new Headers()) {
   }
 
   for (let attempt = 1; ; attempt++) {
-    const res = await fetch(url, { headers, signal: AbortSignal.timeout(30_000) });
-    if (res.ok) {
-      return res.json();
+    let res: Response;
+    try {
+      res = await fetch(url, { headers, signal: AbortSignal.timeout(30_000) });
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch (e) {
+      // timeouts, resets and non-JSON bodies are as transient as a 5xx
+      if (attempt >= 4) throw e;
+      const retryIn = attempt * 15;
+      console.warn(`  ${(e as Error).message} for ${url} - retrying in ${retryIn}s`);
+      await sleep(retryIn * 1000);
+      continue;
     }
     if ((isRateLimited(res) || res.status >= 500) && attempt < 4) {
-      const retryAfter = Number(res.headers.get('retry-after')) || attempt * 15;
+      // cap the server's Retry-After so a single wait stays well inside the workflow timeout
+      const retryAfter = Math.min(Number(res.headers.get('retry-after')) || attempt * 15, 60);
       console.warn(`  ${res.status} for ${url} - retrying in ${retryAfter}s`);
       await sleep(retryAfter * 1000);
       continue;
@@ -110,24 +121,24 @@ async function fetchNpm(): Promise<Resource[]> {
       if (!NPM_NAME.test(name) || results.has(name)) {
         continue;
       }
-      results.set(name, {
-        source: 'npm',
+      results.set(
         name,
-        description: p.description || '',
-        created_at: p.date || '',
-        // `links` is sparse - many packages expose only `links.npm`
-        repository: cleanRepoUrl(p.links?.repository || p.links?.homepage || ''),
-        npm: npmPackageUrl(name),
-        downloads: obj.downloads?.monthly,
-        downloads_window: '30d',
-      });
+        npmResource({
+          name,
+          description: p.description,
+          created_at: p.date,
+          // `links` is sparse - many packages expose only `links.npm`
+          repository: p.links?.repository || p.links?.homepage,
+          downloads: obj.downloads?.monthly,
+        })
+      );
     }
     from += size;
     // `text=` matches fuzzily (descriptions, keywords), so j.total is far
     // larger than the set of real name matches and name matches keep turning
     // up deep into the ranking (pages with zero hits are followed by pages
-    // with several). Crawl to npm's 10k cap on `from`, ~40 requests.
-    if (from >= Math.min(j.total || 0, 10_000 - size)) {
+    // with several). Crawl to npm's 10k cap on `from + size`, 40 requests.
+    if (from >= Math.min(j.total || 0, 10_000)) {
       break;
     }
     await sleep(1001);

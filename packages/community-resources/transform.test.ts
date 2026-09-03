@@ -160,6 +160,7 @@ test('resourceFromNpmDoc reads the registry document shape', () => {
     created_at: '2024-01-01T00:00:00Z',
     repository: 'https://github.com/a/b',
     npm: 'https://www.npmjs.com/package/tauri-plugin-x',
+    downloads: undefined,
     downloads_window: '30d',
   });
   assert.equal(resourceFromNpmDoc({ ...doc, time: { ...doc.time, unpublished: {} } }), null);

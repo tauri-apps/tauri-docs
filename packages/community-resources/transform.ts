@@ -72,21 +72,40 @@ interface NpmDoc {
   time?: { created?: string; unpublished?: unknown };
 }
 
+interface NpmFields {
+  name: string;
+  description?: string;
+  created_at?: string;
+  repository?: unknown;
+  downloads?: number;
+}
+
+// both npm paths build through here: the no-changes check compares serialized
+// JSON, so `downloads` is declared up front and keeps its slot when assigned later
+export function npmResource(fields: NpmFields): Resource {
+  return {
+    source: 'npm',
+    name: fields.name,
+    description: fields.description || '',
+    created_at: fields.created_at || '',
+    repository: cleanRepoUrl(fields.repository),
+    npm: npmPackageUrl(fields.name),
+    downloads: fields.downloads,
+    downloads_window: '30d',
+  };
+}
+
 export function resourceFromNpmDoc(doc: unknown): Resource | null {
   const d = (doc ?? {}) as NpmDoc;
   if (!d.name || !NPM_NAME.test(d.name) || d.time?.unpublished) {
     return null;
   }
-  const repository = typeof d.repository === 'object' ? d.repository?.url : d.repository;
-  return {
-    source: 'npm',
+  return npmResource({
     name: d.name,
-    description: d.description || '',
-    created_at: d.time?.created || '',
-    repository: cleanRepoUrl(repository),
-    npm: npmPackageUrl(d.name),
-    downloads_window: '30d',
-  };
+    description: d.description,
+    created_at: d.time?.created,
+    repository: typeof d.repository === 'object' ? d.repository?.url : d.repository,
+  });
 }
 
 export function missingNames(known: Resource[], ids: string[]): string[] {
