@@ -80,9 +80,6 @@ importers:
       unified:
         specifier: ^11.0.5
         version: 11.0.5
-      vite:
-        specifier: ^8.1.4
-        version: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@1.21.6)(sass@1.102.0)(terser@5.31.0)(yaml@2.9.0)
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.9

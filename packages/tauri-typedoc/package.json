@@ -7,7 +7,7 @@
   "main": "./typedoc-plugins.ts",
   "license": "MIT",
   "scripts": {
-    "test": "node --test normalize.test.mjs"
+    "test": "node --test"
   },
   "dependencies": {
     "@astrojs/starlight": "0.41.7",

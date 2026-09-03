@@ -30,7 +30,13 @@
       "groupName": "unified packages"
     },
     {
-      "matchPackageNames": ["typedoc", "typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+      "matchPackageNames": [
+        "typedoc",
+        "typedoc-plugin-markdown",
+        "typedoc-plugin-mdn-links",
+        "typedoc-plugin-frontmatter",
+        "starlight-typedoc"
+      ],
       "enabled": false
     },
     {
