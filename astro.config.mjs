@@ -15,7 +15,7 @@ import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
-import { hasGeneratedReleasePages } from './src/release-config.mjs';
+import { hasGeneratedReleasePages } from './src/release-pages.node.mjs';
 
 const nsis = {
   ...nsisGrammar,
@@ -415,15 +415,8 @@ export default defineConfig({
         // Covers the mobile menu; the header imports the same override directly
         LanguageSelect: 'src/components/overrides/LanguageSelect.astro',
       },
+      // `og:image` / `twitter:image` are set per page in `src/routeData.ts`
       head: [
-        {
-          tag: 'meta',
-          attrs: { property: 'og:image', content: site + '/og.png?v=1' },
-        },
-        {
-          tag: 'meta',
-          attrs: { property: 'twitter:image', content: site + '/og.png?v=1' },
-        },
         {
           tag: 'script',
           attrs: {

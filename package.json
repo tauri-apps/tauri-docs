@@ -34,7 +34,9 @@
     "@types/mdast": "^4.0.4",
     "astro": "7.2.2",
     "astro-d2": "^0.13.0",
+    "astro-og-canvas": "^0.13.0",
     "astrojs-service-worker": "^2.0.2",
+    "canvaskit-wasm": "^0.41.1",
     "mdast-util-definitions": "^6.0.0",
     "mdast-util-to-string": "^4.0.0",
     "prettier": "3.9.6",
@@ -56,6 +58,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "fontace": "0.4.1",
     "typescript": "^5.9.3"
   }
 }

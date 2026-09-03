@@ -1,0 +1,110 @@
+---
+import { isProductionDeploy } from '../../og/env';
+import { ogImagePath, ogPages } from '../../og/pages';
+
+// review aid: every rendered card on one page, grouped by the first slug segment, so a deploy
+// preview can be checked without opening cards one by one. Not built in production
+export function getStaticPaths() {
+  return isProductionDeploy ? [] : [{ params: { page: undefined } }];
+}
+
+const cards = Object.values(ogPages);
+// built here rather than inline: prettier-plugin-astro breaks `<title>` on text mixed with an
+// expression, moving `</head>` above the styles
+const title = `OG cards (${cards.length})`;
+const groups = Map.groupBy(cards, (card) => card.slug.split('/')[0]);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <style>
+      body {
+        font: 14px system-ui;
+        background: #111;
+        color: #ddd;
+        margin: 1rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      h2 {
+        margin: 2rem 0 0.5rem;
+        position: sticky;
+        top: 0;
+        background: #111;
+        padding: 0.5rem 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+        gap: 1rem;
+      }
+      figure {
+        margin: 0;
+      }
+      img {
+        width: 100%;
+        aspect-ratio: 1200/630;
+        background: #222;
+        display: block;
+      }
+      figcaption {
+        padding: 0.25rem 0;
+      }
+      code {
+        color: #9cf;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="q" type="search" placeholder="filter by slug or title" autofocus />
+    {
+      [...groups].map(([group, list]) => (
+        <section>
+          <h2>
+            {group} <small>({list.length})</small>
+          </h2>
+          <div class="grid">
+            {list.map(({ slug, title, description }) => (
+              <figure data-q={`${slug} ${title}`.toLowerCase()}>
+                <a href={ogImagePath(slug)} target="_blank">
+                  <img src={ogImagePath(slug)} alt={title} loading="lazy" />
+                </a>
+                <figcaption>
+                  <code>{slug}</code>
+                  <br />
+                  <b>{title}</b>
+                  {description && <> · {description}</>}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+    <script>
+      const q = document.getElementById('q') as HTMLInputElement;
+      const figures = [...document.querySelectorAll<HTMLElement>('figure')];
+      const sections = [...document.querySelectorAll('section')];
+      q.addEventListener('input', () => {
+        const needle = q.value.toLowerCase();
+        for (const figure of figures) {
+          figure.classList.toggle('hidden', !figure.dataset.q!.includes(needle));
+        }
+        for (const section of sections) {
+          section.classList.toggle('hidden', !section.querySelector('figure:not(.hidden)'));
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -22,8 +22,11 @@ const releasePaths = [
   'src/components/releases/',
   'src/styles/releases.scss',
   'src/release-config.mjs',
+  'src/release-pages.node.mjs',
   'src/routeData.ts',
   'src/content.config.ts',
+  'src/og/',
+  'src/pages/open-graph/',
   // the generator needs the Node version pinned there
   'netlify.toml',
 ];
