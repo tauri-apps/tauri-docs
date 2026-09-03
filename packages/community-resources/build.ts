@@ -12,6 +12,7 @@ import {
   NPM_NAME,
   npmResource,
   resourceFromNpmDoc,
+  sameResources,
   sortByCreatedDesc,
   type Resource,
   type Snapshot,
@@ -24,22 +25,12 @@ const query = 'tauri-plugin-';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// GitHub answers 403 (not 429) when a token is exhausted, so status alone
-// can't tell a rate limit from a genuine permission error
-function isRateLimited(res: Response) {
-  return (
-    res.status === 429 || (res.status === 403 && res.headers.get('x-ratelimit-remaining') === '0')
-  );
-}
+// crates.io requires a User-Agent that identifies the crawler
+const headers = {
+  'User-Agent': 'tauri-docs-plugins-discover (https://github.com/tauri-apps/tauri-docs)',
+};
 
-async function fetchJson(url: string, headers = new Headers()) {
-  if (!headers.has('User-Agent')) {
-    headers.set(
-      'User-Agent',
-      'tauri-docs-plugins-discover (https://github.com/tauri-apps/tauri-docs)'
-    );
-  }
-
+async function fetchJson(url: string) {
   for (let attempt = 1; ; attempt++) {
     let res: Response;
     try {
@@ -55,7 +46,7 @@ async function fetchJson(url: string, headers = new Headers()) {
       await sleep(retryIn * 1000);
       continue;
     }
-    if ((isRateLimited(res) || res.status >= 500) && attempt < 4) {
+    if ((res.status === 429 || res.status >= 500) && attempt < 4) {
       // cap the server's Retry-After so a single wait stays well inside the workflow timeout
       const retryAfter = Math.min(Number(res.headers.get('retry-after')) || attempt * 15, 60);
       console.warn(`  ${res.status} for ${url} - retrying in ${retryAfter}s`);
@@ -246,13 +237,9 @@ async function readPrevious(): Promise<Snapshot | null> {
 async function run() {
   const previous = await readPrevious();
 
-  console.log('Fetching crates.io packages...');
-  const crates = await fetchCrates();
-  console.log(`Found ${crates.length} crates matching prefix.`);
-
-  console.log('Fetching npm packages...');
-  const npm = await fetchNpm();
-  console.log(`Found ${npm.length} npm packages matching prefix.`);
+  console.log('Fetching crates.io and npm packages...');
+  const [crates, npm] = await Promise.all([fetchCrates(), fetchNpm()]);
+  console.log(`Found ${crates.length} crates and ${npm.length} npm packages matching prefix.`);
   const completion = await fetchNpmCompletion(npm);
 
   const merged = mergeRegistries(
@@ -271,7 +258,7 @@ async function run() {
 
   // the timestamp alone would make every weekly run a diff, and the sync
   // workflow would open a pull request for it
-  if (previous && JSON.stringify(previous.resources) === JSON.stringify(resources)) {
+  if (previous && sameResources(previous.resources, resources)) {
     console.log(`No changes to ${resources.length} resources - leaving the file untouched.`);
     return;
   }

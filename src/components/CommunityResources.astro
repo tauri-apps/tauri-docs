@@ -2,7 +2,7 @@
 import communityResourcesData from '../data/communityResources.json';
 import { Icon } from '@astrojs/starlight/components';
 import type { Resource } from 'packages/community-resources/transform';
-import locales from 'locales.json';
+import { isKnownLocale } from './locale-memory';
 
 const resources = communityResourcesData.resources as Resource[];
 
@@ -12,7 +12,7 @@ const hasDownloads = resources.some((item) => typeof item.downloads === 'number'
 // page content, so read the locale off the URL. English is the `root` locale
 // and therefore unprefixed.
 const [firstSegment] = Astro.url.pathname.split('/').filter(Boolean);
-const localePrefix = firstSegment && firstSegment in locales ? `/${firstSegment}` : '';
+const localePrefix = firstSegment && isKnownLocale(firstSegment) ? `/${firstSegment}` : '';
 const backHref = `${localePrefix}/plugin/`;
 
 const dateFormat = new Intl.DateTimeFormat('en-US', {
@@ -421,13 +421,6 @@ const links = [
       this.update(Number(params.get('page')) || 1);
     }
 
-    isMatch(row: RowData, query: string, source: string) {
-      if (query && !row.name.includes(query) && !row.description.includes(query)) {
-        return false;
-      }
-      return !source || row.source === source;
-    }
-
     sort(sortBy: string) {
       if (sortBy === 'name') {
         this.rows.sort(
@@ -454,7 +447,11 @@ const links = [
     update(page: number) {
       const query = this.searchInput.value.trim().toLowerCase();
       const source = this.sourceFilter.value;
-      const matched = this.rows.filter((row) => this.isMatch(row, query, source));
+      const matched = this.rows.filter(
+        (row) =>
+          (!query || row.name.includes(query) || row.description.includes(query)) &&
+          (!source || row.source === source)
+      );
       const pageCount = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
       this.page = Math.min(Math.max(1, Math.floor(page) || 1), pageCount);
       const start = (this.page - 1) * PAGE_SIZE;
@@ -481,16 +478,16 @@ const links = [
       this.prevButton.disabled = this.page === 1;
       this.nextButton.disabled = this.page === pageCount;
 
-      this.syncUrl(source);
+      this.syncUrl();
     }
 
     // keep the list state shareable and survivable across reloads without
     // polluting history - back should leave the page, not undo a keystroke
-    syncUrl(source: string) {
+    syncUrl() {
       const params = new URLSearchParams();
       const query = this.searchInput.value.trim();
       if (query) params.set('q', query);
-      if (source) params.set('source', source);
+      if (this.sourceFilter.value) params.set('source', this.sourceFilter.value);
       if (this.sortSelect.value !== 'date') params.set('sort', this.sortSelect.value);
       if (this.page > 1) params.set('page', String(this.page));
       const search = params.toString();

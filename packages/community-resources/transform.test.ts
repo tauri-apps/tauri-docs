@@ -10,6 +10,7 @@ import {
   missingNames,
   npmPackageUrl,
   resourceFromNpmDoc,
+  sameResources,
   sortByCreatedDesc,
   type Resource,
 } from './transform.ts';
@@ -216,4 +217,12 @@ test('assertNoDataLoss rejects a crawl that lost a tenth of the list', () => {
 
 test('assertNoDataLoss accepts the first run', () => {
   assert.doesNotThrow(() => assertNoDataLoss(null, []));
+});
+
+test('sameResources ignores key order but not values', () => {
+  const a = [{ ...pkg('tauri-plugin-x'), downloads: 5, downloads_window: '30d' as const }];
+  const b = [{ ...pkg('tauri-plugin-x'), downloads_window: '30d' as const, downloads: 5 }];
+
+  assert.equal(sameResources(a, b), true);
+  assert.equal(sameResources(a, [{ ...b[0], downloads: 6 }]), false);
 });

@@ -35,27 +35,19 @@ export function cleanRepoUrl(url: unknown): string | null {
   return /^https?:\/\//.test(cleaned) ? cleaned : null;
 }
 
-export function githubRepo(url: string | null): string | null {
-  if (!url) {
-    return null;
-  }
-  let parsed: URL;
-  try {
-    parsed = new URL(url);
-  } catch {
-    return null;
-  }
-  if (parsed.hostname !== 'github.com') {
-    return null;
-  }
-  const [owner, repo] = parsed.pathname.replace(/^\//, '').split('/');
-  return owner && repo ? `${owner}/${repo}` : null;
-}
-
 // official plugins have their own docs pages - match the owner segment rather
 // than the whole URL, so third-party repos merely containing the string stay
 export function isOfficial(repository: string | null): boolean {
-  return githubRepo(repository)?.split('/')[0].toLowerCase() === 'tauri-apps';
+  if (!repository) {
+    return false;
+  }
+  try {
+    const parsed = new URL(repository);
+    const [, owner, repo] = parsed.pathname.split('/');
+    return parsed.hostname === 'github.com' && !!repo && owner.toLowerCase() === 'tauri-apps';
+  } catch {
+    return false;
+  }
 }
 
 // npmjs.com serves scoped packages at /package/@scope/name; percent-encoding
@@ -80,8 +72,8 @@ interface NpmFields {
   downloads?: number;
 }
 
-// both npm paths build through here: the no-changes check compares serialized
-// JSON, so `downloads` is declared up front and keeps its slot when assigned later
+// both npm paths build through here so rows serialize with the same key order
+// and a package moving between search and completion is not a diff in git
 export function npmResource(fields: NpmFields): Resource {
   return {
     source: 'npm',
@@ -166,6 +158,15 @@ export function mergeRegistries(crates: Resource[], npm: Resource[]): Resource[]
   }
 
   return [...map.values()];
+}
+
+// key order is a side effect of how each row was built, so compare values only
+export function sameResources(a: Resource[], b: Resource[]): boolean {
+  const sortKeys = (_: string, value: unknown) =>
+    value && typeof value === 'object' && !Array.isArray(value)
+      ? Object.fromEntries(Object.entries(value).sort(([x], [y]) => x.localeCompare(y)))
+      : value;
+  return JSON.stringify(a, sortKeys) === JSON.stringify(b, sortKeys);
 }
 
 function createdTime(date?: string): number {
