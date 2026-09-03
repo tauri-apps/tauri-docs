@@ -25,11 +25,23 @@ test('unescapes inline code in link labels (also inside headings)', () => {
 });
 
 test('leaves a code span containing a backslash alone', () => {
-  assert.equal(n('- `\\` on Windows'), '- `\\` on Windows');
+  assert.equal(n('### `\\` on Windows'), '### `\\` on Windows');
 });
 
 test('pairs escaped spans correctly when content contains a backslash', () => {
   assert.equal(n('### Use \\`C:\\foo\\` and \\`bar\\`'), '### Use `C:\\foo` and `bar`');
+});
+
+test('drops the other escapes inside a restored span, where a backslash is literal', () => {
+  assert.equal(n('### The \\`foo\\_bar\\` option'), '### The `foo_bar` option');
+  assert.equal(n('### The \\`Foo\\<T\\>\\` type'), '### The `Foo<T>` type');
+  assert.equal(n('see [\\`a \\| b\\`](/x/#y)'), 'see [`a | b`](/x/#y)');
+  // outside a span the escape stays
+  assert.equal(n('### foo\\_bar \\`x\\`'), '### foo\\_bar `x`');
+});
+
+test('a stray escaped backtick in a heading does not pair across a link', () => {
+  assert.equal(n('### foo \\` bar [\\`baz\\`](u)'), '### foo \\` bar [`baz`](u)');
 });
 
 test('leaves escaped backticks in ordinary prose alone (headings/labels only)', () => {
@@ -50,6 +62,7 @@ test('rewrites asides inside table cells to bold labels', () => {
   );
   // no title -> capitalized type
   assert.equal(n('| a | :::note x ::: |'), '| a | **Note** x |');
+  assert.equal(n('| a | :::my-aside x ::: |'), '| a | **My-aside** x |');
 });
 
 test('keeps asides outside tables untouched', () => {

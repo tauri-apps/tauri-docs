@@ -3,7 +3,7 @@
  * deleted once fixed at the source. All transforms are idempotent; cases in normalize.test.mjs.
  * Paths are relative to node_modules/.
  *
- *  unescapeCodeSpans() -- backticks escaped in headings and link labels. Reportable.
+ *  unescapeCodeSpans() -- code spans escaped in headings and link labels. Reportable.
  *    typedoc-plugin-markdown/dist/libs/utils/escape-chars.js (escapes unconditionally)
  *  TABLE_ASIDE_RE -- `:::` directive leaking as literal text in a table cell. Reportable.
  *    starlight-typedoc/libs/theme.ts (addDeprecatedAside ignores opts.isTableColumn)
@@ -11,16 +11,22 @@
  *    typedoc-plugin-markdown/dist/theme/context/partials/type.reference.js
  *  renameConstructorHeading() -- every constructor section titled "Constructor"
  *    typedoc-plugin-markdown/dist/theme/context/partials/member.constructors.js
- *  collapseWrappedUnion() -- short unions wrapped under expandParameters
- *    typedoc-plugin-markdown/dist/theme/context/partials/type.union.js (70-char heuristic)
+ *  collapseWrappedUnion() -- unions over 70 chars wrapped under useCodeBlocks
+ *    typedoc-plugin-markdown/dist/theme/context/partials/type.union.js
  */
 
 // Content is non-empty (`\`\`` would merge into a runaway span) and takes a backslash only
 // when not before a backtick, so `C:\foo` pairs correctly and a span containing one is skipped.
 const ESCAPED_CODE_SPAN_RE = /\\`((?:[^`\\]|\\[^`])+)\\`/g;
+// escapeChars' set minus the backtick: inside a code span a backslash is literal, so
+// `foo\_bar` would render its backslash.
+const ESCAPED_IN_SPAN_RE = /\\([<>{}_|[\]*])/g;
 
 function unescapeCodeSpans(text) {
-  return text.replace(ESCAPED_CODE_SPAN_RE, '`$1`');
+  return text.replace(
+    ESCAPED_CODE_SPAN_RE,
+    (_, content) => `\`${content.replace(ESCAPED_IN_SPAN_RE, '$1')}\``
+  );
 }
 
 const HEADING_RE = /^#{1,6} /;
@@ -28,7 +34,7 @@ const HEADING_RE = /^#{1,6} /;
 const LINK_LABEL_RE = /\[([^[\]]*)\](?=\()/g;
 const FENCE_MARKER_RE = /^\s*(`{3,}|~{3,})/;
 
-const TABLE_ASIDE_RE = /:::(\w+)(?:\[([^\]]*)\])?\s*(.*?)\s*:::/g;
+const TABLE_ASIDE_RE = /:::([\w-]+)(?:\[([^\]]*)\])?\s*(.*?)\s*:::/g;
 
 // [`Promise`](mdn)\<`void`\> -> [`Promise<void>`](mdn). Linked type arguments, e.g.
 // Promise\<[`FileInfo`](#fileinfo)\>, stay fragmented: merging would drop the inner link.
@@ -55,9 +61,10 @@ function mergeGenerics(line) {
   }
 }
 
-// Emitted when the union's pre-render text exceeds 70 chars, counting links that are then
-// stripped inside code blocks, so every signature fits on one line once they are gone. The
-// trailing space in the `: ` line ending is what keeps this off hand-written example code.
+// Emitted under useCodeBlocks when the union's pre-render text exceeds 70 chars, counting links
+// that are then stripped inside code blocks, so every signature fits on one line once they are
+// gone. The trailing space in the `: ` line ending is what keeps this off hand-written example
+// code.
 const UNION_CONTINUATION_RE = /^\s*\| /;
 
 function collapseWrappedUnion(lines, i) {
@@ -96,11 +103,9 @@ function transformProseLine(line) {
     );
   }
   if (line.includes('\\`')) {
-    if (HEADING_RE.test(line)) {
-      line = unescapeCodeSpans(line);
-    } else {
-      line = line.replace(LINK_LABEL_RE, (_, label) => `[${unescapeCodeSpans(label)}]`);
-    }
+    // Labels first, so a stray escaped backtick in the heading text can't pair across a link.
+    line = line.replace(LINK_LABEL_RE, (_, label) => `[${unescapeCodeSpans(label)}]`);
+    if (HEADING_RE.test(line)) line = unescapeCodeSpans(line);
   }
   return mergeGenerics(line);
 }
