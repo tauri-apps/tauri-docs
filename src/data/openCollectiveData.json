@@ -22,6 +22,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "VPS Server",
     "id": "VPS Server",
     "avatarUrl": "https://images.opencollective.com/vpsservercom/7d60c44/logo/256.jpg",
@@ -32,15 +41,6 @@
     },
     "tier": "gold",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "Keygen",
@@ -122,18 +122,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Thad Guidry",
-    "id": "Thad Guidry",
-    "avatarUrl": "https://images.opencollective.com/thad-guidry1/ee000d6/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/thad-guidry1",
-    "socialLinks": {
-      "twitter": "https://twitter.com/thadguidry",
-      "github": "https://github.com/thadguidry"
-    },
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Controla",
     "id": "Controla",
     "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
@@ -144,6 +132,18 @@
     },
     "tier": "gold",
     "type": "ORGANIZATION"
+  },
+  {
+    "name": "Thad Guidry",
+    "id": "Thad Guidry",
+    "avatarUrl": "https://images.opencollective.com/thad-guidry1/ee000d6/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/thad-guidry1",
+    "socialLinks": {
+      "twitter": "https://twitter.com/thadguidry",
+      "github": "https://github.com/thadguidry"
+    },
+    "tier": "gold",
+    "type": "INDIVIDUAL"
   },
   {
     "name": "Improving",
@@ -472,6 +472,19 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Archon Systems Inc.",
+    "id": "Archon Systems Inc.",
+    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/archon-systems-inc",
+    "socialLinks": {
+      "website": "https://www.archonsystems.com/",
+      "twitter": "https://twitter.com/archonsystems",
+      "github": "https://github.com/archonSystemsInc"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "MasterDarius",
     "id": "MasterDarius",
     "avatarUrl": "https://images.opencollective.com/masterdarius/beb8521/avatar/256.jpg",
@@ -490,19 +503,6 @@
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Archon Systems Inc.",
-    "id": "Archon Systems Inc.",
-    "avatarUrl": "https://images.opencollective.com/archon-systems-inc/d9e1429/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/archon-systems-inc",
-    "socialLinks": {
-      "website": "https://www.archonsystems.com/",
-      "twitter": "https://twitter.com/archonsystems",
-      "github": "https://github.com/archonSystemsInc"
-    },
-    "tier": "silver",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Bitcoin Contributions",
@@ -694,6 +694,18 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Alexander Eden",
+    "id": "Alexander Eden",
+    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/alex-eden",
+    "socialLinks": {
+      "website": "https://github.com/alexeden",
+      "github": "https://github.com/alexeden"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alexander Herrmann",
     "id": "Alexander Herrmann",
     "avatarUrl": "https://images.opencollective.com/darignac/avatar/256.jpg",
@@ -719,18 +731,6 @@
     "avatarUrl": "https://images.opencollective.com/secdude/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/secdude",
     "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Alexander Eden",
-    "id": "Alexander Eden",
-    "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/alex-eden",
-    "socialLinks": {
-      "website": "https://github.com/alexeden",
-      "github": "https://github.com/alexeden"
-    },
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -853,6 +853,17 @@
     "type": "FUND"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "James Carlson",
     "id": "James Carlson",
     "avatarUrl": "https://images.opencollective.com/james-carlson/baddfff/avatar/256.jpg",
@@ -924,17 +935,6 @@
     "avatarUrl": "https://images.opencollective.com/ivan13/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/ivan13",
     "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -1144,6 +1144,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Ставки на спорт",
+    "id": "Ставки на спорт",
+    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
+    "socialLinks": {
+      "website": "https://betking.com.ua/sports-book/"
+    },
+    "tier": "bronze",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Daniel Nehls",
     "id": "Daniel Nehls",
     "avatarUrl": "https://images.opencollective.com/guest-e1eb92d9/avatar/256.jpg",
@@ -1334,13 +1345,11 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Ставки на спорт",
-    "id": "Ставки на спорт",
-    "avatarUrl": "https://images.opencollective.com/stavki-na-sport-ua/ecee984/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/stavki-na-sport-ua",
-    "socialLinks": {
-      "website": "https://betking.com.ua/sports-book/"
-    },
+    "name": "Waypad",
+    "id": "Waypad",
+    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/waypad",
+    "socialLinks": {},
     "tier": "bronze",
     "type": "ORGANIZATION"
   },
@@ -1802,15 +1811,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Waypad",
-    "id": "Waypad",
-    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/waypad",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Oscar Lito M Pablo",

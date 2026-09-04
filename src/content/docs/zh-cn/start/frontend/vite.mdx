@@ -8,7 +8,7 @@ tableOfContents:
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
 Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生的工具链。
-本教程使用的 Vite 5.4.8。
+本教程使用的 Vite 8。
 
 ## 检查清单
 
@@ -139,7 +139,7 @@ Vite 是为提供更快速，更简洁的现代 Web 项目开发体验而诞生�
             ? 'chrome105'
             : 'safari13',
         // 在 debug 构建中不使用 minify
-        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+        minify: !process.env.TAURI_ENV_DEBUG,
         // 在 debug 构建中生成 sourcemap
         sourcemap: !!process.env.TAURI_ENV_DEBUG,
       },
