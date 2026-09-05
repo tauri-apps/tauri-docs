@@ -7,6 +7,7 @@
 
 # Generated reference docs
 src/content/docs/reference
+src/content/docs/*/reference/cli.mdx
 
 # Release notes: generated content and the committed data checkpoint
 src/content/releases/**

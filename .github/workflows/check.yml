@@ -31,3 +31,6 @@ jobs:
 
       - name: Check formatting
         run: pnpm format:check
+
+      - name: Check translated pages have an English page
+        run: pnpm check:translations

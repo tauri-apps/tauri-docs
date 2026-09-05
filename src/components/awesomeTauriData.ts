@@ -38,7 +38,7 @@ export function loadAwesomeSections(readmePath: string) {
 
     const sections = new Map<string, AwesomeEntry[]>();
     root.children.forEach((header, index) => {
-      if (header.type !== 'heading' || header.depth !== 3) return;
+      if (header.type !== 'heading' || (header.depth !== 2 && header.depth !== 3)) return;
       const list = root.children[index + 1];
       if (list?.type !== 'list') return;
 

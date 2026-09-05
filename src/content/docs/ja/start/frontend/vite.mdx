@@ -8,7 +8,7 @@ tableOfContents:
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import TranslationNote from '@components/i18n/TranslationNote.astro';
 
-Vite（ヴィート）は、 最新の Web プロジェクトで、より高速で無駄のない開発体験が得られることを目指したビルド・ツールです。以下の説明内容は、「Vite バージョン 5.4.8」に準拠しています。　
+Vite（ヴィート）は、 最新の Web プロジェクトで、より高速で無駄のない開発体験が得られることを目指したビルド・ツールです。以下の説明内容は、「Vite バージョン 8」に準拠しています。　
 
 ## チェック項目
 
@@ -143,7 +143,7 @@ Vite（ヴィート）は、 最新の Web プロジェクトで、より高速�
             ? 'chrome105'
             : 'safari13',
         // デバッグ・ビルドでは「ファイルの軽量化（ミニファイ）」をさせないようにします
-        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+        minify: !process.env.TAURI_ENV_DEBUG,
         // デバッグ・ビルドで「sourcemap」を作成します
         sourcemap: !!process.env.TAURI_ENV_DEBUG,
       },

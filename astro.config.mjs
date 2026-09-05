@@ -612,6 +612,11 @@ export default defineConfig({
 
     ...i18nRedirect('/develop/window-customization', '/learn/window-customization/'),
 
+    // pages removed from the English docs whose translations lived on
+    ...i18nRedirect('/reference/acl', '/security/capabilities/'),
+    ...i18nRedirect('/develop/debug/application', '/develop/debug/'),
+    ...i18nRedirect('/develop/tests/webdriver/example', '/develop/tests/webdriver/'),
+
     // Decommissioned locales -> refer to /public/_redirects file
     // '/ko/[...slug]': '/[...slug]',
     // '/it/[...slug]': '/[...slug]',
