@@ -3,8 +3,6 @@ title: アイソレーション型（Isolation Pattern）
 i18nReady: true
 ---
 
-import TranslationNote from '@components/i18n/TranslationNote.astro';
-
 アイソレーション（分離・隔絶）型は、フロントエンドから送信された Tauri API メッセージが Tauri Core（タウリ・コア）部に到達する前に、JavaScript を使用して傍受・変更する手段です。アイソレーション型で挿入される安全な JavaScript コードは、アイソレーション型アプリケーションと呼ばれます。
 
 ## アイソレーション型の必要性： Why
@@ -41,11 +39,7 @@ Tauri は、アイソレーション型が使用できる場合には常に使�
 
 _注記：　矢印（→）は、メッセージ・パッシング（受け渡し）を示します。_
 
-<TranslationNote lang="ja">
-
-**AES-GCM** Advanced Encryption Standard - Galois/Counter Mode：　現代の標準的な認証付き暗号化方式
-
-</TranslationNote>
+> > > 《訳注》 **AES-GCM** Advanced Encryption Standard - Galois/Counter Mode：　現代の標準的な認証付き暗号化方式
 
 ### パフォーマンスへの影響
 
@@ -53,12 +47,8 @@ _注記：　矢印（→）は、メッセージ・パッシング（受け渡�
 
 Tauri アプリケーションが起動されるたびに一度、暗号化された安全なキーも生成されますが、システムがすでに十分なエントロピー（ランダム性）を備えていて、即座に十分な乱数を返すのであれば、この処理には通常気付きません。これは「デスクトップ環境」では極めて一般的です。「ヘッドレス環境<sup>※</sup>」で [WebDriver との統合テスト] などを実行する場合で、オペレーティング・システムにエントロピー生成サービス<sup>※</sup>が含まれていない場合には、`haveged` などの何らかのエントロピー生成サービスをインストールすることをお勧めします。<sup>Linux 5.6 (March 2020) 版から、投機的実行によるエントロピー生成が含まれるようになりました。</sup>
 
-<TranslationNote lang="ja">
-
-**ヘッドレス環境** a headless environment：　フロントエンド部（画面表示・入出力機能）を持たず、バックエンド部（データ処理・管理機能）のみを有するシステム。
-**エントロピー生成サービス** entropy-generating service：　暗号化に不可欠な「予測不可能な本物の乱数（エントロピー）」を提供する仕組み。「乱数生成」機能。
-
-</TranslationNote>
+> > > 《訳注》 **ヘッドレス環境** a headless environment：　フロントエンド部（画面表示・入出力機能）を持たず、バックエンド部（データ処理・管理機能）のみを有するシステム。
+> > > **エントロピー生成サービス** entropy-generating service：　暗号化に不可欠な「予測不可能な本物の乱数（エントロピー）」を提供する仕組み。「乱数生成」機能。
 
 ### 制限事項
 
