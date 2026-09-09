@@ -13,3 +13,6 @@ minimumReleaseAge: 4320
 
 overrides:
   serialize-javascript@<=7.0.2: ^7.0.3 # Remove after https://github.com/tatethurston/astrojs-service-worker/issues/37
+minimumReleaseAgeExclude:
+  # Renovate security update: astro@7.2.8
+  - astro@7.2.8
