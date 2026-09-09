@@ -1,0 +1,189 @@
+---
+title: Gestion d'état
+i18nReady: true
+---
+
+Dans une application Tauri, vous devez souvent suivre l'état courant de votre application ou gérer le cycle de vie d'éléments qui lui sont associés. Tauri fournit un moyen simple de gérer l'état de votre application avec l'API [`Manager`], et de le lire lorsque des commandes sont appelées.
+
+Voici un exemple simple :
+
+```rust
+use tauri::{Builder, Manager};
+
+struct AppData {
+  welcome_message: &'static str,
+}
+
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(AppData {
+        welcome_message: "Welcome to Tauri!",
+      });
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+```
+
+Vous pouvez ensuite accéder à votre état avec n'importe quel type qui implémente le trait [`Manager`], par exemple l'instance [`App`] :
+
+```rust
+let data = app.state::<AppData>();
+```
+
+Pour plus d'informations, notamment sur l'accès à l'état dans les commandes, consultez la section [Accéder à l'état](#accessing-state).
+
+## Mutabilité
+
+En Rust, vous ne pouvez pas modifier directement des valeurs partagées entre plusieurs threads ou dont la propriété est contrôlée par un pointeur partagé comme [`Arc`] (ou le [`State`] de Tauri). Cela pourrait provoquer des data races (par exemple, deux écritures simultanées).
+
+Pour contourner cela, vous pouvez utiliser un concept appelé [mutabilité intérieure](https://doc.rust-lang.org/book/ch15-05-interior-mutability.html). Par exemple, le [`Mutex`] de la bibliothèque standard peut être utilisé pour envelopper votre état. Cela vous permet de verrouiller la valeur quand vous devez la modifier, puis de la déverrouiller lorsque vous avez terminé.
+
+```rust
+use std::sync::Mutex;
+
+use tauri::{Builder, Manager};
+
+#[derive(Default)]
+struct AppState {
+  counter: u32,
+}
+
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AppState::default()));
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+```
+
+L'état peut maintenant être modifié en verrouillant le mutex :
+
+```rust
+let state = app.state::<Mutex<AppState>>();
+
+// Lock the mutex to get mutable access:
+let mut state = state.lock().unwrap();
+
+// Modify the state:
+state.counter += 1;
+```
+
+À la fin de la portée, ou lorsque le `MutexGuard` est libéré autrement, le mutex est automatiquement déverrouillé afin que d'autres parties de votre application puissent accéder aux données qu'il contient et les modifier.
+
+### Quand utiliser un mutex async
+
+Pour citer la [documentation Tokio](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html#which-kind-of-mutex-should-you-use), il est souvent acceptable d'utiliser le [`Mutex`] de la bibliothèque standard plutôt qu'un mutex async comme celui fourni par Tokio :
+
+> Contrary to popular belief, it is ok and often preferred to use the ordinary Mutex from the standard library in asynchronous code ... The primary use case for the async mutex is to provide shared mutable access to IO resources such as a database connection.
+
+Il est conseillé de lire entièrement la documentation liée pour comprendre les compromis entre les deux. Une raison qui vous obligerait à utiliser un mutex async est de devoir conserver le `MutexGuard` à travers des points `await`.
+
+### Avez-vous besoin de `Arc` ?
+
+Il est courant de voir [`Arc`] utilisé en Rust pour partager la propriété d'une valeur entre plusieurs threads (généralement associé à un [`Mutex`] sous la forme `Arc<Mutex<T>>`). Cependant, vous n'avez pas besoin d'utiliser [`Arc`] pour les éléments stockés dans [`State`], car Tauri le fait pour vous.
+
+Si les exigences de durée de vie de `State` vous empêchent de déplacer votre état dans un nouveau thread, vous pouvez plutôt déplacer un `AppHandle` dans le thread puis récupérer votre état comme indiqué ci-dessous dans la section « [Accéder à l'état avec le trait Manager](#access-state-with-the-manager-trait) ». Les `AppHandle` sont volontairement peu coûteux à cloner pour ce type de cas d'utilisation.
+
+## Accéder à l'état
+
+### Accéder à l'état dans les commandes
+
+```rust
+#[tauri::command]
+fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
+  let mut state = state.lock().unwrap();
+  state.counter += 1;
+  state.counter
+}
+```
+
+Pour plus d'informations sur les commandes, consultez [Appeler Rust depuis le frontend](/fr/develop/calling-rust/).
+
+#### Commandes async
+
+Si vous utilisez des commandes `async` et voulez utiliser le [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html) async de Tokio, vous pouvez le configurer de la même manière et accéder à l'état comme ceci :
+
+```rust
+#[tauri::command]
+async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
+  let mut state = state.lock().await;
+  state.counter += 1;
+  Ok(state.counter)
+}
+```
+
+Notez que le type de retour doit être [`Result`] si vous utilisez des commandes asynchrones.
+
+### Accéder à l'état avec le trait [`Manager`]
+
+Vous pouvez parfois avoir besoin d'accéder à l'état en dehors des commandes, par exemple dans un autre thread ou dans un gestionnaire d'événement comme `on_window_event`. Dans ce cas, vous pouvez utiliser la méthode `state()` des types qui implémentent le trait [`Manager`] (comme `AppHandle`) pour obtenir l'état :
+
+```rust
+use std::sync::Mutex;
+use tauri::{Builder, Window, WindowEvent, Manager};
+
+#[derive(Default)]
+struct AppState {
+  counter: u32,
+}
+
+// In an event handler:
+fn on_window_event(window: &Window, _event: &WindowEvent) {
+    // Get a handle to the app so we can get the global state.
+    let app_handle = window.app_handle();
+    let state = app_handle.state::<Mutex<AppState>>();
+
+    // Lock the mutex to mutably access the state.
+    let mut state = state.lock().unwrap();
+    state.counter += 1;
+}
+
+fn main() {
+  Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AppState::default()));
+      Ok(())
+    })
+    .on_window_event(on_window_event)
+    .run(tauri::generate_context!())
+    .unwrap();
+}
+```
+
+Cette méthode est utile lorsque vous ne pouvez pas compter sur l'injection de commande. Par exemple, si vous devez déplacer l'état dans un thread où l'utilisation d'un `AppHandle` est plus simple, ou si vous n'êtes pas dans un contexte de commande.
+
+## Types incompatibles
+
+:::caution
+Si vous utilisez le mauvais type pour le paramètre [`State`], vous obtiendrez une panique à l'exécution au lieu d'une erreur à la compilation.
+
+Par exemple, si vous utilisez `State<'_, AppState>` au lieu de `State<'_, Mutex<AppState>>`, aucun état ne sera géré avec ce type.
+:::
+
+Si vous préférez, vous pouvez envelopper votre état avec un alias de type pour éviter cette erreur :
+
+```rust
+use std::sync::Mutex;
+
+#[derive(Default)]
+struct AppStateInner {
+  counter: u32,
+}
+
+type AppState = Mutex<AppStateInner>;
+```
+
+Veillez toutefois à utiliser l'alias de type tel quel, et à ne pas l'envelopper une deuxième fois dans un [`Mutex`], sinon vous rencontrerez le même problème.
+
+[`Manager`]: https://docs.rs/tauri/latest/tauri/trait.Manager.html
+[`State`]: https://docs.rs/tauri/latest/tauri/struct.State.html
+[`Mutex`]: https://doc.rust-lang.org/stable/std/sync/struct.Mutex.html
+[`Arc`]: https://doc.rust-lang.org/stable/std/sync/struct.Arc.html
+[`App`]: https://docs.rs/tauri/latest/tauri/struct.App.html
+[`Result`]: https://doc.rust-lang.org/stable/std/result/index.html

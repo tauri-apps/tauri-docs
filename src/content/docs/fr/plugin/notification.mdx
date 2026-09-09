@@ -1,94 +1,104 @@
 ---
 title: Notifications
-description: Envoie une notification native à l'utilisateur.
+description: Envoyer des notifications natives à l'utilisateur.
 i18nReady: true
 plugin: notification
 ---
 
 import PluginLinks from '@components/PluginLinks.astro';
 import Compatibility from '@components/plugins/Compatibility.astro';
-
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
-import Stub from '@components/Stub.astro';
 
-<PluginLinks plugin={frontmatter.plugin} version="2.0.0" />
+<PluginLinks plugin={frontmatter.plugin} />
 
-Envoie une notification native à votre utilisateur via le plugin de notification.
+Envoyez des notifications natives à votre utilisateur avec le plugin de notification.
 
-## Installation
-
-Pour commencer, installez le plugin de notifications.
-
-## Supported Platforms
+## Plateformes prises en charge
 
 <Compatibility plugin={frontmatter.plugin} />
 
-<Tabs syncKey="lang">
-    <TabItem label="Automatic">
+## Configuration
 
-    Utilisez le gestionnaire de package (package manager) de votre projet pour ajouter la dépendance:
+Pour commencer, installez le plugin de notifications.
 
-    <CommandTabs npm="npm run tauri add notification"
-    yarn="yarn run tauri add notification"
-    pnpm="pnpm tauri add notification"
-    cargo="cargo tauri add notification" />
+<Tabs>
+    <TabItem label="Automatique">
+
+        Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+        <CommandTabs npm="npm run tauri add notification"
+            yarn="yarn run tauri add notification"
+            pnpm="pnpm tauri add notification"
+            bun="bun tauri add notification"
+        deno="deno task tauri add notification"
+            cargo="cargo tauri add notification" />
+
 
     </TabItem>
-    <TabItem label="Manual">
+    <TabItem label="Manuel">
+        <Steps>
 
-    1. Executez `cargo add tauri-plugin-notification` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml`.
+        1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
 
-    2. Modifiez `lib.rs` pour initialisez le plugin:
+           ```sh frame=none
+           cargo add tauri-plugin-notification
+           ```
+
+        2. Modifiez `lib.rs` pour initialiser le plugin :
+
+           ```rust title="src-tauri/src/lib.rs" ins={4}
+           #[cfg_attr(mobile, tauri::mobile_entry_point)]
+           pub fn run() {
+               tauri::Builder::default()
+                   .plugin(tauri_plugin_notification::init())
+                   .run(tauri::generate_context!())
+                   .expect("error while running tauri application");
+           }
+           ```
+
+        3. Si vous souhaitez utiliser les notifications en JavaScript, installez aussi le package npm :
 
 
-    ```rust
-    // lib.rs
-    #[cfg_attr(mobile, tauri::mobile_entry_point)]
-    pub fn run() {
-        tauri::Builder::default()
-            // Initialisation du plugin
-            .plugin(tauri_plugin_notification::init())
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
-    ```
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-notification"
+                yarn="yarn add @tauri-apps/plugin-notification"
+                pnpm="pnpm add @tauri-apps/plugin-notification"
+                deno="deno add npm:@tauri-apps/plugin-notification"
+                bun="bun add @tauri-apps/plugin-notification"
+            />
 
-    3. Si vous voulez utiliser les notification de JavaScript, vous devez aussi installer le package npm:
-
-
-    <CommandTabs
-        npm="npm install @tauri-apps/plugin-notification"
-        yarn="yarn add @tauri-apps/plugin-notification"
-        pnpm="pnpm add @tauri-apps/plugin-notification"
-    />
-
+        </Steps>
     </TabItem>
 
 </Tabs>
 
 ## Utilisation
 
-Voici quelques exemples montrant comment utiliser le plugin de notification:
+Voici quelques exemples d'utilisation du plugin de notification :
 
-- [Envoyer une notification aux utilisateurs](#envoyer-une-notification)
+- [Envoyer une notification aux utilisateurs](#send-notification)
 - [Ajouter une action à une notification](#actions)
 - [Ajouter une pièce jointe à une notification](#attachments)
 - [Envoyer une notification dans un channel spécifique](#channels)
 
-{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+Le plugin de notification est disponible en JavaScript et en Rust.
 
-Le plugin de notification est disponible aussi bien en JavaScript qu'en Rust.
+<a id="send-notification"></a>
 
-### Envoyer une Notification
+### Envoyer une notification
 
-{/* TODO: Demo component */}
+Suivez ces étapes pour envoyer une notification :
 
-Suivez ces étapes pour envoyer une notification:
-
+<Steps>
 1. Vérifier si la permission est accordée
-2. Demander la permission si elle n’est pas accordée
+
+2. Demander la permission si elle n'est pas accordée
+
 3. Envoyer la notification
+
+</Steps>
 
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
@@ -99,50 +109,215 @@ import {
   requestPermission,
   sendNotification,
 } from '@tauri-apps/plugin-notification';
+// avec `"withGlobalTauri": true`, vous pouvez utiliser
+// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI__.notification;
 
-// Avez-vous la permission d'envoyer une notification ?
+// Avez-vous l'autorisation d'envoyer une notification ?
 let permissionGranted = await isPermissionGranted();
 
-// Le cas échéant on la demande
+// Sinon, nous devons la demander
 if (!permissionGranted) {
   const permission = await requestPermission();
   permissionGranted = permission === 'granted';
 }
 
-// Une fois la permission obtenue, on envoie la notification
+// Une fois l'autorisation accordée, nous pouvons envoyer la notification
 if (permissionGranted) {
-  sendNotification({ title: 'Tauri', body: 'Tauri est incroyable!' });
+  sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
 }
 ```
 
 </TabItem>
 <TabItem label="Rust">
 
-{/* TODO: */}
+```rust
+tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
+    .setup(|app| {
+        use tauri_plugin_notification::NotificationExt;
+        app.notification()
+            .builder()
+            .title("Tauri")
+            .body("Tauri is awesome")
+            .show()
+            .unwrap();
 
-<Stub />
+        Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+```
 
 </TabItem>
 </Tabs>
 
 ### Actions
 
-{/* TODO: */}
+:::caution[Mobile uniquement]
+L'API Actions est disponible uniquement sur les plateformes mobiles.
+:::
 
-<Stub />
+Les actions ajoutent des boutons et des champs interactifs aux notifications. Utilisez-les pour créer une expérience réactive pour vos utilisateurs.
 
-### Attachments
+#### Enregistrer des types d'actions
 
-{/* TODO: */}
+Enregistrez des types d'actions pour définir des éléments interactifs :
 
-<Stub />
+```javascript
+import { registerActionTypes } from '@tauri-apps/plugin-notification';
+
+await registerActionTypes([
+  {
+    id: 'messages',
+    actions: [
+      {
+        id: 'reply',
+        title: 'Reply',
+        input: true,
+        inputButtonTitle: 'Send',
+        inputPlaceholder: 'Type your reply...',
+      },
+      {
+        id: 'mark-read',
+        title: 'Mark as Read',
+        foreground: false,
+      },
+    ],
+  },
+]);
+```
+
+#### Propriétés des actions
+
+| Propriété                | Description                                         |
+| ------------------------ | --------------------------------------------------- |
+| `id`                     | Identifiant unique de l'action                      |
+| `title`                  | Texte affiché pour le bouton de l'action            |
+| `requiresAuthentication` | Nécessite l'authentification de l'appareil          |
+| `foreground`             | Place l'app au premier plan lorsque l'action arrive |
+| `destructive`            | Affiche l'action en rouge sur iOS                   |
+| `input`                  | Active la saisie de texte                           |
+| `inputButtonTitle`       | Texte du bouton d'envoi du champ                    |
+| `inputPlaceholder`       | Texte d'espace réservé du champ de saisie           |
+
+#### Écouter les actions
+
+Écoutez les interactions utilisateur avec les actions de notification :
+
+```javascript
+import { onAction } from '@tauri-apps/plugin-notification';
+
+await onAction((notification) => {
+  console.log('Action performed:', notification);
+});
+```
+
+<a id="attachments"></a>
+
+### Pièces jointes
+
+Les pièces jointes ajoutent du contenu multimédia aux notifications. La prise en charge varie selon la plateforme.
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Image',
+  body: 'Check out this picture',
+  attachments: [
+    {
+      id: 'image-1',
+      url: 'asset:///notification-image.jpg',
+    },
+  ],
+});
+```
+
+#### Propriétés des pièces jointes
+
+| Propriété | Description                                               |
+| --------- | --------------------------------------------------------- |
+| `id`      | Identifiant unique                                        |
+| `url`     | URL du contenu utilisant le protocole asset:// ou file:// |
+
+Note : testez les pièces jointes sur vos plateformes cibles pour vérifier leur compatibilité.
 
 ### Channels
 
-{/* TODO: */}
+Les channels organisent les notifications en catégories avec des comportements différents. Bien qu'ils soient principalement utilisés sur Android, ils fournissent une API cohérente entre les plateformes.
 
-<Stub />
+#### Créer un channel
 
-## Sécurité à prendre en compte
+```javascript
+import {
+  createChannel,
+  Importance,
+  Visibility,
+} from '@tauri-apps/plugin-notification';
 
-Mis à part les procédures normales de nettoyage des entrées de l'utilisateur, il n'y a actuellement aucun problème de sécurité connu.
+await createChannel({
+  id: 'messages',
+  name: 'Messages',
+  description: 'Notifications for new messages',
+  importance: Importance.High,
+  visibility: Visibility.Private,
+  lights: true,
+  lightColor: '#ff0000',
+  vibration: true,
+  sound: 'notification_sound',
+});
+```
+
+#### Propriétés des channels
+
+| Propriété     | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| `id`          | Identifiant unique                                     |
+| `name`        | Nom affiché                                            |
+| `description` | Description de l'objectif                              |
+| `importance`  | Niveau de priorité (None, Min, Low, Default, High)     |
+| `visibility`  | Paramètre de confidentialité (Secret, Private, Public) |
+| `lights`      | Active la LED de notification (Android)                |
+| `lightColor`  | Couleur de la LED (Android)                            |
+| `vibration`   | Active les vibrations                                  |
+| `sound`       | Nom de fichier du son personnalisé                     |
+
+#### Gérer les channels
+
+Lister les channels existants :
+
+```javascript
+import { channels } from '@tauri-apps/plugin-notification';
+
+const existingChannels = await channels();
+```
+
+Supprimer un channel :
+
+```javascript
+import { removeChannel } from '@tauri-apps/plugin-notification';
+
+await removeChannel('messages');
+```
+
+#### Utiliser les channels
+
+Envoyer une notification avec un channel :
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Message',
+  body: 'You have a new message',
+  channelId: 'messages',
+});
+```
+
+Note : créez les channels avant d'envoyer les notifications qui les référencent. Les identifiants de channel invalides empêchent l'affichage des notifications.
+
+## Considérations de sécurité
+
+En dehors des procédures habituelles de nettoyage des entrées utilisateur, il n'y a actuellement aucune considération de sécurité connue.
+
+<PluginPermissions plugin={frontmatter.plugin} />

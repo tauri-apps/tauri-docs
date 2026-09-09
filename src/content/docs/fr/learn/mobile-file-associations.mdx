@@ -1,0 +1,137 @@
+---
+title: Associations de fichiers sur mobile
+sidebar:
+  order: 3
+i18nReady: true
+---
+
+Tauri prend en charge les associations de fichiers sur Android et iOS, ce qui permet d'enregistrer votre app comme gestionnaire pour certains types de fichiers. Lorsqu'un utilisateur ouvre un fichier correspondant à vos associations déclarées, le système d'exploitation lance votre app et lui transmet l'URL du fichier.
+
+Sur **Android**, les associations de fichiers sont implémentées avec des [intent filters](https://developer.android.com/training/app-links/deep-linking) que le système de build Tauri génère automatiquement à partir de votre configuration.
+
+Sur **iOS**, les associations de fichiers utilisent [CFBundleDocumentTypes](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundledocumenttypes) et, éventuellement, [UTExportedTypeDeclarations](https://developer.apple.com/documentation/bundleresources/information-property-list/utexportedtypedeclarations) pour les types de fichiers personnalisés.
+
+## Configuration
+
+Les associations de fichiers sont déclarées dans `tauri.conf.json` sous `bundle.fileAssociations`. La CLI Tauri utilise cette configuration pour générer les métadonnées propres à chaque plateforme (intent filters Android dans `AndroidManifest.xml`, types de documents iOS dans `Info.plist`).
+
+Chaque entrée du tableau représente un type de fichier que votre app peut gérer :
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "fileAssociations": [
+      {
+        "ext": ["png"],
+        "mimeType": "image/png"
+      },
+      {
+        "ext": ["jpg", "jpeg"],
+        "mimeType": "image/jpeg"
+      }
+    ]
+  }
+}
+```
+
+### Options de configuration
+
+- `ext` : liste des extensions de fichier à associer (sans point initial).
+- `mimeType` : type MIME du fichier (par exemple `image/png`). Requis sur Android pour la correspondance des intent filters. Tauri déduit les types MIME courants depuis les extensions lorsqu'il n'est pas spécifié.
+- `role` : rôle de l'app par rapport au type de fichier. Correspond à `CFBundleTypeRole` sur les plateformes Apple. Valeurs : `Editor` (par défaut), `Viewer`, `Shell`, `QLGenerator`, `None`.
+- `rank` : classement parmi les apps qui gèrent ce type de fichier. Correspond à `LSHandlerRank` sur les plateformes Apple. Valeurs : `Default` (par défaut), `Owner`, `Alternate`, `None`.
+- `name` : nom d'affichage du type de fichier. Par défaut, il utilise la première extension.
+- `exportedType` : définit un type de fichier personnalisé appartenant à votre app. Requis sur les plateformes Apple lors de l'association avec des extensions non standard.
+- `androidIntentActionFilters` : actions d'intent Android à enregistrer. Valeurs : `Send`, `SendMultiple`, `View`. Les trois sont utilisées par défaut.
+
+### Types de fichiers personnalisés
+
+Pour les extensions de fichiers non standard, vous devriez définir un `exportedType` afin que les plateformes Apple puissent identifier le type de fichier. L'`identifier` doit être une chaîne reverse-DNS unique à votre app, et `conformsTo` liste les types parents :
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "fileAssociations": [
+      {
+        "ext": ["mydata"],
+        "mimeType": "application/octet-stream",
+        "exportedType": {
+          "identifier": "com.example.myapp.mydata",
+          "conformsTo": ["public.data"]
+        }
+      }
+    ]
+  }
+}
+```
+
+Les valeurs courantes de `conformsTo` incluent `public.data`, `public.image`, `public.json` et `public.plain-text`.
+
+## Gérer les fichiers ouverts
+
+Lorsqu'un fichier est ouvert avec votre app, Tauri émet un événement `RunEvent::Opened` contenant les URL des fichiers. Cet événement est disponible sur macOS, iOS et Android.
+
+Vous devez gérer deux cas :
+
+1. **L'app est déjà en cours d'exécution** : l'événement est transmis à l'exécution.
+2. **L'app est lancée par l'ouverture du fichier** : l'événement se déclenche au démarrage, vous devez donc stocker les URL et les rendre disponibles à votre frontend.
+
+### Rust
+
+Stockez les URL entrantes dans un état géré, exposez-les avec une commande que le frontend peut appeler au démarrage, et émettez un événement Tauri chaque fois que `RunEvent::Opened` se déclenche afin que le frontend puisse réagir lorsque l'app est déjà en cours d'exécution :
+
+```rust title="src-tauri/src/lib.rs"
+use std::sync::Mutex;
+use tauri::Manager;
+
+struct OpenedUrls(Mutex<Vec<tauri::Url>>);
+
+#[tauri::command]
+fn opened_urls(app: tauri::AppHandle) -> Vec<tauri::Url> {
+    app.state::<OpenedUrls>().0.lock().unwrap().clone()
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .manage(OpenedUrls(Mutex::new(vec![])))
+        .invoke_handler(tauri::generate_handler![opened_urls])
+        .build(tauri::generate_context!())
+        .expect("error while running tauri application")
+        .run(|app, event| {
+            #[cfg(any(target_os = "macos", target_os = "ios", target_os = "android"))]
+            if let tauri::RunEvent::Opened { urls } = event {
+                use tauri::Emitter;
+                app.state::<OpenedUrls>()
+                    .0
+                    .lock()
+                    .unwrap()
+                    .extend(urls.clone());
+                app.emit("opened", urls).unwrap();
+            }
+        });
+}
+```
+
+### JavaScript
+
+Le frontend ci-dessous est relié à ce code Rust à deux endroits :
+
+- **`invoke('opened_urls')`** appelle la commande `opened_urls`, afin que la webview puisse lire les URL stockées avant la fin du chargement de l'UI (démarrage à froid depuis une ouverture de fichier).
+- **`listen('opened', …)`** s'abonne au même nom d'événement que celui transmis à **`app.emit("opened", urls)`** en Rust, afin que les événements d'ouverture de fichier déclenchés pendant que l'app est déjà en cours d'exécution soient transmis immédiatement.
+
+```javascript
+import { listen } from '@tauri-apps/api/event';
+import { invoke } from '@tauri-apps/api/core';
+
+// Cold start: URLs may already be in Rust state before the frontend loads
+const initialUrls = await invoke('opened_urls');
+if (initialUrls.length > 0) {
+  handleFiles(initialUrls);
+}
+
+// Warm: Rust emits the "opened" event when RunEvent::Opened fires
+await listen('opened', (event) => {
+  handleFiles(event.payload);
+});
+```

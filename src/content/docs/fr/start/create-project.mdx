@@ -1,0 +1,244 @@
+---
+title: Créer un projet
+sidebar:
+  order: 3
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+import Cta from '../_fragments/cta.mdx';
+
+L'une des choses qui rend Tauri aussi flexible est sa capacité à fonctionner avec pratiquement n'importe quel framework frontend. Nous avons créé l'utilitaire [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) pour vous aider à créer un nouveau projet Tauri avec l'un des modèles de frameworks maintenus officiellement.
+
+`create-tauri-app` inclut actuellement des modèles pour vanilla (HTML, CSS et JavaScript sans framework), [Vue.js](https://vuejs.org), [Svelte](https://svelte.dev), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos) et [Sycamore](https://sycamore.dev/). Vous pouvez aussi trouver ou ajouter vos propres modèles et frameworks communautaires dans le [repo Awesome Tauri](https://github.com/tauri-apps/awesome-tauri).
+
+{/* TODO: redirect to integrate to existing front-end project specific docs */}
+Vous pouvez également [ajouter Tauri à un projet existant](#manual-setup-tauri-cli) pour transformer rapidement votre base de code existante en app Tauri.
+
+## Utiliser `create-tauri-app`
+
+Pour commencer avec `create-tauri-app`, exécutez l'une des commandes ci-dessous dans le dossier où vous souhaitez configurer votre projet. Si vous ne savez pas quelle commande utiliser, nous recommandons la commande Bash sous Linux et macOS, et la commande PowerShell sous Windows.
+
+<Cta />
+
+Suivez les invites pour choisir le nom de votre projet, le langage frontend, le gestionnaire de paquets, le framework frontend et, le cas échéant, les options du framework frontend.
+
+:::tip[Vous ne savez pas quoi choisir ?]
+
+Nous recommandons de commencer avec le modèle vanilla (HTML, CSS et JavaScript sans framework frontend). Vous pourrez toujours [intégrer un framework frontend](/fr/start/frontend/) plus tard.
+
+- Choisissez le langage à utiliser pour votre frontend : `TypeScript / JavaScript`
+- Choisissez votre gestionnaire de paquets : `pnpm`
+- Choisissez votre modèle d'interface : `Vanilla`
+- Choisissez la variante d'interface : `TypeScript`
+
+:::
+
+#### Générer un nouveau projet
+
+<Steps>
+
+1. Choisissez un nom et un identifiant de paquet (identifiant unique pour votre app) :
+   ```
+   ? Project name (tauri-app) ›
+   ? Identifier (com.tauri-app.app) ›
+   ```
+2. Sélectionnez une variante pour votre frontend. D'abord le langage :
+   ```
+   ? Choose which language to use for your frontend ›
+   Rust  (cargo)
+   TypeScript / JavaScript  (pnpm, yarn, npm, bun)
+   .NET  (dotnet)
+   ```
+3. Sélectionnez un gestionnaire de paquets (s'il y en a plusieurs disponibles) :
+
+   Options pour **TypeScript / JavaScript** :
+
+   ```
+   ? Choose your package manager ›
+   pnpm
+   yarn
+   npm
+   bun
+   ```
+
+4. Sélectionnez un modèle d'interface et une variante (s'il y en a plusieurs disponibles) :
+
+   Options pour **Rust** :
+
+   ```
+   ? Choose your UI template ›
+   Vanilla
+   Yew
+   Leptos
+   Sycamore
+   ```
+
+   Options pour **TypeScript / JavaScript** :
+
+   ```
+   ? Choose your UI template ›
+   Vanilla
+   Vue
+   Svelte
+   React
+   Solid
+   Angular
+   Preact
+
+   ? Choose your UI flavor ›
+   TypeScript
+   JavaScript
+   ```
+
+   Options pour **.NET** :
+
+   ```
+   ? Choose your UI template ›
+   Blazor  (https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor/)
+   ```
+
+</Steps>
+
+Une fois terminé, l'utilitaire indique que le modèle a été créé et affiche comment l'exécuter avec le gestionnaire de paquets configuré. S'il détecte des dépendances manquantes sur votre système, il affiche une liste de paquets et vous indique comment les installer.
+
+{/* TODO: Can CTA offer to install the deps? */}
+
+#### Démarrer le serveur de développement
+
+Une fois `create-tauri-app` terminé, vous pouvez vous rendre dans le dossier de votre projet, installer les dépendances, puis utiliser la [CLI Tauri](/fr/reference/cli/) pour démarrer le serveur de développement :
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+<CommandTabs
+  npm="cd tauri-app
+    npm install
+    npm run tauri dev"
+  yarn="cd tauri-app
+    yarn install
+    yarn tauri dev"
+  pnpm="cd tauri-app
+    pnpm install
+    pnpm tauri dev"
+  deno="cd tauri-app
+    deno install
+    deno task tauri dev"
+  bun="cd tauri-app
+    bun install
+    bun tauri dev
+  "
+  cargo='cd tauri-app
+    cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri dev'
+/>
+
+Vous verrez alors une nouvelle fenêtre s'ouvrir avec votre app en cours d'exécution.
+
+**Félicitations !** Vous avez créé votre app Tauri ! 🚀
+
+## Configuration manuelle (CLI Tauri)
+
+Si vous avez déjà un frontend existant ou si vous préférez le configurer vous-même, vous pouvez utiliser la CLI Tauri pour initialiser séparément le backend de votre projet.
+
+:::note
+L'exemple suivant part du principe que vous créez un nouveau projet. Si vous avez déjà initialisé le frontend de votre application, vous pouvez ignorer la première étape.
+:::
+
+<Steps>
+
+    1. Créez un nouveau répertoire pour votre projet et initialisez le frontend. Vous pouvez utiliser du HTML, CSS et JavaScript simples, ou le framework de votre choix comme Next.js, Nuxt, Svelte, Yew ou Leptos. Vous avez simplement besoin d'un moyen de servir l'app dans votre navigateur. À titre d'exemple, voici comment configurer une app Vite simple :
+
+        <CommandTabs
+            npm="mkdir tauri-app
+                cd tauri-app
+                npm create vite@latest ."
+            yarn="mkdir tauri-app
+                cd tauri-app
+                yarn create vite ."
+            pnpm="mkdir tauri-app
+                cd tauri-app
+                pnpm create vite ."
+            deno="mkdir tauri-app
+                cd tauri-app
+                deno run -A npm:create-vite ."
+            bun="mkdir tauri-app
+                cd tauri-app
+                bun create vite"
+        />
+
+    2. Installez ensuite l'outil CLI de Tauri avec le gestionnaire de paquets de votre choix. Si vous utilisez `cargo` pour installer la CLI Tauri, vous devrez l'installer globalement.
+
+        <CommandTabs
+            npm="npm install -D @tauri-apps/cli@latest"
+            yarn="yarn add -D @tauri-apps/cli@latest"
+            pnpm="pnpm add -D @tauri-apps/cli@latest"
+            deno="deno add -D npm:@tauri-apps/cli@latest"
+            bun="bun add -D @tauri-apps/cli@latest"
+            cargo='cargo install tauri-cli --version "^2.0.0" --locked'
+        />
+
+    3. Déterminez l'URL du serveur de développement de votre frontend. C'est l'URL que Tauri utilisera pour charger votre contenu. Par exemple, si vous utilisez Vite, l'URL par défaut est `http://localhost:5173`.
+
+    4. Dans le répertoire de votre projet, initialisez Tauri :
+
+        <CommandTabs
+            npm="npx tauri init"
+            yarn="yarn tauri init"
+            pnpm="pnpm tauri init"
+            deno="deno task tauri init"
+            bun="bun tauri init"
+            cargo="cargo tauri init"
+        />
+
+        Après l'exécution de la commande, une invite vous demandera différentes options :
+
+        ```sh frame=none
+        ✔ What is your app name? tauri-app
+        ✔ What should the window title be? tauri-app
+        ✔ Where are your web assets located? ..
+        ✔ What is the url of your dev server? http://localhost:5173
+        ✔ What is your frontend dev command? pnpm run dev
+        ✔ What is your frontend build command? pnpm run build
+        ```
+
+        Cela créera un répertoire `src-tauri` dans votre projet avec les fichiers de configuration Tauri nécessaires.
+
+    5. Configurez l'option `server.watch.ignored` dans `vite.config.ts` pour empêcher Vite de surveiller le répertoire `src-tauri` :
+
+        ```js title="vite.config.ts"
+        import { defineConfig } from "vite";
+
+        export default defineConfig({
+          server: {
+            watch: {
+              ignored: ["**/src-tauri/**"],
+            },
+          },
+        });
+        ```
+
+    6. Vérifiez que votre app Tauri fonctionne en lançant le serveur de développement :
+
+        <CommandTabs
+            npm="npx tauri dev"
+            yarn="yarn tauri dev"
+            pnpm="pnpm tauri dev"
+            deno="deno task tauri dev"
+            bun="bun tauri dev"
+            cargo="cargo tauri dev"
+        />
+
+        Cette commande compilera le code Rust et ouvrira une fenêtre avec votre contenu web.
+
+</Steps>
+
+**Félicitations !** Vous avez créé un nouveau projet Tauri avec la CLI Tauri ! 🚀
+
+## Étapes suivantes
+
+- [Découvrir la structure du projet et le rôle de chaque fichier](/fr/start/project-structure/)
+- [Ajouter et configurer un framework frontend](/fr/start/frontend/)
+- [Référence de l'interface en ligne de commande (CLI) Tauri](/fr/reference/cli/)
+- [Apprendre à développer votre app Tauri](/fr/develop/)
+- [Découvrir des fonctionnalités supplémentaires pour étendre Tauri](/fr/plugin/)

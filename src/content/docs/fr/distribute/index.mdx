@@ -1,0 +1,250 @@
+---
+title: Distribuer
+description: Informations sur les outils nécessaires pour distribuer votre application dans les app stores des plateformes ou sous forme d'installateurs propres aux plateformes
+sidebar:
+  order: 0
+  label: Vue d'ensemble
+i18nReady: true
+---
+
+import { CardGrid, LinkCard, LinkButton } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri fournit les outils nécessaires pour distribuer votre application dans les app stores des plateformes ou sous forme d'installateurs propres aux plateformes.
+
+## Construire
+
+Tauri construit votre application directement depuis sa CLI avec les commandes `build`, `android build` et `ios build`.
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+Consultez la section [Distribuer](#distribuer) pour en savoir plus sur les options de configuration disponibles pour chaque bundle
+et sur la façon de les distribuer à vos utilisateurs.
+
+:::note
+La plupart des plateformes exigent la signature du code. Consultez la section [Signature](#signature) pour plus d'informations.
+:::
+
+### Bundling
+
+Par défaut, la commande `build` empaquette automatiquement votre application dans les formats configurés.
+
+Si vous avez besoin de personnaliser davantage la génération des bundles de plateforme, vous pouvez séparer les étapes de build et de bundle :
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+# bundle for distribution outside the macOS App Store
+npm run tauri bundle -- --bundles app,dmg
+# bundle for App Store distribution
+npm run tauri bundle -- --bundles app --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+yarn tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+yarn tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+pnpm tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+pnpm tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  deno="deno task tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+deno task tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+deno task tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  bun="bun tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+bun tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+bun tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+cargo tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+cargo tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+/>
+
+## Versioning
+
+La version de votre application peut être définie avec l'option de configuration [`tauri.conf.json > version`],
+ce qui est la méthode recommandée pour gérer la version de l'app. Si cette valeur de configuration n'est pas définie,
+Tauri utilise à la place la valeur `package > version` de votre fichier `src-tauri/Cargo.toml`.
+
+:::note
+Certaines plateformes ont des limitations et cas particuliers pour la chaîne de version.
+Consultez les pages de documentation de distribution individuelles pour plus d'informations.
+:::
+
+## Signature
+
+La signature du code renforce la sécurité de votre application en appliquant une signature numérique aux
+exécutables et bundles de votre application, validant votre identité en tant que fournisseur de l'application.
+
+La signature est requise sur la plupart des plateformes. Consultez la documentation de chaque plateforme pour plus d'informations.
+
+<CardGrid>
+  <LinkCard
+    title="macOS"
+    href="/fr/distribute/sign/macos/"
+    description="Signature du code et notarization pour les apps macOS"
+  />
+  <LinkCard
+    title="Windows"
+    href="/fr/distribute/sign/windows/"
+    description="Signature du code des installateurs Windows"
+  />
+  <LinkCard
+    title="Linux"
+    href="/fr/distribute/sign/linux/"
+    description="Signature du code des paquets Linux"
+  />
+  <LinkCard
+    title="Android"
+    href="/fr/distribute/sign/android/"
+    description="Signature du code pour Android"
+  />
+  <LinkCard
+    title="iOS"
+    href="/fr/distribute/sign/ios/"
+    description="Signature du code pour iOS"
+  />
+
+</CardGrid>
+
+## Distribuer
+
+Apprenez à distribuer votre application pour chaque plateforme.
+
+### Linux
+
+Pour Linux, vous pouvez distribuer votre app avec les formats Debian package, Snap, AppImage, Flatpak, RPM ou Arch User Repository (AUR).
+
+<CardGrid>
+  <LinkCard
+    title="AppImage"
+    href="/fr/distribute/appimage/"
+    description="Distribuer sous forme d'AppImage"
+  />
+  <LinkCard
+    title="AUR"
+    href="/fr/distribute/aur/"
+    description="Publier dans l'Arch User Repository"
+  />
+  <LinkCard
+    title="Debian"
+    href="/fr/distribute/debian/"
+    description="Distribuer sous forme de paquet Debian"
+  />
+  {/*  <LinkCard
+    title="Flathub"
+    href="/distribute/flatpak/"
+    description="Distribute as a Flatpak"
+  /> */}
+  <LinkCard
+    title="RPM"
+    href="/fr/distribute/rpm/"
+    description="Distribuer sous forme de paquet RPM"
+  />
+  <LinkCard
+    title="Snapcraft"
+    href="/fr/distribute/snapcraft/"
+    description="Distribuer sur Snapcraft.io"
+  />
+</CardGrid>
+
+<LinkButton href="/fr/distribute/sign/linux/">Signature du code</LinkButton>
+
+### macOS
+
+Pour macOS, vous pouvez distribuer votre application directement sur l'App Store ou fournir un installateur DMG en téléchargement direct.
+Les deux méthodes exigent la signature du code, et la distribution hors App Store exige aussi la notarization.
+
+<CardGrid>
+  <LinkCard
+    title="App Bundle"
+    href="/fr/distribute/macos-application-bundle/"
+    description="Distribuer des apps macOS sous forme d'App Bundle"
+  />
+  <LinkCard
+    title="App Store"
+    href="/fr/distribute/app-store/"
+    description="Distribuer des apps iOS et macOS sur l'App Store"
+  />
+  <LinkCard
+    title="DMG"
+    href="/fr/distribute/dmg/"
+    description="Distribuer des apps macOS sous forme d'Apple Disk Images"
+  />
+</CardGrid>
+
+<LinkButton href="/fr/distribute/sign/macos/">
+  Signature du code et notarization
+</LinkButton>
+
+### Windows
+
+Apprenez à distribuer sur le Microsoft Store ou à configurer un installateur Windows.
+
+<CardGrid>
+  <LinkCard
+    title="Microsoft Store"
+    href="/fr/distribute/microsoft-store/"
+    description="Distribuer des apps Windows sur le Microsoft Store"
+  />
+  <LinkCard
+    title="Windows Installer"
+    href="/fr/distribute/windows-installer/"
+    description="Distribuer des installateurs pour Windows"
+  />
+</CardGrid>
+
+<LinkButton href="/fr/distribute/sign/windows/">Signature du code</LinkButton>
+
+### Android
+
+Distribuez votre application Android sur Google Play.
+
+<CardGrid>
+  <LinkCard
+    title="Google Play"
+    href="/fr/distribute/google-play/"
+    description="Distribuer des apps Android sur Google Play"
+  />
+</CardGrid>
+
+<LinkButton href="/fr/distribute/sign/android/">Signature du code</LinkButton>
+
+### iOS
+
+Apprenez à téléverser votre application sur l'App Store.
+
+<CardGrid>
+  <LinkCard
+    title="App Store"
+    href="/fr/distribute/app-store/"
+    description="Distribuer des apps iOS et macOS sur l'App Store"
+  />
+</CardGrid>
+
+<LinkButton href="/fr/distribute/sign/ios/">Signature du code</LinkButton>
+
+### Services cloud
+
+Distribuez votre application avec des services cloud qui la diffusent mondialement et prennent en charge les mises à jour automatiques sans configuration supplémentaire.
+
+<CardGrid>
+  <LinkCard
+    title="CrabNebula Cloud"
+    href="/fr/distribute/crabnebula-cloud/"
+    description="Distribuer votre app avec CrabNebula"
+  />
+</CardGrid>
+
+[`tauri.conf.json > version`]: /reference/config/#version

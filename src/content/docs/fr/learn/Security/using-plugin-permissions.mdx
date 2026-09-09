@@ -1,0 +1,253 @@
+---
+title: Utiliser les permissions de plugins
+sidebar:
+  order: 10
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro';
+import Cta from '../../_fragments/cta.mdx';
+
+L'objectif de cet exercice est de mieux comprendre comment les permissions de plugins peuvent être activées ou désactivées, où elles sont décrites et comment utiliser les permissions par défaut des plugins.
+
+À la fin, vous saurez trouver et utiliser les permissions de plugins arbitraires, et comprendre comment personnaliser des permissions existantes. Vous disposerez d'un exemple d'application Tauri utilisant un plugin et des permissions propres à ce plugin.
+
+<Steps>
+
+1. ### Créer une application Tauri
+
+    Créez votre application Tauri.
+    Dans notre exemple, nous utiliserons [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) :
+
+    <Cta />
+
+    Dans cette explication étape par étape, nous utiliserons `pnpm`, mais vous pouvez choisir un autre gestionnaire de paquets et le remplacer dans les commandes en conséquence.
+
+
+    <ShowSolution>
+    ```
+    pnpm create tauri-app
+    ```
+
+    ```
+    ✔ Project name · plugin-permission-demo
+    ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, bun)
+    ✔ Choose your package manager · pnpm
+    ✔ Choose your UI template · Vanilla
+    ✔ Choose your UI flavor · TypeScript
+
+    Template created! To get started run:
+    cd plugin-permission-demo
+    pnpm install
+    pnpm tauri dev
+    ```
+    </ShowSolution>
+
+2. ### Ajouter le plugin `file-system` à votre application
+
+    Pour rechercher des plugins existants, vous pouvez utiliser plusieurs ressources.
+
+    Le moyen le plus direct consiste à vérifier si votre plugin se trouve déjà dans la section [Plugins](/fr/plugin/) de la documentation et fait donc partie de l'ensemble de plugins maintenus par Tauri.
+    Le plugin Filesystem fait partie du workspace de plugins Tauri et vous pouvez l'ajouter à votre projet en suivant les [instructions](/fr/plugin/file-system/#setup).
+
+    Si le plugin fait partie d'un effort communautaire, vous le trouverez très probablement sur [crates.io](https://crates.io/search?q=tauri-plugin-) en recherchant `tauri-plugin-<your plugin name>`.
+
+    <ShowSolution>
+    S'il s'agit d'un plugin existant de notre workspace, vous pouvez utiliser la méthode automatisée :
+
+    ```
+    pnpm tauri add fs
+    ```
+
+    Si vous l'avez trouvé sur [crates.io](https://crates.io/crates/tauri-plugin-fs), vous devez l'ajouter manuellement comme dépendance et modifier le builder Tauri pour initialiser le plugin :
+
+    ```sh
+    cargo add tauri-plugin-fs
+    ```
+
+    Modifiez `lib.rs` pour initialiser le plugin :
+
+    ```rust title="src-tauri/src/lib.rs" ins={4}
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    fn run() {
+      tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+    }
+    ```
+    </ShowSolution>
+
+3. ### Comprendre les permissions par défaut du plugin `fs`
+
+    Chaque plugin possède un ensemble de permissions `default`, qui contient toutes les permissions et portées permettant d'utiliser le plugin immédiatement avec un ensemble de fonctionnalités minimal raisonnable.
+
+    Dans le cas des plugins officiels maintenus, vous pouvez trouver une description rendue dans la documentation (par exemple [fs default](/fr/plugin/file-system/#default-permission)).
+
+    Si vous cherchez cela pour un plugin communautaire, vous devez consulter le code source du plugin. Cela devrait être défini dans `your-plugin/permissions/default.toml`.
+
+    <ShowSolution>
+    ```
+    "$schema" = "schemas/schema.json"
+
+    [default]
+    description = """
+    # Tauri `fs` default permissions
+
+    This configuration file defines the default permissions granted
+    to the filesystem.
+
+    ### Granted Permissions
+
+    This default permission set enables all read-related commands and
+    allows access to the `$APP` folder and sub directories created in it.
+    The location of the `$APP` folder depends on the operating system,
+    where the application is run.
+
+    In general the `$APP` folder needs to be manually created
+    by the application at runtime, before accessing files or folders
+    in it is possible.
+
+    ### Denied Permissions
+
+    This default permission set prevents access to critical components
+    of the Tauri application by default.
+    On Windows the webview data folder access is denied.
+
+    """
+    permissions = ["read-all", "scope-app-recursive", "deny-default"]
+
+    ```
+    </ShowSolution>
+
+  4. ### Trouver les bonnes permissions
+
+      Cette étape consiste à trouver les permissions nécessaires pour exposer vos commandes au frontend avec l'accès minimal à votre système.
+
+      Le plugin `fs` possède des permissions générées automatiquement qui désactivent ou activent des commandes individuelles et autorisent ou désactivent des portées globales.
+
+      Elles se trouvent dans la [documentation](/fr/plugin/file-system/#permission-table) ou dans le code source du plugin (`fs/permissions/autogenerated`).
+
+      Supposons que nous voulions activer l'écriture dans un fichier texte `test.txt` situé dans le dossier `$HOME` de l'utilisateur.
+
+      Pour cela, nous chercherions dans les permissions générées automatiquement une permission permettant d'écrire dans des fichiers texte, comme `allow-write-text-file`, puis une portée qui nous permettrait d'accéder au fichier `$HOME/test.txt`.
+
+      Nous devons les ajouter à notre section `capabilities` dans `src-tauri/tauri.conf.json` ou dans un fichier du dossier `src-tauri/capabilities/`. Par défaut, il existe déjà une capacité dans `src-tauri/capabilities/default.json` que nous pouvons modifier.
+
+      <ShowSolution>
+
+      ```json title="src-tauri/capabilities/default.json" del={18} ins={19}
+      {
+        "$schema": "../gen/schemas/desktop-schema.json",
+        "identifier": "default",
+        "description": "Capability for the main window",
+        "windows": [
+          "main"
+        ],
+        "permissions": [
+          "path:default",
+          "event:default",
+          "window:default",
+          "app:default",
+          "image:default",
+          "resources:default",
+          "menu:default",
+          "tray:default",
+          "shell:allow-open",
+          "fs:default",
+          "fs:allow-write-text-file",
+        ]
+      }
+      ```
+
+      </ShowSolution>
+
+      Comme le plugin `fs` ne contient que des portées générées automatiquement pour accéder à tout le dossier `$HOME`, nous devons configurer notre propre portée. Cette portée ne devrait être activée que pour la commande `write-text-file` et ne devrait exposer que notre fichier `test.txt`.
+
+      <ShowSolution>
+      ```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
+         {
+        "$schema": "../gen/schemas/desktop-schema.json",
+        "identifier": "default",
+        "description": "Capability for the main window",
+        "windows": [
+          "main"
+        ],
+        "permissions": [
+          "path:default",
+          "event:default",
+          "window:default",
+          "app:default",
+          "image:default",
+          "resources:default",
+          "menu:default",
+          "tray:default",
+          "shell:allow-open",
+          "fs:allow-write-text-file",
+          {
+            "identifier": "fs:allow-write-text-file",
+            "allow": [{ "path": "$HOME/test.txt" }]
+          },
+        ]
+      }
+      ```
+      </ShowSolution>
+    5. ### Tester les permissions en pratique
+
+        Après avoir ajouté la permission nécessaire, nous voulons confirmer que notre application peut accéder au fichier et écrire son contenu.
+
+        <ShowSolution>
+        Nous pouvons utiliser cet extrait dans notre application pour écrire dans le fichier :
+
+        ```ts title="src/main.ts"
+        import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+
+        let greetInputEl: HTMLInputElement | null;
+
+        async function write(message: string) {
+            await writeTextFile('test.txt', message, { baseDir: BaseDirectory.Home });
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+          greetInputEl = document.querySelector("#greet-input");
+          document.querySelector("#greet-form")?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (!greetInputEl )
+              return;
+
+            write(greetInputEl.value == "" ? "No input provided": greetInputEl.value);
+
+          });
+        });
+
+        ```
+
+        Remplacer `src/main.ts` par cet extrait signifie que nous n'avons pas besoin de modifier le `index.html` par défaut lorsque nous utilisons l'app Vanilla+Typescript simple. Saisir une valeur dans le champ de l'app en cours d'exécution l'écrira dans le fichier lors de la soumission.
+
+        Testons maintenant en pratique :
+
+        ```
+        pnpm run tauri dev
+        ```
+
+        Après avoir écrit dans le champ et cliqué sur « Submit », nous pouvons vérifier via notre émulateur de terminal ou en ouvrant manuellement le fichier dans votre dossier personnel.
+
+        ```
+        cat $HOME/test.txt
+        ```
+
+        Vous devriez voir votre saisie et avoir terminé l'apprentissage de l'utilisation des permissions de plugins dans les applications Tauri.
+        🥳
+
+
+        Si vous rencontrez cette erreur :
+
+        ```sh
+        [Error] Unhandled Promise Rejection: fs.write_text_file not allowed. Permissions associated with this command: fs:allow-app-write, fs:allow-app-write-recursive, fs:allow-appcache-write, fs:allow-appconf...
+        (anonymous function) (main.ts:5)
+        ```
+        Alors vous n'avez très probablement pas suivi correctement les [instructions précédentes](#trouver-les-bonnes-permissions).
+        </ShowSolution>
+
+ </Steps>

@@ -1,0 +1,25 @@
+---
+title: Flux RSS Tauri
+topic: guides # this sidebar is active when viewing this page
+i18nReady: true
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<LinkCard
+  title="Toutes les mises à jour"
+  description="Recevez des notifications pour toutes les mises à jour du site."
+  href="/feed.xml"
+/>
+
+<LinkCard
+  title="Mises à jour du blog"
+  description="Restez au courant des derniers articles et billets de blog."
+  href="/blog/rss.xml"
+/>
+
+<LinkCard
+  title="Mises à jour des pages"
+  description="Recevez les mises à jour des pages principales du site."
+  href="/pages.xml"
+/>

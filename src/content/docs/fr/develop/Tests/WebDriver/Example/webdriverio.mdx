@@ -1,0 +1,290 @@
+---
+title: WebdriverIO
+sidebar:
+  order: 31
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+:::note
+
+Assurez-vous de suivre les [instructions de prérequis] pour pouvoir utiliser ce guide.
+
+:::
+
+:::tip[Vous utilisez le service Tauri WebdriverIO ?]
+
+Ce guide connecte [WebdriverIO] à [`tauri-driver`] à la main afin que vous puissiez voir comment les pièces s'assemblent. La plupart des projets
+devraient plutôt utiliser [`@wdio/tauri-service`], qui automatise tout cela et prend en charge macOS ; consultez la
+[vue d'ensemble WebDriver].
+
+:::
+
+Cet exemple de test WebDriver utilise [WebdriverIO] et sa suite de tests. Node.js doit déjà être installé,
+avec `npm` ou `yarn`, même si le [projet d'exemple terminé] utilise `pnpm`.
+
+## Créer un répertoire pour les tests
+
+Créons dans notre projet un espace pour écrire ces tests. Nous utiliserons un répertoire imbriqué pour
+ce projet d'exemple, car nous passerons aussi en revue d'autres frameworks plus tard, mais en général vous n'en avez besoin que d'un. Créez
+le répertoire avec `mkdir e2e-tests`. La suite de ce guide suppose que vous êtes dans le répertoire
+`e2e-tests`.
+
+## Initialiser un projet WebdriverIO
+
+Nous utiliserons un `package.json` existant pour démarrer cette suite de tests, car nous avons déjà choisi des options de configuration [WebdriverIO]
+spécifiques et voulons montrer une solution simple qui fonctionne. La fin de cette section contient un guide replié
+pour la configurer depuis zéro.
+
+`package.json` :
+
+```json
+{
+  "name": "webdriverio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "wdio run wdio.conf.js"
+  },
+  "dependencies": {
+    "@wdio/cli": "^9.19.0"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "^9.19.0,
+    "@wdio/mocha-framework": "^9.19.0",
+    "@wdio/spec-reporter": "^9.19.0"
+  }
+}
+```
+
+Nous avons un script qui exécute une configuration [WebdriverIO] comme suite de tests, exposée sous la commande `test`. Nous avons aussi plusieurs
+dépendances ajoutées par la commande `@wdio/cli` lors de la première configuration. En bref, ces dépendances servent à
+la configuration la plus simple avec un runner WebDriver local, [Mocha] comme framework de test et un Spec Reporter simple.
+
+<details>
+  <summary>Cliquez ici si vous voulez voir comment configurer un projet depuis zéro</summary>
+
+La CLI est interactive, et vous pouvez choisir vous-même les outils avec lesquels travailler. Notez que vous divergerez probablement
+du reste du guide et devrez configurer vous-même les différences.
+
+Ajoutons la CLI [WebdriverIO] à ce projet npm.
+
+<CommandTabs npm="npm install @wdio/cli" yarn="yarn add @wdio/cli" />
+
+Pour exécuter ensuite la commande de configuration interactive afin de configurer une suite de tests [WebdriverIO], lancez :
+
+<CommandTabs npm="npx wdio config" yarn="yarn wdio config" />
+
+</details>
+
+## Configuration
+
+Vous avez peut-être remarqué que le script `test` dans notre `package.json` mentionne un fichier `wdio.conf.js`. C'est le fichier de
+configuration [WebdriverIO] qui contrôle la plupart des aspects de notre suite de tests.
+
+`wdio.conf.js` :
+
+```javascript
+import os from 'os';
+import path from 'path';
+import { spawn, spawnSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
+// keep track of the `tauri-driver` child process
+let tauriDriver;
+let exit = false;
+
+export const config = {
+  host: '127.0.0.1',
+  port: 4444,
+  specs: ['./develop/tests/specs/**/*.js'],
+  maxInstances: 1,
+  capabilities: [
+    {
+      maxInstances: 1,
+      'tauri:options': {
+        application: '../src-tauri/target/debug/tauri-app',
+      },
+    },
+  ],
+  reporters: ['spec'],
+  framework: 'mocha',
+  mochaOpts: {
+    ui: 'bdd',
+    timeout: 60000,
+  },
+
+  // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
+  onPrepare: () => {
+    // Remove the extra `--` if you're not using npm!
+    spawnSync(
+      'npm',
+      ['run', 'tauri', 'build', '--', '--debug', '--no-bundle'],
+      {
+        cwd: path.resolve(__dirname, '..'),
+        stdio: 'inherit',
+        shell: true,
+      }
+    );
+  },
+
+  // ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
+  beforeSession: () => {
+    tauriDriver = spawn(
+      path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+      [],
+      { stdio: [null, process.stdout, process.stderr] }
+    );
+
+    tauriDriver.on('error', (error) => {
+      console.error('tauri-driver error:', error);
+      process.exit(1);
+    });
+    tauriDriver.on('exit', (code) => {
+      if (!exit) {
+        console.error('tauri-driver exited with code:', code);
+        process.exit(1);
+      }
+    });
+  },
+
+  // clean up the `tauri-driver` process we spawned at the start of the session
+  // note that afterSession might not run if the session fails to start, so we also run the cleanup on shutdown
+  afterSession: () => {
+    closeTauriDriver();
+  },
+};
+
+function closeTauriDriver() {
+  exit = true;
+  tauriDriver?.kill();
+}
+
+function onShutdown(fn) {
+  const cleanup = () => {
+    try {
+      fn();
+    } finally {
+      process.exit();
+    }
+  };
+
+  process.on('exit', cleanup);
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+  process.on('SIGHUP', cleanup);
+  process.on('SIGBREAK', cleanup);
+}
+
+// ensure tauri-driver is closed when our test process exits
+onShutdown(() => {
+  closeTauriDriver();
+});
+```
+
+Si les propriétés de l'objet `config` vous intéressent, nous [suggérons de lire la documentation][webdriver documentation].
+Pour les éléments non spécifiques à WDIO, des commentaires expliquent pourquoi nous exécutons des commandes dans `onPrepare`, `beforeSession`
+et `afterSession`. Nos specs sont aussi définies sur `"./test/specs/**/*.js"`, créons donc maintenant une spec.
+
+## Spec
+
+Une spec contient le code qui teste votre application réelle. Le runner de tests charge ces specs et les exécute automatiquement
+comme il le juge nécessaire. Créons maintenant notre spec dans le répertoire indiqué.
+
+`test/specs/example.e2e.js` :
+
+```javascript
+// calculates the luma from a hex color `#abcdef`
+function luma(hex) {
+  if (hex.startsWith('#')) {
+    hex = hex.substring(1);
+  }
+
+  const rgb = parseInt(hex, 16);
+  const r = (rgb >> 16) & 0xff;
+  const g = (rgb >> 8) & 0xff;
+  const b = (rgb >> 0) & 0xff;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+describe('Hello Tauri', () => {
+  it('should be cordial', async () => {
+    const header = await $('body > h1');
+    const text = await header.getText();
+    expect(text).toMatch(/^[hH]ello/);
+  });
+
+  it('should be excited', async () => {
+    const header = await $('body > h1');
+    const text = await header.getText();
+    expect(text).toMatch(/!$/);
+  });
+
+  it('should be easy on the eyes', async () => {
+    const body = await $('body');
+    const backgroundColor = await body.getCSSProperty('background-color');
+    expect(luma(backgroundColor.parsed.hex)).toBeLessThan(100);
+  });
+});
+```
+
+La fonction `luma` en haut est simplement une fonction utilitaire pour l'un de nos tests et n'est pas liée au test réel
+de l'application. Si vous connaissez d'autres frameworks de test, vous remarquerez peut-être des fonctions similaires exposées et utilisées,
+comme `describe`, `it` et `expect`. Les autres API, comme `$` et ses méthodes exposées, sont couvertes par la [documentation de l'API WebdriverIO].
+
+## Exécuter la suite de tests
+
+Maintenant que la configuration et une spec sont en place, lançons-la.
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+Nous devrions voir la sortie suivante :
+
+```text
+➜  webdriverio git:(main) ✗ yarn test
+yarn run v1.22.11
+$ wdio run wdio.conf.js
+
+Execution of 1 workers started at 2021-08-17T08:06:10.279Z
+
+[0-0] RUNNING in undefined - /develop/tests/specs/example.e2e.js
+[0-0] PASSED in undefined - /develop/tests/specs/example.e2e.js
+
+ "spec" Reporter:
+------------------------------------------------------------------
+[wry 0.12.1 linux #0-0] Running: wry (v0.12.1) on linux
+[wry 0.12.1 linux #0-0] Session ID: 81e0107b-4d38-4eed-9b10-ee80ca47bb83
+[wry 0.12.1 linux #0-0]
+[wry 0.12.1 linux #0-0] » /develop/tests/specs/example.e2e.js
+[wry 0.12.1 linux #0-0] Hello Tauri
+[wry 0.12.1 linux #0-0]    ✓ should be cordial
+[wry 0.12.1 linux #0-0]    ✓ should be excited
+[wry 0.12.1 linux #0-0]    ✓ should be easy on the eyes
+[wry 0.12.1 linux #0-0]
+[wry 0.12.1 linux #0-0] 3 passing (244ms)
+
+
+Spec Files:	 1 passed, 1 total (100% completed) in 00:00:01
+
+Done in 1.98s.
+```
+
+Nous voyons le Spec Reporter indiquer que les 3 tests du fichier `test/specs/example.e2e.js` sont passés, avec le rapport final
+`Spec Files: 1 passed, 1 total (100% completed) in 00:00:01`.
+
+Avec la suite de tests [WebdriverIO], nous venons d'activer facilement les tests e2e pour notre application Tauri avec seulement quelques lignes
+de configuration et une seule commande à exécuter. Mieux encore, nous n'avons pas eu à modifier l'application.
+
+[instructions de prérequis]: /fr/develop/tests/webdriver/manual-setup/
+[vue d'ensemble WebDriver]: /fr/develop/tests/webdriver/
+[webdriverio]: https://webdriver.io/
+[`tauri-driver`]: https://crates.io/crates/tauri-driver
+[`@wdio/tauri-service`]: https://webdriver.io/docs/desktop-testing/tauri
+[projet d'exemple terminé]: https://github.com/tauri-apps/webdriver-example
+[mocha]: https://mochajs.org/
+[webdriver documentation]: https://webdriver.io/docs/configurationfile
+[documentation de l'API WebdriverIO]: https://webdriver.io/docs/api
