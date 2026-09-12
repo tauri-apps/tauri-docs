@@ -27,14 +27,14 @@
     "test": "node --test \"src/**/*.test.ts\""
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.3.3",
+    "@astrojs/markdown-satteri": "^0.3.5",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/starlight": "0.41.7",
     "@lunariajs/core": "^0.1.1",
     "@lunariajs/starlight": "^0.1.1",
     "@types/mdast": "^4.0.4",
     "astro": "7.2.2",
-    "astro-d2": "^0.13.0",
+    "astro-d2": "^0.13.1",
     "astrojs-service-worker": "^2.0.2",
     "mdast-util-definitions": "^6.0.0",
     "mdast-util-to-string": "^4.0.0",
@@ -42,11 +42,11 @@
     "prettier-plugin-astro": "^0.14.1",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
-    "remark-smartypants": "^3.0.2",
-    "sass": "^1.89.0",
-    "sharp": "^0.35.3",
+    "remark-smartypants": "^3.0.3",
+    "sass": "^1.103.1",
+    "sharp": "^0.35.4",
     "starlight-blog": "^0.28.0",
-    "starlight-links-validator": "^0.25.2",
+    "starlight-links-validator": "^0.25.3",
     "starlight-llms-txt": "^0.11.0",
     "starlight-sidebar-topics": "^0.8.0",
     "unified": "^11.0.5"
@@ -56,7 +56,7 @@
     "pnpm": "^12.0.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
-    "typescript": "^7.0.0"
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^7.0.2"
   }
 }
