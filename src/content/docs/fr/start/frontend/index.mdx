@@ -1,49 +1,53 @@
 ---
 title: Configuration Frontend
-
 i18nReady: true
+sidebar:
+  label: Vue d'ensemble
+  order: 10
 ---
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-Tauri est "frontend agnostique" et supporte la plupart des frameworks frontend prêts à l'emploi. Cependant, un framework a parfois besoin d'un peu plus de configuration pour l'intégrer à Tauri. Ci-dessous se trouve une liste des frameworks avec les configurations recommandées.
+Tauri est agnostique côté frontend et prend en charge la plupart des frameworks frontend prêts à l'emploi. Cependant, un framework peut parfois nécessiter un peu de configuration supplémentaire pour s'intégrer à Tauri. Vous trouverez ci-dessous une liste de frameworks avec les configurations recommandées.
 
-Si un framework n'est pas listé, il est possible qu'il fonctionne avec Tauri sans configuration supplémentaire ou qu'il n'ait pas encore été documenté. Toute contribution pour ajouter des frameworks qui requerrait une configuration supplémentaire est la bienvenue pour aider les autres membres de la communautée de Tauri.
+Si un framework n'est pas listé, il peut fonctionner avec Tauri sans configuration supplémentaire, ou ne pas encore être documenté. Toute contribution visant à ajouter un framework qui pourrait nécessiter une configuration supplémentaire est bienvenue pour aider les autres membres de la communauté Tauri.
 
-:::tip[Framework Non Listé ?]
+## Liste de contrôle de configuration
 
-Un framework manque à la liste ? Il peut fonctionner avec Tauri sans configuration supplémentaire requise. Lisez les [instructions de configuration](#instructions-de-configuration) pour une configuration commune.
+Conceptuellement, Tauri agit comme un hôte web statique. Vous devez fournir à Tauri un dossier contenant un mélange de HTML, CSS, JavaScript et éventuellement de WASM qui peut être servi à la webview fournie par Tauri.
 
-:::
-
-## JavaScript
-
-<CardGrid>
-  <LinkCard title="Next.js" href="/fr/start/frontend/nextjs/" />
-  <LinkCard title="Nuxt" href="/fr/start/frontend/nuxt/" />
-  <LinkCard title="Qwik" href="/start/frontend/qwik/" />
-  <LinkCard title="Svelte" href="/start/frontend/sveltekit/" />
-  <LinkCard title="Vite" href="/start/frontend/vite/" />
-</CardGrid>
-
-## Rust
-
-<CardGrid>
-  <LinkCard title="Leptos" href="/start/frontend/leptos/" />
-  <LinkCard title="Trunk" href="/fr/start/frontend/trunk/" />
-</CardGrid>
-
-## Instructions de Configuration
-
-Théoriquement, Tauri agit comme un hôte web statique. Vous avez besoin de fournir à Tauri un dossier contenant un mix de HTML, CSS, Javascript et possiblement de WASM qui peut servir à la vue web que Tauri fourni.
-
-Ci-dessous se trouve une liste des scénarios communs nécessaires pour intégrer un frontend avec Tauri :
+Voici une liste de contrôle des scénarios courants nécessaires pour intégrer un frontend avec Tauri :
 
 {/* TODO: Link to core concept of SSG/SSR, etc. */}
 {/* TODO: Link to mobile development server guide */}
 {/* TODO: Concept of how to do a client-server relationship? */}
 
-- Utilisez la génération statique de site (SSG). Tauri ne supporte pas officiellent les solutions basées sur serveur (par exemple SSR).
-- Pour le développement mobile, un serveur de développement d'un certain type est nécessaire pour héberger le frontend sur votre IP locale.
+- Utilisez la génération de site statique (SSG), les applications monopages (SPA) ou les applications multipages classiques (MPA). Tauri ne prend pas nativement en charge les alternatives basées sur un serveur (comme SSR).
+- Pour le développement mobile, un serveur de développement est nécessaire afin d'héberger le frontend sur votre IP interne.
+- Utilisez une vraie relation client-serveur entre votre app et vos API (pas de solutions hybrides avec SSR).
 
-- Utilisez une relation client-serveur appropriée entre votre application et vos API (pas de solutions hybride avec SSR).
+## JavaScript
+
+{/* TODO: Help me with the wording here lol */}
+Pour la plupart des projets, nous recommandons [Vite](https://vitejs.dev/) pour les frameworks SPA comme React, Vue, Svelte et Solid, mais aussi pour les projets JavaScript ou TypeScript simples. La plupart des autres guides listés ici montrent comment utiliser des méta-frameworks, car ils sont généralement conçus pour SSR et nécessitent donc une configuration particulière.
+
+<CardGrid>
+  <LinkCard title="Next.js" href="/fr/start/frontend/nextjs/" />
+  <LinkCard title="Nuxt" href="/fr/start/frontend/nuxt/" />
+  <LinkCard title="Qwik" href="/fr/start/frontend/qwik/" />
+  <LinkCard title="SvelteKit" href="/fr/start/frontend/sveltekit/" />
+  <LinkCard title="Vite (recommandé)" href="/fr/start/frontend/vite/" />
+</CardGrid>
+
+## Rust
+
+<CardGrid>
+  <LinkCard title="Leptos" href="/fr/start/frontend/leptos/" />
+  <LinkCard title="Trunk" href="/fr/start/frontend/trunk/" />
+</CardGrid>
+
+<br />
+
+:::tip[Framework non listé ?]
+Vous ne voyez pas votre framework ? Il peut fonctionner avec Tauri sans configuration supplémentaire requise. Lisez la [liste de contrôle de configuration](/fr/start/frontend/#liste-de-controle-de-configuration) pour vérifier les configurations courantes.
+:::

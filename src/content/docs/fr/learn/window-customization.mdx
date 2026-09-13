@@ -1,0 +1,312 @@
+---
+title: Personnalisation des fenêtres
+sidebar:
+  order: 1
+tableOfContents:
+  maxHeadingLevel: 4
+i18nReady: true
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+Tauri fournit de nombreuses options pour personnaliser l'apparence et le comportement de la fenêtre de votre app. Vous pouvez créer des barres de titre personnalisées, utiliser des fenêtres transparentes, imposer des contraintes de taille, et plus encore.
+
+## Configuration
+
+Il existe trois façons de modifier la configuration d'une fenêtre :
+
+- <Icon name="external" class="inline-icon" /> [Via
+  tauri.conf.json](/fr/reference/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [Via l'API
+  JavaScript](/fr/reference/javascript/api/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [Via Window en
+  Rust](https://docs.rs/tauri/2.0.0/tauri/window/struct.Window.html)
+
+## Utilisation
+
+- [Créer une barre de titre personnalisée](#creer-une-barre-de-titre-personnalisee)
+- [(macOS) Barre de titre transparente avec couleur d'arrière-plan personnalisée](#macos-barre-de-titre-transparente-avec-couleur-darriere-plan-personnalisee)
+
+### Créer une barre de titre personnalisée
+
+Un usage courant de ces fonctionnalités de fenêtre consiste à créer une barre de titre personnalisée. Ce court tutoriel vous guide dans ce processus.
+
+:::note
+Sur macOS, utiliser une barre de titre personnalisée vous fera aussi perdre certaines fonctionnalités fournies par le système, comme le [déplacement ou l'alignement de la fenêtre](https://support.apple.com/guide/mac-help/work-with-app-windows-mchlp2469/mac). Une autre approche pour personnaliser la barre de titre tout en conservant les fonctions natives consiste à rendre la barre de titre transparente et à définir la couleur d'arrière-plan de la fenêtre. Consultez l'utilisation [(macOS) Barre de titre transparente avec couleur d'arrière-plan personnalisée](#macos-barre-de-titre-transparente-avec-couleur-darriere-plan-personnalisee).
+:::
+
+#### tauri.conf.json
+
+Définissez `decorations` sur `false` dans votre `tauri.conf.json` :
+
+```json title="tauri.conf.json" {4}
+"tauri": {
+	"windows": [
+		{
+			"decorations": false
+		}
+	]
+}
+```
+
+#### Permissions
+
+Ajoutez les permissions de fenêtre dans le fichier de capacité.
+
+Par défaut, toutes les commandes de plugins sont bloquées et ne peuvent pas être utilisées. Vous devez définir une liste de permissions dans votre configuration `capabilities`.
+
+Consultez la [vue d'ensemble des capacités](/fr/security/capabilities/) pour plus d'informations et le [guide étape par étape](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions de plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-start-dragging"
+  ]
+}
+```
+
+| Permission                                   | Description                                                                                 |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `core:window:default`                        | Permissions par défaut du plugin. Cela inclut `core:window:allow-internal-toggle-maximize`. |
+| `core:window:allow-close`                    | Active la commande close sans portée préconfigurée.                                         |
+| `core:window:allow-minimize`                 | Active la commande minimize sans portée préconfigurée.                                      |
+| `core:window:allow-start-dragging`           | Active la commande start_dragging sans portée préconfigurée.                                |
+| `core:window:allow-toggle-maximize`          | Active la commande toggle_maximize sans portée préconfigurée.                               |
+| `core:window:allow-internal-toggle-maximize` | Active la commande internal_toggle_maximize sans portée préconfigurée.                      |
+
+#### CSS
+
+Ajoutez cet exemple CSS pour maintenir la barre en haut de l'écran et styliser les boutons :
+
+```css
+.titlebar {
+  height: 30px;
+  background: #329ea3;
+  user-select: none;
+  display: grid;
+  grid-template-columns: auto max-content;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.titlebar > .controls {
+  display: flex;
+}
+.titlebar button {
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  background-color: transparent;
+}
+.titlebar button:hover {
+  background: #5bbec3;
+}
+```
+
+#### HTML
+
+Placez ceci en haut de votre balise `<body>` :
+
+```html
+<div class="titlebar">
+  <div data-tauri-drag-region></div>
+  <div class="controls">
+    <button id="titlebar-minimize" title="minimize">
+      <!-- https://api.iconify.design/mdi:window-minimize.svg -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="currentColor" d="M19 13H5v-2h14z" />
+      </svg>
+    </button>
+    <button id="titlebar-maximize" title="maximize">
+      <!-- https://api.iconify.design/mdi:window-maximize.svg -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
+      </svg>
+    </button>
+    <button id="titlebar-close" title="close">
+      <!-- https://api.iconify.design/mdi:close.svg -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M13.46 12L19 17.54V19h-1.46L12 13.46L6.46 19H5v-1.46L10.54 12L5 6.46V5h1.46L12 10.54L17.54 5H19v1.46z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+```
+
+Notez que vous devrez peut-être déplacer le reste de votre contenu vers le bas afin que la barre de titre ne le recouvre pas.
+
+:::tip
+
+Sous Windows, si vous voulez simplement une barre de titre qui ne nécessite pas d'interactions personnalisées, vous pouvez utiliser :
+
+```css
+*[data-tauri-drag-region] {
+  app-region: drag;
+}
+```
+
+pour que la barre de titre fonctionne avec les entrées tactiles et au stylet.
+
+:::
+
+#### JavaScript
+
+Utilisez cet extrait pour faire fonctionner les boutons :
+
+```javascript
+import { getCurrentWindow } from '@tauri-apps/api/window';
+
+// when using `"withGlobalTauri": true`, you may use
+// const { getCurrentWindow } = window.__TAURI__.window;
+
+const appWindow = getCurrentWindow();
+
+document
+  .getElementById('titlebar-minimize')
+  ?.addEventListener('click', () => appWindow.minimize());
+document
+  .getElementById('titlebar-maximize')
+  ?.addEventListener('click', () => appWindow.toggleMaximize());
+document
+  .getElementById('titlebar-close')
+  ?.addEventListener('click', () => appWindow.close());
+```
+
+Notez que si vous utilisez un frontend basé sur Rust, vous pouvez copier le code ci-dessus dans un élément `<script>` de votre fichier `index.html`.
+
+:::note
+`data-tauri-drag-region` ne fonctionne que sur l'élément auquel il est directement appliqué. Si vous voulez que le comportement de glisser-déposer s'applique aussi aux éléments enfants, vous devez l'ajouter à chaque enfant individuellement.
+
+Ce comportement est conservé afin que les éléments interactifs comme les boutons et les champs de saisie puissent fonctionner correctement.
+:::
+
+### Implémentation manuelle de `data-tauri-drag-region`
+
+Pour les cas où vous personnalisez le comportement de glissement, vous pouvez ajouter manuellement un listener d'événement avec `window.startDragging` au lieu d'utiliser `data-tauri-drag-region`.
+
+#### HTML
+
+À partir du code de la section précédente, nous retirons `data-tauri-drag-region` et ajoutons un `id` :
+
+```html del={1} ins={2}
+<div data-tauri-drag-region class="titlebar">
+  <div id="titlebar" class="titlebar">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+#### Javascript
+
+Ajoutez un listener d'événement à l'élément de barre de titre :
+
+```js {2-9}
+// ...
+document.getElementById('titlebar')?.addEventListener('mousedown', (e) => {
+  if (e.buttons === 1) {
+    // Primary (left) button
+    e.detail === 2
+      ? appWindow.toggleMaximize() // Maximize on double click
+      : appWindow.startDragging(); // Else start dragging
+  }
+});
+```
+
+### (macOS) Barre de titre transparente avec couleur d'arrière-plan personnalisée
+
+Nous allons créer la fenêtre principale et modifier sa couleur d'arrière-plan côté Rust.
+
+Supprimez la fenêtre principale du fichier `tauri.conf.json` :
+
+    ```json title="tauri.conf.json" del={3-7}
+    "tauri": {
+    	"windows": [
+    		{
+    			"title": "Transparent Titlebar Window",
+    			"width": 800,
+    			"height": 600
+    		}
+    	],
+    }
+    ```
+
+Ajoutez le crate `objc2-app-kit` aux dépendances afin de pouvoir appeler l'API native macOS :
+
+    ```toml title="src-tauri/Cargo.toml"
+    [target."cfg(target_os = \"macos\")".dependencies]
+    objc2-app-kit = { version = "0.3.2", features = ["NSColor", "NSWindow", "objc2-core-foundation"] }
+    ```
+
+Créez la fenêtre principale et modifiez sa couleur d'arrière-plan :
+
+    ```rust title="src-tauri/src/lib.rs"
+    use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
+
+    pub fn run() {
+    	tauri::Builder::default()
+    		.setup(|app| {
+    			let win_builder =
+    				WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
+    					.title("Transparent Titlebar Window")
+    					.inner_size(800.0, 600.0);
+
+    			// set transparent title bar only when building for macOS
+    			#[cfg(target_os = "macos")]
+    			let win_builder = win_builder.title_bar_style(TitleBarStyle::Transparent);
+
+    			let window = win_builder.build().unwrap();
+
+    			// set background color only when building for macOS
+    			#[cfg(target_os = "macos")]
+    			{
+    				use objc2_app_kit::{NSColor, NSWindow};
+
+    				let ns_window_ptr = window.ns_window().unwrap() as *mut NSWindow;
+    				let ns_window = unsafe { &*ns_window_ptr };
+    				let bg_color = NSColor::colorWithRed_green_blue_alpha(
+    					50.0 / 255.0,
+    					158.0 / 255.0,
+    					163.5 / 255.0,
+    					1.0,
+    				);
+    				ns_window.setBackgroundColor(Some(&bg_color));
+    			}
+
+    			Ok(())
+    		})
+    		.run(tauri::generate_context!())
+    		.expect("error while running tauri application");
+    }
+    ```

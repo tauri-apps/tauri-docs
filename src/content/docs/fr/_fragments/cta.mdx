@@ -1,0 +1,54 @@
+---
+title: 'Créer une app Tauri'
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs syncKey="cmd">
+<TabItem label="Bash">
+```sh frame=none
+sh <(curl https://create.tauri.app/sh)
+```
+</TabItem>
+<TabItem label="PowerShell">
+```sh frame=none
+irm https://create.tauri.app/ps | iex
+```
+</TabItem>
+<TabItem label="Fish">
+```sh frame=none
+sh (curl -sSL https://create.tauri.app/sh | psub)
+```
+</TabItem>
+<TabItem label="npm">
+```sh frame=none
+npm create tauri-app@latest
+```
+</TabItem>
+<TabItem label="Yarn">
+```sh frame=none
+yarn create tauri-app
+```
+</TabItem>
+<TabItem label="pnpm">
+```sh frame=none
+pnpm create tauri-app
+```
+</TabItem>
+<TabItem label="deno">
+```sh frame=none
+deno run -A npm:create-tauri-app
+```
+</TabItem>
+<TabItem label="bun">
+```sh frame=none
+bun create tauri-app
+```
+</TabItem>
+<TabItem label="Cargo">
+```sh frame=none
+cargo install create-tauri-app --locked
+cargo create-tauri-app
+```
+</TabItem>
+</Tabs>

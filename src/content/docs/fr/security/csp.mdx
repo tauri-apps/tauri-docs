@@ -1,0 +1,39 @@
+---
+title: Content Security Policy (CSP)
+sidebar:
+  order: 6
+i18nReady: true
+---
+
+Tauri restreint la [Content Security Policy] (CSP) de vos pages HTML. Cela peut servir à réduire ou empêcher l'impact de vulnérabilités web courantes comme le cross-site scripting (XSS).
+
+Les scripts locaux sont hachés, et les styles ainsi que les scripts externes sont référencés à l'aide d'un nonce cryptographique, ce qui empêche le chargement de contenu non autorisé.
+
+:::caution
+Évitez de charger du contenu distant comme des scripts servis via un CDN, car ils introduisent un vecteur d'attaque. De manière générale, tout fichier non fiable peut introduire de nouveaux vecteurs d'attaque subtils.
+:::
+
+La protection CSP n'est activée que si elle est définie dans le fichier de configuration Tauri. Vous devez la rendre aussi restrictive que possible, en n'autorisant la webview à charger des ressources que depuis des hôtes auxquels vous faites confiance, et de préférence que vous possédez. Au moment de la compilation, Tauri ajoute automatiquement ses nonces et hachages aux attributs CSP pertinents pour le code et les ressources groupés, vous n'avez donc à vous soucier que de ce qui est propre à votre application.
+
+Voici un exemple de configuration CSP tiré de l'exemple [`api`](https://github.com/tauri-apps/tauri/blob/dev/examples/api/src-tauri/tauri.conf.json#L22) de Tauri, mais chaque développeur d'application doit l'adapter aux besoins de sa propre application.
+
+```json title="tauri/examples/api/src-tauri/tauri.conf.json"
+  "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "font-src": ["https://fonts.gstatic.com"],
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self' https://fonts.googleapis.com"
+      },
+```
+
+:::tip
+Lorsque vous utilisez Rust pour développer votre frontend, ou si votre frontend utilise WebAssembly d'une autre manière, pensez à inclure `'wasm-unsafe-eval'` comme `script-src`.
+:::
+
+Consultez [`script-src`], [`style-src`] et [CSP Sources] pour plus d'informations sur cette protection.
+
+[content security policy]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+[`script-src`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
+[`style-src`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+[csp sources]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources

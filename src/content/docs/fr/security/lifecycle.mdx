@@ -1,0 +1,117 @@
+---
+title: Menaces du cycle de vie de l'application
+sidebar:
+  order: 9
+i18nReady: true
+---
+
+Les applications Tauri sont composées de nombreux éléments à différents moments du cycle de vie de l'application. Nous décrivons ici des menaces classiques et ce que vous DEVRIEZ faire à leur sujet.
+
+Toutes ces étapes distinctes sont décrites dans les sections suivantes.
+
+![Étapes des menaces pendant le développement](@assets/concept/application-flow-simple.svg)
+
+:::note
+Le maillon le plus faible du cycle de vie de votre application définit essentiellement votre sécurité. Chaque étape peut compromettre les hypothèses et l'intégrité de toutes les étapes suivantes, il est donc important de garder une vision d'ensemble en permanence.
+:::
+
+## Menaces amont
+
+Tauri est une dépendance directe de votre projet, et nous maintenons un contrôle strict des auteurs sur les commits, revues, pull requests et releases. Nous faisons de notre mieux pour garder les dépendances à jour et agir soit en mettant à jour, soit en forkant et corrigeant. D'autres projets peuvent ne pas être aussi bien maintenus, et peuvent même n'avoir jamais été audités.
+
+Veuillez tenir compte de leur santé lorsque vous les intégrez ; sinon, vous pourriez adopter une dette architecturale sans même le savoir.
+
+### Garder vos applications à jour
+
+Lorsque vous publiez votre app, vous livrez aussi un bundle qui contient Tauri. Les vulnérabilités affectant Tauri peuvent avoir un impact sur la sécurité de votre application. En mettant Tauri à jour vers la dernière version, vous vous assurez que les vulnérabilités critiques sont déjà corrigées et ne peuvent pas être exploitées dans votre application. Veillez également à garder votre compilateur (`rustc`) et vos transpileurs (`nodejs`) à jour, car ils corrigent souvent des problèmes de sécurité. Cela vaut aussi pour votre système de développement en général.
+
+### Évaluer vos dépendances
+
+Même si NPM et Crates.io fournissent de nombreux paquets pratiques, il est de votre responsabilité de choisir des bibliothèques tierces dignes de confiance, ou de les réécrire en Rust. Si vous utilisez des bibliothèques obsolètes affectées par des vulnérabilités connues ou non maintenues, la sécurité de votre application et votre tranquillité pourraient être compromises.
+
+Utilisez des outils comme [`npm audit`](https://docs.npmjs.com/cli/v10/commands/npm-audit) et [`cargo audit`](https://crates.io/crates/cargo-audit) pour automatiser ce processus, et appuyez-vous sur le travail important de la communauté de la sécurité.
+
+Les tendances récentes de l'écosystème Rust comme [`cargo-vet`](https://github.com/mozilla/cargo-vet) ou [`cargo crev`](https://github.com/crev-dev/cargo-crev) peuvent aider à réduire davantage la probabilité d'attaques de chaîne d'approvisionnement. Pour savoir sur quelles épaules vous vous tenez, vous pouvez utiliser l'outil [`cargo supply chain`](https://github.com/rust-secure-code/cargo-supply-chain).
+
+Une pratique que nous recommandons fortement consiste à ne consommer les dépendances critiques depuis git qu'en utilisant, au mieux, des révisions par hash ou, au second choix, des tags nommés. Cela vaut pour Rust comme pour l'écosystème Node.
+
+## Menaces de développement
+
+Nous partons du principe que vous, le développeur, prenez soin de votre environnement de développement. Il vous revient de vous assurer que votre système d'exploitation, vos chaînes d'outils de build et les dépendances associées sont maintenus à jour et raisonnablement sécurisés.
+
+Un risque réel auquel nous faisons tous face est ce qu'on appelle les « attaques de chaîne d'approvisionnement », généralement considérées comme des attaques contre les dépendances directes de votre projet. Cependant, une classe croissante d'attaques dans la nature cible directement les machines de développement, et vous avez tout intérêt à l'aborder frontalement.
+
+### Serveur de développement
+
+Les frontends d'applications Tauri peuvent être développés avec plusieurs frameworks web. Chacun de ces frameworks fournit généralement son propre serveur de développement, qui expose les ressources frontend via un port ouvert au système local ou au réseau. Cela permet le rechargement à chaud et le débogage du frontend dans la WebView ou le navigateur.
+
+En pratique, cette connexion n'est souvent ni chiffrée ni authentifiée par défaut. C'est également le cas du serveur de développement intégré de Tauri, ce qui expose votre frontend et vos ressources au réseau local. De plus, cela permet à des attaquants de pousser leur propre code frontend vers des appareils de développement présents sur le même réseau qu'eux. Selon les fonctionnalités exposées, cela pourrait conduire à la compromission de l'appareil dans le pire des cas.
+
+Vous ne devriez développer que sur des réseaux de confiance où vous pouvez exposer votre appareil de développement en sécurité. Si ce n'est pas possible, vous DEVEZ vous assurer que votre serveur de développement utilise une authentification et un chiffrement **mutuels** (par exemple mTLS) pour les connexions avec vos appareils de développement.
+
+:::note
+Le serveur de développement intégré de Tauri ne prend pas en charge l'authentification mutuelle ni le chiffrement du transport pour le moment, et ne devrait pas être utilisé sur des réseaux non fiables.
+:::
+
+### Durcir les machines de développement
+
+Le durcissement de vos systèmes de développement dépend de divers facteurs et de votre modèle de menace personnel, mais voici quelques conseils génériques que nous recommandons de suivre :
+
+- N'utilisez jamais de comptes administrateur pour les tâches quotidiennes comme le développement
+- N'utilisez jamais de secrets de production sur les machines de développement
+- Empêchez l'ajout de secrets dans le contrôle de version du code source
+- Utilisez des tokens matériels de sécurité ou des solutions similaires pour réduire l'impact de systèmes compromis
+- Gardez votre système à jour
+- Limitez au minimum les applications installées
+
+Une collection plus pratique de procédures se trouve dans une [collection awesome de durcissement de sécurité](https://github.com/decalage2/awesome-security-hardening).
+
+Vous pouvez bien sûr virtualiser votre environnement de développement pour tenir les attaquants à distance, mais cela ne vous protégera pas des attaques qui ciblent votre projet plutôt que seulement votre machine.
+
+### Garantir l'authentification et l'autorisation du contrôle de source
+
+Si vous travaillez comme la majorité des développeurs, utiliser des outils et fournisseurs de services de contrôle de version du code source est une étape essentielle du développement.
+
+Pour garantir que votre code source ne puisse pas être modifié par des acteurs non autorisés, il est important de comprendre et de configurer correctement le contrôle d'accès de votre système de gestion de version.
+
+Envisagez également d'exiger que tous les contributeurs réguliers signent leurs commits afin d'éviter les situations où des commits malveillants seraient attribués à des contributeurs non compromis ou non malveillants.
+
+## Menaces au moment du build
+
+Les organisations modernes utilisent la CI/CD pour produire des artefacts binaires.
+
+Vous devez pouvoir faire pleinement confiance à ces systèmes distants (et détenus par des tiers), car ils ont accès au code source, aux secrets et peuvent modifier les builds sans que vous puissiez prouver de manière vérifiable que les binaires produits sont identiques à votre code local. Cela signifie que vous devez soit faire confiance à un fournisseur réputé, soit héberger ces systèmes sur votre propre matériel contrôlé.
+
+Chez Tauri, nous fournissons un workflow GitHub pour construire sur plusieurs plateformes. Si vous créez votre propre CI/CD et dépendez d'outils tiers, méfiez-vous des actions dont vous n'avez pas explicitement fixé les versions.
+
+Vous devriez signer vos binaires pour la plateforme sur laquelle vous les distribuez. Même si cela peut être compliqué et assez coûteux à mettre en place, les utilisateurs finaux s'attendent à pouvoir vérifier que votre app vient bien de vous.
+
+Si les secrets cryptographiques sont correctement stockés sur des tokens matériels, un système de build compromis ne pourra pas divulguer les clés de signature impliquées, mais il pourrait les utiliser pour signer des releases malveillantes.
+
+### Builds reproductibles
+
+Pour lutter contre l'injection de portes dérobées au moment du build, vos builds doivent être reproductibles, afin que vous puissiez vérifier que les ressources de build sont exactement les mêmes lorsque vous les construisez localement ou chez un autre fournisseur indépendant.
+
+Le premier problème est que Rust ne produit pas par défaut des builds reproductibles de manière entièrement **fiable**. Il prend cela en charge en théorie, mais il reste des bugs, et cela a récemment cassé sur une release.
+
+Vous pouvez suivre l'état actuel dans le [bug tracker public](https://github.com/rust-lang/rust/labels/A-reproducibility) du projet Rust.
+
+Le problème suivant que vous rencontrerez est que de nombreux bundlers frontend courants ne produisent pas non plus de sortie reproductible ; les ressources groupées peuvent donc également casser les builds reproductibles.
+
+Cela signifie que vous ne pouvez pas vous appuyer pleinement sur les builds reproductibles par défaut et que, malheureusement, vous devez faire entièrement confiance à vos systèmes de build.
+
+## Menaces de distribution
+
+Nous avons fait de notre mieux pour rendre l'expédition de mises à jour à chaud de l'app aussi simple et sécurisée que possible. Cependant, tout devient caduc si vous perdez le contrôle du serveur de manifeste, du serveur de build ou du service d'hébergement des binaires.
+
+Si vous construisez votre propre système, consultez un architecte OPS professionnel et construisez-le correctement.
+
+Si vous cherchez une autre solution de distribution fiable pour les apps Tauri, notre partenaire CrabNebula propose une offre : [https://crabnebula.dev/cloud](https://crabnebula.dev/cloud)
+
+## Menaces à l'exécution
+
+Nous partons du principe que la webview n'est pas sécurisée, ce qui a conduit Tauri à implémenter plusieurs protections concernant l'accès de la webview aux API système dans le contexte du chargement de contenu utilisateur non fiable.
+
+L'utilisation de la [Content Security Policy](/fr/security/csp/) verrouillera les types de communication que la WebView peut entreprendre. De plus, les [capacités](/fr/security/capabilities/) peuvent empêcher du contenu ou des scripts non fiables d'accéder à l'API dans la WebView.
+
+Nous recommandons également de mettre en place un moyen simple et sécurisé de signaler les vulnérabilités, similaire à [notre processus](/fr/security/#divulgation-coordonnee).

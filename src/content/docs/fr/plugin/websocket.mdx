@@ -1,0 +1,118 @@
+---
+title: Websocket
+description: Ouvrir une connexion WebSocket avec un client Rust en JavaScript.
+plugin: websocket
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Ouvrez une connexion WebSocket avec un client Rust en JavaScript.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin websocket pour commencer.
+
+<Tabs>
+	<TabItem label="Automatique" >
+		Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    		{ ' ' }
+
+    		<CommandTabs
+                npm="npm run tauri add websocket"
+                yarn="yarn run tauri add websocket"
+                pnpm="pnpm tauri add websocket"
+                bun="bun tauri add websocket"
+                deno="deno task tauri add websocket"
+                cargo="cargo tauri add websocket"
+    		/>
+    </TabItem>
+
+    <TabItem label = "Manuelle">
+    	<Steps>
+
+          1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+              ```sh frame=none
+              cargo add tauri-plugin-websocket
+              ```
+
+          2. Modifiez `lib.rs` pour initialiser le plugin :
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_websocket::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. Installez les bindings JavaScript Guest avec votre gestionnaire de paquets JavaScript préféré :
+
+              <CommandTabs
+                      npm = "npm install @tauri-apps/plugin-websocket"
+                      yarn = "yarn add @tauri-apps/plugin-websocket"
+                      pnpm = "pnpm add @tauri-apps/plugin-websocket"
+                      deno = "deno add npm:@tauri-apps/plugin-websocket"
+                      bun = "bun add @tauri-apps/plugin-websocket"
+              />
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Utilisation
+
+Le plugin websocket est disponible en JavaScript.
+
+```javascript
+import WebSocket from '@tauri-apps/plugin-websocket';
+// when using `"withGlobalTauri": true`, you may use
+// const WebSocket = window.__TAURI__.websocket;
+
+const ws = await WebSocket.connect('ws://127.0.0.1:8080');
+
+const removeListener = ws.addListener((msg) => {
+  console.log('Received Message:', msg);
+});
+
+await ws.send('Hello World!');
+
+// optionally remove the listener
+removeListener();
+
+await ws.disconnect();
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées de plugins potentiellement dangereuses sont bloquées et ne peuvent pas être utilisées. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capacités](/fr/security/capabilities/) pour plus d'informations et le [guide étape par étape](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions de plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["websocket:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

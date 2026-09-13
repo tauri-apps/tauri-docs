@@ -1,0 +1,504 @@
+---
+title: Développement de plugins
+i18nReady: true
+sidebar:
+  label: Vue d'ensemble
+  order: 10
+---
+
+{/* TODO: Add a CLI section */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[Développement de plugins]
+
+Ce guide concerne le développement de plugins Tauri. Si vous cherchez la liste des plugins actuellement disponibles et comment les utiliser, consultez la liste [Fonctionnalités et recettes](/fr/plugin/).
+
+:::
+
+Les plugins peuvent se brancher sur le cycle de vie de Tauri, exposer du code Rust qui s'appuie sur les API de webview, gérer des commandes avec du code Rust, Kotlin ou Swift, et bien plus encore.
+
+Tauri offre un système de fenêtrage avec fonctionnalités de webview, un moyen d'envoyer des messages entre le processus Rust et la webview, ainsi qu'un système d'événements et plusieurs outils pour améliorer l'expérience de développement. Par conception, le cœur de Tauri ne contient pas de fonctionnalités dont tout le monde n'a pas besoin. À la place, il fournit un mécanisme pour ajouter des fonctionnalités externes à une application Tauri : les plugins.
+
+Un plugin Tauri est composé d'une crate Cargo et d'un package NPM optionnel fournissant les bindings d'API pour ses commandes et événements. Un projet de plugin peut aussi inclure un projet de bibliothèque Android et un package Swift pour iOS. Vous pouvez en apprendre plus sur le développement de plugins pour Android et iOS dans le [guide de développement de plugins mobiles](/fr/develop/plugins/develop-mobile/).
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## Convention de nommage
+
+Les plugins Tauri ont un préfixe suivi du nom du plugin. Le nom du plugin est indiqué dans la configuration du plugin sous [`tauri.conf.json > plugins`](/reference/config/#pluginconfig).
+
+Par défaut, Tauri préfixe la crate de votre plugin avec `tauri-plugin-`. Cela aide votre plugin à être découvert par la communauté Tauri et à être utilisé avec la CLI Tauri. Lorsque vous initialisez un nouveau projet de plugin, vous devez fournir son nom. Le nom de crate généré sera `tauri-plugin-{plugin-name}` et le nom du package JavaScript NPM sera `tauri-plugin-{plugin-name}-api` (même si nous recommandons d'utiliser un [scope NPM](https://docs.npmjs.com/about-scopes) si possible). La convention de nommage Tauri pour les packages NPM est `@scope-name/plugin-{plugin-name}`.
+
+### Règles d'identifiants
+
+La partie `{plugin-name}` d'une crate de plugin, ainsi que tout identifiant de permission référencé dans des capabilities, doivent respecter la syntaxe d'identifiant de Tauri :
+
+- Lettres ASCII minuscules (`a` à `z`), chiffres (`0` à `9`) et tirets (`-`).
+- Les tirets ne peuvent pas être le premier ou le dernier caractère.
+- Un seul deux-points (`:`) est autorisé uniquement lorsque l'identifiant utilise un préfixe (par exemple `<plugin-name>:<permission-name>`).
+- Les underscores (`_`), majuscules et autres caractères ne sont pas autorisés.
+- Le nom de base est limité à 64 caractères ; avec un préfixe, l'identifiant complet est limité à 129 caractères.
+
+Exemples :
+
+| Identifiant               |         Valide ?          |
+| ------------------------- | :-----------------------: |
+| `sqlite`                  |             ✓             |
+| `sqlite-store`            |             ✓             |
+| `sqlite-store:allow-read` |             ✓             |
+| `sqlite_store`            |      ✗ (underscore)       |
+| `SqliteStore`             |       ✗ (majuscule)       |
+| `-sqlite`                 |     ✗ (tiret en tête)     |
+| `sqlite-`                 |     ✗ (tiret en fin)      |
+| `sqlite::store`           | ✗ (séparateurs multiples) |
+
+Si un identifiant de plugin ou de permission enfreint ces règles, le build échoue avec l'erreur `identifiers can only include lowercase ASCII, hyphens which are not leading or trailing, and a single colon if using a prefix`. La valeur fautive est généralement le nom du plugin dans le `Cargo.toml` de votre plugin ou un identifiant de permission dans un fichier `permissions/*.toml`.
+
+## Initialiser un projet de plugin
+
+Pour démarrer un nouveau projet de plugin, exécutez `plugin new`. Si vous n'avez pas besoin du package NPM, utilisez le flag CLI `--no-api`. Si vous voulez initialiser le plugin avec le support Android et/ou iOS, utilisez les flags `--android` et/ou `--ios`.
+
+Après l'installation, vous pouvez exécuter la commande suivante pour créer un projet de plugin :
+
+<CommandTabs npm="npx @tauri-apps/cli plugin new [name]" />
+
+Cela initialisera le plugin dans le répertoire `tauri-plugin-[name]` et, selon les flags CLI utilisés, le projet obtenu ressemblera à ceci :
+
+```
+. tauri-plugin-[name]/
+├── src/                - Code Rust
+│ ├── commands.rs       - Définit les commandes utilisables par la webview
+| ├── desktop.rs        - Implémentation desktop
+| ├── error.rs          - Type d'erreur par défaut à utiliser dans les résultats retournés
+│ ├── lib.rs            - Réexporte l'implémentation appropriée, configure l'état...
+│ ├── mobile.rs         - Implémentation mobile
+│ └── models.rs         - Structs partagées
+├── permissions/        - Contient les fichiers de permissions (générés) pour les commandes
+├── android             - Bibliothèque Android
+├── ios                 - Package Swift
+├── guest-js            - Code source des bindings d'API JavaScript
+├── dist-js             - Assets transpilés depuis guest-js
+├── Cargo.toml          - Métadonnées de la crate Cargo
+└── package.json        - Métadonnées du package NPM
+```
+
+Si vous avez un plugin existant et souhaitez lui ajouter des capacités Android ou iOS, vous pouvez utiliser `plugin android add` et `plugin ios add` pour créer les projets de bibliothèques mobiles et vous guider dans les changements nécessaires.
+
+## Déclarer le support des plateformes
+
+Les plugins peuvent déclarer les plateformes qu'ils prennent en charge, et dans quelle mesure, dans la section `[package.metadata.platforms.support]` du `Cargo.toml` de la crate :
+
+```toml title="Cargo.toml"
+[package.metadata.platforms.support]
+windows = { level = "full" }
+linux = { level = "full" }
+macos = { level = "full" }
+android = { level = "partial", notes = "Access is restricted to the Application folder by default" }
+ios = { level = "none" }
+```
+
+Chaque clé est une plateforme (`windows`, `linux`, `macos`, `android`, `ios`) et accepte deux champs :
+
+- `level` (requis) : `"full"` si le plugin fonctionne comme prévu, `"partial"` s'il fonctionne avec des limitations, ou `"none"` si la plateforme n'est pas prise en charge.
+- `notes` (optionnel) : une courte description des réserves ou limitations. Elle est rendue en Markdown sur la page du plugin. Dans le [tableau de support](/fr/plugin/#support-table), elle apparaît comme texte brut dans une infobulle.
+
+Le tableau de support et le filtre par plateforme de la page [Features & Recipes](/fr/plugin/) sont générés à partir de ces métadonnées.
+
+## Développement de plugins mobiles
+
+Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et Swift. Le template de plugin par défaut inclut un projet de bibliothèque Android utilisant Kotlin et un package Swift. Il inclut un exemple de commande mobile montrant comment déclencher son exécution depuis le code Rust.
+
+Pour en savoir plus sur le développement de plugins mobiles, consultez le [guide de développement de plugins mobiles](/fr/develop/plugins/develop-mobile/).
+
+## Configuration du plugin
+
+Dans l'application Tauri où le plugin est utilisé, la configuration du plugin est indiquée dans `tauri.conf.json`, où `plugin-name` est le nom du plugin :
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+La configuration du plugin est définie sur le `Builder` et analysée à l'exécution. Voici un exemple de struct `Config` utilisée pour préciser la configuration du plugin :
+
+```rust title="src/lib.rs"
+use serde::Deserialize;
+use tauri::{
+    plugin::{Builder, TauriPlugin},
+    Runtime,
+};
+
+// Define the plugin config
+#[derive(Deserialize)]
+pub struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
+  // Make the plugin config optional
+  // by using `Builder::<R, Option<Config>>` instead
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config().timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## Événements du cycle de vie
+
+Les plugins peuvent se brancher sur plusieurs événements du cycle de vie :
+
+- [setup](#setup) : le plugin est initialisé
+- [on_navigation](#on_navigation) : la webview tente d'effectuer une navigation
+- [on_webview_ready](#on_webview_ready) : une nouvelle fenêtre est créée
+- [on_event](#on_event) : événements de boucle d'événements
+- [on_drop](#on_drop) : le plugin est déconstruit
+
+Il existe des [événements de cycle de vie supplémentaires pour les plugins mobiles](/fr/develop/plugins/develop-mobile/#lifecycle-events).
+
+### setup
+
+- **Quand** : le plugin est initialisé
+- **Pourquoi** : enregistrer les plugins mobiles, gérer l'état, exécuter des tâches en arrière-plan
+
+```rust title="src/lib.rs"
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### on_navigation
+
+- **Quand** : la webview tente d'effectuer une navigation
+- **Pourquoi** : valider la navigation ou suivre les changements d'URL
+
+Retourner `false` annule la navigation.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // Cancels the navigation if forbidden
+    url.scheme() != "forbidden"
+  })
+```
+
+### on_webview_ready
+
+- **Quand** : une nouvelle fenêtre a été créée
+- **Pourquoi** : exécuter un script d'initialisation pour chaque fenêtre
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
+  })
+```
+
+### on_event
+
+- **Quand** : événements de boucle d'événements
+- **Pourquoi** : gérer les événements core comme les événements de fenêtre, les événements de menu et les demandes de fermeture de l'application
+
+Avec ce hook de cycle de vie, vous pouvez être notifié de n'importe quel [événement](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html) de boucle d'événements.
+
+```rust title="src/lib.rs"
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // user requested a window to be closed and there's no windows left
+
+        // we can prevent the app from exiting:
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // app is going to exit, you can cleanup here
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### on_drop
+
+- **Quand** : le plugin est déconstruit
+- **Pourquoi** : exécuter du code quand le plugin a été détruit
+
+Consultez [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) pour plus d'informations.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // plugin has been destroyed...
+  })
+```
+
+## Exposer des API Rust
+
+Les API du plugin définies dans les fichiers `desktop.rs` et `mobile.rs` du projet sont exportées à l'utilisateur sous forme d'une struct portant le même nom que le plugin (en PascalCase). Lorsque le plugin est configuré, une instance de cette struct est créée et gérée comme un état afin que les utilisateurs puissent la récupérer à tout moment avec une instance `Manager` (comme `AppHandle`, `App` ou `Window`) via le trait d'extension défini dans le plugin.
+
+Par exemple, le [`plugin global-shortcut`](/fr/plugin/global-shortcut/) définit une struct `GlobalShortcut`, qui peut être lue avec la méthode `global_shortcut` du trait `GlobalShortcutExt` :
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## Ajouter des commandes
+
+Les commandes sont définies dans le fichier `commands.rs`. Ce sont des commandes d'applications Tauri classiques. Elles peuvent accéder directement aux instances AppHandle et Window, accéder à l'état et recevoir des entrées de la même façon que les commandes d'application. Lisez le [guide des commandes](/fr/develop/calling-rust/) pour plus de détails sur les commandes Tauri.
+
+Cette commande montre comment accéder aux instances `AppHandle` et `Window` via l'injection de dépendances, et prend deux paramètres d'entrée (`on_progress` et `url`) :
+
+```rust title="src/commands.rs"
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // implement command logic here
+  on_progress.send(100).unwrap();
+}
+```
+
+Pour exposer la commande à la webview, vous devez vous brancher sur l'appel `invoke_handler()` dans `lib.rs` :
+
+```rust title="src/lib.rs"
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+Définissez une fonction de binding dans `webview-src/index.ts` afin que les utilisateurs du plugin puissent appeler facilement la commande en JavaScript :
+
+```js name="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/core'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+Assurez-vous de construire le code TypeScript avant de le tester.
+
+### Permissions de commande
+
+Par défaut, vos commandes ne sont pas accessibles depuis le frontend. Si vous essayez d'en exécuter une, vous recevrez un rejet avec erreur d'accès refusé.
+Pour exposer réellement des commandes, vous devez aussi définir des permissions qui autorisent chaque commande.
+
+#### Fichiers de permissions
+
+Les permissions sont définies sous forme de fichiers JSON ou TOML dans le répertoire `permissions`. Chaque fichier peut définir une liste de permissions, une liste de jeux de permissions et la permission par défaut de votre plugin.
+
+##### Permissions
+
+Une permission décrit les privilèges des commandes de votre plugin. Elle peut autoriser ou refuser une liste de commandes et associer des scopes propres à une commande ou globaux.
+
+```toml title="permissions/start-server.toml"
+"$schema" = "schemas/schema.json"
+
+[[permission]]
+identifier = "allow-start-server"
+description = "Enables the start_server command."
+commands.allow = ["start_server"]
+
+[[permission]]
+identifier = "deny-start-server"
+description = "Denies the start_server command."
+commands.deny = ["start_server"]
+```
+
+##### Scope
+
+Les scopes permettent à votre plugin de définir des restrictions plus fines pour des commandes individuelles.
+Chaque permission peut définir une liste d'objets de scope indiquant ce qui doit être autorisé ou refusé, soit spécifiquement pour une commande, soit globalement pour le plugin.
+
+Définissons une struct d'exemple qui contiendra les données de scope pour une liste de binaires qu'un plugin `shell` est autorisé à lancer :
+
+```rust title="src/scope.rs"
+#[derive(Debug, schemars::JsonSchema)]
+pub struct Entry {
+    pub binary: String,
+}
+```
+
+###### Scope de commande
+
+Le consommateur de votre plugin peut définir un scope pour une commande spécifique dans son fichier de capability (voir la [documentation](/reference/acl/scope/)).
+Vous pouvez lire le scope propre à la commande avec la struct [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) :
+
+```rust title="src/commands.rs"
+use tauri::ipc::CommandScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+  let allowed = command_scope.allows();
+  let denied = command_scope.denies();
+  todo!()
+}
+```
+
+###### Scope global
+
+Lorsqu'une permission ne définit aucune commande à autoriser ou refuser, elle est considérée comme une permission de scope et ne doit définir qu'un scope global pour votre plugin :
+
+```toml title="permissions/spawn-node.toml"
+[[permission]]
+identifier = "allow-spawn-node"
+description = "This scope permits spawning the `node` binary."
+
+[[permission.scope.allow]]
+binary = "node"
+```
+
+Vous pouvez lire le scope global avec la struct [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html) :
+
+```rust title="src/commands.rs"
+use tauri::ipc::GlobalScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+  let allowed = scope.allows();
+  let denied = scope.denies();
+  todo!()
+}
+```
+
+:::note
+Nous recommandons de vérifier à la fois les scopes globaux et les scopes de commande pour plus de flexibilité.
+:::
+
+###### Schéma
+
+L'entrée de scope nécessite la dépendance `schemars` pour générer un schéma JSON, afin que les consommateurs du plugin connaissent le format du scope et disposent de l'autocomplétion dans leurs IDE.
+
+Pour définir le schéma, ajoutez d'abord la dépendance à votre fichier Cargo.toml :
+
+```toml
+# we need to add schemars to both dependencies and build-dependencies because the scope.rs module is shared between the app code and build script
+[dependencies]
+schemars = "0.8"
+
+[build-dependencies]
+schemars = "0.8"
+```
+
+Dans votre script de build, ajoutez le code suivant :
+
+```rust title="build.rs"
+#[path = "src/scope.rs"]
+mod scope;
+
+const COMMANDS: &[&str] = &[];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS)
+        .global_scope_schema(schemars::schema_for!(scope::Entry))
+        .build();
+}
+```
+
+##### Jeux de permissions
+
+Les jeux de permissions sont des groupes de permissions individuelles qui aident les utilisateurs à gérer votre plugin avec un niveau d'abstraction plus élevé.
+Par exemple, si une seule API utilise plusieurs commandes ou s'il existe un lien logique entre plusieurs commandes, vous devez définir un jeu qui les contient :
+
+```toml title="permissions/websocket.toml"
+"$schema" = "schemas/schema.json"
+[[set]]
+identifier = "allow-websocket"
+description = "Allows connecting and sending messages through a WebSocket"
+permissions = ["allow-connect", "allow-send"]
+```
+
+##### Permission par défaut
+
+La permission par défaut est un jeu de permissions spécial avec l'identifiant `default`. Il est recommandé d'activer les commandes requises par défaut.
+Par exemple, le plugin `http` est inutile si la commande `request` n'est pas autorisée :
+
+```toml title="permissions/default.toml"
+"$schema" = "schemas/schema.json"
+[default]
+description = "Allows making HTTP requests"
+permissions = ["allow-request"]
+```
+
+#### Permissions autogénérées
+
+La façon la plus simple de définir des permissions pour chacune de vos commandes est d'utiliser l'option d'autogénération définie dans le script de build de votre plugin, dans le fichier `build.rs`.
+Dans la constante `COMMANDS`, définissez la liste des commandes en snake_case (elle doit correspondre au nom de la fonction de commande) et Tauri générera automatiquement les permissions `allow-$commandname` et `deny-$commandname`.
+
+L'exemple suivant génère les permissions `allow-upload` et `deny-upload` :
+
+```rust title="src/commands.rs"
+const COMMANDS: &[&str] = &["upload"];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS).build();
+}
+```
+
+Consultez la documentation [Vue d'ensemble des permissions](/fr/security/permissions/) pour plus d'informations.
+
+## Gérer l'état
+
+Un plugin peut gérer l'état de la même manière qu'une application Tauri. Lisez le [guide de gestion d'état](/fr/develop/state-management/) pour plus d'informations.
