@@ -22,7 +22,7 @@ Tauri 提供了一个简单的事件系统，您可以使用它在 Rust 和前�
 
 Tauri 命令和 Tauri 事件之间的主要区别在于，事件没有强类型支持，
 事件有效负载始终是 JSON 字符串，这使得它们不适合更大的消息，
-并且不支持 [功能] 系统对事件数据和渠道进行细粒度控制。
+并且不支持 [授权配置] 系统对事件数据和渠道进行细粒度控制。
 
 [AppHandle] 和 [WebviewWindow] 类型实现了事件系统特征 [Listener] 和 [Emitter] 。
 
@@ -267,4 +267,4 @@ tauri::Builder::default()
 [Clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
 [Serialize]: https://serde.rs/impl-serialize.html
 [从前端调用 Rust]: /develop/calling-rust/
-[功能]: /security/capabilities/
+[授权配置]: /security/capabilities/
