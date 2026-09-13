@@ -47,21 +47,6 @@ tauri-runtime-cef = "3.0.0-alpha.0"
 
 This dependency is what selects CEF for the whole toolchain. `tauri-build` and the Tauri CLI detect it in the manifest, and only then ship the CEF binary distribution with the bundle, sign the app with the entitlements Chromium needs on macOS, and run the app from inside an `.app` bundle in `tauri dev`.
 
-:::note[Git dependency during the alpha]
-
-`tauri-runtime-cef` is not published to crates.io yet because it depends on a Git fork of `winit`. Until it is, depend on it from the Tauri repository and patch the other Tauri crates to the same source, so that a single copy of each crate is compiled:
-
-```toml title="src-tauri/Cargo.toml"
-[dependencies]
-tauri-runtime-cef = { git = "https://github.com/tauri-apps/tauri", branch = "v3" }
-
-[patch.crates-io]
-tauri = { git = "https://github.com/tauri-apps/tauri", branch = "v3" }
-tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "v3" }
-```
-
-:::
-
 The `devtools`, `macos-private-api`, and `unstable` Cargo features are enabled on the runtime crate. See [Runtime Crate Features](/develop/webview-runtime/#runtime-crate-features).
 
 ### Entry Point
@@ -286,21 +271,6 @@ DevTools open with F12 or Ctrl+Shift+I and through the context menu, and `Webvie
 
 The Debian and RPM packages install Chromium's setuid `chrome-sandbox` helper with mode 4755, so packaged apps always have a working sandbox.
 An AppImage cannot: its payload is mounted `nosuid`, so it relies on unprivileged user namespaces, which some distributions restrict. See [Process Sandbox](#process-sandbox) for what happens there.
-
-### Shared Runtime
-
-Set `bundle > cef > embed` to `false` for an app that loads CEF at run time from a shared, machine-wide runtime outside its own bundle. The app locates that runtime through the `TAURI_CEF_LIBRARY_PATH` environment variable.
-The framework, `libcef`, and their resources are then left out of every bundle, and the app must find a runtime at launch or it does not start. On macOS the helper apps are still produced, since they belong to the app rather than to the distribution.
-
-```json title="src-tauri/tauri.conf.json"
-{
-  "bundle": {
-    "cef": {
-      "embed": false
-    }
-  }
-}
-```
 
 ## Example
 
