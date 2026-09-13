@@ -44,14 +44,14 @@ Tauri 的安全模型严格区分以下两类代码：
 由插件或应用程序核心执行的任何代码均可完全访问所有可用系统资源，且不受任何限制。
 
 在 WebView 中执行的代码，仅能通过明确定义的进程间通信（IPC）层访问系统资源。
-核心应用命令的访问权限由应用配置中定义的能力（capabilities）进行配置和限制，而每个命令的具体实现还会根据能力配置中定义的细粒度访问级别进行强制校验。
+应用配置中的授权配置（Capability）用于控制和限制对应用核心命令的访问。各命令的具体实现则负责执行授权配置中可选的细粒度访问限制。
 
 详细了解各组件及边界执行机制：
 
 <CardGrid>
   <LinkCard title="权限" href="/zh-cn/security/permissions/" />
   <LinkCard title="作用域" href="/zh-cn/security/scope/" />
-  <LinkCard title="能力" href="/zh-cn/security/capabilities/" />
+  <LinkCard title="授权配置" href="/zh-cn/security/capabilities/" />
   <LinkCard title="运行时权限" href="/zh-cn/security/runtime-authority/" />
 </CardGrid>
 

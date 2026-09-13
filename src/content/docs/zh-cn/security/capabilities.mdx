@@ -1,0 +1,227 @@
+---
+title: 授权配置
+sidebar:
+  order: 4
+i18nReady: true
+---
+
+Tauri 为应用和插件开发者提供了一套授权配置（capability）系统，用于精细控制运行在系统 WebView 中的应用前端对核心功能的访问。
+
+授权配置规定了向哪些窗口或 WebView 授予或拒绝哪些 [权限](/security/permissions/)。
+
+一份授权配置可以作用于多个窗口和 WebView，而同一个窗口或 WebView 也可以同时关联多份授权配置。
+
+:::tip[安全提示]
+
+当窗口或 WebView 同时关联多份授权配置时，这些授权配置的安全边界和权限实际上会合并在一起。
+
+:::
+
+授权配置文件可以使用 JSON 或 TOML 格式定义，并存放在 `src-tauri/capabilities` 目录中。
+
+推荐将各份授权配置分别定义在独立文件中，并在 `tauri.conf.json` 中仅通过标识符引用它们。
+当然，也可以直接在 `capabilities` 字段中定义授权配置。
+
+默认情况下，`capabilities` 目录中的所有授权配置都会自动启用。
+一旦在 `tauri.conf.json` 中显式启用了授权配置，应用构建时就只会使用其中指定的授权配置。
+
+有关完整的配置结构，请参阅 [配置参考](/reference/config/)。
+
+下面的 JSON 示例定义了一份授权配置，允许主窗口使用核心插件的默认功能以及 `window.setTitle` API。
+
+```json title="src-tauri/capabilities/default.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:window:allow-set-title"
+  ]
+}
+```
+
+以下配置片段均来自 [Tauri 配置](/develop/configuration-files/#tauri-config) 文件。
+
+这可能是最常见的配置方式：将各份授权配置直接内联到配置中，而权限仅通过标识符引用。
+
+这种方式要求 `capabilities` 目录中已经存在定义完整的授权配置文件。
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": ["my-capability", "main-capability"]
+    }
+  }
+}
+```
+
+内联授权配置也可以与预先定义的授权配置混合使用。
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": [
+        {
+          "identifier": "my-capability",
+          "description": "My application capability used for all windows",
+          "windows": ["*"],
+          "permissions": ["fs:default", "allow-home-read-extended"]
+        },
+        "my-second-capability"
+      ]
+    }
+  }
+}
+```
+
+默认情况下，应用中的所有窗口和 WebView 都可以调用通过
+[`tauri::Builder::invoke_handler`](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.invoke_handler)
+函数注册的命令。
+如果需要改变这一行为，可以考虑使用
+[`AppManifest::commands`](https://docs.rs/tauri-build/2.0.0/tauri_build/struct.AppManifest.html#method.commands)。
+
+```rust title=src-tauri/build.rs
+fn main() {
+    tauri_build::try_build(
+        tauri_build::Attributes::new()
+            .app_manifest(tauri_build::AppManifest::new().commands(&["your_command"])),
+    )
+    .unwrap();
+}
+```
+
+## 目标平台
+
+可以通过定义 `platforms` 数组，让授权配置仅应用于特定平台。
+默认情况下，授权配置会应用于所有目标平台，
+但你也可以只选择 `linux`、`macOS`、`windows`、`iOS` 和 `android` 中的部分平台。
+
+例如，下面定义了一份适用于桌面操作系统的授权配置。
+请注意，它启用了仅在桌面端可用的插件权限：
+
+```json title="src-tauri/capabilities/desktop.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
+}
+```
+
+下面则是一个适用于移动端的授权配置示例。
+请注意，它启用了仅在移动端可用的插件权限：
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
+}
+```
+
+## 远程 API 访问
+
+默认情况下，只有随 Tauri 应用一同打包的代码才能访问 API。
+如果需要允许远程来源访问特定的 Tauri 命令，可以在授权配置文件中进行定义。
+
+下面的示例允许 `tauri.app` 所有子域名的页面扫描 NFC 标签并使用条形码扫描器。
+
+```json title="src-tauri/capabilities/remote-tags.json"
+{
+  "$schema": "../gen/schemas/remote-schema.json",
+  "identifier": "remote-tag-capability",
+  "windows": ["main"],
+  "remote": {
+    "urls": ["https://*.tauri.app"]
+  },
+  "platforms": ["iOS", "android"],
+  "permissions": ["nfc:allow-scan", "barcode-scanner:allow-scan"]
+}
+```
+
+:::caution
+
+在 Linux 和 Android 上，Tauri 无法区分来自嵌入的 `<iframe>` 的请求与窗口本身发出的请求。
+
+请务必非常谨慎地使用此功能，并参阅该功能的参考章节，了解其在目标操作系统上的具体安全影响。
+
+:::
+
+## 安全边界
+
+_它能够防范什么？_
+
+根据所配置的权限和授权配置，它可以：
+
+- 尽量降低前端遭到入侵后的影响
+- 避免或减少本地系统接口和数据的（意外）暴露
+- 避免或降低从前端向后端或系统进行权限提升的可能性
+
+_它**无法**防范什么？_
+
+- 恶意或不安全的 Rust 代码
+- 过于宽松的作用域和配置
+- 命令实现中不正确的作用域检查
+- Rust 代码有意绕过安全限制
+- 应用 Rust 核心代码中的几乎所有问题
+- 系统 WebView 中的 0-day 漏洞或尚未修补的 1-day 漏洞
+- 供应链攻击或开发者系统以其他方式遭到入侵
+
+:::tip[安全提示]
+
+安全边界取决于窗口标签（label），**而不是窗口标题（title）**。
+我们建议仅向具有较高权限的窗口开放窗口创建功能。
+
+:::
+
+## Schema 文件
+
+Tauri 会通过 `tauri-build` 生成 JSON Schema 文件，
+其中包含应用可用的所有权限，以便 IDE 提供自动补全。
+若要使用 Schema，请将配置文件（`.json` 或 `.toml`）中的
+`$schema` 属性设置为 `gen/schemas` 目录下对应平台的 Schema。
+通常应将其设置为 `../gen/schemas/desktop-schema.json`
+或 `../gen/schemas/mobile-schema.json`，
+不过你也可以为特定目标平台单独定义一份授权配置。
+
+## 配置文件
+
+下面是一个 Tauri 应用目录结构的简化示例：
+
+```sh
+tauri-app
+├── index.html
+├── package.json
+├── src/
+├── src-tauri/
+│   ├── Cargo.toml
+│   ├── capabilities/
+│   │  └── <identifier>.json/toml
+│   ├── src/
+│   ├── tauri.conf.json
+```
+
+所有配置都可以直接写入 `tauri.conf.json` 中，
+但配置稍微复杂一些，就会使该文件变得臃肿。
+这种设计旨在尽可能抽象出权限细节，让配置更易于理解。
+
+## 核心权限
+
+完整的核心权限列表请参见 [核心权限](/reference/acl/core-permissions/) 页面。
