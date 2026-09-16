@@ -27,7 +27,7 @@
     "test": "node --test \"src/**/*.test.ts\""
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.4.0",
+    "@astrojs/markdown-satteri": "^0.4.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/starlight": "0.42.0",
     "@lunariajs/core": "^0.1.1",
@@ -43,7 +43,7 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-smartypants": "^3.0.3",
-    "sass": "^1.103.1",
+    "sass": "^1.104.1",
     "sharp": "^0.35.4",
     "starlight-blog": "^0.29.0",
     "starlight-links-validator": "^0.26.0",
