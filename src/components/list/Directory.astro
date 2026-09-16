@@ -153,30 +153,26 @@ if (!sortAlphabetically) {
 ---
 
 <CardGrid>
-  {
-    mainList.map((item) => {
-      return (
-        <CustomLinkCard
-          title={item.entry.data.title}
-          href={`/${item.id}/`}
-          description={item.entry.data.description}
-          footer={callback instanceof Function && callback(item.id)}
-        />
-      );
-    })
-  }
-  {
-    locale !== defaultLocale &&
-      fallbackList.map((item) => (
-        <CustomLinkCard
-          class="fallback-badge"
-          title={item.entry.data.title}
-          href={`/${item.id}/`}
-          description={item.entry.data.description}
-          footer={callback instanceof Function && callback(item.id)}
-        />
-      ))
-  }
+  {mainList.map((item) => {
+    return (
+      <CustomLinkCard
+        title={item.entry.data.title}
+        href={`/${item.id}/`}
+        description={item.entry.data.description}
+        footer={callback instanceof Function && callback(item.id)}
+      />
+    );
+  })}
+  {locale !== defaultLocale &&
+    fallbackList.map((item) => (
+      <CustomLinkCard
+        class="fallback-badge"
+        title={item.entry.data.title}
+        href={`/${item.id}/`}
+        description={item.entry.data.description}
+        footer={callback instanceof Function && callback(item.id)}
+      />
+    ))}
 </CardGrid>
 
 <style>

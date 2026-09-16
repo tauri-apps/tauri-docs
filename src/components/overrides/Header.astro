@@ -16,23 +16,21 @@ const { topics } = Astro.locals.starlightSidebarTopics;
     <SiteTitle />
   </div>
   <div class="desktop">
-    {
-      links.map((link) => {
-        const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
-        const topic = topics.find((topic) => topic.link === href);
-        // /release/* is not a topic, so fall back to a path match for it
-        const current = topic?.isCurrent ?? Astro.url.pathname.startsWith(link.value);
-        return (
-          <a
-            href={href}
-            data-locale-link={link.transfer ? link.value : undefined}
-            class:list={{ 'starlight-sidebar-topics-current': current }}
-          >
-            {topic?.label ?? link.title}
-          </a>
-        );
-      })
-    }
+    {links.map((link) => {
+      const href = link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value;
+      const topic = topics.find((topic) => topic.link === href);
+      // /release/* is not a topic, so fall back to a path match for it
+      const current = topic?.isCurrent ?? Astro.url.pathname.startsWith(link.value);
+      return (
+        <a
+          href={href}
+          data-locale-link={link.transfer ? link.value : undefined}
+          class:list={{ 'starlight-sidebar-topics-current': current }}
+        >
+          {topic?.label ?? link.title}
+        </a>
+      );
+    })}
   </div>
   <div class="sl-flex search">
     <Search />

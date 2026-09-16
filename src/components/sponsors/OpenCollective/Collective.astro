@@ -31,22 +31,20 @@ const sponsorTiers = [
 ---
 
 <>
-  {
-    sponsorTiers.map((tier) => (
-      <div class="tier-section ">
-        {/* <h4 class="text-center">{tier.title}</h4> */}
-        {tier.sponsors.length > 0 && (
-          <div class={`sponsor-container ${tier.name}`}>
-            {tier.sponsors.map((sponsor: Sponsor) => (
-              <div>
-                <OcAvatar {sponsor} />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    ))
-  }
+  {sponsorTiers.map((tier) => (
+    <div class="tier-section">
+      {/* <h4 class="text-center">{tier.title}</h4> */}
+      {tier.sponsors.length > 0 && (
+        <div class={`sponsor-container ${tier.name}`}>
+          {tier.sponsors.map((sponsor: Sponsor) => (
+            <div>
+              <OcAvatar {sponsor} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  ))}
 </>
 
 <!-- {

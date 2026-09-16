@@ -1,14 +1,14 @@
 <div class="two-column-content">
-  {
-    Astro.locals.starlightRoute.toc && (
-      <aside class="right-sidebar-container print:hidden">
-        <div class="right-sidebar">
-          <slot name="right-sidebar" />
-        </div>
-      </aside>
-    )
-  }
-  <div class="main-pane"><slot /></div>
+  {Astro.locals.starlightRoute.toc && (
+    <aside class="right-sidebar-container print:hidden">
+      <div class="right-sidebar">
+        <slot name="right-sidebar" />
+      </div>
+    </aside>
+  )}
+  <div class="main-pane">
+    <slot />
+  </div>
 </div>
 
 <style>
