@@ -106,6 +106,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  starlight-blog>satteri: 0.10.5
   serialize-javascript@<=7.0.2: ^7.0.3
 
 importers:
@@ -9564,7 +9565,7 @@ snapshots:
       hast-util-to-html: 9.0.5
       hast-util-to-string: 3.0.1
       mdast-util-mdx-expression: 2.0.1(supports-color@10.2.2)
-      satteri: 0.9.5
+      satteri: 0.10.5
       schema-dts: 2.0.0(typescript@7.0.2)
       unist-util-is: 6.0.1
       unist-util-remove: 4.0.0
