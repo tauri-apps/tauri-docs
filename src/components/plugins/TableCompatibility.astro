@@ -32,39 +32,39 @@ const tableData = getTableData(pluginData);
     <tr>
       <th>Plugin</th>
       <th>Rust Version</th>
-      {platforms.map((platform) => <th>{platform}</th>)}
+      {platforms.map((platform) => (
+        <th>{platform}</th>
+      ))}
     </tr>
   </thead>
   <tbody>
-    {
-      tableData.map((row) => {
-        const { plugin, rustVersion } = row;
-        return (
-          <tr>
-            <td>{plugin}</td>
-            <td>{rustVersion}</td>
-            {platforms.map((platform) => {
-              const { notes, level, levelIcon } = row[platform];
-              let title = getSupportText(level);
+    {tableData.map((row) => {
+      const { plugin, rustVersion } = row;
+      return (
+        <tr>
+          <td>{plugin}</td>
+          <td>{rustVersion}</td>
+          {platforms.map((platform) => {
+            const { notes, level, levelIcon } = row[platform];
+            let title = getSupportText(level);
 
-              if (notes) {
-                title = `${title}:  ${notes}`;
-              }
-              return (
-                <td>
-                  {platform && (
-                    <div class="support" title={title}>
-                      <div class="icon" set:html={levelIcon} />
-                      {notes && '*'}
-                    </div>
-                  )}
-                </td>
-              );
-            })}
-          </tr>
-        );
-      })
-    }
+            if (notes) {
+              title = `${title}:  ${notes}`;
+            }
+            return (
+              <td>
+                {platform && (
+                  <div class="support" title={title}>
+                    <div class="icon" set:html={levelIcon} />
+                    {notes && '*'}
+                  </div>
+                )}
+              </td>
+            );
+          })}
+        </tr>
+      );
+    })}
   </tbody>
 </table>
 

@@ -12,4 +12,8 @@ allowBuilds:
 minimumReleaseAge: 4320
 
 overrides:
+  # starlight-blog@0.29.0 is still on satteri@0.9.x, whose native converter can
+  # fail when multiple author excerpts are rendered during static builds.
+  # waiting on https://github.com/HiDeoo/starlight-blog/pull/228
+  starlight-blog>satteri: 0.10.5
   serialize-javascript@<=7.0.2: ^7.0.3 # Remove after https://github.com/tatethurston/astrojs-service-worker/issues/37
