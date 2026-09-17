@@ -11,6 +11,7 @@
       "id": "tauri",
       "name": "tauri",
       "versions": {
+        "3.0.0-alpha.1": "2026-09-15T10:58:24.737189Z",
         "3.0.0-alpha.0": "2026-09-13T01:52:02.093532Z",
         "2.11.5": "2026-07-01T13:56:38.810372Z",
         "2.11.4": "2026-06-30T15:14:25.757956Z",
@@ -247,6 +248,8 @@
       "id": "tauri-cli",
       "name": "tauri-cli",
       "versions": {
+        "3.0.0-alpha.1": "2026-09-15T11:02:49.971162Z",
+        "3.0.0-alpha.0": "2026-09-13T10:07:57.558014Z",
         "2.11.4": "2026-06-28T17:02:13.559438Z",
         "2.11.3": "2026-06-17T13:48:43.100961Z",
         "2.11.2": "2026-05-16T16:55:20.369674Z",
@@ -715,7 +718,9 @@
         "2.11.1": "2026-05-06T10:42:49.043Z",
         "2.11.2": "2026-05-16T17:16:17.047Z",
         "2.11.3": "2026-06-19T12:45:00.191Z",
-        "2.11.4": "2026-06-28T17:58:47.722Z"
+        "2.11.4": "2026-06-28T17:58:47.722Z",
+        "3.0.0-alpha.0": "2026-09-13T10:32:33.253Z",
+        "3.0.0-alpha.1": "2026-09-15T11:27:51.618Z"
       }
     },
     "cratesData": {
@@ -1170,6 +1175,7 @@
       "id": "tauri-driver",
       "name": "tauri-driver",
       "versions": {
+        "2.1.0-alpha.0": "2026-09-13T10:08:11.009558Z",
         "2.0.6": "2026-05-06T10:19:52.094438Z",
         "2.0.5": "2026-02-04T15:43:07.860286Z",
         "2.0.4": "2025-04-15T18:23:02.686392Z",
@@ -1524,6 +1530,7 @@
       "id": "tauri-runtime-wry",
       "name": "tauri-runtime-wry",
       "versions": {
+        "3.0.0-alpha.1": "2026-09-15T10:59:05.478032Z",
         "3.0.0-alpha.0": "2026-09-13T01:52:48.551455Z",
         "2.11.4": "2026-06-30T15:13:08.942448Z",
         "2.11.3": "2026-06-17T13:44:00.354598Z",
@@ -2278,13 +2285,15 @@
         "2.3.0": "2025-04-02T03:32:47.114Z",
         "2.4.0": "2025-06-16T21:52:02.844Z",
         "2.5.0": "2025-06-25T14:32:51.242Z",
-        "2.5.1": "2025-10-27T10:32:14.759Z"
+        "2.5.1": "2025-10-27T10:32:14.759Z",
+        "3.0.0-alpha.0": "2026-09-13T19:00:42.402Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-autostart",
       "name": "tauri-plugin-autostart",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:58:58.002002Z",
         "2.5.1": "2025-10-27T10:32:03.908191Z",
         "2.5.0": "2025-06-25T14:32:41.968762Z",
         "2.4.0": "2025-06-16T21:51:51.018331Z",
@@ -2349,13 +2358,15 @@
         "2.4.3": "2026-01-08T14:35:31.071Z",
         "2.4.4": "2026-02-03T11:19:27.962Z",
         "2.4.5": "2026-05-28T10:07:22.777Z",
-        "2.4.6": "2026-08-31T11:18:28.558Z"
+        "2.4.6": "2026-08-31T11:18:28.558Z",
+        "3.0.0-alpha.0": "2026-09-13T18:59:16.192Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-barcode-scanner",
       "name": "tauri-plugin-barcode-scanner",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:59:08.297746Z",
         "2.4.6": "2026-08-31T11:18:19.461876Z",
         "2.4.5": "2026-05-28T10:07:12.283592Z",
         "2.4.4": "2026-02-03T11:19:19.502812Z",
@@ -2418,13 +2429,15 @@
         "2.3.0": "2025-06-25T14:33:16.210Z",
         "2.3.1": "2025-10-26T21:03:52.256Z",
         "2.3.2": "2025-10-27T10:32:40.385Z",
-        "2.3.3": "2026-08-31T11:18:40.460Z"
+        "2.3.3": "2026-08-31T11:18:40.460Z",
+        "3.0.0-alpha.0": "2026-09-13T19:00:41.901Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-biometric",
       "name": "tauri-plugin-biometric",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:59:18.512795Z",
         "2.3.3": "2026-08-31T11:18:31.280261Z",
         "2.3.2": "2025-10-27T10:32:30.621244Z",
         "2.3.1": "2025-10-26T21:03:41.683878Z",
@@ -2487,13 +2500,15 @@
         "2.3.0": "2025-06-25T14:33:40.001Z",
         "2.3.1": "2025-10-26T21:04:05.686Z",
         "2.3.2": "2025-10-27T10:33:06.057Z",
-        "2.3.3": "2026-08-31T11:18:52.519Z"
+        "2.3.3": "2026-08-31T11:18:52.519Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:02.809Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-clipboard-manager",
       "name": "tauri-plugin-clipboard-manager",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:59:39.499816Z",
         "2.3.3": "2026-08-31T11:18:43.313920Z",
         "2.3.2": "2025-10-27T10:32:56.293146Z",
         "2.3.1": "2025-10-26T21:03:54.936168Z",
@@ -2560,13 +2575,15 @@
         "2.2.1": "2025-06-16T21:52:36.548Z",
         "2.3.0": "2025-06-24T20:08:46.807Z",
         "2.4.0": "2025-06-25T14:33:27.406Z",
-        "2.4.1": "2025-10-27T10:32:53.203Z"
+        "2.4.1": "2025-10-27T10:32:53.203Z",
+        "3.0.0-alpha.0": "2026-09-13T19:00:32.002Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-cli",
       "name": "tauri-plugin-cli",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:59:29.368763Z",
         "2.4.1": "2025-10-27T10:32:43.659040Z",
         "2.4.0": "2025-06-25T14:33:18.503184Z",
         "2.3.0": "2025-06-24T20:08:32.129936Z",
@@ -2638,13 +2655,15 @@
         "2.4.7": "2026-02-05T17:14:30.912Z",
         "2.4.8": "2026-04-04T16:48:29.570Z",
         "2.4.9": "2026-05-02T11:38:50.188Z",
-        "2.4.10": "2026-08-31T11:19:04.947Z"
+        "2.4.10": "2026-08-31T11:19:04.947Z",
+        "3.0.0-alpha.0": "2026-09-13T19:00:52.451Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-deep-link",
       "name": "tauri-plugin-deep-link",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:59:49.734316Z",
         "2.4.10": "2026-08-31T11:18:55.348979Z",
         "2.4.9": "2026-05-02T11:38:40.965286Z",
         "2.4.8": "2026-04-04T16:48:20.645869Z",
@@ -2735,13 +2754,15 @@
         "2.7.0": "2026-04-04T16:48:51.646Z",
         "2.7.1": "2026-05-02T11:39:12.594Z",
         "2.7.2": "2026-07-18T16:41:34.234Z",
-        "2.7.3": "2026-08-31T11:19:30.197Z"
+        "2.7.3": "2026-08-31T11:19:30.197Z",
+        "3.0.0-alpha.0": "2026-09-13T19:00:19.449Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-dialog",
       "name": "tauri-plugin-dialog",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:00:10.555696Z",
         "2.7.3": "2026-08-31T11:19:20.562601Z",
         "2.7.2": "2026-07-18T16:41:25.589152Z",
         "2.7.1": "2026-05-02T11:39:04.724558Z",
@@ -2839,13 +2860,15 @@
         "2.4.5": "2026-01-08T14:35:52.141Z",
         "2.5.0": "2026-04-04T16:48:40.386Z",
         "2.5.1": "2026-05-02T11:39:01.400Z",
-        "2.5.2": "2026-08-31T11:19:17.501Z"
+        "2.5.2": "2026-08-31T11:19:17.501Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:02.660Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-fs",
       "name": "tauri-plugin-fs",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T18:59:59.957732Z",
         "2.5.2": "2026-08-31T11:19:08.114815Z",
         "2.5.1": "2026-05-02T11:38:53.254801Z",
         "2.5.0": "2026-04-04T16:48:32.453299Z",
@@ -2915,13 +2938,15 @@
         "2.3.0": "2025-06-25T14:34:28.043Z",
         "2.3.1": "2025-10-26T21:04:59.520Z",
         "2.3.2": "2025-10-27T10:33:57.874Z",
-        "2.3.3": "2026-08-31T11:19:42.231Z"
+        "2.3.3": "2026-08-31T11:19:42.231Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:24.948Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-geolocation",
       "name": "tauri-plugin-geolocation",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:00:21.953611Z",
         "2.3.3": "2026-08-31T11:19:33.505247Z",
         "2.3.2": "2025-10-27T10:33:48.178788Z",
         "2.3.1": "2025-10-26T21:04:51.337756Z",
@@ -2971,13 +2996,15 @@
         "2.2.1": "2025-05-20T08:29:11.920Z",
         "2.3.0": "2025-06-25T14:34:40.498Z",
         "2.3.1": "2025-10-27T10:34:09.193Z",
-        "2.3.2": "2026-05-28T10:07:36.103Z"
+        "2.3.2": "2026-05-28T10:07:36.103Z",
+        "3.0.0-alpha.0": "2026-09-13T19:00:41.473Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-global-shortcut",
       "name": "tauri-plugin-global-shortcut",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:00:33.075342Z",
         "2.3.2": "2026-05-28T10:07:26.767023Z",
         "2.3.1": "2025-10-27T10:34:00.616719Z",
         "2.3.0": "2025-06-25T14:34:31.067695Z",
@@ -3027,13 +3054,15 @@
         "2.3.0": "2025-06-25T14:35:04.188Z",
         "2.3.1": "2025-10-26T21:05:26.845Z",
         "2.3.2": "2025-10-27T10:34:35.839Z",
-        "2.3.3": "2026-08-31T11:20:07.077Z"
+        "2.3.3": "2026-08-31T11:20:07.077Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:04.325Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-haptics",
       "name": "tauri-plugin-haptics",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:00:55.776151Z",
         "2.3.3": "2026-08-31T11:19:58.197663Z",
         "2.3.2": "2025-10-27T10:34:25.341260Z",
         "2.3.1": "2025-10-26T21:05:16.321989Z",
@@ -3055,7 +3084,7 @@
   },
   "http": {
     "group": "plugins-workspace",
-    "changelogs": "# Changelog\n\n## [2.6.0]\n\n- [`f8053e65`](https://github.com/tauri-apps/plugins-workspace/commit/f8053e659e4ccd85c1f52833411ff8417cbc5e69) ([#3527](https://github.com/tauri-apps/plugins-workspace/pull/3527) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Documented Cargo feature flags in each plugin's crate-level documentation.\n- [`19fb3926`](https://github.com/tauri-apps/plugins-workspace/commit/19fb3926fd24d95371bc3a7593256861df406436) ([#3528](https://github.com/tauri-apps/plugins-workspace/pull/3528) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Added `system-proxy` feature to replace the old `macos-system-configuration` feature flag to match the new reqwest API.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.5.2`\n\n## \\[2.5.9]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.5.1`\n\n## \\[2.5.8]\n\n- [`29712892`](https://github.com/tauri-apps/plugins-workspace/commit/29712892526cfc2d35c9002e0a56925084ae1b73) ([#3252](https://github.com/tauri-apps/plugins-workspace/pull/3252) by [@NVolcz](https://github.com/tauri-apps/plugins-workspace/../../NVolcz)) Correct Response header initialization to support cloning and ensure Set-Cookie visibility.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.5.0`\n\n## \\[2.5.7]\n\n- [`61e9b0ab`](https://github.com/tauri-apps/plugins-workspace/commit/61e9b0ab64c56cc5f7a5cb3b92b386671da6e0a2) ([#3228](https://github.com/tauri-apps/plugins-workspace/pull/3228)) Cleanup resource when the returned `ReadableStream.cancel` is called to avoid memory leaks\n\n## \\[2.5.6]\n\n- [`b1dbee2c`](https://github.com/tauri-apps/plugins-workspace/commit/b1dbee2c55c1aa7b64732c4cc9f8cb20520b8666) ([#3210](https://github.com/tauri-apps/plugins-workspace/pull/3210) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) Fixed an issue that caused the Origin header to always be `null` on macOS, iOS and Linux.\n\n## \\[2.5.5]\n\n- [`e8915f17`](https://github.com/tauri-apps/plugins-workspace/commit/e8915f17e418138f0776870353cd6ce7254b0473) ([#2562](https://github.com/tauri-apps/plugins-workspace/pull/2562) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix aborting a request in the middle of a streaming response.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.5`\n\n## \\[2.5.4]\n\n- [`93426f85`](https://github.com/tauri-apps/plugins-workspace/commit/93426f85120f49beb9f40222bff45185a32d54a9) Fixed an issue that caused docs.rs builds to fail. No user facing changes.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.4`\n\n## \\[2.5.3]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.3`\n\n## \\[2.5.2]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.2`\n\n## \\[2.5.1]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.1`\n\n## \\[2.5.0]\n\n- [`f209b2f2`](https://github.com/tauri-apps/plugins-workspace/commit/f209b2f23cb29133c97ad5961fb46ef794dbe063) ([#2804](https://github.com/tauri-apps/plugins-workspace/pull/2804) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Updated tauri to 2.6\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.0`\n\n## \\[2.4.4]\n\n- [`ff384cba`](https://github.com/tauri-apps/plugins-workspace/commit/ff384cbabe82ae715798a4ee49fd07ffcfbcdb5d) ([#2636](https://github.com/tauri-apps/plugins-workspace/pull/2636) by [@asomethings](https://github.com/tauri-apps/plugins-workspace/../../asomethings)) Properly handle responses with status code 204.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.3.0`\n\n## \\[2.4.3]\n\n- [`37c0477a`](https://github.com/tauri-apps/plugins-workspace/commit/37c0477afe926d326573f1827045875ce8bf8187) ([#2561](https://github.com/tauri-apps/plugins-workspace/pull/2561)) Add `zstd` cargo feature flag to enable `reqwest/zstd` flag.\n- [`9ebbfb2e`](https://github.com/tauri-apps/plugins-workspace/commit/9ebbfb2e3ccef8e0f277a0c02fe6b399b41feeb6) ([#1978](https://github.com/tauri-apps/plugins-workspace/pull/1978)) Persist cookies to disk and load it on next app start.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.2.1`\n\n## \\[2.4.2]\n\n- [`a15eedf3`](https://github.com/tauri-apps/plugins-workspace/commit/a15eedf37854344f7ffbcb0d373d848563817011) ([#2535](https://github.com/tauri-apps/plugins-workspace/pull/2535) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix `fetch` occasionally throwing an error due to trying to close the underline stream twice.\n\n## \\[2.4.1]\n\n- [`d3183aa9`](https://github.com/tauri-apps/plugins-workspace/commit/d3183aa99da7ca67e627394132ddeb3b85ccef06) ([#2522](https://github.com/tauri-apps/plugins-workspace/pull/2522) by [@adrieljss](https://github.com/tauri-apps/plugins-workspace/../../adrieljss)) Fix `fetch` blocking until the whole response is read even if it was a streaming response.\n\n## \\[2.4.0]\n\n- [`cb38f54f`](https://github.com/tauri-apps/plugins-workspace/commit/cb38f54f4a4ef30995283cd82166c62da17bac44) ([#2479](https://github.com/tauri-apps/plugins-workspace/pull/2479) by [@adrieljss](https://github.com/tauri-apps/plugins-workspace/../../adrieljss)) Add stream support for HTTP stream responses.\n\n## \\[2.3.0]\n\n- [`10513649`](https://github.com/tauri-apps/plugins-workspace/commit/105136494c5a5bf4b1f1cc06cc71815412d17ec8) ([#2204](https://github.com/tauri-apps/plugins-workspace/pull/2204) by [@RickeyWard](https://github.com/tauri-apps/plugins-workspace/../../RickeyWard)) Add `dangerous-settings` feature flag and new JS `danger` option to disable tls hostname/certificate validation.\n\n## \\[2.2.0]\n\n- [`3a79266b`](https://github.com/tauri-apps/plugins-workspace/commit/3a79266b8cf96a55b1ae6339d725567d45a44b1d) ([#2173](https://github.com/tauri-apps/plugins-workspace/pull/2173) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) Bumped all plugins to `v2.2.0`. From now, the versions for the Rust and JavaScript packages of each plugin will be in sync with each other.\n\n### Dependencies\n\n- Upgraded to `fs@2.2.0`\n\n## \\[2.0.2]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.0.4`\n\n## \\[2.0.4]\n\n- [`a3b553dd`](https://github.com/tauri-apps/plugins-workspace/commit/a3b553ddb403771aa699362c4e69a064b7731da5) ([#2079](https://github.com/tauri-apps/plugins-workspace/pull/2079) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Add tracing logs for requestes and responses behind `tracing` feature flag.\n\n### Dependencies\n\n- Upgraded to `fs@2.1.0`\n\n## \\[2.0.3]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.3`\n\n## \\[2.0.1]\n\n- [`cfd48b3b`](https://github.com/tauri-apps/plugins-workspace/commit/cfd48b3b2ec0fccfc162197518694ed59ceda22c) ([#1941](https://github.com/tauri-apps/plugins-workspace/pull/1941) by [@Nipsuli](https://github.com/tauri-apps/plugins-workspace/../../Nipsuli)) Allow skipping sending `Origin` header in HTTP requests by setting `Origin` header to an empty string when calling `fetch`.\n- [`9b2840db`](https://github.com/tauri-apps/plugins-workspace/commit/9b2840db9464cf08db75806270e4441f0af81e5d) ([#1884](https://github.com/tauri-apps/plugins-workspace/pull/1884) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Retain headers order.\n\n## \\[2.0.1]\n\n- [`a1a82208`](https://github.com/tauri-apps/plugins-workspace/commit/a1a82208ed4ab87f83310be0dc95428aec9ab241) ([#1873](https://github.com/tauri-apps/plugins-workspace/pull/1873) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Downgrade MSRV to 1.77.2 to support Windows 7.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.1`\n\n## \\[2.0.0]\n\n- [`e2c4dfb6`](https://github.com/tauri-apps/plugins-workspace/commit/e2c4dfb6af43e5dd8d9ceba232c315f5febd55c1) Update to tauri v2 stable release.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0`\n\n## \\[2.0.0-rc.6]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.6`\n\n## \\[2.0.0-rc.5]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.5`\n\n## \\[2.0.0-rc.4]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.4`\n\n## \\[2.0.0-rc.3]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.3`\n\n## \\[2.0.0-rc.2]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.2`\n\n## \\[2.0.0-rc.2]\n\n- [`e2e97db5`](https://github.com/tauri-apps/plugins-workspace/commit/e2e97db51983267f5be84d4f6f0278d58834d1f5) ([#1701](https://github.com/tauri-apps/plugins-workspace/pull/1701) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri 2.0.0-rc.8\n\n## \\[2.0.0-rc.1]\n\n- [`84f8bd5e`](https://github.com/tauri-apps/plugins-workspace/commit/84f8bd5e1ef22e664267380b5bbf756ebc5389c3) ([#1662](https://github.com/tauri-apps/plugins-workspace/pull/1662) by [@twlite](https://github.com/tauri-apps/plugins-workspace/../../twlite)) Fixed an issue with abort signal not aborting the fetch request.\n\n## \\[2.0.0-rc.0]\n\n- [`9887d1`](https://github.com/tauri-apps/plugins-workspace/commit/9887d14bd0e971c4c0f5c1188fc4005d3fc2e29e) Update to tauri RC.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.0`\n\n## \\[2.0.0-beta.9]\n\n- [`99d6ac0f`](https://github.com/tauri-apps/plugins-workspace/commit/99d6ac0f9506a6a4a1aa59c728157190a7441af6) ([#1606](https://github.com/tauri-apps/plugins-workspace/pull/1606) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) The JS packages now specify the *minimum* `@tauri-apps/api` version instead of a single exact version.\n- [`6de87966`](https://github.com/tauri-apps/plugins-workspace/commit/6de87966ecc00ad9d91c25be452f1f46bd2b7e1f) ([#1597](https://github.com/tauri-apps/plugins-workspace/pull/1597) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Update to tauri beta.25.\n\n## \\[2.0.0-beta.8]\n\n- [`ac9a25cc`](https://github.com/tauri-apps/plugins-workspace/commit/ac9a25cc12ee2b325f00212ba74316da3369bde5) ([#1395](https://github.com/tauri-apps/plugins-workspace/pull/1395) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix cancelling requests using `AbortSignal`.\n- [`a6654932`](https://github.com/tauri-apps/plugins-workspace/commit/a66549329c60dea35e3a06a38c357e368c9053a1) ([#1526](https://github.com/tauri-apps/plugins-workspace/pull/1526) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix missing `Set-Cookie` headers in the response which meant `request.headers.getSetCookie()` always returned empty array.\n- [`22a17980`](https://github.com/tauri-apps/plugins-workspace/commit/22a17980ff4f6f8c40adb1b8f4ffc6dae2fe7e30) ([#1537](https://github.com/tauri-apps/plugins-workspace/pull/1537) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri beta.24.\n\n## \\[2.0.0-beta.7]\n\n- [`76daee7a`](https://github.com/tauri-apps/plugins-workspace/commit/76daee7aafece34de3092c86e531cf9eb1138989) ([#1512](https://github.com/tauri-apps/plugins-workspace/pull/1512) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Update to tauri beta.23.\n\n## \\[2.0.0-beta.6]\n\n- [`0f739dbc`](https://github.com/tauri-apps/plugins-workspace/commit/0f739dbc483a1f091977cbe575c3862fd39f8cf1) ([#1392](https://github.com/tauri-apps/plugins-workspace/pull/1392) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Allow setting `Origin` header when `unsafe-headers` feature flag is active.\n\n## \\[2.0.0-beta.5]\n\n- [`9013854f`](https://github.com/tauri-apps/plugins-workspace/commit/9013854f42a49a230b9dbb9d02774765528a923f)([#1382](https://github.com/tauri-apps/plugins-workspace/pull/1382)) Update to tauri beta.22.\n\n## \\[2.0.0-beta.4]\n\n- [`9d7ae45b`](https://github.com/tauri-apps/plugins-workspace/commit/9d7ae45b0edf9b22c73e7d7c413a784bb35c3d77)([#1354](https://github.com/tauri-apps/plugins-workspace/pull/1354)) Include headers created by browser if not declared by user, which fixes missing headers like `Content-Type` when using `FormData`.\n- [`430bd6f4`](https://github.com/tauri-apps/plugins-workspace/commit/430bd6f4f379bee5d232ae6b098ae131db7f178a)([#1363](https://github.com/tauri-apps/plugins-workspace/pull/1363)) Update to tauri beta.20.\n\n## \\[2.0.0-beta.3]\n\n- [`bd1ed590`](https://github.com/tauri-apps/plugins-workspace/commit/bd1ed5903ffcce5500310dac1e59e8c67674ef1e)([#1237](https://github.com/tauri-apps/plugins-workspace/pull/1237)) Update to tauri beta.17.\n\n## \\[2.0.0-beta.6]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.6`\n\n## \\[2.0.0-beta.5]\n\n- [`500ff10`](https://github.com/tauri-apps/plugins-workspace/commit/500ff10fbd89fdfc73caf9d153029dad567b4ff1)([#1166](https://github.com/tauri-apps/plugins-workspace/pull/1166)) **Breaking change:** Removed the `default-tls` feature flag. The `rustls-tls`, `http2`, `macos-system-configuration`, and `charset` feature flags are now enabled by default.\n- [`e3d41f4`](https://github.com/tauri-apps/plugins-workspace/commit/e3d41f4011bd3ea3ce281bb38bbe31d3709f8e0f)([#1191](https://github.com/tauri-apps/plugins-workspace/pull/1191)) Internally use the webview scoped resources table instead of the app one, so other webviews can't access other webviews resources.\n- [`7e2fcc5`](https://github.com/tauri-apps/plugins-workspace/commit/7e2fcc5e74df7c3c718e40f75bfb0eafc7d69d8d)([#1146](https://github.com/tauri-apps/plugins-workspace/pull/1146)) Update dependencies to align with tauri 2.0.0-beta.14.\n- [`e3d41f4`](https://github.com/tauri-apps/plugins-workspace/commit/e3d41f4011bd3ea3ce281bb38bbe31d3709f8e0f)([#1191](https://github.com/tauri-apps/plugins-workspace/pull/1191)) Update for tauri 2.0.0-beta.15.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.5`\n\n## \\[2.0.0-beta.4]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.4`\n\n## \\[2.0.0-beta.3]\n\n- [`c873e4d`](https://github.com/tauri-apps/plugins-workspace/commit/c873e4d6c74e759742f7c9a88e35cff10a75122a)([#1059](https://github.com/tauri-apps/plugins-workspace/pull/1059)) Fixes scope not allowing subpaths, query parameters and hash when those values are empty.\n- [`a04ea2f`](https://github.com/tauri-apps/plugins-workspace/commit/a04ea2f38294d5a3987578283badc8eec87a7752)([#1071](https://github.com/tauri-apps/plugins-workspace/pull/1071)) The global API script is now only added to the binary when the `withGlobalTauri` config is true.\n- [`753c7be`](https://github.com/tauri-apps/plugins-workspace/commit/753c7be0a6a78121d2e88ea0efc3040580c885b4)([#1050](https://github.com/tauri-apps/plugins-workspace/pull/1050)) Add `unsafe-headers` cargo feature flag to allow using [forbidden headers](https://fetch.spec.whatwg.org/#terminology-headers).\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.3`\n\n## \\[2.0.0-beta.2]\n\n- [`ae56b13`](https://github.com/tauri-apps/plugins-workspace/commit/ae56b13a4d49dbf922b8a0fbb0d557bb63c1d72b)([#983](https://github.com/tauri-apps/plugins-workspace/pull/983)) Allow `User-Agent` header to be set.\n- [`99bea25`](https://github.com/tauri-apps/plugins-workspace/commit/99bea2559c2c0648c2519c50a18cd124dacef57b)([#1005](https://github.com/tauri-apps/plugins-workspace/pull/1005)) Update to tauri beta.8.\n\n## \\[2.0.0-beta.1]\n\n- [`569defb`](https://github.com/tauri-apps/plugins-workspace/commit/569defbe9492e38938554bb7bdc1be9151456d21) Update to tauri beta.4.\n\n## \\[2.0.0-beta.0]\n\n- [`d198c01`](https://github.com/tauri-apps/plugins-workspace/commit/d198c014863ee260cb0de88a14b7fc4356ef7474)([#862](https://github.com/tauri-apps/plugins-workspace/pull/862)) Update to tauri beta.\n- [`1a34720`](https://github.com/tauri-apps/plugins-workspace/commit/1a347203a54eccc954749d11c4ee81fdd9a0cde7)([#858](https://github.com/tauri-apps/plugins-workspace/pull/858)) Fix http fetch client option init with parameter `connectTimeout`\n\n## \\[2.0.0-alpha.9]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-alpha.7`\n\n## \\[2.0.0-alpha.6]\n\n- [`bfa87da`](https://github.com/tauri-apps/plugins-workspace/commit/bfa87da848f9f1da2abae3354eed632881eddf11)([#824](https://github.com/tauri-apps/plugins-workspace/pull/824)) Add `proxy` field to `fetch` options to configure proxy.\n\n## \\[2.0.0-alpha.5]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.13.\n\n## \\[2.0.0-alpha.4]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.12.\n\n## \\[2.0.0-alpha.3]\n\n- [`e438e0a`](https://github.com/tauri-apps/plugins-workspace/commit/e438e0a62d4b430a5159f05f13ecd397dd891a0d)([#676](https://github.com/tauri-apps/plugins-workspace/pull/676)) Update to @tauri-apps/api v2.0.0-alpha.11.\n\n## \\[2.0.0-alpha.2]\n\n- [`5c13736`](https://github.com/tauri-apps/plugins-workspace/commit/5c137365c60790e8d4037d449e8237aa3fffdab0)([#673](https://github.com/tauri-apps/plugins-workspace/pull/673)) Update to @tauri-apps/api v2.0.0-alpha.9.\n\n## \\[2.0.0-alpha.3]\n\n- [`2cb0fa7`](https://github.com/tauri-apps/plugins-workspace/commit/2cb0fa719b8b1f5ac07dada93520dbbcf637d64c)([#587](https://github.com/tauri-apps/plugins-workspace/pull/587)) Remove `cmd` property which breaks invoke call.\n- [`4e2cef9`](https://github.com/tauri-apps/plugins-workspace/commit/4e2cef9b702bbbb9cf4ee17de50791cb21f1b2a4)([#593](https://github.com/tauri-apps/plugins-workspace/pull/593)) Update to alpha.12.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-alpha.2`\n\n## \\[2.0.0-alpha.2]\n\n- [`aec17a9`](https://github.com/tauri-apps/plugins-workspace/commit/aec17a90fc365774c70c4876b94a899416120e26)([#558](https://github.com/tauri-apps/plugins-workspace/pull/558)) Improve response performance by using the new IPC streaming data.\n\n## \\[2.0.0-alpha.1]\n\n- [`7d9df72`](https://github.com/tauri-apps/plugins-workspace/commit/7d9df7297a221a64d9de945ffc2cd8313d3104dc)([#428](https://github.com/tauri-apps/plugins-workspace/pull/428)) Multipart requests are now handled in JavaScript by the `Request` JavaScript class so you just need to use a `FormData` body and not set the content-type header to `multipart/form-data`. `application/x-www-form-urlencoded` requests must be done manually.\n- [`7d9df72`](https://github.com/tauri-apps/plugins-workspace/commit/7d9df7297a221a64d9de945ffc2cd8313d3104dc)([#428](https://github.com/tauri-apps/plugins-workspace/pull/428)) The http plugin has been rewritten from scratch and now only exposes a `fetch` function in Javascript and Re-exports `reqwest` crate in Rust. The new `fetch` method tries to be as close and compliant to the `fetch` Web API as possible.\n- [`d74fc0a`](https://github.com/tauri-apps/plugins-workspace/commit/d74fc0a097996e90a37be8f57d50b7d1f6ca616f)([#555](https://github.com/tauri-apps/plugins-workspace/pull/555)) Update to alpha.11.\n\n## \\[2.0.0-alpha.0]\n\n- [`717ae67`](https://github.com/tauri-apps/plugins-workspace/commit/717ae670978feb4492fac1f295998b93f2b9347f)([#371](https://github.com/tauri-apps/plugins-workspace/pull/371)) First v2 alpha release!\n",
+    "changelogs": "# Changelog\n\n## [2.6.1]\n\n- [`a21555dd`](https://github.com/tauri-apps/plugins-workspace/commit/a21555ddd2eaadfed23848912fe2802c2ba7579e) ([#3566](https://github.com/tauri-apps/plugins-workspace/pull/3566) by [@followdarko](https://github.com/tauri-apps/plugins-workspace/../../followdarko)) Fix unhandled promise rejections on every `fetch` teardown: the request/body cleanup commands were fired as floating promises, and releasing an already-released resource rejects with `The resource id N is invalid.`. `dropBody` is now idempotent and both cleanup calls handle their own rejection.\n\n## [2.6.0]\n\n- [`f8053e65`](https://github.com/tauri-apps/plugins-workspace/commit/f8053e659e4ccd85c1f52833411ff8417cbc5e69) ([#3527](https://github.com/tauri-apps/plugins-workspace/pull/3527) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Documented Cargo feature flags in each plugin's crate-level documentation.\n- [`19fb3926`](https://github.com/tauri-apps/plugins-workspace/commit/19fb3926fd24d95371bc3a7593256861df406436) ([#3528](https://github.com/tauri-apps/plugins-workspace/pull/3528) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Added `system-proxy` feature to replace the old `macos-system-configuration` feature flag to match the new reqwest API.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.5.2`\n\n## \\[2.5.9]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.5.1`\n\n## \\[2.5.8]\n\n- [`29712892`](https://github.com/tauri-apps/plugins-workspace/commit/29712892526cfc2d35c9002e0a56925084ae1b73) ([#3252](https://github.com/tauri-apps/plugins-workspace/pull/3252) by [@NVolcz](https://github.com/tauri-apps/plugins-workspace/../../NVolcz)) Correct Response header initialization to support cloning and ensure Set-Cookie visibility.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.5.0`\n\n## \\[2.5.7]\n\n- [`61e9b0ab`](https://github.com/tauri-apps/plugins-workspace/commit/61e9b0ab64c56cc5f7a5cb3b92b386671da6e0a2) ([#3228](https://github.com/tauri-apps/plugins-workspace/pull/3228)) Cleanup resource when the returned `ReadableStream.cancel` is called to avoid memory leaks\n\n## \\[2.5.6]\n\n- [`b1dbee2c`](https://github.com/tauri-apps/plugins-workspace/commit/b1dbee2c55c1aa7b64732c4cc9f8cb20520b8666) ([#3210](https://github.com/tauri-apps/plugins-workspace/pull/3210) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) Fixed an issue that caused the Origin header to always be `null` on macOS, iOS and Linux.\n\n## \\[2.5.5]\n\n- [`e8915f17`](https://github.com/tauri-apps/plugins-workspace/commit/e8915f17e418138f0776870353cd6ce7254b0473) ([#2562](https://github.com/tauri-apps/plugins-workspace/pull/2562) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix aborting a request in the middle of a streaming response.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.5`\n\n## \\[2.5.4]\n\n- [`93426f85`](https://github.com/tauri-apps/plugins-workspace/commit/93426f85120f49beb9f40222bff45185a32d54a9) Fixed an issue that caused docs.rs builds to fail. No user facing changes.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.4`\n\n## \\[2.5.3]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.3`\n\n## \\[2.5.2]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.2`\n\n## \\[2.5.1]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.1`\n\n## \\[2.5.0]\n\n- [`f209b2f2`](https://github.com/tauri-apps/plugins-workspace/commit/f209b2f23cb29133c97ad5961fb46ef794dbe063) ([#2804](https://github.com/tauri-apps/plugins-workspace/pull/2804) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Updated tauri to 2.6\n\n### Dependencies\n\n- Upgraded to `fs-js@2.4.0`\n\n## \\[2.4.4]\n\n- [`ff384cba`](https://github.com/tauri-apps/plugins-workspace/commit/ff384cbabe82ae715798a4ee49fd07ffcfbcdb5d) ([#2636](https://github.com/tauri-apps/plugins-workspace/pull/2636) by [@asomethings](https://github.com/tauri-apps/plugins-workspace/../../asomethings)) Properly handle responses with status code 204.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.3.0`\n\n## \\[2.4.3]\n\n- [`37c0477a`](https://github.com/tauri-apps/plugins-workspace/commit/37c0477afe926d326573f1827045875ce8bf8187) ([#2561](https://github.com/tauri-apps/plugins-workspace/pull/2561)) Add `zstd` cargo feature flag to enable `reqwest/zstd` flag.\n- [`9ebbfb2e`](https://github.com/tauri-apps/plugins-workspace/commit/9ebbfb2e3ccef8e0f277a0c02fe6b399b41feeb6) ([#1978](https://github.com/tauri-apps/plugins-workspace/pull/1978)) Persist cookies to disk and load it on next app start.\n\n### Dependencies\n\n- Upgraded to `fs-js@2.2.1`\n\n## \\[2.4.2]\n\n- [`a15eedf3`](https://github.com/tauri-apps/plugins-workspace/commit/a15eedf37854344f7ffbcb0d373d848563817011) ([#2535](https://github.com/tauri-apps/plugins-workspace/pull/2535) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix `fetch` occasionally throwing an error due to trying to close the underline stream twice.\n\n## \\[2.4.1]\n\n- [`d3183aa9`](https://github.com/tauri-apps/plugins-workspace/commit/d3183aa99da7ca67e627394132ddeb3b85ccef06) ([#2522](https://github.com/tauri-apps/plugins-workspace/pull/2522) by [@adrieljss](https://github.com/tauri-apps/plugins-workspace/../../adrieljss)) Fix `fetch` blocking until the whole response is read even if it was a streaming response.\n\n## \\[2.4.0]\n\n- [`cb38f54f`](https://github.com/tauri-apps/plugins-workspace/commit/cb38f54f4a4ef30995283cd82166c62da17bac44) ([#2479](https://github.com/tauri-apps/plugins-workspace/pull/2479) by [@adrieljss](https://github.com/tauri-apps/plugins-workspace/../../adrieljss)) Add stream support for HTTP stream responses.\n\n## \\[2.3.0]\n\n- [`10513649`](https://github.com/tauri-apps/plugins-workspace/commit/105136494c5a5bf4b1f1cc06cc71815412d17ec8) ([#2204](https://github.com/tauri-apps/plugins-workspace/pull/2204) by [@RickeyWard](https://github.com/tauri-apps/plugins-workspace/../../RickeyWard)) Add `dangerous-settings` feature flag and new JS `danger` option to disable tls hostname/certificate validation.\n\n## \\[2.2.0]\n\n- [`3a79266b`](https://github.com/tauri-apps/plugins-workspace/commit/3a79266b8cf96a55b1ae6339d725567d45a44b1d) ([#2173](https://github.com/tauri-apps/plugins-workspace/pull/2173) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) Bumped all plugins to `v2.2.0`. From now, the versions for the Rust and JavaScript packages of each plugin will be in sync with each other.\n\n### Dependencies\n\n- Upgraded to `fs@2.2.0`\n\n## \\[2.0.2]\n\n### Dependencies\n\n- Upgraded to `fs-js@2.0.4`\n\n## \\[2.0.4]\n\n- [`a3b553dd`](https://github.com/tauri-apps/plugins-workspace/commit/a3b553ddb403771aa699362c4e69a064b7731da5) ([#2079](https://github.com/tauri-apps/plugins-workspace/pull/2079) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Add tracing logs for requestes and responses behind `tracing` feature flag.\n\n### Dependencies\n\n- Upgraded to `fs@2.1.0`\n\n## \\[2.0.3]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.3`\n\n## \\[2.0.1]\n\n- [`cfd48b3b`](https://github.com/tauri-apps/plugins-workspace/commit/cfd48b3b2ec0fccfc162197518694ed59ceda22c) ([#1941](https://github.com/tauri-apps/plugins-workspace/pull/1941) by [@Nipsuli](https://github.com/tauri-apps/plugins-workspace/../../Nipsuli)) Allow skipping sending `Origin` header in HTTP requests by setting `Origin` header to an empty string when calling `fetch`.\n- [`9b2840db`](https://github.com/tauri-apps/plugins-workspace/commit/9b2840db9464cf08db75806270e4441f0af81e5d) ([#1884](https://github.com/tauri-apps/plugins-workspace/pull/1884) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Retain headers order.\n\n## \\[2.0.1]\n\n- [`a1a82208`](https://github.com/tauri-apps/plugins-workspace/commit/a1a82208ed4ab87f83310be0dc95428aec9ab241) ([#1873](https://github.com/tauri-apps/plugins-workspace/pull/1873) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Downgrade MSRV to 1.77.2 to support Windows 7.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.1`\n\n## \\[2.0.0]\n\n- [`e2c4dfb6`](https://github.com/tauri-apps/plugins-workspace/commit/e2c4dfb6af43e5dd8d9ceba232c315f5febd55c1) Update to tauri v2 stable release.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0`\n\n## \\[2.0.0-rc.6]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.6`\n\n## \\[2.0.0-rc.5]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.5`\n\n## \\[2.0.0-rc.4]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.4`\n\n## \\[2.0.0-rc.3]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.3`\n\n## \\[2.0.0-rc.2]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.2`\n\n## \\[2.0.0-rc.2]\n\n- [`e2e97db5`](https://github.com/tauri-apps/plugins-workspace/commit/e2e97db51983267f5be84d4f6f0278d58834d1f5) ([#1701](https://github.com/tauri-apps/plugins-workspace/pull/1701) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri 2.0.0-rc.8\n\n## \\[2.0.0-rc.1]\n\n- [`84f8bd5e`](https://github.com/tauri-apps/plugins-workspace/commit/84f8bd5e1ef22e664267380b5bbf756ebc5389c3) ([#1662](https://github.com/tauri-apps/plugins-workspace/pull/1662) by [@twlite](https://github.com/tauri-apps/plugins-workspace/../../twlite)) Fixed an issue with abort signal not aborting the fetch request.\n\n## \\[2.0.0-rc.0]\n\n- [`9887d1`](https://github.com/tauri-apps/plugins-workspace/commit/9887d14bd0e971c4c0f5c1188fc4005d3fc2e29e) Update to tauri RC.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-rc.0`\n\n## \\[2.0.0-beta.9]\n\n- [`99d6ac0f`](https://github.com/tauri-apps/plugins-workspace/commit/99d6ac0f9506a6a4a1aa59c728157190a7441af6) ([#1606](https://github.com/tauri-apps/plugins-workspace/pull/1606) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) The JS packages now specify the *minimum* `@tauri-apps/api` version instead of a single exact version.\n- [`6de87966`](https://github.com/tauri-apps/plugins-workspace/commit/6de87966ecc00ad9d91c25be452f1f46bd2b7e1f) ([#1597](https://github.com/tauri-apps/plugins-workspace/pull/1597) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Update to tauri beta.25.\n\n## \\[2.0.0-beta.8]\n\n- [`ac9a25cc`](https://github.com/tauri-apps/plugins-workspace/commit/ac9a25cc12ee2b325f00212ba74316da3369bde5) ([#1395](https://github.com/tauri-apps/plugins-workspace/pull/1395) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix cancelling requests using `AbortSignal`.\n- [`a6654932`](https://github.com/tauri-apps/plugins-workspace/commit/a66549329c60dea35e3a06a38c357e368c9053a1) ([#1526](https://github.com/tauri-apps/plugins-workspace/pull/1526) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Fix missing `Set-Cookie` headers in the response which meant `request.headers.getSetCookie()` always returned empty array.\n- [`22a17980`](https://github.com/tauri-apps/plugins-workspace/commit/22a17980ff4f6f8c40adb1b8f4ffc6dae2fe7e30) ([#1537](https://github.com/tauri-apps/plugins-workspace/pull/1537) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri beta.24.\n\n## \\[2.0.0-beta.7]\n\n- [`76daee7a`](https://github.com/tauri-apps/plugins-workspace/commit/76daee7aafece34de3092c86e531cf9eb1138989) ([#1512](https://github.com/tauri-apps/plugins-workspace/pull/1512) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Update to tauri beta.23.\n\n## \\[2.0.0-beta.6]\n\n- [`0f739dbc`](https://github.com/tauri-apps/plugins-workspace/commit/0f739dbc483a1f091977cbe575c3862fd39f8cf1) ([#1392](https://github.com/tauri-apps/plugins-workspace/pull/1392) by [@amrbashir](https://github.com/tauri-apps/plugins-workspace/../../amrbashir)) Allow setting `Origin` header when `unsafe-headers` feature flag is active.\n\n## \\[2.0.0-beta.5]\n\n- [`9013854f`](https://github.com/tauri-apps/plugins-workspace/commit/9013854f42a49a230b9dbb9d02774765528a923f)([#1382](https://github.com/tauri-apps/plugins-workspace/pull/1382)) Update to tauri beta.22.\n\n## \\[2.0.0-beta.4]\n\n- [`9d7ae45b`](https://github.com/tauri-apps/plugins-workspace/commit/9d7ae45b0edf9b22c73e7d7c413a784bb35c3d77)([#1354](https://github.com/tauri-apps/plugins-workspace/pull/1354)) Include headers created by browser if not declared by user, which fixes missing headers like `Content-Type` when using `FormData`.\n- [`430bd6f4`](https://github.com/tauri-apps/plugins-workspace/commit/430bd6f4f379bee5d232ae6b098ae131db7f178a)([#1363](https://github.com/tauri-apps/plugins-workspace/pull/1363)) Update to tauri beta.20.\n\n## \\[2.0.0-beta.3]\n\n- [`bd1ed590`](https://github.com/tauri-apps/plugins-workspace/commit/bd1ed5903ffcce5500310dac1e59e8c67674ef1e)([#1237](https://github.com/tauri-apps/plugins-workspace/pull/1237)) Update to tauri beta.17.\n\n## \\[2.0.0-beta.6]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.6`\n\n## \\[2.0.0-beta.5]\n\n- [`500ff10`](https://github.com/tauri-apps/plugins-workspace/commit/500ff10fbd89fdfc73caf9d153029dad567b4ff1)([#1166](https://github.com/tauri-apps/plugins-workspace/pull/1166)) **Breaking change:** Removed the `default-tls` feature flag. The `rustls-tls`, `http2`, `macos-system-configuration`, and `charset` feature flags are now enabled by default.\n- [`e3d41f4`](https://github.com/tauri-apps/plugins-workspace/commit/e3d41f4011bd3ea3ce281bb38bbe31d3709f8e0f)([#1191](https://github.com/tauri-apps/plugins-workspace/pull/1191)) Internally use the webview scoped resources table instead of the app one, so other webviews can't access other webviews resources.\n- [`7e2fcc5`](https://github.com/tauri-apps/plugins-workspace/commit/7e2fcc5e74df7c3c718e40f75bfb0eafc7d69d8d)([#1146](https://github.com/tauri-apps/plugins-workspace/pull/1146)) Update dependencies to align with tauri 2.0.0-beta.14.\n- [`e3d41f4`](https://github.com/tauri-apps/plugins-workspace/commit/e3d41f4011bd3ea3ce281bb38bbe31d3709f8e0f)([#1191](https://github.com/tauri-apps/plugins-workspace/pull/1191)) Update for tauri 2.0.0-beta.15.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.5`\n\n## \\[2.0.0-beta.4]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.4`\n\n## \\[2.0.0-beta.3]\n\n- [`c873e4d`](https://github.com/tauri-apps/plugins-workspace/commit/c873e4d6c74e759742f7c9a88e35cff10a75122a)([#1059](https://github.com/tauri-apps/plugins-workspace/pull/1059)) Fixes scope not allowing subpaths, query parameters and hash when those values are empty.\n- [`a04ea2f`](https://github.com/tauri-apps/plugins-workspace/commit/a04ea2f38294d5a3987578283badc8eec87a7752)([#1071](https://github.com/tauri-apps/plugins-workspace/pull/1071)) The global API script is now only added to the binary when the `withGlobalTauri` config is true.\n- [`753c7be`](https://github.com/tauri-apps/plugins-workspace/commit/753c7be0a6a78121d2e88ea0efc3040580c885b4)([#1050](https://github.com/tauri-apps/plugins-workspace/pull/1050)) Add `unsafe-headers` cargo feature flag to allow using [forbidden headers](https://fetch.spec.whatwg.org/#terminology-headers).\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-beta.3`\n\n## \\[2.0.0-beta.2]\n\n- [`ae56b13`](https://github.com/tauri-apps/plugins-workspace/commit/ae56b13a4d49dbf922b8a0fbb0d557bb63c1d72b)([#983](https://github.com/tauri-apps/plugins-workspace/pull/983)) Allow `User-Agent` header to be set.\n- [`99bea25`](https://github.com/tauri-apps/plugins-workspace/commit/99bea2559c2c0648c2519c50a18cd124dacef57b)([#1005](https://github.com/tauri-apps/plugins-workspace/pull/1005)) Update to tauri beta.8.\n\n## \\[2.0.0-beta.1]\n\n- [`569defb`](https://github.com/tauri-apps/plugins-workspace/commit/569defbe9492e38938554bb7bdc1be9151456d21) Update to tauri beta.4.\n\n## \\[2.0.0-beta.0]\n\n- [`d198c01`](https://github.com/tauri-apps/plugins-workspace/commit/d198c014863ee260cb0de88a14b7fc4356ef7474)([#862](https://github.com/tauri-apps/plugins-workspace/pull/862)) Update to tauri beta.\n- [`1a34720`](https://github.com/tauri-apps/plugins-workspace/commit/1a347203a54eccc954749d11c4ee81fdd9a0cde7)([#858](https://github.com/tauri-apps/plugins-workspace/pull/858)) Fix http fetch client option init with parameter `connectTimeout`\n\n## \\[2.0.0-alpha.9]\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-alpha.7`\n\n## \\[2.0.0-alpha.6]\n\n- [`bfa87da`](https://github.com/tauri-apps/plugins-workspace/commit/bfa87da848f9f1da2abae3354eed632881eddf11)([#824](https://github.com/tauri-apps/plugins-workspace/pull/824)) Add `proxy` field to `fetch` options to configure proxy.\n\n## \\[2.0.0-alpha.5]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.13.\n\n## \\[2.0.0-alpha.4]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.12.\n\n## \\[2.0.0-alpha.3]\n\n- [`e438e0a`](https://github.com/tauri-apps/plugins-workspace/commit/e438e0a62d4b430a5159f05f13ecd397dd891a0d)([#676](https://github.com/tauri-apps/plugins-workspace/pull/676)) Update to @tauri-apps/api v2.0.0-alpha.11.\n\n## \\[2.0.0-alpha.2]\n\n- [`5c13736`](https://github.com/tauri-apps/plugins-workspace/commit/5c137365c60790e8d4037d449e8237aa3fffdab0)([#673](https://github.com/tauri-apps/plugins-workspace/pull/673)) Update to @tauri-apps/api v2.0.0-alpha.9.\n\n## \\[2.0.0-alpha.3]\n\n- [`2cb0fa7`](https://github.com/tauri-apps/plugins-workspace/commit/2cb0fa719b8b1f5ac07dada93520dbbcf637d64c)([#587](https://github.com/tauri-apps/plugins-workspace/pull/587)) Remove `cmd` property which breaks invoke call.\n- [`4e2cef9`](https://github.com/tauri-apps/plugins-workspace/commit/4e2cef9b702bbbb9cf4ee17de50791cb21f1b2a4)([#593](https://github.com/tauri-apps/plugins-workspace/pull/593)) Update to alpha.12.\n\n### Dependencies\n\n- Upgraded to `fs@2.0.0-alpha.2`\n\n## \\[2.0.0-alpha.2]\n\n- [`aec17a9`](https://github.com/tauri-apps/plugins-workspace/commit/aec17a90fc365774c70c4876b94a899416120e26)([#558](https://github.com/tauri-apps/plugins-workspace/pull/558)) Improve response performance by using the new IPC streaming data.\n\n## \\[2.0.0-alpha.1]\n\n- [`7d9df72`](https://github.com/tauri-apps/plugins-workspace/commit/7d9df7297a221a64d9de945ffc2cd8313d3104dc)([#428](https://github.com/tauri-apps/plugins-workspace/pull/428)) Multipart requests are now handled in JavaScript by the `Request` JavaScript class so you just need to use a `FormData` body and not set the content-type header to `multipart/form-data`. `application/x-www-form-urlencoded` requests must be done manually.\n- [`7d9df72`](https://github.com/tauri-apps/plugins-workspace/commit/7d9df7297a221a64d9de945ffc2cd8313d3104dc)([#428](https://github.com/tauri-apps/plugins-workspace/pull/428)) The http plugin has been rewritten from scratch and now only exposes a `fetch` function in Javascript and Re-exports `reqwest` crate in Rust. The new `fetch` method tries to be as close and compliant to the `fetch` Web API as possible.\n- [`d74fc0a`](https://github.com/tauri-apps/plugins-workspace/commit/d74fc0a097996e90a37be8f57d50b7d1f6ca616f)([#555](https://github.com/tauri-apps/plugins-workspace/pull/555)) Update to alpha.11.\n\n## \\[2.0.0-alpha.0]\n\n- [`717ae67`](https://github.com/tauri-apps/plugins-workspace/commit/717ae670978feb4492fac1f295998b93f2b9347f)([#371](https://github.com/tauri-apps/plugins-workspace/pull/371)) First v2 alpha release!\n",
     "npmData": {
       "id": "@tauri-apps/plugin-http",
       "name": "@tauri-apps/plugin-http",
@@ -3100,13 +3129,17 @@
         "2.5.7": "2026-02-03T11:19:39.224Z",
         "2.5.8": "2026-04-04T16:49:02.107Z",
         "2.5.9": "2026-05-02T11:39:34.537Z",
-        "2.6.0": "2026-08-31T11:20:18.468Z"
+        "2.6.0": "2026-08-31T11:20:18.468Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:54.232Z",
+        "2.6.1": "2026-09-16T04:19:27.334Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-http",
       "name": "tauri-plugin-http",
       "versions": {
+        "2.6.1": "2026-09-16T04:18:01.742892Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:07.707332Z",
         "2.6.0": "2026-08-31T11:20:09.846723Z",
         "2.5.9": "2026-05-02T11:39:26.780803Z",
         "2.5.8": "2026-04-04T16:48:54.439752Z",
@@ -3177,6 +3210,7 @@
       "id": "tauri-plugin-localhost",
       "name": "tauri-plugin-localhost",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:01:18.995068Z",
         "2.3.2": "2026-01-08T14:36:30.415663Z",
         "2.3.1": "2025-10-27T10:34:53.448151Z",
         "2.3.0": "2025-06-25T14:35:19.755417Z",
@@ -3250,13 +3284,15 @@
         "2.7.1": "2025-10-27T10:35:09.038Z",
         "2.8.0": "2026-01-08T14:36:41.768Z",
         "2.9.0": "2026-07-13T23:15:56.956Z",
-        "2.9.1": "2026-08-31T11:20:30.584Z"
+        "2.9.1": "2026-08-31T11:20:30.584Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:31.236Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-log",
       "name": "tauri-plugin-log",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:01:23.193444Z",
         "2.9.1": "2026-08-31T11:20:21.421145Z",
         "2.9.0": "2026-07-13T23:15:47.112540Z",
         "2.8.0": "2026-01-08T14:36:33.942799Z",
@@ -3329,13 +3365,15 @@
         "2.3.3": "2025-10-27T10:35:23.310Z",
         "2.3.4": "2026-01-08T14:36:52.092Z",
         "2.3.5": "2026-04-04T16:49:12.581Z",
-        "2.3.6": "2026-08-31T11:20:42.565Z"
+        "2.3.6": "2026-08-31T11:20:42.565Z",
+        "3.0.0-alpha.0": "2026-09-13T19:01:42.618Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-nfc",
       "name": "tauri-plugin-nfc",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:01:34.266887Z",
         "2.3.6": "2026-08-31T11:20:33.780711Z",
         "2.3.5": "2026-04-04T16:49:04.784809Z",
         "2.3.4": "2026-01-08T14:36:44.594311Z",
@@ -3398,13 +3436,15 @@
         "2.3.1": "2025-08-21T13:08:14.236Z",
         "2.3.2": "2025-10-26T21:06:10.695Z",
         "2.3.3": "2025-10-27T10:35:38.119Z",
-        "2.4.0": "2026-08-31T11:20:55.239Z"
+        "2.4.0": "2026-08-31T11:20:55.239Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:08.671Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-notification",
       "name": "tauri-plugin-notification",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:01:45.071738Z",
         "2.4.0": "2026-08-31T11:20:45.421265Z",
         "2.3.3": "2025-10-27T10:35:26.732209Z",
         "2.3.2": "2025-10-26T21:05:58.182515Z",
@@ -3471,13 +3511,15 @@
         "2.5.2": "2025-10-27T10:34:22.287Z",
         "2.5.3": "2026-01-08T14:36:16.233Z",
         "2.5.4": "2026-05-02T11:39:23.743Z",
-        "2.5.5": "2026-08-31T11:19:55.053Z"
+        "2.5.5": "2026-08-31T11:19:55.053Z",
+        "3.0.0-alpha.0": "2026-09-13T19:02:08.752Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-opener",
       "name": "tauri-plugin-opener",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:00:44.488856Z",
         "2.5.5": "2026-08-31T11:19:45.384726Z",
         "2.5.4": "2026-05-02T11:39:15.484136Z",
         "2.5.3": "2026-01-08T14:36:08.408924Z",
@@ -3531,13 +3573,15 @@
         "2.2.2": "2025-06-16T21:54:19.619Z",
         "2.3.0": "2025-06-25T14:36:11.499Z",
         "2.3.1": "2025-08-20T09:44:25.374Z",
-        "2.3.2": "2025-10-27T10:35:52.850Z"
+        "2.3.2": "2025-10-27T10:35:52.850Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:40.136Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-os",
       "name": "tauri-plugin-os",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:01:55.812390Z",
         "2.3.2": "2025-10-27T10:35:41.117937Z",
         "2.3.1": "2025-08-20T09:44:15.554877Z",
         "2.3.0": "2025-06-25T14:36:02.183368Z",
@@ -3580,6 +3624,7 @@
       "id": "tauri-plugin-persisted-scope",
       "name": "tauri-plugin-persisted-scope",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:02:06.291857Z",
         "2.3.8": "2026-08-31T11:20:58.699322Z",
         "2.3.7": "2026-05-02T11:39:37.753362Z",
         "2.3.6": "2026-04-04T16:49:15.374599Z",
@@ -3667,13 +3712,15 @@
         "2.3.1": "2025-10-27T10:36:12.865Z",
         "2.3.2": "2026-05-28T10:07:49.112Z",
         "2.3.3": "2026-07-13T23:16:08.419Z",
-        "2.3.4": "2026-08-31T11:21:12.780Z"
+        "2.3.4": "2026-08-31T11:21:12.780Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:34.166Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-positioner",
       "name": "tauri-plugin-positioner",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:02:10.331213Z",
         "2.3.4": "2026-08-31T11:21:03.053163Z",
         "2.3.3": "2026-07-13T23:15:59.948894Z",
         "2.3.2": "2026-05-28T10:07:39.898631Z",
@@ -3749,13 +3796,15 @@
         "2.2.1": "2025-04-02T03:33:54.455Z",
         "2.2.2": "2025-06-16T21:54:44.652Z",
         "2.3.0": "2025-06-25T14:36:39.620Z",
-        "2.3.1": "2025-10-27T10:36:24.344Z"
+        "2.3.1": "2025-10-27T10:36:24.344Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:03.247Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-process",
       "name": "tauri-plugin-process",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:02:21.075342Z",
         "2.3.1": "2025-10-27T10:36:15.783642Z",
         "2.3.0": "2025-06-25T14:36:31.667365Z",
         "2.2.2": "2025-06-16T21:54:34.833754Z",
@@ -3821,13 +3870,15 @@
         "2.3.3": "2025-10-27T10:36:37.583Z",
         "2.3.4": "2026-01-08T14:37:07.027Z",
         "2.3.5": "2026-02-03T11:19:50.633Z",
-        "2.3.6": "2026-08-31T11:21:25.907Z"
+        "2.3.6": "2026-08-31T11:21:25.907Z",
+        "3.0.0-alpha.0": "2026-09-13T19:05:17.511Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-shell",
       "name": "tauri-plugin-shell",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:02:31.943443Z",
         "2.3.6": "2026-08-31T11:21:15.984788Z",
         "2.3.5": "2026-02-03T11:19:41.988339Z",
         "2.3.4": "2026-01-08T14:36:58.459406Z",
@@ -3879,6 +3930,7 @@
       "id": "tauri-plugin-single-instance",
       "name": "tauri-plugin-single-instance",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:02:43.199980Z",
         "2.4.4": "2026-08-31T11:21:29.021814Z",
         "2.4.3": "2026-07-13T23:16:11.685392Z",
         "2.4.2": "2026-05-02T11:39:41.940084Z",
@@ -3962,13 +4014,15 @@
         "2.3.1": "2025-10-27T10:36:56.292Z",
         "2.3.2": "2026-02-03T11:20:02.107Z",
         "2.4.0": "2026-04-04T16:49:30.477Z",
-        "2.4.1": "2026-08-31T11:23:18.417Z"
+        "2.4.1": "2026-08-31T11:23:18.417Z",
+        "3.0.0-alpha.0": "2026-09-13T19:05:02.401Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-sql",
       "name": "tauri-plugin-sql",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:02:46.900561Z",
         "2.4.1": "2026-08-31T11:21:32.925672Z",
         "2.4.0": "2026-04-04T16:49:23.064756Z",
         "2.3.2": "2026-02-03T11:19:53.279544Z",
@@ -4008,7 +4062,7 @@
   },
   "store": {
     "group": "plugins-workspace",
-    "changelogs": "# Changelog\n\n## \\[2.4.4]\n\n- [`2ed6d6c1`](https://github.com/tauri-apps/plugins-workspace/commit/2ed6d6c1de4f5051b87cb6a2c5ac45320c444989) ([#3499](https://github.com/tauri-apps/plugins-workspace/pull/3499) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Fix `StoreOptions` requires `defaults` field\n\n## \\[2.4.3]\n\n- [`964e13f1`](https://github.com/tauri-apps/plugins-workspace/commit/964e13f124ad1feeb93c10168b265dc4936f738c) ([#3395](https://github.com/tauri-apps/plugins-workspace/pull/3395) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Fix a deadlock when calling `Store::set` while exiting (on `RunEvent::Exit`)\n\n## \\[2.4.2]\n\n- [`eebfd2ed`](https://github.com/tauri-apps/plugins-workspace/commit/eebfd2ed3e4bae4ef195f20c992f01657a5f5121) ([#3157](https://github.com/tauri-apps/plugins-workspace/pull/3157) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Return an error instead of panic when the internally tracked resource id is invalid on creating new stores\n\n## \\[2.4.1]\n\n- [`93426f85`](https://github.com/tauri-apps/plugins-workspace/commit/93426f85120f49beb9f40222bff45185a32d54a9) Fixed an issue that caused docs.rs builds to fail. No user facing changes.\n\n## \\[2.4.0]\n\n- [`5ac8fbb1`](https://github.com/tauri-apps/plugins-workspace/commit/5ac8fbb1fa76714aa8cc9c0d74e0aebab12f9755) ([#2857](https://github.com/tauri-apps/plugins-workspace/pull/2857) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Allow setting defaults from the JavaScript API\n- [`5ac8fbb1`](https://github.com/tauri-apps/plugins-workspace/commit/5ac8fbb1fa76714aa8cc9c0d74e0aebab12f9755) ([#2857](https://github.com/tauri-apps/plugins-workspace/pull/2857) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Add an new option `overrideDefaults` for creating/loading and reloading the store that overrides the store with the on-disk state, ignoring defaults\n\n## \\[2.3.0]\n\n- [`f209b2f2`](https://github.com/tauri-apps/plugins-workspace/commit/f209b2f23cb29133c97ad5961fb46ef794dbe063) ([#2804](https://github.com/tauri-apps/plugins-workspace/pull/2804) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Updated tauri to 2.6\n\n## \\[2.2.1]\n\n- [`f634e524`](https://github.com/tauri-apps/plugins-workspace/commit/f634e5248ebe428f8305a59f74c13fc15147fb8e) This is an \"empty\" release to update the plugins' source files on crates.io and docs.rs. This should fix docs.rs build failures for projects using tauri plugins as dependencies.\n\n## \\[2.2.0]\n\n- [`3a79266b`](https://github.com/tauri-apps/plugins-workspace/commit/3a79266b8cf96a55b1ae6339d725567d45a44b1d) ([#2173](https://github.com/tauri-apps/plugins-workspace/pull/2173) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) Bumped all plugins to `v2.2.0`. From now, the versions for the Rust and JavaScript packages of each plugin will be in sync with each other.\n\n## \\[2.1.0]\n\n### feat\n\n- [`8c67d44a`](https://github.com/tauri-apps/plugins-workspace/commit/8c67d44aef60b1427019538d8420787ef35bd3d5) ([#1860](https://github.com/tauri-apps/plugins-workspace/pull/1860) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) -   Add `getStore`\n  - Add an option to use pre-stored (de)serialize functions (registered on rust)\n  - Add `LazyStore`\n\n## \\[2.0.1]\n\n- [`a1a82208`](https://github.com/tauri-apps/plugins-workspace/commit/a1a82208ed4ab87f83310be0dc95428aec9ab241) ([#1873](https://github.com/tauri-apps/plugins-workspace/pull/1873) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Downgrade MSRV to 1.77.2 to support Windows 7.\n\n## \\[2.0.0]\n\n- [`e2c4dfb6`](https://github.com/tauri-apps/plugins-workspace/commit/e2c4dfb6af43e5dd8d9ceba232c315f5febd55c1) Update to tauri v2 stable release.\n\n## \\[2.0.0-rc.2]\n\n- [`f12d3560`](https://github.com/tauri-apps/plugins-workspace/commit/f12d35609ab84f536c0f087665fdc1f978af3093) ([#1550](https://github.com/tauri-apps/plugins-workspace/pull/1550) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) **Breaking change**: Removed the `Store` constructor and added the `createStore` API.\n\n## \\[2.0.0-rc.1]\n\n- [`e2e97db5`](https://github.com/tauri-apps/plugins-workspace/commit/e2e97db51983267f5be84d4f6f0278d58834d1f5) ([#1701](https://github.com/tauri-apps/plugins-workspace/pull/1701) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri 2.0.0-rc.8\n\n## \\[2.0.0-rc.2]\n\n- [`b9147758`](https://github.com/tauri-apps/plugins-workspace/commit/b914775898c2bee7ceb20bd17ee595005cd17a64) ([#1679](https://github.com/tauri-apps/plugins-workspace/pull/1679) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Explicitly set a minimum macOS version for the Swift package.\n\n## \\[2.0.0-rc.1]\n\n### changes\n\n- [`6b079cfd`](https://github.com/tauri-apps/plugins-workspace/commit/6b079cfdd107c94abc2c7300f6af00bac3ff4040) ([#1649](https://github.com/tauri-apps/plugins-workspace/pull/1649) by [@ahqsoftwares](https://github.com/tauri-apps/plugins-workspace/../../ahqsoftwares)) Remove targetSdk from build.kts files as it is deprecated and will be removed from DSL v9.0\n\n## \\[2.0.0-rc.0]\n\n- [`9887d1`](https://github.com/tauri-apps/plugins-workspace/commit/9887d14bd0e971c4c0f5c1188fc4005d3fc2e29e) Update to tauri RC.\n\n## \\[2.0.0-beta.8]\n\n- [`99d6ac0f`](https://github.com/tauri-apps/plugins-workspace/commit/99d6ac0f9506a6a4a1aa59c728157190a7441af6) ([#1606](https://github.com/tauri-apps/plugins-workspace/pull/1606) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) The JS packages now specify the *minimum* `@tauri-apps/api` version instead of a single exact version.\n- [`6de87966`](https://github.com/tauri-apps/plugins-workspace/commit/6de87966ecc00ad9d91c25be452f1f46bd2b7e1f) ([#1597](https://github.com/tauri-apps/plugins-workspace/pull/1597) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Update to tauri beta.25.\n\n## \\[2.0.0-beta.7]\n\n- [`22a17980`](https://github.com/tauri-apps/plugins-workspace/commit/22a17980ff4f6f8c40adb1b8f4ffc6dae2fe7e30) ([#1537](https://github.com/tauri-apps/plugins-workspace/pull/1537) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri beta.24.\n\n## \\[2.0.0-beta.6]\n\n- [`76daee7a`](https://github.com/tauri-apps/plugins-workspace/commit/76daee7aafece34de3092c86e531cf9eb1138989) ([#1512](https://github.com/tauri-apps/plugins-workspace/pull/1512) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Update to tauri beta.23.\n\n## \\[2.0.0-beta.5]\n\n- [`9013854f`](https://github.com/tauri-apps/plugins-workspace/commit/9013854f42a49a230b9dbb9d02774765528a923f)([#1382](https://github.com/tauri-apps/plugins-workspace/pull/1382)) Update to tauri beta.22.\n\n## \\[2.0.0-beta.4]\n\n- [`430bd6f4`](https://github.com/tauri-apps/plugins-workspace/commit/430bd6f4f379bee5d232ae6b098ae131db7f178a)([#1363](https://github.com/tauri-apps/plugins-workspace/pull/1363)) Update to tauri beta.20.\n\n## \\[2.0.0-beta.3]\n\n- [`bd1ed590`](https://github.com/tauri-apps/plugins-workspace/commit/bd1ed5903ffcce5500310dac1e59e8c67674ef1e)([#1237](https://github.com/tauri-apps/plugins-workspace/pull/1237)) Update to tauri beta.17.\n\n## \\[2.0.0-beta.5]\n\n- [`bb51a41`](https://github.com/tauri-apps/plugins-workspace/commit/bb51a41d67ebf989e8aedf10c4b1a7f9514d1bdf)([#1168](https://github.com/tauri-apps/plugins-workspace/pull/1168)) **Breaking Change:** All apis that return paths to the frontend will now remove the `\\\\?\\` UNC prefix on Windows.\n\n## \\[2.0.0-beta.4]\n\n- [`a04ea2f`](https://github.com/tauri-apps/plugins-workspace/commit/a04ea2f38294d5a3987578283badc8eec87a7752)([#1071](https://github.com/tauri-apps/plugins-workspace/pull/1071)) The global API script is now only added to the binary when the `withGlobalTauri` config is true.\n\n## \\[2.0.0-beta.3]\n\n- [`79691e9`](https://github.com/tauri-apps/plugins-workspace/commit/79691e93e04b820e44dce1c7d91b8865fa6ccb14)([#1040](https://github.com/tauri-apps/plugins-workspace/pull/1040)) Fix `with_store` and `StoreCollection` changed to private in #1011\n\n## \\[2.0.0-beta.2]\n\n- [`99bea25`](https://github.com/tauri-apps/plugins-workspace/commit/99bea2559c2c0648c2519c50a18cd124dacef57b)([#1005](https://github.com/tauri-apps/plugins-workspace/pull/1005)) Update to tauri beta.8.\n\n## \\[2.0.0-beta.1]\n\n- [`569defb`](https://github.com/tauri-apps/plugins-workspace/commit/569defbe9492e38938554bb7bdc1be9151456d21) Update to tauri beta.4.\n\n## \\[2.0.0-beta.0]\n\n- [`d198c01`](https://github.com/tauri-apps/plugins-workspace/commit/d198c014863ee260cb0de88a14b7fc4356ef7474)([#862](https://github.com/tauri-apps/plugins-workspace/pull/862)) Update to tauri beta.\n\n## \\[2.0.0-alpha.5]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.13.\n\n## \\[2.0.0-alpha.4]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.12.\n\n## \\[2.0.0-alpha.3]\n\n- [`e438e0a`](https://github.com/tauri-apps/plugins-workspace/commit/e438e0a62d4b430a5159f05f13ecd397dd891a0d)([#676](https://github.com/tauri-apps/plugins-workspace/pull/676)) Update to @tauri-apps/api v2.0.0-alpha.11.\n\n## \\[2.0.0-alpha.2]\n\n- [`5c13736`](https://github.com/tauri-apps/plugins-workspace/commit/5c137365c60790e8d4037d449e8237aa3fffdab0)([#673](https://github.com/tauri-apps/plugins-workspace/pull/673)) Update to @tauri-apps/api v2.0.0-alpha.9.\n\n## \\[2.0.0-alpha.2]\n\n- [`4e2cef9`](https://github.com/tauri-apps/plugins-workspace/commit/4e2cef9b702bbbb9cf4ee17de50791cb21f1b2a4)([#593](https://github.com/tauri-apps/plugins-workspace/pull/593)) Update to alpha.12.\n\n## \\[2.0.0-alpha.1]\n\n- [`d74fc0a`](https://github.com/tauri-apps/plugins-workspace/commit/d74fc0a097996e90a37be8f57d50b7d1f6ca616f)([#555](https://github.com/tauri-apps/plugins-workspace/pull/555)) Update to alpha.11.\n\n## \\[2.0.0-alpha.0]\n\n- [`717ae67`](https://github.com/tauri-apps/plugins-workspace/commit/717ae670978feb4492fac1f295998b93f2b9347f)([#371](https://github.com/tauri-apps/plugins-workspace/pull/371)) First v2 alpha release!\n",
+    "changelogs": "# Changelog\n\n## [2.4.5]\n\n- [`c050e073`](https://github.com/tauri-apps/plugins-workspace/commit/c050e073b68205bae7389fb86958cb9331e1a3be) ([#3572](https://github.com/tauri-apps/plugins-workspace/pull/3572) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Fix `apply_pending_auto_save` can deadlock the store\n\n## \\[2.4.4]\n\n- [`2ed6d6c1`](https://github.com/tauri-apps/plugins-workspace/commit/2ed6d6c1de4f5051b87cb6a2c5ac45320c444989) ([#3499](https://github.com/tauri-apps/plugins-workspace/pull/3499) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Fix `StoreOptions` requires `defaults` field\n\n## \\[2.4.3]\n\n- [`964e13f1`](https://github.com/tauri-apps/plugins-workspace/commit/964e13f124ad1feeb93c10168b265dc4936f738c) ([#3395](https://github.com/tauri-apps/plugins-workspace/pull/3395) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Fix a deadlock when calling `Store::set` while exiting (on `RunEvent::Exit`)\n\n## \\[2.4.2]\n\n- [`eebfd2ed`](https://github.com/tauri-apps/plugins-workspace/commit/eebfd2ed3e4bae4ef195f20c992f01657a5f5121) ([#3157](https://github.com/tauri-apps/plugins-workspace/pull/3157) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Return an error instead of panic when the internally tracked resource id is invalid on creating new stores\n\n## \\[2.4.1]\n\n- [`93426f85`](https://github.com/tauri-apps/plugins-workspace/commit/93426f85120f49beb9f40222bff45185a32d54a9) Fixed an issue that caused docs.rs builds to fail. No user facing changes.\n\n## \\[2.4.0]\n\n- [`5ac8fbb1`](https://github.com/tauri-apps/plugins-workspace/commit/5ac8fbb1fa76714aa8cc9c0d74e0aebab12f9755) ([#2857](https://github.com/tauri-apps/plugins-workspace/pull/2857) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Allow setting defaults from the JavaScript API\n- [`5ac8fbb1`](https://github.com/tauri-apps/plugins-workspace/commit/5ac8fbb1fa76714aa8cc9c0d74e0aebab12f9755) ([#2857](https://github.com/tauri-apps/plugins-workspace/pull/2857) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Add an new option `overrideDefaults` for creating/loading and reloading the store that overrides the store with the on-disk state, ignoring defaults\n\n## \\[2.3.0]\n\n- [`f209b2f2`](https://github.com/tauri-apps/plugins-workspace/commit/f209b2f23cb29133c97ad5961fb46ef794dbe063) ([#2804](https://github.com/tauri-apps/plugins-workspace/pull/2804) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Updated tauri to 2.6\n\n## \\[2.2.1]\n\n- [`f634e524`](https://github.com/tauri-apps/plugins-workspace/commit/f634e5248ebe428f8305a59f74c13fc15147fb8e) This is an \"empty\" release to update the plugins' source files on crates.io and docs.rs. This should fix docs.rs build failures for projects using tauri plugins as dependencies.\n\n## \\[2.2.0]\n\n- [`3a79266b`](https://github.com/tauri-apps/plugins-workspace/commit/3a79266b8cf96a55b1ae6339d725567d45a44b1d) ([#2173](https://github.com/tauri-apps/plugins-workspace/pull/2173) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) Bumped all plugins to `v2.2.0`. From now, the versions for the Rust and JavaScript packages of each plugin will be in sync with each other.\n\n## \\[2.1.0]\n\n### feat\n\n- [`8c67d44a`](https://github.com/tauri-apps/plugins-workspace/commit/8c67d44aef60b1427019538d8420787ef35bd3d5) ([#1860](https://github.com/tauri-apps/plugins-workspace/pull/1860) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) -   Add `getStore`\n  - Add an option to use pre-stored (de)serialize functions (registered on rust)\n  - Add `LazyStore`\n\n## \\[2.0.1]\n\n- [`a1a82208`](https://github.com/tauri-apps/plugins-workspace/commit/a1a82208ed4ab87f83310be0dc95428aec9ab241) ([#1873](https://github.com/tauri-apps/plugins-workspace/pull/1873) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Downgrade MSRV to 1.77.2 to support Windows 7.\n\n## \\[2.0.0]\n\n- [`e2c4dfb6`](https://github.com/tauri-apps/plugins-workspace/commit/e2c4dfb6af43e5dd8d9ceba232c315f5febd55c1) Update to tauri v2 stable release.\n\n## \\[2.0.0-rc.2]\n\n- [`f12d3560`](https://github.com/tauri-apps/plugins-workspace/commit/f12d35609ab84f536c0f087665fdc1f978af3093) ([#1550](https://github.com/tauri-apps/plugins-workspace/pull/1550) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) **Breaking change**: Removed the `Store` constructor and added the `createStore` API.\n\n## \\[2.0.0-rc.1]\n\n- [`e2e97db5`](https://github.com/tauri-apps/plugins-workspace/commit/e2e97db51983267f5be84d4f6f0278d58834d1f5) ([#1701](https://github.com/tauri-apps/plugins-workspace/pull/1701) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri 2.0.0-rc.8\n\n## \\[2.0.0-rc.2]\n\n- [`b9147758`](https://github.com/tauri-apps/plugins-workspace/commit/b914775898c2bee7ceb20bd17ee595005cd17a64) ([#1679](https://github.com/tauri-apps/plugins-workspace/pull/1679) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Explicitly set a minimum macOS version for the Swift package.\n\n## \\[2.0.0-rc.1]\n\n### changes\n\n- [`6b079cfd`](https://github.com/tauri-apps/plugins-workspace/commit/6b079cfdd107c94abc2c7300f6af00bac3ff4040) ([#1649](https://github.com/tauri-apps/plugins-workspace/pull/1649) by [@ahqsoftwares](https://github.com/tauri-apps/plugins-workspace/../../ahqsoftwares)) Remove targetSdk from build.kts files as it is deprecated and will be removed from DSL v9.0\n\n## \\[2.0.0-rc.0]\n\n- [`9887d1`](https://github.com/tauri-apps/plugins-workspace/commit/9887d14bd0e971c4c0f5c1188fc4005d3fc2e29e) Update to tauri RC.\n\n## \\[2.0.0-beta.8]\n\n- [`99d6ac0f`](https://github.com/tauri-apps/plugins-workspace/commit/99d6ac0f9506a6a4a1aa59c728157190a7441af6) ([#1606](https://github.com/tauri-apps/plugins-workspace/pull/1606) by [@FabianLars](https://github.com/tauri-apps/plugins-workspace/../../FabianLars)) The JS packages now specify the *minimum* `@tauri-apps/api` version instead of a single exact version.\n- [`6de87966`](https://github.com/tauri-apps/plugins-workspace/commit/6de87966ecc00ad9d91c25be452f1f46bd2b7e1f) ([#1597](https://github.com/tauri-apps/plugins-workspace/pull/1597) by [@Legend-Master](https://github.com/tauri-apps/plugins-workspace/../../Legend-Master)) Update to tauri beta.25.\n\n## \\[2.0.0-beta.7]\n\n- [`22a17980`](https://github.com/tauri-apps/plugins-workspace/commit/22a17980ff4f6f8c40adb1b8f4ffc6dae2fe7e30) ([#1537](https://github.com/tauri-apps/plugins-workspace/pull/1537) by [@lucasfernog](https://github.com/tauri-apps/plugins-workspace/../../lucasfernog)) Update to tauri beta.24.\n\n## \\[2.0.0-beta.6]\n\n- [`76daee7a`](https://github.com/tauri-apps/plugins-workspace/commit/76daee7aafece34de3092c86e531cf9eb1138989) ([#1512](https://github.com/tauri-apps/plugins-workspace/pull/1512) by [@renovate](https://github.com/tauri-apps/plugins-workspace/../../renovate)) Update to tauri beta.23.\n\n## \\[2.0.0-beta.5]\n\n- [`9013854f`](https://github.com/tauri-apps/plugins-workspace/commit/9013854f42a49a230b9dbb9d02774765528a923f)([#1382](https://github.com/tauri-apps/plugins-workspace/pull/1382)) Update to tauri beta.22.\n\n## \\[2.0.0-beta.4]\n\n- [`430bd6f4`](https://github.com/tauri-apps/plugins-workspace/commit/430bd6f4f379bee5d232ae6b098ae131db7f178a)([#1363](https://github.com/tauri-apps/plugins-workspace/pull/1363)) Update to tauri beta.20.\n\n## \\[2.0.0-beta.3]\n\n- [`bd1ed590`](https://github.com/tauri-apps/plugins-workspace/commit/bd1ed5903ffcce5500310dac1e59e8c67674ef1e)([#1237](https://github.com/tauri-apps/plugins-workspace/pull/1237)) Update to tauri beta.17.\n\n## \\[2.0.0-beta.5]\n\n- [`bb51a41`](https://github.com/tauri-apps/plugins-workspace/commit/bb51a41d67ebf989e8aedf10c4b1a7f9514d1bdf)([#1168](https://github.com/tauri-apps/plugins-workspace/pull/1168)) **Breaking Change:** All apis that return paths to the frontend will now remove the `\\\\?\\` UNC prefix on Windows.\n\n## \\[2.0.0-beta.4]\n\n- [`a04ea2f`](https://github.com/tauri-apps/plugins-workspace/commit/a04ea2f38294d5a3987578283badc8eec87a7752)([#1071](https://github.com/tauri-apps/plugins-workspace/pull/1071)) The global API script is now only added to the binary when the `withGlobalTauri` config is true.\n\n## \\[2.0.0-beta.3]\n\n- [`79691e9`](https://github.com/tauri-apps/plugins-workspace/commit/79691e93e04b820e44dce1c7d91b8865fa6ccb14)([#1040](https://github.com/tauri-apps/plugins-workspace/pull/1040)) Fix `with_store` and `StoreCollection` changed to private in #1011\n\n## \\[2.0.0-beta.2]\n\n- [`99bea25`](https://github.com/tauri-apps/plugins-workspace/commit/99bea2559c2c0648c2519c50a18cd124dacef57b)([#1005](https://github.com/tauri-apps/plugins-workspace/pull/1005)) Update to tauri beta.8.\n\n## \\[2.0.0-beta.1]\n\n- [`569defb`](https://github.com/tauri-apps/plugins-workspace/commit/569defbe9492e38938554bb7bdc1be9151456d21) Update to tauri beta.4.\n\n## \\[2.0.0-beta.0]\n\n- [`d198c01`](https://github.com/tauri-apps/plugins-workspace/commit/d198c014863ee260cb0de88a14b7fc4356ef7474)([#862](https://github.com/tauri-apps/plugins-workspace/pull/862)) Update to tauri beta.\n\n## \\[2.0.0-alpha.5]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.13.\n\n## \\[2.0.0-alpha.4]\n\n- [`387c2f9`](https://github.com/tauri-apps/plugins-workspace/commit/387c2f9e0ce4c75c07ffa3fd76391a25b58f5daf)([#802](https://github.com/tauri-apps/plugins-workspace/pull/802)) Update to @tauri-apps/api v2.0.0-alpha.12.\n\n## \\[2.0.0-alpha.3]\n\n- [`e438e0a`](https://github.com/tauri-apps/plugins-workspace/commit/e438e0a62d4b430a5159f05f13ecd397dd891a0d)([#676](https://github.com/tauri-apps/plugins-workspace/pull/676)) Update to @tauri-apps/api v2.0.0-alpha.11.\n\n## \\[2.0.0-alpha.2]\n\n- [`5c13736`](https://github.com/tauri-apps/plugins-workspace/commit/5c137365c60790e8d4037d449e8237aa3fffdab0)([#673](https://github.com/tauri-apps/plugins-workspace/pull/673)) Update to @tauri-apps/api v2.0.0-alpha.9.\n\n## \\[2.0.0-alpha.2]\n\n- [`4e2cef9`](https://github.com/tauri-apps/plugins-workspace/commit/4e2cef9b702bbbb9cf4ee17de50791cb21f1b2a4)([#593](https://github.com/tauri-apps/plugins-workspace/pull/593)) Update to alpha.12.\n\n## \\[2.0.0-alpha.1]\n\n- [`d74fc0a`](https://github.com/tauri-apps/plugins-workspace/commit/d74fc0a097996e90a37be8f57d50b7d1f6ca616f)([#555](https://github.com/tauri-apps/plugins-workspace/pull/555)) Update to alpha.11.\n\n## \\[2.0.0-alpha.0]\n\n- [`717ae67`](https://github.com/tauri-apps/plugins-workspace/commit/717ae670978feb4492fac1f295998b93f2b9347f)([#371](https://github.com/tauri-apps/plugins-workspace/pull/371)) First v2 alpha release!\n",
     "npmData": {
       "id": "@tauri-apps/plugin-store",
       "name": "@tauri-apps/plugin-store",
@@ -4040,13 +4094,17 @@
         "2.4.1": "2025-10-27T10:37:17.419Z",
         "2.4.2": "2026-01-08T14:37:24.144Z",
         "2.4.3": "2026-05-02T11:39:53.754Z",
-        "2.4.4": "2026-07-18T16:41:44.899Z"
+        "2.4.4": "2026-07-18T16:41:44.899Z",
+        "3.0.0-alpha.0": "2026-09-13T19:04:01.054Z",
+        "2.4.5": "2026-09-16T04:19:16.491Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-store",
       "name": "tauri-plugin-store",
       "versions": {
+        "2.4.5": "2026-09-16T04:18:12.942433Z",
+        "3.0.0-alpha.0": "2026-09-13T19:02:57.739027Z",
         "2.4.4": "2026-07-18T16:41:36.936456Z",
         "2.4.3": "2026-05-02T11:39:45.796972Z",
         "2.4.2": "2026-01-08T14:37:15.751808Z",
@@ -4115,13 +4173,15 @@
         "2.2.1": "2025-06-16T21:55:32.102Z",
         "2.3.0": "2025-06-25T14:37:36.764Z",
         "2.3.1": "2025-10-27T10:37:32.621Z",
-        "2.3.2": "2026-08-31T11:21:53.566Z"
+        "2.3.2": "2026-08-31T11:21:53.566Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:16.765Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-stronghold",
       "name": "tauri-plugin-stronghold",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:03:08.607943Z",
         "2.3.2": "2026-08-31T11:21:44.386159Z",
         "2.3.1": "2025-10-27T10:37:20.464751Z",
         "2.3.0": "2025-06-25T14:37:26.138150Z",
@@ -4192,13 +4252,15 @@
         "2.9.0": "2025-06-25T14:37:48.904Z",
         "2.10.0": "2026-02-03T11:20:13.999Z",
         "2.10.1": "2026-04-04T16:49:40.486Z",
-        "2.11.0": "2026-08-31T11:22:05.060Z"
+        "2.11.0": "2026-08-31T11:22:05.060Z",
+        "3.0.0-alpha.0": "2026-09-13T19:04:23.329Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-updater",
       "name": "tauri-plugin-updater",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:03:20.392099Z",
         "2.11.0": "2026-08-31T11:21:56.389244Z",
         "2.10.1": "2026-04-04T16:49:33.163283Z",
         "2.10.0": "2026-02-03T11:20:05.268527Z",
@@ -4281,13 +4343,15 @@
         "2.3.1": "2025-07-20T21:41:47.660Z",
         "2.3.2": "2025-10-27T10:37:45.279Z",
         "2.4.0": "2026-01-08T14:37:34.587Z",
-        "2.4.1": "2026-08-31T11:22:17.407Z"
+        "2.4.1": "2026-08-31T11:22:17.407Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:39.039Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-upload",
       "name": "tauri-plugin-upload",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:03:30.916224Z",
         "2.4.1": "2026-08-31T11:22:07.944690Z",
         "2.4.0": "2026-01-08T14:37:27.171287Z",
         "2.3.2": "2025-10-27T10:37:35.691177Z",
@@ -4355,13 +4419,15 @@
         "2.4.0": "2025-06-25T14:38:12.255Z",
         "2.4.1": "2025-10-27T10:37:58.218Z",
         "2.4.2": "2026-01-08T14:37:45.741Z",
-        "2.4.3": "2026-08-31T11:22:29.658Z"
+        "2.4.3": "2026-08-31T11:22:29.658Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:49.356Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-websocket",
       "name": "tauri-plugin-websocket",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:03:41.329303Z",
         "2.4.3": "2026-08-31T11:22:20.857666Z",
         "2.4.2": "2026-01-08T14:37:37.946390Z",
         "2.4.1": "2025-10-27T10:37:48.574746Z",
@@ -4427,13 +4493,15 @@
         "2.2.3": "2025-06-16T21:56:18.305Z",
         "2.3.0": "2025-06-25T14:38:24.573Z",
         "2.4.0": "2025-07-20T21:41:59.396Z",
-        "2.4.1": "2025-10-27T10:38:10.081Z"
+        "2.4.1": "2025-10-27T10:38:10.081Z",
+        "3.0.0-alpha.0": "2026-09-13T19:03:59.604Z"
       }
     },
     "cratesData": {
       "id": "tauri-plugin-window-state",
       "name": "tauri-plugin-window-state",
       "versions": {
+        "3.0.0-alpha.0": "2026-09-13T19:03:51.638688Z",
         "2.4.1": "2025-10-27T10:38:01.270045Z",
         "2.4.0": "2025-07-20T21:41:49.911776Z",
         "2.3.0": "2025-06-25T14:38:14.747811Z",
