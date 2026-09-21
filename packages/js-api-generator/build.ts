@@ -44,23 +44,6 @@ const typeDocConfigBaseOptions: ConfigOptions = {
 };
 
 async function generator() {
-  if (existsSync('../tauri/packages/api/node_modules')) {
-    const coreJsOptions: ConfigOptions = {
-      entryPoints: ['../tauri/packages/api/src/index.ts'],
-      tsconfig: '../tauri/packages/api/tsconfig.json',
-      gitRevision: 'dev',
-      publicPath: '/reference/javascript/api/',
-      basePath: '/reference/javascript/api/',
-      ...typeDocConfigBaseOptions,
-    };
-
-    await generateDocs(coreJsOptions);
-  } else {
-    console.log(
-      'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
-    );
-  }
-
   const plugins = [
     'autostart',
     'barcode-scanner',
@@ -102,7 +85,9 @@ async function generator() {
       { encoding: 'utf8' }
     );
 
-    plugins.forEach(async (plugin) => {
+    let firstPlugin = true;
+
+    for (const plugin of plugins) {
       const pluginJsOptions: ConfigOptions = {
         entryPoints: [`../plugins-workspace/plugins/${plugin}/guest-js/index.ts`],
         tsconfig: `../plugins-workspace/plugins/${plugin}/tsconfig.json`,
@@ -111,11 +96,14 @@ async function generator() {
         basePath: `/reference/javascript/`,
         ...typeDocConfigBaseOptions,
         // Must go after to override base
+        cleanOutputDir: firstPlugin,
         entryFileName: `${plugin}.md`,
       };
 
       await generateDocs(pluginJsOptions);
-    });
+
+      firstPlugin = false;
+    }
   } else {
     console.log(
       'Plugins workspace submodule is not initialized, respective API routes will not be rendered.'
