@@ -1,0 +1,23 @@
+---
+title: Announcing Tauri 2.12
+date: 2026-09-21
+authors: tony
+excerpt: The Tauri team is happy to announce the 2.12 release.
+---
+
+## Dropping Windows 7 support
+
+> Sooo, looks like not many people here _actually_ cared about Windows 7 support since nobody noticed that the Webview2 installer wasn't working there for a while...
+> When you try to run the installer it will crash with `no entry point for GetPackagesByPackageFamily` (adding for searchability _if_ someone sees it on their machine after all)
+>
+> With that last nail in the coffin we decided that Tauri version 2.11 is the last version to (semi-)officially support Windows 7 - though you have to get an old webview2 installer or fixed version somewhere yourself.
+> Starting in v2.12, Windows 7 support is no longer guaranteed and we will start to slowly raise our MSRV beyond 1.77 (the last rust version with built-in Windows 7 support - released March 2024!) as was planned when Tauri v2 was initially released.
+> That also opens up discussions about our MSRV policy, but this will happen in https://github.com/tauri-apps/tauri/issues/15579 instead to not further pollute this issue. Please feel free to share your opinions about that over there :)
+>
+> I know many people will be sad about this news and i apologize for that, but at some point we simply have to accept defeat.
+>
+> Once we decided on a MSRV policy we will share a blog post on both topics, though there will be no news for avid readers of this issue.
+>
+> P.S. If windows-rs someday re-adds windows 7 support, which i do not see happening, or if somebody wants to work on a guide with all the workarounds then we could talk about this topic again, eg to maybe add something that helps with getting an ancient installer version or something (assuming the old installer can still download the components...)
+
+More on this, see https://github.com/tauri-apps/tauri/issues/12550
