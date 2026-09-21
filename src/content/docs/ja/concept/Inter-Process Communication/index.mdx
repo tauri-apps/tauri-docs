@@ -23,7 +23,7 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
   />
 </CardGrid>
 
-Tauri は、[Asynchronous Message Passing]（非同期メッセージ・パッシング、[日本語版リンク](<https://ja.wikipedia.org/wiki/メッセージ_(コンピュータ)>)）と呼ばれる特別なスタイルのプロセス間通信を使用します。この方法では、プロセス同士が単純なデータ表現を使用してシリアル化された「_リクエスト_（要求）」と「_レスポンス_（応答）」をやり取りします。メッセージ・パッシングは、インターネット上のクライアント・サーバー通信に使用される仕組みであるため、Web 開発の経験がある人なら誰でも馴染みがあるはずです。
+Tauri は、[Asynchronous Message Passing]（[非同期メッセージの受け渡し](<https://ja.wikipedia.org/wiki/メッセージ_(コンピュータ)#同期通信と非同期通信>)）と呼ばれる特別なスタイルのプロセス間通信を使用します。この方法では、プロセス同士が単純なデータ表現を使用してシリアル化された「_リクエスト_（要求）」と「_レスポンス_（応答）」をやり取りします。メッセージ・パッシングは、インターネット上のクライアント・サーバー通信に使用される仕組みであるため、Web 開発の経験がある人なら誰でも馴染みがあるはずです。
 
 また、メッセージ・パッシングは受信者が必要に応じて「リクエスト」を拒否または破棄できるため、「共有メモリ方式」や「直接関数アクセス方式」よりも安全な手法です。たとえば、Tauri コア・プロセスが「リクエスト」を悪意のあるものと判断した場合、そのリクエストは破棄され、対応する関数処理は実行されません。
 
@@ -55,9 +55,13 @@ Core -> Frontend: "イベント"{style.animated: true}
 <figcaption>コア部と Webview 間でやり取りされるイベント</figcaption>
 </figure>
 
+{/* 開発者がアプリケーションを安全に保つために何をする必要があるか」を明確にするために以下に言及しておくことが重要です。 */}
+
+内部的には、「イベント」は依然として「コマンド」を使用しており、イベント API へのアクセスは [イベント許可権限](/ja/reference/acl/core-permissions/#event) によって制御されています。
+
 ## コマンド
 
-Tauri は、また、「IPC メッセージ」に加えて、[foreign function interface]（外部関数インターフェース、[日本語版リンク](https://ja.wikipedia.org/wiki/Foreign_function_interface)）のような抽象化も提供します[^1]。基本主要 API である `invoke` は、ブラウザの `fetch` API に似ており、フロントエンドが Rust 関数を呼び出し、引数を渡して、データを受信できるようにします。
+Tauri は、また、「IPC メッセージ」に加えて、[foreign function interface]（[外部関数インターフェース](https://ja.wikipedia.org/wiki/Foreign_function_interface)）のような抽象化も提供します[^1]。基本主要 API である `invoke` は、ブラウザの `fetch` API に似ており、フロントエンドが Rust 関数を呼び出し、引数を渡して、データを受信できるようにします。
 
 このメカニズムは、内部で [JSON-RPC] のようなプロトコルを使用してリクエストとレスポンスをシリアル化するので、すべての引数と戻り値データは JSON の規格に従ってシリアル化可能である必要があります。
 
@@ -93,8 +97,8 @@ Core -> Frontend: "レスポンス"{style.animated: true}
 [json-rpc]: https://www.jsonrpc.org
 [foreign function interface]: https://en.wikipedia.org/wiki/Foreign_function_interface
 
+<br />
+
 <div style="text-align:right">
-  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「Aug 20, 2026 英語版」に基づいています】
 </div>

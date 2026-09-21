@@ -5,8 +5,6 @@ sidebar:
 i18nReady: true
 ---
 
-import TranslationNote from '@components/i18n/TranslationNote.astro';
-
 ## WebView2 (Windows)
 
 Tauri は（オープンソースの Web ブラウザ「Chromium」をベースに開発された）Microsoft Edge の Webコンテンツ表示コンポーネント「WebView2」を使用しています。WebView2 は自動更新が可能で、すべての Windows 版で比較的新しい Chromium ビルドが適用されています。
@@ -182,9 +180,8 @@ awk '/CFBundleVersion/{getline;gsub(/<[^>]*>/,"");print}' /System/Library/Framew
 
 Linux エコシステムの多様性により、様々なディストリビューションでの WebKitGTK に関する正確な情報をまとめるのは非常に困難です。以下の表は、最もよく使用されているディストリビューションとその WebKit バージョンをまとめた、非常に不完全なリストです。最新情報については、必ずディストリビューションのリポジトリをご確認ください。
 
-<TranslationNote lang="ja">
-**エコシステム**　《英 ecosystem》「ビジネス生態系」。プロダクトや業界、サービスなどで、同業または異形種がその製品・技術・ノウハウなどさまざま連携・共有をすることによって大きな収益の構造となること。〔[出典](https://digital-shift.jp/flash_news/s_210215_06) から要約〕
-</TranslationNote>
+> > > 《訳注》 **エコシステム**　《英 ecosystem》「ビジネス生態系」。プロダクトや業界、サービスなどで、同業または異形種がその製品・技術・ノウハウなどさまざま連携・共有をすることによって大きな収益の構造となること。〔[出典](https://digital-shift.jp/flash_news/s_210215_06) から要約〕
+
 | Distro                                                            | `webkitgtk` Version | WebKit Version | Safari Equivalent |
 | ----------------------------------------------------------------- | ------------------- | -------------- | ----------------- |
 | Debian 11 (with update), Ubuntu 20.04 (with update), Ubuntu 22.04 | 2.36                | [614.1.6]      | TP 140 (16.0)     |

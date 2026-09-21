@@ -78,7 +78,7 @@ Without the plugin being initialized and configured the example won't work.
 
     Now we can start writing JavaScript code that will be executed by our Tauri application.
 
-    In this example we will process a command from the command line argmuents and write output to stdout,
+    In this example we will process a command from the command line arguments and write output to stdout,
     which means our process will be short lived and only handle a single command at a time.
     If your application must be long lived, consider using alternative inter-process communication systems.
 
@@ -114,7 +114,7 @@ Without the plugin being initialized and configured the example won't work.
 
     This will create the `sidecar-app/my-sidecar` binary on Linux and macOS, and a `sidecar-app/my-sidecar.exe` executable on Windows.
 
-    For sidecar applications, we need to ensure that the binary is named in the correct pattern, for more information read [Embedding External Binaries](https://tauri.app/develop/sidecar/)
+    For sidecar applications, we need to ensure that the binary is named in the correct pattern, for more information read [Embedding External Binaries](/develop/sidecar/)
     To rename this file to the expected Tauri sidecar filename and also move to our Tauri project, we can use the following Node.js script as a starting example:
 
     ```js title="sidecar-app/rename.js"

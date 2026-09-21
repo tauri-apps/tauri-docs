@@ -32,16 +32,33 @@ function parseChangelog(changelog: string): Array<{ version: string; notes: stri
     .filter((r): r is { version: string; notes: string } => r !== null);
 }
 
+// tauri-cli's changelog heads two sections `## \[2.0.0-rc.9]`. Both are that release:
+// left apart they write the same page, and the first section's notes never ship
+function foldRepeatedVersions(releases: Release[]): Release[] {
+  const byVersion = new Map<string, Release>();
+  for (const release of releases) {
+    const kept = byVersion.get(release.version);
+    if (kept) {
+      kept.notes = `${kept.notes}\n\n${release.notes}`;
+    } else {
+      byVersion.set(release.version, release);
+    }
+  }
+  return [...byVersion.values()];
+}
+
 export function parseAndSortChangelog(changelog: string): Release[] {
   // rcompare throws on anything that isn't valid semver (e.g. an upstream
   // "## [Unreleased]" heading), which would break every build until fixed.
-  const releases = parseChangelog(changelog).filter(({ version }) => {
+  const parsed = parseChangelog(changelog).filter(({ version }) => {
     if (!semverValid(version)) {
       console.warn(`skipping non-semver changelog heading: "${version}"`);
       return false;
     }
     return true;
   });
+
+  const releases = foldRepeatedVersions(parsed);
 
   releases.sort((a, b) => {
     return rcompare(a.version, b.version);

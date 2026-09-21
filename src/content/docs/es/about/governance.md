@@ -40,7 +40,7 @@ Los equipos son pequeños grupos de colaboradores que apoyan o mantienen áreas 
 
 ## Involúcrate
 
-Si estás interesado en convertirte en Director de la Junta de Tauri o en Líder de Dominio, las elecciones para esos puestos se celebran a lo largo del año. En el caso de los líderes de dominio, se celebran en primavera y otoño, y en el de los directores del consejo, en verano. Las instrucciones para presentar tu candidatura se publican en el [Blog de Tauri](https://tauri.app/blog) antes de cada elección.
+Si estás interesado en convertirte en Director de la Junta de Tauri o en Líder de Dominio, las elecciones para esos puestos se celebran a lo largo del año. En el caso de los líderes de dominio, se celebran en primavera y otoño, y en el de los directores del consejo, en verano. Las instrucciones para presentar tu candidatura se publican en el [Blog de Tauri](/blog/) antes de cada elección.
 
 ## Recursos Adicionales
 

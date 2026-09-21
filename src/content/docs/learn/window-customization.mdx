@@ -262,7 +262,7 @@ Remove the main window from the `tauri.conf.json` file:
     }
     ```
 
-Add `cocoa` crate to dependencies so that we can use it to call the macOS native API:
+Add `objc2-app-kit` crate to dependencies so that we can use it to call the macOS native API:
 
     ```toml title="src-tauri/Cargo.toml"
     [target."cfg(target_os = \"macos\")".dependencies]

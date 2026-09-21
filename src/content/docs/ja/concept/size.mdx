@@ -6,6 +6,7 @@ i18nReady: true
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 Tauri はデフォルトで非常に小さなバイナリ・サイズになりますが、その一方で、その限界点を少し押し広げても問題はないでしょう。ここでは、最適な結果を得るためのヒントとコツをいくつか紹介します。
 
@@ -21,14 +22,14 @@ Stable 版（安定版）の Rust ツールチェーンを使用するか、Nigh
 ```toml
 # src-tauri/Cargo.toml
 [profile.dev]
-incremental = true # Compile your binary in smaller steps.
+incremental = true # あなたのバイナリ・ファイルを、より小さなステップでコンパイル。
 
 [profile.release]
-codegen-units = 1 # Allows LLVM to perform better optimization.
-lto = true # Enables link-time-optimizations.
-opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
-panic = "abort" # Higher performance by disabling panic handlers.
-strip = true # Ensures debug symbols are removed.
+codegen-units = 1 # LLVM により優れた最適化を許可。
+lto = true # 「link-time-optimizations（lto）」を有効化。
+opt-level = "s" # バイナリ・サイズ最小化を優先。速度優先の場合は「3」を使用。
+panic = "abort" # 「パニック」ハンドラーを無効化しパフォーマンスを向上。
+strip = true # デバッグ・シンボルの削除を実行。
 ```
 
 </TabItem>
@@ -38,17 +39,17 @@ strip = true # Ensures debug symbols are removed.
 ```toml
 # src-tauri/Cargo.toml
 [profile.dev]
-incremental = true # Compile your binary in smaller steps.
-rustflags = ["-Zthreads=8"] # Better compile performance.
+incremental = true # あなたのバイナリ・ファイルを、より小さなステップでコンパイル。
+rustflags = ["-Zthreads=8"] # コンパイル・パフォーマンスを向上。
 
 [profile.release]
-codegen-units = 1 # Allows LLVM to perform better optimization.
-lto = true # Enables link-time-optimizations.
-opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
-panic = "abort" # Higher performance by disabling panic handlers.
-strip = true # Ensures debug symbols are removed.
-trim-paths = "all" # Removes potentially privileged information from your binaries.
-rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # Better compile performance.
+codegen-units = 1 # LLVM により優れた最適化を許可。
+lto = true # 「link-time-optimizations（lto）」を有効化。
+opt-level = "s" # バイナリ・サイズ最小化を優先。速度優先の場合は「3」を使用。
+panic = "abort" # 「パニック」ハンドラーを無効化しパフォーマンスを向上。
+strip = true # デバッグ・シンボルの削除を実行。
+trim-paths = "all" # バイナリ・ファイルから潜在的に機密性の高い情報を削除。
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # コンパイル・パフォーマンスを向上。
 ```
 
 </TabItem>
@@ -72,8 +73,51 @@ rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # Better compile performance.
   - `-Cdebuginfo=0`：　ビルドに「debuginfo シンボル」を含めるかどうかを指定します。
   - `-Zthreads=8`：　コンパイル時に使用されるスレッドの数を増やします。
 
+## 未使用コマンドの削除
+
+プルリクエスト #12890「[`feat: add a new option to remove unused commands`](https://github.com/tauri-apps/tauri/pull/12890)」で、tauri 設定ファイルに「未使用コマンドを削除する」新しいオプションが追加されました。
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "removeUnusedCommands": true
+  }
+}
+```
+
+「アクセス制御リスト（ACL）」で許可されていないコマンドを削除することで、使用しない機能に対して料金を支払う必要がなくなります。
+
+<TranslationNote lang="ja">
+
+**ACL** Access Control List：　アクセス制御リスト
+
+</TranslationNote>
+
+:::tip
+この機能の効果を最大限にするには、アクセス制御リスト（ACL）を「`defaults`」で使用するのではなく、**実際に使用するコマンドだけを含める**ようにします。
+:::
+
+:::note
+この機能を使用するには、`tauri@2.4`、`tauri-build@2.1`、`tauri-plugin@2.1`、および `tauri-cli@2.4` が必要です。
+:::
+
+:::note
+この機能は、実行時に動的に追加された「ACL」を考慮しないため、この機能を使用するときには「元の ACL」を必ず確認してください。
+:::
+
+<details>
+<summary>内部ではどのように動作しているのでしょうか？《クリックして表示》</summary>
+
+`tauri-cli` は環境変数を介して `tauri-build`、および `tauri` と `tauri-plugin` のビルド・スクリプトと通信し、
+ACL に基づき「許可されているコマンドのリスト」を生成させます。
+このリストは `generate_handler` マクロによって使用され、そのリストに基づいて使用されていないコマンドが削除されます。
+
+内部的な詳細としては：　この環境変数は、現時点で `REMOVE_UNUSED_COMMANDS` に設定されており、プロジェクトのディレクトリ（通常は `src-tauri` ディレクトリ）に設定されます。
+これがビルド・スクリプトに利用され、機能設定ファイル／capability file」を見つけるために使用されます。
+推奨はされませんが、この方法を実行するのに `tauri-cli` を使用できないまたは使用したくない場合は、この環境変数を自分で設定することもできます。（**ただし、これは実装の細部にかかわるため、安定性は保証されません**）。
+
+</details>
+
 <div style="text-align: right;">
-  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「Nov 4, 2025 英語版」に基づいています】
 </div>

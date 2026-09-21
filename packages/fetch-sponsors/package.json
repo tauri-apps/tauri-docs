@@ -11,16 +11,15 @@
   },
   "keywords": [],
   "author": "",
-  "packageManager": "pnpm@10.34.5",
   "dependencies": {
-    "@octokit/core": "^7.0.3",
+    "@octokit/core": "^7.0.8",
     "@octokit/plugin-paginate-graphql": "^6.0.0",
     "@octokit/plugin-paginate-rest": "^15.0.0",
-    "@octokit/plugin-retry": "^8.0.1",
-    "@octokit/plugin-throttling": "^11.0.1",
-    "@octokit/types": "^17.0.0",
-    "@types/node": "^24.0.0",
-    "dotenv": "^17.2.1",
+    "@octokit/plugin-retry": "^8.1.1",
+    "@octokit/plugin-throttling": "^11.0.5",
+    "@octokit/types": "^18.0.0",
+    "@types/node": "^24.13.4",
+    "dotenv": "^18.0.0",
     "typescript": "^7.0.2"
   }
 }

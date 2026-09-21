@@ -1,5 +1,5 @@
 import { z } from 'astro:content';
-import { TableOfContentsSchema as BaseTableOfContentsSchema } from 'node_modules/@astrojs/starlight/schemas/tableOfContents';
+import { UserConfigTableOfContentsSchema as BaseTableOfContentsSchema } from 'node_modules/@astrojs/starlight/dist/schemas/tableOfContents';
 
 const tableOfContentsDefaults = {
   collapseLevel: 1,

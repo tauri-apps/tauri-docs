@@ -66,7 +66,7 @@ fn login(app: AppHandle, user: String, password: String) {
 ```
 
 It is also possible to trigger an event to a list of webviews by calling [Emitter#emit_filter].
-In the following example we emit a open-file event to the main and file-viewer webviews:
+In the following example we emit an open-file event to the main and file-viewer webviews:
 
 ```rust title="src-tauri/src/lib.rs"
 use tauri::{AppHandle, Emitter, EventTarget};

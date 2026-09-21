@@ -8,13 +8,15 @@ tableOfContents:
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import CommandTabs from '@components/CommandTabs.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
-SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメタ・フレームワークです。SvelteKit の詳細は「公式サイト https://svelte.dev/」をご覧ください。以下の説明内容は「SvelteKit 2.5.7 / Svelte 4.2.15」に準拠しています。
+SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメタ・フレームワークです。SvelteKit の詳細は「公式サイト https://svelte.dev/」をご覧ください。以下の説明内容は「SvelteKit 2.20.4 / Svelte 5.25.8」に準拠しています。
 
 ## チェック項目
 
-- `static-adapter` 経由で [SSG](https://svelte.dev/docs/kit/adapter-static) および／または [SPA](https://svelte.dev/docs/kit/single-page-apps) を使用してください。Tauri はサーバー・ベースの方式には対応していません。
-- `tauri.conf.json` では `frontendDist` として `dist/` を指定します。
+- `static-adapter` 経由で [SSG](https://svelte.dev/docs/kit/adapter-static)《[日本語版リンクはこちら](https://svelte.jp/docs/kit/adapter-static)》および [SPA](https://svelte.dev/docs/kit/single-page-apps) 《[日本語版リンク](https://svelte.jp/docs/kit/single-page-apps)》を使用してください。Tauri はサーバー・ベースの方式には対応していません。
+- 「SSG」を**プリレンダリングあり**で使用する場合には、`load` 関数がアプリのビルドプロセス中に tauri API にアクセスできないことに注意してください。「SPA」モード（プリレンダリングなし）を使用すると、「ロード関数」が WebView 内でのみ実行され、tauri API にアクセスできるため、こちらをお勧めします。
+- `tauri.conf.json` では `frontendDist` として `build/` を指定します。
 
 ## 設定例
 
@@ -29,7 +31,7 @@ SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメ�
       deno="deno add -D npm:@sveltejs/adapter-static"
     />
 
-1.  ##### Tauri の設定アップデート
+1.  ##### Tauri の設定をアップデート
 
           <Tabs>
 
@@ -99,7 +101,7 @@ SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメ�
 
     </Tabs>
 
-1.  ##### SvelteKit の設定アップデート
+1.  ##### SvelteKit の設定をアップデート
 
     ```js title="svelte.config.js" {1}
     import adapter from '@sveltejs/adapter-static';
@@ -107,12 +109,14 @@ SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメ�
 
     /** @type {import('@sveltejs/kit').Config} */
     const config = {
-      // 前処理系の詳細については、公式サイト
-      // https://svelte.dev/docs/kit/integrations#preprocessors を参照してください
+      // 前処理系（preprocessors）の詳細については、公式サイト
+      // https://svelte.dev/docs/kit/integrations#preprocessors （日本語版サイト： https://svelte.jp/docs/kit/integrations）を参照してください
       preprocess: vitePreprocess(),
 
       kit: {
-        adapter: adapter(),
+        adapter: adapter({
+          fallback: 'index.html',
+        }),
       },
     };
 
@@ -121,22 +125,34 @@ SvelteKit（スヴェルトキット）は Svelte（スヴェルト）用のメ�
 
 1.  ##### 「SSR」の無効化
 
-    最後に、「SSR」（サーバーサイドレンダリング）を無効化し、以下の内容を含む「ルート `+layout.ts` ファイル」（TypeScript を使用していない場合は `+layout.js`）を追加して、事前レンダリングを有効化する必要があります：
+    最後に、以下の内容を含む「ルート `+layout.ts` ファイル」（あるいは TypeScript を使用していない場合は `+layout.js`）を追加して、「SSR」（サーバーサイド・レンダリング）を無効化する必要があります：
 
     ```ts
     // src/routes/+layout.ts
-    export const prerender = true;
     export const ssr = false;
     ```
 
-    `static-adapter` は、アプリ全体に対して「SSR を無効化」することを求めているわけではありませんが、そうすることで、（Tauri の API のような）グローバル・ウィンドウ・オブジェクトに依存する API を [クライアント側のチェック](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window) なしで使用できるようになります。《リンク先は、Svelte 公式サイトの FQA ページ（英語版）です》
+    `static-adapter` は、アプリ全体に対して「SSR を無効化」することを求めているわけではありませんが、そうすることで、（Tauri の API のような）グローバル・ウィンドウ・オブジェクトに依存する API を [クライアント側のチェック](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window)（英語版）《[日本語版リンクはこちら](https://svelte.jp/docs/kit/faq#How-do-I-use-a-client-side-library-accessing-document-or-window)》なしで使用できるようになります。
 
-    さらにいえば、「SSG」（静的サイト生成）よりも「シングルページ・アプリケーション (SPA)」モードを好む場合は、[アダプタ関連ドキュメント](https://svelte.dev/docs/kit/single-page-apps) 《英語版ページ》に従ってアダプタ設定と `+layout.ts` を変更できます。
+    さらにいえば、「シングルページ・アプリケーション (SPA)」モードよりも「SSG」（静的サイト生成）を好む場合は、[アダプタ関連ドキュメント](https://svelte.dev/docs/kit/adapter-static) 《[日本語版リンク](https://svelte.jp/docs/kit/adapter-static)》に従って「アダプタ設定」と「 `+layout.ts` 」を変更できます。
 
 </Steps>
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Nov 01, 2024 英語版」に基づいています】
-  <br />
-  Doc-JP 2.00.00
+  【※ この日本語版は、「Jul 5, 2025 英語版」に基づいています】
 </div>
+
+<br />
+<br />
+
+---
+
+<br />
+
+<TranslationNote lang="ja">
+
+**SPA** Single-Page Application：　「シングルページ・アプリケーション」。  
+**SSG** Static Site Generation：　「静的サイト生成」。  
+**SSR** Server-Side Rendering：　「サーバーサイド・レンダリング」。
+
+</TranslationNote>

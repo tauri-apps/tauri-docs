@@ -25,9 +25,9 @@ This guide only applies to OV code signing certificates acquired before June 1st
 
 :::note
 
-If you sign the app with an EV Certificate, it'll receive an immediate reputation with Microsoft SmartScreen and won't show any warnings to users.
+Since 2024, an EV Certificate no longer gives your app an immediate reputation with Microsoft SmartScreen. Microsoft removed the special treatment of EV code signing certificates from its Trusted Root Program in 2024, so EV and OV certificates now build SmartScreen reputation the same way, and a newly signed release can show a warning with either. See Microsoft's [SmartScreen reputation for Windows app developers](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation) and [Current status of Windows app distribution features](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/distribution-feature-status#smartscreen-reputation-ev-certificates-no-longer-grant-instant-bypass).
 
-If you opt for an OV Certificate, which is generally cheaper and available to individuals, Microsoft SmartScreen will still show a warning to users when they download the app. It might take some time until your certificate builds enough reputation. You may opt for [submitting your app] to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant additional reputation and potentially remove the warning for that specific uploaded file.
+An OV Certificate is generally cheaper and available to individuals. With either kind of certificate, Microsoft SmartScreen may show a warning to users when they download the app until the file and the certificate build enough reputation. Signing every release with the same certificate lets that reputation carry across releases. You may opt for [submitting your app] to Microsoft for manual review. Although not guaranteed, if the app does not contain any malicious code, Microsoft may grant additional reputation and potentially remove the warning for that specific uploaded file.
 
 See the [comparison](https://www.digicert.com/difference-between-dv-ov-and-ev-ssl-certificates) to learn more about OV vs EV certificates.
 

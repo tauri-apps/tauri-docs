@@ -373,6 +373,7 @@ export default defineConfig({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
           exclude: [
+            '/blog/',
             '/plugin/*/#default-permission',
             '/plugin/*/#permission-table',
             '/release/**',
@@ -380,7 +381,14 @@ export default defineConfig({
           ],
         }),
         starlightLlmsTxt(llmsTxtConfig),
-        lunaria({ configPath: './lunaria.config.json', route: '/contribute/translate-status' }),
+        ...(process.env.CONTEXT === 'deploy-preview'
+          ? []
+          : [
+              lunaria({
+                configPath: './lunaria.config.json',
+                route: '/contribute/translate-status',
+              }),
+            ]),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
@@ -602,6 +610,13 @@ export default defineConfig({
     ...i18nRedirect('/v1/reference/security', '/concepts/development-security'),
     ...i18nRedirect('/v1/reference/configuration-files', '/reference/configuration-files'),
     ...i18nRedirect('/v1/reference/webview-versions', '/reference/webview-versions'),
+
+    ...i18nRedirect('/develop/window-customization', '/learn/window-customization/'),
+
+    // pages removed from the English docs whose translations lived on
+    ...i18nRedirect('/reference/acl', '/security/capabilities/'),
+    ...i18nRedirect('/develop/debug/application', '/develop/debug/'),
+    ...i18nRedirect('/develop/tests/webdriver/example', '/develop/tests/webdriver/'),
 
     // Decommissioned locales -> refer to /public/_redirects file
     // '/ko/[...slug]': '/[...slug]',

@@ -51,6 +51,9 @@ export function shouldBuildReleases(): boolean {
 export const corePageSlug = 'core';
 export const corePrereleasesSlug = 'core/prereleases';
 
+/** how many minor series a landing page carries in full; older ones stay on its all-versions page */
+export const indexInlineSeriesCount = 6;
+
 export function resolveBranch(repo: Repository): string {
   return repo.branch || 'dev';
 }

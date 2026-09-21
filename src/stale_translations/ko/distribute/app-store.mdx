@@ -252,9 +252,14 @@ src-tauri 폴더에 Info.plist 파일을 만듭니다:
 macOS 애플리케이션은 `.pkg` 파일로 App Store에 업로드해야 합니다.
 다음 명령을 실행하여 앱을 macOS App Bundle(확장자는 `.app`)로 패키징합니다:
 
-```
-tauri build --bundles app --target universal-apple-darwin
-```
+<CommandTabs
+  npm="npm run tauri build -- --bundles app --target universal-apple-darwin"
+  yarn="yarn tauri build --bundles app --target universal-apple-darwin"
+  pnpm="pnpm tauri build --bundles app --target universal-apple-darwin"
+  deno="deno task tauri build --bundles app --target universal-apple-darwin"
+  bun="bun tauri build --bundles app --target universal-apple-darwin"
+  cargo="cargo tauri build --bundles app --target universal-apple-darwin"
+/>
 
 :::note
 위의 명령은 유니버설 앱 바이너리 애플리케이션을 생성하여 "Apple 실리콘"과 "Intel 프로세서"를 모두 지원합니다.

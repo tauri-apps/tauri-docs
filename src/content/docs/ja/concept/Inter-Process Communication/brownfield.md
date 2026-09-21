@@ -3,24 +3,26 @@ title: ブラウンフィールド型（Brownfield Pattern）
 i18nReady: true
 ---
 
-_**デフォルトの IPC パターンです**_
+_**ブラウンフィールド型は、デフォルトの IPC パターンです**_
 
 このパターンは、Tauri を使用する上で最も明快で分かりやすいものです。というのも、既存のフロントエンド・プロジェクトと可能な限り互換性を持たせようとしているからです。手短に言えば、既存の Web フロントエンドがブラウザー内で使用するもの以外には、他に何も必要としないようになっているということです。
 ただ、これは既存のブラウザー・アプリケーションで動作する _**すべて**_ が、そのまま動作するというわけではありません。
 
-一般的な「ブラウンフィールド」型のソフトウェア開発について馴染みがない場合は、Wikipedia の記事 [Brownfield Wikipedia article]（日本語版なし）に判りやすい概説があります。
+一般的な「ブラウンフィールド」型のソフトウェア開発について馴染みがない場合は、「[Wikipedia の記事 Brownfield]」《英語版》に判りやすい概説があります。
 Tauri の場合、（ブラウンフィールド型開発の対象となる）既存のソフトウェアとは、レガシー・システムではなく、現行ブラウザーのサポートと動作です。
 
 ## 設定
 
 ブラウンフィールド型開発はデフォルトのパターンなので、設定オプションを指定する必要はありません。
-明示的に設定するには、`tauri.conf.json` 構成ファイル内の `tauri > pattern` オブジェクトを使用します。
+明示的に設定するには、`tauri.conf.json` 設定ファイル内の `app > security > pattern` オブジェクトを使用します。
 
 ```json
 {
-  "tauri": {
-    "pattern": {
-      "use": "brownfield"
+  "app": {
+    "security": {
+      "pattern": {
+        "use": "brownfield"
+      }
     }
   }
 }
@@ -28,9 +30,8 @@ Tauri の場合、（ブラウンフィールド型開発の対象となる）�
 
 _**ブラウンフィールド型では追加の設定オプションはありません。**_
 
-[brownfield wikipedia article]: https://en.wikipedia.org/wiki/Brownfield_(software_development)
+[Wikipedia の記事 brownfield]: https://en.wikipedia.org/wiki/Brownfield_(software_development)
 
 <div style="text-align:right">
-【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】<br />
-Doc-JP 2.00.00
+【※ この日本語版は、「Jun 5, 2025 英語版」に基づいています】
 </div>

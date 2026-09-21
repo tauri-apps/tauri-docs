@@ -13,6 +13,7 @@
         "node_modules",
         "src/content/docs/reference/{acl,javascript}/**/*.{md,mdx}",
         "src/content/docs/reference/{config,cli}.{md,mdx}",
+        "src/content/docs/*/reference/{config,cli}.{md,mdx}",
         "src/content/docs/release"
       ],
       "type": "universal"
@@ -21,7 +22,15 @@
   "outDir": "./dist/contribute/translate-status",
   "localizableProperty": "i18nReady",
   "renderer": "./lunaria/renderer.config.ts",
-  "ignoreKeywords": ["lunaria-ignore", "typo", "en-only", "broken link", "i18nReady", "i18nIgnore"],
+  "ignoreKeywords": [
+    "lunaria-ignore",
+    "i18n-ignore",
+    "typo",
+    "en-only",
+    "broken link",
+    "i18nReady",
+    "i18nIgnore"
+  ],
   "defaultLocale": {
     "label": "English",
     "lang": "en"

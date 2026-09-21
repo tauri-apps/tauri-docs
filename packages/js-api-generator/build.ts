@@ -25,6 +25,8 @@ const typeDocConfigBaseOptions: ConfigOptions = {
   theme: 'tauri-theme',
   plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-markdown'],
   readme: 'none',
+  // the pinned typescript 5.5 cannot type-check upstream sources written for newer compilers (generic `Uint8Array` needs 5.7), typedoc only needs the syntax tree
+  skipErrorChecking: true,
   logLevel: 'Warn',
   parametersFormat: 'table',
   // typedoc-plugin-markdown options
@@ -155,9 +157,10 @@ async function generateDocs(options: ConfigOptions) {
 
   const project = await app.convert();
 
-  if (project) {
-    await app.generateOutputs(project);
+  if (!project) {
+    throw new Error(`typedoc conversion failed for ${options.entryPoints}, see errors above`);
   }
+  await app.generateDocs(project, outputDir);
 }
 
 // Adds frontmatter to the top of the file

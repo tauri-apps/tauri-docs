@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { slug } from 'github-slugger';
 
@@ -77,8 +77,8 @@ let doc = '';
 
 for (const command of subcommands) {
   if (command.name === 'migrate' && process.platform !== 'darwin') {
-    doc += readFileSync('../../src/content/docs/reference/_cli_ios.mdx').toString();
-    doc += '\n\n'; // just in case we format _cli_ios.mdx
+    // placeholder resolved per locale below, so each language can ship its own iOS stub
+    doc += '$IOS_COMMANDS\n\n';
 
     commandList.push(
       { name: 'ios', description: 'iOS commands' },
@@ -114,14 +114,27 @@ for (const { name, description } of commandList) {
   summary += `| [\`${name}\`](#${slug(name)}) | ${description} |\n`;
 }
 
-const template = readFileSync('../../src/content/docs/reference/_cli.mdx').toString();
+const locales: Record<string, unknown> = JSON.parse(readFileSync('../../locales.json').toString());
+const englishIos = '../../src/content/docs/reference/_cli_ios.mdx';
 
-writeFileSync(
-  '../../src/content/docs/reference/cli.mdx',
-  template.replace(
-    '$LIST_OF_COMMANDS',
-    `${summary}
+for (const locale of Object.keys(locales)) {
+  const referenceDir =
+    locale === 'root'
+      ? '../../src/content/docs/reference'
+      : `../../src/content/docs/${locale}/reference`;
 
-${doc}`
-  )
-);
+  const templatePath = `${referenceDir}/_cli.mdx`;
+  if (!existsSync(templatePath)) continue;
+
+  const localizedIos = `${referenceDir}/_cli_ios.mdx`;
+  const iosFragment = readFileSync(existsSync(localizedIos) ? localizedIos : englishIos).toString();
+
+  // function replacers keep String.replace from expanding `$&`-style patterns in the templates
+  const body = `${summary}\n\n${doc}`.replace('$IOS_COMMANDS\n\n', () => `${iosFragment}\n\n`);
+  const template = readFileSync(templatePath).toString();
+
+  writeFileSync(
+    `${referenceDir}/cli.mdx`,
+    template.replace('$LIST_OF_COMMANDS', () => body)
+  );
+}
