@@ -160,7 +160,7 @@ async function generateDocs(options: ConfigOptions) {
   if (!project) {
     throw new Error(`typedoc conversion failed for ${options.entryPoints}, see errors above`);
   }
-  await app.generateDocs(project, outputDir);
+  await app.generateOutputs(project);
 }
 
 // Adds frontmatter to the top of the file
