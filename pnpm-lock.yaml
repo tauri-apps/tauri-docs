@@ -265,14 +265,14 @@ importers:
   packages/js-api-generator:
     dependencies:
       typedoc:
-        specifier: 0.28.20
-        version: 0.28.20(typescript@5.9.3)
+        specifier: 0.28.19
+        version: 0.28.19(typescript@5.9.3)
       typedoc-plugin-markdown:
         specifier: 4.13.0
-        version: 4.13.0(typedoc@0.28.20(typescript@5.9.3))
+        version: 4.13.0(typedoc@0.28.19(typescript@5.9.3))
       typedoc-plugin-mdn-links:
         specifier: 5.1.1
-        version: 5.1.1(typedoc@0.28.20(typescript@5.9.3))
+        version: 5.1.1(typedoc@0.28.19(typescript@5.9.3))
       typescript:
         specifier: ~5.9
         version: 5.9.3
@@ -4340,8 +4340,8 @@ packages:
     peerDependencies:
       typedoc: 0.27.x || 0.28.x
 
-  typedoc@0.28.20:
-    resolution: {integrity: sha512-uSKqkh8Cr48vllnEy+jdaAgOeR6Y+QCBW7usgUsKj7gJEfR7stw9U/fE49LBnj2tPRKPY0c0EBJSWe9Appmplg==}
+  typedoc@0.28.19:
+    resolution: {integrity: sha512-wKh+lhdmMFivMlc6vRRcMGXeGEHGU2g8a2CkPTJjJlwRf1iXbimWIPcFolCqe4E0d/FRtGszpIrsp3WLpDB8Pw==}
     engines: {node: '>= 18', pnpm: '>= 10'}
     hasBin: true
     peerDependencies:
@@ -9753,15 +9753,15 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typedoc-plugin-markdown@4.13.0(typedoc@0.28.20(typescript@5.9.3)):
+  typedoc-plugin-markdown@4.13.0(typedoc@0.28.19(typescript@5.9.3)):
     dependencies:
-      typedoc: 0.28.20(typescript@5.9.3)
+      typedoc: 0.28.19(typescript@5.9.3)
 
-  typedoc-plugin-mdn-links@5.1.1(typedoc@0.28.20(typescript@5.9.3)):
+  typedoc-plugin-mdn-links@5.1.1(typedoc@0.28.19(typescript@5.9.3)):
     dependencies:
-      typedoc: 0.28.20(typescript@5.9.3)
+      typedoc: 0.28.19(typescript@5.9.3)
 
-  typedoc@0.28.20(typescript@5.9.3):
+  typedoc@0.28.19(typescript@5.9.3):
     dependencies:
       '@gerrit0/mini-shiki': 3.23.0
       lunr: 2.3.9

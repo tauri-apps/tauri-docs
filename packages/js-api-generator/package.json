@@ -12,7 +12,7 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "typedoc": "0.28.20",
+    "typedoc": "0.28.19",
     "typedoc-plugin-markdown": "4.13.0",
     "typedoc-plugin-mdn-links": "5.1.1",
     "typescript": "~5.9"
