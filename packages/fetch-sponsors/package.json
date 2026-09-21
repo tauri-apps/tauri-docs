@@ -19,7 +19,7 @@
     "@octokit/plugin-throttling": "^11.0.5",
     "@octokit/types": "^18.0.0",
     "@types/node": "^24.13.4",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.0",
     "typescript": "^7.0.2"
   }
 }
