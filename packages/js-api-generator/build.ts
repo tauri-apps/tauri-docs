@@ -75,16 +75,6 @@ async function generator() {
   ];
 
   if (existsSync('../plugins-workspace/node_modules')) {
-    // TODO: Actually fix this
-    const data = readFileSync('../plugins-workspace/plugins/fs/guest-js/index.ts', {
-      encoding: 'utf8',
-    });
-    writeFileSync(
-      '../plugins-workspace/plugins/fs/guest-js/index.ts',
-      data.replace(/Uint8Array<ArrayBuffer>/g, 'Uint8Array'),
-      { encoding: 'utf8' }
-    );
-
     let firstPlugin = true;
 
     for (const plugin of plugins) {
