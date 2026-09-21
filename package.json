@@ -38,7 +38,7 @@
     "astrojs-service-worker": "^2.0.2",
     "mdast-util-definitions": "^6.0.0",
     "mdast-util-to-string": "^4.0.0",
-    "prettier": "3.9.6",
+    "prettier": "3.9.8",
     "prettier-plugin-astro": "^1.0.0",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
