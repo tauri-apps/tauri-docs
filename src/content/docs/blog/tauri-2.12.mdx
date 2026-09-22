@@ -31,6 +31,12 @@ As discussed in https://github.com/tauri-apps/tauri/issues/15579, we settled our
 
 We only update the MSRV in minor or major releases.
 
+## Breaking changes
+
+On Android, `$VIDEO` and `video_dir()` were broken before resolving to external cache storage. It's now fixed to resolve to the app-specific Movies directory instead. Files previously written to the old location (`.../cache`) will not be discovered at the new location (`.../files/Movies`). Migrate existing files or update path assumptions accordingly.
+
+> More on this in https://github.com/tauri-apps/tauri/pull/15563
+
 ## Other changes
 
 [View all changes](/release/core/#212x)
