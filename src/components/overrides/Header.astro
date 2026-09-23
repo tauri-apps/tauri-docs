@@ -124,7 +124,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
   .header {
     border: none !important;
   }
-  body[data-mobile-menu-expanded] header {
+  body:has(#starlight__sidebar:popover-open) header {
     background-color: var(--sl-color-bg);
   }
 
