@@ -79,6 +79,11 @@ const authors = {
     title: 'Tauri Development',
     picture: '/authors/tony.jpeg',
   },
+  fabianlars: {
+    name: 'Fabian-Lars',
+    title: 'Tauri Board Director',
+    picture: '/authors/fabianlars.jpeg',
+  },
 };
 
 const site = 'https://v2.tauri.app';
