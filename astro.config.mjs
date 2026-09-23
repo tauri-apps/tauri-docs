@@ -373,6 +373,7 @@ export default defineConfig({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
           exclude: [
+            '/blog/',
             '/plugin/*/#default-permission',
             '/plugin/*/#permission-table',
             '/release/**',
