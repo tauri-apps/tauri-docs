@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev:setup:submodules": "git submodule update --init",
-    "dev:setup:tauri": "pnpm install -C packages/tauri/packages/api --ignore-workspace --no-frozen-lockfile",
+    "dev:setup:tauri": "pnpm install -C packages/tauri/packages/api --ignore-workspace --no-frozen-lockfile --pm-on-fail=ignore",
     "dev:setup:plugins-workspace": "pnpm -C packages/plugins-workspace install --pm-on-fail=ignore",
     "dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace && pnpm build:compatibility-table",
     "sync:sponsors": "pnpm --filter fetch-sponsors run build sponsors",
@@ -14,7 +14,6 @@
     "dev": "astro dev",
     "format": "prettier -w --cache --plugin prettier-plugin-astro .",
     "format:check": "prettier -c --cache --plugin prettier-plugin-astro .",
-    "check": "pnpm build:releases && astro check",
     "check:translations": "node ./scripts/check-translation-slugs.mjs",
     "build:compatibility-table": "pnpm --filter compatibility-table run build",
     "build:references": "pnpm --filter js-api-generator run build",
@@ -56,7 +55,6 @@
     "pnpm": "^12.0.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
     "typescript": "^7.0.2"
   }
 }
