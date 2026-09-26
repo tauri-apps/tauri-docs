@@ -92,7 +92,7 @@ footer .pagination-links > a:hover {
   margin-top: 0.25rem;
 }
 
-starlight-menu-button > button {
+.sl-menu-button {
   background-color: unset;
   box-shadow: unset;
   justify-content: center;
@@ -102,7 +102,7 @@ starlight-menu-button > button {
   --sl-icon-color: var(--sl-color-gray-1);
 }
 
-starlight-menu-button > button > svg {
+.sl-menu-button > svg {
   --sl-icon-size: 1.2rem !important;
 }
 
