@@ -1,5 +1,5 @@
 ---
-title: 适用于不同 Windows 和平台的功能
+title: 不同窗口和平台的授权配置
 sidebar:
   order: 11
 i18nReady: true
@@ -9,13 +9,13 @@ import { Steps } from '@astrojs/starlight/components';
 import ShowSolution from '@components/ShowSolution.astro'
 import Cta from '@fragments/cta.mdx';
 
-本指南将帮助你自定义 Tauri 应用程序的功能。
+本指南将帮助你自定义 Tauri 应用程序的授权配置（Capability）。
 
 ## 本指南的内容
 
 - Tauri 应用中创建多个窗口
-- 对不同的窗口使用不同的功能
-- 使用平台特定的功能
+- 对不同的窗口使用不同的授权配置
+- 使用平台特定的授权配置
 
 ## 先决条件
 
@@ -83,18 +83,18 @@ import Cta from '@fragments/cta.mdx';
     ```
     </ShowSolution>
 
-2. ### 将不同的功能应用于不同的窗口
+2. ### 为不同窗口应用不同的授权配置
 
-    Tauri 应用的窗口可以使用 Tauri 后端的不同功能或插件。为了提高安全性，建议只为每个窗口提供必要的功能。
+    Tauri 应用的窗口可以使用 Tauri 后端的不同功能或插件。为了提高安全性，建议只为每个窗口提供必要的授权配置。
     我们模拟了一个场景，其中 `first` 窗口使用文件系统和对话框功能，`second` 只使用对话框功能。
 
-    #### 每个类别单独的功能文件
+    #### 按操作类别拆分授权配置文件
 
-    建议根据功能文件所支持的操作类别来分离功能文件。
+    建议根据授权配置文件所支持的操作类别来分离授权配置文件。
 
     <ShowSolution>
-    `src-tauri/capabilities` 中的 JSON 文件将被纳入功能系统。
-    在这里，我们将与文件系统和对话框窗口相关的功能分别存储到 `filesystem.json` 和 `dialog.json` 中。
+    `src-tauri/capabilities` 中的 JSON 文件将被纳入授权配置系统。
+    在这里，我们将与文件系统和对话框窗口相关的授权配置分别存储到 `filesystem.json` 和 `dialog.json` 中。
 
     *Tauri 项目的文件树：*
     ```
@@ -109,12 +109,12 @@ import Cta from '@fragments/cta.mdx';
     ```
     </ShowSolution>
 
-    #### 为 `first` 窗口提供文件系统功能
+    #### 为 `first` 窗口配置文件系统访问权限
 
     我们赋予 `first` 窗口读取 `$HOME` 目录内容的权限。
 
     <ShowSolution>
-    在功能文件中使用具有一个或多个窗口标签的 `windows` 字段。
+    在授权配置文件中使用具有一个或多个窗口标签的 `windows` 字段。
 
     ```json title="filesystem.json"
     {
@@ -129,12 +129,12 @@ import Cta from '@fragments/cta.mdx';
     ```
     </ShowSolution>
 
-    #### 为 `first` 和 `second` 窗口提供对话框功能
+    #### 为 `first` 和 `second` 窗口配置对话框权限
 
-    我们为 `first` 和 `second` 窗口提供创建“是/否”的对话框的功能。
+    我们为 `first` 和 `second` 窗口提供创建“是/否”的对话框的权限。
 
     <ShowSolution>
-    在功能文件中使用具有一个或多个窗口标签的 `windows` 字段。
+    在授权配置文件中使用具有一个或多个窗口标签的 `windows` 字段。
 
     ```json title="dialog.json"
     {
@@ -149,12 +149,12 @@ import Cta from '@fragments/cta.mdx';
     </ShowSolution>
 
 
-3. ### 使功能依赖于平台
+3. ### 让授权配置仅在指定平台生效
 
-    我们现在想自定义功能，使其仅在某些平台上有效。我们使我们的文件系统功能仅在 `linux` 和 `windows` 上有效。
+    我们现在想自定义授权配置，使其仅在某些平台上有效。我们使我们的文件系统授权配置仅在 `linux` 和 `windows` 上有效。
 
     <ShowSolution>
-    在功能文件中使用 `platforms` 字段使其特定于平台。
+    在授权配置文件中使用 `platforms` 字段使其特定于平台。
 
     ```json title="filesystem.json"
     {
@@ -176,9 +176,9 @@ import Cta from '@fragments/cta.mdx';
 
 ## 结论和资源
 
-我们学习了如何在 Tauri 应用中创建多个窗口并赋予它们特定功能。此外，这些功能还可以针对特定平台进行定制。
+我们学习了如何在 Tauri 应用中创建多个窗口并为它们应用特定的授权配置。此外，这些授权配置还可以针对特定平台进行定制。
 
 在 [Tauri Github 仓库](https://github.com/tauri-apps/tauri) 的 
 [`api` 示例](https://github.com/tauri-apps/tauri/tree/dev/examples/api) 
-中可以找到一个使用窗口功能的示例程序。
-功能文件中可以使用的字段在 [功能](/reference/acl/capability/) 参考中列出。
+中可以找到一个使用窗口授权配置的示例程序。
+授权配置文件中可以使用的字段在 [授权配置](/reference/acl/capability/) 参考中列出。
