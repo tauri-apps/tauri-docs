@@ -1,0 +1,62 @@
+---
+import Select from '@astrojs/starlight/components/Select.astro';
+import { current, versions } from '../../docs-version.ts';
+
+const here = Astro.url.pathname;
+
+function target(entry: (typeof versions)[number]) {
+  if (entry.major === current.major) return here;
+  return entry.keepPath ? entry.site + here : entry.site + '/';
+}
+---
+
+{versions.length > 1 && (
+  <tauri-version-select>
+    <Select
+      icon="code-branch"
+      label={Astro.locals.t('tauri.versionSelect.accessibleLabel')}
+      options={versions.map((entry) => ({
+        label: entry.label,
+        value: target(entry),
+        selected: entry.major === current.major,
+      }))}
+      width="3.5em"
+    />
+  </tauri-version-select>
+)}
+
+<style>
+  tauri-version-select :global(.label-icon) {
+    display: none;
+  }
+  tauri-version-select :global(select) {
+    padding-inline-start: var(--sl-inline-padding);
+  }
+</style>
+
+<script>
+  // adapted from https://github.com/withastro/starlight/blob/f5f776859844c671fd797651294520217bf871d5/packages/starlight/src/components/LanguageSelect.astro,
+  // except the values are absolute URLs on another origin, so assign `href` rather than `pathname`
+  class TauriVersionSelect extends HTMLElement {
+    constructor() {
+      super();
+      const select = this.querySelector('select');
+      if (!select) return;
+      select.addEventListener('change', (e) => {
+        if (e.currentTarget instanceof HTMLSelectElement) {
+          window.location.href = e.currentTarget.value;
+        }
+      });
+      window.addEventListener('pageshow', (event) => {
+        if (!event.persisted) return;
+        // a bfcache restore keeps the version picked before leaving, not the one this page documents
+        const markupSelectedIndex =
+          select.querySelector<HTMLOptionElement>('option[selected]')?.index;
+        if (markupSelectedIndex !== select.selectedIndex) {
+          select.selectedIndex = markupSelectedIndex ?? 0;
+        }
+      });
+    }
+  }
+  customElements.define('tauri-version-select', TauriVersionSelect);
+</script>
