@@ -1,0 +1,203 @@
+---
+title: Instance unique
+description: Garantir qu'une seule instance de votre app Tauri s'exécute à la fois.
+plugin: single-instance
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+Garantissez qu'une seule instance de votre app Tauri s'exécute à la fois avec le plugin Single Instance.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin Single Instance pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add single-instance"
+      yarn="yarn run tauri add single-instance"
+      pnpm="pnpm tauri add single-instance"
+      deno="deno task tauri add single-instance"
+      bun="bun tauri add single-instance"
+      cargo="cargo tauri add single-instance"
+    />
+
+  </TabItem>
+    <TabItem label="Manuelle">
+      <Steps>
+
+        1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+            ```sh frame=none
+            cargo add tauri-plugin-single-instance --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+            ```rust title="lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}));
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+:::note
+
+Le plugin Single Instance doit être le premier plugin enregistré pour fonctionner correctement. Cela garantit qu'il s'exécute avant que d'autres plugins puissent interférer.
+
+:::
+
+## Utilisation
+
+Le plugin est déjà installé et initialisé, et il devrait fonctionner correctement immédiatement. Vous pouvez néanmoins enrichir son comportement avec la méthode `init()`.
+
+La méthode `init()` du plugin prend une closure qui est appelée lorsqu'une nouvelle instance de l'app a été démarrée, puis fermée par le plugin.
+La closure possède trois arguments :
+
+  <Steps>
+
+1. **`app` :** l'[AppHandle](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html) de l'application.
+2. **`args` :** la liste des arguments passés par l'utilisateur pour démarrer cette nouvelle instance.
+3. **`cwd` :** le répertoire de travail courant, c'est-à-dire le répertoire depuis lequel la nouvelle instance de l'application a été lancée.
+
+  </Steps>
+
+La closure doit donc ressembler à ceci :
+
+```rust
+.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+  // Write your code here...
+}))
+```
+
+### Donner le focus à la nouvelle instance
+
+Par défaut, lorsque vous démarrez une nouvelle instance alors que l'application est déjà en cours d'exécution, aucune action n'est effectuée. Pour donner le focus à la fenêtre de l'instance en cours lorsque l'utilisateur tente d'ouvrir une nouvelle instance, modifiez la closure de rappel comme suit :
+
+```rust title="src-tauri/src/lib.rs" {1} {5-12}
+use tauri::{AppHandle, Manager};
+
+pub fn run() {
+    let mut builder = tauri::Builder::default();
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = app.get_webview_window("main")
+                       .expect("no main window")
+                       .set_focus();
+        }));
+    }
+
+    builder
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+## Utilisation dans Snap et Flatpak
+
+Sous Linux, le plugin Single Instance utilise DBus pour garantir qu'une seule instance s'exécute. Il le fait en publiant un service sur DBus au démarrage de la première instance.
+Ensuite, les instances suivantes tenteront de publier le même service et, s'il est déjà publié, elles enverront une requête au service pour notifier la première instance, puis quitteront immédiatement.
+
+Même si cela fonctionne très bien lorsque votre app est empaquetée sous forme de paquet deb ou rpm, ou d'AppImage, cela ne fonctionnera pas comme prévu par défaut pour les paquets snap ou flatpak. Ces paquets s'exécutent dans un environnement sandboxé contraint, où la plupart des communications avec les services DBus seront bloquées si elles ne sont pas explicitement déclarées dans le manifeste de paquetage.
+
+Voici un guide qui montre comment déclarer les permissions nécessaires pour activer Single Instance pour les paquets snap et flatpak :
+
+### Obtenir l'ID de votre app
+
+Le plugin Single Instance publiera un service nommé `org.{id}.SingleInstance`.
+
+`{id}` sera l'`identifier` de votre fichier `tauri.conf.json`, mais avec les points (`.`) et les tirets (`-`) remplacés par des tirets bas (`_`).
+
+Par exemple, si votre identifiant est `net.mydomain.MyApp` :
+
+- `net_mydomain_MyApp` sera l'`{id}` de votre app
+- `org.net_mydomain_MyApp.SingleInstance` sera le nom du service SingleInstance de votre app
+
+Vous aurez besoin du nom de service pour autoriser votre app à utiliser le service DBus dans les manifestes snap et flatpak, comme illustré ci-dessous.
+
+### Snap
+
+Dans votre fichier snapcraft.yml, déclarez un plug et un slot pour le service single instance, puis utilisez les deux dans la déclaration de votre app :
+
+```yaml title="snapcraft.yml"
+# ...
+slots:
+  single-instance:
+    interface: dbus
+    bus: session
+    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+
+plugs:
+  single-instance-plug:
+    interface: dbus
+    bus: session
+    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+
+# .....
+apps:
+  my-app:
+    # ...
+    plugs:
+      # ....
+      - single-instance-plug
+    slots:
+      # ...
+      - single-instance
+
+    # ....
+```
+
+Cela permettra à votre app d'envoyer et de recevoir des requêtes depuis et vers le service DBus comme attendu par le plugin Single Instance.
+
+### Flatpak
+
+Dans votre manifeste flatpak (`your.app.id.yml` ou `your.app.id.json`), déclarez des finish args `--talk-name` et `--own-name` avec le nom du service :
+
+```yaml title="net.mydomain.MyApp.yml"
+# ...
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --share=ipc
+  # ....
+  - --talk-name=org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+  - --own-name=org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+# ...
+```
+
+Cela permettra à votre app d'envoyer et de recevoir des requêtes depuis et vers le service DBus comme attendu par le plugin Single Instance.
+
+## Permissions
+
+Comme ce plugin ne possède actuellement pas d'API JavaScript, vous n'avez pas besoin de configurer les [capabilities](/fr/security/capabilities/) pour l'utiliser.

@@ -1,0 +1,53 @@
+---
+title: Qu'est-ce que Tauri ?
+description: Informations pour bien démarrer avec Tauri, notamment les prérequis et les instructions d'installation
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+Tauri est un framework permettant de créer de petits binaires rapides pour toutes les principales plateformes desktop et mobiles. Les développeurs peuvent intégrer n'importe quel framework frontend qui compile vers HTML, JavaScript et CSS pour construire leur expérience utilisateur, tout en tirant parti de langages comme Rust, Swift et Kotlin pour la logique backend lorsque c'est nécessaire.
+
+Commencez à développer avec [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app) en utilisant l'une des commandes ci-dessous. Veillez à suivre le [guide des prérequis](/fr/start/prerequisites/) pour installer toutes les dépendances requises par Tauri. Pour une présentation plus détaillée, consultez [Créer un projet](/fr/start/create-project/#using-create-tauri-app).
+
+import Cta from '../_fragments/cta.mdx';
+
+<Cta />
+
+Après avoir créé votre première app, consultez [Structure du projet](/fr/start/project-structure/) pour comprendre le rôle de chaque fichier.
+
+Vous pouvez aussi explorer les configurations de projet et les fonctionnalités dans les exemples ([tauri](https://github.com/tauri-apps/tauri/tree/dev/examples) | [plugins-workspace](https://github.com/tauri-apps/plugins-workspace/tree/v2/examples/api)).
+
+## Pourquoi Tauri ?
+
+Tauri offre 3 avantages principaux aux développeurs :
+
+- Une base sécurisée pour créer des apps
+- Une taille de paquet plus faible grâce à la webview native du système
+- La flexibilité d'utiliser n'importe quel frontend et des bindings pour plusieurs langages
+
+Apprenez-en plus sur la philosophie de Tauri dans l'[article de blog Tauri 1.0](/fr/blog/tauri-1-0/).
+
+### Base sécurisée
+
+Étant construit avec Rust, Tauri peut profiter de la sécurité mémoire, thread et typage offerte par Rust. Les apps construites avec Tauri bénéficient automatiquement de ces avantages, même sans devoir être développées par des experts Rust.
+
+Tauri fait également l'objet d'un audit de sécurité pour les versions majeures et mineures. Cela couvre non seulement le code de l'organisation Tauri, mais aussi les dépendances amont sur lesquelles Tauri s'appuie. Bien sûr, cela ne supprime pas tous les risques, mais fournit une base solide sur laquelle les développeurs peuvent construire.
+
+Lisez la [politique de sécurité de Tauri](https://github.com/tauri-apps/tauri/security/policy) et le [rapport d'audit Tauri 2.0](https://github.com/tauri-apps/tauri/blob/dev/audits/Radically_Open_Security-v2-report.pdf).
+
+### Taille d'app réduite
+
+Les apps Tauri tirent parti de la vue web déjà disponible sur le système de chaque utilisateur. Une app Tauri ne contient que le code et les ressources propres à cette app, et n'a pas besoin d'embarquer un moteur de navigateur dans chaque app. Cela signifie qu'une app Tauri minimale peut peser moins de 600 Ko.
+
+Apprenez-en plus sur la création d'apps optimisées dans le [concept de taille d'app](/fr/concept/size/).
+
+### Architecture flexible
+
+Comme Tauri utilise les technologies web, pratiquement n'importe quel framework frontend est compatible avec Tauri. Le [guide de configuration frontend](/fr/start/frontend/) contient les configurations courantes pour les frameworks frontend populaires.
+
+Les bindings entre JavaScript et Rust sont disponibles aux développeurs via la fonction `invoke` en JavaScript, et les bindings Swift et Kotlin sont disponibles pour les [plugins Tauri](/fr/develop/plugins/).
+
+[TAO](https://github.com/tauri-apps/tao) est responsable de la création des fenêtres Tauri et [WRY](https://github.com/tauri-apps/wry) du rendu de la vue web. Ces bibliothèques sont maintenues par Tauri et peuvent être utilisées directement si une intégration système plus poussée est nécessaire au-delà de ce que Tauri expose.
+
+De plus, Tauri maintient plusieurs plugins qui étendent ce que le coeur de Tauri expose. Vous pouvez les trouver aux côtés de ceux fournis par la communauté dans la [section Plugins](/fr/plugin/).

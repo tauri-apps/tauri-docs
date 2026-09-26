@@ -1,0 +1,260 @@
+---
+title: Node.js comme sidecar
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CTA from '../_fragments/cta.mdx';
+
+Dans ce guide, nous allons empaqueter une application Node.js dans un binaire autonome afin de l'utiliser comme sidecar dans une application Tauri, sans exiger que l'utilisateur final ait installé Node.js. Ce tutoriel d'exemple ne s'applique qu'aux systèmes d'exploitation desktop.
+
+Nous recommandons de lire d'abord le [guide général des sidecars] pour mieux comprendre le fonctionnement des sidecars Tauri.
+
+## Objectifs
+
+- Empaqueter une application Node.js sous forme de binaire.
+- Intégrer ce binaire comme sidecar Tauri.
+
+## Détails d'implémentation
+
+- Nous utilisons ici l'outil [pkg], mais tout autre outil capable de compiler du JavaScript ou TypeScript en application binaire fonctionnera.
+- Vous pouvez aussi embarquer le runtime Node lui-même dans votre application Tauri et livrer le JavaScript groupé comme ressource, mais cela livre le contenu JavaScript sous forme de fichiers relativement lisibles et le runtime est généralement plus volumineux qu'une application empaquetée avec `pkg`.
+
+Dans cet exemple, nous allons créer une application Node.js qui lit une entrée depuis la ligne de commande avec [process.argv] et écrit la sortie sur stdout avec [console.log]. <br/>
+Vous pouvez utiliser d'autres systèmes de communication inter-processus, comme un serveur localhost, stdin/stdout ou des sockets locaux. Notez que chacun présente ses propres avantages, inconvénients et préoccupations de sécurité.
+
+## Prérequis
+
+Une application Tauri existante configurée avec le plugin shell, qui compile et s'exécute localement.
+
+:::tip[Créer une app de labo]
+
+Si vous n'êtes pas un utilisateur avancé, il est **fortement recommandé** d'utiliser les options et frameworks fournis ici. Ce n'est qu'un labo, vous pourrez supprimer le projet lorsque vous aurez terminé.
+
+<CTA />
+
+- Nom du projet : `node-sidecar-lab`
+- Choisissez le langage à utiliser pour votre frontend : `Typescript / Javascript`
+- Choisissez votre gestionnaire de paquets : `pnpm`
+- Choisissez votre modèle d'interface : `Vanilla`
+- Choisissez votre variante d'interface : `Typescript`
+
+:::
+
+:::note
+Veuillez d'abord suivre le [guide du plugin shell](/fr/plugin/shell/) pour configurer et initialiser correctement le plugin. Sans initialisation et configuration du plugin, l'exemple ne fonctionnera pas.
+:::
+
+## Guide
+
+<Steps>
+
+1.  ##### Initialiser le projet sidecar
+
+    Créons un nouveau projet Node.js pour contenir l'implémentation de notre sidecar. Créez un nouveau répertoire **à la racine de votre application Tauri** (dans cet exemple, nous l'appellerons `sidecar-app`) et exécutez la commande `init` de votre gestionnaire de paquets Node.js préféré dans ce répertoire :
+
+    <CommandTabs npm="npm init" yarn="yarn init" pnpm="pnpm init" />
+
+    Nous compilerons notre application Node.js en binaire autonome avec [pkg], parmi d'autres options. Installons-le comme dépendance de développement dans le nouveau `sidecar-app` :
+
+    <CommandTabs
+      npm="npm add @yao-pkg/pkg --save-dev"
+      yarn="yarn add @yao-pkg/pkg --dev"
+      pnpm="pnpm add @yao-pkg/pkg --save-dev"
+    />
+
+1.  ##### Écrire la logique du sidecar
+
+    Nous pouvons maintenant écrire le code JavaScript qui sera exécuté par notre application Tauri.
+
+    Dans cet exemple, nous traiterons une commande depuis les arguments de ligne de commande et écrirons la sortie sur stdout ; notre processus sera donc court et ne traitera qu'une seule commande à la fois. Si votre application doit rester active longtemps, envisagez d'autres systèmes de communication inter-processus.
+
+    Créons un fichier `index.js` dans notre répertoire `sidecar-app` et écrivons une app Node.js de base :
+
+    ```js title=sidecar-app/index.js
+    const command = process.argv[2];
+
+    switch (command) {
+      case 'hello':
+        const message = process.argv[3];
+        console.log(`Hello ${message}!`);
+        break;
+      default:
+        console.error(`unknown command ${command}`);
+        process.exit(1);
+    }
+    ```
+
+1.  ##### Empaqueter le sidecar
+
+    Pour empaqueter notre application Node.js dans un binaire autonome, créez un script dans `package.json` :
+
+    ```json title="sidecar-app/package.json"
+    {
+      "scripts": {
+        "build": "pkg index.ts --output my-sidecar"
+      }
+    }
+    ```
+
+    <CommandTabs npm="npm run build" yarn="yarn build" pnpm="pnpm build" />
+
+    Cela créera le binaire `sidecar-app/my-sidecar` sous Linux et macOS, et l'exécutable `sidecar-app/my-sidecar.exe` sous Windows.
+
+    Pour les applications sidecar, nous devons nous assurer que le binaire respecte le bon schéma de nommage. Pour plus d'informations, lisez [Embarquer des binaires externes](https://tauri.app/develop/sidecar/). Pour renommer ce fichier avec le nom attendu par Tauri et le déplacer dans notre projet Tauri, nous pouvons utiliser le script Node.js suivant comme point de départ :
+
+    ```js title="sidecar-app/rename.js"
+    import { execSync } from 'child_process';
+    import fs from 'fs';
+
+    const ext = process.platform === 'win32' ? '.exe' : '';
+
+    const targetTriple = execSync('rustc --print host-tuple').toString().trim();
+    if (!targetTriple) {
+      console.error('Failed to determine platform target triple');
+    }
+    // TODO: create `src-tauri/binaries` dir
+    fs.renameSync(
+      `my-sidecar${ext}`,
+      `../src-tauri/binaries/my-sidecar-${targetTriple}${ext}`
+    );
+    ```
+
+    :::note
+    Le flag `--print host-tuple` a été ajouté dans Rust 1.84.0. Si vous utilisez une version plus ancienne, vous devrez analyser la sortie de `rustc -Vv` à la place :
+
+    ```js
+    const rustInfo = execSync('rustc -vV');
+    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+    ```
+
+    :::
+
+    Exécutez ensuite `node rename.js` depuis le répertoire `sidecar-app`.
+
+    À cette étape, le répertoire `/src-tauri/binaries` devrait contenir le binaire sidecar renommé.
+
+1.  ##### Configurer la permission du plugin shell
+
+    Après avoir installé le [plugin shell](/fr/plugin/shell/), assurez-vous de configurer les capacités requises.
+
+    Notez que nous utilisons `"args": true`, mais vous pouvez éventuellement fournir un tableau `["hello"]`. [En savoir plus](/fr/develop/sidecar/#passing-arguments).
+
+    ```json title='src-tauri/capabilities/default.json'
+    {
+      "permissions": [
+        "core:default",
+        "opener:default",
+        {
+          "identifier": "shell:allow-execute",
+          "allow": [
+            {
+              "args": true,
+              "name": "binaries/my-sidecar",
+              "sidecar": true
+            }
+          ]
+        }
+      ]
+    }
+    ```
+
+1.  ##### Configurer le sidecar dans l'application Tauri
+
+    Maintenant que notre application Node.js est prête, nous pouvons la connecter à notre application Tauri en configurant le tableau [`bundle > externalBin`] :
+
+    ```json title="src-tauri/tauri.conf.json"
+    {
+      "bundle": {
+        "externalBin": ["binaries/my-sidecar"]
+      }
+    }
+    ```
+
+    La CLI Tauri se chargera de grouper le binaire sidecar tant qu'il existe sous la forme `src-tauri/binaries/my-sidecar-<target-triple>`.
+
+1.  ##### Exécuter le sidecar
+
+    Nous pouvons exécuter le binaire sidecar depuis le code Rust ou directement depuis JavaScript.
+
+    <Tabs syncKey="lang">
+
+      <TabItem label="JavaScript">
+
+        Exécutons directement la commande `hello` dans le sidecar Node.js :
+
+        ```js
+        import { Command } from '@tauri-apps/plugin-shell';
+
+        const message = 'Tauri';
+
+        const command = Command.sidecar('binaries/my-sidecar', ['hello', message]);
+        const output = await command.execute();
+        // once everything is configured it should log "Hello Tauri" in the browser console.
+        console.log(output.stdout)
+        ```
+
+      </TabItem>
+
+      <TabItem label="Rust">
+
+        Transmettons une commande Tauri `hello` au sidecar Node.js :
+
+        ```rust
+        use tauri_plugin_shell::ShellExt;
+
+        #[tauri::command]
+        async fn hello(app: tauri::AppHandle, cmd: String, message: String) -> String {
+            let sidecar_command = app
+                .shell()
+                .sidecar("my-sidecar")
+                .unwrap()
+                .arg(cmd)
+                .arg(message);
+            let output = sidecar_command.output().await.unwrap();
+            String::from_utf8(output.stdout).unwrap()
+        }
+        ```
+
+        Enregistrez-la dans `invoke_handler` et appelez-la dans le frontend avec :
+
+        ```js
+
+        import { invoke } from "@tauri-apps/api/core";
+
+        const message = "Tauri"
+        console.log(await invoke("hello", { cmd: 'hello', message }))
+
+        ```
+
+      </TabItem>
+
+    </Tabs>
+
+1.  ##### Exécution
+
+    Testons cela.
+
+    <CommandTabs
+      npm="npm run tauri dev"
+      yarn="yarn tauri dev"
+      pnpm="pnpm tauri dev"
+      deno="deno task tauri dev"
+      bun="bun tauri dev"
+      cargo="cargo tauri dev"
+    />
+
+    Ouvrez les DevTools avec F12 (ou `Cmd+Option+I` sur macOS) et vous devriez voir la sortie de la commande sidecar.
+
+    Si vous trouvez un problème, ouvrez une issue sur [GitHub](https://github.com/tauri-apps/tauri-docs).
+
+</Steps>
+
+[guide général des sidecars]: /fr/develop/sidecar/
+[process.argv]: https://nodejs.org/docs/latest/api/process.html#processargv
+[console.log]: https://nodejs.org/api/console.html#consolelogdata-args
+[pkg]: https://github.com/yao-pkg/pkg
+[`bundle > externalBin`]: /fr/reference/config/#externalbin

@@ -1,0 +1,212 @@
+---
+title: Mocker les API Tauri
+sidebar:
+  order: 10
+i18nReady: true
+---
+
+import SinceVersion from '../../../../../components/SinceVersion.astro';
+
+Lorsque vous écrivez vos tests frontend, il est courant d'avoir un « faux » environnement Tauri pour simuler des fenêtres ou intercepter des appels IPC : c'est ce qu'on appelle le _mocking_.
+Le module [`@tauri-apps/api/mocks`] fournit quelques outils utiles pour vous faciliter la tâche :
+
+:::caution
+
+Pensez à nettoyer les mocks après chaque exécution de test afin d'annuler les changements d'état des mocks entre les exécutions. Consultez la documentation de [`clearMocks()`] pour plus d'informations.
+
+:::
+
+## Requêtes IPC
+
+Le plus souvent, vous voudrez intercepter des requêtes IPC ; cela peut être utile dans plusieurs situations :
+
+- Vérifier que les bons appels backend sont effectués
+- Simuler différents résultats provenant de fonctions backend
+
+Tauri fournit la fonction `mockIPC` pour intercepter les requêtes IPC. Vous trouverez plus de détails sur l'API spécifique [ici][`mockipc()`].
+
+:::note
+
+Les exemples suivants utilisent [Vitest], mais vous pouvez utiliser n'importe quelle autre bibliothèque de tests frontend, comme jest.
+
+:::
+
+### Mocker des commandes pour `invoke`
+
+```javascript
+import { beforeAll, expect, test } from "vitest";
+import { randomFillSync } from "crypto";
+
+import { mockIPC } from "@tauri-apps/api/mocks";
+import { invoke } from "@tauri-apps/api/core";
+
+// jsdom doesn't come with a WebCrypto implementation
+beforeAll(() => {
+  Object.defineProperty(window, 'crypto', {
+    value: {
+      // @ts-ignore
+      getRandomValues: (buffer) => {
+        return randomFillSync(buffer);
+      },
+    },
+  });
+});
+
+
+test("invoke simple", async () => {
+  mockIPC((cmd, args) => {
+    // simulated rust command called "add" that just adds two numbers
+    if(cmd === "add") {
+      return (args.a as number) + (args.b as number);
+    }
+  });
+});
+```
+
+Parfois, vous voulez suivre plus d'informations sur un appel IPC : combien de fois la commande a-t-elle été invoquée ? A-t-elle été invoquée tout court ?
+Vous pouvez utiliser [`mockIPC()`] avec d'autres outils de spying et de mocking pour tester cela :
+
+```javascript
+import { beforeAll, expect, test, vi } from "vitest";
+import { randomFillSync } from "crypto";
+
+import { mockIPC } from "@tauri-apps/api/mocks";
+import { invoke } from "@tauri-apps/api/core";
+
+// jsdom doesn't come with a WebCrypto implementation
+beforeAll(() => {
+  Object.defineProperty(window, 'crypto', {
+    value: {
+      // @ts-ignore
+      getRandomValues: (buffer) => {
+        return randomFillSync(buffer);
+      },
+    },
+  });
+});
+
+
+test("invoke", async () => {
+  mockIPC((cmd, args) => {
+    // simulated rust command called "add" that just adds two numbers
+    if(cmd === "add") {
+      return (args.a as number) + (args.b as number);
+    }
+  });
+
+  // we can use the spying tools provided by vitest to track the mocked function
+  const spy = vi.spyOn(window.__TAURI_INTERNALS__, "invoke");
+
+  expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
+  expect(spy).toHaveBeenCalled();
+});
+```
+
+Pour mocker les requêtes IPC vers un sidecar ou une commande shell, vous devez récupérer l'ID du gestionnaire d'événement lorsque `spawn()` ou `execute()` est appelé, puis utiliser cet ID pour émettre les événements que le backend aurait renvoyés :
+
+```javascript
+mockIPC(async (cmd, args) => {
+  if (args.message.cmd === 'execute') {
+    const eventCallbackId = `_${args.message.onEventFn}`;
+    const eventEmitter = window[eventCallbackId];
+
+    // 'Stdout' event can be called multiple times
+    eventEmitter({
+      event: 'Stdout',
+      payload: 'some data sent from the process',
+    });
+
+    // 'Terminated' event must be called at the end to resolve the promise
+    eventEmitter({
+      event: 'Terminated',
+      payload: {
+        code: 0,
+        signal: 'kill',
+      },
+    });
+  }
+});
+```
+
+:::note[Voir aussi]
+
+`mockIPC` simule `invoke` sous le mock runtime : aucune vraie webview ni aucun backend Rust réel ne s'exécute. Pour mocker les mêmes commandes dans
+des tests **end-to-end**, contre une app en cours d'exécution ou votre frontend dans un navigateur, [`@wdio/tauri-service`] fournit un équivalent
+`browser.tauri.mock()`. Consultez [Tests WebDriver].
+
+:::
+
+### Mocker les événements
+
+<SinceVersion version="2.7.0" />
+
+Il existe une prise en charge partielle du [système d'événements] pour simuler les événements émis par votre code Rust via l'option `shouldMockEvents` :
+
+```javascript
+import { mockIPC, clearMocks } from '@tauri-apps/api/mocks';
+import { emit, listen } from '@tauri-apps/api/event';
+import { afterEach, expect, test, vi } from 'vitest';
+
+test('mocked event', () => {
+  mockIPC(() => {}, { shouldMockEvents: true }); // enable event mocking
+
+  const eventHandler = vi.fn();
+  listen('test-event', eventHandler);
+
+  emit('test-event', { foo: 'bar' });
+  expect(eventHandler).toHaveBeenCalledWith({
+    event: 'test-event',
+    payload: { foo: 'bar' },
+  });
+});
+```
+
+`emitTo` et `emit_filter` ne sont **pas** encore pris en charge.
+
+## Fenêtres
+
+Vous avez parfois du code propre à une fenêtre (une fenêtre splash screen, par exemple), vous devez donc simuler différentes fenêtres.
+Vous pouvez utiliser la méthode [`mockWindows()`] pour créer de faux labels de fenêtres. La première chaîne identifie la fenêtre « courante » (c'est-à-dire la fenêtre dans laquelle votre JavaScript croit se trouver), et toutes les autres chaînes sont traitées comme des fenêtres supplémentaires.
+
+:::note
+
+[`mockWindows()`] simule uniquement l'existence de fenêtres, pas leurs propriétés. Pour simuler les propriétés d'une fenêtre, vous devez intercepter les bons appels avec [`mockIPC()`].
+
+:::
+
+```javascript
+import { beforeAll, expect, test } from 'vitest';
+import { randomFillSync } from 'crypto';
+
+import { mockWindows } from '@tauri-apps/api/mocks';
+
+// jsdom doesn't come with a WebCrypto implementation
+beforeAll(() => {
+  Object.defineProperty(window, 'crypto', {
+    value: {
+      // @ts-ignore
+      getRandomValues: (buffer) => {
+        return randomFillSync(buffer);
+      },
+    },
+  });
+});
+
+test('invoke', async () => {
+  mockWindows('main', 'second', 'third');
+
+  const { getCurrent, getAll } = await import('@tauri-apps/api/webviewWindow');
+
+  expect(getCurrent()).toHaveProperty('label', 'main');
+  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
+});
+```
+
+[`@tauri-apps/api/mocks`]: /reference/javascript/api/namespacemocks/
+[`mockipc()`]: /reference/javascript/api/namespacemocks/#mockipc
+[`mockwindows()`]: /reference/javascript/api/namespacemocks/#mockwindows
+[`clearmocks()`]: /reference/javascript/api/namespacemocks/#clearmocks
+[vitest]: https://vitest.dev
+[système d'événements]: /fr/develop/calling-frontend/#event-system
+[`@wdio/tauri-service`]: https://webdriver.io/docs/desktop-testing/tauri
+[tests webdriver]: /fr/develop/tests/webdriver/

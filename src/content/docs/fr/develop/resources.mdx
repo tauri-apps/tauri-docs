@@ -1,0 +1,391 @@
+---
+title: Intégrer des fichiers supplémentaires
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Vous pouvez avoir besoin d'inclure dans le bundle de votre application des fichiers supplémentaires qui ne font pas directement partie de votre frontend (`frontendDist`) ou qui sont trop volumineux pour être intégrés dans le binaire. Nous appelons ces fichiers des `resources`.
+
+## Configuration
+
+Pour empaqueter les fichiers de votre choix, ajoutez la propriété `resources` à l'objet `bundle` dans votre fichier `tauri.conf.json`.
+
+Pour inclure une liste de fichiers :
+
+<Tabs syncKey="explanation">
+<TabItem label="Syntaxe">
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": [
+      "./path/to/some-file.txt",
+      "/absolute/path/to/textfile.txt",
+      "../relative/path/to/jsonfile.json",
+      "some-folder/",
+      "resources/**/*.md"
+    ]
+  }
+}
+```
+
+</TabItem>
+<TabItem label="Explication">
+
+```json title=tauri.conf.json5
+{
+  "bundle": {
+    "resources": [
+      // Will be placed to `$RESOURCE/path/to/some-file.txt`
+      "./path/to/some-file.txt",
+
+      // The root in an absolute path will be replaced by `_root_`,
+      // so `textfile.txt` will be placed to `$RESOURCE/_root_/absolute/path/to/textfile.txt`
+      "/absolute/path/to/textfile.txt",
+
+      // `..` in a relative path will be replaced by `_up_`,
+      // so `jsonfile.json` will be placed to `$RESOURCE/_up_/relative/path/to/textfile.txt`,
+      "../relative/path/to/jsonfile.json",
+
+      // If the path is a directory, the entire directory will be copied to the `$RESOURCE` directory,
+      // preserving the original structures, for example:
+      //   - `some-folder/file.txt`                   -> `$RESOURCE/some-folder/file.txt`
+      //   - `some-folder/another-folder/config.json` -> `$RESOURCE/some-folder/another-folder/config.json`
+      // This is the same as `some-folder/**/*`
+      "some-folder/",
+
+      // You can also include multiple files at once through glob patterns.
+      // All the `.md` files inside `resources` will be placed to `$RESOURCE/resources/`,
+      // preserving their original directory structures, for example:
+      //   - `resources/index.md`      -> `$RESOURCE/resources/index.md`
+      //   - `resources/docs/setup.md` -> `$RESOURCE/resources/docs/setup.md`
+      "resources/**/*.md"
+    ]
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Les fichiers empaquetés se trouveront dans `$RESOURCES/` avec leur structure de répertoires d'origine préservée,
+par exemple : `./path/to/some-file.txt` -> `$RESOURCE/path/to/some-file.txt`.
+
+Pour contrôler précisément où les fichiers seront copiés, utilisez plutôt une map :
+
+<Tabs syncKey="explanation">
+<TabItem label="Syntaxe">
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": {
+      "/absolute/path/to/textfile.txt": "resources/textfile.txt",
+      "relative/path/to/jsonfile.json": "resources/jsonfile.json",
+      "resources/": "",
+      "docs/**/*md": "website-docs/"
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem label="Explication">
+
+```json title=tauri.conf.json5
+{
+  "bundle": {
+    "resources": {
+      // `textfile.txt` will be placed to `$RESOURCE/resources/textfile.txt`
+      "/absolute/path/to/textfile.txt": "resources/textfile.txt",
+
+      // `jsonfile.json` will be placed to `$RESOURCE/resources/jsonfile.json`
+      "relative/path/to/jsonfile.json": "resources/jsonfile.json",
+
+      // Copy the entire directory to `$RESOURCE`, preserving the original structures,
+      // the target is "" which means it will be placed directly in the resource directory `$RESOURCE`, for example:
+      //   - `resources/file.txt`                -> `$RESOURCE/file.txt`
+      //   - `resources/some-folder/config.json` -> `$RESOURCE/some-folder/config.json`
+      "resources/": "",
+
+      // When using glob patterns, the behavior is different from the list one,
+      // all the matching files will be placed to the target directory without preserving the original file structures
+      // for example:
+      //   - `docs/index.md`         -> `$RESOURCE/website-docs/index.md`
+      //   - `docs/plugins/setup.md` -> `$RESOURCE/website-docs/setup.md`
+      "docs/**/*md": "website-docs/"
+    }
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Pour savoir où `$RESOURCE` est résolu sur chaque plateforme, consultez la documentation de [`resource_dir`].
+
+<details>
+<summary>Syntaxe des chemins source</summary>
+
+Dans les explications suivantes, le « répertoire de ressources cible » est soit la valeur après les deux-points dans la notation objet, soit une reconstruction des chemins de fichiers d'origine dans la notation tableau.
+
+- `"dir/file.txt"` : copie le fichier `file.txt` dans le répertoire de ressources cible.
+- `"dir/"` : copie tous les fichiers **et répertoires** _récursivement_ dans le répertoire de ressources cible. Utilisez ceci si vous voulez aussi préserver la structure du système de fichiers de vos fichiers et répertoires.
+- `"dir/*"` : copie tous les fichiers du répertoire `dir` _non récursivement_ (les sous-répertoires seront ignorés) dans le répertoire de ressources cible.
+- `"dir/**` : génère une erreur, car `**` ne correspond qu'à des répertoires et aucun fichier ne peut donc être trouvé.
+- `"dir/**/*"` : copie tous les fichiers du répertoire `dir` _récursivement_ (tous les fichiers dans `dir/` et tous les fichiers dans tous les sous-répertoires) dans le répertoire de ressources cible.
+- `"dir/**/**` : génère une erreur, car `**` ne correspond qu'à des répertoires et aucun fichier ne peut donc être trouvé.
+
+</details>
+
+## Résoudre les chemins des fichiers de ressources
+
+Pour résoudre le chemin d'un fichier de ressources, utilisez les API suivantes au lieu de calculer le chemin manuellement.
+
+<Tabs syncKey="lang">
+<TabItem label="Rust">
+
+Côté Rust, vous avez besoin d'une instance de [`PathResolver`], que vous pouvez obtenir depuis [`App`] et [`AppHandle`],
+puis appeler [`PathResolver::resolve`] :
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+    Ok(())
+  })
+```
+
+Pour l'utiliser dans une commande :
+
+```rust
+#[tauri::command]
+fn hello(handle: tauri::AppHandle) {
+  let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+}
+```
+
+</TabItem>
+<TabItem label="JavaScript">
+
+Pour résoudre le chemin en JavaScript, utilisez [`resolveResource`] :
+
+```javascript
+import { resolveResource } from '@tauri-apps/api/path';
+const resourcePath = await resolveResource('lang/de.json');
+```
+
+</TabItem>
+</Tabs>
+
+### Syntaxe des chemins
+
+Le chemin passé aux appels d'API peut être soit un chemin relatif normal comme `folder/json_file.json`, qui se résout en `$RESOURCE/folder/json_file.json`,
+soit un chemin comme `../relative/folder/toml_file.toml`, qui se résout en `$RESOURCE/_up_/relative/folder/toml_file.toml`.
+Ces API utilisent les mêmes règles que celles écrites dans `tauri.conf.json > bundle > resources`, par exemple :
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": ["folder/json_file.json", "../relative/folder/toml_file.toml"]
+  }
+}
+```
+
+```rust
+let json_path = app.path().resolve("folder/json_file.json", BaseDirectory::Resource)?;
+let toml_path = app.path().resolve("../relative/folder/toml_file.toml", BaseDirectory::Resource)?;
+```
+
+### Android
+
+Actuellement, les ressources sont stockées dans l'APK comme assets. La valeur retournée par ces API n'est donc pas un chemin de système de fichiers classique.
+Nous utilisons ici un préfixe d'URI spécial `asset://localhost/`, qui peut être utilisé avec le [`fs` plugin].
+Avec cela, vous pouvez lire les fichiers via [`FsExt::fs`] comme ceci :
+
+```rust
+let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource).unwrap();
+let json = app.fs().read_to_string(&resource_path);
+```
+
+Si vous voulez ou devez avoir les fichiers de ressources sur un véritable système de fichiers, copiez manuellement leur contenu via le [`fs` plugin].
+
+## Lire les fichiers de ressources
+
+Dans cet exemple, nous voulons empaqueter des fichiers JSON i18n supplémentaires comme ceci :
+
+```
+.
+├── src-tauri/
+│   ├── tauri.conf.json
+│   ├── lang/
+│   │   ├── de.json
+│   │   └── en.json
+│   └── ...
+└── ...
+```
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": ["lang/*"]
+  }
+}
+```
+
+```json title=lang/de.json
+{
+  "hello": "Guten Tag!",
+  "bye": "Auf Wiedersehen!"
+}
+```
+
+### Rust
+
+Côté Rust, vous avez besoin d'une instance de [`PathResolver`], que vous pouvez obtenir depuis [`App`] et [`AppHandle`] :
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    // The path specified must follow the same syntax as defined in
+    // `tauri.conf.json > bundle > resources`
+    let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+
+    let json = std::fs::read_to_string(&resource_path).unwrap();
+    // Or when dealing with Android, use the file system plugin instead
+    // let json = app.fs().read_to_string(&resource_path);
+
+    let lang_de: serde_json::Value = serde_json::from_str(json).unwrap();
+
+    // This will print 'Guten Tag!' to the terminal
+    println!("{}", lang_de.get("hello").unwrap());
+
+    Ok(())
+  })
+```
+
+```rust
+#[tauri::command]
+fn hello(handle: tauri::AppHandle) -> String {
+    let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+
+    let json = std::fs::read_to_string(&resource_path).unwrap();
+    // Or when dealing with Android, use the file system plugin instead
+    // let json = handle.fs().read_to_string(&resource_path);
+
+    let lang_de: serde_json::Value = serde_json::from_str(json).unwrap();
+
+    lang_de.get("hello").unwrap()
+}
+```
+
+### JavaScript
+
+Côté JavaScript, vous pouvez soit utiliser une commande comme celle ci-dessus et l'appeler via `await invoke('hello')`, soit accéder aux fichiers avec le [`fs` plugin].
+
+Lorsque vous utilisez le [`fs` plugin], en plus de la [configuration de base], vous devez aussi configurer la liste de contrôle d'accès pour activer toutes les API de plugin nécessaires ainsi que les permissions d'accès au dossier `$RESOURCE` :
+
+```json title=src-tauri/capabilities/default.json ins={8-9}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "fs:allow-read-text-file",
+    "fs:allow-resource-read-recursive"
+  ]
+}
+```
+
+:::note
+Ici, nous utilisons `fs:allow-resource-read-recursive` pour autoriser un accès complet en lecture récursive à l'ensemble du dossier `$RESOURCE`, de ses fichiers et de ses sous-répertoires.
+Pour plus d'informations, lisez [Scope Permissions] pour d'autres options, ou [Scopes] pour un contrôle plus fin.
+:::
+
+```javascript
+import { resolveResource } from '@tauri-apps/api/path';
+import { readTextFile } from '@tauri-apps/plugin-fs';
+
+const resourcePath = await resolveResource('lang/de.json');
+const langDe = JSON.parse(await readTextFile(resourcePath));
+console.log(langDe.hello); // This will print 'Guten Tag!' to the devtools console
+```
+
+## Permissions
+
+Comme nous remplaçons `../` par `_up_` dans les chemins relatifs et la racine par `_root_` dans les chemins absolus lorsque nous utilisons une liste,
+ces fichiers seront dans des sous-dossiers du répertoire de ressources.
+Pour autoriser ces chemins dans le [système de permissions](/fr/security/capabilities/) de Tauri,
+utilisez `$RESOURCE/**/*` afin d'autoriser l'accès récursif à ces fichiers.
+
+### Exemples
+
+Avec un fichier empaqueté comme ceci :
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "resources": ["../relative/path/to/jsonfile.json"]
+  }
+}
+```
+
+Pour l'utiliser avec le [`fs` plugin] :
+
+```json title=src-tauri/capabilities/default.json ins={8-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "fs:allow-stat",
+    "fs:allow-read-text-file",
+    "fs:allow-resource-read-recursive",
+    {
+      "identifier": "fs:scope",
+      "allow": ["$RESOURCE/**/*"],
+      "deny": ["$RESOURCE/secret.txt"]
+    }
+  ]
+}
+```
+
+Pour l'utiliser avec le [`opener` plugin] :
+
+```json title=src-tauri/capabilities/default.json ins={8-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "$RESOURCE/**/*"
+        }
+      ]
+    }
+  ]
+}
+```
+
+[`resource_dir`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html#method.resource_dir
+[`pathresolver`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html
+[`PathResolver::resolve`]: https://docs.rs/tauri/latest/tauri/path/struct.PathResolver.html#method.resolve
+[`resolveResource`]: https://tauri.app/reference/javascript/api/namespacepath/#resolveresource
+[`app`]: https://docs.rs/tauri/latest/tauri/struct.App.html
+[`apphandle`]: https://docs.rs/tauri/latest/tauri/struct.AppHandle.html
+[`fs` plugin]: /fr/plugin/file-system/
+[`FsExt::fs`]: https://docs.rs/tauri-plugin-fs/latest/tauri_plugin_fs/trait.FsExt.html#tymethod.fs
+[configuration de base]: /fr/plugin/file-system/#setup
+[Scope Permissions]: /fr/plugin/file-system/#scopes
+[scopes]: /fr/plugin/file-system/#scopes
+[`opener` plugin]: /fr/plugin/opener/

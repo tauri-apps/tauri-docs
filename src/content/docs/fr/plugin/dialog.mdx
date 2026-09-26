@@ -1,0 +1,319 @@
+---
+title: Dialog
+description: Boîtes de dialogue système natives pour ouvrir et enregistrer des fichiers, ainsi que des boîtes de message.
+i18nReady: true
+tableOfContents:
+  maxHeadingLevel: 4
+plugin: dialog
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Boîtes de dialogue système natives pour ouvrir et enregistrer des fichiers, ainsi que des boîtes de message.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin dialog pour commencer.
+
+<Tabs>
+    <TabItem label="Automatique">
+
+        Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+        <CommandTabs npm="npm run tauri add dialog"
+                    yarn="yarn run tauri add dialog"
+                    pnpm="pnpm tauri add dialog"
+                    deno="deno task tauri add dialog"
+                    bun="bun tauri add dialog"
+                    cargo="cargo tauri add dialog" />
+
+    </TabItem>
+    <TabItem label="Manuelle">
+        <Steps>
+
+            1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+                ```sh frame=none
+                cargo add tauri-plugin-dialog
+                ```
+
+            2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+                ```rust title="src-tauri/src/lib.rs" ins={4}
+                #[cfg_attr(mobile, tauri::mobile_entry_point)]
+                pub fn run() {
+                    tauri::Builder::default()
+                        .plugin(tauri_plugin_dialog::init())
+                        .run(tauri::generate_context!())
+                        .expect("error while running tauri application");
+                }
+                ```
+
+            3.  Si vous souhaitez créer des boîtes de dialogue en JavaScript, installez aussi le paquet npm :
+
+                <CommandTabs
+                    npm="npm install @tauri-apps/plugin-dialog"
+                    yarn="yarn add @tauri-apps/plugin-dialog"
+                    pnpm="pnpm add @tauri-apps/plugin-dialog"
+                    deno="deno add npm:@tauri-apps/plugin-dialog"
+                    bun="bun add @tauri-apps/plugin-dialog"
+                />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Utilisation
+
+Le plugin dialog est disponible en JavaScript et en Rust. Voici comment l'utiliser :
+
+en JavaScript :
+
+- [Créer une boîte de dialogue Oui/Non](#créer-une-boîte-de-dialogue-ouinon)
+- [Créer une boîte de dialogue Ok/Annuler](#créer-une-boîte-de-dialogue-okannuler)
+- [Créer une boîte de message](#créer-une-boîte-de-message)
+- [Ouvrir une boîte de sélection de fichier](#ouvrir-une-boîte-de-sélection-de-fichier)
+- [Enregistrer via une boîte de dialogue de fichier](#enregistrer-via-une-boîte-de-dialogue-de-fichier)
+
+en Rust :
+
+- [Construire une boîte de dialogue de question](#construire-une-boîte-de-dialogue-de-question)
+- [Construire une boîte de message](#construire-une-boîte-de-message)
+- [Construire une boîte de sélection de fichier](#construire-une-boîte-de-sélection-de-fichier)
+
+:::note
+Les API de boîte de dialogue de fichiers renvoient des chemins du système de fichiers sur Linux, Windows et macOS.
+
+Sur iOS, des URI `file://<path>` sont renvoyées.
+
+Sur Android, des [URI de contenu] sont renvoyées.
+
+Le [plugin filesystem] fonctionne directement avec n'importe quel format de chemin.
+:::
+
+### JavaScript
+
+Consultez toutes les [options de Dialog](/fr/reference/javascript/dialog/) dans la référence de l'API JavaScript.
+
+#### Créer une boîte de dialogue Oui/Non
+
+Affiche une boîte de dialogue de question avec les boutons `Yes` et `No`.
+
+```javascript
+import { ask } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { ask } = window.__TAURI__.dialog;
+
+// Create a Yes/No dialog
+const answer = await ask('This action cannot be reverted. Are you sure?', {
+  title: 'Tauri',
+  kind: 'warning',
+});
+
+console.log(answer);
+// Prints boolean to the console
+```
+
+#### Créer une boîte de dialogue Ok/Annuler
+
+Affiche une boîte de dialogue de question avec les boutons `Ok` et `Cancel`.
+
+```javascript
+import { confirm } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { confirm } = window.__TAURI__.dialog;
+
+// Creates a confirmation Ok/Cancel dialog
+const confirmation = await confirm(
+  'This action cannot be reverted. Are you sure?',
+  { title: 'Tauri', kind: 'warning' }
+);
+
+console.log(confirmation);
+// Prints boolean to the console
+```
+
+#### Créer une boîte de message
+
+Affiche une boîte de message avec un bouton `Ok`. Gardez à l'esprit que si l'utilisateur ferme la boîte de dialogue, elle renverra `false`.
+
+```javascript
+import { message } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { message } = window.__TAURI__.dialog;
+
+// Shows message
+await message('File not found', { title: 'Tauri', kind: 'error' });
+```
+
+#### Ouvrir une boîte de sélection de fichier
+
+Ouvrez une boîte de dialogue de sélection de fichier/répertoire.
+
+L'option `multiple` contrôle si la boîte de dialogue autorise ou non la sélection multiple, tandis que `directory` indique s'il s'agit d'une sélection de répertoire.
+
+```javascript
+import { open } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { open } = window.__TAURI__.dialog;
+
+// Open a dialog
+const file = await open({
+  multiple: false,
+  directory: false,
+});
+console.log(file);
+// Prints file path or URI
+```
+
+#### Enregistrer via une boîte de dialogue de fichier
+
+Ouvrez une boîte de dialogue d'enregistrement de fichier/répertoire.
+
+```javascript
+import { save } from '@tauri-apps/plugin-dialog';
+// when using `"withGlobalTauri": true`, you may use
+// const { save } = window.__TAURI__.dialog;
+
+// Prompt to save a 'My Filter' with extension .png or .jpeg
+const path = await save({
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
+});
+console.log(path);
+// Prints the chosen path
+```
+
+---
+
+### Rust
+
+Consultez la [référence de l'API Rust](https://docs.rs/tauri-plugin-dialog/) pour voir toutes les options disponibles.
+
+#### Construire une boîte de dialogue de question
+
+Affiche une boîte de dialogue de question avec les boutons `Absolutely` et `Totally`.
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
+
+let answer = app.dialog()
+        .message("Tauri is Awesome")
+        .title("Tauri is Awesome")
+        .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
+        .blocking_show();
+```
+
+Si vous avez besoin d'une opération non bloquante, vous pouvez utiliser `show()` à la place :
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
+
+app.dialog()
+    .message("Tauri is Awesome")
+    .title("Tauri is Awesome")
+   .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
+    .show(|result| match result {
+        true => // do something,
+        false =>// do something,
+    });
+```
+
+#### Construire une boîte de message
+
+Affiche une boîte de message avec un bouton `Ok`. Gardez à l'esprit que si l'utilisateur ferme la boîte de dialogue, elle renverra `false`.
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+
+let ans = app.dialog()
+    .message("File not found")
+    .kind(MessageDialogKind::Error)
+    .title("Warning")
+    .blocking_show();
+```
+
+Si vous avez besoin d'une opération non bloquante, vous pouvez utiliser `show()` à la place :
+
+```rust
+use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
+
+app.dialog()
+    .message("Tauri is Awesome")
+    .kind(MessageDialogKind::Info)
+    .title("Information")
+    .buttons(MessageDialogButtons::OkCustom("Absolutely"))
+    .show(|result| match result {
+        true => // do something,
+        false => // do something,
+    });
+```
+
+#### Construire une boîte de sélection de fichier
+
+#### Choisir des fichiers
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+let file_path = app.dialog().file().blocking_pick_file();
+// return a file_path `Option`, or `None` if the user closes the dialog
+```
+
+Si vous avez besoin d'une opération non bloquante, vous pouvez utiliser `pick_file()` à la place :
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+app.dialog().file().pick_file(|file_path| {
+    // return a file_path `Option`, or `None` if the user closes the dialog
+    })
+```
+
+#### Enregistrer des fichiers
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+let file_path = app
+    .dialog()
+    .file()
+    .add_filter("My Filter", &["png", "jpeg"])
+    .blocking_save_file();
+    // do something with the optional file path here
+    // the file path is `None` if the user closed the dialog
+```
+
+ou, autrement :
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+
+app.dialog()
+    .file()
+    .add_filter("My Filter", &["png", "jpeg"])
+    .pick_file(|file_path| {
+        // return a file_path `Option`, or `None` if the user closes the dialog
+    });
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[URI de contenu]: https://developer.android.com/guide/topics/providers/content-provider-basics
+[plugin filesystem]: /fr/plugin/file-system/

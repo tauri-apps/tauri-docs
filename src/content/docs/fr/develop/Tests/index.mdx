@@ -1,0 +1,23 @@
+---
+title: Tests
+description: Techniques pour tester à l'intérieur et à l'extérieur du runtime Tauri
+sidebar:
+  order: 10
+  label: Vue d'ensemble
+i18nReady: true
+---
+
+Tauri prend en charge les tests unitaires et d'intégration avec un mock runtime. Avec le mock runtime, les bibliothèques
+webview natives ne sont pas exécutées. [En savoir plus sur le mock runtime].
+
+Tauri prend aussi en charge les tests end-to-end avec le protocole WebDriver. [Les tests Tauri avec WebdriverIO]
+prennent en charge Windows, Linux et macOS ; le protocole WebDriver peut aussi être piloté directement sous Windows et Linux, tandis que macOS
+ne fournit pas de client WebDriver desktop. [En savoir plus sur le support WebDriver].
+
+Nous proposons [tauri-action] pour aider à exécuter des actions GitHub, mais tout runner CI/CD peut être utilisé avec Tauri tant que chaque
+plateforme dispose des bibliothèques requises pour compiler.
+
+[En savoir plus sur le mock runtime]: /fr/develop/tests/mocking/
+[En savoir plus sur le support WebDriver]: /fr/develop/tests/webdriver/
+[tauri-action]: https://github.com/tauri-apps/tauri-action
+[Les tests Tauri avec WebdriverIO]: https://webdriver.io/docs/desktop-testing/tauri

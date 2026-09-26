@@ -1,0 +1,207 @@
+---
+title: Capacités
+sidebar:
+  order: 4
+i18nReady: true
+---
+
+Tauri fournit aux développeurs d'applications et de plugins un système de capacités, afin d'activer et de contraindre finement l'exposition du coeur au frontend de l'application exécuté dans la WebView du système.
+
+Les capacités définissent quelles [permissions](/fr/security/permissions/) sont accordées ou refusées pour quelles fenêtres ou webviews.
+
+Les capacités peuvent affecter plusieurs fenêtres et webviews, et celles-ci peuvent être référencées dans plusieurs capacités.
+
+:::tip[Astuce de sécurité]
+
+Les fenêtres et WebViews qui font partie de plusieurs capacités fusionnent effectivement les frontières de sécurité et les permissions de toutes les capacités concernées.
+
+:::
+
+Les fichiers de capacités sont définis sous forme de fichier JSON ou TOML dans le répertoire `src-tauri/capabilities`.
+
+Il est recommandé d'utiliser des fichiers individuels et de ne les référencer que par identifiant dans `tauri.conf.json`, mais il est également possible de les définir directement dans le champ `capabilities`.
+
+Toutes les capacités du répertoire `capabilities` sont automatiquement activées par défaut. Dès que des capacités sont explicitement activées dans `tauri.conf.json`, seules celles-ci sont utilisées dans le build de l'application.
+
+Pour une référence complète du schéma de configuration, consultez la section [références](/fr/reference/config/).
+
+L'exemple JSON suivant définit une capacité qui permet à la fenêtre principale d'utiliser les fonctionnalités par défaut des plugins du coeur et l'API `window.setTitle`.
+
+```json title="src-tauri/capabilities/default.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:window:allow-set-title"
+  ]
+}
+```
+
+Ces extraits font partie du fichier de [configuration Tauri](/fr/develop/configuration-files/#tauri-config).
+
+C'est probablement la méthode de configuration la plus courante, où les capacités individuelles sont placées en ligne et où seules les permissions sont référencées par identifiant.
+
+Cela nécessite des fichiers de capacités bien définis dans le répertoire `capabilities`.
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": ["my-capability", "main-capability"]
+    }
+  }
+}
+```
+
+Les capacités en ligne peuvent être mélangées avec des capacités prédéfinies.
+
+```json title=src-tauri/tauri.conf.json
+{
+  "app": {
+    "security": {
+      "capabilities": [
+        {
+          "identifier": "my-capability",
+          "description": "My application capability used for all windows",
+          "windows": ["*"],
+          "permissions": ["fs:default", "allow-home-read-extended"]
+        },
+        "my-second-capability"
+      ]
+    }
+  }
+}
+```
+
+Par défaut, toutes les commandes que vous avez enregistrées dans votre app (avec la fonction [`tauri::Builder::invoke_handler`](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.invoke_handler)) sont autorisées à être utilisées par toutes les fenêtres et webviews de l'app. Pour changer cela, envisagez d'utiliser [`AppManifest::commands`](https://docs.rs/tauri-build/2.0.0/tauri_build/struct.AppManifest.html#method.commands).
+
+```rust title=src-tauri/build.rs
+fn main() {
+    tauri_build::try_build(
+        tauri_build::Attributes::new()
+            .app_manifest(tauri_build::AppManifest::new().commands(&["your_command"])),
+    )
+    .unwrap();
+}
+```
+
+## Plateforme cible
+
+Les capacités peuvent être propres à une plateforme en définissant le tableau `platforms`. Par défaut, la capacité est appliquée à toutes les cibles, mais vous pouvez sélectionner un sous-ensemble des cibles `linux`, `macOS`, `windows`, `iOS` et `android`.
+
+Par exemple, une capacité pour les systèmes d'exploitation desktop. Notez qu'elle active des permissions sur des plugins disponibles uniquement sur desktop :
+
+```json title="src-tauri/capabilities/desktop.json"
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "desktop-capability",
+  "windows": ["main"],
+  "platforms": ["linux", "macOS", "windows"],
+  "permissions": ["global-shortcut:allow-register"]
+}
+```
+
+Et un autre exemple de capacité pour mobile. Notez qu'elle active des permissions sur des plugins disponibles uniquement sur mobile :
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "nfc:allow-scan",
+    "biometric:allow-authenticate",
+    "barcode-scanner:allow-scan"
+  ]
+}
+```
+
+## Accès à l'API distante
+
+Par défaut, l'API n'est accessible qu'au code groupé livré avec l'application Tauri. Pour autoriser des sources distantes à accéder à certaines commandes Tauri, il est possible de le définir dans le fichier de configuration des capacités.
+
+Cet exemple permettrait de scanner des tags NFC et d'utiliser le lecteur de codes-barres depuis tous les sous-domaines de `tauri.app`.
+
+```json title="src-tauri/capabilities/remote-tags.json"
+{
+  "$schema": "../gen/schemas/remote-schema.json",
+  "identifier": "remote-tag-capability",
+  "windows": ["main"],
+  "remote": {
+    "urls": ["https://*.tauri.app"]
+  },
+  "platforms": ["iOS", "android"],
+  "permissions": ["nfc:allow-scan", "barcode-scanner:allow-scan"]
+}
+```
+
+:::caution
+
+Sous Linux et Android, Tauri ne peut pas distinguer les requêtes provenant d'une `<iframe>` embarquée de celles provenant de la fenêtre elle-même.
+
+Veuillez envisager l'utilisation de cette fonctionnalité avec beaucoup de prudence et lire les implications de sécurité propres à votre système d'exploitation cible dans la section de référence de cette fonctionnalité.
+
+:::
+
+## Frontières de sécurité
+
+_Contre quoi protège-t-elle ?_
+
+Selon les permissions et capacités, elle peut :
+
+- Minimiser l'impact d'une compromission du frontend
+- Empêcher ou réduire l'exposition accidentelle d'interfaces et de données du système local
+- Empêcher ou réduire une possible élévation de privilèges du frontend vers le backend ou le système
+
+_Contre quoi **ne** protège-t-elle **pas** ?_
+
+- Du code Rust malveillant ou non sécurisé
+- Des portées et une configuration trop permissives
+- Des vérifications de portée incorrectes dans l'implémentation de la commande
+- Des contournements intentionnels depuis le code Rust
+- En pratique, tout ce qui a été écrit dans le coeur Rust d'une application
+- Des failles 0-day ou 1-day non corrigées dans la WebView du système
+- Des attaques de chaîne d'approvisionnement ou des systèmes de développement compromis
+
+:::tip[Astuce de sécurité]
+
+Les frontières de sécurité dépendent des labels de fenêtres (**pas des titres**). Nous recommandons de n'exposer la fonctionnalité de création de fenêtres qu'aux fenêtres disposant de privilèges élevés.
+
+:::
+
+## Fichiers de schéma
+
+Tauri génère des schémas JSON avec toutes les permissions disponibles pour votre application via `tauri-build`, ce qui permet l'autocomplétion dans votre IDE. Pour utiliser un schéma, définissez la propriété `$schema` dans votre fichier de configuration (`.json` ou `.toml`) sur l'un des schémas propres à une plateforme situés dans le répertoire `gen/schemas`. En général, vous utiliserez `../gen/schemas/desktop-schema.json` ou `../gen/schemas/mobile-schema.json`, même si vous pouvez aussi définir une capacité pour une plateforme cible spécifique.
+
+## Fichiers de configuration
+
+Exemple simplifié de structure de répertoire pour une application Tauri :
+
+```sh
+tauri-app
+├── index.html
+├── package.json
+├── src/
+├── src-tauri/
+│   ├── Cargo.toml
+│   ├── capabilities/
+│   │  └── <identifier>.json/toml
+│   ├── src/
+│   ├── tauri.conf.json
+```
+
+Tout peut être placé en ligne dans `tauri.conf.json`, mais même une configuration un peu plus avancée ferait gonfler ce fichier. L'objectif de cette approche est que les permissions soient abstraites lorsque c'est possible et simples à comprendre.
+
+## Permissions du coeur
+
+Une liste de toutes les permissions du coeur est disponible sur la page [Core Permissions](/fr/reference/acl/core-permissions/).

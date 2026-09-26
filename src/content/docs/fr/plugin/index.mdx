@@ -1,28 +1,46 @@
 ---
-title: Liste des Fonctionnalités & Cas d'Utilisations
+title: Fonctionnalités et recettes
+description: Informations sur l'extensibilité de Tauri, des fonctionnalités intégrées aux plugins fournis et aux recettes créées par la communauté Tauri
 i18nReady: true
+sidebar:
+  label: Vue d'ensemble
+tableOfContents: false
 ---
 
+import { LinkCard } from '@astrojs/starlight/components';
 import FeaturesList from '@components/list/Features.astro';
 import CommunityList from '@components/list/Community.astro';
+import Search from '@components/CardGridSearch.astro';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import TableCompatibility from '@components/plugins/TableCompatibility.astro';
+import { platformOptions } from 'src/types';
+import { platformFilters } from 'src/api/search.ts';
 
 Tauri est conçu dans une optique d'extensibilité. Sur cette page, vous trouverez :
 
-- **[Fonctionnalités](#fonctionnalités)** : Les caractéristiques et fonctionnalités intégrées nativement à Tauri
-- **[Ressources de la communauté](#ressources-de-la-communauté)** : Plus de plugins et de cas d'utilisations développés par la communauté Tauri
+- **[Fonctionnalités officielles](#official-features)** : fonctionnalités intégrées à Tauri
+- **[Ressources de la communauté](#community-plugins)** : autres plugins et recettes créés par la communauté Tauri. Vous pouvez aussi contribuer aux vôtres sur [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri)
+- **[Tableau de prise en charge](#support-table)** : tableau de compatibilité indiquant les plateformes prises en charge par chaque plugin officiel
 
-{/* TODO: Search bar component that syncs/filters across this whole list */}
+<br />
 
-## Fonctionnalités
+**Utilisez la recherche et les filtres pour trouver des fonctionnalités ou des ressources de la communauté :**
 
-<FeaturesList />
+<Search filters={platformFilters}>
+  <a id="official-features"></a>
+  #### Fonctionnalités officielles
+  <FeaturesList />
+  <a id="community-plugins"></a>
+  #### Plugins de la communauté
+  <AwesomeTauri section="plugins-no-official" />
+  #### Intégrations de la communauté
+  <AwesomeTauri section="integrations" />
+</Search>
 
-## Ressources de la communauté
+<a id="support-table"></a>
 
-<CommunityList />
+## Tableau de prise en charge
 
-:::tip[Vous avez quelque chose d'intéressant à partager ?]
+Survolez « \* » pour voir les notes. Pour plus de détails, consultez la page du plugin.
 
-Si vous avez créé un plugin, un guide ou un cas d'utilisation, nous aimerions l'inclure ici ! [Soumettez une demande de tirage (pull request)](https://github.com/tauri-apps/tauri-docs/pulls) pour l'ajouter à cette page.
-
-:::
+<TableCompatibility />

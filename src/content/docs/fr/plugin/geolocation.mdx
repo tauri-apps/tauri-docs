@@ -1,0 +1,172 @@
+---
+title: Géolocalisation
+description: Obtenir et suivre la position actuelle de l'appareil, y compris les informations d'altitude, de cap et de vitesse, si disponibles.
+plugin: geolocation
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Obtenez et suivez la position actuelle de l'appareil, y compris les informations d'altitude, de cap et de vitesse, si disponibles.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin geolocation pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add geolocation"
+      yarn="yarn run tauri add geolocation"
+      pnpm="pnpm tauri add geolocation"
+      deno="deno task tauri add geolocation"
+      bun="bun tauri add geolocation"
+      cargo="cargo tauri add geolocation"
+    />
+
+  </TabItem>
+  <TabItem label="Manuelle">
+    <Steps>
+
+      1.  Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+          ```sh frame=none
+          cargo add tauri-plugin-geolocation --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_geolocation::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-geolocation"
+              yarn="yarn add @tauri-apps/plugin-geolocation"
+              pnpm="pnpm add @tauri-apps/plugin-geolocation"
+              deno="deno add npm:@tauri-apps/plugin-geolocation"
+              bun="bun add @tauri-apps/plugin-geolocation"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Configuration
+
+### iOS
+
+Apple exige que des descriptions de confidentialité soient précisées dans Info.plist pour les informations de localisation, où vous devez expliquer pourquoi votre app doit y accéder. Voici un exemple de description :
+
+```xml {6-7}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>Required to do XY</string>
+    </dict>
+</plist>
+```
+
+### Android
+
+Ce plugin ajoute automatiquement les permissions suivantes à votre fichier `AndroidManifest.xml` :
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+Si votre app nécessite la fonctionnalité GPS pour fonctionner, vous devez ajouter ce qui suit à votre fichier `AndroidManifest.xml` :
+
+```xml
+<uses-feature android:name="android.hardware.location.gps" android:required="true" />
+```
+
+Le Google Play Store utilise cette propriété pour décider s'il doit afficher l'app sur les appareils sans capacités GPS.
+
+## Utilisation
+
+Le plugin geolocation est disponible en JavaScript.
+
+```javascript
+import {
+  checkPermissions,
+  requestPermissions,
+  getCurrentPosition,
+  watchPosition,
+} from '@tauri-apps/plugin-geolocation';
+
+let permissions = await checkPermissions();
+if (
+  permissions.location === 'prompt' ||
+  permissions.location === 'prompt-with-rationale'
+) {
+  permissions = await requestPermissions(['location']);
+}
+
+if (permissions.location === 'granted') {
+  const pos = await getCurrentPosition();
+
+  await watchPosition(
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+    (pos) => {
+      console.log(pos);
+    }
+  );
+}
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+```json title="src-tauri/capabilities/mobile.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "core:default",
+    "geolocation:allow-check-permissions",
+    "geolocation:allow-request-permissions",
+    "geolocation:allow-get-current-position",
+    "geolocation:allow-watch-position"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,66 +1,64 @@
 ---
 title: Tauri 2.0
-description: La boîte à outils de création d'applications multiplatformes
+description: La boîte à outils pour créer des applications multiplateformes
 i18nReady: true
-template: splash
 editUrl: false
 lastUpdated: false
+template: splash
+tableOfContents: false
 prev: false
 next: false
-hero:
-  tagline: Créez des applications légères, rapides, sécurisées et multiplatformes
-  image:
-    file: ../../../assets/logo-outline.svg
-  actions:
-    - text: Commencer
-      link: /fr/start/
-      icon: right-arrow
-      variant: primary
-    - text: Documentation de Tauri 1.0
-      link: https://v1.tauri.app/fr/
-      icon: external
-      variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
-import Cta from '@fragments/cta.mdx';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from './_fragments/cta.mdx';
+import Hero from '@components/Hero.astro';
+import SponsorList from '@components/sponsors/SponsorList.astro';
+import 'src/styles/home.css';
 
-<div class="hero-bg">
-  <div class="bg-logo"></div>
-  <div class="bg-grad"></div>
-  <div class="bg-grad-red"></div>
-</div>
+<Hero
+  tagline="Créez des applications petites, rapides, sécurisées et multiplateformes"
+  getStarted="Commencer"
+  v1Docs="Documentation de Tauri 1.0"
+/>
 
-<div class="lp-cta-card">
+<div>
   <Card title="Créer un projet" icon="rocket">
     <Cta />
   </Card>
 </div>
 
 <CardGrid>
-  <Card title="Indépendant du frontend" icon="rocket">
-    Importez votre configuration web existante dans Tauri ou démarrez votre
-    nouveau projet de rêve. Tauri supporte n'importe quel framework frontend,
-    vous n'avez donc pas besoin de changer votre configuration.
+  <a href="/fr/start/frontend/" className="card-link card-frontend not-content">
+    <Card title="Indépendant du frontend" icon="rocket">
+      Intégrez votre pile web existante à Tauri ou lancez ce nouveau projet dont
+      vous rêvez. Tauri prend en charge tous les frameworks frontend, vous
+      n'avez donc pas besoin de changer votre pile.
+    </Card>
+  </a>
+
+<a href="/fr/distribute/" className="card-link card-platform not-content">
+  <Card title="Multiplateforme" icon="rocket">
+    Compilez votre app pour Linux, macOS, Windows, Android et iOS, le tout à
+    partir d'une seule base de code. Écrivez votre frontend en JavaScript, la
+    logique applicative en Rust, et intégrez-vous en profondeur au système avec
+    Swift et Kotlin.
   </Card>
-  <Card title="Multiplatforme" icon="rocket">
-    Développez vos applications pour Linux, macOS, Windows, Android et iOS -
-    tout cela à partir du même code.
-  </Card>
-  <Card title="Communication Inter-Processus" icon="rocket">
-    Écrivez votre frontend en Javascript, la logique de l'application en Rust,
-    puis intégrez le tout en profondeur dans le système avec Swift et Kotlin.
-  </Card>
+</a>
+
+<a href="/fr/security/" className="card-link card-security not-content">
   <Card title="Sécurité maximale" icon="rocket">
-    C'est la première préoccupation de l'équipe Tauri, au cœur de nos priorités
-    et nos plus grandes innovations.
+    Une priorité constante pour l'équipe Tauri, qui guide nos priorités les plus
+    importantes et nos plus grandes innovations.
   </Card>
-  <Card title="Poids minimal" icon="rocket">
-    En utilisant le moteur de rendu web natif du système d'exploitation, le
-    poids d'une application Tauri peut atteindre 600 Ko.
-  </Card>
-  <Card title="Fonctionne avec Rust" icon="rocket">
-    Avec la performance et la sécurité au cœur de ses priorités, Rust est le
-    langage de la nouvelle génération d'applications.
-  </Card>
+</a>
+
+  <a href="/fr/concept/size/" className="card-link card-size not-content">
+    <Card title="Taille minimale" icon="rocket">
+      En utilisant le moteur de rendu web natif du système d'exploitation, la
+      taille d'une app Tauri peut descendre jusqu'à 600 Ko.
+    </Card>
+  </a>
 </CardGrid>
+
+<SponsorList />

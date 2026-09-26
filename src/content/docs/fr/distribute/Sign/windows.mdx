@@ -1,0 +1,330 @@
+---
+title: Signature du code Windows
+sidebar:
+  label: Windows
+  order: 12
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+La signature du code est requise sur Windows pour permettre à votre application d'être listée dans le [Microsoft Store] et pour éviter un avertissement [SmartScreen] indiquant que votre application n'est pas fiable et ne peut pas être démarrée lorsqu'elle est téléchargée depuis le navigateur.
+
+Elle n'est pas requise pour exécuter votre application sur Windows, tant que l'utilisateur final accepte d'ignorer l'avertissement [SmartScreen] ou que votre utilisateur ne télécharge pas via le navigateur.
+Ce guide couvre la signature avec des certificats OV (Organization Validated) et Azure Key Vault.
+Si vous utilisez un autre mécanisme de signature non documenté ici, comme des certificats EV (Extended Validation),
+consultez la documentation de l'émetteur de votre certificat et référez-vous à la section [commande de signature personnalisée](#commande-de-signature-personnalisée).
+
+## Certificats OV
+
+:::danger
+
+Ce guide ne s'applique qu'aux certificats de signature du code OV acquis avant le 1er juin 2023. Pour la signature du code avec des certificats EV et des certificats OV reçus après cette date, consultez plutôt la documentation de l'émetteur de votre certificat.
+
+:::
+
+:::note
+
+Si vous signez l'app avec un certificat EV, elle recevra immédiatement une réputation auprès de Microsoft SmartScreen et n'affichera pas d'avertissements aux utilisateurs.
+
+Si vous optez pour un certificat OV, généralement moins cher et disponible pour les particuliers, Microsoft SmartScreen affichera toujours un avertissement aux utilisateurs lorsqu'ils téléchargeront l'app. Votre certificat peut mettre un certain temps à construire une réputation suffisante. Vous pouvez choisir de [soumettre votre app] à Microsoft pour une revue manuelle. Bien que cela ne soit pas garanti, si l'app ne contient pas de code malveillant, Microsoft peut accorder une réputation supplémentaire et potentiellement supprimer l'avertissement pour ce fichier téléversé spécifique.
+
+Consultez la [comparaison](https://www.digicert.com/difference-between-dv-ov-and-ev-ssl-certificates) pour en savoir plus sur les certificats OV et EV.
+
+:::
+
+### Prérequis
+
+- Windows : vous pouvez probablement utiliser d'autres plateformes, mais ce tutoriel utilise des fonctionnalités natives PowerShell.
+- Une application Tauri fonctionnelle.
+- Un certificat de signature du code : vous pouvez en obtenir un auprès des services listés dans la [documentation Microsoft]. Il existe probablement d'autres autorités pour les certificats non-EV que celles incluses dans cette liste ; comparez-les vous-même et choisissez à vos propres risques.
+  - Assurez-vous d'obtenir un certificat de **signature du code** ; les certificats SSL ne fonctionnent pas.
+
+### Démarrage
+
+Nous devons effectuer quelques actions pour préparer Windows à la signature du code. Cela inclut la conversion du certificat vers un format spécifique, son installation et le décodage des informations requises depuis le certificat.
+
+<Steps>
+
+1. #### Convertir votre `.cer` en `.pfx`
+   - Vous aurez besoin des éléments suivants :
+     - fichier certificat (ici `cert.cer`)
+     - fichier de clé privée (ici `private-key.key`)
+
+   - Ouvrez une invite de commandes et placez-vous dans votre répertoire courant avec `cd Documents/Certs`.
+
+   - Convertissez votre `.cer` en `.pfx` avec `openssl pkcs12 -export -in cert.cer -inkey private-key.key -out certificate.pfx`.
+
+   - Vous devrez saisir un mot de passe d'export. **NE L'OUBLIEZ PAS.**
+
+2. #### Importer votre fichier `.pfx` dans le keystore
+   - Nous devons maintenant importer notre fichier `.pfx`.
+
+   - Assignez votre mot de passe d'export à une variable avec `$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'`.
+
+   - Importez maintenant le certificat avec `Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $WINDOWS_PFX_PASSWORD -Force -AsPlainText)`.
+
+3. #### Préparer les variables
+   - Démarrer ➡️ `certmgr.msc` pour ouvrir la gestion des certificats personnels, puis ouvrez Personal/Certificates.
+
+   - Trouvez le certificat que nous venons d'importer, double-cliquez dessus, puis cliquez sur l'onglet Details.
+
+   - L'algorithme Signature hash algorithm sera notre `digestAlgorithm`. (Indice : il s'agit probablement de `sha256`.)
+
+   - Descendez jusqu'à Thumbprint. Vous devriez voir une valeur comme `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`. C'est notre `certificateThumbprint`.
+
+   - Nous avons aussi besoin d'une URL de timestamp ; c'est un serveur de temps utilisé pour vérifier l'heure de signature du certificat. Ici, nous utilisons `http://timestamp.comodoca.com`, mais l'émetteur de votre certificat en fournit probablement une aussi.
+
+</Steps>
+
+### Préparer le fichier `tauri.conf.json`
+
+1. Maintenant que nous avons `certificateThumbprint`, `digestAlgorithm` et `timestampUrl`, ouvrons `tauri.conf.json`.
+
+2. Dans `tauri.conf.json`, cherchez la section `tauri` -> `bundle` -> `windows`. Trois variables correspondent aux informations que nous avons récupérées. Remplissez-les comme ci-dessous.
+
+```json tauri.conf.json
+"windows": {
+        "certificateThumbprint": "A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0",
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "http://timestamp.comodoca.com"
+}
+```
+
+3. Enregistrez et exécutez `tauri build`.
+
+4. Dans la sortie de la console, vous devriez voir ceci.
+
+```
+info: signing app
+info: running signtool "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.19041.0\\x64\\signtool.exe"
+info: "Done Adding Additional Store\r\nSuccessfully signed: APPLICATION FILE PATH HERE
+```
+
+Cela montre que vous avez signé le `.exe` avec succès.
+
+Et voilà. Vous avez configuré avec succès votre application Tauri pour la signature Windows.
+
+### Signer votre application avec GitHub Actions
+
+Nous pouvons aussi créer un workflow pour signer l'application avec GitHub Actions.
+
+#### Secrets GitHub
+
+Nous devons ajouter quelques secrets GitHub pour configurer correctement la GitHub Action. Ils peuvent porter les noms de votre choix.
+
+- Vous pouvez consulter le guide [encrypted secrets] pour savoir comment ajouter des secrets GitHub.
+
+Les secrets utilisés ici sont les suivants :
+
+|        Secrets GitHub        |                                                Valeur de la variable                                                 |
+| :--------------------------: | :------------------------------------------------------------------------------------------------------------------: |
+|     WINDOWS_CERTIFICATE      | Version encodée en base64 de votre certificat .pfx, générable avec `certutil -encode certificate.pfx base64cert.txt` |
+| WINDOWS_CERTIFICATE_PASSWORD |                       Mot de passe d'export du certificat utilisé lors de la création du .pfx                        |
+
+#### Modifications du workflow
+
+1. Nous devons ajouter une étape au workflow pour importer le certificat dans l'environnement Windows. Ce workflow effectue les actions suivantes :
+   1. Assigner les secrets GitHub à des variables d'environnement
+   2. Créer un nouveau répertoire `certificate`
+   3. Importer `WINDOWS_CERTIFICATE` dans tempCert.txt
+   4. Utiliser `certutil` pour décoder tempCert.txt depuis base64 vers un fichier `.pfx`
+   5. Supprimer tempCert.txt
+   6. Importer le fichier `.pfx` dans le Cert store de Windows et convertir `WINDOWS_CERTIFICATE_PASSWORD` en chaîne sécurisée pour l'utiliser dans la commande d'import
+
+2. Nous utiliserons le [`tauri-action` publish template].
+
+```yml
+name: 'publish'
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+      - name: install app dependencies and build it
+        run: yarn && yarn build
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+```
+
+3. Juste au-dessus de `-name: install app dependencies and build it`, ajoutez l'étape suivante :
+
+```yml
+- name: import windows certificate
+  if: matrix.platform == 'windows-latest'
+  env:
+    WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+    WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+  run: |
+    New-Item -ItemType directory -Path certificate
+    Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+    certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+    Remove-Item -path certificate -include tempCert.txt
+    Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+```
+
+4. Enregistrez et poussez vers votre dépôt.
+
+5. Votre workflow peut maintenant importer votre certificat Windows dans le runner GitHub, ce qui permet la signature automatisée du code.
+
+## Azure Key Vault
+
+Vous pouvez signer les exécutables Windows en fournissant un certificat Azure Key Vault et des identifiants.
+
+:::note
+Ce guide utilise [relic] en raison de sa prise en charge de l'authentification par secret, mais vous pouvez configurer d'autres outils si vous préférez.
+Pour télécharger relic, consultez sa [page de releases][page de releases relic] ou exécutez `go install github.com/sassoftware/relic/v8@latest`.
+:::
+
+1. Key Vault
+
+Dans l'[Azure Portal], accédez au [service Key vaults] pour créer un nouveau key vault en cliquant sur le bouton « Create ».
+Retenez le « Key vault name », car vous en aurez besoin pour configurer l'URL du certificat.
+
+2. Certificat
+
+Après avoir créé un key vault, sélectionnez-le et allez sur la page « Objects > Certificates » pour créer un nouveau certificat, puis cliquez sur le bouton « Generate/Import ».
+Retenez le « Certificate name », car vous en aurez besoin pour configurer l'URL du certificat.
+
+3. Configuration Tauri
+
+[relic] utilise un fichier de configuration pour déterminer quelle clé de signature utiliser. Pour Azure Key Vault, vous avez aussi besoin de l'URL du certificat.
+Créez un fichier `relic.conf` dans le dossier `src-tauri` et configurez relic pour utiliser votre certificat :
+
+```yml title=src-tauri/relic.conf
+tokens:
+  azure:
+    type: azure
+
+keys:
+  azure:
+    token: azure
+    id: https://\<KEY_VAULT_NAME\>.vault.azure.net/certificates/\<CERTIFICATE_NAME\>
+```
+
+Notez que vous devez remplacer \<KEY_VAULT_NAME\> et \<CERTIFICATE_NAME\> par les noms appropriés des étapes précédentes.
+
+Pour configurer Tauri afin d'utiliser votre configuration Azure Key Vault pour la signature, changez la valeur de configuration [bundle > windows > signCommand] :
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "windows": {
+      "signCommand": "relic sign --file %1 --key azure --config relic.conf"
+    }
+  }
+}
+```
+
+4. Identifiants
+
+[relic] doit s'authentifier auprès d'Azure pour charger le certificat.
+Sur la page d'accueil du portail Azure, allez au service « Microsoft Entra ID » puis à la page « Manage > App registrations ».
+Cliquez sur « New registration » pour créer une nouvelle app. Après sa création, vous êtes redirigé vers la page de détails de l'application, où vous pouvez voir les valeurs « Application (client) ID » et « Directory (tenant) ID ».
+Définissez ces IDs dans les variables d'environnement `AZURE_CLIENT_ID` et `AZURE_TENANT_ID`, respectivement.
+
+Dans la page « Manage > Certificates & secrets », cliquez sur le bouton « New client secret » et définissez le texte de la colonne « Value » comme variable d'environnement `AZURE_CLIENT_SECRET`.
+
+Après avoir configuré tous les identifiants, revenez à la page de votre key vault et allez à la page « Access control (IAM) ».
+Vous devez assigner les rôles « Key Vault Certificate User » et « Key Vault Crypto User » à votre application nouvellement créée.
+
+Après avoir configuré toutes ces variables, l'exécution de `tauri build` produira des installateurs Windows signés.
+
+## Commande de signature personnalisée
+
+Dans la documentation [Azure Key Vault](#azure-key-vault) ci-dessus, nous avons utilisé une configuration puissante de signature Windows Tauri pour forcer la CLI Tauri à utiliser
+une commande shell spéciale afin de signer les exécutables d'installateur Windows. L'option de configuration [bundle > windows > signCommand] peut servir à utiliser n'importe quel outil codesign
+capable de signer des exécutables Windows.
+
+:::tip
+Lorsque vous cross-compilez des installateurs Windows depuis des machines Linux et macOS, vous **devez** utiliser une commande de signature personnalisée, car l'implémentation par défaut ne fonctionne que sur les machines Windows.
+:::
+
+[Azure Portal]: https://portal.azure.com
+[service Key vaults]: https://portal.azure.com/#browse/Microsoft.KeyVault%2Fvaults
+[documentation Microsoft]: https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage
+[soumettre votre app]: https://www.microsoft.com/en-us/wdsi/filesubmission/
+[encrypted secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
+[`tauri-action` publish template]: https://github.com/tauri-apps/tauri-action
+[relic]: https://github.com/sassoftware/relic
+[page de releases relic]: https://github.com/sassoftware/relic/releases/
+[bundle > windows > signCommand]: /reference/config/#signcommand
+[SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
+[Microsoft Store]: https://apps.microsoft.com/
+
+## Azure Artifact Signing
+
+Vous pouvez signer les exécutables Windows en fournissant un certificat et des identifiants Azure Artifact Signing (anciennement Azure Code Signing/Azure Trusted Signing). Si vous n'avez pas encore de compte Azure Artifact Signing, vous pouvez suivre ce [tutoriel](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/).
+
+### Prérequis
+
+Si vous voulez signer avec Github Actions, tout devrait être installé.
+
+1. [Compte Artifact Signing](https://learn.microsoft.com/en-us/azure/trusted-signing/quickstart?tabs=registerrp-portal,account-portal,certificateprofile-portal,deleteresources-portal) et permissions configurées
+1. [.NET](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (.NET 8 recommandé)
+1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update)
+1. [Signtool](https://learn.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) (Windows 11 SDK 10.0.26100.0 ou ultérieur recommandé)
+
+### Démarrage
+
+Vous devez installer [artifact-signing-cli](https://github.com/Levminer/artifact-signing-cli) et configurer vos variables d'environnement.
+
+<Steps>
+
+1. #### Installer artifact-signing-cli
+   - `cargo install artifact-signing-cli`
+
+2. #### Configurer les variables d'environnement
+   - artifact-signing-cli nécessite les variables d'environnement suivantes ; n'oubliez pas de les ajouter comme [secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) GitHub Actions :
+     - `AZURE_CLIENT_ID` : le client ID de votre [App Registration](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+     - `AZURE_CLIENT_SECRET` : le client secret de l'[App Registration](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+     - `AZURE_TENANT_ID` : le tenant ID de votre annuaire Azure, également disponible depuis votre [App Registration](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+
+3. ### Modifier votre fichier `tauri.conf.json`
+   - Vous pouvez modifier votre `tauri.conf.json` ou créer un fichier de configuration spécifique pour Windows. Remplacez l'URL et le nom du certificat par vos propres valeurs.
+     - -e : l'endpoint de votre compte Azure Artifact Signing
+     - -a : le nom de votre compte Azure Artifact Signing
+     - -c : le nom de votre profil de certificat dans votre compte Azure Artifact Signing
+     - -d : la description du contenu signé (optionnelle). Lors de la signature d'un installateur .msi, cette description apparaîtra comme nom de l'installateur dans l'invite UAC, ou comme chaîne aléatoire si elle n'est pas définie.
+
+   ```json title=tauri.conf.json
+   {
+     "bundle": {
+       "windows": {
+         "signCommand": "artifact-signing-cli -e https://wus2.codesigning.azure.net -a MyAccount -c MyProfile -d MyApp %1"
+       }
+     }
+   }
+   ```
+
+</Steps>

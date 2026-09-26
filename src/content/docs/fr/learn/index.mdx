@@ -1,0 +1,88 @@
+---
+title: Apprendre
+description: Tutoriels conçus pour offrir des expériences d'apprentissage de bout en bout, vous guider sur des sujets Tauri spécifiques et vous aider à appliquer les connaissances des guides et de la documentation de référence
+sidebar:
+  order: 0
+  label: Vue d'ensemble
+i18nReady: true
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import BookItem from '@components/BookItem.astro';
+import RoseRustBook from '@assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.png';
+
+La catégorie Apprendre vise à fournir des expériences d'apprentissage de bout en bout sur des sujets liés à Tauri.
+
+Ces tutoriels vous guideront à travers un sujet précis et vous aideront à appliquer les connaissances issues des guides et de la documentation de référence.
+
+Pour les sujets liés à la sécurité, vous pouvez découvrir le système de permissions. Vous obtiendrez une compréhension pratique de la façon de l'utiliser, de l'étendre et d'écrire vos propres permissions.
+
+<CardGrid>
+  <LinkCard
+    title="Utiliser les permissions de plugins"
+    href="/fr/learn/security/using-plugin-permissions/"
+  />
+  <LinkCard
+    title="Capacités pour différentes fenêtres et plateformes"
+    href="/fr/learn/security/capabilities-for-windows-and-platforms/"
+  />
+  <LinkCard
+    title="Écrire des permissions de plugins"
+    href="/fr/learn/security/writing-plugin-permissions/"
+  />
+</CardGrid>
+
+Pour apprendre à écrire votre propre splash screen, utiliser un sidecar Node.js ou configurer des fonctionnalités mobiles, consultez :
+
+<CardGrid>
+  <LinkCard title="Splashscreen" href="/fr/learn/splashscreen/" />
+  <LinkCard title="Node.js comme sidecar" href="/fr/learn/sidecar-nodejs/" />
+  <LinkCard
+    title="Multi-fenêtre sur mobile"
+    href="/fr/learn/mobile-multiwindow/"
+  />
+  <LinkCard
+    title="Associations de fichiers sur mobile"
+    href="/fr/learn/mobile-file-associations/"
+  />
+</CardGrid>
+
+## Ressources supplémentaires
+
+Cette section contient des ressources d'apprentissage créées par la communauté qui ne sont pas hébergées sur ce site.
+
+<LinkCard
+  title="Vous avez quelque chose à partager ?"
+  description="Ouvrez une pull request pour nous montrer votre ressource."
+  href="https://github.com/tauri-apps/awesome-tauri/pulls"
+/>
+
+### Livres
+
+<BookItem
+  image={RoseRustBook}
+  title="HTML, CSS, JavaScript, and Rust for Beginners: A Guide to Application Development with Tauri"
+  alt="Couverture du livre HTML, CSS, JavaScript, and Rust for Beginners"
+  author="James Alexander Rose"
+  links={[
+    {
+      preText: 'Version papier sur Amazon :',
+      text: 'Acheter ici',
+      url: 'https://www.amazon.com/dp/B0DR6KZVVW',
+    },
+    {
+      preText: 'Version PDF gratuite :',
+      text: 'Télécharger (PDF 4 Mo)',
+      url: '/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf',
+    },
+  ]}
+/>
+
+### Guides et tutoriels
+
+<AwesomeTauri section="guides-no-official-no-video" />
+
+#### Guides vidéo
+
+<AwesomeTauri section="guides-no-official-only-video" />

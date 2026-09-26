@@ -1,0 +1,401 @@
+---
+title: Logging
+description: Journalisation configurable.
+plugin: log
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Journalisation configurable pour votre app Tauri.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin log pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add log"
+      yarn="yarn run tauri add log"
+      pnpm="pnpm tauri add log"
+      deno="deno task tauri add log"
+      bun="bun tauri add log"
+      cargo="cargo tauri add log"
+    />
+
+  </TabItem>
+  <TabItem label="Manuelle">
+    <Steps>
+
+    1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+        ```sh frame=none
+        cargo add tauri-plugin-log
+        ```
+
+    2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_log::Builder::new().build())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3.  Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+        <CommandTabs
+          npm="npm install @tauri-apps/plugin-log"
+          yarn="yarn add @tauri-apps/plugin-log"
+          pnpm="pnpm add @tauri-apps/plugin-log"
+          deno="deno add npm:@tauri-apps/plugin-log"
+          bun="bun add @tauri-apps/plugin-log"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Utilisation
+
+  <Steps>
+
+1.  Vous devez d'abord enregistrer le plugin auprès de Tauri.
+
+    ```rust title="src-tauri/src/lib.rs" {1} {6-14}
+    use tauri_plugin_log::{Target, TargetKind};
+
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            .plugin(tauri_plugin_log::Builder::new().build())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+2.  Ensuite, toutes les API du plugin sont disponibles via les liaisons JavaScript invitées :
+
+    ```javascript
+    import {
+      warn,
+      debug,
+      trace,
+      info,
+      error,
+      attachConsole,
+      attachLogger,
+    } from '@tauri-apps/plugin-log';
+    // when using `"withGlobalTauri": true`, you may use
+    // const { warn, debug, trace, info, error, attachConsole, attachLogger } = window.__TAURI__.log;
+    ```
+
+  </Steps>
+
+## Journalisation
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+Utilisez l'une des API `warn`, `debug`, `trace`, `info` ou `error` du plugin pour produire un enregistrement de log depuis du code JavaScript :
+
+```js
+import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
+
+trace('Trace');
+info('Info');
+error('Error');
+```
+
+Pour transférer automatiquement tous les messages `console` vers le plugin log, vous pouvez les réécrire :
+
+```ts
+import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
+
+function forwardConsole(
+  fnName: 'log' | 'debug' | 'info' | 'warn' | 'error',
+  logger: (message: string) => Promise<void>
+) {
+  const original = console[fnName];
+  console[fnName] = (message) => {
+    original(message);
+    logger(message);
+  };
+}
+
+forwardConsole('log', trace);
+forwardConsole('debug', debug);
+forwardConsole('info', info);
+forwardConsole('warn', warn);
+forwardConsole('error', error);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+Pour créer vos propres logs côté Rust, vous pouvez utiliser le [`crate log`] :
+
+```rust
+log::error!("something bad happened!");
+log::info!("Tauri is awesome!");
+```
+
+Notez que le [`crate log`] doit être ajouté à votre fichier `Cargo.toml` :
+
+```toml
+[dependencies]
+log = "0.4"
+```
+
+</TabItem>
+</Tabs>
+
+## Cibles de log
+
+Le builder du plugin log possède une fonction `targets` qui vous permet de configurer les destinations communes de tous les logs de votre application.
+
+:::note
+Par défaut, le plugin écrit les logs sur stdout et dans un fichier du répertoire de logs de l'application.
+Pour utiliser uniquement vos propres cibles de log, appelez `clear_targets` :
+
+```rust
+tauri_plugin_log::Builder::new()
+.clear_targets()
+.build()
+```
+
+:::
+
+### Afficher les logs dans le terminal
+
+Pour transférer tous vos logs vers le terminal, activez les cibles `Stdout` ou `Stderr` :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Stdout,
+  ))
+  .build()
+```
+
+Cette cible est activée par défaut.
+
+### Journaliser dans la console de la webview
+
+Pour voir tous vos logs Rust dans la console de la webview, activez la cible `Webview` et exécutez `attachConsole` dans votre frontend :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Webview,
+  ))
+  .build()
+```
+
+```js
+import { attachConsole } from '@tauri-apps/plugin-log';
+const detach = await attachConsole();
+// call detach() if you do not want to print logs to the console anymore
+```
+
+### Persister les logs
+
+Pour écrire tous les logs dans un fichier, vous pouvez utiliser les cibles `LogDir` ou `Folder`.
+
+- `LogDir` :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::LogDir {
+      file_name: Some("logs".to_string()),
+    },
+  ))
+  .build()
+```
+
+Lorsque vous utilisez la cible LogDir, tous les logs sont stockés dans le répertoire de logs recommandé.
+Le tableau suivant décrit l'emplacement des logs par plateforme :
+
+| Plateforme | Valeur                                                                                   | Exemple                                           |
+| ---------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Linux      | `$XDG_DATA_HOME/{bundleIdentifier}/logs` ou `$HOME/.local/share/{bundleIdentifier}/logs` | `/home/alice/.local/share/com.tauri.dev/logs`     |
+| macOS      | `{homeDir}/Library/Logs/{bundleIdentifier}`                                              | `/Users/Alice/Library/Logs/com.tauri.dev`         |
+| Windows    | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs`                                        | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
+
+- `Folder` :
+
+La cible Folder vous permet d'écrire les logs dans un emplacement personnalisé du système de fichiers.
+
+```rust
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Folder {
+      path: std::path::PathBuf::from("/path/to/logs"),
+      file_name: None,
+    },
+  ))
+  .build()
+```
+
+Le `file_name` par défaut est le nom de l'application.
+
+#### Configurer le comportement du fichier de log
+
+Par défaut, le fichier de log est supprimé lorsqu'il atteint la taille maximale.
+La taille maximale du fichier peut être configurée via la fonction `max_file_size` du builder :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .max_file_size(50_000 /* bytes */)
+  .build()
+```
+
+Tauri peut automatiquement effectuer une rotation de votre fichier de log lorsqu'il atteint la limite de taille au lieu de supprimer le fichier précédent.
+Ce comportement peut être configuré avec `rotation_strategy` :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .rotation_strategy(tauri_plugin_log::RotationStrategy::KeepAll)
+  .build()
+```
+
+### Filtrage
+
+Par défaut, **tous** les logs sont traités. Certains mécanismes permettent de réduire le volume de logs et de ne filtrer que les informations pertinentes.
+
+### Niveau de log maximal
+
+Pour définir un niveau de log maximal, utilisez la fonction `level` :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .level(log::LevelFilter::Info)
+  .build()
+```
+
+Dans cet exemple, les logs debug et trace sont ignorés car ils ont un niveau inférieur à _info_.
+
+Il est aussi possible de définir des niveaux maximaux distincts pour des modules individuels :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .level(log::LevelFilter::Info)
+  // verbose logs only for the commands module
+  .level_for("my_crate_name::commands", log::LevelFilter::Trace)
+  .build()
+```
+
+Notez que ces API utilisent le [`crate log`], qui doit être ajouté à votre fichier `Cargo.toml` :
+
+```toml
+[dependencies]
+log = "0.4"
+```
+
+### Filtre de cible
+
+Une fonction `filter` peut être définie pour écarter des logs indésirables en vérifiant leurs métadonnées :
+
+```rust
+tauri_plugin_log::Builder::new()
+  // exclude logs with target `"hyper"`
+  .filter(|metadata| metadata.target() != "hyper")
+  .build()
+```
+
+### Formatage
+
+Le plugin log formate chaque enregistrement de log sous la forme `DATE[TARGET][LEVEL] MESSAGE`.
+Une fonction de formatage personnalisée peut être fournie avec `format` :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .format(|out, message, record| {
+    out.finish(format_args!(
+      "[{} {}] {}",
+      record.level(),
+      record.target(),
+      message
+    ))
+  })
+  .build()
+```
+
+### Appliquer un format différent aux cibles
+
+Vous pouvez préciser votre propre format de log pour des cibles particulières en utilisant la méthode `format`
+sur `tauri_plugin_log::Target`. Vous pouvez aussi appeler `clear_format` sur le builder
+pour supprimer le formateur par défaut, qui est appliqué à toutes les cibles :
+
+```rust
+tauri_plugin_log::Builder::new()
+    .clear_format()
+    .targets([
+        tauri_plugin_log::Target::new(
+            tauri_plugin_log::TargetKind::Stdout
+        )
+        .format(move |out, message, record| {
+            // custom formatter for stdout
+        }),
+        tauri_plugin_log::Target::new(
+            tauri_plugin_log::TargetKind::LogDir { file_name: None }
+        )
+        .format(move |out, message, record| {
+            // custom formatter for log files
+        }),
+    ])
+    .build(),
+```
+
+#### Dates de log
+
+Par défaut, le plugin log utilise le fuseau horaire UTC pour formater les dates,
+mais vous pouvez le configurer pour utiliser le fuseau horaire local avec `timezone_strategy` :
+
+```rust
+tauri_plugin_log::Builder::new()
+  .timezone_strategy(tauri_plugin_log::TimezoneStrategy::UseLocal)
+  .build()
+```
+
+## Permissions
+
+Par défaut, toutes les commandes du plugin sont bloquées et ne sont pas accessibles.
+Vous devez définir une liste de permissions dans votre configuration `capabilities`.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["log:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[`crate log`]: https://crates.io/crates/log

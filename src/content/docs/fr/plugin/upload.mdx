@@ -1,0 +1,126 @@
+---
+title: Upload
+description: Téléversements de fichiers via HTTP.
+plugin: upload
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Téléversez des fichiers depuis le disque vers un serveur distant via HTTP. Téléchargez des fichiers depuis un serveur HTTP distant vers le disque.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+<Tabs>
+	<TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    <CommandTabs
+    npm="npm run tauri add upload"
+    yarn="yarn run tauri add upload"
+    pnpm="pnpm tauri add upload"
+    deno="deno task tauri add upload"
+    bun="bun tauri add upload"
+    cargo="cargo tauri add upload"
+    />
+
+    </TabItem>
+    <TabItem label="Manuelle">
+
+    	<Steps>
+
+          1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+              ```sh frame=none
+              cargo add tauri-plugin-upload
+              ```
+
+          2. Modifiez `lib.rs` pour initialiser le plugin :
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                tauri::Builder::default()
+                  .plugin(tauri_plugin_upload::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+              }
+              ```
+
+          3. Installez les bindings JavaScript Guest avec votre gestionnaire de paquets JavaScript préféré :
+
+              <CommandTabs
+                  npm="npm install @tauri-apps/plugin-upload"
+                  yarn="yarn add @tauri-apps/plugin-upload"
+                  pnpm="pnpm add @tauri-apps/plugin-upload"
+                  deno="deno add npm:@tauri-apps/plugin-upload"
+                  bun="bun add @tauri-apps/plugin-upload"
+              />
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Utilisation
+
+Une fois le processus d'enregistrement et de configuration du plugin terminé, vous pouvez accéder à toutes ses API via les bindings JavaScript guest.
+
+Voici un exemple d'utilisation du plugin pour téléverser et télécharger des fichiers :
+
+```javascript
+import { upload } from '@tauri-apps/plugin-upload';
+// when using `"withGlobalTauri": true`, you may use
+// const { upload } = window.__TAURI__.upload;
+
+upload(
+  'https://example.com/file-upload',
+  './path/to/my/file.txt',
+  ({ progress, total }) =>
+    console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
+  { 'Content-Type': 'text/plain' } // optional headers to send with the request
+);
+```
+
+```javascript
+import { download } from '@tauri-apps/plugin-upload';
+// when using `"withGlobalTauri": true`, you may use
+// const { download } = window.__TAURI__.upload;
+
+download(
+  'https://example.com/file-download-link',
+  './path/to/save/my/file.txt',
+  ({ progress, total }) =>
+    console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
+  { 'Content-Type': 'text/plain' } // optional headers to send with the request
+);
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées de plugins potentiellement dangereuses sont bloquées et ne peuvent pas être utilisées. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capacités](/fr/security/capabilities/) pour plus d'informations et le [guide étape par étape](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions de plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "upload:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

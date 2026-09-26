@@ -1,0 +1,137 @@
+---
+title: DMG
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Image } from 'astro:assets';
+import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
+import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
+
+Le format DMG (Apple Disk Image) est un fichier d'installation macOS courant qui enveloppe votre [App Bundle][guide de distribution App Bundle] dans une fenêtre d'installation conviviale.
+
+La fenêtre d'installation inclut l'icône de votre app et l'icône du dossier Applications, vers laquelle l'utilisateur est censé glisser l'icône de l'app pour l'installer.
+C'est la méthode d'installation la plus courante pour les applications macOS distribuées hors App Store.
+
+Ce guide ne couvre que les détails de distribution des apps hors App Store avec le format DMG.
+Consultez le [guide de distribution App Bundle] pour plus d'informations sur les options et configurations de distribution macOS.
+Pour distribuer votre app macOS dans l'App Store, consultez le [guide de distribution App Store].
+
+Pour créer une Apple Disk Image pour votre app, vous pouvez utiliser la CLI Tauri et exécuter la commande `tauri build` sur un ordinateur Mac :
+
+<CommandTabs
+  npm="npm run tauri build -- --bundles dmg"
+  yarn="yarn tauri build --bundles dmg"
+  pnpm="pnpm tauri build --bundles dmg"
+  deno="deno task tauri build --bundles dmg"
+  bun="bun tauri build --bundles dmg"
+  cargo="cargo tauri build --bundles dmg"
+/>
+
+<Image
+  class="dark:sl-hidden"
+  src={StandardDmgLight}
+  alt="Fenêtre DMG standard"
+/>
+<Image
+  class="light:sl-hidden"
+  src={StandardDmgDark}
+  alt="Fenêtre DMG standard"
+/>
+
+:::note
+
+Les apps GUI sur macOS et Linux n'héritent pas du `$PATH` de vos fichiers de configuration shell (`.bashrc`, `.bash_profile`, `.zshrc`, etc.). Consultez la crate [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) de Tauri pour corriger ce problème.
+
+:::
+
+## Arrière-plan de la fenêtre
+
+Vous pouvez définir une image d'arrière-plan personnalisée pour la fenêtre d'installation DMG avec l'option de configuration [`tauri.conf.json > bundle > macOS > dmg > background`] :
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "background": "./images/"
+      }
+    }
+  }
+}
+```
+
+Par exemple, l'image d'arrière-plan de votre DMG peut inclure une flèche indiquant à l'utilisateur qu'il doit glisser l'icône de l'app vers le dossier Applications.
+
+## Taille et position de la fenêtre
+
+La taille de fenêtre par défaut est 660x400. Si vous avez besoin d'une autre taille pour votre image d'arrière-plan personnalisée, définissez la configuration [`tauri.conf.json > bundle > macOS > dmg > windowSize`] :
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 800,
+          "height": 600
+        }
+      }
+    }
+  }
+}
+```
+
+Vous pouvez aussi définir la position initiale de la fenêtre via [`tauri.conf.json > bundle > macOS > dmg > windowPosition`] :
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowPosition": {
+          "x": 400,
+          "y": 400
+        }
+      }
+    }
+  }
+}
+```
+
+## Position des icônes
+
+Vous pouvez modifier la position de l'icône de l'app et de l'icône du _dossier Applications_
+avec les valeurs de configuration [appPosition] et [applicationFolderPosition], respectivement :
+
+```json title="tauri.conf.json" ins={5-12}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 220
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 220
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+En raison d'un problème connu, les tailles et positions des icônes ne sont pas appliquées lors de la création de DMG sur les plateformes CI/CD.
+Consultez [tauri-apps/tauri#1731] pour plus d'informations.
+:::
+
+[guide de distribution App Bundle]: /fr/distribute/macos-application-bundle/
+[guide de distribution App Store]: /fr/distribute/app-store/
+[appPosition]: /reference/config/#appposition
+[applicationFolderPosition]: /reference/config/#applicationfolderposition
+[tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731

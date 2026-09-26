@@ -1,0 +1,99 @@
+---
+title: Sécurité
+description: Concepts de haut niveau et fonctionnalités de sécurité au coeur de la conception et de l'écosystème de Tauri, qui vous rendent, vous, vos applications et vos utilisateurs plus sécurisés par défaut
+sidebar:
+  order: 1
+  label: Vue d'ensemble
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Cette page explique les concepts de haut niveau et les fonctionnalités de sécurité au coeur de la conception et de l'écosystème de Tauri, qui vous rendent, vous, vos applications et vos utilisateurs plus sécurisés par défaut.
+
+Elle inclut aussi des conseils sur les bonnes pratiques, la façon de nous signaler des vulnérabilités et des références vers des explications détaillées des concepts.
+
+:::note
+
+Il est important de garder à l'esprit que la sécurité de votre application Tauri est la somme de la sécurité globale de Tauri lui-même, de toutes les dépendances Rust et npm, de votre code et des appareils qui exécutent l'application finale. L'équipe Tauri fait de son mieux pour remplir sa part, la communauté de la sécurité fait la sienne, et vous devez également suivre certaines bonnes pratiques importantes.
+
+:::
+
+## Frontières de confiance
+
+> Une frontière de confiance est un terme utilisé en informatique et en sécurité pour décrire une limite où les données ou l'exécution d'un programme changent de niveau de « confiance », ou où deux acteurs disposant de capacités différentes échangent des données ou des commandes. [^wikipedia-trust-boundary]
+
+[^wikipedia-trust-boundary]: [https://en.wikipedia.org/wiki/Trust_boundary](https://en.wikipedia.org/wiki/Trust_boundary).
+
+Le modèle de sécurité de Tauri distingue le code Rust écrit pour le coeur de l'application et le code frontend écrit dans n'importe quel framework ou langage compris par la WebView du système.
+
+Inspecter et définir strictement toutes les données transmises entre les frontières est très important pour éviter les violations de frontières de confiance. Si des données sont transmises sans contrôle d'accès entre ces frontières, il devient facile pour des attaquants d'élever et d'abuser des privilèges.
+
+La [couche IPC](/fr/concept/inter-process-communication/) est le pont de communication entre ces deux groupes de confiance et garantit que les frontières ne sont pas franchies.
+
+![Diagramme IPC](@assets/security/tauri-trust-boundaries.svg)
+
+Tout code exécuté par les plugins ou le coeur de l'application dispose d'un accès complet à toutes les ressources système disponibles et n'est pas contraint.
+
+Tout code exécuté dans la WebView n'a accès qu'aux ressources système exposées via la couche IPC clairement définie. L'accès aux commandes du coeur de l'application est configuré et restreint par les capacités définies dans la configuration de l'application. Les implémentations individuelles des commandes appliquent les niveaux d'accès facultatifs et plus fins également définis dans la configuration des capacités.
+
+Apprenez-en plus sur les différents composants et l'application des frontières :
+
+<CardGrid>
+  <LinkCard title="Permissions" href="/fr/security/permissions/" />
+  <LinkCard title="Portées" href="/fr/security/scope/" />
+  <LinkCard title="Capacités" href="/fr/security/capabilities/" />
+  <LinkCard
+    title="Autorité d'exécution"
+    href="/fr/security/runtime-authority/"
+  />
+</CardGrid>
+
+Tauri permet aux développeurs de choisir leur propre pile frontend et leur propre framework. Cela signifie que nous ne pouvons pas fournir un guide de durcissement pour chaque pile frontend possible, mais Tauri fournit des fonctionnalités génériques pour contrôler et contenir la surface d'attaque.
+
+<CardGrid>
+  <LinkCard title="Content Security Policy (CSP)" href="/fr/security/csp/" />
+  <LinkCard
+    title="Pattern d'isolation"
+    href="/fr/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+## Ne pas embarquer les WebViews
+
+L'approche de Tauri consiste à s'appuyer sur la WebView du système d'exploitation et à ne pas embarquer la WebView dans le binaire de l'application.
+
+Il y a de nombreuses raisons à cela, mais du point de vue de la sécurité, la plus importante est le temps moyen nécessaire entre la publication d'une version de WebView corrigée pour la sécurité et son déploiement jusqu'à l'utilisateur final de l'application.
+
+![Diagramme IPC](@assets/security/tauri-update-lag.svg)
+
+Nous avons observé que les mainteneurs de paquets WebView et les mainteneurs de paquets des systèmes d'exploitation corrigent et déploient en moyenne les versions de WebView corrigées pour la sécurité nettement plus vite que les développeurs d'applications qui embarquent directement la WebView dans leur application.
+
+Il existe des exceptions à cette observation et, en théorie, les deux approches peuvent être menées dans un délai similaire, mais cela implique une infrastructure beaucoup plus lourde pour chaque application.
+
+L'embarquement a des inconvénients pour l'expérience de développement d'une application Tauri. Nous ne pensons pas qu'il soit intrinsèquement non sécurisé, mais la conception actuelle est un compromis qui réduit significativement les vulnérabilités connues exploitées dans la nature.
+
+## Écosystème
+
+L'organisation Tauri fournit et maintient plus que le dépôt Tauri lui-même, et pour garantir que nous fournissons un framework d'applications multiplateforme raisonnablement sécurisé, nous faisons des efforts supplémentaires.
+
+Pour en savoir plus sur la manière dont nous sécurisons notre processus de développement, sur ce que vous pourriez adapter et implémenter, sur les menaces connues auxquelles votre application peut faire face et sur ce que nous prévoyons d'améliorer ou de durcir à l'avenir, vous pouvez consulter les documents suivants :
+
+<CardGrid>
+  <LinkCard title="Sécurité de l'écosystème" href="/fr/security/ecosystem/" />
+  <LinkCard
+    title="Menaces du cycle de vie de l'application"
+    href="/fr/security/lifecycle/"
+  />
+  <LinkCard title="Travaux futurs" href="/fr/security/future/" />
+</CardGrid>
+
+## Divulgation coordonnée
+
+Si vous pensez qu'il existe un problème ou une préoccupation de sécurité dans Tauri ou dans d'autres dépôts de notre organisation, **veuillez ne pas commenter publiquement vos découvertes**. Contactez plutôt directement notre équipe de sécurité.
+
+La méthode de divulgation préférée passe par [GitHub Vulnerability Disclosure](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability) sur le dépôt concerné. La plupart de nos dépôts ont cette fonctionnalité activée, mais en cas de doute, veuillez soumettre le rapport via le [dépôt Tauri](https://github.com/tauri-apps/tauri/security/advisories/new).
+
+Vous pouvez également nous contacter par e-mail à l'adresse [security@tauri.app](mailto:security@tauri.app).
+
+Bien que nous n'ayons actuellement pas de budget pour des primes de sécurité, dans certains cas, nous envisagerons de récompenser une divulgation coordonnée avec nos ressources limitées.

@@ -1,0 +1,260 @@
+---
+title: Splashscreen
+sidebar:
+  order: 1
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+i18nReady: true
+---
+
+import { Image } from 'astro:assets';
+import step_1 from '@assets/learn/splashscreen/step_1.png';
+import step_3 from '@assets/learn/splashscreen/step_3.png';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro';
+import CTA from '../_fragments/cta.mdx';
+
+Dans ce labo, nous allons implémenter une fonctionnalité de splashscreen basique dans une app Tauri. C'est assez direct : un splashscreen consiste essentiellement à créer une nouvelle fenêtre qui affiche du contenu pendant que votre app effectue des tâches de configuration lourdes, puis à la fermer lorsque la configuration est terminée.
+
+## Prérequis
+
+:::tip[Créer une app de labo]
+
+Si vous n'êtes pas un utilisateur avancé, il est **fortement recommandé** d'utiliser les options et frameworks fournis ici. Ce n'est qu'un labo, vous pourrez supprimer le projet lorsque vous aurez terminé.
+
+<CTA/>
+
+- Nom du projet : `splashscreen-lab`
+- Choisissez le langage à utiliser pour votre frontend : `Typescript / Javascript`
+- Choisissez votre gestionnaire de paquets : `pnpm`
+- Choisissez votre modèle d'interface : `Vanilla`
+- Choisissez votre variante d'interface : `Typescript`
+
+:::
+
+## Étapes
+
+<Steps>
+
+1. ##### Installer les dépendances et exécuter le projet
+
+   Avant de commencer à développer un projet, il est important de construire et d'exécuter le modèle initial, simplement pour valider que votre configuration fonctionne comme prévu.
+
+    <ShowSolution>
+    ```sh frame=none
+    # Make sure you're in the right directory
+    cd splashscreen-lab
+    # Install dependencies
+    pnpm install
+    # Build and run the app
+    pnpm tauri dev
+    ```
+    <Image src={step_1} alt="Exécution réussie de l'app créée depuis le modèle."/>
+    </ShowSolution>
+
+1. ##### Enregistrer de nouvelles fenêtres dans `tauri.conf.json`
+
+   Le moyen le plus simple d'ajouter de nouvelles fenêtres est de les ajouter directement à `tauri.conf.json`. Vous pouvez aussi les créer dynamiquement au démarrage, mais pour rester simple nous allons simplement les enregistrer. Assurez-vous d'avoir une fenêtre avec le label `main` créée comme fenêtre masquée, et une fenêtre avec le label `splashscreen` créée comme visible directement. Vous pouvez conserver les autres options par défaut ou les ajuster selon vos préférences.
+
+    <ShowSolution>
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+        "windows": [
+            {
+                "label": "main",
+                "visible": false
+            },
+            {
+                "label": "splashscreen",
+                "url": "/splashscreen"
+            }
+        ]
+    }
+    ```
+    </ShowSolution>
+
+1. ##### Créer une nouvelle page pour héberger votre splashscreen
+
+   Avant de commencer, vous devez disposer de contenu à afficher. La façon de développer de nouvelles pages dépend du framework choisi ; la plupart ont le concept de « routeur » qui gère la navigation entre pages et devrait fonctionner normalement dans Tauri. Dans ce cas, vous créez simplement une nouvelle page de splashscreen. Ici, nous allons créer un nouveau fichier `splashscreen.html` pour héberger le contenu.
+
+   Ce qui compte, c'est que vous puissiez naviguer vers une URL `/splashscreen` et afficher le contenu voulu pour votre splashscreen. Essayez de relancer l'app après cette étape !
+
+    <ShowSolution>
+    ```html
+    // /splashscreen.html
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/src/styles.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tauri App</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Tauri used Splash!</h1>
+            <div class="row">
+                <h5>It was super effective!</h5>
+            </div>
+        </div>
+    </body>
+    </html>
+    ```
+    <Image src={step_3} alt="Le splashscreen que nous venons de créer."/>
+    </ShowSolution>
+
+1. ##### Démarrer des tâches de configuration
+
+    Comme les splashscreens servent généralement à masquer des tâches de configuration lourdes, simulons une app ayant quelque chose de lourd à faire, en partie dans le frontend et en partie dans le backend.
+
+    Pour simuler une configuration lourde dans le frontend, nous utiliserons une simple fonction `setTimeout`.
+
+    Le moyen le plus simple de simuler des opérations lourdes dans le backend est d'utiliser le crate Tokio, le crate Rust que Tauri utilise dans le backend pour fournir un runtime asynchrone. Tauri fournit le runtime, mais ne ré-exporte pas tous ses utilitaires ; nous devons donc ajouter le crate à notre projet pour y accéder. C'est une pratique parfaitement normale dans l'écosystème Rust.
+
+    N'utilisez pas `std::thread::sleep` dans des fonctions async : elles s'exécutent de manière coopérative dans un environnement concurrent et non en parallèle. Si vous endormez le thread au lieu de la tâche Tokio, vous empêcherez toutes les tâches planifiées sur ce thread de s'exécuter, ce qui figera votre app.
+
+    <ShowSolution>
+    ```sh frame=none
+    # Run this command where the `Cargo.toml` file is
+    cd src-tauri
+    # Add the Tokio crate
+    cargo add tokio -F time
+    # Optionally go back to the top folder to keep developing
+    # `tauri dev` can figure out where to run automatically
+    cd ..
+    ```
+
+    ```javascript
+    // src/main.ts
+    // These contents can be copy-pasted below the existing code, don't replace the entire file!!
+
+    // Utility function to implement a sleep function in TypeScript
+    function sleep(seconds: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    }
+
+    // Setup function
+    async function setup() {
+        // Fake perform some really heavy setup task
+        console.log('Performing really heavy frontend setup task...')
+        await sleep(3);
+        console.log('Frontend setup task complete!')
+        // Set the frontend task as being completed
+        invoke('set_complete', {task: 'frontend'})
+    }
+
+    // Effectively a JavaScript main function
+    window.addEventListener("DOMContentLoaded", () => {
+        setup()
+    });
+    ```
+
+    ```rust
+    // /src-tauri/src/lib.rs
+    // Import functionalities we'll be using
+    use std::sync::Mutex;
+    use tauri::async_runtime::spawn;
+    use tauri::{AppHandle, Manager, State};
+    use tokio::time::{sleep, Duration};
+
+    // Create a struct we'll use to track the completion of
+    // setup related tasks
+    struct SetupState {
+        frontend_task: bool,
+        backend_task: bool,
+    }
+
+    // Our main entrypoint in a version 2 mobile compatible app
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        // Don't write code before Tauri starts, write it in the
+        // setup hook instead!
+        tauri::Builder::default()
+            // Register a `State` to be managed by Tauri
+            // We need write access to it so we wrap it in a `Mutex`
+            .manage(Mutex::new(SetupState {
+                frontend_task: false,
+                backend_task: false,
+            }))
+            // Add a command we can use to check
+            .invoke_handler(tauri::generate_handler![greet, set_complete])
+            // Use the setup hook to execute setup related tasks
+            // Runs before the main loop, so no windows are yet created
+            .setup(|app| {
+                // Spawn setup as a non-blocking task so the windows can be
+                // created and ran while it executes
+                spawn(setup(app.handle().clone()));
+                // The hook expects an Ok result
+                Ok(())
+            })
+            // Run the app
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+
+    #[tauri::command]
+    fn greet(name: String) -> String {
+        format!("Hello {name} from Rust!")
+    }
+
+    // A custom task for setting the state of a setup task
+    #[tauri::command]
+    async fn set_complete(
+        app: AppHandle,
+        state: State<'_, Mutex<SetupState>>,
+        task: String,
+    ) -> Result<(), ()> {
+        // Lock the state without write access
+        let mut state_lock = state.lock().unwrap();
+        match task.as_str() {
+            "frontend" => state_lock.frontend_task = true,
+            "backend" => state_lock.backend_task = true,
+            _ => panic!("invalid task completed!"),
+        }
+        // Check if both tasks are completed
+        if state_lock.backend_task && state_lock.frontend_task {
+            // Setup is complete, we can close the splashscreen
+            // and unhide the main window!
+            let splash_window = app.get_webview_window("splashscreen").unwrap();
+            let main_window = app.get_webview_window("main").unwrap();
+            splash_window.close().unwrap();
+            main_window.show().unwrap();
+        }
+        Ok(())
+    }
+
+    // An async function that does some heavy setup task
+    async fn setup(app: AppHandle) -> Result<(), ()> {
+        // Fake performing some heavy action for 3 seconds
+        println!("Performing really heavy backend setup task...");
+        sleep(Duration::from_secs(3)).await;
+        println!("Backend setup task completed!");
+        // Set the backend task as being completed
+        // Commands can be ran as regular functions as long as you take
+        // care of the input arguments yourself
+        set_complete(
+            app.clone(),
+            app.state::<Mutex<SetupState>>(),
+            "backend".to_string(),
+        )
+        .await?;
+        Ok(())
+    }
+    ```
+    </ShowSolution>
+
+1. ##### Exécuter l'application
+
+   Vous devriez maintenant voir apparaître une fenêtre de splashscreen. Le frontend et le backend effectueront chacun leur tâche de configuration lourde de 3 secondes, puis le splashscreen disparaîtra et la fenêtre principale s'affichera.
+
+</Steps>
+
+## Discussion
+
+##### Devriez-vous avoir un splashscreen ?
+
+En général, avoir un splashscreen revient à admettre que vous n'avez pas réussi à faire charger votre app assez vite pour vous en passer. En pratique, il est souvent préférable d'ouvrir directement la fenêtre principale, puis d'afficher un petit spinner dans un coin pour indiquer à l'utilisateur que des tâches de configuration continuent en arrière-plan.
+
+Cela dit, un splashscreen peut être un choix stylistique, ou vous pouvez avoir une exigence très particulière qui rend impossible le démarrage de l'app avant l'exécution de certaines tâches. Avoir un splashscreen n'est clairement pas *incorrect* ; il tend simplement à ne pas être nécessaire et peut donner aux utilisateurs l'impression que l'app n'est pas très bien optimisée.

@@ -1,0 +1,83 @@
+---
+title: Déboguer dans les IDE JetBrains
+i18nReady: true
+---
+
+{/* TODO: Add support to light/dark mode images */}
+
+Dans ce guide, nous allons configurer JetBrains RustRover pour déboguer le [processus Core de votre app Tauri](/fr/concept/process-model/#the-core-process). Cela s'applique aussi en grande partie à IntelliJ et CLion.
+
+## Configurer un projet Cargo
+
+Selon la stack frontend utilisée dans un projet, le répertoire du projet peut être ou non un projet Cargo. Par défaut, Tauri place le projet Rust dans un sous-répertoire appelé `src-tauri`. Il ne crée un projet Cargo dans le répertoire racine que si Rust est également utilisé pour le développement frontend.
+
+S'il n'y a pas de fichier `Cargo.toml` au niveau supérieur, vous devez attacher le projet manuellement. Ouvrez la fenêtre d'outil Cargo (dans le menu principal, allez dans **View | Tool Windows | Cargo**), cliquez sur **+** (**Attach Cargo Project**) dans la barre d'outils, puis sélectionnez le fichier `src-tauri/Cargo.toml`.
+
+Vous pouvez aussi créer manuellement un workspace Cargo au niveau supérieur en ajoutant le fichier suivant à la racine du projet :
+
+```toml title=Cargo.toml
+[workspace]
+members = ["src-tauri"]
+```
+
+Avant de continuer, assurez-vous que votre projet est entièrement chargé. Si la fenêtre d'outil Cargo affiche tous les modules et cibles du workspace, vous pouvez poursuivre.
+
+## Configurer les Run Configurations
+
+Vous devrez configurer deux Run/Debug configurations séparées :
+
+- une pour lancer l'app Tauri en mode débogage ;
+- une autre pour exécuter le serveur de développement frontend de votre choix.
+
+### App Tauri
+
+1. Dans le menu principal, allez dans **Run | Edit Configurations**.
+2. Dans la boîte de dialogue **Run/Debug Configurations** :
+
+- Pour créer une nouvelle configuration, cliquez sur **+** dans la barre d'outils et sélectionnez **Cargo**.
+
+![Ajouter une Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-light.png)
+{/* ![Add Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-dark.png#gh-dark-mode-only) */}
+
+Une fois celle-ci créée, nous devons configurer RustRover pour qu'il indique à Cargo de construire notre app sans aucune fonctionnalité par défaut. Cela indiquera à Tauri d'utiliser votre serveur de développement au lieu de lire les assets depuis le disque. Normalement, ce flag est passé par la CLI Tauri, mais comme nous la contournons complètement ici, nous devons le passer manuellement.
+
+![Ajouter le flag `--no-default-features`](@assets/develop/Debug/rustrover/set-no-default-features-light.png)
+{/* ![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-dark.png#gh-dark-mode-only) */}
+
+Nous pouvons maintenant renommer éventuellement la Run/Debug Configuration avec un nom plus mémorisable. Dans cet exemple, nous l'avons appelée « Run Tauri App », mais vous pouvez lui donner le nom que vous voulez.
+
+![Renommer la configuration](@assets/develop/Debug/rustrover/rename-configuration-light.png)
+{/* ![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-dark.png#gh-dark-mode-only) */}
+
+### Serveur de développement
+
+La configuration ci-dessus utilisera Cargo directement pour construire l'application Rust et y attacher le débogueur. Cela signifie que nous contournons complètement la CLI Tauri ; des fonctionnalités comme `beforeDevCommand` et `beforeBuildCommand` ne seront donc **pas** exécutées. Nous devons nous en charger en lançant manuellement le serveur de développement.
+
+Pour créer la Run configuration correspondante, vous devez vérifier le serveur de développement réellement utilisé. Cherchez le fichier `src-tauri/tauri.conf.json` et trouvez la ligne suivante :
+
+```json
+    "beforeDevCommand": "pnpm dev"
+```
+
+Pour `npm`, `pnpm` ou `yarn`, vous pouvez utiliser la Run Configuration **npm**, par exemple :
+
+![Configuration NPM](@assets/develop/Debug/rustrover/npm-configuration-light.png)
+{/* ![NPM Configuration](@assets/develop/Debug/rustrover/npm-configuration-dark.png#gh-dark-mode-only) */}
+
+Assurez-vous d'avoir les bonnes valeurs dans les champs **Command**, **Scripts** et **Package Manager**.
+
+Si votre serveur de développement est `trunk` pour des frameworks frontend WebAssembly basés sur Rust, vous pouvez utiliser la Run Configuration générique **Shell Script** :
+
+![Configuration Trunk Serve](@assets/develop/Debug/rustrover/trunk-configuration-light.png)
+{/* ![Trunk Serve Configuration](@assets/develop/Debug/rustrover/trunk-configuration-dark.png#gh-dark-mode-only) */}
+
+## Lancer une session de débogage
+
+Pour lancer une session de débogage, vous devez d'abord exécuter votre serveur de développement, puis démarrer le débogage de l'app Tauri en cliquant sur le bouton **Debug** à côté du sélecteur de Run Configurations. RustRover reconnaîtra automatiquement les breakpoints placés dans n'importe quel fichier Rust de votre projet et s'arrêtera sur le premier atteint.
+
+![Session de débogage](@assets/develop/Debug/rustrover/debug-session-light.png)
+{/* ![Debug Session](@assets/develop/Debug/rustrover/debug-session-dark.png#gh-dark-mode-only) */}
+
+À partir de là, vous pouvez explorer les valeurs de vos variables, avancer dans le code pas à pas et vérifier en détail ce qui se passe à l'exécution.
+
+[processus Core de votre app Tauri]: /fr/concept/process-model/#the-core-process
