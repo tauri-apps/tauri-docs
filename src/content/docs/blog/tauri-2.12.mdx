@@ -1,6 +1,6 @@
 ---
 title: Announcing Tauri 2.12
-date: 2026-09-21
+date: 2026-09-26
 authors: [tony, fabianlars]
 excerpt: The Tauri team is happy to announce the 2.12 release.
 ---
@@ -9,11 +9,11 @@ excerpt: The Tauri team is happy to announce the 2.12 release.
 
 ## Dropping official Windows 7 support
 
-With the latest WebView2 installer no longer runs on Windows 7 (crashes with `no entry point for GetPackagesByPackageFamily`), we finally decided it's time to drop Windows 7 support.
+With the latest WebView2 installer no longer running on Windows 7 (crashes with `no entry point for GetPackagesByPackageFamily`), we finally decided it's time to drop Windows 7 support.
 
 This will allow us to raise the MSRV to unblock many dependency updates which has been stalled to stay on 1.77 (the last rust version with built-in Windows 7 support - released March 2024![^1]) as was planned when Tauri v2 was initially released.
 
-We know many people will be sad about this news and i apologize for that, but at some point we simply have to accept defeat.
+We know many people will be sad about this news and we apologize for that, but at some point we simply have to accept defeat.
 
 > More on this, see https://github.com/tauri-apps/tauri/issues/12550
 
