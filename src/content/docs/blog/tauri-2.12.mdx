@@ -1,0 +1,131 @@
+---
+title: Announcing Tauri 2.12
+date: 2026-09-26
+authors: [tony, fabianlars]
+excerpt: The Tauri team is happy to announce the 2.12 release.
+slug: blog/tauri-2.12
+---
+
+**Tauri 2.12 is here!** This is the biggest update so far in the 2.x releases.
+
+## Dropping official Windows 7 support
+
+With the latest WebView2 installer no longer running on Windows 7 (crashes with `no entry point for GetPackagesByPackageFamily`), we finally decided it's time to drop Windows 7 support.
+
+This will allow us to raise the MSRV to unblock many dependency updates which has been stalled to stay on 1.77 (the last rust version with built-in Windows 7 support - released March 2024![^1]) as was planned when Tauri v2 was initially released.
+
+We know many people will be sad about this news and we apologize for that, but at some point we simply have to accept defeat.
+
+> More on this, see https://github.com/tauri-apps/tauri/issues/12550
+
+## Minimum Supported Rust Version (MSRV) policy
+
+We have raised the MSRV to 1.90.
+
+As discussed in https://github.com/tauri-apps/tauri/issues/15579, we settled our policy on
+
+```
+(stable - 3)
+```
+
+`stable` is the latest stable version of Rust. This bound may be broken in case of a major ecosystem shift or a security vulnerability.
+
+We only update the MSRV in minor or major releases.
+
+## New features
+
+### Permission request handler
+
+You can now use `on_permission_request` to allow/deny webview permission requests:
+
+```rust
+use tauri::{
+  webview::{PermissionKind, PermissionResponse, WebviewWindowBuilder},
+  WebviewUrl,
+};
+tauri::Builder::default()
+  .setup(|app| {
+    WebviewWindowBuilder::new(app, "main", WebviewUrl::App("index.html".into()))
+      .on_permission_request(|_, kind| match kind {
+        PermissionKind::Geolocation => PermissionResponse::Allow,
+        PermissionKind::Notifications => PermissionResponse::Allow,
+        _ => PermissionResponse::Default,
+      })
+      .build()?;
+    Ok(())
+  });
+```
+
+## Notable changes
+
+- On mobile, loading the page through dev web servers should be much faster.
+
+### Explicit Resource Management for `Resource`
+
+We have added [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management) to `Resource`. You can now use the `using` syntax in supported browsers or with polyfills:
+
+```javascript
+import { create, BaseDirectory } from "@tauri-apps/plugin-fs"
+...
+{
+  await using file = await create("foo/bar.txt", { baseDir: BaseDirectory.AppConfig });
+  await file.write(new TextEncoder().encode("Hello world"));
+  // Before `file` goes out of scope, it is disposed by calling `file[Symbol.asyncDispose]()` and awaited.
+}
+```
+
+To support older browsers, add the following to the globals (e.g. adding to the HTML file):
+
+```javascript
+Symbol.asyncDispose ??= Symbol('Symbol.asyncDispose');
+```
+
+And for the compiler, for example `tsc`, `rollup`, `vite`, add the following to `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022", "esnext.disposable", "dom"]
+  }
+}
+```
+
+### Android
+
+- `$VIDEO` and `video_dir()` were broken before resolving to external cache storage. It's now fixed to resolve to the app-specific Movies directory instead.
+
+  **IMPORTANT**: Files previously written to the old location (`.../cache`) will not be discovered at the new location (`.../files/Movies`). Migrate existing files or update path assumptions accordingly.
+
+- Updated `tauri android init` template to use Gradle v9 and Kotlin v2, this will allow you to use the latest Java (v25) that is now shipped with Android Studio by default.
+
+- Updated `tauri android init` template `targetSdk` from 36 to 37 (Android 17).
+
+- Migrated the Gradle scripts from the deprecated `kotlinOptions` DSL to `compilerOptions`, which is accepted by both Kotlin Gradle Plugin 1.9.x and 2.x. This lets projects move to Kotlin 2.x without hitting the hard error that 2.3+ raises on the old DSL.
+  This increased the minimum supported Gradle version to 8.13, if your `gradle` is on an earlier version, delete `src-tauri/gen/android/gradle/wrapper/gradle-wrapper.properties` and re-run `tauri android init` to update it.
+
+- Fixed missing `consumer-rules.pro` file in the template.
+
+  **IMPORTANT**: For plugin authors, update your `build.gradle.kts` file to remove the
+
+  ```kotlin
+      buildTypes {
+          release {
+              isMinifyEnabled = false
+              proguardFiles(
+                  getDefaultProguardFile("proguard-android-optimize.txt"),
+                  "proguard-rules.pro"
+              )
+          }
+      }
+  ```
+
+  section and rename your `proguard-rules.pro` to `consumer-rules.pro` to match the `consumerProguardFiles("consumer-rules.pro")` in the template.
+
+## Other changes
+
+[View all changes](/release/core/#212x)
+
+---
+
+[^1]: https://blog.rust-lang.org/2024/05/02/Rust-1.78.0/#compatibility-notes
