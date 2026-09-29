@@ -75,6 +75,18 @@ Install the dialog plugin to get started.
 
 </Tabs>
 
+:::note[CEF runtime on Linux]
+
+The plugin's default `gtk3` feature links GTK 3 for the dialogs, which cannot share a process with the GTK 4 application the [CEF runtime](/develop/cef/) is on Linux. If your app uses `tauri-runtime-cef`, disable the default features and enable the `xdg-portal` feature instead, which shows the dialogs through the XDG desktop portal:
+
+```toml title="src-tauri/Cargo.toml"
+tauri-plugin-dialog = { version = "3.0.0-alpha.0", default-features = false, features = ["xdg-portal"] }
+```
+
+The `xdg-portal` backend requires the `xdg-desktop-portal` service and a portal backend for the user's desktop to be installed. The features have no effect on the other platforms.
+
+:::
+
 ## Usage
 
 The dialog plugin is available in both JavaScript and Rust. Here's how you can use it:
