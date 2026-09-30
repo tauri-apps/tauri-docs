@@ -66,6 +66,6 @@ Github a [publié](https://github.blog/changelog/2025-08-07-arm64-hosted-runners
 
 `linuxdeploy`, l'outillage AppImage utilisé par Tauri, ne prend actuellement [pas en charge la cross-compilation] des AppImages ARM. Cela signifie que les AppImages ARM ne peuvent être construites que sur des appareils ARM ou des émulateurs.
 
-Consultez notre [guide GitHub Action](/fr/distribute/pipelines/github/#arm-runner-compilation) pour un exemple de workflow qui utilise QEMU pour construire l'app. Notez que c'est extrêmement lent et recommandé uniquement dans les dépôts publics où les Build Minutes sont gratuites. Dans les dépôts privés, les runners ARM de GitHub devraient être plus rentables et beaucoup plus simples à configurer.
+Consultez notre [guide GitHub Action](/fr/distribute/pipelines/github/#compilation-avec-runner-arm) pour un exemple de workflow qui utilise QEMU pour construire l'app. Notez que c'est extrêmement lent et recommandé uniquement dans les dépôts publics où les Build Minutes sont gratuites. Dans les dépôts privés, les runners ARM de GitHub devraient être plus rentables et beaucoup plus simples à configurer.
 
 [pas en charge la cross-compilation]: https://github.com/linuxdeploy/linuxdeploy/issues/258

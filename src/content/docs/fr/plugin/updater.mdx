@@ -230,7 +230,7 @@ Chaque URL d'updater peut contenir les variables dynamiques suivantes, ce qui vo
 ```
 
 :::tip
-Les variables personnalisées ne sont pas prises en charge, mais vous pouvez définir une [`{{target}}` personnalisée](#custom-target).
+Les variables personnalisées ne sont pas prises en charge, mais vous pouvez définir une [`{{target}}` personnalisée](#cible-personnalisée).
 :::
 
 ### `installMode` sur Windows
@@ -270,7 +270,7 @@ Avec un fichier statique, il vous suffit de renvoyer un JSON contenant les infor
 | `signature` | Le contenu du fichier `.sig` généré, qui peut changer à chaque build. Un chemin ou une URL ne fonctionne pas.                                                   |
 
 :::note
-Lorsque vous utilisez des [cibles personnalisées](#custom-target), la chaîne de cible fournie est comparée à la clé `platforms`
+Lorsque vous utilisez des [cibles personnalisées](#cible-personnalisée), la chaîne de cible fournie est comparée à la clé `platforms`
 au lieu de la valeur `OS-ARCH` par défaut.
 :::
 

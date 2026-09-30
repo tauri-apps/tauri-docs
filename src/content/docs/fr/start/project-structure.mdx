@@ -29,7 +29,7 @@ Un projet Tauri est généralement composé de 2 parties, un projet Rust et un p
 
 Dans ce cas, le projet JavaScript se trouve au niveau supérieur, et le projet Rust se trouve dans `src-tauri/`. Le projet Rust est un [projet Cargo](https://doc.rust-lang.org/cargo/guide/project-layout.html) classique avec quelques fichiers supplémentaires :
 
-- `tauri.conf.json` est le fichier de configuration principal de Tauri. Il contient tout, de l'identifiant de l'application à l'URL du serveur de développement. Ce fichier sert aussi de marqueur à la [CLI Tauri](/fr/reference/cli/) pour trouver le projet Rust. Pour en savoir plus, consultez [Configuration Tauri](/fr/develop/configuration-files/#tauri-config).
+- `tauri.conf.json` est le fichier de configuration principal de Tauri. Il contient tout, de l'identifiant de l'application à l'URL du serveur de développement. Ce fichier sert aussi de marqueur à la [CLI Tauri](/fr/reference/cli/) pour trouver le projet Rust. Pour en savoir plus, consultez [Configuration Tauri](/fr/develop/configuration-files/#configuration-tauri).
 - Le répertoire `capabilities/` est le dossier par défaut dans lequel Tauri lit les [fichiers de capacités](/fr/security/capabilities/) (en bref, vous devez y autoriser les commandes pour pouvoir les utiliser dans votre code JavaScript). Pour en savoir plus, consultez [Sécurité](/fr/security/).
 - Le répertoire `icons/` est le dossier de sortie par défaut de la commande [`tauri icon`](/fr/reference/cli/#icon). Il est généralement référencé dans `tauri.conf.json > bundle > icon` et utilisé pour les icônes de l'app.
 - `build.rs` contient `tauri_build::build()`, qui est utilisé par le système de build de Tauri.

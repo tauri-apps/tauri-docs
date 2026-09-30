@@ -13,7 +13,7 @@ Les plugins peuvent exécuter du code mobile natif écrit en Kotlin (ou Java) et
 
 ## Initialiser un projet de plugin
 
-Suivez les étapes du [guide de développement de plugins](/fr/develop/plugins/#initialize-plugin-project) pour initialiser un nouveau projet de plugin.
+Suivez les étapes du [guide de développement de plugins](/fr/develop/plugins/#initialiser-un-projet-de-plugin) pour initialiser un nouveau projet de plugin.
 
 Si vous avez un plugin existant et souhaitez lui ajouter des capacités Android ou iOS, vous pouvez utiliser `plugin android init` et `plugin ios init` pour créer les projets de bibliothèques mobiles et vous guider dans les changements nécessaires.
 
@@ -47,7 +47,7 @@ Le plugin est défini comme un [package Swift](https://www.swift.org/package-man
 
 ## Configuration du plugin
 
-Consultez la [section Configuration du plugin](/fr/develop/plugins/#plugin-configuration) du guide de développement de plugins pour plus de détails sur le développement des configurations de plugins.
+Consultez la [section Configuration du plugin](/fr/develop/plugins/#configuration-du-plugin) du guide de développement de plugins pour plus de détails sur le développement des configurations de plugins.
 
 L'instance du plugin sur mobile possède un getter pour la configuration du plugin :
 
@@ -109,7 +109,7 @@ Les plugins peuvent se brancher sur plusieurs événements du cycle de vie :
 - [load](#load) : lorsque le plugin est chargé dans la webview
 - [onNewIntent](#onnewintent) : Android uniquement, lorsque l'activité est relancée
 
-Il existe aussi des [événements de cycle de vie supplémentaires pour les plugins](/fr/develop/plugins/#lifecycle-events) dans le guide de développement de plugins.
+Il existe aussi des [événements de cycle de vie supplémentaires pour les plugins](/fr/develop/plugins/#événements-du-cycle-de-vie) dans le guide de développement de plugins.
 
 ### load
 

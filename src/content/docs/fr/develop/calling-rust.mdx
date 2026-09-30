@@ -8,8 +8,8 @@ import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
 Ce document explique comment communiquer avec votre code Rust depuis le frontend de votre application.
 Pour voir comment communiquer avec votre frontend depuis votre code Rust, consultez [Appeler le frontend depuis Rust].
 
-Tauri fournit une primitive de [commande](#commands) pour atteindre des fonctions Rust avec sûreté de type,
-ainsi qu'un [système d'événements](#event-system) plus dynamique.
+Tauri fournit une primitive de [commande](#commandes) pour atteindre des fonctions Rust avec sûreté de type,
+ainsi qu'un [système d'événements](#système-dévénements) plus dynamique.
 
 ## Commandes
 
@@ -376,7 +376,7 @@ Utilisez le type de retour `Result<a, b>`, en remplaçant `a` par le type que vo
 
 - `Result<String, ()>` pour retourner une String, sans erreur.
 - `Result<(), ()>` pour retourner `null`.
-- `Result<bool, Error>` pour retourner un booléen ou une erreur comme présenté dans la section [Gestion des erreurs](#error-handling) ci-dessus.
+- `Result<bool, Error>` pour retourner un booléen ou une erreur comme présenté dans la section [Gestion des erreurs](#gestion-des-erreurs) ci-dessus.
 
 _Exemple :_
 
@@ -716,7 +716,7 @@ Pour savoir comment écouter des événements et émettre des événements depui
 [WebviewWindow#emit]: /reference/javascript/api/namespacewebviewwindow/#emit
 [event.emitTo]: /reference/javascript/api/namespaceevent/#emitto
 [WebviewWindow#emitTo]: /reference/javascript/api/namespacewebviewwindow/#emitto
-[documentation du système d'événements Rust]: /fr/develop/calling-frontend/#event-system
+[documentation du système d'événements Rust]: /fr/develop/calling-frontend/#système-dévénements
 [documentation sur les channels]: /fr/develop/calling-frontend/#channels
 [Appeler Rust depuis le frontend]: /fr/develop/calling-rust/
 [mock runtime]: https://docs.rs/tauri/2.0.0/tauri/test/struct.MockRuntime.html

@@ -33,7 +33,7 @@ Vous pouvez ensuite accéder à votre état avec n'importe quel type qui implém
 let data = app.state::<AppData>();
 ```
 
-Pour plus d'informations, notamment sur l'accès à l'état dans les commandes, consultez la section [Accéder à l'état](#accessing-state).
+Pour plus d'informations, notamment sur l'accès à l'état dans les commandes, consultez la section [Accéder à l'état](#accéder-à-létat).
 
 ## Mutabilité
 
@@ -88,7 +88,7 @@ Il est conseillé de lire entièrement la documentation liée pour comprendre le
 
 Il est courant de voir [`Arc`] utilisé en Rust pour partager la propriété d'une valeur entre plusieurs threads (généralement associé à un [`Mutex`] sous la forme `Arc<Mutex<T>>`). Cependant, vous n'avez pas besoin d'utiliser [`Arc`] pour les éléments stockés dans [`State`], car Tauri le fait pour vous.
 
-Si les exigences de durée de vie de `State` vous empêchent de déplacer votre état dans un nouveau thread, vous pouvez plutôt déplacer un `AppHandle` dans le thread puis récupérer votre état comme indiqué ci-dessous dans la section « [Accéder à l'état avec le trait Manager](#access-state-with-the-manager-trait) ». Les `AppHandle` sont volontairement peu coûteux à cloner pour ce type de cas d'utilisation.
+Si les exigences de durée de vie de `State` vous empêchent de déplacer votre état dans un nouveau thread, vous pouvez plutôt déplacer un `AppHandle` dans le thread puis récupérer votre état comme indiqué ci-dessous dans la section « [Accéder à l'état avec le trait Manager](#accéder-à-létat-avec-le-trait-manager) ». Les `AppHandle` sont volontairement peu coûteux à cloner pour ce type de cas d'utilisation.
 
 ## Accéder à l'état
 
