@@ -1,0 +1,138 @@
+---
+title: SvelteKit
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+SvelteKit est un méta-framework pour Svelte. Apprenez-en plus sur SvelteKit sur https://svelte.dev/. Ce guide est valable pour SvelteKit 2.20.4 / Svelte 5.25.8.
+
+## Liste de contrôle
+
+- Utilisez [SSG](https://svelte.dev/docs/kit/adapter-static) et [SPA](https://svelte.dev/docs/kit/single-page-apps) via `static-adapter`. Tauri ne prend pas en charge les solutions basées sur un serveur.
+- Si vous utilisez SSG **avec prerendering**, gardez à l'esprit que les fonctions `load` n'auront pas accès aux API Tauri pendant le processus de build de votre app. Le mode SPA (sans prerendering) est recommandé, car les fonctions `load` ne s'exécuteront que dans la webview avec accès aux API Tauri.
+- Utilisez `build/` comme `frontendDist` dans `tauri.conf.json`.
+
+## Exemple de configuration
+
+<Steps>
+
+1.  ##### Installer `@sveltejs/adapter-static`
+
+    <CommandTabs
+      npm="npm install --save-dev @sveltejs/adapter-static"
+      yarn="yarn add -D @sveltejs/adapter-static"
+      pnpm="pnpm add -D @sveltejs/adapter-static"
+      deno="deno add -D npm:@sveltejs/adapter-static"
+    />
+
+1.  ##### Mettre à jour la configuration Tauri
+
+          <Tabs>
+
+      <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    </Tabs>
+
+1.  ##### Mettre à jour la configuration SvelteKit :
+
+    ```js title="svelte.config.js" {1}
+    import adapter from '@sveltejs/adapter-static';
+    import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+    /** @type {import('@sveltejs/kit').Config} */
+    const config = {
+      // Consult https://svelte.dev/docs/kit/integrations#preprocessors
+      // for more information about preprocessors
+      preprocess: vitePreprocess(),
+
+      kit: {
+        adapter: adapter({
+          fallback: 'index.html',
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+1.  ##### Désactiver SSR
+
+    Enfin, nous devons désactiver SSR en ajoutant un fichier racine `+layout.ts` (ou `+layout.js` si vous n'utilisez pas TypeScript) avec le contenu suivant :
+
+    ```ts
+    // src/routes/+layout.ts
+    export const ssr = false;
+    ```
+
+    Notez que `static-adapter` ne vous oblige pas à désactiver SSR pour toute l'app, mais cela permet d'utiliser des API qui dépendent de l'objet global window (comme l'API Tauri) sans [vérifications côté client](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window).
+
+    De plus, si vous préférez la génération de site statique (SSG) au mode Single-Page Application (SPA), vous pouvez modifier les configurations de l'adaptateur et `+layout.ts` en suivant la [documentation de l'adaptateur](https://svelte.dev/docs/kit/adapter-static).
+
+</Steps>

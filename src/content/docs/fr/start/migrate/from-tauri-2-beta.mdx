@@ -1,0 +1,146 @@
+---
+title: Mettre à niveau depuis Tauri 2.0 bêta
+i18nReady: true
+sidebar:
+  order: 16
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Ce guide vous accompagne dans la mise à niveau de votre application Tauri 2.0 bêta vers la release candidate de Tauri 2.0.
+
+## Migration automatisée
+
+La CLI Tauri v2 inclut une commande `migrate` qui automatise la majeure partie du processus et vous aide à terminer la migration :
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@latest
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@latest
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri migrate'
+/>
+
+Apprenez-en plus sur la commande `migrate` dans la [référence de l'interface en ligne de commande](/fr/reference/cli/#migrate).
+
+## Changements incompatibles
+
+Plusieurs changements incompatibles ont été introduits entre la bêta et la release candidate. Ils peuvent être migrés automatiquement (voir ci-dessus) ou appliqués manuellement.
+
+### Plugins du coeur de Tauri
+
+Nous avons changé la façon dont les plugins intégrés à Tauri sont référencés dans les capacités avec la [PR #10390](https://github.com/tauri-apps/tauri/pull/10390).
+
+Pour migrer depuis la dernière version bêta, vous devez préfixer tous les identifiants de permissions du coeur dans vos capacités avec `core:`, ou passer à la permission `core:default` et supprimer les anciens identifiants de plugins du coeur.
+
+```json
+...
+"permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "image:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+]
+...
+```
+
+```json
+...
+"permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:image:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+]
+...
+```
+
+Nous avons également ajouté un nouvel ensemble spécial de permissions `core:default`, qui contient toutes les permissions par défaut de tous les plugins du coeur. Vous pouvez ainsi simplifier le boilerplate des permissions dans votre configuration de capacités.
+
+```json
+...
+"permissions": [
+    "core:default"
+]
+...
+```
+
+### Serveur de développement intégré
+
+Nous avons introduit des changements concernant l'exposition réseau du serveur de développement intégré avec les [PR #10437](https://github.com/tauri-apps/tauri/pull/10437) et [PR #10456](https://github.com/tauri-apps/tauri/pull/10456).
+
+Le serveur de développement mobile intégré n'est plus exposé à tout le réseau et transfère le trafic depuis la machine locale directement vers l'appareil.
+
+Actuellement, cette amélioration ne s'applique pas automatiquement lors de l'exécution sur des appareils iOS (directement ou depuis Xcode). Dans ce cas, nous utilisons par défaut l'adresse réseau publique pour le serveur de développement, mais il existe un contournement : ouvrir Xcode pour démarrer automatiquement une connexion entre votre machine macOS et votre appareil iOS connecté, puis exécuter `tauri ios dev --force-ip-prompt` afin de sélectionner l'adresse TUN de l'appareil iOS (elle se termine par **::2**).
+
+La configuration de votre serveur de développement doit s'adapter à ce changement si vous prévoyez d'exécuter l'app sur un appareil iOS physique. Auparavant, nous recommandions de vérifier si la variable d'environnement `TAURI_ENV_PLATFORM` correspondait à `android` ou `ios`, mais comme nous pouvons désormais nous connecter à localhost sauf lors de l'utilisation d'un appareil iOS, vous devez plutôt vérifier la variable d'environnement `TAURI_DEV_HOST`. Voici un exemple de migration d'une configuration Vite :
+
+- 2.0.0-beta :
+
+```js
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { internalIpV4Sync } from 'internal-ip';
+
+const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: mobile ? '0.0.0.0' : false,
+    port: 1420,
+    strictPort: true,
+    hmr: mobile
+      ? {
+          protocol: 'ws',
+          host: internalIpV4Sync(),
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+- 2.0.0 :
+
+```js
+import { defineConfig } from 'vite';
+import Unocss from 'unocss/vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+const host = process.env.TAURI_DEV_HOST;
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host: host,
+          port: 1430,
+        }
+      : undefined,
+  },
+});
+```
+
+:::note
+Le paquet NPM `internal-ip` n'est plus requis ; vous pouvez utiliser directement la valeur `TAURI_DEV_HOST`.
+:::

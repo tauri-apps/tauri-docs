@@ -1,14 +1,15 @@
 ---
-title: Trunk
-i18nReady: true
+title: Leptos
 tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 5
+i18nReady: true
 ---
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
 
-Trunk est un bundler d'applications web WASM pour Rust. Apprenez-en plus sur Trunk sur https://trunk-rs.github.io/trunk/. Ce guide est valable pour Trunk 0.17.5.
+Leptos est un framework web basé sur Rust. Vous pouvez en apprendre plus sur Leptos sur son [site officiel](https://leptos.dev/). Ce guide est valable pour Leptos version 0.6.
 
 ## Liste de contrôle
 
@@ -23,12 +24,12 @@ Trunk est un bundler d'applications web WASM pour Rust. Apprenez-en plus sur Tru
 1. ##### Mettre à jour la configuration Tauri
 
    ```json
-   // tauri.conf.json
+   // src-tauri/tauri.conf.json
    {
      "build": {
        "beforeDevCommand": "trunk serve",
+       "devUrl": "http://localhost:1420",
        "beforeBuildCommand": "trunk build",
-       "devUrl": "http://localhost:8080",
        "frontendDist": "../dist"
      },
      "app": {
@@ -40,12 +41,18 @@ Trunk est un bundler d'applications web WASM pour Rust. Apprenez-en plus sur Tru
 1. ##### Mettre à jour la configuration Trunk
 
    ```toml
-   # Trunk.toml
+   // Trunk.toml
+   [build]
+   target = "./index.html"
+
    [watch]
    ignore = ["./src-tauri"]
 
    [serve]
+   port = 1420
+   open = false
    ws_protocol = "ws"
+
    ```
 
 </Steps>
