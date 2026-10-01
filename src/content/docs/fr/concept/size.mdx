@@ -1,0 +1,113 @@
+---
+title: Taille de l'app
+sidebar:
+  order: 0
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Même si Tauri fournit par défaut des binaires très petits, il peut être utile de pousser un peu plus loin l'optimisation. Voici donc quelques astuces pour atteindre des résultats optimaux.
+
+## Configuration Cargo
+
+L'une des améliorations de taille les plus simples, indépendantes du frontend, consiste à ajouter un profil Cargo à votre projet.
+
+Selon que vous utilisez la chaîne d'outils Rust stable ou nightly, les options disponibles diffèrent légèrement. Il est recommandé de rester sur la chaîne stable, sauf si vous êtes un utilisateur avancé.
+
+<Tabs>
+<TabItem label="Stable">
+
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # Compile your binary in smaller steps.
+
+[profile.release]
+codegen-units = 1 # Allows LLVM to perform better optimization.
+lto = true # Enables link-time-optimizations.
+opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
+panic = "abort" # Higher performance by disabling panic handlers.
+strip = true # Ensures debug symbols are removed.
+```
+
+</TabItem>
+
+<TabItem label="Nightly">
+
+```toml
+# src-tauri/Cargo.toml
+[profile.dev]
+incremental = true # Compile your binary in smaller steps.
+rustflags = ["-Zthreads=8"] # Better compile performance.
+
+[profile.release]
+codegen-units = 1 # Allows LLVM to perform better optimization.
+lto = true # Enables link-time-optimizations.
+opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
+panic = "abort" # Higher performance by disabling panic handlers.
+strip = true # Ensures debug symbols are removed.
+trim-paths = "all" # Removes potentially privileged information from your binaries.
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] # Better compile performance.
+```
+
+</TabItem>
+</Tabs>
+
+### Références
+
+:::note
+Il ne s'agit pas d'une référence complète de toutes les options disponibles, mais seulement de celles sur lesquelles nous souhaitons attirer une attention particulière.
+:::
+
+- [incremental:](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental) compile votre binaire en étapes plus petites.
+- [codegen-units:](https://doc.rust-lang.org/cargo/reference/profiles.html#codegen-units) accélère les temps de compilation au détriment des optimisations de compilation.
+- [lto:](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) active les optimisations au moment de l'édition de liens.
+- [opt-level:](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) détermine la priorité du compilateur. Utilisez `3` pour optimiser les performances, `z` pour optimiser la taille et `s` pour un compromis entre les deux.
+- [panic:](https://doc.rust-lang.org/cargo/reference/profiles.html#panic) réduit la taille en supprimant le déroulement de pile des panics.
+- [strip:](https://doc.rust-lang.org/cargo/reference/profiles.html#strip) retire les symboles ou les informations de débogage d'un binaire.
+- [rpath:](https://doc.rust-lang.org/cargo/reference/profiles.html#rpath) aide à trouver les bibliothèques dynamiques nécessaires au binaire en inscrivant les informations directement dans le binaire.
+- [trim-paths:](https://rust-lang.github.io/rfcs/3127-trim-paths.html) supprime des informations potentiellement sensibles des binaires.
+- [rustflags:](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option) définit les flags du compilateur Rust profil par profil.
+  - `-Cdebuginfo=0` : indique si les symboles de débogage doivent être inclus dans le build.
+  - `-Zthreads=8` : augmente le nombre de threads utilisés pendant la compilation.
+
+## Supprimer les commandes inutilisées
+
+Dans la Pull Request [`feat: add a new option to remove unused commands`](https://github.com/tauri-apps/tauri/pull/12890), nous avons ajouté une nouvelle option dans le fichier de configuration Tauri :
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "removeUnusedCommands": true
+  }
+}
+```
+
+Cette option supprime les commandes qui ne sont jamais autorisées dans vos fichiers de capacités (ACL), afin que vous n'ayez pas à payer pour ce que vous n'utilisez pas.
+
+:::tip
+Pour maximiser le bénéfice de cette option, n'incluez dans l'ACL que les commandes que vous utilisez, au lieu d'utiliser `defaults`.
+:::
+
+:::note
+Cette fonctionnalité nécessite `tauri@2.4`, `tauri-build@2.1`, `tauri-plugin@2.1` et `tauri-cli@2.4`.
+:::
+
+:::note
+Cette option ne prend pas en compte les ACL ajoutées dynamiquement à l'exécution. Assurez-vous donc de vérifier ce point lorsque vous l'utilisez.
+:::
+
+<details>
+<summary>Comment cela fonctionne-t-il en interne ?</summary>
+
+`tauri-cli` communique avec `tauri-build` et les scripts de build de `tauri` et `tauri-plugin` au moyen d'une variable d'environnement.
+Cela leur permet de générer une liste des commandes autorisées à partir de l'ACL,
+qui est ensuite utilisée par la macro `generate_handler` pour supprimer les commandes inutilisées.
+
+Un détail interne est que cette variable d'environnement est actuellement `REMOVE_UNUSED_COMMANDS`.
+Elle est définie sur le répertoire du projet, généralement le répertoire `src-tauri`. Les scripts de build l'utilisent pour trouver les fichiers de capacités.
+Même si ce n'est pas encouragé, vous pouvez encore définir cette variable d'environnement vous-même si vous ne pouvez pas ou ne voulez pas utiliser `tauri-cli` pour faire fonctionner cette fonctionnalité
+(**notez que, comme il s'agit d'un détail d'implémentation, nous ne garantissons pas sa stabilité**).
+
+</details>
