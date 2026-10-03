@@ -1,0 +1,92 @@
+---
+title: Localhost
+description: Utiliser un serveur localhost dans les apps de production.
+plugin: localhost
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+Expose les assets de votre app via un serveur localhost au lieu du protocole personnalisé par défaut.
+
+:::caution
+Ce plugin introduit des risques de sécurité considérables et vous ne devriez l'utiliser que si vous savez ce que vous faites. En cas de doute, utilisez l'implémentation du protocole personnalisé par défaut.
+:::
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin localhost pour commencer.
+
+<Tabs>
+    <TabItem label="Automatique">
+
+        Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+        <CommandTabs npm="npm run tauri add localhost"
+        yarn="yarn run tauri add localhost"
+        pnpm="pnpm tauri add localhost"
+        deno="deno task tauri add localhost"
+        bun="bun tauri add localhost"
+        cargo="cargo tauri add localhost" />
+
+    </TabItem>
+    <TabItem label="Manuelle">
+
+        <Steps>
+
+        1.  Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+            ```sh frame=none
+            cargo add tauri-plugin-localhost
+            ```
+
+        2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_localhost::Builder::new().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        </Steps>
+
+</TabItem>
+</Tabs>
+
+## Utilisation
+
+Le plugin localhost est disponible en Rust.
+
+```rust title="src-tauri/src/lib.rs" {4} {7-14}
+use tauri::{webview::WebviewWindowBuilder, WebviewUrl};
+
+pub fn run() {
+  let port: u16 = 9527;
+
+  tauri::Builder::default()
+      .plugin(tauri_plugin_localhost::Builder::new(port).build())
+      .setup(move |app| {
+          let url = format!("http://localhost:{}", port).parse().unwrap();
+          WebviewWindowBuilder::new(app, "main".to_string(), WebviewUrl::External(url))
+              .title("Localhost Example")
+              .build()?;
+          Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+}
+```

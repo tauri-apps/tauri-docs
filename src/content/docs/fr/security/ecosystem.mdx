@@ -1,0 +1,37 @@
+---
+title: Sécurité de l'écosystème Tauri
+sidebar:
+  order: 8
+i18nReady: true
+---
+
+L'écosystème de notre organisation Tauri est hébergé sur GitHub et facilite plusieurs fonctionnalités destinées à rendre nos dépôts plus résilients face aux adversaires qui ciblent notre code source et nos releases.
+
+Pour réduire les risques et respecter les bonnes pratiques couramment adoptées, nous avons mis en place les méthodes suivantes.
+
+### Pipelines de build
+
+Le processus de publication de nos artefacts de code source est fortement automatisé dans des pipelines de build GitHub utilisant GitHub Actions, tout en exigeant un déclenchement et une revue par de vraies personnes.
+
+### Commits signés
+
+Nos dépôts principaux exigent des commits signés afin de réduire le risque d'usurpation d'identité et de permettre l'identification des commits attribués après la détection d'une éventuelle compromission.
+
+### Revue de code
+
+Toutes les Pull Requests (PRs) fusionnées dans nos dépôts doivent être approuvées par au moins un mainteneur du projet, qui est dans la plupart des cas le groupe de travail. Le code est généralement relu dans les PRs, et les workflows et vérifications de sécurité par défaut sont exécutés pour garantir que le code respecte les standards courants.
+
+### Processus de release
+
+Notre groupe de travail examine les changements de code, tague les PRs avec leur périmètre et veille à ce que tout reste à jour. Nous nous efforçons d'auditer en interne toutes les PRs pertinentes pour la sécurité avant de publier des versions mineures et majeures.
+
+Et lorsqu'il est temps de publier une nouvelle version, l'un des mainteneurs tague une nouvelle release sur dev, ce qui :
+
+- Valide le coeur
+- Exécute les tests
+- Audite la sécurité des crates et de npm
+- Génère les changelogs
+- Crée les artefacts
+- Crée une release brouillon
+
+Le mainteneur relit ensuite les notes de version, les modifie si nécessaire, et une nouvelle release est publiée.

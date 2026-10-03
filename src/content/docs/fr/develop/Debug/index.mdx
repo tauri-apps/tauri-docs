@@ -1,0 +1,151 @@
+---
+title: Débogage
+sidebar:
+  label: Vue d'ensemble
+  order: 10
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Avec toutes les pièces mobiles de Tauri, vous pouvez rencontrer un problème qui nécessite du débogage. Les détails d'erreur sont affichés à plusieurs endroits, et Tauri inclut quelques outils pour rendre le processus de débogage plus direct.
+
+## Code réservé au développement
+
+L'un des outils les plus utiles pour déboguer est la possibilité d'ajouter des instructions de débogage dans votre code. Cependant, vous ne voulez généralement pas qu'elles se retrouvent en production ; c'est là que la capacité à vérifier si vous êtes en mode développement devient pratique.
+
+### En Rust
+
+```rs frame=none
+fn main() {
+  // Whether the current instance was started with `tauri dev` or not.
+  #[cfg(dev)]
+  {
+    // `tauri dev` only code
+  }
+  if cfg!(dev) {
+    // `tauri dev` only code
+  } else {
+    // `tauri build` only code
+  }
+  let is_dev: bool = tauri::is_dev();
+
+  // Whether debug assertions are enabled or not. This is true for `tauri dev` and `tauri build --debug`.
+  #[cfg(debug_assertions)]
+  {
+    // Debug only code
+  }
+  if cfg!(debug_assertions) {
+    // Debug only code
+  } else {
+    // Production only code
+  }
+}
+```
+
+{/* TODO: js version */}
+
+## Console Rust
+
+Le premier endroit où chercher les erreurs est la console Rust. Il s'agit du terminal dans lequel vous avez exécuté, par exemple, `tauri dev`. Vous pouvez utiliser le code suivant pour afficher quelque chose dans cette console depuis un fichier Rust :
+
+```rust frame=none
+println!("Message from Rust: {}", msg);
+```
+
+Il arrive que votre code Rust contienne une erreur, et le compilateur Rust peut fournir beaucoup d'informations. Si, par exemple, `tauri dev` plante, vous pouvez le relancer comme ceci sous Linux et macOS :
+
+```shell frame=none
+RUST_BACKTRACE=1 tauri dev
+```
+
+ou comme ceci sous Windows (PowerShell) :
+
+```powershell frame=none
+$env:RUST_BACKTRACE=1
+tauri dev
+```
+
+Cette commande fournit une stack trace détaillée. En règle générale, le compilateur Rust vous aide en
+donnant des informations précises sur le problème, par exemple :
+
+```bash frame=none
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
+```
+
+## Console WebView
+
+Faites un clic droit dans la WebView et choisissez `Inspect Element`. Cela ouvre un inspecteur web similaire aux devtools Chrome ou Firefox auxquelles vous êtes habitué.
+Vous pouvez aussi utiliser le raccourci `Ctrl + Shift + i` sous Linux et Windows, et `Command + Option + i` sous macOS pour ouvrir l'inspecteur.
+
+L'inspecteur est propre à chaque plateforme : WebInspector de webkit2gtk sous Linux, inspecteur Safari sous macOS et Microsoft Edge DevTools sous Windows.
+
+### Ouvrir les DevTools par programmation
+
+Vous pouvez contrôler la visibilité de la fenêtre d'inspection avec les fonctions [`WebviewWindow::open_devtools`] et [`WebviewWindow::close_devtools`] :
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(debug_assertions)] // only include this code on debug builds
+    {
+      let window = app.get_webview_window("main").unwrap();
+      window.open_devtools();
+      window.close_devtools();
+    }
+    Ok(())
+  });
+```
+
+### Utiliser l'inspecteur en production
+
+Par défaut, l'inspecteur n'est activé que pendant le développement et dans les builds debug, sauf si vous l'activez avec une fonctionnalité Cargo.
+
+#### Créer un build debug
+
+Pour créer un build debug, exécutez la commande `tauri build --debug`.
+
+<CommandTabs
+  npm="npm run tauri build -- --debug"
+  yarn="yarn tauri build --debug"
+  pnpm="pnpm tauri build --debug"
+  deno="deno task tauri build --debug"
+  bun="bun tauri build --debug"
+  cargo="cargo tauri build --debug"
+/>
+
+Comme les processus de build et de développement normaux, le build prend du temps la première fois que vous exécutez cette commande, mais il est beaucoup plus rapide lors des exécutions suivantes.
+L'application empaquetée finale a la console de développement activée et est placée dans `src-tauri/target/debug/bundle`.
+
+Vous pouvez aussi exécuter une app construite depuis le terminal, ce qui vous donne les notes du compilateur Rust (en cas d'erreurs) ou vos messages `println`. Naviguez jusqu'au fichier `src-tauri/target/(release|debug)/[app name]` et exécutez-le directement dans votre console, ou double-cliquez sur l'exécutable dans le système de fichiers (note : avec cette méthode, la console se ferme en cas d'erreur).
+
+##### Activer la fonctionnalité DevTools
+
+:::danger
+
+L'API devtools est privée sur macOS. L'utilisation d'API privées sur macOS empêche votre application d'être acceptée sur l'App Store.
+
+:::
+
+Pour activer les devtools dans les **builds de production**, vous devez activer la fonctionnalité Cargo `devtools` dans le fichier `src-tauri/Cargo.toml` :
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "devtools"] }
+```
+
+## Déboguer le processus Core
+
+Le processus Core est propulsé par Rust, vous pouvez donc utiliser GDB ou LLDB pour le déboguer. Vous pouvez suivre le guide [Débogage dans VS Code] pour apprendre à utiliser l'extension LLDB de VS Code afin de déboguer le processus Core des applications Tauri.
+
+[Débogage dans VS Code]: /fr/develop/debug/vscode/
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.close_devtools

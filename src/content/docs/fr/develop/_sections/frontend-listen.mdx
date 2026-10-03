@@ -1,0 +1,284 @@
+---
+title: Appeler le frontend depuis Rust
+---
+
+Le paquet NPM `@tauri-apps/api` fournit des API pour écouter les événements globaux et ceux propres à une webview.
+
+- Écouter les événements globaux
+
+  ```ts
+  import { listen } from '@tauri-apps/api/event';
+
+  type DownloadStarted = {
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
+
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
+  ```
+
+- Écouter les événements propres à une webview
+
+  ```ts
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
+  ```
+
+La fonction `listen` garde l'écouteur d'événement enregistré pendant toute la durée de vie de l'application.
+Pour arrêter l'écoute d'un événement, vous pouvez utiliser la fonction `unlisten` retournée par la fonction `listen` :
+
+```js
+import { listen } from '@tauri-apps/api/event';
+
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
+```
+
+:::note
+Utilisez toujours la fonction `unlisten` lorsque votre contexte d'exécution sort de portée, par exemple lorsqu'un composant est démonté.
+
+Quand la page est rechargée ou que vous naviguez vers une autre URL, les écouteurs sont automatiquement désenregistrés.
+Cela ne s'applique toutefois pas au routeur d'une Single Page Application (SPA).
+:::
+
+#### Pièges courants
+
+##### N'appelez pas `unlisten()` avant que l'écouteur soit résolu
+
+La fonction `listen` retourne une Promise qui se résout en handle `unlisten`.
+Si vous appelez `unlisten` de façon synchrone avant que la Promise soit résolue, le gestionnaire sera supprimé immédiatement et vous ne recevrez aucun événement :
+
+```js
+// Wrong: unlisten is called before the listener is registered
+const unlisten = listen('sync-complete', (event) => {
+  console.log('sync finished');
+});
+unlisten(); // unlisten is a Promise here, not a function -- the listener is not cleaned up
+
+// Correct: await the Promise to get the unlisten handle
+const unlisten = await listen('sync-complete', (event) => {
+  console.log('sync finished');
+});
+// Now you can store and call it later, e.g. in a cleanup function
+unlisten();
+```
+
+##### Timing dans les hooks de setup
+
+Dans des frameworks comme React, Vue et Svelte, le hook de setup ou de montage s'exécute avant que le composant soit entièrement rendu. Si vous écoutez des événements pendant le setup, assurez-vous que le gestionnaire d'événement ne dépend pas d'éléments DOM qui ne sont pas encore rendus, ou reportez l'enregistrement de l'écouteur dans un effet/hook exécuté après le montage.
+
+```js
+// Wrong: DOM ref may not be available yet
+function MyComponent() {
+  const ref = useRef(null);
+  listen('scroll-to', (event) => {
+    ref.current.scrollIntoView(); // ref.current may be null during setup
+  });
+  return <div ref={ref} />;
+}
+
+// Correct: use useEffect which runs after the component mounts
+function MyComponent() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const unlisten = listen('scroll-to', (event) => {
+      ref.current?.scrollIntoView();
+    });
+    return () => {
+      unlisten.then((fn) => fn());
+    };
+  }, []);
+  return <div ref={ref} />;
+}
+```
+
+##### Ordre des événements et écouteurs async
+
+Les écouteurs d'événements sont appelés dans leur ordre d'enregistrement, mais si un écouteur est async et que l'émetteur envoie plusieurs événements très rapidement, les écouteurs peuvent traiter les événements dans le désordre. Pour une livraison de données ordonnée et à haut débit, envisagez d'utiliser les [Channels](/fr/develop/calling-frontend/#channels) plutôt que le système d'événements.
+
+#### Exemples de nettoyage propres aux frameworks
+
+Lorsque vous utilisez un framework frontend, vous devez nettoyer les écouteurs d'événements lorsqu'un composant est démonté afin d'éviter les fuites mémoire et les gestionnaires dupliqués.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="React">
+
+```tsx
+import { useEffect, useState } from 'react';
+import { listen } from '@tauri-apps/api/event';
+
+function DownloadTracker() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const unlisten = listen<number>('download-progress', (event) => {
+      setProgress(event.payload);
+    });
+
+    return () => {
+      unlisten.then((fn) => fn());
+    };
+  }, []);
+
+  return <div>Download progress: {progress}%</div>;
+}
+```
+
+</TabItem>
+<TabItem label="Vue">
+
+```vue
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { listen } from '@tauri-apps/api/event';
+
+const progress = ref(0);
+let unlistenPromise;
+
+onMounted(() => {
+  unlistenPromise = listen<number>('download-progress', (event) => {
+    progress.value = event.payload;
+  });
+});
+
+onUnmounted(() => {
+  unlistenPromise?.then((fn) => fn());
+});
+</script>
+
+<template>
+  <div>Download progress: {{ progress }}%</div>
+</template>
+```
+
+</TabItem>
+<TabItem label="Svelte">
+
+```svelte
+<script lang="ts">
+import { listen } from '@tauri-apps/api/event';
+
+let progress = $state(0);
+
+$effect(() => {
+  const unlistenPromise = listen<number>(
+    'download-progress',
+    (event) => {
+      progress = event.payload;
+    }
+  );
+
+  return () => {
+    unlistenPromise.then((unlisten) => unlisten());
+  };
+});
+</script>
+
+<div>Download progress: {progress}%</div>
+```
+
+</TabItem>
+</Tabs>
+
+Tauri fournit aussi une fonction utilitaire pour écouter un événement exactement une fois :
+
+```js
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+once('ready', (event) => {});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
+```
+
+:::note
+Les événements émis dans le frontend déclenchent aussi les écouteurs enregistrés par ces API.
+Pour plus d'informations, consultez la documentation [Appeler Rust depuis le frontend].
+:::
+
+#### Écouter les événements côté Rust
+
+Les événements globaux et ceux propres à une webview sont aussi livrés aux écouteurs enregistrés en Rust.
+
+- Écouter les événements globaux
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::Listener;
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        app.listen("download-started", |event| {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.payload()) {
+            println!("downloading {}", payload.url);
+          }
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+- Écouter les événements propres à une webview
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::{Listener, Manager};
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        let webview = app.get_webview_window("main").unwrap();
+        webview.listen("logged-in", |event| {
+          let session_token = event.data;
+          // save token..
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+La fonction `listen` garde l'écouteur d'événement enregistré pendant toute la durée de vie de l'application.
+Pour arrêter l'écoute d'un événement, vous pouvez utiliser la fonction `unlisten` :
+
+```rust
+// unlisten outside of the event handler scope:
+let event_id = app.listen("download-started", |event| {});
+app.unlisten(event_id);
+
+// unlisten when some event criteria is matched
+let handle = app.handle().clone();
+app.listen("status-changed", |event| {
+  if event.data == "ready" {
+    handle.unlisten(event.id);
+  }
+});
+```
+
+Tauri fournit aussi une fonction utilitaire pour écouter un événement exactement une fois :
+
+```rust
+app.once("ready", |event| {
+  println!("app is ready");
+});
+```
+
+Dans ce cas, l'écouteur d'événement est immédiatement désenregistré après son premier déclenchement.
+
+[Appeler Rust depuis le frontend]: /fr/develop/calling-rust/

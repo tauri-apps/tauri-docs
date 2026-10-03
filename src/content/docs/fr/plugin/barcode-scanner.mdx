@@ -1,0 +1,132 @@
+---
+title: Lecteur de codes-barres
+description: Permet à votre application mobile d'utiliser la caméra pour scanner des QR codes, EAN-13 et d'autres types de codes-barres.
+plugin: barcode-scanner
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Permet à votre application mobile d'utiliser la caméra pour scanner des QR codes, EAN-13 et d'autres types de codes-barres.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin barcode-scanner pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add barcode-scanner"
+      yarn="yarn run tauri add barcode-scanner"
+      pnpm="pnpm tauri add barcode-scanner"
+      deno="deno task tauri add barcode-scanner"
+      bun="bun tauri add barcode-scanner"
+      cargo="cargo tauri add barcode-scanner"
+    />
+
+  </TabItem>
+  <TabItem label="Manuelle">
+    <Steps>
+
+      1.  Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+          ```sh frame=none
+          cargo add tauri-plugin-barcode-scanner --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_barcode_scanner::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Installez les bindings JavaScript Guest avec votre gestionnaire de paquets JavaScript préféré :
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-barcode-scanner"
+              yarn="yarn add @tauri-apps/plugin-barcode-scanner"
+              pnpm="pnpm add @tauri-apps/plugin-barcode-scanner"
+              deno="deno add npm:@tauri-apps/plugin-barcode-scanner"
+              bun="bun add @tauri-apps/plugin-barcode-scanner"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Configuration
+
+Sur iOS, le plugin barcode scanner nécessite la valeur `NSCameraUsageDescription` dans la liste des propriétés d'information, qui doit décrire pourquoi votre app a besoin d'utiliser la caméra.
+
+Dans le fichier `src-tauri/Info.ios.plist`, ajoutez l'extrait suivant :
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NSCameraUsageDescription</key>
+		<string>Read QR codes</string>
+	</dict>
+</plist>
+```
+
+## Utilisation
+
+Le plugin barcode scanner est disponible en JavaScript.
+
+```javascript
+import { scan, Format } from '@tauri-apps/plugin-barcode-scanner';
+// when using `"withGlobalTauri": true`, you may use
+// const { scan, Format } = window.__TAURI__.barcodeScanner;
+
+// `windowed: true` actually sets the webview to transparent
+// instead of opening a separate view for the camera
+// make sure your user interface is ready to show what is underneath with a transparent element
+scan({ windowed: true, formats: [Format.QRCode] });
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées de plugins potentiellement dangereuses sont bloquées et ne peuvent pas être utilisées. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capacités](/fr/security/capabilities/) pour plus d'informations et le [guide étape par étape](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions de plugins.
+
+```json title="src-tauri/capabilities/mobile.json"
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": ["barcode-scanner:allow-scan", "barcode-scanner:allow-cancel"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

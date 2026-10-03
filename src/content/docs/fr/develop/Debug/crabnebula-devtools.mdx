@@ -1,0 +1,52 @@
+---
+title: CrabNebula DevTools
+sidebar:
+  badge:
+    text: Nouveau
+    variant: tip
+i18nReady: true
+---
+
+import { Image } from 'astro:assets';
+import devToolsPrint from '@assets/develop/Debug/crabnebula-devtools.png';
+
+[CrabNebula](https://crabnebula.dev/) fournit une application [DevTools](https://crabnebula.dev/devtools/) gratuite pour Tauri dans le cadre de son partenariat avec le projet Tauri. Cette application vous permet d'instrumenter votre app Tauri en capturant ses assets intégrés, son fichier de configuration Tauri, ses logs et spans, puis en fournissant un frontend web pour visualiser les données en temps réel de façon fluide.
+
+Avec les CrabNebula DevTools, vous pouvez inspecter les événements de log de votre app (y compris les logs des dépendances), suivre les performances de vos appels de commandes et l'utilisation globale de l'API Tauri, avec une interface dédiée aux événements et commandes Tauri, incluant payload, réponses, logs internes et spans d'exécution.
+
+Pour activer les CrabNebula DevTools, installez la crate devtools :
+
+```sh frame=none
+cargo add tauri-plugin-devtools@2.0.0
+```
+
+Puis initialisez le plugin le plus tôt possible dans votre fonction main :
+
+```rust
+fn main() {
+    // This should be called as early in the execution of the app as possible
+    #[cfg(debug_assertions)] // only enable instrumentation in development builds
+    let devtools = tauri_plugin_devtools::init();
+
+    let mut builder = tauri::Builder::default();
+
+    #[cfg(debug_assertions)]
+    {
+        builder = builder.plugin(devtools);
+    }
+
+    builder
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+Lancez ensuite votre app comme d'habitude. Si tout est correctement configuré, devtools affichera le message suivant :
+
+<Image src={devToolsPrint} alt="Message DevTools dans le terminal" />
+
+:::note
+Dans ce cas, nous n'initialisons le plugin devtools que pour les applications debug, ce qui est recommandé.
+:::
+
+Pour plus d'informations, consultez la documentation [CrabNebula DevTools](https://docs.crabnebula.dev/devtools/get-started/).
