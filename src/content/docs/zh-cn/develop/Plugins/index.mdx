@@ -347,7 +347,7 @@ pub struct Entry {
 
 ###### 命令范围
 
-您的插件使用者可以在其功能文件中定义特定命令的范围（请参阅[文档](/zh-cn/reference/acl/scope/)）。
+您的插件使用者可以在其授权配置文件中定义特定命令的范围（请参阅[文档](/zh-cn/reference/acl/scope/)）。
 您可以使用 [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0-beta/tauri/ipc/struct.CommandScope.html) 结构体读取特定命令的范围：
 
 ```rust title="src/commands.rs"
