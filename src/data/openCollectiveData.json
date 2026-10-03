@@ -685,15 +685,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Thong Tran",
-    "id": "Thong Tran",
-    "avatarUrl": "https://images.opencollective.com/thong-tran/be5f073/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/thong-tran",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Alexander Eden",
     "id": "Alexander Eden",
     "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
@@ -702,6 +693,15 @@
       "website": "https://github.com/alexeden",
       "github": "https://github.com/alexeden"
     },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Thong Tran",
+    "id": "Thong Tran",
+    "avatarUrl": "https://images.opencollective.com/thong-tran/be5f073/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/thong-tran",
+    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -840,6 +840,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Daniele Dellafiore",
+    "id": "Daniele Dellafiore",
+    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/daniele-dellafiore",
+    "socialLinks": {
+      "website": "https://linktr.ee/ildella"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Sentry",
     "id": "Sentry",
     "avatarUrl": "https://images.opencollective.com/sentry/9620d33/logo/256.jpg",
@@ -851,17 +862,6 @@
     },
     "tier": "silver",
     "type": "FUND"
-  },
-  {
-    "name": "Daniele Dellafiore",
-    "id": "Daniele Dellafiore",
-    "avatarUrl": "https://images.opencollective.com/daniele-dellafiore/44370c2/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/daniele-dellafiore",
-    "socialLinks": {
-      "website": "https://linktr.ee/ildella"
-    },
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "James Carlson",
@@ -1016,6 +1016,15 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Waypad",
+    "id": "Waypad",
+    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/waypad",
+    "socialLinks": {},
+    "tier": "bronze",
+    "type": "ORGANIZATION"
   },
   {
     "name": "Andre Luiz da Cruz Moreira",
@@ -1343,15 +1352,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Waypad",
-    "id": "Waypad",
-    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/waypad",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Marek Stapff",
