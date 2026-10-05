@@ -478,6 +478,9 @@ export default defineConfig({
       },
       locales,
       lastUpdated: true,
+      markdown: {
+        processedDirs: ['./src/content/releases/'],
+      },
     }),
     {
       // page.astro lives in src/routes/, not src/pages/: only a route when injected
