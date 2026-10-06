@@ -161,7 +161,7 @@ This method is useful when you cannot rely on command injection. For example, if
 ## Mismatching Types
 
 :::caution
-If you use the wrong type for the [`State`] parameter, you will get a runtime panic instead of compile time error.
+If you use the wrong type for the [`State`] parameter, you will not get a compile time error. Instead, invoking the command fails at runtime: the `invoke` call on the frontend is rejected with a `state not managed for field ...` error. Retrieving an unmanaged type directly with `Manager::state()` panics instead.
 
 For example, if you use `State<'_, AppState>` instead of `State<'_, Mutex<AppState>>`, there won't be any state managed with that type.
 :::
