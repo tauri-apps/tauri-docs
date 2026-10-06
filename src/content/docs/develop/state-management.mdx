@@ -118,7 +118,7 @@ async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> 
 }
 ```
 
-Note that the return type must be [`Result`] if you use asynchronous commands.
+Note that the return type must be [`Result`] here because this async command takes a borrowed argument (`State<'_, T>`). Async commands with only owned arguments can return a value directly. See [Async Commands](/develop/calling-rust/#async-commands) for details.
 
 ### Access state with the [`Manager`] trait
 
