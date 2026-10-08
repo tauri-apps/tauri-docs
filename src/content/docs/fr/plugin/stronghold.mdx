@@ -1,0 +1,229 @@
+---
+title: Stronghold
+description: Base de données chiffrée et sécurisée.
+plugin: stronghold
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Stockez des secrets et des clés avec le moteur de gestion de secrets [IOTA Stronghold](https://github.com/iotaledger/stronghold.rs).
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin stronghold pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+            npm="npm run tauri add stronghold"
+            yarn="yarn run tauri add stronghold"
+            pnpm="pnpm tauri add stronghold"
+            bun="bun tauri add stronghold"
+            deno="deno task tauri add stronghold"
+            cargo="cargo tauri add stronghold"
+    />
+    </TabItem>
+
+    <TabItem label="Manuelle">
+      <Steps>
+
+      1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+          ```sh frame=none
+          cargo add tauri-plugin-stronghold
+          ```
+
+      2. Modifiez `lib.rs` pour initialiser le plugin :
+
+          ```rust title="src-tauri/src/lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3. Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-stronghold"
+              yarn="yarn add @tauri-apps/plugin-stronghold"
+              pnpm="pnpm add @tauri-apps/plugin-stronghold"
+              deno="deno add npm:@tauri-apps/plugin-stronghold"
+              bun="bun add @tauri-apps/plugin-stronghold"
+          />
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+En raison d'un [bug en amont](https://github.com/tauri-apps/plugins-workspace/issues/2048), nous vous recommandons aussi d'ajouter ceci à votre fichier `Cargo.toml` :
+
+```toml
+[profile.dev.package.scrypt]
+opt-level = 3
+```
+
+## Utilisation
+
+Le plugin doit être initialisé avec une fonction de hachage de mot de passe, qui prend la chaîne du mot de passe et doit renvoyer un hachage de 32 octets dérivé de celui-ci.
+
+### Initialiser avec la fonction de hachage de mot de passe argon2
+
+Le plugin Stronghold propose une fonction de hachage par défaut utilisant l'algorithme [argon2].
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+pub fn run() {
+    tauri::Builder::default()
+        .setup(|app| {
+            let salt_path = app
+                .path()
+                .app_local_data_dir()
+                .expect("could not resolve app local data path")
+                .join("salt.txt");
+            app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+### Initialiser avec une fonction de hachage de mot de passe personnalisée
+
+Vous pouvez aussi fournir votre propre algorithme de hachage en utilisant le constructeur `tauri_plugin_stronghold::Builder::new`.
+
+:::note
+Le hachage du mot de passe doit contenir exactement 32 octets. C'est une exigence de Stronghold.
+:::
+
+```rust title="src-tauri/src/lib.rs"
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(
+            tauri_plugin_stronghold::Builder::new(|password| {
+                // Hash the password here with e.g. argon2, blake2b or any other secure algorithm
+                // Here is an example implementation using the `rust-argon2` crate for hashing the password
+                use argon2::{hash_raw, Config, Variant, Version};
+
+                let config = Config {
+                    lanes: 4,
+                    mem_cost: 10_000,
+                    time_cost: 10,
+                    variant: Variant::Argon2id,
+                    version: Version::Version13,
+                    ..Default::default()
+                };
+                let salt = "your-salt".as_bytes();
+                let key = hash_raw(password.as_ref(), salt, &config).expect("failed to hash password");
+
+                key.to_vec()
+            })
+            .build(),
+        )
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+### Utilisation depuis JavaScript
+
+Le plugin stronghold est disponible en JavaScript.
+
+```javascript
+import { Client, Stronghold } from '@tauri-apps/plugin-stronghold';
+// when using `"withGlobalTauri": true`, you may use
+// const { Client, Stronghold } = window.__TAURI__.stronghold;
+import { appDataDir } from '@tauri-apps/api/path';
+// when using `"withGlobalTauri": true`, you may use
+// const { appDataDir } = window.__TAURI__.path;
+
+const initStronghold = async () => {
+	const vaultPath = `${await appDataDir()}/vault.hold`;
+	const vaultPassword = 'vault password';
+	const stronghold = await Stronghold.load(vaultPath, vaultPassword);
+
+	let client: Client;
+	const clientName = 'name your client';
+	try {
+		client = await stronghold.loadClient(clientName);
+	} catch {
+		client = await stronghold.createClient(clientName);
+	}
+
+	return {
+		stronghold,
+		client,
+	};
+};
+
+// Insert a record to the store
+async function insertRecord(store: any, key: string, value: string) {
+	const data = Array.from(new TextEncoder().encode(value));
+	await store.insert(key, data);
+}
+
+// Read a record from store
+async function getRecord(store: any, key: string): Promise<string> {
+	const data = await store.get(key);
+	return new TextDecoder().decode(new Uint8Array(data));
+}
+
+const { stronghold, client } = await initStronghold();
+
+const store = client.getStore();
+const key = 'my_key';
+
+// Insert a record to the store
+insertRecord(store, key, 'secret value');
+
+// Read a record from store
+const value = await getRecord(store, key);
+console.log(value); // 'secret value'
+
+// Save your updates
+await stronghold.save();
+
+// Remove a record from store
+await store.remove(key);
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+	...,
+	"permissions": [
+		"stronghold:default",
+	]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[argon2]: https://docs.rs/rust-argon2/latest/argon2/

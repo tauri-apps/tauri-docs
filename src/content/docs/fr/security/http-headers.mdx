@@ -1,0 +1,242 @@
+---
+title: En-têtes HTTP
+author: 39zde <git@39zde>
+sidebar:
+  order: 7
+i18nReady: true
+---
+
+import SinceVersion from '../../../../components/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" />
+
+Un en-tête défini dans la configuration est envoyé avec les réponses à la webview. Cela n'inclut pas les messages IPC ni les réponses d'erreur. Plus précisément, chaque réponse envoyée via la fonction `get_response` dans <a href="https://github.com/tauri-apps/tauri/blob/8e8312bb8201ccc609e4bbc1a990bdc314daa00f/crates/tauri/src/protocol/tauri.rs#L103" target="_blank">crates/tauri/src/protocol/tauri.rs ↗</a> inclura ces en-têtes.
+
+### Noms d'en-têtes
+
+Les noms d'en-têtes sont limités à :
+
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Credentials" target="_blank">Access-Control-Allow-Credentials ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Headers" target="_blank">Access-Control-Allow-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods" target="_blank">Access-Control-Allow-Methods ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Expose-Headers" target="_blank">Access-Control-Expose-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Max-Age" target="_blank">Access-Control-Max-Age ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy" target="_blank">Cross-Origin-Embedder-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Opener-Policy" target="_blank">Cross-Origin-Opener-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Resource-Policy" target="_blank">Cross-Origin-Resource-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy" target="_blank">Permissions-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Service-Worker-Allowed" target="_blank">Service-Worker-Allowed ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Timing-Allow-Origin" target="_blank">Timing-Allow-Origin ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Content-Type-Options" target="_blank">X-Content-Type-Options ↗</a>
+- Tauri-Custom-Header
+
+:::note
+`Tauri-Custom-Header` n'est pas destiné à une utilisation en production.
+:::
+
+:::note
+<a href="../csp/">La Content-Security-Policy (CSP)</a> n'est pas définie ici.
+:::
+
+### Comment configurer les en-têtes
+
+- avec une chaîne de caractères
+- avec un tableau de chaînes
+- avec un objet clé-valeur, où les valeurs doivent être des chaînes
+- avec null
+
+Les valeurs d'en-têtes sont toujours converties en chaînes pour la réponse réelle. Selon la forme du fichier de configuration, certaines valeurs d'en-têtes doivent être composées. Voici les règles de création d'une valeur composée :
+
+- `string` : reste identique dans la valeur d'en-tête résultante
+- `array` : les éléments sont joints par `, ` dans la valeur d'en-tête résultante
+- `key-value` : les éléments sont composés de : clé + espace + valeur. Les éléments sont ensuite joints par `; ` dans la valeur d'en-tête résultante
+- `null` : l'en-tête est ignoré
+
+### Exemple
+
+```javascript title="src-tauri/tauri.conf.json"
+{
+ //...
+  "app":{
+    //...
+    "security": {
+      //...
+      "headers": {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Timing-Allow-Origin": [
+          "https://developer.mozilla.org",
+          "https://example.com",
+        ],
+        "X-Content-Type-Options": null, // gets ignored
+        "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+        "Tauri-Custom-Header": {
+          "key1": "'value1' 'value2'",
+          "key2": "'value3'"
+        }
+      },
+      // notice how the CSP is not defined under headers
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost",
+    }
+  }
+}
+```
+
+:::note
+`Tauri-Custom-Header` n'est pas destiné à une utilisation en production. Pour les tests : pensez à définir `Access-Control-Expose-Headers` en conséquence.
+:::
+
+Dans cet exemple, `Cross-Origin-Opener-Policy` et `Cross-Origin-Embedder-Policy` sont définis pour permettre l'utilisation de <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank">`SharedArrayBuffer ↗`</a>. `Timing-Allow-Origin` autorise les scripts chargés depuis les sites web listés à accéder aux données détaillées de timing réseau via la <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance_API/Resource_timing" target="_blank">Resource Timing API ↗</a>.
+
+Pour l'exemple helloworld, cette configuration donne :
+
+```http
+access-control-allow-origin:  http://tauri.localhost
+access-control-expose-headers: Tauri-Custom-Header
+content-security-policy: default-src 'self'; connect-src ipc: http://ipc.localhost; script-src 'self' 'sha256-Wjjrs6qinmnr+tOry8x8PPwI77eGpUFR3EEGZktjJNs='
+content-type: text/html
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+tauri-custom-header: key1 'value1' 'value2'; key2 'value3'
+timing-allow-origin: https://developer.mozilla.org, https://example.com
+```
+
+### Frameworks
+
+Certains environnements de développement nécessitent des réglages supplémentaires pour émuler l'environnement de production.
+
+:::note
+Pour que les en-têtes fonctionnent avec ces frameworks, vous devrez peut-être les définir à la fois dans la configuration du framework (pour le mode développement) et dans la configuration Tauri (pour le mode build). En effet :
+
+- Les frameworks n'incluent pas les en-têtes définis dans leurs fichiers de configuration au moment du build.
+- Tauri ne peut pas injecter d'en-têtes dans le serveur de développement du framework ; il peut seulement injecter des en-têtes dans la sortie finale du build.
+
+:::
+
+#### JavaScript/TypeScript
+
+Pour les configurations exécutant l'outil de build **Vite** (ce qui inclut **Qwik, React, Solid, Svelte et Vue**), ajoutez les en-têtes voulus à `vite.config.ts`.
+
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // ...
+  server: {
+      // ...
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin': 'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'"
+      },
+    },
+})
+```
+
+Parfois, `vite.config.ts` est intégré au fichier de configuration du framework, mais la configuration reste la même. Dans le cas d'**Angular**, ajoutez-les à `angular.json`.
+
+```json title=angular.json
+{
+  //...
+  "projects":{
+    //...
+    "insert-project-name":{
+      //...
+      "architect":{
+        //...
+        "serve":{
+          //...
+          "options":{
+            //...
+            "headers":{
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Timing-Allow-Origin": "https://developer.mozilla.org, https://example.com",
+              "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+              "Tauri-Custom-Header": "key1 'value1' 'value2'; key2 'value3'"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Et dans le cas de **Nuxt**, dans `nuxt.config.ts`.
+
+```typescript title=nuxt.config.ts
+export default defineNuxtConfig({
+  //...
+  vite: {
+    //...
+    server: {
+      //...
+      headers:{
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin': 'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'"
+      }
+    },
+  },
+});
+```
+
+**Next.js** ne repose pas sur **Vite**, l'approche est donc différente. Pour en savoir plus, consultez <a href="https://nextjs.org/docs/pages/api-reference/next-config-js/headers" target="_blank">cette page ↗</a>. Les en-têtes sont définis dans `next.config.js`.
+
+```javascript title=next.config.js
+module.exports = {
+  //...
+  async headers() {
+    return [
+      {
+        source: '/*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Timing-Allow-Origin',
+            value: 'https://developer.mozilla.org, https://example.com',
+          },
+          {
+            key: 'Access-Control-Expose-Headers',
+            value: 'Tauri-Custom-Header',
+          },
+          {
+            key: 'Tauri-Custom-Header',
+            value: "key1 'value1' 'value2'; key2 'value3'",
+          },
+        ],
+      },
+    ]
+  },
+}
+```
+
+#### Rust
+
+Pour **Yew** et **Leptos**, ajoutez les en-têtes à `Trunk.toml`.
+
+```toml title=Trunk.toml
+#...
+[serve]
+#...
+headers = {
+  "Cross-Origin-Opener-Policy" = "same-origin",
+  "Cross-Origin-Embedder-Policy" = "require-corp",
+  "Timing-Allow-Origin" = "https://developer.mozilla.org, https://example.com",
+  "Access-Control-Expose-Headers" = "Tauri-Custom-Header",
+  "Tauri-Custom-Header" = "key1 'value1' 'value2'; key2 'value3'"
+}
+
+```

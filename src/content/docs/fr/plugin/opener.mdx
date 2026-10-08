@@ -1,0 +1,172 @@
+---
+title: Opener
+description: Ouvrir des fichiers et des URL dans des applications externes.
+plugin: opener
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Ce plugin vous permet d'ouvrir des fichiers et des URL dans une application précise, ou dans l'application par défaut. Il prend aussi en charge l'affichage de fichiers dans l'explorateur de fichiers du système.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin opener pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+            npm="npm run tauri add opener"
+            yarn="yarn run tauri add opener"
+            pnpm="pnpm tauri add opener"
+            deno="deno task tauri add opener"
+            bun="bun tauri add opener"
+            cargo="cargo tauri add opener"
+    />
+    </TabItem>
+    <TabItem label="Manuelle">
+      <Steps>
+          1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+              ```sh frame=none
+              cargo add tauri-plugin-opener
+              ```
+
+          2. Modifiez `lib.rs` pour initialiser le plugin :
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_opener::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+              <CommandTabs
+                  npm="npm install @tauri-apps/plugin-opener"
+                  yarn="yarn add @tauri-apps/plugin-opener"
+                  pnpm="pnpm add @tauri-apps/plugin-opener"
+                  deno="deno add npm:@tauri-apps/plugin-opener"
+                  bun="bun add @tauri-apps/plugin-opener"
+              />
+    </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Utilisation
+
+Le plugin opener est disponible en JavaScript et en Rust.
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```javascript
+import { openPath, openUrl } from '@tauri-apps/plugin-opener';
+// when using `"withGlobalTauri": true`, you may use
+// const { openPath } = window.__TAURI__.opener;
+
+// opens a file using the default program:
+await openPath('/path/to/file');
+// opens a file using `vlc` command on Windows:
+await openPath('C:/path/to/file', 'vlc');
+// opens a URL using the default program:
+await openUrl('https://tauri.app');
+```
+
+    </TabItem>
+    <TabItem label="Rust">
+
+Notez que `app` est une instance de `App` ou [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html).
+
+```rust
+use tauri_plugin_opener::OpenerExt;
+
+// opens a file using the default program:
+app.opener().open_path("/path/to/file", None::<&str>);
+// opens a file using `vlc` command on Windows:
+app.opener().open_path("C:/path/to/file", Some("vlc"));
+// opens a URL using the default program:
+app.opener().open_url("https://tauri.app", None::<&str>);
+```
+
+    </TabItem>
+
+</Tabs>
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+Voici deux exemples de configuration de portée. `path` et `url` utilisent tous deux la [syntaxe des motifs glob](https://docs.rs/glob/latest/glob/struct.Pattern.html) pour définir les chemins de fichiers et URL autorisés.
+
+D'abord, un exemple montrant comment ajouter des permissions sur des chemins précis pour la fonction `openPath()` :
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "/path/to/file"
+        },
+        {
+          "path": "$APPDATA/file"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Enfin, un exemple montrant comment ajouter des permissions pour l'URL exacte `https://tauri.app` et toutes les URL sur un protocole personnalisé, qui doit être connu du système d'exploitation, pour la fonction `openUrl()` :
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://tauri.app"
+        },
+        {
+          "url": "custom:*"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

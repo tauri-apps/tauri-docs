@@ -1,0 +1,152 @@
+---
+title: Google Play
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Google Play est le service de distribution d'applications Android maintenu par Google.
+
+Ce guide couvre les exigences pour publier votre app Android sur Google Play.
+:::note
+Tauri utilise un projet Android Studio sous le capot, donc toute pratique officielle pour
+construire et publier des apps Android s'applique aussi à votre app.
+Consultez la [documentation officielle] pour plus d'informations.
+:::
+
+## Exigences
+
+Pour distribuer des apps Android dans le Play Store, vous devez créer un compte développeur [Play Console].
+
+Vous devez aussi configurer la [signature du code].
+
+Consultez la [checklist de release] pour plus d'informations.
+
+## Changer l'icône de l'app
+
+Après avoir exécuté `tauri android init` pour configurer le projet Android Studio, vous pouvez utiliser la commande `tauri icon` pour mettre à jour les icônes de l'app.
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png"
+  yarn="yarn tauri icon /path/to/app-icon.png"
+  pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
+  bun="bun tauri icon /path/to/app-icon.png"
+  cargo="cargo tauri icon /path/to/app-icon.png"
+/>
+
+## Configuration
+
+Une fois votre compte développeur Play Console créé, vous devez enregistrer votre app sur le site Google [Play Console]. Il vous guidera à travers tous les formulaires et tâches de configuration requis.
+
+## Build
+
+Vous pouvez construire un Android App Bundle (AAB) à téléverser sur Google Play en exécutant la commande suivante :
+
+<CommandTabs
+  npm="npm run tauri android build -- --aab"
+  yarn="yarn tauri android build --aab"
+  pnpm="pnpm tauri android build --aab"
+  deno="deno task tauri android build --aab"
+  bun="bun tauri android build --aab"
+  cargo="cargo tauri android build --aab"
+/>
+
+Tauri dérive le version code depuis la valeur définie dans [`tauri.conf.json > version`] (`versionCode = major*1000000 + minor*1000 + patch`).
+Vous pouvez définir un version code personnalisé dans la configuration [`tauri.conf.json > bundle > android > versionCode`]
+si vous avez besoin d'un autre schéma, par exemple des codes séquentiels :
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "android": {
+      "versionCode": 100
+    }
+  }
+}
+```
+
+### Construire des APK
+
+Le format AAB est le fichier bundle recommandé à téléverser sur Google Play, mais il est aussi possible de générer des APK
+utilisables pour tester ou distribuer hors store.
+Pour compiler des APK pour votre app, utilisez l'argument `--apk` :
+
+<CommandTabs
+  npm="npm run tauri android build -- --apk"
+  yarn="yarn tauri android build --apk"
+  pnpm="pnpm tauri android build --apk"
+  deno="deno task tauri android build --apk"
+  bun="bun tauri android build --apk"
+  cargo="cargo tauri android build --apk"
+/>
+
+### Sélection d'architecture
+
+Par défaut, Tauri construit votre app pour toutes les architectures prises en charge (aarch64, armv7, i686 et x86_64).
+Pour compiler uniquement un sous-ensemble de cibles, vous pouvez utiliser l'argument `--target` :
+
+<CommandTabs
+  npm="npm run tauri android build -- --aab --target aarch64 --target armv7"
+  yarn="yarn tauri android build --aab --target aarch64 --target armv7"
+  pnpm="pnpm tauri android build --aab --target aarch64 --target armv7"
+  deno="deno task tauri android build --aab --target aarch64 --target armv7"
+  bun="bun tauri android build --aab --target aarch64 --target armv7"
+  cargo="cargo tauri android build --aab --target aarch64 --target armv7"
+/>
+
+### Bundles séparés par architecture
+
+Par défaut, l'AAB et l'APK générés sont universels et contiennent toutes les cibles prises en charge.
+Pour générer des bundles individuels par cible, utilisez l'argument `--split-per-abi`.
+:::note
+Ceci n'est utile que pour tester ou distribuer hors Google Play, car cela réduit la taille du fichier mais rend l'upload moins pratique. Google Play gère les architectures prises en charge pour vous.
+:::
+
+<CommandTabs
+  npm="npm run tauri android build -- --apk --split-per-abi"
+  yarn="yarn tauri android build --apk --split-per-abi"
+  pnpm="pnpm tauri android build --apk --split-per-abi"
+  deno="deno task tauri android build --apk --split-per-abi"
+  bun="bun tauri android build --apk --split-per-abi"
+  cargo="cargo tauri android build --apk --split-per-abi"
+/>
+
+### Changer la version Android minimale prise en charge
+
+La version Android minimale prise en charge par les apps Tauri est Android 7.0 (nom de code Nougat, SDK 24).
+
+Il existe des techniques pour utiliser des API Android plus récentes tout en continuant à prendre en charge les anciens systèmes.
+Consultez la [documentation Android](https://developer.android.com/training/basics/supporting-devices/platforms#version-codes) pour plus d'informations.
+
+Si votre app doit s'exécuter sur une version Android plus récente, vous pouvez configurer [`tauri.conf.json > bundle > android > minSdkVersion`] :
+
+```json title="tauri.conf.json" ins={4}
+{
+  "bundle": {
+    "android": {
+      "minSdkVersion": 28
+    }
+  }
+}
+```
+
+## Upload
+
+Après avoir construit votre app et généré le fichier Android App Bundle,
+qui se trouve dans `gen/android/app/build/outputs/bundle/universalRelease/app-universal-release.aab`,
+vous pouvez créer une nouvelle release et le téléverser dans la Google Play Console.
+
+Le premier upload doit être fait manuellement sur le site afin qu'il puisse vérifier la signature et l'identifiant de bundle de votre app.
+Tauri ne propose actuellement pas de moyen d'automatiser le processus de création des releases Android,
+qui doit s'appuyer sur la [Google Play Developer API](https://developers.google.com/android-publisher/api-ref/rest),
+mais c'est en cours de développement.
+
+[documentation officielle]: https://developer.android.com/distribute
+[Play Console]: https://play.google.com/console/developers
+[signature du code]: /fr/distribute/sign/android/
+[checklist de release]: https://play.google.com/console/about/guides/releasewithconfidence/
+[`tauri.conf.json > version`]: /reference/config/#version
+[Google Play Developer API]: https://developers.google.com/android-publisher/api-ref/rest
