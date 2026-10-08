@@ -17,7 +17,7 @@ Tauri utilise la [WebView Android](https://developer.chrome.com/docs/webview) du
 
 Sur la plupart des appareils Android de production, WebView est un composant système pouvant être mis à jour. Certaines images Android peuvent utiliser un fournisseur préinstallé différent ou permettre de changer de fournisseur dans les paramètres développeur ; la prise en charge des fonctionnalités de la plateforme web est donc liée à la version Chromium/WebView de ce fournisseur.
 
-Pour vérifier la version utilisée par un build de développement, ouvrez l'[Android Web Inspector](/develop/#opening-the-web-inspector-1) et inspectez la WebView en cours d'exécution avec Chrome DevTools. Vous pouvez aussi vérifier le fournisseur WebView sélectionné et la version de l'app dans les paramètres développeur d'Android.
+Pour vérifier la version utilisée par un build de développement, ouvrez l'[Android Web Inspector](/fr/develop/#opening-the-web-inspector-1) et inspectez la WebView en cours d'exécution avec Chrome DevTools. Vous pouvez aussi vérifier le fournisseur WebView sélectionné et la version de l'app dans les paramètres développeur d'Android.
 
 ## WebKit (macOS, iOS et Linux)
 

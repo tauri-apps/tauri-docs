@@ -69,7 +69,7 @@ La CLI Tauri v2 inclut une commande `migrate` qui automatise la majeure partie d
     cargo tauri migrate'
 />
 
-Apprenez-en plus à propos de la commande `migrate` dans la [référence de l'interface en ligne de commande](/reference/cli/#migrate)
+Apprenez-en plus à propos de la commande `migrate` dans la [référence de l'interface en ligne de commande](/fr/reference/cli/#migrate)
 
 ## Résumé des changements
 
@@ -82,14 +82,14 @@ Voici ci-dessous un résumé des changements entre Tauri 1.0 et Tauri 2.0 :
 - `package` a été supprimé.
 - la clé `tauri` a été renommée en `app`.
 - `tauri > allowlist` a été supprimé. Consultez [Migrer les permissions](#migrate-permissions).
-- `tauri > allowlist > protocol > assetScope` a été déplacé vers `app > security > assetProtocol > scope`. Consultez [Portée du protocole asset](/security/asset-protocol/) pour `enable`, les motifs glob, `requireLiteralLeadingDot` et les chemins dynamiques.
+- `tauri > allowlist > protocol > assetScope` a été déplacé vers `app > security > assetProtocol > scope`. Consultez [Portée du protocole asset](/fr/security/asset-protocol/) pour `enable`, les motifs glob, `requireLiteralLeadingDot` et les chemins dynamiques.
 - `tauri > cli` déplacé vers `plugins > cli`.
 - `tauri > windows > fileDropEnabled` renommé en `app > windows > dragDropEnabled`.
 - `tauri > updater > active` retiré.
 - `tauri > updater > dialog` retiré.
 - `tauri > updater` déplacé vers `plugins > updater`.
 - `bundle > createUpdaterArtifacts` ajouté, et doit être défini lorsque vous utilisez le système de mise à jour de l'app.
-  - définissez-le sur `v1Compatible` lors de la mise à niveau d'apps v1 déjà distribuées. Consultez le [guide du plugin updater](/plugin/updater/) pour plus d'informations.
+  - définissez-le sur `v1Compatible` lors de la mise à niveau d'apps v1 déjà distribuées. Consultez le [guide du plugin updater](/fr/plugin/updater/) pour plus d'informations.
 - `tauri > systemTray` renommé en `app > trayIcon`.
 - `tauri > pattern` déplacé vers `app > security > pattern`.
 - `tauri > bundle` déplacé au niveau supérieur.
@@ -105,7 +105,7 @@ Voici ci-dessous un résumé des changements entre Tauri 1.0 et Tauri 2.0 :
 - `build > distDir` renommé en `frontendDist`.
 - `build > devPath` renommé en `devUrl`.
 
-[Référence de l'API de configuration de Tauri 2.0](/reference/config/)
+[Référence de l'API de configuration de Tauri 2.0](/fr/reference/config/)
 
 ### Nouvelles Fonctionnalités de Cargo
 
@@ -1205,7 +1205,7 @@ Dans Tauri v1, les binaires externes et leurs arguments étaient définis dans l
 
 Du côté JavaScript, assurez-vous de [migrer vers le plugin Shell](#migrer-vers-un-shell-plugin).
 
-Du côté Rust, l'API `tauri::api::process` a été supprimée. Utilisez plutôt les API `tauri_plugin_shell::ShellExt` et `tauri_plugin_shell::process::CommandEvent`. Consultez le guide [Intégrer des binaires externes](/develop/sidecar/#running-it-from-rust) pour voir comment faire.
+Du côté Rust, l'API `tauri::api::process` a été supprimée. Utilisez plutôt les API `tauri_plugin_shell::ShellExt` et `tauri_plugin_shell::process::CommandEvent`. Consultez le guide [Intégrer des binaires externes](/fr/develop/sidecar/#running-it-from-rust) pour voir comment faire.
 
 Le feature flag `process-command-api` a été supprimé en v2. L'exécution des binaires externes ne nécessite donc plus de définir cette fonctionnalité dans la configuration Tauri.
 
@@ -1220,4 +1220,4 @@ Pour activer les permissions de votre app, vous devez créer des fichiers de cap
 
 La commande CLI `migrate` analyse automatiquement votre allowlist v1 et génère le fichier de capacité associé.
 
-Pour en savoir plus sur les permissions et les capacités, consultez [la documentation de sécurité](/security/).
+Pour en savoir plus sur les permissions et les capacités, consultez [la documentation de sécurité](/fr/security/).

@@ -8,19 +8,25 @@ template: splash
 tableOfContents: false
 prev: false
 next: false
+hero:
+  tagline: Créez des applications petites, rapides, sécurisées et multiplateformes
+  image:
+    file: ../../../assets/logo-outline.svg
+  actions:
+    - text: Commencer
+      link: /fr/start/
+      icon: right-arrow
+      variant: primary
+    - text: Documentation de Tauri 1.0
+      link: https://v1.tauri.app/fr/
+      icon: external
+      variant: minimal
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
-import Cta from './_fragments/cta.mdx';
-import Hero from '@components/Hero.astro';
+import Cta from '@fragments/cta.mdx';
 import SponsorList from '@components/sponsors/SponsorList.astro';
 import 'src/styles/home.css';
-
-<Hero
-  tagline="Créez des applications petites, rapides, sécurisées et multiplateformes"
-  getStarted="Commencer"
-  v1Docs="Documentation de Tauri 1.0"
-/>
 
 <div>
   <Card title="Créer un projet" icon="rocket">
