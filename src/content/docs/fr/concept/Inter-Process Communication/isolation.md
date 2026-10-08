@@ -109,7 +109,7 @@ Supposons que le `frontendDist` de notre frontend principal soit défini sur `..
 
 [transport_layer_security]: https://en.wikipedia.org/wiki/Transport_Layer_Security
 [sécurité : modèles de menace]: /fr/security/lifecycle/
-[événements]: /reference/javascript/api/namespaceevent/
+[événements]: /fr/reference/javascript/api/namespaceevent/
 [subtlecrypto]: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 [modèle brownfield]: /fr/concept/inter-process-communication/brownfield/
 [tests d'intégration avec webdriver]: /fr/develop/tests/webdriver/
