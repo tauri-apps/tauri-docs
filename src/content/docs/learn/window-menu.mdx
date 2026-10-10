@@ -56,7 +56,7 @@ menu.setAsAppMenu().then(async (res) => {
   console.log('menu set success', res);
 
   // Update individual menu item text
-  const statusItem = await menu.get('status');
+  await using statusItem = await menu.get('status');
   if (statusItem) {
     await statusItem.setText('Status: Ready');
   }
@@ -192,64 +192,64 @@ Icon support for submenus is available since Tauri 2.8.0.
 import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
 
 // Will become the application submenu on MacOS
-const aboutSubmenu = await Submenu.new({
+await using aboutSubmenu = await Submenu.new({
   text: 'About',
   items: [
-    await MenuItem.new({
+    {
       id: 'quit',
       text: 'Quit',
       action: () => {
         console.log('Quit pressed');
       },
-    }),
+    },
   ],
 });
 
-const fileSubmenu = await Submenu.new({
+await using fileSubmenu = await Submenu.new({
   text: 'File',
   icon: 'folder', // Optional: Add an icon to the submenu
   items: [
-    await MenuItem.new({
+    {
       id: 'new',
       text: 'New',
       action: () => {
         console.log('New clicked');
       },
-    }),
-    await MenuItem.new({
+    },
+    {
       id: 'open',
       text: 'Open',
       action: () => {
         console.log('Open clicked');
       },
-    }),
-    await MenuItem.new({
+    },
+    {
       id: 'save_as',
       text: 'Save As...',
       action: () => {
         console.log('Save As clicked');
       },
-    }),
+    },
   ],
 });
 
-const editSubmenu = await Submenu.new({
+await using editSubmenu = await Submenu.new({
   text: 'Edit',
   items: [
-    await MenuItem.new({
+    {
       id: 'undo',
       text: 'Undo',
       action: () => {
         console.log('Undo clicked');
       },
-    }),
-    await MenuItem.new({
+    },
+    {
       id: 'redo',
       text: 'Redo',
       action: () => {
         console.log('Redo clicked');
       },
-    }),
+    },
   ],
 });
 
@@ -257,12 +257,12 @@ const menu = await Menu.new({
   items: [aboutSubmenu, fileSubmenu, editSubmenu],
 });
 
-menu.setAsAppMenu();
+await menu.setAsAppMenu();
 
 // You can also update the submenu icon dynamically
-fileSubmenu.setIcon('document');
+await fileSubmenu.setIcon('document');
 // Or set a native icon (only one type applies per platform)
-fileSubmenu.setNativeIcon('NSFolder');
+await fileSubmenu.setNativeIcon('NSFolder');
 ```
 
 </TabItem>
@@ -348,42 +348,42 @@ To use built-in (native) menu items that has predefined behavior by the operatin
 ```javascript
 import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
 
-const copy = await PredefinedMenuItem.new({
+await using copy = await PredefinedMenuItem.new({
   text: 'copy-text',
   item: 'Copy',
 });
 
-const separator = await PredefinedMenuItem.new({
+await using separator = await PredefinedMenuItem.new({
   text: 'separator-text',
   item: 'Separator',
 });
 
-const undo = await PredefinedMenuItem.new({
+await using undo = await PredefinedMenuItem.new({
   text: 'undo-text',
   item: 'Undo',
 });
 
-const redo = await PredefinedMenuItem.new({
+await using redo = await PredefinedMenuItem.new({
   text: 'redo-text',
   item: 'Redo',
 });
 
-const cut = await PredefinedMenuItem.new({
+await using cut = await PredefinedMenuItem.new({
   text: 'cut-text',
   item: 'Cut',
 });
 
-const paste = await PredefinedMenuItem.new({
+await using paste = await PredefinedMenuItem.new({
   text: 'paste-text',
   item: 'Paste',
 });
 
-const select_all = await PredefinedMenuItem.new({
+await using select_all = await PredefinedMenuItem.new({
   text: 'select_all-text',
   item: 'SelectAll',
 });
 
-const menu = await Menu.new({
+await using menu = await Menu.new({
   items: [copy, separator, undo, redo, cut, paste, select_all],
 });
 
@@ -445,7 +445,7 @@ import { Image } from '@tauri-apps/api/image';
 
 let currentLanguage = 'en';
 
-const check_sub_item_en = await CheckMenuItem.new({
+await using check_sub_item_en = await CheckMenuItem.new({
   id: 'en',
   text: 'English',
   checked: currentLanguage === 'en',
@@ -457,7 +457,7 @@ const check_sub_item_en = await CheckMenuItem.new({
   },
 });
 
-const check_sub_item_zh = await CheckMenuItem.new({
+await using check_sub_item_zh = await CheckMenuItem.new({
   id: 'zh',
   text: 'Chinese',
   checked: currentLanguage === 'zh',
@@ -471,10 +471,10 @@ const check_sub_item_zh = await CheckMenuItem.new({
 });
 
 // Load icon from path
-const icon = await Image.fromPath('../src/icon.png');
-const icon2 = await Image.fromPath('../src/icon-2.png');
+await using icon = await Image.fromPath('../src/icon.png');
+await using icon2 = await Image.fromPath('../src/icon-2.png');
 
-const icon_item = await IconMenuItem.new({
+await using icon_item = await IconMenuItem.new({
   id: 'icon_item',
   text: 'Icon Item',
   icon: icon,
@@ -484,7 +484,7 @@ const icon_item = await IconMenuItem.new({
   },
 });
 
-const text_item = await MenuItem.new({
+await using text_item = await MenuItem.new({
   id: 'text_item',
   text: 'Text Item',
   action: () => {
@@ -493,7 +493,7 @@ const text_item = await MenuItem.new({
   },
 });
 
-const menu = await Menu.new({
+await using menu = await Menu.new({
   items: [
     {
       id: 'change menu',
