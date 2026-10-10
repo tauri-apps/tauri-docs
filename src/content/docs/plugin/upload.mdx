@@ -78,35 +78,100 @@ Upload files from disk to a remote server over HTTP. Download files from a remot
 
 Once you've completed the registration and setup process for the plugin, you can access all of its APIs through the JavaScript guest bindings.
 
-Here's an example of how you can use the plugin to upload and download files:
+### Upload
+
+`upload` sends the contents of a file as the raw body of an HTTP request (not `multipart/form-data`) and resolves with the response body as text:
 
 ```javascript
 import { upload } from '@tauri-apps/plugin-upload';
 // when using `"withGlobalTauri": true`, you may use
 // const { upload } = window.__TAURI__.upload;
 
-upload(
+const response = await upload(
   'https://example.com/file-upload',
-  './path/to/my/file.txt',
-  ({ progress, total }) =>
-    console.log(`Uploaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
+  '/path/to/my/file.txt',
+  // a callback that will be called with the upload progress
+  ({ progress, progressTotal, total, transferSpeed }) =>
+    console.log(
+      `Uploaded ${progressTotal} of ${total} bytes (${progress} in this chunk, ${transferSpeed} bytes/s)`
+    ),
   { 'Content-Type': 'text/plain' } // optional headers to send with the request
 );
 ```
+
+The file is sent with a `POST` request by default. Pass an `HttpMethod` as the fifth argument to use `PUT` or `PATCH` instead:
+
+```javascript
+import { upload, HttpMethod } from '@tauri-apps/plugin-upload';
+
+await upload(
+  'https://example.com/file-upload',
+  '/path/to/my/file.txt',
+  undefined, // no progress callback
+  { 'Content-Type': 'text/plain' },
+  HttpMethod.Put
+);
+```
+
+### Download
+
+`download` writes the response body to the given path, which must include the file name:
 
 ```javascript
 import { download } from '@tauri-apps/plugin-upload';
 // when using `"withGlobalTauri": true`, you may use
 // const { download } = window.__TAURI__.upload;
 
-download(
+await download(
   'https://example.com/file-download-link',
-  './path/to/save/my/file.txt',
-  ({ progress, total }) =>
-    console.log(`Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the download progress
-  { 'Content-Type': 'text/plain' } // optional headers to send with the request
+  '/path/to/save/my/file.txt',
+  // a callback that will be called with the download progress
+  ({ progress, progressTotal, total, transferSpeed }) =>
+    console.log(
+      `Downloaded ${progressTotal} of ${total} bytes (${progress} in this chunk, ${transferSpeed} bytes/s)`
+    ),
+  { Authorization: 'Bearer <token>' } // optional headers to send with the request
 );
 ```
+
+The file is requested with a `GET` request by default. Pass a request body as the fifth argument to send a `POST` request with that body instead:
+
+```javascript
+import { download } from '@tauri-apps/plugin-upload';
+
+await download(
+  'https://example.com/export',
+  '/path/to/save/report.csv',
+  undefined, // no progress callback
+  { 'Content-Type': 'application/json' },
+  JSON.stringify({ format: 'csv' })
+);
+```
+
+### Progress
+
+The progress callback is called for every chunk of data transferred, with an object containing:
+
+- `progress`: the number of bytes in the last chunk. This is not cumulative.
+- `progressTotal`: the number of bytes transferred so far.
+- `total`: the size of the transfer in bytes. For an upload this is the size of the file. For a download it is the response's `Content-Length` header, and is `0` if the server did not send one.
+- `transferSpeed`: a rough estimate of the transfer speed in bytes per second, updated about every 500 milliseconds. It is `0` until the first update.
+
+### File paths
+
+File paths are not resolved against any base directory. A relative path resolves against the working directory of the app's process, which differs between `tauri dev` and a bundled app, so prefer absolute paths, for example built with the [path API](/reference/javascript/api/namespacepath/):
+
+```javascript
+import { appDataDir, join } from '@tauri-apps/api/path';
+
+const filePath = await join(await appDataDir(), 'file.txt');
+```
+
+When downloading, the parent directory must already exist and an existing file at the path is overwritten. If the transfer fails partway, the partially written file is left at the path.
+
+### Errors
+
+Both functions reject if the file cannot be read or written, the request fails, or the server responds with a non-success status code. In the last case the message has the form `request failed with status code <status>: <response body>`. The promise rejects with the message string itself, not an `Error` object.
 
 ## Permissions
 
@@ -122,5 +187,9 @@ See the [Capabilities Overview](/security/capabilities/) for more information an
   ]
 }
 ```
+
+:::caution
+The upload and download commands have no scope. Once enabled, the frontend can upload any file the app's process can read to any URL, and download to any path it can write to. Only grant these permissions to windows that load content you trust.
+:::
 
 <PluginPermissions plugin={frontmatter.plugin} />
