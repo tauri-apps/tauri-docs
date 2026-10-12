@@ -30,7 +30,7 @@ Use the [`Menu.new`] static function to create a window menu:
 ```javascript
 import { Menu } from '@tauri-apps/api/menu';
 
-const menu = await Menu.new({
+await using menu = await Menu.new({
   items: [
     {
       id: 'quit',
@@ -61,15 +61,13 @@ const menu = await Menu.new({
 
 // If a window was not created with an explicit menu or had one set explicitly,
 // this menu will be assigned to it.
-menu.setAsAppMenu().then(async (res) => {
-  console.log('menu set success', res);
+await menu.setAsAppMenu();
 
-  // Update individual menu item text
-  await using statusItem = await menu.get('status');
-  if (statusItem) {
-    await statusItem.setText('Status: Ready');
-  }
-});
+// Update individual menu item text
+await using statusItem = await menu.get('status');
+if (statusItem) {
+  await statusItem.setText('Status: Ready');
+}
 ```
 
 </TabItem>
@@ -119,7 +117,7 @@ Each custom menu item triggers an event when clicked. Use the `on_menu_event` AP
 ```javascript
 import { Menu } from '@tauri-apps/api/menu';
 
-const menu = await Menu.new({
+await using menu = await Menu.new({
   items: [
     {
       id: 'Open',
@@ -262,7 +260,7 @@ await using editSubmenu = await Submenu.new({
   ],
 });
 
-const menu = await Menu.new({
+await using menu = await Menu.new({
   items: [aboutSubmenu, fileSubmenu, editSubmenu],
 });
 
