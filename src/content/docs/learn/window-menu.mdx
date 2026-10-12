@@ -619,18 +619,41 @@ mainly because JavaScript does not have any way to run cleanup code when an obje
 
 - The menus will not clean up automatically unless `close` is called or closed by `await using` after the binding variable goes out of scope.
 - You should close the menu items you got e.g. from `Menu.get`, the `await using` syntax makes it easier, for example: `await using status = menu.get('status')`
-- You should close the menu resource whenever you don't need to access it in JavaScript anymore:
+  Be careful with APIs that can return a `Menu` such as `Menu.setAsAppMenu`, you'll need to close them when you're done with them or if you don't plan to use them.
+- You should close the menu resource whenever you don't need to access it in JavaScript anymore.
 
-  ```typescript
-  const copy = await PredefinedMenuItem.new({ item: 'Copy' });
-  const menu = await Menu.new({ items: [copy] });
-  // `copy` is now managed by the `menu` and the JavaScript resource reference can be closed
-  await copy.close();
+For example:
 
-  await menu.setAsAppMenu();
-  // `menu` is now set as the app menu, we can close the JavaScript resource reference
-  await menu.close();
-  ```
+<Tabs>
+
+<TabItem label="Manual close">
+
+```typescript
+const copy = await PredefinedMenuItem.new({ item: 'Copy' });
+const menu = await Menu.new({ items: [copy] });
+// `copy` is now managed by the `menu` and the JavaScript resource reference can be closed
+await copy.close();
+
+const prev = await menu.setAsAppMenu();
+// `menu` is now set as the app menu, we can close the JavaScript resource reference
+await menu.close();
+// We don't plan to use the previously set menu, close it here.
+await prev?.close();
+```
+
+</TabItem>
+
+<TabItem label="await using">
+
+```typescript
+await using copy = await PredefinedMenuItem.new({ item: 'Copy' });
+await using menu = await Menu.new({ items: [copy] });
+await using prev = await menu.setAsAppMenu();
+```
+
+</TabItem>
+
+</Tabs>
 
 :::tip
 
