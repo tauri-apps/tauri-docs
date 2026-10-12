@@ -9,6 +9,15 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Native application menus can be attached to both to a window or system tray. Available on desktop.
 
+:::tip
+
+Starting from Tauri 2.12, the JavaScript menu APIs now support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management).
+Which allows you to use the `using` syntax that closes the menu resources automatically when the variable goes out of scope. You can learn more on this in https://tauri.app/reference/javascript/api/namespacecore/#resource.
+
+We'll use them in the examples through out this guide.
+
+:::
+
 ## Creating a base-level menu
 
 To create a base-level native window menu, and attach to a window. You can create various types of menu items including basic items, check items, and separators:
