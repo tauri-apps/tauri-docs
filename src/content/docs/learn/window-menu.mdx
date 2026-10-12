@@ -12,7 +12,7 @@ Native application menus can be attached to both to a window or system tray. Ava
 :::tip
 
 Starting from Tauri 2.12, the JavaScript menu APIs now support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management).
-Which allows you to use the `using` syntax that closes the menu resources automatically when the variable goes out of scope. You can learn more on this in https://tauri.app/reference/javascript/api/namespacecore/#resource.
+Which allows you to use the `await using` syntax that closes the menu resources automatically when the variable goes out of scope. You can learn more on this in https://tauri.app/reference/javascript/api/namespacecore/#resource.
 
 We'll use them in the examples through out this guide.
 
@@ -611,6 +611,33 @@ fn main() {
 
 </TabItem>
 </Tabs>
+
+## Prevent JavaScript menu leaks
+
+There're a few gotchas you should be aware of when using the JavaScript menu APIs,
+mainly because JavaScript does not have any way to run cleanup code when an object is being removed by garbage collection:
+
+- The menus will not clean up automatically unless `close` is called or closed by `await using` after the binding variable goes out of scope.
+- You should close the menu items you got e.g. from `Menu.get`, the `await using` syntax makes it easier, for example: `await using status = menu.get('status')`
+- You should close the menu resource whenever you don't need to access it in JavaScript anymore:
+
+  ```typescript
+  const copy = await PredefinedMenuItem.new({ item: 'Copy' });
+  const menu = await Menu.new({ items: [copy] });
+  // `copy` is now managed by the `menu` and the JavaScript resource reference can be closed
+  await copy.close();
+
+  await menu.setAsAppMenu();
+  // `menu` is now set as the app menu, we can close the JavaScript resource reference
+  await menu.close();
+  ```
+
+:::tip
+
+Think about it this way, all the menus in JavaScript are added references to the actual menus,
+and you need to release all the references to release a menu.
+
+:::
 
 [`PredefinedMenuItem`]: https://docs.rs/tauri/latest/tauri/menu/struct.PredefinedMenuItem.html
 [`Menu.new`]: /reference/javascript/api/namespacemenu/#new-2
