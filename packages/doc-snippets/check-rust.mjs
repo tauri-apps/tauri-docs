@@ -10,7 +10,9 @@
 // Docs often show a builder chain on its own (`tauri::Builder::default().setup(..)`),
 // so the trailing expression of a block without `fn main` is terminated with a `;`.
 //
-// usage: node check-rust.mjs [--report] [--all-locales] [--verbose] [-- <cargo test args>]
+// usage: node check-rust.mjs [--report] [--all-locales] [--verbose] [paths...] [-- <cargo test args>]
+//   paths          only check docs files starting with these paths (relative to the repo root),
+//                  e.g. src/content/docs/plugin/
 //   --report       print failures but exit successfully
 //   --all-locales  also check translated pages
 //   --verbose      print the full compiler output of each failure
@@ -26,14 +28,23 @@ const separator = process.argv.indexOf('--');
 const args = separator === -1 ? process.argv.slice(2) : process.argv.slice(2, separator);
 const cargoArgs = separator === -1 ? [] : process.argv.slice(separator + 1);
 const report = args.includes('--report');
+const paths = args.filter((arg) => !arg.startsWith('--'));
 const verbose = args.includes('--verbose');
 
 const packageDir = fileURLToPath(new URL('.', import.meta.url));
-const outDir = path.join(packageDir, '.snippets/rust');
+// one directory per run so concurrent runs don't clobber each other
+const outDir = path.join(packageDir, '.snippets/rust', String(process.pid));
 
 const blocks = blocksFor(['rust', 'rs'], { allLocales: args.includes('--all-locales') }).filter(
-  (block) => !hasFlag(block, 'ignore')
+  (block) =>
+    !hasFlag(block, 'ignore') &&
+    (!paths.length || paths.some((prefix) => block.file.startsWith(prefix.replace(/^\.\//, ''))))
 );
+
+if (!blocks.length) {
+  console.log('no Rust blocks to check');
+  process.exit(0);
+}
 
 /** @type {Map<string, import('./extract.mjs').Block[]>} */
 const pages = new Map();
@@ -75,12 +86,14 @@ writeFileSync(path.join(outDir, 'pages.rs'), items.join('\n'));
 
 const cargo = spawnSync('cargo', ['test', '--doc', '--no-fail-fast', ...cargoArgs], {
   cwd: packageDir,
+  env: { ...process.env, DOC_SNIPPETS_PAGES: path.join(outDir, 'pages.rs') },
   encoding: 'utf8',
   stdio: ['inherit', 'pipe', 'pipe'],
   maxBuffer: 1024 * 1024 * 1024,
 });
 if (cargo.error) throw cargo.error;
 const output = cargo.stdout + cargo.stderr;
+rmSync(outDir, { recursive: true, force: true });
 
 // test src/lib.rs - develop_calling_rust (line 23) - compile ... FAILED
 const testLine = /^test .+? - (\w+) \(line (\d+)\)(?: - compile)? \.\.\. (\w+)/;
