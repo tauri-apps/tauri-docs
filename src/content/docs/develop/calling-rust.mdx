@@ -151,6 +151,8 @@ fn my_custom_command(invoke_message: String) {
 Arguments should be passed as a JSON object with camelCase keys:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command', { invokeMessage: 'Hello!' });
 ```
 
