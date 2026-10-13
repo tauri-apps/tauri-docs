@@ -60,15 +60,25 @@ mkdirSync(outDir, { recursive: true });
 const modules = new Map();
 const items = [];
 for (const [file, pageBlocks] of pages) {
-  const lines = readFileSync(path.join(root, file), 'utf8')
-    .split('\n')
-    .map(() => '');
+  const source = readFileSync(path.join(root, file), 'utf8').split('\n');
+  const lines = source.map(() => '');
   for (const block of pageBlocks) {
     const code = block.code.split('\n');
     lines[block.line - 2] = '```rust,no_run';
-    if (!/\bfn\s+main\s*\(/.test(block.code)) code[code.length - 1] += '\n;';
     code.forEach((line, i) => (lines[block.line - 1 + i] = line));
-    lines[block.line - 1 + code.length] = '```';
+    const close = block.line - 1 + code.length;
+    if (/\bfn\s+main\s*\(/.test(block.code)) {
+      lines[close] = '```';
+    } else if (source[close + 1]?.trim()) {
+      // no blank line to move the closing fence to
+      lines[close - 1] += ' ;';
+      lines[close] = '```';
+    } else {
+      // the `;` takes the closing fence's line and the fence moves to the (blank) line
+      // after it, so the following blocks keep their source line numbers
+      lines[close] = ';';
+      lines[close + 1] = '```';
+    }
   }
   let name = file
     .replace(/^src\/content\/docs\//, '')
@@ -79,7 +89,8 @@ for (const [file, pageBlocks] of pages) {
   modules.set(name, file);
 
   const markdown = path.join(outDir, `${name}.md`);
-  writeFileSync(markdown, lines.join('\n'));
+  // rustdoc reports doc lines one less than the line in the file, so pad with one
+  writeFileSync(markdown, ['', ...lines].join('\n'));
   items.push(`#[doc = include_str!(${JSON.stringify(markdown)})]\npub mod ${name} {}\n`);
 }
 writeFileSync(path.join(outDir, 'pages.rs'), items.join('\n'));
