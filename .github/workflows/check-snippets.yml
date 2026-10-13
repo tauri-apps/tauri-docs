@@ -56,6 +56,5 @@ jobs:
         with:
           workspaces: packages/doc-snippets
 
-      # TODO: drop --report once every block compiles
       - name: Compile Rust blocks
-        run: node packages/doc-snippets/check-rust.mjs --report
+        run: node packages/doc-snippets/check-rust.mjs
