@@ -97,7 +97,7 @@ upload(
   './path/to/my/file.txt',
   ({ progress, total }) =>
     console.log(`Uploaded ${progress} of ${total} bytes`), // アップロードの進捗状況に応じて呼び出されるコールバック
-  { 'Content-Type': 'text/plain' } // コールバック要求とともに送信するオプションのヘッダー
+  new Map([['Content-Type', 'text/plain']]) // コールバック要求とともに送信するオプションのヘッダー
 );
 ```
 
@@ -111,7 +111,7 @@ download(
   './path/to/save/my/file.txt',
   ({ progress, total }) =>
     console.log(`Downloaded ${progress} of ${total} bytes`), // ダウンロードの進捗状況に応じて呼び出されるコールバック
-  { 'Content-Type': 'text/plain' } // コールバック要求とともに送信するオプションのヘッダー
+  new Map([['Content-Type', 'text/plain']]) // コールバック要求とともに送信するオプションのヘッダー
 );
 ```
 

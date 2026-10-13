@@ -26,6 +26,7 @@ Note: Dynamically generated pages will result in a 404 error until you run `pnpm
 You can run these locally before opening a PR:
 
 - `pnpm format:check` — Prettier formatting (auto-fix with `pnpm format`). CI runs this on every PR.
+- `pnpm check:snippets` — type checks the TypeScript/JavaScript code blocks and compiles the Rust ones against the `tauri` and `plugins-workspace` submodules (see [Code Blocks](#code-blocks)). Requires the submodules, a Rust toolchain and the [Tauri Linux prerequisites](https://v2.tauri.app/start/prerequisites/#linux). CI runs this on every PR.
 - `pnpm build` — full production build, including the reference/config/cli/release generators and the internal-link validator. Requires the submodules, so run `pnpm dev:setup` at least once first. This is the same build the Netlify deploy preview runs on every PR.
 
 ### Gitpod
@@ -121,6 +122,39 @@ If you'd like to view the API references locally then you must run `pnpm dev:set
 Located in [`/src/content/docs/blog/`](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/blog)
 
 Topics that are around understanding something can be written as a blog post (we welcome submissions to the Tauri blog from anyone). Blog posts are a good option because they help the reader understand that information is accurate at the time of writing (and of course can always be updated later if it becomes stale). Blog posts follow the goals of [explanation in Diátaxis](https://diataxis.fr/explanation), but not all blog posts necessarily fit this specific format.
+
+### Code Blocks
+
+The TypeScript, JavaScript and Rust code blocks of the English docs are checked against the current Tauri and plugin APIs, so they must compile. Each block is checked on its own: TypeScript and JavaScript blocks are separate modules, and Rust blocks are compiled (but not run) as [rustdoc doctests](https://doc.rust-lang.org/rustdoc/write-documentation/documentation-tests.html), wrapped in `fn main() { ... }` unless they define one.
+
+When a block needs context the reader doesn't (imports shown earlier on the page, a variable from a previous block, a wrapper function), add it as hidden lines. They are checked but not shown on the website:
+
+- **Rust**: lines starting with `# ` are hidden, like in rustdoc.
+
+  ````md
+  ```rust
+  # use tauri::Manager;
+  # fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+  let window = app.get_webview_window("main").unwrap();
+  window.set_title("Tauri")?;
+  # Ok(())
+  # }
+  ```
+  ````
+
+- **TypeScript/JavaScript**: everything up to `// ---cut---` is hidden, like in [twoslash](https://twoslash.netlify.app/refs/notations#cutting-a-code-sample). `// @errors: 2451` allows the listed errors in a block that shows broken code on purpose, and `// @noErrors` allows any.
+
+  ````md
+  ```js
+  import { invoke } from '@tauri-apps/api/core';
+  // ---cut---
+  await invoke('greet', { name: 'Tauri' });
+  ```
+  ````
+
+Line highlights such as `{4}` or `ins={2-3}` count the visible lines. Blocks that can't be checked, such as Tauri v1 code in the migration guide, are marked `ignore`: ` ```rust ignore `.
+
+Run `pnpm check:snippets`, or `node packages/doc-snippets/check-rust.mjs --verbose src/content/docs/plugin/` to check a single directory or page.
 
 ### Diagrams
 

@@ -71,7 +71,7 @@ import { invoke } from '@tauri-apps/api/core';
 
 // Tauri global script を用いる場合（npm パッケージを使わない時）
 // `tauri.conf.json` の `app.withGlobalTauri` を必ず true に設定してください。
-const invoke = window.__TAURI__.core.invoke;
+// const invoke = window.__TAURI__.core.invoke;
 
 // コマンドを呼び出す
 invoke('my_custom_command');

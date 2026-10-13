@@ -69,7 +69,7 @@ import { invoke } from '@tauri-apps/api/core';
 
 // 使用 Tauri 全局脚本（不使用 npm 包时）
 // 确保在 `tauri.conf.json` 中设置 `app.withGlobalTauri` 为 true
-const invoke = window.__TAURI__.core.invoke;
+// const invoke = window.__TAURI__.core.invoke;
 
 // 调用命令
 invoke('my_custom_command');
