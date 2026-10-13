@@ -1,0 +1,76 @@
+# Compiles the Rust code blocks in the docs as rustdoc doctests, see check-rust.mjs.
+[package]
+name = "doc-snippets"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[lib]
+path = "src/lib.rs"
+
+[build-dependencies]
+tauri-build = { path = "../tauri/crates/tauri-build" }
+
+[dependencies]
+tauri = { path = "../tauri/crates/tauri", features = [
+  "devtools",
+  "image-ico",
+  "image-png",
+  "protocol-asset",
+  "test",
+  "tray-icon",
+  "unstable",
+] }
+tauri-build = { path = "../tauri/crates/tauri-build" }
+tauri-plugin = { path = "../tauri/crates/tauri-plugin", features = ["build"] }
+tauri-plugin-autostart = { path = "../plugins-workspace/plugins/autostart" }
+tauri-plugin-barcode-scanner = { path = "../plugins-workspace/plugins/barcode-scanner" }
+tauri-plugin-biometric = { path = "../plugins-workspace/plugins/biometric" }
+tauri-plugin-cli = { path = "../plugins-workspace/plugins/cli" }
+tauri-plugin-clipboard-manager = { path = "../plugins-workspace/plugins/clipboard-manager" }
+tauri-plugin-deep-link = { path = "../plugins-workspace/plugins/deep-link" }
+tauri-plugin-dialog = { path = "../plugins-workspace/plugins/dialog" }
+tauri-plugin-fs = { path = "../plugins-workspace/plugins/fs" }
+tauri-plugin-geolocation = { path = "../plugins-workspace/plugins/geolocation" }
+tauri-plugin-global-shortcut = { path = "../plugins-workspace/plugins/global-shortcut" }
+tauri-plugin-haptics = { path = "../plugins-workspace/plugins/haptics" }
+tauri-plugin-http = { path = "../plugins-workspace/plugins/http" }
+tauri-plugin-localhost = { path = "../plugins-workspace/plugins/localhost" }
+tauri-plugin-log = { path = "../plugins-workspace/plugins/log" }
+tauri-plugin-nfc = { path = "../plugins-workspace/plugins/nfc" }
+tauri-plugin-notification = { path = "../plugins-workspace/plugins/notification" }
+tauri-plugin-opener = { path = "../plugins-workspace/plugins/opener" }
+tauri-plugin-os = { path = "../plugins-workspace/plugins/os" }
+tauri-plugin-persisted-scope = { path = "../plugins-workspace/plugins/persisted-scope" }
+tauri-plugin-positioner = { path = "../plugins-workspace/plugins/positioner" }
+tauri-plugin-process = { path = "../plugins-workspace/plugins/process" }
+tauri-plugin-shell = { path = "../plugins-workspace/plugins/shell" }
+tauri-plugin-single-instance = { path = "../plugins-workspace/plugins/single-instance" }
+tauri-plugin-sql = { path = "../plugins-workspace/plugins/sql", features = ["sqlite"] }
+tauri-plugin-store = { path = "../plugins-workspace/plugins/store" }
+tauri-plugin-stronghold = { path = "../plugins-workspace/plugins/stronghold" }
+tauri-plugin-updater = { path = "../plugins-workspace/plugins/updater" }
+tauri-plugin-upload = { path = "../plugins-workspace/plugins/upload" }
+tauri-plugin-websocket = { path = "../plugins-workspace/plugins/websocket" }
+tauri-plugin-window-state = { path = "../plugins-workspace/plugins/window-state" }
+log = "0.4"
+reqwest = { version = "0.12", features = ["json"] }
+schemars = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+url = "2"
+
+# make the plugins use the tauri crates from the submodule too
+[patch.crates-io]
+tauri = { path = "../tauri/crates/tauri" }
+tauri-build = { path = "../tauri/crates/tauri-build" }
+tauri-codegen = { path = "../tauri/crates/tauri-codegen" }
+tauri-macros = { path = "../tauri/crates/tauri-macros" }
+tauri-plugin = { path = "../tauri/crates/tauri-plugin" }
+tauri-runtime = { path = "../tauri/crates/tauri-runtime" }
+tauri-runtime-wry = { path = "../tauri/crates/tauri-runtime-wry" }
+tauri-utils = { path = "../tauri/crates/tauri-utils" }

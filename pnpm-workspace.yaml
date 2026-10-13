@@ -5,10 +5,13 @@ packages:
   - packages/releases-site
   - packages/compatibility-table
   - packages/fetch-sponsors
+  - packages/doc-snippets
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   sharp: true
+  edgedriver: false
+  geckodriver: false
 minimumReleaseAge: 4320
 
 overrides:
