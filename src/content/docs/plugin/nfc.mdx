@@ -204,6 +204,7 @@ which is a standard format to encapsulate typed data in an NFC tag.
 ```javascript
 import { scan } from '@tauri-apps/plugin-nfc';
 
+/** @type {import('@tauri-apps/plugin-nfc').ScanKind} */
 const scanType = {
   type: 'ndef', // or 'tag',
 };
@@ -347,6 +348,7 @@ import { write, textRecord, uriRecord } from '@tauri-apps/plugin-nfc';
 
 const payload = [uriRecord('https://tauri.app'), textRecord('some payload')];
 
+/** @type {import('@tauri-apps/plugin-nfc').WriteOptions} */
 const options = {
   // the kind is only required if you do not have a scanned tag session alive
   // its format is the same as the argument provided to scan()

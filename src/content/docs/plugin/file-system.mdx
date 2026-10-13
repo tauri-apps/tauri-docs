@@ -190,7 +190,7 @@ The file system plugin offers two ways of manipulating paths: the [base director
   Every API has an options argument that lets you define a [baseDir][base directory] that acts as the working directory of the operation.
 
   ```js
-  import { readFile } from '@tauri-apps/plugin-fs';
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const contents = await readFile('avatars/tauri.png', {
     baseDir: BaseDirectory.Home,
   });
@@ -393,7 +393,7 @@ The plugin offers separate APIs for reading text and binary files for performanc
   ```js
   import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const icon = await readFile('icon.png', {
-    baseDir: BaseDirectory.Resources,
+    baseDir: BaseDirectory.Resource,
   });
   ```
 
@@ -453,8 +453,8 @@ Note that you must configure each base directory separately.
 ```js
 import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
 await rename('user.db.bk', 'user.db', {
-  fromPathBaseDir: BaseDirectory.AppLocalData,
-  toPathBaseDir: BaseDirectory.Temp,
+  oldPathBaseDir: BaseDirectory.AppLocalData,
+  newPathBaseDir: BaseDirectory.Temp,
 });
 ```
 
@@ -467,7 +467,7 @@ Truncates or extends the specified file to reach the specified file length (defa
 - truncate to 0 length
 
 ```typescript
-import { truncate } from '@tauri-apps/plugin-fs';
+import { truncate, BaseDirectory } from '@tauri-apps/plugin-fs';
 await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
 ```
 

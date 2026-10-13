@@ -198,7 +198,7 @@ Icon support for submenus is available since Tauri 2.8.0.
 <TabItem label="JavaScript">
 
 ```javascript
-import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
+import { Menu, MenuItem, NativeIcon, Submenu } from '@tauri-apps/api/menu';
 
 // Will become the application submenu on MacOS
 await using aboutSubmenu = await Submenu.new({
@@ -216,7 +216,7 @@ await using aboutSubmenu = await Submenu.new({
 
 await using fileSubmenu = await Submenu.new({
   text: 'File',
-  icon: 'folder', // Optional: Add an icon to the submenu
+  icon: 'icons/menu.png', // Optional: Add an icon to the submenu
   items: [
     {
       id: 'new',
@@ -269,9 +269,9 @@ await using menu = await Menu.new({
 await menu.setAsAppMenu();
 
 // You can also update the submenu icon dynamically
-await fileSubmenu.setIcon('document');
+await fileSubmenu.setIcon('icons/menu_update.png');
 // Or set a native icon (only one type applies per platform)
-await fileSubmenu.setNativeIcon('NSFolder');
+await fileSubmenu.setIcon(NativeIcon.Folder);
 ```
 
 </TabItem>
@@ -631,6 +631,8 @@ For example:
 <TabItem label="Manual close">
 
 ```typescript
+import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
+// ---cut---
 const copy = await PredefinedMenuItem.new({ item: 'Copy' });
 const menu = await Menu.new({ items: [copy] });
 // `copy` is now managed by the `menu` and the JavaScript resource reference can be closed
@@ -648,6 +650,8 @@ await prev?.close();
 <TabItem label="await using">
 
 ```typescript
+import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
+// ---cut---
 await using copy = await PredefinedMenuItem.new({ item: 'Copy' });
 await using menu = await Menu.new({ items: [copy] });
 await using prev = await menu.setAsAppMenu();

@@ -70,7 +70,7 @@ import { invoke } from '@tauri-apps/api/core';
 
 // When using the Tauri global script (if not using the npm package)
 // Be sure to set `app.withGlobalTauri` in `tauri.conf.json` to true
-const invoke = window.__TAURI__.core.invoke;
+// const invoke = window.__TAURI__.core.invoke;
 
 // Invoke the command
 invoke('my_custom_command');
@@ -167,6 +167,8 @@ fn my_custom_command(invoke_message: String) {}
 The corresponding JavaScript:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command', { invoke_message: 'Hello!' });
 ```
 
@@ -188,6 +190,8 @@ fn my_custom_command() -> String {
 The `invoke` function returns a promise that resolves with the returned value:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command').then((message) => console.log(message));
 ```
 
@@ -228,6 +232,8 @@ fn login(user: String, password: String) -> Result<String, String> {
 If the command returns an error, the promise will reject, otherwise, it resolves:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('login', { user: 'tauri', password: '0j4rijw8=' })
   .then((message) => console.log(message))
   .catch((error) => console.error(error));
@@ -325,6 +331,8 @@ fn read() -> Result<Vec<u8>, Error> {
 In your frontend you now get a `{ kind: 'io' | 'utf8', message: string }` error object:
 
 ```ts
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 type ErrorKind = {
   kind: 'io' | 'utf8';
   message: string;
@@ -398,6 +406,8 @@ async fn my_custom_command(value: &str) -> Result<String, ()> {
 Since invoking the command from JavaScript already returns a promise, it works just like any other command:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
   console.log('Completed!')
 );
@@ -543,7 +553,7 @@ and include request headers in the third argument:
 
 ```js
 const data = new Uint8Array([1, 2, 3]);
-await __TAURI__.core.invoke('upload', data, {
+await window.__TAURI__.core.invoke('upload', data, {
   headers: {
     Authorization: 'apikey',
   },

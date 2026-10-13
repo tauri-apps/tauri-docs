@@ -524,15 +524,17 @@ Those commands can be directly called from JavaScript or Rust:
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
-```javascript
-import { invoke, PermissionState } from '@tauri-apps/api/core'
+```typescript
+import { invoke, PermissionState } from '@tauri-apps/api/core';
 
 interface Permissions {
-  postNotification: PermissionState
+  postNotification: PermissionState;
 }
 
 // check permission state
-const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+const permission = await invoke<Permissions>(
+  'plugin:<plugin-name>|checkPermissions'
+);
 
 if (permission.postNotification === 'prompt-with-rationale') {
   // show information to the user about why permission is needed
@@ -540,7 +542,10 @@ if (permission.postNotification === 'prompt-with-rationale') {
 
 // request permission
 if (permission.postNotification.startsWith('prompt')) {
-  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+  const state = await invoke<Permissions>(
+    'plugin:<plugin-name>|requestPermissions',
+    { permissions: ['postNotification'] }
+  );
 }
 ```
 
@@ -637,17 +642,13 @@ class ExamplePlugin: Plugin {
 
 The helper functions can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
 
-```javascript
+```typescript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
 
 export async function onRequest(
-	handler: (url: string) => void
+  handler: (url: string) => void
 ): Promise<PluginListener> {
-	return await addPluginListener(
-		'<plugin-name>',
-		'event-name',
-		handler
-	);
+  return await addPluginListener('<plugin-name>', 'event-name', handler);
 }
 ```
 

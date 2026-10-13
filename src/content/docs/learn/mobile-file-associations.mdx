@@ -121,6 +121,8 @@ The frontend below is wired to that Rust code in two places:
 - **`listen('opened', …)`** subscribes to the same event name passed to **`app.emit("opened", urls)`** in Rust, so file open events that are triggered while the app is already running are delivered immediately.
 
 ```javascript
+function handleFiles(/** @type {string[]} */ urls) {}
+// ---cut---
 import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/core';
 

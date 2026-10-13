@@ -60,6 +60,9 @@ If you call `unlisten` synchronously before the Promise resolves, the handler
 will be removed immediately and you won't receive any events:
 
 ```js
+// @errors: 2349 2451
+import { listen } from '@tauri-apps/api/event';
+// ---cut---
 // Wrong: unlisten is called before the listener is registered
 const unlisten = listen('sync-complete', (event) => {
   console.log('sync finished');
@@ -82,7 +85,11 @@ make sure the event handler does not depend on DOM elements that haven't been
 rendered yet, or defer the listener registration to an effect/hook that runs
 after mount.
 
-```js
+```jsx
+// @errors: 2393
+import { useEffect, useRef } from 'react';
+import { listen } from '@tauri-apps/api/event';
+// ---cut---
 // Wrong: DOM ref may not be available yet
 function MyComponent() {
   const ref = useRef(null);

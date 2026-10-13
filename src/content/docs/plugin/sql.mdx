@@ -156,6 +156,11 @@ We use [sqlx](https://docs.rs/sqlx/latest/sqlx/) as the underlying library and a
 Use the "$#" syntax when substituting query data
 
 ```javascript
+// @errors: 2451
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:test.db');
+const todos = { id: 1, title: 'Todo', status: 'done' };
+// ---cut---
 const result = await db.execute(
   'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
   [todos.id, todos.title, todos.status]
@@ -172,6 +177,11 @@ const result = await db.execute(
 Use "?" when substituting query data
 
 ```javascript
+// @errors: 2451
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:test.db');
+const todos = { id: 1, title: 'Todo', status: 'done' };
+// ---cut---
 const result = await db.execute(
   'INSERT into todos (id, title, status) VALUES (?, ?, ?)',
   [todos.id, todos.title, todos.status]
@@ -188,6 +198,11 @@ const result = await db.execute(
 Use the "$#" syntax when substituting query data
 
 ```javascript
+// @errors: 2451
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:test.db');
+const todos = { id: 1, title: 'Todo', status: 'done' };
+// ---cut---
 const result = await db.execute(
   'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
   [todos.id, todos.title, todos.status]
