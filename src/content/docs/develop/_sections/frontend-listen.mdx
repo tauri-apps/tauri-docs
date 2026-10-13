@@ -234,6 +234,10 @@ Global and webview-specific events are also delivered to listeners registered in
 
   ```rust title="src-tauri/src/lib.rs"
   use tauri::Listener;
+  # #[derive(serde::Deserialize)]
+  # struct DownloadStarted {
+  #   url: String,
+  # }
 
   #[cfg_attr(mobile, tauri::mobile_entry_point)]
   pub fn run() {
@@ -262,7 +266,7 @@ Global and webview-specific events are also delivered to listeners registered in
       .setup(|app| {
         let webview = app.get_webview_window("main").unwrap();
         webview.listen("logged-in", |event| {
-          let session_token = event.data;
+          let session_token = event.payload();
           // save token..
         });
         Ok(())
@@ -276,15 +280,17 @@ The `listen` function keeps the event listener registered for the entire lifetim
 To stop listening on an event you can use the `unlisten` function:
 
 ```rust
+# use tauri::Listener;
+# let app: &mut tauri::App = todo!();
 // unlisten outside of the event handler scope:
 let event_id = app.listen("download-started", |event| {});
 app.unlisten(event_id);
 
 // unlisten when some event criteria is matched
 let handle = app.handle().clone();
-app.listen("status-changed", |event| {
-  if event.data == "ready" {
-    handle.unlisten(event.id);
+app.listen("status-changed", move |event| {
+  if event.payload() == "\"ready\"" {
+    handle.unlisten(event.id());
   }
 });
 ```
@@ -292,6 +298,8 @@ app.listen("status-changed", |event| {
 Additionally Tauri provides a utility function for listening to an event exactly once:
 
 ```rust
+# use tauri::Listener;
+# let app: &mut tauri::App = todo!();
 app.once("ready", |event| {
   println!("app is ready");
 });

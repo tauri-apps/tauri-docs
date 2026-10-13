@@ -242,6 +242,8 @@ Or if you want to use SQL from a file, you can include it by using `include_str!
 
 ```rust
 use tauri_plugin_sql::{Migration, MigrationKind};
+# // the SQL file lives in the reader's project, stub it out
+# macro_rules! include_str { ($path:literal) => { "" } }
 
 let migration = Migration {
     version: 1,
@@ -277,7 +279,9 @@ fn main() {
                 .add_migrations("sqlite:mydatabase.db", migrations)
                 .build(),
         )
-        ...
+        // ...
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 

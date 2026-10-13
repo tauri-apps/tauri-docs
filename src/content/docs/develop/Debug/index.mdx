@@ -94,6 +94,7 @@ The inspector is platform-specific, rendering the webkit2gtk WebInspector on Lin
 You can control the inspector window visibility by using the [`WebviewWindow::open_devtools`] and [`WebviewWindow::close_devtools`] functions:
 
 ```rust
+# use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
     #[cfg(debug_assertions)] // only include this code on debug builds

@@ -160,7 +160,7 @@ pub fn run() {
           // allowed the given directory
           let scope = app.fs_scope();
         	scope.allow_directory("/path/to/directory", false);
-          dbg!(scope.allowed());
+          dbg!(scope.allowed_patterns());
 
           Ok(())
        })

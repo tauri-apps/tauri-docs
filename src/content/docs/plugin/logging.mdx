@@ -179,9 +179,11 @@ By default the plugin logs to stdout and to a file in the application logs direc
 To only use your own log targets, call `clear_targets`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
 .clear_targets()
 .build()
+# )
 ```
 
 :::
@@ -191,11 +193,13 @@ tauri_plugin_log::Builder::new()
 To forward all your logs to the terminal, enable the `Stdout` or `Stderr` targets:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::Stdout,
   ))
   .build()
+# )
 ```
 
 This target is enabled by default.
@@ -205,11 +209,13 @@ This target is enabled by default.
 To view all your Rust logs in the webview console, enable the `Webview` target and run `attachConsole` in your frontend:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::Webview,
   ))
   .build()
+# )
 ```
 
 ```js
@@ -225,6 +231,7 @@ To write all logs to a file, you can use either the `LogDir` or the `Folder` tar
 - `LogDir`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::LogDir {
@@ -232,6 +239,7 @@ tauri_plugin_log::Builder::new()
     },
   ))
   .build()
+# )
 ```
 
 When using the LogDir target, all logs are stored in the recommended log directory.
@@ -248,6 +256,7 @@ The following table describes the location of the logs per platform:
 The Folder target lets you write logs to a custom location in the filesystem.
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::Folder {
@@ -256,6 +265,7 @@ tauri_plugin_log::Builder::new()
     },
   ))
   .build()
+# )
 ```
 
 The default `file_name` is the application name.
@@ -266,18 +276,22 @@ By default the log file gets discarded when it reaches the maximum size.
 The maximum file size can be configured via the builder's `max_file_size` function:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .max_file_size(50_000 /* bytes */)
   .build()
+# )
 ```
 
 Tauri can automatically rotate your log file when it reaches the size limit instead of discarding the previous file.
 This behavior can be configured using `rotation_strategy`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .rotation_strategy(tauri_plugin_log::RotationStrategy::KeepAll)
   .build()
+# )
 ```
 
 ### Filtering
@@ -289,9 +303,11 @@ By default **all** logs are processed. There are some mechanisms to reduce the a
 To set a maximum log level, use the `level` function:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .level(log::LevelFilter::Info)
   .build()
+# )
 ```
 
 In this example, debug and trace logs are discarded as they have a lower level than _info_.
@@ -299,11 +315,13 @@ In this example, debug and trace logs are discarded as they have a lower level t
 It is also possible to define separate maximum levels for individual modules:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .level(log::LevelFilter::Info)
   // verbose logs only for the commands module
   .level_for("my_crate_name::commands", log::LevelFilter::Trace)
   .build()
+# )
 ```
 
 Note that these APIs use the [`log` crate], which must be added to your `Cargo.toml` file:
@@ -318,10 +336,12 @@ log = "0.4"
 A `filter` function can be defined to discard unwanted logs by checking their metadata:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   // exclude logs with target `"hyper"`
   .filter(|metadata| metadata.target() != "hyper")
   .build()
+# )
 ```
 
 ### Formatting
@@ -330,6 +350,7 @@ The log plugin formats each log record as `DATE[TARGET][LEVEL] MESSAGE`.
 A custom format function can be provided with `format`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .format(|out, message, record| {
     out.finish(format_args!(
@@ -340,6 +361,7 @@ tauri_plugin_log::Builder::new()
     ))
   })
   .build()
+# )
 ```
 
 ### Applying a different format to targets
@@ -349,6 +371,7 @@ on `tauri_plugin_log::Target`. You may also wish to call `clear_format` on the b
 to remove the default formatter, which is applied to all targets:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
     .clear_format()
     .targets([
@@ -366,6 +389,7 @@ tauri_plugin_log::Builder::new()
         }),
     ])
     .build(),
+# )
 ```
 
 #### Log dates
@@ -374,9 +398,11 @@ By default the log plugin uses the UTC timezone to format dates
 but you can configure it to use the local timezone with `timezone_strategy`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .timezone_strategy(tauri_plugin_log::TimezoneStrategy::UseLocal)
   .build()
+# )
 ```
 
 ## Permissions

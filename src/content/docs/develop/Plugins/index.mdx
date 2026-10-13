@@ -174,11 +174,12 @@ There are additional [lifecycle events for mobile plugins](/develop/plugins/deve
 - **Why**: Register mobile plugins, manage state, run background tasks
 
 ```rust title="src/lib.rs"
-use tauri::{Manager, plugin::Builder};
+use tauri::{Emitter, Manager, plugin::Builder};
 use std::{collections::HashMap, sync::Mutex, time::Duration};
 
 struct DummyStore(Mutex<HashMap<String, String>>);
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .setup(|app, api| {
     app.manage(DummyStore(Default::default()));
@@ -193,6 +194,8 @@ Builder::new("<plugin-name>")
 
     Ok(())
   })
+#   .build()
+# }
 ```
 
 ### on_navigation
@@ -205,12 +208,15 @@ Returning `false` cancels the navigation.
 ```rust title="src/lib.rs"
 use tauri::plugin::Builder;
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .on_navigation(|window, url| {
     println!("window {} is navigating to {}", window.label(), url);
     // Cancels the navigation if forbidden
     url.scheme() != "forbidden"
   })
+#   .build()
+# }
 ```
 
 ### on_webview_ready
@@ -219,14 +225,17 @@ Builder::new("<plugin-name>")
 - **Why**: Execute an initialization script for every window
 
 ```rust title="src/lib.rs"
-use tauri::plugin::Builder;
+use tauri::{plugin::Builder, Listener};
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .on_webview_ready(|window| {
     window.listen("content-loaded", |event| {
       println!("webview content has been loaded");
     });
   })
+#   .build()
+# }
 ```
 
 ### on_event
@@ -242,6 +251,7 @@ use tauri::{plugin::Builder, Manager, RunEvent};
 
 struct DummyStore(Mutex<HashMap<String, String>>);
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .setup(|app, _api| {
     app.manage(DummyStore(Default::default()));
@@ -268,6 +278,8 @@ Builder::new("<plugin-name>")
       _ => {}
     }
   })
+#   .build()
+# }
 ```
 
 ### on_drop
@@ -280,10 +292,13 @@ See [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) for more informa
 ```rust title="src/lib.rs"
 use tauri::plugin::Builder;
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .on_drop(|app| {
     // plugin has been destroyed...
   })
+#   .build()
+# }
 ```
 
 ## Exposing Rust APIs
@@ -296,9 +311,9 @@ For example, the [`global-shortcut plugin`](/plugin/global-shortcut/) defines a 
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 tauri::Builder::default()
-  .plugin(tauri_plugin_global_shortcut::init())
+  .plugin(tauri_plugin_global_shortcut::Builder::new().build())
   .setup(|app| {
-    app.global_shortcut().register(...);
+    app.global_shortcut().register("CommandOrControl+Shift+C")?;
     Ok(())
   })
 ```
@@ -313,7 +328,7 @@ This command shows how to get access to the `AppHandle` and `Window` instance vi
 use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
 
 #[command]
-async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel<u32>, url: String) {
   // implement command logic here
   on_progress.send(100).unwrap();
 }
@@ -322,8 +337,16 @@ async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: C
 To expose the command to the webview, you must hook into the `invoke_handler()` call in `lib.rs`:
 
 ```rust title="src/lib.rs"
+# use tauri::plugin::Builder;
+# mod commands {
+#   #[tauri::command]
+#   pub async fn upload() {}
+# }
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
     .invoke_handler(tauri::generate_handler![commands::upload])
+#   .build()
+# }
 ```
 
 Define a binding function in `webview-src/index.ts` so that plugin users can easily call the command in JavaScript:
@@ -378,7 +401,7 @@ Each permission can define a list of scope objects that define something to be a
 Let's define an example struct that will hold scope data for a list of binaries a `shell` plugin is allowed to spawn:
 
 ```rust title="src/scope.rs"
-#[derive(Debug, schemars::JsonSchema)]
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct Entry {
     pub binary: String,
 }
@@ -390,10 +413,18 @@ Your plugin consumer can define a scope for a specific command in their capabili
 You can read the command-specific scope with the [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html) struct:
 
 ```rust title="src/commands.rs"
+# fn main() {}
+# mod scope {
+#   #[derive(Debug, serde::Deserialize)]
+#   pub struct Entry {
+#     pub binary: String,
+#   }
+# }
+# type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 use tauri::ipc::CommandScope;
 use crate::scope::Entry;
 
-async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<Entry>) -> Result<()> {
   let allowed = command_scope.allows();
   let denied = command_scope.denies();
   todo!()
@@ -416,10 +447,18 @@ binary = "node"
 You can read the global scope with the [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html) struct:
 
 ```rust title="src/commands.rs"
+# fn main() {}
+# mod scope {
+#   #[derive(Debug, serde::Deserialize)]
+#   pub struct Entry {
+#     pub binary: String,
+#   }
+# }
+# type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 use tauri::ipc::GlobalScope;
 use crate::scope::Entry;
 
-async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<Entry>) -> Result<()> {
   let allowed = scope.allows();
   let denied = scope.denies();
   todo!()
@@ -447,7 +486,7 @@ schemars = "0.8"
 
 In your build script, add the following code:
 
-```rust title="build.rs"
+```rust title="build.rs" ignore
 #[path = "src/scope.rs"]
 mod scope;
 
@@ -492,7 +531,7 @@ Inside the `COMMANDS` const, define the list of commands in snake_case (should m
 
 The following example generates the `allow-upload` and `deny-upload` permissions:
 
-```rust title="src/commands.rs"
+```rust title="build.rs"
 const COMMANDS: &[&str] = &["upload"];
 
 fn main() {

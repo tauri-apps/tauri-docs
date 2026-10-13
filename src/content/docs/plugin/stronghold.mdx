@@ -55,7 +55,7 @@ Install the stronghold plugin to get started.
     				#[cfg_attr(mobile, tauri::mobile_entry_point)]
     				pub fn run() {
     						tauri::Builder::default()
-    								.plugin(tauri_plugin_stronghold::Builder::new(|password| {}).build())
+    								.plugin(tauri_plugin_stronghold::Builder::new(|password| todo!("hash the password, see Usage below")).build())
     								.run(tauri::generate_context!())
     								.expect("error while running tauri application");
     				}

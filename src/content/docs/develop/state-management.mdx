@@ -30,6 +30,11 @@ fn main() {
 You can later access your state with any type that implements the [`Manager`] trait, for example the [`App`] instance:
 
 ```rust
+# use tauri::Manager;
+# struct AppData {
+#   welcome_message: &'static str,
+# }
+# let app: &mut tauri::App = todo!();
 let data = app.state::<AppData>();
 ```
 
@@ -65,6 +70,13 @@ fn main() {
 The state can now be modified by locking the mutex:
 
 ```rust
+# use std::sync::Mutex;
+# use tauri::Manager;
+# #[derive(Default)]
+# struct AppState {
+#   counter: u32,
+# }
+# let app: &mut tauri::App = todo!();
 let state = app.state::<Mutex<AppState>>();
 
 // Lock the mutex to get mutable access:
@@ -95,6 +107,11 @@ In case `State`'s lifetime requirements prevent you from moving your state into 
 ### Access state in commands
 
 ```rust
+# use std::sync::Mutex;
+# use tauri::State;
+# struct AppState {
+#   counter: u32,
+# }
 #[tauri::command]
 fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
   let mut state = state.lock().unwrap();
@@ -110,6 +127,11 @@ For more information on commands, see [Calling Rust from the Frontend](/develop/
 If you are using `async` commands and want to use Tokio's async [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html), you can set it up the same way and access the state like this:
 
 ```rust
+# use tauri::State;
+# use tokio::sync::Mutex;
+# struct AppState {
+#   counter: u32,
+# }
 #[tauri::command]
 async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
   let mut state = state.lock().await;

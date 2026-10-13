@@ -178,6 +178,8 @@ fn main() {
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -283,6 +285,8 @@ use tauri::{
     image::Image,
     menu::{CheckMenuItemBuilder, IconMenuItemBuilder, MenuBuilder, SubmenuBuilder},
 };
+# // the docs build has no icons next to this file
+# macro_rules! include_bytes { ($path:literal) => { &[] }; }
 
 fn main() {
     tauri::Builder::default()
@@ -424,6 +428,8 @@ fn main() {
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -527,6 +533,8 @@ use tauri::{
     image::Image,
     menu::{CheckMenuItemBuilder, IconMenuItem, MenuBuilder, MenuItem, SubmenuBuilder},
 };
+# // the docs build has no icons next to this file
+# macro_rules! include_bytes { ($path:literal) => { &[] }; }
 
 fn main() {
     tauri::Builder::default()

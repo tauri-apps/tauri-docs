@@ -65,6 +65,9 @@ This exercise is meant to be read after completing [`Using Plugin Permissions`](
 
     <ShowSolution>
     ```rust
+    # #[tauri::command]
+    # fn greet() {}
+    # let context = tauri::generate_context!();
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet])
         .setup(|app| {

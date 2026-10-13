@@ -43,6 +43,7 @@ The `tauri::mobile_entry_point` macro prepares your function to be executed on m
 // src-tauri/src/main.rs
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+# mod app_lib { pub fn run() {} }
 fn main() {
   app_lib::run();
 }
@@ -244,6 +245,7 @@ tauri-plugin-cli = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_cli::init())
+#     ;
 }
 ```
 
@@ -273,6 +275,7 @@ fn main() {
             let cli_matches = app.cli().matches()?;
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -295,6 +298,7 @@ tauri-plugin-clipboard-manager = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_clipboard_manager::init())
+#     ;
 }
 ```
 
@@ -317,14 +321,11 @@ console.assert((await readText()) === 'Tauri is awesome!');
 <TabItem label="Rust">
 
 ```rust
-use tauri_plugin_clipboard::{ClipboardExt, ClipKind};
+use tauri_plugin_clipboard_manager::ClipboardExt;
 tauri::Builder::default()
-    .plugin(tauri_plugin_clipboard::init())
+    .plugin(tauri_plugin_clipboard_manager::init())
     .setup(|app| {
-        app.clipboard().write(ClipKind::PlainText {
-            label: None,
-            text: "Tauri is awesome!".into(),
-        })?;
+        app.clipboard().write_text("Tauri is awesome!")?;
         Ok(())
     })
 ```
@@ -353,6 +354,7 @@ tauri-plugin-dialog = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
+#     ;
 }
 ```
 
@@ -390,7 +392,7 @@ tauri::Builder::default()
             // the file path is `None` if the user closed the dialog
         });
 
-        app.dialog().message("Tauri is Awesome!").show();
+        app.dialog().message("Tauri is Awesome!").show(|_| {});
         Ok(())
      })
 ```
@@ -419,6 +421,7 @@ tauri-plugin-fs = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
+#     ;
 }
 ```
 
@@ -477,6 +480,7 @@ tauri-plugin-global-shortcut = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_global_shortcut::Builder::default().build())
+#     ;
 }
 ```
 
@@ -504,7 +508,7 @@ use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 tauri::Builder::default()
     .plugin(
-        tauri_plugin_global_shortcut::Builder::new().with_handler(|app, shortcut| {
+        tauri_plugin_global_shortcut::Builder::new().with_handler(|app, shortcut, event| {
             println!("Shortcut triggered: {:?}", shortcut);
         })
         .build(),
@@ -542,6 +546,7 @@ tauri-plugin-http = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_http::init())
+#     ;
 }
 ```
 
@@ -608,6 +613,7 @@ tauri-plugin-notification = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_notification::init())
+#     ;
 }
 ```
 
@@ -636,7 +642,7 @@ fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_notification::init())
         .setup(|app| {
-            if app.notification().permission_state()? == PermissionState::Unknown {
+            if app.notification().permission_state()? == PermissionState::Prompt {
                 app.notification().request_permission()?;
             }
             if app.notification().permission_state()? == PermissionState::Granted {
@@ -647,6 +653,7 @@ fn main() {
             }
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -690,7 +697,7 @@ use tauri::menu::{MenuBuilder, PredefinedMenuItem};
 
 tauri::Builder::default()
     .setup(|app| {
-        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app)?).build()?;
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app, None)?).build()?;
         Ok(())
     })
 ```
@@ -723,9 +730,9 @@ use tauri::menu::{MenuBuilder, SubmenuBuilder};
 tauri::Builder::default()
     .setup(|app| {
         let submenu = SubmenuBuilder::new(app, "Sub")
-            .text("Tauri")
+            .text("tauri", "Tauri")
             .separator()
-            .check("Is Awesome")
+            .check("is-awesome", "Is Awesome")
             .build()?;
         let menu = MenuBuilder::new(app).item(&submenu).build()?;
         Ok(())
@@ -788,6 +795,7 @@ tauri-plugin-os = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
+#     ;
 }
 ```
 
@@ -816,6 +824,7 @@ fn main() {
             let os_arch = tauri_plugin_os::arch();
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -843,6 +852,7 @@ tauri-plugin-process = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
+#     ;
 }
 ```
 
@@ -875,6 +885,7 @@ fn main() {
             app.handle().restart();
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -902,6 +913,7 @@ tauri-plugin-shell = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
+#     ;
 }
 ```
 
@@ -936,6 +948,7 @@ fn main() {
             app.shell().open("https://github.com/tauri-apps/tauri", None)?;
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -952,6 +965,7 @@ fn main() {
             println!("`which` finished with status: {:?}", status.code());
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -969,6 +983,7 @@ fn main() {
             assert_eq!(String::from_utf8(output.stdout).unwrap(), "TAURI");
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -1002,6 +1017,7 @@ fn main() {
             });
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -1017,7 +1033,10 @@ The Rust `SystemTray` APIs were renamed to `TrayIcon` for consistency. The new A
 Use `tauri::tray::TrayIconBuilder` instead of `tauri::SystemTray`:
 
 ```rust
+# fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
 let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
+# Ok(())
+# }
 ```
 
 See [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) for more information.
@@ -1034,6 +1053,7 @@ Use `tauri::menu::Menu` instead of `tauri::SystemTrayMenu`, `tauri::menu::Submen
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    Manager,
 };
 
 tauri::Builder::default()
@@ -1095,6 +1115,7 @@ tauri-plugin-updater = "2"
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_updater::Builder::new().build())
+#     ;
 }
 ```
 
@@ -1133,12 +1154,13 @@ fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_updater::Builder::new().build())
         .setup(|app| {
-            let handle = app.handle();
+            let updater = app.updater()?;
             tauri::async_runtime::spawn(async move {
-                let response = handle.updater().check().await;
+                let response = updater.check().await;
             });
             Ok(())
         })
+#     ;
 }
 ```
 
@@ -1153,6 +1175,7 @@ fn main() {
     }
     tauri::Builder::default()
         .plugin(updater.build())
+#     ;
 }
 ```
 
