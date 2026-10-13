@@ -12,3 +12,9 @@ declare module 'internal-ip' {
 
 // Nuxt auto-imports this in nuxt.config.ts
 declare function defineNuxtConfig(config: Record<string, unknown>): unknown;
+
+// Globals Tauri injects into the webview
+interface Window {
+  // set by the isolation application, see the isolation pattern docs
+  __TAURI_ISOLATION_HOOK__?: (payload: unknown) => unknown;
+}

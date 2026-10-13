@@ -34,9 +34,8 @@ jobs:
 
       - run: pnpm i
 
-      # TODO: drop --report once every block type checks
       - name: Type check TypeScript and JavaScript blocks
-        run: node packages/doc-snippets/check-ts.mjs --report
+        run: node packages/doc-snippets/check-ts.mjs
 
   rust:
     runs-on: ubuntu-latest
