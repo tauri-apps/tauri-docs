@@ -14,7 +14,7 @@ Native application menus can be attached to both to a window or system tray. Ava
 Starting from Tauri 2.12, the JavaScript menu APIs now support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management).
 Which allows you to use the `await using` syntax that closes the menu resources automatically when the variable goes out of scope.
 Since this feature is quite new and isn't available on older browsers,
-you'll probably want to use a polyfill, learn more on this in https://tauri.app/reference/javascript/api/namespacecore/#resource.
+you'll probably want to use a polyfill, learn more on this in [`Resource`].
 
 We'll use them in the examples through out this guide.
 
@@ -664,5 +664,6 @@ and you need to release all the references to release a menu.
 
 :::
 
+[`Resource`]: /reference/javascript/api/namespacecore/#resource
 [`PredefinedMenuItem`]: https://docs.rs/tauri/latest/tauri/menu/struct.PredefinedMenuItem.html
 [`Menu.new`]: /reference/javascript/api/namespacemenu/#new-2
