@@ -33,9 +33,10 @@ Tauri v2 CLI 包含一个 `migrate` 命令，它自动化了大部分过程，�
 
 ### Tauri 核心插件
 
-我们在功能中改变了 Tauri 内置插件的处理方式 [PR #10390](https://github.com/tauri-apps/tauri/pull/10390)。
+我们在授权配置中改变了 Tauri 内置插件的处理方式 [PR #10390](https://github.com/tauri-apps/tauri/pull/10390)。
 
-要从最新的 Beta 版本迁移，您需要在您的能力中添加所有核心权限标识符 `core:`，或者切换到 `core:default` 权限并删除旧的核心插件标识符。
+从最新的 Beta 版本迁移时，需要为授权配置中的所有核心权限标识符添加 `core:` 前缀；
+也可以改用 `core:default` 权限，并移除旧的核心插件标识符。
 
 ```json
 ...
@@ -67,7 +68,7 @@ Tauri v2 CLI 包含一个 `migrate` 命令，它自动化了大部分过程，�
 ...
 ```
 
-我们还添加了一个新的特殊权限集 `core:default`，其中包含所有核心插件的默认权限，这样您就可以简化在能力配置中的权限模板。
+我们还添加了一个新的特殊权限集 `core:default`，其中包含所有核心插件的默认权限，这样您就可以简化在授权配置中的权限模板。
 
 ```json
 ...
