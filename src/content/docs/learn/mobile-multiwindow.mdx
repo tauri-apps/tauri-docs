@@ -309,10 +309,10 @@ Once a window has been created, you can retrieve its platform-specific identifie
 
 ```javascript
 import { getCurrentWindow } from '@tauri-apps/api/window';
-const window = getCurrentWindow();
-// ---cut---
-const activityName = await window.activityName();
-const sceneId = await window.sceneIdentifier();
+
+const appWindow = getCurrentWindow();
+const activityName = await appWindow.activityName();
+const sceneId = await appWindow.sceneIdentifier();
 ```
 
 </TabItem>

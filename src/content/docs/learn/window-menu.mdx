@@ -640,7 +640,7 @@ For example:
 
 ```typescript
 import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
-// ---cut---
+
 const copy = await PredefinedMenuItem.new({ item: 'Copy' });
 const menu = await Menu.new({ items: [copy] });
 // `copy` is now managed by the `menu` and the JavaScript resource reference can be closed
@@ -659,7 +659,7 @@ await prev?.close();
 
 ```typescript
 import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
-// ---cut---
+
 await using copy = await PredefinedMenuItem.new({ item: 'Copy' });
 await using menu = await Menu.new({ items: [copy] });
 await using prev = await menu.setAsAppMenu();

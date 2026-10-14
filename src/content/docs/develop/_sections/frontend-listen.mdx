@@ -89,7 +89,7 @@ after mount.
 // @errors: 2393
 import { useEffect, useRef } from 'react';
 import { listen } from '@tauri-apps/api/event';
-// ---cut---
+
 // Wrong: DOM ref may not be available yet
 function MyComponent() {
   const ref = useRef(null);

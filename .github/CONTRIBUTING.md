@@ -142,13 +142,15 @@ When a block needs context the reader doesn't (imports shown earlier on the page
   ```
   ````
 
-- **TypeScript/JavaScript**: everything up to `// ---cut---` is hidden, like in [twoslash](https://twoslash.netlify.app/refs/notations#cutting-a-code-sample). `// @errors: 2451` allows the listed errors in a block that shows broken code on purpose, and `// @noErrors` allows any.
+- **TypeScript/JavaScript**: everything up to `// ---cut---` is hidden, like in [twoslash](https://twoslash.netlify.app/refs/notations#cutting-a-code-sample). `// @errors: 2451` allows the listed errors in a block that shows broken code on purpose, and `// @noErrors` allows any. Keep imports visible, unless an earlier block on the page already shows them and the block clearly continues that code.
 
   ````md
   ```js
-  import { invoke } from '@tauri-apps/api/core';
+  const name = 'Tauri';
   // ---cut---
-  await invoke('greet', { name: 'Tauri' });
+  import { invoke } from '@tauri-apps/api/core';
+
+  await invoke('greet', { name });
   ```
   ````
 
