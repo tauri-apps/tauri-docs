@@ -35,6 +35,13 @@ const packageDir = fileURLToPath(new URL('.', import.meta.url));
 // one directory per run so concurrent runs don't clobber each other
 const outDir = path.join(packageDir, '.snippets/rust', String(process.pid));
 
+// process.exit drops whatever is still buffered when stdout is a pipe (as in CI),
+// so wait for the pending writes to flush first
+const exit = async (code) => {
+  await new Promise((resolve) => process.stdout.write('', resolve));
+  process.exit(code);
+};
+
 const blocks = blocksFor(['rust', 'rs'], { allLocales: args.includes('--all-locales') }).filter(
   (block) =>
     !hasFlag(block, 'ignore') &&
@@ -112,7 +119,7 @@ const results = [...output.matchAll(new RegExp(testLine.source, 'gm'))];
 if (!results.length) {
   console.log(output);
   console.log('could not compile the doc-snippets crate');
-  process.exit(1);
+  await exit(1);
 }
 
 // rustdoc reports the line of the opening fence
@@ -156,4 +163,4 @@ if (codes.size) {
       .join(' ')
   );
 }
-process.exit(failed.length && !report ? 1 : 0);
+await exit(failed.length && !report ? 1 : 0);
