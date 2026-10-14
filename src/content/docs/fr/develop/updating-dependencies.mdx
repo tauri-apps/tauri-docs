@@ -2,6 +2,8 @@
 title: Mise à jour des dépendances
 ---
 
+{/* TODO: Add plugin update example */}
+
 import CommandTabs from '@components/CommandTabs.astro';
 
 ## Mettre à jour les packages npm
@@ -20,14 +22,6 @@ Vous pouvez également détecter la dernière version de Tauri sur la ligne de c
   npm="npm outdated @tauri-apps/cli"
   yarn="yarn outdated @tauri-apps/cli"
   pnpm="pnpm outdated @tauri-apps/cli"
-/>
-
-Sinon, si vous utilisez l'approche `vue-cli-plugin-tauri` :
-
-<CommandTabs
-  npm="npm install vue-cli-plugin-tauri@latest"
-  yarn="yarn up vue-cli-plugin-tauri"
-  pnpm="pnpm update vue-cli-plugin-tauri --latest"
 />
 
 ## Mettre à jour les packages Cargo
@@ -54,6 +48,12 @@ cargo update
 ```
 
 Vous pouvez également exécuter la commande `cargo upgrade` fournie par [cargo-edit][] qui fait tout cela automatiquement.
+
+## Synchroniser les versions des packages npm et des crates Cargo
+
+Comme les API JavaScript s'appuient sur du code Rust dans le backend, l'ajout d'une nouvelle fonctionnalité nécessite de mettre à niveau les deux côtés afin de garantir leur compatibilité. Assurez-vous de garder synchronisées la même version mineure du package npm `@tauri-apps/api` et de la crate Cargo `tauri`.
+
+Pour les plugins, nous pouvons introduire ce type de changement dans des versions de correctif. Nous incrémentons donc ensemble les versions du package npm et de la crate Cargo, et vous devez garder les versions exactes synchronisées. Par exemple, vous devez utiliser la même version (par exemple `2.2.1`) du package npm `@tauri-apps/plugin-fs` et de la crate Cargo `tauri-plugin-fs`.
 
 [`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
 [tauri]: https://crates.io/crates/tauri/versions

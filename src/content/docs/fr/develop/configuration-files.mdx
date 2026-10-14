@@ -1,0 +1,277 @@
+---
+title: Fichiers de configuration
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Comme Tauri est une boîte à outils pour construire des applications, de nombreux fichiers peuvent servir à configurer les paramètres du projet. Les fichiers courants que vous pouvez rencontrer sont `tauri.conf.json`, `package.json` et `Cargo.toml`. Cette page explique brièvement chacun d'eux pour vous aider à savoir quels fichiers modifier.
+
+## Configuration Tauri
+
+La configuration Tauri sert à définir la source de votre app web, décrire les métadonnées de votre application, configurer les bundles, définir la configuration des plugins, modifier le comportement à l'exécution en configurant les fenêtres, les icônes de zone de notification, les menus, et plus encore.
+
+Ce fichier est utilisé par le runtime Tauri et par la CLI Tauri. Vous pouvez définir des paramètres de build (comme la [commande exécutée avant le lancement de `tauri build`][before-build-command] ou de [`tauri dev`][before-dev-command]), définir le [nom](/reference/config/#productname) et la [version de votre app](/reference/config/#version), [contrôler le runtime Tauri][appconfig] et [configurer les plugins].
+
+:::tip
+Vous trouverez toutes les options dans la [référence de configuration].
+:::
+
+### Formats pris en charge
+
+Le format de configuration Tauri par défaut est JSON. Les formats JSON5 ou TOML peuvent être activés en ajoutant le feature flag `config-json5` ou `config-toml` (respectivement) aux dépendances `tauri` et `tauri-build` dans `Cargo.toml`.
+
+```toml title=Cargo.toml
+[build-dependencies]
+tauri-build = { version = "2.0.0", features = [ "config-json5" ] }
+
+[dependencies]
+tauri = { version = "2.0.0", features = [  "config-json5" ] }
+```
+
+La structure et les valeurs sont les mêmes dans tous les formats, mais la mise en forme doit rester cohérente avec le format du fichier concerné :
+
+```json5 title=tauri.conf.json or tauri.conf.json5
+{
+  build: {
+    devUrl: 'http://localhost:3000',
+    // start the dev server
+    beforeDevCommand: 'npm run dev',
+  },
+  bundle: {
+    active: true,
+    icon: ['icons/app.png'],
+  },
+  app: {
+    windows: [
+      {
+        title: 'MyApp',
+      },
+    ],
+  },
+  plugins: {
+    updater: {
+      pubkey: 'updater pub key',
+      endpoints: ['https://my.app.updater/{{target}}/{{current_version}}'],
+    },
+  },
+}
+```
+
+```toml title=Tauri.toml
+[build]
+dev-url = "http://localhost:3000"
+# start the dev server
+before-dev-command = "npm run dev"
+
+[bundle]
+active = true
+icon = ["icons/app.png"]
+
+[[app.windows]]
+title = "MyApp"
+
+[plugins.updater]
+pubkey = "updater pub key"
+endpoints = ["https://my.app.updater/{{target}}/{{current_version}}"]
+```
+
+Notez que JSON5 et TOML prennent en charge les commentaires, et que TOML peut utiliser le kebab-case pour les noms de configuration, ce qui y est plus idiomatique. Les noms de champs sont sensibles à la casse dans les 3 formats.
+
+### Configuration propre à une plateforme
+
+En plus du fichier de configuration par défaut, Tauri peut lire une configuration propre à une plateforme depuis :
+
+- `tauri.linux.conf.json` ou `Tauri.linux.toml` pour Linux
+- `tauri.windows.conf.json` ou `Tauri.windows.toml` pour Windows
+- `tauri.macos.conf.json` ou `Tauri.macos.toml` pour macOS
+- `tauri.android.conf.json` ou `Tauri.android.toml` pour Android
+- `tauri.ios.conf.json` ou `Tauri.ios.toml` pour iOS
+
+Le fichier de configuration propre à la plateforme est fusionné avec l'objet de configuration principal selon la spécification [JSON Merge Patch (RFC 7396)].
+
+:::note
+Les objets sont fusionnés clé par clé, mais les tableaux sont remplacés entièrement, y compris les tableaux imbriqués dans des objets.
+Dans l'exemple ci-dessous, `bundle` est fusionné, tandis que `bundle.resources` est remplacé : les entrées propres à la plateforme n'étendent pas la liste de base, elles la remplacent.
+Il en va de même lorsque les éléments du tableau sont des objets, comme `app.windows`. Une entrée propre à une plateforme remplace l'entrée de base au lieu d'être fusionnée avec elle, donc tout champ omis revient à sa valeur par défaut au lieu de reprendre la valeur de votre configuration de base.
+Répétez tout ce que vous voulez conserver.
+:::
+
+Par exemple, avec le fichier `tauri.conf.json` de base suivant :
+
+```json title=tauri.conf.json
+{
+  "productName": "MyApp",
+  "bundle": {
+    "resources": ["./resources", "./shared-assets"]
+  },
+  "plugins": {
+    "deep-link": {}
+  }
+}
+```
+
+Et le fichier `tauri.linux.conf.json` suivant :
+
+```json title=tauri.linux.conf.json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+La configuration résolue pour Linux serait l'objet suivant :
+
+```json
+{
+  "productName": "my-app",
+  "bundle": {
+    "resources": ["./linux-assets"]
+  },
+  "plugins": {
+    "cli": {
+      "description": "My app",
+      "subcommands": {
+        "update": {}
+      }
+    },
+    "deep-link": {}
+  }
+}
+```
+
+Vous pouvez aussi fournir une configuration à fusionner via la CLI. Consultez la section suivante pour plus d'informations.
+
+### Étendre la configuration
+
+La CLI Tauri vous permet d'étendre la configuration Tauri lors de l'exécution des commandes `dev`, `android dev`, `ios dev`, `build`, `android build`, `ios build` ou `bundle`.
+L'extension de configuration peut être fournie avec l'argument `--config`, soit sous forme de chaîne JSON brute, soit comme chemin vers un fichier JSON.
+Tauri utilise la spécification [JSON Merge Patch (RFC 7396)] pour fusionner la valeur de configuration fournie avec l'objet de configuration résolu à l'origine.
+
+Ce mécanisme peut servir à définir plusieurs variantes de votre application ou à gagner en flexibilité lors de la configuration de vos bundles applicatifs.
+
+Par exemple, pour distribuer une application _bêta_ complètement isolée, vous pouvez utiliser cette fonctionnalité afin de configurer un nom et un identifiant d'application séparés :
+
+```json title=src-tauri/tauri.beta.conf.json
+{
+  "productName": "My App Beta",
+  "identifier": "com.myorg.myappbeta"
+}
+```
+
+Et pour distribuer cette app _bêta_ séparée, fournissez ce fichier de configuration lors du build :
+
+<CommandTabs
+  npm="npm run tauri build -- --config src-tauri/tauri.beta.conf.json"
+  yarn="yarn tauri build --config src-tauri/tauri.beta.conf.json"
+  pnpm="pnpm tauri build --config src-tauri/tauri.beta.conf.json"
+  deno="deno task tauri build --config src-tauri/tauri.beta.conf.json"
+  bun="bun tauri build --config src-tauri/tauri.beta.conf.json"
+  cargo="cargo tauri build --config src-tauri/tauri.beta.conf.json"
+/>
+
+## `Cargo.toml`
+
+Le fichier manifeste de Cargo sert à déclarer les crates Rust dont votre app dépend, les métadonnées de votre app et d'autres fonctionnalités liées à Rust. Si vous ne prévoyez pas de développement backend en Rust pour votre app, vous ne le modifierez peut-être pas souvent, mais il est important de savoir qu'il existe et à quoi il sert.
+
+Voici un exemple de fichier `Cargo.toml` minimal pour un projet Tauri :
+
+```toml title=Cargo.toml
+[package]
+name = "app"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
+default-run = "app"
+edition = "2021"
+rust-version = "1.57"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0" }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "2.0.0", features = [ ] }
+```
+
+Les parties les plus importantes à noter sont les dépendances `tauri-build` et `tauri`. En général, elles doivent toutes deux utiliser les mêmes dernières versions mineures que la CLI Tauri, même si ce n'est pas strictement obligatoire. Si vous rencontrez des problèmes au lancement de votre app, vérifiez que toutes les versions Tauri (`tauri` et `tauri-cli`) sont à jour pour leurs versions mineures respectives.
+
+Les numéros de version Cargo utilisent le [Semantic Versioning]. Exécuter `cargo update` dans le dossier `src-tauri` récupère les dernières versions disponibles compatibles Semver de toutes les dépendances. Par exemple, si vous indiquez `2.0.0` comme version de `tauri-build`, Cargo détectera et téléchargera la version `2.0.1`, car il s'agit de la dernière version compatible Semver disponible. Tauri mettra à jour le numéro de version majeure dès qu'un changement cassant sera introduit, ce qui signifie que vous devriez toujours pouvoir passer aux dernières versions mineures et patch sans craindre de casser votre code.
+
+Si vous voulez utiliser une version précise d'une crate, vous pouvez utiliser une version exacte en préfixant le numéro de version de la dépendance par `=` :
+
+```
+tauri-build = { version = "=2.0.0" }
+```
+
+Un autre élément à noter est la partie `features=[]` de la dépendance `tauri`. L'exécution de `tauri dev` et `tauri build` gère automatiquement les fonctionnalités à activer dans votre projet selon votre configuration Tauri. Pour plus d'informations sur les feature flags de `tauri`, consultez la [documentation][tauri Cargo features].
+
+Lorsque vous construisez votre application, un fichier `Cargo.lock` est produit. Ce fichier sert principalement à garantir que les mêmes dépendances sont utilisées sur toutes les machines pendant le développement (comme `yarn.lock`, `pnpm-lock.yaml` ou `package-lock.json` dans Node.js). Il est recommandé de committer ce fichier dans votre dépôt source pour obtenir des builds cohérents.
+
+Pour en savoir plus sur le fichier manifeste Cargo, consultez la [documentation officielle][cargo-manifest].
+
+## `package.json`
+
+Il s'agit du fichier de paquet utilisé par Node.js. Si le frontend de votre app Tauri est développé avec des technologies basées sur Node.js (comme `npm`, `yarn` ou `pnpm`), ce fichier sert à configurer les dépendances et scripts frontend.
+
+Un exemple de fichier `package.json` minimal pour un projet Tauri pourrait ressembler à ceci :
+
+```json title=package.json
+{
+  "scripts": {
+    "dev": "command to start your app development mode",
+    "build": "command to build your app frontend",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}
+```
+
+Il est courant d'utiliser la section `"scripts"` pour stocker les commandes servant à lancer et construire le frontend utilisé par votre application Tauri. Le fichier `package.json` ci-dessus définit la commande `dev`, que vous pouvez exécuter avec `yarn dev` ou `npm run dev` pour démarrer le framework frontend, et la commande `build`, que vous pouvez exécuter avec `yarn build` ou `npm run build` pour construire les assets web du frontend qui seront ajoutés par Tauri en production. La façon la plus pratique d'utiliser ces scripts est de les relier à la CLI Tauri via les hooks [beforeDevCommand][before-dev-command] et [beforeBuildCommand][before-build-command] de la configuration Tauri :
+
+```json title=tauri.conf.json
+{
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build"
+  }
+}
+```
+
+:::note
+Le script `"tauri"` n'est nécessaire qu'avec `npm`.
+:::
+
+L'objet des dépendances indique quelles dépendances Node.js doit télécharger lorsque vous exécutez `yarn`, `pnpm install` ou `npm install` (ici, la CLI et l'API Tauri).
+
+En plus du fichier `package.json`, vous pouvez voir un fichier `yarn.lock`, `pnpm-lock.yaml` ou `package-lock.json`. Ces fichiers aident à garantir que, lorsque vous téléchargerez les dépendances plus tard, vous obtiendrez exactement les mêmes versions que celles utilisées pendant le développement (comme `Cargo.lock` en Rust).
+
+Pour en savoir plus sur le format du fichier `package.json`, consultez la [documentation officielle][npm-package].
+
+[configuration reference]: /reference/config/
+[before-dev-command]: /reference/config/#beforedevcommand-1
+[before-build-command]: /reference/config/#beforebuildcommand
+[appconfig]: /reference/config/#appconfig
+[configure plugins]: /reference/config/#plugins
+[semantic versioning]: https://semver.org
+[cargo-manifest]: https://doc.rust-lang.org/cargo/reference/manifest.html
+[npm-package]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
+[tauri Cargo features]: https://docs.rs/tauri/2.0.0/tauri/#cargo-features
+[JSON Merge Patch (RFC 7396)]: https://datatracker.ietf.org/doc/html/rfc7396
