@@ -4,7 +4,7 @@
 //
 // - Rust (rustdoc): lines starting with `# ` (or a lone `#`) are hidden, `##` renders as `#`.
 // - TypeScript/JavaScript (twoslash): lines up to and including `// ---cut---` are hidden,
-//   as are `// ---cut-after---` and every line after it, and `// @errors: ...` / `// @noErrors`.
+//   as are `// ---cut-after---` and every line after it.
 //
 // Line ranges in the meta string (`{4}`, `ins={6-8}`, ...) count the lines readers see.
 
@@ -28,8 +28,7 @@ function hiddenLines(language, lines) {
     const cut = trimmed.indexOf('// ---cut---');
     const cutAfter = trimmed.indexOf('// ---cut-after---');
     lines.forEach((_, index) => {
-      const directive = /^\/\/ @(errors:|noErrors\s*$)/.test(trimmed[index]);
-      if (directive || index <= cut || (cutAfter !== -1 && index >= cutAfter)) hidden.add(index);
+      if (index <= cut || (cutAfter !== -1 && index >= cutAfter)) hidden.add(index);
     });
   }
   return hidden;

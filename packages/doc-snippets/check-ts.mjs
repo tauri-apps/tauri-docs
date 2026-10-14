@@ -6,8 +6,7 @@
 //   --all-locales  also check translated pages
 //   --verbose      also print errors reported outside the snippets (environment issues)
 //
-// Blocks marked `ignore` (```ts ignore) are skipped. Like twoslash, a `// @errors: 2349 2451`
-// line lets a block show code that is meant to fail, and `// @noErrors` silences a block.
+// Blocks marked `ignore` (```ts ignore) are skipped.
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -43,13 +42,6 @@ const allBlocks = blocksFor(
   programs.flatMap((program) => Object.keys(program.langs)),
   { allLocales: args.includes('--all-locales') }
 ).filter((block) => !hasFlag(block, 'ignore'));
-
-/** @param {import('./extract.mjs').Block} block */
-function expectedErrors(block) {
-  if (/^\s*\/\/ @noErrors\s*$/m.test(block.code)) return { has: () => true };
-  const codes = /^\s*\/\/ @errors: ([\d ]+)$/m.exec(block.code)?.[1].trim().split(/\s+/) ?? [];
-  return new Set(codes.map((code) => `TS${code}`));
-}
 
 /** @type {Map<import('./extract.mjs').Block, string[]>} */
 const failures = new Map();
@@ -112,7 +104,6 @@ for (const program of programs) {
         if (program.compilerOptions.strict) external.add(line);
         continue;
       }
-      if (expectedErrors(block).has(code)) continue;
       failed.add(path.normalize(file));
       if (!failures.has(block)) failures.set(block, []);
       failures.get(block).push(`${block.file}:${block.line + Number(row) - 1} ${code}: ${message}`);

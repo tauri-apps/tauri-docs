@@ -59,16 +59,17 @@ The `listen` function returns a Promise that resolves to the `unlisten` handle.
 If you call `unlisten` synchronously before the Promise resolves, the handler
 will be removed immediately and you won't receive any events:
 
-```js
-// @errors: 2349 2451
-import { listen } from '@tauri-apps/api/event';
-// ---cut---
+```js ignore
 // Wrong: unlisten is called before the listener is registered
 const unlisten = listen('sync-complete', (event) => {
   console.log('sync finished');
 });
 unlisten(); // unlisten is a Promise here, not a function -- the listener is not cleaned up
+```
 
+```js
+import { listen } from '@tauri-apps/api/event';
+// ---cut---
 // Correct: await the Promise to get the unlisten handle
 const unlisten = await listen('sync-complete', (event) => {
   console.log('sync finished');
@@ -86,7 +87,6 @@ rendered yet, or defer the listener registration to an effect/hook that runs
 after mount.
 
 ```jsx
-// @errors: 2393
 import { useEffect, useRef } from 'react';
 import { listen } from '@tauri-apps/api/event';
 
@@ -98,7 +98,12 @@ function MyComponent() {
   });
   return <div ref={ref} />;
 }
+```
 
+```jsx
+import { useEffect, useRef } from 'react';
+import { listen } from '@tauri-apps/api/event';
+// ---cut---
 // Correct: use useEffect which runs after the component mounts
 function MyComponent() {
   const ref = useRef(null);

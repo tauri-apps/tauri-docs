@@ -27,7 +27,7 @@ test('hides rustdoc hidden lines and unescapes ##', async () => {
 test('hides lines around twoslash cut markers', async () => {
   const { code } = await render(
     'ts',
-    "// @errors: 2451\nimport { invoke } from '@tauri-apps/api/core';\n// ---cut---\ninvoke('a');\n// @noErrors\n// ---cut-after---\nexport {};"
+    "import { invoke } from '@tauri-apps/api/core';\n// ---cut---\ninvoke('a');\n// ---cut-after---\nexport {};"
   );
   assert.equal(code, "invoke('a');");
 });

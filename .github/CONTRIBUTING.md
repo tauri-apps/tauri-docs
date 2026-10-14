@@ -142,7 +142,7 @@ When a block needs context the reader doesn't (imports shown earlier on the page
   ```
   ````
 
-- **TypeScript/JavaScript**: everything up to `// ---cut---` is hidden, like in [twoslash](https://twoslash.netlify.app/refs/notations#cutting-a-code-sample). `// @errors: 2451` allows the listed errors in a block that shows broken code on purpose, and `// @noErrors` allows any. Keep imports visible, unless an earlier block on the page already shows them and the block clearly continues that code.
+- **TypeScript/JavaScript**: everything up to `// ---cut---` is hidden, like in [twoslash](https://twoslash.netlify.app/refs/notations#cutting-a-code-sample). Keep imports visible, unless an earlier block on the page already shows them and the block clearly continues that code.
 
   ````md
   ```js
@@ -154,7 +154,7 @@ When a block needs context the reader doesn't (imports shown earlier on the page
   ```
   ````
 
-Line highlights such as `{4}` or `ins={2-3}` count the visible lines. Blocks that can't be checked, such as Tauri v1 code in the migration guide, are marked `ignore`: ` ```rust ignore `.
+Line highlights such as `{4}` or `ins={2-3}` count the visible lines. Blocks that can't be checked, such as code that is wrong on purpose, are marked `ignore`: ` ```js ignore `.
 
 Run `pnpm check:snippets`, or `node packages/doc-snippets/check-rust.mjs --verbose src/content/docs/plugin/` to check a single directory or page.
 
