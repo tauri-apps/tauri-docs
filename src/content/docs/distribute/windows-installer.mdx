@@ -645,6 +645,7 @@ You can use installer hooks to automatically install system dependencies that yo
 
 Ensure to bundle the dependency installers in your `src-tauri/resources` folder and add to `tauri.conf.json` so they get bundled, and can be accessed during installation from `$INSTDIR\resources\`:
 
+{/* prettier-ignore */}
 ```json title="tauri.conf.json"
 {
   "bundle": {
