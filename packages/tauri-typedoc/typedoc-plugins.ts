@@ -101,6 +101,7 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
   hideBreadcrumbs: true,
   useCodeBlocks: true,
   expandParameters: true,
+  blockTagsPreserveOrder: ['@example'],
   parametersFormat: 'table',
   propertiesFormat: 'table',
   typeDeclarationFormat: 'table',
