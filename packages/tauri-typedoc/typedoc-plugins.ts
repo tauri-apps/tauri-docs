@@ -8,28 +8,10 @@ import { fileURLToPath } from 'node:url';
 import type { StarlightTypeDocOptions } from 'starlight-typedoc';
 import { normalizeGeneratedPage } from './normalize.mjs';
 
-/**
- * JavaScript API reference generation via the upstream `starlight-typedoc` plugin.
- *
- * Output layout:
- *   - core   -> src/content/docs/reference/javascript/api/index.md   (/reference/javascript/api/)
- *   - plugin -> src/content/docs/reference/javascript/<name>/index.md (/reference/javascript/<name>/)
- *
- * Each package gets its own plugin instance via `createStarlightTypeDocPlugin()` (unique
- * sidebar placeholder — avoids the shared-singleton conflict of calling the default export
- * N times). `getTauriTypeDocPlugins()` also builds the sidebar (explicit links, so plugin
- * pages stay flat entries instead of one-page directory groups); astro.config.mjs consumes
- * both.
- *
- * Generation is skipped when the output already exists AND was generated from the submodule
- * revision currently checked out (tracked in .astro/tauri-typedoc-revisions.json). A
- * submodule bump therefore triggers regeneration on the next build.
- */
+// Generation is skipped when the output exists and matches the checked-out submodule revision,
+// so a typedoc option change alone regenerates nothing: delete the stamp file to force it.
 
-// All paths are anchored to the repo root (this file lives in <root>/packages/tauri-typedoc/),
-// so the module behaves the same no matter which cwd loads astro.config.mjs. POSIX separators
-// throughout: TypeDoc rejects Windows `\` in glob inputs (entryPoints), and node's fs
-// accepts `/` on every platform.
+// POSIX separators throughout: TypeDoc rejects Windows `\` in entryPoints globs.
 const { join, dirname } = posix;
 const PKG_DIR = fileURLToPath(new URL('.', import.meta.url)).replaceAll('\\', '/');
 const ROOT = fileURLToPath(new URL('../..', import.meta.url)).replaceAll('\\', '/');
@@ -38,16 +20,13 @@ const API_PACKAGE = join(TAURI_SUBMODULE, 'packages/api');
 const PLUGINS_WORKSPACE = join(ROOT, 'packages/plugins-workspace');
 const PLUGINS_DIR = join(PLUGINS_WORKSPACE, 'plugins');
 const DOCS_DIR = join(ROOT, 'src/content/docs');
-// URL-path base of the JS reference section; output paths and sidebar links derive from it.
 const REF_BASE = 'reference/javascript';
 const REF_DIR = join(DOCS_DIR, REF_BASE);
 const STAMP_FILE = join(ROOT, '.astro/tauri-typedoc-revisions.json');
 
 const CORE_OUTPUT = `${REF_BASE}/api`;
 
-// Content hash of normalize.mjs, stamped alongside the submodule revisions so pages are
-// re-normalized when the transforms change — without requiring a typedoc regeneration —
-// and normalization is skipped entirely on warm starts.
+// Stamped alongside the revisions, so editing normalize.mjs re-normalizes without regenerating.
 const NORMALIZE_STAMP_KEY = 'normalize.mjs';
 const NORMALIZE_HASH = createHash('sha1')
   .update(readFileSync(join(PKG_DIR, 'normalize.mjs')))
@@ -55,10 +34,6 @@ const NORMALIZE_HASH = createHash('sha1')
 
 type SidebarItem = NonNullable<StarlightUserConfig['sidebar']>[number];
 
-/**
- * Auto-discover every plugin that ships a JS/TS guest API (`guest-js/index.ts`), instead of
- * hardcoding the list. New plugins in the submodule are picked up automatically.
- */
 function discoverPlugins(): string[] {
   if (!existsSync(PLUGINS_DIR)) return [];
   return readdirSync(PLUGINS_DIR, { withFileTypes: true })
@@ -68,9 +43,7 @@ function discoverPlugins(): string[] {
     .sort();
 }
 
-// Shared typedoc-plugin-markdown options: one page per module, flat output, member tables.
-// `frontmatterGlobals` is declared at runtime by typedoc-plugin-frontmatter (loaded via
-// `plugin` below) and is not part of starlight-typedoc's bundled option types.
+// `frontmatterGlobals` comes from typedoc-plugin-frontmatter at runtime, not the bundled types.
 const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
   frontmatterGlobals?: Record<string, unknown>;
 } = {
@@ -79,19 +52,12 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
     'typedoc-plugin-frontmatter',
     join(PKG_DIR, 'typedoc-tauri-plugin.mjs'),
   ],
-  // Serialized into each page's frontmatter by typedoc-plugin-frontmatter, which
-  // starlight-typedoc detects and merges its own keys (title, prev/next, editUrl) into.
-  // h4/h5 member headings (methods, enum members) must stay reachable from the on-page
-  // ToC; Starlight's default cuts off at h3.
+  // Starlight's on-page ToC stops at h3, which would drop method and enum-member headings.
   frontmatterGlobals: { tableOfContents: { maxHeadingLevel: 5 } },
-  // Generate docs from the AST regardless of TypeScript errors in a plugin's own sources
-  // (e.g. shell's guest-js/init.ts, a webview-injected script with DOM typing gaps).
-  // Type-checking the plugins is their CI's job, not the docs build's.
+  // Plugin sources carry TS errors of their own; type-checking them is their CI's job.
   skipErrorChecking: true,
-  // Git remote detection is unreliable inside submodule checkouts, so source links are
-  // built from an explicit per-package `sourceLinkTemplate` + `displayBasePath` instead.
-  // (`displayBasePath`, not `basePath`: with disableGit, the {path} placeholder is computed
-  // relative to displayBasePath only — basePath affects the displayed file name but not URLs.)
+  // Git detection is unreliable in submodule checkouts. Note `displayBasePath`, not
+  // `basePath`: under disableGit the {path} placeholder resolves against the former only.
   disableGit: true,
   outputFileStrategy: 'modules',
   flattenOutputFiles: true,
@@ -109,18 +75,10 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
   useHTMLAnchors: true,
 };
 
-// Each package MUST have its own output directory: TypeDoc cleans its output dir on every
-// run, so multiple instances sharing one dir clobber each other. A dir per plugin
-// (reference/javascript/<name>/index.md) serves the page at /reference/javascript/<name>/.
-function pluginOutput(name: string): string {
-  return `${REF_BASE}/${name}`;
-}
-
 function outputIndexExists(output: string): boolean {
   return existsSync(join(DOCS_DIR, output, 'index.md'));
 }
 
-/** HEAD commit of a submodule checkout, or null when it can't be determined. */
 function submoduleRevision(dir: string): string | null {
   try {
     return execSync('git rev-parse HEAD', { cwd: dir, stdio: ['ignore', 'pipe', 'ignore'] })
@@ -146,16 +104,12 @@ function needsGeneration(
   stamp: Record<string, string>
 ): boolean {
   if (!outputIndexExists(output)) return true;
-  // Without a resolvable revision (no git), fall back to the existence check above.
+  // No resolvable revision (no git): fall back to the existence check above.
   return revision !== null && stamp[output] !== revision;
 }
 
-/**
- * Remove flat `.md` pages sitting directly in reference/javascript/: the previous
- * generator wrote pages there, while this pipeline only writes into per-package
- * subdirectories — so any flat file is stale output from an older checkout and would
- * shadow or duplicate the real pages.
- */
+// This pipeline only writes into per-package subdirectories, so a flat `.md` here is leftover
+// from an older checkout and would shadow the real pages.
 function removeStaleFlatFiles(): void {
   if (!existsSync(REF_DIR)) return;
   for (const entry of readdirSync(REF_DIR, { withFileTypes: true })) {
@@ -169,13 +123,8 @@ function walkMarkdownFiles(dir: string): string[] {
     .map((entry) => join(entry.parentPath.replaceAll('\\', '/'), entry.name));
 }
 
-/**
- * Runs after all typedoc plugin instances (Starlight executes plugins in array order):
- * post-processes the generated pages, then records what they were generated from. The
- * stamp is only written here — after generation succeeded — so a failed build stays
- * marked stale and regenerates next time. On warm starts (nothing regenerated and
- * normalize.mjs unchanged since the pages were written) the hook is a no-op.
- */
+// Must be pushed last, since Starlight runs plugins in array order. The stamp is written only
+// after generation succeeds, so a failed build stays stale and retries next time.
 function makeFinalizerPlugin(
   stamp: Record<string, string>,
   generated: Record<string, string>
@@ -208,7 +157,6 @@ function makeFinalizerPlugin(
   };
 }
 
-/** One starlight-typedoc instance configured for a single package. */
 function makePackagePlugin(opts: {
   tsconfig: string;
   entryPoints: string[];
@@ -216,14 +164,14 @@ function makePackagePlugin(opts: {
   displayBasePath: string;
   sourceLinkTemplate: string;
 }): StarlightPlugin {
-  // A fresh instance per package: unique sidebar placeholder (see module comment).
+  // A fresh instance per package, each with its own output dir: shared instances collide on
+  // the sidebar placeholder, and TypeDoc wipes its output dir on every run.
   const [instance] = createStarlightTypeDocPlugin();
   return instance({
     tsconfig: opts.tsconfig,
     entryPoints: opts.entryPoints,
     output: opts.output,
-    // Starlight prev/next links: the starlight-typedoc default emits `prev: false` /
-    // `next: false` frontmatter, which hides them.
+    // starlight-typedoc otherwise emits `prev: false` / `next: false`, hiding the links.
     pagination: true,
     typeDoc: {
       ...sharedTypeDoc,
@@ -233,22 +181,17 @@ function makePackagePlugin(opts: {
   });
 }
 
-/**
- * Sidebar items for the JavaScript reference section: an "api" group for the core package's
- * module pages, then one flat link per plugin. Built explicitly rather than with a plain
- * `autogenerate` over reference/javascript, which would render each plugin's one-page
- * directory as a nested single-item group labeled with the full package name.
- */
+// Explicit rather than a plain `autogenerate` over reference/javascript, which would render
+// each plugin's one-page directory as a nested single-item group named after the package.
 function buildSidebarItems(coreReady: boolean, pluginNames: string[]): SidebarItem[] {
-  // Union of plugins that can be generated this run and plugin docs already on disk, so the
-  // sidebar stays complete when generation is skipped or the submodule is missing.
+  // Docs already on disk count too, so the sidebar survives a skipped or missing submodule.
   const names = new Set<string>(pluginNames);
   if (existsSync(REF_DIR)) {
     for (const entry of readdirSync(REF_DIR, { withFileTypes: true })) {
       if (
         entry.isDirectory() &&
         entry.name !== 'api' &&
-        outputIndexExists(pluginOutput(entry.name))
+        outputIndexExists(`${REF_BASE}/${entry.name}`)
       ) {
         names.add(entry.name);
       }
@@ -257,8 +200,7 @@ function buildSidebarItems(coreReady: boolean, pluginNames: string[]): SidebarIt
 
   const items: SidebarItem[] = [];
   if (coreReady || outputIndexExists(CORE_OUTPUT)) {
-    // Labeled autogenerate groups were removed in Starlight 0.39; the supported shape is a
-    // labeled group containing a bare autogenerate item.
+    // Starlight 0.39 dropped labeled autogenerate groups; the nesting here is the supported shape.
     items.push({
       label: 'api',
       collapsed: true,
@@ -279,7 +221,6 @@ export function getTauriTypeDocPlugins(): {
 
   const stamp = readStamp();
   const plugins: StarlightPlugin[] = [];
-  // output directory -> revision, recorded by the finalizer once generation succeeded
   const generated: Record<string, string> = {};
 
   // Core @tauri-apps/api
@@ -300,7 +241,7 @@ export function getTauriTypeDocPlugins(): {
     }
   } else if (outputIndexExists(CORE_OUTPUT)) {
     console.warn(
-      '[typedoc] Tauri V2 submodule is not initialized — serving previously generated @tauri-apps/api docs, which may be stale.'
+      '[typedoc] Tauri V2 submodule is not initialized, serving previously generated @tauri-apps/api docs which may be stale.'
     );
   } else {
     console.warn(
@@ -314,7 +255,7 @@ export function getTauriTypeDocPlugins(): {
   if (pluginsReady) {
     const pluginsRevision = submoduleRevision(PLUGINS_WORKSPACE);
     for (const name of pluginNames) {
-      const output = pluginOutput(name);
+      const output = `${REF_BASE}/${name}`;
       if (!needsGeneration(output, pluginsRevision, stamp)) continue;
       plugins.push(
         makePackagePlugin({
