@@ -17,6 +17,9 @@ public/release
 packages/releases-site/generator/data.json
 packages/releases-site/generator/generated
 packages/releases-site/generator/.cache
+packages/doc-snippets/.snippets
+packages/doc-snippets/target
+packages/doc-snippets/gen
 
 # Git Modules
 packages/tauri

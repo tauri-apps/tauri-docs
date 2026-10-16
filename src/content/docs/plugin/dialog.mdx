@@ -212,11 +212,12 @@ Shows a question dialog with `Absolutely` and `Totally` buttons.
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
+# let app: tauri::AppHandle = todo!();
 
 let answer = app.dialog()
         .message("Tauri is Awesome")
         .title("Tauri is Awesome")
-        .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
+        .buttons(MessageDialogButtons::OkCancelCustom("Absolutely".to_string(), "Totally".to_string()))
         .blocking_show();
 ```
 
@@ -224,14 +225,15 @@ If you need a non blocking operation you can use `show()` instead:
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
+# let app: tauri::AppHandle = todo!();
 
 app.dialog()
     .message("Tauri is Awesome")
     .title("Tauri is Awesome")
-   .buttons(MessageDialogButtons::OkCancelCustom("Absolutely", "Totally"))
+    .buttons(MessageDialogButtons::OkCancelCustom("Absolutely".to_string(), "Totally".to_string()))
     .show(|result| match result {
-        true => // do something,
-        false =>// do something,
+        true => { /* do something */ }
+        false => { /* do something */ }
     });
 ```
 
@@ -241,6 +243,7 @@ Shows a message dialog with an `Ok` button. Keep in mind that if the user closes
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
+# let app: tauri::AppHandle = todo!();
 
 let ans = app.dialog()
     .message("File not found")
@@ -253,15 +256,16 @@ If you need a non blocking operation you can use `show()` instead:
 
 ```rust
 use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
+# let app: tauri::AppHandle = todo!();
 
 app.dialog()
     .message("Tauri is Awesome")
     .kind(MessageDialogKind::Info)
     .title("Information")
-    .buttons(MessageDialogButtons::OkCustom("Absolutely"))
+    .buttons(MessageDialogButtons::OkCustom("Absolutely".to_string()))
     .show(|result| match result {
-        true => // do something,
-        false => // do something,
+        true => { /* do something */ }
+        false => { /* do something */ }
     });
 ```
 
@@ -271,6 +275,7 @@ app.dialog()
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
+# let app: tauri::AppHandle = todo!();
 
 let file_path = app.dialog().file().blocking_pick_file();
 // return a file_path `Option`, or `None` if the user closes the dialog
@@ -280,6 +285,7 @@ If you need a non blocking operation you can use `pick_file()` instead:
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
+# let app: tauri::AppHandle = todo!();
 
 app.dialog().file().pick_file(|file_path| {
     // return a file_path `Option`, or `None` if the user closes the dialog
@@ -290,6 +296,7 @@ app.dialog().file().pick_file(|file_path| {
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
+# let app: tauri::AppHandle = todo!();
 
 let file_path = app
     .dialog()
@@ -304,6 +311,7 @@ or, alternatively:
 
 ```rust
 use tauri_plugin_dialog::DialogExt;
+# let app: tauri::AppHandle = todo!();
 
 app.dialog()
     .file()

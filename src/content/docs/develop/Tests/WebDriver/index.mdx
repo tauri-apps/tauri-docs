@@ -30,6 +30,7 @@ Pick **Desktop Testing** and choose **Tauri** at the framework prompt. A minimal
 
 ```typescript
 export const config: WebdriverIO.Config = {
+  capabilities: [{ browserName: 'tauri' }],
   services: [
     [
       'tauri',

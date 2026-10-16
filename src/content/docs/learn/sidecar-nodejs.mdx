@@ -138,7 +138,9 @@ Without the plugin being initialized and configured the example won't work.
     The `--print host-tuple` flag was added in Rust 1.84.0. If you're using an older version, you'll need to parse the output of `rustc -Vv` instead:
 
     ```js
-    const rustInfo = execSync('rustc -vV');
+    import { execSync } from 'node:child_process';
+    // ---cut---
+    const rustInfo = execSync('rustc -vV', { encoding: 'utf8' });
     const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
     ```
 

@@ -53,6 +53,8 @@ error[E0255]: the name `__cmd__command_name` is defined multiple times
 You will have to provide a list of your commands to the builder function like so:
 
 ```rust title="src-tauri/src/lib.rs" ins={4}
+# #[tauri::command]
+# fn my_custom_command() {}
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
 	tauri::Builder::default()
@@ -70,7 +72,7 @@ import { invoke } from '@tauri-apps/api/core';
 
 // When using the Tauri global script (if not using the npm package)
 // Be sure to set `app.withGlobalTauri` in `tauri.conf.json` to true
-const invoke = window.__TAURI__.core.invoke;
+// const invoke = window.__TAURI__.core.invoke;
 
 // Invoke the command
 invoke('my_custom_command');
@@ -100,7 +102,7 @@ The command name is not scoped to the module so they must be unique even between
 
 In the `lib.rs` file, define the module and provide the list of your commands accordingly;
 
-```rust title="src-tauri/src/lib.rs" ins={6}
+```rust title="src-tauri/src/lib.rs" ins={6} ignore
 mod commands;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -123,6 +125,7 @@ When using a Rust frontend to call `invoke()` without arguments, you will need t
 The reason is that Rust doesn't support optional arguments.
 
 ```rust ins={4-5}
+# use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     // invoke without arguments
@@ -151,6 +154,8 @@ fn my_custom_command(invoke_message: String) {
 Arguments should be passed as a JSON object with camelCase keys:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command', { invokeMessage: 'Hello!' });
 ```
 
@@ -165,6 +170,8 @@ fn my_custom_command(invoke_message: String) {}
 The corresponding JavaScript:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command', { invoke_message: 'Hello!' });
 ```
 
@@ -186,6 +193,8 @@ fn my_custom_command() -> String {
 The `invoke` function returns a promise that resolves with the returned value:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command').then((message) => console.log(message));
 ```
 
@@ -226,6 +235,8 @@ fn login(user: String, password: String) -> Result<String, String> {
 If the command returns an error, the promise will reject, otherwise, it resolves:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('login', { user: 'tauri', password: '0j4rijw8=' })
   .then((message) => console.log(message))
   .catch((error) => console.error(error));
@@ -323,6 +334,8 @@ fn read() -> Result<Vec<u8>, Error> {
 In your frontend you now get a `{ kind: 'io' | 'utf8', message: string }` error object:
 
 ```ts
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 type ErrorKind = {
   kind: 'io' | 'utf8';
   message: string;
@@ -361,6 +374,7 @@ This may not work for all types, for example `State<'_, Data>`.
 _Example:_
 
 ```rust
+# async fn some_async_function() {}
 // Declare the async function using String instead of &str, as &str is borrowed and thus unsupported
 #[tauri::command]
 async fn my_custom_command(value: String) -> String {
@@ -381,13 +395,14 @@ Use the return type `Result<a, b>`, replacing `a` with the type you wish to retu
 _Example:_
 
 ```rust
+# async fn some_async_function() {}
 // Return a Result<String, ()> to bypass the borrowing issue
 #[tauri::command]
 async fn my_custom_command(value: &str) -> Result<String, ()> {
 	// Call another async function and wait for it to finish
 	some_async_function().await;
 	// Note that the return value must be wrapped in `Ok()` now.
-	Ok(format!(value))
+	Ok(format!("{}", value))
 }
 ```
 
@@ -396,6 +411,8 @@ async fn my_custom_command(value: &str) -> Result<String, ()> {
 Since invoking the command from JavaScript already returns a promise, it works just like any other command:
 
 ```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
 invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
   console.log('Completed!')
 );
@@ -447,9 +464,10 @@ Commands can access an `AppHandle` instance:
 ```rust title="src-tauri/src/lib.rs"
 #[tauri::command]
 async fn my_custom_command(app_handle: tauri::AppHandle) {
-	let app_dir = app_handle.path().app_dir();
-	use tauri::GlobalShortcutManager;
-	app_handle.global_shortcut_manager().register("CTRL + U", move || {});
+	use tauri::Manager;
+	use tauri_plugin_global_shortcut::GlobalShortcutExt;
+	let app_dir = app_handle.path().app_data_dir();
+	app_handle.global_shortcut().register("CTRL + U");
 }
 ```
 
@@ -462,14 +480,15 @@ but if you want to use a different runtime, for example the [mock runtime],
 you need to write your functions like this
 
 ```rust title="src-tauri/src/lib.rs" ins="<R: Runtime>" ins="<R>"
-use tauri::{AppHandle, GlobalShortcutManager, Runtime, WebviewWindow};
+use tauri::{AppHandle, Manager, Runtime, WebviewWindow};
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 #[tauri::command]
 async fn my_custom_command<R: Runtime>(app_handle: AppHandle<R>, webview_window: WebviewWindow<R>) {
-  let app_dir = app_handle.path().app_dir();
+  let app_dir = app_handle.path().app_data_dir();
   app_handle
-    .global_shortcut_manager()
-    .register("CTRL + U", move || {});
+    .global_shortcut()
+    .register("CTRL + U");
   println!("WebviewWindow: {}", webview_window.label());
 }
 ```
@@ -541,7 +560,7 @@ and include request headers in the third argument:
 
 ```js
 const data = new Uint8Array([1, 2, 3]);
-await __TAURI__.core.invoke('upload', data, {
+await window.__TAURI__.core.invoke('upload', data, {
   headers: {
     Authorization: 'apikey',
   },
@@ -558,11 +577,11 @@ call will be used. You must pass each command to a single call of
 ```rust title="src-tauri/src/lib.rs"
 #[tauri::command]
 fn cmd_a() -> String {
-	"Command a"
+	"Command a".into()
 }
 #[tauri::command]
 fn cmd_b() -> String {
-	"Command b"
+	"Command b".into()
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

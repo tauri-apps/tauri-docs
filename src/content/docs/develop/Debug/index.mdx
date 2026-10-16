@@ -50,6 +50,7 @@ fn main() {
 The first place to look for errors is in the Rust Console. This is in the terminal where you ran, e.g., `tauri dev`. You can use the following code to print something to that console from within a Rust file:
 
 ```rust frame=none
+# let msg = "hello";
 println!("Message from Rust: {}", msg);
 ```
 
@@ -93,6 +94,7 @@ The inspector is platform-specific, rendering the webkit2gtk WebInspector on Lin
 You can control the inspector window visibility by using the [`WebviewWindow::open_devtools`] and [`WebviewWindow::close_devtools`] functions:
 
 ```rust
+# use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
     #[cfg(debug_assertions)] // only include this code on debug builds

@@ -170,10 +170,15 @@ beforeAll(() => {
 test('invoke', async () => {
   mockWindows('main', 'second', 'third');
 
-  const { getCurrent, getAll } = await import('@tauri-apps/api/webviewWindow');
+  const { getCurrentWebviewWindow, getAllWebviewWindows } =
+    await import('@tauri-apps/api/webviewWindow');
 
-  expect(getCurrent()).toHaveProperty('label', 'main');
-  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
+  expect(getCurrentWebviewWindow()).toHaveProperty('label', 'main');
+  expect((await getAllWebviewWindows()).map((w) => w.label)).toEqual([
+    'main',
+    'second',
+    'third',
+  ]);
 });
 ```
 

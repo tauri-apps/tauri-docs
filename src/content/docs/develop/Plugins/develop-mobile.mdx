@@ -23,8 +23,9 @@ The desktop implementation uses Rust code to implement a functionality, while th
 
 ```rust title="src/lib.rs"
 use tauri::Runtime;
+# pub struct Example<R: Runtime>(tauri::AppHandle<R>);
 
-impl<R: Runtime> <plugin-name><R> {
+impl<R: Runtime> Example<R> {
   pub fn do_something(&self) {
     // do something that is a shared implementation between desktop and mobile
   }
@@ -246,7 +247,7 @@ class ExamplePlugin: Plugin {
 
 Use the [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0/tauri/plugin/struct.PluginHandle.html) to call a mobile command from Rust:
 
-```rust
+```rust ignore
 use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 use tauri::Runtime;
@@ -264,7 +265,7 @@ pub struct Photo {
 }
 
 
-impl<R: Runtime> <plugin-name;pascal-case><R> {
+impl<R: Runtime> Example<R> {
   pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
     self
       .0
@@ -440,7 +441,9 @@ static func helloWorld(name: String) -> String? {
 Then, implement the Rust side. The `extern` functions here must match the `@_silgen_name` annotations on the Swift side:
 
 ```rust
-#[no_mangle]
+use std::ffi::{c_char, CStr, CString};
+
+#[unsafe(no_mangle)]
 pub unsafe extern "C" fn hello_world_ffi(c_name: *const c_char) -> *mut c_char {
     let name = match CStr::from_ptr(c_name).to_str() {
         Ok(s) => s,
@@ -461,7 +464,7 @@ pub unsafe extern "C" fn hello_world_ffi(c_name: *const c_char) -> *mut c_char {
     }
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub unsafe extern "C" fn free_hello_result_ffi(result: *mut c_char) {
     if !result.is_null() {
         drop(CString::from_raw(result));
@@ -524,15 +527,17 @@ Those commands can be directly called from JavaScript or Rust:
 <Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
-```javascript
-import { invoke, PermissionState } from '@tauri-apps/api/core'
+```typescript
+import { invoke, PermissionState } from '@tauri-apps/api/core';
 
 interface Permissions {
-  postNotification: PermissionState
+  postNotification: PermissionState;
 }
 
 // check permission state
-const permission = await invoke<Permissions>('plugin:<plugin-name>|checkPermissions')
+const permission = await invoke<Permissions>(
+  'plugin:<plugin-name>|checkPermissions'
+);
 
 if (permission.postNotification === 'prompt-with-rationale') {
   // show information to the user about why permission is needed
@@ -540,14 +545,17 @@ if (permission.postNotification === 'prompt-with-rationale') {
 
 // request permission
 if (permission.postNotification.startsWith('prompt')) {
-  const state = await invoke<Permissions>('plugin:<plugin-name>|requestPermissions', { permissions: ['postNotification'] })
+  const state = await invoke<Permissions>(
+    'plugin:<plugin-name>|requestPermissions',
+    { permissions: ['postNotification'] }
+  );
 }
 ```
 
 </TabItem>
 <TabItem label="Rust">
 
-```rust
+```rust ignore
 use serde::{Serialize, Deserialize};
 use tauri::{plugin::PermissionState, Runtime};
 
@@ -637,17 +645,13 @@ class ExamplePlugin: Plugin {
 
 The helper functions can then be called from the NPM package by using the [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener) helper function:
 
-```javascript
+```typescript
 import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
 
 export async function onRequest(
-	handler: (url: string) => void
+  handler: (url: string) => void
 ): Promise<PluginListener> {
-	return await addPluginListener(
-		'<plugin-name>',
-		'event-name',
-		handler
-	);
+  return await addPluginListener('<plugin-name>', 'event-name', handler);
 }
 ```
 

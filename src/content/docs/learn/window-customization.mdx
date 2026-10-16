@@ -233,6 +233,9 @@ From the code in the previous section, we remove `data-tauri-drag-region` and ad
 Add an event listener to the titlebar element:
 
 ```js {2-9}
+import { getCurrentWindow } from '@tauri-apps/api/window';
+const appWindow = getCurrentWindow();
+// ---cut---
 // ...
 document.getElementById('titlebar')?.addEventListener('mousedown', (e) => {
   if (e.buttons === 1) {

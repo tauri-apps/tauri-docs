@@ -1,0 +1,60 @@
+name: 'Check code snippets'
+
+on:
+  pull_request:
+    paths:
+      - 'src/content/docs/**'
+      - 'packages/doc-snippets/**'
+      - 'packages/tauri'
+      - 'packages/plugins-workspace'
+      - '.github/workflows/check-snippets.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: snippets-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typescript:
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - run: git submodule update --init packages/tauri packages/plugins-workspace
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm i
+
+      - name: Type check TypeScript and JavaScript blocks
+        run: node packages/doc-snippets/check-ts.mjs
+
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - run: git submodule update --init packages/tauri packages/plugins-workspace
+
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/doc-snippets
+
+      - name: Compile Rust blocks
+        run: node packages/doc-snippets/check-rust.mjs

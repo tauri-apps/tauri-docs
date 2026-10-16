@@ -89,6 +89,7 @@ On the Rust side, import the `tauri_plugin_shell::ShellExt` trait and call the `
 use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::CommandEvent;
 use tauri::Emitter;
+# let app: tauri::AppHandle = todo!();
 
 let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
 let (mut rx, mut child) = sidecar_command

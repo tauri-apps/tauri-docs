@@ -33,12 +33,12 @@ The following examples use [Vitest], but you can use any other frontend testing 
 
 ### Mocking Commands for `invoke`
 
-```javascript
-import { beforeAll, expect, test } from "vitest";
-import { randomFillSync } from "crypto";
+```typescript
+import { beforeAll, expect, test } from 'vitest';
+import { randomFillSync } from 'crypto';
 
-import { mockIPC } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/core";
+import { mockIPC } from '@tauri-apps/api/mocks';
+import { invoke } from '@tauri-apps/api/core';
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
@@ -52,12 +52,12 @@ beforeAll(() => {
   });
 });
 
-
-test("invoke simple", async () => {
+test('invoke simple', async () => {
   mockIPC((cmd, args) => {
     // simulated rust command called "add" that just adds two numbers
-    if(cmd === "add") {
-      return (args.a as number) + (args.b as number);
+    if (cmd === 'add') {
+      const { a, b } = args as { a: number; b: number };
+      return a + b;
     }
   });
 });
@@ -66,12 +66,12 @@ test("invoke simple", async () => {
 Sometimes you want to track more information about an IPC call; how many times was the command invoked? Was it invoked at all?
 You can use [`mockIPC()`] with other spying and mocking tools to test this:
 
-```javascript
-import { beforeAll, expect, test, vi } from "vitest";
-import { randomFillSync } from "crypto";
+```typescript
+import { beforeAll, expect, test, vi } from 'vitest';
+import { randomFillSync } from 'crypto';
 
-import { mockIPC } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/core";
+import { mockIPC } from '@tauri-apps/api/mocks';
+import { invoke } from '@tauri-apps/api/core';
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
@@ -85,45 +85,60 @@ beforeAll(() => {
   });
 });
 
-
-test("invoke", async () => {
+test('invoke', async () => {
   mockIPC((cmd, args) => {
     // simulated rust command called "add" that just adds two numbers
-    if(cmd === "add") {
-      return (args.a as number) + (args.b as number);
+    if (cmd === 'add') {
+      const { a, b } = args as { a: number; b: number };
+      return a + b;
     }
   });
 
   // we can use the spying tools provided by vitest to track the mocked function
-  const spy = vi.spyOn(window.__TAURI_INTERNALS__, "invoke");
+  const spy = vi.spyOn(window.__TAURI_INTERNALS__, 'invoke');
 
-  expect(invoke("add", { a: 12, b: 15 })).resolves.toBe(27);
+  expect(invoke('add', { a: 12, b: 15 })).resolves.toBe(27);
   expect(spy).toHaveBeenCalled();
 });
 ```
 
-To mock IPC requests to a sidecar or shell command you need to grab the ID of the event handler when `spawn()` or `execute()` is called and use this ID to emit events the backend would send back:
+To mock a sidecar or shell command, handle the commands the shell plugin invokes: `execute()` resolves with the process output,
+while `spawn()` receives a channel you can use to send the events the backend would emit:
 
-```javascript
+```typescript
+import { mockIPC } from '@tauri-apps/api/mocks';
+import type { Channel } from '@tauri-apps/api/core';
+
 mockIPC(async (cmd, args) => {
-  if (args.message.cmd === 'execute') {
-    const eventCallbackId = `_${args.message.onEventFn}`;
-    const eventEmitter = window[eventCallbackId];
+  if (cmd === 'plugin:shell|execute') {
+    return {
+      code: 0,
+      signal: null,
+      stdout: 'some data sent from the process',
+      stderr: '',
+    };
+  }
+
+  if (cmd === 'plugin:shell|spawn') {
+    const { onEvent } = args as { onEvent: Channel<unknown> };
 
     // 'Stdout' event can be called multiple times
-    eventEmitter({
+    onEvent.onmessage({
       event: 'Stdout',
       payload: 'some data sent from the process',
     });
 
     // 'Terminated' event must be called at the end to resolve the promise
-    eventEmitter({
+    onEvent.onmessage({
       event: 'Terminated',
       payload: {
         code: 0,
-        signal: 'kill',
+        signal: null,
       },
     });
+
+    // the process id
+    return 1;
   }
 });
 ```
@@ -195,10 +210,15 @@ beforeAll(() => {
 test('invoke', async () => {
   mockWindows('main', 'second', 'third');
 
-  const { getCurrent, getAll } = await import('@tauri-apps/api/webviewWindow');
+  const { getCurrentWebviewWindow, getAllWebviewWindows } =
+    await import('@tauri-apps/api/webviewWindow');
 
-  expect(getCurrent()).toHaveProperty('label', 'main');
-  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
+  expect(getCurrentWebviewWindow()).toHaveProperty('label', 'main');
+  expect((await getAllWebviewWindows()).map((w) => w.label)).toEqual([
+    'main',
+    'second',
+    'third',
+  ]);
 });
 ```
 

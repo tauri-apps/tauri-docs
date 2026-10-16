@@ -106,7 +106,7 @@ import CTA from '@fragments/cta.mdx';
 
     const ext = process.platform === 'win32' ? '.exe' : '';
 
-    const rustInfo = execSync('rustc -vV');
+    const rustInfo = execSync('rustc -vV', { encoding: 'utf8' });
     const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
     if (!targetTriple) {
       console.error('无法确定平台目标三元组');

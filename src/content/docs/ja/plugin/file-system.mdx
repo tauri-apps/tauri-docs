@@ -414,7 +414,7 @@ await file.close();
   ```js
   import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const icon = await readFile('icon.png', {
-    baseDir: BaseDirectory.Resources,
+    baseDir: BaseDirectory.Resource,
   });
   ```
 
@@ -480,8 +480,8 @@ const metadata = await stat('app.db', {
 ```js
 import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
 await rename('user.db.bk', 'user.db', {
-  fromPathBaseDir: BaseDirectory.AppLocalData,
-  toPathBaseDir: BaseDirectory.Temp,
+  oldPathBaseDir: BaseDirectory.AppLocalData,
+  newPathBaseDir: BaseDirectory.Temp,
 });
 ```
 

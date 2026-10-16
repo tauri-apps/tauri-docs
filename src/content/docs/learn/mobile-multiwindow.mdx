@@ -280,14 +280,17 @@ function openDetail(id) {
 ```rust
 use tauri::Manager;
 
+# fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
 let main_window = app.get_webview_window("main").unwrap();
 // use the main_window instance so the relationships are determined automatically
-let builder = tauri::WebviewWindowBuilder::new(main_window, "detail", tauri::WebviewUrl::App("detail/1".into()));
+let builder = tauri::WebviewWindowBuilder::new(&main_window, "detail", tauri::WebviewUrl::App("detail/1".into()));
 
 #[cfg(target_os = "android")]
 let builder = builder.activity_name("DetailActivity");
 
 let window = builder.build()?;
+# Ok(())
+# }
 ```
 
 </TabItem>
@@ -305,8 +308,11 @@ Once a window has been created, you can retrieve its platform-specific identifie
 <TabItem label="JavaScript">
 
 ```javascript
-const activityName = await window.activityName();
-const sceneId = await window.sceneIdentifier();
+import { getCurrentWindow } from '@tauri-apps/api/window';
+
+const appWindow = getCurrentWindow();
+const activityName = await appWindow.activityName();
+const sceneId = await appWindow.sceneIdentifier();
 ```
 
 </TabItem>

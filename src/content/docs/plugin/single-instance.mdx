@@ -94,6 +94,7 @@ The closure has three arguments:
 So, the closure should look like below
 
 ```rust
+# tauri::Builder::default()
 .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
   // Write your code here...
 }))

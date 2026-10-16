@@ -101,6 +101,7 @@ console.log(result);
 
 ```rust
 use tauri_plugin_shell::ShellExt;
+# let app_handle: tauri::AppHandle = todo!();
 
 let shell = app_handle.shell();
 let output = tauri::async_runtime::block_on(async move {
