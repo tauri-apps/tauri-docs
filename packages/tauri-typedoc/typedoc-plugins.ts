@@ -6,10 +6,9 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync
 import { posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { StarlightTypeDocOptions } from 'starlight-typedoc';
-import { normalizeGeneratedPage } from './normalize.mjs';
 
-// Generation is skipped when the output exists and matches the checked-out submodule revision,
-// so a typedoc option change alone regenerates nothing: delete the stamp file to force it.
+// Generation is skipped when the output exists, matches the checked-out submodule revision
+// and the three pipeline files below are unchanged since the stamp was written.
 
 // POSIX separators throughout: TypeDoc rejects Windows `\` in entryPoints globs.
 const { join, dirname } = posix;
@@ -26,20 +25,29 @@ const STAMP_FILE = join(ROOT, '.astro/tauri-typedoc-revisions.json');
 
 const CORE_OUTPUT = `${REF_BASE}/api`;
 
-// Stamped alongside the revisions, so editing normalize.mjs re-normalizes without regenerating.
-const NORMALIZE_STAMP_KEY = 'normalize.mjs';
-const NORMALIZE_HASH = createHash('sha1')
-  .update(readFileSync(join(PKG_DIR, 'normalize.mjs')))
-  .digest('hex');
+// Stamped alongside the revisions: an edit to any of these changes the output, so it
+// regenerates everything. Pages are rewritten in place, so re-normalizing alone can't undo a
+// transform that already ran.
+const PIPELINE_STAMP_KEY = 'pipeline';
+const PIPELINE_FILES = ['typedoc-plugins.ts', 'typedoc-tauri-plugin.mjs', 'normalize.mjs'];
+const PIPELINE_HASH = PIPELINE_FILES.reduce(
+  (hash, file) => hash.update(readFileSync(join(PKG_DIR, file))),
+  createHash('sha1')
+).digest('hex');
 
 type SidebarItem = NonNullable<StarlightUserConfig['sidebar']>[number];
 
+// A plugin without a tsconfig can't be converted; skipping it beats failing every astro command.
 function discoverPlugins(): string[] {
   if (!existsSync(PLUGINS_DIR)) return [];
   return readdirSync(PLUGINS_DIR, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
-    .filter((name) => existsSync(join(PLUGINS_DIR, name, 'guest-js/index.ts')))
+    .filter(
+      (name) =>
+        existsSync(join(PLUGINS_DIR, name, 'guest-js/index.ts')) &&
+        existsSync(join(PLUGINS_DIR, name, 'tsconfig.json'))
+    )
     .sort();
 }
 
@@ -52,14 +60,15 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
     'typedoc-plugin-frontmatter',
     join(PKG_DIR, 'typedoc-tauri-plugin.mjs'),
   ],
-  // Starlight's on-page ToC stops at h3, which would drop method and enum-member headings.
+  // Starlight's default depth: kind groups (h2) and symbols (h3). 5 would also list class
+  // members and enum members.
   frontmatterGlobals: { tableOfContents: { maxHeadingLevel: 3 } },
   // Plugin sources carry TS errors of their own; type-checking them is their CI's job.
   skipErrorChecking: true,
   // Git detection is unreliable in submodule checkouts. Note `displayBasePath`, not
   // `basePath`: under disableGit the {path} placeholder resolves against the former only.
   disableGit: true,
-  outputFileStrategy: 'modules',
+  router: 'module',
   flattenOutputFiles: true,
   entryFileName: 'index.md',
   useCodeBlocks: true,
@@ -73,7 +82,7 @@ const sharedTypeDoc: NonNullable<StarlightTypeDocOptions['typeDoc']> & {
   typeDeclarationFormat: 'table',
   enumMembersFormat: 'table',
   useHTMLAnchors: true,
-  // hideGroupHeadings: true,
+  // TypeDoc's default order with Functions moved up, ahead of the type-level groups.
   groupOrder: [
     'Documents',
     'Modules',
@@ -122,6 +131,7 @@ function needsGeneration(
   stamp: Record<string, string>
 ): boolean {
   if (!outputIndexExists(output)) return true;
+  if (stamp[PIPELINE_STAMP_KEY] !== PIPELINE_HASH) return true;
   // No resolvable revision (no git): fall back to the existence check above.
   return revision !== null && stamp[output] !== revision;
 }
@@ -135,37 +145,25 @@ function removeStaleFlatFiles(): void {
   }
 }
 
-function walkMarkdownFiles(dir: string): string[] {
-  return readdirSync(dir, { recursive: true, withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
-    .map((entry) => join(entry.parentPath.replaceAll('\\', '/'), entry.name));
-}
-
 // Must be pushed last, since Starlight runs plugins in array order. The stamp is written only
 // after generation succeeds, so a failed build stays stale and retries next time.
 function makeFinalizerPlugin(
   stamp: Record<string, string>,
-  generated: Record<string, string>
+  generated: Record<string, string>,
+  regenerated: boolean
 ): StarlightPlugin {
   return {
     name: 'tauri-typedoc-finalizer',
     hooks: {
       'config:setup'({ command }) {
         if (command === 'preview') return;
-        if (Object.keys(generated).length === 0 && stamp[NORMALIZE_STAMP_KEY] === NORMALIZE_HASH)
-          return;
-        if (existsSync(REF_DIR)) {
-          for (const file of walkMarkdownFiles(REF_DIR)) {
-            const content = readFileSync(file, 'utf8');
-            const normalized = normalizeGeneratedPage(content);
-            if (normalized !== content) writeFileSync(file, normalized);
-          }
-        }
+        removeStaleFlatFiles();
+        if (!regenerated) return;
         mkdirSync(dirname(STAMP_FILE), { recursive: true });
         writeFileSync(
           STAMP_FILE,
           `${JSON.stringify(
-            { ...stamp, ...generated, [NORMALIZE_STAMP_KEY]: NORMALIZE_HASH },
+            { ...stamp, ...generated, [PIPELINE_STAMP_KEY]: PIPELINE_HASH },
             null,
             2
           )}\n`
@@ -182,8 +180,9 @@ function makePackagePlugin(opts: {
   displayBasePath: string;
   sourceLinkTemplate: string;
 }): StarlightPlugin {
-  // A fresh instance per package, each with its own output dir: shared instances collide on
-  // the sidebar placeholder, and TypeDoc wipes its output dir on every run.
+  // A fresh instance per package, each with its own output dir: starlight-typedoc rejects
+  // overlapping or nested output dirs, and its per-instance sidebar placeholder goes unused
+  // because the sidebar below is built from what is on disk.
   const [instance] = createStarlightTypeDocPlugin();
   return instance({
     tsconfig: opts.tsconfig,
@@ -235,8 +234,6 @@ export function getTauriTypeDocPlugins(): {
   plugins: StarlightPlugin[];
   sidebarItems: SidebarItem[];
 } {
-  removeStaleFlatFiles();
-
   const stamp = readStamp();
   const plugins: StarlightPlugin[] = [];
   const generated: Record<string, string> = {};
@@ -263,7 +260,7 @@ export function getTauriTypeDocPlugins(): {
     );
   } else {
     console.warn(
-      'Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
+      '[typedoc] Tauri V2 submodule is not initialized, respective API routes will not be rendered.'
     );
   }
 
@@ -289,11 +286,11 @@ export function getTauriTypeDocPlugins(): {
     }
   } else {
     console.warn(
-      'Plugins workspace submodule is not initialized, respective API routes will not be rendered.'
+      '[typedoc] Plugins workspace submodule is not initialized, respective API routes will not be rendered.'
     );
   }
 
-  plugins.push(makeFinalizerPlugin(stamp, generated));
+  plugins.push(makeFinalizerPlugin(stamp, generated, plugins.length > 0));
 
   return { plugins, sidebarItems: buildSidebarItems(coreReady, pluginNames) };
 }
