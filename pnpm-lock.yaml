@@ -219,15 +219,24 @@ importers:
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
       '@types/node':
         specifier: ^24.13.4
         version: 24.13.4
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
 
   packages/fetch-sponsors:
     dependencies:
