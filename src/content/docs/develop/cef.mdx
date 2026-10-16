@@ -1,0 +1,277 @@
+---
+title: Chromium Embedded Framework
+i18nReady: false
+---
+
+:::caution[Tauri 3.0 alpha]
+
+The CEF runtime is new in the Tauri 3.0 alpha and is not available in Tauri 2.0. Its APIs may still change before the stable release.
+
+:::
+
+The [Chromium Embedded Framework](https://github.com/chromiumembedded/cef) (CEF) embeds a full Chromium browser in your app.
+Tauri 3.0 supports it as a [webview runtime](/develop/webview-runtime/) through the `tauri-runtime-cef` crate, as an alternative to the system webview used by `tauri-runtime-wry`.
+
+CEF is the right choice when the system webview is not enough:
+
+- **Consistent rendering**: every user runs the same Chromium version on Windows, macOS, and Linux, and you choose which one. You no longer need to work around platform-specific CSS bugs, missing web APIs on older WebKit releases, or the [webview version matrix](/reference/webview-versions/).
+- **Chromium features**: the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/), Chromium's process sandbox, its permission and content settings model, and its command line switches are all available from Rust.
+
+It also has costs:
+
+- **Size**: the app ships its own copy of Chromium, so bundles are hundreds of megabytes larger than with wry, and the app uses more memory at runtime.
+- **Desktop only**: CEF supports Windows, macOS, and Linux. Mobile targets keep using wry.
+- **Build time**: the first build downloads the CEF binary distribution (about 1 GB) and, on Windows and macOS, compiles CEF's C++ wrapper library.
+
+## Setup
+
+### Prerequisites
+
+In addition to the [Tauri prerequisites](/start/prerequisites/), you need:
+
+- **CMake** and **Ninja** on Windows and macOS. They compile CEF's `libcef_dll_wrapper` library when the `cef` crate is built.
+- **Disk space** for the CEF binary distribution. The first build downloads it (about 1 GB per platform) into a cache directory shared by every Tauri project on the machine: `~/.cache/tauri-cef` on Linux, `~/Library/Caches/tauri-cef` on macOS, and `%LOCALAPPDATA%\tauri-cef` on Windows. Set the `CEF_PATH` environment variable to use a different directory, or to point to a CEF binary distribution you downloaded and extracted yourself.
+
+On Linux, Chromium's process sandbox works out of the box on distributions that allow unprivileged user namespaces. See [Linux](#linux) for the others.
+
+### Dependencies
+
+Replace `tauri-runtime-wry` with `tauri-runtime-cef` in your Cargo manifest:
+
+```toml title="src-tauri/Cargo.toml" del={3} ins={4}
+[dependencies]
+tauri = "3.0.0-alpha.0"
+tauri-runtime-wry = "3.0.0-alpha.0"
+tauri-runtime-cef = "3.0.0-alpha.0"
+```
+
+This dependency is what selects CEF for the whole toolchain. `tauri-build` and the Tauri CLI detect it in the manifest, and only then ship the CEF binary distribution with the bundle, sign the app with the entitlements Chromium needs on macOS, and run the app from inside an `.app` bundle in `tauri dev`.
+
+The `devtools`, `macos-private-api`, and `unstable` Cargo features are enabled on the runtime crate. See [Runtime Crate Features](/develop/webview-runtime/#runtime-crate-features).
+
+### Entry Point
+
+A CEF app is a single executable that also serves as its own renderer, GPU, network, and utility process: Chromium launches the same binary again with a `--type=` switch for each of them.
+The `#[tauri_runtime_cef::cef_entry_point]` attribute on your `main` function runs those helper processes and returns before the Tauri app is built, so they never create windows of their own:
+
+```rust title="src-tauri/src/main.rs" ins={4}
+// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+#[tauri_runtime_cef::cef_entry_point]
+fn main() {
+  app_lib::run();
+}
+```
+
+The attribute expands to a check for the `--type=` switch that calls `tauri_runtime_cef::run_cef_helper_process()` when the switch is present. That function is public for apps whose entry point cannot take an attribute. Nothing in `main` runs before the check, so put the attribute on the real entry point rather than on a function it calls.
+
+### Select the Runtime
+
+Pass `tauri_runtime_cef::Cef` to `tauri::Builder::runtime`:
+
+```rust title="src-tauri/src/lib.rs" del={3} ins={4}
+pub fn run() {
+  tauri::Builder::default()
+    .runtime(tauri_runtime_wry::Wry::default())
+    .runtime(tauri_runtime_cef::Cef::default())
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+}
+```
+
+From here on, `tauri dev` and `tauri build` work as usual, and the [portable Tauri APIs](/develop/calling-rust/) (commands, events, windows, menus, the tray icon, and plugins) behave the same as on wry.
+The frontend is served from `http://tauri.localhost` on every platform (or `https://` when `app > windows > useHttpsScheme` is enabled), which is the URL the wry runtime already uses on Windows.
+
+## Configuring Chromium
+
+`Cef` is a builder that configures Chromium before it starts. Its defaults suit an app rather than a browser: release builds ignore Chromium switches on their own command line, the remote debugging server is off, Chrome's "Save password?", autofill, and translate bubbles are disabled, and development builds skip the OS secret store so that rebuilds do not prompt for the keychain.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_runtime_cef::{Cef, SandboxPolicy, SecretStorage};
+
+let cef = Cef::default()
+  // Never run unsandboxed, even when that means Chromium aborts at startup.
+  .sandbox(SandboxPolicy::Required)
+  // Always use the OS secret store, even in development builds.
+  .secret_storage(SecretStorage::System)
+  // Chromium profile preferences, boolean or of any type.
+  .profile_preference("safebrowsing.enabled", false)
+  .profile_preference_value("download.default_directory", "/tmp/downloads")
+  // Raw Chromium switches, applied to the browser process only.
+  .command_line_arg("disable-gpu", None::<String>)
+  // The `cef::Settings` struct as CEF receives it, for what `Cef` has no method for.
+  .with_settings(|settings| settings.persist_session_cookies = 1);
+
+tauri::Builder::default().runtime(cef);
+```
+
+The `Cef` methods and the enums they take are documented in the crate. The sections below group the ones you are most likely to need.
+
+### Process Sandbox
+
+`sandbox(SandboxPolicy)` controls Chromium's process sandbox, which isolates the renderer processes from the operating system. The default, `SandboxPolicy::Auto`, keeps the sandbox wherever it can and logs a warning where it cannot. `Required` refuses to start without it, and `Disabled` never uses it.
+
+- **macOS** always keeps the sandbox: the helper apps load `libcef_sandbox` before the framework.
+- **Linux** keeps it on distributions with unprivileged user namespaces or with the setuid `chrome-sandbox` helper, which the Debian and RPM packages install. An AppImage cannot ship a setuid helper, so on a system that also restricts user namespaces (Ubuntu 23.10 and later, through AppArmor), `Auto` drops the sandbox rather than aborting with Chromium's "No usable sandbox!" error.
+- **Windows** currently runs unsandboxed regardless of the policy. Since Chromium M138, only a binary built with Chromium's own toolchain can create the sandbox broker, and a Tauri app is not one. `Auto` logs a warning and `Required` fails to start.
+
+### Storage
+
+- `root_cache_path` is the directory Chromium writes its profile to. It defaults to `{user cache}/{identifier}/cef`.
+- `secret_storage(SecretStorage)` selects the key that encrypts cookies and saved passwords at rest. `Auto` (the default) uses the OS secret store in release builds and Chromium's mock keychain in development builds, so an ad-hoc signed development build on macOS does not prompt for the keychain password after every rebuild. `System` always uses the OS store. `Mock` never does, which is what a release build needs when it runs where there is no secret store at all, such as a container or a CI image. Switching between the two makes the cookies stored under the previous key unreadable.
+- `persist_session_cookies` keeps session cookies across restarts, for an app that should keep users signed in.
+
+### Command Line and Features
+
+- `command_line_arg` and `command_line_args` append raw Chromium switches. They apply to the browser process only, since Chromium forwards to each child process the switches it needs, and they are unaffected by `allow_chromium_command_line_args`.
+- `enable_features` and `disable_features` add names to Chromium's `--enable-features` and `--disable-features` lists while keeping the entries CEF put there. A raw `--disable-features` switch would replace the whole list.
+- `javascript_flags` passes flags to V8, such as `--max-old-space-size=512`.
+- `allow_chromium_command_line_args` lets Chromium read switches from the process command line in release builds. It is off by default, so that whoever can start the shipped executable cannot also start it with `--remote-debugging-port` or `--disable-web-security`. Development builds always honor the command line.
+
+### Preferences and Content Settings
+
+- `profile_preference` and `profile_preference_value` set Chromium profile preferences on every webview's request context. They are applied after the runtime's own defaults, so they can turn a preference the runtime disabled (`credentials_enable_service`, `autofill.profile_enabled`, `translate.enabled`, and others) back on. Preferences worth knowing include `printing.enabled`, `download.default_directory`, `download.prompt_for_download`, `enable_do_not_track`, `dns_over_https.mode`, `profile.cookie_controls_mode`, and the `hardware.audio_capture_enabled` and `hardware.video_capture_enabled` kill switches.
+- `global_preference` sets a preference in Chromium's local state, the store shared by every profile, such as `hardware_acceleration_mode.enabled`.
+- `default_content_setting` sets the default answer of a content setting for every origin. This is the app-wide policy, as opposed to the per-request `on_permission_request` handler. With `ContentSettingValues::BLOCK` a page cannot ask at all, and with `ALLOW` the permission is granted without a prompt. Blocking `ContentSettingTypes::JAVASCRIPT_JIT` runs V8 without its optimizing compilers, at a cost in JavaScript performance.
+- Typed shortcuts exist for the common cases: `proxy(ProxyConfig)`, `autoplay(AutoplayPolicy)`, `webrtc_ip_handling(WebRtcIpHandling)`, `certificate_errors(CertificateErrorPolicy)`, `spell_checking`, `safe_browsing`, and `component_updates`.
+
+### Developer Tools and Debugging
+
+- `devtools(DevToolsPolicy)` decides whether the app may open a DevTools window at all. `Auto` (the default) allows it in a build that could open one anyway, that is, a debug build or one with the `devtools` feature, and refuses it otherwise. It combines with the per-webview `devtools` attribute.
+- `remote_debugging(RemoteDebugging)` runs Chromium's DevTools protocol server, the one behind `chrome://inspect`. It is `Disabled` by default. `Port { port, allowed_origins }` listens on a TCP port, reachable by every process on the machine, and `Pipe` speaks the protocol over inherited file descriptors, reachable only by the process that launched the app.
+- `debug_environment(DebugEnvironment)` decides whether Chromium reads its diagnostic environment variables, such as `SSLKEYLOGFILE`. By default they are honored in development builds and refused in release builds.
+- `log_file`, `log_severity`, and `log_items` control the Chromium log, which is written to `cef.log` inside the cache directory by default.
+
+### Identity
+
+- `user_agent_product` inserts a product token such as `MyApp/1.2.0` into Chromium's own User-Agent string. `user_agent` replaces the whole string, dropping the Chrome and platform tokens that sites branch on.
+- `accept_language_list` is sent as the `Accept-Language` header and reported by `navigator.languages`.
+- `locale` selects the locale Chromium loads its own UI strings from (context menus, error pages, and form controls). Leave it unset: the bundler ships only the `en-US` locale pack, so naming another locale leaves Chromium unable to load its strings.
+- `chrome_policy_id` enables Chrome enterprise policy management. Policies are read from the registry key, bundle identifier, or `/etc/opt` directory it names.
+
+### Deep Links
+
+Deep links delivered to an already running app go through Chromium's process singleton, which relays the command line of the new process. CEF clears that command line, and the runtime restores the deep link URL onto it so that `RunEvent::Opened` still fires.
+The schemes declared under `plugins > deep-link > desktop` in `tauri.conf.json` are picked up automatically. `deep_link_schemes` adds schemes an app registers itself.
+
+## Webview APIs
+
+The CEF-specific webview APIs are extension traits on the Tauri types, implemented for both `CefRuntime` and the type-erased `tauri::DynRuntime`, so nothing has to name the runtime type. On a non-CEF runtime they fail with `tauri_runtime::Error::RuntimeTypeMismatch`.
+
+:::caution[Observers run on CEF's UI thread]
+
+The `on_console_message`, `on_frame_event`, `on_dev_tools_protocol`, `on_new_window`, and `on_permission_request` callbacks run **synchronously on CEF's UI thread**, the thread that drives the browser. A callback that blocks there blocks the browser. Do not wait on the Tauri event loop from one, and do not call `Emitter::emit` from one either, because it reaches into the runtime to evaluate a script in the webview.
+Push the observation into a channel and emit it from a task on Tauri's async runtime instead.
+
+:::
+
+### Building a Webview
+
+`WebviewWindowBuilderCefExt` adds these methods to `tauri::WebviewWindowBuilder`:
+
+- `browser_runtime_style(RuntimeStyle)` picks `RuntimeStyle::Chrome` or `RuntimeStyle::Alloy` for each browser. The runtime's defaults are written for the Chrome style. The Alloy style has no Chrome UI at all, so it lacks both Chrome's accelerator table and its desktop media picker.
+- `allow_chrome_commands([ChromeCommandGroup, ...])` gives back groups of Chrome keyboard shortcuts. A Chrome style browser keeps its whole accelerator table live even when hosted as a child view with no browser UI, so the runtime swallows the families that make no sense in an app window: new window and tab, the tab strip, history, downloads, settings, print, save page, view source, and the omnibox. Name a group to restore that family, for example `ChromeCommandGroup::Document` for Ctrl+P and `ChromeCommandGroup::History` for Alt+Left.
+- `on_console_message` observes the messages the renderer writes to the JavaScript console, without DevTools having to be open.
+- `on_frame_event` observes the native lifecycle of every frame of the browser, child frames included: creation, attachment, navigation start, document commit, navigation failure, renderer termination, and so on. It does not replace the navigation policy of `on_navigation`.
+- `with_browser_settings` gives you a last look at the `cef::BrowserSettings` before the browser is created, to reach the fields Tauri has no attribute for: the font families and sizes, `remote_fonts`, `local_storage`, `webgl`, and `default_encoding`.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{WebviewUrl, WebviewWindowBuilder};
+use tauri_runtime_cef::{ChromeCommandGroup, RuntimeStyle, WebviewWindowBuilderCefExt};
+
+tauri::Builder::default()
+  .runtime(tauri_runtime_cef::Cef::default())
+  .setup(|app| {
+    WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
+      .browser_runtime_style(RuntimeStyle::Chrome)
+      // Ctrl+P prints and Alt+Left goes back, as a user expects.
+      .allow_chrome_commands([ChromeCommandGroup::Document, ChromeCommandGroup::History])
+      .on_console_message(|message| {
+        println!("[{}:{}] {:?}: {}", message.source, message.line, message.level, message.message);
+      })
+      .build()?;
+    Ok(())
+  });
+```
+
+The same methods are available on `tauri::webview::WebviewBuilder` through `WebviewBuilderCefExt`, for a window hosting several webviews. Like the multiwebview API it extends, that trait is behind the `unstable` feature.
+
+### Chrome DevTools Protocol
+
+`WebviewCefExt` lets you drive a webview through the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/):
+
+- `send_dev_tools_message` sends one JSON request to the DevTools agent of the webview's browser.
+- `on_dev_tools_protocol` observes the protocol traffic of that browser: `DevToolsProtocol::Event { method, params }` for notifications, `DevToolsProtocol::MethodResult { message_id, success, result }` for responses, and the raw `DevToolsProtocol::Message` for both.
+
+Every observer on a browser sees every response, including the responses to requests the runtime itself sends. Take the request `id` from `allocate_devtools_message_id()` rather than from a counter of your own, and match the responses against it:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+use tauri_runtime_cef::{DevToolsProtocol, WebviewCefExt, allocate_devtools_message_id};
+
+fn enable_page_events(app: &tauri::AppHandle) -> tauri::Result<()> {
+  let webview = app.get_webview_window("main").unwrap();
+  let message_id = allocate_devtools_message_id()?;
+
+  webview.on_dev_tools_protocol(move |protocol| match protocol {
+    DevToolsProtocol::Event { method, params } => {
+      println!("{method}: {}", String::from_utf8_lossy(&params));
+    }
+    DevToolsProtocol::MethodResult { message_id: id, success, .. } if id == message_id => {
+      println!("Page.enable success={success}");
+    }
+    _ => {}
+  })?;
+
+  let message = format!(r#"{{"id":{message_id},"method":"Page.enable","params":{{}}}}"#);
+  webview.send_dev_tools_message(message.as_bytes())?;
+  Ok(())
+}
+```
+
+The observer is scoped to the webview's own native browser. A popup that CEF opened itself (see [Popups and Permissions](#popups-and-permissions)) is a separate browser, and its traffic never reaches the observer.
+
+### Native Handle
+
+`WebviewCefExt::with_cef_webview` runs a closure on CEF's UI thread with the `tauri_runtime_cef::Webview` handle. The handle exposes the raw `cef::Browser` through `browser()`, along with a snapshot of the native state CEF sampled for that callback: the browser identity, the admitted document, the native window identity, visibility and bounds, observed JavaScript dialogs, and the browser's CEF-owned popups through `popups()`.
+The closure cannot return a value, so hand the result back through a channel.
+
+`tauri_runtime_cef::cef` re-exports the [`cef` crate](https://docs.rs/cef) for the types those APIs take and return. It follows the Chromium Embedded Framework interface and offers no API stability, so pin the runtime to a minor version if you reach into it.
+
+### Popups and Permissions
+
+The portable `on_new_window` handler works as on wry, with one CEF-specific addition: `features.opener().as_cef_window_opener()` (from the `AsCefWindowOpener` trait) returns the opener's main-frame URL directly. This is safer than a blocking webview getter in a callback that runs on CEF's UI thread.
+Answering `NewWindowResponse::Allow` leaves the popup to CEF, which opens a native browser of its own with no Tauri window label. Answering `NewWindowResponse::Create` keeps it a Tauri window.
+
+The portable `on_permission_request` handler is honored: an `Allow` grants the permission without Chrome's prompt, and a `Deny` refuses it without one. Three things are worth knowing:
+
+- Chromium consults the handler only while the stored content setting still says "ask", and an answer persists the decision to the on-disk profile. The handler therefore runs once per origin and permission, across restarts. Camera and microphone are the exception: every `getUserMedia()` call reaches the handler.
+- Permissions Tauri has no kind for (storage access, FedCM, protocol handler registration, idle detection, and WebXR) arrive as `PermissionKind::Other`. Answer `PermissionResponse::Default` for the ones you did not mean to decide about. Denying the whole set breaks third-party sign-in flows.
+- `PermissionKind::DisplayCapture` is never granted by an `Allow`. An allow with no named source would share the whole desktop without a picker, so the runtime hands the request back to Chromium's picker.
+
+## Development
+
+`tauri dev` builds and runs the app as usual. What differs from wry:
+
+- The CLI sets `CEF_PATH` for the Cargo build to `{user cache}/tauri-cef` (or your own value), so that the `cef` crate's build script finds the CEF binary distribution there and downloads it on the first build.
+- On **Windows** and **Linux**, the build script copies the CEF binaries and resources next to the executable in the Cargo target directory, where Chromium expects them.
+- On **macOS**, the app runs from inside an `.app` bundle. CEF launches its helper apps by path from inside the bundle, so it cannot run as a bare executable. The CLI builds, bundles, and launches the bundled executable, which makes `tauri dev` take a little longer than with wry.
+
+DevTools open with F12 or Ctrl+Shift+I and through the context menu, and `Webview::open_devtools` works as on wry. Release builds need the `devtools` feature of `tauri-runtime-cef`, subject to the [`DevToolsPolicy`](#developer-tools-and-debugging).
+
+## Bundling
+
+`tauri build` ships the CEF binary distribution with your app:
+
+- **Windows** and **Linux**: `libcef`, its resources, and the `en-US` locale pack are shipped with the app, next to the executable on Windows and in the AppImage, and under `/usr/share/<product name>` in the Debian and RPM packages. The Windows installers skip the WebView2 installation step, and the Debian and RPM packages do not depend on webkit2gtk.
+- **macOS**: `Chromium Embedded Framework.framework` is placed in the app bundle's `Contents/Frameworks`, along with five helper apps (`<App> Helper`, `Helper (GPU)`, `Helper (Renderer)`, `Helper (Plugin)`, and `Helper (Alerts)`). The bundler compiles the helper executable at bundle time against the `cef` crate version your app resolved. The app is signed with the entitlements Chromium's JIT needs under the hardened runtime (`com.apple.security.cs.allow-jit`, `com.apple.security.cs.allow-unsigned-executable-memory`, and `com.apple.security.cs.disable-library-validation`), so [code signing and notarization](/distribute/sign/macos/) work as usual.
+
+### Linux
+
+The Debian and RPM packages install Chromium's setuid `chrome-sandbox` helper with mode 4755, so packaged apps always have a working sandbox.
+An AppImage cannot: its payload is mounted `nosuid`, so it relies on unprivileged user namespaces, which some distributions restrict. See [Process Sandbox](#process-sandbox) for what happens there.
+
+## Example
+
+The [CEF example](https://github.com/tauri-apps/tauri/tree/v3/examples/cef) in the Tauri repository is a full app that exercises every API on this page, with comments on the Rust side of each.
