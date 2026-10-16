@@ -1,49 +1,92 @@
 import { Converter, ReflectionKind, makeRecursiveVisitor } from 'typedoc';
 import { MarkdownPageEvent } from 'typedoc-plugin-markdown';
 import { normalizeGeneratedPage } from './normalize.mjs';
+import { PLUGIN_SOURCES, hashFiles } from './pipeline-sources.mjs';
 
-/**
- * Markdown headings inside doc comments, rewritten at the reflection level so no source file
- * is touched. Module-level comments keep theirs: `## Security` on a plugin's `@module` block
- * is a genuine section of the page. Everywhere else a heading is a label on one member, and
- * as a heading it either leaks its `####` into a table cell (properties, enum members,
- * parameters) or renders as a section label like `Parameters`.
- *
- *   `#### Platform-specific:`             -> `**Platform-specific**`
- *   `#### Note`                           -> `**Note**`
- *   `#### - **macOS / iOS**: Unsupported` -> list item, else it becomes a real `<h4>` anchored
- *                                            at `#--macos--android--ios-unsupported` (no
- *                                            current source has one; kept as a guard)
- */
+// TypeDoc loads plugins with a native `import()`, so a long-lived `astro dev` keeps the first copy
+// while the stamp would record the edited files. Converting with a stale copy fails instead,
+// before anything is stamped
+const ownSourceHash = () => hashFiles(PLUGIN_SOURCES).digest('hex');
+const LOADED_SOURCE_HASH = ownSourceHash();
+
+// headings in doc comments, rewritten on the reflection so no source file is touched. Module
+// comments keep theirs (`## Security` on a plugin's `@module` block is a real section). Anywhere
+// else a heading labels one member, and as a heading it leaks `####` into table cells or reads
+// like a section label such as `Parameters`
+//
+//   `#### Platform-specific:`             -> `**Platform-specific**`
+//   `#### Note`                           -> `**Note**`
+//   `#### - **macOS / iOS**: Unsupported` -> list item, else a real `<h4>` (none in current
+//                                            sources, kept as a guard)
 const PLATFORM_HEADING_RE = /^#{1,6}[ \t]+(Platform-specific):?[ \t]*$/gm;
 const ANY_HEADING_RE = /^#{1,6}[ \t]+(.+?):?[ \t]*$/gm;
 const LIST_ITEM_HEADING_RE = /^#{1,6}[ \t]+(-[ \t]+\S.*)$/gm;
 const MODULE_LEVEL = ReflectionKind.Project | ReflectionKind.Module | ReflectionKind.Namespace;
 
-// TS 5.7+ makes Uint8Array generic, so signatures pick up lib-level `<ArrayBuffer>` noise.
-// Only those two are dropped; an explicit `Uint8Array<SharedArrayBuffer>` survives.
+// TS 5.7+ made Uint8Array generic and upstream writes `Uint8Array<ArrayBuffer>` to satisfy it,
+// which is noise to a reader. A `Uint8Array<SharedArrayBuffer>` says something and stays
+const PLAIN_BUFFERS = new Set(['ArrayBuffer', 'ArrayBufferLike']);
+
 function stripUint8Generic(type) {
   if (type.name !== 'Uint8Array' || type.typeArguments?.length !== 1) return;
-  const arg = type.typeArguments[0];
-  if (arg.type === 'reference' && (arg.name === 'ArrayBuffer' || arg.name === 'ArrayBufferLike')) {
-    type.typeArguments = undefined;
-  }
+  const [buffer] = type.typeArguments;
+  if (buffer.type === 'reference' && PLAIN_BUFFERS.has(buffer.name)) type.typeArguments = undefined;
 }
 
-const STRIP_UINT8_VISITOR = makeRecursiveVisitor({ reference: stripUint8Generic });
+// TS 5.6+ gave the lib iterator types defaulted `TReturn`/`TNext` parameters, which TypeDoc prints
+// even where the source wrote `AsyncIterableIterator<string>`. Trailing `any`s are those defaults
+const ITERATOR_TYPES = new Set([
+  'Iterator',
+  'IterableIterator',
+  'IteratorObject',
+  'Generator',
+  'AsyncIterator',
+  'AsyncIterableIterator',
+  'AsyncIteratorObject',
+  'AsyncGenerator',
+]);
+
+const isAny = (type) => type.type === 'intrinsic' && type.name === 'any';
+
+function stripIteratorDefaults(type) {
+  const args = type.typeArguments;
+  if (!ITERATOR_TYPES.has(type.name) || !args) return;
+  while (args.length > 1 && isAny(args.at(-1))) args.pop();
+}
+
+const LIB_NOISE_VISITOR = makeRecursiveVisitor({
+  reference(type) {
+    stripUint8Generic(type);
+    stripIteratorDefaults(type);
+  },
+});
 
 /** @param {boolean} keepHeadings module-level comment: only the Platform-specific variants go */
 export function normalizeCommentText(text, keepHeadings) {
   if (!text.includes('#')) return text;
-  return text
-    .replace(LIST_ITEM_HEADING_RE, '$1')
-    .replace(keepHeadings ? PLATFORM_HEADING_RE : ANY_HEADING_RE, '**$1**');
+  const headingRe = keepHeadings ? PLATFORM_HEADING_RE : ANY_HEADING_RE;
+  return text.replace(LIST_ITEM_HEADING_RE, '$1').replace(headingRe, '**$1**');
 }
 
-function normalizeCommentDisplayParts(parts, keepHeadings) {
-  for (const part of parts) {
-    if (part.kind === 'text') part.text = normalizeCommentText(part.text, keepHeadings);
-  }
+// a heading can span display parts (`#### Requires the \`unstable\` Cargo feature` arrives as
+// text, code, text), so non-text parts become private-use placeholders while the regexes run
+const placeholder = (index) => `${index}`;
+const PLACEHOLDER_RE = /(\d+)/;
+
+export function normalizeCommentDisplayParts(parts, keepHeadings) {
+  if (!parts.some((part) => part.kind === 'text' && part.text.includes('#'))) return;
+  const joined = parts
+    .map((part, i) => (part.kind === 'text' ? part.text : placeholder(i)))
+    .join('');
+  const normalized = normalizeCommentText(joined, keepHeadings);
+  if (normalized === joined) return;
+
+  // split() with a capture group alternates text pieces and the captured part indexes
+  const rebuilt = normalized.split(PLACEHOLDER_RE).flatMap((piece, i) => {
+    if (i % 2 === 1) return [parts[Number(piece)]];
+    return piece ? [{ kind: 'text', text: piece }] : [];
+  });
+  parts.splice(0, parts.length, ...rebuilt);
 }
 
 function normalizeComment(comment, keepHeadings) {
@@ -52,16 +95,12 @@ function normalizeComment(comment, keepHeadings) {
   for (const tag of comment.blockTags) normalizeCommentDisplayParts(tag.content, keepHeadings);
 }
 
-// Plain-text first paragraph of a reflection's summary, for `description:` frontmatter. Links
-// keep their label and inline code its text; anything else is left as written.
+// plain-text short summary for `description:` frontmatter, from `@summary` or else the first
+// paragraph. Links keep their label and inline code its text
 function summaryText(reflection) {
-  const summary = reflection.comment?.summary;
-  if (!summary?.length) return undefined;
-  const text = summary
+  const text = (reflection.comment?.getShortSummary(true) ?? [])
     .map((part) => part.text)
     .join('')
-    .trim()
-    .split(/\n\s*\n/)[0]
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/`([^`]*)`/g, '$1')
     .replace(/\s+/g, ' ')
@@ -70,10 +109,10 @@ function summaryText(reflection) {
 }
 
 export function load(app) {
-  // starlight-typedoc sets `title` to the bare reflection name in its own BEGIN listener, and
-  // priority -1 runs after it. A namespace page titled `path` means nothing once the link is
-  // shared, so it takes the import specifier and keeps the short name for the sidebar. The
-  // summary doubles as the page's meta description and its Open Graph card text.
+  // priority -1 runs after starlight-typedoc's BEGIN listener, which sets `title` to the bare
+  // name. A namespace page titled `path` means nothing once shared, so it gets the import
+  // specifier and the sidebar keeps the short name. The summary also feeds the meta and Open
+  // Graph descriptions
   app.renderer.on(
     MarkdownPageEvent.BEGIN,
     (page) => {
@@ -89,8 +128,8 @@ export function load(app) {
     -1
   );
 
-  // After typedoc-plugin-frontmatter has prepended the frontmatter (priority 0), so the page
-  // is exactly what lands on disk.
+  // after typedoc-plugin-frontmatter prepends the frontmatter (priority 0), so the page is
+  // exactly what lands on disk
   app.renderer.on(
     MarkdownPageEvent.END,
     (page) => {
@@ -100,19 +139,24 @@ export function load(app) {
   );
 
   app.converter.on(Converter.EVENT_RESOLVE_BEGIN, (context) => {
+    // thrown here it propagates out of `app.convert()`, while an error from `load()` is only
+    // logged and TypeDoc carries on without the plugin
+    if (ownSourceHash() !== LOADED_SOURCE_HASH) {
+      throw new Error(
+        '[tauri-typedoc] pipeline files changed since this process loaded them; restart astro dev'
+      );
+    }
     for (const reflection of Object.values(context.project.reflections)) {
+      // signatures and parameters are registered reflections too, so this flat pass reaches
+      // their comments and types
       normalizeComment(reflection.comment, reflection.kindOf(MODULE_LEVEL));
-      // Signatures belong to functions and methods, never to a module.
-      for (const sig of reflection.signatures ?? []) normalizeComment(sig.comment, false);
-      // Signatures and parameters are registered reflections too, so this flat pass reaches
-      // return, parameter and property types.
-      reflection.type?.visit(STRIP_UINT8_VISITOR);
+      reflection.type?.visit(LIB_NOISE_VISITOR);
     }
   });
 
-  // Re-exports from a dependency (fs re-exporting BaseDirectory) resolve under node_modules,
-  // and `sourceLinkTemplate` would give them a GitHub URL that doesn't exist. Drop the link
-  // and shorten the pnpm store path to `@tauri-apps/api/path.d.ts`.
+  // re-exports from a dependency (fs re-exporting BaseDirectory) resolve under node_modules, where
+  // `sourceLinkTemplate` would build a GitHub URL that doesn't exist. Drop the link and shorten
+  // the pnpm store path to `@tauri-apps/api/path.d.ts`
   app.converter.on(Converter.EVENT_RESOLVE_END, (context) => {
     for (const reflection of Object.values(context.project.reflections)) {
       for (const source of reflection.sources ?? []) {

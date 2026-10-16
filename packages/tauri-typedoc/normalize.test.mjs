@@ -191,3 +191,7 @@ test('is idempotent over a page exercising every transform', () => {
   const once = n(page);
   assert.equal(n(once), once);
 });
+
+test('unescapes a link label whose code span has escaped brackets', () => {
+  assert.equal(n('Returns [\\`Foo\\[\\]\\`](#foo).'), 'Returns [`Foo[]`](#foo).');
+});

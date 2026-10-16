@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeCommentText } from './typedoc-tauri-plugin.mjs';
+import { normalizeCommentDisplayParts, normalizeCommentText } from './typedoc-tauri-plugin.mjs';
 
 test('member comments: every heading becomes a bold label, trailing colon dropped', () => {
   assert.equal(normalizeCommentText('#### Platform-specific:', false), '**Platform-specific**');
@@ -28,4 +28,30 @@ test('a heading that is really a list item becomes the item, in both contexts', 
 test('text without a hash is returned as is', () => {
   const src = 'plain\n\n- list';
   assert.equal(normalizeCommentText(src, false), src);
+});
+
+test('a heading split by inline code becomes one bold label', () => {
+  const code = { kind: 'code', text: '`unstable`' };
+  const parts = [
+    { kind: 'text', text: 'Intro\n\n#### Requires the ' },
+    code,
+    { kind: 'text', text: ' Cargo feature:\n\nmore' },
+  ];
+  normalizeCommentDisplayParts(parts, false);
+  assert.deepEqual(parts, [
+    { kind: 'text', text: 'Intro\n\n**Requires the ' },
+    code,
+    { kind: 'text', text: ' Cargo feature**\n\nmore' },
+  ]);
+});
+
+test('display parts without a heading are left untouched', () => {
+  const parts = [
+    { kind: 'text', text: 'Uses ' },
+    { kind: 'code', text: '`#[command]`' },
+    { kind: 'text', text: ' here' },
+  ];
+  const before = structuredClone(parts);
+  normalizeCommentDisplayParts(parts, false);
+  assert.deepEqual(parts, before);
 });

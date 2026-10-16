@@ -89,7 +89,8 @@ const authors = {
 
 const site = 'https://v2.tauri.app';
 
-const { plugins: typeDocPlugins, sidebarItems: typeDocSidebarItems } = getTauriTypeDocPlugins();
+const { plugins: typeDocPlugins, sidebarItems: typeDocSidebarItems } =
+  await getTauriTypeDocPlugins();
 
 // https://astro.build/config
 export default defineConfig({
