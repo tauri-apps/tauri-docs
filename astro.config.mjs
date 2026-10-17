@@ -13,6 +13,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
+import { getTauriTypeDocPlugins } from 'tauri-typedoc';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
 import { hasGeneratedReleasePages } from './src/release-config.mjs';
@@ -88,6 +89,9 @@ const authors = {
 
 const site = 'https://v2.tauri.app';
 
+const { plugins: typeDocPlugins, sidebarItems: typeDocSidebarItems } =
+  await getTauriTypeDocPlugins();
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -95,6 +99,7 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [
+        ...typeDocPlugins,
         starlightBlog({
           authors,
           // We're doing it in `src/components/overrides/Header.astro`
@@ -344,11 +349,7 @@ export default defineConfig({
                 {
                   label: 'JavaScript',
                   collapsed: true,
-                  items: [
-                    {
-                      autogenerate: { directory: 'reference/javascript', collapsed: true },
-                    },
-                  ],
+                  items: typeDocSidebarItems,
                 },
                 {
                   label: 'Rust (docs.rs)',

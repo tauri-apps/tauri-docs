@@ -35,12 +35,18 @@
       "groupName": "unified packages"
     },
     {
-      "matchPackageNames": ["typedoc", "typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+      "matchPackageNames": [
+        "typedoc",
+        "typedoc-plugin-markdown",
+        "typedoc-plugin-mdn-links",
+        "typedoc-plugin-frontmatter",
+        "starlight-typedoc"
+      ],
       "enabled": false
     },
     {
-      "description": "typedoc needs the TypeScript JS compiler API, which typescript >= 7 (native compiler) no longer ships. The typescript instance in the typedoc package context must stay on the last JS-based line; the repo root's typescript follows the latest release.",
-      "matchFileNames": ["packages/js-api-generator/**"],
+      "description": "typedoc needs the TypeScript JS compiler API, which typescript >= 7 (native compiler) no longer ships. The typescript instance in the typedoc package context stays on 5.9, the line the generated reference was validated against, until typedoc supports the native compiler; the repo root's typescript follows the latest release.",
+      "matchFileNames": ["packages/tauri-typedoc/**"],
       "matchPackageNames": ["typescript"],
       "enabled": false
     }
