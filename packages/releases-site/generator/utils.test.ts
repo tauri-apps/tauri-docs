@@ -46,3 +46,12 @@ test('escapes template-ish sequences outside code but not inside', () => {
 test('leaves an unpaired backtick as prose', () => {
   assert.equal(escapeChangelogMarkdown('stray ` tick "x"'), 'stray ` tick &quot;x&quot;');
 });
+
+test('leaves fenced code blocks nested in list items untouched', () => {
+  const input =
+    '- Fix `Menu` <b>\n    \n    ```ts\n    text: "Hello", alert(\'World\')\n    ```\n    \n    After "q"';
+  assert.equal(
+    escapeChangelogMarkdown(input),
+    '- Fix `Menu` &lt;b&gt;\n    \n    ```ts\n    text: "Hello", alert(\'World\')\n    ```\n    \n    After &quot;q&quot;'
+  );
+});
