@@ -6,7 +6,8 @@ sidebar:
 i18nReady: true
 ---
 
-import SinceVersion from '../../../components/SinceVersion.astro';import TranslationNote from '@components/i18n/TranslationNote.astro';
+import SinceVersion from '@components/SinceVersion.astro';
+import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 <SinceVersion version="2.1.0" />
 
@@ -123,10 +124,10 @@ timing-allow-origin: https://developer.mozilla.org, https://example.com
 
 - フレームワークは「ビルド時には」設定ファイルで定義されているヘッダーを含めません。
 - Tauri はフレームワークの「開発サーバーへは」ヘッダーを挿入することができません。最終的なビルド出力にのみヘッダーを挿入できます。
-  
+
 :::
 
-#### JavaScript／TypeScript 
+#### JavaScript／TypeScript
 
 ビルド・ツールに「**Vite**（ヴィート）」を使用している環境設定では（**Qwik、React、Solid、Svelte、Vue** など）、必要なヘッダーを 設定ファイル「`vite.config.ts`」に追加してください。
 
