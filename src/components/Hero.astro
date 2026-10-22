@@ -18,11 +18,11 @@ const { tagline, getStarted, v1Docs } = Astro.props;
     <div class="lp-header-content">
       <LogoLight class="lp-tauri-logo light" />
       <LogoDark class="lp-tauri-logo dark" />
-      <p class="lp-tagline">
-        {tagline}
-      </p>
+      <p class="lp-tagline">{tagline}</p>
       <div class="actions">
-        <LinkButton icon="right-arrow" href="/start/">{getStarted}</LinkButton>
+        <LinkButton icon="right-arrow" href="/start/">
+          {getStarted}
+        </LinkButton>
         <LinkButton href="https://v1.tauri.app" variant="minimal" icon="external">
           {v1Docs}
         </LinkButton>

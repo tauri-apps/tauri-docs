@@ -15,46 +15,34 @@ const { npm, yarn, pnpm, bun, cargo, deno } = Astro.props;
 ---
 
 <Tabs syncKey="cmd">
-  {
-    npm && (
-      <TabItem label="npm">
-        <Code code={npm} lang="sh" frame="none" />
-      </TabItem>
-    )
-  }
-  {
-    yarn && (
-      <TabItem label="yarn">
-        <Code code={yarn} lang="sh" frame="none" />
-      </TabItem>
-    )
-  }
-  {
-    pnpm && (
-      <TabItem label="pnpm">
-        <Code code={pnpm} lang="sh" frame="none" />
-      </TabItem>
-    )
-  }
-  {
-    deno && (
-      <TabItem label="deno">
-        <Code code={deno} lang="sh" frame="none" />
-      </TabItem>
-    )
-  }
-  {
-    bun && (
-      <TabItem label="bun">
-        <Code code={bun} lang="sh" frame="none" />
-      </TabItem>
-    )
-  }
-  {
-    cargo && (
-      <TabItem label="cargo">
-        <Code code={cargo} lang="sh" frame="none" />
-      </TabItem>
-    )
-  }
+  {npm && (
+    <TabItem label="npm">
+      <Code code={npm} lang="sh" frame="none" />
+    </TabItem>
+  )}
+  {yarn && (
+    <TabItem label="yarn">
+      <Code code={yarn} lang="sh" frame="none" />
+    </TabItem>
+  )}
+  {pnpm && (
+    <TabItem label="pnpm">
+      <Code code={pnpm} lang="sh" frame="none" />
+    </TabItem>
+  )}
+  {deno && (
+    <TabItem label="deno">
+      <Code code={deno} lang="sh" frame="none" />
+    </TabItem>
+  )}
+  {bun && (
+    <TabItem label="bun">
+      <Code code={bun} lang="sh" frame="none" />
+    </TabItem>
+  )}
+  {cargo && (
+    <TabItem label="cargo">
+      <Code code={cargo} lang="sh" frame="none" />
+    </TabItem>
+  )}
 </Tabs>

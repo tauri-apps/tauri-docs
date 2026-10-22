@@ -21,9 +21,9 @@ const list: Entry[] = [
 ---
 
 <CardGrid>
-  {
-    list
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map((item) => <LinkCard title={item.name} href={item.href} description={item.description} />)
-  }
+  {list
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((item) => (
+      <LinkCard title={item.name} href={item.href} description={item.description} />
+    ))}
 </CardGrid>

@@ -9,29 +9,27 @@ const gitHubSponsors = await getGitHubSponsors();
 const gitHubSponsorsLoaded = gitHubSponsors.length > 0;
 ---
 
-{
-  gitHubSponsorsLoaded && (
-    <div class="container">
-      {gitHubSponsors.map((sponsor: GitHubSponsor) => (
-        <div>
-          <a
-            href={`https://github.com/${encodeURIComponent(sponsor.name)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              class="avatar"
-              width={GH_IMAGE_DIMENSION}
-              height={GH_IMAGE_DIMENSION}
-              src={sponsor.avatarUrl ?? fallbackImage.src}
-              alt={sponsor.name}
-            />
-          </a>
-        </div>
-      ))}
-    </div>
-  )
-}
+{gitHubSponsorsLoaded && (
+  <div class="container">
+    {gitHubSponsors.map((sponsor: GitHubSponsor) => (
+      <div>
+        <a
+          href={`https://github.com/${encodeURIComponent(sponsor.name)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            class="avatar"
+            width={GH_IMAGE_DIMENSION}
+            height={GH_IMAGE_DIMENSION}
+            src={sponsor.avatarUrl ?? fallbackImage.src}
+            alt={sponsor.name}
+          />
+        </a>
+      </div>
+    ))}
+  </div>
+)}
 
 <style>
   /* todo: extract shared css */

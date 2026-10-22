@@ -48,14 +48,17 @@ const library = Astro.props.library
 
 <a
   class="not-content"
-  href={Astro.props.href
-    ? Astro.props.href
-    : library
-      ? `${Astro.url.origin}/release/${library}/v${Astro.props.version}/`
-      : `${Astro.url.origin}/release/tauri/v${Astro.props.version}/`}
+  href={
+    Astro.props.href
+      ? Astro.props.href
+      : library
+        ? `${Astro.url.origin}/release/${library}/v${Astro.props.version}/`
+        : `${Astro.url.origin}/release/tauri/v${Astro.props.version}/`
+  }
   target="_blank"
 >
-  <Icon name="seti:clock" />Since <code>{Astro.props.version}</code>
+  <Icon name="seti:clock" />
+  Since <code>{Astro.props.version}</code>
 </a>
 
 <style>

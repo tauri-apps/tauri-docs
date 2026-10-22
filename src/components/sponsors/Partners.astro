@@ -32,20 +32,18 @@ const partners: Partner[] = [
 
 <div class="partners-container">
   <div class="partners">
-    {
-      partners.map((partner) => (
-        <a href={partner.url} target="_blank" rel="noopener noreferrer" class="partner not-content">
-          <div class="partner-logo">
-            {partner.svg && (
-              <>
-                <partner.svg.light class="external-logo light" />
-                <partner.svg.dark class="external-logo dark" />
-              </>
-            )}
-            {partner.image && <Image src={partner.image} alt={partner.name} />}
-          </div>
-        </a>
-      ))
-    }
+    {partners.map((partner) => (
+      <a href={partner.url} target="_blank" rel="noopener noreferrer" class="partner not-content">
+        <div class="partner-logo">
+          {partner.svg && (
+            <>
+              <partner.svg.light class="external-logo light" />
+              <partner.svg.dark class="external-logo dark" />
+            </>
+          )}
+          {partner.image && <Image src={partner.image} alt={partner.name} />}
+        </div>
+      </a>
+    ))}
   </div>
 </div>

@@ -26,7 +26,6 @@ Note: Dynamically generated pages will result in a 404 error until you run `pnpm
 You can run these locally before opening a PR:
 
 - `pnpm format:check` — Prettier formatting (auto-fix with `pnpm format`). CI runs this on every PR.
-- `pnpm check` — type-checks the docs with `astro check` (the `packages/` submodules are excluded).
 - `pnpm build` — full production build, including the reference/config/cli/release generators and the internal-link validator. Requires the submodules, so run `pnpm dev:setup` at least once first. This is the same build the Netlify deploy preview runs on every PR.
 
 ### Gitpod

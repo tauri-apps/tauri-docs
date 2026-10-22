@@ -31,11 +31,9 @@ function describe(pkg: (typeof repo)['packages'][number]): string {
 
 <div class="repo-packages">
   <CardGrid>
-    {
-      repo.packages.map((pkg) => (
-        <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
-      ))
-    }
+    {repo.packages.map((pkg) => (
+      <LinkCard title={pkg.name} href={`/release/${pkg.name}/`} description={describe(pkg)} />
+    ))}
   </CardGrid>
 </div>
 

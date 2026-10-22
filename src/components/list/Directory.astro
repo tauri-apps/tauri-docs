@@ -3,13 +3,13 @@ import config from 'virtual:starlight/user-config';
 import {
   stripLeadingAndTrailingSlashes,
   ensureTrailingSlash,
-} from 'node_modules/@astrojs/starlight/utils/path';
+} from 'node_modules/@astrojs/starlight/dist/utils/path';
 import { CardGrid } from '@astrojs/starlight/components';
-import { routes } from 'node_modules/@astrojs/starlight/utils/routing';
+import { routes } from 'node_modules/@astrojs/starlight/dist/utils/routing';
 
 // custom component copied from starlight/components/LinkCard
 import CustomLinkCard from '@components/plugins/CustomLinkCard.astro';
-import type { Route } from 'node_modules/@astrojs/starlight/utils/routing/types';
+import type { Route } from 'node_modules/@astrojs/starlight/dist/utils/routing/types';
 
 interface Props {
   /**
@@ -153,30 +153,26 @@ if (!sortAlphabetically) {
 ---
 
 <CardGrid>
-  {
-    mainList.map((item) => {
-      return (
-        <CustomLinkCard
-          title={item.entry.data.title}
-          href={`/${item.id}/`}
-          description={item.entry.data.description}
-          footer={callback instanceof Function && callback(item.id)}
-        />
-      );
-    })
-  }
-  {
-    locale !== defaultLocale &&
-      fallbackList.map((item) => (
-        <CustomLinkCard
-          class="fallback-badge"
-          title={item.entry.data.title}
-          href={`/${item.id}/`}
-          description={item.entry.data.description}
-          footer={callback instanceof Function && callback(item.id)}
-        />
-      ))
-  }
+  {mainList.map((item) => {
+    return (
+      <CustomLinkCard
+        title={item.entry.data.title}
+        href={`/${item.id}/`}
+        description={item.entry.data.description}
+        footer={callback instanceof Function && callback(item.id)}
+      />
+    );
+  })}
+  {locale !== defaultLocale &&
+    fallbackList.map((item) => (
+      <CustomLinkCard
+        class="fallback-badge"
+        title={item.entry.data.title}
+        href={`/${item.id}/`}
+        description={item.entry.data.description}
+        footer={callback instanceof Function && callback(item.id)}
+      />
+    ))}
 </CardGrid>
 
 <style>

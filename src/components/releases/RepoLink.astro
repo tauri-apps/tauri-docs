@@ -12,7 +12,9 @@ if (!repo) {
 const slug = repo.repoUrl.replace('https://github.com/', '').replace(/\/$/, '');
 ---
 
-<a class="repo-link" href={repo.repoUrl} target="_blank" rel="noopener noreferrer">{slug}</a>
+<a class="repo-link" href={repo.repoUrl} target="_blank" rel="noopener noreferrer">
+  {slug}
+</a>
 
 <style>
   .repo-link {

@@ -6,7 +6,7 @@ sidebar:
 i18nReady: true
 ---
 
-Tauri can serve files from disk into the WebView through the **asset** custom protocol (for example when you use [`convertFileSrc`](https://v2.tauri.app/reference/javascript/api/namespacecore/#convertfilesrc) in the frontend). Whether a path is allowed is controlled by **`app.security.assetProtocol`** in `tauri.conf.json`.
+Tauri can serve files from disk into the WebView through the **asset** custom protocol (for example when you use [`convertFileSrc`](/reference/javascript/api/namespacecore/#convertfilesrc) in the frontend). Whether a path is allowed is controlled by **`app.security.assetProtocol`** in `tauri.conf.json`.
 
 You must set **`enable`** to `true` and define a **`scope`** that lists which filesystem paths may be exposed. Paths resolved at runtime must match that scope, or the WebView will refuse the load (often with an error such as “asset protocol not configured to allow the path”).
 

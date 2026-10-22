@@ -30,28 +30,26 @@ const headerLinks = links.map((link) => {
 });
 ---
 
-{
-  isRelease ? (
-    <>
-      {/* below 50rem the header nav is hidden — without these the docs are unreachable */}
-      <div class="md:sl-hidden">
-        <SidebarSublist sublist={headerLinks} />
-      </div>
-      <StarlightSidebar />
-    </>
-  ) : sidebar && isPageWithTopic ? (
-    <Default>
-      <slot />
-    </Default>
-  ) : (
-    <>
-      <SidebarPersister>
-        <SidebarSublist sublist={headerLinks} />
-      </SidebarPersister>
+{isRelease ? (
+  <>
+    {/* below 50rem the header nav is hidden — without these the docs are unreachable */}
+    <div class="md:sl-hidden">
+      <SidebarSublist sublist={headerLinks} />
+    </div>
+    <StarlightSidebar />
+  </>
+) : sidebar && isPageWithTopic ? (
+  <Default>
+    <slot />
+  </Default>
+) : (
+  <>
+    <SidebarPersister>
+      <SidebarSublist sublist={headerLinks} />
+    </SidebarPersister>
 
-      <div class="md:sl-hidden">
-        <MobileMenuFooter />
-      </div>
-    </>
-  )
-}
+    <div class="md:sl-hidden">
+      <MobileMenuFooter />
+    </div>
+  </>
+)}

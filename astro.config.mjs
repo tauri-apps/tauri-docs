@@ -79,6 +79,11 @@ const authors = {
     title: 'Tauri Development',
     picture: '/authors/tony.jpeg',
   },
+  fabianlars: {
+    name: 'Fabian-Lars',
+    title: 'Tauri Board Director',
+    picture: '/authors/fabianlars.jpeg',
+  },
 };
 
 const site = 'https://v2.tauri.app';
@@ -373,6 +378,7 @@ export default defineConfig({
           errorOnFallbackPages: false,
           errorOnRelativeLinks: false,
           exclude: [
+            '/blog/',
             '/plugin/*/#default-permission',
             '/plugin/*/#permission-table',
             '/release/**',
@@ -472,6 +478,9 @@ export default defineConfig({
       },
       locales,
       lastUpdated: true,
+      markdown: {
+        processedDirs: ['./src/content/releases/'],
+      },
     }),
     {
       // page.astro lives in src/routes/, not src/pages/: only a route when injected

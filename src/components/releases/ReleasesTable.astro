@@ -3,22 +3,24 @@
 ---
 
 <releases-table class="releases-table">
-  <p class="table-state" data-state>Loading…</p>
+  <p class="table-state" data-state>
+    Loading…
+  </p>
 
   <div class="table-toolbar" data-toolbar hidden>
     <div class="table-summary">
       <span class="table-summary-count" data-count></span>
       <span class="table-summary-detail" data-filter-count></span>
     </div>
-    <button class="table-reset" type="button" data-reset hidden>Reset filters</button>
+    <button class="table-reset" type="button" data-reset hidden>
+      Reset filters
+    </button>
   </div>
 
-  {
-    /* not-content: opt the filters out of Starlight's <details>/<summary> markdown
+  {/* not-content: opt the filters out of Starlight's <details>/<summary> markdown
       styling (caret ::before, summary padding), which otherwise breaks the
       Projects dropdown. The changelog dialog must NOT get this class — its
-      content relies on sl-markdown-content styling. */
-  }
+      content relies on sl-markdown-content styling. */}
   <div class="table-filters not-content" data-filters hidden>
     <label class="table-filter">
       <span class="table-filter-label">Repository</span>
@@ -40,7 +42,9 @@
   <div class="table-empty" data-empty hidden>
     <p class="table-empty-title">No matching releases.</p>
     <p class="table-empty-body">Widen the date range or reset filters.</p>
-    <button class="table-reset" type="button" data-reset-empty>Reset filters</button>
+    <button class="table-reset" type="button" data-reset-empty>
+      Reset filters
+    </button>
   </div>
 
   <div class="table-scroll" data-table-wrap hidden>
@@ -61,7 +65,9 @@
   <dialog class="changelog-dialog" data-dialog>
     <div class="changelog-dialog-header">
       <h2 data-dialog-title>Changelog</h2>
-      <button type="button" data-dialog-close>Close</button>
+      <button type="button" data-dialog-close>
+        Close
+      </button>
     </div>
     <div class="changelog-dialog-content sl-markdown-content" data-dialog-content></div>
   </dialog>
