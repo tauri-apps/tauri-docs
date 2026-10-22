@@ -1,0 +1,127 @@
+---
+title: Déboguer dans Neovim
+i18nReady: true
+---
+
+De nombreux plugins différents peuvent servir à déboguer du code Rust dans Neovim. Ce guide montre comment configurer `nvim-dap` et quelques plugins supplémentaires pour déboguer une application Tauri.
+
+### Prérequis
+
+L'extension `nvim-dap` nécessite le binaire `codelldb`. Téléchargez la version adaptée à votre système depuis https://github.com/vadimcn/codelldb/releases et décompressez-la. Nous y ferons référence plus tard dans la configuration `nvim-dap`.
+
+### Configurer nvim-dap
+
+Installez les plugins [`nvim-dap`](https://github.com/mfussenegger/nvim-dap) et [`nvim-dap-ui`](https://github.com/rcarriga/nvim-dap-ui). Suivez les instructions fournies sur leurs pages GitHub ou utilisez simplement votre gestionnaire de plugins préféré.
+Notez que `nvim-dap-ui` nécessite le plugin `nvim-nio`.
+
+Ensuite, configurez le plugin dans votre configuration Neovim :
+
+```lua title="init.lua"
+local dap = require("dap")
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- Change this to your path!
+    command = '/opt/codelldb/adapter/codelldb',
+    args = {"--port", "${port}"},
+  }
+}
+
+dap.configurations.rust= {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false
+  },
+}
+```
+
+Cette configuration vous demandera d'indiquer le binaire de l'app Tauri à déboguer chaque fois que vous lancerez le débogueur.
+
+Vous pouvez éventuellement configurer le plugin `nvim-dap-ui` pour basculer automatiquement la vue du débogueur à chaque démarrage et arrêt de session de débogage :
+
+```lua title="init.lua"
+local dapui = require("dapui")
+dapui.setup()
+
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
+
+```
+
+Enfin, vous pouvez changer la façon par défaut dont les breakpoints sont affichés dans l'éditeur :
+
+```lua title="init.lua"
+vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+```
+
+### Démarrer le serveur de développement
+
+Comme nous n'utilisons pas la CLI Tauri pour lancer l'app, le serveur de développement ne démarrera pas automatiquement. Pour contrôler l'état du serveur de développement depuis Neovim, vous pouvez utiliser le plugin [overseer](https://github.com/stevearc/overseer.nvim/tree/master).
+
+La meilleure façon de contrôler des tâches exécutées en arrière-plan consiste à utiliser une configuration de [tâches de style VS Code](https://github.com/stevearc/overseer.nvim/blob/master/doc/guides.md#vs-code-tasks). Pour cela, créez un fichier `.vscode/tasks.json` dans le répertoire du projet.
+
+Vous trouverez ci-dessous un exemple de configuration de tâche pour un projet utilisant `trunk`.
+
+```json title=".vscode/tasks.json"
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "process",
+      "label": "dev server",
+      "command": "trunk",
+      "args": ["serve"],
+      "isBackground": true,
+      "presentation": {
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^error:.*",
+          "file": 1,
+          "line": 2
+        },
+        "background": {
+          "activeOnStart": false,
+          "beginsPattern": ".*Rebuilding.*",
+          "endsPattern": ".*server listening at:.*"
+        }
+      }
+    }
+  ]
+}
+```
+
+### Exemples de raccourcis clavier
+
+Vous trouverez ci-dessous des exemples de raccourcis clavier pour démarrer et contrôler les sessions de débogage.
+
+```lua title="init.lua"
+vim.keymap.set('n', '<F5>', function() dap.continue() end)
+vim.keymap.set('n', '<F6>', function() dap.disconnect({ terminateDebuggee = true }) end)
+vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>o', function() overseer.toggle() end)
+vim.keymap.set('n', '<Leader>R', function() overseer.run_template() end)
+```

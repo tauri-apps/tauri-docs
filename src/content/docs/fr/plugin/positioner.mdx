@@ -1,0 +1,161 @@
+---
+title: Positioner
+description: Déplacer les fenêtres vers des emplacements courants.
+plugin: positioner
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Positionnez vos fenêtres à des emplacements bien connus.
+
+Ce plugin est un port de [electron-positioner](https://github.com/jenslind/electron-positioner) pour Tauri.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin positioner pour commencer.
+
+:::note
+Si vous souhaitez uniquement déplacer la fenêtre depuis du code Rust, vous n'avez besoin que de la dépendance dans `src-tauri/Cargo.toml`, et vous pouvez supprimer l'enregistrement du plugin dans `lib.rs` si vous choisissez la configuration automatique.
+:::
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+            npm="npm run tauri add positioner"
+            yarn="yarn run tauri add positioner"
+            pnpm="pnpm tauri add positioner"
+            bun="bun tauri add positioner"
+            deno="deno task tauri add positioner"
+            cargo="cargo tauri add positioner"
+    />
+
+    </TabItem>
+    <TabItem label="Manuelle">
+      <Steps>
+
+      1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+          ```sh frame=none
+          cargo add tauri-plugin-positioner --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+          ```
+
+      2. Modifiez `lib.rs` pour initialiser le plugin :
+
+          ```rust title="src-tauri/src/lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(desktop)]
+                      app.handle().plugin(tauri_plugin_positioner::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3. Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-positioner"
+              yarn="yarn add @tauri-apps/plugin-positioner"
+              pnpm="pnpm add @tauri-apps/plugin-positioner"
+              deno="deno add npm:@tauri-apps/plugin-positioner"
+              bun="bun add @tauri-apps/plugin-positioner"
+            />
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+Une configuration supplémentaire est nécessaire pour faire fonctionner les positions relatives à l'icône de zone de notification.
+
+<Steps>
+  1. Ajoutez la fonctionnalité `tray-icon` à votre fichier `Cargo.toml` :
+
+     ```toml title="src-tauri/Cargo.toml" ins={2}
+     [dependencies]
+     tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
+     ```
+
+2.  Configurez `on_tray_event` pour le plugin positioner :
+
+         ```rust title="src-tauri/src/lib.rs" ins={4-12}
+         pub fn run() {
+         	tauri::Builder::default()
+         		// This is required to get tray-relative positions to work
+         		.setup(|app| {
+         				#[cfg(desktop)]
+         				{
+         					app.handle().plugin(tauri_plugin_positioner::init());
+         						tauri::tray::TrayIconBuilder::new()
+         							.on_tray_icon_event(|tray_handle, event| {
+         								tauri_plugin_positioner::on_tray_event(tray_handle.app_handle(), &event);
+         							})
+         							.build(app)?;
+         				}
+         			Ok(())
+         		})
+         		.run(tauri::generate_context!())
+         		.expect("error while running tauri application");
+         }
+         ```
+
+    </Steps>
+
+## Utilisation
+
+Les API du plugin sont disponibles via les liaisons JavaScript invitées :
+
+```javascript
+import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
+// when using `"withGlobalTauri": true`, you may use
+// const { moveWindow, Position } = window.__TAURI__.positioner;
+
+moveWindow(Position.TopRight);
+```
+
+Vous pouvez importer et utiliser l'extension de trait Window directement en Rust :
+
+```rust
+use tauri_plugin_positioner::{WindowExt, Position};
+
+let mut win = app.get_webview_window("main").unwrap();
+let _ = win.as_ref().window().move_window(Position::TopRight);
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "positioner:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

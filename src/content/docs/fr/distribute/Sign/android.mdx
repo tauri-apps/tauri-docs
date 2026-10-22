@@ -1,0 +1,173 @@
+---
+title: Signature du code Android
+sidebar:
+  label: Android
+  order: 15
+i18nReady: true
+---
+
+import { Image } from 'astro:assets';
+import { Code, Tabs, TabItem } from '@astrojs/starlight/components';
+import BuildGradleFiletree from '@assets/distribute/sign/build-gradle-kts-filetree.png';
+
+Pour publier sur le Play Store, vous devez signer votre app avec un certificat numérique.
+
+Les Android App Bundles et APK doivent être signés avant d'être téléversés pour distribution.
+
+Google fournit aussi un mécanisme de signature supplémentaire pour les Android App Bundles distribués dans le Play Store.
+Consultez la [documentation officielle Play App Signing] pour plus d'informations.
+
+## Créer un keystore et une clé d'upload
+
+La signature Android nécessite un fichier Java Keystore qui peut être généré avec la CLI officielle `keytool` :
+
+<Tabs syncKey="OS">
+  <TabItem label="macOS/Linux">
+  
+```
+keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+  </TabItem>
+
+  <TabItem label="Windows">
+  
+```
+keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+  </TabItem>
+</Tabs>
+
+Cette commande stocke le fichier `upload-keystore.jks` dans votre répertoire personnel.
+Si vous voulez le stocker ailleurs, modifiez l'argument passé au paramètre `-keystore`.
+
+:::tip
+
+- La commande `keytool` peut ne pas être dans votre PATH.
+  Vous pouvez la trouver dans le JDK installé avec Android Studio :
+
+<Tabs syncKey="OS">
+
+<TabItem label="Linux">
+  <Code code="/opt/android-studio/jbr/bin/keytool ...args" lang="sh" />
+  **Le chemin du répertoire Android Studio dépend de votre distribution Linux**
+</TabItem>
+
+<TabItem label="macOS">
+  <Code
+    code="/Applications/Android\ Studio.app/Contents/jbr/Contents/Home/bin/keytool ...args"
+    lang="sh"
+  />
+</TabItem>
+
+<TabItem label="Windows">
+  <Code
+    code="C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\keytool.exe ...args"
+    lang="sh"
+  />
+</TabItem>
+
+</Tabs>
+
+:::
+
+:::caution[Avertissement de sécurité]
+
+Gardez le fichier `keystore` privé ; ne le committez pas dans un contrôle de source public.
+
+:::
+
+Consultez la [documentation officielle](https://developer.android.com/studio/publish/app-signing#generate-key) pour plus d'informations.
+
+## Configurer la clé de signature
+
+Créez un fichier nommé `[project]/src-tauri/gen/android/keystore.properties` qui contient une référence à votre keystore :
+
+```
+password=<password defined when keytool was executed>
+keyAlias=upload
+storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks or C:\\Users\\<user name>\\upload-keystore.jks>
+```
+
+:::caution[Avertissement de sécurité]
+Gardez le fichier `keystore.properties` privé ; ne le committez pas dans un contrôle de source public.
+:::
+
+Vous générerez généralement ce fichier sur votre plateforme CI/CD. L'extrait suivant contient un exemple d'étape de job pour GitHub Actions :
+
+```yml
+- name: setup Android signing
+  run: |
+    cd src-tauri/gen/android
+    echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" > keystore.properties
+    echo "password=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
+    base64 -d <<< "${{ secrets.ANDROID_KEY_BASE64 }}" > $RUNNER_TEMP/keystore.jks
+    echo "storeFile=$RUNNER_TEMP/keystore.jks" >> keystore.properties
+```
+
+Dans cet exemple, le keystore a été exporté en base64 avec `base64 -i /path/to/keystore.jks` et défini comme secret `ANDROID_KEY_BASE64`.
+
+### Configurer Gradle pour utiliser la clé de signature
+
+Configurez Gradle pour utiliser votre clé d'upload lors du build de votre app en mode release en modifiant le fichier `[project]/src-tauri/gen/android/app/build.gradle.kts`.
+
+:::tip
+
+Il existe plusieurs fichiers `build.gradle.kts` différents dans un projet Android typique. S'il n'y a pas de bloc `buildTypes`, vous regardez le mauvais fichier. Celui dont vous avez besoin est dans le répertoire `app/`, relatif au fichier keystore de l'étape précédente.
+
+<details>
+  <summary>
+    Cliquez ici pour une capture montrant son emplacement dans une arborescence
+    typique.
+  </summary>
+  <Image
+    src={BuildGradleFiletree}
+    alt="Emplacement de build.gradle.kts dans l'arborescence de fichiers"
+  />
+</details>
+
+:::
+
+1.  Ajoutez l'import nécessaire au début du fichier :
+
+    ```kotlin
+    import java.io.FileInputStream
+    ```
+
+2.  Ajoutez la configuration de signature `release` avant le bloc `buildTypes` :
+
+    ```kotlin {3-12}
+    signingConfigs {
+        create("release") {
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            val keystoreProperties = Properties()
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+            }
+
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["password"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["password"] as String
+        }
+    }
+
+    buildTypes {
+        ...
+    }
+    ```
+
+3.  Utilisez la nouvelle configuration de signature `release` dans la configuration `release` du bloc `buildTypes` :
+
+    ```kotlin {3}
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+    ```
+
+Les builds release de votre app seront maintenant signés automatiquement.
+
+[documentation officielle Play App Signing]: https://support.google.com/googleplay/android-developer/answer/9842756?hl=en&visit_id=638549803861403647-3347771264&rd=1

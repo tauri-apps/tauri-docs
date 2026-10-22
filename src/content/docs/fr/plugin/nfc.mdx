@@ -1,0 +1,416 @@
+---
+title: NFC
+description: Lire et écrire des tags NFC sur Android et iOS.
+plugin: nfc
+i18nReady: true
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Lisez et écrivez des tags NFC sur Android et iOS.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin nfc pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add nfc"
+      yarn="yarn run tauri add nfc"
+      pnpm="pnpm tauri add nfc"
+      bun="bun tauri add nfc"
+      cargo="cargo tauri add nfc"
+    />
+
+  </TabItem>
+  <TabItem label="Manuelle">
+    <Steps>
+
+      1.  Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+          ```sh frame=none
+          cargo add tauri-plugin-nfc --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_nfc::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-nfc"
+              yarn="yarn add @tauri-apps/plugin-nfc"
+              pnpm="pnpm add @tauri-apps/plugin-nfc"
+              deno="deno add npm:@tauri-apps/plugin-nfc"
+              bun="bun add @tauri-apps/plugin-nfc"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Configuration
+
+Le plugin NFC nécessite une configuration native pour iOS.
+
+### iOS
+
+Pour accéder aux API NFC sur iOS, vous devez ajuster la version iOS cible, configurer une description d'utilisation dans le fichier Info.plist et ajouter la capability NFC à votre application.
+
+#### Version IOS cible
+
+Le plugin NFC nécessite iOS 14+. C'est la valeur par défaut pour les applications Tauri créées avec Tauri CLI v2.8 et versions ultérieures, mais vous pouvez modifier votre projet Xcode pour la configurer.
+
+Dans le fichier `src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj`, définissez toutes les propriétés `IPHONEOS_DEPLOYMENT_TARGET` sur `14.0` :
+
+```pbxproj title="src-tauri/gen/apple/<project-name>.xcodeproj/project.pbxproj"
+/* Begin XCBuildConfiguration section */
+		1234567890ABCDEF12345678 /* release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				/* ... */
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = release;
+		};
+		ABCDEF1234567890ABCDEF12 /* debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+        /* ... */
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = debug;
+		};
+```
+
+Vous pouvez aussi définir la cible de déploiement depuis Xcode dans la configuration `General > Minimum Deployments > iOS`.
+
+#### Info.plist
+
+Sur iOS, le plugin NFC nécessite la valeur de liste de propriétés `NFCReaderUsageDescription`, qui doit décrire pourquoi votre app doit scanner ou écrire des tags NFC.
+
+Dans le fichier `src-tauri/Info.ios.plist`, ajoutez l'extrait suivant :
+
+```xml title=src-tauri/Info.ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>NFCReaderUsageDescription</key>
+		<string>Read and write various NFC tags</string>
+	</dict>
+</plist>
+```
+
+#### Capability NFC
+
+iOS exige aussi que la capability NFC soit associée à votre application.
+
+La capability peut être ajoutée dans Xcode, dans l'onglet "Signing & Capabilities" de la configuration du projet, en cliquant sur le bouton "+ Capability" puis en sélectionnant la capability "Near Field Communication Tag Reading" (consultez [Ajouter une capability à une cible] pour plus d'informations), ou en ajoutant la configuration suivante au fichier `gen/apple/<app-name>_iOS/<app-name>_iOS.entitlements` :
+
+```xml title="gen/apple/<app-name>_iOS/<app-name>_iOS.entitlements"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.nfc.readersession.formats</key>
+	<array>
+		<string>TAG</string>
+	</array>
+</dict>
+</plist>
+```
+
+## Utilisation
+
+Le plugin NFC est disponible en JavaScript et en Rust, ce qui vous permet de scanner et d'écrire des tags NFC.
+
+### Vérifier si NFC est pris en charge
+
+Tous les appareils mobiles ne peuvent pas scanner des tags NFC. Vous devez donc vérifier la disponibilité avant d'utiliser les API de scan et d'écriture.
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript
+import { isAvailable } from '@tauri-apps/plugin-nfc';
+
+const canScanNfc = await isAvailable();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(mobile)]
+    {
+      use tauri_plugin_nfc::NfcExt;
+
+      app.handle().plugin(tauri_plugin_nfc::init());
+
+      let can_scan_nfc = app.nfc().is_available()?;
+    }
+    Ok(())
+  })
+```
+
+</TabItem>
+</Tabs>
+
+### Scanner des tags NFC
+
+Le plugin peut scanner des tags NFC génériques ou des tags NFC contenant un message NDEF (NFC Data Exchange Format),
+qui est un format standard permettant d'encapsuler des données typées dans un tag NFC.
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript
+import { scan } from '@tauri-apps/plugin-nfc';
+
+const scanType = {
+  type: 'ndef', // or 'tag',
+};
+
+const options = {
+  keepSessionAlive: false,
+  // configure the messages displayed in the "Scan NFC" dialog on iOS
+  message: 'Scan a NFC tag',
+  successMessage: 'NFC tag successfully scanned',
+};
+
+const tag = await scan(scanType, options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(mobile)]
+    {
+      use tauri_plugin_nfc::NfcExt;
+
+      app.handle().plugin(tauri_plugin_nfc::init());
+
+      let tag = app
+        .nfc()
+        .scan(tauri_plugin_nfc::ScanRequest {
+            kind: tauri_plugin_nfc::ScanKind::Ndef {
+                mime_type: None,
+                uri: None,
+                tech_list: None,
+            },
+            keep_session_alive: false,
+        })?
+        .tag;
+    }
+    Ok(())
+  })
+```
+
+</TabItem>
+
+</Tabs>
+
+:::note
+L'option `keepSessionAlive` peut être utilisée pour écrire directement plus tard sur le tag NFC scanné.
+
+Si vous ne fournissez pas cette option, la session est recréée au prochain appel à `write()`,
+ce qui signifie que l'app tentera de scanner à nouveau le tag.
+:::
+
+#### Filtres
+
+Le scanner NFC peut aussi filtrer les tags avec un format d'URI, un type MIME ou des technologies de tag NFC précis.
+Dans ce cas, le scan ne détectera que les tags correspondant aux filtres fournis.
+
+:::note
+Le filtrage n'est disponible que sur Android ; vous devez donc toujours vérifier le contenu du tag NFC scanné.
+
+Le type MIME est sensible à la casse et doit être fourni en minuscules.
+:::
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript
+import { scan, TechKind } from '@tauri-apps/plugin-nfc';
+
+const techLists = [
+  // capture anything using NfcF
+  [TechKind.NfcF],
+  // capture all MIFARE Classics with NDEF payloads
+  [TechKind.NfcA, TechKind.MifareClassic, TechKind.Ndef],
+];
+
+const tag = await scan({
+  type: 'ndef', // or 'tag'
+  mimeType: 'text/plain',
+  uri: {
+    scheme: 'https',
+    host: 'my.domain.com',
+    pathPrefix: '/app',
+  },
+  techLists,
+});
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(mobile)]
+    {
+      use tauri_plugin_nfc::NfcExt;
+
+      app.handle().plugin(tauri_plugin_nfc::init());
+
+      let tag = app
+        .nfc()
+        .scan(tauri_plugin_nfc::ScanRequest {
+            kind: tauri_plugin_nfc::ScanKind::Ndef {
+                mime_type: Some("text/plain".to_string()),
+                uri: Some(tauri_plugin_nfc::UriFilter {
+                  scheme: Some("https".to_string()),
+                  host: Some("my.domain.com".to_string()),
+                  path_prefix: Some("/app".to_string()),
+                }),
+                tech_list: Some(vec![
+                  vec![tauri_plugin_nfc::TechKind::Ndef],
+                ]),
+            },
+        })?
+        .tag;
+    }
+    Ok(())
+  })
+```
+
+</TabItem>
+
+</Tabs>
+
+### Écrire sur des tags NFC
+
+L'API `write` peut être utilisée pour écrire une charge utile sur un tag NFC.
+S'il n'existe aucun tag scanné avec `keepSessionAlive: true`, l'application commencera par scanner un tag NFC.
+
+<Tabs syncKey="lang">
+
+<TabItem label="JavaScript">
+
+```javascript
+import { write, textRecord, uriRecord } from '@tauri-apps/plugin-nfc';
+
+const payload = [uriRecord('https://tauri.app'), textRecord('some payload')];
+
+const options = {
+  // the kind is only required if you do not have a scanned tag session alive
+  // its format is the same as the argument provided to scan()
+  kind: {
+    type: 'ndef',
+  },
+  // configure the messages displayed in the "Scan NFC" dialog on iOS
+  message: 'Scan a NFC tag',
+  successfulReadMessage: 'NFC tag successfully scanned',
+  successMessage: 'NFC tag successfully written',
+};
+
+await write(payload, options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+:::caution
+L'API Rust ne fournit actuellement qu'une interface bas niveau pour écrire des charges utiles NFC.
+
+L'API sera bientôt améliorée.
+:::
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(mobile)]
+    {
+      use tauri_plugin_nfc::NfcExt;
+
+      app.handle().plugin(tauri_plugin_nfc::init());
+
+      app
+        .nfc()
+        .write(vec![
+          tauri_plugin_nfc::NfcRecord {
+            format: tauri_plugin_nfc::NFCTypeNameFormat::NfcWellKnown,
+            kind: vec![0x55], // URI record
+            id: vec![],
+            payload: vec![], // insert payload here
+          }
+        ])?;
+    }
+    Ok(())
+  })
+```
+
+</TabItem>
+</Tabs>
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "nfc:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[Ajouter une capability à une cible]: https://help.apple.com/xcode/mac/current/#/dev88ff319e7

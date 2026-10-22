@@ -1,0 +1,184 @@
+---
+title: Capacités pour différentes fenêtres et plateformes
+sidebar:
+  order: 11
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro';
+import Cta from '../../_fragments/cta.mdx';
+
+Ce guide vous aidera à personnaliser les capacités de votre app Tauri.
+
+## Contenu de ce guide
+
+- Créer plusieurs fenêtres dans une app Tauri
+- Utiliser différentes capacités pour différentes fenêtres
+- Utiliser des capacités propres à une plateforme
+
+## Prérequis
+
+Cet exercice est conçu pour être lu après avoir terminé [`Utiliser les permissions de plugins`](/fr/learn/security/using-plugin-permissions/).
+
+## Guide
+
+<Steps>
+1. ### Créer plusieurs fenêtres dans une application Tauri
+
+   Ici, nous créons une app avec deux fenêtres portant les labels `first` et `second`.
+   Il existe plusieurs façons de créer des fenêtres dans votre application Tauri.
+
+   #### Créer des fenêtres avec le fichier de configuration Tauri
+
+   Dans le fichier de configuration Tauri, généralement nommé `tauri.conf.json` :
+
+    <ShowSolution>
+    ```javascript
+      "productName": "multiwindow",
+      ...
+      "app": {
+        "windows": [
+          {
+            "label": "first",
+            "title": "First",
+            "width": 800,
+            "height": 600
+          },
+          {
+            "label": "second",
+            "title": "Second",
+            "width": 800,
+            "height": 600
+          }
+        ],
+      },
+      ...
+    }
+    ```
+    </ShowSolution>
+
+   #### Créer des fenêtres par programmation
+
+    Dans le code Rust pour créer une app Tauri :
+
+    <ShowSolution>
+    ```rust
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![greet])
+        .setup(|app| {
+            let webview_url = tauri::WebviewUrl::App("index.html".into());
+            // First window
+            tauri::WebviewWindowBuilder::new(app, "first", webview_url.clone())
+                .title("First")
+                .build()?;
+            // Second window
+            tauri::WebviewWindowBuilder::new(app, "second", webview_url)
+                .title("Second")
+                .build()?;
+            Ok(())
+        })
+        .run(context)
+        .expect("error while running tauri application");
+    ```
+    </ShowSolution>
+
+2. ### Appliquer différentes capacités à différentes fenêtres
+
+    Les fenêtres d'une app Tauri peuvent utiliser différentes fonctionnalités ou différents plugins du backend Tauri.
+    Pour une meilleure sécurité, il est recommandé de ne donner à chaque fenêtre que les capacités nécessaires.
+    Nous simulons un scénario où la fenêtre `first` utilise les fonctionnalités de système de fichiers et de boîte de dialogue, tandis que `second`
+    n'a besoin que des fonctionnalités de boîte de dialogue.
+
+    #### Séparer les fichiers de capacités par catégorie
+
+    Il est recommandé de séparer les fichiers de capacités par catégorie d'actions qu'ils activent.
+
+    <ShowSolution>
+    Les fichiers JSON dans `src-tauri/capabilities` seront pris en compte par le système de capacités.
+    Ici, nous séparons les capacités liées au système de fichiers et à la fenêtre de dialogue dans `filesystem.json`
+    et `dialog.json`.
+
+    *arborescence du projet Tauri :*
+    ```
+    /src
+    /src-tauri
+      /capabilities
+        filesystem.json
+        dialog.json
+      tauri.conf.json
+    package.json
+    README.md
+    ```
+    </ShowSolution>
+
+    #### Donner des capacités de système de fichiers à la fenêtre `first`
+
+    Nous donnons à la fenêtre `first` la capacité d'avoir un accès en lecture au contenu du répertoire `$HOME`.
+
+    <ShowSolution>
+    Utilisez le champ `windows` dans un fichier de capacité avec un ou plusieurs labels de fenêtres.
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": [
+        "fs:allow-home-read",
+      ]
+    }
+    ```
+    </ShowSolution>
+
+    #### Donner des capacités de boîte de dialogue aux fenêtres `first` et `second`
+
+    Nous donnons aux fenêtres `first` et `second` la capacité de créer une boîte de dialogue « Oui/Non ».
+
+    <ShowSolution>
+    Utilisez le champ `windows` dans un fichier de capacité avec un ou plusieurs labels de fenêtres.
+
+    ```json title="dialog.json"
+    {
+      "identifier": "dialog",
+      "description": "Allow to open a dialog",
+      "local": true,
+      "windows": ["first", "second"],
+      "permissions": ["dialog:allow-ask"]
+    }
+    ```
+
+    </ShowSolution>
+
+3. ### Rendre les capacités dépendantes de la plateforme
+
+    Nous voulons maintenant personnaliser les capacités pour qu'elles ne soient actives que sur certaines plateformes.
+    Nous rendons nos capacités de système de fichiers actives uniquement sur `linux` et `windows`.
+
+    <ShowSolution>
+    Utilisez le champ `platforms` dans un fichier de capacité pour le rendre propre à une plateforme.
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": [
+        "fs:allow-home-read",
+      ],
+      "platforms": ["linux", "windows"]
+    }
+    ```
+
+    Les plateformes actuellement disponibles sont `linux`, `windows`, `macos`, `android` et `ios`.
+    </ShowSolution>
+
+</Steps>
+
+## Conclusion et ressources
+
+Nous avons appris à créer plusieurs fenêtres dans une app Tauri et à leur donner des capacités spécifiques. De plus, ces capacités peuvent aussi cibler certaines plateformes.
+
+Une application d'exemple utilisant des capacités de fenêtres est disponible dans l'exemple [`api`](https://github.com/tauri-apps/tauri/tree/dev/examples/api) du [dépôt GitHub Tauri](https://github.com/tauri-apps/tauri). Les champs utilisables dans un fichier de capacité sont listés dans la référence [Capability](/fr/reference/acl/capability/).
