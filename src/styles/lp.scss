@@ -1,7 +1,9 @@
 .lp-tauri-logo {
+  display: block;
   max-width: 100%;
   width: auto;
   margin-inline: auto;
+  margin-top: 0;
 }
 
 :root[data-theme='light'] {
