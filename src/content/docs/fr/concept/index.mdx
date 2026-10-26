@@ -1,0 +1,40 @@
+---
+title: Concepts fondamentaux
+description: Sujets à connaître plus en détail si vous voulez tirer le meilleur parti du framework
+sidebar:
+  order: 0
+  label: Vue d'ensemble
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Tauri regroupe plusieurs sujets considérés comme des concepts fondamentaux, que tout développeur devrait connaître lorsqu'il développe ses applications. Voici une sélection de sujets à approfondir si vous voulez tirer le meilleur parti du framework.
+
+<CardGrid>
+  <LinkCard
+    title="Architecture de Tauri"
+    href="/fr/concept/architecture/"
+    description="Architecture et écosystème."
+  />
+  <LinkCard
+    title="Communication inter-processus (IPC)"
+    href="/fr/concept/inter-process-communication/"
+    description="Le fonctionnement interne de l'IPC."
+  />
+  <LinkCard
+    title="Sécurité"
+    href="/fr/security/"
+    description="Comment Tauri applique les bonnes pratiques de sécurité."
+  />
+  <LinkCard
+    title="Modèle de processus"
+    href="/fr/concept/process-model/"
+    description="Quels processus Tauri gère, et pourquoi."
+  />
+  <LinkCard
+    title="Taille de l'app"
+    href="/fr/concept/size/"
+    description="Comment rendre votre app aussi petite que possible."
+  />
+</CardGrid>
