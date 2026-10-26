@@ -11,6 +11,8 @@ allowBuilds:
   sharp: true
 minimumReleaseAge: 4320
 
+minimumReleaseAgeExclude:
+  - prettier-plugin-astro@1.1.2
 overrides:
   # starlight-blog@0.29.0 is still on satteri@0.9.x, whose native converter can
   # fail when multiple author excerpts are rendered during static builds.
