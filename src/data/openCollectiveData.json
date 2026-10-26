@@ -581,6 +581,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "",
     "id": "",
     "avatarUrl": "https://images.opencollective.com/guest-2f33f2a5/avatar/256.jpg",
@@ -614,15 +623,6 @@
     "id": "Braden Neufeld",
     "avatarUrl": "https://images.opencollective.com/braden-neufeld/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/braden-neufeld",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
     "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
