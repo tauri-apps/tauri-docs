@@ -34,7 +34,7 @@
     "@types/mdast": "^4.0.4",
     "astro": "7.4.0",
     "astro-d2": "^0.14.0",
-    "astrojs-service-worker": "^2.0.2",
+    "astrojs-service-worker": "^2.0.3",
     "mdast-util-definitions": "^6.0.0",
     "mdast-util-to-string": "^4.0.0",
     "prettier": "3.9.8",
