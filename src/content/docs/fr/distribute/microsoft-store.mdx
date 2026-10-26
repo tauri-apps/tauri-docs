@@ -1,0 +1,143 @@
+---
+title: Microsoft Store
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Microsoft Store est l'app store Windows exploité par Microsoft.
+
+Ce guide ne couvre que les détails de distribution des apps Windows directement sur le Microsoft Store.
+Consultez le [guide Windows Installer] pour plus d'informations sur les options et configurations de distribution d'installateurs Windows.
+
+## Exigences
+
+Pour publier des apps sur le Microsoft Store, vous devez avoir un compte Microsoft
+et vous [inscrire] comme développeur, soit en tant qu'individu, soit en tant qu'entreprise.
+
+## Changer l'icône de l'app
+
+La CLI Tauri peut générer toutes les icônes dont votre app a besoin, y compris les icônes Microsoft Store.
+Utilisez la commande `tauri icon` pour générer les icônes d'app depuis une seule source PNG ou SVG :
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png"
+  yarn="yarn tauri icon /path/to/app-icon.png"
+  pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
+  bun="bun tauri icon /path/to/app-icon.png"
+  cargo="cargo tauri icon /path/to/app-icon.png"
+/>
+
+## Configuration
+
+Après vous être inscrit comme développeur avec votre compte Microsoft, vous devez enregistrer votre app sur la page [Apps and Games].
+Cliquez sur `New Product`, sélectionnez `EXE or MSI app` et réservez un nom unique pour votre app.
+
+## Build et upload
+
+Actuellement, Tauri ne génère que des installateurs [EXE et MSI][guide Windows Installer], vous devez donc créer une application Microsoft Store
+qui ne fait que lier vers l'application non empaquetée.
+L'installateur lié dans le Microsoft Installer doit être hors ligne, [gérer les mises à jour automatiques] et être [signé].
+
+Consultez la [documentation officielle de publication] pour plus d'informations.
+
+### Installateur hors ligne
+
+L'installateur Windows distribué via le Microsoft Store doit utiliser l'option d'installation WebView2 [Offline Installer].
+
+Pour appliquer cette configuration d'installateur uniquement lors du bundling pour Microsoft Store, vous pouvez définir un fichier de configuration Tauri séparé :
+
+```json title="src-tauri/tauri.microsoftstore.conf.json
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
+    }
+  }
+}
+```
+
+Fusionnez ensuite ce fichier de configuration avec le fichier principal lors du bundling de votre app Tauri pour Microsoft Store :
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --config src-tauri/tauri.microsoftstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+yarn tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+pnpm tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  bun="bun tauri build --no-bundle
+bun tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+cargo tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+/>
+
+C'est particulièrement utile lorsque vous configurez votre CI/CD pour téléverser votre app sur le Microsoft Store tout en gardant une configuration séparée
+pour l'installateur Windows que vous distribuez hors app store.
+
+### Installation silencieuse
+
+Le Microsoft Store exige que les installateurs Win32 prennent en charge l'installation silencieuse. Si votre installateur ne s'installe pas silencieusement,
+votre soumission est rejetée avec une erreur comme :
+
+```
+10.2.9.2 Security - Package Submissions | Win32 products must install silently.
+```
+
+Lorsque vous enregistrez votre installateur dans Partner Center, vous devez fournir les [paramètres d'installation silencieuse] afin que le Store puisse l'exécuter
+sans intervention. L'installateur NSIS `-setup.exe` de Tauri s'installe silencieusement avec le flag `/S` (notez le `S` majuscule) :
+
+```
+MyApp_x64-setup.exe /S
+```
+
+Saisissez `/S` comme argument d'installation silencieuse dans les paramètres d'installateur de votre produit Microsoft Store.
+Si vous distribuez plutôt l'installateur MSI, utilisez le flag standard `msiexec` `/quiet`.
+
+### Publisher
+
+Le nom [publisher] de votre application ne peut pas correspondre au nom produit de l'application.
+
+Si la valeur de configuration publisher n'est pas définie, Tauri la dérive de la deuxième partie de votre identifiant de bundle.
+Comme le nom publisher ne peut pas correspondre au nom produit, la configuration suivante est invalide :
+
+```json title=tauri.conf.json "example" "Example"
+{
+  "productName": "Example",
+  "identifier": "com.example.app"
+}
+```
+
+Dans ce cas, vous pouvez définir la valeur [publisher] séparément pour corriger ce conflit :
+
+```json title=tauri.conf.json ins={4-6}
+{
+  "productName": "Example",
+  "identifier": "com.example.app",
+  "bundle": {
+    "publisher": "Example Inc."
+  }
+}
+```
+
+### Upload
+
+Après avoir construit l'installateur Windows pour Microsoft Store, vous pouvez le téléverser vers le service de distribution de votre choix
+et le lier dans la page de votre application sur le site Microsoft Store.
+
+[guide Windows Installer]: /fr/distribute/windows-installer/
+[inscrire]: https://learn.microsoft.com/en-us/windows/apps/get-started/sign-up
+[Apps and Games]: https://partner.microsoft.com/en-us/dashboard/apps-and-games/overview
+[gérer les mises à jour automatiques]: /fr/plugin/updater/
+[signé]: /fr/distribute/sign/windows/
+[Offline Installer]: /fr/distribute/windows-installer/#offline-installer
+[documentation officielle de publication]: https://learn.microsoft.com/en-us/windows/apps/publish/
+[paramètres d'installation silencieuse]: https://learn.microsoft.com/en-us/windows/uwp/publish/msiexe/provide-package-details
+[publisher]: /reference/config/#publisher

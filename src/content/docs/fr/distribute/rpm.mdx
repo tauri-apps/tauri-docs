@@ -1,0 +1,497 @@
+---
+title: RPM
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import ShowSolution from '@components/ShowSolution.astro';
+import CommandTabs from '@components/CommandTabs.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note
+Certaines sections de ce guide sont optionnelles. Cela inclut la configuration des scripts et certaines autres étapes. Adaptez les instructions à vos besoins et exigences spécifiques.
+:::
+
+Ce guide explique comment distribuer et gérer des paquets RPM, notamment récupérer des informations sur les paquets, configurer des scripts, définir des dépendances et signer les paquets.
+
+:::note
+
+Les apps GUI sur macOS et Linux n'héritent pas du `$PATH` de vos fichiers de configuration shell (`.bashrc`, `.bash_profile`, `.zshrc`, etc.). Consultez la crate [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) de Tauri pour corriger ce problème.
+
+:::
+
+## Limitations
+
+Les bibliothèques core comme glibc cassent fréquemment la compatibilité avec les anciens systèmes. Pour cette raison, vous devez construire votre application Tauri avec le plus ancien système de base que vous prévoyez de prendre en charge et qui fournit aussi les paquets WebKitGTK 4.1 requis par Tauri v2. Ubuntu 22.04 et Debian 12 sont de bons exemples de base, car ils fournissent `libwebkit2gtk-4.1-dev` depuis leurs dépôts standards. Construire sur un système de base plus récent peut augmenter la version minimale de glibc requise par votre app ; sur un système plus ancien, vous pouvez donc rencontrer une erreur d'exécution comme `/usr/lib/libc.so.6: version 'GLIBC_2.33' not found`. Nous recommandons d'utiliser un conteneur Docker ou GitHub Actions pour construire votre application Tauri pour Linux.
+
+Consultez les issues [tauri-apps/tauri#1355](https://github.com/tauri-apps/tauri/issues/1355) et [rust-lang/rust#57497](https://github.com/rust-lang/rust/issues/57497), ainsi que le [guide AppImage](https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system) pour plus d'informations.
+
+## Configurer le paquet RPM
+
+Tauri vous permet de configurer le paquet RPM en ajoutant des scripts, en définissant les dépendances, en ajoutant une licence, en incluant des fichiers personnalisés, et plus encore.
+Pour des informations détaillées sur les options configurables, consultez : [RpmConfig](https://v2.tauri.app/reference/config/#rpmconfig).
+
+### Ajouter des scripts post, pre-install/remove au paquet
+
+Le gestionnaire de paquets RPM vous permet d'exécuter des scripts avant ou après l'installation ou la suppression du paquet. Par exemple, vous pouvez utiliser ces scripts pour démarrer un service après l'installation du paquet.
+
+Voici un exemple montrant comment ajouter ces scripts :
+
+1. Créez un dossier nommé `scripts` dans le répertoire `src-tauri` de votre projet.
+
+```bash
+mkdir src-tauri/scripts
+```
+
+2. Créez les fichiers de scripts dans le dossier.
+
+```bash
+touch src-tauri/scripts/postinstall.sh \
+touch src-tauri/scripts/preinstall.sh \
+touch src-tauri/scripts/preremove.sh \
+touch src-tauri/scripts/postremove.sh
+```
+
+Si nous regardons maintenant dans `/src-tauri/scripts`, nous verrons :
+
+```bash
+ls src-tauri/scripts/
+postinstall.sh  postremove.sh  preinstall.sh  preremove.sh
+```
+
+3. Ajoutez du contenu aux scripts.
+
+```bash title="preinstall.sh"
+echo "-------------"
+echo "This is pre"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="postinstall.sh"
+echo "-------------"
+echo "This is post"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="preremove.sh"
+echo "-------------"
+echo "This is preun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+```bash title="postremove.sh"
+echo "-------------"
+echo "This is postun"
+echo "Install Value: $1"
+echo "Upgrade Value: $1"
+echo "Uninstall Value: $1"
+echo "-------------"
+```
+
+4. Ajoutez les scripts au fichier `tauri.conf.json`.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1",
+        // add the script here
+        "preInstallScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postInstallScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "preRemoveScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh"
+      }
+    }
+  }
+}
+```
+
+### Définir Conflict, Provides, Depends, Files, Obsoletes, DesktopTemplate et Epoch
+
+- **conflict** : empêche l'installation du paquet s'il entre en conflit avec un autre paquet.
+  Par exemple, si vous mettez à jour un paquet RPM dont votre app dépend et que la nouvelle version est incompatible avec votre app.
+
+- **provides** : liste les dépendances RPM fournies par votre application.
+
+- **depends** : liste les dépendances RPM nécessaires à l'exécution de votre application.
+
+- **files** : indique les fichiers à inclure dans le paquet.
+
+- **obsoletes** : liste les dépendances RPM que votre application rend obsolètes.
+
+:::note
+Si ce paquet est installé, les paquets listés comme « obsoletes » seront automatiquement supprimés s'ils sont présents.
+:::
+
+- **desktopTemplate** : ajoute un fichier desktop personnalisé au paquet.
+
+- **epoch** : définit des dépendances pondérées selon les numéros de version.
+
+:::caution
+Il n'est pas recommandé d'utiliser epoch sauf nécessité, car cela modifie la façon dont le gestionnaire de paquets compare les versions de paquets.
+Pour plus d'informations sur epoch, consultez le [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#epoch-scriptlets-and-triggers).
+:::
+
+Pour utiliser ces options, ajoutez ce qui suit à votre `tauri.conf.json` :
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
+        "conflicts": ["oldLib.rpm"],
+        "depends": ["newLib.rpm"],
+        "obsoletes": ["veryoldLib.rpm"],
+        "provides": ["coolLib.rpm"],
+        "desktopTemplate": "/path/to/your/project/src-tauri/desktop-template.desktop"
+      }
+    }
+  }
+}
+```
+
+### Ajouter une licence au paquet
+
+Pour ajouter une licence au paquet, ajoutez ce qui suit dans `src-tauri/cargo.toml` ou dans le fichier `src-tauri/tauri.conf.json` :
+
+```toml title="src-tauri/cargo.toml"
+[package]
+name = "tauri-app"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+license = "MIT" # add the license here
+# ...  rest of the file
+```
+
+Et pour `src-tauri/tauri.conf.json` :
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "licenseFile": "../LICENSE", // put the path to the license file here
+    "license": "MIT" // add the license here
+  }
+}
+```
+
+## Construire le paquet RPM
+
+Pour construire le paquet RPM, utilisez la commande suivante :
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+Cette commande construira le paquet RPM dans le répertoire `src-tauri/target/release/bundle/rpm`.
+
+## Signer le paquet RPM
+
+Tauri vous permet de signer le paquet avec la clé présente sur votre système pendant le processus de build.
+Pour cela, vous devrez générer une clé GPG.
+
+#### Générer une clé GPG
+
+Pour générer une clé GPG, utilisez la commande suivante :
+
+```bash
+gpg --gen-key
+```
+
+Suivez les instructions pour générer la clé.
+
+Une fois la clé générée, vous devrez l'ajouter à votre variable d'environnement.
+Vous pouvez le faire en ajoutant ce qui suit à votre fichier .bashrc ou .zshrc, ou simplement l'exporter dans le terminal :
+
+```bash
+export TAURI_SIGNING_RPM_KEY=$(cat /home/johndoe/my_super_private.key)
+```
+
+Si votre clé a une passphrase, vous pouvez l'ajouter à la variable d'environnement :
+
+```bash
+export TAURI_SIGNING_RPM_KEY_PASSPHRASE=password
+```
+
+Vous pouvez maintenant construire le paquet avec la commande suivante :
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+### Vérifier la signature
+
+:::note
+Ceci ne doit être fait que pour tester la signature localement.
+:::
+
+Avant de vérifier la signature, vous devez créer et importer la clé publique dans la base RPM :
+
+```bash
+gpg --export -a 'Tauri-App' > RPM-GPG-KEY-Tauri-App
+```
+
+```bash
+sudo rpm --import RPM-GPG-KEY-Tauri-App
+```
+
+Maintenant que la clé est importée, nous devons modifier le fichier `~/.rpmmacros` pour l'utiliser.
+
+```bash title="~/.rpmmacros"
+%_signature gpg
+%_gpg_path /home/johndoe/.gnupg
+%_gpg_name Tauri-App
+%_gpgbin /usr/bin/gpg2
+%__gpg_sign_cmd %{__gpg} \
+    gpg --force-v3-sigs --digest-algo=sha1 --batch --no-verbose --no-armor \
+    --passphrase-fd 3 --no-secmem-warning -u "%{_gpg_name}" \
+    -sbo %{__signature_filename} %{__plaintext_filename}
+```
+
+Enfin, vous pouvez vérifier le paquet avec la commande suivante :
+
+```bash
+rpm  -v --checksig tauri-app-0.0.0-1.x86_64.rpm
+```
+
+## Déboguer le paquet RPM
+
+Dans cette section, nous verrons comment déboguer le paquet RPM en vérifiant son contenu
+et en récupérant des informations à son sujet.
+
+### Obtenir des informations sur le paquet
+
+Pour obtenir des informations sur votre paquet, comme sa version, sa release et son architecture,
+utilisez la commande suivante :
+
+```bash
+rpm -qip package_name.rpm
+```
+
+### Interroger des informations spécifiques sur le paquet
+
+Par exemple, pour obtenir le nom, la version, la release, l'architecture et la taille du paquet, utilisez cette commande :
+
+```bash
+rpm  -qp --queryformat '[%{NAME} %{VERSION} %{RELEASE} %{ARCH} %{SIZE}\n]' package_name.rpm
+```
+
+:::note
+_`--queryformat`_ est une chaîne de format permettant d'obtenir des informations spécifiques sur le paquet.
+Les informations récupérables sont celles de la commande rpm -qip.
+:::
+
+### Vérifier le contenu du paquet
+
+Pour vérifier le contenu du paquet, utilisez la commande suivante :
+
+```bash
+rpm -qlp package_name.rpm
+```
+
+Cette commande liste tous les fichiers inclus dans le paquet.
+
+### Déboguer les scripts
+
+Pour déboguer les scripts post/pre-install/remove, utilisez la commande suivante :
+
+```bash
+rpm -qp --scripts package_name.rpm
+```
+
+Cette commande affiche le contenu des scripts.
+
+### Vérifier les dépendances
+
+Pour vérifier les dépendances du paquet, utilisez la commande suivante :
+
+```bash
+rpm -qp --requires package_name.rpm
+```
+
+### Lister les paquets qui dépendent d'un paquet spécifique
+
+Pour lister les paquets qui dépendent d'un paquet spécifique, utilisez la commande suivante :
+
+```bash
+rpm -q --whatrequires package_name.rpm
+```
+
+### Déboguer les problèmes d'installation
+
+Si vous rencontrez des problèmes lors de l'installation d'un paquet RPM,
+vous pouvez utiliser l'option `-vv` (très verbeux) pour obtenir une sortie détaillée :
+
+```bash
+rpm -ivvh package_name.rpm
+```
+
+Ou pour un paquet déjà installé :
+
+```bash
+rpm -Uvvh package_name.rpm
+```
+
+## Cross-compiler pour des appareils ARM
+
+Ce guide couvre la compilation manuelle. Consultez notre [guide GitHub Action](/fr/distribute/pipelines/github/#compilation-avec-runner-arm) pour un exemple de workflow qui utilise QEMU pour construire l'app. Ce sera beaucoup plus lent, mais cela permettra aussi de construire des AppImages.
+
+La compilation manuelle convient si vous n'avez pas besoin de compiler votre application fréquemment et préférez une configuration ponctuelle. Les étapes suivantes supposent que vous utilisez une distribution Linux basée sur Debian/Ubuntu.
+
+<Steps>
+
+1. #### Installer les cibles Rust pour l'architecture souhaitée
+   - Pour ARMv7 (32 bits) : `rustup target add armv7-unknown-linux-gnueabihf`
+   - Pour ARMv8 (ARM64, 64 bits) : `rustup target add aarch64-unknown-linux-gnu`
+
+2. #### Installer le linker correspondant à l'architecture choisie
+   - Pour ARMv7 : `sudo apt install gcc-arm-linux-gnueabihf`
+   - Pour ARMv8 (ARM64) : `sudo apt install gcc-aarch64-linux-gnu`
+
+3. #### Ouvrir ou créer le fichier `<project-root>/.cargo/config.toml` et ajouter les configurations suivantes
+
+   ```toml
+   [target.armv7-unknown-linux-gnueabihf]
+   linker = "arm-linux-gnueabihf-gcc"
+
+   [target.aarch64-unknown-linux-gnu]
+   linker = "aarch64-linux-gnu-gcc"
+   ```
+
+4. #### Activer l'architecture correspondante dans le gestionnaire de paquets
+   - Pour ARMv7 : `sudo dpkg --add-architecture armhf`
+   - Pour ARMv8 (ARM64) : `sudo dpkg --add-architecture arm64`
+
+5. #### Ajuster les sources de paquets
+
+   Sur Debian, cette étape ne devrait pas être nécessaire, mais sur d'autres distributions, vous devrez peut-être modifier /etc/apt/sources.list pour inclure la variante d'architecture ARM. Par exemple, sur Ubuntu 22.04, ajoutez ces lignes à la fin du fichier (pensez à remplacer jammy par le nom de code de votre version Ubuntu) :
+
+   ```
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
+   ```
+
+   Ensuite, pour éviter les problèmes avec les paquets principaux, vous devez ajouter l'architecture principale correcte à toutes les autres lignes que contenait le fichier auparavant. Pour les systèmes 64 bits standards, ajoutez [arch=amd64]. Le fichier complet sur Ubuntu 22.04 ressemble alors à ceci :
+
+   <ShowSolution>
+
+   ```
+   # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+   # newer versions of the distribution.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy main restricted
+
+   ## Major bug fix updates produced after the final release of the
+   ## distribution.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+
+   ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+   ## team. Also, please note that software in universe WILL NOT receive any
+   ## review or updates from the Ubuntu security team.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy universe
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy universe
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+
+   ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+   ## team, and may not be under a free licence. Please satisfy yourself as to
+   ## your rights to use the software. Also, please note that software in
+   ## multiverse WILL NOT receive any review or updates from the Ubuntu
+   ## security team.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy multiverse
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy multiverse
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse
+
+   ## N.B. software from this repository may not have been tested as
+   ## extensively as that contained in the main release, although it includes
+   ## newer versions of some applications which may provide useful features.
+   ## Also, please note that software in backports WILL NOT receive any review
+   ## or updates from the Ubuntu security team.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+
+   deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security main restricted
+   # deb-src http://security.ubuntu.com/ubuntu/ jammy-security main restricted
+   deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security universe
+   # deb-src http://security.ubuntu.com/ubuntu/ jammy-security universe
+   deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security multiverse
+   # deb-src http://security.ubuntu.com/ubuntu/ jammy-security multiverse
+
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
+   ```
+
+   </ShowSolution>
+
+6. #### Mettre à jour les informations de paquets : `sudo apt-get update && sudo apt-get upgrade -y`
+
+7. #### Installer la bibliothèque webkitgtk requise pour l'architecture choisie
+   - Pour ARMv7 : `sudo apt install libwebkit2gtk-4.1-dev:armhf`
+   - Pour ARMv8 (ARM64) : `sudo apt install libwebkit2gtk-4.1-dev:arm64`
+
+8. #### Installer OpenSSL ou utiliser une version vendored
+
+   Ce n'est pas toujours requis, vous pouvez donc commencer par continuer et vérifier si vous voyez des erreurs comme `Failed to find OpenSSL development headers`.
+
+   - Soit installer les headers de développement au niveau système :
+     - Pour ARMv7 : `sudo apt install libssl-dev:armhf`
+     - Pour ARMv8 (ARM64) : `sudo apt install libssl-dev:arm64`
+   - Soit activer la fonctionnalité vendor pour la crate Rust OpenSSL, ce qui affectera toutes les autres dépendances Rust utilisant la même version mineure. Vous pouvez le faire en ajoutant ceci à la section dependencies de votre fichier `Cargo.toml` :
+
+   ```toml
+   openssl-sys = {version = "0.9", features = ["vendored"]}
+   ```
+
+9. #### Définir `PKG_CONFIG_SYSROOT_DIR` sur le répertoire approprié selon l'architecture choisie
+   - Pour ARMv7 : `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`
+   - Pour ARMv8 (ARM64) : `export PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/`
+
+10. #### Construire l'app pour la version ARM souhaitée
+    - Pour ARMv7 : cargo tauri build --target armv7-unknown-linux-gnueabihf
+    - Pour ARMv8 (ARM64) : cargo tauri build --target aarch64-unknown-linux-gnu
+
+    Choisissez l'ensemble d'instructions approprié selon que vous voulez cross-compiler votre application Tauri pour ARMv7 ou ARMv8 (ARM64). Notez que les étapes spécifiques peuvent varier selon votre distribution Linux et votre configuration.
+
+</Steps>

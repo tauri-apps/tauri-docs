@@ -1,0 +1,777 @@
+---
+title: Système de fichiers
+description: Accéder au système de fichiers.
+plugin: fs
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Accédez au système de fichiers.
+
+:::note[Utiliser std::fs ou tokio::fs côté Rust]
+Si vous voulez manipuler des fichiers/répertoires depuis Rust, utilisez les bibliothèques Rust habituelles (`std::fs`, `tokio::fs`, etc.).
+:::
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin fs pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+            npm="npm run tauri add fs"
+            yarn="yarn run tauri add fs"
+            pnpm="pnpm tauri add fs"
+            deno="deno task tauri add fs"
+            bun="bun tauri add fs"
+            cargo="cargo tauri add fs"
+    />
+
+    </TabItem>
+    <TabItem label="Manuelle">
+      <Steps>
+
+        1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+            ```sh frame=none
+            cargo add tauri-plugin-fs
+            ```
+
+        2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+              tauri::Builder::default()
+                .plugin(tauri_plugin_fs::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+            }
+            ```
+
+        3.  Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-fs"
+                yarn="yarn add @tauri-apps/plugin-fs"
+                pnpm="pnpm add @tauri-apps/plugin-fs"
+                deno="deno add npm:@tauri-apps/plugin-fs"
+                bun="bun add @tauri-apps/plugin-fs"
+            />
+
+    </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Configuration
+
+### Android
+
+Lorsque vous utilisez les répertoires audio, cache, documents, downloads, picture, public ou video, votre app doit avoir accès au stockage externe.
+
+Incluez les permissions suivantes dans la balise `manifest` du fichier `gen/android/app/src/main/AndroidManifest.xml` :
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+### iOS
+
+Apple exige que les développeurs d'apps indiquent des raisons approuvées pour l'utilisation d'API afin de renforcer la confidentialité des utilisateurs.
+
+Vous devez créer un fichier `PrivacyInfo.xcprivacy` dans le dossier `src-tauri/gen/apple`
+avec la clé [NSPrivacyAccessedAPICategoryFileTimestamp] requise et la raison recommandée [C617.1].
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>C617.1</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>
+```
+
+## Utilisation
+
+Le plugin fs est disponible en JavaScript et en Rust.
+:::caution[API différentes]
+Même si ce plugin possède une API de manipulation de fichiers côté frontend, côté backend il ne propose que des méthodes pour modifier les permissions de certaines ressources (fichiers, répertoires, etc.).
+
+Côté Rust, vous pouvez utiliser les bibliothèques classiques de manipulation de fichiers,
+[std::fs](https://doc.rust-lang.org/std/fs/struct.File.html), [tokio::fs](https://docs.rs/tokio/latest/tokio/fs/index.html) ou d'autres.
+:::
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```javascript
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+// when using `"withGlobalTauri": true`, you may use
+// const { exists, BaseDirectory } = window.__TAURI__.fs;
+
+// Check if the `$APPDATA/avatar.png` file exists
+await exists('avatar.png', { baseDir: BaseDirectory.AppData });
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_fs::FsExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+  tauri::Builder::default()
+      .plugin(tauri_plugin_fs::init())
+      .setup(|app| {
+          // allowed the given directory
+          let scope = app.fs_scope();
+        	scope.allow_directory("/path/to/directory", false);
+          dbg!(scope.allowed());
+
+          Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Sécurité
+
+Ce module empêche les traversées de chemin en interdisant l'utilisation d'accesseurs vers le répertoire parent
+(par exemple, les chemins "/usr/path/to/../file" ou "../path/to/file" ne sont pas autorisés).
+Les chemins accédés avec cette API doivent être soit relatifs à l'un des [répertoires de base][répertoire de base],
+soit créés avec l'[API path].
+
+Consultez [@tauri-apps/plugin-fs - Security] pour plus d'informations.
+
+## Chemins
+
+Le plugin de système de fichiers propose deux façons de manipuler les chemins : le [répertoire de base] et l'[API path].
+
+- répertoire de base
+
+  Chaque API possède un argument d'options qui vous permet de définir un [baseDir][répertoire de base] agissant comme répertoire de travail de l'opération.
+
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  const contents = await readFile('avatars/tauri.png', {
+    baseDir: BaseDirectory.Home,
+  });
+  ```
+
+  Dans l'exemple ci-dessus, le fichier ~/avatars/tauri.png est lu parce que nous utilisons le répertoire de base **Home**.
+
+- API path
+
+  Vous pouvez aussi utiliser les API path pour effectuer des manipulations de chemins.
+
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  import * as path from '@tauri-apps/api/path';
+  const home = await path.homeDir();
+  const contents = await readFile(await path.join(home, 'avatars/tauri.png'));
+  ```
+
+## Fichiers
+
+### Créer
+
+Crée un fichier et renvoie un handle vers celui-ci. Si le fichier existe déjà, il est tronqué.
+
+```js
+import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
+const file = await create('foo/bar.txt', { baseDir: BaseDirectory.AppData });
+await file.write(new TextEncoder().encode('Hello world'));
+await file.close();
+```
+
+:::note
+Appelez toujours `file.close()` lorsque vous avez terminé de manipuler le fichier.
+:::
+
+### Écrire
+
+Le plugin propose des API distinctes pour écrire des fichiers texte et binaires, pour des raisons de performance.
+
+- fichiers texte
+
+  ```js
+  import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = JSON.stringify({ notifications: true });
+  await writeTextFile('config.json', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+- fichiers binaires
+
+  ```js
+  import { writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = new Uint8Array(); // fill a byte array
+  await writeFile('config', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+### Ouvrir
+
+Ouvre un fichier et renvoie un handle vers celui-ci.
+Avec cette API, vous contrôlez plus finement la façon dont le fichier doit être ouvert
+(mode lecture seule, mode écriture seule, ajout au lieu de remplacement, création uniquement s'il n'existe pas, etc.).
+
+:::note
+Appelez toujours `file.close()` lorsque vous avez terminé de manipuler le fichier.
+:::
+
+- lecture seule
+
+  C'est le mode par défaut.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    read: true,
+    baseDir: BaseDirectory.AppData,
+  });
+
+  const stat = await file.stat();
+  const buf = new Uint8Array(stat.size);
+  await file.read(buf);
+  const textContents = new TextDecoder().decode(buf);
+  await file.close();
+  ```
+
+- écriture seule
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('Hello world'));
+  await file.close();
+  ```
+
+  Par défaut, le fichier est tronqué à chaque appel à `file.write()`.
+  Consultez l'exemple suivant pour apprendre à ajouter au contenu existant à la place.
+
+- ajout
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    append: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Notez que `{ append: true }` a le même effet que `{ write: true, append: true }`.
+
+- troncature
+
+  Lorsque l'option `truncate` est définie et que le fichier existe déjà, il est tronqué à une longueur de 0.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    truncate: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Cette option nécessite que `write` soit `true`.
+
+  Vous pouvez l'utiliser avec l'option `append` si vous voulez réécrire un fichier existant avec plusieurs appels à `file.write()`.
+
+- create
+
+  Par défaut, l'API `open` ouvre uniquement les fichiers existants. Pour créer le fichier s'il n'existe pas,
+  et l'ouvrir s'il existe, définissez `create` sur `true` :
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    create: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Pour que le fichier soit créé, `write` ou `append` doit aussi être défini sur `true`.
+
+  Pour échouer si le fichier existe déjà, consultez `createNew`.
+
+- createNew
+
+  `createNew` fonctionne de façon similaire à `create`, mais échouera si le fichier existe déjà.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    createNew: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Pour que le fichier soit créé, `write` doit aussi être défini sur `true`.
+
+### Lire
+
+Le plugin propose des API distinctes pour lire des fichiers texte et binaires, pour des raisons de performance.
+
+- fichiers texte
+
+  ```js
+  import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const configToml = await readTextFile('config.toml', {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+  Si le fichier est volumineux, vous pouvez diffuser ses lignes avec l'API `readTextFileLines` :
+
+  ```typescript
+  import { readTextFileLines, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const lines = await readTextFileLines('app.logs', {
+    baseDir: BaseDirectory.AppLog,
+  });
+  for await (const line of lines) {
+    console.log(line);
+  }
+  ```
+
+- fichiers binaires
+
+  ```js
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const icon = await readFile('icon.png', {
+    baseDir: BaseDirectory.Resources,
+  });
+  ```
+
+### Supprimer
+
+Appelez `remove()` pour supprimer un fichier. Si le fichier n'existe pas, une erreur est renvoyée.
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('user.db', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Copier
+
+La fonction `copyFile` prend les chemins source et destination.
+Notez que vous devez configurer chaque répertoire de base séparément.
+
+```js
+import { copyFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+await copyFile('user.db', 'user.db.bk', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+Dans l'exemple ci-dessus, le fichier \<app-local-data\>/user.db est copié vers $TMPDIR/user.db.bk.
+
+### Exists
+
+Utilisez la fonction `exists()` pour vérifier si un fichier existe :
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('token', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Métadonnées
+
+Les métadonnées d'un fichier peuvent être récupérées avec les fonctions `stat` et `lstat`.
+`stat` suit les liens symboliques, et renvoie une erreur si le fichier réel vers lequel ils pointent n'est pas autorisé par la portée.
+`lstat` ne suit pas les liens symboliques et renvoie les informations du lien symbolique lui-même.
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('app.db', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Renommer
+
+La fonction `rename` prend les chemins source et destination.
+Notez que vous devez configurer chaque répertoire de base séparément.
+
+```js
+import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
+await rename('user.db.bk', 'user.db', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+Dans l'exemple ci-dessus, le fichier \<app-local-data\>/user.db.bk est renommé en $TMPDIR/user.db.
+
+### Tronquer
+
+Tronque ou étend le fichier spécifié pour atteindre la longueur de fichier indiquée, 0 par défaut.
+
+- tronquer à une longueur de 0
+
+```typescript
+import { truncate } from '@tauri-apps/plugin-fs';
+await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
+```
+
+- tronquer à une longueur précise
+
+```typescript
+import {
+  truncate,
+  readTextFile,
+  writeTextFile,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
+
+const filePath = 'file.txt';
+await writeTextFile(filePath, 'Hello World', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+await truncate(filePath, 7, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+const data = await readTextFile(filePath, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+console.log(data); // "Hello W"
+```
+
+## Répertoires
+
+### Créer
+
+Pour créer un répertoire, appelez la fonction `mkdir` :
+
+```js
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Lire
+
+La fonction `readDir` liste récursivement les entrées d'un répertoire :
+
+```typescript
+import { readDir, BaseDirectory } from '@tauri-apps/plugin-fs';
+const entries = await readDir('users', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Supprimer
+
+Appelez `remove()` pour supprimer un répertoire. Si le répertoire n'existe pas, une erreur est renvoyée.
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', { baseDir: BaseDirectory.AppLocalData });
+```
+
+Si le répertoire n'est pas vide, l'option `recursive` doit être définie sur `true` :
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', {
+  baseDir: BaseDirectory.AppLocalData,
+  recursive: true,
+});
+```
+
+### Exists
+
+Utilisez la fonction `exists()` pour vérifier si un répertoire existe :
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Métadonnées
+
+Les métadonnées d'un répertoire peuvent être récupérées avec les fonctions `stat` et `lstat`.
+`stat` suit les liens symboliques, et renvoie une erreur si le fichier réel vers lequel ils pointent n'est pas autorisé par la portée.
+`lstat` ne suit pas les liens symboliques et renvoie les informations du lien symbolique lui-même.
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('databases', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+## Surveiller les changements
+
+Pour surveiller les changements d'un répertoire ou d'un fichier, utilisez les fonctions `watch` ou `watchImmediate`.
+
+- watch
+
+  `watch` est temporisée, ce qui signifie qu'elle n'émet des événements qu'après un certain délai :
+
+  ```js
+  import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watch(
+    'app.log',
+    (event) => {
+      console.log('app.log event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      delayMs: 500,
+    }
+  );
+  ```
+
+- watchImmediate
+
+  `watchImmediate` notifie immédiatement les écouteurs d'un événement :
+
+  ```js
+  import { watchImmediate, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watchImmediate(
+    'logs',
+    (event) => {
+      console.log('logs directory event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      recursive: true,
+    }
+  );
+  ```
+
+Par défaut, les opérations de surveillance sur un répertoire ne sont pas récursives.
+Définissez l'option `recursive` sur `true` pour surveiller récursivement les changements dans tous les sous-répertoires.
+
+:::note
+Les fonctions de surveillance nécessitent le feature flag `watch` :
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-fs = { version = "2.0.0", features = ["watch"] }
+```
+
+:::
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+:::caution[Les permissions seules n'accordent pas de portée]
+Activer une permission telle que `fs:allow-exists` ne permet pas, à elle seule, d'accéder à un chemin. La plupart des commandes `fs` nécessitent aussi une **portée** qui liste explicitement les chemins auxquels la commande peut accéder. Sans portée `allow`, les appels échoueront à l'exécution avec une erreur `forbidden path`, même si la permission est activée.
+
+```json title="Insuffisant — la permission n'a pas de portée, donc aucun chemin n'est autorisé"
+{
+  "permissions": ["fs:default", "fs:allow-exists"]
+}
+```
+
+```json title="Fonctionne — la forme avec identifiant ajoute une portée allow explicite"
+{
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$HOME" }, { "path": "$HOME/**/*" }]
+    }
+  ]
+}
+```
+
+Consultez [Portées](#portées) ci-dessous pour la liste complète des variables de chemin utilisables dans `allow` et `deny`.
+:::
+
+```json title="src-tauri/capabilities/default.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+### Portées
+
+Les permissions de ce plugin incluent des portées pour définir quels chemins sont autorisés ou explicitement rejetés.
+Pour plus d'informations sur les portées, consultez les [portées de commandes].
+
+Chaque portée `allow` ou `deny` doit inclure un tableau listant tous les chemins qui doivent être autorisés ou refusés.
+Les entrées de portée sont au format `{ path: string }`.
+
+:::note
+`deny` est prioritaire sur `allow`. Si un chemin est refusé par une portée, il sera bloqué à l'exécution
+même s'il est autorisé par une autre portée.
+:::
+
+Les entrées de portée peuvent utiliser des variables `$<path>` pour référencer des chemins système courants, comme le répertoire personnel,
+le répertoire des ressources de l'app et le répertoire de configuration. Le tableau suivant liste tous les chemins courants que vous pouvez référencer :
+
+| Chemin                                                                                          | Variable      |
+| ----------------------------------------------------------------------------------------------- | ------------- |
+| [appConfigDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appconfigdir)       | $APPCONFIG    |
+| [appDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appdatadir)           | $APPDATA      |
+| [appLocalDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appLocaldatadir) | $APPLOCALDATA |
+| [appcacheDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#appcachedir)         | $APPCACHE     |
+| [applogDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#applogdir)             | $APPLOG       |
+| [audioDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#audiodir)               | $AUDIO        |
+| [cacheDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#cachedir)               | $CACHE        |
+| [configDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#configdir)             | $CONFIG       |
+| [dataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#datadir)                 | $DATA         |
+| [localDataDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#localdatadir)       | $LOCALDATA    |
+| [desktopDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#desktopdir)           | $DESKTOP      |
+| [documentDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#documentdir)         | $DOCUMENT     |
+| [downloadDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#downloaddir)         | $DOWNLOAD     |
+| [executableDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#executabledir)     | $EXE          |
+| [fontDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#fontdir)                 | $FONT         |
+| [homeDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#homedir)                 | $HOME         |
+| [pictureDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#picturedir)           | $PICTURE      |
+| [publicDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#publicdir)             | $PUBLIC       |
+| [runtimeDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#runtimedir)           | $RUNTIME      |
+| [templateDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#templatedir)         | $TEMPLATE     |
+| [videoDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#videodir)               | $VIDEO        |
+| [resourceDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#resourcedir)         | $RESOURCE     |
+| [tempDir](https://v2.tauri.app/reference/javascript/api/namespacepath/#tempdir)                 | $TEMP         |
+
+#### Exemples
+
+- portée globale
+
+Pour appliquer une portée à n'importe quelle commande `fs`, utilisez la permission `fs:scope` :
+
+```json title="src-tauri/capabilities/default.json" {7-10}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]
+    }
+  ]
+}
+```
+
+Pour appliquer une portée à une commande `fs` précise,
+utilisez la forme objet des permissions `{ "identifier": string, "allow"?: [], "deny"?: [] }` :
+
+```json title="src-tauri/capabilities/default.json" {7-18}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**/*" }]
+    },
+    {
+      "identifier": "fs:allow-rename",
+      "deny": [{ "path": "$HOME/.config/**/*" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+Dans l'exemple ci-dessus, vous pouvez utiliser l'API [`exists`](#exists) avec n'importe quel sous-chemin de `$APPDATA`, sans inclure les sous-répertoires,
+ainsi que l'API [`rename`](#renommer).
+
+:::tip
+Si vous essayez d'accéder à des dotfiles (par exemple `.gitignore`) ou à des dotfolders (par exemple `.ssh`) sur les systèmes de type Unix,
+vous devez préciser soit le chemin complet `/home/user/.ssh/example`, soit le glob après le composant de chemin du dotfolder
+`/home/user/.ssh/*`.
+
+Si cela ne fonctionne pas dans votre cas d'utilisation, vous pouvez configurer le plugin pour traiter n'importe quel composant
+comme un littéral de chemin valide.
+
+```json title="src-tauri/tauri.conf.json"
+ "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": false
+    }
+  }
+```
+
+La même option existe pour **`app.security.assetProtocol.scope`** lorsque vous utilisez la [forme objet](/fr/security/asset-protocol/) et non la forme tableau seule. Pour des cas réels impliquant des répertoires commençant par un point, consultez [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788).
+
+:::
+
+[NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[répertoire de base]: /fr/reference/javascript/api/namespacepath/#basedirectory
+[API path]: /fr/reference/javascript/api/namespacepath/
+[@tauri-apps/plugin-fs - Security]: /fr/reference/javascript/fs/#security
+[portées de commandes]: /fr/security/scope/

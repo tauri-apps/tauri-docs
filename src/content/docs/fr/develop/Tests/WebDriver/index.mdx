@@ -1,0 +1,101 @@
+---
+title: WebDriver
+description: Tests WebDriver
+sidebar:
+  order: 10
+  label: Vue d'ensemble
+i18nReady: true
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+[WebDriver] est une interface standardisée pour interagir avec des documents web, principalement destinée aux tests automatisés. La
+méthode recommandée pour l'utiliser avec Tauri est [WebdriverIO] et [`@wdio/tauri-service`], qui fonctionnent sous **Windows, Linux
+et macOS**. Maintenu dans le projet WebdriverIO, ce service fournit un accès aux API Tauri via `browser.tauri.execute()`,
+le mock de commandes (IPC), la capture des logs frontend et backend, et multiremote.
+
+Par défaut, le service exécute un **serveur WebDriver embarqué** dans votre app, donc aucun driver externe n'est nécessaire sur aucune
+plateforme, et c'est ainsi que macOS est pris en charge. Il peut aussi piloter le WebDriver natif de la plateforme via [`tauri-driver`]
+sous Windows et Linux, ou le fork multiplateforme de `tauri-driver` de [CrabNebula] sur toutes les plateformes (une clé d'API payante est
+requise pour macOS). Quelle que soit l'option choisie, le service détecte le binaire de votre application et, avec la voie `tauri-driver`,
+maintient pour vous le WebDriver Edge synchronisé sous Windows.
+
+La façon la plus rapide de scaffolder un projet est le starter WebdriverIO :
+
+```shell
+npm create wdio@latest ./
+```
+
+Choisissez **Desktop Testing**, puis **Tauri** à l'invite du framework. Une configuration minimale ressemble à ceci :
+
+```typescript
+export const config: WebdriverIO.Config = {
+  services: [
+    [
+      'tauri',
+      {
+        appBinaryPath: './src-tauri/target/release/my-tauri-app',
+        driverProvider: 'embedded',
+      },
+    ],
+  ],
+};
+```
+
+Cette configuration utilise deux petits plugins Tauri, tous deux optionnels selon vos besoins :
+
+- **`tauri-plugin-wdio-webdriver`** exécute le serveur WebDriver embarqué. Il est requis pour le provider `embedded` (par
+  défaut) : le service pilote votre app à travers lui, sans driver externe, et c'est ainsi que macOS est pris en charge. Vous pouvez
+  l'ignorer si vous voulez utiliser le provider `external` ou `crabnebula` à la place.
+- **`tauri-plugin-wdio`** active l'accès backend, notamment `browser.tauri.execute()`, le mock de commandes (IPC) et la capture
+  des logs.
+
+Consultez [Configuration du plugin] pour les étapes complètes, ainsi que le [guide de configuration CrabNebula] si vous utilisez ce provider.
+
+Pour les tests rapides limités au renderer, il existe aussi un **mode navigateur** qui exécute votre frontend Tauri dans Chrome standard avec un
+serveur de développement Vite : aucun binaire Tauri, driver ou plugin n'est requis. Il intercepte les appels `invoke()` afin que vous puissiez mocker les commandes
+et faire des assertions sur leurs arguments avec la même API WDIO. Consultez le [guide du mode navigateur].
+
+<LinkCard
+  title="Documentation Tauri WebdriverIO"
+  description="Configuration complète et référence d'API pour @wdio/tauri-service"
+  href="https://webdriver.io/docs/desktop-testing/tauri"
+/>
+
+## Applications d'exemple
+
+Des exemples complets et exécutables utilisant le service se trouvent dans le
+[dépôt desktop-mobile de WebdriverIO][example fixtures].
+
+## Intégration continue (CI)
+
+Le guide CI WebDriver explique comment exécuter ces tests avec GitHub Actions et les concepts associés.
+
+<LinkCard
+  title="Intégration continue (CI)"
+  href="/fr/develop/tests/webdriver/ci/"
+/>
+
+## Piloter `tauri-driver` directement
+
+Si vous n'utilisez pas Node.js, préférez [Selenium], ou intégrez WebDriver dans un harnais de test personnalisé, vous pouvez piloter
+[`tauri-driver`] directement au lieu d'utiliser le service. Piloté directement, seuls Windows et Linux sont pris en charge sur
+desktop, car macOS ne dispose d'aucun outil driver WKWebView (utilisez le serveur WebDriver embarqué du service pour macOS).
+
+<LinkCard
+  title="Configuration WebDriver manuelle"
+  description="Installer et piloter tauri-driver vous-même (Windows et Linux uniquement)"
+  href="/fr/develop/tests/webdriver/manual-setup/"
+/>
+
+[webdriver]: https://www.w3.org/TR/webdriver/
+[webdriverio]: https://webdriver.io/
+[`@wdio/tauri-service`]: https://webdriver.io/docs/desktop-testing/tauri
+[configuration du plugin]: https://webdriver.io/docs/desktop-testing/tauri/plugin-setup
+[crabnebula]: https://crabnebula.dev
+[guide de configuration CrabNebula]: https://webdriver.io/docs/desktop-testing/tauri/crabnebula-setup
+[guide du mode navigateur]: https://github.com/webdriverio/desktop-mobile/blob/main/packages/tauri-service/docs/browser-mode.md
+[example fixtures]: https://github.com/webdriverio/desktop-mobile/tree/main/fixtures/e2e-apps/tauri
+[selenium]: /fr/develop/tests/webdriver/example/selenium/
+[`tauri-driver`]: https://crates.io/crates/tauri-driver
+[tauri-driver]: https://crates.io/crates/tauri-driver

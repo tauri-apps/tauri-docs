@@ -1,0 +1,42 @@
+---
+title: Travaux futurs
+sidebar:
+  order: 10
+i18nReady: true
+---
+
+Cette section décrit les sujets que nous avons commencé à traiter ou que nous aimerions aborder à l'avenir pour rendre les apps Tauri encore plus sécurisées. Si ces sujets vous intéressent ou si vous disposez déjà de connaissances dans ces domaines, nous sommes toujours heureux d'accueillir de nouveaux contributeurs et des conseils via GitHub ou d'autres plateformes communautaires comme Discord.
+
+### Analyse de binaires
+
+Pour permettre aux pentesters, auditeurs et contrôles de sécurité automatisés de faire correctement leur travail, il est très utile de fournir de la visibilité même à partir de binaires compilés. Toutes les entreprises ne sont pas open source et ne fournissent pas leur code source pour les audits, les red teams et autres tests de sécurité.
+
+Un autre point souvent négligé est que fournir des métadonnées intégrées permet aux utilisateurs de votre application d'auditer leurs systèmes à grande échelle pour détecter des vulnérabilités connues, sans y consacrer toute leur vie et tous leurs efforts.
+
+Si votre modèle de menace dépend de la sécurité par l'obscurité, cette section fournira quelques outils et points qui, nous l'espérons, vous feront reconsidérer cette approche.
+
+Pour Rust, `cargo-auditable` permet de créer des [SBOMs](https://en.wikipedia.org/wiki/Software_supply_chain) et de fournir les versions exactes des crates et les dépendances d'un binaire sans casser les builds reproductibles.
+
+Pour la pile frontend, nous ne connaissons pas de solutions similaires ; extraire les ressources frontend du binaire devrait donc être un processus direct. Ensuite, il devrait être possible d'utiliser des outils comme `npm audit` ou similaires. Il existe déjà des [articles de blog](https://infosecwriteups.com/reverse-engineering-a-native-desktop-application-tauri-app-5a2d92772da5) sur le processus, mais aucun outil simple n'est disponible.
+
+Nous prévoyons de fournir ce type d'outillage ou de faciliter l'extraction des ressources lors de la compilation d'une app Tauri avec certaines fonctionnalités.
+
+Pour utiliser des outils de pentest comme [Burpsuite](https://portswigger.net/burp), [Zap](https://www.zaproxy.org/) ou [Caido](https://caido.io/), il est nécessaire d'intercepter le trafic de la webview et de le faire passer par le proxy de test. Actuellement, Tauri ne dispose pas de méthode intégrée pour le faire, mais des travaux sont en cours pour faciliter ce processus.
+
+Tous ces outils permettent de tester et d'inspecter correctement les applications Tauri sans accès au code source, et devraient être pris en compte lors de la construction d'une application Tauri.
+
+Nous prévoyons de continuer à prendre en charge et à implémenter des fonctionnalités liées à ces sujets à l'avenir.
+
+### Durcissement de la WebView
+
+Dans le modèle de menace et les frontières actuels de Tauri, nous ne sommes pas en mesure d'ajouter davantage de contraintes de sécurité à la WebView elle-même. Comme il s'agit de la plus grande partie de notre pile écrite dans un langage non sûr pour la mémoire, nous prévoyons de rechercher et d'envisager des moyens de sandboxer et d'isoler davantage les processus de webview.
+
+Les méthodes de sandboxing intégrées et externes seront évaluées afin de réduire l'impact des attaques et de faire respecter le pont IPC pour l'accès au système. Nous pensons que cette partie de notre pile est le maillon faible, mais les WebViews de génération actuelle s'améliorent en matière de durcissement et de résilience aux exploits.
+
+### Fuzzing
+
+Pour rendre le fuzzing des applications Tauri plus efficace et plus simple, nous visons à continuer d'implémenter nos runtimes mock et d'autres outils afin de faciliter la configuration et la construction pour des applications Tauri individuelles.
+
+Tauri prend en charge une multitude de systèmes d'exploitation et d'architectures CPU ; les apps ont généralement peu ou pas de code potentiellement non sûr pour la mémoire. Aucun outillage ou bibliothèque de fuzzing existant ne prend en charge ces cas d'utilisation inhabituels, nous devons donc l'implémenter et prendre en charge des bibliothèques existantes comme [libAFL](https://github.com/AFLplusplus/LibAFL) afin de construire des frameworks de fuzzing pour Tauri.
+
+L'objectif est de rendre le fuzzing accessible et efficace pour les développeurs d'applications Tauri.
