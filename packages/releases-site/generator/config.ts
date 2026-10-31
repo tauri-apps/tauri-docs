@@ -109,7 +109,7 @@ export const repositories = [
       {
         name: 'tauri-build',
         githubPath: 'crates/tauri-build',
-        description: "A helper library for tauri app's build script.",
+        description: "A helper library for Tauri app's build script.",
         cratesPath: 'tauri-build',
       },
       {
