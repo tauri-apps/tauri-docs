@@ -222,7 +222,7 @@ Additionally, we hardened our iFrame API exposure, fixed scope validation and re
 
 With the rewrite of our IPC layer we now support a long wished feature of Raw Payloads and generally changed how it works under the hood.
 
-Previously **all** IPC payloads were json serialized and deserialized which caused an overhead. This was noticeable once more than a few kilobytes were transfered between frontend and backend.
+Previously **all** IPC payloads were json serialized and deserialized which caused an overhead. This was noticeable once more than a few kilobytes were transferred between frontend and backend.
 
 The new system supports [Raw Requests](https://v2.tauri.app/develop/calling-rust/#accessing-raw-request). These speed up the transfer of large data from backend to frontend and vice versa, where you can either use raw bytes directly or use your own (de)serialization process (eg. bson, protobuf, avro and others).
 
