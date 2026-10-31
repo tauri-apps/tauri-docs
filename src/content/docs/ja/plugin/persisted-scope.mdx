@@ -1,6 +1,6 @@
 ---
 title: Persisted Scope（永続スコープ）
-description: ファイル・システム上の実行時のスコープ変更を持続させます。
+description: ファイルシステム上の実行時のスコープ変更を持続させます。
 plugin: persisted-scope
 i18nReady: true
 ---
@@ -20,11 +20,11 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
 
 <PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
 
-ファイル・システムとアセットのスコープ（有効範囲）を保存し、アプリが再開されたときにその状態を復元します。
+ファイルシステムとアセット<sup>※</sup>のスコープ（有効範囲）を保存し、アプリが再開されたときにその状態を復元します。
 
 <TranslationNote lang="ja">
 
-**デジタル・アセット**　digital asset：　「デジタル資産」。デジタル形式でのみ存在し、明確な使用権または使用許可が付与されているもの。《[wikipedia](https://ja.wikipedia.org/wiki/デジタル・アセット)》
+・**アセット**　（asset）：　デジタル化された「資産（アセット）」で、アプリが利用するローカル内のメディア・ファイルやリソース（画像・動画・音声・文書など）を指します。
 
 </TranslationNote>
 
@@ -79,10 +79,37 @@ import TranslationNote from '@components/i18n/TranslationNote.astro';
   </TabItem>
 </Tabs>
 
+:::caution（警告）
+`persisted-scope` プラグインは、以下の例に示すように、「`fs` プラグイン」**の後に** 登録および初期化されて*いなければなりません*。
+
+```rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init()) // fs は persisted scope の前に記載!
+        .plugin(tauri_plugin_persisted_scope::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+**`fs` を先にしないと、`persisted scope` が機能しません！**　また、開発者モードでアプリを起動すると、次のような警告メッセージ<sup>※</sup>が表示されます：
+
+```
+Please make sure to register the `fs` plugin before the `persisted-scope` plugin!
+```
+
+<TranslationNote lng="ja">
+  〈警告メッセージの内容〉　必ず `persisted-scope` プラグインの前に `fs`
+  プラグインを登録してください。
+</TranslationNote>
+
+:::
+
 ## 使用法
 
-セットアップ後、このプラグインは自動的にファイル・システムとアセット・スコープを保存および復元します。
+セットアップ後、このプラグインは自動的にファイルシステムとアセット・スコープを保存および復元します。
 
 <div style="text-align: right;">
-  【※ この日本語版は、「Feb 22, 2025 英語版」に基づいています】
+  【※ この日本語版は、「Nov 5, 2025 英語版」に基づいています】
 </div>
