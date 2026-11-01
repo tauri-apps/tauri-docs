@@ -45,6 +45,13 @@ and the Tauri CLI will start a development server for you:
 
 Note that in this example, the `src` folder must include an `index.html` file along with any other assets loaded by your frontend.
 
+:::note[Absolute paths on Windows]
+
+`frontendDist` accepts either a URL or a path. An absolute Windows path such as `D:\dist` is parsed as a URL with the scheme `d` instead of a directory.
+To use an absolute path, write it in the extended-length (UNC) form, for example `\\?\D:\path\to\dist`. Relative paths like `../dist` work as usual.
+
+:::
+
 :::caution[Plain/Vanilla Dev Server Security]
 
 The built-in Tauri development server does not support mutual authentication
