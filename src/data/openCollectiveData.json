@@ -13,6 +13,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Conductor",
+    "id": "Conductor",
+    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/conductor",
+    "socialLinks": {},
+    "tier": "platinum",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Lightfinder",
     "id": "Lightfinder",
     "avatarUrl": "https://images.opencollective.com/lightfinder/b41bd05/logo/256.jpg",
@@ -20,15 +29,6 @@
     "socialLinks": {},
     "tier": "gold",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Conductor",
-    "id": "Conductor",
-    "avatarUrl": "https://images.opencollective.com/conductor/e11ad42/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/conductor",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "VPS Server",
@@ -113,15 +113,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Matt Campbell",
-    "id": "Matt Campbell",
-    "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/matt-campbell1",
-    "socialLinks": {},
-    "tier": "gold",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Controla",
     "id": "Controla",
     "avatarUrl": "https://images.opencollective.com/controla/29fe5ee/logo/256.jpg",
@@ -132,6 +123,15 @@
     },
     "tier": "gold",
     "type": "ORGANIZATION"
+  },
+  {
+    "name": "Matt Campbell",
+    "id": "Matt Campbell",
+    "avatarUrl": "https://images.opencollective.com/matt-campbell1/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/matt-campbell1",
+    "socialLinks": {},
+    "tier": "gold",
+    "type": "INDIVIDUAL"
   },
   {
     "name": "Thad Guidry",
@@ -676,15 +676,6 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Christoph Karrer-Hoffmann",
-    "id": "Christoph Karrer-Hoffmann",
-    "avatarUrl": "https://images.opencollective.com/christoph-karrer-hoffmann/9b639f4/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/christoph-karrer-hoffmann",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
-  },
-  {
     "name": "Alexander Eden",
     "id": "Alexander Eden",
     "avatarUrl": "https://images.opencollective.com/alex-eden/31765a1/avatar/256.jpg",
@@ -693,6 +684,15 @@
       "website": "https://github.com/alexeden",
       "github": "https://github.com/alexeden"
     },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Christoph Karrer-Hoffmann",
+    "id": "Christoph Karrer-Hoffmann",
+    "avatarUrl": "https://images.opencollective.com/christoph-karrer-hoffmann/9b639f4/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/christoph-karrer-hoffmann",
+    "socialLinks": {},
     "tier": "silver",
     "type": "INDIVIDUAL"
   },
@@ -939,6 +939,15 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Waypad",
+    "id": "Waypad",
+    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/waypad",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Jonathan Dahan",
     "id": "Jonathan Dahan",
     "avatarUrl": "https://images.opencollective.com/jedahan/avatar/256.jpg",
@@ -1016,15 +1025,6 @@
     "socialLinks": {},
     "tier": "bronze",
     "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Waypad",
-    "id": "Waypad",
-    "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
-    "profileUrl": "https://opencollective.com/waypad",
-    "socialLinks": {},
-    "tier": "bronze",
-    "type": "ORGANIZATION"
   },
   {
     "name": "Andre Luiz da Cruz Moreira",
@@ -1292,14 +1292,14 @@
     "type": "INDIVIDUAL"
   },
   {
-    "name": "Dennis Schubert",
-    "id": "Dennis Schubert",
-    "avatarUrl": "https://images.opencollective.com/denschub/2ea7016/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/denschub",
+    "name": "Sky Schubert",
+    "id": "Sky Schubert",
+    "avatarUrl": "https://images.opencollective.com/skyschub/2ea7016/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/skyschub",
     "socialLinks": {
       "website": "https://overengineer.dev/",
-      "github": "https://github.com/denschub",
-      "mastodon": "https://mastodon.schub.social/@denschub"
+      "github": "https://github.com/skyschub",
+      "mastodon": "https://mastodon.schub.social/@sky"
     },
     "tier": "bronze",
     "type": "INDIVIDUAL"
@@ -2448,7 +2448,7 @@
     "avatarUrl": "https://images.opencollective.com/crutchcorn/23b5381/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/crutchcorn",
     "socialLinks": {
-      "website": "https://crutchcorn.dev",
+      "website": "https://crutchcorn.dev/",
       "twitter": "https://twitter.com/crutchcorn",
       "github": "https://github.com/crutchcorn"
     },
