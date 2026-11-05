@@ -618,7 +618,7 @@ You can use installer hooks to automatically install system dependencies that yo
     CopyFiles "$INSTDIR\resources\vc_redist.x64.msi" "$TEMP\vc_redist.x64.msi"
     ExecWait 'msiexec /i "$TEMP\vc_redist.x64.msi" /passive /norestart' $0
 
-    ; Check wether installation process exited successfully (code 0) or not
+    ; Check whether installation process exited successfully (code 0) or not
     ${If} $0 == 0
       DetailPrint "Visual C++ Redistributable installed successfully"
     ${Else}
