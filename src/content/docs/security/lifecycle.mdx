@@ -82,8 +82,7 @@ In practice, these development connections are typically neither encrypted nor a
 and development Content Security Policies (CSP) are often relaxed to allow rapid iteration.
 If the development server is exposed to the local network—such as when bound to all network
 interfaces (`0.0.0.0`) or a host LAN IP—anyone on the same local network can access the server
-and connect to the HMR WebSocket. This allows attackers on the same network to push arbitrary
-frontend code directly into the running WebView. Because the frontend runs in the application context,
+and connect to the HMR WebSocket. This allows attackers on the same network to push attacker-controlled frontend code directly into the running WebView. Because the frontend runs in the application context,
 injected code can invoke exposed Tauri commands and plugins, potentially leading to local system
 or device compromise in the worst case.
 
@@ -92,14 +91,14 @@ This risk applies to both desktop and mobile development whenever the developmen
 - **Desktop development:** While many dev servers default to loopback (`127.0.0.1` / `localhost`), developers sometimes configure them to listen on `0.0.0.0` or run on shared, untrusted networks (such as public Wi-Fi), exposing the dev server port to other network participants.
 - **Mobile development:** When testing on physical iOS or Android devices over Wi-Fi, the dev server must be accessible over the LAN (such as via `TAURI_DEV_HOST` or binding to `0.0.0.0`). This necessarily exposes the development server to all devices on that same local network.
 
-#### Mitigations
+### Mitigations
 
 To protect your development environment:
 
 - **Bind strictly to loopback when possible:** For desktop development and local emulator/simulator testing, ensure your frontend dev server binds only to `127.0.0.1` or `localhost` (e.g., setting `server.host: "127.0.0.1"` in Vite) rather than all interfaces (`0.0.0.0`).
-- **Never develop on untrusted networks:** Avoid running development servers on public Wi-Fi or untrusted networks where other clients can connect to your open ports.
+- **Avoid developing on untrusted networks:** Avoid running development servers on public Wi-Fi or untrusted networks where other clients can connect to your open ports.
 - **Isolate mobile testing:** When physical device testing requires LAN exposure, use a dedicated, trusted network (such as a private Wi-Fi hotspot) or configure host firewall rules to restrict incoming connections to the specific IP address of your test device.
-- **Use encrypted tunnels or mutual authentication:** If you must connect over shared or remote networks, use a secure tunnel or ensure the connection uses **mutual** authentication and encryption (e.g., mTLS).
+- **Use encrypted tunnels or mutual authentication:** If you must connect over shared or remote networks, use a secure tunnel or ensure the connection uses **mutual** authentication and encryption (e.g., mTLS via a reverse proxy or TLS-terminating shim).
 
 :::note
 Neither the built-in Tauri development server nor standard frontend dev servers support
