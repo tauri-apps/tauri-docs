@@ -12,7 +12,17 @@ export const collections = {
       extend: (context) => blogSchema(context).merge(topicSchema),
     }),
   }),
-  i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
+  i18n: defineCollection({
+    loader: i18nLoader(),
+    // partial like Starlight's own strings: a locale file only carries what has been translated
+    schema: i18nSchema({
+      extend: z
+        .object({
+          'tauri.versionSelect.accessibleLabel': z.string(),
+        })
+        .partial(),
+    }),
+  }),
   releases: defineCollection({
     loader: glob({ base: './src/content/releases', pattern: '**/*.{md,mdx}' }),
     // `slug` is ours: filenames like `v2.0.0.md` would mis-slugify on the dots
