@@ -193,10 +193,18 @@ fn main() {
 Multi-level menus allow you to group menu items under categories like "File," "Edit," etc. These will appear as part of the application window for Windows or Linux, or in the menu bar on MacOS.
 
 import submenus from '@assets/learn/window-menu/submenus.png';
+import empty from '@assets/learn/window-menu/empty.png';
 
 <Image src={submenus} alt="This menu in the macOS menu bar"/>
 
-**Note:** On MacOS, all items in an application menu must be grouped under a submenu. Top-level items will be ignored. Additionally, the first submenu will be placed under the application's about menu by default, regardless of the `text` label. You should include a submenu as the first entry (say, an "About" submenu) to fill this space.
+:::note
+
+On MacOS, all items in an application menu must be grouped under submenus. Top-level items will be ignored:
+
+<Image src={empty} alt="An empty macOS menu bar"/>
+
+Also, the first submenu will *always* become the application's about menu, regardless of its `text` label. In the example, below, "About" is displayed as "tauri-menus".
+:::
 
 :::note
 Icon support for submenus is available since Tauri 2.8.0.
