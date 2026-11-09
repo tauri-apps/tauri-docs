@@ -85,7 +85,7 @@ use tauri::menu::MenuBuilder;
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
-            // NOTE: will be empty macOS. On macOS, all top-level entries must be SubMenus.
+            // NOTE: will be empty on macOS. On macOS, all top-level entries must be Submenus.
             let menu = MenuBuilder::new(app)
                 .text("open", "Open")
                 .text("close", "Close")
@@ -106,7 +106,8 @@ fn main() {
 
             Ok(())
         })
-        .run(tauri::generate_context!());
+        .run(tauri::generate_context!())
+        .expect();
 }
 ```
 
@@ -150,8 +151,7 @@ await menu.setAsAppMenu();
 <TabItem label="Rust">
 
 ```rust
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{MenuBuilder};
+use tauri::menu::MenuBuilder;
 
 fn main() {
   tauri::Builder::default()
