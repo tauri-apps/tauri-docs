@@ -107,7 +107,7 @@ fn main() {
             Ok(())
         })
         .run(tauri::generate_context!())
-        .expect();
+        .expect("error while running tauri application");
 }
 ```
 
@@ -182,6 +182,8 @@ fn main() {
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -305,6 +307,11 @@ use tauri::{
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
+            // Will become the application submenu on macOS
+            let about_menu = SubmenuBuilder::new(app, "About")
+                .text("quit", "Quit")
+                .build()?;
+
             let menu_image = Image::from_bytes(include_bytes!("../icons/menu.png")).unwrap();
             let file_menu = SubmenuBuilder::new(app, "File")
                 .submenu_icon(menu_image) // Optional: Add an icon to the submenu
@@ -334,10 +341,11 @@ fn main() {
             let other_item = SubmenuBuilder::new(app, "language")
                 .item(&check_sub_item_1)
                 .item(&check_sub_item_2)
+                .item(&icon_item)
                 .build()?;
 
             let menu = MenuBuilder::new(app)
-                .items(&[&file_menu, &other_item, &icon_item])
+                .items(&[&about_menu, &file_menu, &other_item])
                 .build()?;
 
             app.set_menu(menu)?;
