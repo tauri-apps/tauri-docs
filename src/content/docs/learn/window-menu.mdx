@@ -412,9 +412,8 @@ await using select_all = await PredefinedMenuItem.new({
   item: 'SelectAll',
 });
 
-// On macOS, top-level items must be submenus, and the first submenu always
-// becomes the application menu, so add a placeholder first.
-await using app = await Submenu.new({ text: 'About', items: [] });
+// Becomes the application submenu on MacOS
+await using about = await Submenu.new({ text: 'About', items: [] });
 
 await using predefined = await Submenu.new({
   text: 'Predefined',
@@ -422,7 +421,7 @@ await using predefined = await Submenu.new({
 });
 
 await using menu = await Menu.new({
-  items: [app, predefined],
+  items: [about, predefined],
 });
 
 await menu.setAsAppMenu();
@@ -538,9 +537,8 @@ await using text_item = await MenuItem.new({
   },
 });
 
-// On macOS, top-level items must be submenus, and the first submenu always
-// becomes the application menu, so add a placeholder first.
-await using app = await Submenu.new({ text: 'About', items: [] });
+// Becomes the application submenu on MacOS
+await using about = await Submenu.new({ text: 'About', items: [] });
 
 await using change_menu = await Submenu.new({
   id: 'change_menu',
@@ -549,7 +547,7 @@ await using change_menu = await Submenu.new({
 });
 
 await using menu = await Menu.new({
-  items: [app, change_menu],
+  items: [about, change_menu],
 });
 
 await menu.setAsAppMenu();
