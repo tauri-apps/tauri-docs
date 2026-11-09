@@ -506,19 +506,22 @@ import { Image } from '@tauri-apps/api/image';
 
 let currentLanguage = 'en';
 
-await using check_sub_item_en = await CheckMenuItem.new({
+// No `await using`: these items are used inside their `action` callbacks, so must not be freed at end of scope.
+//
+// You must `.close()` them manually later.
+const check_sub_item_en = await CheckMenuItem.new({
   id: 'en',
   text: 'English',
   checked: currentLanguage === 'en',
   action: () => {
     currentLanguage = 'en';
     check_sub_item_en.setChecked(currentLanguage === 'en');
-    check_sub_item_zh.setChecked(currentLanguage === 'cn');
+    check_sub_item_zh.setChecked(currentLanguage === 'zh');
     console.log('English pressed');
   },
 });
 
-await using check_sub_item_zh = await CheckMenuItem.new({
+const check_sub_item_zh = await CheckMenuItem.new({
   id: 'zh',
   text: 'Chinese',
   checked: currentLanguage === 'zh',
@@ -533,9 +536,9 @@ await using check_sub_item_zh = await CheckMenuItem.new({
 
 // Load icon from path
 await using icon = await Image.fromPath('../src/icon.png');
-await using icon2 = await Image.fromPath('../src/icon-2.png');
+const icon2 = await Image.fromPath('../src/icon-2.png');
 
-await using icon_item = await IconMenuItem.new({
+const icon_item = await IconMenuItem.new({
   id: 'icon_item',
   text: 'Icon Item',
   icon: icon,
@@ -545,7 +548,7 @@ await using icon_item = await IconMenuItem.new({
   },
 });
 
-await using text_item = await MenuItem.new({
+const text_item = await MenuItem.new({
   id: 'text_item',
   text: 'Text Item',
   action: () => {
