@@ -441,12 +441,15 @@ await menu.setAsAppMenu();
 
 ```rust
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+use tauri::menu::{MenuBuilder, PredefinedMenuItem, SubmenuBuilder};
 
 fn main() {
   tauri::Builder::default()
         .setup(|app| {
-      let menu = MenuBuilder::new(app)
+      // Becomes the application submenu on macOS
+      let about_menu = SubmenuBuilder::new(app, "About").build()?;
+
+      let predefined_menu = SubmenuBuilder::new(app, "Predefined")
                 .copy()
                 .separator()
                 .undo()
@@ -456,10 +459,16 @@ fn main() {
                 .select_all()
                 .item(&PredefinedMenuItem::copy(app, Some("custom text"))?)
                 .build()?;
+
+            let menu = MenuBuilder::new(app)
+                .items(&[&about_menu, &predefined_menu])
+                .build()?;
             app.set_menu(menu)?;
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -604,12 +613,15 @@ fn main() {
             )
             .unwrap();
 
+            // Becomes the application submenu on macOS
+            let about_menu = SubmenuBuilder::new(app, "About").build()?;
+
             let menu_item = SubmenuBuilder::new(app, "Change menu")
                 .item(&text_menu)
                 .item(&icon_menu)
                 .items(&[&check_sub_item_en, &check_sub_item_zh])
                 .build()?;
-            let menu = MenuBuilder::new(app).items(&[&menu_item]).build()?;
+            let menu = MenuBuilder::new(app).items(&[&about_menu, &menu_item]).build()?;
             app.set_menu(menu)?;
             app.on_menu_event(move |_app_handle: &tauri::AppHandle, event| {
                 match event.id().0.as_str() {
