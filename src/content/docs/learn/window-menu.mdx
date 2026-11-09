@@ -375,6 +375,8 @@ To use built-in (native) menu items that has predefined behavior by the operatin
 ```javascript
 import { Menu, PredefinedMenuItem, Submenu } from '@tauri-apps/api/menu';
 
+// macOS injects additional "Writing Tools" menu items into your "Edit" menu,
+// or, if that's missing, whichever menu has this copy item:
 await using copy = await PredefinedMenuItem.new({
   text: 'copy-text',
   item: 'Copy',
