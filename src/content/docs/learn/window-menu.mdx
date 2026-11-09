@@ -214,7 +214,7 @@ Icon support for submenus is available since Tauri 2.8.0.
 <TabItem label="JavaScript">
 
 ```javascript
-import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
+import { Menu, Submenu } from '@tauri-apps/api/menu';
 
 // Will become the application submenu on MacOS
 await using aboutSubmenu = await Submenu.new({
@@ -258,6 +258,8 @@ await using fileSubmenu = await Submenu.new({
   ],
 });
 
+// Note: macOS injects additional "Writing Tools" elements into "Edit" menus
+// (or, failing that, any menu with the "Copy" command).
 await using editSubmenu = await Submenu.new({
   text: 'Edit',
   items: [
@@ -371,7 +373,7 @@ To use built-in (native) menu items that has predefined behavior by the operatin
 <TabItem label="JavaScript">
 
 ```javascript
-import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
+import { Menu, PredefinedMenuItem, Submenu } from '@tauri-apps/api/menu';
 
 await using copy = await PredefinedMenuItem.new({
   text: 'copy-text',
@@ -408,8 +410,17 @@ await using select_all = await PredefinedMenuItem.new({
   item: 'SelectAll',
 });
 
-await using menu = await Menu.new({
+// On macOS, top-level items must be submenus, and the first submenu always
+// becomes the application menu, so add a placeholder first.
+await using app = await Submenu.new({ text: 'About', items: [] });
+
+await using predefined = await Submenu.new({
+  text: 'Predefined',
   items: [copy, separator, undo, redo, cut, paste, select_all],
+});
+
+await using menu = await Menu.new({
+  items: [app, predefined],
 });
 
 await menu.setAsAppMenu();
@@ -471,6 +482,7 @@ import {
   CheckMenuItem,
   IconMenuItem,
   MenuItem,
+  Submenu,
 } from '@tauri-apps/api/menu';
 import { Image } from '@tauri-apps/api/image';
 
@@ -524,14 +536,18 @@ await using text_item = await MenuItem.new({
   },
 });
 
+// On macOS, top-level items must be submenus, and the first submenu always
+// becomes the application menu, so add a placeholder first.
+await using app = await Submenu.new({ text: 'About', items: [] });
+
+await using change_menu = await Submenu.new({
+  id: 'change_menu',
+  text: 'change_menu',
+  items: [text_item, check_sub_item_en, check_sub_item_zh, icon_item],
+});
+
 await using menu = await Menu.new({
-  items: [
-    {
-      id: 'change menu',
-      text: 'change_menu',
-      items: [text_item, check_sub_item_en, check_sub_item_zh, icon_item],
-    },
-  ],
+  items: [app, change_menu],
 });
 
 await menu.setAsAppMenu();
