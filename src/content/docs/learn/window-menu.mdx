@@ -444,31 +444,31 @@ await menu.setAsAppMenu();
 use tauri::menu::{MenuBuilder, PredefinedMenuItem, SubmenuBuilder};
 
 fn main() {
-  tauri::Builder::default()
-    .setup(|app| {
-        // Becomes the application submenu on macOS
-        let about_menu = SubmenuBuilder::new(app, "About").build()?;
+    tauri::Builder::default()
+        .setup(|app| {
+            // Becomes the application submenu on macOS
+            let about_menu = SubmenuBuilder::new(app, "About").build()?;
 
-        let predefined_menu = SubmenuBuilder::new(app, "Predefined")
-            .copy()
-            .separator()
-            .undo()
-            .redo()
-            .cut()
-            .paste()
-            .select_all()
-            .item(&PredefinedMenuItem::copy(app, Some("custom text"))?)
-            .build()?;
+            let predefined_menu = SubmenuBuilder::new(app, "Predefined")
+                .copy()
+                .separator()
+                .undo()
+                .redo()
+                .cut()
+                .paste()
+                .select_all()
+                .item(&PredefinedMenuItem::copy(app, Some("custom text"))?)
+                .build()?;
 
-        let menu = MenuBuilder::new(app)
-            .items(&[&about_menu, &predefined_menu])
-            .build()?;
-        app.set_menu(menu)?;
+            let menu = MenuBuilder::new(app)
+                .items(&[&about_menu, &predefined_menu])
+                .build()?;
+            app.set_menu(menu)?;
 
-        Ok(())
-    })
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application");
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
