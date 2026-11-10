@@ -6,6 +6,7 @@ i18nReady: true
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 Native application menus can be attached to both to a window or system tray. Available on desktop.
 
@@ -63,6 +64,8 @@ await using menu = await Menu.new({
 
 // If a window was not created with an explicit menu or had one set explicitly,
 // this menu will be assigned to it.
+//
+// NOTE: will be empty macOS. On macOS, all top-level entries must be SubMenus.
 await menu.setAsAppMenu();
 
 // Update individual menu item text
@@ -82,6 +85,7 @@ use tauri::menu::MenuBuilder;
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
+            // NOTE: will be empty on macOS. On macOS, all top-level entries must be Submenus.
             let menu = MenuBuilder::new(app)
                 .text("open", "Open")
                 .text("close", "Close")
@@ -102,7 +106,8 @@ fn main() {
 
             Ok(())
         })
-        .run(tauri::generate_context!());
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -146,8 +151,7 @@ await menu.setAsAppMenu();
 <TabItem label="Rust">
 
 ```rust
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{MenuBuilder};
+use tauri::menu::MenuBuilder;
 
 fn main() {
   tauri::Builder::default()
@@ -178,6 +182,8 @@ fn main() {
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -188,7 +194,19 @@ fn main() {
 
 Multi-level menus allow you to group menu items under categories like "File," "Edit," etc. These will appear as part of the application window for Windows or Linux, or in the menu bar on MacOS.
 
-**Note:** When using submenus on MacOS, all items must be grouped under a submenu. Top-level items will be ignored. Additionally, the first submenu will be placed under the application's about menu by default, regardless of the `text` label. You should include a submenu as the first entry (say, an "About" submenu) to fill this space.
+import submenus from '@assets/learn/window-menu/submenus.jpg';
+import empty from '@assets/learn/window-menu/empty.jpg';
+
+<Image src={submenus} alt="This menu in the macOS menu bar" />
+
+:::note
+
+On MacOS, all items in an application menu must be grouped under submenus. Top-level items will be ignored:
+
+<Image src={empty} alt="An empty macOS menu bar" />
+
+Also, the first submenu will _always_ become the application's about menu, regardless of its `text` label. You should include a submenu as the first entry (say, an "About" submenu) to fill this space. In the example, below, "About" is displayed as "tauri-menus".
+:::
 
 :::note
 Icon support for submenus is available since Tauri 2.8.0.
@@ -198,7 +216,7 @@ Icon support for submenus is available since Tauri 2.8.0.
 <TabItem label="JavaScript">
 
 ```javascript
-import { Menu, MenuItem, Submenu } from '@tauri-apps/api/menu';
+import { Menu, Submenu } from '@tauri-apps/api/menu';
 
 // Will become the application submenu on MacOS
 await using aboutSubmenu = await Submenu.new({
@@ -216,7 +234,7 @@ await using aboutSubmenu = await Submenu.new({
 
 await using fileSubmenu = await Submenu.new({
   text: 'File',
-  icon: 'folder', // Optional: Add an icon to the submenu
+  icon: 'Folder', // Optional: Add an icon to the submenu
   items: [
     {
       id: 'new',
@@ -242,6 +260,8 @@ await using fileSubmenu = await Submenu.new({
   ],
 });
 
+// Note: macOS injects additional "Writing Tools" elements into "Edit" menus
+// (or, failing that, any menu with the "Copy" command).
 await using editSubmenu = await Submenu.new({
   text: 'Edit',
   items: [
@@ -287,6 +307,11 @@ use tauri::{
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
+            // Will become the application submenu on macOS
+            let about_menu = SubmenuBuilder::new(app, "About")
+                .text("quit", "Quit")
+                .build()?;
+
             let menu_image = Image::from_bytes(include_bytes!("../icons/menu.png")).unwrap();
             let file_menu = SubmenuBuilder::new(app, "File")
                 .submenu_icon(menu_image) // Optional: Add an icon to the submenu
@@ -316,10 +341,11 @@ fn main() {
             let other_item = SubmenuBuilder::new(app, "language")
                 .item(&check_sub_item_1)
                 .item(&check_sub_item_2)
+                .item(&icon_item)
                 .build()?;
 
             let menu = MenuBuilder::new(app)
-                .items(&[&file_menu, &other_item, &icon_item])
+                .items(&[&about_menu, &file_menu, &other_item])
                 .build()?;
 
             app.set_menu(menu)?;
@@ -355,8 +381,10 @@ To use built-in (native) menu items that has predefined behavior by the operatin
 <TabItem label="JavaScript">
 
 ```javascript
-import { Menu, PredefinedMenuItem } from '@tauri-apps/api/menu';
+import { Menu, PredefinedMenuItem, Submenu } from '@tauri-apps/api/menu';
 
+// macOS injects additional "Writing Tools" menu items into your "Edit" menu,
+// or, if that's missing, whichever menu has this copy item:
 await using copy = await PredefinedMenuItem.new({
   text: 'copy-text',
   item: 'Copy',
@@ -392,8 +420,16 @@ await using select_all = await PredefinedMenuItem.new({
   item: 'SelectAll',
 });
 
-await using menu = await Menu.new({
+// Becomes the application submenu on MacOS
+await using about = await Submenu.new({ text: 'About', items: [] });
+
+await using predefined = await Submenu.new({
+  text: 'Predefined',
   items: [copy, separator, undo, redo, cut, paste, select_all],
+});
+
+await using menu = await Menu.new({
+  items: [about, predefined],
 });
 
 await menu.setAsAppMenu();
@@ -405,12 +441,15 @@ await menu.setAsAppMenu();
 
 ```rust
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+use tauri::menu::{MenuBuilder, PredefinedMenuItem, SubmenuBuilder};
 
 fn main() {
-  tauri::Builder::default()
+    tauri::Builder::default()
         .setup(|app| {
-      let menu = MenuBuilder::new(app)
+            // Becomes the application submenu on macOS
+            let about_menu = SubmenuBuilder::new(app, "About").build()?;
+
+            let predefined_menu = SubmenuBuilder::new(app, "Predefined")
                 .copy()
                 .separator()
                 .undo()
@@ -420,10 +459,16 @@ fn main() {
                 .select_all()
                 .item(&PredefinedMenuItem::copy(app, Some("custom text"))?)
                 .build()?;
+
+            let menu = MenuBuilder::new(app)
+                .items(&[&about_menu, &predefined_menu])
+                .build()?;
             app.set_menu(menu)?;
 
             Ok(())
         })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -435,6 +480,12 @@ The menu builder has dedicated methods to add each predefined menu item so you c
 
 </TabItem>
 </Tabs>
+
+The result:
+
+import predefined from '@assets/learn/window-menu/predefined.jpg';
+
+<Image src={predefined} alt="This menu in the macOS menu bar" />
 
 ## Change menu status
 
@@ -449,24 +500,28 @@ import {
   CheckMenuItem,
   IconMenuItem,
   MenuItem,
+  Submenu,
 } from '@tauri-apps/api/menu';
 import { Image } from '@tauri-apps/api/image';
 
 let currentLanguage = 'en';
 
-await using check_sub_item_en = await CheckMenuItem.new({
+// No `await using`: these items are used inside their `action` callbacks, so must not be freed at end of scope.
+//
+// You must `.close()` them manually later.
+const check_sub_item_en = await CheckMenuItem.new({
   id: 'en',
   text: 'English',
   checked: currentLanguage === 'en',
   action: () => {
     currentLanguage = 'en';
     check_sub_item_en.setChecked(currentLanguage === 'en');
-    check_sub_item_zh.setChecked(currentLanguage === 'cn');
+    check_sub_item_zh.setChecked(currentLanguage === 'zh');
     console.log('English pressed');
   },
 });
 
-await using check_sub_item_zh = await CheckMenuItem.new({
+const check_sub_item_zh = await CheckMenuItem.new({
   id: 'zh',
   text: 'Chinese',
   checked: currentLanguage === 'zh',
@@ -481,9 +536,9 @@ await using check_sub_item_zh = await CheckMenuItem.new({
 
 // Load icon from path
 await using icon = await Image.fromPath('../src/icon.png');
-await using icon2 = await Image.fromPath('../src/icon-2.png');
+const icon2 = await Image.fromPath('../src/icon-2.png');
 
-await using icon_item = await IconMenuItem.new({
+const icon_item = await IconMenuItem.new({
   id: 'icon_item',
   text: 'Icon Item',
   icon: icon,
@@ -493,7 +548,7 @@ await using icon_item = await IconMenuItem.new({
   },
 });
 
-await using text_item = await MenuItem.new({
+const text_item = await MenuItem.new({
   id: 'text_item',
   text: 'Text Item',
   action: () => {
@@ -502,14 +557,17 @@ await using text_item = await MenuItem.new({
   },
 });
 
+// Becomes the application submenu on MacOS
+await using about = await Submenu.new({ text: 'About', items: [] });
+
+await using change_menu = await Submenu.new({
+  id: 'change_menu',
+  text: 'change_menu',
+  items: [text_item, check_sub_item_en, check_sub_item_zh, icon_item],
+});
+
 await using menu = await Menu.new({
-  items: [
-    {
-      id: 'change menu',
-      text: 'change_menu',
-      items: [text_item, check_sub_item_en, check_sub_item_zh, icon_item],
-    },
-  ],
+  items: [about, change_menu],
 });
 
 await menu.setAsAppMenu();
@@ -558,12 +616,15 @@ fn main() {
             )
             .unwrap();
 
+            // Becomes the application submenu on macOS
+            let about_menu = SubmenuBuilder::new(app, "About").build()?;
+
             let menu_item = SubmenuBuilder::new(app, "Change menu")
                 .item(&text_menu)
                 .item(&icon_menu)
                 .items(&[&check_sub_item_en, &check_sub_item_zh])
                 .build()?;
-            let menu = MenuBuilder::new(app).items(&[&menu_item]).build()?;
+            let menu = MenuBuilder::new(app).items(&[&about_menu, &menu_item]).build()?;
             app.set_menu(menu)?;
             app.on_menu_event(move |_app_handle: &tauri::AppHandle, event| {
                 match event.id().0.as_str() {
@@ -613,6 +674,12 @@ fn main() {
 
 </TabItem>
 </Tabs>
+
+The menu looks like this:
+
+import change_menu from '@assets/learn/window-menu/change_menu.jpg';
+
+<Image src={change_menu} alt="This menu in the macOS menu bar" />
 
 ## Prevent JavaScript menu leaks
 
