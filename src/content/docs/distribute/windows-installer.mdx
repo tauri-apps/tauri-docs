@@ -618,7 +618,7 @@ You can use installer hooks to automatically install system dependencies that yo
     CopyFiles "$INSTDIR\resources\vc_redist.x64.msi" "$TEMP\vc_redist.x64.msi"
     ExecWait 'msiexec /i "$TEMP\vc_redist.x64.msi" /passive /norestart' $0
 
-    ; Check wether installation process exited successfully (code 0) or not
+    ; Check whether installation process exited successfully (code 0) or not
     ${If} $0 == 0
       DetailPrint "Visual C++ Redistributable installed successfully"
     ${Else}
@@ -645,12 +645,13 @@ You can use installer hooks to automatically install system dependencies that yo
 
 Ensure to bundle the dependency installers in your `src-tauri/resources` folder and add to `tauri.conf.json` so they get bundled, and can be accessed during installation from `$INSTDIR\resources\`:
 
+{/* prettier-ignore */}
 ```json title="tauri.conf.json"
 {
   "bundle": {
     "resources": [
       "resources/my-dependency.exe",
-      "resources/another-one.msi
+      "resources/another-one.msi"
     ]
   }
 }

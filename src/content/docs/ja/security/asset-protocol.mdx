@@ -1,0 +1,194 @@
+---
+title: アセット・プロトコル・スコープ
+description: app.security.assetProtocol を設定することで、WebView が FsScope、requireLiteralLeadingDot、動的パスなどを含むローカル・ファイルを安全に読み込めるようになります。
+sidebar:
+  order: 5
+i18nReady: true
+---
+
+import TranslationNote from "@components/i18n/TranslationNote.astro";
+
+<TranslationNote lang="ja">
+
+・**resolve の訳語について**：　プログラム関連では「パスの解決」「名前の解決」「依存関係の解決」のように、通常「〜の解決／〜を解決する」と訳されますが、本稿では、「設定、決定、変換、確定」などの訳語を用いて、その「解決」を行なうための処理・操作内容を表示しています。
+
+</TranslationNote>
+
+Tauri は、「**アセット**・カスタム・プロトコル<sup>※</sup>」を介して、ディスクから WebView にファイルを配信できます （たとえば、フロントエンドで [`convertFileSrc`](/ja/reference/javascript/api/namespacecore/#convertfilesrc) を使用する場合）。パスが許可されるかどうかは、`tauri.conf.json` ファイル内の **`app.security.assetProtocol`** によって制御されます。
+
+<TranslationNote lang="ja">
+
+・**アセット**　（asset）：　画像・動画・音声などのローカル・リソース・データのこと。 <br />
+・**アセット・カスタム・プロトコル**　（Asset Custom Protocol）：　フロントエンドから「アセット」に「カスタム」（Tauri 独自）の「プロトコル」（通信手順）で安全にアクセスする仕組み。適切な日本語訳がないため音訳しています。<br />
+・**アセット・プロトコル・スコープ**　（Asset Protocol Scope）：　「アセット・プロトコル」のスコープ（アクセス範囲）。同様に日本語の訳語がないため、音訳しています。
+
+</TranslationNote>
+
+**`enable`**（有効化）の項を「`true`」に設定し、どのファイルシステム・パスが公開可能かをリストした **`scope`**（スコープ／適用範囲）の項を定義する必要があります。実行時に設定されるパスは、そのスコープと一致していなければなりません。一致しない場合には、WebView が読み込みを拒否します（多くの場合、「アセット・プロトコルがパスを許可するように設定されていません」などのエラーが表示されます）。
+
+「`asset:` ソース」に対する「コンテンツ・セキュリティ・ポリシー」は、次章の『[コンテンツ・セキュリティ・ポリシー（CSP）](/ja/security/csp/)』に文書化されています《訳注： tauri.conf.json の csp 事例参照》。本章では、「スコープ」と、そのスコープが「グロブ glob<sup>※</sup>」や「隠しパス・セグメント」とどのように相互に影響しているかに焦点を当てて説明します。
+
+<TranslationNote lang="ja">
+
+・**グロブ**　（glob）：　文字パターンの検索時に特殊な文字・記号を含む文字列（＝グロブ・パターン）を利用して実行する仕組み。初期 UNIX で用いられていたプログラム名 global command に由来する言葉。　詳しくは ［[Wikipedia](https://ja.wikipedia.org/wiki/グロブ)］ 等を参照してください。
+
+</TranslationNote>
+
+## `scope` の定義方法
+
+`assetProtocol.scope` は、他の箇所で使用されているファイルシステム関連の設定同様に **`FsScope`** 型を使用しますが、これは、許容されたグロブ・パターンによる 「**JSON 配列**形式」、または `allow`、任意指定の `deny`、任意指定の `requireLiteralLeadingDot` を伴う「**JSON オブジェクト**形式」のどちらかです。「スコープ」が Tauri のセキュリティ・モデルにおいて、如何により広い範囲で組込まれているかについては、『[コマンド・スコープ](/ja/security/scope/)』の章をご覧ください。
+
+Tauri のパスを指定する検索パターンには、**基本ディレクトリ変数**（例えば、`$HOME`、`$CACHE`、`$APPCACHE`、`$APPDATA`、`$RESOURCE` など）から始まる文字列を使うことができます。あなたのアプリが利用できる変数の一覧については、『Reference／レファレンス』の「JavaScript/API」の章にある [Path/BaseDirectorry API](/ja/reference/javascript/api/namespacepath/#basedirectory) 項を参照してください。
+
+アセットを読み込む際に使用されるパスは通例 **絶対パス** です（Linux では多くの場合 `/home/...` で始まります）。`["*/**"]` のような全件検索パターンは、通常こうしたパスに一致**しません**。なぜなら、絶対パス先頭の「`/`」や「基本ディレクトリ変数」とはパターンが一致しないからです。`$HOME/**/*` や `/home/username/**/*`、あるいは変換されるパスと同様のパターン形式を使用してください。
+
+### 配列形式（許可されたパスのみ）
+
+「固定の許可リスト」のみが必要で、デフォルトの「グロブ動作」で十分な場合は、リスト方式（パスを並べて記載する「配列形式／Array form」）を `scope` 定義で、使用します。
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$APPCACHE/**/*", "$RESOURCE/**/*"]
+      }
+    }
+  }
+}
+```
+
+「配列形式」では `requireLiteralLeadingDot`<sup>※</sup> という検索オプションを設定することは**できません**。その設定を行なうためには、次の「オブジェクト形式」を使用してください。
+
+<TranslationNote lang="ja">
+
+・**requireLiteralLeadingDot**　「ドットで始まるリテラル（文字列）が必要かどうか」を設定するオプション。具体的には、「.」で始まる「隠しファイル」や「隠しフォルダ」を検索対象に含めるかどうかを設定するための検索オプション。通常は「含めない」設定。次項の説明内容を参照。
+
+</TranslationNote>
+
+### オブジェクト形式（`allow`、`deny`、`requireLiteralLeadingDot`）
+
+「**拒否／deny**」ルールが必要、あるいは「**先頭のドット**（LeadingDot）の一致」ルールを変更する場合には、「オブジェクト形式／Object form」を `scope` 定義で使用します。
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "allow": ["$APPCACHE/**/*"],
+          "deny": ["$APPCACHE/**/secrets/**"]
+        }
+      }
+    }
+  }
+}
+```
+
+「`deny`（拒否）」と「`allow`（許可）」の両方が当てはまる場合には、「`deny`」ルールが優先されます。
+
+## ## Unix： `.`で始まるパス・セグメント
+
+Unix では、「`requireLiteralLeadingDot`」のデフォルト値は **`true`** です。このため、「`*`」、「`?`」、「`**`」、「`[...]`」などのワイルドカード文字は、**`.` で始まるパス・コンポーネント（つまり `.cache` や `.ssh` などのドット・ファイルやドット・ディレクトリ）には一致しません**。
+
+したがって、`$HOME/**` のような検索パターンでは、`/home/user/Documents/file.png` は許可されます（一致）が、`.cache` はドットで始まるディレクトリ名であるため、`/home/user/.cache/myapp/preview.png` は許可され**ません**（不一致）。パスの該当部分を文字通り指定したパターン (たとえば `$HOME/.cache/myapp/**`) にすれば**一致します**。
+
+ドットで始まるコンポーネントを広範囲に許可するには、**JSON オブジェクト** の「`scope`」で **`requireLiteralLeadingDot`** を **`false`** に設定します（この設定を行なうと WebView が読み込める「範囲」が広がってしまいますので、セキュリティへの影響を十分に検討してください）。
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "requireLiteralLeadingDot": false,
+          "allow": ["$HOME/**/*"]
+        }
+      }
+    }
+  }
+}
+```
+
+:::tip[Linux 方式のパス指定がまだブロックされますか？]
+
+パスに**ドット・ディレクトリ**（例：`~/.cache/...`）があり、「許可」パターンが `$HOME` 以下で `**` のみを使用する設定になっている場合に、この問題に遭遇することがよくあります。具体的な例と修正方法については、[tauri#13788](https://github.com/tauri-apps/tauri/issues/13788) の討議内容《英語版》を参照してください。
+
+:::
+
+## 「以下のファイルすべて」の検索には単なる `**` よりも `**/*` を優先
+
+ツリー内の **ファイル類** を検索するグロブ・パターンでは、単なる `**` ではなく `**/*` (および `$DIR/**/*` のような類似表記) を使用することをお勧めします。これは、他の Tauri パスの事例との一貫性を保つためです。「このディレクトリ以下にあるすべてを再帰的に」検索するという場合に、誤って単なる `**` 表記を用いてしまうことは少なくありませんから。
+
+## 非常に「緩い」設定（細心の注意を払って使用してください）
+
+「可能な限り幅広い（緩い）アクセス」**且つ**「ドットで始まるセグメント名」の検索を意図的に行なうのであれば、Tauri メンテナー（維持管理者）が提案する形式は以下のとおりです（**これはデフォルトの推奨事項ではありません**。隠しファイルや機密ファイルへのアクセスを容易にする危険性を高めてしまいます。）：
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "requireLiteralLeadingDot": false,
+          "allow": ["**/*"]
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution（警告）
+
+明確な理由があり、セキュリティ上の利害得失を理解している場合を除き、`$HOME/**/*` や `**/*` のような広範囲で緩い指定ではなく、「**狭い**ディレクトリ指定」を使用する（つまり `$APPCACHE`、`$RESOURCE` のような `$HOME` の下にある単一のサブ・フォルダを指定する）ことをお勧めします。
+
+:::
+
+## パスの「静的設定」と「動的な選択」
+
+**`tauri.conf.json`** ファイル内の設定項目は **静的な** 「許可／拒否パターン」を記述するものです。この設定内容は、ユーザーがフォルダやファイルを無作為に選択している実行時のワークフローを置き換えるものではありません（たとえば、**dialog** プラグインを使用する場合）。こうしたパスは、「[**persisted-scope**](/ja/plugin/persisted-scope/)／永続化スコープ」プラグインを使用してアプリの再起動後も**永続化**させる<sup>※</sup>必要があるかもしれません《訳注： なお、プラグインの日本語訳については改訂が追いついていない場合がありますので、念の為、英語原文も参照してください》。
+
+<TranslationNote lang="ja">
+
+・**永続化する**　（persist）：　（メモリ上にある一時的なデータをディスクへ保存し）再起動後もデータが残る（永続化された）状態にする処理。
+
+</TranslationNote>
+
+そのプラグインで「**アセット**／プロトコル関連」のスコープを永続化するには、`src-tauri/Cargo.toml` で Cargo の「**`protocol-asset`** feature（プロトコル・アセット機能<sup>※</sup>）」を有効にします。例えば：
+
+```toml
+tauri-plugin-persisted-scope = { version = "2", features = ["protocol-asset"] }
+```
+
+尚、『[プラグイン・ガイド](/ja/plugin/persisted-scope/)』に記載されているように、**`tauri_plugin_persisted_scope`  の前に `tauri_plugin_fs`** を登録してください。
+
+<TranslationNote lang="ja">
+
+・**機能**：「機能」という語は、英文の feature または function という語に当てられている訳語ですが、以下のような語義の違いが有ります。
+- **feature** （機能／特徴）＝ そのソフトウェアでユーザーが何を実行できるかを示すもの（大きな括り）。《例》写真画像の「フィルター機能 Filter feature」。
+- **function** （機能／関数）＝ そのソフトウェア内での個々の動作処理を示すもの。いくつかの function を組み合わせて、ひとつの feature を実現します。《例》フィルター処理を実行する個々の「機能／functions」：　輝度変更、色調補正、保存処理、ノイズ除去、…　。
+
+</TranslationNote>
+
+## トラブル・シューティング
+
+| 症状                                                                                                               | 確認すべき事項                                                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 「asset protocol がパスを許可するように設定されていません」<br />“asset protocol not configured to allow the path” | パスは「**`allow`／許可**」の検索パターンに一致する必要があります。なお「**`deny`／拒否**」は「**`allow`／許可**」よりも優先されます。ディスク上でパスが決定される形式に合わせて「**絶対パス**」での指定、または「**`$VAR`/`$HOME`**」形式の変数を使用してください。                                                                                                             |
+| 通常のフォルダでは動作しますが、**`.cache`** / **`.config`** のようなディレクトリでは動作しません。                | Unix ではこれが **`requireLiteralLeadingDot`** のデフォルトの動作設定です：　検索パターンで文字通りの表記「 `.segment 名`」を使用するか、[オブジェクト形式](#オブジェクト形式allowdenyrequireliteralleadingdot)の `scope` 設定で「**`requireLiteralLeadingDot`: `false`**」を設定します。（[tauri#13788](https://github.com/tauri-apps/tauri/issues/13788) を参照してください。) |
+| 実行時にフォルダを選択しましたが、再起動後にはブロックされます。                                                   | `tauri.conf.json` ファイルの設定だけでなく、「**`protocol-asset`** 機能」を有効化した「 [**persisted-scope**](/ja/plugin/persisted-scope/)／永続化スコープ」プラグインが必要になる場合があります。                                                                                                                                                                               |
+| 広く緩い「`**`」検索設定は間違っているようです。                                                                     | ファイル検索用のグロブ・パターンでは「`**/*`」を試してください。リソース・ファイル「バンドル化」操作での同様のファイル指定方法（「`**`」と「`**/*`」のガイダンス）については、「[追加ファイルの埋め込み](/ja/develop/resources/)」の章を参照してください。                                                                                                                       |
+| Linux では `["*/**"]`のような曖昧なスコープ指定は検索パターンと一致しません。                                        | 変換されたパスは「**絶対パス**」です。「**`$ `付きの変数**」、「先頭を **`/`** で書き始める」、または「実際のパスに一致する別のパターン」を使用してください（上記の記述を参照）。                                                                                                                                                                                                |
+
+<br />
+
+`assetProtocol` と `FsScope` の正式な Rust の型は、Tauri の [`config.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-utils/src/config.rs) 内で（`AssetProtocolConfig`、`FsScope` として）定義されています。自動生成された [『Reference／リファレンス』編の「設定／Configuration」](/ja/reference/config/) 項目のページでは、階層構造になっている [`FsScope` フィールド](/ja/reference/config/#fsscope) 情報が圧縮表示（文字詰め）になっていたり、読みづらくなっているかもしれません。不明瞭な部分がある場合は、このページと [File System（ファイル・システム）プラグイン](/ja/plugin/file-system/) の `requireLiteralLeadingDot` セクションを相互参照してください（プラグインの設定では、スコープに同じオプション名を使用しています）。『リファレンス』編でこうしたフィールド情報が綺麗に表示されていない部分がなおもあれば、公式文書自動生成ツールの「conffig generator（設定ジェネレーター）」の動作改善ができるよう、**tauri-docs**リポジトリに問題点を報告することを検討してください。
+
+<div style="text-align: right;">
+  【※ この日本語版は、「Sep 21, 2026 英語版」に基づいています】
+</div>

@@ -58,9 +58,7 @@ const cards = entries.filter((entry) => {
 ---
 
 <CardGrid>
-  {
-    cards.map((card) => (
-      <LinkCard title={card.name} description={card.description} href={card.href} />
-    ))
-  }
+  {cards.map((card) => (
+    <LinkCard title={card.name} description={card.description} href={card.href} />
+  ))}
 </CardGrid>

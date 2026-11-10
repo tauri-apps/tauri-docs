@@ -25,13 +25,11 @@ interface Props {
       <h3 class="title">{title}</h3>
       <p class="author">by {author}</p>
       <div class="links-wrapper flex">
-        {
-          links.map((link) => (
-            <p>
-              {link.preText} <a href={link.url}>{link.text}</a>
-            </p>
-          ))
-        }
+        {links.map((link) => (
+          <p>
+            {link.preText} <a href={link.url}>{link.text}</a>
+          </p>
+        ))}
       </div>
     </div>
   </div>

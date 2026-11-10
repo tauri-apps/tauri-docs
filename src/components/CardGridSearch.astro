@@ -45,31 +45,29 @@ const { placeholder = 'Search features and community resources...', filters = []
     </form>
     <div id="search-summary" class="search-summary hidden" aria-live="polite"></div>
 
-    {
-      filters.length > 0 && (
-        <div class="ui_filters" role="group" aria-label="Filter options">
-          {filters.map((filter) => (
-            <div class="ui_filter">
-              <label for={`filter-${filter.id}`} class="ui_filter-label">
-                {filter.label}
-              </label>
-              <select
-                id={`filter-${filter.id}`}
-                class="ui_filter-select"
-                data-filter-id={filter.id}
-                data-css-pattern={filter.cssClassPattern}
-                aria-label={filter.label}
-              >
-                <option value="">All</option>
-                {filter.options.map((option) => (
-                  <option value={option.value}>{option.label}</option>
-                ))}
-              </select>
-            </div>
-          ))}
-        </div>
-      )
-    }
+    {filters.length > 0 && (
+      <div class="ui_filters" role="group" aria-label="Filter options">
+        {filters.map((filter) => (
+          <div class="ui_filter">
+            <label for={`filter-${filter.id}`} class="ui_filter-label">
+              {filter.label}
+            </label>
+            <select
+              id={`filter-${filter.id}`}
+              class="ui_filter-select"
+              data-filter-id={filter.id}
+              data-css-pattern={filter.cssClassPattern}
+              aria-label={filter.label}
+            >
+              <option value="">All</option>
+              {filter.options.map((option) => (
+                <option value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+        ))}
+      </div>
+    )}
   </div>
   <slot />
 </card-search>

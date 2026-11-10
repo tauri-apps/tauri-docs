@@ -1,5 +1,6 @@
 {
   "name": "js-api-generator",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,9 +12,9 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "typedoc": "0.26.6",
-    "typedoc-plugin-markdown": "4.2.6",
-    "typedoc-plugin-mdn-links": "3.2.11",
-    "typescript": "~5.5.4"
+    "typedoc": "0.28.19",
+    "typedoc-plugin-markdown": "4.13.0",
+    "typedoc-plugin-mdn-links": "5.1.1",
+    "typescript": "~5.9"
   }
 }

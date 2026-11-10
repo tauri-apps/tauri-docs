@@ -5,16 +5,11 @@ import type { Release } from '../types.ts';
  * Parse changelog content into individual releases
  */
 function parseChangelog(changelog: string): Array<{ version: string; notes: string }> {
-  // Version headings appear as either "## [x.y.z]" or "## \[x.y.z]" depending
-  // on the source changelog; split on whichever form this file actually uses.
-  const nonEscaped = changelog.split('## [');
-  const escaped = changelog.split('## \\[');
-  let valid = escaped;
-  if (nonEscaped.length > escaped.length) {
-    valid = nonEscaped;
-  }
-
-  return valid
+  // Version headings appear as either "## [x.y.z]" or "## \[x.y.z]", and a single
+  // changelog can mix both (covector switched to the unescaped form mid-history),
+  // so split on either one at the start of a line.
+  return changelog
+    .split(/^## \\?\[/m)
     .filter((item) => !item.includes('# Changelog'))
     .map((section) => {
       const [heading, ...c] = section.split('\n');
@@ -23,9 +18,8 @@ function parseChangelog(changelog: string): Array<{ version: string; notes: stri
         return null;
       }
       return {
-        // The heading still carries the closing bracket (and a leading escape
-        // in the "## \[x.y.z]" form) — the version is what comes before it
-        version: heading.replaceAll('\\[', '').split(']')[0] ?? '',
+        // The heading still carries the closing bracket — the version is what comes before it
+        version: heading.split(']')[0] ?? '',
         notes: c.join('\n'),
       };
     })

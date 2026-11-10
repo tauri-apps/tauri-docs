@@ -40,7 +40,7 @@ Teams are small groups of contributors that support or maintain specific areas o
 
 ## Get Involved
 
-If you're interested in becoming a Tauri Board Director or a Domain Lead, elections for those positions are run throughout the year. For Domain Leads those take place in both the spring and fall and for Board Directors in the summer. Instructions for how to apply are posted to the [Tauri Blog](https://tauri.app/blog) leading up to the respective election.
+If you're interested in becoming a Tauri Board Director or a Domain Lead, elections for those positions are run throughout the year. For Domain Leads those take place in both the spring and fall and for Board Directors in the summer. Instructions for how to apply are posted to the [Tauri Blog](/blog/) leading up to the respective election.
 
 ## Additional Resources
 

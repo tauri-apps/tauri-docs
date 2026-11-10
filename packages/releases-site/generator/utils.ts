@@ -19,13 +19,15 @@ export function proseLines(str: string): { line: string; inFence: boolean }[] {
   for (const line of str.split('\n')) {
     if (fence) {
       out.push({ line, inFence: true });
-      const close = line.match(/^ {0,3}(`{3,}|~{3,})[ \t]*$/);
+      const close = line.match(/^[ \t]*(`{3,}|~{3,})[ \t]*$/);
       if (close && close[1][0] === fence[0] && close[1].length >= fence.length) {
         fence = undefined;
       }
       continue;
     }
-    const open = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    // Changelog entries are list items, so a fence nested in one sits past the
+    // 0-3 spaces a top-level fence allows (covector indents them by 4)
+    const open = line.match(/^[ \t]*(`{3,}|~{3,})/);
     if (open) {
       fence = open[1];
       out.push({ line, inFence: true });

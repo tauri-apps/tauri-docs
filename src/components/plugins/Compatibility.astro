@@ -28,25 +28,23 @@ const versionText = await md.render(
     </tr>
   </thead>
   <tbody>
-    {
-      pluginData.support.map(async (t) => {
-        const { platform, notes, level } = t;
-        const parsedNotes = await md.render(notes || '');
-        const icon = getSupportIcon(level);
-        const title = getSupportText(level);
-        return (
-          <tr>
-            <td>{platform}</td>
-            <td>
-              <div title={title} class="icon" set:html={icon} />
-            </td>
-            <td>
-              <div set:html={parsedNotes.code} />
-            </td>
-          </tr>
-        );
-      })
-    }
+    {pluginData.support.map(async (t) => {
+      const { platform, notes, level } = t;
+      const parsedNotes = await md.render(notes || '');
+      const icon = getSupportIcon(level);
+      const title = getSupportText(level);
+      return (
+        <tr>
+          <td>{platform}</td>
+          <td>
+            <div title={title} class="icon" set:html={icon} />
+          </td>
+          <td>
+            <div set:html={parsedNotes.code} />
+          </td>
+        </tr>
+      );
+    })}
   </tbody>
 </table>
 
