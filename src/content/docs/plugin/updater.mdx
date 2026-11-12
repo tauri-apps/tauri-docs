@@ -123,6 +123,9 @@ While building your update artifacts, you need to have the private key you gener
   </TabItem>
 </Tabs>
 
+:::note
+For `tauri build`, use `TAURI_SIGNING_PRIVATE_KEY`, which accepts either the private key content as a string or a file path to the key. If you are using `tauri signer sign` directly, you can also specify the path via `TAURI_SIGNING_PRIVATE_KEY_PATH`.
+:::
 After that, you can run Tauri build as usual and Tauri will generate the update bundles and their signatures.
 The generated files depend on the [`createUpdaterArtifacts`] configuration value configured below.
 
