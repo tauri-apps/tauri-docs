@@ -303,7 +303,7 @@ const db = await Database.load('sqlite:mydatabase.db');
 
 默认情况下，所有潜在危险的插件命令和作用域都被阻止，无法访问。你必须在 `capabilities` 配置中修改权限以启用它们。
 
-有关更多信息，请参阅[权限概述](/zh-cn/security/capabilities/)以及使用插件权限的[分步指南](/zh-cn/learn/security/using-plugin-permissions/)。
+有关更多信息，请参阅[授权配置概述](/zh-cn/security/capabilities/)以及使用插件权限的[分步指南](/zh-cn/learn/security/using-plugin-permissions/)。
 
 ```json title="src-tauri/capabilities/default.json" ins={4-5}
 {
