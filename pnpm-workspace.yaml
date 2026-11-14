@@ -13,3 +13,5 @@ minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
   - prettier-plugin-astro@1.1.2
+  # Renovate security update: astro@7.4.7
+  - astro@7.4.7
