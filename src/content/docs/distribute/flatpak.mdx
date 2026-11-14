@@ -115,7 +115,7 @@ Your metadata is recommended to be included into your debian bundle although it 
 id: org.your.id
 
 runtime: org.gnome.Platform
-runtime-version: '47'
+runtime-version: '51'
 sdk: org.gnome.Sdk
 
 command: tauri-app
@@ -199,47 +199,51 @@ This guide assumes you want to distribute your Flatpak via [Flathub](https://fla
 
 To test your app inside the Flatpak runtime you can build the Flatpak locally first before uploading your app to Flathub. This can also be helpful if you want to quickly share development builds.
 
-**1. Install `flatpak` and `flatpak-builder`**
+**1. Install `flatpak` and `org.flatpak.Builder`**
 
-To build Flatpaks locally you need the `flatpak` and `flatpak-builder` tools. For example on Ubuntu you can run this command:
+To build Flatpaks locally you need `flatpak` from your distribution's package manager:
 
 <Tabs syncKey="distro">
   <TabItem label="Debian">
 
 ```sh
-sudo apt install flatpak flatpak-builder
+sudo apt install flatpak
 ```
 
   </TabItem>
   <TabItem label="Arch">
 
 ```sh
-sudo pacman -S --needed flatpak flatpak-builder
+sudo pacman -S --needed flatpak
 ```
 
   </TabItem>
   <TabItem label="Fedora">
 
 ```sh
-sudo dnf install flatpak flatpak-builder
+sudo dnf install flatpak
 ```
 
   </TabItem>
   <TabItem label="Gentoo">
 
 ```sh
-sudo emerge --ask \
-sys-apps/flatpak \
-dev-util/flatpak-builder
+sudo emerge --ask sys-apps/flatpak
 ```
 
   </TabItem>
 </Tabs>
 
+Then install the Flatpak-packaged `flatpak-builder` from Flathub instead of your distribution's native `flatpak-builder` package (it avoids distro packaging issues and includes `flatpak-builder-lint` for Flathub readiness checks):
+
+```shell
+flatpak install flathub org.flatpak.Builder
+```
+
 **2. Install the Flatpak Runtime**
 
 ```shell
-flatpak install flathub org.gnome.Platform//46 org.gnome.Sdk//46
+flatpak install flathub org.gnome.Platform//51 org.gnome.Sdk//51
 ```
 
 **3. [Build the .deb of your tauri-app](/reference/config/#bundleconfig)**
@@ -253,7 +257,7 @@ flatpak install flathub org.gnome.Platform//46 org.gnome.Sdk//46
 id: <identifier>
 
 runtime: org.gnome.Platform
-runtime-version: '47'
+runtime-version: '51'
 sdk: org.gnome.Sdk
 
 command: <main_binary_name>
@@ -309,7 +313,7 @@ modules:
       - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/<identifier>.metainfo.xml
 ```
 
-The Gnome 46 runtime includes all dependencies of the standard Tauri app with their correct versions.
+The Gnome 51 runtime includes all dependencies of the standard Tauri app with their correct versions.
 
 :::note[Using tray-icon without changing the Flatpak manifest]
 If you prefer not opening access from your app to $XDG_RUNTIME_DIR (where tray-icon is saved on linux), you can change the path tauri saves the tray image:
@@ -329,7 +333,10 @@ TrayIconBuilder::new()
 ```shell
 
 # Install the flatpak
-flatpak-builder --force-clean --user --disable-cache --repo flatpak-repo flatpak flatpak-builder.yaml
+flatpak run org.flatpak.Builder --force-clean --user --disable-cache --repo flatpak-repo flatpak flatpak-builder.yaml
+
+# Optional: check your manifest for Flathub readiness
+flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak-builder.yaml
 
 # Run it
 flatpak run <your flatpak id> # or via your desktop environment
