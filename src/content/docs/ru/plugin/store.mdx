@@ -1,0 +1,196 @@
+---
+title: Store
+description: Постоянное хранилище ключ-значение.
+plugin: store
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Этот плагин предоставляет постоянное хранилище ключ-значение. Это один из многих вариантов управления состоянием в вашем приложении. См. [обзор управления состоянием](/ru/develop/state-management/) для получения дополнительной информации о других вариантах.
+
+Это хранилище позволит вам сохранять состояние в файл, который можно сохранять и загружать по требованию, в том числе между перезапусками приложения. Обратите внимание, что этот процесс асинхронный, что потребует обработки его в вашем коде. Его можно использовать как в webview, так и в Rust.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин store, чтобы начать.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+    Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    <CommandTabs npm="npm run tauri add store"
+    yarn="yarn run tauri add store"
+    pnpm="pnpm tauri add store"
+    deno="deno task tauri add store"
+    bun="bun tauri add store"
+    cargo="cargo tauri add store" />
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+        1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-store
+            ```
+
+        2.  Измените `lib.rs`, чтобы инициализировать плагин:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_store::Builder::new().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+            <CommandTabs
+            npm = "npm install @tauri-apps/plugin-store"
+            yarn = "yarn add @tauri-apps/plugin-store"
+            pnpm = "pnpm add @tauri-apps/plugin-store"
+            deno = "deno add npm:@tauri-apps/plugin-store"
+            bun = "bun add @tauri-apps/plugin-store"
+            />
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Использование
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```typescript
+import { load } from '@tauri-apps/plugin-store';
+// when using `"withGlobalTauri": true`, you may use
+// const { load } = window.__TAURI__.store;
+
+// Create a new store or load the existing one,
+// note that the options will be ignored if a `Store` with that path has already been created
+const store = await load('store.json', { autoSave: false });
+
+// Set a value.
+await store.set('some-key', { value: 5 });
+
+// Get a value.
+const val = await store.get<{ value: number }>('some-key');
+console.log(val); // { value: 5 }
+
+// You can manually save the store after making changes.
+// Otherwise, it will save upon graceful exit
+// And if you set `autoSave` to a number or left empty,
+// it will save the changes to disk after a debounce delay, 100ms by default.
+await store.save();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Wry;
+use tauri_plugin_store::StoreExt;
+use serde_json::json;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::default().build())
+        .setup(|app| {
+            // Create a new store or load the existing one
+            // this also put the store in the app's resource table
+            // so your following `store` calls (from both Rust and JS)
+            // will reuse the same store.
+
+            let store = app.store("store.json")?;
+
+            // Note that values must be serde_json::Value instances,
+            // otherwise, they will not be compatible with the JavaScript bindings.
+            store.set("some-key", json!({ "value": 5 }));
+
+            // Get a value from the store.
+            let value = store.get("some-key").expect("Failed to get value from store");
+            println!("{}", value); // {"value":5}
+
+            // Remove the store from the resource table
+            store.close_resource();
+
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+</TabItem>
+</Tabs>
+
+### LazyStore
+
+Также существует высокоуровневый JavaScript API `LazyStore`, который загружает хранилище только при первом обращении:
+
+```typescript
+import { LazyStore } from '@tauri-apps/plugin-store';
+
+const store = new LazyStore('settings.json');
+```
+
+## Миграция с v1 и v2 beta/rc
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```diff
+- import { Store } from '@tauri-apps/plugin-store';
++ import { LazyStore } from '@tauri-apps/plugin-store';
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```diff
+- with_store(app.handle().clone(), stores, path, |store| {
+-     store.insert("some-key".to_string(), json!({ "value": 5 }))?;
+-     Ok(())
+- });
++ let store = app.store(path)?;
++ store.set("some-key".to_string(), json!({ "value": 5 }));
+```
+
+</TabItem>
+</Tabs>
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "store:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,0 +1,780 @@
+---
+title: File System
+description: Доступ к файловой системе.
+plugin: fs
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Доступ к файловой системе.
+
+:::note[Используйте std::fs или tokio::fs на стороне Rust]
+Если вы хотите работать с файлами/каталогами через Rust, используйте традиционные библиотеки Rust (std::fs, tokio::fs и т.д.).
+
+:::
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Установка
+
+Установите плагин fs, чтобы начать.
+
+<Tabs>
+	<TabItem label="Automatic" >
+
+    	Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add fs"
+            yarn="yarn run tauri add fs"
+            pnpm="pnpm tauri add fs"
+            deno="deno task tauri add fs"
+            bun="bun tauri add fs"
+            cargo="cargo tauri add fs"
+    	/>
+
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+
+        1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-fs
+            ```
+
+        2.	Измените `lib.rs`, чтобы инициализировать плагин:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+              tauri::Builder::default()
+                .plugin(tauri_plugin_fs::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+            }
+            ```
+
+        3.	Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+            <CommandTabs
+                npm = "npm install @tauri-apps/plugin-fs"
+                yarn = "yarn add @tauri-apps/plugin-fs"
+                pnpm = "pnpm add @tauri-apps/plugin-fs"
+                deno = "deno add npm:@tauri-apps/plugin-fs"
+                bun = "bun add @tauri-apps/plugin-fs"
+            />
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Конфигурация
+
+### Android
+
+При использовании каталогов audio, cache, documents, downloads, picture, public или video ваше приложение должно иметь доступ к внешнему хранилищу.
+
+Добавьте следующие разрешения в тег `manifest` в файле `gen/android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+### iOS
+
+Apple требует от разработчиков приложений указывать одобренные причины использования API для повышения конфиденциальности пользователей.
+
+Вы должны создать файл `PrivacyInfo.xcprivacy` в папке `src-tauri/gen/apple`
+с обязательным ключом [NSPrivacyAccessedAPICategoryFileTimestamp] и рекомендуемой причиной [C617.1].
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>C617.1</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>
+```
+
+## Использование
+
+Плагин fs доступен как в JavaScript, так и в Rust.
+:::caution[Разные API]
+Хотя этот плагин имеет API для работы с файлами на фронтенде, в бэкенде он предлагает только методы для изменения прав доступа к некоторым
+ресурсам (файлам, каталогам и т.д.).
+
+На стороне Rust вы можете использовать традиционные библиотеки для работы с файлами:
+[std::fs](https://doc.rust-lang.org/std/fs/struct.File.html), [tokio::fs](https://docs.rs/tokio/latest/tokio/fs/index.html) или другие.
+
+:::
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript" >
+
+```javascript
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+// when using `"withGlobalTauri": true`, you may use
+// const { exists, BaseDirectory } = window.__TAURI__.fs;
+
+// Check if the `$APPDATA/avatar.png` file exists
+await exists('avatar.png', { baseDir: BaseDirectory.AppData });
+```
+
+  </TabItem>
+  <TabItem label = "Rust" >
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_fs::FsExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+  tauri::Builder::default()
+      .plugin(tauri_plugin_fs::init())
+      .setup(|app| {
+          // allowed the given directory
+          let scope = app.fs_scope();
+        	scope.allow_directory("/path/to/directory", false);
+          dbg!(scope.allowed());
+
+          Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Безопасность
+
+Этот модуль предотвращает обход пути, не позволяя использовать аксессоры родительских каталогов
+(т.е. пути "/usr/path/to/../file" или "../path/to/file" не разрешены).
+Пути, к которым обращаются через этот API, должны быть либо относительными к одному из [base directories][base directory],
+либо созданными с помощью [path API].
+
+См. [@tauri-apps/plugin-fs - Security] для получения дополнительной информации.
+
+## Пути
+
+Плагин файловой системы предлагает два способа работы с путями: [base directory] и [path API].
+
+- базовый каталог
+
+  Каждый API имеет аргумент параметров, который позволяет вам задать [baseDir][base directory], выступающий в качестве рабочего каталога операции.
+
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  const contents = await readFile('avatars/tauri.png', {
+    baseDir: BaseDirectory.Home,
+  });
+  ```
+
+  В приведённом выше примере читается файл ~/avatars/tauri.png, так как мы используем базовый каталог **Home**.
+
+- path API
+
+  Альтернативно вы можете использовать API путей для выполнения операций с путями.
+
+  ```js
+  import { readFile } from '@tauri-apps/plugin-fs';
+  import * as path from '@tauri-apps/api/path';
+  const home = await path.homeDir();
+  const contents = await readFile(await path.join(home, 'avatars/tauri.png'));
+  ```
+
+## Файлы
+
+### Создание
+
+Создаёт файл и возвращает его дескриптор. Если файл уже существует, он усекается.
+
+```js
+import { create, BaseDirectory } from '@tauri-apps/plugin-fs';
+const file = await create('foo/bar.txt', { baseDir: BaseDirectory.AppData });
+await file.write(new TextEncoder().encode('Hello world'));
+await file.close();
+```
+
+:::note
+Всегда вызывайте `file.close()`, когда закончите работу с файлом.
+:::
+
+### Запись
+
+Плагин предлагает отдельные API для записи текстовых и двоичных файлов для повышения производительности.
+
+- текстовые файлы
+
+  ```js
+  import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = JSON.stringify({ notifications: true });
+  await writeTextFile('config.json', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+- двоичные файлы
+
+  ```js
+  import { writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const contents = new Uint8Array(); // fill a byte array
+  await writeFile('config', contents, {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+### Открытие
+
+Открывает файл и возвращает его дескриптор.
+С помощью этого API у вас больше контроля над тем, как файл должен быть открыт
+(только чтение, только запись, добавление вместо перезаписи, создание только в том случае, если файл не существует, и т.д.).
+
+:::note
+Всегда вызывайте `file.close()`, когда закончите работу с файлом.
+:::
+
+- только чтение
+
+  Это режим по умолчанию.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    read: true,
+    baseDir: BaseDirectory.AppData,
+  });
+
+  const stat = await file.stat();
+  const buf = new Uint8Array(stat.size);
+  await file.read(buf);
+  const textContents = new TextDecoder().decode(buf);
+  await file.close();
+  ```
+
+- только запись
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('Hello world'));
+  await file.close();
+  ```
+
+  По умолчанию файл усекается при каждом вызове `file.write()`.
+  См. следующий пример, чтобы узнать, как вместо этого добавить данные к существующему содержимому.
+
+- добавление
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    append: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Обратите внимание, что `{ append: true }` имеет тот же эффект, что и `{ write: true, append: true }`.
+
+- усечение
+
+  Когда опция `truncate` задана и файл уже существует, он будет усечён до длины 0.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    truncate: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Эта опция требует, чтобы `write` был равен `true`.
+
+  Вы можете использовать её вместе с опцией `append`, если хотите перезаписать существующий файл с помощью нескольких вызовов `file.write()`.
+
+- создание
+
+  По умолчанию API `open` открывает только существующие файлы. Чтобы создать файл, если он не существует,
+  и открыть его, если он существует, задайте `create` равным `true`:
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    create: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Чтобы файл был создан, `write` или `append` также должны быть равны `true`.
+
+  Чтобы завершиться ошибкой, если файл уже существует, см. `createNew`.
+
+- createNew
+
+  `createNew` работает аналогично `create`, но завершится ошибкой, если файл уже существует.
+
+  ```js
+  import { open, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const file = await open('foo/bar.txt', {
+    write: true,
+    createNew: true,
+    baseDir: BaseDirectory.AppData,
+  });
+  await file.write(new TextEncoder().encode('world'));
+  await file.close();
+  ```
+
+  Чтобы файл был создан, `write` также должен быть равен `true`.
+
+### Чтение
+
+Плагин предлагает отдельные API для чтения текстовых и двоичных файлов для повышения производительности.
+
+- текстовые файлы
+
+  ```js
+  import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const configToml = await readTextFile('config.toml', {
+    baseDir: BaseDirectory.AppConfig,
+  });
+  ```
+
+  Если файл большой, вы можете читать его строки потоково с помощью API `readTextFileLines`:
+
+  ```typescript
+  import { readTextFileLines, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const lines = await readTextFileLines('app.logs', {
+    baseDir: BaseDirectory.AppLog,
+  });
+  for await (const line of lines) {
+    console.log(line);
+  }
+  ```
+
+- двоичные файлы
+
+  ```js
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+  const icon = await readFile('icon.png', {
+    baseDir: BaseDirectory.Resources,
+  });
+  ```
+
+### Удаление
+
+Вызовите `remove()`, чтобы удалить файл. Если файл не существует, возвращается ошибка.
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('user.db', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Копирование
+
+Функция `copyFile` принимает исходный и целевой пути.
+Обратите внимание, что вы должны настроить каждый базовый каталог отдельно.
+
+```js
+import { copyFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+await copyFile('user.db', 'user.db.bk', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+В приведённом выше примере файл \<app-local-data\>/user.db копируется в $TMPDIR/user.db.bk.
+
+### Существование
+
+Используйте функцию `exists()`, чтобы проверить, существует ли файл:
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('token', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Метаданные
+
+Метаданные файла можно получить с помощью функций `stat` и `lstat`.
+`stat` следует за символическими ссылками (и возвращает ошибку, если фактический файл, на который она указывает, не разрешён областью действия),
+а `lstat` не следует за символическими ссылками, возвращая информацию о самой символической ссылке.
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('app.db', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Переименование
+
+Функция `rename` принимает исходный и целевой пути.
+Обратите внимание, что вы должны настроить каждый базовый каталог отдельно.
+
+```js
+import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
+await rename('user.db.bk', 'user.db', {
+  fromPathBaseDir: BaseDirectory.AppLocalData,
+  toPathBaseDir: BaseDirectory.Temp,
+});
+```
+
+В приведённом выше примере файл \<app-local-data\>/user.db.bk переименовывается в $TMPDIR/user.db.
+
+### Усечение
+
+Усекает или расширяет указанный файл до указанной длины (по умолчанию 0).
+
+- усечение до длины 0
+
+```typescript
+import { truncate } from '@tauri-apps/plugin-fs';
+await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
+```
+
+- усечение до конкретной длины
+
+```typescript
+import {
+  truncate,
+  readTextFile,
+  writeTextFile,
+  BaseDirectory,
+} from '@tauri-apps/plugin-fs';
+
+const filePath = 'file.txt';
+await writeTextFile(filePath, 'Hello World', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+await truncate(filePath, 7, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+const data = await readTextFile(filePath, {
+  baseDir: BaseDirectory.AppLocalData,
+});
+console.log(data); // "Hello W"
+```
+
+## Каталоги
+
+### Создание
+
+Чтобы создать каталог, вызовите функцию `mkdir`:
+
+```js
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Чтение
+
+Функция `readDir` рекурсивно перечисляет записи каталога:
+
+```typescript
+import { readDir, BaseDirectory } from '@tauri-apps/plugin-fs';
+const entries = await readDir('users', { baseDir: BaseDirectory.AppLocalData });
+```
+
+### Удаление
+
+Вызовите `remove()`, чтобы удалить каталог. Если каталог не существует, возвращается ошибка.
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', { baseDir: BaseDirectory.AppLocalData });
+```
+
+Если каталог не пуст, опция `recursive` должна быть задана как `true`:
+
+```js
+import { remove, BaseDirectory } from '@tauri-apps/plugin-fs';
+await remove('images', {
+  baseDir: BaseDirectory.AppLocalData,
+  recursive: true,
+});
+```
+
+### Существование
+
+Используйте функцию `exists()`, чтобы проверить, существует ли каталог:
+
+```js
+import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+const tokenExists = await exists('images', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+### Метаданные
+
+Метаданные каталога можно получить с помощью функций `stat` и `lstat`.
+`stat` следует за символическими ссылками (и возвращает ошибку, если фактический файл, на который она указывает, не разрешён областью действия),
+а `lstat` не следует за символическими ссылками, возвращая информацию о самой символической ссылке.
+
+```js
+import { stat, BaseDirectory } from '@tauri-apps/plugin-fs';
+const metadata = await stat('databases', {
+  baseDir: BaseDirectory.AppLocalData,
+});
+```
+
+## Отслеживание изменений
+
+Чтобы отслеживать изменения в каталоге или файле, используйте функции `watch` или `watchImmediate`.
+
+- watch
+
+  `watch` использует дебаунсинг, поэтому он испускает события только через определённую задержку:
+
+  ```js
+  import { watch, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watch(
+    'app.log',
+    (event) => {
+      console.log('app.log event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      delayMs: 500,
+    }
+  );
+  ```
+
+- watchImmediate
+
+  `watchImmediate` немедленно уведомляет слушателей о событии:
+
+  ```js
+  import { watchImmediate, BaseDirectory } from '@tauri-apps/plugin-fs';
+  await watchImmediate(
+    'logs',
+    (event) => {
+      console.log('logs directory event', event);
+    },
+    {
+      baseDir: BaseDirectory.AppLog,
+      recursive: true,
+    }
+  );
+  ```
+
+По умолчанию операции слежения за каталогом не являются рекурсивными.
+Задайте опцию `recursive` равной `true`, чтобы рекурсивно отслеживать изменения во всех подкаталогах.
+
+:::note
+Функции слежения требуют флаг возможности `watch`:
+
+```toml title="src-tauri/Cargo.toml"
+[dependencies]
+tauri-plugin-fs = { version = "2.0.0", features = ["watch"] }
+```
+
+:::
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+:::caution[Разрешения сами по себе не предоставляют область действия]
+Включение такого разрешения, как `fs:allow-exists`, само по себе **не** разрешает доступ к какому-либо пути. Большинство команд `fs` также требуют **область действия** (scope), которая явно перечисляет пути, к которым команда может обращаться. Без области действия `allow` вызовы будут завершаться ошибкой во время выполнения с ошибкой `forbidden path`, даже если разрешение включено.
+
+```json title="Недостаточно — разрешение не имеет области действия, поэтому никакие пути не разрешены"
+{
+  "permissions": ["fs:default", "fs:allow-exists"]
+}
+```
+
+```json title="Работает — форма с идентификатором добавляет явную область действия allow"
+{
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$HOME" }, { "path": "$HOME/**/*" }]
+    }
+  ]
+}
+```
+
+См. [Области действия](#области-действия) ниже для полного списка переменных путей, которые вы можете использовать в `allow` и `deny`.
+:::
+
+```json title="src-tauri/capabilities/default.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+### Области действия
+
+Разрешения этого плагина включают области действия для определения того, какие пути разрешены или явно отклонены.
+Для получения дополнительной информации об областях действия см. [Командные области действия].
+
+Каждая область действия `allow` или `deny` должна включать массив, перечисляющий все пути, которые должны быть разрешены или отклонены.
+Записи области действия имеют формат `{ path: string }`.
+
+:::note
+`deny` имеет приоритет над `allow`, поэтому если путь отклонён областью действия, он будет заблокирован во время выполнения,
+даже если он разрешён другой областью действия.
+:::
+
+Записи области действия могут использовать переменные `$<path>` для ссылки на общие системные пути, такие как домашний каталог,
+каталог ресурсов приложения и каталог конфигурации. Следующая таблица перечисляет все общие пути, на которые вы можете ссылаться:
+
+| Path                                                                        | Variable      |
+| --------------------------------------------------------------------------- | ------------- |
+| [appConfigDir](/reference/javascript/api/namespacepath/#appconfigdir)     | $APPCONFIG    |
+| [appDataDir](/reference/javascript/api/namespacepath/#appdatadir)         | $APPDATA      |
+| [appLocalDataDir](/reference/javascript/api/namespacepath/#applocaldatadir) | $APPLOCALDATA |
+| [appcacheDir](/reference/javascript/api/namespacepath/#appcachedir)       | $APPCACHE     |
+| [applogDir](/reference/javascript/api/namespacepath/#applogdir)           | $APPLOG       |
+| [audioDir](/reference/javascript/api/namespacepath/#audiodir)             | $AUDIO        |
+| [cacheDir](/reference/javascript/api/namespacepath/#cachedir)             | $CACHE        |
+| [configDir](/reference/javascript/api/namespacepath/#configdir)           | $CONFIG       |
+| [dataDir](/reference/javascript/api/namespacepath/#datadir)               | $DATA         |
+| [localDataDir](/reference/javascript/api/namespacepath/#localdatadir)     | $LOCALDATA    |
+| [desktopDir](/reference/javascript/api/namespacepath/#desktopdir)         | $DESKTOP      |
+| [documentDir](/reference/javascript/api/namespacepath/#documentdir)       | $DOCUMENT     |
+| [downloadDir](/reference/javascript/api/namespacepath/#downloaddir)       | $DOWNLOAD     |
+| [executableDir](/reference/javascript/api/namespacepath/#executabledir)   | $EXE          |
+| [fontDir](/reference/javascript/api/namespacepath/#fontdir)               | $FONT         |
+| [homeDir](/reference/javascript/api/namespacepath/#homedir)               | $HOME         |
+| [pictureDir](/reference/javascript/api/namespacepath/#picturedir)         | $PICTURE      |
+| [publicDir](/reference/javascript/api/namespacepath/#publicdir)           | $PUBLIC       |
+| [runtimeDir](/reference/javascript/api/namespacepath/#runtimedir)         | $RUNTIME      |
+| [templateDir](/reference/javascript/api/namespacepath/#templatedir)       | $TEMPLATE     |
+| [videoDir](/reference/javascript/api/namespacepath/#videodir)             | $VIDEO        |
+| [resourceDir](/reference/javascript/api/namespacepath/#resourcedir)       | $RESOURCE     |
+| [tempDir](/reference/javascript/api/namespacepath/#tempdir)               | $TEMP         |
+
+#### Примеры
+
+- глобальная область действия
+
+Чтобы применить область действия к любой команде `fs`, используйте разрешение `fs:scope`:
+
+```json title="src-tauri/capabilities/default.json" {7-10}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]
+    }
+  ]
+}
+```
+
+Чтобы применить область действия к конкретной команде `fs`,
+используйте объектную форму разрешений `{ "identifier": string, "allow"?: [], "deny"?: [] }`:
+
+```json title="src-tauri/capabilities/default.json" {7-18}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$HOME/**/*" }]
+    },
+    {
+      "identifier": "fs:allow-rename",
+      "deny": [{ "path": "$HOME/.config/**/*" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    }
+  ]
+}
+```
+
+В приведённом выше примере вы можете использовать API [`exists`](#существование) с любым подпутём `$APPDATA` (не включая подкаталоги)
+и API [`rename`](#переименование)
+
+:::tip
+Если вы пытаетесь получить доступ к точечным файлам (например, `.gitignore`) или точечным папкам (например, `.ssh`) в системах на базе Unix,
+то вам нужно указать либо полный путь `/home/user/.ssh/example`, либо glob-шаблон после компонента пути точечной папки
+`/home/user/.ssh/*`.
+
+Если это не работает в вашем сценарии использования, вы можете настроить плагин так, чтобы он рассматривал любой компонент
+как допустимый литерал пути.
+
+```json title="src-tauri/tauri.conf.json"
+ "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": false
+    }
+  }
+```
+
+Та же опция существует для **`app.security.assetProtocol.scope`**, когда вы используете [объектную форму](/ru/security/asset-protocol/) (а не форму только с массивом). Для реальных случаев, связанных с точечными каталогами, см. [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788).
+
+:::
+
+[NSPrivacyAccessedAPICategoryFileTimestamp]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[C617.1]: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393
+[base directory]: /reference/javascript/api/namespacepath/#basedirectory
+[path API]: /reference/javascript/api/namespacepath/
+[@tauri-apps/plugin-fs - Security]: /reference/javascript/fs/#security
+[командные области действия]: /ru/security/scope/

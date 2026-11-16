@@ -1,0 +1,319 @@
+---
+title: SQL
+description: Плагин Tauri, предоставляющий интерфейс для взаимодействия фронтенда с SQL-базами данных через sqlx.
+plugin: sql
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Плагин, предоставляющий интерфейс для взаимодействия фронтенда с SQL-базами данных через [sqlx](https://github.com/launchbadge/sqlx). Он поддерживает драйверы SQLite, MySQL и PostgreSQL, включаемые с помощью возможности Cargo.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин SQL, чтобы начать.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+        Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+        <CommandTabs npm="npm run tauri add sql"
+        yarn="yarn run tauri add sql"
+        pnpm="pnpm tauri add sql"
+        bun="bun tauri add sql"
+        deno="deno task tauri add sql"
+        cargo="cargo tauri add sql" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+        <Steps>
+
+        1.  Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-sql
+            ```
+
+        2.  Измените `lib.rs`, чтобы инициализировать плагин:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    		    pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_sql::Builder::default().build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.	Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-sql"
+                yarn="yarn add @tauri-apps/plugin-sql"
+                pnpm="pnpm add @tauri-apps/plugin-sql"
+                deno="deno add npm:@tauri-apps/plugin-sql"
+                bun="bun add @tauri-apps/plugin-sql"
+            />
+
+        </Steps>
+
+</TabItem>
+</Tabs>
+
+После установки плагина вы должны выбрать поддерживаемый движок базы данных.
+Доступные движки: Sqlite, MySQL и PostgreSQL.
+Выполните следующую команду в папке `src-tauri`, чтобы включить предпочитаемый движок:
+
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features sqlite
+    ```
+
+  </TabItem>
+  <TabItem label="MySQL">
+
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features mysql
+    ```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+  
+    ```sh frame=none
+    cargo add tauri-plugin-sql --features postgres
+    ```
+  
+  </TabItem>
+</Tabs>
+
+## Использование
+
+Все API плагина доступны через JavaScript-привязки:
+
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+
+Путь является относительным к [`tauri::api::path::BaseDirectory::AppConfig`](https://docs.rs/tauri/2.0.0/tauri/path/enum.BaseDirectory.html#variant.AppConfig).
+
+```javascript
+import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load('sqlite:test.db');
+await db.execute('INSERT INTO ...');
+```
+
+  </TabItem>
+  <TabItem label="MySQL">
+
+```javascript
+import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load('mysql://user:password@host/test');
+await db.execute('INSERT INTO ...');
+```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+
+```javascript
+import Database from '@tauri-apps/plugin-sql';
+// when using `"withGlobalTauri": true`, you may use
+// const Database = window.__TAURI__.sql;
+
+const db = await Database.load('postgres://user:password@host/test');
+await db.execute('INSERT INTO ...');
+```
+
+  </TabItem>
+</Tabs>
+
+## Синтаксис
+
+Мы используем [sqlx](https://docs.rs/sqlx/latest/sqlx/) в качестве базовой библиотеки и принимаем её синтаксис запросов.
+
+<Tabs syncKey='SQLvariant'>
+  <TabItem label="SQLite">
+Используйте синтаксис "$#" при подстановке данных запроса
+
+```javascript
+const result = await db.execute(
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
+);
+
+const result = await db.execute(
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
+);
+```
+
+  </TabItem>
+  <TabItem label="MySQL">
+Используйте "?" при подстановке данных запроса
+
+```javascript
+const result = await db.execute(
+  'INSERT into todos (id, title, status) VALUES (?, ?, ?)',
+  [todos.id, todos.title, todos.status]
+);
+
+const result = await db.execute(
+  'UPDATE todos SET title = ?, status = ? WHERE id = ?',
+  [todos.title, todos.status, todos.id]
+);
+```
+
+  </TabItem>
+  <TabItem label="PostgreSQL">
+Используйте синтаксис "$#" при подстановке данных запроса
+
+```javascript
+const result = await db.execute(
+  'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  [todos.id, todos.title, todos.status]
+);
+
+const result = await db.execute(
+  'UPDATE todos SET title = $1, status = $2 WHERE id = $3',
+  [todos.title, todos.status, todos.id]
+);
+```
+
+  </TabItem>
+</Tabs>
+
+## Миграции
+
+Этот плагин поддерживает миграции базы данных, позволяя вам управлять эволюцией схемы базы данных с течением времени.
+
+### Определение миграций
+
+Миграции определяются на Rust с помощью структуры [`Migration`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Migration.html). Каждая миграция должна включать уникальный номер версии, описание, SQL для выполнения и тип миграции (Up или Down).
+
+Пример миграции:
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
+    kind: MigrationKind::Up,
+};
+```
+
+Или, если вы хотите использовать SQL из файла, вы можете включить его с помощью `include_str!`:
+
+```rust
+use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migration = Migration {
+    version: 1,
+    description: "create_initial_tables",
+    sql: include_str!("../drizzle/0000_graceful_boomer.sql"),
+    kind: MigrationKind::Up,
+};
+```
+
+### Добавление миграций в конструктор плагина
+
+Миграции регистрируются с помощью структуры [`Builder`](https://docs.rs/tauri-plugin-sql/latest/tauri_plugin_sql/struct.Builder.html), предоставляемой плагином. Используйте метод `add_migrations`, чтобы добавить ваши миграции в плагин для конкретного соединения с базой данных.
+
+Пример добавления миграций:
+
+```rust title="src-tauri/src/main.rs" {1} {6-11} {17}
+use tauri_plugin_sql::{Builder, Migration, MigrationKind};
+
+fn main() {
+    let migrations = vec![
+        // Define your migrations here
+        Migration {
+            version: 1,
+            description: "create_initial_tables",
+            sql: "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);",
+            kind: MigrationKind::Up,
+        }
+    ];
+
+    tauri::Builder::default()
+        .plugin(
+            tauri_plugin_sql::Builder::default()
+                .add_migrations("sqlite:mydatabase.db", migrations)
+                .build(),
+        )
+        ...
+}
+```
+
+### Применение миграций
+
+Чтобы применить миграции при инициализации плагина, добавьте строку соединения в файл `tauri.conf.json`:
+
+```json title="src-tauri/tauri.conf.json" {3-5}
+{
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:mydatabase.db"]
+    }
+  }
+}
+```
+
+Альтернативно, клиентский `load()` также запускает миграции для заданной строки соединения:
+
+```ts
+import Database from '@tauri-apps/plugin-sql';
+const db = await Database.load('sqlite:mydatabase.db');
+```
+
+Убедитесь, что миграции определены в правильном порядке и безопасны для многократного выполнения.
+
+:::note
+Все миграции выполняются в рамках транзакции, что обеспечивает атомарность. Если какая-либо миграция завершится неудачей, вся транзакция будет откачена, оставляя базу данных в согласованном состоянии.
+:::
+
+### Управление миграциями
+
+- **Контроль версий**: Каждая миграция должна иметь уникальный номер версии. Это крайне важно для обеспечения применения миграций в правильном порядке.
+- **Идемпотентность**: Пишите миграции так, чтобы их можно было безопасно выполнять повторно без ошибок или непредвиденных последствий.
+- **Тестирование**: Тщательно тестируйте миграции, чтобы убедиться, что они работают как ожидается и не нарушают целостность вашей базы данных.
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+```json title="src-tauri/capabilities/default.json" ins={4-5}
+{
+  "permissions": [
+    ...,
+    "sql:default",
+    "sql:allow-execute",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

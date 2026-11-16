@@ -1,0 +1,287 @@
+---
+title: Command Line Interface (CLI)
+description: Разбирайте аргументы из интерфейса командной строки.
+plugin: cli
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Tauri позволяет вашему приложению иметь CLI через [clap](https://github.com/clap-rs/clap), надёжный парсер аргументов командной строки. С помощью простого определения CLI в файле `tauri.conf.json` вы можете задать свой интерфейс и читать карту совпадений аргументов на JavaScript и/или Rust.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+- Windows
+  - Из-за ограничения ОС готовые приложения по умолчанию не могут записывать текст обратно в вызывающую консоль. Пожалуйста, ознакомьтесь с [tauri#8305](https://github.com/tauri-apps/tauri/issues/8305#issuecomment-1826871949) для обходного пути.{/* TODO: Inline the instructions into this guide */}
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин CLI, чтобы начать.
+
+<Tabs>
+	<TabItem label="Automatic">
+
+    	Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    	<CommandTabs
+            npm="npm run tauri add cli"
+            yarn="yarn run tauri add cli"
+            pnpm="pnpm tauri add cli"
+            deno="deno task tauri add cli"
+            bun="bun tauri add cli"
+            cargo="cargo tauri add cli"
+    	/>
+
+  	</TabItem>
+    <TabItem label="Manual">
+    	<Steps>
+
+        1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-cli --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+    		2.	Измените `lib.rs`, чтобы инициализировать плагин:
+
+            ```rust title="src-tauri/src/lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_cli::init());
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+    		3.	Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-cli"
+                yarn="yarn add @tauri-apps/plugin-cli"
+                pnpm="pnpm add @tauri-apps/plugin-cli"
+                deno="deno add npm:@tauri-apps/plugin-cli"
+                bun="bun add @tauri-apps/plugin-cli"
+            />
+
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Базовая конфигурация
+
+В `tauri.conf.json` у вас есть следующая структура для настройки интерфейса:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "plugins": {
+    "cli": {
+      "description": "Tauri CLI Plugin Example",
+      "args": [
+        {
+          "short": "v",
+          "name": "verbose",
+          "description": "Verbosity level"
+        }
+      ],
+      "subcommands": {
+        "run": {
+          "description": "Run the application",
+          "args": [
+            {
+              "name": "debug",
+              "description": "Run application in debug mode"
+            },
+            {
+              "name": "release",
+              "description": "Run application in release mode"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+:::note
+
+Все JSON-конфигурации здесь — лишь примеры, многие другие поля опущены для наглядности.
+
+:::
+
+## Добавление аргументов
+
+Массив `args` представляет список аргументов, принимаемых его командой или подкомандой.
+
+{/* TODO: List available configuration */}
+
+### Позиционные аргументы
+
+Позиционный аргумент определяется своим положением в списке аргументов. При следующей конфигурации:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "source",
+      "index": 1,
+      "takesValue": true
+    },
+    {
+      "name": "destination",
+      "index": 2,
+      "takesValue": true
+    }
+  ]
+}
+```
+
+Пользователи могут запускать ваше приложение как `./app tauri.txt dest.txt`, и карта совпадений аргументов определит `source` как `"tauri.txt"`, а `destination` как `"dest.txt"`.
+
+### Именованные аргументы
+
+Именованный аргумент — это пара (ключ, значение), где ключ идентифицирует значение. При следующей конфигурации:
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "type",
+      "short": "t",
+      "takesValue": true,
+      "multiple": true,
+      "possibleValues": ["foo", "bar"]
+    }
+  ]
+}
+```
+
+Пользователи могут запускать ваше приложение как `./app --type foo bar`, `./app -t foo -t bar` или `./app --type=foo,bar`, и карта совпадений аргументов определит `type` как `["foo", "bar"]`.
+
+### Аргументы-флаги
+
+Аргумент-флаг — это отдельный ключ, чьё наличие или отсутствие предоставляет информацию вашему приложению. При следующей конфигурации:
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "args": [
+    {
+      "name": "verbose",
+      "short": "v"
+    }
+  ]
+}
+```
+
+Пользователи могут запускать ваше приложение как `./app -v -v -v`, `./app --verbose --verbose --verbose` или `./app -vvv`, и карта совпадений аргументов определит `verbose` как `true`, с `occurrences = 3`.
+
+## Подкоманды
+
+Некоторые CLI-приложения имеют дополнительные интерфейсы в виде подкоманд. Например, CLI `git` имеет `git branch`, `git commit` и `git push`. Вы можете определить дополнительные вложенные интерфейсы с помощью массива `subcommands`:
+
+```json title="tauri-src/tauri.conf.json"
+{
+  "cli": {
+    ...
+    "subcommands": {
+      "branch": {
+        "args": []
+      },
+      "push": {
+        "args": []
+      }
+    }
+  }
+}
+```
+
+Его конфигурация такая же, как у корневой конфигурации приложения, с полями `description`, `longDescription`, `args` и т.д.
+
+## Использование
+
+Плагин CLI доступен как в JavaScript, так и в Rust.
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+```javascript
+import { getMatches } from '@tauri-apps/plugin-cli';
+// when using `"withGlobalTauri": true`, you may use
+// const { getMatches } = window.__TAURI__.cli;
+
+const matches = await getMatches();
+if (matches.subcommand?.name === 'run') {
+  // `./your-app run $ARGS` was executed
+  const args = matches.subcommand.matches.args;
+  if (args.debug?.value === true) {
+    // `./your-app run --debug` was executed
+  }
+  if (args.release?.value === true) {
+    // `./your-app run --release` was executed
+  }
+}
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+```rust title="src-tauri/src/lib.rs" {1, 6-18}
+use tauri_plugin_cli::CliExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+   tauri::Builder::default()
+       .plugin(tauri_plugin_cli::init())
+       .setup(|app| {
+           match app.cli().matches() {
+               // `matches` here is a Struct with { args, subcommand }.
+               // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurrences }.
+               // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
+               Ok(matches) => {
+                   println!("{:?}", matches)
+               }
+               Err(_) => {}
+           }
+           Ok(())
+       })
+       .run(tauri::generate_context!())
+       .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["cli:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
