@@ -1,0 +1,181 @@
+---
+title: Архитектура Tauri
+sidebar:
+  order: 0
+i18nReady: true
+---
+
+## Введение
+
+Tauri — это полиглотный и универсальный инструментарий, который очень хорошо компонуется и позволяет инженерам создавать самые разные приложения. Он используется для создания приложений для настольных компьютеров с помощью комбинации инструментов Rust и HTML, отображаемого в WebView. Приложения, созданные с помощью Tauri, могут поставляться с любым количеством частей опционального JS API и Rust API, чтобы webview могли управлять системой посредством обмена сообщениями. Разработчики могут расширять стандартный API собственной функциональностью и легко связывать Webview с бэкендом на Rust.
+
+Приложения Tauri могут иметь [интерфейсы в виде трея](/ru/learn/system-tray/). Их можно [обновлять](/ru/plugin/updater/), и ими управляет операционная система пользователя как ожидается. Они очень малы, поскольку используют webview операционной системы. Они не поставляют среду выполнения, так как итоговый бинарный файл компилируется из Rust. Это делает [реверс-инжиниринг приложений Tauri нетривиальной задачей](/ru/security/).
+
+### Чем Tauri не является
+
+Tauri — не лёгкая обёртка над ядром. Вместо этого он напрямую использует [WRY](#wry) и [TAO](#tao) для тяжёлой работы по выполнению системных вызовов к ОС.
+
+Tauri — не VM и не виртуализированная среда. Вместо этого это инструментарий для приложений, который позволяет создавать Webview-приложения для ОС.
+
+## Основная экосистема
+
+<figure>
+
+```d2 sketch pad=50
+direction: up
+
+Core: {
+  shape: rectangle
+  "tauri": {
+    "tauri-runtime"
+    "tauri-macros"
+    "tauri-utils"
+  }
+
+  "tauri-build"
+  "tauri-codegen"
+  "tauri-runtime-wry"
+}
+
+Upstream: {
+  shape: rectangle
+  direction: right
+  WRY
+  TAO
+}
+
+Core."tauri"."tauri-runtime" -> Core."tauri-runtime-wry"{style.animated: true}
+
+Upstream.WRY -> Upstream.TAO{style.animated: true}
+Core."tauri-runtime-wry" -> Upstream.Wry {style.animated: true}
+```
+
+<figcaption>Упрощённое представление архитектуры Tauri.</figcaption>
+</figure>
+
+### tauri
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri)
+
+Это основной крейт, который связывает всё воедино. Он объединяет среды выполнения, макросы, утилиты и API в единый конечный продукт. Он читает файл [`tauri.conf.json`](/reference/config/) во время компиляции, чтобы задействовать функции и выполнить фактическую настройку приложения (и даже файл `Cargo.toml` в папке проекта). Он обрабатывает инъекцию скриптов (для полифиллов / пересмотра прототипов) во время выполнения, предоставляет API для взаимодействия с системой и даже управляет процессом обновления.
+
+### tauri-runtime
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime)
+
+Слой-связка между самим Tauri и библиотеками webview более низкого уровня.
+
+### tauri-macros
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-macros)
+
+Создаёт макросы для контекста, обработчика и команд, используя крейт [`tauri-codegen`](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen).
+
+### tauri-utils
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-utils)
+
+Общий код, который переиспользуется во многих местах и предлагает полезные утилиты, такие как разбор файлов конфигурации, определение платформенных троек, внедрение CSP и управление ресурсами.
+
+### tauri-build
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-build)
+
+Применяет макросы на этапе сборки, чтобы оснастить некоторые специальные функции, необходимые `cargo`.
+
+### tauri-codegen
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-codegen)
+
+Встраивает, хэширует и сжимает ресурсы, включая иконки приложения, а также системного трея. Разбирает [`tauri.conf.json`](/reference/config/) на этапе компиляции и генерирует структуру Config.
+
+### tauri-runtime-wry
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-runtime-wry)
+
+Этот крейт открывает прямые взаимодействия на уровне системы специально для WRY, такие как печать, обнаружение мониторов и другие задачи, связанные с окнами.
+
+## Инструментарий Tauri
+
+### API (JavaScript / TypeScript)
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/packages/api)
+
+Библиотека на TypeScript, которая создаёт конечные точки `cjs` и `esm` на JavaScript для импорта в ваш фреймворк фронтенда, чтобы Webview мог вызывать и слушать активность бэкенда. Также поставляется в чистом TypeScript, поскольку для некоторых фреймворков это оптимальнее. Она использует обмен сообщениями webview с их хостами.
+
+### Bundler (Rust / Shell)
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler)
+
+Библиотека, которая собирает приложение Tauri для платформы, которую она обнаруживает или которой сообщается. В настоящее время поддерживает macOS, Windows и Linux — но в ближайшем будущем будет поддерживать и мобильные платформы. Может использоваться вне проектов Tauri.
+
+### cli.rs (Rust)
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-cli)
+
+Этот исполняемый файл на Rust предоставляет полный интерфейс для всех необходимых действий, для которых требуется CLI. Он работает на macOS, Windows и Linux.
+
+### cli.js (JavaScript)
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri/tree/dev/packages/cli)
+
+Обёртка вокруг [`cli.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-cli) с использованием [`napi-rs`](https://github.com/napi-rs/napi-rs) для создания npm-пакетов для каждой платформы.
+
+### create-tauri-app (JavaScript)
+
+[Просмотр на GitHub](https://github.com/tauri-apps/create-tauri-app)
+
+Инструментарий, который позволит инженерным командам быстро создавать новый проект `tauri-apps`, используя фреймворк фронтенда по своему выбору (при условии, что он настроен).
+
+## Вышестоящие крейты
+
+Организация Tauri-Apps поддерживает два «вышестоящих» крейта от Tauri, а именно TAO для создания и управления окнами приложения и WRY для взаимодействия с Webview, который находится внутри окна.
+
+### TAO
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tao)
+
+Кроссплатформенная библиотека на Rust для создания окон приложений, поддерживающая все основные платформы, такие как Windows, macOS, Linux, iOS и Android. Написанная на Rust, она является форком [winit](https://github.com/rust-windowing/winit), который мы расширили под собственные нужды — например, панель меню и системный трей.
+
+### WRY
+
+[Просмотр на GitHub](https://github.com/tauri-apps/wry)
+
+WRY — кросплатформенная библиотека рендеринга WebView на Rust, поддерживающая все основные настольные платформы, такие как Windows, macOS и Linux.
+Tauri использует WRY как абстрактный слой, отвечающий за определение того, какой webview используется (и как осуществляются взаимодействия).
+
+## Дополнительный инструментарий
+
+### tauri-action
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri-action)
+
+GitHub-workflow, который собирает бинарные файлы Tauri для всех платформ. Даже позволяет создать (очень простое) приложение Tauri, даже если Tauri не настроен.
+
+### tauri-vscode
+
+[Просмотр на GitHub](https://github.com/tauri-apps/tauri-vscode)
+
+Этот проект улучшает интерфейс Visual Studio Code рядом полезных функций.
+
+## Плагины
+
+[Руководство по плагинам Tauri](/ru/develop/plugins/)
+
+Вообще говоря, плагины создаются сторонними разработчиками (хотя могут быть и официальные поддерживаемые плагины). Плагин обычно делает 3 вещи:
+
+1. Позволяет коду на Rust делать «что-то».
+2. Предоставляет связующий интерфейс, чтобы упростить интеграцию в приложение.
+3. Предоставляет JavaScript API для взаимодействия с кодом на Rust.
+
+Вот несколько примеров плагинов Tauri:
+
+- [tauri-plugin-fs](https://github.com/tauri-apps/tauri-plugin-fs)
+- [tauri-plugin-sql](https://github.com/tauri-apps/tauri-plugin-sql)
+- [tauri-plugin-stronghold](https://github.com/tauri-apps/tauri-plugin-stronghold)
+
+## Лицензия
+
+Сам Tauri лицензирован под MIT или Apache-2.0. Если вы переупаковываете его и изменяете какой-либо исходный код, ваша обязанность — убедиться, что вы соблюдаете все вышестоящие лицензии. Tauri предоставляется КАК ЕСТЬ без явных гарантий пригодности для какой-либо цели.
+
+Здесь вы можете ознакомиться с нашим [Перечнем программных компонентов](https://app.fossa.com/projects/git%2Bgithub.com%2Ftauri-apps%2Ftauri).
