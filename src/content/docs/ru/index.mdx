@@ -1,0 +1,61 @@
+---
+title: Tauri 2.0
+description: Инструментарий для создания кроссплатформенных приложений
+i18nReady: true
+editUrl: false
+lastUpdated: false
+template: splash
+tableOfContents: false
+prev: false
+next: false
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Cta from '@fragments/cta.mdx';
+import Hero from '@components/Hero.astro';
+import SponsorList from '@components/sponsors/SponsorList.astro';
+import 'src/styles/home.css';
+
+<Hero
+  tagline="Создавайте маленькие, быстрые, безопасные и кроссплатформенные приложения"
+  getStarted="Начать"
+  v1Docs="Документация Tauri 1.0"
+/>
+
+<div>
+  <Card title="Создать проект" icon="rocket">
+    <Cta />
+  </Card>
+</div>
+
+<CardGrid>
+  <a href="/ru/start/frontend/" className="card-link card-frontend not-content">
+    <Card title="Независимый фронтенд" icon="rocket">
+      Перенесите свой существующий веб-стек в Tauri или начните свой следующий
+      новый проект мечты. Tauri поддерживает любой фронтенд-фреймворк,
+      поэтому вам не нужно менять свой стек.
+    </Card>
+  </a>
+
+<a href="/ru/distribute/" className="card-link card-platform not-content">
+  <Card title="Кроссплатформенность" icon="rocket">
+    Собирайте своё приложение для Linux, macOS, Windows, Android и iOS — всё из
+    единой кодовой базы. Пишите фронтенд на JavaScript, логику приложения на
+    Rust и глубоко интегрируйтесь в систему с помощью Swift и Kotlin.
+  </Card>
+</a>
+
+<a href="/ru/security/" className="card-link card-security not-content">
+  <Card title="Максимальная безопасность" icon="rocket">
+    Главный приоритет команды Tauri, лежащий в основе самых важных инноваций.
+  </Card>
+</a>
+
+  <a href="/ru/concept/size/" className="card-link card-size not-content">
+    <Card title="Минимальный размер" icon="rocket">
+      Благодаря использованию нативного веб-рендерера ОС размер приложения Tauri может составлять всего 600 КБ.
+    </Card>
+  </a>
+</CardGrid>
+
+<SponsorList />

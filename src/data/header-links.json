@@ -11,11 +11,13 @@
   },
   {
     "title": "Blog",
+    "titleRu": "Блог",
     "value": "/blog/",
     "transfer": false
   },
   {
     "title": "Releases",
+    "titleRu": "Релизы",
     "value": "/release/",
     "transfer": false
   }
