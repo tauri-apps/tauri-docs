@@ -1,0 +1,121 @@
+---
+title: Nuxt
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Nuxt — это метафреймворк для Vue. Узнайте больше о Nuxt на https://nuxt.com. Это руководство актуально для Nuxt 4.2.
+
+## Контрольный список
+
+- Используйте SSG, установив `ssr: false`. Tauri не поддерживает серверные решения.
+- Используйте значение по умолчанию `../dist` в качестве `frontendDist` в `tauri.conf.json`.
+- Собирайте с помощью `nuxi build`.
+- (Необязательно): отключите телеметрию, установив `telemetry: false` в `nuxt.config.ts`.
+
+## Пример конфигурации
+
+<Steps>
+
+1.  ##### Обновите конфигурацию Tauri
+
+          <Tabs>
+
+    <TabItem label="npm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "npm run dev",
+            "beforeBuildCommand": "npm run generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="yarn">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "yarn dev",
+            "beforeBuildCommand": "yarn generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="pnpm">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "pnpm dev",
+            "beforeBuildCommand": "pnpm generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+              <TabItem label="deno">
+
+        ```json
+        // tauri.conf.json
+        {
+          "build": {
+            "beforeDevCommand": "deno task dev",
+            "beforeBuildCommand": "deno task generate",
+            "devUrl": "http://localhost:3000",
+            "frontendDist": "../dist"
+          }
+        }
+        ```
+
+              </TabItem>
+
+          </Tabs>
+
+1.  ##### Обновите конфигурацию Nuxt
+
+    ```ts
+    export default defineNuxtConfig({
+      compatibilityDate: '2025-05-15',
+      // (optional) Enable the Nuxt devtools
+      devtools: { enabled: true },
+      // Enable SSG
+      ssr: false,
+      // Enables the development server to be discoverable by other devices when running on iOS physical devices
+      devServer: {
+        host: '0',
+      },
+      vite: {
+        // Better support for Tauri CLI output
+        clearScreen: false,
+        // Enable environment variables
+        // Additional environment variables can be found at
+        // https://v2.tauri.app/reference/environment-variables/
+        envPrefix: ['VITE_', 'TAURI_'],
+        server: {
+          // Tauri requires a consistent port
+          strictPort: true,
+        },
+      },
+      // Avoids error [unhandledRejection] EMFILE: too many open files, watch
+      ignore: ['**/src-tauri/**'],
+    });
+    ```
+
+</Steps>
