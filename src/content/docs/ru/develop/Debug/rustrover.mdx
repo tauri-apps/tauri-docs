@@ -1,0 +1,83 @@
+---
+title: Отладка в IDE JetBrains
+i18nReady: true
+---
+
+{/* TODO: Add support to light/dark mode images */}
+
+В этом руководстве мы настроим JetBrains RustRover для отладки [основного процесса вашего Tauri-приложения](/ru/concept/process-model/#основной-процесс). Оно также в основном применимо к IntelliJ и CLion.
+
+## Настройка проекта Cargo
+
+В зависимости от того, какой стек фронтенда используется в проекте, каталог проекта может как являться, так и не являться проектом Cargo. По умолчанию Tauri размещает Rust-проект в подкаталоге `src-tauri`. Проект Cargo в корневом каталоге создаётся только в том случае, если Rust также используется для разработки фронтенда.
+
+Если в верхнем уровне нет файла `Cargo.toml`, вам нужно подключить проект вручную. Откройте окно инструмента Cargo (в главном меню перейдите в **View | Tool Windows | Cargo**), нажмите **+** (**Attach Cargo Project**) на панели инструментов и выберите файл `src-tauri/Cargo.toml`.
+
+В качестве альтернативы вы можете вручную создать Cargo workspace верхнего уровня, добавив следующий файл в корневой каталог проекта:
+
+```toml title=Cargo.toml
+[workspace]
+members = ["src-tauri"]
+```
+
+Прежде чем продолжить, убедитесь, что ваш проект полностью загружен. Если окно инструмента Cargo показывает все модули и цели workspace, всё готово.
+
+## Настройка конфигураций запуска
+
+Вам нужно будет настроить две отдельные конфигурации Run/Debug:
+
+- одну для запуска приложения Tauri в режиме отладки,
+- другую для запуска выбранного вами сервера разработки фронтенда.
+
+### Приложение Tauri
+
+1. В главном меню перейдите в **Run | Edit Configurations**.
+2. В диалоговом окне **Run/Debug Configurations**:
+
+- Чтобы создать новую конфигурацию, нажмите **+** на панели инструментов и выберите **Cargo**.
+
+![Add Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-light.png)
+{/* ![Add Run/Debug Configuration](@assets/develop/Debug/rustrover/add-cargo-config-dark.png#gh-dark-mode-only) */}
+
+После создания нам нужно настроить RustRover так, чтобы он инструктировал Cargo собирать наше приложение без подключения функций по умолчанию. Это сообщит Tauri использовать ваш сервер разработки вместо чтения ресурсов с диска. Обычно этот флаг передаётся CLI Tauri, но поскольку мы здесь полностью обходим его, нам нужно передать флаг вручную.
+
+![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-light.png)
+{/* ![Add `--no-default-features` flag](@assets/develop/Debug/rustrover/set-no-default-features-dark.png#gh-dark-mode-only) */}
+
+Теперь мы можем при желании переименовать конфигурацию Run/Debug во что-то более запоминающееся. В этом примере мы назвали её «Run Tauri App», но вы можете назвать её как угодно.
+
+![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-light.png)
+{/* ![Rename Configuration](@assets/develop/Debug/rustrover/rename-configuration-dark.png#gh-dark-mode-only) */}
+
+### Сервер разработки
+
+Приведённая выше конфигурация будет использовать Cargo напрямую для сборки Rust-приложения и подключения к нему отладчика. Это означает, что мы полностью обходим CLI Tauri, поэтому такие функции, как `beforeDevCommand` и `beforeBuildCommand`, **не** будут выполняться. Нам нужно позаботиться об этом, запустив сервер разработки вручную.
+
+Чтобы создать соответствующую конфигурацию Run, вам нужно проверить, какой сервер разработки фактически используется. Найдите файл `src-tauri/tauri.conf.json` и найдите следующую строку:
+
+```json
+    "beforeDevCommand": "pnpm dev"
+```
+
+Для `npm`, `pnpm` или `yarn` вы можете использовать конфигурацию Run **npm**, например:
+
+![NPM Configuration](@assets/develop/Debug/rustrover/npm-configuration-light.png)
+{/* ![NPM Configuration](@assets/develop/Debug/rustrover/npm-configuration-dark.png#gh-dark-mode-only) */}
+
+Убедитесь, что в полях **Command**, **Scripts** и **Package Manager** указаны правильные значения.
+
+Если ваш сервер разработки — `trunk` для Rust-фронтенд-фреймворков на WebAssembly, вы можете использовать универсальную конфигурацию Run **Shell Script**:
+
+![Trunk Serve Configuration](@assets/develop/Debug/rustrover/trunk-configuration-light.png)
+{/* ![Trunk Serve Configuration](@assets/develop/Debug/rustrover/trunk-configuration-dark.png#gh-dark-mode-only) */}
+
+## Запуск сессии отладки
+
+Чтобы запустить сессию отладки, сначала необходимо запустить сервер разработки, а затем начать отладку приложения Tauri, нажав кнопку **Debug** рядом с переключателем конфигураций запуска. RustRover автоматически распознает точки останова, размещённые в любом Rust-файле вашего проекта, и остановится на первой из них.
+
+![Debug Session](@assets/develop/Debug/rustrover/debug-session-light.png)
+{/* ![Debug Session](@assets/develop/Debug/rustrover/debug-session-dark.png#gh-dark-mode-only) */}
+
+С этого момента вы можете изучать значения ваших переменных, шагать дальше по коду и подробно проверять, что происходит во время выполнения.
+
+[core process of your tauri app]: ../../../../concept/process-model#основной-процесс

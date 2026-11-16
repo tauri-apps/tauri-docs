@@ -1,0 +1,270 @@
+---
+title: Вызов фронтенда из Rust
+i18nReady: true
+---
+
+import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
+
+Этот документ содержит руководства по взаимодействию с фронтендом вашего приложения из кода Rust.
+Чтобы узнать, как взаимодействовать с кодом Rust из фронтенда, см. [Вызов Rust из фронтенда].
+
+Сторона Rust вашего приложения Tauri может вызывать фронтенд, используя систему событий Tauri,
+каналы или напрямую вычисляя код JavaScript.
+
+## Система событий
+
+Tauri поставляется с простой системой событий, которую вы можете использовать для двунаправленной связи между Rust и вашим фронтендом.
+
+Система событий разработана для ситуаций, когда необходимо передавать небольшие объёмы данных
+или когда нужно реализовать паттерн «много производителей, много потребителей» (например, система push-уведомлений).
+
+Система событий не предназначена для ситуаций с низкой задержкой или высокой пропускной способностью.
+См. [раздел о каналах](#каналы) для реализации, оптимизированной для потоковой передачи данных.
+
+Основные различия между командой Tauri и событием Tauri заключаются в том, что события не имеют строгой поддержки типов,
+нагрузки событий всегда являются строками JSON, что делает их непригодными для более крупных сообщений,
+а также отсутствует поддержка системы [capabilities] для точного контроля данных событий и каналов.
+
+Типы [AppHandle] и [WebviewWindow] реализуют трейты системы событий [Listener] и [Emitter].
+
+События бывают либо глобальными (доставляются всем слушателям), либо специфичными для webview (доставляются только webview, соответствующему заданной метке).
+
+### Глобальные события
+
+Чтобы вызвать глобальное событие, вы можете использовать функцию [Emitter#emit]:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter};
+
+#[tauri::command]
+fn download(app: AppHandle, url: String) {
+  app.emit("download-started", &url).unwrap();
+  for progress in [1, 15, 50, 80, 100] {
+    app.emit("download-progress", progress).unwrap();
+  }
+  app.emit("download-finished", &url).unwrap();
+}
+```
+
+:::note
+Глобальные события доставляются **всем** слушателям
+:::
+
+### Событие webview
+
+Чтобы вызвать событие для слушателя, зарегистрированного конкретным webview, вы можете использовать функцию [Emitter#emit_to]:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter};
+
+#[tauri::command]
+fn login(app: AppHandle, user: String, password: String) {
+  let authenticated = user == "tauri-apps" && password == "tauri";
+  let result = if authenticated { "loggedIn" } else { "invalidCredentials" };
+  app.emit_to("login", "login-result", result).unwrap();
+}
+```
+
+Также можно вызвать событие для списка webview, вызвав [Emitter#emit_filter].
+В следующем примере мы испускаем событие открытия файла для webview главного окна и webview просмотра файлов:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter, EventTarget};
+
+#[tauri::command]
+fn open_file(app: AppHandle, path: std::path::PathBuf) {
+  app.emit_filter("open-file", path, |target| match target {
+    EventTarget::WebviewWindow { label } => label == "main" || label == "file-viewer",
+    _ => false,
+  }).unwrap();
+}
+```
+
+:::note
+События, специфичные для webview, **не** передаются обычным глобальным слушателям событий.
+Чтобы слушать **любое** событие, вы должны использовать функцию `listen_any` вместо `listen`,
+которая задаёт слушателю действовать как «ловушка для всего» для испускаемых событий.
+:::
+
+### Нагрузка события
+
+Нагрузка события может быть любым [сериализуемым][Serialize] типом, который также реализует [Clone].
+Давайте улучшим пример события загрузки, используя объект для испускания большей информации в каждом событии:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, Emitter};
+use serde::Serialize;
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadStarted<'a> {
+  url: &'a str,
+  download_id: usize,
+  content_length: usize,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadProgress {
+  download_id: usize,
+  chunk_length: usize,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadFinished {
+  download_id: usize,
+}
+
+#[tauri::command]
+fn download(app: AppHandle, url: String) {
+  let content_length = 1000;
+  let download_id = 1;
+
+  app.emit("download-started", DownloadStarted {
+    url: &url,
+    download_id,
+    content_length
+  }).unwrap();
+
+  for chunk_length in [15, 150, 35, 500, 300] {
+    app.emit("download-progress", DownloadProgress {
+      download_id,
+      chunk_length,
+    }).unwrap();
+  }
+
+  app.emit("download-finished", DownloadFinished { download_id }).unwrap();
+}
+```
+
+### Прослушивание событий
+
+Tauri предоставляет API для прослушивания событий как на webview, так и на интерфейсах Rust.
+
+#### Прослушивание событий во фронтенде
+
+<FrontendListen />
+
+## Каналы
+
+Система событий задумана как простая двусторонняя связь, доступная глобально в вашем приложении.
+Под капотом она напрямую вычисляет код JavaScript, поэтому может не подходить для отправки больших объёмов данных.
+
+Каналы спроектированы как быстрые и доставляющие упорядоченные данные. Они используются внутри для потоковых операций,
+таких как прогресс загрузки, вывод дочерних процессов и сообщения WebSocket.
+
+Давайте перепишем наш пример команды загрузки, чтобы использовать каналы вместо системы событий:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::{AppHandle, ipc::Channel};
+use serde::Serialize;
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase", rename_all_fields = "camelCase", tag = "event", content = "data")]
+enum DownloadEvent<'a> {
+  Started {
+    url: &'a str,
+    download_id: usize,
+    content_length: usize,
+  },
+  Progress {
+    download_id: usize,
+    chunk_length: usize,
+  },
+  Finished {
+    download_id: usize,
+  },
+}
+
+#[tauri::command]
+fn download(app: AppHandle, url: String, on_event: Channel<DownloadEvent>) {
+  let content_length = 1000;
+  let download_id = 1;
+
+  on_event.send(DownloadEvent::Started {
+    url: &url,
+    download_id,
+    content_length,
+  }).unwrap();
+
+  for chunk_length in [15, 150, 35, 500, 300] {
+    on_event.send(DownloadEvent::Progress {
+      download_id,
+      chunk_length,
+    }).unwrap();
+  }
+
+  on_event.send(DownloadEvent::Finished { download_id }).unwrap();
+}
+```
+
+При вызове команды загрузки вы должны создать канал и передать его в качестве аргумента:
+
+```ts
+import { invoke, Channel } from '@tauri-apps/api/core';
+
+type DownloadEvent =
+  | {
+      event: 'started';
+      data: {
+        url: string;
+        downloadId: number;
+        contentLength: number;
+      };
+    }
+  | {
+      event: 'progress';
+      data: {
+        downloadId: number;
+        chunkLength: number;
+      };
+    }
+  | {
+      event: 'finished';
+      data: {
+        downloadId: number;
+      };
+    };
+
+const onEvent = new Channel<DownloadEvent>();
+onEvent.onmessage = (message) => {
+  console.log(`got download event ${message.event}`);
+};
+
+await invoke('download', {
+  url: 'https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-schema-generator/schemas/config.schema.json',
+  onEvent,
+});
+```
+
+## Вычисление JavaScript
+
+Чтобы напрямую выполнить любой код JavaScript в контексте webview, вы можете использовать функцию [`WebviewWindow#eval`]:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::Manager;
+
+tauri::Builder::default()
+  .setup(|app| {
+    let webview = app.get_webview_window("main").unwrap();
+    webview.eval("console.log('hello from Rust')")?;
+    Ok(())
+  })
+```
+
+Если вычисляемый скрипт не так прост и должен использовать входные данные из объектов Rust, мы рекомендуем использовать крейт [serialize-to-javascript].
+
+[`WebviewWindow#eval`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.eval
+[serialize-to-javascript]: https://docs.rs/serialize-to-javascript/latest/serialize_to_javascript/
+[AppHandle]: https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html
+[WebviewWindow]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html
+[Listener]: https://docs.rs/tauri/2.0.0/tauri/trait.Listener.html
+[Emitter]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html
+[Emitter#emit]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit
+[Emitter#emit_to]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit_to
+[Emitter#emit_filter]: https://docs.rs/tauri/2.0.0/tauri/trait.Emitter.html#tymethod.emit_filter
+[Clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
+[Serialize]: https://serde.rs/impl-serialize.html
+[вызов rust из фронтенда]: /ru/develop/calling-rust/
+[capabilities]: /ru/security/capabilities/

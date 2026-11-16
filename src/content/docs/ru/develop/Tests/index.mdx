@@ -1,0 +1,23 @@
+---
+title: Тесты
+description: Методы тестирования внутри и вне среды выполнения Tauri
+sidebar:
+  order: 10
+  label: Обзор
+i18nReady: true
+---
+
+Tauri поддерживает как модульное, так и интеграционное тестирование с использованием макетной среды выполнения. В макетной среде выполнения собственные
+библиотеки webview не выполняются. [Узнайте больше о макетной среде выполнения здесь].
+
+Tauri также предоставляет поддержку сквозного тестирования с использованием протокола WebDriver. [Тестирование Tauri с WebdriverIO]
+поддерживает Windows, Linux и macOS; протокол WebDriver также можно использовать напрямую на Windows и Linux, поскольку macOS
+не предоставляет десктопного клиента WebDriver. [Узнайте больше о поддержке WebDriver здесь].
+
+Мы предлагаем [tauri-action] для помощи с запуском GitHub Actions, но с Tauri можно использовать любой тип CI/CD-раннера, если на каждой
+платформе установлены необходимые библиотеки для компиляции.
+
+[Узнайте больше о макетной среде выполнения здесь]: /ru/develop/tests/mocking/
+[Узнайте больше о поддержке WebDriver здесь]: /ru/develop/tests/webdriver/
+[tauri-action]: https://github.com/tauri-apps/tauri-action
+[Тестирование Tauri с WebdriverIO]: https://webdriver.io/docs/desktop-testing/tauri
