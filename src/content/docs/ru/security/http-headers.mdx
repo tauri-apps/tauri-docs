@@ -1,0 +1,243 @@
+---
+title: HTTP-заголовки
+author: 39zde <git@39zde>
+sidebar:
+  order: 7
+i18nReady: true
+---
+
+import SinceVersion from '@components/SinceVersion.astro';
+
+<SinceVersion version="2.1.0" />
+
+Заголовок, определённый в конфигурации, отправляется вместе с ответами webview.
+Это не включает IPC-сообщения и ответы об ошибках.
+Точнее, каждый ответ, отправленный через функцию `get_response` в
+<a href="https://github.com/tauri-apps/tauri/blob/8e8312bb8201ccc609e4bbc1a990bdc314daa00f/crates/tauri/src/protocol/tauri.rs#L103" target="_blank">crates/tauri/src/protocol/tauri.rs ↗</a>
+будет содержать эти заголовки.
+
+### Имена заголовков
+
+Имена заголовков ограничены списком:
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Credentials" target="_blank">Access-Control-Allow-Credentials ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Headers" target="_blank">Access-Control-Allow-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods" target="_blank">Access-Control-Allow-Methods ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Expose-Headers" target="_blank">Access-Control-Expose-Headers ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Max-Age" target="_blank">Access-Control-Max-Age ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy" target="_blank">Cross-Origin-Embedder-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Opener-Policy" target="_blank">Cross-Origin-Opener-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Resource-Policy" target="_blank">Cross-Origin-Resource-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy" target="_blank">Permissions-Policy ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Service-Worker-Allowed" target="_blank">Service-Worker-Allowed ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Timing-Allow-Origin" target="_blank">Timing-Allow-Origin ↗</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Content-Type-Options" target="_blank">X-Content-Type-Options ↗</a>
+- Tauri-Custom-Header
+
+:::note
+`Tauri-Custom-Header` не предназначен для использования в продакшене.
+:::
+
+:::note
+<a href="../csp/">Политика безопасности контента (CSP)</a> здесь не определяется.
+:::
+
+### Как настроить заголовки
+
+- строкой
+- массивом строк
+- объектом/парами ключ-значение, где значения должны быть строками
+- null
+
+Значения заголовков всегда преобразуются в строки для фактического ответа. В зависимости от того, как выглядит файл конфигурации, некоторые значения заголовков нужно собирать.
+Таковы правила создания составного значения:
+
+- `string`: остаётся прежним для итогового значения заголовка
+- `array`: элементы объединяются через `, ` для итогового значения заголовка
+- `key-value`: элементы составляются из: ключ + пробел + значение. Затем элементы объединяются через `; ` для итогового значения заголовка
+- `null`: заголовок будет проигнорирован
+
+### Пример
+
+```javascript title="src-tauri/tauri.conf.json"
+{
+ //...
+  "app":{
+    //...
+    "security": {
+      //...
+      "headers": {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Timing-Allow-Origin": [
+          "https://developer.mozilla.org",
+          "https://example.com",
+        ],
+        "X-Content-Type-Options": null, // gets ignored
+        "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+        "Tauri-Custom-Header": {
+          "key1": "'value1' 'value2'",
+          "key2": "'value3'"
+        }
+      },
+      // notice how the CSP is not defined under headers
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost",
+    }
+  }
+}
+```
+
+:::note
+`Tauri-Custom-Header` не предназначен для использования в продакшене.
+Для тестов: не забудьте соответствующим образом задать `Access-Control-Expose-Headers`.
+:::
+
+В этом примере `Cross-Origin-Opener-Policy` и `Cross-Origin-Embedder-Policy` установлены, чтобы разрешить использование <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank">`SharedArrayBuffer ↗`</a>.
+`Timing-Allow-Origin` предоставляет скриптам, загруженным с перечисленных сайтов, доступ к подробным данным о сетевом времени через <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance_API/Resource_timing" target="_blank">Resource Timing API ↗</a>.
+
+Для примера helloworld эта конфигурация даёт результат:
+
+```http
+access-control-allow-origin:  http://tauri.localhost
+access-control-expose-headers: Tauri-Custom-Header
+content-security-policy: default-src 'self'; connect-src ipc: http://ipc.localhost; script-src 'self' 'sha256-Wjjrs6qinmnr+tOry8x8PPwI77eGpUFR3EEGZktjJNs='
+content-type: text/html
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+tauri-custom-header: key1 'value1' 'value2'; key2 'value3'
+timing-allow-origin: https://developer.mozilla.org, https://example.com
+```
+
+### Фреймворки
+
+Некоторые среды разработки требуют дополнительных настроек для эмуляции продакшн-среды.
+
+:::note
+Чтобы заголовки работали в этих фреймворках, вам, возможно, потребуется определить их и в конфигурации фреймворка (для режима разработки), и в конфигурации Tauri (для режима сборки). Это связано с тем, что: 
+- Фреймворки не будут включать заголовки, определённые в их файлах конфигурации, на этапе сборки.
+- Tauri не может внедрять заголовки в dev-сервер фреймворка — он может внедрять их только в итоговый вывод сборки.
+:::
+
+#### JavaScript/TypeScript
+
+Для проектов, использующих инструмент сборки **Vite** (к ним относятся **Qwik, React, Solid, Svelte и Vue**), добавьте нужные заголовки в `vite.config.ts`. 
+```typescript title=vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // ...
+  server: {
+      // ...
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin': 'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'"
+      },
+    },
+})
+```
+Иногда `vite.config.ts` интегрирован в файл конфигурации фреймворка, но настройка остаётся той же.
+В случае **Angular** добавьте их в `angular.json`.
+```json title=angular.json
+{
+  //...
+  "projects":{
+    //...
+    "insert-project-name":{
+      //...
+      "architect":{
+        //...
+        "serve":{
+          //...
+          "options":{
+            //...
+            "headers":{
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Timing-Allow-Origin": "https://developer.mozilla.org, https://example.com",
+              "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+              "Tauri-Custom-Header": "key1 'value1' 'value2'; key2 'value3'"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+А в случае **Nuxt** — в `nuxt.config.ts`.
+```typescript title=nuxt.config.ts
+export default defineNuxtConfig({
+  //...
+  vite: {
+    //...
+    server: {
+      //...
+      headers:{
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Timing-Allow-Origin': 'https://developer.mozilla.org, https://example.com',
+        'Access-Control-Expose-Headers': 'Tauri-Custom-Header',
+        'Tauri-Custom-Header': "key1 'value1' 'value2'; key2 'value3'"
+      }
+    },
+  },
+});
+```
+**Next.js** не полагается на **Vite**, поэтому подход отличается.
+Подробнее об этом читайте <a href="https://nextjs.org/docs/pages/api-reference/next-config-js/headers" target="_blank">здесь ↗</a>.
+Заголовки определяются в `next.config.js`.
+```javascript title=next.config.js
+module.exports = {
+  //...
+  async headers() {
+    return [
+      {
+        source: '/*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Timing-Allow-Origin',
+            value: 'https://developer.mozilla.org, https://example.com',
+          },
+          {
+            key: 'Access-Control-Expose-Headers',
+            value: 'Tauri-Custom-Header',
+          },
+          {
+            key: 'Tauri-Custom-Header',
+            value: "key1 'value1' 'value2'; key2 'value3'",
+          },
+        ],
+      },
+    ]
+  },
+}
+```
+
+
+#### Rust
+
+Для **Yew** и **Leptos** добавьте заголовки в `Trunk.toml`
+
+```toml title=Trunk.toml
+#...
+[serve]
+#...
+headers = { 
+  "Cross-Origin-Opener-Policy" = "same-origin",
+  "Cross-Origin-Embedder-Policy" = "require-corp",
+  "Timing-Allow-Origin" = "https://developer.mozilla.org, https://example.com",
+  "Access-Control-Expose-Headers" = "Tauri-Custom-Header",
+  "Tauri-Custom-Header" = "key1 'value1' 'value2'; key2 'value3'"
+}
+
+```
