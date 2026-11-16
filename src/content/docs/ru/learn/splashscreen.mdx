@@ -1,0 +1,272 @@
+---
+title: Заставка
+sidebar:
+  order: 1
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+i18nReady: true
+---
+
+import { Image } from 'astro:assets';
+import step_1 from '@assets/learn/splashscreen/step_1.png';
+import step_3 from '@assets/learn/splashscreen/step_3.png';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro';
+import CTA from '@fragments/cta.mdx';
+
+В этой лаборатории мы реализуем базовую функциональность заставки в приложении Tauri. Это
+довольно просто: заставка — это, по сути, создание нового окна,
+которое отображает некоторый контент, пока ваше приложение выполняет тяжёлые задачи, связанные с настройкой,
+и затем закрывается, когда настройка завершена.
+
+## Предварительные требования
+
+:::tip[Создайте лабораторное приложение]
+
+Если вы не продвинутый пользователь, **настоятельно рекомендуется** использовать параметры и фреймворки, приведённые здесь. Это всего лишь лаборатория, вы можете удалить проект, когда закончите.
+
+<CTA/>
+
+- Название проекта: `splashscreen-lab`
+- Выберите язык для вашего frontend: `Typescript / Javascript`
+- Выберите менеджер пакетов: `pnpm`
+- Выберите шаблон UI: `Vanilla`
+- Выберите вариант UI: `Typescript`
+
+:::
+
+## Шаги
+
+<Steps>
+
+1. ##### Установите зависимости и запустите проект
+
+   Прежде чем начать разработку любого проекта, важно собрать и запустить исходный шаблон, просто чтобы убедиться, что ваша настройка работает как задумано.
+
+    <ShowSolution text="Показать решение">
+    ```sh frame=none
+    # Make sure you're in the right directory
+    cd splashscreen-lab
+    # Install dependencies
+    pnpm install
+    # Build and run the app
+    pnpm tauri dev
+    ```
+    <Image src={step_1} alt="Успешный запуск созданного шаблонного приложения."/>
+    </ShowSolution>
+
+1. ##### Зарегистрируйте новые окна в `tauri.conf.json`
+
+   Самый простой способ добавить новые окна — добавить их напрямую в `tauri.conf.json`. Вы также можете создавать их динамически при запуске,
+   но для простоты давайте просто зарегистрируем их. Убедитесь, что у вас есть окно с меткой `main`, созданное как скрытое окно, и окно с меткой `splashscreen`, созданное как отображаемое напрямую. Вы можете оставить все остальные параметры по умолчанию или настроить их по своему вкусу.
+
+    <ShowSolution text="Показать решение">
+    ```json
+    // src-tauri/tauri.conf.json
+    {
+        "windows": [
+            {
+                "label": "main",
+                "visible": false
+            },
+            {
+                "label": "splashscreen",
+                "url": "/splashscreen"
+            }
+        ]
+    }
+    ```
+    </ShowSolution>
+
+1. ##### Создайте новую страницу для вашей заставки
+
+   Прежде чем начать, вам нужно иметь некоторый контент для отображения. То, как вы создаёте новые страницы, зависит от выбранного вами фреймворка:
+   большинство имеют концепцию «роутера», который обрабатывает навигацию по страницам и должен работать в Tauri так же, как обычно, и в этом случае
+   вы просто создаёте новую страницу заставки. Или, как мы сделаем здесь, создайте новый файл `splashscreen.html` для размещения контента.
+
+   Важно, чтобы вы могли перейти по URL `/splashscreen` и увидеть нужный контент для вашей заставки. Попробуйте снова запустить приложение после этого шага!
+
+    <ShowSolution text="Показать решение">
+    ```html
+    // /splashscreen.html
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/src/styles.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tauri App</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Tauri used Splash!</h1>
+            <div class="row">
+                <h5>It was super effective!</h5>
+            </div>
+        </div>
+    </body>
+    </html>
+    ```
+    <Image src={step_3} alt="Заставка, которую мы только что создали."/>
+    </ShowSolution>
+
+1. ##### Запустите некоторые задачи настройки
+
+   Поскольку заставки обычно предназначены для скрытия тяжёлых задач настройки, давайте имитируем, что приложение выполняет что-то тяжёлое, частично в frontend, частично в backend.
+
+   Чтобы имитировать тяжёлую настройку в frontend, мы будем использовать простую функцию `setTimeout`.
+
+   Самый простой способ имитировать тяжёлые операции в backend — использовать крейт Tokio, который является крейтом Rust, используемым Tauri в backend для предоставления асинхронного runtime. Хотя Tauri предоставляет runtime, есть различные утилиты, которые Tauri не реэкспортирует из него, поэтому нам нужно будет добавить крейт в наш проект, чтобы получить к ним доступ. Это совершенно нормальная практика в экосистеме Rust.
+
+   Не используйте `std::thread::sleep` в асинхронных функциях: они выполняются кооперативно в конкурентной среде, а не параллельно, то есть если вы усыпите поток вместо задачи Tokio, вы заблокируете выполнение всех задач, запланированных на этом потоке, что приведёт к зависанию приложения.
+
+   <ShowSolution text="Показать решение">
+   ```sh frame=none
+   # Run this command where the `Cargo.toml` file is
+   cd src-tauri
+   # Add the Tokio crate
+   cargo add tokio -F time
+   # Optionally go back to the top folder to keep developing
+   # `tauri dev` can figure out where to run automatically
+   cd ..
+   ```
+
+   ```javascript
+   // src/main.ts
+   // These contents can be copy-pasted below the existing code, don't replace the entire file!!
+
+   // Utility function to implement a sleep function in TypeScript
+   function sleep(seconds: number): Promise<void> {
+       return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+   }
+
+   // Setup function
+   async function setup() {
+       // Fake perform some really heavy setup task
+       console.log('Performing really heavy frontend setup task...')
+       await sleep(3);
+       console.log('Frontend setup task complete!')
+       // Set the frontend task as being completed
+       invoke('set_complete', {task: 'frontend'})
+   }
+
+   // Effectively a JavaScript main function
+   window.addEventListener("DOMContentLoaded", () => {
+       setup()
+   });
+   ```
+
+   ```rust
+   // /src-tauri/src/lib.rs
+   // Import functionalities we'll be using
+   use std::sync::Mutex;
+   use tauri::async_runtime::spawn;
+   use tauri::{AppHandle, Manager, State};
+   use tokio::time::{sleep, Duration};
+
+   // Create a struct we'll use to track the completion of
+   // setup related tasks
+   struct SetupState {
+       frontend_task: bool,
+       backend_task: bool,
+   }
+
+   // Our main entrypoint in a version 2 mobile compatible app
+   #[cfg_attr(mobile, tauri::mobile_entry_point)]
+   pub fn run() {
+       // Don't write code before Tauri starts, write it in the
+       // setup hook instead!
+       tauri::Builder::default()
+           // Register a `State` to be managed by Tauri
+           // We need write access to it so we wrap it in a `Mutex`
+           .manage(Mutex::new(SetupState {
+               frontend_task: false,
+               backend_task: false,
+           }))
+           // Add a command we can use to check
+           .invoke_handler(tauri::generate_handler![greet, set_complete])
+           // Use the setup hook to execute setup related tasks
+           // Runs before the main loop, so no windows are yet created
+           .setup(|app| {
+               // Spawn setup as a non-blocking task so the windows can be
+               // created and ran while it executes
+               spawn(setup(app.handle().clone()));
+               // The hook expects an Ok result
+               Ok(())
+           })
+           // Run the app
+           .run(tauri::generate_context!())
+           .expect("error while running tauri application");
+   }
+
+   #[tauri::command]
+   fn greet(name: String) -> String {
+       format!("Hello {name} from Rust!")
+   }
+
+   // A custom task for setting the state of a setup task
+   #[tauri::command]
+   async fn set_complete(
+       app: AppHandle,
+       state: State<'_, Mutex<SetupState>>,
+       task: String,
+   ) -> Result<(), ()> {
+       // Lock the state without write access
+       let mut state_lock = state.lock().unwrap();
+       match task.as_str() {
+           "frontend" => state_lock.frontend_task = true,
+           "backend" => state_lock.backend_task = true,
+           _ => panic!("invalid task completed!"),
+       }
+       // Check if both tasks are completed
+       if state_lock.backend_task && state_lock.frontend_task {
+           // Setup is complete, we can close the splashscreen
+           // and unhide the main window!
+           let splash_window = app.get_webview_window("splashscreen").unwrap();
+           let main_window = app.get_webview_window("main").unwrap();
+           splash_window.close().unwrap();
+           main_window.show().unwrap();
+       }
+       Ok(())
+   }
+
+   // An async function that does some heavy setup task
+   async fn setup(app: AppHandle) -> Result<(), ()> {
+       // Fake performing some heavy action for 3 seconds
+       println!("Performing really heavy backend setup task...");
+       sleep(Duration::from_secs(3)).await;
+       println!("Backend setup task completed!");
+       // Set the backend task as being completed
+       // Commands can be ran as regular functions as long as you take
+       // care of the input arguments yourself
+       set_complete(
+           app.clone(),
+           app.state::<Mutex<SetupState>>(),
+           "backend".to_string(),
+       )
+       .await?;
+       Ok(())
+   }
+   ```
+   </ShowSolution>
+
+1. ##### Запустите приложение
+
+   Теперь вы должны увидеть всплывающее окно заставки: и frontend, и backend выполнят свои соответствующие тяжёлые задачи настройки на 3 секунды, после чего заставка исчезнет и появится главное окно!
+
+</Steps>
+
+## Обсуждение
+
+##### Нужна ли вам заставка?
+
+Как правило, наличие заставки — это признание поражения в том, что вы не смогли сделать
+так, чтобы ваше приложение загружалось достаточно быстро, чтобы не нуждаться в нём. На самом деле часто лучше просто сразу
+перейти к главному окну, которое затем показывает небольшой спиннер где-то в углу, сообщая
+пользователю, что в фоне всё ещё выполняются задачи настройки.
+
+Тем не менее, с учётом сказанного, это может быть стилистическим выбором: возможно, вы хотите иметь заставку,
+или у вас есть очень специфическое требование, которое делает невозможным запуск
+приложения до выполнения некоторых задач. Определённо не *неправильно* иметь заставку, это
+просто обычно не нужно и может создать у пользователей ощущение, что приложение не очень хорошо оптимизировано.

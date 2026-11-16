@@ -1,0 +1,328 @@
+---
+title: Несколько окон на мобильных устройствах
+sidebar:
+  order: 2
+i18nReady: false
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Tauri поддерживает несколько окон на Android и iOS, позволяя вашему приложению отображать контент бок о бок на планшетах или в отдельных сценах на iPad.
+
+На **Android** многооконность реализуется с помощью [Activity Embedding](https://developer.android.com/guide/topics/large-screens/activity-embedding), который позволяет системе отображать два activity рядом друг с другом на больших экранах.
+
+На **iOS** многооконность использует API [UIScene](https://developer.apple.com/documentation/uikit/uiscene), который позволяет пользователям iPad открывать несколько экземпляров вашего приложения в отдельных окнах.
+
+На **телефонах** система обычно не располагает два окна бок о бок. На **Android** создание ещё одного окна по-прежнему запускает отдельное activity, но на дисплеях размера телефона оно обычно **помещается в back stack activity** — поэтому **Back** возвращает к предыдущему activity, а не закрывает разделённый вид. На **iOS** (особенно на iPhone) открытие или создание другого окна часто **заменяет текущий интерфейс** контентом новой сцены, вместо того чтобы сохранять оба окна видимыми одновременно; истинные одновременные окна остаются возможностью **iPad** (и Stage Manager).
+
+:::note
+Многооконность требует Android 12L (API 32)+ и iOS 13+. Вы можете использовать API [`app.supportsMultipleWindows`] для проверки доступности во время выполнения.
+:::
+
+## Общая настройка
+
+Обе платформы требуют разрешение capability для создания новых окон из frontend.
+
+### Capabilities
+
+Добавьте разрешение `core:webview:allow-create-webview-window` в ваш файл capability, чтобы ваш frontend мог создавать новые окна.
+
+Если вы создаёте несколько окон, используйте шаблон или перечислите каждую метку окна в массиве `windows`:
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["core:default", "core:webview:allow-create-webview-window"]
+}
+```
+
+## Android
+
+Многооконность Android использует [Activity Embedding](https://developer.android.com/guide/topics/large-screens/activity-embedding) для разделения activity бок о бок на больших экранах (планшеты, раскладушки). Вам нужно создать `Activity` Android для каждого типа окна, настроить правила разделения и зарегистрировать инициализатор.
+
+<Steps>
+
+1. ### Добавьте зависимости
+
+   Добавьте необходимые библиотеки AndroidX в ваш `build.gradle.kts`:
+
+   ```kotlin title="src-tauri/gen/android/app/build.gradle.kts" ins={3-4}
+   dependencies {
+       // ... existing dependencies
+       implementation("androidx.window:window:1.5.0")
+       implementation("androidx.startup:startup-runtime:1.2.0")
+   }
+   ```
+
+2. ### Создайте новое Activity
+
+   Создайте класс Kotlin для каждого дополнительного типа окна. Каждое activity должно расширять `TauriActivity`:
+
+   ```kotlin title="src-tauri/gen/android/app/src/main/java/com/example/app/DetailActivity.kt"
+   package com.example.app
+
+   import android.os.Bundle
+   import android.os.PersistableBundle
+
+   class DetailActivity: TauriActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+       super.onCreate(savedInstanceState)
+     }
+   }
+   ```
+
+3. ### Обновите AndroidManifest.xml
+
+   Зарегистрируйте новое activity и включите embedding activity, добавив пространство имён `tools` и свойство embedding:
+
+   ```xml title="src-tauri/gen/android/app/src/main/AndroidManifest.xml" ins={3, 7-9, 20, 22-29}
+   <?xml version="1.0" encoding="utf-8"?>
+   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
+
+     <application ...>
+
+       <property
+         android:name="android.window.PROPERTY_ACTIVITY_EMBEDDING_SPLITS_ENABLED"
+         android:value="true" />
+
+       <!-- Existing MainActivity -->
+       <activity
+         android:name=".MainActivity"
+         android:exported="true"
+         ...>
+         ...
+       </activity>
+
+       <!-- New activity for the detail window -->
+       <activity android:name=".DetailActivity" android:exported="true" />
+
+       <!-- Register the split initializer -->
+       <provider android:name="androidx.startup.InitializationProvider"
+         android:authorities="${applicationId}.androidx-startup"
+         android:exported="false"
+         tools:node="merge">
+         <meta-data android:name="${applicationId}.SplitInitializer"
+           android:value="androidx.startup" />
+       </provider>
+
+     </application>
+   </manifest>
+   ```
+
+4. ### Создайте инициализатор разделения
+
+   Инициализатор загружает правила пар разделения при запуске приложения:
+
+   ```kotlin title="src-tauri/gen/android/app/src/main/java/com/example/app/SplitInitializer.kt"
+   package com.example.app
+
+   import android.content.Context
+   import androidx.startup.Initializer
+   import androidx.window.core.ExperimentalWindowApi
+   import androidx.window.embedding.RuleController
+
+   @OptIn(ExperimentalWindowApi::class)
+   class SplitInitializer : Initializer<RuleController> {
+     override fun create(context: Context): RuleController {
+       return RuleController.getInstance(context).apply {
+         setRules(RuleController.parseRules(context, R.xml.main_split_config))
+       }
+     }
+
+     override fun dependencies(): List<Class<out Initializer<*>>> {
+       return emptyList()
+     }
+   }
+   ```
+
+5. ### Определите правила разделения
+
+   Создайте XML-ресурс, который сообщает системе, как объединять activity в пары и разделять экран:
+
+   ```xml title="src-tauri/gen/android/app/src/main/res/xml/main_split_config.xml"
+   <resources
+     xmlns:window="http://schemas.android.com/apk/res-auto">
+
+     <SplitPairRule
+       window:splitRatio="0.33"
+       window:splitLayoutDirection="locale"
+       window:splitMinWidthDp="840"
+       window:splitMaxAspectRatioInPortrait="alwaysAllow"
+       window:finishPrimaryWithSecondary="never"
+       window:finishSecondaryWithPrimary="never"
+       window:clearTop="false">
+       <SplitPairFilter
+         window:primaryActivityName=".MainActivity"
+         window:secondaryActivityName=".DetailActivity"/>
+     </SplitPairRule>
+
+   </resources>
+   ```
+
+   Ключевые атрибуты:
+   - `splitRatio` — как разделяется экран (0.33 даёт основному activity одну треть)
+   - `splitMinWidthDp` — минимальная ширина экрана для активации разделения (840dp ориентировано на планшеты)
+   - `splitMaxAspectRatioInPortrait` — установите `alwaysAllow`, чтобы включить разделение в книжной ориентации
+   - `primaryActivityName` / `secondaryActivityName` — какая пара activity запускает разделение
+
+</Steps>
+
+## iOS
+
+На iOS многооконность использует API UIScene. Пользователи iPad могут открывать новые окна, долго нажимая на значок приложения и выбирая «Новое окно», или ваше приложение может создавать их программно.
+
+<Steps>
+
+1. ### Включите поддержку сцен
+
+   Создайте файл `Info.ios.plist` в вашем каталоге `src-tauri`, чтобы объявить поддержку сцен:
+
+   ```xml title="src-tauri/Info.ios.plist" ins={6-12}
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+     "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   <plist version="1.0">
+   <dict>
+     <key>UIApplicationSceneManifest</key>
+     <dict>
+       <key>UIApplicationSupportsMultipleScenes</key>
+       <true/>
+       <key>UISceneConfigurations</key>
+       <dict/>
+     </dict>
+   </dict>
+   </plist>
+   ```
+
+2. ### Обрабатывайте запросы сцен
+
+   Когда пользователь запрашивает новое окно на iPad (например, долго нажимая на значок приложения), Tauri испускает событие `RunEvent::SceneRequested`. Обработайте его, чтобы создать новое окно:
+
+   ```rust title="src-tauri/src/lib.rs"
+   #[cfg_attr(mobile, tauri::mobile_entry_point)]
+   pub fn run() {
+       #[cfg(target_os = "ios")]
+       let mut counter = 0;
+
+       tauri::Builder::default()
+           .setup(|app| {
+               tauri::WebviewWindowBuilder::new(
+                   app, "main", tauri::WebviewUrl::default()
+               ).build()?;
+               Ok(())
+           })
+           .build(tauri::generate_context!())
+           .expect("error while running tauri application")
+           .run(move |app, event| {
+               #[cfg(target_os = "ios")]
+               if let tauri::RunEvent::SceneRequested { .. } = event {
+                   counter += 1;
+                   tauri::WebviewWindowBuilder::new(
+                       app,
+                       format!("main-{counter}"),
+                       tauri::WebviewUrl::default(),
+                   )
+                   .build()
+                   .unwrap();
+               }
+               #[cfg(not(target_os = "ios"))]
+               let _ = (app, event);
+           });
+   }
+   ```
+
+   :::note
+   Поскольку окна, запрошенные сценой, используют динамические метки, такие как `main-1`, `main-2` и т. д., убедитесь, что ваш файл capabilities содержит шаблон для их покрытия — например, `"windows": ["main", "main-*"]`.
+   :::
+
+</Steps>
+
+## Создание окон
+
+Вы можете создавать дополнительные окна как из Rust, так и из JavaScript API frontend. `WebviewWindowBuilder` (Rust) и `WebviewWindow` (JavaScript) принимают платформозависимые параметры:
+
+Параметры Android:
+
+- `activityName` — имя класса Activity Android, который нужно создать для этого окна.
+- `createdByActivityName` — имя Activity, которое создаёт это окно. Оно определяет, к какому стеку activity относится новое activity, что важно для корректной работы правил разделения. Если не задано, оно автоматически наследуется от менеджера (например, при создании из handle окна `Window` или `Webview`).
+
+Параметры iOS:
+
+- `requestedBySceneIdentifier` — задаёт идентификатор UIScene, который запрашивает создание этой новой сцены, устанавливая связь между двумя сценами. По умолчанию система использует сцену переднего плана. Если не задано, оно автоматически наследуется от менеджера.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { WebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+function openDetail(id) {
+  const webview = new WebviewWindow(`detail-${id}`, {
+    url: `detail/${id}`,
+    activityName: 'DetailActivity',
+  });
+  webview.once('tauri://created', () => {
+    console.log('window created');
+  });
+  webview.once('tauri://error', (e) => {
+    console.error(e);
+  });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri::Manager;
+
+let main_window = app.get_webview_window("main").unwrap();
+// use the main_window instance so the relationships are determined automatically
+let builder = tauri::WebviewWindowBuilder::new(main_window, "detail", tauri::WebviewUrl::App("detail/1".into()));
+
+#[cfg(target_os = "android")]
+let builder = builder.activity_name("DetailActivity");
+
+let window = builder.build()?;
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+Если вы используете frontend-роутер, используйте роутер на основе истории браузера (например, `createBrowserRouter` в React Router) вместо роутера на основе hash, чтобы каждое окно могло переходить к отдельному пути URL.
+:::
+
+## API экземпляров окон
+
+После создания окна вы можете получить его платформозависимый идентификатор:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+const activityName = await window.activityName();
+const sceneId = await window.sceneIdentifier();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+#[cfg(target_os = "android")]
+let activity = window.activity_name()?;
+
+#[cfg(target_os = "ios")]
+let scene_id = window.scene_identifier()?;
+```
+
+</TabItem>
+</Tabs>
+
+Эти геттеры полезны для ссылки на идентичность окна при создании связанных окон. Например, вы можете прочитать `activityName` окна, чтобы передать его как `createdByActivityName` для нового окна, или прочитать `sceneIdentifier`, чтобы передать как `requestedBySceneIdentifier`.
+
+[app.supportsMultipleWindows]: /reference/javascript/api/namespaceapp/#supportsmultiplewindows

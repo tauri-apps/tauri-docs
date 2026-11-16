@@ -1,0 +1,85 @@
+---
+title: Учимся
+description: Учебные пособия, предназначенные для получения комплексного опыта обучения и призванные провести вас по конкретным темам Tauri, помочь применить знания из руководств и справочной документации
+sidebar:
+  order: 0
+  label: Обзор
+i18nReady: true
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import AwesomeTauri from '@components/AwesomeTauri.astro';
+import BookItem from '@components/BookItem.astro';
+import RoseRustBook from '@assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.png';
+
+Категория «Учимся» предназначена для предоставления комплексного опыта обучения по темам, связанным с Tauri.
+
+Эти учебные пособия проведут вас по конкретной теме и помогут применить знания из руководств и справочной документации.
+
+Что касается тем, связанных с безопасностью, вы можете узнать о системе разрешений. Вы получите практическое представление о том, как её использовать, расширять и писать собственные разрешения.
+
+<CardGrid>
+  <LinkCard
+    title="Использование разрешений плагинов"
+    href="/ru/learn/security/using-plugin-permissions/"
+  />
+  <LinkCard
+    title="Capabilities для разных окон и платформ"
+    href="/ru/learn/security/capabilities-for-windows-and-platforms/"
+  />
+  <LinkCard
+    title="Создание разрешений плагинов"
+    href="/ru/learn/security/writing-plugin-permissions/"
+  />
+</CardGrid>
+
+Чтобы узнать, как создать собственную заставку, использовать `sidecar` на Node.js или настроить мобильные функции, обратитесь к материалам:
+
+<CardGrid>
+  <LinkCard title="Заставка" href="/ru/learn/splashscreen/" />
+  <LinkCard title="Node.js в качестве `sidecar`" href="/ru/learn/sidecar-nodejs/" />
+  <LinkCard title="Несколько окон на мобильных устройствах" href="/ru/learn/mobile-multiwindow/" />
+  <LinkCard
+    title="Ассоциации файлов на мобильных устройствах"
+    href="/ru/learn/mobile-file-associations/"
+  />
+</CardGrid>
+
+## Дополнительные ресурсы
+
+В этом разделе представлены учебные ресурсы, созданные сообществом, которые не размещены на этом сайте.
+
+<LinkCard
+  title="Есть чем поделиться?"
+  description="Откройте пул-реквест, чтобы показать нам ваш замечательный ресурс."
+  href="https://github.com/tauri-apps/awesome-tauri/pulls"
+/>
+
+### Книги
+
+<BookItem
+  image={RoseRustBook}
+  title="HTML, CSS, JavaScript и Rust для начинающих: руководство по разработке приложений с Tauri"
+  alt="Обложка книги «HTML, CSS, JavaScript и Rust для начинающих»"
+  author="James Alexander Rose"
+  links={[
+    {
+      preText: 'Мягкая обложка на Amazon:',
+      text: 'Купить здесь',
+      url: 'https://www.amazon.com/dp/B0DR6KZVVW',
+    },
+    {
+      preText: 'Бесплатная PDF-версия:',
+      text: 'Скачать (PDF 4MB)',
+      url: '/assets/learn/community/HTML_CSS_JavaScript_and_Rust_for_Beginners_A_Guide_to_Application_Development_with_Tauri.pdf',
+    },
+  ]}
+/>
+
+### Руководства и учебные пособия
+
+<AwesomeTauri section="guides-no-official-no-video" />
+
+#### Видеоуроки
+
+<AwesomeTauri section="guides-no-official-only-video" />

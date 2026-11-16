@@ -1,0 +1,185 @@
+---
+title: Capabilities для разных окон и платформ
+sidebar:
+  order: 11
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro'
+import Cta from '@fragments/cta.mdx';
+
+Это руководство поможет вам настроить capabilities вашего приложения Tauri.
+
+## Содержание руководства
+
+- Создание нескольких окон в приложении Tauri
+- Использование разных capabilities для разных окон
+- Использование платформозависимых capabilities
+
+## Предварительные требования
+
+Это упражнение предназначено для чтения после завершения [`Использование разрешений плагинов`](/ru/learn/security/using-plugin-permissions/).
+
+## Руководство
+
+<Steps>
+1. ### Создание нескольких окон в приложении Tauri
+
+   Здесь мы создаём приложение с двумя окнами с метками `first` и `second`.
+   Существует несколько способов создания окон в вашем приложении Tauri.
+
+   #### Создание окон с помощью файла конфигурации Tauri
+
+   В файле конфигурации Tauri, обычно называемом `tauri.conf.json`:
+
+    <ShowSolution text="Показать решение">
+    ```javascript
+      "productName": "multiwindow",
+      ...
+      "app": {
+        "windows": [
+          {
+            "label": "first",
+            "title": "First",
+            "width": 800,
+            "height": 600
+          },
+          {
+            "label": "second",
+            "title": "Second",
+            "width": 800,
+            "height": 600
+          }
+        ],
+      },
+      ...
+    }
+    ```
+    </ShowSolution>
+
+   #### Создание окон программно
+
+    В коде Rust для создания приложения Tauri:
+
+    <ShowSolution text="Показать решение">
+    ```rust
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![greet])
+        .setup(|app| {
+            let webview_url = tauri::WebviewUrl::App("index.html".into());
+            // First window
+            tauri::WebviewWindowBuilder::new(app, "first", webview_url.clone())
+                .title("First")
+                .build()?;
+            // Second window
+            tauri::WebviewWindowBuilder::new(app, "second", webview_url)
+                .title("Second")
+                .build()?;
+            Ok(())
+        })
+        .run(context)
+        .expect("error while running tauri application");
+    ```
+    </ShowSolution>
+
+2. ### Применение разных capabilities к разным окнам
+
+    Окна приложения Tauri могут использовать разные функции или плагины backend Tauri.
+    Для лучшей безопасности рекомендуется давать каждому окну только необходимые capabilities.
+    Мы моделируем сценарий, в котором окно `first` использует функциональность файловой системы и диалогов, а `second`
+    нуждается только в функциональности диалогов.
+
+    #### Отдельные файлы capability для каждой категории
+
+    Рекомендуется разделять файлы capability по категориям действий, которые они включают.
+
+    <ShowSolution text="Показать решение">
+    JSON-файлы в `src-tauri/capabilities` будут учитываться системой capabilities.
+    Здесь мы разделяем capabilities, связанные с файловой системой и окном диалогов, на `filesystem.json`
+    и `dialog.json`.
+
+    *дерево файлов проекта Tauri:*
+    ```
+    /src
+    /src-tauri
+      /capabilities
+        filesystem.json
+        dialog.json
+      tauri.conf.json
+    package.json
+    README.md
+    ```
+    </ShowSolution>
+
+    #### Предоставление capabilities файловой системы окну `first`
+
+    Мы даём окну `first` capability на чтение содержимого каталога `$HOME`.
+
+    <ShowSolution text="Показать решение">
+    Используйте поле `windows` в файле capability с одной или несколькими метками окон.
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": [
+        "fs:allow-home-read",
+      ]
+    }
+    ```
+    </ShowSolution>
+
+    #### Предоставление capabilities диалогов окнам `first` и `second`
+
+    Мы даём окнам `first` и `second` capability на создание диалога «Да/Нет».
+
+    <ShowSolution text="Показать решение">
+    Используйте поле `windows` в файле capability с одной или несколькими метками окон.
+
+    ```json title="dialog.json"
+    {
+      "identifier": "dialog",
+      "description": "Allow to open a dialog",
+      "local": true,
+      "windows": ["first", "second"],
+      "permissions": ["dialog:allow-ask"]
+    }
+    ```
+
+    </ShowSolution>
+
+3. ### Сделаем capabilities зависимыми от платформы
+
+    Теперь мы хотим настроить capabilities так, чтобы они были активны только на определённых платформах.
+    Мы сделаем наши capabilities файловой системы активными только на `linux` и `windows`.
+
+    <ShowSolution text="Показать решение">
+    Используйте поле `platforms` в файле capability, чтобы сделать его платформозависимым.
+
+    ```json title="filesystem.json"
+    {
+      "identifier": "fs-read-home",
+      "description": "Allow access file access to home directory",
+      "local": true,
+      "windows": ["first"],
+      "permissions": [
+        "fs:allow-home-read",
+      ],
+      "platforms": ["linux", "windows"]
+    }
+    ```
+
+    В настоящее время доступными платформами являются `linux`, `windows`, `macos`, `android` и `ios`.
+    </ShowSolution>
+    
+</Steps>
+
+## Заключение и ресурсы
+
+Мы узнали, как создавать несколько окон в приложении Tauri и давать им конкретные capabilities. Кроме того, эти capabilities могут быть нацелены на определённые платформы.
+
+Пример приложения, использующего capabilities окон, можно найти в [примере `api`](https://github.com/tauri-apps/tauri/tree/dev/examples/api) [репозитория Tauri Github](https://github.com/tauri-apps/tauri).
+Поля, которые могут использоваться в файле capability, перечислены в справочнике [Capability](/reference/acl/capability/).
