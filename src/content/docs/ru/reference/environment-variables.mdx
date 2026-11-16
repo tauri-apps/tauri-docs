@@ -1,0 +1,61 @@
+---
+title: Переменные среды
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+Это документация всех переменных среды, используемых крейтов ядра tauri и CLI tauri.
+
+## CLI Tauri
+
+Эти переменные среды являются входными данными для CLI и могут иметь эквивалентный флаг CLI.
+
+:::tip[Приоритет переменных среды]
+
+Если используются и переменная среды, и флаг CLI, приоритет будет у флага CLI.
+
+:::
+
+- `CI` — Если установлена, CLI запустится в режиме CI и не будет требовать взаимодействия с пользователем.
+- `TAURI_CLI_CONFIG_DEPTH` — Количество уровней для прохода и поиска файла конфигурации tauri.
+- `TAURI_CLI_PORT` — Порт, используемый встроенным dev-сервером CLI.
+- `TAURI_CLI_WATCHER_IGNORE_FILENAME` — Имя файла в стиле `.gitignore` для управления тем, какие файлы должен отслеживать CLI в команде `dev`. CLI будет искать это имя файла в каждом каталоге.
+- `TAURI_CLI_NO_DEV_SERVER_WAIT` — Пропустить ожидание запуска dev-сервера фронтенда перед сборкой приложения tauri.
+- `TAURI_LINUX_AYATANA_APPINDICATOR` — Установите эту переменную в `true` или `1`, чтобы принудительно использовать `libayatana-appindicator` для системного трея в Linux.
+- `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` — Укажите опцию WiX `FipsCompliant` бандлера.
+- `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR` — Укажите зеркало GitHub для загрузки файлов и инструментов, используемых бандлером tauri.
+- `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE` — Укажите шаблон зеркала GitHub для загрузки файлов и инструментов, используемых бандлером tauri, например: `https://mirror.example.com/<owner>/<repo>/releases/download/<version>/<asset>`.
+- `TAURI_SKIP_SIDECAR_SIGNATURE_CHECK` — Пропустить проверку подписи сайдкаров.
+- `TAURI_SIGNING_PRIVATE_KEY` — Приватный ключ, используемый для подписи бандлов вашего приложения; может быть либо строкой, либо путём к файлу.
+- `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` — Пароль приватного ключа подписи; см. `TAURI_SIGNING_PRIVATE_KEY`.
+- `TAURI_SIGNING_RPM_KEY` — Приватный GPG-ключ, используемый для подписи RPM-бандла, экспортированный в ASCII-armored формат.
+- `TAURI_SIGNING_RPM_KEY_PASSPHRASE` — Парольная фраза GPG-ключа для `TAURI_SIGNING_RPM_KEY`, если требуется.
+- `TAURI_WINDOWS_SIGNTOOL_PATH` — Укажите путь к `signtool.exe`, используемому для подписи кода приложения в Windows.
+- `APPLE_CERTIFICATE` — Base64-кодированный сертификат `.p12` для подписи кода. Чтобы получить это значение, выполните `openssl base64 -A -in MyCertificate.p12 -out MyCertificate-base64.txt`.
+- `APPLE_CERTIFICATE_PASSWORD` — Пароль, который вы использовали для экспорта сертификата.
+- `APPLE_ID` — Apple ID, используемый для нотаризации приложения. Если эта переменная среды указана, должны быть также заданы `APPLE_PASSWORD` и `APPLE_TEAM_ID`. Альтернативно для аутентификации можно использовать `APPLE_API_KEY` и `APPLE_API_ISSUER`.
+- `APPLE_PASSWORD` — Пароль Apple, используемый для аутентификации при нотаризации приложения. Обязателен, если указан `APPLE_ID`. Можно использовать [пароль для конкретного приложения](https://support.apple.com/en-ca/HT204397). Помимо ввода пароля открытым текстом, его также можно указать с префиксом '@keychain:' или '@env:' и последующим именем элемента пароля keychain или именем переменной среды.
+- `APPLE_TEAM_ID`: ID команды разработчиков. Чтобы найти свой Team ID, перейдите на страницу [Account](https://developer.apple.com/account) сайта Apple Developer и проверьте данные вашего членства.
+- `APPLE_API_KEY` — Альтернатива `APPLE_ID` и `APPLE_PASSWORD` для аутентификации нотаризации с использованием JWT. Также опция, позволяющая автоматизировать управление iOS-сертификатами и профилями подготовки.
+  - См. [создание ключей API](https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api) для получения дополнительной информации.
+- `API_PRIVATE_KEYS_DIR` — Укажите каталог, где находится ваш файл AuthKey. См. `APPLE_API_KEY`.
+- `APPLE_API_ISSUER` — ID эмитента. Обязателен, если указан `APPLE_API_KEY`.
+- `APPLE_API_KEY_PATH` — путь к файлу ключа API `.p8`. Если не указан, для приложений macOS бандлер последовательно ищет в следующих каталогах файл приватного ключа с именем 'AuthKey\_\<api_key>.p8': './private_keys', '~/private_keys', '~/.private_keys' и '~/.appstoreconnect/private_keys'. **Для iOS эта переменная обязательна**.
+- `APPLE_SIGNING_IDENTITY` — Идентичность, используемая для подписи кода. Переопределяет `tauri.conf.json > bundle > macOS > signingIdentity`. Если не задано ни то, ни другое, она выводится из `APPLE_CERTIFICATE`, если он предоставлен.
+- `APPLE_PROVIDER_SHORT_NAME` — Если ваш Apple ID связан с несколькими командами, вы должны указать короткое имя провайдера команды, которую хотите использовать для нотаризации приложения. Переопределяет `tauri.conf.json > bundle > macOS > providerShortName`.
+- `APPLE_DEVELOPMENT_TEAM` — ID команды, используемый для подписи кода в iOS. Переопределяет `tauri.conf.json > bundle > iOS > developmentTeam`. Можно найти на https://developer.apple.com/account#MembershipDetailsCard.
+- `TAURI_WEBVIEW_AUTOMATION` — Включает автоматизацию webview (только Linux).
+- `TAURI_ANDROID_PROJECT_PATH` — Путь к проекту Android tauri, обычно `<project>/src-tauri/gen/android`.
+- `TAURI_IOS_PROJECT_PATH` — Путь к проекту iOS tauri, обычно `<project>/src-tauri/gen/ios`.
+
+## Hook-команды CLI Tauri
+
+Эти переменные среды устанавливаются для каждой hook-команды (`beforeDevCommand`, `beforeBuildCommand`, ...и т. д.), что может быть полезно для условной сборки фронтенда или выполнения конкретного действия.
+
+- `TAURI_ENV_DEBUG` — `true` для команды `dev` или `build --debug`, иначе `false`.
+- `TAURI_ENV_TARGET_TRIPLE` — Целевая тройка, для которой CLI выполняет сборку.
+- `TAURI_ENV_ARCH` — Целевая архитектура: `x86_64`, `aarch64`...и т. д.
+- `TAURI_ENV_PLATFORM` — Целевая платформа: `windows`, `darwin`, `linux`...и т. д.
+- `TAURI_ENV_PLATFORM_VERSION` — Версия платформы сборки
+- `TAURI_ENV_FAMILY` — Семейство целевой платформы: `unix` или `windows`.
