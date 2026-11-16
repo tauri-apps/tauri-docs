@@ -1,0 +1,677 @@
+---
+title: Установщик Windows
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Приложения Tauri для Windows распространяются либо в виде установщиков Microsoft (файлы `.msi`) с использованием [WiX Toolset v3], либо в виде исполняемых файлов установки (файлы `-setup.exe`) с использованием [NSIS].
+
+Обратите внимание, что установщики `.msi` могут быть **созданы только на Windows**, поскольку WiX может работать только в системах Windows. Кросс-компиляция установщиков NSIS показана ниже.
+
+В этом руководстве представлена информация о доступных параметрах настройки установщика.
+
+## Сборка
+
+Чтобы собрать и упаковать ваше приложение в установщик Windows, вы можете использовать CLI Tauri и выполнить команду `tauri build` на компьютере с Windows:
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+:::note[Требование VBSCRIPT для пакетов MSI]
+
+Сборка пакетов MSI (`"targets": "msi"` или `"targets": "all"` в `tauri.conf.json`) требует включения дополнительной функции VBSCRIPT на Windows. Эта функция включена по умолчанию в большинстве установок Windows, но если вы столкнулись с ошибками вида `failed to run light.exe`, возможно, вам потребуется включить её вручную через **Параметры** → **Приложения** → **Дополнительные компоненты** → **Дополнительные компоненты Windows**. Подробные инструкции см. в [руководстве по предварительным требованиям](/ru/start/prerequisites/#vbscript-для-установщиков-msi).
+
+:::
+
+### Сборка приложений Windows на Linux и macOS
+
+Кросс-компиляция приложений Windows на хостах Linux и macOS возможна с оговорками при использовании [NSIS]. Это не так просто, как компиляция напрямую на Windows, и это менее протестировано. Поэтому это следует использовать только как крайнюю меру, если локальные виртуальные машины или CI-решения, такие как GitHub Actions, вам не подходят.
+
+:::note
+
+Подпись кросс-скомпилированных установщиков Windows требует внешнего инструмента подписи. Подробнее см. [документацию по подписи][signing documentation].
+
+:::
+
+Поскольку Tauri официально поддерживает только целевую платформу Windows MSVC, настройка немного сложнее.
+
+#### Установка NSIS
+
+<Tabs syncKey="OS">
+<TabItem label="Linux">
+Некоторые дистрибутивы Linux имеют NSIS в своих репозиториях, например в Ubuntu вы можете установить NSIS, выполнив эту команду:
+
+```sh title=Ubuntu
+sudo apt install nsis
+```
+
+Но во многих других дистрибутивах вам придётся компилировать NSIS самостоятельно или вручную загрузить Stubs и Plugins, которые не были включены в бинарный пакет дистрибутива. Например, Fedora предоставляет только бинарный файл, но не Stubs и Plugins:
+
+```sh title=Fedora
+sudo dnf in mingw64-nsis
+wget https://github.com/tauri-apps/binary-releases/releases/download/nsis-3/nsis-3.zip
+unzip nsis-3.zip
+sudo cp nsis-3.08/Stubs/* /usr/share/nsis/Stubs/
+sudo cp -r nsis-3.08/Plugins/** /usr/share/nsis/Plugins/
+```
+
+</TabItem>
+
+<TabItem label="macOS">
+На macOS вам понадобится [Homebrew] для установки NSIS:
+
+```sh title=macOS
+brew install nsis
+```
+
+</TabItem>
+</Tabs>
+
+#### Установка LLVM и линковщика LLD
+
+Поскольку стандартный линковщик Microsoft работает только на Windows, нам также потребуется установить новый линковщик. Для компиляции файла ресурсов Windows, который используется, среди прочего, для установки значка приложения, нам также понадобится бинарный файл `llvm-rc`, являющийся частью проекта LLVM.
+
+<Tabs syncKey="OS">
+<TabItem label="Linux">
+
+```sh title="Ubuntu"
+sudo apt install lld llvm
+```
+
+На Linux вам также нужно установить пакет `clang`, если вы добавили зависимости, которые компилируют зависимости C/C++ в рамках своих скриптов сборки. Стандартные приложения Tauri не должны этого требовать.
+
+</TabItem>
+<TabItem label="macOS">
+```sh title=macOS
+brew install llvm
+```
+
+На macOS вам также нужно добавить `/opt/homebrew/opt/llvm/bin` в ваш `$PATH`, как рекомендуется в выводе установки.
+
+</TabItem>
+</Tabs>
+
+#### Установка целевой платформы Rust для Windows
+
+Предполагая, что вы собираете для 64-битных систем Windows:
+
+```sh
+rustup target add x86_64-pc-windows-msvc
+```
+
+#### Установка `cargo-xwin`
+
+Вместо ручной настройки Windows SDK мы будем использовать [`cargo-xwin`] в качестве «runner» Tauri:
+
+```sh
+cargo install --locked cargo-xwin
+```
+
+По умолчанию `cargo-xwin` загрузит Windows SDK в папку внутри проекта. Если у вас несколько проектов и вы хотите совместно использовать эти файлы, вы можете задать переменную окружения `XWIN_CACHE_DIR` с путём к предпочтительному расположению.
+
+#### Сборка приложения
+
+Теперь всё должно свестись к добавлению runner и целевой платформы в команду `tauri build`:
+
+<CommandTabs
+  npm="npm run tauri build -- --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  yarn="yarn tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  pnpm="pnpm tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  deno="deno task tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  bun="bun tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+  cargo="cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+/>
+
+Вывод сборки затем будет находиться в `target/x86_64-pc-windows-msvc/release/bundle/nsis/`.
+
+### Сборка для 32-бит или ARM
+
+CLI Tauri по умолчанию компилирует ваш исполняемый файл, используя архитектуру вашей машины. Предполагая, что вы разрабатываете на 64-битной машине, CLI создаст 64-битные приложения.
+
+Если вам нужно поддерживать **32-битные** машины, вы можете скомпилировать ваше приложение с **другой** [целевой платформой Rust][platform support], используя флаг `--target`:
+
+<CommandTabs
+  npm="npm run tauri build -- --target i686-pc-windows-msvc"
+  yarn="yarn tauri build --target i686-pc-windows-msvc"
+  pnpm="pnpm tauri build --target i686-pc-windows-msvc"
+  deno="deno task tauri build --target i686-pc-windows-msvc"
+  bun="bun tauri build --target i686-pc-windows-msvc"
+  cargo="cargo tauri build --target i686-pc-windows-msvc"
+/>
+
+По умолчанию Rust устанавливает только цепочки инструментов для целевой платформы вашей машины, поэтому сначала вам нужно установить 32-битную цепочку инструментов Windows: `rustup target add i686-pc-windows-msvc`.
+
+Если вам нужно собрать для **ARM64**, сначала необходимо установить дополнительные инструменты сборки. Для этого откройте `Visual Studio Installer`, нажмите «Modify» и на вкладке «Individual Components» установите «C++ ARM64 build tools». На момент написания точное название в VS2022 — `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`. Теперь вы можете добавить целевую платформу Rust с помощью `rustup target add aarch64-pc-windows-msvc`, а затем использовать указанный выше метод для компиляции приложения:
+
+<CommandTabs
+  npm="npm run tauri build -- --target aarch64-pc-windows-msvc"
+  yarn="yarn tauri build --target aarch64-pc-windows-msvc"
+  pnpm="pnpm tauri build --target aarch64-pc-windows-msvc"
+  deno="deno task tauri build --target aarch64-pc-windows-msvc"
+  bun="bun tauri build --target aarch64-pc-windows-msvc"
+  cargo="cargo tauri build --target aarch64-pc-windows-msvc"
+/>
+
+:::note
+
+Обратите внимание, что сам установщик NSIS по-прежнему будет x86, работающим на машине ARM через эмуляцию. Само приложение будет нативным бинарным файлом ARM64.
+
+:::
+
+## Поддержка Windows 7
+
+По умолчанию установщик Microsoft (`.msi`) не работает на Windows 7, поскольку ему нужно загрузить загрузчик WebView2, если он не установлен (это может завершиться ошибкой, если TLS 1.2 не включён в операционной системе). Tauri включает возможность встроить загрузчик WebView2 (см. раздел [Встраивание загрузчика WebView2](#встроенный-загрузчик) ниже). Установщик на основе NSIS (`-setup.exe`) также поддерживает режим `downloadBootstrapper` на Windows 7.
+
+Кроме того, чтобы использовать API уведомлений в Windows 7, вам нужно включить функцию Cargo `windows7-compat`:
+
+```toml title="Cargo.toml"
+[dependencies]
+tauri-plugin-notification = { version = "2.0.0", features = [ "windows7-compat" ] }
+```
+
+## Соответствие FIPS
+
+Если ваша система требует, чтобы бандл MSI соответствовал FIPS, вы можете задать переменную окружения `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` равной `true` перед запуском `tauri build`. В PowerShell вы можете задать её для текущего сеанса терминала так:
+
+```powershell
+$env:TAURI_BUNDLER_WIX_FIPS_COMPLIANT="true"
+```
+
+## Параметры установки WebView2
+
+Установщики по умолчанию загружают загрузчик WebView2 и выполняют его, если среда выполнения не установлена. Кроме того, вы можете встроить загрузчик, встроить автономный установщик или использовать фиксированную версию среды выполнения WebView2. Сравнение этих методов см. в следующей таблице:
+
+| Installation Method                                | Requires Internet Connection? | Additional Installer Size | Notes                                                                                                                   |
+| :------------------------------------------------- | :---------------------------- | :------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
+| [`downloadBootstrapper`](#загруженный-загрузчик) | Yes                           | 0MB                       | `Default` <br /> Results in a smaller installer size, but is not recommended for Windows 7 deployment via `.msi` files. |
+| [`embedBootstrapper`](#встроенный-загрузчик)      | Yes                           | ~1.8MB                    | Better support on Windows 7 for `.msi` installers.                                                                      |
+| [`offlineInstaller`](#автономный-установщик)           | No                            | ~127MB                    | Embeds WebView2 installer. Recommended for offline environments.                                                        |
+| [`fixedVersion`](#фиксированная-версия)                   | No                            | ~180MB                    | Embeds a fixed WebView2 version.                                                                                        |
+| [`skip`](#пропуск-установки)                   | No                            | 0MB                       | ⚠️ Not recommended <br /> Does not install the WebView2 as part of the Windows Installer.                               |
+
+:::note
+
+На Windows 10 (выпуск апреля 2018 г. или новее) и Windows 11 среда выполнения WebView2 распространяется как часть операционной системы.
+
+:::
+
+### Загруженный загрузчик
+
+Это настройка по умолчанию для сборки установщика Windows. Она загружает загрузчик и запускает его. Требует подключения к интернету, но приводит к меньшему размеру установщика. Это не рекомендуется, если вы собираетесь распространять на Windows 7 через установщики `.msi`.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      }
+    }
+  }
+}
+```
+
+### Встроенный загрузчик
+
+Чтобы встроить загрузчик WebView2, задайте [webviewInstallMode] равным `embedBootstrapper`. Это увеличивает размер установщика примерно на 1,8 МБ, но повышает совместимость с системами Windows 7.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "embedBootstrapper"
+      }
+    }
+  }
+}
+```
+
+### Автономный установщик
+
+Чтобы встроить загрузчик WebView2, задайте [webviewInstallMode] равным `offlineInstaller`. Это увеличивает размер установщика примерно на 127 МБ, но позволяет установить приложение даже при отсутствии подключения к интернету.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
+    }
+  }
+}
+```
+
+### Фиксированная версия
+
+Использование среды выполнения, предоставляемой системой, отлично подходит для безопасности, поскольку исправления уязвимостей webview управляются Windows. Если вы хотите контролировать распространение WebView2 в каждом из ваших приложений (либо чтобы самостоятельно управлять патчами выпусков, либо для распространения приложений в средах, где подключение к интернету может отсутствовать), Tauri может включить файлы среды выполнения за вас.
+
+:::caution
+
+Распространение фиксированной версии среды выполнения WebView2 увеличивает установщик Windows примерно на 180 МБ.
+
+:::
+
+1. Загрузите среду выполнения фиксированной версии WebView2 с [сайта Microsoft][download-webview2-runtime]. В этом примере имя загруженного файла — `Microsoft.WebView2.FixedVersionRuntime.128.0.2739.42.x64.cab`
+2. Извлеките файл в основную папку:
+
+```powershell
+Expand .\Microsoft.WebView2.FixedVersionRuntime.128.0.2739.42.x64.cab -F:* ./src-tauri
+```
+
+3. Настройте путь к среде выполнения WebView2 в `tauri.conf.json`:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "fixedRuntime",
+        "path": "./Microsoft.WebView2.FixedVersionRuntime.98.0.1108.50.x64/"
+      }
+    }
+  }
+}
+```
+
+4. Выполните `tauri build`, чтобы создать установщик Windows с фиксированной средой выполнения WebView2.
+
+### Пропуск установки
+
+Вы можете удалить проверку загрузки среды выполнения WebView2 из установщика, задав [webviewInstallMode] равным `skip`. Ваше приложение НЕ БУДЕТ работать, если у пользователя не установлена среда выполнения.
+
+:::warning
+
+Ваше приложение НЕ БУДЕТ работать, если у пользователя не установлена среда выполнения, и оно не будет пытаться установить её.
+
+:::
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "skip"
+      }
+    }
+  }
+}
+```
+
+## Минимальная версия Webview2
+
+Если вашему приложению требуются функции, доступные только в более новых версиях Webview2 (например, собственные схемы URI), вы можете указать установщику Windows проверить текущую версию Webview2 и запустить загрузчик Webview2, если она не соответствует целевой версии.
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "minimumWebview2Version": "110.0.1531.0"
+    }
+  }
+}
+```
+
+## Настройка установщика WiX
+
+Полный список параметров настройки см. в разделе [WiX configuration].
+
+### Шаблон установщика
+
+Пакет установщика Windows `.msi` создаётся с помощью [WiX Toolset v3]. В настоящее время, помимо предопределённых [конфигураций][WiX configuration], вы можете изменить его, используя собственный исходный код WiX (XML-файл с расширением `.wxs`) или с помощью фрагментов WiX.
+
+#### Замена кода установщика собственным файлом WiX
+
+XML установщика Windows, определяемый Tauri, настроен для работы в распространённом случае использования простых приложений на основе webview (вы можете найти его [здесь][default wix template]). Он использует [handlebars], чтобы CLI Tauri мог брендировать ваш установщик в соответствии с вашим определением `tauri.conf.json`. Если вам нужен совершенно другой установщик, можно настроить собственный файл шаблона в [`tauri.bundle.windows.wix.template`].
+
+#### Расширение установщика с помощью фрагментов WiX
+
+[WiX fragment] — это контейнер, в котором можно настроить почти всё, что предлагает WiX. В этом примере мы определим фрагмент, который записывает две записи реестра:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <!-- these registry entries should be installed
+		 to the target user's machine -->
+    <DirectoryRef Id="TARGETDIR">
+      <!-- groups together the registry entries to be installed -->
+      <!-- Note the unique `Id` we provide here -->
+      <Component Id="MyFragmentRegistryEntries" Guid="*">
+        <!-- the registry key will be under
+		 HKEY_CURRENT_USER\Software\MyCompany\MyApplicationName -->
+        <!-- Tauri uses the second portion of the
+		 bundle identifier as the `MyCompany` name
+		 (e.g. `tauri-apps` in `com.tauri-apps.test`)  -->
+        <RegistryKey
+          Root="HKCU"
+          Key="Software\MyCompany\MyApplicationName"
+          Action="createAndRemoveOnUninstall"
+        >
+          <!-- values to persist on the registry -->
+          <RegistryValue
+            Type="integer"
+            Name="SomeIntegerValue"
+            Value="1"
+            KeyPath="yes"
+          />
+          <RegistryValue Type="string" Value="Default Value" />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>
+```
+
+Сохраните файл фрагмента с расширением `.wxs` в папке `src-tauri/windows/fragments` и укажите ссылку на него в `tauri.conf.json`:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "wix": {
+        "fragmentPaths": ["./windows/fragments/registry.wxs"],
+        "componentRefs": ["MyFragmentRegistryEntries"]
+      }
+    }
+  }
+}
+```
+
+Обратите внимание, что идентификаторы элементов `ComponentGroup`, `Component`, `FeatureGroup`, `Feature` и `Merge` должны быть указаны в объекте `wix` в `tauri.conf.json` в полях `componentGroupRefs`, `componentRefs`, `featureGroupRefs`, `featureRefs` и `mergeRefs` соответственно, чтобы быть включёнными в установщик.
+
+### Интернационализация
+
+Установщик WiX по умолчанию строится с использованием языка `en-US`. Интернационализация (i18n) может быть настроена с помощью свойства [`tauri.bundle.windows.wix.language`], определяющего языки, для которых Tauri должен строить установщик. Имена языков, которые следует использовать, можно найти в столбце Language-Culture на [сайте Microsoft][localizing the error and actiontext tables].
+
+#### Компиляция установщика WiX для одного языка
+
+Чтобы создать один установщик для конкретного языка, задайте значение `language` строкой:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "wix": {
+        "language": "fr-FR"
+      }
+    }
+  }
+}
+```
+
+#### Компиляция установщика WiX для каждого языка из списка
+
+Чтобы скомпилировать установщик для списка языков, используйте массив. Для каждого языка будет создан отдельный установщик с ключом языка в качестве суффикса:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "wix": {
+        "language": ["en-US", "pt-BR", "fr-FR"]
+      }
+    }
+  }
+}
+```
+
+#### Настройка строк установщика WiX для каждого языка
+
+Для каждого языка можно определить объект конфигурации для настройки строк локализации:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "wix": {
+        "language": {
+          "en-US": null,
+          "pt-BR": {
+            "localePath": "./wix/locales/pt-BR.wxl"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Свойство `localePath` определяет путь к языковому файлу — XML-файлу, настраивающему язык и культуру:
+
+```xml
+<WixLocalization
+  Culture="en-US"
+  xmlns="http://schemas.microsoft.com/wix/2006/localization"
+>
+  <String Id="LaunchApp"> Launch MyApplicationName </String>
+  <String Id="DowngradeErrorMessage">
+    A newer version of MyApplicationName is already installed.
+  </String>
+  <String Id="PathEnvVarFeature">
+    Add the install location of the MyApplicationName executable to
+    the PATH system environment variable. This allows the
+    MyApplicationName executable to be called from any location.
+  </String>
+  <String Id="InstallAppFeature">
+    Installs MyApplicationName.
+  </String>
+</WixLocalization>
+```
+
+:::note
+
+Поле `Culture` элемента `WixLocalization` должно соответствовать настроенному языку.
+
+:::
+
+В настоящее время Tauri ссылается на следующие строки локали: `LaunchApp`, `DowngradeErrorMessage`, `PathEnvVarFeature` и `InstallAppFeature`. Вы можете определять собственные строки и ссылаться на них в своём шаблоне или фрагментах с помощью `"!(loc.TheStringId)"`. Подробнее см. [документацию по локализации WiX][wix localization documentation].
+
+## Настройка установщика NSIS
+
+Полный список параметров настройки см. в разделе [NSIS configuration].
+
+### Шаблон установщика
+
+Скрипт `.nsi` установщика NSIS, определяемый Tauri, настроен для работы в распространённом случае использования простых приложений на основе webview (вы можете найти его [здесь][default nsis template]). Он использует [handlebars], чтобы CLI Tauri мог брендировать ваш установщик в соответствии с вашим определением `tauri.conf.json`. Если вам нужен совершенно другой установщик, можно настроить собственный файл шаблона в [`tauri.bundle.windows.nsis.template`].
+
+### Расширение установщика
+
+Если вам нужно лишь расширить некоторые шаги установки, вы, возможно, сможете использовать хуки установщика вместо замены всего шаблона установщика.
+
+Поддерживаются следующие хуки:
+
+- `NSIS_HOOK_PREINSTALL`: выполняется перед копированием файлов, заданием значений ключей реестра и созданием ярлыков.
+- `NSIS_HOOK_POSTINSTALL`: выполняется после того, как установщик закончил копировать все файлы, задавать ключи реестра и создавать ярлыки.
+- `NSIS_HOOK_PREUNINSTALL`: выполняется перед удалением любых файлов, ключей реестра и ярлыков.
+- `NSIS_HOOK_POSTUNINSTALL`: выполняется после удаления файлов, ключей реестра и ярлыков.
+
+Например, создайте файл `hooks.nsh` в папке `src-tauri/windows` и определите нужные вам хуки:
+
+```nsh
+!macro NSIS_HOOK_PREINSTALL
+  MessageBox MB_OK "PreInstall"
+!macroend
+
+!macro NSIS_HOOK_POSTINSTALL
+  MessageBox MB_OK "PostInstall"
+!macroend
+
+!macro NSIS_HOOK_PREUNINSTALL
+  MessageBox MB_OK "PreUnInstall"
+!macroend
+
+!macro NSIS_HOOK_POSTUNINSTALL
+  MessageBox MB_OK "PostUninstall"
+!macroend
+```
+
+Затем вы должны настроить Tauri на использование этого файла хуков:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "installerHooks": "./windows/hooks.nsh"
+      }
+    }
+  }
+}
+```
+
+#### Включение файлов рядом с хуком
+
+Tauri включает ваш файл хуков из своего сгенерированного скрипта NSIS с помощью `!include`. На верхнем уровне файла хуков `${__FILEDIR__}` указывает на директорию файла хуков, поэтому вы можете сразу включить файл рядом с ним.
+
+Однако тела макросов разворачиваются там, где Tauri вставляет их в сгенерированный скрипт. Поэтому внутри макроса хука `${__FILEDIR__}` указывает на директорию сгенерированного скрипта. Если макросу нужен файл рядом с хуком, сначала захватите директорию хука в `!define` верхнего уровня:
+
+```nsh
+!include "${__FILEDIR__}\adjacent.nsh"
+!define HOOK_FILE_DIR "${__FILEDIR__}"
+
+!macro NSIS_HOOK_PREINSTALL
+  File "${HOOK_FILE_DIR}\example.txt"
+!macroend
+```
+
+#### Установка зависимостей с помощью хуков
+
+Вы можете использовать хуки установщика для автоматической установки системных зависимостей, которые требуются вашему приложению. Это особенно полезно для зависимостей времени выполнения, таких как Visual C++ Redistributables, DirectX, OpenSSL или другие системные библиотеки, которые могут отсутствовать во всех системах Windows.
+
+**Пример установщика MSI (Visual C++ Redistributable):**
+
+```nsh
+!macro NSIS_HOOK_POSTINSTALL
+  ; Check if Visual C++ 2019 Redistributable is installed (via Windows Registry)
+  ReadRegDWord $0 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+
+  ${If} $0 == 1
+    DetailPrint "Visual C++ Redistributable already installed"
+    Goto vcredist_done
+  ${EndIf}
+
+  ; Install from bundled MSI if not installed
+  ${If} ${FileExists} "$INSTDIR\resources\vc_redist.x64.msi"
+    DetailPrint "Installing Visual C++ Redistributable..."
+    ; Copy to TEMP folder and then execute installer
+    CopyFiles "$INSTDIR\resources\vc_redist.x64.msi" "$TEMP\vc_redist.x64.msi"
+    ExecWait 'msiexec /i "$TEMP\vc_redist.x64.msi" /passive /norestart' $0
+
+    ; Check whether installation process exited successfully (code 0) or not
+    ${If} $0 == 0
+      DetailPrint "Visual C++ Redistributable installed successfully"
+    ${Else}
+      MessageBox MB_ICONEXCLAMATION "Visual C++ installation failed. Some features may not work."
+    ${EndIf}
+
+    ; Clean up setup files from TEMP and your installed app
+    Delete "$TEMP\vc_redist.x64.msi"
+    Delete "$INSTDIR\resources\vc_redist.x64.msi"
+  ${EndIf}
+
+  vcredist_done:
+!macroend
+```
+
+**Ключевые соображения:**
+
+- Хорошей практикой является всегда проверять, установлена ли уже зависимость, с помощью ключей реестра или существования файла, либо через команду Windows [where].
+- Используйте флаги `/passive`, `/quiet` или `/silent`, чтобы не прерывать процесс установки. Ознакомьтесь с параметрами [msiexec] для файлов `.msi` или с руководством по установке для специфических для приложения флагов
+- Включите `/norestart`, чтобы предотвратить автоматические перезагрузки системы во время установки для программ установки, перезагружающих устройства пользователей
+- Удаляйте временные файлы и встроенные установщики, чтобы избежать раздувания приложения
+- Учитывайте, что зависимости могут использоваться совместно с другими приложениями при удалении
+- Предоставляйте понятные сообщения об ошибках, если установка не удалась
+
+Обязательно включите установщики зависимостей в вашу папку `src-tauri/resources` и добавьте их в `tauri.conf.json`, чтобы они были включены в бандл и были доступны во время установки из `$INSTDIR\resources\`:
+
+{/* prettier-ignore */}
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "resources": [
+      "resources/my-dependency.exe",
+      "resources/another-one.msi"
+    ]
+  }
+}
+```
+
+### Режимы установки
+
+По умолчанию установщик установит ваше приложение только для текущего пользователя. Преимущество этого варианта в том, что установщику не требуются права администратора для запуска, но приложение устанавливается в папку `%LOCALAPPDATA%` вместо `C:/Program Files`.
+
+Если вы предпочитаете, чтобы установка приложения была доступна для всей системы (что требует прав администратора), вы можете задать [installMode] равным `perMachine`:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "installMode": "perMachine"
+      }
+    }
+  }
+}
+```
+
+Кроме того, вы можете позволить пользователю выбрать, устанавливать ли приложение только для текущего пользователя или для всей системы, задав [installMode] равным `both`. Обратите внимание, что установщику потребуются права администратора для выполнения.
+
+Подробнее см. [NSISInstallerMode].
+
+### Интернационализация
+
+Установщик NSIS — это многоязычный установщик, что означает, что у вас всегда есть один установщик, содержащий все выбранные переводы.
+
+Вы можете указать, какие языки включать, с помощью свойства [`tauri.bundle.windows.nsis.languages`](/reference/config/#languages). Список языков, поддерживаемых NSIS, доступен в [проекте NSIS на GitHub][the nsis github project]. Требуется несколько [переводов, специфичных для Tauri][tauri-specific translations], поэтому если вы видите непереведённые тексты, не стесняйтесь открыть запрос на добавление функции в [основном репозитории Tauri][tauri's main repo]. Вы также можете предоставить [собственные файлы переводов](/reference/config/#customlanguagefiles).
+
+По умолчанию язык по умолчанию операционной системы используется для определения языка установщика. Вы также можете настроить установщик на отображение выбора языка перед отрисовкой содержимого установщика:
+
+```json title="tauri.conf.json"
+{
+  "bundle": {
+    "windows": {
+      "nsis": {
+        "displayLanguageSelector": true
+      }
+    }
+  }
+}
+```
+
+[wix toolset v3]: https://wixtoolset.org/documentation/manual/v3/
+[nsis]: https://nsis.sourceforge.io/Main_Page
+[platform support]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
+[Homebrew]: https://brew.sh
+[webviewinstallmode]: /reference/config/#webviewinstallmode
+[download-webview2-runtime]: https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section
+[default wix template]: https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-bundler/src/bundle/windows/msi/main.wxs
+[default nsis template]: https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-bundler/src/bundle/windows/nsis/installer.nsi
+[handlebars]: https://docs.rs/handlebars/latest/handlebars/
+[`tauri.bundle.windows.wix.template`]: /reference/config/#template-2
+[`tauri.bundle.windows.nsis.template`]: /reference/config/#template-1
+[wix fragment]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/fragment.html
+[`tauri.bundle.windows.wix.language`]: /reference/config/#language
+[wix localization documentation]: https://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/make_installer_localizable.html
+[localizing the error and actiontext tables]: https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables
+[the nsis github project]: https://github.com/kichik/nsis/tree/9465c08046f00ccb6eda985abbdbf52c275c6c4d/Contrib/Language%20files
+[tauri-specific translations]: https://github.com/tauri-apps/tauri/tree/dev/crates/tauri-bundler/src/bundle/windows/nsis/languages
+[tauri's main repo]: https://github.com/tauri-apps/tauri/issues/new?assignees=&labels=type%3A+feature+request&template=feature_request.yml&title=%5Bfeat%5D+
+[signing documentation]: /ru/distribute/sign/windows/
+[WiX configuration]: /reference/config/#wixconfig
+[NSIS configuration]: /reference/config/#nsisconfig
+[installMode]: /reference/config/#installmode
+[NSISInstallerMode]: /reference/config/#nsisinstallermode
+[where]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where
+[msiexec]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec

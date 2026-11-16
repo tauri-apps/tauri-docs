@@ -1,0 +1,320 @@
+---
+title: Подпись кода Windows
+sidebar:
+  label: Windows
+  order: 12
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+Подпись кода требуется на Windows, чтобы ваше приложение могло быть размещено в [Microsoft Store] и чтобы предотвратить предупреждение [SmartScreen] о том, что приложение не заслуживает доверия и не может быть запущено, при загрузке из браузера.
+
+Это не требуется для запуска вашего приложения на Windows, если ваш конечный пользователь согласен игнорировать предупреждение [SmartScreen] или ваш пользователь не загружает через браузер. Исключение — Windows 11 с включённым [Smart App Control]: он блокирует неизвестные неподписанные приложения, даже если они не были загружены из браузера, и пользователи не могут разрешить одно приложение, а только полностью отключить Smart App Control.
+
+В этом руководстве рассматривается подпись с помощью сертификатов OV (Organization Validated) и Azure Key Vault. Если вы используете любой другой механизм подписи, не описанный здесь, например сертификаты EV (Extended Validation), ознакомьтесь с документацией вашего издателя сертификатов и обратитесь к разделу [собственная команда подписи](#собственная-команда-подписи).
+
+## Сертификаты OV
+
+:::danger
+
+Это руководство применимо только к сертификатам подписи кода OV, приобретённым до 1 июня 2023 года! Для подписи кода с помощью сертификатов EV и OV, полученных после этой даты, обратитесь вместо этого к документации вашего издателя сертификатов.
+
+:::
+
+:::note
+
+С 2024 года сертификат EV больше не даёт вашему приложению немедленную репутацию у Microsoft SmartScreen. Microsoft удалила особый режим обработки сертификатов подписи кода EV из своей программы Trusted Root в 2024 году, поэтому сертификаты EV и OV теперь нарабатывают репутацию SmartScreen одинаково, и недавно подписанный выпуск может показать предупреждение с любым из них. См. [репутацию SmartScreen для разработчиков Windows](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation) и [Текущий статус функций распространения приложений Windows](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/distribution-feature-status#smartscreen-reputation-ev-certificates-no-longer-grant-instant-bypass).
+
+Сертификат OV обычно дешевле и доступен частным лицам. С любым типом сертификата Microsoft SmartScreen может показывать пользователям предупреждение при загрузке приложения, пока файл и сертификат не наработают достаточную репутацию. Подпись каждого выпуска одним и тем же сертификатом позволяет этой репутации переноситься между выпусками. Вы можете выбрать [отправку вашего приложения][submitting your app] в Microsoft для ручного рецензирования. Хотя это не гарантировано, если приложение не содержит вредоносного кода, Microsoft может предоставить дополнительную репутацию и, возможно, убрать предупреждение для этого конкретного загруженного файла.
+
+Подробнее о различиях сертификатов OV и EV см. в [сравнении](https://www.digicert.com/difference-between-dv-ov-and-ev-ssl-certificates).
+
+:::
+
+### Предварительные требования
+
+- Windows — вы, вероятно, можете использовать другие платформы, но этот урок использует встроенные функции Powershell.
+- Работающее приложение Tauri
+- Сертификат подписи кода — вы можете приобрести один из них в сервисах, перечисленных в [документации Microsoft][Microsoft's docs]. Вероятно, для не-EV сертификатов есть дополнительные удостоверяющие центры, помимо включённых в этот список; сравните их самостоятельно и выберите один на свой страх и риск.
+  - Обязательно получите сертификат **подписи кода**, сертификаты SSL не работают!
+
+### Приступая к работе
+
+Есть несколько вещей, которые мы должны сделать, чтобы подготовить Windows к подписи кода. Это включает преобразование нашего сертификата в определённый формат, установку этого сертификата и расшифровку необходимой информации из сертификата.
+
+<Steps>
+
+1. #### Преобразуйте ваш `.cer` в `.pfx`
+   - Вам понадобятся следующие элементы:
+     - файл сертификата (мой — `cert.cer`)
+     - файл закрытого ключа (мой — `private-key.key`)
+
+   - Откройте командную строку и перейдите в текущую директорию с помощью `cd Documents/Certs`
+
+   - Преобразуйте ваш `.cer` в `.pfx` с помощью `openssl pkcs12 -export -in cert.cer -inkey private-key.key -out certificate.pfx`
+
+   - Вас попросят ввести пароль экспорта **НЕ ЗАБУДЬТЕ ЕГО!**
+
+2. #### Импортируйте ваш файл `.pfx` в хранилище ключей.
+   - Теперь нам нужно импортировать наш файл `.pfx`.
+
+   - Присвойте ваш пароль экспорта переменной с помощью `$WINDOWS_PFX_PASSWORD = 'MYPASSWORD'`
+
+   - Теперь импортируйте сертификат с помощью `Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $WINDOWS_PFX_PASSWORD -Force -AsPlainText)`
+
+3. #### Подготовка переменных
+   - Запустите ➡️ `certmgr.msc`, чтобы открыть управление личными сертификатами, затем откройте Personal/Certificates.
+
+   - Найдите только что импортированный сертификат, дважды щёлкните по нему, затем нажмите на вкладку Details.
+
+   - Алгоритм хеширования подписи (Signature hash algorithm) будет нашим `digestAlgorithm`. (Подсказка: вероятно, это `sha256`)
+
+   - Прокрутите до Thumbprint. Там должно быть значение, подобное `A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0`. Это наш `certificateThumbprint`.
+
+   - Нам также нужен URL метки времени; это сервер времени, используемый для проверки времени подписи сертификата. Я использую `http://timestamp.comodoca.com`, но тот, у кого вы получили сертификат, вероятно, тоже имеет такой.
+
+</Steps>
+
+### Подготовка файла `tauri.conf.json`
+
+1. Теперь, когда у нас есть `certificateThumbprint`, `digestAlgorithm` и `timestampUrl`, мы откроем `tauri.conf.json`.
+
+2. В `tauri.conf.json` вы найдёте раздел `tauri` -> `bundle` -> `windows`. Для захваченной нами информации есть три переменные. Заполните их, как показано ниже.
+
+```json tauri.conf.json
+"windows": {
+        "certificateThumbprint": "A1B1A2B2A3B3A4B4A5B5A6B6A7B7A8B8A9B9A0B0",
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "http://timestamp.comodoca.com"
+}
+```
+
+3. Сохраните и выполните `tauri build`
+
+4. В выводе консоли вы должны увидеть следующий вывод.
+
+```
+info: signing app
+info: running signtool "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.19041.0\\x64\\signtool.exe"
+info: "Done Adding Additional Store\r\nSuccessfully signed: APPLICATION FILE PATH HERE
+```
+
+Который показывает, что вы успешно подписали `.exe`.
+
+И на этом всё! Вы успешно настроили своё приложение Tauri для подписи Windows.
+
+### Подпись приложения с помощью GitHub Actions
+
+Мы также можем создать рабочий процесс для подписи приложения с помощью GitHub Actions.
+
+#### Секреты GitHub
+
+Нам нужно добавить несколько секретов GitHub для правильной конфигурации GitHub Action. Их можно называть как угодно.
+
+- Вы можете посмотреть руководство по [зашифрованным секретам][encrypted secrets], как добавлять секреты GitHub.
+
+Секреты, которые мы использовали, следующие
+
+|        GitHub Secrets        |                                                        Value for Variable                                                         |
+| :--------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: |
+|     WINDOWS_CERTIFICATE      | Base64 encoded version of your .pfx certificate, can be done using this command `certutil -encode certificate.pfx base64cert.txt` |
+| WINDOWS_CERTIFICATE_PASSWORD |                                 Certificate export password used on creation of certificate .pfx                                  |
+
+#### Изменения рабочего процесса
+
+1. Нам нужно добавить шаг в рабочий процесс для импорта сертификата в среду Windows. Этот рабочий процесс выполняет следующее
+   1. Присваивает секреты GitHub переменным окружения
+   2. Создаёт новую директорию `certificate`
+   3. Импортирурует `WINDOWS_CERTIFICATE` в tempCert.txt
+   4. Использует `certutil`, чтобы декодировать tempCert.txt из base64 в файл `.pfx`.
+   5. Удаляет tempCert.txt
+   6. Импортирурует файл `.pfx` в хранилище сертификатов Windows и преобразует `WINDOWS_CERTIFICATE_PASSWORD` в безопасную строку для использования в команде импорта.
+
+2. Мы будем использовать [шаблон публикации `tauri-action`][`tauri-action` publish template].
+
+```yml
+name: 'publish'
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+      - name: install app dependencies and build it
+        run: yarn && yarn build
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+```
+
+3. Непосредственно над `-name: install app dependencies and build it` вы захотите добавить следующий шаг
+
+```yml
+- name: import windows certificate
+  if: matrix.platform == 'windows-latest'
+  env:
+    WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+    WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+  run: |
+    New-Item -ItemType directory -Path certificate
+    Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+    certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+    Remove-Item -path certificate -include tempCert.txt
+    Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+```
+
+4. Сохраните и отправьте в ваш репозиторий.
+
+5. Теперь ваш рабочий процесс может импортировать ваш Windows-сертификат и импортировать его в раннер GitHub, что позволяет автоматическую подпись кода!
+
+## Azure Key Vault
+
+Вы можете подписать исполняемые файлы Windows, предоставив сертификат и учётные данные Azure Key Vault.
+
+:::note
+В этом руководстве используется [relic] благодаря поддержке аутентификации на основе секретов, хотя вы можете настроить альтернативные инструменты, если предпочитаете. Чтобы загрузить relic, посмотрите его [страницу релизов][relic releases page] или выполните `go install github.com/sassoftware/relic/v8@latest`.
+:::
+
+1. Key Vault
+
+В [Azure Portal] перейдите к [сервису Key vaults][Key vaults service], чтобы создать новый key vault, нажав кнопку «Create». Запомните «Key vault name», так как эта информация понадобится вам для настройки URL сертификата.
+
+2. Сертификат
+
+После создания key vault выберите его и перейдите на страницу «Objects > Certificates», чтобы создать новый сертификат, и нажмите кнопку «Generate/Import». Запомните «Certificate name», так как эта информация понадобится вам для настройки URL сертификата.
+
+3. Конфигурация Tauri
+
+[relic] использует файл конфигурации, чтобы определить, какой ключ подписи следует использовать. Для Azure Key Vault вам также нужен URL сертификата. Создайте файл `relic.conf` в папке `src-tauri` и настройте relic на использование вашего сертификата:
+
+```yml title=src-tauri/relic.conf
+tokens:
+  azure:
+    type: azure
+
+keys:
+  azure:
+    token: azure
+    id: https://\<KEY_VAULT_NAME\>.vault.azure.net/certificates/\<CERTIFICATE_NAME\>
+```
+
+Обратите внимание, что вы должны заменить \<KEY_VAULT_NAME\> и \<CERTIFICATE_NAME\> соответствующими именами из предыдущих шагов.
+
+Чтобы настроить Tauri на использование вашей конфигурации Azure Key Vault для подписи, измените значение конфигурации [bundle > windows > signCommand]:
+
+```json title=tauri.conf.json
+{
+  "bundle": {
+    "windows": {
+      "signCommand": "relic sign --file %1 --key azure --config relic.conf"
+    }
+  }
+}
+```
+
+4. Учётные данные
+
+[relic] должен пройти аутентификацию в Azure, чтобы загрузить сертификат. На главной странице портала Azure перейдите к сервису «Microsoft Entra ID» и далее на страницу «Manage > App registrations». Нажмите «New registration», чтобы создать новое приложение. После создания приложения вы будете перенаправлены на страницу сведений о приложении, где сможете увидеть значения «Application (client) ID» и «Directory (tenant) ID». Задайте эти идентификаторы переменным окружения `AZURE_CLIENT_ID` и `AZURE_TENANT_ID` соответственно.
+
+На странице «Manage > Certificates & secrets» нажмите кнопку «New client secret» и задайте текст из столбца «Value» как переменную окружения `AZURE_CLIENT_SECRET`.
+
+После настройки всех учётных данных вернитесь на страницу вашего key vault и перейдите на страницу «Access control (IAM)». Вы должны назначить роли «Key Vault Certificate User» и «Key Vault Crypto User» вашему только что созданному приложению.
+
+После настройки всех этих переменных выполнение `tauri build` создаст подписанные установщики Windows!
+
+## Собственная команда подписи
+
+В документации по [Azure Key Vault](#azure-key-vault) выше мы использовали мощную конфигурацию подписи Tauri для Windows, чтобы заставить CLI Tauri использовать специальную команду оболочки для подписи исполняемых файлов установщика Windows. Параметр конфигурации [bundle > windows > signCommand] можно использовать для применения любого инструмента подписи кода, способного подписывать исполняемые файлы Windows.
+
+:::tip
+При кросс-компиляции установщиков Windows с машин Linux и macOS вы **должны** использовать собственную команду подписи, так как реализация по умолчанию работает только на машинах Windows.
+:::
+
+[Azure Portal]: https://portal.azure.com
+[Key vaults service]: https://portal.azure.com/#browse/Microsoft.KeyVault%2Fvaults
+[Microsoft's docs]: https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage
+[submitting your app]: https://www.microsoft.com/en-us/wdsi/filesubmission/
+[encrypted secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
+[`tauri-action` publish template]: https://github.com/tauri-apps/tauri-action
+[relic]: https://github.com/sassoftware/relic
+[relic releases page]: https://github.com/sassoftware/relic/releases/
+[bundle > windows > signCommand]: /reference/config/#signcommand
+[SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
+[Smart App Control]: https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/overview
+[Microsoft Store]: https://apps.microsoft.com/
+
+## Azure Artifact Signing
+
+Вы можете подписать исполняемые файлы Windows, предоставив сертификат и учётные данные Azure Artifact Signing (ранее назывался Azure Code Signing/Azure Trusted Signing). Если у вас ещё нет учётной записи Azure Artifact Signing, вы можете следовать этому [уроку](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/).
+
+### Предварительные требования
+
+Если вы хотите подписывать с помощью GitHub Actions, всё должно быть установлено.
+
+1. [Учётная запись Artifact Signing](https://learn.microsoft.com/en-us/azure/trusted-signing/quickstart?tabs=registerrp-portal,account-portal,certificateprofile-portal,deleteresources-portal) и настроенные разрешения
+1. [.NET](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (рекомендуется .NET 8)
+1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update)
+1. [Signtool](https://learn.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) (рекомендуется Windows 11 SDK 10.0.26100.0 или новее)
+
+### Приступая к работе
+
+Вам нужно установить [artifact-signing-cli](https://github.com/Levminer/artifact-signing-cli) и настроить ваши переменные окружения.
+
+<Steps>
+
+1. #### Установите artifact-signing-cli
+   - `cargo install artifact-signing-cli`
+
+2. #### Настройте переменные окружения
+   - artifact-signing-cli требует задания следующих переменных окружения; не забудьте добавить их как [секреты](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) GitHub Actions:
+     - `AZURE_CLIENT_ID`: идентификатор клиента вашей [регистрации приложения](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+     - `AZURE_CLIENT_SECRET`: секрет клиента [регистрации приложения](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+     - `AZURE_TENANT_ID`: идентификатор клиента вашего каталога Azure; вы также можете получить его из вашей [регистрации приложения](https://melatonin.dev/blog/code-signing-on-windows-with-azure-trusted-signing/#step-4-create-app-registration-user-credentials)
+
+3. ### Измените файл `tauri.conf.json`
+   - Вы можете изменить ваш `tauri.conf.json` или создать отдельный файл конфигурации для Windows. Замените URL и имя сертификата вашими собственными значениями.
+     - -e: конечная точка вашей учётной записи Azure Artifact Signing
+     - -a: имя вашей учётной записи Azure Artifact Signing
+     - -c: имя вашего профиля сертификата внутри вашей учётной записи Azure Artifact Signing
+     - -d: описание подписанного содержимого (необязательно). При подписи установщика .msi это описание будет отображаться как имя установщика в запросе UAC или будет случайной строкой символов, если не задано.
+
+   ```json title=tauri.conf.json
+   {
+     "bundle": {
+       "windows": {
+         "signCommand": "artifact-signing-cli -e https://wus2.codesigning.azure.net -a MyAccount -c MyProfile -d MyApp %1"
+       }
+     }
+   }
+   ```
+
+  </Steps>

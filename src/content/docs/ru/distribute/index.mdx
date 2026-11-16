@@ -1,0 +1,250 @@
+---
+title: Распространение
+description: Информация об инструментах, необходимых для распространения вашего приложения — либо в магазинах приложений платформ, либо в виде установщиков для конкретных платформ
+sidebar:
+  order: 0
+  label: Обзор
+i18nReady: true
+---
+
+import { CardGrid, LinkCard, LinkButton } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri предоставляет инструменты, необходимые для распространения вашего приложения — либо в магазинах приложений платформ, либо в виде установщиков для конкретных платформ.
+
+## Сборка
+
+Tauri собирает ваше приложение напрямую из своего CLI с помощью команд `build`, `android build` и `ios build`.
+
+<CommandTabs
+  npm="npm run tauri build"
+  yarn="yarn tauri build"
+  pnpm="pnpm tauri build"
+  deno="deno task tauri build"
+  bun="bun tauri build"
+  cargo="cargo tauri build"
+/>
+
+Обратитесь к разделу [Распространение](#распространение), чтобы узнать больше о доступных параметрах конфигурации для каждого пакета
+и о том, как распространять их среди пользователей.
+
+:::note
+Большинство платформ требуют подписи кода. См. раздел [Подпись](#подпись) для получения дополнительной информации.
+:::
+
+### Упаковка
+
+По умолчанию команда `build` автоматически упаковывает ваше приложение для настроенных форматов.
+
+Если вам нужна дополнительная настройка того, как создаются пакеты платформ, вы можете разделить этапы сборки и упаковки:
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+# bundle for distribution outside the macOS App Store
+npm run tauri bundle -- --bundles app,dmg
+# bundle for App Store distribution
+npm run tauri bundle -- --bundles app --config src-tauri/tauri.appstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+yarn tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+yarn tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+pnpm tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+pnpm tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  deno="deno task tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+deno task tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+deno task tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  bun="bun tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+bun tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+bun tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+# bundle for distribution outside the macOS App Store
+cargo tauri bundle --bundles app,dmg
+# bundle for App Store distribution
+cargo tauri bundle --bundles app --config src-tauri/tauri.appstore.conf.json"
+/>
+
+## Версионирование
+
+Версия вашего приложения может быть задана в параметре конфигурации [`tauri.conf.json > version`],
+что является рекомендуемым способом управления версией приложения. Если это значение конфигурации не задано,
+Tauri вместо этого использует значение `package > version` из вашего файла `src-tauri/Cargo.toml`.
+
+:::note
+На некоторых платформах есть ограничения и особые случаи для строки версии.
+См. отдельные страницы документации по распространению для получения дополнительной информации.
+:::
+
+## Подпись
+
+Подпись кода повышает безопасность вашего приложения, применяя цифровую подпись к
+исполняемым файлам и пакетам приложения, подтверждая вашу личность как поставщика приложения.
+
+Подпись обязательна на большинстве платформ. См. документацию для каждой платформы для получения дополнительной информации.
+
+<CardGrid>
+  <LinkCard
+    title="macOS"
+    href="/ru/distribute/sign/macos/"
+    description="Подпись и нотаризация кода для приложений macOS"
+  />
+  <LinkCard
+    title="Windows"
+    href="/ru/distribute/sign/windows/"
+    description="Подпись кода для установщиков Windows"
+  />
+  <LinkCard
+    title="Linux"
+    href="/ru/distribute/sign/linux/"
+    description="Подпись кода для пакетов Linux"
+  />
+  <LinkCard
+    title="Android"
+    href="/ru/distribute/sign/android/"
+    description="Подпись кода для Android"
+  />
+  <LinkCard
+    title="iOS"
+    href="/ru/distribute/sign/ios/"
+    description="Подпись кода для iOS"
+  />
+
+</CardGrid>
+
+## Распространение
+
+Узнайте, как распространять ваше приложение для каждой платформы.
+
+### Linux
+
+Для Linux вы можете распространять своё приложение в форматах Debian package, Snap, AppImage, Flatpak, RPM или Arch User Repository (AUR).
+
+<CardGrid>
+  <LinkCard
+    title="AppImage"
+    href="/ru/distribute/appimage/"
+    description="Распространение в виде AppImage"
+  />
+  <LinkCard
+    title="AUR"
+    href="/ru/distribute/aur/"
+    description="Публикация в Arch User Repository"
+  />
+  <LinkCard
+    title="Debian"
+    href="/ru/distribute/debian/"
+    description="Распространение в виде пакета Debian"
+  />
+  {/*  <LinkCard
+    title="Flathub"
+    href="/ru/distribute/flatpak/"
+    description="Распространение в виде Flatpak"
+  /> */}
+  <LinkCard
+    title="RPM"
+    href="/ru/distribute/rpm/"
+    description="Распространение в виде пакета RPM"
+  />
+  <LinkCard
+    title="Snapcraft"
+    href="/ru/distribute/snapcraft/"
+    description="Распространение на Snapcraft.io"
+  />
+</CardGrid>
+
+<LinkButton href="/ru/distribute/sign/linux/">Подпись кода</LinkButton>
+
+### macOS
+
+Для macOS вы можете либо распространять своё приложение напрямую в App Store, либо поставлять установщик DMG для прямого скачивания.
+Оба способа требуют подписи кода, а распространение вне App Store также требует нотаризации.
+
+<CardGrid>
+  <LinkCard
+    title="App Bundle"
+    href="/ru/distribute/macos-application-bundle/"
+    description="Распространение приложений macOS в виде App Bundle"
+  />
+  <LinkCard
+    title="App Store"
+    href="/ru/distribute/app-store/"
+    description="Распространение приложений iOS и macOS в App Store"
+  />
+  <LinkCard
+    title="DMG"
+    href="/ru/distribute/dmg/"
+    description="Распространение приложений macOS в виде образов дисков Apple"
+  />
+</CardGrid>
+
+<LinkButton href="/ru/distribute/sign/macos/">
+  Подпись и нотаризация кода
+</LinkButton>
+
+### Windows
+
+Узнайте, как распространять приложения в Microsoft Store или настраивать установщик Windows.
+
+<CardGrid>
+  <LinkCard
+    title="Microsoft Store"
+    href="/ru/distribute/microsoft-store/"
+    description="Распространение приложений Windows в Microsoft Store"
+  />
+  <LinkCard
+    title="Установщик Windows"
+    href="/ru/distribute/windows-installer/"
+    description="Распространение установщиков для Windows"
+  />
+</CardGrid>
+
+<LinkButton href="/ru/distribute/sign/windows/">Подпись кода</LinkButton>
+
+### Android
+
+Распространяйте своё приложение Android в Google Play.
+
+<CardGrid>
+  <LinkCard
+    title="Google Play"
+    href="/ru/distribute/google-play/"
+    description="Распространение приложений Android в Google Play"
+  />
+</CardGrid>
+
+<LinkButton href="/ru/distribute/sign/android/">Подпись кода</LinkButton>
+
+### iOS
+
+Узнайте, как загрузить своё приложение в App Store.
+
+<CardGrid>
+  <LinkCard
+    title="App Store"
+    href="/ru/distribute/app-store/"
+    description="Распространение приложений iOS и macOS в App Store"
+  />
+</CardGrid>
+
+<LinkButton href="/ru/distribute/sign/ios/">Подпись кода</LinkButton>
+
+### Облачные сервисы
+
+Распространяйте своё приложение через облачные сервисы, которые глобально распространяют ваше приложение и поддерживают автоматические обновления из коробки.
+
+<CardGrid>
+  <LinkCard
+    title="CrabNebula Cloud"
+    href="/ru/distribute/crabnebula-cloud/"
+    description="Распространение приложения с помощью CrabNebula"
+  />
+</CardGrid>
+
+[`tauri.conf.json > version`]: /reference/config/#version

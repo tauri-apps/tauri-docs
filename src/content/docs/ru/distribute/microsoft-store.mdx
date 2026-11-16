@@ -1,0 +1,131 @@
+---
+title: Microsoft Store
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Microsoft Store — это магазин приложений Windows, управляемый компанией Microsoft.
+
+В этом руководстве рассматриваются только подробности распространения приложений Windows напрямую в Microsoft Store. Дополнительную информацию о вариантах и настройках распространения установщика Windows см. в [руководстве по установщику Windows][Windows Installer guide].
+
+## Требования
+
+Чтобы публиковать приложения в Microsoft Store, вы должны иметь учётную запись Microsoft и [зарегистрироваться][enroll] в качестве разработчика — как частное лицо или как компания.
+
+## Изменение значка приложения
+
+CLI Tauri может генерировать все значки, необходимые вашему приложению, включая значки Microsoft Store. Используйте команду `tauri icon`, чтобы сгенерировать значки приложения из одного исходного файла PNG или SVG:
+
+<CommandTabs
+  npm="npm run tauri icon /path/to/app-icon.png"
+  yarn="yarn tauri icon /path/to/app-icon.png"
+  pnpm="pnpm tauri icon /path/to/app-icon.png"
+  deno="deno task tauri icon /path/to/app-icon.png"
+  bun="bun tauri icon /path/to/app-icon.png"
+  cargo="cargo tauri icon /path/to/app-icon.png"
+/>
+
+## Первичная настройка
+
+После регистрации в качестве разработчика с вашей учётной записью Microsoft вам необходимо зарегистрировать приложение на странице [Apps and Games]. Нажмите `New Product`, выберите `EXE or MSI app` и зарезервируйте уникальное имя для вашего приложения.
+
+## Сборка и загрузка
+
+В настоящее время Tauri генерирует только установщики [EXE и MSI][Windows Installer guide], поэтому вы должны создать приложение Microsoft Store, которое только ссылается на распакованное приложение. Установщик, связанный в Microsoft Installer, должен быть автономным, [обрабатывать автоматические обновления][handle auto-updates] и быть [подписанным кодом][code signed].
+
+Подробнее см. [официальную документацию по публикации][official publish documentation].
+
+### Автономный установщик
+
+Установщик Windows, распространяемый через Microsoft Store, должен использовать параметр установки Webview2 [Offline Installer].
+
+Чтобы применять эту конфигурацию установщика только при упаковке для Microsoft Store, вы можете определить отдельный файл конфигурации Tauri:
+
+```json title="src-tauri/tauri.microsoftstore.conf.json
+{
+  "bundle": {
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
+    }
+  }
+}
+```
+
+Затем объедините этот файл конфигурации с основным при упаковке приложения Tauri для Microsoft Store:
+
+<CommandTabs
+  npm="npm run tauri build -- --no-bundle
+npm run tauri bundle -- --config src-tauri/tauri.microsoftstore.conf.json"
+  yarn="yarn tauri build --no-bundle
+yarn tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  pnpm="pnpm tauri build --no-bundle
+pnpm tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  deno="deno task tauri build --no-bundle
+deno task tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  bun="bun tauri build --no-bundle
+bun tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+  cargo="cargo tauri build --no-bundle
+cargo tauri bundle --config src-tauri/tauri.microsoftstore.conf.json"
+/>
+
+Это особенно полезно при настройке CI/CD для загрузки приложения в Microsoft Store при наличии отдельной конфигурации для установщика Windows, который вы распространяете вне магазина приложений.
+
+### Тихая установка
+
+Microsoft Store требует, чтобы установщики Win32 поддерживали тихую установку. Если ваш установщик не устанавливается в тихом режиме, ваша отправка отклоняется с ошибкой, например:
+
+```
+10.2.9.2 Security - Package Submissions | Win32 products must install silently.
+```
+
+Когда вы регистрируете свой установщик в Partner Center, вы должны указать [параметры тихой установки][silent install parameters], чтобы Store мог запустить его без участия пользователя. Установщик NSIS `-setup.exe` от Tauri устанавливается в тихом режиме с флагом `/S` (обратите внимание на заглавную `S`):
+
+```
+MyApp_x64-setup.exe /S
+```
+
+Введите `/S` в качестве аргумента тихой установки в параметрах установщика вашего продукта Microsoft Store. Если вместо этого вы распространяете установщик MSI, используйте стандартный флаг `msiexec` `/quiet`.
+
+### Издатель
+
+Имя [издателя][publisher] вашего приложения не может совпадать с именем продукта приложения.
+
+Если значение конфигурации издателя не задано, Tauri выводит его из второй части вашего идентификатора бандла. Поскольку имя издателя не может совпадать с именем продукта, следующая конфигурация недействительна:
+
+```json title=tauri.conf.json "example" "Example"
+{
+  "productName": "Example",
+  "identifier": "com.example.app"
+}
+```
+
+В этом случае вы можете определить значение [publisher] отдельно, чтобы устранить этот конфликт:
+
+```json title=tauri.conf.json ins={4-6}
+{
+  "productName": "Example",
+  "identifier": "com.example.app",
+  "bundle": {
+    "publisher": "Example Inc."
+  }
+}
+```
+
+### Загрузка
+
+После сборки установщика Windows для Microsoft Store вы можете загрузить его в выбранный вами сервис распространения и указать ссылку на него на странице приложения на сайте Microsoft Store.
+
+[Windows Installer guide]: /ru/distribute/windows-installer/
+[enroll]: https://learn.microsoft.com/en-us/windows/apps/get-started/sign-up
+[Apps and Games]: https://partner.microsoft.com/en-us/dashboard/apps-and-games/overview
+[handle auto-updates]: /ru/plugin/updater/
+[code signed]: /ru/distribute/sign/windows/
+[Offline Installer]: /ru/distribute/windows-installer/#автономный-установщик
+[official publish documentation]: https://learn.microsoft.com/en-us/windows/apps/publish/
+[silent install parameters]: https://learn.microsoft.com/en-us/windows/uwp/publish/msiexe/provide-package-details
+[publisher]: /reference/config/#publisher
