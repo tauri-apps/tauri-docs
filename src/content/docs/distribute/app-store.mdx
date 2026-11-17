@@ -298,6 +298,24 @@ Your app will then be validated by Apple and available in TestFlight if approved
 
 ### iOS
 
+Your iOS app must also comply with encryption export regulations.
+Without the `ITSAppUsesNonExemptEncryption` key, App Store Connect asks the export compliance questions every time you upload a new version.
+Add the key to the `src-tauri/Info.ios.plist` file, which the Tauri CLI merges into the generated `Info.plist` of your iOS app:
+
+```xml title="src-tauri/Info.ios.plist"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+</dict>
+</plist>
+```
+
+Use `false` if your app, including any third-party libraries, uses no encryption or only exempt encryption.
+Use `true` if your app uses non-exempt encryption, and see the [official documentation](https://developer.apple.com/documentation/security/complying-with-encryption-export-regulations) for what Apple may ask you to provide.
+
 To build your iOS app, run the `tauri ios build` command:
 
 <CommandTabs
