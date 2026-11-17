@@ -851,6 +851,17 @@
     "type": "INDIVIDUAL"
   },
   {
+    "name": "Marek Stapff",
+    "id": "Marek Stapff",
+    "avatarUrl": "https://images.opencollective.com/marek-stapff/d820a55/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/marek-stapff",
+    "socialLinks": {
+      "website": "https://www.marek-stapff.de/"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Sentry",
     "id": "Sentry",
     "avatarUrl": "https://images.opencollective.com/sentry/9620d33/logo/256.jpg",
@@ -1350,17 +1361,6 @@
     "avatarUrl": "https://images.opencollective.com/guest-db3a0b10/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/guest-db3a0b10",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Marek Stapff",
-    "id": "Marek Stapff",
-    "avatarUrl": "https://images.opencollective.com/marek-stapff/d820a55/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/marek-stapff",
-    "socialLinks": {
-      "website": "https://www.marek-stapff.de/"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
