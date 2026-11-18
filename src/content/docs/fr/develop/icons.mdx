@@ -1,0 +1,119 @@
+---
+title: Icônes d'application
+sidebar:
+  order: 1
+---
+
+{/* TODO: More platform specific explanations like macOS requiring padding in the icon (waiting for https://github.com/tauri-apps/tauri/pull/11037) */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+Tauri est fourni avec un jeu d'icônes par défaut basé sur son logo. Ce n'est PAS ce que vous voulez lorsque vous distribuez votre application. Pour remédier à cette situation courante, Tauri fournit la commande `icon`, qui prend un fichier d'entrée (`"./app-icon.png"` par défaut) et crée toutes les icônes nécessaires pour les différentes plateformes.
+
+:::note[Note sur les types de fichiers]
+
+- `icon.icns` = macOS
+- `icon.ico` = Windows
+- `*.png` = Linux
+- `Square*Logo.png` et `StoreLogo.png` = actuellement inutilisés, mais prévus pour les cibles AppX/MS Store.
+
+Certains types d'icônes peuvent être utilisés sur d'autres plateformes que celles listées ci-dessus (en particulier `png`). Nous recommandons donc d'inclure toutes les icônes, même si vous ne prévoyez de construire que pour un sous-ensemble de plateformes.
+
+:::
+
+## Utilisation de la commande
+
+<CommandTabs
+  npm="npm run tauri icon"
+  yarn="yarn tauri icon"
+  pnpm="pnpm tauri icon"
+  cargo="cargo tauri icon"
+  deno="deno task tauri icon"
+/>
+
+```console
+> pnpm tauri icon --help
+
+Generate various icons for all major platforms
+
+Usage: pnpm run tauri icon [OPTIONS] [INPUT]
+
+Arguments:
+  [INPUT]  Path to the source icon (squared PNG or SVG file with transparency) [default: ./app-icon.png]
+
+Options:
+  -o, --output <OUTPUT>        Output directory. Default: 'icons' directory next to the tauri.conf.json file
+  -v, --verbose...             Enables verbose logging
+  -p, --png <PNG>              Custom PNG icon sizes to generate. When set, the default icons are not generated
+      --ios-color <IOS_COLOR>  The background color of the iOS icon - string as defined in the W3C's CSS Color Module Level 4 <https://www.w3.org/TR/css-color-4/> [default: #fff]
+  -h, --help                   Print help
+  -V, --version                Print version
+```
+
+Les icônes **desktop** seront placées par défaut dans votre dossier `src-tauri/icons`, où elles seront automatiquement incluses dans votre app construite. Si vous voulez charger vos icônes depuis un autre emplacement, vous pouvez modifier cette partie du fichier `tauri.conf.json` :
+
+```json
+{
+  "bundle": {
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
+```
+
+Les icônes **mobiles** seront placées directement dans les projets Xcode et Android Studio.
+
+## Créer les icônes manuellement
+
+Si vous préférez créer ces icônes vous-même, par exemple parce que vous voulez un design plus simple pour les petites tailles ou parce que vous ne voulez pas dépendre du redimensionnement d'image interne de la CLI, vous devez vous assurer que vos icônes respectent certaines exigences :
+
+- `icon.icns` : les tailles et noms de calques requis pour le fichier [`icns`] sont décrits [dans le dépôt Tauri].
+- `icon.ico` : le fichier [`ico`] doit inclure des calques de 16, 24, 32, 48, 64 et 256 pixels. Pour un affichage optimal de l'image ICO _en développement_, le calque 32 px doit être le premier.
+- `png` : les exigences pour les icônes png sont : largeur == hauteur, RGBA (RGB + transparence), et 32 bits par pixel (8 bits par canal). Les tailles couramment attendues sur desktop sont 32, 128, 256 et 512 pixels. Nous recommandons de correspondre au minimum à la sortie de `tauri icon` : `32x32.png`, `128x128.png`, `128x128@2x.png` et `icon.png`.
+
+### Android
+
+Sur Android, vous aurez besoin d'icônes png avec les mêmes exigences, mais dans des tailles différentes. Elles devront aussi être placées directement dans le projet Android Studio :
+
+- `src-tauri/gen/android/app/src/main/res/`
+  - `mipmap-hdpi/`
+    - `ic_launcher.png` et `ic_launcher_round.png` : 49x49 px
+    - `ic_launcher_foreground.png` : 162x162 px
+  - `mipmap-mdpi/`
+    - `ic_launcher.png` et `ic_launcher_round.png` : 48x48 px
+    - `ic_launcher_foreground.png` : 108x108 px
+  - `mipmap-xhdpi/`
+    - `ic_launcher.png` et `ic_launcher_round.png` : 96x96 px
+    - `ic_launcher_foreground.png` : 216x216 px
+  - `mipmap-xxhdpi/`
+    - `ic_launcher.png` et `ic_launcher_round.png` : 144x144 px
+    - `ic_launcher_foreground.png` : 324x324 px
+  - `mipmap-xxxhdpi/`
+    - `ic_launcher.png` et `ic_launcher_round.png` : 192x192 px
+    - `ic_launcher_foreground.png` : 432x432 px
+
+Si `tauri icon` ne peut pas être utilisé, nous recommandons de consulter [Image Asset Studio] d'Android Studio.
+
+### iOS
+
+Sur iOS, vous aurez besoin d'icônes png avec les mêmes exigences, mais **sans transparence** et dans des tailles différentes. Elles devront aussi être placées directement dans le projet Xcode, dans `src-tauri/gen/apple/Assets.xcassets/AppIcon.appiconset/`. Les icônes suivantes sont attendues :
+
+- 20 px en 1x, 2x, 3x, avec une icône supplémentaire
+- 29 px en 1x, 2x, 3x, avec une icône supplémentaire
+- 40 px en 1x, 2x, 3x, avec une icône supplémentaire
+- 60 px en 2x, 3x
+- 76 px en 1x, 2x
+- 83,5 px en 2x
+- 512 px en 2x, enregistrée sous `AppIcon-512@2x.png`
+
+Les noms de fichiers utilisent le format `AppIcon-{size}x{size}@{scaling}{extra}.png`. Pour les icônes de 20 px, cela signifie que vous avez besoin d'icônes en tailles 20x20, 40x40 et 60x60, nommées `AppIcon-20x20@1x.png`, `AppIcon-20x20@2x.png`, `AppIcon-20x20@3x.png`, avec le `2x` aussi enregistré sous `AppIcon-20x20@2x-1.png` (« icône supplémentaire »).
+
+[dans le dépôt Tauri]: https://github.com/tauri-apps/tauri/blob/1.x/tooling/cli/src/helpers/icns.json
+[`icns`]: https://en.wikipedia.org/wiki/Apple_Icon_Image_format
+[`ico`]: https://en.wikipedia.org/wiki/ICO_(file_format)
+[image asset studio]: https://developer.android.com/studio/write/create-app-icons

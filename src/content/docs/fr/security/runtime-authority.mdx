@@ -1,0 +1,12 @@
+---
+title: Autorité d'exécution
+i18nReady: true
+---
+
+L'autorité d'exécution fait partie du coeur de Tauri. Elle conserve toutes les permissions, capacités et portées à l'exécution afin de faire respecter quelle fenêtre peut accéder à quelle commande, et transmet les portées aux commandes.
+
+Chaque fois qu'une commande Tauri est appelée depuis la webview, l'autorité d'exécution reçoit la requête d'appel, vérifie que l'origine est bien autorisée à utiliser la commande demandée, contrôle si l'origine fait partie des capacités et, si des portées sont définies pour la commande et applicables, les injecte dans la requête d'appel, qui est ensuite transmise à la commande Tauri appropriée.
+
+Si l'origine n'est pas autorisée à appeler la commande, l'autorité d'exécution refuse la requête et la commande Tauri n'est jamais appelée.
+
+![Diagramme IPC](@assets/concept/runtime-authority.svg)

@@ -1,0 +1,99 @@
+---
+title: Signature du code iOS
+sidebar:
+  label: iOS
+  order: 14
+i18nReady: true
+---
+
+La signature du code sur iOS est requise pour distribuer votre application via l'[Apple App Store] officiel, ou éventuellement via des marketplaces alternatives dans l'Union européenne, et plus généralement pour l'installer et l'exécuter sur les appareils des utilisateurs finaux.
+
+## Prérequis
+
+La signature du code sur iOS nécessite une inscription au programme [Apple Developer], qui coûte 99 $ par an au moment de la rédaction.
+Vous avez aussi besoin d'un appareil Apple sur lequel effectuer la signature du code. Cela est requis par le processus de signature et par les conditions générales d'Apple.
+
+Pour distribuer des applications iOS, votre identifiant de bundle doit être enregistré dans App Store Connect,
+vous devez disposer d'un certificat de signature de code iOS approprié et d'un profil de provisioning mobile qui les relie et active les capacités iOS utilisées par votre app.
+Ces exigences peuvent être gérées automatiquement par Xcode ou fournies manuellement.
+
+## Signature automatique
+
+Laisser Xcode gérer la signature et le provisioning de votre app est la méthode la plus pratique pour exporter votre app iOS à distribuer.
+Cela enregistre automatiquement votre identifiant de bundle, gère les changements de capacités iOS et configure un certificat approprié selon votre méthode d'export.
+
+La signature automatique est activée par défaut et utilise le compte configuré dans Xcode pour s'authentifier lorsqu'elle est utilisée sur votre machine locale.\
+Pour enregistrer votre compte, ouvrez l'application Xcode, ouvrez la page Settings dans le menu `Xcode > Settings`, passez à l'onglet Accounts et cliquez sur l'icône `+`.
+
+Pour utiliser la signature automatique sur les plateformes CI/CD, vous devez créer une clé d'API App Store Connect
+et définir les variables d'environnement `APPLE_API_ISSUER`, `APPLE_API_KEY` et `APPLE_API_KEY_PATH`.\
+Ouvrez la [page Users and Access d'App Store Connect], sélectionnez l'onglet Integrations, cliquez sur le bouton Add et sélectionnez un nom et l'accès Admin.
+`APPLE_API_ISSUER` (Issuer ID) est affiché au-dessus du tableau des clés, et `APPLE_API_KEY` est la valeur de la colonne Key ID de ce tableau.
+Vous devez aussi télécharger la clé privée, ce qui ne peut être fait qu'une seule fois et n'est visible qu'après un rechargement de page (le bouton apparaît sur la ligne du tableau correspondant à la clé nouvellement créée).
+Le chemin du fichier de clé privée doit être défini via la variable d'environnement `APPLE_API_KEY_PATH`.
+
+## Signature manuelle
+
+Pour signer manuellement votre app iOS, vous pouvez fournir le certificat et le profil de provisioning mobile via des variables d'environnement :
+
+- **IOS_CERTIFICATE** : représentation base64 du certificat exporté depuis le Keychain.
+- **IOS_CERTIFICATE_PASSWORD** : mot de passe du certificat défini lors de son export depuis le Keychain.
+- **IOS_MOBILE_PROVISION** : représentation base64 du profil de provisioning.
+
+Les sections suivantes expliquent comment obtenir ces valeurs.
+
+### Certificat de signature
+
+Après l'inscription, allez sur la page [Certificates] pour créer un nouveau certificat Apple Distribution.
+Téléchargez le nouveau certificat et installez-le dans le Keychain macOS.
+
+Pour exporter la clé du certificat, ouvrez l'app « Keychain Access », développez l'entrée du certificat,
+faites un clic droit sur l'élément de clé et sélectionnez l'élément « Export \<key-name\> ».
+Sélectionnez le chemin du fichier .p12 exporté et retenez son mot de passe.
+
+Exécutez la commande `base64` suivante pour convertir le certificat en base64 et le copier dans le presse-papiers :
+
+```
+base64 -i <path-to-certificate.p12> | pbcopy
+```
+
+La valeur dans le presse-papiers est maintenant la représentation base64 du certificat de signature.
+Enregistrez-la et utilisez-la comme valeur de la variable d'environnement `IOS_CERTIFICATE`.
+
+Le mot de passe du certificat doit être défini dans la variable `IOS_CERTIFICATE_PASSWORD`.
+
+:::tip[Choisir le type de certificat]
+Vous devez utiliser un type de certificat approprié pour chaque méthode d'export :
+
+- **debugging** : Apple Development ou iOS App Development
+- **app-store-connect** : Apple Distribution ou iOS Distribution (App Store Connect and Ad Hoc)
+- **ad-hoc** : Apple Distribution ou iOS Distribution (App Store Connect and Ad Hoc)
+
+:::
+
+### Profil de provisioning
+
+Vous devez aussi fournir le profil de provisioning de votre application.
+Sur la page [Identifiers](https://developer.apple.com/account/resources/identifiers/list),
+créez un nouvel App ID et assurez-vous que sa valeur « Bundle ID » correspond à l'identifiant défini dans la configuration [`identifier`].
+
+Allez sur la page [Profiles](https://developer.apple.com/account/resources/profiles/list) pour créer un nouveau profil de provisioning.
+Pour une distribution App Store, il doit s'agir d'un profil « App Store Connect ».
+Sélectionnez l'App ID approprié et liez le certificat créé précédemment.
+
+Après avoir créé le profil de provisioning, téléchargez-le et exécutez la commande `base64` suivante pour convertir le profil et le copier dans le presse-papiers :
+
+```
+base64 -i <path-to-profile.mobileprovision> | pbcopy
+```
+
+La valeur dans le presse-papiers est maintenant la représentation base64 du profil de provisioning.
+Enregistrez-la et utilisez-la comme valeur de la variable d'environnement `IOS_MOBILE_PROVISION`.
+
+Vous pouvez maintenant construire votre application iOS et la distribuer sur l'App Store.
+
+[Certificates]: https://developer.apple.com/account/resources/certificates/list
+[Apple Developer]: https://developer.apple.com
+[Apple App Store]: https://www.apple.com/app-store/
+[page Users and Access d'App Store Connect]: https://appstoreconnect.apple.com/access/users
+[`identifier`]: /reference/config/#identifier

@@ -1,0 +1,82 @@
+---
+title: Signature du code Linux
+sidebar:
+  label: Linux
+  order: 13
+i18nReady: true
+---
+
+Ce guide fournit des informations sur la signature du code pour les paquets Linux.
+Même si la signature des artefacts n'est pas requise pour déployer votre application sur Linux,
+elle peut être utilisée pour renforcer la confiance dans l'application déployée.
+Signer les binaires permet à l'utilisateur final de vérifier qu'ils sont authentiques et n'ont pas été modifiés par une entité non fiable.
+
+## Signature des AppImages
+
+L'AppImage peut être signée avec gpg ou gpg2.
+
+### Prérequis
+
+Une clé de signature doit être préparée. Une nouvelle clé peut être générée avec :
+
+```shell
+gpg2 --full-gen-key
+```
+
+Consultez la documentation de gpg ou gpg2 pour plus d'informations.
+Prenez aussi soin de sauvegarder vos clés privée et publique dans un emplacement sécurisé.
+
+### Signature
+
+Vous pouvez intégrer une signature dans l'AppImage en définissant les variables d'environnement suivantes :
+
+- **SIGN** : définissez-la sur `1` pour signer l'AppImage.
+- **SIGN_KEY** : variable optionnelle permettant d'utiliser un ID de clé GPG spécifique pour la signature.
+- **APPIMAGETOOL_SIGN_PASSPHRASE** : le mot de passe de la clé de signature. Si elle n'est pas définie, gpg affiche une boîte de dialogue pour le saisir. Vous devez la définir lorsque vous construisez sur des plateformes CI/CD.
+- **APPIMAGETOOL_FORCE_SIGN** : par défaut, l'AppImage est générée même si la signature échoue. Pour quitter en cas d'erreur, définissez cette variable sur `1`.
+
+Vous pouvez afficher la signature intégrée dans l'AppImage en exécutant la commande suivante :
+
+```shell
+./src-tauri/target/release/bundle/appimage/$APPNAME_$VERSION_amd64.AppImage --appimage-signature
+```
+
+Notez que vous devez remplacer les valeurs $APPNAME et $VERSION par les bonnes valeurs selon votre configuration.
+
+:::caution
+
+**La signature n'est pas vérifiée**
+
+AppImage ne valide pas la signature ; vous ne pouvez donc pas vous y fier pour vérifier si le fichier a été altéré.
+L'utilisateur doit vérifier manuellement la signature avec l'outil de validation AppImage.
+Cela vous oblige à publier votre ID de clé sur un canal authentifié (par exemple votre site web servi via TLS),
+afin que l'utilisateur final puisse le consulter et le vérifier.
+
+Consultez la [documentation officielle AppImage] pour plus d'informations.
+
+:::
+
+[documentation officielle AppImage]: https://docs.appimage.org/packaging-guide/optional/signatures.html
+
+### Valider la signature
+
+L'outil de validation AppImage peut être téléchargé [ici](https://github.com/AppImageCommunity/AppImageUpdate/releases/tag/continuous).
+Sélectionnez l'un des fichiers `validate-$PLATFORM.AppImage`.
+
+Exécutez la commande suivante pour valider la signature :
+
+```shell
+chmod +x validate-$PLATFORM.AppImage
+./validate-$PLATFORM.AppImage $TAURI_OUTPUT.AppImage
+```
+
+Si la signature est valide, la sortie sera :
+
+```
+Validation result: validation successful
+Signatures found with key fingerprints: $KEY_ID
+====================
+Validator report:
+Signature checked for key with fingerprint $KEY_ID:
+Validation successful
+```

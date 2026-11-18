@@ -1,0 +1,61 @@
+---
+title: Variables d'environnement
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+Cette page documente toutes les variables d'environnement utilisées par les crates du coeur de Tauri et par la CLI Tauri.
+
+## CLI Tauri
+
+Ces variables d'environnement sont des entrées pour la CLI et peuvent avoir un flag CLI équivalent.
+
+:::tip[Priorité des variables d'environnement]
+
+Si une variable d'environnement et un flag CLI sont utilisés tous les deux, le flag CLI aura la priorité.
+
+:::
+
+- `CI` — Si elle est définie, la CLI s'exécutera en mode CI et ne demandera aucune interaction utilisateur.
+- `TAURI_CLI_CONFIG_DEPTH` — Nombre de niveaux à parcourir pour trouver le fichier de configuration Tauri.
+- `TAURI_CLI_PORT` — Port à utiliser pour le serveur de développement intégré à la CLI.
+- `TAURI_CLI_WATCHER_IGNORE_FILENAME` — Nom d'un fichier de style `.gitignore` permettant de contrôler quels fichiers doivent être surveillés par la CLI dans la commande `dev`. La CLI cherchera ce nom de fichier dans chaque répertoire.
+- `TAURI_CLI_NO_DEV_SERVER_WAIT` — Ignore l'attente du démarrage du serveur de développement frontend avant de construire l'application Tauri.
+- `TAURI_LINUX_AYATANA_APPINDICATOR` — Définissez cette variable sur `true` ou `1` pour forcer l'utilisation de `libayatana-appindicator` pour la zone de notification système sous Linux.
+- `TAURI_BUNDLER_WIX_FIPS_COMPLIANT` — Spécifie l'option WiX `FipsCompliant` du bundler.
+- `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR` - Spécifie un miroir GitHub pour télécharger les fichiers et outils utilisés par le bundler Tauri.
+- `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE` - Spécifie un modèle de miroir GitHub pour télécharger les fichiers et outils utilisés par le bundler Tauri, par exemple : `https://mirror.example.com/<owner>/<repo>/releases/download/<version>/<asset>`.
+- `TAURI_SKIP_SIDECAR_SIGNATURE_CHECK` - Ignore la signature des sidecars.
+- `TAURI_SIGNING_PRIVATE_KEY` — Clé privée utilisée pour signer les bundles de votre app ; peut être une chaîne ou un chemin vers le fichier.
+- `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` — Mot de passe de la clé privée de signature, voir `TAURI_SIGNING_PRIVATE_KEY`.
+- `TAURI_SIGNING_RPM_KEY` — Clé GPG privée utilisée pour signer le bundle RPM, exportée au format ASCII armored.
+- `TAURI_SIGNING_RPM_KEY_PASSPHRASE` — Phrase secrète de la clé GPG pour `TAURI_SIGNING_RPM_KEY`, si nécessaire.
+- `TAURI_WINDOWS_SIGNTOOL_PATH` — Spécifie un chemin vers `signtool.exe` utilisé pour la signature de code de l'application sous Windows.
+- `APPLE_CERTIFICATE` — Encodage Base64 du certificat `.p12` pour la signature de code. Pour obtenir cette valeur, exécutez `openssl base64 -A -in MyCertificate.p12 -out MyCertificate-base64.txt`.
+- `APPLE_CERTIFICATE_PASSWORD` — Mot de passe utilisé pour exporter le certificat.
+- `APPLE_ID` — Identifiant Apple utilisé pour notariser l'application. Si cette variable d'environnement est fournie, `APPLE_PASSWORD` et `APPLE_TEAM_ID` doivent aussi être définis. Vous pouvez aussi utiliser `APPLE_API_KEY` et `APPLE_API_ISSUER` pour vous authentifier.
+- `APPLE_PASSWORD` — Mot de passe Apple utilisé pour l'authentification lors de la notarisation de l'application. Requis si `APPLE_ID` est spécifié. Un [mot de passe spécifique à l'app](https://support.apple.com/en-ca/HT204397) peut être utilisé. Au lieu de saisir le mot de passe en clair, il peut aussi être spécifié avec un préfixe `@keychain:` ou `@env:` suivi du nom d'un élément de mot de passe du trousseau ou d'une variable d'environnement.
+- `APPLE_TEAM_ID` : ID de l'équipe de développement. Pour trouver votre Team ID, rendez-vous sur la page [Account](https://developer.apple.com/account) du site Apple Developer et consultez les détails de votre adhésion.
+- `APPLE_API_KEY` — Alternative à `APPLE_ID` et `APPLE_PASSWORD` pour l'authentification de notarisation avec JWT. C'est aussi une option pour autoriser la gestion automatisée des certificats iOS et des profils de provisioning.
+  - Consultez [creating API keys](https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api) pour plus d'informations.
+- `API_PRIVATE_KEYS_DIR` — Spécifie le répertoire où se trouve votre fichier AuthKey. Voir `APPLE_API_KEY`.
+- `APPLE_API_ISSUER` — Issuer ID. Requis si `APPLE_API_KEY` est spécifié.
+- `APPLE_API_KEY_PATH` - Chemin vers le fichier de clé API `.p8`. S'il n'est pas spécifié, pour les apps macOS, le bundler recherche successivement dans les répertoires suivants un fichier de clé privée nommé `AuthKey_<api_key>.p8` : `./private_keys`, `~/private_keys`, `~/.private_keys` et `~/.appstoreconnect/private_keys`. **Pour iOS, cette variable est requise**.
+- `APPLE_SIGNING_IDENTITY` — Identité utilisée pour la signature de code. Remplace `tauri.conf.json > bundle > macOS > signingIdentity`. Si aucune des deux n'est définie, elle est déduite de `APPLE_CERTIFICATE` lorsqu'il est fourni.
+- `APPLE_PROVIDER_SHORT_NAME` — Si votre identifiant Apple est lié à plusieurs équipes, vous devez spécifier le nom court du fournisseur de l'équipe que vous voulez utiliser pour notariser votre app. Remplace `tauri.conf.json > bundle > macOS > providerShortName`.
+- `APPLE_DEVELOPMENT_TEAM` — ID d'équipe utilisé pour la signature de code sur iOS. Remplace `tauri.conf.json > bundle > iOS > developmentTeam`. Disponible sur https://developer.apple.com/account#MembershipDetailsCard.
+- `TAURI_WEBVIEW_AUTOMATION` — Active l'automatisation de la webview (Linux uniquement).
+- `TAURI_ANDROID_PROJECT_PATH` — Chemin du projet Android Tauri, généralement `<project>/src-tauri/gen/android`.
+- `TAURI_IOS_PROJECT_PATH` — Chemin du projet iOS Tauri, généralement `<project>/src-tauri/gen/ios`.
+
+## Commandes hook de la CLI Tauri
+
+Ces variables d'environnement sont définies pour chaque commande hook (`beforeDevCommand`, `beforeBuildCommand`, etc.) et peuvent être utiles pour construire conditionnellement votre frontend ou exécuter une action spécifique.
+
+- `TAURI_ENV_DEBUG` — `true` pour la commande `dev` ou `build --debug`, `false` sinon.
+- `TAURI_ENV_TARGET_TRIPLE` — Target triple que la CLI construit.
+- `TAURI_ENV_ARCH` — Architecture cible, `x86_64`, `aarch64`, etc.
+- `TAURI_ENV_PLATFORM` — Plateforme cible, `windows`, `darwin`, `linux`, etc.
+- `TAURI_ENV_PLATFORM_VERSION` — Version de la plateforme de build.
+- `TAURI_ENV_FAMILY` — Famille de plateforme cible, `unix` ou `windows`.

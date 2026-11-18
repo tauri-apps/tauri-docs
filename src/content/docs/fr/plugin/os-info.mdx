@@ -1,0 +1,126 @@
+---
+title: Informations sur l'OS
+description: Lire des informations sur le système d'exploitation.
+plugin: os
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Lisez des informations sur le système d'exploitation avec le plugin OS Information.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin OS Information pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    <CommandTabs npm="npm run tauri add os"
+          yarn="yarn run tauri add os"
+          pnpm="pnpm tauri add os"
+          deno="deno task tauri add os"
+          bun="bun tauri add os"
+          cargo="cargo tauri add os" />
+
+  </TabItem>
+  <TabItem label="Manuelle">
+    <Steps>
+
+    1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+        ```sh frame=none
+        cargo add tauri-plugin-os
+        ```
+
+    2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_os::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3.  Si vous voulez l'utiliser en JavaScript, installez aussi le paquet npm :
+
+        <CommandTabs
+            npm="npm install @tauri-apps/plugin-os"
+            yarn="yarn add @tauri-apps/plugin-os"
+            pnpm="pnpm add @tauri-apps/plugin-os"
+            deno="deno add npm:@tauri-apps/plugin-os"
+            bun="bun add @tauri-apps/plugin-os"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Utilisation
+
+Avec ce plugin, vous pouvez interroger plusieurs informations sur le système d'exploitation courant. Consultez toutes les fonctions disponibles dans les références [API JavaScript](/fr/reference/javascript/os/) ou [API Rust](https://docs.rs/tauri-plugin-os/).
+
+{/* TODO: Link to which language to use, frontend vs. backend guide when it's made */}
+
+#### Exemple : plateforme de l'OS
+
+`platform` renvoie une chaîne décrivant le système d'exploitation spécifique utilisé. La valeur est définie au moment de la compilation. Les valeurs possibles sont `linux`, `macos`, `ios`, `freebsd`, `dragonfly`, `netbsd`, `openbsd`, `solaris`, `android`, `windows`.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { platform } from '@tauri-apps/plugin-os';
+// when using `"withGlobalTauri": true`, you may use
+// const { platform } = window.__TAURI__.os;
+
+const currentPlatform = platform();
+console.log(currentPlatform);
+// Prints "windows" to the console
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+let platform = tauri_plugin_os::platform();
+println!("Platform: {}", platform);
+// Prints "windows" to the terminal
+```
+
+</TabItem>
+</Tabs>
+
+## Permissions
+
+Par défaut, toutes les commandes et portées de plugins potentiellement dangereuses sont bloquées et ne peuvent pas être utilisées. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capacités](/fr/security/capabilities/) pour plus d'informations et le [guide étape par étape](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions de plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "os:default"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

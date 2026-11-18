@@ -1,0 +1,328 @@
+---
+title: Multi-fenêtre sur mobile
+sidebar:
+  order: 2
+i18nReady: true
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Tauri prend en charge plusieurs fenêtres sur Android et iOS, ce qui permet à votre app d'afficher du contenu côte à côte sur tablettes ou dans des scènes séparées sur iPad.
+
+Sur **Android**, le multi-fenêtre est implémenté avec [Activity Embedding](https://developer.android.com/guide/topics/large-screens/activity-embedding), qui permet au système d'afficher deux activités côte à côte sur les grands écrans.
+
+Sur **iOS**, le multi-fenêtre utilise l'API [UIScene](https://developer.apple.com/documentation/uikit/uiscene), qui permet aux utilisateurs d'iPad d'ouvrir plusieurs instances de votre app dans des fenêtres séparées.
+
+Sur **téléphone**, le système ne dispose généralement pas deux fenêtres côte à côte. Sur **Android**, créer une autre fenêtre lance tout de même une activité séparée, mais sur les écrans de taille téléphone elle est généralement **poussée sur la pile de retour des activités** : le bouton **Retour** revient donc à l'activité précédente au lieu de fermer une vue scindée. Sur **iOS** (surtout iPhone), ouvrir ou créer une autre fenêtre **remplace souvent l'UI actuelle** par le contenu de la nouvelle scène au lieu de garder les deux visibles en même temps ; les vraies fenêtres concurrentes restent une expérience **iPad** (et Stage Manager).
+
+:::note
+Le multi-fenêtre nécessite Android 12L (API 32)+ et iOS 13+. Vous pouvez utiliser l'API [`app.supportsMultipleWindows`] pour vérifier la disponibilité à l'exécution.
+:::
+
+## Configuration partagée
+
+Les deux plateformes nécessitent une permission de capacité pour créer de nouvelles fenêtres depuis le frontend.
+
+### Capacités
+
+Ajoutez la permission `core:webview:allow-create-webview-window` à votre fichier de capacités afin que votre frontend puisse créer de nouvelles fenêtres.
+
+Si vous créez plusieurs fenêtres, utilisez un joker ou listez chaque label de fenêtre dans le tableau `windows` :
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["core:default", "core:webview:allow-create-webview-window"]
+}
+```
+
+## Android
+
+Le multi-fenêtre Android utilise [Activity Embedding](https://developer.android.com/guide/topics/large-screens/activity-embedding) pour diviser les activités côte à côte sur les grands écrans (tablettes, appareils pliables). Vous devez créer une `Activity` Android pour chaque type de fenêtre, configurer les règles de division et enregistrer un initialiseur.
+
+<Steps>
+
+1. ### Ajouter les dépendances
+
+   Ajoutez les bibliothèques AndroidX requises à votre `build.gradle.kts` :
+
+   ```kotlin title="src-tauri/gen/android/app/build.gradle.kts" ins={3-4}
+   dependencies {
+       // ... existing dependencies
+       implementation("androidx.window:window:1.5.0")
+       implementation("androidx.startup:startup-runtime:1.2.0")
+   }
+   ```
+
+2. ### Créer une nouvelle activité
+
+   Créez une classe Kotlin pour chaque type de fenêtre supplémentaire. Chaque activité doit étendre `TauriActivity` :
+
+   ```kotlin title="src-tauri/gen/android/app/src/main/java/com/example/app/DetailActivity.kt"
+   package com.example.app
+
+   import android.os.Bundle
+   import android.os.PersistableBundle
+
+   class DetailActivity: TauriActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+       super.onCreate(savedInstanceState)
+     }
+   }
+   ```
+
+3. ### Mettre à jour AndroidManifest.xml
+
+   Enregistrez la nouvelle activité et activez activity embedding en ajoutant l'espace de noms `tools` et la propriété d'embedding :
+
+   ```xml title="src-tauri/gen/android/app/src/main/AndroidManifest.xml" ins={3, 7-9, 20, 22-29}
+   <?xml version="1.0" encoding="utf-8"?>
+   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
+
+     <application ...>
+
+       <property
+         android:name="android.window.PROPERTY_ACTIVITY_EMBEDDING_SPLITS_ENABLED"
+         android:value="true" />
+
+       <!-- Existing MainActivity -->
+       <activity
+         android:name=".MainActivity"
+         android:exported="true"
+         ...>
+         ...
+       </activity>
+
+       <!-- New activity for the detail window -->
+       <activity android:name=".DetailActivity" android:exported="true" />
+
+       <!-- Register the split initializer -->
+       <provider android:name="androidx.startup.InitializationProvider"
+         android:authorities="${applicationId}.androidx-startup"
+         android:exported="false"
+         tools:node="merge">
+         <meta-data android:name="${applicationId}.SplitInitializer"
+           android:value="androidx.startup" />
+       </provider>
+
+     </application>
+   </manifest>
+   ```
+
+4. ### Créer l'initialiseur de division
+
+   L'initialiseur charge les règles de paires de division au démarrage de l'app :
+
+   ```kotlin title="src-tauri/gen/android/app/src/main/java/com/example/app/SplitInitializer.kt"
+   package com.example.app
+
+   import android.content.Context
+   import androidx.startup.Initializer
+   import androidx.window.core.ExperimentalWindowApi
+   import androidx.window.embedding.RuleController
+
+   @OptIn(ExperimentalWindowApi::class)
+   class SplitInitializer : Initializer<RuleController> {
+     override fun create(context: Context): RuleController {
+       return RuleController.getInstance(context).apply {
+         setRules(RuleController.parseRules(context, R.xml.main_split_config))
+       }
+     }
+
+     override fun dependencies(): List<Class<out Initializer<*>>> {
+       return emptyList()
+     }
+   }
+   ```
+
+5. ### Définir les règles de division
+
+   Créez une ressource XML qui indique au système comment associer les activités et diviser l'écran :
+
+   ```xml title="src-tauri/gen/android/app/src/main/res/xml/main_split_config.xml"
+   <resources
+     xmlns:window="http://schemas.android.com/apk/res-auto">
+
+     <SplitPairRule
+       window:splitRatio="0.33"
+       window:splitLayoutDirection="locale"
+       window:splitMinWidthDp="840"
+       window:splitMaxAspectRatioInPortrait="alwaysAllow"
+       window:finishPrimaryWithSecondary="never"
+       window:finishSecondaryWithPrimary="never"
+       window:clearTop="false">
+       <SplitPairFilter
+         window:primaryActivityName=".MainActivity"
+         window:secondaryActivityName=".DetailActivity"/>
+     </SplitPairRule>
+
+   </resources>
+   ```
+
+   Attributs clés :
+   - `splitRatio` : façon dont l'écran est divisé (`0.33` donne un tiers à l'activité principale)
+   - `splitMinWidthDp` : largeur minimale de l'écran pour activer la division (`840dp` cible les tablettes)
+   - `splitMaxAspectRatioInPortrait` : définissez `alwaysAllow` pour activer la division en mode portrait
+   - `primaryActivityName` / `secondaryActivityName` : paire d'activités qui déclenche la division
+
+</Steps>
+
+## iOS
+
+Sur iOS, le multi-fenêtre utilise l'API UIScene. Les utilisateurs d'iPad peuvent ouvrir de nouvelles fenêtres en appuyant longuement sur l'icône de l'app et en sélectionnant « Nouvelle fenêtre », ou votre app peut les créer par programmation.
+
+<Steps>
+
+1. ### Activer la prise en charge des scènes
+
+   Créez un fichier `Info.ios.plist` dans votre répertoire `src-tauri` pour déclarer la prise en charge des scènes :
+
+   ```xml title="src-tauri/Info.ios.plist" ins={6-12}
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+     "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   <plist version="1.0">
+   <dict>
+     <key>UIApplicationSceneManifest</key>
+     <dict>
+       <key>UIApplicationSupportsMultipleScenes</key>
+       <true/>
+       <key>UISceneConfigurations</key>
+       <dict/>
+     </dict>
+   </dict>
+   </plist>
+   ```
+
+2. ### Gérer les demandes de scène
+
+   Lorsqu'un utilisateur demande une nouvelle fenêtre sur iPad (par exemple en appuyant longuement sur l'icône de l'app), Tauri émet un événement `RunEvent::SceneRequested`. Gérez-le pour créer une nouvelle fenêtre :
+
+   ```rust title="src-tauri/src/lib.rs"
+   #[cfg_attr(mobile, tauri::mobile_entry_point)]
+   pub fn run() {
+       #[cfg(target_os = "ios")]
+       let mut counter = 0;
+
+       tauri::Builder::default()
+           .setup(|app| {
+               tauri::WebviewWindowBuilder::new(
+                   app, "main", tauri::WebviewUrl::default()
+               ).build()?;
+               Ok(())
+           })
+           .build(tauri::generate_context!())
+           .expect("error while running tauri application")
+           .run(move |app, event| {
+               #[cfg(target_os = "ios")]
+               if let tauri::RunEvent::SceneRequested { .. } = event {
+                   counter += 1;
+                   tauri::WebviewWindowBuilder::new(
+                       app,
+                       format!("main-{counter}"),
+                       tauri::WebviewUrl::default(),
+                   )
+                   .build()
+                   .unwrap();
+               }
+               #[cfg(not(target_os = "ios"))]
+               let _ = (app, event);
+           });
+   }
+   ```
+
+   :::note
+   Comme les fenêtres demandées par scène utilisent des labels dynamiques comme `main-1`, `main-2`, etc., assurez-vous que votre fichier de capacités inclut un motif joker pour les couvrir, par exemple `"windows": ["main", "main-*"]`.
+   :::
+
+</Steps>
+
+## Créer des fenêtres
+
+Vous pouvez créer des fenêtres supplémentaires depuis Rust et depuis l'API JavaScript frontend. `WebviewWindowBuilder` (Rust) et `WebviewWindow` (JavaScript) acceptent des options propres à chaque plateforme :
+
+Options Android :
+
+- `activityName` : nom de la classe Android Activity à créer pour cette fenêtre.
+- `createdByActivityName` : nom de l'Activity qui crée cette fenêtre. Cela détermine à quelle pile d'activités appartient la nouvelle activité, ce qui est important pour que les règles de division fonctionnent correctement. Lorsqu'il n'est pas défini, il est automatiquement hérité du manager (par exemple lors de la construction depuis un handle `Window` ou `Webview`).
+
+Options iOS :
+
+- `requestedBySceneIdentifier` : définit l'identifiant de l'UIScene qui demande la création de cette nouvelle scène, établissant une relation entre les deux scènes. Par défaut, le système utilise la scène au premier plan. Lorsqu'il n'est pas défini, il est automatiquement hérité du manager.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { WebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+function openDetail(id) {
+  const webview = new WebviewWindow(`detail-${id}`, {
+    url: `detail/${id}`,
+    activityName: 'DetailActivity',
+  });
+  webview.once('tauri://created', () => {
+    console.log('window created');
+  });
+  webview.once('tauri://error', (e) => {
+    console.error(e);
+  });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri::Manager;
+
+let main_window = app.get_webview_window("main").unwrap();
+// use the main_window instance so the relationships are determined automatically
+let builder = tauri::WebviewWindowBuilder::new(main_window, "detail", tauri::WebviewUrl::App("detail/1".into()));
+
+#[cfg(target_os = "android")]
+let builder = builder.activity_name("DetailActivity");
+
+let window = builder.build()?;
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+Si vous utilisez un routeur frontend, utilisez un routeur basé sur l'historique du navigateur (par exemple `createBrowserRouter` dans React Router) au lieu d'un routeur hash, afin que chaque fenêtre puisse naviguer vers un chemin d'URL distinct.
+:::
+
+## API d'instance de fenêtre
+
+Une fois une fenêtre créée, vous pouvez récupérer son identifiant propre à la plateforme :
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+const activityName = await window.activityName();
+const sceneId = await window.sceneIdentifier();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+#[cfg(target_os = "android")]
+let activity = window.activity_name()?;
+
+#[cfg(target_os = "ios")]
+let scene_id = window.scene_identifier()?;
+```
+
+</TabItem>
+</Tabs>
+
+Ces getters sont utiles pour référencer l'identité d'une fenêtre lors de la création de fenêtres liées. Par exemple, vous pouvez lire l'`activityName` d'une fenêtre pour le transmettre comme `createdByActivityName` sur une nouvelle fenêtre, ou lire `sceneIdentifier` pour le transmettre comme `requestedBySceneIdentifier`.
+
+[app.supportsMultipleWindows]: /fr/reference/javascript/api/namespaceapp/#supportsmultiplewindows

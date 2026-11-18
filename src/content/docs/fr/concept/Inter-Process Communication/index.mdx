@@ -1,0 +1,99 @@
+---
+title: Communication inter-processus
+sidebar:
+  label: Vue d'ensemble
+  order: 1
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+La communication inter-processus (IPC) permet à des processus isolés de communiquer de façon sécurisée. Elle est essentielle pour construire des applications plus complexes.
+
+Pour en savoir plus sur les modèles IPC spécifiques, consultez les guides suivants :
+
+<CardGrid>
+  <LinkCard
+    title="Brownfield"
+    href="/fr/concept/inter-process-communication/brownfield/"
+  />
+  <LinkCard
+    title="Isolation"
+    href="/fr/concept/inter-process-communication/isolation/"
+  />
+</CardGrid>
+
+Tauri utilise un style particulier de communication inter-processus appelé [passage de messages asynchrone], dans lequel les processus échangent des _requêtes_ et des _réponses_ sérialisées avec une représentation de données simple. Le passage de messages devrait être familier à toute personne ayant de l'expérience en développement web, car ce paradigme est utilisé pour la communication client-serveur sur Internet.
+
+Le passage de messages est une technique plus sûre que la mémoire partagée ou l'accès direct aux fonctions, car le destinataire est libre de rejeter ou d'ignorer les requêtes comme il l'entend. Par exemple, si le processus Tauri Core détermine qu'une requête est malveillante, il l'ignore simplement et n'exécute jamais la fonction correspondante.
+
+Dans la suite, nous expliquons plus en détail les deux primitives IPC de Tauri : `Events` et `Commands`.
+
+## Événements
+
+Les événements sont des messages IPC unidirectionnels de type fire-and-forget, particulièrement adaptés pour communiquer les événements de cycle de vie et les changements d'état. Contrairement aux [commandes](#commands), les événements peuvent être émis à la fois par le frontend _et_ par Tauri Core.
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+Frontend: {
+  shape: rectangle
+  label: "Webview\nFrontend"
+}
+Core: {
+  shape: rectangle
+  label: "Core\nBackend"
+}
+
+Frontend -> Core: "Event"{style.animated: true}
+Core -> Frontend: "Event"{style.animated: true}
+```
+
+<figcaption>Événements envoyés entre le Core et la WebView.</figcaption>
+</figure>
+
+{/* This is important to mention to make it clear to the developer what they need to do to secure their application. */}
+
+En interne, les événements utilisent toujours les commandes, et l'accès à l'API d'événements est contrôlé par les [permissions Event](/reference/acl/core-permissions/#event).
+
+<a id="commands"></a>
+
+## Commandes
+
+Tauri fournit aussi une abstraction proche d'une [interface de fonction étrangère] au-dessus des messages IPC[^1]. L'API principale, `invoke`, est similaire à l'API `fetch` du navigateur et permet au frontend d'appeler des fonctions Rust, de passer des arguments et de recevoir des données.
+
+Comme ce mécanisme utilise en interne un protocole de type [JSON-RPC] pour sérialiser les requêtes et les réponses, tous les arguments et toutes les données de retour doivent être sérialisables en JSON.
+
+<figure>
+
+```d2 sketch pad=50
+shape: sequence_diagram
+
+
+Frontend: {
+  label: "Webview\nFrontend"
+}
+
+Core: {
+  label: "Core\nBackend"
+}
+InvokeHandler: {
+  label: "Invoke\nHandler"
+}
+
+Frontend -> Core: "IPC Request"{style.animated: true}
+Core -> InvokeHandler: "Invoke command"{style.animated: true}
+InvokeHandler -> Core: "Serialize return"{style.animated: true}
+Core -> Frontend: "Response"{style.animated: true}
+```
+
+<figcaption>Messages IPC impliqués dans l'appel d'une commande.</figcaption>
+</figure>
+
+[^1]: Comme les commandes utilisent toujours le passage de messages en interne, elles ne présentent pas les mêmes pièges de sécurité que les vraies interfaces FFI.
+
+[passage de messages asynchrone]: https://en.wikipedia.org/wiki/Message_passing#Asynchronous_message_passing
+[json-rpc]: https://www.jsonrpc.org
+[interface de fonction étrangère]: https://en.wikipedia.org/wiki/Foreign_function_interface

@@ -1,0 +1,153 @@
+---
+title: Vite
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+i18nReady: true
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Vite est un outil de build qui vise à offrir une expérience de développement plus rapide et plus légère pour les projets web modernes. Ce guide est valable pour Vite 8.
+
+## Liste de contrôle
+
+- Utilisez `../dist` comme `frontendDist` dans `src-tauri/tauri.conf.json`.
+- Utilisez `process.env.TAURI_DEV_HOST` comme IP hôte du serveur de développement lorsqu'elle est définie pour exécuter l'app sur des appareils iOS physiques.
+
+## Exemple de configuration
+
+<Steps>
+
+1.  ##### Mettre à jour la configuration Tauri
+
+    En supposant que vous ayez les scripts `dev` et `build` suivants dans votre `package.json` :
+
+    ```json
+    {
+      "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "tauri": "tauri"
+      }
+    }
+    ```
+
+    Vous pouvez configurer la CLI Tauri pour utiliser votre serveur de développement Vite et votre dossier de distribution, ainsi que les hooks pour exécuter automatiquement les scripts Vite :
+
+    <Tabs>
+
+    <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+      }
+    }
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+1.  ##### Mettre à jour la configuration Vite :
+
+    ```js title="vite.config.js"
+    import { defineConfig } from 'vite';
+
+    const host = process.env.TAURI_DEV_HOST;
+
+    export default defineConfig({
+      // prevent vite from obscuring rust errors
+      clearScreen: false,
+      server: {
+        // make sure this port matches the devUrl port in tauri.conf.json file
+        port: 5173,
+        // Tauri expects a fixed port, fail if that port is not available
+        strictPort: true,
+        // if the host Tauri is expecting is set, use it
+        host: host || false,
+        hmr: host
+          ? {
+              protocol: 'ws',
+              host,
+              port: 1421,
+            }
+          : undefined,
+
+        watch: {
+          // tell vite to ignore watching `src-tauri`
+          ignored: ['**/src-tauri/**'],
+        },
+      },
+      // Env variables starting with the item of `envPrefix` will be exposed in tauri's source code through `import.meta.env`.
+      envPrefix: ['VITE_', 'TAURI_ENV_*'],
+      build: {
+        // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+        target:
+          process.env.TAURI_ENV_PLATFORM == 'windows'
+            ? 'chrome105'
+            : 'safari13',
+        // don't minify for debug builds
+        minify: !process.env.TAURI_ENV_DEBUG,
+        // produce sourcemaps for debug builds
+        sourcemap: !!process.env.TAURI_ENV_DEBUG,
+      },
+    });
+    ```
+
+</Steps>

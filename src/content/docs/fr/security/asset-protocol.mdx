@@ -1,0 +1,146 @@
+---
+title: Portée du protocole asset
+description: Configurez app.security.assetProtocol afin que la WebView puisse charger des fichiers locaux en sécurité, notamment FsScope, requireLiteralLeadingDot et les chemins dynamiques.
+sidebar:
+  order: 5
+i18nReady: true
+---
+
+Tauri peut servir des fichiers depuis le disque vers la WebView via le protocole personnalisé **asset** (par exemple lorsque vous utilisez [`convertFileSrc`](https://v2.tauri.app/reference/javascript/api/namespacecore/#convertfilesrc) dans le frontend). L'autorisation d'un chemin est contrôlée par **`app.security.assetProtocol`** dans `tauri.conf.json`.
+
+Vous devez définir **`enable`** sur `true` et définir une **`scope`** qui liste les chemins du système de fichiers pouvant être exposés. Les chemins résolus à l'exécution doivent correspondre à cette portée, sinon la WebView refusera le chargement (souvent avec une erreur du type « asset protocol not configured to allow the path »).
+
+La Content Security Policy pour les sources `asset:` est documentée sur la page [Content Security Policy (CSP)](/fr/security/csp/). Cette page se concentre sur la **portée** et sur son interaction avec les globs et les segments de chemin cachés.
+
+## Comment `scope` est défini
+
+`assetProtocol.scope` utilise le même type **`FsScope`** que la configuration liée au système de fichiers ailleurs : soit un **tableau JSON** de motifs glob autorisés, soit un **objet JSON** avec `allow`, `deny` facultatif et `requireLiteralLeadingDot` facultatif. Pour comprendre comment les « portées » s'intègrent plus largement dans le modèle de sécurité de Tauri, consultez [Portées des commandes](/fr/security/scope/).
+
+Les motifs peuvent commencer par une **variable de répertoire de base** (par exemple `$HOME`, `$CACHE`, `$APPCACHE`, `$APPDATA`, `$RESOURCE`). Consultez les [API path / base directory](/fr/reference/javascript/api/namespacepath/#basedirectory) pour la liste complète des variables sur lesquelles votre app peut s'appuyer.
+
+Les chemins résolus lors du chargement de ressources sont généralement **absolus** (sous Linux, souvent sous `/home/...`). Un motif comme `["*/**"]` ne correspond généralement **pas** à ces chemins, car il ne s'aligne pas avec un `/` initial ou une variable de répertoire de base. Préférez des motifs comme `$HOME/**/*`, `/home/username/**/*` ou une autre forme qui reflète le chemin résolu.
+
+### Forme tableau (chemins autorisés uniquement)
+
+Utilisez une liste lorsque vous n'avez besoin que d'une liste d'autorisation fixe et que le comportement glob par défaut suffit :
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$APPCACHE/**/*", "$RESOURCE/**/*"]
+      }
+    }
+  }
+}
+```
+
+Avec la forme tableau, vous **ne pouvez pas** définir `requireLiteralLeadingDot` ; utilisez pour cela la forme objet ci-dessous.
+
+### Forme objet (`allow`, `deny`, `requireLiteralLeadingDot`)
+
+Utilisez un objet lorsque vous avez besoin de règles **deny** ou que vous devez modifier la correspondance des segments commençant par un point :
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "allow": ["$APPCACHE/**/*"],
+          "deny": ["$APPCACHE/**/secrets/**"]
+        }
+      }
+    }
+  }
+}
+```
+
+`deny` l'emporte sur `allow` lorsque les deux correspondent.
+
+## Unix : segments de chemin commençant par `.`
+
+Sous Unix, `requireLiteralLeadingDot` vaut **`true`** par défaut. Les tokens joker comme `*`, `?`, `**` et `[...]` **ne correspondent donc pas à un composant de chemin qui commence par** `.` (dotfiles et répertoires pointés comme `.cache` ou `.ssh`).
+
+Ainsi, un motif comme `$HOME/**` peut autoriser `/home/user/Documents/file.png`, mais **pas** `/home/user/.cache/myapp/preview.png`, car `.cache` est un composant préfixé par un point. Un motif qui nomme le segment littéralement (par exemple `$HOME/.cache/myapp/**`) **correspond bien**.
+
+Pour autoriser les composants préfixés par un point sous un glob large, vous pouvez définir **`requireLiteralLeadingDot`** sur **`false`** dans le **scope** sous forme d'**objet** (cela élargit ce que la WebView peut charger ; relisez attentivement) :
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "requireLiteralLeadingDot": false,
+          "allow": ["$HOME/**/*"]
+        }
+      }
+    }
+  }
+}
+```
+
+:::tip[Toujours bloqué sur des chemins de style Linux ?]
+
+Les membres de la communauté rencontrent souvent ce cas lorsqu'un chemin passe par un **répertoire pointé** (par exemple `~/.cache/...`) alors que le motif d'autorisation n'utilise que `**` sous `$HOME`. Consultez la discussion [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788) pour des exemples et correctifs concrets.
+
+:::
+
+## Préférez `**/*` à `**` seul pour « tous les fichiers sous ce dossier »
+
+Pour les globs qui doivent correspondre à des **fichiers** sous une arborescence, préférez `**/*` (et les variantes comme `$DIR/**/*`) plutôt que `**` seul, conformément aux autres exemples de chemins Tauri. `**` seul est facile à mal utiliser lorsque vous voulez dire « tout sous ce répertoire récursivement ».
+
+## Configuration très permissive (à utiliser avec une extrême prudence)
+
+Si vous avez volontairement besoin de l'accès le plus large possible **et** des segments préfixés par un point, une forme suggérée par un mainteneur ressemble à ceci. **Ce n'est pas une recommandation par défaut** ; cela augmente l'exposition de fichiers cachés et sensibles.
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "requireLiteralLeadingDot": false,
+          "allow": ["**/*"]
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+
+Préférez des répertoires **étroits** (`$APPCACHE`, `$RESOURCE`, un seul sous-dossier d'app sous `$HOME`, etc.) plutôt que des motifs larges comme `$HOME/**/*` ou `**/*`, sauf si vous avez une raison solide et comprenez les compromis de sécurité.
+
+:::
+
+## Configuration statique et chemins choisis dynamiquement
+
+Les entrées dans **`tauri.conf.json`** décrivent des motifs statiques d'autorisation/refus. Elles ne remplacent pas les workflows d'exécution où l'utilisateur choisit arbitrairement des dossiers ou fichiers (par exemple avec le plugin **dialog**) : ces chemins peuvent devoir être **persistés** entre les redémarrages avec le plugin [**persisted-scope**](/fr/plugin/persisted-scope/).
+
+Pour persister une portée liée au protocole **asset** avec ce plugin, activez sa fonctionnalité Cargo **`protocol-asset`** dans `src-tauri/Cargo.toml`, par exemple :
+
+```toml
+tauri-plugin-persisted-scope = { version = "2", features = ["protocol-asset"] }
+```
+
+Enregistrez **`tauri_plugin_fs`** avant **`tauri_plugin_persisted_scope`**, comme décrit dans le guide du plugin.
+
+## Résolution des problèmes
+
+| Symptôme                                                            | Points à vérifier                                                                                                                                                                                                                                    |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| « asset protocol not configured to allow the path »                 | Le chemin doit correspondre à un motif **`allow`** ; **`deny`** remplace **`allow`**. Utilisez des motifs **absolus** ou des variables de style **`$VAR`/`$HOME`** qui correspondent à la façon dont le chemin est résolu sur le disque.              |
+| Fonctionne pour les dossiers normaux, mais pas sous **`.cache`** / **`.config`** | Sous Unix, comportement par défaut de **`requireLiteralLeadingDot`** : utilisez un `.segment` littéral dans le motif, ou définissez **`requireLiteralLeadingDot`: `false`** dans l'objet `scope` (voir [tauri#13788](https://github.com/tauri-apps/tauri/issues/13788)). |
+| L'utilisateur a choisi un dossier à l'exécution ; toujours bloqué après redémarrage | Vous pouvez avoir besoin de [**persisted-scope**](/fr/plugin/persisted-scope/) avec la fonctionnalité **`protocol-asset`**, pas seulement d'entrées dans `tauri.conf.json`.                                                                           |
+| Le motif large `**` semble incorrect                                | Essayez `**/*` pour les globs orientés fichiers ; consultez [Embarquer des fichiers supplémentaires](/fr/develop/resources/) pour des conseils similaires sur `**` et `**/*` dans les ressources de bundle.                                          |
+| Une portée comme `["*/**"]` ne correspond jamais sous Linux         | Les chemins résolus sont **absolus** ; utilisez des variables **`$...`**, un **`/`** initial ou un autre motif qui correspond au chemin réel (voir ci-dessus).                                                                                         |
+
+Les types Rust faisant autorité pour `assetProtocol` et `FsScope` se trouvent dans le [`config.rs`](https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-utils/src/config.rs) de Tauri (`AssetProtocolConfig`, `FsScope`). La [référence de configuration](/fr/reference/config/) générée peut afficher les champs `FsScope` imbriqués de manière compacte ou difficile à lire ; si quelque chose n'est pas clair à cet endroit, recoupez avec cette page et la section `requireLiteralLeadingDot` du [plugin file system](/fr/plugin/file-system/) (la configuration du plugin utilise le même nom d'option pour ses propres portées). Si la référence ne documente toujours pas clairement ces champs, envisagez d'ouvrir une issue sur le dépôt **tauri-docs** afin que le générateur de configuration puisse être amélioré.
