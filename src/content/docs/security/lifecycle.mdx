@@ -74,26 +74,35 @@ and you would be well off to address this head-on.
 
 ### Development Server
 
-Tauri application frontends can be developed using a number of web frameworks.
-Each of these frameworks usually ship their own development server, which is exposing
-the frontend assets via an open port to the local system or network.
-This allows the frontend to be hot-reloaded and debugged in the WebView or Browser.
+Tauri application frontends can be developed using a number of web frameworks or plain assets.
+During development, frontend frameworks (or Tauri's built-in development server for vanilla projects)
+serve assets and hot-reloading endpoints (such as Hot Module Replacement WebSockets) over an open port.
 
-In practice this connection is often neither encrypted nor authenticated by default.
-This is also the case for the built-in Tauri development server and exposes your
-frontend and assets to the local network. Additionally, this allows attackers
-to push their own frontend code to development devices in the same network as the attacker.
-Depending on what kind of functionality is exposed this could lead to device compromise
-in the worst case.
+In practice, these development connections are typically neither encrypted nor authenticated,
+and development Content Security Policies (CSP) are often relaxed to allow rapid iteration.
+If the development server is exposed to the local network—such as when bound to all network
+interfaces (`0.0.0.0`) or a host LAN IP—anyone on the same local network can access the server
+and connect to the HMR WebSocket. This allows attackers on the same network to push attacker-controlled frontend code directly into the running WebView. Because the frontend runs in the application context,
+injected code can invoke exposed Tauri commands and plugins, potentially leading to local system
+or device compromise in the worst case.
 
-You should only develop on trusted networks where you can safely expose your
-development device. If this is not possible you MUST ensure that your development
-server uses **mutual** authentication and encryption (e.g. mTLS) for connections
-with your development devices.
+This risk applies to both desktop and mobile development whenever the development server is reachable over the local network:
+
+- **Desktop development:** While many dev servers default to loopback (`127.0.0.1` / `localhost`), developers sometimes configure them to listen on `0.0.0.0` or run on shared, untrusted networks (such as public Wi-Fi), exposing the dev server port to other network participants.
+- **Mobile development:** When testing on physical iOS or Android devices over Wi-Fi, the dev server must be accessible over the LAN (such as via `TAURI_DEV_HOST` or binding to `0.0.0.0`). This necessarily exposes the development server to all devices on that same local network.
+
+### Mitigations
+
+To protect your development environment:
+
+- **Bind strictly to loopback when possible:** For desktop development and local emulator/simulator testing, ensure your frontend dev server binds only to `127.0.0.1` or `localhost` (e.g., setting `server.host: "127.0.0.1"` in Vite) rather than all interfaces (`0.0.0.0`).
+- **Avoid developing on untrusted networks:** Avoid running development servers on public Wi-Fi or untrusted networks where other clients can connect to your open ports.
+- **Isolate mobile testing:** When physical device testing requires LAN exposure, use a dedicated, trusted network (such as a private Wi-Fi hotspot) or configure host firewall rules to restrict incoming connections to the specific IP address of your test device.
+- **Use encrypted tunnels or mutual authentication:** If you must connect over shared or remote networks, use a secure tunnel or ensure the connection uses **mutual** authentication and encryption (e.g., mTLS via a reverse proxy or TLS-terminating shim).
 
 :::note
-The built-in Tauri development server does not support
-mutual authentication and transport encryption at the moment and should not be used on untrusted networks.
+Neither the built-in Tauri development server nor standard frontend dev servers support
+mutual authentication and transport encryption out of the box, and they should not be exposed on untrusted networks.
 :::
 
 ### Harden Development machines
