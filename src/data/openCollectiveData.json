@@ -514,6 +514,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alex Michael Berry",
     "id": "Alex Michael Berry",
     "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
@@ -579,15 +588,6 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "",
