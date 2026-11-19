@@ -514,6 +514,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alex Michael Berry",
     "id": "Alex Michael Berry",
     "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
@@ -579,15 +588,6 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "",
@@ -846,6 +846,17 @@
     "profileUrl": "https://opencollective.com/daniele-dellafiore",
     "socialLinks": {
       "website": "https://linktr.ee/ildella"
+    },
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
+    "name": "Marek Stapff",
+    "id": "Marek Stapff",
+    "avatarUrl": "https://images.opencollective.com/marek-stapff/d820a55/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/marek-stapff",
+    "socialLinks": {
+      "website": "https://www.marek-stapff.de/"
     },
     "tier": "silver",
     "type": "INDIVIDUAL"
@@ -1350,17 +1361,6 @@
     "avatarUrl": "https://images.opencollective.com/guest-db3a0b10/avatar/256.jpg",
     "profileUrl": "https://opencollective.com/guest-db3a0b10",
     "socialLinks": {},
-    "tier": "bronze",
-    "type": "INDIVIDUAL"
-  },
-  {
-    "name": "Marek Stapff",
-    "id": "Marek Stapff",
-    "avatarUrl": "https://images.opencollective.com/marek-stapff/d820a55/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/marek-stapff",
-    "socialLinks": {
-      "website": "https://www.marek-stapff.de/"
-    },
     "tier": "bronze",
     "type": "INDIVIDUAL"
   },
