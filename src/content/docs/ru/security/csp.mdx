@@ -1,0 +1,50 @@
+---
+title: Политика безопасности контента (CSP)
+sidebar:
+  order: 6
+i18nReady: true
+---
+
+Tauri ограничивает [Политику безопасности контента] (CSP) ваших HTML-страниц.
+Это можно использовать для снижения или предотвращения влияния распространённых веб-уязвимостей,
+таких как межсайтовый скриптинг (XSS).
+
+Локальные скрипты хэшируются, стили и внешние скрипты ссылаются с использованием криптографического nonce,
+что предотвращает загрузку неразрешённого контента.
+
+:::caution
+Избегайте загрузки удалённого контента, такого как скрипты, раздаваемые через CDN, поскольку они вносят вектор атаки.
+В целом любой недоверенный файл может внести новые и едва заметные векторы атаки.
+:::
+
+Защита CSP включается только в том случае, если она задана в файле конфигурации Tauri.
+Вы должны сделать её как можно более ограниченной, позволяя webview загружать ресурсы
+только с хостов, которым вы доверяете и которые предпочтительно вам принадлежат.
+На этапе компиляции Tauri автоматически добавляет свои nonce и хэши в соответствующие атрибуты CSP
+к поставляемому коду и ресурсам, так что вам нужно беспокоиться только о том, что уникально для вашего приложения.
+
+Это пример конфигурации CSP, взятый из примера [`api`](https://github.com/tauri-apps/tauri/blob/dev/examples/api/src-tauri/tauri.conf.json#L22)
+Tauri, но каждому разработчику приложения нужно адаптировать его под потребности своего приложения.
+
+```json title="tauri/examples/api/src-tauri/tauri.conf.json"
+  "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "font-src": ["https://fonts.gstatic.com"],
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self' https://fonts.googleapis.com"
+      },
+```
+
+:::tip
+При использовании Rust для разработки фронтенда или если ваш фронтенд иначе использует WebAssembly, помните
+о необходимости включить `'wasm-unsafe-eval'` как `script-src`.
+:::
+
+См. [`script-src`], [`style-src`] и [Источники CSP] для получения дополнительной
+информации об этой защите.
+
+[политику безопасности контента]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+[`script-src`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
+[`style-src`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+[источники csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources

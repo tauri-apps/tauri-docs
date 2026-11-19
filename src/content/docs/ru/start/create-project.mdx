@@ -1,0 +1,244 @@
+---
+title: Создание проекта
+sidebar:
+  order: 3
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+import Cta from '@fragments/cta.mdx';
+
+Одна из особенностей, делающих Tauri таким гибким, — это возможность работать практически с любым фронтенд-фреймворком. Мы создали утилиту [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app), которая поможет вам создать новый проект Tauri на основе одного из официально поддерживаемых шаблонов фреймворков.
+
+`create-tauri-app` в настоящее время включает шаблоны для vanilla (HTML, CSS и JavaScript без фреймворка), [Vue.js](https://vuejs.dragomano.ru), [Svelte](https://svelte.dragomano.ru), [React](https://reactjs.org/), [SolidJS](https://www.solidjs.com/), [Angular](https://angular.io/), [Preact](https://preactjs.com/), [Yew](https://yew.rs/), [Leptos](https://github.com/leptos-rs/leptos) и [Sycamore](https://sycamore.dev/). Вы также можете найти или добавить собственные шаблоны и фреймворки сообщества в [репозитории Awesome Tauri](https://github.com/tauri-apps/awesome-tauri).
+
+{/* TODO: redirect to integrate to existing front-end project specific docs */}
+В качестве альтернативы вы можете [добавить Tauri в существующий проект](#ручная-настройка-cli-tauri), чтобы быстро превратить свою существующую кодовую базу в приложение Tauri.
+
+## Использование `create-tauri-app`
+
+Чтобы начать работу с `create-tauri-app`, выполните одну из приведённых ниже команд в папке, где вы хотите настроить свой проект. Если вы не уверены, какую команду использовать, мы рекомендуем команду Bash в Linux и macOS и команду PowerShell в Windows.
+
+<Cta />
+
+Следуйте подсказкам, чтобы выбрать имя проекта, язык фронтенда, менеджер пакетов и фреймворк фронтенда, а также параметры фреймворка фронтенда, если это применимо.
+
+:::tip[Не знаете, что выбрать?]
+
+Мы рекомендуем начать с шаблона vanilla (HTML, CSS и JavaScript без фреймворка фронтенда). Впоследствии вы всегда сможете [интегрировать фреймворк фронтенда](/ru/start/frontend/).
+
+- Выберите язык для своего фронтенда: `TypeScript / JavaScript`
+- Выберите менеджер пакетов: `pnpm`
+- Выберите шаблон UI: `Vanilla`
+- Выберите вариант UI: `TypeScript`
+
+:::
+
+#### Создание нового проекта на основе шаблона
+
+<Steps>
+
+1. Выберите имя и идентификатор пакета (уникальный идентификатор вашего приложения):
+   ```
+   ? Project name (tauri-app) ›
+   ? Identifier (com.tauri-app.app) ›
+   ```
+2. Выберите вариант для своего фронтенда. Сначала язык:
+   ```
+   ? Choose which language to use for your frontend ›
+   Rust  (cargo)
+   TypeScript / JavaScript  (pnpm, yarn, npm, bun)
+   .NET  (dotnet)
+   ```
+3. Выберите менеджер пакетов (если доступно несколько):
+
+   Варианты для **TypeScript / JavaScript**:
+
+   ```
+   ? Choose your package manager ›
+   pnpm
+   yarn
+   npm
+   bun
+   ```
+
+4. Выберите шаблон UI и его вариант (если доступно несколько):
+
+   Варианты для **Rust**:
+
+   ```
+   ? Choose your UI template ›
+   Vanilla
+   Yew
+   Leptos
+   Sycamore
+   ```
+
+   Варианты для **TypeScript / JavaScript**:
+
+   ```
+   ? Choose your UI template ›
+   Vanilla
+   Vue
+   Svelte
+   React
+   Solid
+   Angular
+   Preact
+
+   ? Choose your UI flavor ›
+   TypeScript
+   JavaScript
+   ```
+
+   Варианты для **.NET**:
+
+   ```
+   ? Choose your UI template ›
+   Blazor  (https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor/)
+   ```
+
+</Steps>
+
+После завершения утилита сообщает, что шаблон создан, и показывает, как запустить его с помощью настроенного менеджера пакетов. Если она обнаружит отсутствующие зависимости в вашей системе, она выведет список пакетов и подскажет, как их установить.
+
+{/* TODO: Can CTA offer to install the deps? */}
+
+#### Запуск сервера разработки
+
+После завершения `create-tauri-app` вы можете перейти в папку проекта, установить зависимости, а затем использовать [CLI Tauri](/reference/cli/), чтобы запустить сервер разработки:
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+<CommandTabs
+  npm="cd tauri-app
+    npm install
+    npm run tauri dev"
+  yarn="cd tauri-app
+    yarn install
+    yarn tauri dev"
+  pnpm="cd tauri-app
+    pnpm install
+    pnpm tauri dev"
+  deno="cd tauri-app
+    deno install
+    deno task tauri dev"
+  bun="cd tauri-app
+    bun install
+    bun tauri dev
+  "
+  cargo='cd tauri-app
+    cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri dev'
+/>
+
+Теперь вы увидите новое окно с запущенным приложением.
+
+**Поздравляем!** Вы создали своё приложение Tauri! 🚀
+
+## Ручная настройка (CLI Tauri)
+
+Если у вас уже есть существующий фронтенд или вы предпочитаете настроить его самостоятельно, вы можете использовать CLI Tauri, чтобы инициализировать бэкенд для своего проекта отдельно.
+
+:::note
+Следующий пример предполагает, что вы создаёте новый проект. Если вы уже инициализировали фронтенд своего приложения, первый шаг можно пропустить.
+:::
+
+<Steps>
+
+    1. Создайте новый каталог для своего проекта и инициализируйте фронтенд. Вы можете использовать чистые HTML, CSS и JavaScript или любой предпочитаемый фреймворк, например Next.js, Nuxt, Svelte, Yew или Leptos. Вам просто нужен способ обслуживать приложение в браузере. В качестве примера, вот как можно настроить простое приложение Vite:
+
+        <CommandTabs
+            npm="mkdir tauri-app
+                cd tauri-app
+                npm create vite@latest ."
+            yarn="mkdir tauri-app
+                cd tauri-app
+                yarn create vite ."
+            pnpm="mkdir tauri-app
+                cd tauri-app
+                pnpm create vite ."
+            deno="mkdir tauri-app
+                cd tauri-app
+                deno run -A npm:create-vite ."
+            bun="mkdir tauri-app
+                cd tauri-app
+                bun create vite"
+        />
+
+    2. Затем установите инструмент CLI Tauri с помощью выбранного менеджера пакетов. Если вы используете `cargo` для установки CLI Tauri, его придётся установить глобально.
+
+        <CommandTabs
+            npm="npm install -D @tauri-apps/cli@latest"
+            yarn="yarn add -D @tauri-apps/cli@latest"
+            pnpm="pnpm add -D @tauri-apps/cli@latest"
+            deno="deno add -D npm:@tauri-apps/cli@latest"
+            bun="bun add -D @tauri-apps/cli@latest"
+            cargo='cargo install tauri-cli --version "^2.0.0" --locked'
+        />
+
+    3. Определите URL сервера разработки вашего фронтенда. Это URL, который Tauri будет использовать для загрузки вашего контента. Например, если вы используете Vite, URL по умолчанию — `http://localhost:5173`.
+
+    4. В каталоге вашего проекта инициализируйте Tauri:
+
+        <CommandTabs
+            npm="npx tauri init"
+            yarn="yarn tauri init"
+            pnpm="pnpm tauri init"
+            deno="deno task tauri init"
+            bun="bun tauri init"
+            cargo="cargo tauri init"
+        />
+
+        После выполнения команды появится запрос с предложением указать различные параметры:
+
+        ```sh frame=none
+        ✔ What is your app name? tauri-app
+        ✔ What should the window title be? tauri-app
+        ✔ Where are your web assets located? ..
+        ✔ What is the url of your dev server? http://localhost:5173
+        ✔ What is your frontend dev command? pnpm run dev
+        ✔ What is your frontend build command? pnpm run build
+        ```
+
+        Это создаст в вашем проекте каталог `src-tauri` с необходимыми файлами конфигурации Tauri.
+
+    5. Настройте параметр `server.watch.ignored` в `vite.config.ts`, чтобы запретить Vite отслеживать каталог `src-tauri`:
+
+        ```js title="vite.config.ts"
+        import { defineConfig } from "vite";
+
+        export default defineConfig({
+          server: {
+            watch: {
+              ignored: ["**/src-tauri/**"],
+            },
+          },
+        });
+        ```
+
+    6. Проверьте, что ваше приложение Tauri работает, запустив сервер разработки:
+
+        <CommandTabs
+            npm="npx tauri dev"
+            yarn="yarn tauri dev"
+            pnpm="pnpm tauri dev"
+            deno="deno task tauri dev"
+            bun="bun tauri dev"
+            cargo="cargo tauri dev"
+        />
+
+        Эта команда скомпилирует код Rust и откроет окно с вашим веб-контентом.
+
+</Steps>
+
+**Поздравляем!** Вы создали новый проект Tauri с помощью CLI Tauri! 🚀
+
+## Следующие шаги
+
+- [Узнайте о структуре проекта и назначении каждого файла](/ru/start/project-structure/)
+- [Добавление и настройка фреймворка фронтенда](/ru/start/frontend/)
+- [Справочник интерфейса командной строки (CLI) Tauri](/reference/cli/)
+- [Узнайте, как разрабатывать своё приложение Tauri](/ru/develop/)
+- [Откройте дополнительные возможности для расширения Tauri](/ru/plugin/)

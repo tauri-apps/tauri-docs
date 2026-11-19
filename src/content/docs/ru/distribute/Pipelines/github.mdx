@@ -1,0 +1,263 @@
+---
+title: GitHub
+i18nReady: true
+---
+
+В этом руководстве показано, как использовать [tauri-action](https://github.com/tauri-apps/tauri-action) в [GitHub Actions](https://docs.github.com/en/actions), чтобы легко собирать и загружать ваше приложение, а также как заставить обновлятор Tauri запрашивать только что созданный выпуск GitHub для получения обновлений.
+
+Наконец, здесь также показано, как настроить более сложный конвейер сборки для Linux Arm AppImages.
+
+:::note[Подпись кода]
+
+Чтобы настроить подпись кода для Windows и macOS в вашем рабочем процессе, следуйте специальному руководству для каждой платформы:
+
+- [Подпись кода Windows](/ru/distribute/sign/windows/)
+- [Подпись кода macOS](/ru/distribute/sign/macos/)
+
+Если вы собираете приложение macOS без сертификата подписи Apple, настройте [identity подписи ad-hoc](/ru/distribute/sign/macos/#подпись-ad-hoc). Это позволит избежать того, чтобы macOS считал повреждёнными сборки Apple Silicon, загруженные из выпусков GitHub.
+
+:::
+
+## Приступая к работе
+
+Чтобы настроить `tauri-action`, вы должны сначала создать репозиторий GitHub. Вы также можете использовать это действие в репозитории, где Tauri ещё не настроен, так как оно может автоматически инициализировать Tauri за вас; см. [README действия](https://github.com/tauri-apps/tauri-action/#project-initialization) для необходимых параметров конфигурации.
+
+Перейдите на вкладку Actions на странице вашего проекта GitHub и выберите «New workflow», затем выберите «Set up a workflow yourself». Замените файл рабочим процессом из [раздела ниже](#пример-рабочего-процесса) или одним из [примеров действия](https://github.com/tauri-apps/tauri-action/tree/dev/examples).
+
+## Конфигурация
+
+Все доступные параметры конфигурации см. в [README](https://github.com/tauri-apps/tauri-action/#inputs) `tauri-action`.
+
+Если ваше приложение находится не в корне репозитория, используйте входной параметр `projectPath`.
+
+Вы можете свободно изменять имя рабочего процесса, менять его триггеры и добавлять дополнительные шаги, такие как `npm run lint` или `npm run test`. Важно сохранить строку ниже в конце рабочего процесса, поскольку она запускает скрипт сборки и выпускает ваше приложение.
+
+### Как запускается рабочий процесс
+
+Рабочий процесс выпуска, показанный ниже и в примерах `tauri-action`, запускается при отправке в ветку `release`. Действие автоматически создаёт git-тег и заголовок для выпуска GitHub, используя версию приложения.
+
+В качестве другого примера вы можете изменить триггер, чтобы рабочий процесс запускался при отправке git-тега версии, например `app-v0.7.0`:
+
+```yaml
+name: 'publish'
+
+on:
+  push:
+    tags:
+      - 'app-v*'
+```
+
+Полный список возможных конфигураций триггеров см. в официальной [документации GitHub](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows).
+
+## Пример рабочего процесса
+
+Ниже приведён пример рабочего процесса, настроенного на запуск каждый раз при отправке в ветку `release`.
+
+Этот рабочий процесс соберёт и выпустит ваше приложение для Windows x64, Linux x64, Linux Arm64, macOS x64 и macOS Arm64 (M1 и выше).
+
+Шаги, которые выполняет этот рабочий процесс:
+
+1. Клонирование репозитория с помощью `actions/checkout@v7`.
+2. Установка системных зависимостей Linux, необходимых для сборки приложения.
+3. Настройка Node.js LTS и кэша для глобальных данных пакетов npm/yarn/pnpm с помощью `actions/setup-node@v6`.
+4. Настройка Rust и кэша для артефактов сборки Rust с помощью `dtolnay/rust-toolchain@stable` и `swatinem/rust-cache@v2`.
+5. Установка зависимостей фронтенда и, если не настроено как [`beforeBuildCommand`](/reference/config/#beforebuildcommand), запуск скрипта сборки веб-приложения.
+6. Наконец, оно использует `tauri-apps/tauri-action@v1`, чтобы выполнить `tauri build`, сгенерировать артефакты и создать выпуск GitHub.
+
+```yaml
+name: 'publish'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest' # for Arm based macs (M1 and above).
+            args: '--target aarch64-apple-darwin'
+          - platform: 'macos-latest' # for Intel based macs.
+            args: '--target x86_64-apple-darwin'
+          - platform: 'ubuntu-22.04'
+            args: ''
+          - platform: 'ubuntu-22.04-arm' # Only available in public repos.
+            args: ''
+          - platform: 'windows-latest'
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04' || matrix.platform == 'ubuntu-22.04-arm' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
+
+      - name: setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: 'npm' # Set this to npm, yarn or pnpm.
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          # This matches tauri's default project layout. Change this if you have a different layout.
+          workspaces: './src-tauri -> target'
+
+      - name: install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: npm install # change this to npm, yarn or pnpm depending on which one you use.
+
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # the action automatically replaces __VERSION__ with the app version.
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
+```
+
+Дополнительные параметры конфигурации см. в репозитории [`tauri-action`](https://github.com/tauri-apps/tauri-action) и его [примерах](https://github.com/tauri-apps/tauri-action/blob/dev/examples/).
+
+:::caution
+
+Внимательно прочитайте документацию [Usage limits, billing, and administration](https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration) для GitHub Actions.
+
+:::
+
+## Компиляция на Arm-раннере
+
+:::note[Обновление августа 2025]
+GitHub [выпустил](https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/#get-started) общедоступные раннеры `ubuntu-22.04-arm` и `ubuntu-24.04-arm`. Вы можете использовать их для сборки вашего приложения для Arm64 в публичных репозиториях с примером рабочего процесса выше.
+:::
+
+Этот рабочий процесс использует [`pguyot/arm-runner-action`](https://github.com/pguyot/arm-runner-action) для компиляции непосредственно на эмулируемом Arm-раннере. Это восполняет пробел в отсутствующей поддержке кросс-архитектурной сборки в инструментарии AppImage.
+
+:::danger
+`arm-runner-action` работает **гораздо** медленнее стандартных раннеров GitHub, поэтому будьте осторожны в частных репозиториях, где вам выставляют счёт за минуты сборки. Несборная (uncached) сборка свежего проекта `create-tauri-app` требует ~1 часа.
+:::
+
+```yaml
+name: 'Publish Linux Arm builds'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        arch: [aarch64, armv7l]
+        include:
+          - arch: aarch64
+            cpu: cortex-a72
+            base_image: https://dietpi.com/downloads/images/DietPi_RPi5-ARMv8-Bookworm.img.xz
+            deb: arm64
+            rpm: aarch64
+            appimage: aarch64
+          - arch: armv7l
+            cpu: cortex-a53
+            deb: armhfp
+            rpm: arm
+            appimage: armhf
+            base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv7-Bookworm.img.xz
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          cache-on-failure: true
+
+      - name: Build app
+        uses: pguyot/arm-runner-action@v2.6.5
+        with:
+          base_image: ${{ matrix.base_image }}
+          cpu: ${{ matrix.cpu }}
+          bind_mount_repository: true
+          image_additional_mb: 10240
+          optimize_image: no
+          #exit_on_fail: no
+          commands: |
+            # Prevent Rust from complaining about $HOME not matching eid home
+            export HOME=/root
+
+            # Workaround to CI worker being stuck on Updating crates.io index
+            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+
+            # Install setup prerequisites
+            apt-get update -y --allow-releaseinfo-change
+            apt-get autoremove -y
+            apt-get install -y --no-install-recommends --no-install-suggests curl libwebkit2gtk-4.1-dev build-essential libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2 file
+            curl https://sh.rustup.rs -sSf | sh -s -- -y
+            . "$HOME/.cargo/env"
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
+            apt-get install -y nodejs
+
+            # Install frontend dependencies
+            npm install
+
+            # Build the application
+            npm run tauri build -- --verbose
+
+      - name: Get app version
+        run: echo "APP_VERSION=$(jq -r .version src-tauri/tauri.conf.json)" >> $GITHUB_ENV
+
+      # TODO: Combine this with the basic workflow and upload the files to the Release.
+      - name: Upload deb bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: Debian Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/appname_${{ env.APP_VERSION }}_${{ matrix.deb }}.deb
+
+      - name: Upload rpm bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: RPM Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-${{ env.APP_VERSION }}-1.${{ matrix.rpm }}.rpm
+
+      - name: Upload appimage bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: AppImage Bundle
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_${{ env.APP_VERSION }}_${{ matrix.appimage }}.AppImage
+```
+
+## Устранение неполадок
+
+### Токен окружения GitHub
+
+Токен GitHub автоматически выдаётся GitHub для каждого запуска рабочего процесса без дополнительной настройки, что означает отсутствие риска утечки секретов. Однако по умолчанию этот токен имеет только права на чтение, и при запуске рабочего процесса вы можете получить ошибку «Resource not accessible by integration». Если это произойдёт, возможно, вам потребуется добавить этому токену права на запись. Для этого перейдите в настройки проекта GitHub, выберите `Actions`, прокрутите до `Workflow permissions` и отметьте «Read and write permissions».
+
+Вы можете видеть, что токен GitHub передаётся рабочему процессу через эту строку в рабочем процессе:
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```

@@ -48,6 +48,7 @@
 /zh-cn/develop/debug/tests/*  /zh-cn/develop/tests/:splat   301
 /ja/develop/debug/tests/*     /ja/develop/tests/:splat      301
 /de/develop/debug/tests/*     /de/develop/tests/:splat      301
+/ru/develop/debug/tests/*     /ru/develop/tests/:splat      301
 
 # mid v2 docs restructuring
 /plugin/system-tray             /learn/system-tray              301
@@ -60,6 +61,7 @@
 /zh-cn/release/*   /release/:splat   301
 /ja/release/*      /release/:splat   301
 /de/release/*      /release/:splat   301
+/ru/release/*      /release/:splat   301
 
 # Legacy SinceVersion library aliases
 /release/api/*      /release/@tauri-apps/api/:splat   301

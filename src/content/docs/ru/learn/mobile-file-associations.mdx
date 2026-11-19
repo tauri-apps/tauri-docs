@@ -1,0 +1,138 @@
+---
+title: Ассоциации файлов на мобильных устройствах
+sidebar:
+  order: 3
+i18nReady: false
+---
+
+Tauri поддерживает ассоциации файлов на Android и iOS, позволяя вашему приложению быть зарегистрированным как обработчик для определённых типов файлов. Когда пользователь открывает файл, соответствующий объявленным ассоциациям, операционная система запускает ваше приложение и передаёт URL файла.
+
+На **Android** ассоциации файлов реализуются с помощью [intent filters](https://developer.android.com/training/app-links/deep-linking), которые система сборки Tauri генерирует автоматически из вашей конфигурации.
+
+На **iOS** ассоциации файлов используют [CFBundleDocumentTypes](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundledocumenttypes) и, опционально, [UTExportedTypeDeclarations](https://developer.apple.com/documentation/bundleresources/information-property-list/utexportedtypedeclarations) для нестандартных типов файлов.
+
+<a id="configuration"></a>
+## Конфигурация
+
+Ассоциации файлов объявляются в `tauri.conf.json` в разделе `bundle.fileAssociations`. CLI Tauri использует эту конфигурацию для генерации соответствующих платформозависимых метаданных (intent filters Android в `AndroidManifest.xml`, типы документов iOS в `Info.plist`).
+
+Каждая запись в массиве представляет собой тип файла, который ваше приложение может обрабатывать:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "fileAssociations": [
+      {
+        "ext": ["png"],
+        "mimeType": "image/png"
+      },
+      {
+        "ext": ["jpg", "jpeg"],
+        "mimeType": "image/jpeg"
+      }
+    ]
+  }
+}
+```
+
+### Параметры конфигурации
+
+- `ext` — список расширений файлов для ассоциации (без ведущей точки).
+- `mimeType` — MIME-тип файла (например, `image/png`). Обязателен на Android для сопоставления intent filter. Tauri автоматически определяет распространённые MIME-типы по расширениям, если он не указан.
+- `role` — роль приложения по отношению к типу файла. Соответствует `CFBundleTypeRole` на платформах Apple. Значения: `Editor` (по умолчанию), `Viewer`, `Shell`, `QLGenerator`, `None`.
+- `rank` — рейтинг среди приложений, обрабатывающих этот тип файла. Соответствует `LSHandlerRank` на платформах Apple. Значения: `Default` (по умолчанию), `Owner`, `Alternate`, `None`.
+- `name` — отображаемое имя для типа файла. По умолчанию используется первое расширение.
+- `exportedType` — определяет нестандартный тип файла, принадлежащий вашему приложению. Обязателен на платформах Apple при ассоциации с нестандартными расширениями файлов.
+- `androidIntentActionFilters` — какие intent actions Android регистрировать. Значения: `Send`, `SendMultiple`, `View`. По умолчанию используются все три.
+
+### Нестандартные типы файлов
+
+Для нестандартных расширений файлов вам следует определить `exportedType`, чтобы платформы Apple могли распознать тип файла. Поле `identifier` должно быть обратной DNS-строкой, уникальной для вашего приложения, а `conformsTo` перечисляет родительские типы:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "fileAssociations": [
+      {
+        "ext": ["mydata"],
+        "mimeType": "application/octet-stream",
+        "exportedType": {
+          "identifier": "com.example.myapp.mydata",
+          "conformsTo": ["public.data"]
+        }
+      }
+    ]
+  }
+}
+```
+
+Распространённые значения `conformsTo` включают `public.data`, `public.image`, `public.json` и `public.plain-text`.
+
+## Обработка открытых файлов
+
+Когда файл открывается вашим приложением, Tauri испускает событие `RunEvent::Opened`, содержащее URL файлов. Это событие доступно на macOS, iOS и Android.
+
+Вам нужно обработать два случая:
+
+1. **Приложение уже запущено** — событие доставляется во время выполнения.
+2. **Приложение запущено открытием файла** — событие срабатывает во время запуска, поэтому вам следует сохранить URL и сделать их доступными для вашего frontend.
+
+### Rust
+
+Сохраняйте входящие URL в управляемом состоянии, предоставляйте их с помощью команды, которую frontend может вызвать при запуске, и испускайте событие Tauri всякий раз, когда срабатывает `RunEvent::Opened`, чтобы frontend мог реагировать, пока приложение уже запущено:
+
+```rust title="src-tauri/src/lib.rs"
+use std::sync::Mutex;
+use tauri::Manager;
+
+struct OpenedUrls(Mutex<Vec<tauri::Url>>);
+
+#[tauri::command]
+fn opened_urls(app: tauri::AppHandle) -> Vec<tauri::Url> {
+    app.state::<OpenedUrls>().0.lock().unwrap().clone()
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .manage(OpenedUrls(Mutex::new(vec![])))
+        .invoke_handler(tauri::generate_handler![opened_urls])
+        .build(tauri::generate_context!())
+        .expect("error while running tauri application")
+        .run(|app, event| {
+            #[cfg(any(target_os = "macos", target_os = "ios", target_os = "android"))]
+            if let tauri::RunEvent::Opened { urls } = event {
+                use tauri::Emitter;
+                app.state::<OpenedUrls>()
+                    .0
+                    .lock()
+                    .unwrap()
+                    .extend(urls.clone());
+                app.emit("opened", urls).unwrap();
+            }
+        });
+}
+```
+
+### JavaScript
+
+Приведённый ниже frontend подключён к этому коду Rust в двух местах:
+
+- **`invoke('opened_urls')`** вызывает команду `opened_urls`, поэтому webview может прочитать URL, которые были сохранены до завершения загрузки интерфейса (холодный старт при открытии файла).
+- **`listen('opened', …)`** подписывается на то же имя события, которое передаётся в **`app.emit("opened", urls)`** в Rust, поэтому события открытия файлов, срабатывающие, пока приложение уже запущено, доставляются немедленно.
+
+```javascript
+import { listen } from '@tauri-apps/api/event';
+import { invoke } from '@tauri-apps/api/core';
+
+// Cold start: URLs may already be in Rust state before the frontend loads
+const initialUrls = await invoke('opened_urls');
+if (initialUrls.length > 0) {
+  handleFiles(initialUrls);
+}
+
+// Warm: Rust emits the "opened" event when RunEvent::Opened fires
+await listen('opened', (event) => {
+  handleFiles(event.payload);
+});
+```

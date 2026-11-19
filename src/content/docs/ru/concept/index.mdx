@@ -1,0 +1,40 @@
+---
+title: Основные концепции
+description: Темы, с которыми вам стоит ознакомиться подробнее, если вы хотите выжать максимум из фреймворка
+sidebar:
+  order: 0
+  label: Обзор
+i18nReady: true
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+У Tauri есть множество тем, которые считаются основными концепциями, — то, о чём должен знать любой разработчик при создании своих приложений. Вот ряд тем, с которыми вам стоит ознакомиться подробнее, если вы хотите выжать максимум из фреймворка.
+
+<CardGrid>
+  <LinkCard
+    title="Архитектура Tauri"
+    href="/ru/concept/architecture/"
+    description="Архитектура и экосистема."
+  />
+  <LinkCard
+    title="Межпроцессное взаимодействие (IPC)"
+    href="/ru/concept/inter-process-communication/"
+    description="Внутреннее устройство IPC."
+  />
+  <LinkCard
+    title="Безопасность"
+    href="/ru/security/"
+    description="Как Tauri обеспечивает соблюдение практик безопасности."
+  />
+  <LinkCard
+    title="Модель процессов"
+    href="/ru/concept/process-model/"
+    description="Какими процессами управляет Tauri и почему."
+  />
+  <LinkCard
+    title="Размер приложения"
+    href="/ru/concept/size/"
+    description="Как сделать ваше приложение как можно меньше."
+  />
+</CardGrid>

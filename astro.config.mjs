@@ -107,6 +107,7 @@ export default defineConfig({
                 en: 'Guides',
                 'zh-CN': '指引',
                 es: 'Guías',
+                ru: 'Руководства',
               },
               id: 'guides',
               link: '/start/',
@@ -117,6 +118,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '快速开始',
                     es: 'Guía rápida',
+                    ru: 'Быстрый старт',
                   },
                   collapsed: true,
                   items: [
@@ -153,6 +155,7 @@ export default defineConfig({
                       translations: {
                         'zh-CN': '前端配置',
                         es: 'Configuración del frontend',
+                        ru: 'Настройка фронтенда',
                       },
                       collapsed: true,
                       items: [
@@ -166,6 +169,7 @@ export default defineConfig({
                       translations: {
                         'zh-CN': '升级和迁移',
                         es: 'Actualizar y migrar',
+                        ru: 'Обновление и миграция',
                       },
                       collapsed: true,
                       items: [{ autogenerate: { directory: 'start/migrate' } }],
@@ -177,15 +181,32 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '核心概念',
                     es: 'Conceptos básicos',
+                    ru: 'Основные концепции',
                   },
                   collapsed: true,
-                  items: [{ autogenerate: { directory: 'concept', collapsed: true } }],
+                  items: [
+                    'concept',
+                    'concept/architecture',
+                    'concept/process-model',
+                    'concept/size',
+                    {
+                      label: 'Inter-Process Communication',
+                      translations: { ru: 'Межпроцессное взаимодействие' },
+                      collapsed: true,
+                      items: [
+                        {
+                          autogenerate: { directory: 'concept/Inter-Process Communication' },
+                        },
+                      ],
+                    },
+                  ],
                 },
                 {
                   label: 'Security',
                   translations: {
                     'zh-CN': '安全',
                     es: 'Seguridad',
+                    ru: 'Безопасность',
                   },
                   collapsed: true,
                   items: [{ autogenerate: { directory: 'security', collapsed: true } }],
@@ -195,6 +216,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '开发',
                     es: 'Desarrollo',
+                    ru: 'Разработка',
                   },
                   collapsed: true,
                   items: [
@@ -209,6 +231,7 @@ export default defineConfig({
                     'develop/icons',
                     {
                       label: 'Debug',
+                      translations: { ru: 'Отладка' },
                       collapsed: true,
                       items: [
                         {
@@ -218,6 +241,7 @@ export default defineConfig({
                     },
                     {
                       label: 'Plugins',
+                      translations: { ru: 'Плагины' },
                       collapsed: true,
                       items: [
                         {
@@ -227,10 +251,29 @@ export default defineConfig({
                     },
                     {
                       label: 'Tests',
+                      translations: { ru: 'Тесты' },
                       collapsed: true,
                       items: [
+                        'develop/tests',
+                        'develop/tests/mocking',
                         {
-                          autogenerate: { directory: 'develop/Tests', collapsed: true },
+                          label: 'WebDriver',
+                          translations: { ru: 'WebDriver' },
+                          collapsed: true,
+                          items: [
+                            'develop/tests/webdriver',
+                            'develop/tests/webdriver/ci',
+                            'develop/tests/webdriver/manual-setup',
+                            {
+                              label: 'Example',
+                              translations: { ru: 'Примеры' },
+                              collapsed: true,
+                              items: [
+                                'develop/tests/webdriver/example/selenium',
+                                'develop/tests/webdriver/example/webdriverio',
+                              ],
+                            },
+                          ],
                         },
                       ],
                     },
@@ -241,11 +284,44 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '分发',
                     es: 'Distribuir',
+                    ru: 'Распространение',
                   },
                   collapsed: true,
                   items: [
+                    'distribute',
+                    'distribute/appimage',
+                    'distribute/app-store',
+                    'distribute/aur',
+                    'distribute/crabnebula-cloud',
+                    'distribute/debian',
+                    'distribute/dmg',
+                    'distribute/flatpak',
+                    'distribute/google-play',
+                    'distribute/macos-application-bundle',
+                    'distribute/microsoft-store',
+                    'distribute/rpm',
+                    'distribute/snapcraft',
+                    'distribute/windows-installer',
                     {
-                      autogenerate: { directory: 'distribute', collapsed: true },
+                      label: 'Sign',
+                      translations: { ru: 'Подпись' },
+                      collapsed: true,
+                      items: [
+                        'distribute/sign/android',
+                        'distribute/sign/ios',
+                        'distribute/sign/linux',
+                        'distribute/sign/macos',
+                        'distribute/sign/windows',
+                      ],
+                    },
+                    {
+                      label: 'Pipelines',
+                      translations: { ru: 'Пайплайны' },
+                      collapsed: true,
+                      items: [
+                        'distribute/pipelines/crabnebula-cloud',
+                        'distribute/pipelines/github',
+                      ],
                     },
                   ],
                 },
@@ -254,11 +330,27 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '学习',
                     es: 'Aprende',
+                    ru: 'Обучение',
                   },
                   collapsed: true,
                   items: [
+                    'learn',
+                    'learn/mobile-file-associations',
+                    'learn/mobile-multiwindow',
+                    'learn/sidecar-nodejs',
+                    'learn/splashscreen',
+                    'learn/system-tray',
+                    'learn/window-customization',
+                    'learn/window-menu',
                     {
-                      autogenerate: { directory: 'learn', collapsed: true },
+                      label: 'Security',
+                      translations: { ru: 'Безопасность' },
+                      collapsed: true,
+                      items: [
+                        {
+                          autogenerate: { directory: 'learn/Security' },
+                        },
+                      ],
                     },
                   ],
                 },
@@ -267,6 +359,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '插件',
                     es: 'Plugins',
+                    ru: 'Плагины',
                   },
                   collapsed: true,
                   items: [
@@ -280,6 +373,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '关于',
                     es: 'Acerca de',
+                    ru: 'О проекте',
                   },
                   collapsed: true,
                   items: [
@@ -291,7 +385,12 @@ export default defineConfig({
               ],
             },
             {
-              label: { en: 'References', 'zh-CN': '参考', es: 'Referencias' },
+              label: {
+                en: 'References',
+                'zh-CN': '参考',
+                es: 'Referencias',
+                ru: 'Справочник',
+              },
               id: 'references',
               link: '/reference/cli',
               icon: 'document',
@@ -301,6 +400,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '命令行接口（CLI）',
                     es: 'Interfaz de línea de comandos',
+                    ru: 'Интерфейс командной строки',
                   },
                   link: '/reference/cli/',
                 },
@@ -309,6 +409,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '安全',
                     es: 'Seguridad',
+                    ru: 'Безопасность',
                   },
                   collapsed: true,
                   items: [
@@ -322,6 +423,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '配置',
                     es: 'Configuración',
+                    ru: 'Конфигурация',
                   },
                   link: '/reference/config/',
                 },
@@ -330,6 +432,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '环境变量',
                     es: 'Variables de entorno',
+                    ru: 'Переменные окружения',
                   },
                   link: '/reference/environment-variables/',
                 },
@@ -338,6 +441,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': 'Webview 版本',
                     es: 'Versiones de Webview',
+                    ru: 'Версии Webview',
                   },
                   link: '/reference/webview-versions/',
                 },
@@ -357,7 +461,7 @@ export default defineConfig({
               ],
             },
             {
-              label: 'Blog',
+              label: { en: 'Blog', ru: 'Блог' },
               id: 'blog',
               link: '/blog/',
               icon: 'pen',
@@ -381,6 +485,8 @@ export default defineConfig({
             '/blog/',
             '/plugin/*/#default-permission',
             '/plugin/*/#permission-table',
+            '/ru/plugin/*/#default-permission',
+            '/ru/plugin/*/#permission-table',
             '/release/**',
             'http://localhost:*',
           ],

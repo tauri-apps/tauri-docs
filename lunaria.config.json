@@ -51,6 +51,10 @@
     {
       "label": "日本語",
       "lang": "ja"
+    },
+    {
+      "label": "Русский",
+      "lang": "ru"
     }
   ],
   "dashboard": {

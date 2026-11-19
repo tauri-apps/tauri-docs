@@ -1,0 +1,127 @@
+---
+title: Отладка в Neovim
+i18nReady: true
+---
+
+Существует множество различных плагинов, которые можно использовать для отладки кода Rust в Neovim. Это руководство покажет вам, как настроить `nvim-dap` и несколько дополнительных плагинов для отладки приложений Tauri.
+
+### Предварительные требования
+
+Расширение `nvim-dap` требует бинарный файл `codelldb`. Скачайте версию для вашей системы с https://github.com/vadimcn/codelldb/releases и распакуйте её. Мы укажем на неё позже в конфигурации `nvim-dap`.
+
+### Настройка nvim-dap
+
+Установите плагины [`nvim-dap`](https://github.com/mfussenegger/nvim-dap) и [`nvim-dap-ui`](https://github.com/rcarriga/nvim-dap-ui). Следуйте инструкциям на их страницах GitHub или просто используйте ваш любимый менеджер плагинов.
+Обратите внимание, что `nvim-dap-ui` требует плагин `nvim-nio`.
+
+Далее настройте плагин в вашей конфигурации Neovim:
+
+```lua title="init.lua"
+local dap = require("dap")
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- Change this to your path!
+    command = '/opt/codelldb/adapter/codelldb',
+    args = {"--port", "${port}"},
+  }
+}
+
+dap.configurations.rust= {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false
+  },
+}
+```
+
+Эта настройка будет спрашивать вас, на какой бинарный файл приложения Tauri указать при каждом запуске отладчика.
+
+При желании вы можете настроить плагин `nvim-dap-ui` так, чтобы он автоматически открывал и закрывал представление отладчика при начале и завершении сессии отладки:
+
+```lua title="init.lua"
+local dapui = require("dapui")
+dapui.setup()
+
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
+
+```
+
+Наконец, вы можете изменить способ отображения точек останова по умолчанию в редакторе:
+
+```lua title="init.lua"
+vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+```
+
+### Запуск сервера разработки
+
+Поскольку мы не используем CLI Tauri для запуска приложения, сервер разработки не будет запускаться автоматически. Чтобы управлять состоянием сервера разработки из Neovim, вы можете использовать плагин [overseer](https://github.com/stevearc/overseer.nvim/tree/master).
+
+Лучший способ управлять задачами, выполняемыми в фоне, — использовать конфигурацию [задач в стиле VS Code](https://github.com/stevearc/overseer.nvim/blob/master/doc/guides.md#vs-code-tasks). Для этого создайте файл `.vscode/tasks.json` в каталоге проекта.
+
+Ниже вы можете найти пример конфигурации задачи для проекта, использующего `trunk`.
+
+```json title=".vscode/tasks.json"
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "process",
+      "label": "dev server",
+      "command": "trunk",
+      "args": ["serve"],
+      "isBackground": true,
+      "presentation": {
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^error:.*",
+          "file": 1,
+          "line": 2
+        },
+        "background": {
+          "activeOnStart": false,
+          "beginsPattern": ".*Rebuilding.*",
+          "endsPattern": ".*server listening at:.*"
+        }
+      }
+    }
+  ]
+}
+```
+
+### Пример привязок клавиш
+
+Ниже вы можете найти пример привязок клавиш для запуска сессий отладки и управления ими.
+
+```lua title="init.lua"
+vim.keymap.set('n', '<F5>', function() dap.continue() end)
+vim.keymap.set('n', '<F6>', function() dap.disconnect({ terminateDebuggee = true }) end)
+vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>o', function() overseer.toggle() end)
+vim.keymap.set('n', '<Leader>R', function() overseer.run_template() end)
+```

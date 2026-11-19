@@ -1,0 +1,504 @@
+---
+title: Разработка плагинов
+i18nReady: true
+sidebar:
+  label: Обзор
+  order: 10
+---
+
+{/* TODO: Add a CLI section */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+{/* TODO: Link to windowing system, commands for sending messages, and event system */}
+
+:::tip[Разработка плагинов]
+
+Это руководство предназначено для разработки плагинов Tauri. Если вы ищете список доступных в настоящее время плагинов и способы их использования, посетите список [Функции и рецепты](/ru/plugin/).
+
+:::
+
+Плагины могут подключаться к жизненному циклу Tauri, предоставлять Rust-код, использующий API web view, обрабатывать команды с помощью Rust, Kotlin или Swift, и многое другое.
+
+Tauri предлагает систему окон с функциональностью web view, способ отправки сообщений между Rust-процессом и web view, а также систему событий вместе с несколькими инструментами для улучшения опыта разработки. По замыслу ядро Tauri не содержит функций, которые нужны не всем. Вместо этого оно предлагает механизм добавления внешней функциональности в приложение Tauri, называемый плагинами.
+
+Плагин Tauri состоит из крейта Cargo и необязательного NPM-пакета, предоставляющего привязки API для его команд и событий. Кроме того, проект плагина может включать проект Android-библиотеки и Swift-пакет для iOS. Вы можете узнать больше о разработке плагинов для Android и iOS в [руководстве по разработке мобильных плагинов](/ru/develop/plugins/develop-mobile/).
+
+{/* TODO: https://github.com/tauri-apps/tauri/issues/7749 */}
+
+## Соглашение об именовании
+
+Плагины Tauri имеют префикс, за которым следует имя плагина. Имя плагина указывается в конфигурации плагина в [`tauri.conf.json > plugins`](/reference/config/#pluginconfig).
+
+По умолчанию Tauri добавляет к крейту вашего плагина префикс `tauri-plugin-`. Это помогает вашему плагину быть обнаруженным сообществом Tauri и использовать его с CLI Tauri. При инициализации нового проекта плагина вы должны указать его имя. Сгенерированное имя крейта будет `tauri-plugin-{plugin-name}`, а имя JavaScript-NPM-пакета — `tauri-plugin-{plugin-name}-api` (хотя мы рекомендуем использовать [NPM scope](https://docs.npmjs.com/about-scopes), если это возможно). Соглашение об именовании NPM-пакетов в Tauri — `@scope-name/plugin-{plugin-name}`.
+
+### Правила для идентификаторов
+
+Часть `{plugin-name}` крейта плагина и любой идентификатор разрешения, на который ссылаются внутри возможностей, должны соответствовать синтаксису идентификаторов Tauri:
+
+- Строчные буквы ASCII (`a`–`z`), цифры (`0`–`9`) и дефисы (`-`).
+- Дефисы не могут быть первым или последним символом.
+- Одно двоеточие (`:`) допустимо только в том случае, если идентификатор использует префикс (например, `<plugin-name>:<permission-name>`).
+- Нижние подчёркивания (`_`), заглавные буквы и другие символы не допускаются.
+- Базовое имя ограничено 64 символами; с префиксом полный идентификатор ограничен 129 символами.
+
+Примеры:
+
+| Идентификатор             |         Допустимо?         |
+| ------------------------- | :------------------------: |
+| `sqlite`                  |             ✓              |
+| `sqlite-store`            |             ✓              |
+| `sqlite-store:allow-read` |             ✓              |
+| `sqlite_store`            |  ✗ (нижнее подчёркивание)  |
+| `SqliteStore`             |    ✗ (заглавная буква)     |
+| `-sqlite`                 |     ✗ (ведущий дефис)      |
+| `sqlite-`                 |   ✗ (завершающий дефис)    |
+| `sqlite::store`           | ✗ (несколько разделителей) |
+
+Если идентификатор плагина или разрешения нарушает эти правила, сборка завершается ошибкой `identifiers can only include lowercase ASCII, hyphens which are not leading or trailing, and a single colon if using a prefix`. Значение, нарушающее правила, обычно — имя плагина в `Cargo.toml` вашего плагина или идентификатор разрешения в файле `permissions/*.toml`.
+
+## Инициализация проекта плагина
+
+Чтобы создать новый проект плагина, выполните `plugin new`. Если вам не нужен NPM-пакет, используйте флаг CLI `--no-api`. Если вы хотите инициализировать плагин с поддержкой Android и/или iOS, используйте флаги `--android` и/или `--ios`.
+
+После установки вы можете выполнить следующую команду для создания проекта плагина:
+
+<CommandTabs npm="npx @tauri-apps/cli plugin new [name]" />
+
+Это инициализирует плагин в каталоге `tauri-plugin-[name]` и, в зависимости от использованных флагов CLI, итоговый проект будет выглядеть так:
+
+```
+. tauri-plugin-[name]/
+├── src/                - Rust code
+│ ├── commands.rs       - Defines the commands the webview can use
+| ├── desktop.rs        - Desktop implementation
+| ├── error.rs          - Default error type to use in returned results
+│ ├── lib.rs            - Re-exports appropriate implementation, setup state...
+│ ├── mobile.rs         - Mobile implementation
+│ └── models.rs         - Shared structs
+├── permissions/        - This will host (generated) permission files for commands
+├── android             - Android library
+├── ios                 - Swift package
+├── guest-js            - Source code of the JavaScript API bindings
+├── dist-js             - Transpiled assets from guest-js
+├── Cargo.toml          - Cargo crate metadata
+└── package.json        - NPM package metadata
+```
+
+Если у вас уже есть плагин и вы хотите добавить к нему возможности Android или iOS, вы можете использовать `plugin android add` и `plugin ios add`, чтобы создать проекты мобильных библиотек и провести вас через необходимые изменения.
+
+## Объявление поддержки платформ
+
+Плагины могут объявлять, какие платформы они поддерживают и в какой степени, в разделе `[package.metadata.platforms.support]` файла `Cargo.toml` крейта:
+
+```toml title="Cargo.toml"
+[package.metadata.platforms.support]
+windows = { level = "full" }
+linux = { level = "full" }
+macos = { level = "full" }
+android = { level = "partial", notes = "Access is restricted to the Application folder by default" }
+ios = { level = "none" }
+```
+
+Каждый ключ — это платформа (`windows`, `linux`, `macos`, `android`, `ios`), принимающая два поля:
+
+- `level` (обязательно): `"full"`, если плагин работает как задумано, `"partial"`, если он работает с ограничениями, или `"none"`, если платформа не поддерживается.
+- `notes` (необязательно): краткое описание предостережений или ограничений. Оно отображается как Markdown на странице плагина. В [таблице поддержки](/ru/plugin/#таблица-поддержки) оно отображается как обычный текст во всплывающей подсказке.
+
+Таблица поддержки и фильтр по платформам на странице [Функции и рецепты](/ru/plugin/) генерируются из этих метаданных.
+
+## Разработка мобильных плагинов
+
+Плагины могут выполнять собственный мобильный код, написанный на Kotlin (или Java) и Swift. Стандартный шаблон плагина включает проект Android-библиотеки на Kotlin и Swift-пакет. Он содержит пример мобильной команды, показывающий, как запустить её выполнение из Rust-кода.
+
+Узнайте больше о разработке плагинов для мобильных устройств в [руководстве по разработке мобильных плагинов](/ru/develop/plugins/develop-mobile/).
+
+## Конфигурация плагина
+
+В приложении Tauri, где используется плагин, конфигурация плагина указывается в `tauri.conf.json`, где `plugin-name` — имя плагина:
+
+```json
+{
+  "build": { ... },
+  "tauri": { ... },
+  "plugins": {
+    "plugin-name": {
+      "timeout": 30
+    }
+  }
+}
+```
+
+Конфигурация плагина задаётся на `Builder` и разбирается во время выполнения. Вот пример использования структуры `Config` для указания конфигурации плагина:
+
+```rust title="src/lib.rs"
+use serde::Deserialize;
+use tauri::{
+    plugin::{Builder, TauriPlugin},
+    Runtime,
+};
+
+// Define the plugin config
+#[derive(Deserialize)]
+pub struct Config {
+  timeout: usize,
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
+  // Make the plugin config optional
+  // by using `Builder::<R, Option<Config>>` instead
+  Builder::<R, Config>::new("<plugin-name>")
+    .setup(|app, api| {
+      let timeout = api.config().timeout;
+      Ok(())
+    })
+    .build()
+}
+```
+
+## События жизненного цикла
+
+Плагины могут подключаться к нескольким событиям жизненного цикла:
+
+- [setup](#setup): плагин инициализируется
+- [on_navigation](#on_navigation): web view пытается выполнить навигацию
+- [on_webview_ready](#on_webview_ready): создаётся новое окно
+- [on_event](#on_event): события цикла событий
+- [on_drop](#on_drop): плагин разрушается
+
+Существуют дополнительные [события жизненного цикла для мобильных плагинов](/ru/develop/plugins/develop-mobile/#события-жизненного-цикла).
+
+### setup
+
+- **Когда**: плагин инициализируется
+- **Зачем**: регистрировать мобильные плагины, управлять состоянием, запускать фоновые задачи
+
+```rust title="src/lib.rs"
+use tauri::{Manager, plugin::Builder};
+use std::{collections::HashMap, sync::Mutex, time::Duration};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, api| {
+    app.manage(DummyStore(Default::default()));
+
+    let app_ = app.clone();
+    std::thread::spawn(move || {
+      loop {
+        app_.emit("tick", ());
+        std::thread::sleep(Duration::from_secs(1));
+      }
+    });
+
+    Ok(())
+  })
+```
+
+### on_navigation
+
+- **Когда**: web view пытается выполнить навигацию
+- **Зачем**: проверять навигацию или отслеживать изменения URL
+
+Возврат `false` отменяет навигацию.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_navigation(|window, url| {
+    println!("window {} is navigating to {}", window.label(), url);
+    // Cancels the navigation if forbidden
+    url.scheme() != "forbidden"
+  })
+```
+
+### on_webview_ready
+
+- **Когда**: создано новое окно
+- **Зачем**: выполнять скрипт инициализации для каждого окна
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_webview_ready(|window| {
+    window.listen("content-loaded", |event| {
+      println!("webview content has been loaded");
+    });
+  })
+```
+
+### on_event
+
+- **Когда**: события цикла событий
+- **Зачем**: обрабатывать основные события, такие как события окон, события меню и запрос на выход из приложения
+
+С помощью этого хука жизненного цикла вы можете получать уведомления о любых [событиях](https://docs.rs/tauri/2.0.0/tauri/enum.RunEvent.html) цикла событий.
+
+```rust title="src/lib.rs"
+use std::{collections::HashMap, fs::write, sync::Mutex};
+use tauri::{plugin::Builder, Manager, RunEvent};
+
+struct DummyStore(Mutex<HashMap<String, String>>);
+
+Builder::new("<plugin-name>")
+  .setup(|app, _api| {
+    app.manage(DummyStore(Default::default()));
+    Ok(())
+  })
+  .on_event(|app, event| {
+    match event {
+      RunEvent::ExitRequested { api, .. } => {
+        // user requested a window to be closed and there's no windows left
+
+        // we can prevent the app from exiting:
+        api.prevent_exit();
+      }
+      RunEvent::Exit => {
+        // app is going to exit, you can cleanup here
+
+        let store = app.state::<DummyStore>();
+        write(
+          app.path().app_local_data_dir().unwrap().join("store.json"),
+          serde_json::to_string(&*store.0.lock().unwrap()).unwrap(),
+        )
+        .unwrap();
+      }
+      _ => {}
+    }
+  })
+```
+
+### on_drop
+
+- **Когда**: плагин разрушается
+- **Зачем**: выполнять код, когда плагин был уничтожен
+
+См. [`Drop`](https://doc.rust-lang.org/std/ops/trait.Drop.html) для получения дополнительной информации.
+
+```rust title="src/lib.rs"
+use tauri::plugin::Builder;
+
+Builder::new("<plugin-name>")
+  .on_drop(|app| {
+    // plugin has been destroyed...
+  })
+```
+
+## Предоставление API Rust
+
+API плагина, определённые в файлах `desktop.rs` и `mobile.rs` проекта, экспортируются пользователю как структура с тем же именем, что и плагин (в pascal case). Когда плагин настраивается, создаётся экземпляр этой структуры, которым управляют как состоянием, чтобы пользователи могли получить его в любой момент с помощью экземпляра `Manager` (такого как `AppHandle`, `App` или `Window`) через extension trait, определённый в плагине.
+
+Например, [плагин `global-shortcut`](/ru/plugin/global-shortcut/) определяет структуру `GlobalShortcut`, которую можно прочитать с помощью метода `global_shortcut` трейта `GlobalShortcutExt`:
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+  .plugin(tauri_plugin_global_shortcut::init())
+  .setup(|app| {
+    app.global_shortcut().register(...);
+    Ok(())
+  })
+```
+
+## Добавление команд
+
+Команды определяются в файле `commands.rs`. Это обычные команды приложений Tauri. Они могут получать доступ к экземплярам AppHandle и Window напрямую, обращаться к состоянию и принимать входные данные так же, как и команды приложений. Прочтите [руководство по командам](/ru/develop/calling-rust/) для получения более подробной информации о командах Tauri.
+
+Эта команда показывает, как получить доступ к экземплярам `AppHandle` и `Window` через внедрение зависимостей, и принимает два входных параметра (`on_progress` и `url`):
+
+```rust title="src/commands.rs"
+use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
+
+#[command]
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+  // implement command logic here
+  on_progress.send(100).unwrap();
+}
+```
+
+Чтобы предоставить команду webview, вы должны подключиться к вызову `invoke_handler()` в `lib.rs`:
+
+```rust title="src/lib.rs"
+Builder::new("<plugin-name>")
+    .invoke_handler(tauri::generate_handler![commands::upload])
+```
+
+Определите функцию привязки в `webview-src/index.ts`, чтобы пользователи плагина могли легко вызывать команду на JavaScript:
+
+```js name="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/core'
+
+export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
+  const onProgress = new Channel<number>()
+  onProgress.onmessage = onProgressHandler
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+}
+```
+
+Обязательно соберите TypeScript-код перед его тестированием.
+
+### Разрешения команд
+
+По умолчанию ваши команды недоступны из фронтенда. Если вы попытаетесь выполнить одну из них, вы получите отклонение с ошибкой доступа.
+Чтобы фактически предоставить команды, вам также нужно определить разрешения, разрешающие каждую команду.
+
+#### Файлы разрешений
+
+Разрешения определяются как файлы JSON или TOML внутри каталога `permissions`. Каждый файл может определять список разрешений, список наборов разрешений и разрешение по умолчанию вашего плагина.
+
+##### Разрешения
+
+Разрешение описывает привилегии команд вашего плагина. Оно может разрешать или запрещать список команд и связывать с ними области действия команд и глобальные области действия.
+
+```toml title="permissions/start-server.toml"
+"$schema" = "schemas/schema.json"
+
+[[permission]]
+identifier = "allow-start-server"
+description = "Enables the start_server command."
+commands.allow = ["start_server"]
+
+[[permission]]
+identifier = "deny-start-server"
+description = "Denies the start_server command."
+commands.deny = ["start_server"]
+```
+
+##### Область действия
+
+Области действия позволяют вашему плагину задавать более глубокие ограничения для отдельных команд.
+Каждое разрешение может определять список объектов области действия, задающих, что разрешено или запрещено — либо для конкретной команды, либо глобально для плагина.
+
+Давайте определим пример структуры, которая будет хранить данные области действия для списка бинарных файлов, которые плагин `shell` может запускать:
+
+```rust title="src/scope.rs"
+#[derive(Debug, schemars::JsonSchema)]
+pub struct Entry {
+    pub binary: String,
+}
+```
+
+###### Область действия команды
+
+Потребитель вашего плагина может определить область действия для конкретной команды в своём файле возможностей (см. [документацию](/reference/acl/scope/)).
+Вы можете прочитать область действия команды с помощью структуры [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html):
+
+```rust title="src/commands.rs"
+use tauri::ipc::CommandScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+  let allowed = command_scope.allows();
+  let denied = command_scope.denies();
+  todo!()
+}
+```
+
+###### Глобальная область действия
+
+Когда разрешение не определяет команд, которые нужно разрешить или запретить, оно считается разрешением области действия и должно определять только глобальную область действия для вашего плагина:
+
+```toml title="permissions/spawn-node.toml"
+[[permission]]
+identifier = "allow-spawn-node"
+description = "This scope permits spawning the `node` binary."
+
+[[permission.scope.allow]]
+binary = "node"
+```
+
+Вы можете прочитать глобальную область действия с помощью структуры [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html):
+
+```rust title="src/commands.rs"
+use tauri::ipc::GlobalScope;
+use crate::scope::Entry;
+
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+  let allowed = scope.allows();
+  let denied = scope.denies();
+  todo!()
+}
+```
+
+:::note
+Мы рекомендуем проверять и глобальные области действия, и области действия команд для гибкости
+:::
+
+###### Схема
+
+Запись области действия требует зависимость `schemars` для генерации JSON-схемы, чтобы потребители плагина знали формат области действия и имели автодополнение в своих IDE.
+
+Чтобы определить схему, сначала добавьте зависимость в ваш файл Cargo.toml:
+
+```toml
+# we need to add schemars to both dependencies and build-dependencies because the scope.rs module is shared between the app code and build script
+[dependencies]
+schemars = "0.8"
+
+[build-dependencies]
+schemars = "0.8"
+```
+
+В ваш скрипт сборки добавьте следующий код:
+
+```rust title="build.rs"
+#[path = "src/scope.rs"]
+mod scope;
+
+const COMMANDS: &[&str] = &[];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS)
+        .global_scope_schema(schemars::schema_for!(scope::Entry))
+        .build();
+}
+```
+
+##### Наборы разрешений
+
+Наборы разрешений — это группы отдельных разрешений, которые помогают пользователям управлять вашим плагином на более высоком уровне абстракции.
+Например, если отдельное API использует несколько команд или между набором команд есть логическая связь, вы должны определить набор, включающий их:
+
+```toml title="permissions/websocket.toml"
+"$schema" = "schemas/schema.json"
+[[set]]
+identifier = "allow-websocket"
+description = "Allows connecting and sending messages through a WebSocket"
+permissions = ["allow-connect", "allow-send"]
+```
+
+##### Разрешение по умолчанию
+
+Разрешение по умолчанию — это особый набор разрешений с идентификатором `default`. Рекомендуется включать необходимые команды по умолчанию.
+Например, плагин `http` бесполезен без разрешённой команды `request`:
+
+```toml title="permissions/default.toml"
+"$schema" = "schemas/schema.json"
+[default]
+description = "Allows making HTTP requests"
+permissions = ["allow-request"]
+```
+
+#### Автогенерированные разрешения
+
+Самый простой способ определить разрешения для каждой из ваших команд — использовать опцию автогенерации, определённую в скрипте сборки вашего плагина в файле `build.rs`.
+Внутри константы `COMMANDS` определите список команд в snake_case (должен совпадать с именем функции команды), и Tauri автоматически сгенерирует разрешения `allow-$commandname` и `deny-$commandname`.
+
+Следующий пример генерирует разрешения `allow-upload` и `deny-upload`:
+
+```rust title="src/commands.rs"
+const COMMANDS: &[&str] = &["upload"];
+
+fn main() {
+    tauri_plugin::Builder::new(COMMANDS).build();
+}
+```
+
+См. документацию [Обзор разрешений](/ru/security/permissions/) для получения дополнительной информации.
+
+## Управление состоянием
+
+Плагин может управлять состоянием так же, как это делает приложение Tauri. Прочтите [руководство по управлению состоянием](/ru/develop/state-management/) для получения дополнительной информации.

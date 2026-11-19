@@ -1,0 +1,324 @@
+---
+title: Системный трей
+sidebar:
+  order: 1
+tableOfContents:
+  maxHeadingLevel: 4
+i18nReady: true
+---
+
+import { Icon } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Tauri позволяет вам создавать и настраивать системный трей для вашего приложения.
+Это может улучшить пользовательский опыт, обеспечив быстрый доступ к распространённым действиям.
+
+## Конфигурация
+
+Прежде всего обновите ваш `Cargo.toml`, чтобы включить необходимую функцию для системного трея.
+
+```toml title="src-tauri/Cargo.toml"
+tauri = { version = "2.0.0", features = [ "tray-icon" ] }
+```
+
+## Использование
+
+API трея доступен как в JavaScript, так и в Rust.
+
+### Создание значка трея
+
+<Tabs synckey="language">
+<TabItem label="JavaScript">
+Используйте статическую функцию [`TrayIcon.new`] для создания нового значка трея:
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  // here you can add a tray menu, title, tooltip, event handler, etc
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+См. [`TrayIconOptions`] для получения дополнительной информации о параметрах настройки.
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let tray = TrayIconBuilder::new().build(app)?;
+        Ok(())
+    })
+
+```
+
+См. [`TrayIconBuilder`] для получения дополнительной информации о параметрах настройки.
+
+</TabItem>
+</Tabs>
+
+### Изменение значка трея
+
+При создании трея вы можете использовать значок приложения в качестве значка трея:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { defaultWindowIcon } from '@tauri-apps/api/app';
+
+const options = {
+  icon: await defaultWindowIcon(),
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+let tray = TrayIconBuilder::new()
+  .icon(app.default_window_icon().unwrap().clone())
+  .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+### Добавление меню
+
+Чтобы прикрепить меню, которое отображается при клике по трею, вы можете использовать параметр `menu`.
+
+:::note
+По умолчанию меню отображается при кликах как левой, так и правой кнопкой мыши.
+
+Чтобы предотвратить появление меню при клике левой кнопкой, вызовите функцию Rust [`show_menu_on_left_click(false)`][TrayIconBuilder::show_menu_on_left_click]
+или установите параметр JavaScript [`menuOnLeftClick`] в `false`.
+:::
+
+{/* TODO: link to the menu plugin documentation page */}
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+import { Menu } from '@tauri-apps/api/menu';
+
+const menu = await Menu.new({
+  items: [
+    {
+      id: 'quit',
+      text: 'Quit',
+    },
+  ],
+});
+
+const options = {
+  menu,
+  menuOnLeftClick: true,
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+  menu::{Menu, MenuItem},
+  tray::TrayIconBuilder,
+};
+
+let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+let menu = Menu::with_items(app, &[&quit_i])?;
+
+let tray = TrayIconBuilder::new()
+  .menu(&menu)
+  .show_menu_on_left_click(true)
+  .build(app)?;
+```
+
+</TabItem>
+</Tabs>
+
+#### Прослушивание событий меню
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+В JavaScript вы можете прикрепить обработчик события клика по меню непосредственно к пункту меню:
+
+- Использование общего обработчика клика по меню
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  function onTrayMenuClick(itemId) {
+    // itemId === 'quit'
+  }
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: onTrayMenuClick,
+      },
+    ],
+  });
+  ```
+
+- Использование выделенного обработчика клика по меню
+
+  ```javascript
+  import { Menu } from '@tauri-apps/api/menu';
+
+  const menu = await Menu.new({
+    items: [
+      {
+        id: 'quit',
+        text: 'Quit',
+        action: () => {
+          console.log('quit pressed');
+        },
+      },
+    ],
+  });
+  ```
+
+</TabItem>
+
+<TabItem label="Rust">
+Используйте метод [`TrayIconBuilder::on_menu_event`] для прикрепления обработчика события клика по меню трея:
+
+```rust
+use tauri::tray::TrayIconBuilder;
+
+TrayIconBuilder::new()
+  .on_menu_event(|app, event| match event.id.as_ref() {
+    "quit" => {
+      println!("quit menu item was clicked");
+      app.exit(0);
+    }
+    _ => {
+      println!("menu item {:?} not handled", event.id);
+    }
+  })
+```
+
+</TabItem>
+</Tabs>
+
+### Прослушивание событий трея
+
+Значок трея испускает события для следующих событий мыши:
+
+- click: срабатывает, когда курсор получает одинарный клик левой, правой или средней кнопкой, включая информацию о том, была ли нажата кнопка мыши или отпущена
+- Double click: срабатывает, когда курсор получает двойной клик левой, правой или средней кнопкой
+- Enter: срабатывает, когда курсор входит в область значка трея
+- Move: срабатывает, когда курсор движется по области значка трея
+- Leave: срабатывает, когда курсор покидает область значка трея
+
+:::note
+Linux: не поддерживается. Событие не испускается, даже если значок отображается, и при клике правой кнопкой всё равно будет показано контекстное меню.
+:::
+
+<Tabs>
+<TabItem label="JavaScript">
+
+```javascript
+import { TrayIcon } from '@tauri-apps/api/tray';
+
+const options = {
+  action: (event) => {
+    switch (event.type) {
+      case 'Click':
+        console.log(
+          `mouse ${event.button} button pressed, state: ${event.buttonState}`
+        );
+        break;
+      case 'DoubleClick':
+        console.log(`mouse ${event.button} button pressed`);
+        break;
+      case 'Enter':
+        console.log(
+          `mouse hovered tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Move':
+        console.log(
+          `mouse moved on tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+      case 'Leave':
+        console.log(
+          `mouse left tray at ${event.rect.position.x}, ${event.rect.position.y}`
+        );
+        break;
+    }
+  },
+};
+
+const tray = await TrayIcon.new(options);
+```
+
+См. [`TrayIconEvent`][js TrayIconEvent] для получения дополнительной информации о полезной нагрузке события.
+
+</TabItem>
+
+<TabItem label="Rust">
+
+```rust
+use tauri::{
+    Manager,
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
+};
+
+TrayIconBuilder::new()
+  .on_tray_icon_event(|tray, event| match event {
+    TrayIconEvent::Click {
+      button: MouseButton::Left,
+      button_state: MouseButtonState::Up,
+      ..
+    } => {
+      println!("left click pressed and released");
+      // in this example, let's show and focus the main window when the tray is clicked
+      let app = tray.app_handle();
+      if let Some(window) = app.get_webview_window("main") {
+        let _ = window.unminimize();
+        let _ = window.show();
+        let _ = window.set_focus();
+      }
+    }
+    _ => {
+      println!("unhandled event {event:?}");
+    }
+  })
+```
+
+См. [`TrayIconEvent`][rust TrayIconEvent] для получения дополнительной информации о типе события.
+
+</TabItem>
+</Tabs>
+
+Подробную информацию о создании меню, включая пункты меню, подменю и динамические обновления, см. в документации [Меню окна](/ru/learn/window-menu/).
+
+[`TrayIcon.new`]: /reference/javascript/api/namespacetray/#new
+[`TrayIconOptions`]: /reference/javascript/api/namespacetray/#trayiconoptions
+[`TrayIconBuilder`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html
+[TrayIconBuilder::show_menu_on_left_click]: https://docs.rs/tauri/latest/tauri/tray/struct.TrayIconBuilder.html#method.show_menu_on_left_click
+[`menuOnLeftClick`]: /reference/javascript/api/namespacetray/#properties-1
+[`TrayIconBuilder::on_menu_event`]: https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html#method.on_menu_event
+[js TrayIconEvent]: /reference/javascript/api/namespacetray/#trayiconevent
+[rust TrayIconEvent]: https://docs.rs/tauri/2.0.0/tauri/tray/enum.TrayIconEvent.html

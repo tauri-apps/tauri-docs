@@ -1,0 +1,88 @@
+---
+title: Ручная настройка
+description: Использование tauri-driver напрямую без сервиса WebdriverIO Tauri
+sidebar:
+  order: 15
+i18nReady: true
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Эта страница описывает использование [`tauri-driver`] напрямую, без [`@wdio/tauri-service`]. Обратитесь к ней, если вы не
+используете Node.js, предпочитаете [Selenium] или интегрируете WebDriver в собственный тестовый каркас. Для большинства проектов сервис —
+более простой путь: он автоматизирует всё нижеперечисленное и дополнительно поддерживает macOS. См. [обзор WebDriver], чтобы
+начать работу с ним.
+
+При прямом использовании `tauri-driver` на десктопе поддерживаются только Windows и Linux, поскольку для macOS нет доступного
+инструмента драйвера WKWebView. iOS и Android работают через Appium 2, но этот процесс в настоящее время не отлажен.
+
+<a id="system-dependencies"></a>
+## Системные зависимости
+
+Установите последнюю версию [`tauri-driver`] или обновите существующую установку, выполнив:
+
+```shell
+cargo install tauri-driver --locked
+```
+
+Поскольку в настоящее время мы используем собственный сервер [WebDriver] платформы, существуют некоторые требования для запуска
+[`tauri-driver`] на поддерживаемых платформах.
+
+### Linux
+
+На платформах Linux мы используем `WebKitWebDriver`. Проверьте, существует ли этот бинарный файл, выполнив команду `which WebKitWebDriver`, так как
+некоторые дистрибутивы включают его в обычный пакет WebKit. На других платформах для него может быть отдельный пакет, например
+`webkit2gtk-driver` в дистрибутивах на основе Debian.
+
+### Windows
+
+Обязательно загрузите версию [Microsoft Edge Driver], соответствующую версии вашего Windows Edge, под которую строится и на которой
+тестируется приложение. На обновлённых установках Windows это почти всегда должна быть последняя стабильная версия. Если
+две версии не совпадают, ваш набор тестов WebDriver может зависнуть при попытке подключения.
+
+Вы можете использовать [msedgedriver-tool](https://github.com/chippers/msedgedriver-tool) для загрузки подходящего Microsoft Edge Driver:
+
+```powershell
+cargo install --git https://github.com/chippers/msedgedriver-tool
+& "$HOME/.cargo/bin/msedgedriver-tool.exe"
+```
+
+Загрузка содержит бинарный файл с именем `msedgedriver.exe`. [`tauri-driver`] ищет этот бинарный файл в `$PATH`, поэтому убедитесь,
+что он доступен в пути, либо используйте опцию `--native-driver` у [`tauri-driver`]. Возможно, вы захотите загружать его автоматически как часть процесса настройки CI, чтобы гарантировать синхронизацию версий Edge и Edge Driver
+на Windows-машинах CI. Руководство о том, как это сделать, может быть добавлено позднее.
+
+## Примеры приложений
+
+Ниже приведены пошаговые руководства, показывающие, как создать минимальное примерное приложение, которое
+тестируется с помощью WebDriver.
+
+Если вы предпочитаете увидеть результат руководства и просмотреть готовую минимальную кодовую базу, использующую его, вы
+можете посмотреть на https://github.com/tauri-apps/webdriver-example.
+
+<CardGrid>
+  <LinkCard
+    title="Selenium"
+    href="/ru/develop/tests/webdriver/example/selenium/"
+  />
+  <LinkCard
+    title="WebdriverIO"
+    href="/ru/develop/tests/webdriver/example/webdriverio/"
+  />
+</CardGrid>
+
+## Непрерывная интеграция (CI)
+
+Приведённые выше примеры также содержат CI-скрипт для тестирования с GitHub Actions, но вас может заинтересовать приведённое ниже руководство по CI WebDriver, поскольку оно объясняет концепцию несколько подробнее.
+
+<LinkCard
+  title="Непрерывная интеграция (CI)"
+  href="/ru/develop/tests/webdriver/ci/"
+/>
+
+[webdriver]: https://www.w3.org/TR/webdriver/
+[обзор webdriver]: /ru/develop/tests/webdriver/
+[`@wdio/tauri-service`]: https://webdriver.io/docs/desktop-testing/tauri
+[selenium]: /ru/develop/tests/webdriver/example/selenium/
+[`tauri-driver`]: https://crates.io/crates/tauri-driver
+[tauri-driver]: https://crates.io/crates/tauri-driver
+[microsoft edge driver]: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/

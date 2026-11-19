@@ -21,7 +21,7 @@ const headerLinks = links.map((link) => {
   const topic = topics.find((topic) => topic.link === href);
   return {
     type: 'link' as const,
-    label: topic?.label ?? link.title,
+    label: topic?.label ?? (link.titleRu && curLocale ? link.titleRu : link.title),
     href,
     isCurrent: false,
     badge: topic?.badge,

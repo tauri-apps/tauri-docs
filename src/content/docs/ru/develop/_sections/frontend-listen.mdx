@@ -1,0 +1,295 @@
+---
+title: Вызов фронтенда из Rust
+---
+
+NPM-пакет `@tauri-apps/api` предоставляет API для прослушивания как глобальных событий, так и событий, специфичных для webview.
+
+- Прослушивание глобальных событий
+
+  ```ts
+  import { listen } from '@tauri-apps/api/event';
+
+  type DownloadStarted = {
+    url: string;
+    downloadId: number;
+    contentLength: number;
+  };
+
+  listen<DownloadStarted>('download-started', (event) => {
+    console.log(
+      `downloading ${event.payload.contentLength} bytes from ${event.payload.url}`
+    );
+  });
+  ```
+
+- Прослушивание событий, специфичных для webview
+
+  ```ts
+  import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+  const appWebview = getCurrentWebviewWindow();
+  appWebview.listen<string>('logged-in', (event) => {
+    localStorage.setItem('session-token', event.payload);
+  });
+  ```
+
+Функция `listen` сохраняет регистрацию обработчика событий на всё время жизни приложения.
+Чтобы перестать слушать событие, вы можете использовать функцию `unlisten`, которая возвращается функцией `listen`:
+
+```js
+import { listen } from '@tauri-apps/api/event';
+
+const unlisten = await listen('download-started', (event) => {});
+unlisten();
+```
+
+:::note
+Всегда используйте функцию unlisten, когда ваш контекст выполнения выходит за пределы области видимости,
+например когда компонент размонтируется.
+
+Когда страница перезагружается или вы переходите на другой URL, обработчики автоматически снимаются с регистрации.
+Однако это не относится к роутеру одностраничного приложения (SPA).
+:::
+
+#### Частые ошибки
+
+##### Не вызывайте `unlisten()` до разрешения обработчика
+
+Функция `listen` возвращает Promise, который разрешается в обработчик `unlisten`.
+Если вы вызовете `unlisten` синхронно до разрешения Promise, обработчик
+будет немедленно удалён, и вы не получите никаких событий:
+
+```js
+// Wrong: unlisten is called before the listener is registered
+const unlisten = listen('sync-complete', (event) => {
+  console.log('sync finished');
+});
+unlisten(); // unlisten is a Promise here, not a function -- the listener is not cleaned up
+
+// Correct: await the Promise to get the unlisten handle
+const unlisten = await listen('sync-complete', (event) => {
+  console.log('sync finished');
+});
+// Now you can store and call it later, e.g. in a cleanup function
+unlisten();
+```
+
+##### Тайминг в хуках setup
+
+В таких фреймворках, как React, Vue и Svelte, хук setup или mount выполняется
+до полного рендеринга компонента. Если вы слушаете события во время setup,
+убедитесь, что обработчик событий не зависит от элементов DOM, которые ещё не были
+отрендерены, или отложите регистрацию обработчика на effect/хук, который выполняется
+после mount.
+
+```js
+// Wrong: DOM ref may not be available yet
+function MyComponent() {
+  const ref = useRef(null);
+  listen('scroll-to', (event) => {
+    ref.current.scrollIntoView(); // ref.current may be null during setup
+  });
+  return <div ref={ref} />;
+}
+
+// Correct: use useEffect which runs after the component mounts
+function MyComponent() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const unlisten = listen('scroll-to', (event) => {
+      ref.current?.scrollIntoView();
+    });
+    return () => {
+      unlisten.then((fn) => fn());
+    };
+  }, []);
+  return <div ref={ref} />;
+}
+```
+
+##### Порядок событий и асинхронные обработчики
+
+Обработчики событий вызываются в порядке их регистрации, но если обработчик
+асинхронный и эмиттер событий отправляет несколько событий подряд,
+обработчики могут обрабатывать события не по порядку. Для упорядоченной передачи данных
+с высокой пропускной способностью рассмотрите использование [Каналов](/ru/develop/calling-frontend/#каналы)
+вместо системы событий.
+
+#### Примеры очистки в зависимости от фреймворка
+
+При использовании фронтенд-фреймворка следует очищать обработчики событий при
+размонтировании компонента, чтобы избежать утечек памяти и дублирующихся обработчиков.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="React">
+
+```tsx
+import { useEffect, useState } from 'react';
+import { listen } from '@tauri-apps/api/event';
+
+function DownloadTracker() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const unlisten = listen<number>('download-progress', (event) => {
+      setProgress(event.payload);
+    });
+
+    return () => {
+      unlisten.then((fn) => fn());
+    };
+  }, []);
+
+  return <div>Download progress: {progress}%</div>;
+}
+```
+
+</TabItem>
+<TabItem label="Vue">
+
+```vue
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { listen } from '@tauri-apps/api/event';
+
+const progress = ref(0);
+let unlistenPromise;
+
+onMounted(() => {
+  unlistenPromise = listen<number>('download-progress', (event) => {
+    progress.value = event.payload;
+  });
+});
+
+onUnmounted(() => {
+  unlistenPromise?.then((fn) => fn());
+});
+</script>
+
+<template>
+  <div>Download progress: {{ progress }}%</div>
+</template>
+```
+
+</TabItem>
+<TabItem label="Svelte">
+
+```svelte
+<script lang="ts">
+import { listen } from '@tauri-apps/api/event';
+
+let progress = $state(0);
+
+$effect(() => {
+  const unlistenPromise = listen<number>(
+    'download-progress',
+    (event) => {
+      progress = event.payload;
+    }
+  );
+
+  return () => {
+    unlistenPromise.then((unlisten) => unlisten());
+  };
+});
+</script>
+
+<div>Download progress: {progress}%</div>
+```
+
+</TabItem>
+</Tabs>
+
+Кроме того, Tauri предоставляет утилитарную функцию для прослушивания события ровно один раз:
+
+```js
+import { once } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+once('ready', (event) => {});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.once('ready', () => {});
+```
+
+:::note
+События, испускаемые во фронтенде, также запускают обработчики, зарегистрированные этими API.
+Для получения дополнительной информации см. документацию [Вызов Rust из фронтенда].
+:::
+
+#### Прослушивание событий в Rust
+
+Глобальные события и события, специфичные для webview, также доставляются обработчикам, зарегистрированным в Rust.
+
+- Прослушивание глобальных событий
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::Listener;
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        app.listen("download-started", |event| {
+          if let Ok(payload) = serde_json::from_str::<DownloadStarted>(&event.payload()) {
+            println!("downloading {}", payload.url);
+          }
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+- Прослушивание событий, специфичных для webview
+
+  ```rust title="src-tauri/src/lib.rs"
+  use tauri::{Listener, Manager};
+
+  #[cfg_attr(mobile, tauri::mobile_entry_point)]
+  pub fn run() {
+    tauri::Builder::default()
+      .setup(|app| {
+        let webview = app.get_webview_window("main").unwrap();
+        webview.listen("logged-in", |event| {
+          let session_token = event.data;
+          // save token..
+        });
+        Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+  }
+  ```
+
+Функция `listen` сохраняет регистрацию обработчика событий на всё время жизни приложения.
+Чтобы перестать слушать событие, вы можете использовать функцию `unlisten`:
+
+```rust
+// unlisten outside of the event handler scope:
+let event_id = app.listen("download-started", |event| {});
+app.unlisten(event_id);
+
+// unlisten when some event criteria is matched
+let handle = app.handle().clone();
+app.listen("status-changed", |event| {
+  if event.data == "ready" {
+    handle.unlisten(event.id);
+  }
+});
+```
+
+Кроме того, Tauri предоставляет утилитарную функцию для прослушивания события ровно один раз:
+
+```rust
+app.once("ready", |event| {
+  println!("app is ready");
+});
+```
+
+В этом случае обработчик событий немедленно снимается с регистрации после первого срабатывания.
+
+[Вызов Rust из фронтенда]: /ru/develop/calling-rust/

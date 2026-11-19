@@ -1,0 +1,132 @@
+---
+title: DMG
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+import { Image } from 'astro:assets';
+import StandardDmgLight from '@assets/distribute/dmg/standard-dmg-light.png';
+import StandardDmgDark from '@assets/distribute/dmg/standard-dmg-dark.png';
+
+Формат DMG (Apple Disk Image) — это распространённый файл установщика macOS, который заключает ваш [бандл приложения][App Bundle distribution guide] в удобное окно установки.
+
+Окно установщика содержит значок вашего приложения и значок папки Applications, куда пользователь должен перетащить значок приложения, чтобы установить его. Это наиболее распространённый способ установки для приложений macOS, распространяемых вне App Store.
+
+В этом руководстве рассматриваются только подробности распространения приложений вне App Store с использованием формата DMG. Дополнительную информацию о вариантах и настройках распространения macOS см. в руководстве по [распространению бандла приложения][App Bundle distribution guide]. Чтобы распространять приложение macOS в App Store, см. [руководство по распространению в App Store][App Store distribution guide].
+
+Чтобы создать образ диска Apple для вашего приложения, вы можете использовать CLI Tauri и выполнить команду `tauri build` на компьютере Mac:
+
+<CommandTabs
+  npm="npm run tauri build -- --bundles dmg"
+  yarn="yarn tauri build --bundles dmg"
+  pnpm="pnpm tauri build --bundles dmg"
+  deno="deno task tauri build --bundles dmg"
+  bun="bun tauri build --bundles dmg"
+  cargo="cargo tauri build --bundles dmg"
+/>
+
+<Image
+  class="dark:sl-hidden"
+  src={StandardDmgLight}
+  alt="Standard DMG window"
+/>
+<Image
+  class="light:sl-hidden"
+  src={StandardDmgDark}
+  alt="Standard DMG window"
+/>
+
+:::note
+
+GUI-приложения на macOS и Linux не наследуют `$PATH` из ваших dotfiles оболочки (`.bashrc`, `.bash_profile`, `.zshrc` и т. д.). Ознакомьтесь с крейтом [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) от Tauri, чтобы исправить эту проблему.
+
+:::
+
+## Фоновое изображение окна
+
+Вы можете задать собственное фоновое изображение для окна установки DMG с помощью параметра конфигурации [`tauri.conf.json > bundle > macOS > dmg > background`]:
+
+```json title="tauri.conf.json" ins={4-6}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "background": "./images/"
+      }
+    }
+  }
+}
+```
+
+Например, фоновое изображение DMG может содержать стрелку, указывающую пользователю, что он должен перетащить значок приложения в папку Applications.
+
+## Размер и положение окна
+
+Размер окна по умолчанию — 660x400. Если вам нужен другой размер, чтобы подогнать под собственное фоновое изображение, задайте конфигурацию [`tauri.conf.json > bundle > macOS > dmg > windowSize`]:
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 800,
+          "height": 600
+        }
+      }
+    }
+  }
+}
+```
+
+Кроме того, вы можете задать начальное положение окна через [`tauri.conf.json > bundle > macOS > dmg > windowPosition`]:
+
+```json title="tauri.conf.json" ins={5-8}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "windowPosition": {
+          "x": 400,
+          "y": 400
+        }
+      }
+    }
+  }
+}
+```
+
+## Положение значков
+
+Вы можете изменить положение значков приложения и _папки Applications_ с помощью значений конфигурации [appPosition] и [applicationFolderPosition] соответственно:
+
+```json title="tauri.conf.json" ins={5-12}
+{
+  "bundle": {
+    "macOS": {
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 220
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 220
+        }
+      }
+    }
+  }
+}
+```
+
+:::caution
+Из-за известной проблемы размеры и положения значков не применяются при создании DMG на платформах CI/CD. Подробнее см. [tauri-apps/tauri#1731].
+:::
+
+[App Bundle distribution guide]: /ru/distribute/macos-application-bundle/
+[App Store distribution guide]: /ru/distribute/app-store/
+[appPosition]: /reference/config/#appposition
+[applicationFolderPosition]: /reference/config/#applicationfolderposition
+[tauri-apps/tauri#1731]: https://github.com/tauri-apps/tauri/issues/1731

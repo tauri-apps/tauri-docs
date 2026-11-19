@@ -5,6 +5,15 @@ import LogoDark from '@assets/logo.svg';
 import LogoOutline from '@assets/logo-outline.svg';
 
 const { tagline, getStarted, v1Docs } = Astro.props;
+
+let startHref = '/start/';
+try {
+  const curLocale = Astro.locals.starlightRoute.locale;
+  if (curLocale) startHref = `/${curLocale}/start/`;
+} catch {
+  // Rendered outside a Starlight route (e.g. the /llms-full.txt export):
+  // fall back to the default link.
+}
 ---
 
 <div class="hero-bg">
@@ -20,7 +29,7 @@ const { tagline, getStarted, v1Docs } = Astro.props;
       <LogoDark class="lp-tauri-logo dark" />
       <p class="lp-tagline">{tagline}</p>
       <div class="actions">
-        <LinkButton icon="right-arrow" href="/start/">
+        <LinkButton icon="right-arrow" href={startHref}>
           {getStarted}
         </LinkButton>
         <LinkButton href="https://v1.tauri.app" variant="minimal" icon="external">

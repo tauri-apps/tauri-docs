@@ -1,0 +1,435 @@
+---
+title: Предварительные требования
+i18nReady: true
+sidebar:
+  order: 0
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+Чтобы начать создавать свой проект на Tauri, сначала необходимо установить несколько зависимостей:
+
+1. [Системные зависимости](#системные-зависимости)
+2. [Rust](#rust)
+3. [Настройка для мобильных целей](#настройка-для-мобильных-целей) (требуется только при разработке для мобильных устройств)
+
+## Системные зависимости
+
+Перейдите по ссылке, соответствующей вашей операционной системе, чтобы начать работу:
+
+- [Linux](#linux) (см. ниже конкретные дистрибутивы)
+- [macOS Catalina (10.15) и новее](#macos)
+- [Windows 7 и новее](#windows)
+
+### Linux
+
+Для разработки на Linux Tauri требует различных системных зависимостей. Они могут отличаться в зависимости от вашего дистрибутива, но ниже мы включили несколько популярных дистрибутивов, чтобы помочь вам с настройкой.
+
+<Tabs syncKey="distro">
+  <TabItem label="Debian">
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.1-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libxdo-dev \
+  libssl-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+
+  </TabItem>
+  <TabItem label="Arch">
+
+```sh
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk-4.1 \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  libappindicator-gtk3 \
+  librsvg \
+  xdotool
+```
+
+  </TabItem>
+  <TabItem label="Fedora">
+
+```sh
+sudo dnf check-update
+sudo dnf install webkit2gtk4.1-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel \
+  libxdo-devel
+sudo dnf group install "c-development"
+```
+
+  </TabItem>
+  <TabItem label="Gentoo">
+
+```sh
+sudo emerge --ask \
+  net-libs/webkit-gtk:4.1 \
+  dev-libs/libayatana-appindicator \
+  net-misc/curl \
+  net-misc/wget \
+  sys-apps/file
+```
+
+  </TabItem>
+  <TabItem label="OSTree">
+
+```sh
+sudo rpm-ostree install webkit2gtk4.1-devel \
+  openssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator-gtk3-devel \
+  librsvg2-devel \
+  libxdo-devel \
+  gcc \
+  gcc-c++ \
+  make
+sudo systemctl reboot
+```
+
+  </TabItem>
+  <TabItem label="openSUSE">
+
+```sh
+sudo zypper up
+sudo zypper in webkit2gtk3-devel \
+  libopenssl-devel \
+  curl \
+  wget \
+  file \
+  libappindicator3-1 \
+  librsvg-devel
+sudo zypper in -t pattern devel_basis
+```
+
+  </TabItem>
+  <TabItem label="Alpine">
+```sh
+sudo apk add \
+  build-base \
+  webkit2gtk-4.1-dev \
+  curl \
+  wget \
+  file \
+  openssl \
+  libayatana-appindicator-dev \
+  librsvg
+```
+
+> Примечание: контейнеры Alpine Linux по умолчанию не включают шрифты. Чтобы текст корректно отображался в вашем приложении Tauri, установите хотя бы один пакет шрифтов (например, `font-dejavu `).
+
+> Примечание: Alpine использует библиотеку языка C musl, поэтому сборки Rust статически связывают ряд системных библиотек. Если `cargo`/`pnpm tauri build` завершается с ошибками компоновщика для символов из библиотек, которые `pkg-config` сообщает как присутствующие, установите соответствующие пакеты `*-static` вместе с указанными выше пакетами `-dev`:
+>
+> ```sh
+> sudo apk add --no-cache \
+>   openssl-libs-static \
+>   cairo-static \
+>   harfbuzz-static \
+>   glib-static \
+>   wayland-static \
+>   zlib-static
+> ```
+>
+> Не каждая зависимость, которую привлекает Tauri, упакована как `*-static` в Alpine; в таких случаях вам, возможно, придётся собрать недостающую статическую библиотеку из исходников.
+
+  </TabItem>
+  <TabItem label="NixOS">
+
+:::note
+Инструкции для Nix/NixOS можно найти в [вики NixOS](https://wiki.nixos.org/wiki/Tauri).
+:::
+
+  </TabItem>
+</Tabs>
+
+Если вашего дистрибутива нет в списке выше, вы можете проверить [Awesome Tauri на GitHub](https://github.com/tauri-apps/awesome-tauri#guides), чтобы узнать, было ли создано руководство.
+
+Далее: [Установка Rust](#rust)
+
+### macOS
+
+Tauri использует [Xcode](https://developer.apple.com/xcode/resources/) и различные зависимости для разработки под macOS и iOS.
+
+Загрузите и установите Xcode из одного из следующих источников:
+
+- [Mac App Store](https://apps.apple.com/gb/app/xcode/id497799835?mt=12)
+- [Сайт Apple Developer](https://developer.apple.com/xcode/resources/).
+
+После установки обязательно запустите Xcode, чтобы он завершил настройку.
+
+<details>
+<summary>Разрабатываете только для настольных целевых платформ?</summary>
+Если вы планируете разрабатывать только настольные приложения, не ориентируясь на iOS, вы можете вместо этого установить инструменты командной строки Xcode (Xcode Command Line Tools):
+
+```sh
+xcode-select --install
+```
+
+</details>
+
+Далее: [Установка Rust](#rust)
+
+### Windows
+
+Для разработки Tauri использует Microsoft C++ Build Tools, а также Microsoft Edge WebView2. Оба компонента необходимы для разработки в Windows.
+
+Выполните следующие шаги, чтобы установить необходимые зависимости.
+
+#### Microsoft C++ Build Tools
+
+1. Загрузите установщик [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) и запустите его, чтобы начать установку.
+2. Во время установки отметьте пункт «Разработка классических приложений на C++».
+
+![Скриншот установщика Visual Studio C++ Build Tools](@assets/start/prerequisites/visual-studio-build-tools-installer.png)
+
+Далее: [Установка WebView2](#webview2).
+
+#### WebView2
+
+:::tip
+WebView 2 уже установлен в Windows 10 (начиная с версии 1803) и более новых версиях Windows. Если вы разрабатываете на одной из этих версий, вы можете пропустить этот шаг и перейти сразу к [установке Rust](#rust).
+:::
+
+Tauri использует Microsoft Edge WebView2 для рендеринга контента в Windows.
+
+Установите WebView2, посетив [раздел загрузки WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/#download-section). Загрузите «Evergreen Bootstrapper» и установите его.
+
+Далее: [Проверьте VBSCRIPT](#vbscript-для-установщиков-msi)
+
+#### VBSCRIPT (для установщиков MSI)
+
+:::note[Только сборка пакетов MSI]
+Это требуется только в том случае, если вы планируете собирать установочные пакеты MSI (`"targets": "msi"` или `"targets": "all"` в `tauri.conf.json`).
+:::
+
+Сборка пакетов MSI в Windows требует включения дополнительного компонента VBSCRIPT. Этот компонент по умолчанию включён в большинстве установок Windows, но на некоторых системах он может быть отключён.
+
+Если при сборке пакетов MSI вы сталкиваетесь с ошибками вида `failed to run light.exe`, вам может потребоваться включить компонент VBSCRIPT:
+
+1. Откройте **Параметры** → **Приложения** → **Дополнительные компоненты** → **Дополнительные возможности Windows**
+2. Найдите **VBSCRIPT** в списке и убедитесь, что он отмечен
+3. Нажмите **Далее** и перезагрузите компьютер, если будет предложено
+
+**Примечание:** VBSCRIPT в настоящее время включён по умолчанию в большинстве установок Windows, но [подлежит удалению](https://techcommunity.microsoft.com/blog/windows-itpro-blog/vbscript-deprecation-timelines-and-next-steps/4148301) и может быть отключён в будущих версиях Windows.
+
+Далее: [Установка Rust](#rust)
+
+## Rust
+
+Tauri построен на [Rust](https://www.rust-lang.org) и требует его для разработки. Установите Rust одним из следующих способов. Больше способов установки можно найти на странице https://www.rust-lang.org/tools/install.
+
+<Tabs syncKey="OS">
+  <TabItem label="Linux and macOS" class="content">
+
+Установите через [`rustup`](https://github.com/rust-lang/rustup), используя следующую команду:
+
+```sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[Совет по безопасности]
+Мы проверили этот bash-скрипт, и он делает то, что должен делать. Тем не менее, прежде чем вслепую использовать curl для выполнения скрипта, всегда разумно сначала просмотреть его.
+
+Вот этот файл в виде обычного скрипта: [rustup.sh](https://sh.rustup.rs/)
+:::
+
+  </TabItem>
+  <TabItem label="Windows">
+
+Посетите https://www.rust-lang.org/tools/install, чтобы установить `rustup`.
+
+В качестве альтернативы вы можете использовать `winget` для установки rustup с помощью следующей команды в PowerShell:
+
+```powershell
+winget install --id Rustlang.Rustup
+```
+
+:::caution[Цепочка инструментов MSVC по умолчанию]
+
+Для полной поддержки Tauri и таких инструментов, как [`trunk`](https://trunk-rs.github.io/trunk/), убедитесь, что цепочка инструментов MSVC Rust выбрана как `default host triple` в диалоговом окне установки. В зависимости от вашей системы это должно быть `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc` или `aarch64-pc-windows-msvc`.
+
+Если Rust уже установлен, вы можете убедиться, что правильная цепочка инструментов установлена, выполнив эту команду:
+
+```powershell
+rustup default stable-msvc
+```
+
+:::
+
+  </TabItem>
+</Tabs>
+
+**Обязательно перезапустите терминал (а в некоторых случаях и систему), чтобы изменения вступили в силу.**
+
+Далее: [Настройка для мобильных целей](#настройка-для-мобильных-целей), если вы хотите собирать приложения для Android и iOS, или, если вы хотите использовать JavaScript-фреймворк, [установите Node](#nodejs). В противном случае [Создание проекта](/ru/start/create-project/).
+
+## Node.js
+
+:::note[Экосистема JavaScript]
+Только если вы намереваетесь использовать JavaScript-фреймворк для фронтенда
+:::
+
+1. Перейдите на [сайт Node.js](https://nodejs.org), загрузите версию с долгосрочной поддержкой (LTS) и установите её.
+2. Проверьте, успешно ли установлен Node, выполнив:
+
+```sh
+node -v
+# v20.10.0
+npm -v
+# 10.2.3
+```
+
+Важно перезапустить терминал, чтобы он распознал новую установку. В некоторых случаях может потребоваться перезагрузить компьютер.
+
+Хотя npm является менеджером пакетов по умолчанию для Node.js, вы также можете использовать другие, например pnpm или yarn. Чтобы включить их, выполните `corepack enable` в терминале. Этот шаг необязателен и нужен только в том случае, если вы предпочитаете использовать менеджер пакетов, отличный от npm.
+
+Далее: [Настройка для мобильных целей](#настройка-для-мобильных-целей) или [Создание проекта](/ru/start/create-project/).
+
+## Настройка для мобильных целей
+
+Если вы хотите ориентировать своё приложение на Android или iOS, необходимо установить несколько дополнительных зависимостей:
+
+- [Android](#android)
+- [iOS](#ios)
+
+### Android
+
+1. Загрузите и установите [Android Studio с сайта Android Developers](https://developer.android.com/studio)
+2. Задайте переменную окружения `JAVA_HOME`:
+
+{/* TODO: Can this be done in the 4th step? */}
+
+<Tabs syncKey="prereqs">
+<TabItem label="Linux">
+
+```sh
+export JAVA_HOME=/opt/android-studio/jbr
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Android\Android Studio\jbr", "User")
+```
+
+</TabItem>
+</Tabs>
+3. Используйте SDK Manager в Android Studio, чтобы установить следующее:
+
+- Android SDK Platform
+- Android SDK Platform-Tools
+- NDK (Side by side)
+- Android SDK Build-Tools
+- Android SDK Command-line Tools
+
+Выбор «Show Package Details» в SDK Manager включает установку более старых версий пакетов. Устанавливайте старые версии только при необходимости, так как они могут привести к проблемам совместимости или угрозам безопасности.
+
+4. Задайте переменные окружения `ANDROID_HOME` и `NDK_HOME`.
+
+<Tabs syncKey="prereqs">
+<TabItem label="Linux">
+
+```sh
+export ANDROID_HOME="$HOME/Android/Sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="macOS">
+
+```sh
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```ps
+[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:LocalAppData\Android\Sdk", "User")
+$VERSION = Get-ChildItem -Name "$env:LocalAppData\Android\Sdk\ndk" | Select-Object -Last 1
+[System.Environment]::SetEnvironmentVariable("NDK_HOME", "$env:LocalAppData\Android\Sdk\ndk\$VERSION", "User")
+```
+
+:::tip
+Большинство приложений не обновляют переменные окружения автоматически, поэтому, чтобы они подхватили изменения, вы можете либо перезапустить терминал и IDE, либо обновить их для текущего сеанса PowerShell с помощью:
+
+```ps
+[System.Environment]::GetEnvironmentVariables("User").GetEnumerator() | % { Set-Item -Path "Env:\$($_.key)" -Value $_.value }
+```
+
+:::
+
+</TabItem>
+
+</Tabs>
+
+5. Добавьте целевые платформы Android с помощью `rustup`:
+
+```sh
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+Далее: [Настройка iOS](#ios) или [Создание проекта](/ru/start/create-project/).
+
+### iOS
+
+:::caution[Только macOS]
+Разработка для iOS требует Xcode и доступна только в macOS. Убедитесь, что вы установили именно Xcode, а не инструменты командной строки Xcode, в разделе [системных зависимостей macOS](#macos).
+:::
+
+1. Добавьте целевые платформы iOS с помощью `rustup` в терминале:
+
+```sh
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+```
+
+2. Установите [Homebrew](https://brew.sh):
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+3. Установите [Cocoapods](https://cocoapods.org) с помощью Homebrew:
+
+```sh
+brew install cocoapods
+```
+
+Далее: [Создание проекта](/ru/start/create-project/).
+
+## Устранение неполадок
+
+Если при установке возникнут какие-либо проблемы, обязательно обратитесь к [руководству по устранению неполадок](/ru/develop/debug/) или напишите в [Discord Tauri](https://discord.com/invite/tauri).
+
+<Card title="Следующие шаги" icon="rocket">
+
+Теперь, когда вы установили все предварительные требования, вы готовы [создать свой первый проект Tauri](/ru/start/create-project/)!
+
+</Card>

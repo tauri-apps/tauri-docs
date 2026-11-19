@@ -1,0 +1,51 @@
+---
+title: Trunk
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Trunk — это сборщик WASM веб-приложений для Rust. Узнайте больше о Trunk на https://trunk-rs.github.io/trunk/. Это руководство актуально для Trunk 0.17.5.
+
+## Контрольный список
+
+- Используйте SSG, так как Tauri официально не поддерживает серверные решения.
+- Используйте `serve.ws_protocol = "ws"`, чтобы вебсокет горячей перезагрузки мог корректно подключаться при разработке под мобильные устройства.
+- Включите `withGlobalTauri`, чтобы API Tauri были доступны в переменной `window.__TAURI__` и их можно было импортировать с помощью `wasm-bindgen`.
+
+## Пример конфигурации
+
+<Steps>
+
+1. ##### Обновите конфигурацию Tauri
+
+   ```json
+   // tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "beforeBuildCommand": "trunk build",
+       "devUrl": "http://localhost:8080",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
+
+1. ##### Обновите конфигурацию Trunk
+
+   ```toml
+   # Trunk.toml
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   ws_protocol = "ws"
+   ```
+
+</Steps>

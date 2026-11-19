@@ -1,0 +1,244 @@
+---
+title: Встраивание внешних бинарных файлов
+i18nReady: true
+---
+
+Возможно, вам потребуется встроить внешние бинарные файлы, чтобы добавить дополнительные функции вашему приложению или предотвратить установку пользователями дополнительных зависимостей (например, Node.js или Python). Мы называем такой бинарный файл `sidecar`.
+
+Бинарные файлы — это исполняемые файлы, написанные на любом языке программирования. Распространённые примеры использования — Python CLI-приложения или API-серверы, упакованные с помощью `pyinstaller`.
+
+Чтобы включить выбранные бинарные файлы в бандл, вы можете добавить свойство `externalBin` в объект `bundle` в вашем `tauri.conf.json`.
+Конфигурация `externalBin` ожидает список строк, указывающих на бинарные файлы с абсолютными или относительными путями.
+
+Вот фрагмент конфигурации Tauri, иллюстрирующий конфигурацию sidecar:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "externalBin": [
+      "/absolute/path/to/sidecar",
+      "../relative/path/to/binary",
+      "binaries/my-sidecar"
+    ]
+  }
+}
+```
+
+:::note
+
+Относительные пути отсчитываются от файла `tauri.conf.json`, который находится в каталоге `src-tauri`.
+Таким образом, `binaries/my-sidecar` будет означать `<ПРОЕКТНЫЙ КОРЕНЬ>/src-tauri/binaries/my-sidecar`.
+
+:::
+
+Чтобы внешний бинарный файл работал на каждой поддерживаемой архитектуре, в указанном пути должен существовать бинарный файл с тем же именем и суффиксом `-$TARGET_TRIPLE`.
+Например, `"externalBin": ["binaries/my-sidecar"]` требует исполняемый файл `src-tauri/binaries/my-sidecar-x86_64-unknown-linux-gnu` в Linux или `src-tauri/binaries/my-sidecar-aarch64-apple-darwin` в Mac OS с Apple Silicon.
+
+Вы можете узнать суффикс `-$TARGET_TRIPLE` для вашей **текущей** платформы, выполнив команду:
+
+```sh
+rustc --print host-tuple
+```
+
+Это напрямую выведет целевую тройку вашего хоста (например, `x86_64-unknown-linux-gnu` или `aarch64-apple-darwin`).
+
+:::note
+Флаг `--print host-tuple` был добавлен в Rust 1.84.0. Если вы используете более старую версию, вам нужно будет проанализировать вывод `rustc -Vv`:
+
+```sh
+# Unix (Linux/macOS)
+rustc -Vv | grep host | cut -f2 -d' '
+
+# Windows PowerShell
+rustc -Vv | Select-String "host:" | ForEach-Object {$_.Line.split(" ")[1]}
+```
+
+:::
+
+Вот скрипт Node.js для добавления целевой тройки к бинарному файлу:
+
+```javascript
+import { execSync } from 'child_process';
+import fs from 'fs';
+
+const extension = process.platform === 'win32' ? '.exe' : '';
+
+const targetTriple = execSync('rustc --print host-tuple').toString().trim();
+if (!targetTriple) {
+  console.error('Failed to determine platform target triple');
+}
+fs.renameSync(
+  `src-tauri/binaries/sidecar${extension}`,
+  `src-tauri/binaries/sidecar-${targetTriple}${extension}`
+);
+```
+
+Обратите внимание, что этот скрипт не будет работать, если вы компилируете для архитектуры, отличной от той, на которой он выполняется,
+поэтому используйте его только как отправную точку для ваших собственных сборочных скриптов.
+
+## Запуск из Rust
+
+:::note
+Пожалуйста, сначала следуйте [руководству по плагину shell](/ru/plugin/shell/), чтобы правильно настроить и инициализировать плагин.
+Без инициализированного и настроенного плагина пример не будет работать.
+:::
+
+Со стороны Rust импортируйте трейт `tauri_plugin_shell::ShellExt` и вызовите функцию `shell().sidecar()` на AppHandle:
+
+```rust
+use tauri_plugin_shell::ShellExt;
+use tauri_plugin_shell::process::CommandEvent;
+use tauri::Emitter;
+
+let sidecar_command = app.shell().sidecar("my-sidecar").unwrap();
+let (mut rx, mut child) = sidecar_command
+  .spawn()
+  .expect("Failed to spawn sidecar");
+
+tauri::async_runtime::spawn(async move {
+  // read events such as stdout
+  while let Some(event) = rx.recv().await {
+    if let CommandEvent::Stdout(line_bytes) = event {
+      let line = String::from_utf8_lossy(&line_bytes);
+      app
+        .emit("message", Some(format!("'{}'", line)))
+        .expect("failed to emit event");
+      // write to stdin
+      child.write("message from Rust\n".as_bytes()).unwrap();
+    }
+  }
+});
+```
+
+:::note
+Функция `sidecar()` ожидает только имя файла, а НЕ весь путь, настроенный в массиве `externalBin`.
+
+Имея следующую конфигурацию:
+
+```json title="src-tauri/tauri.conf.json"
+{
+  "bundle": {
+    "externalBin": ["binaries/app", "my-sidecar", "../scripts/sidecar"]
+  }
+}
+```
+
+Правильный способ выполнить sidecar — вызвать `app.shell().sidecar(name)`, где `name` — это либо `"app"`, `"my-sidecar"` или `"sidecar"`,
+а не, например, `"binaries/app"`.
+
+:::
+
+Вы можете поместить этот код внутрь команды Tauri, чтобы легко передавать AppHandle, или сохранить ссылку на AppHandle в скрипте сборщика, чтобы получить к нему доступ в другом месте вашего приложения.
+
+## Запуск из JavaScript
+
+При запуске sidecar Tauri требует, чтобы вы предоставили sidecar разрешение на выполнение метода `execute` или `spawn` для дочернего процесса. Чтобы предоставить это разрешение, перейдите в файл `<ПРОЕКТНЫЙ КОРЕНЬ>/src-tauri/capabilities/default.json` и добавьте приведённый ниже раздел в массив разрешений. Не забудьте назвать ваш sidecar в соответствии с относительным путём, упомянутым ранее.
+
+```json title="src-tauri/capabilities/default.json" ins={4-12}
+{
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/app",
+          "sidecar": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::note
+
+Идентификатор `shell:allow-execute` используется потому, что дочерний процесс sidecar будет запускаться с помощью метода `command.execute()`. Чтобы запустить его с помощью `command.spawn()`, вам нужно изменить идентификатор на `shell:allow-spawn` или добавить в массив другую запись с такой же структурой, как выше, но с идентификатором `shell:allow-spawn`.
+
+:::
+
+В коде JavaScript импортируйте класс `Command` из модуля `@tauri-apps/plugin-shell` и используйте статический метод `sidecar`.
+
+```javascript
+import { Command } from '@tauri-apps/plugin-shell';
+const command = Command.sidecar('binaries/my-sidecar');
+const output = await command.execute();
+```
+
+:::note
+Строка, переданная в `Command.sidecar`, должна совпадать с одной из строк, определённых в массиве конфигурации `externalBin`.
+:::
+
+## Передача аргументов
+
+Вы можете передавать аргументы командам Sidecar так же, как при запуске обычной [Command][std::process::Command].
+
+Аргументы могут быть либо **статическими** (например, `-o` или `serve`), либо **динамическими** (например, `<file_path>` или `localhost:<PORT>`). Значение `true` разрешит передачу любых аргументов команде. `false` отключит все аргументы. Если не задано ни `true`, ни `false`, вы определяете аргументы в точном порядке, в котором будете их вызывать. Статические аргументы определяются как есть, а динамические можно определять с помощью регулярного выражения.
+
+Сначала определите аргументы, которые нужно передать команде sidecar, в `src-tauri/capabilities/default.json`:
+
+```json title="src-tauri/capabilities/default.json" ins={8-24}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "args": [
+            "arg1",
+            "-a",
+            "--arg2",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "name": "binaries/my-sidecar",
+          "sidecar": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::note
+Если вы переходите с Tauri v1, команда `migrate` в CLI Tauri v2 должна сделать это за вас. Прочитайте [Автоматическая миграция](/ru/start/migrate/from-tauri-1/#автоматическая-миграция) для получения дополнительной информации.
+:::
+
+Затем, чтобы вызвать команду sidecar, просто передайте **все** аргументы в виде массива.
+
+В Rust:
+
+```rust
+use tauri_plugin_shell::ShellExt;
+#[tauri::command]
+async fn call_my_sidecar(app: tauri::AppHandle) {
+  let sidecar_command = app
+    .shell()
+    .sidecar("my-sidecar")
+    .unwrap()
+    .args(["arg1", "-a", "--arg2", "any-string-that-matches-the-validator"]);
+  let (mut _rx, mut _child) = sidecar_command.spawn().unwrap();
+}
+```
+
+В JavaScript:
+
+```javascript
+import { Command } from '@tauri-apps/plugin-shell';
+// notice that the args array matches EXACTLY what is specified in `capabilities/default.json`.
+const command = Command.sidecar('binaries/my-sidecar', [
+  'arg1',
+  '-a',
+  '--arg2',
+  'any-string-that-matches-the-validator',
+]);
+const output = await command.execute();
+```
+
+[std::process::Command]: https://doc.rust-lang.org/std/process/struct.Command.html

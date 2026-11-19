@@ -1,0 +1,293 @@
+---
+title: Использование разрешений плагинов
+sidebar:
+  order: 10
+i18nReady: true
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import ShowSolution from '@components/ShowSolution.astro'
+import Cta from '@fragments/cta.mdx';
+
+Цель этого упражнения — получить лучшее понимание того, как
+разрешения плагинов можно включать или отключать, где они описаны
+и как использовать разрешения по умолчанию плагинов.
+
+В конце вы будете уметь находить и использовать разрешения
+произвольных плагинов и понимать, как настраивать существующие разрешения под свои нужды.
+У вас будет пример приложения Tauri, в котором используются плагин и специфические для плагина
+разрешения.
+
+<Steps>
+
+1. ### Создание приложения Tauri
+
+    Создайте ваше приложение Tauri.
+    В нашем примере мы воспользуемся [`create-tauri-app`](https://github.com/tauri-apps/create-tauri-app):
+
+    <Cta />
+
+    Мы продолжим это пошаговое объяснение с `pnpm`, но вы можете выбрать другой
+    менеджер пакетов и заменить его в командах соответствующим образом.
+
+
+    <ShowSolution text="Показать решение">
+    ```
+    pnpm create tauri-app
+    ```
+
+    ```
+    ✔ Project name · plugin-permission-demo
+    ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, bun)
+    ✔ Choose your package manager · pnpm
+    ✔ Choose your UI template · Vanilla
+    ✔ Choose your UI flavor · TypeScript
+
+    Template created! To get started run:
+    cd plugin-permission-demo
+    pnpm install
+    pnpm tauri dev
+    ```
+    </ShowSolution>
+
+2. ### Добавление плагина `file-system` в ваше приложение
+
+    Для поиска существующих плагинов вы можете использовать несколько ресурсов.
+
+    Самый прямой способ — проверить, есть ли ваш плагин уже
+    в разделе [Плагины](/ru/plugin/) документации и, следовательно, является ли он частью
+    поддерживаемого набора плагинов Tauri.
+    Плагин Filesystem является частью рабочего пространства плагинов Tauri, и вы можете добавить его
+    в свой проект, следуя [инструкциям](/ru/plugin/file-system/#установка).
+
+    Если плагин является частью усилий сообщества, вы, скорее всего, найдёте его
+    на [crates.io](https://crates.io/search?q=tauri-plugin-) при поиске `tauri-plugin-<название вашего плагина>`.
+
+    <ShowSolution text="Показать решение">
+    Если это существующий плагин из нашего рабочего пространства, вы можете использовать автоматизированный способ:
+
+    ```
+    pnpm tauri add fs
+    ```
+
+    Если вы нашли его на [crates.io](https://crates.io/crates/tauri-plugin-fs)
+    вам нужно вручную добавить его как зависимость и изменить конструктор Tauri,
+    чтобы инициализировать плагин:
+
+    ```sh
+    cargo add tauri-plugin-fs
+    ```
+
+    Измените `lib.rs`, чтобы инициализировать плагин:
+
+    ```rust title="src-tauri/src/lib.rs" ins={4}
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    fn run() {
+      tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+    }
+    ```
+    </ShowSolution>
+
+3. ### Понимание разрешений по умолчанию плагина `fs`
+    
+    Каждый плагин имеет набор `default` разрешений, который содержит
+    все разрешения и области действия для использования плагина из коробки
+    с разумным минимальным набором функций.
+    
+    В случае официально поддерживаемых плагинов вы можете найти
+    отображаемое описание в документации
+    (например, [fs default](/ru/plugin/file-system/#default-permission)).
+
+    Если вы разбираетесь с этим для плагина сообщества, вам
+    нужно изучить исходный код плагина.
+    Это должно быть определено в `your-plugin/permissions/default.toml`.
+
+    <ShowSolution text="Показать решение">
+    ```
+    "$schema" = "schemas/schema.json"
+
+    [default]
+    description = """
+    # Tauri `fs` default permissions
+
+    This configuration file defines the default permissions granted
+    to the filesystem.
+
+    ### Granted Permissions
+
+    This default permission set enables all read-related commands and
+    allows access to the `$APP` folder and sub directories created in it.
+    The location of the `$APP` folder depends on the operating system,
+    where the application is run.
+
+    In general the `$APP` folder needs to be manually created
+    by the application at runtime, before accessing files or folders
+    in it is possible.
+
+    ### Denied Permissions
+
+    This default permission set prevents access to critical components
+    of the Tauri application by default.
+    On Windows the webview data folder access is denied.
+
+    """
+    permissions = ["read-all", "scope-app-recursive", "deny-default"]
+
+    ```
+    </ShowSolution>
+
+4. ### <span id="find-the-right-permissions"></span>Поиск подходящих разрешений
+      
+      Этот шаг полностью посвящён поиску разрешений, которые вам нужны,
+      чтобы ваши команды были доступны frontend с минимальным
+      доступом к вашей системе.
+
+      Плагин `fs` имеет автоматически сгенерированные разрешения, которые отключают
+      или включают отдельные команды и разрешают или запрещают глобальные области действия.
+
+      Их можно найти в [документации](/ru/plugin/file-system/#permission-table)
+      или в исходном коде плагина (`fs/permissions/autogenerated`).
+
+      Предположим, мы хотим включить запись в текстовый файл `test.txt`,
+      находящийся в папке `$HOME` пользователя.
+
+      Для этого мы поищем в автоматически сгенерированных разрешениях
+      разрешение для включения записи в текстовые файлы, например `allow-write-text-file`,
+      а затем область действия, которая позволит нам получить доступ к файлу
+      `$HOME/test.txt`.
+
+      Нам нужно добавить их в наш раздел `capabilities` в нашем
+      `src-tauri/tauri.conf.json` или в файл в папке `src-tauri/capabilities/`.
+      По умолчанию в `src-tauri/capabilities/default.json` уже есть capability, которую мы
+      можем изменить.
+
+      <ShowSolution text="Показать решение">
+
+      ```json title="src-tauri/capabilities/default.json" del={18} ins={19}
+      {
+        "$schema": "../gen/schemas/desktop-schema.json",
+        "identifier": "default",
+        "description": "Capability for the main window",
+        "windows": [
+          "main"
+        ],
+        "permissions": [
+          "path:default",
+          "event:default",
+          "window:default",
+          "app:default",
+          "image:default",
+          "resources:default",
+          "menu:default",
+          "tray:default",
+          "shell:allow-open",
+          "fs:default",
+          "fs:allow-write-text-file",
+        ]
+      }
+      ```
+
+      </ShowSolution>
+
+      Поскольку в плагине `fs` есть только автоматически сгенерированные области действия для
+      доступа к полной папке `$HOME`, нам нужно настроить собственную область действия.
+      Эта область действия должна быть включена только для команды `write-text-file`
+      и должна открывать только наш файл `test.txt`.
+
+      <ShowSolution text="Показать решение">
+      ```json title="src-tauri/capabilities/default.json" del={18} ins={19-22}
+         {
+        "$schema": "../gen/schemas/desktop-schema.json",
+        "identifier": "default",
+        "description": "Capability for the main window",
+        "windows": [
+          "main"
+        ],
+        "permissions": [
+          "path:default",
+          "event:default",
+          "window:default",
+          "app:default",
+          "image:default",
+          "resources:default",
+          "menu:default",
+          "tray:default",
+          "shell:allow-open",
+          "fs:allow-write-text-file",
+          {
+            "identifier": "fs:allow-write-text-file",
+            "allow": [{ "path": "$HOME/test.txt" }]
+          },
+        ]
+      }
+      ```
+      </ShowSolution>
+5. ### Тестирование разрешений на практике
+
+        После того как мы добавили необходимое разрешение, мы хотим
+        подтвердить, что наше приложение может получить доступ к файлу и записать
+        его содержимое.
+
+        <ShowSolution text="Показать решение">
+        Мы можем использовать этот фрагмент в нашем приложении для записи в файл:
+
+        ```ts title="src/main.ts"
+        import { writeTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
+
+        let greetInputEl: HTMLInputElement | null;
+
+        async function write(message: string) {
+            await writeTextFile('test.txt', message, { baseDir: BaseDirectory.Home });
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+          greetInputEl = document.querySelector("#greet-input");
+          document.querySelector("#greet-form")?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (!greetInputEl )
+              return;
+
+            write(greetInputEl.value == "" ? "No input provided": greetInputEl.value);
+
+          });
+        });
+
+        ```
+
+        Замена `src/main.ts` этим фрагментом означает, что нам не нужно изменять стандартный `index.html`,
+        при использовании простого приложения Vanilla+Typescript.
+        Ввод любого значения в поле ввода запущенного приложения будет
+        записан в файл при отправке.
+
+        Давайте теперь протестируем на практике:
+
+        ```
+        pnpm run tauri dev
+        ```
+
+        После ввода значения и нажатия «Submit»
+        мы можем проверить через наш эмулятор терминала или вручную открыв
+        файл в вашей домашней папке.
+
+        ```
+        cat $HOME/test.txt
+        ```
+
+        Вам должно отобразиться ваше значение, а изучение использования разрешений из плагинов в приложениях Tauri завершено.
+        🥳
+
+
+        Если вы столкнулись с этой ошибкой:
+
+        ```sh
+        [Error] Unhandled Promise Rejection: fs.write_text_file not allowed. Permissions associated with this command: fs:allow-app-write, fs:allow-app-write-recursive, fs:allow-appcache-write, fs:allow-appcache-write-recursive, fs:allow-appconf...
+        (anonymous function) (main.ts:5)
+        ```
+
+        Тогда вы, скорее всего, не следовали должным образом [предыдущим инструкциям](#find-the-right-permissions).
+        </ShowSolution>
+
+ </Steps>   

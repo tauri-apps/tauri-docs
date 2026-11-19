@@ -1,0 +1,150 @@
+---
+title: Отладка
+sidebar:
+  label: Обзор
+  order: 10
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+С учётом всех движущихся частей в Tauri вы можете столкнуться с проблемой, требующей отладки. Существует много мест, где печатаются сведения об ошибках, и Tauri включает некоторые инструменты, чтобы сделать процесс отладки более понятным.
+
+## Код только для разработки
+
+Один из самых полезных инструментов в вашем наборе для отладки — возможность добавлять отладочные операторы в ваш код. Однако, как правило, вы не хотите, чтобы они попадали в production, и здесь как раз пригодится возможность проверить, работаете ли вы в режиме разработки.
+
+### В Rust
+
+```rs frame=none
+fn main() {
+  // Whether the current instance was started with `tauri dev` or not.
+  #[cfg(dev)]
+  {
+    // `tauri dev` only code
+  }
+  if cfg!(dev) {
+    // `tauri dev` only code
+  } else {
+    // `tauri build` only code
+  }
+  let is_dev: bool = tauri::is_dev();
+
+  // Whether debug assertions are enabled or not. This is true for `tauri dev` and `tauri build --debug`.
+  #[cfg(debug_assertions)]
+  {
+    // Debug only code
+  }
+  if cfg!(debug_assertions) {
+    // Debug only code
+  } else {
+    // Production only code
+  }
+}
+```
+
+{/* TODO: js version */}
+
+## Консоль Rust
+
+Первое место, где стоит искать ошибки, — консоль Rust. Это терминал, в котором вы запускали, например, `tauri dev`. Вы можете использовать следующий код, чтобы вывести что-то в эту консоль из файла Rust:
+
+```rust frame=none
+println!("Message from Rust: {}", msg);
+```
+
+Иногда в вашем коде Rust может быть ошибка, и компилятор Rust может дать вам много информации. Если, например, `tauri dev` падает, вы можете перезапустить его следующим образом в Linux и macOS:
+
+```shell frame=none
+RUST_BACKTRACE=1 tauri dev
+```
+
+или так в Windows (PowerShell):
+
+```powershell frame=none
+$env:RUST_BACKTRACE=1
+tauri dev
+```
+
+Эта команда выдаёт детальную трассировку стека. Вообще говоря, компилятор Rust помогает вам, давая подробную информацию о проблеме, например:
+
+```bash frame=none
+error[E0425]: cannot find value `sun` in this scope
+  --> src/main.rs:11:5
+   |
+11 |     sun += i.to_string().parse::<u64>().unwrap();
+   |     ^^^ help: a local variable with a similar name exists: `sum`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0425`.
+```
+
+## Консоль WebView
+
+Щёлкните правой кнопкой мыши в WebView и выберите `Inspect Element`. Это откроет веб-инспектор, похожий на инструменты разработчика Chrome или Firefox, к которым вы привыкли.
+Вы также можете использовать сочетание клавиш `Ctrl + Shift + i` в Linux и Windows и `Command + Option + i` в macOS, чтобы открыть инспектор.
+
+Инспектор зависит от платформы: в Linux рендерится WebInspector из webkit2gtk, в macOS — инспектор Safari, а в Windows — DevTools Microsoft Edge.
+
+### Открытие Devtools программно
+
+Вы можете управлять видимостью окна инспектора с помощью функций [`WebviewWindow::open_devtools`] и [`WebviewWindow::close_devtools`]:
+
+```rust
+tauri::Builder::default()
+  .setup(|app| {
+    #[cfg(debug_assertions)] // only include this code on debug builds
+    {
+      let window = app.get_webview_window("main").unwrap();
+      window.open_devtools();
+      window.close_devtools();
+    }
+    Ok(())
+  });
+```
+
+### Использование инспектора в production
+
+По умолчанию инспектор включён только в сборках для разработки и отладки, если вы не включите его с помощью возможности Cargo.
+
+#### Создание отладочной сборки
+
+Чтобы создать отладочную сборку, выполните команду `tauri build --debug`.
+
+<CommandTabs
+  npm="npm run tauri build -- --debug"
+  yarn="yarn tauri build --debug"
+  pnpm="pnpm tauri build --debug"
+  deno="deno task tauri build --debug"
+  bun="bun tauri build --debug"
+  cargo="cargo tauri build --debug"
+/>
+
+Как и обычные процессы сборки и разработки, сборка при первом запуске этой команды занимает некоторое время, но при последующих запусках происходит значительно быстрее.
+В итоговом приложении, собранном в бандл, включена консоль разработки, и оно находится в `src-tauri/target/debug/bundle`.
+
+Вы также можете запустить собранное приложение из терминала, что даст вам заметки компилятора Rust (в случае ошибок) или ваши сообщения `println`. Перейдите к файлу `src-tauri/target/(release|debug)/[app name]` и запустите его напрямую в консоли или дважды щёлкните по самому исполняемому файлу в файловой системе (обратите внимание: при таком способе консоль закрывается при возникновении ошибок).
+
+##### Включение возможности Devtools
+
+:::danger
+
+API devtools закрыты на macOS. Использование закрытых API на macOS препятствует принятию вашего приложения в App Store.
+
+:::
+
+Чтобы включить devtools в **производственных сборках**, вы должны включить возможность `devtools` Cargo в файле `src-tauri/Cargo.toml`:
+
+```toml
+[dependencies]
+tauri = { version = "...", features = ["...", "devtools"] }
+```
+
+## Отладка основного процесса
+
+Основной процесс работает на Rust, поэтому для его отладки вы можете использовать GDB или LLDB. Вы можете следовать руководству [Отладка в VS Code], чтобы узнать, как использовать расширение LLDB для VS Code для отладки основного процесса приложений Tauri.
+
+[отладка в vs code]: /ru/develop/debug/vscode/
+[`WebviewWindow::open_devtools`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.open_devtools
+[`WebviewWindow::close_devtools`]: https://docs.rs/tauri/2.0.0/tauri/webview/struct.WebviewWindow.html#method.close_devtools
