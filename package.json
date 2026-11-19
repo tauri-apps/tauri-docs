@@ -50,7 +50,7 @@
     "starlight-sidebar-topics": "^0.9.0",
     "unified": "^11.0.5"
   },
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.21.0",
   "engines": {
     "pnpm": "^12.0.0"
   },
