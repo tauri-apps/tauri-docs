@@ -238,11 +238,11 @@ tauri_plugin_log::Builder::new()
 При использовании целевой точки LogDir все журналы сохраняются в рекомендуемом каталоге журналов.
 Следующая таблица описывает расположение журналов для каждой платформы:
 
-| Platform | Value                                                                                    | Example                                           |
-| -------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| Linux    | `$XDG_DATA_HOME/{bundleIdentifier}/logs` or `$HOME/.local/share/{bundleIdentifier}/logs` | `/home/alice/.local/share/com.tauri.dev/logs`     |
-| macOS    | `{homeDir}/Library/Logs/{bundleIdentifier}`                                              | `/Users/Alice/Library/Logs/com.tauri.dev`         |
-| Windows  | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs`                                        | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
+| Платформа | Значение                                                                                  | Пример                                            |
+| --------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Linux     | `$XDG_DATA_HOME/{bundleIdentifier}/logs` или `$HOME/.local/share/{bundleIdentifier}/logs` | `/home/alice/.local/share/com.tauri.dev/logs`     |
+| macOS     | `{homeDir}/Library/Logs/{bundleIdentifier}`                                               | `/Users/Alice/Library/Logs/com.tauri.dev`         |
+| Windows   | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs`                                         | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
 
 - `Folder`:
 
