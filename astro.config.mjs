@@ -485,6 +485,8 @@ export default defineConfig({
             '/blog/',
             '/plugin/*/#default-permission',
             '/plugin/*/#permission-table',
+            '/ru/plugin/*/#default-permission',
+            '/ru/plugin/*/#permission-table',
             '/release/**',
             'http://localhost:*',
           ],

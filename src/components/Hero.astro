@@ -6,8 +6,14 @@ import LogoOutline from '@assets/logo-outline.svg';
 
 const { tagline, getStarted, v1Docs } = Astro.props;
 
-const curLocale = Astro.locals.starlightRoute.locale;
-const startHref = curLocale ? `/${curLocale}/start/` : '/start/';
+let startHref = '/start/';
+try {
+  const curLocale = Astro.locals.starlightRoute.locale;
+  if (curLocale) startHref = `/${curLocale}/start/`;
+} catch {
+  // Rendered outside a Starlight route (e.g. the /llms-full.txt export):
+  // fall back to the default link.
+}
 ---
 
 <div class="hero-bg">
