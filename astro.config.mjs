@@ -361,7 +361,7 @@ export default defineConfig({
               id: 'blog',
               link: '/blog/',
               icon: 'pen',
-              // Empty item to instruct it that is is local files, not an external link
+              // Empty item to instruct it that is local files, not an external link
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
