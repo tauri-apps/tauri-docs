@@ -49,7 +49,7 @@ More details on the security audit for 2.0 are to come in the future.
 
 Once all of the audit findings are resolved then we will move on to the release candidate phase. This is where we'll ask the Tauri community to give it a test drive, see if there are any bugs, and to provide feedback in preparation for the stable release.
 
-The RC phase will be time-locked so that early adopters can help us discover pain points and low-hanging fruit that can be resolved quickly. This will also include a documentation sprint in order to align what we know with what we show. More details on this will be shared as we get get closer to the release candidate phase.
+The RC phase will be time-locked so that early adopters can help us discover pain points and low-hanging fruit that can be resolved quickly. This will also include a documentation sprint in order to align what we know with what we show. More details on this will be shared as we get closer to the release candidate phase.
 
 ### Stable
 
