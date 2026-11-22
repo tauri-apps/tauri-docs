@@ -959,6 +959,28 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Acquisity",
+    "id": "Acquisity",
+    "avatarUrl": "https://images.opencollective.com/acquisity/64f8224/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/acquisity",
+    "socialLinks": {
+      "website": "https://www.acquisity.ai/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
+    "name": "Fanout",
+    "id": "Fanout",
+    "avatarUrl": "https://images.opencollective.com/fanout/ff84674/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/fanout",
+    "socialLinks": {
+      "website": "https://fanout.sh/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "Jonathan Dahan",
     "id": "Jonathan Dahan",
     "avatarUrl": "https://images.opencollective.com/jedahan/avatar/256.jpg",
