@@ -135,7 +135,7 @@ mockIPC(async (cmd, args) => {
 import { beforeAll, expect, test } from 'vitest';
 import { randomFillSync } from 'crypto';
 
-import { mockWindows } from '@tauri-apps/api/mocks';
+import { mockIPC, mockWindows } from '@tauri-apps/api/mocks';
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
@@ -151,11 +151,22 @@ beforeAll(() => {
 
 test('invoke', async () => {
   mockWindows('main', 'second', 'third');
+  // `getAllWebviewWindows()` asks the backend for the window list
+  mockIPC((cmd) => {
+    if (cmd === 'plugin:window|get_all_windows') {
+      return ['main', 'second', 'third'];
+    }
+  });
 
-  const { getCurrent, getAll } = await import('@tauri-apps/api/window');
+  const { getCurrentWebviewWindow, getAllWebviewWindows } =
+    await import('@tauri-apps/api/webviewWindow');
 
-  expect(getCurrent()).toHaveProperty('label', 'main');
-  expect(getAll().map((w) => w.label)).toEqual(['main', 'second', 'third']);
+  expect(getCurrentWebviewWindow()).toHaveProperty('label', 'main');
+  expect((await getAllWebviewWindows()).map((w) => w.label)).toEqual([
+    'main',
+    'second',
+    'third',
+  ]);
 });
 ```
 

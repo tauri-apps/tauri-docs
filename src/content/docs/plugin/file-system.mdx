@@ -393,7 +393,7 @@ The plugin offers separate APIs for reading text and binary files for performanc
   ```js
   import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const icon = await readFile('icon.png', {
-    baseDir: BaseDirectory.Resources,
+    baseDir: BaseDirectory.Resource,
   });
   ```
 
@@ -453,8 +453,8 @@ Note that you must configure each base directory separately.
 ```js
 import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
 await rename('user.db.bk', 'user.db', {
-  fromPathBaseDir: BaseDirectory.AppLocalData,
-  toPathBaseDir: BaseDirectory.Temp,
+  oldPathBaseDir: BaseDirectory.AppLocalData,
+  newPathBaseDir: BaseDirectory.Temp,
 });
 ```
 
