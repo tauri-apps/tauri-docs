@@ -183,25 +183,22 @@ importers:
         version: 4.0.19
       '@astrojs/starlight':
         specifier: 0.43.1
-        version: 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
+        version: 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
       '@lunariajs/core':
-        specifier: ^0.1.1
-        version: 0.1.1(supports-color@10.2.2)
-      '@lunariajs/starlight':
-        specifier: ^0.1.1
-        version: 0.1.1(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
+        specifier: ^0.3.0
+        version: 0.3.0(supports-color@10.2.2)
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
       astro:
         specifier: 7.4.12
-        version: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+        version: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       astro-d2:
         specifier: ^0.14.0
-        version: 0.14.1(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+        version: 0.14.1(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       astrojs-service-worker:
         specifier: ^2.0.3
-        version: 2.0.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
+        version: 2.0.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
       mdast-util-definitions:
         specifier: ^6.0.0
         version: 6.0.0
@@ -231,16 +228,16 @@ importers:
         version: 0.35.5(@types/node@24.19.2)
       starlight-blog:
         specifier: ^0.30.0
-        version: 0.30.2(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
+        version: 0.30.2(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
       starlight-links-validator:
         specifier: ^0.27.0
-        version: 0.27.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
+        version: 0.27.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
       starlight-llms-txt:
         specifier: ^0.12.0
-        version: 0.12.0(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
+        version: 0.12.0(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)
       starlight-sidebar-topics:
         specifier: ^0.9.0
-        version: 0.9.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+        version: 0.9.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -1163,9 +1160,6 @@ packages:
     resolution: {integrity: sha512-CuNiSqg7+e1cO/GjffyMOm5Tt2jUF9CWHHnvQ/UkqvtkGfHdgwEC0wpmq7fkN3gxwpRnrAN0WzO3vREKmNolMQ==}
     engines: {node: '>=18'}
 
-  '@clack/core@0.3.5':
-    resolution: {integrity: sha512-5cfhQNH+1VQ2xLQlmzXMqUoiaH0lRBq9/CLW9lTyMbuKLC3+xEK01tHVvyut++mLOn5urSHmkm6I0Lg9MaJSTQ==}
-
   '@clack/core@1.5.1':
     resolution: {integrity: sha512-iHTrHA8MtVuLl2TfZySmcKv1qO2PoyC9Z7pfSDozEuV5vtY3/wcOPKJXlqJ5Oq2Cx5DDGQGAMVx6HZfRRoVEbQ==}
     engines: {node: '>= 20.12.0'}
@@ -1421,17 +1415,10 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
-  '@lunariajs/core@0.1.1':
-    resolution: {integrity: sha512-sAqM9+DVsLe3xHM9wu2pEnKGYMs/bWS9qpR+CGHol3RihOELnOQTzHddXbdB1MtgesbI8dnQuG64Ocd8KkWsng==}
+  '@lunariajs/core@0.3.0':
+    resolution: {integrity: sha512-Bm9wNvUW1mvnTnGyDKkafUISKRSqbxn1qSENFHW9s14quyygLAPOH+L5bi688Cx69vpw0EtK1zgkoMKX5bnBjg==}
     engines: {node: '>=18.17.0'}
     hasBin: true
-
-  '@lunariajs/starlight@0.1.1':
-    resolution: {integrity: sha512-tpkqv8TCGUvz0z5nVk1ACb/2bT3seqDx+CHimNQugcpAFSip9BqDPOiWqaCujzZFajfR/L4mUsPAnavnnE8KVw==}
-    engines: {node: '>=18.17.0'}
-    peerDependencies:
-      '@astrojs/starlight': '>=0.14.0'
-      astro: '>=4.0.0'
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
@@ -1459,18 +1446,6 @@ packages:
 
   '@nodable/entities@3.1.0':
     resolution: {integrity: sha512-LsS/DjHr+uDM647Gru/cA8+J3a3HfhttwCKLyuoyN7yXTFCxKBtSgMQBvrW9yNPa2/zDRUNuGPaH5QUFoa4arQ==}
-
-  '@nodelib/fs.scandir@2.1.5':
-    resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
-    engines: {node: '>= 8'}
-
-  '@nodelib/fs.stat@2.0.5':
-    resolution: {integrity: sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==}
-    engines: {node: '>= 8'}
-
-  '@nodelib/fs.walk@1.2.8':
-    resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
-    engines: {node: '>= 8'}
 
   '@npmcli/agent@5.0.2':
     resolution: {integrity: sha512-EkzGmEsgbQ1rqWkRJe2P0oQHx/ylZozDUNPMXCklLuSFL3GY+QyEfBUjhjCsgGXzh4OGpnHvkboSQgczjP/jJg==}
@@ -2010,8 +1985,8 @@ packages:
   '@simple-git/args-pathspec@1.0.4':
     resolution: {integrity: sha512-EtMX6XjRWSastG2SdkmSQByPtJ9dx/NIjnHbpQPCYt62j4RmSx5rgLTGpw0YCjF5h191gZOmBfheOT23cRSFdw==}
 
-  '@simple-git/argv-parser@1.1.1':
-    resolution: {integrity: sha512-Q9lBcfQ+VQCpQqGJFHe5yooOS5hGdLFFbJ5R+R5aDsnkPCahtn1hSkMcORX65J2Z5lxSkD0lQorMsncuBQxYUw==}
+  '@simple-git/argv-parser@3.0.0':
+    resolution: {integrity: sha512-MhLm6/9J7PiVZghJnaJG4tOc+rTotsSINJkjbUqZA7lYmYklOXdk+d0UZ8Pm8WFcMuxafx3oSUIYYYnPY92GTQ==}
 
   '@tauri-apps/cli-darwin-arm64@2.12.6':
     resolution: {integrity: sha512-Uokwk1hFfJoG54+kD8iU0St33jAIkNvojnjEfBZ6UbL5rnM10AiFwUS/2DHTJ9R4/Kba4U44v7djfMuWFTQgeg==}
@@ -2525,6 +2500,14 @@ packages:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
 
+  consola@3.4.2:
+    resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
+    engines: {node: ^14.18.0 || >=16.10.0}
+
+  content-type@1.0.5:
+    resolution: {integrity: sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==}
+    engines: {node: '>= 0.6'}
+
   content-type@2.1.0:
     resolution: {integrity: sha512-mj7UPXE0jaqaOsukNZRUEfEi2AcL7C/vwmwcHV0O97eO1E1pxBZuyjlZrx5seTaNBg1U6+o35wpa35Qfcc+7ag==}
     engines: {node: '>=18'}
@@ -2688,6 +2671,10 @@ packages:
   electron-to-chromium@1.5.463:
     resolution: {integrity: sha512-nVWNU6ltFjopvOdD44J4zoBkgO0M+WZiFKKFV7EjebOH9z0KNphk6bCEjplXtJofL21ARIuuwWOCsFkBVklm6w==}
 
+  encoding@0.1.14:
+    resolution: {integrity: sha512-pqH+jIxIhwX5U4w+Tnu3jjowTo5QTACbqef2C5Cw2RhApr7COQqgnai53u8VbtqjWRcSoAcTf7uZ62dO5kC8Iw==}
+    engines: {node: '>=20.0.0'}
+
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
@@ -2786,10 +2773,6 @@ packages:
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
-  fast-glob@3.3.3:
-    resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
-    engines: {node: '>=8.6.0'}
-
   fast-json-stable-stringify@2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
 
@@ -2811,9 +2794,6 @@ packages:
   fast-xml-parser@5.12.1:
     resolution: {integrity: sha512-wR8dO/fx+z8C5exuem1e7BKOWvjsuzvjS/tvA/Xu3Z1zQqJGcXrPzXbcAiaMgp2KjreEROcTkmnnisrcmJ2hYQ==}
     hasBin: true
-
-  fastq@1.20.3:
-    resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
 
   fdir@6.5.0:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
@@ -2895,10 +2875,6 @@ packages:
   get-own-enumerable-property-symbols@3.0.2:
     resolution: {integrity: sha512-I0UBV/XOz1XkIJHEUDMZAbzCThU/H8DxmSfmdGcKPnVhu2VfFqr34jr9777IyaTYvxjedWhqVIilEDsCdP5G6g==}
 
-  get-port@7.2.0:
-    resolution: {integrity: sha512-afP4W205ONCuMoPBqcR6PSXnzX35KTcJygfJfcp+QY+uwm3p20p1YczWXhlICIzGMCxYBQcySEcOgsJcrkyobg==}
-    engines: {node: '>=16'}
-
   get-proto@1.0.1:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
@@ -2911,12 +2887,12 @@ packages:
     resolution: {integrity: sha512-X6fBC0pmImC70gvX2zm56go9hx0MyoGVdG0tUCkg/D+Xnh5TJsOZ7iDbOdI3PvmtrDxnu1YdDufpK2QJX1Meqw==}
     engines: {node: '>=20.20.0'}
 
+  gettext-parser@10.0.0:
+    resolution: {integrity: sha512-hELgK4pFrOrqFiUOo4GQ6kFg0ywhlEJXN6R22cgZ1dxzZj9LUXA2NnwmyoUqxLyunm0yrSPwd6fA5bNqjuvmYA==}
+    engines: {node: '>=20'}
+
   github-slugger@2.0.0:
     resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
-
-  glob-parent@5.1.2:
-    resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
-    engines: {node: '>= 6'}
 
   glob@11.1.0:
     resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
@@ -3247,8 +3223,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  jiti@1.21.7:
-    resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
+  jiti@2.7.0:
+    resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
   js-tokens@4.0.0:
@@ -3471,10 +3447,6 @@ packages:
 
   mdurl@2.1.0:
     resolution: {integrity: sha512-1+HBaOx0zi/dQWht8rNv9MYf9qqpqL/kxI0hXImU6Y547zM6Sni8BQibt7ifgMcYtQg41ao3Ivd6cnSM86inpg==}
-
-  merge2@1.4.1:
-    resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
-    engines: {node: '>= 8'}
 
   micromark-core-commonmark@2.0.4:
     resolution: {integrity: sha512-wxEeE8v8XVvOrxn1TZj74qYhAtTQsSqufHVS3uNVyT1MupXxhyaHk8/9xDNPh9BmL77QNDgWTkZ3RsYHB2ry7w==}
@@ -3715,9 +3687,17 @@ packages:
     resolution: {integrity: sha512-19YVAg7T+WTrxggPukVq7DjTv6+PJ867TmhCvBsYwmbFCsZd344rq2Ld1p0wo8f8Qrrhgp82c6FJRqdXWtSEhg==}
     engines: {node: '>= 0.4'}
 
+  p-all@5.0.1:
+    resolution: {integrity: sha512-LMT7WX9ZSaq3J1zjloApkIVmtz0ZdMFSIqbuiEa3txGYPLjUPOvgOPOx3nFjo+f37ZYL+1aY666I2SG7GVwLOA==}
+    engines: {node: '>=16'}
+
   p-limit@7.3.3:
     resolution: {integrity: sha512-SKgVvDU5TNIxQ4r30U75BNLC6a+6GOEjngrk/ysM5+Zu3oJuk1SC5ApzIzY/7PjCEjoVPMWJ0zho/4QUiEB7TQ==}
     engines: {node: '>=20'}
+
+  p-map@6.0.0:
+    resolution: {integrity: sha512-T8BatKGY+k5rU+Q/GTYgrEf2r4xRMevAN5mtXc2aPc4rS1j3s+vWTaO2Wag94neXuCAUAs8cxBL9EeB5EA6diw==}
+    engines: {node: '>=16'}
 
   p-map@7.1.1:
     resolution: {integrity: sha512-6Lh3jQPLthYujSrlw6ccWXBGZTkoTCz27Hd92g79LH/kjAbgoEu0t442cCCNbegPSJsA0lwDX8z0bcKtkpA32g==}
@@ -3760,9 +3740,6 @@ packages:
   path-scurry@2.0.2:
     resolution: {integrity: sha512-3O/iVVsJAPsOnpwWIeD+d6z/7PmqApyQePUtCndjatj/9I5LylHvt5qluFaBT3I5h3r1ejfR056c+FCv+NnNXg==}
     engines: {node: 18 || 20 || >=22}
-
-  path-to-regexp@6.3.0:
-    resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
 
   piccolore@0.1.3:
     resolution: {integrity: sha512-o8bTeDWjE086iwKrROaDf31K0qC/BENdm15/uH9usSC/uZjJOKb2YGiVHfLY4GhwsERiPI1jmwI2XrA7ACOxVw==}
@@ -3838,9 +3815,6 @@ packages:
   punycode.js@2.3.1:
     resolution: {integrity: sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA==}
     engines: {node: '>=6'}
-
-  queue-microtask@1.2.3:
-    resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==}
@@ -3965,10 +3939,6 @@ packages:
   retext@9.0.0:
     resolution: {integrity: sha512-sbMDcpHCNjvlheSgMfEcVrZko3cDzdbe1x/e7G66dFp0Ff7Mldvi2uv6JkJQzdRcvLYE8CA8Oe8siQx8ZOgTcA==}
 
-  reusify@1.1.0:
-    resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
-    engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
-
   rolldown@1.2.19:
     resolution: {integrity: sha512-QIiV1J9d0pzN4jeeTH4sjPy0AZ6cAy2cG0ExeoE1+U8Rvj+hR3gYkokx0YbeUNGlZqiQJJ2utcETe0oKXwzsuA==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -3978,9 +3948,6 @@ packages:
     resolution: {integrity: sha512-QVCvQUTGDN6JRwi3jVGCY3H4aTHvi9rX0LyoBMkGUvdh/Z6O51CzcLz85BWZaTCDGhl6ySGqYZs+xI1jmPqGcw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
-
-  run-parallel@1.2.0:
-    resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
   s.color@0.0.15:
     resolution: {integrity: sha512-AUNrbEUHeKY8XsYr/DYpl+qk5+aM+DChopnWOPEzn8YKzOhv4l2zH6LzZms3tOZP3wwdOyc0RmTciyi46HLIuA==}
@@ -4095,8 +4062,8 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  simple-git@3.36.0:
-    resolution: {integrity: sha512-cGQjLjK8bxJw4QuYT7gxHw3/IouVESbhahSsHrX97MzCL1gu2u7oy38W6L2ZIGECEfIBG4BabsWDPjBxJENv9Q==}
+  simple-git@4.1.0:
+    resolution: {integrity: sha512-FZJESy4Vxahk4eOadmRsWF5TjhCrfpDP563j8jAMbMEi/phIHPDgzN/tDkRIZ2GyQdLKEeXMPXqA8hhWjAdQZA==}
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -4668,9 +4635,6 @@ packages:
     resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
     engines: {node: '>=12.20'}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
-
   zod@4.6.7:
     resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
@@ -4792,11 +4756,11 @@ snapshots:
       github-slugger: 2.0.0
       satteri: 0.11.7
 
-  '@astrojs/mdx@8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))':
+  '@astrojs/mdx@8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))':
     dependencies:
       '@astrojs/internal-helpers': 0.13.0
       '@astrojs/markdown-satteri': 0.4.10
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       es-module-lexer: 3.0.4
     optionalDependencies:
       '@astrojs/markdown-remark': 7.3.4(supports-color@10.2.2)
@@ -4825,16 +4789,16 @@ snapshots:
       sitemap: 9.0.1
       zod: 4.6.7
 
-  '@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)':
+  '@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)':
     dependencies:
       '@astrojs/markdown-satteri': 0.4.10
-      '@astrojs/mdx': 8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+      '@astrojs/mdx': 8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       '@astrojs/sitemap': 3.7.4
       '@pagefind/default-ui': 1.5.2
       '@types/hast': 3.0.5
       '@types/mdast': 4.0.4
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
-      astro-expressive-code: 0.44.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      astro-expressive-code: 0.44.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       bcp-47: 2.1.2
       hast-util-format: 1.1.0
       hast-util-select: 6.0.4
@@ -4868,7 +4832,7 @@ snapshots:
       is-docker: 4.0.0
       package-manager-detector: 1.9.0
 
-  '@astrojs/vite-plugin-astro@0.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))':
+  '@astrojs/vite-plugin-astro@0.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))':
     dependencies:
       '@astrojs/compiler-rs': 0.5.2
       '@astrojs/internal-helpers': 0.13.2
@@ -4878,7 +4842,7 @@ snapshots:
       magic-string: 1.4.5
       rolldown: 1.2.19
       smol-toml: 1.9.1
-      vite: 8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      vite: 8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       zod: 4.6.7
 
   '@babel/code-frame@7.29.7':
@@ -5647,11 +5611,6 @@ snapshots:
     dependencies:
       fontkitten: 1.0.3
 
-  '@clack/core@0.3.5':
-    dependencies:
-      picocolors: 1.1.1
-      sisteransi: 1.0.5
-
   '@clack/core@1.5.1':
     dependencies:
       fast-wrap-ansi: 0.2.2
@@ -5893,26 +5852,19 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@lunariajs/core@0.1.1(supports-color@10.2.2)':
+  '@lunariajs/core@0.3.0(supports-color@10.2.2)':
     dependencies:
-      '@clack/core': 0.3.5
-      fast-glob: 3.3.3
-      get-port: 7.2.0
-      jiti: 1.21.7
-      micromatch: 4.0.8
-      path-to-regexp: 6.3.0
-      picocolors: 1.1.1
-      simple-git: 3.36.0(supports-color@10.2.2)
+      consola: 3.4.2
+      gettext-parser: 10.0.0
+      jiti: 2.7.0
+      neotraverse: 1.0.1
+      p-all: 5.0.1
+      picomatch: 4.0.7
+      simple-git: 4.1.0(supports-color@10.2.2)
+      tinyglobby: 0.2.17
       ultramatter: 0.0.4
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - supports-color
-
-  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)':
-    dependencies:
-      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
-      '@lunariajs/core': 0.1.1(supports-color@10.2.2)
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      yaml: 2.9.1
+      zod: 4.6.7
     transitivePeerDependencies:
       - supports-color
 
@@ -5971,18 +5923,6 @@ snapshots:
     optional: true
 
   '@nodable/entities@3.1.0': {}
-
-  '@nodelib/fs.scandir@2.1.5':
-    dependencies:
-      '@nodelib/fs.stat': 2.0.5
-      run-parallel: 1.2.0
-
-  '@nodelib/fs.stat@2.0.5': {}
-
-  '@nodelib/fs.walk@1.2.8':
-    dependencies:
-      '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.20.3
 
   '@npmcli/agent@5.0.2(supports-color@10.2.2)':
     dependencies:
@@ -6389,7 +6329,7 @@ snapshots:
 
   '@simple-git/args-pathspec@1.0.4': {}
 
-  '@simple-git/argv-parser@1.1.1':
+  '@simple-git/argv-parser@3.0.0':
     dependencies:
       '@simple-git/args-pathspec': 1.0.4
 
@@ -6638,29 +6578,29 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-d2@0.14.1(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
+  astro-d2@0.14.1(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
     dependencies:
       '@d2lang/d2': 0.1.34
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       hast-util-from-html: 2.0.3
       hast-util-to-html: 9.0.6
       satteri: 0.9.5
       unist-util-visit: 5.1.0
 
-  astro-expressive-code@0.44.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
+  astro-expressive-code@0.44.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
     dependencies:
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       rehype-expressive-code: 0.44.3
       url-extras: 0.1.0
 
-  astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1):
+  astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1):
     dependencies:
       '@astrojs/compiler-rs': 0.5.2
       '@astrojs/internal-helpers': 0.13.2
       '@astrojs/markdown-satteri': 0.4.10
       '@astrojs/runtime': 0.1.1
       '@astrojs/telemetry': 3.4.2
-      '@astrojs/vite-plugin-astro': 0.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+      '@astrojs/vite-plugin-astro': 0.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       '@capsizecss/unpack': 4.0.1
       '@clack/prompts': 1.8.1
       '@oslojs/encoding': 1.1.0
@@ -6703,8 +6643,8 @@ snapshots:
       unifont: 1.0.3
       unstorage: 1.17.6
       verkit: 0.5.0
-      vite: 8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
-      vitefu: 1.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+      vite: 8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      vitefu: 1.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       xxhash-wasm: 1.1.0
       zod: 4.6.7
     optionalDependencies:
@@ -6743,9 +6683,9 @@ snapshots:
       - uploadthing
       - yaml
 
-  astrojs-service-worker@2.0.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
+  astrojs-service-worker@2.0.3(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
     dependencies:
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       workbox-build: 7.4.1(supports-color@10.2.2)
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -6899,6 +6839,10 @@ snapshots:
 
   common-tags@1.8.2: {}
 
+  consola@3.4.2: {}
+
+  content-type@1.0.5: {}
+
   content-type@2.1.0: {}
 
   content-type@3.1.1: {}
@@ -7048,6 +6992,10 @@ snapshots:
       jake: 10.9.4
 
   electron-to-chromium@1.5.463: {}
+
+  encoding@0.1.14:
+    dependencies:
+      iconv-lite: 0.7.3
 
   entities@4.5.0: {}
 
@@ -7213,14 +7161,6 @@ snapshots:
 
   fast-deep-equal@3.1.3: {}
 
-  fast-glob@3.3.3:
-    dependencies:
-      '@nodelib/fs.stat': 2.0.5
-      '@nodelib/fs.walk': 1.2.8
-      glob-parent: 5.1.2
-      merge2: 1.4.1
-      micromatch: 4.0.8
-
   fast-json-stable-stringify@2.1.0: {}
 
   fast-string-truncated-width@3.0.3: {}
@@ -7248,10 +7188,6 @@ snapshots:
       path-expression-matcher: 1.6.2
       strnum: 2.5.1
       xml-naming: 0.3.0
-
-  fastq@1.20.3:
-    dependencies:
-      reusify: 1.1.0
 
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
@@ -7343,8 +7279,6 @@ snapshots:
 
   get-own-enumerable-property-symbols@3.0.2: {}
 
-  get-port@7.2.0: {}
-
   get-proto@1.0.1:
     dependencies:
       dunder-proto: 1.0.1
@@ -7360,11 +7294,12 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  github-slugger@2.0.0: {}
-
-  glob-parent@5.1.2:
+  gettext-parser@10.0.0:
     dependencies:
-      is-glob: 4.0.3
+      content-type: 1.0.5
+      encoding: 0.1.14
+
+  github-slugger@2.0.0: {}
 
   glob@11.1.0:
     dependencies:
@@ -7663,7 +7598,6 @@ snapshots:
   iconv-lite@0.7.3:
     dependencies:
       safer-buffer: 2.1.2
-    optional: true
 
   idb@7.1.1: {}
 
@@ -7738,7 +7672,8 @@ snapshots:
     dependencies:
       call-bound: 1.0.4
 
-  is-extglob@2.1.1: {}
+  is-extglob@2.1.1:
+    optional: true
 
   is-finalizationregistry@1.1.1:
     dependencies:
@@ -7755,6 +7690,7 @@ snapshots:
   is-glob@4.0.3:
     dependencies:
       is-extglob: 2.1.1
+    optional: true
 
   is-hexadecimal@2.0.1: {}
 
@@ -7834,7 +7770,7 @@ snapshots:
       filelist: 1.0.6
       picocolors: 1.1.1
 
-  jiti@1.21.7: {}
+  jiti@2.7.0: {}
 
   js-tokens@4.0.0: {}
 
@@ -8163,8 +8099,6 @@ snapshots:
   mdn-data@2.27.1: {}
 
   mdurl@2.1.0: {}
-
-  merge2@1.4.1: {}
 
   micromark-core-commonmark@2.0.4:
     dependencies:
@@ -8568,9 +8502,15 @@ snapshots:
       object-keys: 1.1.1
       safe-push-apply: 1.0.0
 
+  p-all@5.0.1:
+    dependencies:
+      p-map: 6.0.0
+
   p-limit@7.3.3:
     dependencies:
       yocto-queue: 1.2.2
+
+  p-map@6.0.0: {}
 
   p-map@7.1.1: {}
 
@@ -8624,8 +8564,6 @@ snapshots:
       lru-cache: 11.5.3
       minipass: 7.1.3
 
-  path-to-regexp@6.3.0: {}
-
   piccolore@0.1.3: {}
 
   picocolors@1.1.1: {}
@@ -8674,8 +8612,6 @@ snapshots:
   proxy-agent-negotiate@1.1.0: {}
 
   punycode.js@2.3.1: {}
-
-  queue-microtask@1.2.3: {}
 
   radix3@1.1.2: {}
 
@@ -8897,8 +8833,6 @@ snapshots:
       retext-stringify: 4.0.0
       unified: 11.0.5
 
-  reusify@1.1.0: {}
-
   rolldown@1.2.19:
     dependencies:
       '@oxc-project/types': 0.156.0
@@ -8953,10 +8887,6 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.65.0
       fsevents: 2.3.3
 
-  run-parallel@1.2.0:
-    dependencies:
-      queue-microtask: 1.2.3
-
   s.color@0.0.15: {}
 
   safe-array-concat@1.1.4:
@@ -8978,8 +8908,7 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  safer-buffer@2.1.2:
-    optional: true
+  safer-buffer@2.1.2: {}
 
   sass-formatter@0.8.0:
     dependencies:
@@ -9162,12 +9091,12 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  simple-git@3.36.0(supports-color@10.2.2):
+  simple-git@4.1.0(supports-color@10.2.2):
     dependencies:
       '@kwsites/file-exists': 1.1.1(supports-color@10.2.2)
       '@kwsites/promise-deferred': 1.1.1
       '@simple-git/args-pathspec': 1.0.4
-      '@simple-git/argv-parser': 1.1.1
+      '@simple-git/argv-parser': 3.0.0
       debug: 4.4.3(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
@@ -9219,12 +9148,12 @@ snapshots:
     dependencies:
       minipass: 7.1.3
 
-  starlight-blog@0.30.2(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
+  starlight-blog@0.30.2(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
     dependencies:
       '@astrojs/markdown-remark': 7.3.4(supports-color@10.2.2)
-      '@astrojs/mdx': 8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+      '@astrojs/mdx': 8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
       '@astrojs/rss': 4.0.19
-      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
+      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
       hast-util-to-html: 9.0.6
@@ -9240,11 +9169,11 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.27.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
+  starlight-links-validator@0.27.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
     dependencies:
       '@astrojs/markdown-satteri': 0.4.10
-      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
       is-absolute-url: 5.0.0
@@ -9258,13 +9187,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  starlight-llms-txt@0.12.0(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
+  starlight-llms-txt@0.12.0(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2):
     dependencies:
-      '@astrojs/mdx': 8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
-      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
+      '@astrojs/mdx': 8.1.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@astrojs/markdown-satteri@0.4.10)(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))
+      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
       '@types/hast': 3.0.5
       '@types/micromatch': 4.0.10
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       github-slugger: 2.0.0
       hast-util-select: 6.0.4
       micromatch: 4.0.8
@@ -9279,10 +9208,10 @@ snapshots:
       - '@astrojs/markdown-satteri'
       - supports-color
 
-  starlight-sidebar-topics@0.9.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
+  starlight-sidebar-topics@0.9.0(@astrojs/starlight@0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
     dependencies:
-      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
-      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      '@astrojs/starlight': 0.43.1(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(astro@7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1))(supports-color@10.2.2)(typescript@7.0.2)
+      astro: 7.4.12(@astrojs/markdown-remark@7.3.4(supports-color@10.2.2))(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
       picomatch: 4.0.7
 
   std-env@4.3.0: {}
@@ -9652,7 +9581,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1):
+  vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -9662,14 +9591,14 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.19.2
       fsevents: 2.3.3
-      jiti: 1.21.7
+      jiti: 2.7.0
       sass: 1.108.2
       terser: 5.51.2
       yaml: 2.9.1
 
-  vitefu@1.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
+  vitefu@1.1.3(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)):
     optionalDependencies:
-      vite: 8.3.8(@types/node@24.19.2)(jiti@1.21.7)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
+      vite: 8.3.8(@types/node@24.19.2)(jiti@2.7.0)(sass@1.108.2)(terser@5.51.2)(yaml@2.9.1)
 
   web-namespaces@2.0.1: {}
 
@@ -9842,8 +9771,6 @@ snapshots:
   yaml@2.9.1: {}
 
   yocto-queue@1.2.2: {}
-
-  zod@3.25.76: {}
 
   zod@4.6.7: {}
 
