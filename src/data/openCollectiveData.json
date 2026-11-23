@@ -514,6 +514,15 @@
     "type": "ORGANIZATION"
   },
   {
+    "name": "Jan",
+    "id": "Jan",
+    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
+    "profileUrl": "https://opencollective.com/jan50",
+    "socialLinks": {},
+    "tier": "silver",
+    "type": "INDIVIDUAL"
+  },
+  {
     "name": "Alex Michael Berry",
     "id": "Alex Michael Berry",
     "avatarUrl": "https://images.opencollective.com/alex-michael-berry/68f1cc8/avatar/256.jpg",
@@ -579,15 +588,6 @@
     },
     "tier": "silver",
     "type": "ORGANIZATION"
-  },
-  {
-    "name": "Jan",
-    "id": "Jan",
-    "avatarUrl": "https://images.opencollective.com/jan50/avatar/256.jpg",
-    "profileUrl": "https://opencollective.com/jan50",
-    "socialLinks": {},
-    "tier": "silver",
-    "type": "INDIVIDUAL"
   },
   {
     "name": "",
@@ -955,6 +955,28 @@
     "avatarUrl": "https://images.opencollective.com/waypad/3c62964/logo/256.jpg",
     "profileUrl": "https://opencollective.com/waypad",
     "socialLinks": {},
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
+    "name": "Acquisity",
+    "id": "Acquisity",
+    "avatarUrl": "https://images.opencollective.com/acquisity/64f8224/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/acquisity",
+    "socialLinks": {
+      "website": "https://www.acquisity.ai/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
+    "name": "Fanout",
+    "id": "Fanout",
+    "avatarUrl": "https://images.opencollective.com/fanout/ff84674/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/fanout",
+    "socialLinks": {
+      "website": "https://fanout.sh/"
+    },
     "tier": "silver",
     "type": "ORGANIZATION"
   },
