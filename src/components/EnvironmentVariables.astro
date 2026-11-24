@@ -1,0 +1,113 @@
+---
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import ProjectContext from 'virtual:starlight/project-context';
+import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
+import { Aside } from '@astrojs/starlight/components';
+
+// upstream sections shown by `reference/environment-variables.mdx`
+const sections = ["Tauri's Environment Variables", 'Tauri CLI', 'Tauri CLI Hook Commands'] as const;
+
+interface Props {
+  section: (typeof sections)[number];
+}
+
+const { section } = Astro.props;
+
+const sourcePath = path.join(
+  fileURLToPath(ProjectContext.root),
+  'packages/tauri/crates/tauri-cli/ENVIRONMENT_VARIABLES.md'
+);
+const source = await fs.readFile(sourcePath, 'utf-8').catch((cause) => {
+  throw new Error(
+    `Failed to read ${sourcePath}. Run \`pnpm dev:setup:submodules\` or verify submodules`,
+    { cause }
+  );
+});
+
+const quoteTag = 'aside-quote';
+
+function fail(problem: string): never {
+  throw new Error(`${sourcePath} ${problem}`);
+}
+
+function straightQuotes(text: string) {
+  return text.replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
+}
+
+/** position of `section` among the upstream headings */
+function sectionPosition(titles: string[]) {
+  // the page writes each heading itself to keep it in the table of contents
+  const unknown = titles.find((title) => !(sections as readonly string[]).includes(title));
+  if (unknown !== undefined) {
+    fail(
+      `has a "${unknown}" heading that the environment variables page does not show. Add it to the page and to the list in EnvironmentVariables.astro`
+    );
+  }
+
+  const position = titles.indexOf(section);
+  if (position === -1) {
+    fail(`has no "${section}" section`);
+  }
+  return position;
+}
+
+const processor = await createSatteriMarkdownProcessor({
+  mdastPlugins: [
+    {
+      name: 'environment-variables-section',
+      before(root, ctx) {
+        const nodes = root.children;
+        // link reference definitions belong to no section, and any section may use them
+        const isDefinition = (node: (typeof nodes)[number]) => node.type === 'definition';
+
+        const headingIndexes = nodes.flatMap((node, index) =>
+          node.type === 'heading' && node.depth === 3 ? [index] : []
+        );
+        const titles = headingIndexes.map((index) => straightQuotes(ctx.textContent(nodes[index])));
+
+        if (!nodes.slice(0, headingIndexes[0]).every(isDefinition)) {
+          fail(
+            'has text before its first `###` heading that the environment variables page does not show. Update EnvironmentVariables.astro to place it'
+          );
+        }
+
+        const position = sectionPosition(titles);
+        const body = nodes
+          .slice(headingIndexes[position] + 1, headingIndexes[position + 1])
+          .filter((node) => !isDefinition(node));
+
+        for (const node of body) {
+          if (node.type === 'blockquote') ctx.setField(node, 'data', { hName: quoteTag });
+        }
+
+        ctx.setField(root, 'children', [...body, ...nodes.filter(isDefinition)]);
+      },
+      html(node) {
+        if (!node.value.startsWith('<!--')) {
+          fail(
+            `has ${node.value} outside backticks in its "${section}" section, where the page would not display it. It has to be in a code span upstream`
+          );
+        }
+      },
+    },
+  ],
+});
+const { code } = await processor.render(source);
+
+// magic
+const segments = code
+  .split(new RegExp(`<${quoteTag}>([\\s\\S]*?)</${quoteTag}>`))
+  .map((html, index) => ({ html, isQuote: index % 2 === 1 }));
+---
+
+{segments.map(({ html, isQuote }) =>
+  isQuote ? (
+    <Aside type="tip">
+      <Fragment set:html={html} />
+    </Aside>
+  ) : (
+    <Fragment set:html={html} />
+  )
+)}
