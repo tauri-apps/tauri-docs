@@ -13,8 +13,11 @@
   "license": "MIT",
   "dependencies": {
     "@types/json-schema": "^7.0.15",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^24.13.4",
     "github-slugger": "^2.0.0",
-    "typescript": "^7.0.2"
+    "remark-parse": "^11.0.0",
+    "typescript": "^7.0.2",
+    "unified": "^11.0.5"
   }
 }

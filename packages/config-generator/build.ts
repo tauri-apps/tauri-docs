@@ -2,6 +2,9 @@ import type { JSONSchema7, JSONSchema7Definition, JSONSchema7TypeName } from 'js
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { slug } from 'github-slugger';
+import remarkParse from 'remark-parse';
+import { unified } from 'unified';
+import type { Nodes } from 'mdast';
 
 generatePageFromSchema(
   '../tauri/crates/tauri-schema-generator/schemas/config.schema.json',
@@ -203,20 +206,32 @@ function buildMetadata(schema: JSONSchema7Definition, opts: Options): string[] {
     out.push(line.join(' & '));
   }
 
-  schema.description &&
-    out.push(
-      schema.description
-        // Set headings to appropriate level
-        .replaceAll(/#{1,6}(?=.+[\n\\n])/g, '#'.repeat(Math.min(opts.headingLevel + 1, 6)))
-        // Fix improperly formatted heading links
-        .replaceAll(/#{1,6}(?=[^\s#])/g, '#')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        // Fix for link at https://github.com/tauri-apps/tauri/blob/713f84db2b5bf17e4217053a229f9c11cbb22c74/core/tauri-config-schema/schema.json#L1863-L1864
-        .replace('#SecurityConfig.devCsp', '#securityconfig')
-    );
+  schema.description && out.push(demoteHeadings(schema.description, opts.headingLevel + 1));
 
   return out;
+}
+
+/**
+ * Demotes a description's own headings so they nest under its property heading
+ */
+function demoteHeadings(markdown: string, depth: number): string {
+  const tree = unified().use(remarkParse).parse(markdown);
+
+  let out = '';
+  let last = 0;
+  for (const node of walk(tree)) {
+    const start = node.position!.start.offset!;
+    if (node.type === 'heading' && markdown[start] === '#') {
+      out += markdown.slice(last, start) + '#'.repeat(Math.min(depth, 6));
+      last = start + node.depth;
+    }
+  }
+  return out + markdown.slice(last);
+}
+
+function* walk(node: Nodes): Generator<Nodes> {
+  yield node;
+  if ('children' in node) for (const child of node.children) yield* walk(child);
 }
 
 /**
