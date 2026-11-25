@@ -11,6 +11,7 @@ import { Steps } from '@astrojs/starlight/components';
 Code signing is required on Windows to allow your application to be listed in the [Microsoft Store] and to prevent a [SmartScreen] warning that your application is not trusted and can not be started, when downloaded from the browser.
 
 It is not required to execute your application on Windows, as long as your end user is okay with ignoring the [SmartScreen] warning or your user does not download via the browser.
+The exception is Windows 11 with [Smart App Control] turned on: it blocks unknown unsigned apps even if they weren't downloaded from the browser, and users can't allow a single app, only turn Smart App Control off entirely.
 This guide covers signing via OV (Organization Validated) certificates and Azure Key Vault.
 If you use any other signing mechanism not documented here, such as EV (Extended Validation) certificates,
 check out your certificate issuer documentation and refer to the [custom sign command](#custom-sign-command) section.
@@ -280,6 +281,7 @@ When cross compiling Windows installers from Linux and macOS machines, you **mus
 [relic releases page]: https://github.com/sassoftware/relic/releases/
 [bundle > windows > signCommand]: /reference/config/#signcommand
 [SmartScreen]: https://en.wikipedia.org/wiki/Microsoft_SmartScreen
+[Smart App Control]: https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/overview
 [Microsoft Store]: https://apps.microsoft.com/
 
 ## Azure Artifact Signing

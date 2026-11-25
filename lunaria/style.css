@@ -67,10 +67,6 @@ main {
   padding-bottom: 2rem;
 }
 
-.limit-to-viewport {
-  max-width: calc(100vw - 2rem);
-}
-
 p + p {
   margin-top: 1.25rem;
 }
@@ -123,13 +119,16 @@ details > :last-child {
   font-size: 0.75rem;
 }
 
+.table-wrapper {
+  max-height: 80vh;
+  overflow: auto;
+}
+
 .status-by-file {
   margin-bottom: 1rem;
   border-collapse: collapse;
-  margin-inline: 1rem;
   border: var(--theme-table-border);
   font-size: 0.8125rem;
-  width: 90%;
 }
 .status-by-file th {
   position: sticky;

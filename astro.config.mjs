@@ -11,7 +11,6 @@ import serviceWorker from 'astrojs-service-worker';
 import astroD2 from 'astro-d2';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import lunaria from '@lunariajs/starlight';
 import { readFileSync } from 'fs';
 import nsisGrammar from './src/langs/nsis.tmLanguage.json';
 import pbxprojGrammar from './src/langs/pbxproj.tmLanguage.json';
@@ -361,7 +360,7 @@ export default defineConfig({
               id: 'blog',
               link: '/blog/',
               icon: 'pen',
-              // Empty item to instruct it that is is local files, not an external link
+              // Empty item to instruct it that is local files, not an external link
               //  this is actually filled in through the topics dir for `blog` below
               items: [],
             },
@@ -386,14 +385,6 @@ export default defineConfig({
           ],
         }),
         starlightLlmsTxt(llmsTxtConfig),
-        ...(process.env.CONTEXT === 'deploy-preview'
-          ? []
-          : [
-              lunaria({
-                configPath: './lunaria.config.json',
-                route: '/contribute/translate-status',
-              }),
-            ]),
       ],
       title: 'Tauri',
       description: 'The cross-platform app building toolkit',
