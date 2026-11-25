@@ -160,7 +160,7 @@ pub fn run() {
           // allowed the given directory
           let scope = app.fs_scope();
         	scope.allow_directory("/path/to/directory", false);
-          dbg!(scope.allowed());
+          dbg!(scope.allowed_patterns());
 
           Ok(())
        })
@@ -190,7 +190,7 @@ The file system plugin offers two ways of manipulating paths: the [base director
   Every API has an options argument that lets you define a [baseDir][base directory] that acts as the working directory of the operation.
 
   ```js
-  import { readFile } from '@tauri-apps/plugin-fs';
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const contents = await readFile('avatars/tauri.png', {
     baseDir: BaseDirectory.Home,
   });
@@ -467,7 +467,7 @@ Truncates or extends the specified file to reach the specified file length (defa
 - truncate to 0 length
 
 ```typescript
-import { truncate } from '@tauri-apps/plugin-fs';
+import { truncate, BaseDirectory } from '@tauri-apps/plugin-fs';
 await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
 ```
 

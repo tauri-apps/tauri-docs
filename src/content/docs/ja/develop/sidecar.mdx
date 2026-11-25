@@ -64,7 +64,7 @@ import fs from 'fs';
 
 const extension = process.platform === 'win32' ? '.exe' : '';
 
-const rustInfo = execSync('rustc -vV');
+const rustInfo = execSync('rustc -vV', { encoding: 'utf8' });
 const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
 if (!targetTriple) {
   console.error('Failed to determine platform target triple');

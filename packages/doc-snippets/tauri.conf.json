@@ -1,0 +1,15 @@
+{
+  "identifier": "app.tauri.doc-snippets",
+  "build": {
+    "frontendDist": "./frontend"
+  },
+  "app": {
+    "windows": [{ "title": "Doc Snippets" }],
+    "security": {
+      "assetProtocol": { "enable": true }
+    }
+  },
+  "bundle": {
+    "icon": ["icons/icon.png", "icons/icon.ico"]
+  }
+}

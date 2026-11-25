@@ -436,6 +436,8 @@ To notify the frontend of the download progress consider using a command with a 
   <summary>Updater command</summary>
 
 ```rust
+use tauri::Manager;
+
 #[cfg(desktop)]
 mod app_updates {
     use std::sync::Mutex;
@@ -516,7 +518,7 @@ mod app_updates {
             return Err(Error::NoPendingUpdate);
         };
 
-        let started = false;
+        let mut started = false;
 
         update
             .download_and_install(
@@ -537,7 +539,7 @@ mod app_updates {
         Ok(())
     }
 
-    struct PendingUpdate(Mutex<Option<Update>>);
+    pub struct PendingUpdate(pub Mutex<Option<Update>>);
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -548,7 +550,7 @@ pub fn run() {
             #[cfg(desktop)]
             {
                 app.handle().plugin(tauri_plugin_updater::Builder::new().build());
-                app.manage(app_updates::PendingUpdate(Mutex::new(None)));
+                app.manage(app_updates::PendingUpdate(std::sync::Mutex::new(None)));
             }
             Ok(())
         })
@@ -558,6 +560,8 @@ pub fn run() {
             #[cfg(desktop)]
             app_updates::install_update
         ])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
 ```
 
@@ -598,15 +602,18 @@ const update = await check({
   <TabItem label="Rust">
 
 ```rust
+# async fn example(app: tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_updater::UpdaterExt;
 let update = app
   .updater_builder()
   .timeout(std::time::Duration::from_secs(30))
   .proxy("<proxy-url>".parse().expect("invalid URL"))
-  .header("Authorization", "Bearer <token>")
+  .header("Authorization", "Bearer <token>")?
   .build()?
   .check()
   .await?;
+# Ok(())
+# }
 ```
 
   </TabItem>
@@ -623,9 +630,12 @@ Setting the URLs that should be requested to check updates at runtime allows
 more dynamic updates such as separate release channels:
 
 ```rust
+# async fn example(app: tauri::AppHandle, beta: bool) -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_updater::UpdaterExt;
 let channel = if beta { "beta" } else { "stable" };
-let update_url = format!("https://{channel}.myserver.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}");
+let update_url = url::Url::parse(&format!(
+  "https://{channel}.myserver.com/{{{{target}}}}-{{{{arch}}}}/{{{{current_version}}}}"
+)).expect("invalid URL");
 
 let update = app
   .updater_builder()
@@ -633,6 +643,8 @@ let update = app
   .build()?
   .check()
   .await?;
+# Ok(())
+# }
 ```
 
 :::tip
@@ -646,10 +658,13 @@ Setting the public key at runtime can be useful to implement a key rotation logi
 It can be set by either the plugin builder or updater builder:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_updater::Builder::new().pubkey("<your public key>").build()
+# )
 ```
 
 ```rust
+# async fn example(app: tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_updater::UpdaterExt;
 
 let update = app
@@ -658,6 +673,8 @@ let update = app
   .build()?
   .check()
   .await?;
+# Ok(())
+# }
 ```
 
 #### Custom target
@@ -684,10 +701,13 @@ const update = await check({
 Custom targets can be set by either the plugin builder or updater builder:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_updater::Builder::new().target("macos-universal").build()
+# )
 ```
 
 ```rust
+# async fn example(app: tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_updater::UpdaterExt;
 let update = app
   .updater_builder()
@@ -695,6 +715,8 @@ let update = app
   .build()?
   .check()
   .await?;
+# Ok(())
+# }
 ```
 
 :::tip
@@ -719,6 +741,7 @@ By default Tauri checks if the update version is greater than the current app ve
 To allow downgrades, you must use the updater builder's `version_comparator` API:
 
 ```rust
+# async fn example(app: tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_updater::UpdaterExt;
 
 let update = app
@@ -730,6 +753,8 @@ let update = app
   .build()?
   .check()
   .await?;
+# Ok(())
+# }
 ```
 
 #### Windows before exit hook
@@ -738,6 +763,7 @@ Due to a limitation of Windows installers, Tauri will automatically quit your ap
 To perform an action before that happens, use the `on_before_exit` function:
 
 ```rust
+# async fn example(app: tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_updater::UpdaterExt;
 
 let update = app
@@ -748,6 +774,8 @@ let update = app
   .build()?
   .check()
   .await?;
+# Ok(())
+# }
 ```
 
 :::note

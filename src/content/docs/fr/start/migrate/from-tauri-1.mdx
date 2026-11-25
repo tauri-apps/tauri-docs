@@ -250,7 +250,7 @@ fn main() {
 ```javascript
 import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
 await writeText('Tauri is awesome!');
-assert(await readText(), 'Tauri is awesome!');
+console.assert((await readText()) === 'Tauri is awesome!');
 ```
 
 </TabItem>

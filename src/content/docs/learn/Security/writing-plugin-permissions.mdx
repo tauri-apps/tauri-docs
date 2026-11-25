@@ -63,7 +63,40 @@ and hand crafted.
     The command implementation:
 
     ```rust title="src/commands.rs" ins={15-22} ins=", Manager"
-    use tauri::{AppHandle, command, Runtime};
+    # fn main() {}
+    # mod models {
+    #     #[derive(serde::Deserialize)]
+    #     pub struct PingRequest;
+    #     #[derive(serde::Serialize)]
+    #     pub struct PingResponse;
+    # }
+    # #[derive(Debug, thiserror::Error)]
+    # pub enum Error {
+    #     #[error(transparent)]
+    #     Io(#[from] std::io::Error),
+    # }
+    # impl serde::Serialize for Error {
+    #     fn serialize<S: serde::Serializer>(&self, s: S) -> std::result::Result<S::Ok, S::Error> {
+    #         s.serialize_str(&self.to_string())
+    #     }
+    # }
+    # pub type Result<T> = std::result::Result<T, Error>;
+    # pub struct Test;
+    # impl Test {
+    #     pub fn ping(&self, _: models::PingRequest) -> Result<models::PingResponse> {
+    #         todo!()
+    #     }
+    # }
+    # pub trait TestExt {
+    #     fn test1(&self) -> &Test;
+    # }
+    # impl<R: tauri::Runtime> TestExt for tauri::AppHandle<R> {
+    #     fn test1(&self) -> &Test {
+    #         todo!()
+    #     }
+    # }
+    # mod commands {
+    use tauri::{AppHandle, command, Runtime, Manager};
 
     use crate::models::*;
     use crate::Result;
@@ -85,7 +118,7 @@ and hand crafted.
         std::fs::write(app.path().temp_dir().unwrap(), user_input)?;
         Ok("success".to_string())
     }
-   
+    # }
     ```
 
     Auto-Generate inbuilt permissions for your new command:
@@ -111,6 +144,22 @@ and hand crafted.
     IPC requests to the newly implemented command:
 
     ```rust title="src/lib.rs"  ins="commands::write_custom_file,"
+    # use tauri::{plugin::{Builder, TauriPlugin}, Manager, Runtime};
+    # mod commands {
+    #     #[tauri::command]
+    #     pub fn ping() {}
+    #     #[tauri::command]
+    #     pub fn write_custom_file() {}
+    # }
+    # mod desktop {
+    #     use tauri::{plugin::PluginApi, AppHandle, Runtime};
+    #     pub struct Test;
+    #     pub fn init<R: Runtime>(_: &AppHandle<R>, _: PluginApi<R, ()>) -> tauri::Result<Test> {
+    #         Ok(Test)
+    #     }
+    # }
+    # #[derive(Default)]
+    # struct MyState;
     pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("test")
         .invoke_handler(tauri::generate_handler![

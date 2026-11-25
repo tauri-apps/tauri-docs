@@ -28,11 +28,16 @@ You can set these in your shell to test, or set them in `main()` before the webv
 ```rust
 fn main() {
   // Workaround for WebKitGTK on NVIDIA, see tauri-apps/tauri#9394
+  // `set_var` is `unsafe` since Rust 2024: call it before any other thread is spawned
   #[cfg(target_os = "linux")]
-  std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+  unsafe {
+    std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+  }
 
   tauri::Builder::default()
     // ...
+#     .run(tauri::generate_context!())
+#     .expect("error while running tauri application");
 }
 ```
 

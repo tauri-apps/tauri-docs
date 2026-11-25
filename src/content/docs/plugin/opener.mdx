@@ -100,6 +100,7 @@ Note that `app` is an instance of `App` or [`AppHandle`](https://docs.rs/tauri/2
 
 ```rust
 use tauri_plugin_opener::OpenerExt;
+# let app: tauri::AppHandle = todo!();
 
 // opens a file using the default program:
 app.opener().open_path("/path/to/file", None::<&str>);
