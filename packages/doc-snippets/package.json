@@ -12,7 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/kit": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
