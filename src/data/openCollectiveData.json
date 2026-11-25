@@ -875,6 +875,17 @@
     "type": "FUND"
   },
   {
+    "name": "INSTABOOST.COM",
+    "id": "INSTABOOST.COM",
+    "avatarUrl": "https://images.opencollective.com/instaboostcom/21a930b/logo/256.jpg",
+    "profileUrl": "https://opencollective.com/instaboostcom",
+    "socialLinks": {
+      "website": "https://instaboost.com/"
+    },
+    "tier": "silver",
+    "type": "ORGANIZATION"
+  },
+  {
     "name": "James Carlson",
     "id": "James Carlson",
     "avatarUrl": "https://images.opencollective.com/james-carlson/baddfff/avatar/256.jpg",
