@@ -160,7 +160,7 @@ pub fn run() {
           // allowed the given directory
           let scope = app.fs_scope();
         	scope.allow_directory("/path/to/directory", false);
-          dbg!(scope.allowed());
+          dbg!(scope.allowed_patterns());
 
           Ok(())
        })
@@ -190,7 +190,7 @@ pub fn run() {
   Каждый API имеет аргумент параметров, который позволяет вам задать [baseDir][base directory], выступающий в качестве рабочего каталога операции.
 
   ```js
-  import { readFile } from '@tauri-apps/plugin-fs';
+  import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const contents = await readFile('avatars/tauri.png', {
     baseDir: BaseDirectory.Home,
   });
@@ -393,7 +393,7 @@ await file.close();
   ```js
   import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs';
   const icon = await readFile('icon.png', {
-    baseDir: BaseDirectory.Resources,
+    baseDir: BaseDirectory.Resource,
   });
   ```
 
@@ -453,8 +453,8 @@ const metadata = await stat('app.db', {
 ```js
 import { rename, BaseDirectory } from '@tauri-apps/plugin-fs';
 await rename('user.db.bk', 'user.db', {
-  fromPathBaseDir: BaseDirectory.AppLocalData,
-  toPathBaseDir: BaseDirectory.Temp,
+  oldPathBaseDir: BaseDirectory.AppLocalData,
+  newPathBaseDir: BaseDirectory.Temp,
 });
 ```
 
@@ -467,7 +467,7 @@ await rename('user.db.bk', 'user.db', {
 - усечение до длины 0
 
 ```typescript
-import { truncate } from '@tauri-apps/plugin-fs';
+import { truncate, BaseDirectory } from '@tauri-apps/plugin-fs';
 await truncate('my_file.txt', 0, { baseDir: BaseDirectory.AppLocalData });
 ```
 

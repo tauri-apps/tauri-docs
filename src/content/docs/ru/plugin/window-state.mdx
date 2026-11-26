@@ -125,6 +125,7 @@ restoreStateCurrent(StateFlags.ALL);
 
 ```rust
 use tauri_plugin_window_state::{AppHandleExt, StateFlags};
+# let app: tauri::AppHandle = todo!();
 
 // `tauri::AppHandle` now has the following additional method
 app.save_window_state(StateFlags::all()); // will save the state of all open windows to disk
@@ -134,6 +135,7 @@ app.save_window_state(StateFlags::all()); // will save the state of all open win
 
 ```rust
 use tauri_plugin_window_state::{WindowExt, StateFlags};
+# let window: tauri::Window = todo!();
 
 // all `Window` types now have the following additional method
 window.restore_state(StateFlags::all()); // will restore the window's state from disk

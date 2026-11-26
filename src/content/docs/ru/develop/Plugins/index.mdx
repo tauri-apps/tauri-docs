@@ -174,11 +174,12 @@ pub fn init<R: Runtime>() -> TauriPlugin<R, Config> {
 - **Зачем**: регистрировать мобильные плагины, управлять состоянием, запускать фоновые задачи
 
 ```rust title="src/lib.rs"
-use tauri::{Manager, plugin::Builder};
+use tauri::{Emitter, Manager, plugin::Builder};
 use std::{collections::HashMap, sync::Mutex, time::Duration};
 
 struct DummyStore(Mutex<HashMap<String, String>>);
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .setup(|app, api| {
     app.manage(DummyStore(Default::default()));
@@ -193,6 +194,8 @@ Builder::new("<plugin-name>")
 
     Ok(())
   })
+#   .build()
+# }
 ```
 
 ### on_navigation
@@ -205,12 +208,15 @@ Builder::new("<plugin-name>")
 ```rust title="src/lib.rs"
 use tauri::plugin::Builder;
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .on_navigation(|window, url| {
     println!("window {} is navigating to {}", window.label(), url);
     // Cancels the navigation if forbidden
     url.scheme() != "forbidden"
   })
+#   .build()
+# }
 ```
 
 ### on_webview_ready
@@ -219,14 +225,17 @@ Builder::new("<plugin-name>")
 - **Зачем**: выполнять скрипт инициализации для каждого окна
 
 ```rust title="src/lib.rs"
-use tauri::plugin::Builder;
+use tauri::{plugin::Builder, Listener};
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .on_webview_ready(|window| {
     window.listen("content-loaded", |event| {
       println!("webview content has been loaded");
     });
   })
+#   .build()
+# }
 ```
 
 ### on_event
@@ -242,6 +251,7 @@ use tauri::{plugin::Builder, Manager, RunEvent};
 
 struct DummyStore(Mutex<HashMap<String, String>>);
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .setup(|app, _api| {
     app.manage(DummyStore(Default::default()));
@@ -268,6 +278,8 @@ Builder::new("<plugin-name>")
       _ => {}
     }
   })
+#   .build()
+# }
 ```
 
 ### on_drop
@@ -280,10 +292,13 @@ Builder::new("<plugin-name>")
 ```rust title="src/lib.rs"
 use tauri::plugin::Builder;
 
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
   .on_drop(|app| {
     // plugin has been destroyed...
   })
+#   .build()
+# }
 ```
 
 ## Предоставление API Rust
@@ -296,9 +311,9 @@ API плагина, определённые в файлах `desktop.rs` и `mo
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 tauri::Builder::default()
-  .plugin(tauri_plugin_global_shortcut::init())
+  .plugin(tauri_plugin_global_shortcut::Builder::new().build())
   .setup(|app| {
-    app.global_shortcut().register(...);
+    app.global_shortcut().register("CommandOrControl+Shift+C")?;
     Ok(())
   })
 ```
@@ -313,7 +328,7 @@ tauri::Builder::default()
 use tauri::{command, ipc::Channel, AppHandle, Runtime, Window};
 
 #[command]
-async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel, url: String) {
+async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: Channel<u32>, url: String) {
   // implement command logic here
   on_progress.send(100).unwrap();
 }
@@ -322,19 +337,30 @@ async fn upload<R: Runtime>(app: AppHandle<R>, window: Window<R>, on_progress: C
 Чтобы предоставить команду webview, вы должны подключиться к вызову `invoke_handler()` в `lib.rs`:
 
 ```rust title="src/lib.rs"
+# use tauri::plugin::Builder;
+# mod commands {
+#   #[tauri::command]
+#   pub async fn upload() {}
+# }
+# fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 Builder::new("<plugin-name>")
     .invoke_handler(tauri::generate_handler![commands::upload])
+#   .build()
+# }
 ```
 
 Определите функцию привязки в `webview-src/index.ts`, чтобы пользователи плагина могли легко вызывать команду на JavaScript:
 
-```js name="webview-src/index.ts"
-import { invoke, Channel } from '@tauri-apps/api/core'
+```ts title="webview-src/index.ts"
+import { invoke, Channel } from '@tauri-apps/api/core';
 
-export async function upload(url: string, onProgressHandler: (progress: number) => void): Promise<void> {
-  const onProgress = new Channel<number>()
-  onProgress.onmessage = onProgressHandler
-  await invoke('plugin:<plugin-name>|upload', { url, onProgress })
+export async function upload(
+  url: string,
+  onProgressHandler: (progress: number) => void
+): Promise<void> {
+  const onProgress = new Channel<number>();
+  onProgress.onmessage = onProgressHandler;
+  await invoke('plugin:<plugin-name>|upload', { url, onProgress });
 }
 ```
 
@@ -375,7 +401,7 @@ commands.deny = ["start_server"]
 Давайте определим пример структуры, которая будет хранить данные области действия для списка бинарных файлов, которые плагин `shell` может запускать:
 
 ```rust title="src/scope.rs"
-#[derive(Debug, schemars::JsonSchema)]
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct Entry {
     pub binary: String,
 }
@@ -387,10 +413,18 @@ pub struct Entry {
 Вы можете прочитать область действия команды с помощью структуры [`tauri::ipc::CommandScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.CommandScope.html):
 
 ```rust title="src/commands.rs"
+# fn main() {}
+# mod scope {
+#   #[derive(Debug, serde::Deserialize)]
+#   pub struct Entry {
+#     pub binary: String,
+#   }
+# }
+# type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 use tauri::ipc::CommandScope;
 use crate::scope::Entry;
 
-async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<'_, Entry>) -> Result<()> {
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, command_scope: CommandScope<Entry>) -> Result<()> {
   let allowed = command_scope.allows();
   let denied = command_scope.denies();
   todo!()
@@ -413,10 +447,18 @@ binary = "node"
 Вы можете прочитать глобальную область действия с помощью структуры [`tauri::ipc::GlobalScope`](https://docs.rs/tauri/2.0.0/tauri/ipc/struct.GlobalScope.html):
 
 ```rust title="src/commands.rs"
+# fn main() {}
+# mod scope {
+#   #[derive(Debug, serde::Deserialize)]
+#   pub struct Entry {
+#     pub binary: String,
+#   }
+# }
+# type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 use tauri::ipc::GlobalScope;
 use crate::scope::Entry;
 
-async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<'_, Entry>) -> Result<()> {
+async fn spawn<R: tauri::Runtime>(app: tauri::AppHandle<R>, scope: GlobalScope<Entry>) -> Result<()> {
   let allowed = scope.allows();
   let denied = scope.denies();
   todo!()
@@ -444,7 +486,7 @@ schemars = "0.8"
 
 В ваш скрипт сборки добавьте следующий код:
 
-```rust title="build.rs"
+```rust title="build.rs" ignore
 #[path = "src/scope.rs"]
 mod scope;
 
@@ -489,7 +531,7 @@ permissions = ["allow-request"]
 
 Следующий пример генерирует разрешения `allow-upload` и `deny-upload`:
 
-```rust title="src/commands.rs"
+```rust title="build.rs"
 const COMMANDS: &[&str] = &["upload"];
 
 fn main() {

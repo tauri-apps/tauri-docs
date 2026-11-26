@@ -150,6 +150,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 а затем вызвать [`PathResolver::resolve`]:
 
 ```rust
+# use tauri::{path::BaseDirectory, Manager};
 tauri::Builder::default()
   .setup(|app| {
     let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource)?;
@@ -160,9 +161,10 @@ tauri::Builder::default()
 Чтобы использовать его в команде:
 
 ```rust
+# use tauri::{path::BaseDirectory, Manager};
 #[tauri::command]
 fn hello(handle: tauri::AppHandle) {
-  let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+  let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource).unwrap();
 }
 ```
 
@@ -194,8 +196,12 @@ const resourcePath = await resolveResource('lang/de.json');
 ```
 
 ```rust
+# use tauri::{path::BaseDirectory, Manager};
+# fn example(app: &tauri::App) -> tauri::Result<()> {
 let json_path = app.path().resolve("folder/json_file.json", BaseDirectory::Resource)?;
 let toml_path = app.path().resolve("../relative/folder/toml_file.toml", BaseDirectory::Resource)?;
+# Ok(())
+# }
 ```
 
 ### Android
@@ -205,6 +211,9 @@ let toml_path = app.path().resolve("../relative/folder/toml_file.toml", BaseDire
 с ним вы можете читать файлы через [`FsExt::fs`] следующим образом:
 
 ```rust
+# use tauri::{path::BaseDirectory, Manager};
+# use tauri_plugin_fs::FsExt;
+# let app: tauri::AppHandle = todo!();
 let resource_path = app.path().resolve("lang/de.json", BaseDirectory::Resource).unwrap();
 let json = app.fs().read_to_string(&resource_path);
 ```
@@ -246,6 +255,7 @@ let json = app.fs().read_to_string(&resource_path);
 Со стороны Rust вам нужен экземпляр [`PathResolver`], который вы можете получить из [`App`] и [`AppHandle`]:
 
 ```rust
+# use tauri::{path::BaseDirectory, Manager};
 tauri::Builder::default()
   .setup(|app| {
     // The path specified must follow the same syntax as defined in
@@ -256,7 +266,7 @@ tauri::Builder::default()
     // Or when dealing with Android, use the file system plugin instead
     // let json = app.fs().read_to_string(&resource_path);
 
-    let lang_de: serde_json::Value = serde_json::from_str(json).unwrap();
+    let lang_de: serde_json::Value = serde_json::from_str(&json).unwrap();
 
     // This will print 'Guten Tag!' to the terminal
     println!("{}", lang_de.get("hello").unwrap());
@@ -266,17 +276,18 @@ tauri::Builder::default()
 ```
 
 ```rust
+# use tauri::{path::BaseDirectory, Manager};
 #[tauri::command]
 fn hello(handle: tauri::AppHandle) -> String {
-    let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource)?;
+    let resource_path = handle.path().resolve("lang/de.json", BaseDirectory::Resource).unwrap();
 
     let json = std::fs::read_to_string(&resource_path).unwrap();
     // Or when dealing with Android, use the file system plugin instead
     // let json = handle.fs().read_to_string(&resource_path);
 
-    let lang_de: serde_json::Value = serde_json::from_str(json).unwrap();
+    let lang_de: serde_json::Value = serde_json::from_str(&json).unwrap();
 
-    lang_de.get("hello").unwrap()
+    lang_de.get("hello").unwrap().as_str().unwrap().to_string()
 }
 ```
 

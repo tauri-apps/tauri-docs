@@ -27,7 +27,8 @@ i18nReady: true
 - `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR` — Укажите зеркало GitHub для загрузки файлов и инструментов, используемых бандлером tauri.
 - `TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE` — Укажите шаблон зеркала GitHub для загрузки файлов и инструментов, используемых бандлером tauri, например: `https://mirror.example.com/<owner>/<repo>/releases/download/<version>/<asset>`.
 - `TAURI_SKIP_SIDECAR_SIGNATURE_CHECK` — Пропустить проверку подписи сайдкаров.
-- `TAURI_SIGNING_PRIVATE_KEY` — Приватный ключ, используемый для подписи бандлов вашего приложения; может быть либо строкой, либо путём к файлу.
+- `TAURI_SIGNING_PRIVATE_KEY` — Приватный ключ, используемый для подписи обновлений и бандлов вашего приложения; может быть либо строкой с ключом, либо путём к файлу.
+- `TAURI_SIGNING_PRIVATE_KEY_PATH` — Путь к файлу вашего приватного ключа; поддерживается командой `tauri signer sign`.
 - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` — Пароль приватного ключа подписи; см. `TAURI_SIGNING_PRIVATE_KEY`.
 - `TAURI_SIGNING_RPM_KEY` — Приватный GPG-ключ, используемый для подписи RPM-бандла, экспортированный в ASCII-armored формат.
 - `TAURI_SIGNING_RPM_KEY_PASSPHRASE` — Парольная фраза GPG-ключа для `TAURI_SIGNING_RPM_KEY`, если требуется.

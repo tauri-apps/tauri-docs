@@ -92,7 +92,7 @@ const response = await upload(
   '/path/to/my/file.txt',
   ({ progressTotal, total }) =>
     console.log(`Uploaded ${progressTotal} of ${total} bytes`), // a callback that will be called with the upload progress
-  { 'Content-Type': 'text/plain' } // optional headers to send with the request
+  new Map([['Content-Type', 'text/plain']]) // optional headers to send with the request
 );
 ```
 
@@ -105,7 +105,7 @@ await upload(
   'https://example.com/file-upload',
   '/path/to/my/file.txt',
   undefined, // no progress callback
-  { 'Content-Type': 'text/plain' },
+  new Map([['Content-Type', 'text/plain']]),
   HttpMethod.Put
 );
 ```
@@ -124,7 +124,7 @@ await download(
   '/path/to/save/my/file.txt',
   ({ progressTotal, total }) =>
     console.log(`Downloaded ${progressTotal} of ${total} bytes`), // a callback that will be called with the download progress
-  { Authorization: 'Bearer <token>' } // optional headers to send with the request
+  new Map([['Authorization', 'Bearer <token>']]) // optional headers to send with the request
 );
 ```
 
@@ -137,7 +137,7 @@ await download(
   'https://example.com/export',
   '/path/to/save/report.csv',
   undefined, // no progress callback
-  { 'Content-Type': 'application/json' },
+  new Map([['Content-Type', 'application/json']]),
   JSON.stringify({ format: 'csv' })
 );
 ```

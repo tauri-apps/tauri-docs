@@ -180,9 +180,11 @@ log = "0.4"
 Чтобы использовать только собственные целевые точки, вызовите `clear_targets`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
 .clear_targets()
 .build()
+# )
 ```
 
 :::
@@ -192,11 +194,13 @@ tauri_plugin_log::Builder::new()
 Чтобы перенаправлять все ваши журналы в терминал, включите целевые точки `Stdout` или `Stderr`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::Stdout,
   ))
   .build()
+# )
 ```
 
 Эта целевая точка включена по умолчанию.
@@ -206,11 +210,13 @@ tauri_plugin_log::Builder::new()
 Чтобы просматривать все ваши журналы Rust в консоли webview, включите целевую точку `Webview` и выполните `attachConsole` на вашем фронтенде:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::Webview,
   ))
   .build()
+# )
 ```
 
 ```js
@@ -226,6 +232,7 @@ const detach = await attachConsole();
 - `LogDir`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::LogDir {
@@ -233,6 +240,7 @@ tauri_plugin_log::Builder::new()
     },
   ))
   .build()
+# )
 ```
 
 При использовании целевой точки LogDir все журналы сохраняются в рекомендуемом каталоге журналов.
@@ -249,6 +257,7 @@ tauri_plugin_log::Builder::new()
 Целевая точка Folder позволяет записывать журналы в пользовательское расположение в файловой системе.
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .target(tauri_plugin_log::Target::new(
     tauri_plugin_log::TargetKind::Folder {
@@ -257,6 +266,7 @@ tauri_plugin_log::Builder::new()
     },
   ))
   .build()
+# )
 ```
 
 Имя файла `file_name` по умолчанию — имя приложения.
@@ -267,18 +277,22 @@ tauri_plugin_log::Builder::new()
 Максимальный размер файла можно настроить с помощью функции `max_file_size` конструктора:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .max_file_size(50_000 /* bytes */)
   .build()
+# )
 ```
 
 Tauri может автоматически вращать ваш файл журнала, когда он достигает ограничения размера, вместо отбрасывания предыдущего файла.
 Это поведение можно настроить с помощью `rotation_strategy`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .rotation_strategy(tauri_plugin_log::RotationStrategy::KeepAll)
   .build()
+# )
 ```
 
 ### Фильтрация
@@ -290,9 +304,11 @@ tauri_plugin_log::Builder::new()
 Чтобы задать максимальный уровень журнала, используйте функцию `level`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .level(log::LevelFilter::Info)
   .build()
+# )
 ```
 
 В этом примере журналы debug и trace отбрасываются, так как они имеют более низкий уровень, чем _info_.
@@ -300,11 +316,13 @@ tauri_plugin_log::Builder::new()
 Также можно задать отдельные максимальные уровни для отдельных модулей:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .level(log::LevelFilter::Info)
   // verbose logs only for the commands module
   .level_for("my_crate_name::commands", log::LevelFilter::Trace)
   .build()
+# )
 ```
 
 Обратите внимание, что эти API используют [`log` крейт], который должен быть добавлен в ваш файл `Cargo.toml`:
@@ -319,10 +337,12 @@ log = "0.4"
 Можно определить функцию `filter`, чтобы отбрасывать нежелательные журналы, проверяя их метаданные:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   // exclude logs with target `"hyper"`
   .filter(|metadata| metadata.target() != "hyper")
   .build()
+# )
 ```
 
 ### Форматирование
@@ -331,6 +351,7 @@ tauri_plugin_log::Builder::new()
 Пользовательскую функцию форматирования можно задать с помощью `format`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .format(|out, message, record| {
     out.finish(format_args!(
@@ -341,6 +362,7 @@ tauri_plugin_log::Builder::new()
     ))
   })
   .build()
+# )
 ```
 
 ### Применение другого формата к целевым точкам
@@ -350,6 +372,7 @@ tauri_plugin_log::Builder::new()
 чтобы удалить стандартный форматировщик, который применяется ко всем целевым точкам:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
     .clear_format()
     .targets([
@@ -367,6 +390,7 @@ tauri_plugin_log::Builder::new()
         }),
     ])
     .build(),
+# )
 ```
 
 #### Даты журналов
@@ -375,9 +399,11 @@ tauri_plugin_log::Builder::new()
 но вы можете настроить его на использование локального часового пояса с помощью `timezone_strategy`:
 
 ```rust
+# tauri::Builder::default().plugin(
 tauri_plugin_log::Builder::new()
   .timezone_strategy(tauri_plugin_log::TimezoneStrategy::UseLocal)
   .build()
+# )
 ```
 
 ## Разрешения

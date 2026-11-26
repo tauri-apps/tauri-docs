@@ -134,7 +134,9 @@ moveWindow(Position.TopRight);
 Вы можете импортировать и использовать расширение трейта Window непосредственно через Rust:
 
 ```rust
+use tauri::Manager;
 use tauri_plugin_positioner::{WindowExt, Position};
+# let app: tauri::AppHandle = todo!();
 
 let mut win = app.get_webview_window("main").unwrap();
 let _ = win.as_ref().window().move_window(Position::TopRight);

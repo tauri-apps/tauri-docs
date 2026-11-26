@@ -59,13 +59,17 @@ unlisten();
 Если вы вызовете `unlisten` синхронно до разрешения Promise, обработчик
 будет немедленно удалён, и вы не получите никаких событий:
 
-```js
+```js ignore
 // Wrong: unlisten is called before the listener is registered
 const unlisten = listen('sync-complete', (event) => {
   console.log('sync finished');
 });
 unlisten(); // unlisten is a Promise here, not a function -- the listener is not cleaned up
+```
 
+```js
+import { listen } from '@tauri-apps/api/event';
+// ---cut---
 // Correct: await the Promise to get the unlisten handle
 const unlisten = await listen('sync-complete', (event) => {
   console.log('sync finished');
@@ -82,7 +86,10 @@ unlisten();
 отрендерены, или отложите регистрацию обработчика на effect/хук, который выполняется
 после mount.
 
-```js
+```jsx
+import { useEffect, useRef } from 'react';
+import { listen } from '@tauri-apps/api/event';
+
 // Wrong: DOM ref may not be available yet
 function MyComponent() {
   const ref = useRef(null);
@@ -91,7 +98,12 @@ function MyComponent() {
   });
   return <div ref={ref} />;
 }
+```
 
+```jsx
+import { useEffect, useRef } from 'react';
+import { listen } from '@tauri-apps/api/event';
+// ---cut---
 // Correct: use useEffect which runs after the component mounts
 function MyComponent() {
   const ref = useRef(null);
@@ -227,6 +239,10 @@ appWebview.once('ready', () => {});
 
   ```rust title="src-tauri/src/lib.rs"
   use tauri::Listener;
+  # #[derive(serde::Deserialize)]
+  # struct DownloadStarted {
+  #   url: String,
+  # }
 
   #[cfg_attr(mobile, tauri::mobile_entry_point)]
   pub fn run() {
@@ -255,7 +271,7 @@ appWebview.once('ready', () => {});
       .setup(|app| {
         let webview = app.get_webview_window("main").unwrap();
         webview.listen("logged-in", |event| {
-          let session_token = event.data;
+          let session_token = event.payload();
           // save token..
         });
         Ok(())
@@ -269,15 +285,17 @@ appWebview.once('ready', () => {});
 Чтобы перестать слушать событие, вы можете использовать функцию `unlisten`:
 
 ```rust
+# use tauri::Listener;
+# let app: &mut tauri::App = todo!();
 // unlisten outside of the event handler scope:
 let event_id = app.listen("download-started", |event| {});
 app.unlisten(event_id);
 
 // unlisten when some event criteria is matched
 let handle = app.handle().clone();
-app.listen("status-changed", |event| {
-  if event.data == "ready" {
-    handle.unlisten(event.id);
+app.listen("status-changed", move |event| {
+  if event.payload() == "\"ready\"" {
+    handle.unlisten(event.id());
   }
 });
 ```
@@ -285,6 +303,8 @@ app.listen("status-changed", |event| {
 Кроме того, Tauri предоставляет утилитарную функцию для прослушивания события ровно один раз:
 
 ```rust
+# use tauri::Listener;
+# let app: &mut tauri::App = todo!();
 app.once("ready", |event| {
   println!("app is ready");
 });

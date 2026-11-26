@@ -30,6 +30,11 @@ fn main() {
 Позже вы можете получить доступ к своему состоянию с помощью любого типа, реализующего трейт [`Manager`], например экземпляра [`App`]:
 
 ```rust
+# use tauri::Manager;
+# struct AppData {
+#   welcome_message: &'static str,
+# }
+# let app: &mut tauri::App = todo!();
 let data = app.state::<AppData>();
 ```
 
@@ -65,6 +70,13 @@ fn main() {
 Теперь состояние можно изменять, блокируя мьютекс:
 
 ```rust
+# use std::sync::Mutex;
+# use tauri::Manager;
+# #[derive(Default)]
+# struct AppState {
+#   counter: u32,
+# }
+# let app: &mut tauri::App = todo!();
 let state = app.state::<Mutex<AppState>>();
 
 // Lock the mutex to get mutable access:
@@ -95,6 +107,11 @@ state.counter += 1;
 ### Доступ к состоянию в командах
 
 ```rust
+# use std::sync::Mutex;
+# use tauri::State;
+# struct AppState {
+#   counter: u32,
+# }
 #[tauri::command]
 fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
   let mut state = state.lock().unwrap();
@@ -110,6 +127,11 @@ fn increase_counter(state: State<'_, Mutex<AppState>>) -> u32 {
 Если вы используете `async` команды и хотите использовать асинхронный [`Mutex`](https://docs.rs/tokio/latest/tokio/sync/struct.Mutex.html) Tokio, вы можете настроить его так же и получить доступ к состоянию следующим образом:
 
 ```rust
+# use tauri::State;
+# use tokio::sync::Mutex;
+# struct AppState {
+#   counter: u32,
+# }
 #[tauri::command]
 async fn increase_counter(state: State<'_, Mutex<AppState>>) -> Result<u32, ()> {
   let mut state = state.lock().await;

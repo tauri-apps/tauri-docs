@@ -95,6 +95,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 Итак, замыкание должно выглядеть следующим образом:
 
 ```rust
+# tauri::Builder::default()
 .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
   // Write your code here...
 }))

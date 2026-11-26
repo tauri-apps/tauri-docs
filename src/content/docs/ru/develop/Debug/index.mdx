@@ -50,6 +50,7 @@ fn main() {
 Первое место, где стоит искать ошибки, — консоль Rust. Это терминал, в котором вы запускали, например, `tauri dev`. Вы можете использовать следующий код, чтобы вывести что-то в эту консоль из файла Rust:
 
 ```rust frame=none
+# let msg = "hello";
 println!("Message from Rust: {}", msg);
 ```
 
@@ -92,6 +93,7 @@ For more information about this error, try `rustc --explain E0425`.
 Вы можете управлять видимостью окна инспектора с помощью функций [`WebviewWindow::open_devtools`] и [`WebviewWindow::close_devtools`]:
 
 ```rust
+# use tauri::Manager;
 tauri::Builder::default()
   .setup(|app| {
     #[cfg(debug_assertions)] // only include this code on debug builds

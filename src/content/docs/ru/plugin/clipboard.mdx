@@ -103,6 +103,7 @@ console.log(content);
 
 ```rust
 use tauri_plugin_clipboard_manager::ClipboardExt;
+# let app: tauri::AppHandle = todo!();
 
 app.clipboard().write_text("Tauri is awesome!".to_string()).unwrap();
 

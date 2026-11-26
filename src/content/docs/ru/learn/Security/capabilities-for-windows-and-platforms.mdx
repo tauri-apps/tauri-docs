@@ -34,7 +34,8 @@ import Cta from '@fragments/cta.mdx';
    В файле конфигурации Tauri, обычно называемом `tauri.conf.json`:
 
     <ShowSolution text="Показать решение">
-    ```javascript
+    ```jsonc
+    {
       "productName": "multiwindow",
       ...
       "app": {
@@ -64,6 +65,9 @@ import Cta from '@fragments/cta.mdx';
 
     <ShowSolution text="Показать решение">
     ```rust
+    # #[tauri::command]
+    # fn greet() {}
+    # let context = tauri::generate_context!();
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet])
         .setup(|app| {

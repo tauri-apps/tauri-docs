@@ -319,11 +319,14 @@ modules:
 Если вы предпочитаете не открывать доступ из приложения к $XDG_RUNTIME_DIR (где на Linux сохраняется tray-icon), вы можете изменить путь, по которому tauri сохраняет изображение трея:
 
 ```rust
+# use tauri::{tray::TrayIconBuilder, Manager};
+# fn setup(app: &mut tauri::App) {
 TrayIconBuilder::new()
   .icon(app.default_window_icon().unwrap().clone())
   .temp_dir_path(app.path().app_cache_dir().unwrap()) // will save to the cache folder ($XDG_CACHE_HOME) where the app already has permission
-  .build()
+  .build(app)
   .unwrap();
+# }
 ```
 
 :::

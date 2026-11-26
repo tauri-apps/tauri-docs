@@ -30,6 +30,7 @@ npm create wdio@latest ./
 
 ```typescript
 export const config: WebdriverIO.Config = {
+  capabilities: [{ browserName: 'tauri' }],
   services: [
     [
       'tauri',

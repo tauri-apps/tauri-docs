@@ -122,6 +122,8 @@ pub fn run() {
 - **`listen('opened', …)`** подписывается на то же имя события, которое передаётся в **`app.emit("opened", urls)`** в Rust, поэтому события открытия файлов, срабатывающие, пока приложение уже запущено, доставляются немедленно.
 
 ```javascript
+function handleFiles(/** @type {string[]} */ urls) {}
+// ---cut---
 import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/core';
 

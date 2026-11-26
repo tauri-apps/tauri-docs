@@ -101,6 +101,7 @@ await openUrl('https://tauri.app');
 
 ```rust
 use tauri_plugin_opener::OpenerExt;
+# let app: tauri::AppHandle = todo!();
 
 // opens a file using the default program:
 app.opener().open_path("/path/to/file", None::<&str>);
