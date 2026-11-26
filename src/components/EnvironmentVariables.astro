@@ -33,7 +33,7 @@ function fail(problem: string): never {
 }
 
 function straightQuotes(text: string) {
-  return text.replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
+  return text.replace(/[‘’]/g, "'");
 }
 
 /** position of `section` among the upstream headings */
@@ -59,37 +59,30 @@ const processor = await createSatteriMarkdownProcessor({
       name: 'environment-variables-section',
       before(root, ctx) {
         const nodes = root.children;
-        // link reference definitions belong to no section, and any section may use them
-        const isDefinition = (node: (typeof nodes)[number]) => node.type === 'definition';
-
         const headingIndexes = nodes.flatMap((node, index) =>
           node.type === 'heading' && node.depth === 3 ? [index] : []
         );
         const titles = headingIndexes.map((index) => straightQuotes(ctx.textContent(nodes[index])));
 
-        if (!nodes.slice(0, headingIndexes[0]).every(isDefinition)) {
+        if (headingIndexes[0] !== 0) {
           fail(
             'has text before its first `###` heading that the environment variables page does not show. Update EnvironmentVariables.astro to place it'
           );
         }
 
         const position = sectionPosition(titles);
-        const body = nodes
-          .slice(headingIndexes[position] + 1, headingIndexes[position + 1])
-          .filter((node) => !isDefinition(node));
+        const body = nodes.slice(headingIndexes[position] + 1, headingIndexes[position + 1]);
 
         for (const node of body) {
           if (node.type === 'blockquote') ctx.setField(node, 'data', { hName: quoteTag });
         }
 
-        ctx.setField(root, 'children', [...body, ...nodes.filter(isDefinition)]);
+        ctx.setField(root, 'children', body);
       },
       html(node) {
-        if (!node.value.startsWith('<!--')) {
-          fail(
-            `has ${node.value} outside backticks in its "${section}" section, where the page would not display it. It has to be in a code span upstream`
-          );
-        }
+        fail(
+          `has ${node.value} outside backticks in its "${section}" section, where the page would not display it. It has to be in a code span upstream`
+        );
       },
     },
   ],
