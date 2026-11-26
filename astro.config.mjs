@@ -206,6 +206,8 @@ export default defineConfig({
                     'develop/state-management',
                     'develop/updating-dependencies',
                     'develop/icons',
+                    'develop/webview-runtime',
+                    'develop/cef',
                     {
                       label: 'Debug',
                       collapsed: true,
