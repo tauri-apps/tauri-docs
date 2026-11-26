@@ -111,6 +111,16 @@ After `create-tauri-app` has completed, you can navigate into your project's fol
 
 import CommandTabs from '@components/CommandTabs.astro';
 
+:::note[Using Cargo?]
+The Tauri CLI is not installed with Cargo. Install it before starting the development server:
+
+```sh
+cargo install tauri-cli --version "^2.0.0" --locked
+```
+
+The other package managers install it as a project dependency.
+:::
+
 <CommandTabs
   npm="cd tauri-app
     npm install
@@ -128,9 +138,8 @@ import CommandTabs from '@components/CommandTabs.astro';
     bun install
     bun tauri dev
   "
-  cargo='cd tauri-app
-    cargo install tauri-cli --version "^2.0.0" --locked
-    cargo tauri dev'
+  cargo="cd tauri-app
+    cargo tauri dev"
 />
 
 You'll now see a new window open with your app running.
