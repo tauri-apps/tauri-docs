@@ -1,0 +1,126 @@
+---
+title: Conditional Compilation
+i18nReady: true
+---
+
+A Tauri app can target desktop and mobile from one codebase, but not every line belongs on every
+platform. The frontend decides that at bundle time; Rust decides it at compile time.
+
+## Frontend
+
+The Tauri CLI sets environment variables for the hook commands it runs (`beforeDevCommand`,
+`beforeBuildCommand`, and the other hook commands). They describe the build being made, not the
+running app, so read them while bundling and bake the result into the output. The full list is in
+the [environment variables reference](/reference/environment-variables/); the ones most useful for
+branching are:
+
+| Variable                  | Example                                        | Meaning                          |
+| ------------------------- | ---------------------------------------------- | -------------------------------- |
+| `TAURI_ENV_PLATFORM`      | `windows`, `darwin`, `linux`, `android`, `ios` | Target platform                  |
+| `TAURI_ENV_FAMILY`        | `windows`, `unix`                              | Target platform family           |
+| `TAURI_ENV_ARCH`          | `x86_64`, `aarch64`                            | Target architecture              |
+| `TAURI_ENV_TARGET_TRIPLE` | `aarch64-apple-ios`                            | Full target triple               |
+| `TAURI_ENV_DEBUG`         | `true` or `false`                              | `dev` command or `build --debug` |
+
+With Vite, expose them through `envPrefix` as the [Vite guide](/start/frontend/vite/) does, then read
+them from `import.meta.env`:
+
+```js
+// src/platform.js
+const platform = import.meta.env.TAURI_ENV_PLATFORM;
+
+export const isMobile = platform === 'android' || platform === 'ios';
+export const isWindows = platform === 'windows';
+```
+
+Vite replaces those expressions when it builds, so a branch your target never takes is removed from
+the bundle. The same variables can be read in `vite.config.js` through `process.env` when the
+configuration itself has to change per platform.
+
+:::note
+These variables exist in the hook commands only. In the running app, ask the platform at runtime
+instead — `@tauri-apps/plugin-os` for the operating system, or the window APIs for what the current
+window supports.
+:::
+
+## Rust
+
+Rust's conditional compilation removes code before it is type-checked for the target, so a desktop
+import cannot break a mobile build. Use `#[cfg]` to include or exclude an item, and `cfg!` when the
+code has to exist on both platforms and only the value changes:
+
+```rust
+#[cfg(target_os = "windows")]
+use std::os::windows::process::CommandExt;
+
+fn platform_name() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "Windows"
+    } else if cfg!(target_os = "macos") {
+        "macOS"
+    } else {
+        "Linux"
+    }
+}
+```
+
+The [Rust reference](https://doc.rust-lang.org/reference/conditional-compilation.html) has the full
+set of built-in keys, including `target_os`, `target_arch`, `target_family`, and
+`debug_assertions`.
+
+### Tauri's cfg aliases
+
+`tauri_build::build()` in your `build.rs` defines three aliases and registers them for `rustc`'s
+unexpected-cfg check:
+
+- `desktop` — a desktop target,
+- `mobile` — Android or iOS,
+- `dev` — a `tauri dev` run.
+
+They describe how the app is being run, which the built-in target keys cannot always express:
+
+```rust
+#[cfg(desktop)]
+fn install_tray_icon(app: &mut tauri::App) {
+    // ...
+}
+
+#[cfg(mobile)]
+fn install_tray_icon(_app: &mut tauri::App) {
+    // Mobile has no tray icon.
+}
+```
+
+`cfg(dev)` is not the same as `cfg(debug_assertions)`: `dev` is set by the Tauri CLI for
+`tauri dev`, while `debug_assertions` is set by Cargo for any debug build, including a
+`tauri build --debug`.
+
+### Dependencies
+
+Cargo applies target-specific dependency tables before your code is compiled:
+
+```toml
+[target.'cfg(windows)'.dependencies]
+windows = "0.61"
+
+[target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
+tauri-plugin-barcode-scanner = "2"
+```
+
+Custom aliases such as `desktop`, `mobile`, and `dev` belong to `rustc`, not Cargo, so they cannot
+appear in a `[target.'cfg(...)']` table. Target mobile dependencies by `target_os` as above.
+
+When a dependency or a chunk of code is optional for a different reason, put it behind a Cargo
+feature rather than a target table:
+
+```toml
+[dependencies]
+tauri-plugin-global-shortcut = { version = "2", optional = true }
+
+[features]
+shortcuts = ["dep:tauri-plugin-global-shortcut"]
+```
+
+Then enable the feature for the platforms that need it, and keep the code behind
+`#[cfg(feature = "shortcuts")]`. A feature is also the way to keep Tauri itself optional in a crate
+that can build without it, as long as every Tauri-gated item is behind that feature.
