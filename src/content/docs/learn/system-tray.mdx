@@ -86,9 +86,13 @@ const tray = await TrayIcon.new(options);
 <TabItem label="Rust">
 
 ```rust
+# use tauri::tray::TrayIconBuilder;
+# fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
 let tray = TrayIconBuilder::new()
   .icon(app.default_window_icon().unwrap().clone())
   .build(app)?;
+# Ok(())
+# }
 ```
 
 </TabItem>
@@ -141,6 +145,7 @@ use tauri::{
   tray::TrayIconBuilder,
 };
 
+# fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
 let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
 let menu = Menu::with_items(app, &[&quit_i])?;
 
@@ -148,6 +153,8 @@ let tray = TrayIconBuilder::new()
   .menu(&menu)
   .show_menu_on_left_click(true)
   .build(app)?;
+# Ok(())
+# }
 ```
 
 </TabItem>
@@ -205,6 +212,7 @@ Use the [`TrayIconBuilder::on_menu_event`] method to attach a tray menu click ev
 ```rust
 use tauri::tray::TrayIconBuilder;
 
+# fn tray<R: tauri::Runtime>() -> TrayIconBuilder<R> {
 TrayIconBuilder::new()
   .on_menu_event(|app, event| match event.id.as_ref() {
     "quit" => {
@@ -215,6 +223,7 @@ TrayIconBuilder::new()
       println!("menu item {:?} not handled", event.id);
     }
   })
+# }
 ```
 
 </TabItem>
@@ -285,6 +294,7 @@ use tauri::{
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
 };
 
+# fn tray<R: tauri::Runtime>() -> TrayIconBuilder<R> {
 TrayIconBuilder::new()
   .on_tray_icon_event(|tray, event| match event {
     TrayIconEvent::Click {
@@ -305,6 +315,7 @@ TrayIconBuilder::new()
       println!("unhandled event {event:?}");
     }
   })
+# }
 ```
 
 See [`TrayIconEvent`][rust TrayIconEvent] for more information on the event type.

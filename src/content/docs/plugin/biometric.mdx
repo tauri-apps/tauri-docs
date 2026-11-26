@@ -53,7 +53,7 @@ Install the biometric plugin to get started.
                 tauri::Builder::default()
                     .setup(|app| {
                         #[cfg(mobile)]
-                        app.handle().plugin(tauri_plugin_biometric::Builder::new().build());
+                        app.handle().plugin(tauri_plugin_biometric::init());
                         Ok(())
                     })
                     .run(tauri::generate_context!())
@@ -120,8 +120,10 @@ if (status.isAvailable) {
 <TabItem label="Rust">
 
 ```rust
+# #[cfg(mobile)]
 use tauri_plugin_biometric::BiometricExt;
 
+# #[cfg(mobile)]
 fn check_biometric(app_handle: tauri::AppHandle) {
     let status = app_handle.biometric().status().unwrap();
     if status.is_available {
@@ -175,8 +177,10 @@ try {
 <TabItem label="Rust">
 
 ```rust ins={21}
+# #[cfg(mobile)]
 use tauri_plugin_biometric::{BiometricExt, AuthOptions};
 
+# #[cfg(mobile)]
 fn bio_auth(app_handle: tauri::AppHandle) {
 
     let options = AuthOptions {

@@ -131,11 +131,14 @@ The HTTP plugin is available in both Rust as a [reqwest](https://docs.rs/reqwest
 In Rust you can utilize the `reqwest` crate re-exported by the plugin. For more details refer to [reqwest docs](https://docs.rs/reqwest/).
 
 ```rust
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
 use tauri_plugin_http::reqwest;
 
-let res = reqwest::get("http://my.api.host/data.json").await;
+let res = reqwest::get("http://my.api.host/data.json").await?;
 println!("{:?}", res.status()); // e.g. 200
 println!("{:?}", res.text().await); // e.g Ok("{ Content }")
+# Ok(())
+# }
 ```
 
 <PluginPermissions plugin={frontmatter.plugin} />
