@@ -1,0 +1,93 @@
+---
+title: Portée persistée
+description: Persister les changements de portée à l'exécution sur le système de fichiers.
+plugin: persisted-scope
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+Enregistre les portées de système de fichiers et d'asset, puis les restaure lorsque l'app est rouverte.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin persisted-scope pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique" >
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    { ' ' }
+
+    <CommandTabs
+      npm="npm run tauri add persisted-scope"
+      yarn="yarn run tauri add persisted-scope"
+      pnpm="pnpm tauri add persisted-scope"
+      deno="deno task tauri add persisted-scope"
+      bun="bun tauri add persisted-scope"
+      cargo="cargo tauri add persisted-scope"
+    />
+
+  </TabItem>
+  <TabItem label = "Manuelle">
+    <Steps>
+
+    1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+        ```sh frame=none
+        cargo add tauri-plugin-persisted-scope
+        ```
+
+    2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_persisted_scope::init())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+:::caution
+Le plugin `persisted-scope` _doit_ être enregistré et initialisé après le plugin `fs`, comme l'illustre l'exemple ci-dessous :
+
+```rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init()) // fs MUST BE before persisted scope!
+        .plugin(tauri_plugin_persisted_scope::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+**Si vous ne le faites pas, la portée persistée ne fonctionnera pas !** Vous devriez aussi voir un message d'avertissement au lancement de votre app en mode dev, similaire à celui-ci :
+
+```
+Please make sure to register the `fs` plugin before the `persisted-scope` plugin!
+```
+
+:::
+
+## Utilisation
+
+Après la configuration, le plugin enregistrera et restaurera automatiquement les portées de système de fichiers et d'asset.

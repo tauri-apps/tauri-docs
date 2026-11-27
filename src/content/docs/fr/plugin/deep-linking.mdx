@@ -1,0 +1,472 @@
+---
+title: Deep Linking
+description: Définir votre application Tauri comme gestionnaire par défaut d'une URL.
+plugin: deep-link
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Définissez votre application Tauri comme gestionnaire par défaut d'une URL.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin deep-link pour commencer.
+
+<Tabs>
+  <TabItem label="Automatique">
+
+    Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add deep-link"
+      yarn="yarn run tauri add deep-link"
+      pnpm="pnpm tauri add deep-link"
+      deno="deno task tauri add deep-link"
+      bun="bun tauri add deep-link"
+      cargo="cargo tauri add deep-link"
+    />
+
+  </TabItem>
+  <TabItem label="Manuelle">
+    <Steps>
+
+      1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+          ```sh frame=none
+          cargo add tauri-plugin-deep-link@2.0.0
+          ```
+
+      2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+          ```rust title="src-tauri/src/lib.rs" ins={4}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .plugin(tauri_plugin_deep_link::init())
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Installez les liaisons JavaScript invitées avec votre gestionnaire de paquets JavaScript préféré :
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-deep-link"
+              yarn="yarn add @tauri-apps/plugin-deep-link"
+              pnpm="pnpm add @tauri-apps/plugin-deep-link"
+              deno="deno add npm:@tauri-apps/plugin-deep-link"
+              bun="bun add @tauri-apps/plugin-deep-link"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Mise en place
+
+### Android
+
+Il existe deux façons d'ouvrir votre app à partir de liens sur Android :
+
+1. **App Links (http/https + hôte, vérifié)**
+   Pour les [app links](https://developer.android.com/training/app-links#android-app-links), vous avez besoin d'un serveur avec un endpoint `.well-known/assetlinks.json` qui doit renvoyer une réponse texte au format indiqué :
+
+```json title=".well-known/assetlinks.json"
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "$APP_BUNDLE_ID",
+      "sha256_cert_fingerprints": [
+        $CERT_FINGERPRINT
+      ]
+    }
+  }
+]
+```
+
+Où `$APP_BUNDLE_ID` est la valeur définie dans [`tauri.conf.json > identifier`], avec `-` remplacé par `_`, et
+`$CERT_FINGERPRINT` est une liste d'empreintes SHA256 des certificats de signature de votre app.
+Consultez [vérifier les applinks Android] pour plus d'informations.
+
+2. **Schémas URI personnalisés (aucun hôte requis, aucune vérification)**
+   Pour les URI comme `myapp://...`, vous pouvez déclarer un schéma personnalisé sans héberger de fichiers. Utilisez le champ `scheme` dans la configuration mobile et omettez `host`.
+
+### iOS
+
+Il existe deux façons d'ouvrir votre app à partir de liens sur iOS :
+
+1. **Universal Links (https + hôte, vérifié)**
+   Pour les [universal links], vous avez besoin d'un serveur avec un endpoint `.well-known/apple-app-site-association` qui doit renvoyer une réponse JSON au format indiqué :
+
+```json title=".well-known/apple-app-site-association"
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["$DEVELOPMENT_TEAM_ID.$APP_BUNDLE_ID"],
+        "components": [
+          {
+            "/": "/open/*",
+            "comment": "Matches any URL whose path starts with /open/"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+:::note
+L'en-tête de réponse `Content-Type` doit être `application/json`.
+
+L'endpoint `.well-known/apple-app-site-association` doit être servi en HTTPS.
+Pour tester localhost, vous pouvez soit utiliser un certificat TLS auto-signé et l'installer sur le simulateur iOS, soit utiliser des services comme [ngrok].
+:::
+
+Où `$DEVELOPMENT_TEAM_ID` est la valeur définie dans `tauri.conf.json > bundle > iOS > developmentTeam` ou dans la variable d'environnement `TAURI_APPLE_DEVELOPMENT_TEAM`, et `$APP_BUNDLE_ID` est la valeur définie dans [`tauri.conf.json > identifier`].
+
+Pour vérifier si votre domaine a été correctement configuré pour exposer les associations d'app, vous pouvez exécuter la commande suivante en remplaçant `<host>` par votre hôte réel :
+
+```sh
+curl -v https://app-site-association.cdn-apple.com/a/v1/<host>
+```
+
+Consultez [applinks.details](https://developer.apple.com/documentation/bundleresources/applinks/details-swift.dictionary) pour plus d'informations.
+
+2. **Schémas URI personnalisés (aucun hôte, aucune vérification)**
+   Pour les URI comme `myapp://...`, vous pouvez déclarer un schéma personnalisé dans la configuration mobile avec `"appLink": false`, ou l'omettre. Le plugin génère les entrées `CFBundleURLTypes` appropriées dans le fichier Info.plist de votre app. Aucun fichier `.well-known` ni hôte HTTPS n'est nécessaire.
+
+### Desktop
+
+Sur Linux et Windows, les deep links sont transmis comme argument de ligne de commande à un nouveau processus d'app.
+Le plugin deep link s'intègre avec le plugin [single instance] si vous préférez qu'une instance unique de l'app reçoive les événements.
+
+- Vous devez d'abord ajouter la fonctionnalité `deep-link` au plugin single instance :
+
+```toml title="src-tauri/Cargo.toml"
+[target."cfg(any(target_os = \"macos\", windows, target_os = \"linux\"))".dependencies]
+tauri-plugin-single-instance = { version = "2.0.0", features = ["deep-link"] }
+```
+
+- Configurez ensuite le plugin single instance, qui doit toujours être le premier plugin enregistré :
+
+```rust title="src-tauri/lib.rs"
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    let mut builder = tauri::Builder::default();
+
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|_app, argv, _cwd| {
+          println!("a new app instance was opened with {argv:?} and the deep link event was already triggered");
+          // when defining deep link schemes at runtime, you must also check `argv` here
+        }));
+    }
+
+    builder = builder.plugin(tauri_plugin_deep_link::init());
+}
+```
+
+:::caution
+L'utilisateur peut déclencher manuellement un faux deep link en incluant l'URL comme argument.
+Tauri compare l'argument de ligne de commande aux schémas configurés pour limiter ce risque,
+mais vous devez toujours vérifier que l'URL correspond au format attendu.
+
+Cela signifie que Tauri ne gère que les deep links pour les schémas configurés statiquement,
+et les schémas enregistrés à l'exécution doivent être vérifiés manuellement avec [`Env::args_os`].
+:::
+
+## Configuration
+
+Sous `tauri.conf.json > plugins > deep-link`, configurez les domaines/schémas mobiles et les schémas desktop que vous voulez associer à votre application.
+
+### Exemples
+
+**Schéma personnalisé sur mobile (aucun serveur requis) :**
+
+```json title="tauri.conf.json"
+{
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        {
+          "scheme": ["ovi"],
+          "appLink": false
+        }
+      ]
+    }
+  }
+}
+```
+
+Cela enregistre le schéma `ovi://*` sur Android et iOS.
+
+**App Link / Universal Link (https + hôte vérifié) :**
+
+```json
+{
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        {
+          "scheme": ["https"],
+          "host": "your.website.com",
+          "pathPrefix": ["/open"],
+          "appLink": true
+        }
+      ]
+    }
+  }
+}
+```
+
+Cela enregistre `https://your.website.com/open/*` comme app/universal link.
+
+**Schémas personnalisés desktop :**
+
+```json
+{
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["something", "my-tauri-app"]
+      }
+    }
+  }
+}
+```
+
+## Utilisation
+
+Le plugin deep-link est disponible en JavaScript et en Rust.
+
+### Écouter les deep links
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+
+Lorsqu'un deep link déclenche votre app pendant qu'elle s'exécute, le callback `onOpenUrl` est appelé. Pour détecter si votre app a été ouverte via un deep link, utilisez `getCurrent` au démarrage de l'app.
+
+```javascript
+import { getCurrent, onOpenUrl } from '@tauri-apps/plugin-deep-link';
+// when using `"withGlobalTauri": true`, you may use
+// const { getCurrent, onOpenUrl } = window.__TAURI__.deepLink;
+
+const startUrls = await getCurrent();
+if (startUrls) {
+  // App was likely started via a deep link
+  // Note that getCurrent's return value will also get updated every time onOpenUrl gets triggered.
+}
+
+await onOpenUrl((urls) => {
+  console.log('deep link:', urls);
+});
+```
+
+  </TabItem>
+  <TabItem label="Rust">
+
+Lorsqu'un deep link déclenche votre app pendant qu'elle s'exécute, la closure `on_open_url` du plugin est appelée. Pour détecter si votre app a été ouverte via un deep link, utilisez `get_current` au démarrage de l'app.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            // Note that get_current's return value will also get updated every time on_open_url gets triggered.
+            let start_urls = app.deep_link().get_current()?;
+            if let Some(urls) = start_urls {
+                // app was likely started by a deep link
+                println!("deep link URLs: {:?}", urls);
+            }
+
+            app.deep_link().on_open_url(|event| {
+                println!("deep link URLs: {:?}", event.urls());
+            });
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+  </TabItem>
+</Tabs>
+
+:::note
+L'événement open URL est déclenché avec une liste d'URL demandées pour être compatible avec l'API macOS des deep links,
+mais dans la plupart des cas votre app ne recevra qu'une seule URL.
+:::
+
+### Enregistrer des deep links desktop à l'exécution
+
+La section [configuration](#configuration) décrit comment définir des schémas de deep link statiques pour votre application.
+
+Sur Linux et Windows, il est aussi possible d'associer des schémas à votre application à l'exécution via la fonction Rust `register`.
+
+Dans l'extrait suivant, nous enregistrons le schéma `my-app` à l'exécution. Après la première exécution de l'app,
+le système d'exploitation ouvrira les URL `my-app://*` avec notre application :
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            #[cfg(desktop)]
+            app.deep_link().register("my-app")?;
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+:::note
+L'enregistrement des deep links à l'exécution peut être utile pour le développement sur Linux et Windows,
+car par défaut le deep link n'est enregistré que lorsque votre app est installée.
+
+L'installation d'une AppImage peut être complexe car elle nécessite un lanceur AppImage.
+
+L'enregistrement des deep links à l'exécution peut être préférable ; Tauri inclut donc aussi une
+fonction utilitaire pour forcer l'enregistrement à l'exécution de tous les deep links configurés statiquement.
+L'appel à cette fonction garantit aussi que les deep links sont enregistrés pour le mode développement :
+
+```rust
+#[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
+{
+  use tauri_plugin_deep_link::DeepLinkExt;
+  app.deep_link().register_all()?;
+}
+```
+
+:::
+
+## Tests
+
+Il existe quelques particularités pour tester les deep links de votre application.
+
+### Desktop
+
+Les deep links ne sont déclenchés que pour les applications installées sur desktop.
+Sur Linux et Windows, vous pouvez contourner cela avec la fonction Rust [`register_all`],
+qui enregistre tous les schémas configurés pour déclencher l'exécutable courant :
+
+```rust title="src-tauri/src/lib.rs"
+use tauri_plugin_deep_link::DeepLinkExt;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .setup(|app| {
+            #[cfg(any(windows, target_os = "linux"))]
+            {
+                use tauri_plugin_deep_link::DeepLinkExt;
+                app.deep_link().register_all()?;
+            }
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+:::note
+L'installation d'une AppImage prenant en charge les deep links sur Linux nécessite un lanceur AppImage pour intégrer l'AppImage au système d'exploitation.
+Avec la fonction `register_all`, vous pouvez prendre en charge les deep links directement, sans obliger vos utilisateurs à utiliser des outils externes.
+
+Lorsque l'AppImage est déplacée vers un autre emplacement du système de fichiers, le deep link est invalidé puisqu'il s'appuie sur un chemin absolu
+vers l'exécutable, ce qui rend l'enregistrement des schémas à l'exécution encore plus important.
+
+Consultez la section [Enregistrer des deep links desktop à l'exécution](#enregistrer-des-deep-links-desktop-à-lexécution) pour plus d'informations.
+:::
+
+:::caution
+L'enregistrement de deep links à l'exécution n'est pas possible sur macOS ; les deep links ne peuvent donc être testés que sur l'application empaquetée,
+qui doit être installée dans le répertoire `/Applications`.
+:::
+
+#### Windows
+
+Pour déclencher un deep link sur Windows, vous pouvez soit ouvrir `<scheme>://url` dans le navigateur, soit exécuter la commande suivante dans le terminal :
+
+```sh
+start <scheme>://url
+```
+
+#### Linux
+
+Pour déclencher un deep link sur Linux, vous pouvez soit ouvrir `<scheme>://url` dans le navigateur, soit exécuter `xdg-open` dans le terminal :
+
+```sh
+xdg-open <scheme>://url
+```
+
+### iOS
+
+Pour déclencher un app link sur iOS, vous pouvez ouvrir l'URL `https://<host>/path` dans le navigateur. Pour les simulateurs, vous pouvez utiliser la CLI `simctl` pour ouvrir directement un lien depuis le terminal :
+
+```sh
+xcrun simctl openurl booted https://<host>/path
+```
+
+### Android
+
+Pour déclencher un app link sur Android, vous pouvez ouvrir l'URL `https://<host>/path` dans le navigateur. Pour les émulateurs, vous pouvez utiliser la CLI `adb` pour ouvrir directement un lien depuis le terminal :
+
+```sh
+adb shell am start -a android.intent.action.VIEW -d https://<host>/path <bundle-identifier>
+```
+
+## Permissions
+
+Par défaut, toutes les commandes et portées potentiellement dangereuses du plugin sont bloquées et ne sont pas accessibles. Vous devez modifier les permissions dans votre configuration `capabilities` pour les activer.
+
+Consultez la [vue d'ensemble des capabilities](/fr/security/capabilities/) pour plus d'informations et le [guide pas à pas](/fr/learn/security/using-plugin-permissions/) pour utiliser les permissions des plugins.
+
+```json title="src-tauri/capabilities/default.json" ins={9}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    // Usually you will need core:event:default to listen to the deep-link event
+    "core:event:default",
+    "deep-link:default"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[`tauri.conf.json > identifier`]: /fr/reference/config/#identifier
+[vérifier les applinks Android]: https://developer.android.com/training/app-links/verify-android-applinks#web-assoc
+[universal links]: https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc
+[single instance]: /fr/plugin/single-instance/
+[`register_all`]: https://docs.rs/tauri-plugin-deep-link/2.0.0/tauri_plugin_deep_link/struct.DeepLink.html#method.register_all
+[ngrok]: https://ngrok.com/
+[`Env::args_os`]: https://docs.rs/tauri/2.0.0/tauri/struct.Env.html#structfield.args_os

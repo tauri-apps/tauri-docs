@@ -1,0 +1,143 @@
+---
+title: Client HTTP
+description: Accéder au client HTTP écrit en Rust.
+plugin: http
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Effectuez des requêtes HTTP avec le plugin http.
+
+## Plateformes prises en charge
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Configuration
+
+Installez le plugin http pour commencer.
+
+<Tabs>
+    <TabItem label="Automatique">
+
+        Utilisez le gestionnaire de paquets de votre projet pour ajouter la dépendance :
+
+        <CommandTabs npm="npm run tauri add http"
+        yarn="yarn run tauri add http"
+        pnpm="pnpm tauri add http"
+        deno="deno task tauri add http"
+        bun="bun tauri add http"
+        cargo="cargo tauri add http" />
+
+    </TabItem>
+    <TabItem label="Manuelle">
+        <Steps>
+
+        1. Exécutez la commande suivante dans le dossier `src-tauri` pour ajouter le plugin aux dépendances du projet dans `Cargo.toml` :
+
+            ```sh frame=none
+            cargo add tauri-plugin-http
+            ```
+
+        2.  Modifiez `lib.rs` pour initialiser le plugin :
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_http::init())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        3.  Si vous voulez effectuer des requêtes HTTP en JavaScript, installez aussi le paquet npm :
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-http"
+                yarn="yarn add @tauri-apps/plugin-http"
+                pnpm="pnpm add @tauri-apps/plugin-http"
+                deno="deno add npm:@tauri-apps/plugin-http"
+                bun="bun add @tauri-apps/plugin-http"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Utilisation
+
+Le plugin HTTP est disponible en Rust via une ré-exportation de [reqwest](https://docs.rs/reqwest/) et en JavaScript.
+
+### JavaScript
+
+<Steps>
+
+1.  Configurez les URL autorisées
+
+    ```json
+    //src-tauri/capabilities/default.json
+    {
+      "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": [{ "url": "https://*.tauri.app" }],
+          "deny": [{ "url": "https://private.tauri.app" }]
+        }
+      ]
+    }
+    ```
+
+    Pour plus d'informations, consultez la documentation [Vue d'ensemble des permissions](/fr/security/permissions/).
+
+2.  Envoyez une requête
+
+    La méthode `fetch` essaie d'être aussi proche et conforme que possible à la [`fetch` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+
+    ```javascript
+    import { fetch } from '@tauri-apps/plugin-http';
+
+    // Send a GET request
+    const response = await fetch('http://test.tauri.app/data.json', {
+      method: 'GET',
+    });
+    console.log(response.status); // e.g. 200
+    console.log(response.statusText); // e.g. "OK"
+    ```
+
+    :::note
+
+    Les [en-têtes de requête interdits] sont ignorés par défaut. Pour les utiliser, vous devez activer le feature flag `unsafe-headers` :
+
+    ```toml title="src-tauri/Cargo.toml"
+    [dependencies]
+    tauri-plugin-http = { version = "2", features = ["unsafe-headers"] }
+    ```
+
+    :::
+
+</Steps>
+
+### Rust
+
+En Rust, vous pouvez utiliser le crate `reqwest` ré-exporté par le plugin. Pour plus de détails, consultez la [documentation reqwest](https://docs.rs/reqwest/).
+
+```rust
+use tauri_plugin_http::reqwest;
+
+let res = reqwest::get("http://my.api.host/data.json").await;
+println!("{:?}", res.status()); // e.g. 200
+println!("{:?}", res.text().await); // e.g Ok("{ Content }")
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[en-têtes de requête interdits]: https://fetch.spec.whatwg.org/#terminology-headers

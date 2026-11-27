@@ -1,0 +1,178 @@
+---
+title: Snapcraft
+sidebar:
+  order: 1
+i18nReady: true
+---
+
+## Prérequis
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+**1. Installer `snap`**
+
+{/* prettier-ignore */}
+<Tabs syncKey="distro">
+  <TabItem label="Debian">
+    ```shell
+    sudo apt install snapd
+    ```
+  </TabItem>
+  <TabItem label="Arch">
+    ```shell
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/snapd.git
+    cd snapd
+    makepkg -si
+    sudo systemctl enable --now snapd.socket
+    sudo systemctl start snapd.socket
+    sudo systemctl enable --now snapd.apparmor.service
+    ```
+  </TabItem>
+  <TabItem label="Fedora">
+    ```shell
+    sudo dnf install snapd
+    # Enable classic snap support
+    sudo ln -s /var/lib/snapd/snap /snap
+    ```
+
+    Redémarrez ensuite votre système.
+
+  </TabItem>
+</Tabs>
+
+**2. Installer un snap de base**
+
+```shell
+sudo snap install core22
+```
+
+**3. Installer `snapcraft`**
+
+```shell
+sudo snap install snapcraft --classic
+```
+
+## Configuration
+
+1. Créez un compte UbuntuOne.
+2. Allez sur le site [Snapcraft](https://snapcraft.io) et enregistrez un nom d'app.
+3. Créez un fichier snapcraft.yaml à la racine de votre projet.
+4. Ajustez les noms dans le fichier snapcraft.yaml.
+
+```yaml
+name: appname
+base: core22
+version: '0.1.0'
+summary: Your summary # 79 char long summary
+description: |
+  Your description
+
+grade: stable
+confinement: strict
+
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1
+
+apps:
+  appname:
+    command: usr/bin/appname
+    desktop: usr/share/applications/appname.desktop
+    extensions: [gnome]
+    #plugs:
+    #  - network
+    # Add whatever plugs you need here, see https://snapcraft.io/docs/snapcraft-interfaces for more info.
+    # The gnome extension already includes [ desktop, desktop-legacy, gsettings, opengl, wayland, x11, mount-observe, calendar-service ]
+    #  - single-instance-plug # add this if you're using the single-instance plugin
+    #slots:
+    # Add the slots you need to expose to other snaps
+    #  - single-instance-plug # add this if you're using the single-instance plugin
+
+# Add these lines only if you're using the single-instance plugin
+# Check https://v2.tauri.app/plugin/single-instance/ for details
+#slots:
+#  single-instance:
+#    interface: dbus
+#    bus: session
+#    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID with "_" instead of "." and "-"
+#
+#plugs:
+#  single-instance-plug:
+#    interface: dbus
+#    bus: session
+#    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID with "_" instead of "." and "-"
+
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [noble]
+    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
+    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
+
+parts:
+  build-app:
+    plugin: dump
+    build-snaps:
+      - node/20/stable
+      - rustup/latest/stable
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - build-essential
+      - curl
+      - wget
+      - file
+      - libxdo-dev
+      - libssl-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+      - dpkg
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libayatana-appindicator3-1
+    source: .
+    override-build: |
+      set -eu
+      npm install
+      npm run tauri build -- --bundles deb
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb $SNAPCRAFT_PART_INSTALL/
+      sed -i -e "s|Icon=appname|Icon=/usr/share/icons/hicolor/32x32/apps/appname.png|g" $SNAPCRAFT_PART_INSTALL/usr/share/applications/appname.desktop
+```
+
+### Explication
+
+- La variable `name` définit le nom de votre app et doit être définie avec le nom que vous avez enregistré auparavant.
+- La variable `base` définit le core utilisé.
+- La variable `version` définit la version et doit être mise à jour à chaque changement du dépôt source.
+- La section `apps` vous permet d'exposer les fichiers desktop et binaires afin que l'utilisateur puisse exécuter votre app.
+- La section `package-repositories` permet d'ajouter un dépôt de paquets pour aider à satisfaire vos dépendances.
+- `build-packages`/`build-snaps` définit les dépendances de build de votre snap.
+- `stage-packages`/`stage-snaps` définit les dépendances d'exécution de votre snap.
+- La section `override-build` exécute une série de commandes après la récupération des sources.
+
+## Construire
+
+```sh
+sudo snapcraft
+```
+
+## Tester
+
+{/* TODO: This seems to be wrong */}
+
+```shell
+snap run your-app
+```
+
+## Publier manuellement
+
+```shell
+snapcraft login # Login with your UbuntuOne credentials
+snapcraft upload --release=stable mysnap_latest_amd64.snap
+```
+
+## Construire automatiquement
+
+1. Sur la page développeur de votre app, cliquez sur l'onglet `builds`.
+2. Cliquez sur `login with github`.
+3. Saisissez les détails de votre dépôt.

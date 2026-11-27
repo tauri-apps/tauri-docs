@@ -1,34 +1,184 @@
 ---
 title: Debian
-i18nReady: true
 sidebar:
   order: 1
+i18nReady: true
 ---
 
-## Debian
+import ShowSolution from '@components/ShowSolution.astro';
+import { Steps } from '@astrojs/starlight/components';
 
-La version de base du paquet Debian généré par le bundler de Tauri, contient tout ce dont vous avez besoin pour distribuer votre application sur les distributions Linux basées sur Debian. Il définit les icônes de votre application, génère un fichier Desktop et spécifie les dépendances `libwebkit2gtk-4.1` et `libgtk-3-0`, avec `libappindicator3-1` si votre application utilise la zone de notification du système.
+Le paquet Debian standard généré par le bundler de Tauri contient tout ce dont vous avez besoin pour distribuer votre application sur les distributions Linux basées sur Debian. Il définit les icônes de votre application, génère un fichier Desktop et spécifie les dépendances `libwebkit2gtk-4.1-0` et `libgtk-3-0`, ainsi que `libappindicator3-1` si votre application utilise la zone de notification système.
 
-### Custom Files
+:::note
 
-Tauri expose quelques configurations pour le paquet Debian au cas où vous auriez besoin de plus de contrôle.
+Les apps avec interface graphique sur macOS et Linux n'héritent pas du `$PATH` défini par les fichiers de configuration de votre shell (`.bashrc`, `.bash_profile`, `.zshrc`, etc.). Consultez la crate [fix-path-env-rs](https://github.com/tauri-apps/fix-path-env-rs) de Tauri pour corriger ce problème.
 
-Si votre application dépend de dépendances système supplémentaires, vous pouvez les spécifier dans `tauri.conf.json > bundle > linux > deb`.
+:::
 
-Pour inclure des fichiers personnalisés dans le paquet Debian, vous pouvez fournir une liste de fichiers ou de dossiers dans `tauri.conf.json > bundle > linux > deb > files`. L'objet de configuration fait correspondre le chemin dans le paquet Debian au chemin du fichier sur votre système de fichiers, relatif au fichier `tauri.conf.json`. Voici un exemple de configuration :
+## Limitations
+
+Les bibliothèques de base comme glibc cassent fréquemment la compatibilité avec les systèmes plus anciens. Pour cette raison, vous devez compiler votre application Tauri avec le système de base le plus ancien que vous souhaitez prendre en charge et qui fournit aussi les paquets WebKitGTK 4.1 requis par Tauri v2. Ubuntu 22.04 et Debian 12 sont de bons exemples de bases adaptées, car ils fournissent `libwebkit2gtk-4.1-dev` depuis leurs dépôts de paquets standard. Compiler sur un système de base plus récent peut augmenter la version minimale de glibc requise par votre app. Sur un système plus ancien, vous pourriez donc rencontrer une erreur d'exécution comme `/usr/lib/libc.so.6: version 'GLIBC_2.33' not found`. Nous recommandons d'utiliser un conteneur Docker ou GitHub Actions pour compiler votre application Tauri pour Linux.
+
+Consultez les tickets [tauri-apps/tauri#1355](https://github.com/tauri-apps/tauri/issues/1355) et [rust-lang/rust#57497](https://github.com/rust-lang/rust/issues/57497), ainsi que le [guide AppImage](https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system), pour plus d'informations.
+
+## Fichiers personnalisés
+
+Tauri expose quelques configurations pour le paquet Debian si vous avez besoin de plus de contrôle.
+
+Si votre app dépend de dépendances système supplémentaires, vous pouvez les spécifier dans `tauri.conf.json > bundle > linux > deb`.
+
+Pour inclure des fichiers personnalisés dans le paquet Debian, vous pouvez fournir une liste de fichiers ou de dossiers dans `tauri.conf.json > bundle > linux > deb > files`. L'objet de configuration associe le chemin dans le paquet Debian au chemin du fichier sur votre système de fichiers, relatif au fichier `tauri.conf.json`. Voici un exemple de configuration :
 
 ```json
 {
-  // ...autre configurations
   "bundle": {
     "linux": {
       "deb": {
         "files": {
-          "/usr/share/README.md": "../README.md", // copie le fichier README.md dans /usr/share/README.md
-          "/usr/share/assets": "../assets/" // copies toutes le dossier assets dans /usr/share/assets
+          "/usr/share/README.md": "../README.md", // copie le fichier README.md vers /usr/share/README.md
+          "/usr/share/assets": "../assets/" // copie tout le dossier assets vers /usr/share/assets
         }
       }
     }
   }
 }
 ```
+
+## Cross-compilation pour les appareils ARM
+
+Ce guide couvre la compilation manuelle. Consultez notre [guide GitHub Action](/distribute/pipelines/github/#arm-runner-compilation) pour voir un exemple de workflow qui utilise QEMU pour compiler l'app. Cette approche sera beaucoup plus lente, mais elle pourra aussi générer des AppImages.
+
+La compilation manuelle convient si vous n'avez pas besoin de compiler votre application fréquemment et préférez une configuration ponctuelle. Les étapes suivantes supposent que vous utilisez une distribution Linux basée sur Debian/Ubuntu.
+
+<Steps>
+
+1. #### Installer les cibles Rust pour l'architecture souhaitée
+   - Pour ARMv7 (32 bits) : `rustup target add armv7-unknown-linux-gnueabihf`
+   - Pour ARMv8 (ARM64, 64 bits) : `rustup target add aarch64-unknown-linux-gnu`
+
+2. #### Installer l'éditeur de liens correspondant à l'architecture choisie
+   - Pour ARMv7 : `sudo apt install gcc-arm-linux-gnueabihf`
+   - Pour ARMv8 (ARM64) : `sudo apt install gcc-aarch64-linux-gnu`
+
+3. #### Ouvrir ou créer le fichier `<project-root>/.cargo/config.toml` et ajouter les configurations suivantes selon vos besoins
+
+   ```toml
+   [target.armv7-unknown-linux-gnueabihf]
+   linker = "arm-linux-gnueabihf-gcc"
+
+   [target.aarch64-unknown-linux-gnu]
+   linker = "aarch64-linux-gnu-gcc"
+   ```
+
+4. #### Activer l'architecture correspondante dans le gestionnaire de paquets
+   - Pour ARMv7 : `sudo dpkg --add-architecture armhf`
+   - Pour ARMv8 (ARM64) : `sudo dpkg --add-architecture arm64`
+
+5. #### Ajuster les sources des paquets
+
+   Sur Debian, cette étape ne devrait pas être nécessaire, mais sur d'autres distributions, vous devrez peut-être modifier /etc/apt/sources.list pour inclure la variante d'architecture ARM. Par exemple, sur Ubuntu 22.04, ajoutez ces lignes à la fin du fichier (pensez à remplacer jammy par le nom de code de votre version d'Ubuntu) :
+
+   ```
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
+   ```
+
+   Ensuite, pour éviter les problèmes avec les paquets principaux, vous devez ajouter la bonne architecture principale à toutes les autres lignes que le fichier contenait auparavant. Pour les systèmes 64 bits standard, vous devez ajouter [arch=amd64]. Le fichier complet sur Ubuntu 22.04 ressemble alors à ceci :
+
+    <ShowSolution>
+
+   ```
+   # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+   # newer versions of the distribution.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy main restricted
+
+   ## Major bug fix updates produced after the final release of the
+   ## distribution.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+
+   ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+   ## team. Also, please note that software in universe WILL NOT receive any
+   ## review or updates from the Ubuntu security team.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy universe
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy universe
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+
+   ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+   ## team, and may not be under a free licence. Please satisfy yourself as to
+   ## your rights to use the software. Also, please note that software in
+   ## multiverse WILL NOT receive any review or updates from the Ubuntu
+   ## security team.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy multiverse
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy multiverse
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse
+
+   ## N.B. software from this repository may not have been tested as
+   ## extensively as that contained in the main release, although it includes
+   ## newer versions of some applications which may provide useful features.
+   ## Also, please note that software in backports WILL NOT receive any review
+   ## or updates from the Ubuntu security team.
+   deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+   # deb-src http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+
+   deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security main restricted
+   # deb-src http://security.ubuntu.com/ubuntu/ jammy-security main restricted
+   deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security universe
+   # deb-src http://security.ubuntu.com/ubuntu/ jammy-security universe
+   deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security multiverse
+   # deb-src http://security.ubuntu.com/ubuntu/ jammy-security multiverse
+
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security universe
+   deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse
+   ```
+
+    </ShowSolution>
+
+6. #### Mettre à jour les informations des paquets : `sudo apt-get update && sudo apt-get upgrade -y`
+
+7. #### Installer la bibliothèque webkitgtk requise pour l'architecture choisie
+   - Pour ARMv7 : `sudo apt install libwebkit2gtk-4.1-dev:armhf`
+   - Pour ARMv8 (ARM64) : `sudo apt install libwebkit2gtk-4.1-dev:arm64`
+
+8. #### Installer OpenSSL ou utiliser une version fournie avec les sources
+
+   Ce n'est pas toujours nécessaire. Vous pouvez donc d'abord continuer, puis vérifier si vous voyez des erreurs comme `Failed to find OpenSSL development headers`.
+   - Soit installer les en-têtes de développement sur tout le système :
+     - Pour ARMv7 : `sudo apt install libssl-dev:armhf`
+     - Pour ARMv8 (ARM64) : `sudo apt install libssl-dev:arm64`
+   - Soit activer la fonctionnalité vendor pour la crate Rust OpenSSL, ce qui affectera toutes les autres dépendances Rust utilisant la même version mineure. Vous pouvez le faire en ajoutant ceci à la section des dépendances dans votre fichier `Cargo.toml` :
+
+   ```toml
+   openssl-sys = {version = "0.9", features = ["vendored"]}
+   ```
+
+9. #### Définir `PKG_CONFIG_SYSROOT_DIR` sur le répertoire approprié selon l'architecture choisie
+   - Pour ARMv7 : `export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/`
+   - Pour ARMv8 (ARM64) : `export PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/`
+
+10. #### Compiler l'app pour la version ARM souhaitée
+    - Pour ARMv7 : cargo tauri build --target armv7-unknown-linux-gnueabihf
+    - Pour ARMv8 (ARM64) : cargo tauri build --target aarch64-unknown-linux-gnu
+
+    Choisissez l'ensemble d'instructions approprié selon que vous souhaitez cross-compiler votre application Tauri pour ARMv7 ou ARMv8 (ARM64). Notez que les étapes précises peuvent varier selon votre distribution Linux et votre configuration.
+
+</Steps>

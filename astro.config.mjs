@@ -106,6 +106,7 @@ export default defineConfig({
                 en: 'Guides',
                 'zh-CN': '指引',
                 es: 'Guías',
+                fr: 'Guides',
               },
               id: 'guides',
               link: '/start/',
@@ -116,6 +117,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '快速开始',
                     es: 'Guía rápida',
+                    fr: 'Démarrage rapide',
                   },
                   collapsed: true,
                   items: [
@@ -152,6 +154,7 @@ export default defineConfig({
                       translations: {
                         'zh-CN': '前端配置',
                         es: 'Configuración del frontend',
+                        fr: 'Configuration frontend',
                       },
                       collapsed: true,
                       items: [
@@ -165,6 +168,7 @@ export default defineConfig({
                       translations: {
                         'zh-CN': '升级和迁移',
                         es: 'Actualizar y migrar',
+                        fr: 'Mettre à niveau et migrer',
                       },
                       collapsed: true,
                       items: [{ autogenerate: { directory: 'start/migrate' } }],
@@ -176,6 +180,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '核心概念',
                     es: 'Conceptos básicos',
+                    fr: 'Concepts fondamentaux',
                   },
                   collapsed: true,
                   items: [{ autogenerate: { directory: 'concept', collapsed: true } }],
@@ -185,6 +190,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '安全',
                     es: 'Seguridad',
+                    fr: 'Sécurité',
                   },
                   collapsed: true,
                   items: [{ autogenerate: { directory: 'security', collapsed: true } }],
@@ -194,6 +200,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '开发',
                     es: 'Desarrollo',
+                    fr: 'Développer',
                   },
                   collapsed: true,
                   items: [
@@ -208,6 +215,9 @@ export default defineConfig({
                     'develop/icons',
                     {
                       label: 'Debug',
+                      translations: {
+                        fr: 'Débogage',
+                      },
                       collapsed: true,
                       items: [
                         {
@@ -217,6 +227,9 @@ export default defineConfig({
                     },
                     {
                       label: 'Plugins',
+                      translations: {
+                        fr: 'Plugins',
+                      },
                       collapsed: true,
                       items: [
                         {
@@ -226,6 +239,9 @@ export default defineConfig({
                     },
                     {
                       label: 'Tests',
+                      translations: {
+                        fr: 'Tests',
+                      },
                       collapsed: true,
                       items: [
                         {
@@ -240,6 +256,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '分发',
                     es: 'Distribuir',
+                    fr: 'Distribuer',
                   },
                   collapsed: true,
                   items: [
@@ -253,6 +270,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '学习',
                     es: 'Aprende',
+                    fr: 'Apprendre',
                   },
                   collapsed: true,
                   items: [
@@ -266,6 +284,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '插件',
                     es: 'Plugins',
+                    fr: 'Plugins',
                   },
                   collapsed: true,
                   items: [
@@ -279,6 +298,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '关于',
                     es: 'Acerca de',
+                    fr: 'À propos',
                   },
                   collapsed: true,
                   items: [
@@ -290,7 +310,7 @@ export default defineConfig({
               ],
             },
             {
-              label: { en: 'References', 'zh-CN': '参考', es: 'Referencias' },
+              label: { en: 'References', 'zh-CN': '参考', es: 'Referencias', fr: 'Références' },
               id: 'references',
               link: '/reference/cli',
               icon: 'document',
@@ -300,6 +320,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '命令行接口（CLI）',
                     es: 'Interfaz de línea de comandos',
+                    fr: 'Interface en ligne de commande',
                   },
                   link: '/reference/cli/',
                 },
@@ -308,6 +329,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '安全',
                     es: 'Seguridad',
+                    fr: 'Sécurité',
                   },
                   collapsed: true,
                   items: [
@@ -321,6 +343,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '配置',
                     es: 'Configuración',
+                    fr: 'Configuration',
                   },
                   link: '/reference/config/',
                 },
@@ -329,6 +352,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': '环境变量',
                     es: 'Variables de entorno',
+                    fr: "Variables d'environnement",
                   },
                   link: '/reference/environment-variables/',
                 },
@@ -337,6 +361,7 @@ export default defineConfig({
                   translations: {
                     'zh-CN': 'Webview 版本',
                     es: 'Versiones de Webview',
+                    fr: 'Versions des webviews',
                   },
                   link: '/reference/webview-versions/',
                 },
