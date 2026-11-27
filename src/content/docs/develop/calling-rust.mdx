@@ -140,6 +140,23 @@ extern "C" {
 }
 ```
 
+If a command can return an error, the promise returned by `invoke()` rejects and a binding without `catch` panics.
+Add the `catch` attribute to get the error back as a `Result` instead:
+
+```rust
+#[wasm_bindgen]
+extern "C" {
+    // invoke a command that can return an error
+    #[wasm_bindgen(catch, js_namespace = ["window", "__TAURI__", "core"], js_name = invoke)]
+    async fn try_invoke(cmd: &str, args: JsValue) -> Result<JsValue, JsValue>;
+}
+
+match try_invoke("login", args).await {
+    Ok(message) => { /* the command returned `Ok` */ }
+    Err(error) => { /* the command returned `Err` */ }
+}
+```
+
 ### Passing Arguments
 
 Your command handlers can take arguments:
