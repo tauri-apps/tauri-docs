@@ -156,32 +156,11 @@ This guide is accurate as of Vite 8.
 
 ## Static assets
 
-Vite only emits assets it can see at build time: files referenced from `index.html`, and files
-imported from JavaScript, TypeScript or CSS. A path assembled at runtime is left out of `dist`:
+Vite only emits assets it can see at build time — files referenced from `index.html` or imported
+from JavaScript, TypeScript or CSS. A path assembled at runtime (for example
+`img.src = './assets/photo.png'`) is not emitted, so it works with the dev server but is missing
+from `dist`, and therefore from the packaged app.
 
-```js
-// Works with the dev server, but the file is missing from the packaged app.
-img.src = './assets/photo.png';
-```
-
-Tauri bundles the `dist` directory, so an asset that is not in it is not in the app. There are two
-ways to include a runtime asset:
-
-- **Import it with `?url`.** Vite emits the file with a hashed name and gives you its URL:
-
-  ```js
-  import photoUrl from './assets/photo.png?url';
-
-  img.src = photoUrl;
-  ```
-
-- **Put it in `public/`.** Files there are copied to `dist` unchanged and served from the root, so
-  you can reference them by an absolute path:
-
-  ```js
-  img.src = '/photo.png';
-  ```
-
-A `new URL('./assets/photo.png', import.meta.url)` expression is also transformed by Vite. Use
-`?url` when the file belongs next to the code that uses it, and `public/` for files whose names
-must stay stable, such as a download offered to the user.
+How to include an asset that is only known at runtime depends on the project; Vite documents the
+options in [Static Asset Handling](https://vite.dev/guide/assets). Tauri bundles the contents of
+`dist` as-is, so any file Vite emits or copies there is available to the app.
