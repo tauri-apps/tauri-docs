@@ -357,7 +357,7 @@ Selecting "Show Package Details" in the SDK Manager enables the installation of 
 
 ```sh
 export ANDROID_HOME="$HOME/Android/Sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 --color=never "$ANDROID_HOME/ndk" | sort -V | tail -n 1)"
 ```
 
 </TabItem>
@@ -365,7 +365,7 @@ export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 ```sh
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 --color=never "$ANDROID_HOME/ndk" | sort -V | tail -n 1)"
 ```
 
 </TabItem>
