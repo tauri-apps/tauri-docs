@@ -1,0 +1,201 @@
+---
+title: Подпись кода macOS
+sidebar:
+  label: macOS
+  order: 11
+i18nReady: true
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Подпись кода требуется на macOS, чтобы ваше приложение могло быть размещено в [Apple App Store] и чтобы предотвратить предупреждение о том, что приложение повреждено и не может быть запущено, при загрузке из браузера.
+
+## Предварительные требования
+
+Подпись кода на macOS требует учётной записи [Apple Developer], которая либо платная (99$ в год), либо находится на бесплатном тарифе (только для целей тестирования и разработки). Вам также нужно устройство Apple, на котором вы выполняете подпись кода. Это требуется процессом подписи и обусловлено условиями и положениями Apple.
+
+:::note
+Обратите внимание: при использовании бесплатной учётной записи Apple Developer вы не сможете нотаризировать приложение, и оно всё равно будет отображаться как непроверенное при открытии.
+:::
+
+## Подпись
+
+Чтобы настроить подпись кода для macOS, вы должны создать сертификат подписи кода Apple и установить его в связку ключей (keychain) вашего компьютера Mac или экспортировать его для использования на платформах CI/CD.
+
+### Создание сертификата подписи
+
+Чтобы создать новый сертификат подписи, вы должны сгенерировать файл запроса на подпись сертификата (CSR) с вашего компьютера Mac. См. [создание запроса на подпись сертификата][creating a certificate signing request], чтобы узнать, как создать CSR для подписи кода.
+
+В своей учётной записи Apple Developer перейдите на [страницу Certificates, IDs & Profiles][Certificates, IDs & Profiles page] и нажмите кнопку `Create a certificate`, чтобы открыть интерфейс создания нового сертификата. Выберите соответствующий тип сертификата (`Apple Distribution`, чтобы отправлять приложения в App Store, и `Developer ID Application`, чтобы поставлять приложения вне App Store). Загрузите свой CSR, и сертификат будет создан.
+
+:::note
+
+Только `Account Holder` программы Apple Developer может создавать сертификаты _Developer ID Application_. Но его можно связать с другим Apple ID, создав CSR с другим адресом электронной почты пользователя.
+
+:::
+
+### Загрузка сертификата
+
+На [странице Certificates, IDs & Profiles][Certificates, IDs & Profiles page] щёлкните по сертификату, который хотите использовать, и нажмите кнопку `Download`. Он сохраняет файл `.cer`, который устанавливает сертификат в связку ключей после открытия.
+
+### Настройка Tauri
+
+Вы можете настроить Tauri на использование вашего сертификата при сборке приложений macOS на вашем локальном компьютере или при использовании платформ CI/CD.
+
+#### Локальная подпись
+
+С установленным сертификатом в связке ключей вашего компьютера Mac вы можете настроить Tauri на использование его для подписи кода.
+
+Имя записи сертификата в связке ключей представляет `signing identity`, которое также можно найти, выполнив:
+
+```sh
+security find-identity -v -p codesigning
+```
+
+Это identity можно указать в параметре конфигурации [`tauri.conf.json > bundle > macOS > signingIdentity`] или через переменную окружения `APPLE_SIGNING_IDENTITY`.
+
+:::note
+
+Сертификат подписи действителен только в том случае, если он связан с вашим Apple ID. Недействительный сертификат не будет отображаться на вкладке _Keychain Access > My Certificates_ или в выводе команды _security find-identity -v -p codesigning_. Если сертификат не загружается в правильное место, убедитесь, что при загрузке файла .cer выбрана опция «login» в _Keychain Access_ в разделе «Default Keychains».
+
+:::
+
+#### Подпись на платформах CI/CD
+
+Чтобы использовать сертификат на платформах CI/CD, вы должны экспортировать сертификат в строку base64 и задать переменные окружения `APPLE_CERTIFICATE` и `APPLE_CERTIFICATE_PASSWORD`:
+
+1. Откройте приложение `Keychain Access`, нажмите вкладку _My Certificates_ в связке ключей _login_ и найдите запись вашего сертификата.
+2. Разверните запись, щёлкните правой кнопкой мыши по элементу ключа и выберите `Export "$KEYNAME"`.
+3. Выберите путь для сохранения файла `.p12` сертификата и задайте пароль для экспортированного сертификата.
+4. Преобразуйте файл `.p12` в base64, выполнив следующий скрипт в терминале:
+
+```sh
+openssl base64 -A -in /path/to/certificate.p12 -out certificate-base64.txt
+```
+
+5. Задайте содержимое файла `certificate-base64.txt` как переменную окружения `APPLE_CERTIFICATE`.
+6. Задайте пароль сертификата как переменную окружения `APPLE_CERTIFICATE_PASSWORD`.
+
+<br />
+
+<details>
+<summary>Пример конфигурации GitHub Actions</summary>
+
+Необходимые секреты:
+
+- `APPLE_ID` — ваша электронная почта Apple ID
+- `APPLE_PASSWORD` — ваш пароль Apple ID
+- `APPLE_CERTIFICATE` — файл `.p12`, закодированный в base64
+- `APPLE_CERTIFICATE_PASSWORD` — пароль для вашего экспортированного файла `.p12`
+- `KEYCHAIN_PASSWORD` — пароль для вашей связки ключей
+
+Ознакомьтесь с официальным руководством GitHub, чтобы узнать, [как настроить секреты](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+
+```yaml
+name: 'build'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-macos:
+    needs: prepare
+    strategy:
+      matrix:
+        include:
+          - args: '--target aarch64-apple-darwin'
+            arch: 'silicon'
+          - args: '--target x86_64-apple-darwin'
+            arch: 'intel'
+    runs-on: macos-latest
+    env:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+    steps:
+      - name: Import Apple Developer Certificate
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security set-keychain-settings -t 3600 -u build.keychain
+          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          security find-identity -v -p codesigning build.keychain
+      - name: Verify Certificate
+        run: |
+          CERT_INFO=$(security find-identity -v -p codesigning build.keychain | grep "Apple Development")
+          CERT_ID=$(echo "$CERT_INFO" | awk -F'"' '{print $2}')
+          echo "CERT_ID=$CERT_ID" >> $GITHUB_ENV
+          echo "Certificate imported."
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ env.CERT_ID }}
+        with:
+          args: ${{ matrix.args }}
+```
+
+</details>
+
+## Нотаризация
+
+Чтобы нотаризировать ваше приложение, вы должны предоставить учётные данные для аутентификации Tauri в Apple. Это можно сделать через API App Store Connect или через ваш Apple ID.
+
+<Tabs>
+  <TabItem label="App Store Connect">
+    1. Откройте [страницу Users and Access в App Store Connect][App Store Connect's Users and Access page], выберите вкладку Integrations, нажмите кнопку Add и выберите имя и доступ Developer.
+    2. Задайте переменную окружения `APPLE_API_ISSUER` равной значению, отображаемому над таблицей ключей.
+    3. Задайте переменную окружения `APPLE_API_KEY` равной значению из столбца Key ID этой таблицы.
+    4. Загрузите закрытый ключ, что можно сделать только один раз, и он виден только после перезагрузки страницы (кнопка отображается в строке таблицы для только что созданного ключа).
+    5. Задайте переменную окружения `APPLE_API_KEY_PATH` равной пути к файлу загруженного закрытого ключа.
+  </TabItem>
+
+  <TabItem label="Apple ID">
+    1. Задайте переменную окружения `APPLE_ID` равной электронной почте вашей учётной записи Apple.
+    2. Задайте переменную окружения `APPLE_PASSWORD` равной [специальному паролю приложения][app-specific password] для вашей учётной записи Apple.
+    3. Задайте переменную окружения `APPLE_TEAM_ID` равной вашему Apple Team ID. Вы можете найти свой Team ID на [странице членства вашей учётной записи][membership].
+  </TabItem>
+</Tabs>
+
+После задания этих переменных окружения повторно выполните команду сборки или упаковки Tauri. Например, чтобы собрать DMG с помощью pnpm, снова выполните `pnpm tauri build --bundles dmg`. Если вам нужно пропустить скрепление (stapling) для начального прохода нотаризации, добавьте `--skip-stapling` непосредственно к команде Tauri, например `pnpm tauri build --bundles dmg --skip-stapling`.
+
+:::note
+Нотаризация требуется при использовании сертификата _Developer ID Application_.
+:::
+
+[Certificates]: https://developer.apple.com/account/resources/certificates/list
+[membership]: https://developer.apple.com/account#MembershipDetailsCard
+[Apple Developer]: https://developer.apple.com
+[Apple App Store]: https://www.apple.com/app-store/
+[App Store Connect's Users and Access page]: https://appstoreconnect.apple.com/access/users
+[`tauri.conf.json > bundle > macOS > signingIdentity`]: /reference/config/#signingidentity
+[creating a certificate signing request]: https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
+[Certificates, IDs & Profiles page]: https://developer.apple.com/account/resources/certificates/list
+[app-specific password]: https://support.apple.com/en-ca/HT204397
+
+## Подпись Ad-Hoc
+
+Если вы не хотите предоставлять identity, аутентифицированный Apple, но всё же хотите подписать приложение, вы можете настроить _ad-hoc_ подпись.
+
+Это полезно на устройствах ARM (Apple Silicon), где подпись кода требуется для всех приложений из интернета.
+
+:::caution
+Подпись кода ad-hoc не предотвращает требование macOS к пользователям [разрешить установку в настройках Privacy & Security](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac).
+:::
+
+Чтобы настроить подпись ad-hoc, передайте Tauri псевдоidentity `-`, например:
+
+```json
+"signingIdentity": "-"
+```
+
+Подробности настройки identity подписи Tauri см. [выше](#настройка-tauri).

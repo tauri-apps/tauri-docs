@@ -1,0 +1,315 @@
+---
+title: Настройка окна
+sidebar:
+  order: 1
+tableOfContents:
+  maxHeadingLevel: 4
+i18nReady: true
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+Tauri предоставляет множество параметров для настройки внешнего вида окна вашего приложения. Вы можете создавать собственные строки заголовка, делать окна прозрачными, накладывать ограничения на размер и многое другое.
+
+## Конфигурация
+
+Существует три способа изменить конфигурацию окна:
+
+- <Icon name="external" class="inline-icon" /> [Через
+  tauri.conf.json](/reference/config/#windowconfig)
+- <Icon name="external" class="inline-icon" /> [Через JavaScript
+  API](/reference/javascript/api/namespacewindow/#window)
+- <Icon name="external" class="inline-icon" /> [Через Window в
+  Rust](https://docs.rs/tauri/2.0.0/tauri/window/struct.Window.html)
+
+## Использование
+
+- [Создание собственной строки заголовка](#создание-собственной-строки-заголовка)
+- [(macOS) Прозрачная строка заголовка с собственным цветом фона окна](#macos-прозрачная-строка-заголовка-с-собственным-цветом-фона-окна)
+
+### Создание собственной строки заголовка
+
+Распространённое использование этих функций окна — создание собственной строки заголовка. Это короткое руководство проведёт вас через этот процесс.
+
+:::note
+Для macOS использование собственной строки заголовка также приведёт к потере некоторых функций, предоставляемых системой, например [перемещения или выравнивания окна](https://support.apple.com/guide/mac-help/work-with-app-windows-mchlp2469/mac). Другой подход к настройке строки заголовка при сохранении нативных функций может заключаться в том, чтобы сделать строку заголовка прозрачной и задать цвет фона окна. См. раздел использования [(macOS) Прозрачная строка заголовка с собственным цветом фона окна](#macos-прозрачная-строка-заголовка-с-собственным-цветом-фона-окна).
+:::
+
+#### tauri.conf.json
+
+Установите `decorations` в `false` в вашем `tauri.conf.json`:
+
+```json title="tauri.conf.json" {4}
+"tauri": {
+	"windows": [
+		{
+			"decorations": false
+		}
+	]
+}
+```
+
+#### Permissions
+
+Добавьте разрешения окна в файл capability.
+
+По умолчанию все команды плагинов заблокированы и недоступны. Вы должны определить список разрешений в вашей конфигурации `capabilities`.
+
+См. [Обзор Capabilities](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) для использования разрешений плагинов.
+
+```json title="src-tauri/capabilities/default.json" ins={7-11}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-start-dragging"
+  ]
+}
+```
+
+| Разрешение                                   | Описание                                                                                              |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `core:window:default`                        | Разрешения по умолчанию для плагина. Включает `core:window:allow-internal-toggle-maximize`.           |
+| `core:window:allow-close`                    | Включает команду close без какой-либо предварительно настроенной области действия.                    |
+| `core:window:allow-minimize`                 | Включает команду minimize без какой-либо предварительно настроенной области действия.                 |
+| `core:window:allow-start-dragging`           | Включает команду start_dragging без какой-либо предварительно настроенной области действия.           |
+| `core:window:allow-toggle-maximize`          | Включает команду toggle_maximize без какой-либо предварительно настроенной области действия.          |
+| `core:window:allow-internal-toggle-maximize` | Включает команду internal_toggle_maximize без какой-либо предварительно настроенной области действия. |
+
+#### CSS
+
+Добавьте этот пример CSS, чтобы держать его в верхней части экрана и стилизовать кнопки:
+
+```css
+.titlebar {
+  height: 30px;
+  background: #329ea3;
+  user-select: none;
+  display: grid;
+  grid-template-columns: auto max-content;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.titlebar > .controls {
+  display: flex;
+}
+.titlebar button {
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  background-color: transparent;
+}
+.titlebar button:hover {
+  background: #5bbec3;
+}
+```
+
+#### HTML
+
+Поместите это в верхнюю часть вашего тега `<body>`:
+
+```html
+<div class="titlebar">
+  <div data-tauri-drag-region></div>
+  <div class="controls">
+    <button id="titlebar-minimize" title="minimize">
+      <!-- https://api.iconify.design/mdi:window-minimize.svg -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="currentColor" d="M19 13H5v-2h14z" />
+      </svg>
+    </button>
+    <button id="titlebar-maximize" title="maximize">
+      <!-- https://api.iconify.design/mdi:window-maximize.svg -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
+      </svg>
+    </button>
+    <button id="titlebar-close" title="close">
+      <!-- https://api.iconify.design/mdi:close.svg -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M13.46 12L19 17.54V19h-1.46L12 13.46L6.46 19H5v-1.46L10.54 12L5 6.46V5h1.46L12 10.54L17.54 5H19v1.46z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+```
+
+Учтите, что вам может понадобиться сдвинуть остальной контент вниз, чтобы строка заголовка его не перекрывала.
+
+:::tip
+
+На Windows, если вы просто хотите получить строку заголовка, которая не требует настраиваемых взаимодействий, вы можете использовать
+
+```css
+*[data-tauri-drag-region] {
+  app-region: drag;
+}
+```
+
+чтобы строка заголовка работала с сенсорным вводом и вводом стилусом
+
+:::
+
+#### JavaScript
+
+Используйте этот фрагмент кода, чтобы заставить кнопки работать:
+
+```javascript
+import { getCurrentWindow } from '@tauri-apps/api/window';
+
+// when using `"withGlobalTauri": true`, you may use
+// const { getCurrentWindow } = window.__TAURI__.window;
+
+const appWindow = getCurrentWindow();
+
+document
+  .getElementById('titlebar-minimize')
+  ?.addEventListener('click', () => appWindow.minimize());
+document
+  .getElementById('titlebar-maximize')
+  ?.addEventListener('click', () => appWindow.toggleMaximize());
+document
+  .getElementById('titlebar-close')
+  ?.addEventListener('click', () => appWindow.close());
+```
+
+Учтите, что если вы используете frontend на основе Rust, вы можете скопировать приведённый выше код в элемент `<script>` в вашем файле `index.html`.
+
+:::note
+`data-tauri-drag-region` будет работать только на том элементе, к которому он применён напрямую. Если вы хотите, чтобы поведение перетаскивания распространялось и на дочерние элементы, вам нужно будет добавить его к каждому дочернему элементу по отдельности.
+
+Это поведение сохраняется, чтобы интерактивные элементы, такие как кнопки и поля ввода, могли работать корректно.
+:::
+
+### Ручная реализация `data-tauri-drag-region`
+
+Для случаев использования, когда вы настраиваете поведение перетаскивания, вы можете вручную добавить обработчик событий с помощью `window.startDragging` вместо использования `data-tauri-drag-region`.
+
+#### HTML
+
+Из кода в предыдущем разделе мы удаляем `data-tauri-drag-region` и добавляем `id`:
+
+```html del={1} ins={2}
+<div data-tauri-drag-region class="titlebar">
+  <div id="titlebar" class="titlebar">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+#### Javascript
+
+Добавьте обработчик событий к элементу строки заголовка:
+
+```js {2-9}
+import { getCurrentWindow } from '@tauri-apps/api/window';
+const appWindow = getCurrentWindow();
+// ---cut---
+// ...
+document.getElementById('titlebar')?.addEventListener('mousedown', (e) => {
+  if (e.buttons === 1) {
+    // Primary (left) button
+    e.detail === 2
+      ? appWindow.toggleMaximize() // Maximize on double click
+      : appWindow.startDragging(); // Else start dragging
+  }
+});
+```
+
+### (macOS) Прозрачная строка заголовка с собственным цветом фона окна
+
+Мы создадим главное окно и изменим его цвет фона со стороны Rust.
+
+Удалите главное окно из файла `tauri.conf.json`:
+
+    ```json title="tauri.conf.json" del={3-7}
+    "tauri": {
+    	"windows": [
+    		{
+    			"title": "Transparent Titlebar Window",
+    			"width": 800,
+    			"height": 600
+    		}
+    	],
+    }
+    ```
+
+Добавьте крейт `objc2-app-kit` в зависимости, чтобы мы могли использовать его для вызова нативного API macOS:
+
+    ```toml title="src-tauri/Cargo.toml"
+    [target."cfg(target_os = \"macos\")".dependencies]
+    objc2-app-kit = { version = "0.3.2", features = ["NSColor", "NSWindow", "objc2-core-foundation"] }
+    ```
+
+Создайте главное окно и измените его цвет фона:
+
+    ```rust title="src-tauri/src/lib.rs"
+    use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
+
+    pub fn run() {
+    	tauri::Builder::default()
+    		.setup(|app| {
+    			let win_builder =
+    				WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
+    					.title("Transparent Titlebar Window")
+    					.inner_size(800.0, 600.0);
+
+    			// set transparent title bar only when building for macOS
+    			#[cfg(target_os = "macos")]
+    			let win_builder = win_builder.title_bar_style(TitleBarStyle::Transparent);
+
+    			let window = win_builder.build().unwrap();
+
+    			// set background color only when building for macOS
+    			#[cfg(target_os = "macos")]
+    			{
+    				use objc2_app_kit::{NSColor, NSWindow};
+
+    				let ns_window_ptr = window.ns_window().unwrap() as *mut NSWindow;
+    				let ns_window = unsafe { &*ns_window_ptr };
+    				let bg_color = NSColor::colorWithRed_green_blue_alpha(
+    					50.0 / 255.0,
+    					158.0 / 255.0,
+    					163.5 / 255.0,
+    					1.0,
+    				);
+    				ns_window.setBackgroundColor(Some(&bg_color));
+    			}
+
+    			Ok(())
+    		})
+    		.run(tauri::generate_context!())
+    		.expect("error while running tauri application");
+    }
+    ```

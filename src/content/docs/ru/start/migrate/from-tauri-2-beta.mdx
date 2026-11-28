@@ -1,0 +1,146 @@
+---
+title: Обновление с бета-версии Tauri 2.0
+i18nReady: false
+sidebar:
+  order: 16
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Это руководство проведёт вас через процесс обновления вашего приложения с бета-версии Tauri 2.0 до кандидата на выпуск Tauri 2.0.
+
+## Автоматическая миграция
+
+CLI Tauri v2 включает команду `migrate`, которая автоматизирует большую часть процесса и помогает завершить миграцию:
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@latest
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@latest
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri migrate'
+/>
+
+Узнайте больше о команде `migrate` в [справочнике интерфейса командной строки](/reference/cli/#migrate).
+
+## Критические изменения
+
+При переходе от бета-версии к кандидату на выпуск у нас было несколько критических изменений. Их можно выполнить либо автоматически (см. выше), либо вручную.
+
+### Базовые плагины Tauri
+
+Мы изменили способ обращения к встроенным плагинам Tauri в возможностях [PR #10390](https://github.com/tauri-apps/tauri/pull/10390).
+
+Чтобы выполнить миграцию с последней бета-версии, необходимо добавить префикс `core:` ко всем идентификаторам базовых разрешений в ваших возможностях либо переключиться на разрешение `core:default` и удалить старые идентификаторы базовых плагинов.
+
+```json
+...
+"permissions": [
+    "path:default",
+    "event:default",
+    "window:default",
+    "app:default",
+    "image:default",
+    "resources:default",
+    "menu:default",
+    "tray:default",
+]
+...
+```
+
+```json
+...
+"permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:image:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+]
+...
+```
+
+Мы также добавили новый специальный набор разрешений `core:default`, который будет содержать все разрешения по умолчанию всех базовых плагинов, поэтому вы можете упростить стандартный шаблон разрешений в своей конфигурации возможностей.
+
+```json
+...
+"permissions": [
+    "core:default"
+]
+...
+```
+
+### Встроенный сервер разработки
+
+Мы внесли изменения в сетевую доступность встроенного сервера разработки [PR #10437](https://github.com/tauri-apps/tauri/pull/10437) и [PR #10456](https://github.com/tauri-apps/tauri/pull/10456).
+
+Встроенный мобильный сервер разработки больше не открывает доступ в сеть широко, а туннелирует трафик с локальной машины непосредственно на устройство.
+
+В настоящее время это улучшение не применяется автоматически при работе на устройствах iOS (напрямую или из Xcode). В этом случае по умолчанию используется публичный сетевой адрес для сервера разработки, но есть способ обойти это: нужно открыть Xcode, чтобы автоматически начать соединение между вашей машиной macOS и подключённым устройством iOS, а затем выполнить `tauri ios dev --force-ip-prompt`, чтобы выбрать адрес TUN устройства iOS (заканчивается на **::2**).
+
+Ваша конфигурация сервера разработки должна быть адаптирована к этому изменению, если планируется работа на физическом устройстве iOS. Ранее мы рекомендовали проверять, совпадает ли переменная окружения `TAURI_ENV_PLATFORM` с `android` или `ios`, но поскольку теперь мы можем подключаться к localhost, если только не используется устройство iOS, вместо этого следует проверять переменную окружения `TAURI_DEV_HOST`. Вот пример миграции конфигурации Vite:
+
+- 2.0.0-beta:
+
+```js
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { internalIpV4Sync } from 'internal-ip';
+
+const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: mobile ? '0.0.0.0' : false,
+    port: 1420,
+    strictPort: true,
+    hmr: mobile
+      ? {
+          protocol: 'ws',
+          host: internalIpV4Sync(),
+          port: 1421,
+        }
+      : undefined,
+  },
+});
+```
+
+- 2.0.0:
+
+```js
+import { defineConfig } from 'vite';
+import Unocss from 'unocss/vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+const host = process.env.TAURI_DEV_HOST;
+
+export default defineConfig({
+  plugins: [svelte()],
+  clearScreen: false,
+  server: {
+    host: host || false,
+    port: 1420,
+    strictPort: true,
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host: host,
+          port: 1430,
+        }
+      : undefined,
+  },
+});
+```
+
+:::note
+Пакет NPM `internal-ip` больше не требуется; вместо него вы можете напрямую использовать значение TAURI_DEV_HOST.
+:::

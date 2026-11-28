@@ -1,0 +1,93 @@
+---
+title: Localhost
+description: Используйте сервер localhost в готовых приложениях.
+plugin: localhost
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+Раскрывайте ресурсы вашего приложения через сервер localhost вместо пользовательского протокола по умолчанию.
+
+:::caution
+Этот плагин несёт значительные риски безопасности, и вы должны использовать его только в том случае, если знаете, что делаете. Если сомневаетесь, используйте реализацию пользовательского протокола по умолчанию.
+:::
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин localhost, чтобы начать.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+        Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+        <CommandTabs npm="npm run tauri add localhost"
+        yarn="yarn run tauri add localhost"
+        pnpm="pnpm tauri add localhost"
+        deno="deno task tauri add localhost"
+        bun="bun tauri add localhost"
+        cargo="cargo tauri add localhost" />
+
+    </TabItem>
+    <TabItem label="Manual">
+
+        <Steps>
+
+        1.  Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-localhost
+            ```
+
+        2.  Измените `lib.rs`, чтобы инициализировать плагин:
+
+            ```rust title="src-tauri/src/lib.rs" ins={4}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .plugin(tauri_plugin_localhost::Builder::new(9527).build())
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+        </Steps>
+
+</TabItem>
+</Tabs>
+
+## Использование
+
+Плагин localhost доступен на Rust.
+
+```rust title="src-tauri/src/lib.rs" {4} {7-14}
+use tauri::{webview::WebviewWindowBuilder, WebviewUrl};
+
+pub fn run() {
+  let port: u16 = 9527;
+
+  tauri::Builder::default()
+      .plugin(tauri_plugin_localhost::Builder::new(port).build())
+      .setup(move |app| {
+          let url = format!("http://localhost:{}", port).parse().unwrap();
+          WebviewWindowBuilder::new(app, "main".to_string(), WebviewUrl::External(url))
+              .title("Localhost Example")
+              .build()?;
+          Ok(())
+      })
+      .run(tauri::generate_context!())
+      .expect("error while running tauri application");
+}
+```

@@ -1,0 +1,126 @@
+---
+title: Haptics
+description: Тактильная обратная связь и вибрация на Android и iOS.
+plugin: haptics
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Тактильная обратная связь и вибрация на Android и iOS.
+
+Для поддержки вибрации на Android не существует стандартов/требований, поэтому API обратной связи могут работать некорректно на более доступных телефонах, включая недавно выпущенные.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин haptics, чтобы начать.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add haptics"
+      yarn="yarn run tauri add haptics"
+      pnpm="pnpm tauri add haptics"
+      deno="deno task tauri add haptics"
+      bun="bun tauri add haptics"
+      cargo="cargo tauri add haptics"
+    />
+
+  </TabItem>
+  <TabItem label="Manual">
+    <Steps>
+
+      1.  Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+          ```sh frame=none
+          cargo add tauri-plugin-haptics --target 'cfg(any(target_os = "android", target_os = "ios"))'
+          ```
+
+      2.  Измените `lib.rs`, чтобы инициализировать плагин:
+
+          ```rust title="src-tauri/src/lib.rs" ins={5-6}
+          #[cfg_attr(mobile, tauri::mobile_entry_point)]
+          pub fn run() {
+              tauri::Builder::default()
+                  .setup(|app| {
+                      #[cfg(mobile)]
+                      app.handle().plugin(tauri_plugin_haptics::init());
+                      Ok(())
+                  })
+                  .run(tauri::generate_context!())
+                  .expect("error while running tauri application");
+          }
+          ```
+
+      3.  Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+          <CommandTabs
+              npm="npm install @tauri-apps/plugin-haptics"
+              yarn="yarn add @tauri-apps/plugin-haptics"
+              pnpm="pnpm add @tauri-apps/plugin-haptics"
+              deno="deno add npm:@tauri-apps/plugin-haptics"
+              bun="bun add @tauri-apps/plugin-haptics"
+          />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Использование
+
+Плагин haptics доступен на JavaScript.
+
+```javascript
+import {
+  vibrate,
+  impactFeedback,
+  notificationFeedback,
+  selectionFeedback,
+} from '@tauri-apps/plugin-haptics';
+
+await vibrate(1);
+await impactFeedback('medium');
+await notificationFeedback('warning');
+await selectionFeedback();
+```
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+```json title="src-tauri/capabilities/mobile.json" ins={7-10}
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "windows": ["main"],
+  "platforms": ["iOS", "android"],
+  "permissions": [
+    "haptics:allow-impact-feedback",
+    "haptics:allow-notification-feedback",
+    "haptics:allow-selection-feedback",
+    "haptics:allow-vibrate"
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

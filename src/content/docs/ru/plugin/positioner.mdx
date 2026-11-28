@@ -1,0 +1,160 @@
+---
+title: Positioner
+description: Перемещайте окна в часто используемые места.
+plugin: positioner
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Позиционируйте ваши окна в общеизвестных местах.
+
+Этот плагин является портом [electron-positioner](https://github.com/jenslind/electron-positioner) для Tauri.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин positioner, чтобы начать.
+
+:::note
+Если вы собираетесь перемещать окно только из кода Rust, вам нужна только зависимость в `src-tauri/Cargo.toml`, и вы можете удалить регистрацию плагина из `lib.rs`, если выберете автоматическую настройку.
+:::
+
+<Tabs>
+	<TabItem label="Automatic" >
+
+    	Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add positioner"
+            yarn="yarn run tauri add positioner"
+            pnpm="pnpm tauri add positioner"
+            bun="bun tauri add positioner"
+            deno="deno task tauri add positioner"
+            cargo="cargo tauri add positioner"
+    	/>
+
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+    			1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+    				```sh frame=none
+    				cargo add tauri-plugin-positioner --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+    				```
+
+    			2. Измените `lib.rs`, чтобы инициализировать плагин:
+
+    				```rust title="src-tauri/src/lib.rs" ins={4}
+    				#[cfg_attr(mobile, tauri::mobile_entry_point)]
+    				pub fn run() {
+    						tauri::Builder::default()
+    								.setup(|app| {
+    										#[cfg(desktop)]
+    										app.handle().plugin(tauri_plugin_positioner::init());
+    										Ok(())
+    								})
+    								.run(tauri::generate_context!())
+    								.expect("error while running tauri application");
+    				}
+    				```
+
+    			3. Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+    				<CommandTabs
+    							npm = "npm install @tauri-apps/plugin-positioner"
+    							yarn = "yarn add @tauri-apps/plugin-positioner"
+    							pnpm = "pnpm add @tauri-apps/plugin-positioner"
+    							deno = "deno add npm:@tauri-apps/plugin-positioner"
+    							bun = "bun add @tauri-apps/plugin-positioner"
+    						/>
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+Для работы позиций относительно иконки в трее требуется дополнительная настройка.
+
+<Steps>
+	1. Добавьте возможность `tray-icon` в ваш файл `Cargo.toml`:
+		```toml title="src-tauri/Cargo.toml" ins={2}
+		[dependencies]
+		tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
+		```
+
+    2. Настройте `on_tray_event` для плагина positioner:
+    	```rust title="src-tauri/src/lib.rs" ins={4-12}
+    	pub fn run() {
+    		tauri::Builder::default()
+    			// This is required to get tray-relative positions to work
+    			.setup(|app| {
+    					#[cfg(desktop)]
+    					{
+    						app.handle().plugin(tauri_plugin_positioner::init());
+    							tauri::tray::TrayIconBuilder::new()
+    								.on_tray_icon_event(|tray_handle, event| {
+    									tauri_plugin_positioner::on_tray_event(tray_handle.app_handle(), &event);
+    								})
+    								.build(app)?;
+    					}
+    				Ok(())
+    			})
+    			.run(tauri::generate_context!())
+    			.expect("error while running tauri application");
+    	}
+    	```
+
+</Steps>
+
+## Использование
+
+API плагина доступны через JavaScript-привязки:
+
+```javascript
+import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
+// when using `"withGlobalTauri": true`, you may use
+// const { moveWindow, Position } = window.__TAURI__.positioner;
+
+moveWindow(Position.TopRight);
+```
+
+Вы можете импортировать и использовать расширение трейта Window непосредственно через Rust:
+
+```rust
+use tauri::Manager;
+use tauri_plugin_positioner::{WindowExt, Position};
+# let app: tauri::AppHandle = todo!();
+
+let mut win = app.get_webview_window("main").unwrap();
+let _ = win.as_ref().window().move_window(Position::TopRight);
+```
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+```json title="src-tauri/capabilities/default.json" ins={4}
+{
+  "permissions": [
+    ...,
+    "positioner:default",
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

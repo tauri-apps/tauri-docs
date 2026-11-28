@@ -1,0 +1,1235 @@
+---
+title: Обновление с Tauri 1.0
+i18nReady: true
+sidebar:
+  order: 15
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Это руководство проведёт вас через процесс обновления вашего приложения Tauri 1.0 до Tauri 2.0.
+
+## Подготовка к мобильной разработке
+
+Мобильный интерфейс Tauri требует, чтобы ваш проект создавал общую библиотеку. Если вы ориентируете своё существующее приложение на мобильные устройства, вы должны изменить свой крейт, чтобы он создавал такой артефакт наряду с исполняемым файлом для настольной версии.
+
+1. Измените манифест Cargo, чтобы он создавал библиотеку. Добавьте следующий блок:
+
+```toml
+// src-tauri/Cargo.toml
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+```
+
+2. Переименуйте `src-tauri/src/main.rs` в `src-tauri/src/lib.rs`. Этот файл будет использоваться совместно для настольных и мобильных целевых платформ.
+
+3. Переименуйте заголовок функции `main` в `lib.rs` следующим образом:
+
+```rust
+// src-tauri/src/lib.rs
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    // your code here
+}
+```
+
+Макрос `tauri::mobile_entry_point` подготавливает вашу функцию к выполнению на мобильных устройствах.
+
+4. Заново создайте файл `main.rs`, вызывающий общую функцию run:
+
+```rust
+// src-tauri/src/main.rs
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+# mod app_lib { pub fn run() {} }
+fn main() {
+  app_lib::run();
+}
+```
+
+## Автоматическая миграция
+
+:::danger
+
+Эта команда не заменяет данное руководство! Пожалуйста, прочитайте страницу _целиком_, независимо от того, решили ли вы использовать команду.
+
+:::
+
+CLI Tauri v2 включает команду `migrate`, которая автоматизирует большую часть процесса и помогает завершить миграцию:
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest
+    npm run tauri migrate"
+  yarn="yarn upgrade @tauri-apps/cli@latest
+    yarn tauri migrate"
+  pnpm="pnpm update @tauri-apps/cli@latest
+    pnpm tauri migrate"
+  cargo='cargo install tauri-cli --version "^2.0.0" --locked
+    cargo tauri migrate'
+/>
+
+Узнайте больше о команде `migrate` в [справочнике интерфейса командной строки](/reference/cli/#migrate).
+
+## Сводка изменений
+
+Ниже представлена сводка изменений от Tauri 1.0 к Tauri 2.0:
+
+### Конфигурация Tauri
+
+- `package > productName` и `package > version` перемещены в объект верхнего уровня.
+- имя бинарного файла больше не переименовывается автоматически в соответствии с `productName`, поэтому необходимо добавить строку `mainBinaryName` в объект верхнего уровня, соответствующую `productName`.
+- `package` удалён.
+- ключ `tauri` переименован в `app`.
+- `tauri > allowlist` удалён. См. [Миграция разрешений](#миграция-разрешений).
+- `tauri > allowlist > protocol > assetScope` перемещён в `app > security > assetProtocol > scope`. См. [Область действия протокола ресурсов](/ru/security/asset-protocol/) для параметров `enable`, glob-шаблонов, `requireLiteralLeadingDot` и динамических путей.
+- `tauri > cli` перемещён в `plugins > cli`.
+- `tauri > windows > fileDropEnabled` переименован в `app > windows > dragDropEnabled`.
+- `tauri > updater > active` удалён.
+- `tauri > updater > dialog` удалён.
+- `tauri > updater` перемещён в `plugins > updater`.
+- `bundle > createUpdaterArtifacts` добавлен; его необходимо задать при использовании обновлятеля приложения.
+  - установите значение `v1Compatible` при обновлении со v1-приложений, которые уже были распространены. См. [руководство по обновлятелю](/ru/plugin/updater/) для получения дополнительной информации.
+- `tauri > systemTray` переименован в `app > trayIcon`.
+- `tauri > pattern` перемещён в `app > security > pattern`.
+- `tauri > bundle` перемещён на верхний уровень.
+- `tauri > bundle > identifier` перемещён в объект верхнего уровня.
+- `tauri > bundle > dmg` перемещён в `bundle > macOS > dmg`
+- `tauri > bundle > deb` перемещён в `bundle > linux > deb`
+- `tauri > bundle > appimage` перемещён в `bundle > linux > appimage`
+- `tauri > bundle > macOS > license` удалён; вместо него используйте `bundle > licenseFile`.
+- `tauri > bundle > windows > wix > license` удалён; вместо него используйте `bundle > licenseFile`.
+- `tauri > bundle > windows > nsis > license` удалён; вместо него используйте `bundle > licenseFile`.
+- `tauri > bundle > windows > webviewFixedRuntimePath` удалён; вместо него используйте `bundle > windows > webviewInstallMode`.
+- `build > withGlobalTauri` перемещён в `app > withGlobalTauri`.
+- `build > distDir` переименован в `frontendDist`.
+- `build > devPath` переименован в `devUrl`.
+
+[Справочник API конфигурации Tauri 2.0](/reference/config/)
+
+### Новые возможности Cargo
+
+- linux-protocol-body: включает разбор тела запроса пользовательского протокола, позволяя IPC использовать его. Требуется webkit2gtk 2.40.
+
+### Удалённые возможности Cargo
+
+- reqwest-client: reqwest теперь единственный поддерживаемый клиент.
+- reqwest-native-tls-vendored: вместо него используйте `native-tls-vendored`.
+- process-command-api: вместо него используйте плагин `shell` (см. инструкции в следующем разделе).
+- shell-open-api: вместо него используйте плагин `shell` (см. инструкции в следующем разделе).
+- windows7-compat: перемещён в плагин `notification`.
+- updater: теперь модуль обновления является плагином.
+- linux-protocol-headers: теперь включён по умолчанию, поскольку мы повысили минимальную версию webkit2gtk.
+- system-tray: переименован в `tray-icon`.
+
+### Изменения крейтов Rust
+
+- модуль `api` удалён. Каждый модуль API можно найти в плагине Tauri.
+- модуль `api::dialog` удалён. Вместо него используйте `tauri-plugin-dialog`. [Миграция](#миграция-на-плагин-диалоговых-окон)
+- модуль `api::file` удалён. Вместо него используйте [`std::fs`](https://doc.rust-lang.org/std/fs/) из Rust.
+- модуль `api::http` удалён. Вместо него используйте `tauri-plugin-http`. [Миграция](#миграция-на-плагин-http)
+- модуль `api::ip` переписан и перемещён в `tauri::ipc`. Ознакомьтесь с новыми API, особенно с `tauri::ipc::Channel`.
+- функции модуля `api::path` и `tauri::PathResolved` перемещены в `tauri::Manager::path`. [Миграция](#миграция-путей-на-менеджер-tauri)
+- API `api::process::Command`, `tauri::api::shell` и `tauri::Manager::shell_scope` удалены. Вместо них используйте `tauri-plugin-shell`. [Миграция](#миграция-на-плагин-shell)
+- `api::process::current_binary` и `tauri::api::process::restart` перемещены в `tauri::process`.
+- модуль `api::version` удалён. Вместо него используйте [крейт semver](https://docs.rs/semver/latest/semver/).
+- `App::clipboard_manager` и `AppHandle::clipboard_manager` удалены. Вместо них используйте `tauri-plugin-clipboard`. [Миграция](#миграция-на-плагин-буфера-обмена)
+- `App::get_cli_matches` удалён. Вместо него используйте `tauri-plugin-cli`. [Миграция](#миграция-на-плагин-cli)
+- `App::global_shortcut_manager` и `AppHandle::global_shortcut_manager` удалены. Вместо них используйте `tauri-plugin-global-shortcut`. [Миграция](#миграция-на-плагин-глобальных-горячих-клавиш)
+- `Manager::fs_scope` удалён. К области действия файловой системы можно получить доступ через `tauri_plugin_fs::FsExt`.
+- `Plugin::PluginApi` теперь принимает конфигурацию плагина вторым аргументом.
+- `Plugin::setup_with_config` удалён. Вместо него используйте обновлённый `tauri::Plugin::PluginApi`.
+- `scope::ipc::RemoteDomainAccessScope::enable_tauri_api` и `scope::ipc::RemoteDomainAccessScope::enables_tauri_api` удалены. Включайте каждый базовый плагин по отдельности через `scope::ipc::RemoteDomainAccessScope::add_plugin`.
+- `scope::IpcScope` удалён; вместо него используйте `scope::ipc::Scope`.
+- `scope::FsScope`, `scope::GlobPattern` и `scope::FsScopeEvent` удалены; вместо них используйте соответственно `scope::fs::Scope`, `scope::fs::Pattern` и `scope::fs::Event`.
+- модуль `updater` удалён. Вместо него используйте `tauri-plugin-updater`. [Миграция](#миграция-на-плагин-обновления)
+- поле `Env.args` удалено; вместо него используйте поле `Env.args_os`.
+- API `Menu`, `MenuEvent`, `CustomMenuItem`, `Submenu`, `WindowMenuEvent`, `MenuItem` и `Builder::on_menu_event` удалены. [Миграция](#миграция-на-меню)
+- API `SystemTray`, `SystemTrayHandle`, `SystemTrayMenu`, `SystemTrayMenuItemHandle`, `SystemTraySubmenu`, `MenuEntry` и `SystemTrayMenuItem` удалены. [Миграция](#миграция-на-модуль-значка-трея)
+
+### Изменения JavaScript API
+
+Пакет `@tauri-apps/api` больше не предоставляет небазовые модули. Экспортируются только прежние модули `tauri` (теперь `core`), `path`, `event` и `window`. Все остальные перенесены в плагины.
+
+- модуль `@tauri-apps/api/tauri` переименован в `@tauri-apps/api/core`. [Миграция](#миграция-на-базовый-модуль)
+- модуль `@tauri-apps/api/cli` удалён. Вместо него используйте `@tauri-apps/plugin-cli`. [Миграция](#миграция-на-плагин-cli)
+- модуль `@tauri-apps/api/clipboard` удалён. Вместо него используйте `@tauri-apps/plugin-clipboard`. [Миграция](#миграция-на-плагин-буфера-обмена)
+- модуль `@tauri-apps/api/dialog` удалён. Вместо него используйте `@tauri-apps/plugin-dialog`. [Миграция](#миграция-на-плагин-диалоговых-окон)
+- модуль `@tauri-apps/api/fs` удалён. Вместо него используйте `@tauri-apps/plugin-fs`. [Миграция](#миграция-на-плагин-файловой-системы)
+- модуль `@tauri-apps/api/global-shortcut` удалён. Вместо него используйте `@tauri-apps/plugin-global-shortcut`. [Миграция](#миграция-на-плагин-глобальных-горячих-клавиш)
+- модуль `@tauri-apps/api/http` удалён. Вместо него используйте `@tauri-apps/plugin-http`. [Миграция](#миграция-на-плагин-http)
+- модуль `@tauri-apps/api/os` удалён. Вместо него используйте `@tauri-apps/plugin-os`. [Миграция](#миграция-на-плагин-ос)
+- модуль `@tauri-apps/api/notification` удалён. Вместо него используйте `@tauri-apps/plugin-notification`. [Миграция](#миграция-на-плагин-уведомлений)
+- модуль `@tauri-apps/api/process` удалён. Вместо него используйте `@tauri-apps/plugin-process`. [Миграция](#миграция-на-плагин-процессов)
+- модуль `@tauri-apps/api/shell` удалён. Вместо него используйте `@tauri-apps/plugin-shell`. [Миграция](#миграция-на-плагин-shell)
+- модуль `@tauri-apps/api/updater` удалён. Вместо него используйте `@tauri-apps/plugin-updater`. [Миграция](#миграция-на-плагин-обновления)
+- модуль `@tauri-apps/api/window` переименован в `@tauri-apps/api/webviewWindow`. [Миграция](#миграция-на-новый-api-окон)
+
+Плагины v1 теперь публикуются как `@tauri-apps/plugin-<имя-плагина>`. Ранее они были доступны из git как `tauri-plugin-<имя-плагина>-api`.
+
+### Изменения переменных окружения
+
+Большинство переменных окружения, читаемых и записываемых CLI Tauri, были переименованы для согласованности и предотвращения ошибок:
+
+- `TAURI_PRIVATE_KEY` -> `TAURI_SIGNING_PRIVATE_KEY`
+- `TAURI_KEY_PASSWORD` -> `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
+- `TAURI_SKIP_DEVSERVER_CHECK` -> `TAURI_CLI_NO_DEV_SERVER_WAIT`
+- `TAURI_DEV_SERVER_PORT` -> `TAURI_CLI_PORT`
+- `TAURI_PATH_DEPTH` -> `TAURI_CLI_CONFIG_DEPTH`
+- `TAURI_FIPS_COMPLIANT` -> `TAURI_BUNDLER_WIX_FIPS_COMPLIANT`
+- `TAURI_DEV_WATCHER_IGNORE_FILE` -> `TAURI_CLI_WATCHER_IGNORE_FILENAME`
+- `TAURI_TRAY` -> `TAURI_LINUX_AYATANA_APPINDICATOR`
+- `TAURI_APPLE_DEVELOPMENT_TEAM` -> `APPLE_DEVELOPMENT_TEAM`
+- `TAURI_PLATFORM` -> `TAURI_ENV_PLATFORM`
+- `TAURI_ARCH` -> `TAURI_ENV_ARCH`
+- `TAURI_FAMILY` -> `TAURI_ENV_FAMILY`
+- `TAURI_PLATFORM_VERSION` -> `TAURI_ENV_PLATFORM_VERSION`
+- `TAURI_PLATFORM_TYPE` -> `TAURI_ENV_PLATFORM_TYPE`
+- `TAURI_DEBUG` -> `TAURI_ENV_DEBUG`
+
+### Система событий
+
+Система событий была переработана, чтобы ею было проще пользоваться. Вместо использования источника события теперь применяется более простая реализация, основанная на целевых объектах событий.
+
+- Функция `emit` теперь отправляет событие всем слушателям событий.
+- Добавлена новая функция `emit_to`/`emitTo` для запуска события для конкретного целевого объекта.
+- `emit_filter` теперь фильтрует на основе [`EventTarget`](https://docs.rs/tauri/2.0.0/tauri/event/enum.EventTarget.html) вместо окна.
+- `listen_global` переименован в `listen_any`. Теперь он прослушивает все события независимо от их фильтров и целевых объектов.
+- JavaScript: `event.listen()` ведёт себя аналогично `listen_any`. Теперь он прослушивает все события независимо от их фильтров и целевых объектов, если только целевой объект не задан в `Options`.
+- JavaScript: `WebviewWindow.listen` и др. прослушивают только события, отправляемые соответствующему `EventTarget`.
+
+### Поддержка нескольких WebView
+
+Tauri v2 вводит поддержку нескольких WebView, которая в настоящее время находится за флагом функции `unstable`. Для её поддержки мы переименовали тип Rust `Window` в `WebviewWindow`, а функцию Manager `get_window` — в `get_webview_window`.
+
+Тип JS API `WebviewWindow` теперь повторно экспортируется из `@tauri-apps/api/webviewWindow` вместо `@tauri-apps/api/window`.
+
+### Новый URL источника в Windows
+
+В Windows файлы фронтенда в производственных приложениях теперь размещаются на `http://tauri.localhost` вместо `https://tauri.localhost`. Из-за этого IndexedDB, LocalStorage и Cookies будут сброшены, если в v1 не использовался `dangerousUseHttpScheme`. Чтобы предотвратить это, вы можете установить `app > windows > useHttpsScheme` в `true` или использовать `WebviewWindowBuilder::use_https_scheme`, чтобы продолжать использовать схему `https`.
+
+## Подробные шаги миграции
+
+Типовые сценарии, с которыми вы можете столкнуться при миграции вашего приложения Tauri 1.0 на Tauri 2.0.
+
+### Миграция на базовый модуль
+
+Модуль `@tauri-apps/api/tauri` был переименован в `@tauri-apps/api/core`. Просто переименуйте импорт модуля:
+
+```diff
+- import { invoke } from "@tauri-apps/api/tauri"
++ import { invoke } from "@tauri-apps/api/core"
+```
+
+### Миграция на плагин CLI
+
+API Rust `App::get_cli_matches` и JavaScript `@tauri-apps/api/cli` удалены. Вместо них используйте плагин `@tauri-apps/plugin-cli`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-cli = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { getMatches } from '@tauri-apps/plugin-cli';
+const matches = await getMatches();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    use tauri_plugin_cli::CliExt;
+    tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
+        .setup(|app| {
+            let cli_matches = app.cli().matches()?;
+            Ok(())
+        })
+#     ;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин буфера обмена
+
+API Rust `App::clipboard_manager` и `AppHandle::clipboard_manager`, а также JavaScript `@tauri-apps/api/clipboard` удалены. Вместо них используйте плагин `@tauri-apps/plugin-clipboard-manager`:
+
+```toml
+[dependencies]
+tauri-plugin-clipboard-manager = "2"
+```
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard_manager::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-clipboard-manager": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { writeText, readText } from '@tauri-apps/plugin-clipboard-manager';
+await writeText('Tauri is awesome!');
+console.assert((await readText()) === 'Tauri is awesome!');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_clipboard_manager::ClipboardExt;
+tauri::Builder::default()
+    .plugin(tauri_plugin_clipboard_manager::init())
+    .setup(|app| {
+        app.clipboard().write_text("Tauri is awesome!")?;
+        Ok(())
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин диалоговых окон
+
+API Rust `tauri::api::dialog` и JavaScript `@tauri-apps/api/dialog` удалены. Вместо них используйте плагин `@tauri-apps/plugin-dialog`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-dialog = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-dialog": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { save } from '@tauri-apps/plugin-dialog';
+const filePath = await save({
+  filters: [
+    {
+      name: 'Image',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
+});
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_dialog::DialogExt;
+tauri::Builder::default()
+    .plugin(tauri_plugin_dialog::init())
+    .setup(|app| {
+        app.dialog().file().pick_file(|file_path| {
+            // do something with the optional file path here
+            // the file path is `None` if the user closed the dialog
+        });
+
+        app.dialog().message("Tauri is Awesome!").show(|_| {});
+        Ok(())
+     })
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин файловой системы
+
+API Rust `tauri::api::file` и JavaScript `@tauri-apps/api/fs` удалены. Вместо них используйте [`std::fs`](https://doc.rust-lang.org/std/fs/) для Rust и плагин `@tauri-apps/plugin-fs` для JavaScript:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-fs = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-fs": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+await mkdir('db', { baseDir: BaseDirectory.AppLocalData });
+```
+
+Некоторые функции и типы были переименованы или удалены:
+
+- `Dir` alias enum удалён; используйте `BaseDirectory`.
+- Интерфейсы и псевдонимы типов `FileEntry`, `FsBinaryFileOption`, `FsDirOptions`, `FsOptions`, `FsTextFileOption` и `BinaryFileContents` удалены и заменены новыми интерфейсами, подходящими для каждой функции.
+- `createDir` переименован в `mkdir`.
+- `readBinaryFile` переименован в `readFile`.
+- `removeDir` удалён и заменён на `remove`.
+- `removeFile` удалён и заменён на `remove`.
+- `renameFile` удалён и заменён на `rename`.
+- `writeBinaryFile` переименован в `writeFile`.
+
+</TabItem>
+<TabItem label="Rust">
+
+Используйте функции [`std::fs`](https://doc.rust-lang.org/std/fs/) из Rust.
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин глобальных горячих клавиш
+
+API Rust `App::global_shortcut_manager` и `AppHandle::global_shortcut_manager`, а также JavaScript `@tauri-apps/api/global-shortcut` удалены. Вместо них используйте плагин `@tauri-apps/plugin-global-shortcut`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
+tauri-plugin-global-shortcut = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_global_shortcut::Builder::default().build())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-global-shortcut": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { register } from '@tauri-apps/plugin-global-shortcut';
+await register('CommandOrControl+Shift+C', () => {
+  console.log('Shortcut triggered');
+});
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+tauri::Builder::default()
+    .plugin(
+        tauri_plugin_global_shortcut::Builder::new().with_handler(|app, shortcut, event| {
+            println!("Shortcut triggered: {:?}", shortcut);
+        })
+        .build(),
+    )
+    .setup(|app| {
+        // register a global shortcut
+        // on macOS, the Cmd key is used
+        // on Windows and Linux, the Ctrl key is used
+        app.global_shortcut().register("CmdOrCtrl+Y")?;
+        Ok(())
+    })
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин HTTP
+
+API Rust `tauri::api::http` и JavaScript `@tauri-apps/api/http` удалены. Вместо них используйте плагин `@tauri-apps/plugin-http`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-http = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-http": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { fetch } from '@tauri-apps/plugin-http';
+const response = await fetch(
+  'https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json'
+);
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_http::reqwest;
+
+tauri::Builder::default()
+    .plugin(tauri_plugin_http::init())
+    .setup(|app| {
+        let response_data = tauri::async_runtime::block_on(async {
+            let response = reqwest::get(
+                "https://raw.githubusercontent.com/tauri-apps/tauri/dev/package.json",
+            )
+            .await
+            .unwrap();
+            response.text().await
+        })?;
+        Ok(())
+    })
+```
+
+Плагин HTTP повторно экспортирует [reqwest](https://docs.rs/reqwest/latest/reqwest/), поэтому вы можете ознакомиться с их документацией для получения дополнительной информации.
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин уведомлений
+
+API Rust `tauri::api::notification` и JavaScript `@tauri-apps/api/notification` удалены. Вместо них используйте плагин `@tauri-apps/plugin-notification`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-notification = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-notification": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+sendNotification('Tauri is awesome!');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+use tauri_plugin_notification::NotificationExt;
+use tauri::plugin::PermissionState;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
+        .setup(|app| {
+            if app.notification().permission_state()? == PermissionState::Prompt {
+                app.notification().request_permission()?;
+            }
+            if app.notification().permission_state()? == PermissionState::Granted {
+                app.notification()
+                    .builder()
+                    .body("Tauri is awesome!")
+                    .show()?;
+            }
+            Ok(())
+        })
+#     ;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на модуль меню
+
+API Rust `Menu` были перемещены в модуль `tauri::menu` и рефакторизованы для использования [крейт muda](https://github.com/tauri-apps/muda).
+
+#### Используйте `tauri::menu::MenuBuilder`
+
+Используйте `tauri::menu::MenuBuilder` вместо `tauri::Menu`. Обратите внимание, что его конструктор принимает экземпляр Manager (один из `App`, `AppHandle` или `WebviewWindow`) в качестве аргумента:
+
+```rust
+use tauri::menu::MenuBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app)
+            .copy()
+            .paste()
+            .separator()
+            .undo()
+            .redo()
+            .text("open-url", "Open URL")
+            .check("toggle", "Toggle")
+            .icon("show-app", "Show App", app.default_window_icon().cloned().unwrap())
+            .build()?;
+        app.set_menu(menu);
+        Ok(())
+    })
+```
+
+#### Используйте `tauri::menu::PredefinedMenuItem`
+
+Используйте `tauri::menu::PredefinedMenuItem` вместо `tauri::MenuItem`:
+
+```rust
+use tauri::menu::{MenuBuilder, PredefinedMenuItem};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let menu = MenuBuilder::new(app).item(&PredefinedMenuItem::copy(app, None)?).build()?;
+        Ok(())
+    })
+```
+
+:::tip
+Конструктор меню имеет специальные методы для добавления каждого стандартного пункта меню, поэтому вы можете вызывать `.copy()` вместо `.item(&PredefinedMenuItem::copy(app, None)?)`.
+:::
+
+#### Используйте `tauri::menu::MenuItemBuilder`
+
+Используйте `tauri::menu::MenuItemBuilder` вместо `tauri::CustomMenuItem`:
+
+```rust
+use tauri::menu::MenuItemBuilder;
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::new("Toggle").accelerator("Ctrl+Shift+T").build(app)?;
+        Ok(())
+    })
+```
+
+#### Используйте `tauri::menu::SubmenuBuilder`
+
+Используйте `tauri::menu::SubmenuBuilder` вместо `tauri::Submenu`:
+
+```rust
+use tauri::menu::{MenuBuilder, SubmenuBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let submenu = SubmenuBuilder::new(app, "Sub")
+            .text("tauri", "Tauri")
+            .separator()
+            .check("is-awesome", "Is Awesome")
+            .build()?;
+        let menu = MenuBuilder::new(app).item(&submenu).build()?;
+        Ok(())
+    })
+```
+
+`tauri::Builder::menu` теперь принимает замыкание, поскольку для построения меню требуется экземпляр Manager. См. [документацию](https://docs.rs/tauri/2.0.0/tauri/struct.Builder.html#method.menu) для получения дополнительной информации.
+
+#### События меню
+
+API Rust `tauri::Builder::on_menu_event` удалён. Вместо него используйте `tauri::App::on_menu_event` или `tauri::AppHandle::on_menu_event`:
+
+```rust
+use tauri::menu::{CheckMenuItemBuilder, MenuBuilder, MenuItemBuilder};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
+        let check = CheckMenuItemBuilder::new("Mark").build(app)?;
+        let menu = MenuBuilder::new(app).items(&[&toggle, &check]).build()?;
+
+        app.set_menu(menu)?;
+
+        app.on_menu_event(move |app, event| {
+            if event.id() == check.id() {
+                println!("`check` triggered, do something! is checked? {}", check.is_checked().unwrap());
+            } else if event.id() == "toggle" {
+                println!("toggle triggered!");
+            }
+        });
+        Ok(())
+    })
+```
+
+Обратите внимание, что есть два способа проверить, какой пункт меню был выбран: переместить пункт в замыкание обработчика событий и сравнить идентификаторы либо определить пользовательский идентификатор для пункта через конструктор `with_id` и использовать эту строку идентификатора для сравнения.
+
+:::tip
+Пункты меню можно использовать совместно в разных меню, и событие меню привязано к пункту меню, а не к меню или окну. Если вы не хотите, чтобы при выборе пункта меню срабатывали все слушатели, не используйте общие пункты меню, а создавайте отдельные экземпляры, которые можно передать в замыкание `tauri::WebviewWindow/WebviewWindowBuilder::on_menu_event`.
+:::
+
+### Миграция на плагин ОС
+
+API Rust `tauri::api::os` и JavaScript `@tauri-apps/api/os` удалены. Вместо них используйте плагин `@tauri-apps/plugin-os`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-os = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-os": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { arch } from '@tauri-apps/plugin-os';
+const architecture = await arch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+        .setup(|app| {
+            let os_arch = tauri_plugin_os::arch();
+            Ok(())
+        })
+#     ;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин процессов
+
+API Rust `tauri::api::process` и JavaScript `@tauri-apps/api/process` удалены. Вместо них используйте плагин `@tauri-apps/plugin-process`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-process = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-process": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { exit, relaunch } from '@tauri-apps/plugin-process';
+await exit(0);
+await relaunch();
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .setup(|app| {
+            // exit the app with a status code
+            app.handle().exit(1);
+            // restart the app
+            app.handle().restart();
+            Ok(())
+        })
+#     ;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на плагин Shell
+
+API Rust `tauri::api::shell` и JavaScript `@tauri-apps/api/shell` удалены. Вместо них используйте плагин `@tauri-apps/plugin-shell`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+# Cargo.toml
+[dependencies]
+tauri-plugin-shell = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-shell": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { Command, open } from '@tauri-apps/plugin-shell';
+const output = await Command.create('echo', 'message').execute();
+
+await open('https://github.com/tauri-apps/tauri');
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+- Открыть URL
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            app.shell().open("https://github.com/tauri-apps/tauri", None)?;
+            Ok(())
+        })
+#     ;
+}
+```
+
+- Запустить дочерний процесс и получить код состояния
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let status = tauri::async_runtime::block_on(async move { app.shell().command("which").args(["ls"]).status().await.unwrap() });
+            println!("`which` finished with status: {:?}", status.code());
+            Ok(())
+        })
+#     ;
+}
+```
+
+- Запустить дочерний процесс и перехватить его вывод
+
+```rust
+use tauri_plugin_shell::ShellExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let output = tauri::async_runtime::block_on(async move { app.shell().command("echo").args(["TAURI"]).output().await.unwrap() });
+            assert!(output.status.success());
+            assert_eq!(String::from_utf8(output.stdout).unwrap(), "TAURI");
+            Ok(())
+        })
+#     ;
+}
+```
+
+- Запустить дочерний процесс и асинхронно читать его события:
+
+```rust
+use tauri_plugin_shell::{ShellExt, process::CommandEvent};
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .setup(|app| {
+            let handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let (mut rx, mut child) = handle.shell().command("cargo")
+                    .args(["tauri", "dev"])
+                    .spawn()
+                    .expect("Failed to spawn cargo");
+
+                let mut i = 0;
+                while let Some(event) = rx.recv().await {
+                    if let CommandEvent::Stdout(line) = event {
+                        println!("got: {}", String::from_utf8(line).unwrap());
+                       i += 1;
+                       if i == 4 {
+                           child.write("message from Rust\n".as_bytes()).unwrap();
+                           i = 0;
+                       }
+                   }
+                }
+            });
+            Ok(())
+        })
+#     ;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция на модуль значка трея
+
+API Rust `SystemTray` были переименованы в `TrayIcon` для согласованности. Новые API можно найти в модуле Rust `tray`.
+
+#### Используйте `tauri::tray::TrayIconBuilder`
+
+Используйте `tauri::tray::TrayIconBuilder` вместо `tauri::SystemTray`:
+
+```rust
+# fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+let tray = tauri::tray::TrayIconBuilder::with_id("my-tray").build(app)?;
+# Ok(())
+# }
+```
+
+См. [TrayIconBuilder](https://docs.rs/tauri/2.0.0/tauri/tray/struct.TrayIconBuilder.html) для получения дополнительной информации.
+
+#### Миграция на меню
+
+Используйте `tauri::menu::Menu` вместо `tauri::SystemTrayMenu`, `tauri::menu::Submenu` вместо `tauri::SystemTraySubmenu` и `tauri::menu::PredefinedMenuItem` вместо `tauri::SystemTrayMenuItem`.
+
+#### События трея
+
+`tauri::SystemTray::on_event` был разделён на `tauri::tray::TrayIconBuilder::on_menu_event` и `tauri::tray::TrayIconBuilder::on_tray_icon_event`:
+
+```rust
+use tauri::{
+    menu::{MenuBuilder, MenuItemBuilder},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    Manager,
+};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let toggle = MenuItemBuilder::with_id("toggle", "Toggle").build(app)?;
+        let menu = MenuBuilder::new(app).items(&[&toggle]).build()?;
+        let tray = TrayIconBuilder::new()
+            .menu(&menu)
+            .on_menu_event(move |app, event| match event.id().as_ref() {
+                "toggle" => {
+                    println!("toggle clicked");
+                }
+                _ => (),
+            })
+            .on_tray_icon_event(|tray, event| {
+                if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                } = event
+                {
+                    let app = tray.app_handle();
+                    if let Some(webview_window) = app.get_webview_window("main") {
+                       let _ = webview_window.unminimize();
+                       let _ = webview_window.show();
+                       let _ = webview_window.set_focus();
+                    }
+                }
+            })
+            .build(app)?;
+
+        Ok(())
+    })
+```
+
+### Миграция на плагин обновления
+
+:::caution[Изменение поведения по умолчанию]
+
+Встроенное диалоговое окно с автоматической проверкой обновлений было удалено; вместо этого используйте API Rust и JS для проверки и установки обновлений. Если этого не сделать, ваши пользователи не смогут получать дальнейшие обновления!
+
+:::
+
+API Rust `tauri::updater` и JavaScript `@tauri-apps/api-updater` удалены. Чтобы задать пользовательскую целевую платформу обновления с `@tauri-apps/plugin-updater`:
+
+1. Добавьте в зависимости cargo:
+
+```toml
+[dependencies]
+tauri-plugin-updater = "2"
+```
+
+2. Используйте в проекте на JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```rust
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+#     ;
+}
+```
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@tauri-apps/plugin-updater": "^2.0.0"
+  }
+}
+```
+
+```javascript
+import { check } from '@tauri-apps/plugin-updater';
+import { relaunch } from '@tauri-apps/plugin-process';
+
+const update = await check();
+if (update?.available) {
+  console.log(`Update to ${update.version} available! Date: ${update.date}`);
+  console.log(`Release notes: ${update.body}`);
+  await update.downloadAndInstall();
+  // requires the `process` plugin
+  await relaunch();
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+Для проверки обновлений:
+
+```rust
+use tauri_plugin_updater::UpdaterExt;
+
+fn main() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            let updater = app.updater()?;
+            tauri::async_runtime::spawn(async move {
+                let response = updater.check().await;
+            });
+            Ok(())
+        })
+#     ;
+}
+```
+
+Чтобы задать пользовательскую целевую платформу обновления:
+
+```rust
+fn main() {
+    let mut updater = tauri_plugin_updater::Builder::new();
+    #[cfg(target_os = "macos")]
+    {
+        updater = updater.target("darwin-universal");
+    }
+    tauri::Builder::default()
+        .plugin(updater.build())
+#     ;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Миграция путей на менеджер Tauri
+
+Функции модуля Rust `tauri::api::path` и `tauri::PathResolver` перемещены в `tauri::Manager::path`:
+
+```rust
+use tauri::{path::BaseDirectory, Manager};
+
+tauri::Builder::default()
+    .setup(|app| {
+        let home_dir_path = app.path().home_dir().expect("failed to get home dir");
+
+        let path = app.path().resolve("path/to/something", BaseDirectory::Config)?;
+
+        Ok(())
+  })
+```
+
+### Миграция на новый API окон
+
+На стороне Rust `Window` был переименован в `WebviewWindow`, его конструктор `WindowBuilder` теперь называется `WebviewWindowBuilder`, а `WindowUrl` теперь называется `WebviewUrl`.
+
+Кроме того, функция `Manager::get_window` была переименована в `get_webview_window`, а API окна `parent_window` было переименовано в `parent_raw` для поддержки высокоуровневого API родительского окна.
+
+На стороне JavaScript класс `WebviewWindow` теперь экспортируется по пути `@tauri-apps/api/webviewWindow`.
+
+Функция `onMenuClicked` удалена; вместо этого вы можете перехватывать события меню при создании меню в JavaScript.
+
+### Миграция встроенных дополнительных файлов (ресурсов)
+
+На стороне JavaScript убедитесь, что вы выполнили [миграцию на плагин файловой системы](#миграция-на-плагин-файловой-системы). Кроме того, обратите внимание на изменения, внесённые в список разрешений v1 в разделе [Миграция разрешений](#миграция-разрешений).
+
+На стороне Rust убедитесь, что вы выполнили [миграцию путей на менеджер Tauri](#миграция-путей-на-менеджер-tauri).
+
+### Миграция встроенных внешних бинарных файлов (Sidecar)
+
+В Tauri v1 внешние бинарные файлы и их аргументы определялись в списке разрешений. В v2 используйте новую систему разрешений. Прочитайте [Миграция разрешений](#миграция-разрешений) для получения дополнительной информации.
+
+На стороне JavaScript убедитесь, что вы выполнили [миграцию на плагин Shell](#миграция-на-плагин-shell).
+
+На стороне Rust API `tauri::api::process` удалено. Вместо него используйте API `tauri_plugin_shell::ShellExt` и `tauri_plugin_shell::process::CommandEvent`. Прочитайте руководство [Встраивание внешних бинарных файлов](/ru/develop/sidecar/#запуск-из-rust), чтобы понять, как это сделать.
+
+Флаг функции «process-command-api» был удалён в v2. Поэтому для запуска внешних бинарных файлов больше не требуется определять эту функцию в конфигурации Tauri.
+
+### Миграция разрешений
+
+Список разрешений v1 был переписан в совершенно новую систему разрешений, которая работает для отдельных плагинов и допускает гораздо более гибкую настройку для поддержки нескольких окон и удалённых URL.
+
+Эта новая система работает как список управления доступом (ACL), где можно разрешать или запрещать команды, назначать разрешения конкретному набору окон и доменов, а также определять области доступа.
+
+Чтобы включить разрешения для своего приложения, необходимо создать файлы возможностей в папке `src-tauri/capabilities`, и Tauri автоматически настроит всё остальное.
+
+Команда CLI `migrate` автоматически анализирует ваш список разрешений v1 и создаёт соответствующий файл возможностей.
+
+Чтобы узнать больше о разрешениях и возможностях, см. [документацию по безопасности](/ru/security/).

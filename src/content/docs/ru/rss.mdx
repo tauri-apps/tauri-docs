@@ -1,0 +1,25 @@
+---
+title: RSS-ленты Tauri
+topic: guides # this sidebar is active when viewing this page
+i18nReady: true
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<LinkCard
+  title="Все обновления"
+  description="Получайте уведомления обо всех обновлениях на всём сайте."
+  href="/feed.xml"
+/>
+
+<LinkCard
+  title="Обновления блога"
+  description="Будьте в курсе последних записей и статей."
+  href="/blog/rss.xml"
+/>
+
+<LinkCard
+  title="Обновления страниц"
+  description="Получайте обновления для основных страниц сайта."
+  href="/pages.xml"
+/>

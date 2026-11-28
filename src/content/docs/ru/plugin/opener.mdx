@@ -1,0 +1,174 @@
+---
+title: Opener
+description: Открывайте файлы и URL во внешних приложениях.
+plugin: opener
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Этот плагин позволяет открывать файлы и URL в указанном приложении или в приложении по умолчанию. Он также поддерживает «показ» файлов в системном проводнике.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин opener, чтобы начать.
+
+<Tabs>
+	<TabItem label="Automatic" >
+		Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    	{ ' ' }
+
+    	<CommandTabs
+            npm="npm run tauri add opener"
+            yarn="yarn run tauri add opener"
+            pnpm="pnpm tauri add opener"
+            deno="deno task tauri add opener"
+            bun="bun tauri add opener"
+            cargo="cargo tauri add opener"
+    	/>
+    </TabItem>
+    <TabItem label = "Manual">
+    	<Steps>
+          1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+              ```sh frame=none
+              cargo add tauri-plugin-opener
+              ```
+
+          2. Измените `lib.rs`, чтобы инициализировать плагин:
+
+              ```rust title="src-tauri/src/lib.rs" ins={4}
+              #[cfg_attr(mobile, tauri::mobile_entry_point)]
+              pub fn run() {
+                  tauri::Builder::default()
+                      .plugin(tauri_plugin_opener::init())
+                      .run(tauri::generate_context!())
+                      .expect("error while running tauri application");
+              }
+              ```
+
+          3. Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+              <CommandTabs
+                  npm = "npm install @tauri-apps/plugin-opener"
+                  yarn = "yarn add @tauri-apps/plugin-opener"
+                  pnpm = "pnpm add @tauri-apps/plugin-opener"
+                  deno = "deno add npm:@tauri-apps/plugin-opener"
+                  bun = "bun add @tauri-apps/plugin-opener"
+              />
+    	</Steps>
+    </TabItem>
+
+</Tabs>
+
+## Использование
+
+Плагин opener доступен как в JavaScript, так и в Rust.
+
+<Tabs syncKey="lang">
+	<TabItem label="JavaScript" >
+
+```javascript
+import { openPath, openUrl } from '@tauri-apps/plugin-opener';
+// when using `"withGlobalTauri": true`, you may use
+// const { openPath } = window.__TAURI__.opener;
+
+// opens a file using the default program:
+await openPath('/path/to/file');
+// opens a file using `vlc` command on Windows:
+await openPath('C:/path/to/file', 'vlc');
+// opens a URL using the default program:
+await openUrl('https://tauri.app');
+```
+
+    </TabItem>
+    <TabItem label = "Rust" >
+
+Обратите внимание, что `app` — это экземпляр `App` или [`AppHandle`](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html).
+
+```rust
+use tauri_plugin_opener::OpenerExt;
+# let app: tauri::AppHandle = todo!();
+
+// opens a file using the default program:
+app.opener().open_path("/path/to/file", None::<&str>);
+// opens a file using `vlc` command on Windows:
+app.opener().open_path("C:/path/to/file", Some("vlc"));
+// opens a URL using the default program:
+app.opener().open_url("https://tauri.app", None::<&str>);
+```
+
+    </TabItem>
+
+</Tabs>
+
+## Разрешения
+
+По умолчанию все потенциально опасные команды и области действия плагина заблокированы и недоступны. Вы должны изменить разрешения в конфигурации `capabilities`, чтобы включить их.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+Ниже приведены два примера конфигураций областей действия. Как `path`, так и `url` используют [синтаксис glob-шаблонов](https://docs.rs/glob/latest/glob/struct.Pattern.html) для определения разрешённых путей к файлам и URL.
+
+Сначала пример того, как добавить разрешения для конкретных путей для функции `openPath()`:
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "/path/to/file"
+        },
+        {
+          "path": "$APPDATA/file"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Наконец, пример того, как добавить разрешения для точного URL `https://tauri.app` и всех URL на пользовательском протоколе (должен быть известен ОС) для функции `openUrl()`:
+
+```json title="src-tauri/capabilities/default.json" ins={6-15}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://tauri.app"
+        },
+        {
+          "url": "custom:*"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />

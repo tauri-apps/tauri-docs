@@ -22,5 +22,9 @@
   "de": {
     "label": "German",
     "lang": "de"
+  },
+  "ru": {
+    "label": "Русский",
+    "lang": "ru"
   }
 }

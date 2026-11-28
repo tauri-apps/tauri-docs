@@ -1,0 +1,319 @@
+---
+title: Notifications
+description: Отправляйте пользователю системные уведомления.
+i18nReady: true
+plugin: notification
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Отправляйте вашему пользователю системные уведомления с помощью плагина notification.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+## Установка
+
+Установите плагин notifications, чтобы начать.
+
+<Tabs>
+    <TabItem label="Automatic">
+
+        Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+        <CommandTabs npm="npm run tauri add notification"
+            yarn="yarn run tauri add notification"
+            pnpm="pnpm tauri add notification"
+            bun="bun tauri add notification"
+        deno="deno task tauri add notification"
+            cargo="cargo tauri add notification" />
+
+
+    </TabItem>
+    <TabItem label="Manual">
+        <Steps>
+
+        1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+           ```sh frame=none
+           cargo add tauri-plugin-notification
+           ```
+
+        2. Измените `lib.rs`, чтобы инициализировать плагин:
+
+           ```rust title="src-tauri/src/lib.rs" ins={4}
+           #[cfg_attr(mobile, tauri::mobile_entry_point)]
+           pub fn run() {
+               tauri::Builder::default()
+                   .plugin(tauri_plugin_notification::init())
+                   .run(tauri::generate_context!())
+                   .expect("error while running tauri application");
+           }
+           ```
+
+        3. Если вы хотите использовать уведомления на JavaScript, установите также npm-пакет:
+
+
+            <CommandTabs
+                npm="npm install @tauri-apps/plugin-notification"
+                yarn="yarn add @tauri-apps/plugin-notification"
+                pnpm="pnpm add @tauri-apps/plugin-notification"
+                deno="deno add npm:@tauri-apps/plugin-notification"
+                bun="bun add @tauri-apps/plugin-notification"
+            />
+
+        </Steps>
+    </TabItem>
+
+</Tabs>
+
+## Использование
+
+Вот несколько примеров того, как использовать плагин notification:
+
+- [Отправить уведомление пользователям](#отправка-уведомления)
+- [Добавить действие к уведомлению](#действия)
+- [Добавить вложение к уведомлению](#вложения)
+- [Отправить уведомление в конкретный канал](#каналы)
+
+Плагин notification доступен как в JavaScript, так и в Rust.
+
+### Отправка уведомления
+
+Следуйте этим шагам, чтобы отправить уведомление:
+
+<Steps>
+1. Проверьте, предоставлено ли разрешение
+
+2. Запросите разрешение, если оно не предоставлено
+
+3. Отправьте уведомление
+
+</Steps>
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```javascript
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
+// when using `"withGlobalTauri": true`, you may use
+// const { isPermissionGranted, requestPermission, sendNotification, } = window.__TAURI__.notification;
+
+// Do you have permission to send a notification?
+let permissionGranted = await isPermissionGranted();
+
+// If not we need to request it
+if (!permissionGranted) {
+  const permission = await requestPermission();
+  permissionGranted = permission === 'granted';
+}
+
+// Once permission has been granted we can send the notification
+if (permissionGranted) {
+  sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust
+tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
+    .setup(|app| {
+        use tauri_plugin_notification::NotificationExt;
+        app.notification()
+            .builder()
+            .title("Tauri")
+            .body("Tauri is awesome")
+            .show()
+            .unwrap();
+
+        Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
+```
+
+</TabItem>
+</Tabs>
+
+### Действия
+
+:::caution[Только для мобильных устройств]
+API действий доступен только на мобильных платформах.
+:::
+
+Действия добавляют интерактивные кнопки и поля ввода в уведомления. Используйте их, чтобы создать отзывчивый опыт для ваших пользователей.
+
+#### Регистрация типов действий
+
+Зарегистрируйте типы действий, чтобы определить интерактивные элементы:
+
+```javascript
+import { registerActionTypes } from '@tauri-apps/plugin-notification';
+
+await registerActionTypes([
+  {
+    id: 'messages',
+    actions: [
+      {
+        id: 'reply',
+        title: 'Reply',
+        input: true,
+        inputButtonTitle: 'Send',
+        inputPlaceholder: 'Type your reply...',
+      },
+      {
+        id: 'mark-read',
+        title: 'Mark as Read',
+        foreground: false,
+      },
+    ],
+  },
+]);
+```
+
+#### Свойства действий
+
+| Свойство                 | Описание                                               |
+| ------------------------ | ------------------------------------------------------ |
+| `id`                     | Уникальный идентификатор действия                      |
+| `title`                  | Текст, отображаемый на кнопке действия                 |
+| `requiresAuthentication` | Требует аутентификации устройства                      |
+| `foreground`             | Поднимает приложение на передний план при срабатывании |
+| `destructive`            | Показывает действие красным на iOS                     |
+| `input`                  | Включает ввод текста                                   |
+| `inputButtonTitle`       | Текст кнопки отправки ввода                            |
+| `inputPlaceholder`       | Текст-подсказка для поля ввода                         |
+
+#### Прослушивание действий
+
+Слушайте взаимодействия пользователя с действиями уведомлений:
+
+```javascript
+import { onAction } from '@tauri-apps/plugin-notification';
+
+await onAction((notification) => {
+  console.log('Action performed:', notification);
+});
+```
+
+### Вложения
+
+Вложения добавляют медиаконтент в уведомления. Поддержка зависит от платформы.
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Image',
+  body: 'Check out this picture',
+  attachments: [
+    {
+      id: 'image-1',
+      url: 'asset:///notification-image.jpg',
+    },
+  ],
+});
+```
+
+#### Свойства вложений
+
+| Свойство | Описание                                       |
+| -------- | ---------------------------------------------- |
+| `id`     | Уникальный идентификатор                       |
+| `url`    | URL контента по протоколу asset:// или file:// |
+
+Примечание: тестируйте вложения на целевых платформах, чтобы обеспечить совместимость.
+
+### Каналы
+
+Каналы организуют уведомления в категории с разным поведением. Хотя в основном они используются на Android, они предоставляют единообразный API на всех платформах.
+
+#### Создание канала
+
+```javascript
+import {
+  createChannel,
+  Importance,
+  Visibility,
+} from '@tauri-apps/plugin-notification';
+
+await createChannel({
+  id: 'messages',
+  name: 'Messages',
+  description: 'Notifications for new messages',
+  importance: Importance.High,
+  visibility: Visibility.Private,
+  lights: true,
+  lightColor: '#ff0000',
+  vibration: true,
+  sound: 'notification_sound',
+});
+```
+
+#### Свойства каналов
+
+| Свойство      | Описание                                               |
+| ------------- | ------------------------------------------------------ |
+| `id`          | Уникальный идентификатор                               |
+| `name`        | Отображаемое имя                                       |
+| `description` | Описание назначения                                    |
+| `importance`  | Уровень важности (None, Min, Low, Default, High)       |
+| `visibility`  | Настройка конфиденциальности (Secret, Private, Public) |
+| `lights`      | Включить индикатор уведомлений (Android)               |
+| `lightColor`  | Цвет индикатора (Android)                              |
+| `vibration`   | Включить вибрацию                                      |
+| `sound`       | Имя файла звука                                        |
+
+#### Управление каналами
+
+Список существующих каналов:
+
+```javascript
+import { channels } from '@tauri-apps/plugin-notification';
+
+const existingChannels = await channels();
+```
+
+Удаление канала:
+
+```javascript
+import { removeChannel } from '@tauri-apps/plugin-notification';
+
+await removeChannel('messages');
+```
+
+#### Использование каналов
+
+Отправка уведомления с использованием канала:
+
+```javascript
+import { sendNotification } from '@tauri-apps/plugin-notification';
+
+sendNotification({
+  title: 'New Message',
+  body: 'You have a new message',
+  channelId: 'messages',
+});
+```
+
+Примечание: создавайте каналы перед отправкой уведомлений, которые на них ссылаются. Недействительные ID каналов препятствуют отображению уведомлений.
+
+## Соображения безопасности
+
+Помимо стандартных процедур санитизации пользовательского ввода, в настоящее время нет известных соображений безопасности.
+
+<PluginPermissions plugin={frontmatter.plugin} />

@@ -1,0 +1,138 @@
+---
+title: SvelteKit
+i18nReady: true
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+SvelteKit — это метафреймворк для Svelte. Узнайте больше о SvelteKit на https://svelte.dragomano.ru/kit/getting-started/introduction/. Это руководство актуально для SvelteKit 2.20.4 / Svelte 5.25.8.
+
+## Контрольный список
+
+- Используйте [SSG](https://svelte.dragomano.ru/kit/build-and-deploy/adapter-static/) и [SPA](https://svelte.dragomano.ru/kit/build-and-deploy/single-page-apps/) через `static-adapter`. Tauri не поддерживает серверные решения.
+- При использовании SSG **с предварительной генерацией (prerendering)** имейте в виду, что функции `load` не будут иметь доступа к API Tauri в процессе сборки вашего приложения. Рекомендуется использовать режим SPA (без предварительной генерации), поскольку функции `load` будут выполняться только в обозревателе с доступом к API Tauri.
+- Используйте `build/` в качестве `frontendDist` в `tauri.conf.json`.
+
+## Пример конфигурации
+
+<Steps>
+
+1.  ##### Установите `@sveltejs/adapter-static`
+
+    <CommandTabs
+      npm="npm install --save-dev @sveltejs/adapter-static"
+      yarn="yarn add -D @sveltejs/adapter-static"
+      pnpm="pnpm add -D @sveltejs/adapter-static"
+      deno="deno add -D npm:@sveltejs/adapter-static"
+    />
+
+1.  ##### Обновите конфигурацию Tauri
+
+          <Tabs>
+
+      <TabItem label="npm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="yarn">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "yarn dev",
+        "beforeBuildCommand": "yarn build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="pnpm">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    <TabItem label="deno">
+
+    ```json
+    // tauri.conf.json
+    {
+      "build": {
+        "beforeDevCommand": "deno task dev",
+        "beforeBuildCommand": "deno task build",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../build"
+      }
+    }
+    ```
+
+          </TabItem>
+
+    </Tabs>
+
+1.  ##### Обновите конфигурацию SvelteKit:
+
+    ```js title="svelte.config.js" {1}
+    import adapter from '@sveltejs/adapter-static';
+    import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+    /** @type {import('@sveltejs/kit').Config} */
+    const config = {
+      // Consult https://svelte.dev/docs/kit/integrations#preprocessors
+      // for more information about preprocessors
+      preprocess: vitePreprocess(),
+
+      kit: {
+        adapter: adapter({
+          fallback: 'index.html',
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+1.  ##### Отключите SSR
+
+    Наконец, нам нужно отключить SSR, добавив корневой файл `+layout.ts` (или `+layout.js`, если вы не используете TypeScript) со следующим содержимым:
+
+    ```ts
+    // src/routes/+layout.ts
+    export const ssr = false;
+    ```
+
+    Обратите внимание, что `static-adapter` не требует отключать SSR для всего приложения, но это позволяет использовать API, которые зависят от глобального объекта window (например, API Tauri), без [проверок на стороне клиента](https://svelte.dev/docs/kit/faq#how-do-i-use-x-with-sveltekit-how-do-i-use-a-client-side-only-library-that-depends-on-document-or-window).
+
+    Кроме того, если вы предпочитаете режим статической генерации сайта (SSG) вместо режима одностраничного приложения (SPA), вы можете изменить конфигурацию адаптера и `+layout.ts` в соответствии с [документацией адаптера](https://svelte.dragomano.ru/kit/build-and-deploy/adapter-static/).
+
+</Steps>

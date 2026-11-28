@@ -1,0 +1,58 @@
+---
+title: Leptos
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
+i18nReady: true
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+Leptos — это веб-фреймворк на основе Rust. Подробнее о Leptos можно прочитать на [официальном сайте](https://leptos.dev/). Это руководство актуально для версии Leptos 0.6.
+
+## Контрольный список
+
+- Используйте SSG, так как Tauri официально не поддерживает серверные решения.
+- Используйте `serve.ws_protocol = "ws"`, чтобы вебсокет горячей перезагрузки мог корректно подключаться при разработке под мобильные устройства.
+- Включите `withGlobalTauri`, чтобы API Tauri были доступны в переменной `window.__TAURI__` и их можно было импортировать с помощью `wasm-bindgen`.
+
+## Пример конфигурации
+
+<Steps>
+
+1. ##### Обновите конфигурацию Tauri
+
+   ```json
+   // src-tauri/tauri.conf.json
+   {
+     "build": {
+       "beforeDevCommand": "trunk serve",
+       "devUrl": "http://localhost:1420",
+       "beforeBuildCommand": "trunk build",
+       "frontendDist": "../dist"
+     },
+     "app": {
+       "withGlobalTauri": true
+     }
+   }
+   ```
+
+1. ##### Обновите конфигурацию Trunk
+
+   ```toml
+   // Trunk.toml
+   [build]
+   target = "./index.html"
+
+   [watch]
+   ignore = ["./src-tauri"]
+
+   [serve]
+   port = 1420
+   open = false
+   ws_protocol = "ws"
+
+   ```
+
+</Steps>

@@ -1,0 +1,673 @@
+---
+title: Разработка мобильных плагинов
+i18nReady: true
+---
+
+:::tip[Разработка плагинов]
+
+Убедитесь, что вы знакомы с концепциями, рассмотренными в [руководстве по разработке плагинов](/ru/develop/plugins/), поскольку многие концепции в этом руководстве основаны на положениях, рассмотренных там.
+
+:::
+
+Плагины могут выполнять собственный мобильный код, написанный на Kotlin (или Java) и Swift. Стандартный шаблон плагина включает проект Android-библиотеки на Kotlin и Swift-пакет, содержащий пример мобильной команды, показывающий, как запустить её выполнение из Rust-кода.
+
+## Инициализация проекта плагина
+
+Следуйте шагам в [руководстве по разработке плагинов](/ru/develop/plugins/#инициализация-проекта-плагина), чтобы инициализировать новый проект плагина.
+
+Если у вас уже есть плагин и вы хотите добавить к нему возможности Android или iOS, вы можете использовать `plugin android init` и `plugin ios init`, чтобы создать проекты мобильных библиотек и провести вас через необходимые изменения.
+
+Стандартный шаблон плагина разделяет реализацию плагина на два отдельных модуля: `desktop.rs` и `mobile.rs`.
+
+Реализация для десктопа использует Rust-код для реализации функциональности, тогда как мобильная реализация отправляет сообщение в собственный мобильный код для выполнения функции и получения результата. Если между обеими реализациями нужна общая логика, её можно определить в `lib.rs`:
+
+```rust title="src/lib.rs"
+use tauri::Runtime;
+# pub struct Example<R: Runtime>(tauri::AppHandle<R>);
+
+impl<R: Runtime> Example<R> {
+  pub fn do_something(&self) {
+    // do something that is a shared implementation between desktop and mobile
+  }
+}
+```
+
+Эта реализация упрощает процесс совместного использования API, который можно применять как в командах, так и в Rust-коде.
+
+### Разработка плагина Android
+
+Плагин Tauri для Android определяется как класс Kotlin, который наследует `app.tauri.plugin.Plugin` и аннотируется `app.tauri.annotation.TauriPlugin`. Каждый метод, аннотированный `app.tauri.annotation.Command`, может вызываться из Rust или JavaScript.
+
+Tauri по умолчанию использует Kotlin для реализации Android-плагина, но при желании вы можете переключиться на Java. После генерации плагина щёлкните правой кнопкой мыши по классу Kotlin-плагина в Android Studio и выберите пункт «Convert Kotlin file to Java file» в меню. Android Studio проведёт вас через миграцию проекта на Java.
+
+### Разработка плагина iOS
+
+Плагин Tauri для iOS определяется как класс Swift, который наследует класс `Plugin` из пакета `Tauri`. Каждая функция с атрибутом `@objc` и параметром `(_ invoke: Invoke)` (например, `@objc private func download(_ invoke: Invoke) { }`) может вызываться из Rust или JavaScript.
+
+Плагин определяется как [Swift-пакет](https://www.swift.org/package-manager/), чтобы вы могли использовать его менеджер пакетов для управления зависимостями.
+
+## Конфигурация плагина
+
+Обратитесь к разделу [Конфигурация плагина](/ru/develop/plugins/#конфигурация-плагина) руководства по разработке плагинов для получения более подробной информации о разработке конфигураций плагинов.
+
+Экземпляр плагина на мобильных устройствах имеет геттер для конфигурации плагина:
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+import app.tauri.annotation.InvokeArg
+
+@InvokeArg
+class Config {
+    var timeout: Int? = 3000
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  private var timeout: Int? = 3000
+
+  override fun load(webView: WebView) {
+    getConfig(Config::class.java).let {
+       this.timeout = it.timeout
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+struct Config: Decodable {
+  let timeout: Int?
+}
+
+class ExamplePlugin: Plugin {
+  var timeout: Int? = 3000
+
+  @objc public override func load(webview: WKWebView) {
+    do {
+      let config = try parseConfig(Config.self)
+      self.timeout = config.timeout
+    } catch {}
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## События жизненного цикла
+
+Плагины могут подключаться к нескольким событиям жизненного цикла:
+
+- [load](#load): когда плагин загружается в web view
+- [onNewIntent](#onnewintent): только Android, когда activity перезапускается
+
+Также существуют дополнительные [события жизненного цикла для плагинов](/ru/develop/plugins/#события-жизненного-цикла) в руководстве по разработке плагинов.
+
+### load
+
+- **Когда**: когда плагин загружается в web view
+- **Зачем**: выполнить код инициализации плагина
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun load(webView: WebView) {
+    // perform plugin setup here
+  }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    let timeout = self.config["timeout"] as? Int ?? 30
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### onNewIntent
+
+**Примечание**: это доступно только на Android.
+
+- **Когда**: когда activity перезапускается. См. [Activity#onNewIntent](<https://developer.android.com/reference/android/app/Activity#onNewIntent(android.content.Intent)>) для получения дополнительной информации.
+- **Зачем**: обрабатывать перезапуск приложения, например когда нажато уведомление или открыта глубокая ссылка.
+
+```kotlin
+import android.app.Activity
+import android.content.Intent
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  override fun onNewIntent(intent: Intent) {
+    // handle new intent event
+  }
+}
+```
+
+## Добавление мобильных команд
+
+В соответствующих мобильных проектах есть класс плагина, в котором можно определять команды, вызываемые из Rust-кода:
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+Если вы хотите использовать Kotlin-функцию `suspend`, вам нужно использовать собственный контекст корутины
+
+```kotlin
+import android.app.Activity
+import app.tauri.annotation.Command
+import app.tauri.annotation.TauriPlugin
+
+// Change to Dispatchers.IO if it is intended for fetching data
+val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    scope.launch {
+      openCameraInner(invoke)
+    }
+  }
+
+  private suspend fun openCameraInner(invoke: Invoke) {
+    val ret = JSObject()
+    ret.put("path", "/path/to/photo.jpg")
+    invoke.resolve(ret)
+  }
+}
+```
+
+:::note
+На Android собственные команды планируются в главном потоке. Выполнение длительных операций приведёт к зависанию интерфейса и, возможно, к ошибке «Application Not Responding» (ANR).
+
+Если вам нужно дождаться блокирующего ввода-вывода, вы можете запустить корутину так:
+
+```kotlin
+CoroutineScope(Dispatchers.IO).launch {
+  val result = myLongRunningOperation()
+  invoke.resolve(result)
+}
+```
+
+:::
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+</TabItem>
+</Tabs>
+
+Используйте [`tauri::plugin::PluginHandle`](https://docs.rs/tauri/2.0.0/tauri/plugin/struct.PluginHandle.html), чтобы вызвать мобильную команду из Rust:
+
+```rust ignore
+use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
+use tauri::Runtime;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CameraRequest {
+  quality: usize,
+  allow_edit: bool,
+}
+
+#[derive(Deserialize)]
+pub struct Photo {
+  path: PathBuf,
+}
+
+
+impl<R: Runtime> Example<R> {
+  pub fn open_camera(&self, payload: CameraRequest) -> crate::Result<Photo> {
+    self
+      .0
+      .run_mobile_plugin("openCamera", payload)
+      .map_err(Into::into)
+  }
+}
+```
+
+## Аргументы команд
+
+Аргументы сериализуются в команды и могут быть разобраны в мобильном плагине с помощью функции `Invoke::parseArgs`, принимающей класс, описывающий объект аргументов.
+
+### Android
+
+На Android аргументы определяются как класс, аннотированный `@app.tauri.annotation.InvokeArg`. Вложенные объекты также должны быть аннотированы:
+
+```kotlin
+import android.app.Activity
+import android.webkit.WebView
+import app.tauri.annotation.Command
+import app.tauri.annotation.InvokeArg
+import app.tauri.annotation.TauriPlugin
+
+@InvokeArg
+internal class OpenAppArgs {
+  lateinit var name: String
+  var timeout: Int? = null
+}
+
+@InvokeArg
+internal class OpenArgs {
+  lateinit var requiredArg: String
+  var allowEdit: Boolean = false
+  var quality: Int = 100
+  var app: OpenAppArgs? = null
+}
+
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+  @Command
+  fun openCamera(invoke: Invoke) {
+    val args = invoke.parseArgs(OpenArgs::class.java)
+  }
+}
+```
+
+:::note
+Необязательные аргументы определяются как `var <argumentName>: Type? = null`
+
+Аргументы со значениями по умолчанию определяются как `var <argumentName>: Type = <default-value>`
+
+Обязательные аргументы определяются как `lateinit var <argumentName>: Type`
+:::
+
+### iOS
+
+На iOS аргументы определяются как класс, который наследует `Decodable`. Вложенные объекты также должны наследовать протокол Decodable:
+
+```swift
+class OpenAppArgs: Decodable {
+  let name: String
+  var timeout: Int?
+}
+
+class OpenArgs: Decodable {
+  let requiredArg: String
+  var allowEdit: Bool?
+  var quality: UInt8?
+  var app: OpenAppArgs?
+}
+
+class ExamplePlugin: Plugin {
+	@objc public func openCamera(_ invoke: Invoke) throws {
+    let args = try invoke.parseArgs(OpenArgs.self)
+
+    invoke.resolve(["path": "/path/to/photo.jpg"])
+	}
+}
+```
+
+:::note
+Необязательные аргументы определяются как `var <argumentName>: Type?`
+
+Аргументы со значениями по умолчанию **НЕ** поддерживаются.
+Вместо этого используйте nullable-тип и задайте значение по умолчанию в функции команды.
+
+Обязательные аргументы определяются как `let <argumentName>: Type`
+:::
+
+## Вызов Rust из мобильных плагинов
+
+Часто предпочтительнее писать код плагина на Rust — для производительности и переиспользуемости. Хотя Tauri напрямую не предоставляет механизм для вызова Rust из кода вашего плагина, использование JNI на Android и FFI на iOS позволяет плагинам вызывать общий код, даже когда WebView приложения приостановлен.
+
+### Android
+
+В `Cargo.toml` вашего плагина добавьте крейт jni в качестве зависимости:
+
+```toml
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.21"
+```
+
+Загрузите библиотеку приложения статически и определите собственные функции в вашем коде Kotlin. В этом примере класс Kotlin — `com.example.HelloWorld`, и нам нужно ссылаться на полное имя пакета со стороны Rust.
+
+```kotlin
+private const val TAG = "MyPlugin"
+
+init {
+  try {
+    // Load the native library (libapp_lib.so)
+    // This is the shared library built by Cargo with crate-type = ["cdylib"]
+    System.loadLibrary("app_lib")
+    Log.d(TAG, "Successfully loaded libapp_lib.so")
+  } catch (e: UnsatisfiedLinkError) {
+    Log.e(TAG, "Failed to load libapp_lib.so", e)
+    throw e
+  }
+}
+
+external fun helloWorld(name: String): String?
+```
+
+Затем в Rust-коде вашего плагина определите функцию, которую будет искать JNI. Формат функции — `Java_package_class_method`, поэтому для нашего класса выше это станет `Java_com_example_HelloWorld_helloWorld`, чтобы её вызывал наш метод `helloWorld`:
+
+```rust
+#[cfg(target_os = "android")]
+#[no_mangle]
+pub extern "system" fn Java_com_example_HelloWorld_helloWorld(
+    mut env: JNIEnv,
+    _class: JClass,
+    name: JString,
+) -> jstring {
+    log::debug!("Calling JNI Hello World!");
+    let result = format!("Hello, {}!", name);
+
+    match env.new_string(result) {
+        Ok(jstr) => jstr.into_raw(),
+        Err(e) => {
+            log::error!("Failed to create JString: {}", e);
+            std::ptr::null_mut()
+        }
+    }
+}
+```
+
+### iOS
+
+iOS использует только стандартный C FFI, поэтому не требует новых зависимостей. Добавьте хук в ваш код Swift, а также необходимую очистку. Эти функции могут называться как угодно, но должны быть аннотированы `@_silgen_name(FFI_FUNC)`, где FFI_FUNC — имя функции, которая будет вызываться из Rust:
+
+```swift
+@_silgen_name("hello_world_ffi")
+private static func helloWorldFFI(_ name: UnsafePointer<CChar>) -> UnsafeMutablePointer<CChar>?
+
+@_silgen_name("free_hello_result_ffi")
+private static func freeHelloResult(_ result: UnsafeMutablePointer<CChar>)
+
+static func helloWorld(name: String) -> String? {
+  // Call Rust FFI
+  let resultPtr = name.withCString({ helloWorldFFI($0) })
+
+  // Convert C string to Swift String
+  let result = String(cString: resultPtr)
+
+  // Free the C string
+  freeHelloResult(resultPtr)
+
+  return result
+}
+
+```
+
+Затем реализуйте сторону Rust. Функции `extern` здесь должны соответствовать аннотациям `@_silgen_name` на стороне Swift:
+
+```rust
+use std::ffi::{c_char, CStr, CString};
+
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn hello_world_ffi(c_name: *const c_char) -> *mut c_char {
+    let name = match CStr::from_ptr(c_name).to_str() {
+        Ok(s) => s,
+        Err(e) => {
+            log::error!("[iOS FFI] Failed to convert C string: {}", e);
+            return std::ptr::null_mut();
+        }
+    };
+
+    let result = format!("Hello, {}!", name);
+
+    match CString::new(result) {
+        Ok(c_str) => c_str.into_raw(),
+        Err(e) => {
+            log::error!("[iOS FFI] Failed to create C string: {}", e);
+            std::ptr::null_mut()
+        }
+    }
+}
+
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn free_hello_result_ffi(result: *mut c_char) {
+    if !result.is_null() {
+        drop(CString::from_raw(result));
+    }
+}
+```
+
+## Страницы памяти Android 16KB
+
+Google переходит к тому, чтобы сделать страницы памяти 16KB обязательными для всех новых отправок приложений Android. Сборка с версией NDK 28 или выше должна автоматически генерировать бандлы, соответствующие этому требованию, но если приходится использовать более старую версию NDK или сгенерированные файлы не выровнены по 16KB, можно добавить следующее в `.cargo/config.toml`, чтобы сообщить об этом `rustc`:
+
+```toml
+[target.aarch64-linux-android]
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
+```
+
+## Разрешения
+
+Если плагину требуются разрешения от конечного пользователя, Tauri упрощает процесс проверки и запроса разрешений.
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+Сначала определите список необходимых разрешений и псевдоним для идентификации каждой группы в коде. Это делается внутри аннотации `TauriPlugin`:
+
+```kotlin
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
+class ExamplePlugin(private val activity: Activity): Plugin(activity) { }
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+Сначала переопределите функции `checkPermissions` и `requestPermissions`:
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc open func checkPermissions(_ invoke: Invoke) {
+    invoke.resolve(["postNotification": "prompt"])
+  }
+
+  @objc public override func requestPermissions(_ invoke: Invoke) {
+    // request permissions here
+    // then resolve the request
+    invoke.resolve(["postNotification": "granted"])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Tauri автоматически реализует две команды для плагина: `checkPermissions` и `requestPermissions`.
+Эти команды можно вызывать напрямую из JavaScript или Rust:
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+
+```typescript
+import { invoke, PermissionState } from '@tauri-apps/api/core';
+
+interface Permissions {
+  postNotification: PermissionState;
+}
+
+// check permission state
+const permission = await invoke<Permissions>(
+  'plugin:<plugin-name>|checkPermissions'
+);
+
+if (permission.postNotification === 'prompt-with-rationale') {
+  // show information to the user about why permission is needed
+}
+
+// request permission
+if (permission.postNotification.startsWith('prompt')) {
+  const state = await invoke<Permissions>(
+    'plugin:<plugin-name>|requestPermissions',
+    { permissions: ['postNotification'] }
+  );
+}
+```
+
+</TabItem>
+<TabItem label="Rust">
+
+```rust ignore
+use serde::{Serialize, Deserialize};
+use tauri::{plugin::PermissionState, Runtime};
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PermissionResponse {
+  pub post_notification: PermissionState,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestPermission {
+  post_notification: bool,
+}
+
+impl<R: Runtime> Notification<R> {
+  pub fn request_post_notification_permission(&self) -> crate::Result<PermissionState> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("requestPermissions", RequestPermission { post_notification: true })
+      .map(|r| r.post_notification)
+      .map_err(Into::into)
+  }
+
+  pub fn check_permissions(&self) -> crate::Result<PermissionResponse> {
+    self.0
+      .run_mobile_plugin::<PermissionResponse>("checkPermissions", ())
+      .map_err(Into::into)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## События плагина
+
+{/* TODO: Is this section a duplicate of Lifecycle Events above? */}
+
+Плагины могут испускать события в любой момент времени с помощью функции `trigger`:
+
+<Tabs syncKey="mobileOs">
+<TabItem label="Android">
+
+```kotlin
+@TauriPlugin
+class ExamplePlugin(private val activity: Activity): Plugin(activity) {
+    override fun load(webView: WebView) {
+      trigger("load", JSObject())
+    }
+
+    override fun onNewIntent(intent: Intent) {
+      // handle new intent event
+      if (intent.action == Intent.ACTION_VIEW) {
+        val data = intent.data.toString()
+        val event = JSObject()
+        event.put("data", data)
+        trigger("newIntent", event)
+      }
+    }
+
+    @Command
+    fun openCamera(invoke: Invoke) {
+      val payload = JSObject()
+      payload.put("open", true)
+      trigger("camera", payload)
+    }
+}
+```
+
+</TabItem>
+<TabItem label="iOS">
+
+```swift
+class ExamplePlugin: Plugin {
+  @objc public override func load(webview: WKWebView) {
+    trigger("load", data: [:])
+  }
+
+  @objc public func openCamera(_ invoke: Invoke) {
+    trigger("camera", data: ["open": true])
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Затем вспомогательные функции можно вызывать из NPM-пакета с помощью вспомогательной функции [`addPluginListener`](/reference/javascript/api/namespacecore/#addpluginlistener):
+
+```typescript
+import { addPluginListener, PluginListener } from '@tauri-apps/api/core';
+
+export async function onRequest(
+  handler: (url: string) => void
+): Promise<PluginListener> {
+  return await addPluginListener('<plugin-name>', 'event-name', handler);
+}
+```
+
+:::note[Требуется возможность]
+
+Прослушивание событий плагина из JavaScript ограничено той же системой [возможностей](/ru/security/capabilities/) и [разрешений](/ru/security/permissions/), которая ограничивает команды плагинов. Добавьте разрешение плагина (обычно `<plugin-name>:default` или конкретное разрешение `allow-listen-*`, если плагин его определяет) в массив `permissions` возможности в `src-tauri/capabilities/`:
+
+```json
+// src-tauri/capabilities/default.json
+{
+  "identifier": "default",
+  "windows": ["main"],
+  "permissions": ["<plugin-name>:default"]
+}
+```
+
+Обратитесь к собственной документации плагина за точными идентификаторами разрешений, которые он предоставляет.
+
+:::

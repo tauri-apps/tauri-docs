@@ -1,0 +1,62 @@
+---
+title: Обновление зависимостей
+i18nReady: true
+---
+
+{/* TODO: Add plugin update example */}
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+## Обновление npm-пакетов
+
+Если вы используете пакет `tauri`:
+
+<CommandTabs
+  npm="npm install @tauri-apps/cli@latest @tauri-apps/api@latest"
+  yarn="yarn up @tauri-apps/cli @tauri-apps/api"
+  pnpm="pnpm update @tauri-apps/cli @tauri-apps/api --latest"
+/>
+
+Вы также можете узнать в командной строке, какова последняя версия Tauri, используя:
+
+<CommandTabs
+  npm="npm outdated @tauri-apps/cli"
+  yarn="yarn outdated @tauri-apps/cli"
+  pnpm="pnpm outdated @tauri-apps/cli"
+/>
+
+## Обновление пакетов Cargo
+
+Вы можете проверить устаревшие пакеты с помощью [`cargo outdated`] или на страницах crates.io: [tauri] / [tauri-build].
+
+Перейдите в `src-tauri/Cargo.toml` и измените `tauri` и `tauri-build` на:
+
+```toml
+[build-dependencies]
+tauri-build = "%version%"
+
+[dependencies]
+tauri = { version = "%version%" }
+```
+
+где `%version%` — соответствующий номер версии из вышесказанного.
+
+Затем выполните следующее:
+
+```shell
+cd src-tauri
+cargo update
+```
+
+В качестве альтернативы вы можете запустить команду `cargo upgrade`, предоставляемую [cargo-edit], которая делает всё это автоматически.
+
+## Синхронизация версий npm-пакетов и крейтов Cargo
+
+Поскольку JavaScript API зависят от кода Rust в бэкенде, добавление новой функции требует обновления обеих сторон для обеспечения совместимости. Пожалуйста, убедитесь, что у вас синхронизированы одинаковая минорная версия npm-пакета `@tauri-apps/api` и крейта Cargo `tauri`.
+
+А для плагинов мы можем вносить такие изменения в патч-выпусках, поэтому мы повышаем версии npm-пакета и крейта Cargo вместе, и вам нужно держать точные версии синхронизированными: например, вам нужна одинаковая версия (например, `2.2.1`) npm-пакета `@tauri-apps/plugin-fs` и крейта Cargo `tauri-plugin-fs`.
+
+[`cargo outdated`]: https://github.com/kbknapp/cargo-outdated
+[tauri]: https://crates.io/crates/tauri/versions
+[tauri-build]: https://crates.io/crates/tauri-build/versions
+[cargo-edit]: https://github.com/killercup/cargo-edit

@@ -1,0 +1,428 @@
+---
+title: Logging
+description: Настраиваемое журналирование.
+plugin: log
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+import PluginPermissions from '@components/PluginPermissions.astro';
+
+<PluginLinks plugin={frontmatter.plugin} />
+
+Настраиваемое журналирование для вашего приложения Tauri.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин log, чтобы начать.
+
+<Tabs>
+  <TabItem label="Automatic" >
+
+    Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    { ' ' }
+
+    <CommandTabs
+      npm="npm run tauri add log"
+      yarn="yarn run tauri add log"
+      pnpm="pnpm tauri add log"
+      deno="deno task tauri add log"
+      bun="bun tauri add log"
+      cargo="cargo tauri add log"
+    />
+
+  </TabItem>
+  <TabItem label = "Manual">
+    <Steps>
+
+    1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+        ```sh frame=none
+        cargo add tauri-plugin-log
+        ```
+
+    2.  Измените `lib.rs`, чтобы инициализировать плагин:
+
+        ```rust title="src-tauri/src/lib.rs" ins={4}
+        #[cfg_attr(mobile, tauri::mobile_entry_point)]
+        pub fn run() {
+            tauri::Builder::default()
+                .plugin(tauri_plugin_log::Builder::new().build())
+                .run(tauri::generate_context!())
+                .expect("error while running tauri application");
+        }
+        ```
+
+    3.  Установите JavaScript-привязки с помощью предпочитаемого менеджера пакетов JavaScript:
+
+        <CommandTabs
+          npm = "npm install @tauri-apps/plugin-log"
+          yarn = "yarn add @tauri-apps/plugin-log"
+          pnpm = "pnpm add @tauri-apps/plugin-log"
+          deno = "deno add npm:@tauri-apps/plugin-log"
+          bun = "bun add @tauri-apps/plugin-log"
+        />
+
+    </Steps>
+
+  </TabItem>
+</Tabs>
+
+## Использование
+
+  <Steps>
+
+1.  Сначала вам нужно зарегистрировать плагин в Tauri.
+
+    ```rust title="src-tauri/src/lib.rs" {1} {6-14}
+    use tauri_plugin_log::{Target, TargetKind};
+
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        tauri::Builder::default()
+            .plugin(tauri_plugin_log::Builder::new().build())
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+2.  После этого все API плагина доступны через JavaScript-привязки:
+
+    ```javascript
+    import {
+      warn,
+      debug,
+      trace,
+      info,
+      error,
+      attachConsole,
+      attachLogger,
+    } from '@tauri-apps/plugin-log';
+    // when using `"withGlobalTauri": true`, you may use
+    // const { warn, debug, trace, info, error, attachConsole, attachLogger } = window.__TAURI__.log;
+    ```
+
+  </Steps>
+
+## Журналирование
+
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+Используйте один из API плагина — `warn`, `debug`, `trace`, `info` или `error` — чтобы создать запись журнала из кода JavaScript:
+
+```js
+import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
+
+trace('Trace');
+info('Info');
+error('Error');
+```
+
+Чтобы автоматически перенаправлять все сообщения `console` в плагин журнала, вы можете переопределить их:
+
+```ts
+import { warn, debug, trace, info, error } from '@tauri-apps/plugin-log';
+
+function forwardConsole(
+  fnName: 'log' | 'debug' | 'info' | 'warn' | 'error',
+  logger: (message: string) => Promise<void>
+) {
+  const original = console[fnName];
+  console[fnName] = (message) => {
+    original(message);
+    logger(message);
+  };
+}
+
+forwardConsole('log', trace);
+forwardConsole('debug', debug);
+forwardConsole('info', info);
+forwardConsole('warn', warn);
+forwardConsole('error', error);
+```
+
+</TabItem>
+
+<TabItem label="Rust">
+Чтобы создавать собственные журналы на стороне Rust, вы можете использовать [`log` крейт]:
+
+```rust
+log::error!("something bad happened!");
+log::info!("Tauri is awesome!");
+```
+
+Обратите внимание, что [`log` крейт] должен быть добавлен в ваш файл `Cargo.toml`:
+
+```toml
+[dependencies]
+log = "0.4"
+```
+
+</TabItem>
+</Tabs>
+
+## Целевые точки журнала
+
+Конструктор плагина журнала имеет функцию `targets`, которая позволяет настроить общее назначение всех журналов вашего приложения.
+
+:::note
+По умолчанию плагин записывает журналы в stdout и в файл в каталоге журналов приложения.
+Чтобы использовать только собственные целевые точки, вызовите `clear_targets`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+.clear_targets()
+.build()
+# )
+```
+
+:::
+
+### Вывод журналов в терминал
+
+Чтобы перенаправлять все ваши журналы в терминал, включите целевые точки `Stdout` или `Stderr`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Stdout,
+  ))
+  .build()
+# )
+```
+
+Эта целевая точка включена по умолчанию.
+
+### Журналирование в консоль webview
+
+Чтобы просматривать все ваши журналы Rust в консоли webview, включите целевую точку `Webview` и выполните `attachConsole` на вашем фронтенде:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Webview,
+  ))
+  .build()
+# )
+```
+
+```js
+import { attachConsole } from '@tauri-apps/plugin-log';
+const detach = await attachConsole();
+// call detach() if you do not want to print logs to the console anymore
+```
+
+### Сохранение журналов
+
+Чтобы записывать все журналы в файл, вы можете использовать целевую точку `LogDir` или `Folder`.
+
+- `LogDir`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::LogDir {
+      file_name: Some("logs".to_string()),
+    },
+  ))
+  .build()
+# )
+```
+
+При использовании целевой точки LogDir все журналы сохраняются в рекомендуемом каталоге журналов.
+Следующая таблица описывает расположение журналов для каждой платформы:
+
+| Платформа | Значение                                                                                  | Пример                                            |
+| --------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Linux     | `$XDG_DATA_HOME/{bundleIdentifier}/logs` или `$HOME/.local/share/{bundleIdentifier}/logs` | `/home/alice/.local/share/com.tauri.dev/logs`     |
+| macOS     | `{homeDir}/Library/Logs/{bundleIdentifier}`                                               | `/Users/Alice/Library/Logs/com.tauri.dev`         |
+| Windows   | `{FOLDERID_LocalAppData}/{bundleIdentifier}/logs`                                         | `C:\Users\Alice\AppData\Local\com.tauri.dev\logs` |
+
+- `Folder`:
+
+Целевая точка Folder позволяет записывать журналы в пользовательское расположение в файловой системе.
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .target(tauri_plugin_log::Target::new(
+    tauri_plugin_log::TargetKind::Folder {
+      path: std::path::PathBuf::from("/path/to/logs"),
+      file_name: None,
+    },
+  ))
+  .build()
+# )
+```
+
+Имя файла `file_name` по умолчанию — имя приложения.
+
+#### Настройка поведения файла журнала
+
+По умолчанию файл журнала отбрасывается, когда достигает максимального размера.
+Максимальный размер файла можно настроить с помощью функции `max_file_size` конструктора:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .max_file_size(50_000 /* bytes */)
+  .build()
+# )
+```
+
+Tauri может автоматически вращать ваш файл журнала, когда он достигает ограничения размера, вместо отбрасывания предыдущего файла.
+Это поведение можно настроить с помощью `rotation_strategy`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .rotation_strategy(tauri_plugin_log::RotationStrategy::KeepAll)
+  .build()
+# )
+```
+
+### Фильтрация
+
+По умолчанию обрабатываются **все** журналы. Существуют механизмы для сокращения количества журналов и фильтрации только релевантной информации.
+
+### Максимальный уровень журнала
+
+Чтобы задать максимальный уровень журнала, используйте функцию `level`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .level(log::LevelFilter::Info)
+  .build()
+# )
+```
+
+В этом примере журналы debug и trace отбрасываются, так как они имеют более низкий уровень, чем _info_.
+
+Также можно задать отдельные максимальные уровни для отдельных модулей:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .level(log::LevelFilter::Info)
+  // verbose logs only for the commands module
+  .level_for("my_crate_name::commands", log::LevelFilter::Trace)
+  .build()
+# )
+```
+
+Обратите внимание, что эти API используют [`log` крейт], который должен быть добавлен в ваш файл `Cargo.toml`:
+
+```toml
+[dependencies]
+log = "0.4"
+```
+
+### Фильтр целевых точек
+
+Можно определить функцию `filter`, чтобы отбрасывать нежелательные журналы, проверяя их метаданные:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  // exclude logs with target `"hyper"`
+  .filter(|metadata| metadata.target() != "hyper")
+  .build()
+# )
+```
+
+### Форматирование
+
+Плагин журнала форматирует каждую запись журнала как `DATE[TARGET][LEVEL] MESSAGE`.
+Пользовательскую функцию форматирования можно задать с помощью `format`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .format(|out, message, record| {
+    out.finish(format_args!(
+      "[{} {}] {}",
+      record.level(),
+      record.target(),
+      message
+    ))
+  })
+  .build()
+# )
+```
+
+### Применение другого формата к целевым точкам
+
+Вы можете указать собственный формат журнала для конкретных целевых точек, используя метод `format`
+на `tauri_plugin_log::Target`. Возможно, вы также захотите вызвать `clear_format` на конструкторе,
+чтобы удалить стандартный форматировщик, который применяется ко всем целевым точкам:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+    .clear_format()
+    .targets([
+        tauri_plugin_log::Target::new(
+            tauri_plugin_log::TargetKind::Stdout
+        )
+        .format(move |out, message, record| {
+            // custom formatter for stdout
+        }),
+        tauri_plugin_log::Target::new(
+            tauri_plugin_log::TargetKind::LogDir { file_name: None }
+        )
+        .format(move |out, message, record| {
+            // custom formatter for log files
+        }),
+    ])
+    .build(),
+# )
+```
+
+#### Даты журналов
+
+По умолчанию плагин журнала использует часовой пояс UTC для форматирования дат,
+но вы можете настроить его на использование локального часового пояса с помощью `timezone_strategy`:
+
+```rust
+# tauri::Builder::default().plugin(
+tauri_plugin_log::Builder::new()
+  .timezone_strategy(tauri_plugin_log::TimezoneStrategy::UseLocal)
+  .build()
+# )
+```
+
+## Разрешения
+
+По умолчанию все команды плагина заблокированы и недоступны.
+Вы должны определить список разрешений в вашей конфигурации `capabilities`.
+
+См. [Обзор возможностей](/ru/security/capabilities/) для получения дополнительной информации и [пошаговое руководство](/ru/learn/security/using-plugin-permissions/) по использованию разрешений плагинов.
+
+```json title="src-tauri/capabilities/default.json" ins={6}
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": ["log:default"]
+}
+```
+
+<PluginPermissions plugin={frontmatter.plugin} />
+
+[`log` крейт]: https://crates.io/crates/log

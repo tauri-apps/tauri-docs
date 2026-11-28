@@ -1,0 +1,741 @@
+---
+title: Вызов Rust из фронтенда
+i18nReady: true
+---
+
+import { Content as FrontendListen } from './_sections/frontend-listen.mdx';
+
+Этот документ содержит руководства по взаимодействию с вашим кодом Rust из фронтенда приложения.
+Чтобы узнать, как взаимодействовать с фронтендом из кода Rust, см. [Вызов фронтенда из Rust].
+
+Tauri предоставляет [команду](#команды) как примитив для вызова функций Rust с безопасностью типов,
+а также [систему событий](#система-событий), которая является более динамичной.
+
+## Команды
+
+Tauri предоставляет простую, но мощную систему `command` для вызова функций Rust из вашего веб-приложения.
+Команды могут принимать аргументы и возвращать значения. Они также могут возвращать ошибки и быть `async`.
+
+### Базовый пример
+
+Команды можно определять в файле `src-tauri/src/lib.rs`.
+Чтобы создать команду, просто добавьте функцию и аннотируйте её с помощью `#[tauri::command]`:
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn my_custom_command() {
+	println!("I was invoked from JavaScript!");
+}
+```
+
+:::note
+Имена команд должны быть уникальными.
+:::
+
+:::note
+Команды, определённые в файле `lib.rs`, нельзя помечать как `pub` из-за ограничения в генерации связующего кода.
+Если вы пометите её как публичную функцию, вы увидите подобную ошибку:
+
+```
+error[E0255]: the name `__cmd__command_name` is defined multiple times
+  --> src/lib.rs:28:8
+   |
+27 | #[tauri::command]
+   | ----------------- previous definition of the macro `__cmd__command_name` here
+28 | pub fn x() {}
+   |        ^ `__cmd__command_name` reimported here
+   |
+   = note: `__cmd__command_name` must be defined only once in the macro namespace of this module
+```
+
+:::
+
+Вам придётся предоставить список ваших команд функции-сборщику следующим образом:
+
+```rust title="src-tauri/src/lib.rs" ins={4}
+# #[tauri::command]
+# fn my_custom_command() {}
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+Теперь вы можете вызвать команду из вашего кода JavaScript:
+
+```javascript
+// When using the Tauri API npm package:
+import { invoke } from '@tauri-apps/api/core';
+
+// When using the Tauri global script (if not using the npm package)
+// Be sure to set `app.withGlobalTauri` in `tauri.conf.json` to true
+// const invoke = window.__TAURI__.core.invoke;
+
+// Invoke the command
+invoke('my_custom_command');
+```
+
+#### Определение команд в отдельном модуле
+
+Если ваше приложение определяет много компонентов или их можно сгруппировать,
+вы можете определять команды в отдельном модуле, вместо того чтобы раздувать файл `lib.rs`.
+
+В качестве примера давайте определим команду в файле `src-tauri/src/commands.rs`:
+
+```rust title="src-tauri/src/commands.rs"
+#[tauri::command]
+pub fn my_custom_command() {
+	println!("I was invoked from JavaScript!");
+}
+```
+
+:::note
+При определении команд в отдельном модуле их следует помечать как `pub`.
+:::
+
+:::note
+Имя команды не ограничено модулем, поэтому они должны быть уникальными даже между модулями.
+:::
+
+В файле `lib.rs` определите модуль и предоставьте список ваших команд соответствующим образом:
+
+```rust title="src-tauri/src/lib.rs" ins={6} ignore
+mod commands;
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![commands::my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+Обратите внимание на префикс `commands::` в списке команд, который указывает полный путь к функции команды.
+
+Имя команды в этом примере — `my_custom_command`, поэтому вы по-прежнему можете вызывать её, выполняя `invoke("my_custom_command")`
+во фронтенде; префикс `commands::` игнорируется.
+
+#### WASM
+
+При использовании Rust-фронтенда для вызова `invoke()` без аргументов вам потребуется адаптировать код фронтенда, как показано ниже.
+Причина в том, что Rust не поддерживает необязательные аргументы.
+
+```rust ins={4-5}
+# use wasm_bindgen::prelude::*;
+#[wasm_bindgen]
+extern "C" {
+    // invoke without arguments
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"], js_name = invoke)]
+    async fn invoke_without_args(cmd: &str) -> JsValue;
+
+    // invoke with arguments (default)
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
+    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
+
+    // They need to have different names!
+}
+```
+
+### Передача аргументов
+
+Обработчики ваших команд могут принимать аргументы:
+
+```rust
+#[tauri::command]
+fn my_custom_command(invoke_message: String) {
+	println!("I was invoked from JavaScript, with this message: {}", invoke_message);
+}
+```
+
+Аргументы следует передавать как JSON-объект с ключами в camelCase:
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
+invoke('my_custom_command', { invokeMessage: 'Hello!' });
+```
+
+:::note
+Вы можете использовать `snake_case` для аргументов с помощью атрибута `rename_all`:
+
+```rust
+#[tauri::command(rename_all = "snake_case")]
+fn my_custom_command(invoke_message: String) {}
+```
+
+Соответствующий JavaScript:
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
+invoke('my_custom_command', { invoke_message: 'Hello!' });
+```
+
+:::
+
+Аргументы могут быть любого типа, если они реализуют [`serde::Deserialize`].
+
+### Возврат данных
+
+Обработчики команд также могут возвращать данные:
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> String {
+	"Hello from Rust!".into()
+}
+```
+
+Функция `invoke` возвращает promise, который разрешается возвращённым значением:
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
+invoke('my_custom_command').then((message) => console.log(message));
+```
+
+Возвращаемые данные могут быть любого типа, если они реализуют [`serde::Serialize`].
+
+#### Возврат буферов массивов
+
+Возвращаемые значения, реализующие [`serde::Serialize`], сериализуются в JSON, когда ответ отправляется во фронтенд.
+Это может замедлить ваше приложение, если вы попытаетесь вернуть большие данные, такие как файл или HTTP-ответ загрузки.
+Чтобы возвращать буферы массивов оптимизированным способом, используйте [`tauri::ipc::Response`]:
+
+```rust
+use tauri::ipc::Response;
+#[tauri::command]
+fn read_file() -> Response {
+	let data = std::fs::read("/path/to/file").unwrap();
+	tauri::ipc::Response::new(data)
+}
+```
+
+### Обработка ошибок
+
+Если ваш обработчик может завершиться неудачей и ему нужно иметь возможность вернуть ошибку, заставьте функцию возвращать `Result`:
+
+```rust
+#[tauri::command]
+fn login(user: String, password: String) -> Result<String, String> {
+	if user == "tauri" && password == "tauri" {
+		// resolve
+		Ok("logged_in".to_string())
+	} else {
+		// reject
+		Err("invalid credentials".to_string())
+	}
+}
+```
+
+Если команда возвращает ошибку, promise будет отклонён, в противном случае — разрешён:
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
+invoke('login', { user: 'tauri', password: '0j4rijw8=' })
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error));
+```
+
+Как упоминалось выше, всё, что возвращается из команд, должно реализовывать [`serde::Serialize`], включая ошибки.
+Это может быть проблематично при работе с типами ошибок из стандартной библиотеки Rust или внешних крейтов, так как большинство типов ошибок не реализуют его.
+В простых сценариях вы можете использовать `map_err`, чтобы преобразовать эти ошибки в `String`:
+
+```rust
+#[tauri::command]
+fn my_custom_command() -> Result<(), String> {
+	std::fs::File::open("path/to/file").map_err(|err| err.to_string())?;
+	// Return `null` on success
+	Ok(())
+}
+```
+
+Поскольку это не очень идиоматично, вы, возможно, захотите создать собственный тип ошибки, реализующий `serde::Serialize`.
+В следующем примере мы используем крейт [`thiserror`] для создания типа ошибки.
+Он позволяет превращать перечисления в типы ошибок путём наследования трейта `thiserror::Error`.
+Вы можете обратиться к его документации за более подробной информацией.
+
+```rust
+// create the error type that represents all errors possible in our program
+#[derive(Debug, thiserror::Error)]
+enum Error {
+	#[error(transparent)]
+	Io(#[from] std::io::Error)
+}
+
+// we must manually implement serde::Serialize
+impl serde::Serialize for Error {
+	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+	where
+		S: serde::ser::Serializer,
+	{
+		serializer.serialize_str(self.to_string().as_ref())
+	}
+}
+
+#[tauri::command]
+fn my_custom_command() -> Result<(), Error> {
+	// This will return an error
+	std::fs::File::open("path/that/does/not/exist")?;
+	// Return `null` on success
+	Ok(())
+}
+```
+
+Пользовательский тип ошибки имеет преимущество: все возможные ошибки становятся явными, поэтому читатели могут быстро определить, какие ошибки могут произойти.
+Это экономит огромное количество времени другим людям (и вам самим) при последующем ревью и рефакторинге кода.<br/>
+Это также даёт вам полный контроль над тем, как сериализуется ваш тип ошибки.
+В приведённом выше примере мы просто возвращали сообщение об ошибке как строку, но вы могли бы назначить каждой ошибке код,
+чтобы легче сопоставлять его, например, с аналогичным перечислением ошибок TypeScript:
+
+```rust
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error(transparent)]
+  Io(#[from] std::io::Error),
+  #[error("failed to parse as string: {0}")]
+  Utf8(#[from] std::str::Utf8Error),
+}
+
+#[derive(serde::Serialize)]
+#[serde(tag = "kind", content = "message")]
+#[serde(rename_all = "camelCase")]
+enum ErrorKind {
+  Io(String),
+  Utf8(String),
+}
+
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    let error_message = self.to_string();
+    let error_kind = match self {
+      Self::Io(_) => ErrorKind::Io(error_message),
+      Self::Utf8(_) => ErrorKind::Utf8(error_message),
+    };
+    error_kind.serialize(serializer)
+  }
+}
+
+#[tauri::command]
+fn read() -> Result<Vec<u8>, Error> {
+  let data = std::fs::read("/path/to/file")?;
+	Ok(data)
+}
+```
+
+Теперь во фронтенде вы получаете объект ошибки `{ kind: 'io' | 'utf8', message: string }`:
+
+```ts
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
+type ErrorKind = {
+  kind: 'io' | 'utf8';
+  message: string;
+};
+
+invoke('read').catch((e: ErrorKind) => {});
+```
+
+### Асинхронные команды
+
+В Tauri асинхронные команды предпочтительны для выполнения тяжёлой работы таким образом, чтобы не вызывать зависаний или замедлений UI.
+
+:::note
+
+Асинхронные команды выполняются в отдельной асинхронной задаче с помощью [`async_runtime::spawn`].
+Команды без ключевого слова _async_ выполняются в главном потоке, если не определены с _#[tauri::command(async)]_.
+
+:::
+
+**Если вашей команде нужно выполняться асинхронно, просто объявите её как `async`.**
+
+:::caution
+
+Вам нужно быть осторожным при создании асинхронных функций с помощью Tauri.
+В настоящее время вы не можете просто включить заимствованные аргументы в сигнатуру асинхронной функции.
+Некоторые распространённые примеры таких типов — `&str` и `State<'_, Data>`.
+Это ограничение отслеживается здесь: https://github.com/tauri-apps/tauri/issues/2533, а обходные пути показаны ниже.
+
+:::
+
+При работе с заимствованными типами вам приходится вносить дополнительные изменения. Вот два основных варианта:
+
+**Вариант 1**: Преобразуйте тип, например `&str`, в похожий тип, который не является заимствованным, например `String`.
+Это может не сработать для всех типов, например `State<'_, Data>`.
+
+_Пример:_
+
+```rust
+# async fn some_async_function() {}
+// Declare the async function using String instead of &str, as &str is borrowed and thus unsupported
+#[tauri::command]
+async fn my_custom_command(value: String) -> String {
+	// Call another async function and wait for it to finish
+	some_async_function().await;
+	value
+}
+```
+
+**Вариант 2**: Оберните тип возвращаемого значения в [`Result`]. Этот вариант немного сложнее реализовать, но работает для всех типов.
+
+Используйте тип возвращаемого значения `Result<a, b>`, заменив `a` на тип, который вы хотите вернуть, или `()`, если вы хотите вернуть `null`, и заменив `b` на тип ошибки, возвращаемый в случае сбоя, или `()`, если вы не хотите возвращать ошибку. Например:
+
+- `Result<String, ()>` для возврата String без ошибки.
+- `Result<(), ()>` для возврата `null`.
+- `Result<bool, Error>` для возврата логического значения или ошибки, как показано в разделе [Обработка ошибок](#обработка-ошибок) выше.
+
+_Пример:_
+
+```rust
+# async fn some_async_function() {}
+// Return a Result<String, ()> to bypass the borrowing issue
+#[tauri::command]
+async fn my_custom_command(value: &str) -> Result<String, ()> {
+	// Call another async function and wait for it to finish
+	some_async_function().await;
+	// Note that the return value must be wrapped in `Ok()` now.
+	Ok(format!("{}", value))
+}
+```
+
+##### Вызов из JavaScript
+
+Поскольку вызов команды из JavaScript уже возвращает promise, он работает как любая другая команда:
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+// ---cut---
+invoke('my_custom_command', { value: 'Hello, Async!' }).then(() =>
+  console.log('Completed!')
+);
+```
+
+### Каналы
+
+Канал Tauri — рекомендуемый механизм для потоковой передачи данных, таких как потоковые HTTP-ответы, во фронтенд.
+Следующий пример читает файл и уведомляет фронтенд о прогрессе порциями по 4096 байт:
+
+```rust
+use tokio::io::AsyncReadExt;
+
+#[tauri::command]
+async fn load_image(path: std::path::PathBuf, reader: tauri::ipc::Channel<&[u8]>) {
+  // for simplicity this example does not include error handling
+  let mut file = tokio::fs::File::open(path).await.unwrap();
+
+  let mut chunk = vec![0; 4096];
+
+  loop {
+    let len = file.read(&mut chunk).await.unwrap();
+    if len == 0 {
+      // Length of zero means end of file.
+      break;
+    }
+    reader.send(&chunk).unwrap();
+  }
+}
+```
+
+См. [документацию по каналам] для получения дополнительной информации.
+
+### Доступ к WebviewWindow в командах
+
+Команды могут получить доступ к экземпляру `WebviewWindow`, который вызвал сообщение:
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn my_custom_command(webview_window: tauri::WebviewWindow) {
+	println!("WebviewWindow: {}", webview_window.label());
+}
+```
+
+### Доступ к AppHandle в командах
+
+Команды могут получить доступ к экземпляру `AppHandle`:
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+async fn my_custom_command(app_handle: tauri::AppHandle) {
+	use tauri::Manager;
+	use tauri_plugin_global_shortcut::GlobalShortcutExt;
+	let app_dir = app_handle.path().app_data_dir();
+	app_handle.global_shortcut().register("CTRL + U");
+}
+```
+
+:::tip
+
+`AppHandle` и `WebviewWindow` оба принимают обобщённый параметр `R: Runtime`,
+когда в `tauri` включена возможность `wry` (которая включена по умолчанию),
+мы по умолчанию задаём обобщённый тип как среду выполнения `Wry`, поэтому вы можете использовать его напрямую,
+но если вы хотите использовать другую среду выполнения, например [mock runtime],
+вам нужно писать свои функции следующим образом
+
+```rust title="src-tauri/src/lib.rs" ins="<R: Runtime>" ins="<R>"
+use tauri::{AppHandle, Manager, Runtime, WebviewWindow};
+use tauri_plugin_global_shortcut::GlobalShortcutExt;
+
+#[tauri::command]
+async fn my_custom_command<R: Runtime>(app_handle: AppHandle<R>, webview_window: WebviewWindow<R>) {
+  let app_dir = app_handle.path().app_data_dir();
+  app_handle
+    .global_shortcut()
+    .register("CTRL + U");
+  println!("WebviewWindow: {}", webview_window.label());
+}
+```
+
+:::
+
+### Доступ к управляемому состоянию
+
+Tauri может управлять состоянием с помощью функции `manage` на `tauri::Builder`.
+К состоянию можно получить доступ в команде с помощью `tauri::State`:
+
+```rust title="src-tauri/src/lib.rs"
+struct MyState(String);
+
+#[tauri::command]
+fn my_custom_command(state: tauri::State<MyState>) {
+	assert_eq!(state.0 == "some state value", true);
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.manage(MyState("some state value".into()))
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+### Доступ к необработанному запросу
+
+Команды Tauri также могут получить доступ к полному объекту [`tauri::ipc::Request`], который включает необработанное тело запроса и заголовки запроса.
+
+```rust
+#[derive(Debug, thiserror::Error)]
+enum Error {
+  #[error("unexpected request body")]
+  RequestBodyMustBeRaw,
+  #[error("missing `{0}` header")]
+  MissingHeader(&'static str),
+}
+
+impl serde::Serialize for Error {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::ser::Serializer,
+  {
+    serializer.serialize_str(self.to_string().as_ref())
+  }
+}
+
+#[tauri::command]
+fn upload(request: tauri::ipc::Request) -> Result<(), Error> {
+  let tauri::ipc::InvokeBody::Raw(upload_data) = request.body() else {
+    return Err(Error::RequestBodyMustBeRaw);
+  };
+  let Some(authorization_header) = request.headers().get("Authorization") else {
+    return Err(Error::MissingHeader("Authorization"));
+  };
+
+  // upload...
+
+  Ok(())
+}
+```
+
+Во фронтенде вы можете вызвать invoke(), отправив необработанное тело запроса, предоставив ArrayBuffer или Uint8Array в аргументе payload,
+и включить заголовки запроса в третий аргумент:
+
+```js
+const data = new Uint8Array([1, 2, 3]);
+await window.__TAURI__.core.invoke('upload', data, {
+  headers: {
+    Authorization: 'apikey',
+  },
+});
+```
+
+### Создание нескольких команд
+
+Макрос `tauri::generate_handler!` принимает массив команд. Чтобы зарегистрировать
+несколько команд, вы не можете вызывать invoke_handler несколько раз. Будет использован только последний
+вызов. Вы должны передать каждую команду в один вызов
+`tauri::generate_handler!`.
+
+```rust title="src-tauri/src/lib.rs"
+#[tauri::command]
+fn cmd_a() -> String {
+	"Command a".into()
+}
+#[tauri::command]
+fn cmd_b() -> String {
+	"Command b".into()
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.invoke_handler(tauri::generate_handler![cmd_a, cmd_b])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+### Полный пример
+
+Любые или все вышеперечисленные возможности можно комбинировать:
+
+```rust title="src-tauri/src/lib.rs"
+struct Database;
+
+#[derive(serde::Serialize)]
+struct CustomResponse {
+	message: String,
+	other_val: usize,
+}
+
+async fn some_other_function() -> Option<String> {
+	Some("response".into())
+}
+
+#[tauri::command]
+async fn my_custom_command(
+	window: tauri::WebviewWindow,
+	number: usize,
+	database: tauri::State<'_, Database>,
+) -> Result<CustomResponse, String> {
+	println!("Called from {}", window.label());
+	let result: Option<String> = some_other_function().await;
+	if let Some(message) = result {
+		Ok(CustomResponse {
+			message,
+			other_val: 42 + number,
+		})
+	} else {
+		Err("No result".into())
+	}
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+	tauri::Builder::default()
+		.manage(Database {})
+		.invoke_handler(tauri::generate_handler![my_custom_command])
+		.run(tauri::generate_context!())
+		.expect("error while running tauri application");
+}
+```
+
+```javascript
+import { invoke } from '@tauri-apps/api/core';
+
+// Invocation from JavaScript
+invoke('my_custom_command', {
+  number: 42,
+})
+  .then((res) =>
+    console.log(`Message: ${res.message}, Other Val: ${res.other_val}`)
+  )
+  .catch((e) => console.error(e));
+```
+
+## Система событий
+
+Система событий — это более простой механизм связи между вашим фронтендом и Rust.
+В отличие от команд, события небезопасны по типам, всегда асинхронны, не могут возвращать значения и поддерживают только JSON-нагрузки.
+
+### Глобальные события
+
+Чтобы вызвать глобальное событие, вы можете использовать функции [event.emit] или [WebviewWindow#emit]:
+
+```js
+import { emit } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+// emit(eventName, payload)
+emit('file-selected', '/path/to/file');
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.emit('route-changed', { url: window.location.href });
+```
+
+:::note
+Глобальные события доставляются **всем** слушателям
+:::
+
+### Событие webview
+
+Чтобы вызвать событие для слушателя, зарегистрированного конкретным webview, вы можете использовать функции [event.emitTo] или [WebviewWindow#emitTo]:
+
+```js
+import { emitTo } from '@tauri-apps/api/event';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+// emitTo(webviewLabel, eventName, payload)
+emitTo('settings', 'settings-update-requested', {
+  key: 'notification',
+  value: 'all',
+});
+
+const appWebview = getCurrentWebviewWindow();
+appWebview.emitTo('editor', 'file-changed', {
+  path: '/path/to/file',
+  contents: 'file contents',
+});
+```
+
+:::note
+События, специфичные для webview, **не** передаются обычным глобальным слушателям событий.
+Чтобы слушать **любое** событие, вы должны передать опцию `{ target: { kind: 'Any' } }` в функцию [event.listen],
+которая задаёт слушателю действовать как «ловушка для всего» для испускаемых событий:
+
+```js
+import { listen } from '@tauri-apps/api/event';
+listen(
+  'state-changed',
+  (event) => {
+    console.log('got state changed event', event);
+  },
+  {
+    target: { kind: 'Any' },
+  }
+);
+```
+
+:::
+
+### Прослушивание событий
+
+<FrontendListen />
+
+Чтобы узнать, как слушать события и испускать события из вашего кода Rust, см. [документацию по системе событий Rust].
+
+[вызов фронтенда из rust]: /ru/develop/calling-frontend/
+[`async_runtime::spawn`]: https://docs.rs/tauri/2.0.0/tauri/async_runtime/fn.spawn.html
+[`serde::serialize`]: https://docs.serde.rs/serde/trait.Serialize.html
+[`serde::deserialize`]: https://docs.serde.rs/serde/trait.Deserialize.html
+[`tauri::ipc::Response`]: https://docs.rs/tauri/2.0.0/tauri/ipc/struct.Response.html
+[`tauri::ipc::Request`]: https://docs.rs/tauri/2.0.0/tauri/ipc/struct.Request.html
+[`thiserror`]: https://github.com/dtolnay/thiserror
+[`result`]: https://doc.rust-lang.org/std/result/index.html
+[event.emit]: /reference/javascript/api/namespaceevent/#emit
+[event.listen]: /reference/javascript/api/namespaceevent/#listen
+[WebviewWindow#emit]: /reference/javascript/api/namespacewebviewwindow/#emit
+[event.emitTo]: /reference/javascript/api/namespaceevent/#emitto
+[WebviewWindow#emitTo]: /reference/javascript/api/namespacewebviewwindow/#emitto
+[документацию по системе событий rust]: /ru/develop/calling-frontend/#система-событий
+[документацию по каналам]: /ru/develop/calling-frontend/#каналы
+[Calling Rust from the Frontend]: /ru/develop/calling-rust/
+[mock runtime]: https://docs.rs/tauri/2.0.0/tauri/test/struct.MockRuntime.html

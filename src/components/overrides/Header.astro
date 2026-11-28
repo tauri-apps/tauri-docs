@@ -27,7 +27,7 @@ const { topics } = Astro.locals.starlightSidebarTopics;
           data-locale-link={link.transfer ? link.value : undefined}
           class:list={{ 'starlight-sidebar-topics-current': current }}
         >
-          {topic?.label ?? link.title}
+          {topic?.label ?? (link.titleRu && curLocale ? link.titleRu : link.title)}
         </a>
       );
     })}

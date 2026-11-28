@@ -1,0 +1,247 @@
+---
+title: Selenium
+sidebar:
+  order: 31
+i18nReady: true
+---
+
+import CommandTabs from '@components/CommandTabs.astro';
+
+:::note
+
+Убедитесь, что вы прошли [инструкции по предварительным требованиям], чтобы иметь возможность следовать этому руководству.
+
+:::
+
+Этот пример тестирования WebDriver будет использовать [Selenium] и популярный набор тестов Node.js. Предполагается, что у вас уже
+установлен Node.js, а также `npm` или `yarn`, хотя [готовый пример проекта] использует `pnpm`.
+
+## Создание каталога для тестов
+
+Давайте создадим пространство для написания этих тестов в нашем проекте. Мы будем использовать вложенный каталог для
+этого примерного проекта, так как позже мы также рассмотрим другие фреймворки, но обычно вам понадобится только один. Создайте
+каталог, который мы будем использовать, командой `mkdir -p e2e-tests`. Остальная часть этого руководства предполагает, что вы находитесь внутри
+каталога `e2e-tests`.
+
+## Инициализация проекта Selenium
+
+Мы будем использовать предсуществующий `package.json` для начальной настройки этого набора тестов, потому что мы уже выбрали конкретные
+зависимости и хотим показать простое рабочее решение. Внизу этого раздела есть свёрнутое
+руководство о том, как настроить его с нуля.
+
+`package.json`:
+
+```json
+{
+  "name": "selenium",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
+    "selenium-webdriver": "^4.34.0"
+  }
+}
+```
+
+У нас есть скрипт, который запускает [Mocha] как тестовый фреймворк, доступный как команда `test`. У нас также есть различные зависимости,
+которые мы будем использовать для запуска тестов. [Mocha] как тестовый фреймворк, [Chai] как библиотека утверждений и
+[`selenium-webdriver`] — это Node.js-пакет [Selenium].
+
+<details>
+  <summary>Нажмите на меня, если хотите увидеть, как настроить проект с нуля</summary>
+
+Если вы хотите установить зависимости с нуля, просто выполните следующую команду.
+
+<CommandTabs
+  npm="npm install mocha chai selenium-webdriver"
+  yarn="yarn add mocha chai selenium-webdriver"
+/>
+
+Я также предлагаю добавить пункт `"test": "mocha"` в ключ `"scripts"` файла `package.json`, чтобы запуск Mocha можно было
+вызывать
+просто с помощью
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+</details>
+
+## Тестирование
+
+В отличие от [набора тестов WebdriverIO](/ru/develop/tests/webdriver/example/webdriverio/#конфигурация), Selenium не предоставляет набор тестов из коробки и
+оставляет разработчику возможность создавать их. Мы выбрали [Mocha], который довольно нейтрален и не связан с WebDrivers, поэтому нашему скрипту придётся немного поработать, чтобы настроить всё для нас в правильном порядке. [Mocha] ожидает
+файл тестов в `test/test.js` по умолчанию, поэтому давайте создадим этот файл сейчас.
+
+`test/test.js`:
+
+```javascript
+import os from 'os';
+import path from 'path';
+import { expect } from 'chai';
+import { spawn, spawnSync } from 'child_process';
+import { Builder, By, Capabilities } from 'selenium-webdriver';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
+// create the path to the expected application binary
+const application = path.resolve(
+  __dirname,
+  '..',
+  '..',
+  'src-tauri',
+  'target',
+  'debug',
+  'tauri-app'
+);
+
+// keep track of the webdriver instance we create
+let driver;
+
+// keep track of the tauri-driver process we start
+let tauriDriver;
+let exit = false;
+
+before(async function () {
+  // set timeout to 2 minutes to allow the program to build if it needs to
+  this.timeout(120000);
+
+  // ensure the app has been built
+  spawnSync('yarn', ['tauri', 'build', '--debug', '--no-bundle'], {
+    cwd: path.resolve(__dirname, '../..'),
+    stdio: 'inherit',
+    shell: true,
+  });
+
+  // start tauri-driver
+  tauriDriver = spawn(
+    path.resolve(os.homedir(), '.cargo', 'bin', 'tauri-driver'),
+    [],
+    { stdio: [null, process.stdout, process.stderr] }
+  );
+  tauriDriver.on('error', (error) => {
+    console.error('tauri-driver error:', error);
+    process.exit(1);
+  });
+  tauriDriver.on('exit', (code) => {
+    if (!exit) {
+      console.error('tauri-driver exited with code:', code);
+      process.exit(1);
+    }
+  });
+
+  const capabilities = new Capabilities();
+  capabilities.set('tauri:options', { application });
+  capabilities.setBrowserName('wry');
+
+  // start the webdriver client
+  driver = await new Builder()
+    .withCapabilities(capabilities)
+    .usingServer('http://127.0.0.1:4444/')
+    .build();
+});
+
+after(async function () {
+  // stop the webdriver session
+  await closeTauriDriver();
+});
+
+describe('Hello Tauri', () => {
+  it('should be cordial', async () => {
+    const text = await driver.findElement(By.css('body > h1')).getText();
+    expect(text).to.match(/^[hH]ello/);
+  });
+
+  it('should be excited', async () => {
+    const text = await driver.findElement(By.css('body > h1')).getText();
+    expect(text).to.match(/!$/);
+  });
+
+  it('should be easy on the eyes', async () => {
+    // selenium returns color css values as rgb(r, g, b)
+    const text = await driver
+      .findElement(By.css('body'))
+      .getCssValue('background-color');
+
+    const rgb = text.match(/^rgb\((?<r>\d+), (?<g>\d+), (?<b>\d+)\)$/).groups;
+    expect(rgb).to.have.all.keys('r', 'g', 'b');
+
+    const luma = 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b;
+    expect(luma).to.be.lessThan(100);
+  });
+});
+
+async function closeTauriDriver() {
+  exit = true;
+  // kill the tauri-driver process
+  tauriDriver.kill();
+  // stop the webdriver session
+  await driver.quit();
+}
+
+function onShutdown(fn) {
+  const cleanup = () => {
+    try {
+      fn();
+    } finally {
+      process.exit();
+    }
+  };
+
+  process.on('exit', cleanup);
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+  process.on('SIGHUP', cleanup);
+  process.on('SIGBREAK', cleanup);
+}
+
+onShutdown(() => {
+  closeTauriDriver();
+});
+```
+
+Если вы знакомы с JS-тестовыми фреймворками, `describe`, `it` и `expect` должны показаться знакомыми. У нас также есть
+достаточно сложные колбэки `before()` и `after()` для настройки и демонтажа mocha. Строки, которые не являются самими тестами,
+имеют комментарии, объясняющие код настройки и демонтажа. Если вы были знакомы с файлом Spec из
+[примера WebdriverIO](/ru/develop/tests/webdriver/example/webdriverio/#spec), вы заметите гораздо больше кода, который не является тестами, так как нам нужно настроить несколько
+дополнительных элементов WebDriver.
+
+## Запуск набора тестов
+
+Теперь, когда мы всё настроили с зависимостями и нашим тестовым скриптом, давайте запустим его!
+
+<CommandTabs npm="npm test" yarn="yarn test" />
+
+Мы должны увидеть следующий вывод:
+
+```text
+➜  selenium git:(main) ✗ yarn test
+yarn run v1.22.11
+$ Mocha
+
+
+  Hello Tauri
+    ✔ should be cordial (120ms)
+    ✔ should be excited
+    ✔ should be easy on the eyes
+
+
+  3 passing (588ms)
+
+Done in 0.93s.
+```
+
+Мы видим, что наш набор тестов `Hello Tauri`, созданный с помощью `describe`, прошёл все 3 элемента, которые мы создали с помощью `it`!
+
+С помощью [Selenium] и некоторого подключения к набору тестов мы включили сквозное тестирование, вообще не изменяя наше приложение Tauri!
+
+[инструкции по предварительным требованиям]: /ru/develop/tests/webdriver/manual-setup/
+[selenium]: https://selenium.dev/
+[готовый пример проекта]: https://github.com/tauri-apps/webdriver-example
+[mocha]: https://mochajs.org/
+[chai]: https://www.chaijs.com/
+[`selenium-webdriver`]: https://www.npmx.dev/package/selenium-webdriver

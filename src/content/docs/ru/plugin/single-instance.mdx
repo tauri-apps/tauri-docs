@@ -1,0 +1,205 @@
+---
+title: Single Instance
+description: Гарантируйте, что в каждый момент времени запущен только один экземпляр вашего приложения Tauri.
+plugin: single-instance
+i18nReady: true
+---
+
+import PluginLinks from '@components/PluginLinks.astro';
+import Compatibility from '@components/plugins/Compatibility.astro';
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import CommandTabs from '@components/CommandTabs.astro';
+
+<PluginLinks plugin={frontmatter.plugin} showJsLinks={false} />
+
+Гарантируйте, что в каждый момент времени запущен только один экземпляр вашего приложения Tauri, с помощью плагина Single Instance.
+
+## Поддерживаемые платформы
+
+<Compatibility plugin={frontmatter.plugin} />
+
+<a id="setup"></a>
+## Установка
+
+Установите плагин Single Instance, чтобы начать.
+
+<Tabs>
+  <TabItem label="Automatic">
+
+    Используйте менеджер пакетов вашего проекта, чтобы добавить зависимость:
+
+    {' '}
+
+    <CommandTabs
+      npm="npm run tauri add single-instance"
+      yarn="yarn run tauri add single-instance"
+      pnpm="pnpm tauri add single-instance"
+      deno="deno task tauri add single-instance"
+      bun="bun tauri add single-instance"
+      cargo="cargo tauri add single-instance"
+    />
+
+  </TabItem>
+    <TabItem label="Manual">
+      <Steps>
+
+        1. Выполните следующую команду в папке `src-tauri`, чтобы добавить плагин в зависимости проекта в `Cargo.toml`:
+
+            ```sh frame=none
+            cargo add tauri-plugin-single-instance --target 'cfg(any(target_os = "macos", windows, target_os = "linux"))'
+            ```
+
+        2.  Измените `lib.rs`, чтобы инициализировать плагин:
+
+            ```rust title="lib.rs" ins={5-6}
+            #[cfg_attr(mobile, tauri::mobile_entry_point)]
+            pub fn run() {
+                tauri::Builder::default()
+                    .setup(|app| {
+                        #[cfg(desktop)]
+                        app.handle().plugin(tauri_plugin_single_instance::init(|app, args, cwd| {}));
+                        Ok(())
+                    })
+                    .run(tauri::generate_context!())
+                    .expect("error while running tauri application");
+            }
+            ```
+
+      </Steps>
+    </TabItem>
+
+</Tabs>
+
+:::note
+
+Плагин Single Instance должен быть зарегистрирован первым, чтобы работать корректно. Это гарантирует, что он запустится до того, как другие плагины смогут вмешаться.
+
+:::
+
+## Использование
+
+Плагин уже установлен и инициализирован, и он должен работать корректно сразу же. Тем не менее, мы также можем расширить его функциональность с помощью метода `init()`.
+
+Метод `init()` плагина принимает замыкание, которое вызывается, когда был запущен новый экземпляр приложения, но закрыт плагином.
+Замыкание имеет три аргумента:
+
+  <Steps>
+
+1. **`app`:** [AppHandle](https://docs.rs/tauri/2.0.0/tauri/struct.AppHandle.html) приложения.
+2. **`args`:** Список аргументов, которые были переданы пользователем для запуска этого нового экземпляра.
+3. **`cwd`:** Current Working Directory обозначает каталог, из которого был запущен новый экземпляр приложения.
+
+  </Steps>
+
+Итак, замыкание должно выглядеть следующим образом:
+
+```rust
+# tauri::Builder::default()
+.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+  // Write your code here...
+}))
+```
+
+### Фокусировка нового экземпляра
+
+По умолчанию, когда вы запускаете новый экземпляр, пока приложение уже работает, никаких действий не предпринимается. Чтобы сфокусировать окно работающего экземпляра, когда пользователь пытается открыть новый экземпляр, измените замыкание-колбэк следующим образом:
+
+```rust title="src-tauri/src/lib.rs" {1} {5-12}
+use tauri::{AppHandle, Manager};
+
+pub fn run() {
+    let mut builder = tauri::Builder::default();
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = app.get_webview_window("main")
+                       .expect("no main window")
+                       .set_focus();
+        }));
+    }
+
+    builder
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+## Использование в Snap и Flatpak
+
+На Linux плагин Single Instance использует DBus, чтобы гарантировать запуск только одного экземпляра. Он делает это, публикуя сервис в DBus, когда запускается первый экземпляр.
+Затем последующие экземпляры попытаются опубликовать тот же сервис, и, если он уже опубликован, они отправят запрос сервису для уведомления первого экземпляра и сразу же завершат работу.
+
+Несмотря на то, что это работает достаточно хорошо, когда ваше приложение упаковано как deb или rpm пакет или AppImage, по умолчанию это не будет работать как задумано для snap или flatpak пакетов, потому что эти пакеты работают в ограниченной песочнице, где большинство взаимодействий с сервисами DBus будет заблокировано, если они явно не объявлены в манифесте упаковки.
+
+Вот руководство, показывающее, как объявить необходимые разрешения для включения Single Instance для snap и flatpak пакетов:
+
+### Получение ID вашего приложения
+
+Плагин Single Instance опубликует сервис с именем `org.{id}.SingleInstance`.
+
+`{id}` будет `identifier` из вашего файла `tauri.conf.json`, но с точками (`.`) и дефисами (`-`), заменёнными на подчёркивание (`_`).
+
+Например, если ваш identifier — `net.mydomain.MyApp`:
+
+- `net_mydomain_MyApp` будет `{id}` вашего приложения
+- `org.net_mydomain_MyApp.SingleInstance` будет именем сервиса SingleInstance вашего приложения
+
+Вам понадобится имя сервиса, чтобы авторизовать ваше приложение на использование сервиса DBus в манифестах snap и flatpak, как показано ниже.
+
+### Snap
+
+В файле snapcraft.yml объявите plug и slot для сервиса одного экземпляра и используйте оба в объявлении вашего приложения:
+
+```yaml title="snapcraft.yml"
+# ...
+slots:
+  single-instance:
+    interface: dbus
+    bus: session
+    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+
+plugs:
+  single-instance-plug:
+    interface: dbus
+    bus: session
+    name: org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+
+# .....
+apps:
+  my-app:
+    # ...
+    plugs:
+      # ....
+      - single-instance-plug
+    slots:
+      # ...
+      - single-instance
+
+    # ....
+```
+
+Это позволит вашему приложению отправлять и получать запросы от/к сервису DBus, как ожидает плагин Single Instance.
+
+### Flatpak
+
+В манифесте flatpak (your.app.id.yml или your.app.id.json) объявите finish-args `--talk-name` и `--own-name` с именем сервиса:
+
+```yaml title="net.mydomain.MyApp.yml"
+# ...
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --share=ipc
+  # ....
+  - --talk-name=org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+  - --own-name=org.net_mydomain_MyApp.SingleInstance # Remember to change net_mydomain_MyApp to your app ID
+# ...
+```
+
+Это позволит вашему приложению отправлять и получать запросы от/к сервису DBus, как ожидает плагин Single Instance.
+
+## Разрешения
+
+Поскольку этот плагин в настоящее время не имеет JavaScript API, вам не нужно настраивать [capabilities](/ru/security/capabilities/), чтобы использовать его.
