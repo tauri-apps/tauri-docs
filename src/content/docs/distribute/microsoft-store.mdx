@@ -44,6 +44,21 @@ The installer linked in the Microsoft Installer must be offline, [handle auto-up
 
 See the [official publish documentation] for more information.
 
+#### Workaround: Convert MSI/EXE files into a MSIX package
+
+There is a workaround for the conversion of Tauri generated MSI/EXE files into MSIX using [MSIX Packaging Tool] on Windows.
+
+:::note
+
+Be aware this requires a manual approach
+
+:::
+
+**Steps required**
+- Create or reserve MSIX application in Microsoft Partner Center
+- Open *View product identity* card on the app overview page. Use the details shown there to configure your MSIX package in the [MSIX Packaging Tool], so that they match exactly.
+
+
 ### Offline Installer
 
 The Windows installer distributed through the Microsoft Store must use the [Offline Installer] Webview2 installation option.
@@ -141,3 +156,4 @@ and link it in your application page in the Microsoft Store website.
 [official publish documentation]: https://learn.microsoft.com/en-us/windows/apps/publish/
 [silent install parameters]: https://learn.microsoft.com/en-us/windows/uwp/publish/msiexe/provide-package-details
 [publisher]: /reference/config/#publisher
+[MSIX Packaging Tool]: https://learn.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview
