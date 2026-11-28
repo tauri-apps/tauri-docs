@@ -56,8 +56,8 @@ This does not apply to a Single Page Application (SPA) router though.
 ##### Don't call `unlisten()` before the listener resolves
 
 The `listen` function returns a Promise that resolves to the `unlisten` handle.
-If you call `unlisten` synchronously before the Promise resolves, the handler
-will be removed immediately and you won't receive any events:
+If you don't await it, `unlisten` holds the Promise instead of the function,
+so calling `unlisten()` throws a `TypeError` and the listener is never removed:
 
 ```js ignore
 // Wrong: unlisten is called before the listener is registered
