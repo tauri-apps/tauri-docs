@@ -153,3 +153,14 @@ This guide is accurate as of Vite 8.
     ```
 
 </Steps>
+
+## Static Assets
+
+Vite only emits assets it can see at build time, such as files referenced from `index.html` or imported
+from JavaScript, TypeScript or CSS. A path assembled at runtime (for example
+`img.src = './assets/photo.png'`) is not emitted, so it works with the dev server but is missing
+from `dist`, and therefore from the packaged app.
+
+How to include an asset that is only known at runtime depends on the project; Vite documents the
+options in [Static Asset Handling](https://vite.dev/guide/assets). Tauri bundles the contents of
+`dist` as-is, so any file Vite emits or copies there is available to the app.
