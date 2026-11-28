@@ -114,6 +114,12 @@ you must configure it to listen to a particular address provided by the Tauri CL
 This address is either a public network address (which is the default behavior) or the actual iOS device TUN address — which is more secure, but currently
 needs Xcode to connect to the device.
 
+:::note
+A physical iOS device reaches the development server over the local network, so the device and the machine running the dev command must be on the same network.
+The first time the app connects, iOS asks for permission to find devices on the local network; allow it, otherwise the app cannot load the development server.
+Android does not have this requirement because the Tauri CLI forwards the development server port over `adb`.
+:::
+
 To use the iOS device's address you must open Xcode before running the dev command and ensure your device
 is connected via network in the Window > Devices and Simulators menu.
 Then you must run `tauri ios dev --force-ip-prompt` to select the iOS device address (an IPv6 address ending with **::2**).
