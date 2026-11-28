@@ -128,6 +128,9 @@ import CommandTabs from '@components/CommandTabs.astro';
     bun install
     bun tauri dev
   "
+  vlt="cd tauri-app
+    vlt install
+    vlt run tauri dev"
   cargo='cd tauri-app
     cargo install tauri-cli --version "^2.0.0" --locked
     cargo tauri dev'
@@ -165,6 +168,9 @@ The following example assumes you are creating a new project. If you've already 
             bun="mkdir tauri-app
                 cd tauri-app
                 bun create vite"
+            vlt="mkdir tauri-app
+                cd tauri-app
+                vlt create vite@latest ."
         />
 
     2. Then, install Tauri's CLI tool using your package manager of choice. If you are using `cargo` to install the Tauri CLI, you will have to install it globally.
@@ -175,6 +181,7 @@ The following example assumes you are creating a new project. If you've already 
             pnpm="pnpm add -D @tauri-apps/cli@latest"
             deno="deno add -D npm:@tauri-apps/cli@latest"
             bun="bun add -D @tauri-apps/cli@latest"
+            vlt="vlt install -D @tauri-apps/cli@latest"
             cargo='cargo install tauri-cli --version "^2.0.0" --locked'
         />
 
@@ -188,6 +195,7 @@ The following example assumes you are creating a new project. If you've already 
             pnpm="pnpm tauri init"
             deno="deno task tauri init"
             bun="bun tauri init"
+            vlt="vlx tauri init"
             cargo="cargo tauri init"
         />
 
@@ -226,6 +234,7 @@ The following example assumes you are creating a new project. If you've already 
             pnpm="pnpm tauri dev"
             deno="deno task tauri dev"
             bun="bun tauri dev"
+            vlt="vlx tauri dev"
             cargo="cargo tauri dev"
         />
 
