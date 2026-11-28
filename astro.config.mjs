@@ -206,6 +206,7 @@ export default defineConfig({
                     'develop/state-management',
                     'develop/updating-dependencies',
                     'develop/icons',
+                    'develop/conditional-compilation',
                     {
                       label: 'Debug',
                       collapsed: true,
