@@ -156,7 +156,7 @@ This guide is accurate as of Vite 8.
 
 ## Static Assets
 
-Vite only emits assets it can see at build time — files referenced from `index.html` or imported
+Vite only emits assets it can see at build time, such as files referenced from `index.html` or imported
 from JavaScript, TypeScript or CSS. A path assembled at runtime (for example
 `img.src = './assets/photo.png'`) is not emitted, so it works with the dev server but is missing
 from `dist`, and therefore from the packaged app.
